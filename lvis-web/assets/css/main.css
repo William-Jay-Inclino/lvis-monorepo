@@ -1,0 +1,44 @@
+body {
+    background-color: whitesmoke;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+  
+.main-content {
+    flex: 1;
+}
+  
+hr.result {
+    flex: 1;
+    margin: 0 10px;
+    border: none;
+    border-top: 1px solid #333;
+}
+
+h5 {
+    margin: 0;
+}
+
+.h5wrapper {
+    display: flex;
+    align-items: center;
+}
+
+
+.bg-orange {
+    background-color: #cc6600 !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Optionally, you can add a hover effect */
+a:hover {
+    text-decoration: none; /* Remove underline on hover */
+}
+

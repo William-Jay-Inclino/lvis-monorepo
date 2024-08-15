@@ -1,0 +1,45 @@
+mutation {
+  createItem(input:{
+    item_type_id: "df95d476-f0d4-4f3a-9915-2e495e45af4d",
+    unit_id: "3bfb323b-d92f-40d9-92eb-579b865cd6f5",
+    code: "ItemCode3",
+    name: "Item3",
+    description: "This is a description for ItemCode3",
+    initial_quantity: 10,
+    initial_average_price:100
+  }) {
+    id 
+    item_type {
+      id 
+      name 
+    }
+    unit {
+      id 
+      name 
+    }
+    code
+    description
+    total_quantity
+    initial_quantity
+    item_transactions {
+      rr_item_id
+      type 
+      quantity
+      price
+      remarks
+    }
+    rr_items {
+      rr {
+        rr_number
+      }
+      item_class
+      quantity_delivered
+      quantity_accepted
+      description
+      vat_type
+      gross_price
+      net_price
+      vat_amount
+    }
+  }
+}

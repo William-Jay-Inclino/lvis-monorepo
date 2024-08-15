@@ -1,0 +1,32 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "start:dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "bootstrap": "5.3.2",
+    "filepond": "^4.30.6",
+    "filepond-plugin-file-validate-type": "^1.2.8",
+    "filepond-plugin-image-preview": "^4.6.12",
+    "moment": "^2.30.1",
+    "nuxt": "^3.10.1",
+    "sweetalert2": "^11.10.5",
+    "vue": "^3.4.15",
+    "vue-filepond": "^7.0.4",
+    "vue-router": "^4.2.5",
+    "vue-select": "^4.0.0-beta.6",
+    "vue-toastification": "^2.0.0-rc.5",
+    "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
+    "@types/vue-select": "^3.16.8"
+  }
+}

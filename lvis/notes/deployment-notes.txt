@@ -1,0 +1,56 @@
+
+termninal:
+
+0. CONFIGURE ENV FILE
+- Update env variables specially the ip address
+
+
+1. RUN DOCKER CONTAINER FOR POSTGRES DB
+
+-inside docker folder directory run: 
+docker-compose up -d system-db warehouse-db
+
+
+2. MIGRATE DATABASE
+
+- inside apps/system run:
+pnpm run migrate:dev
+
+-inside apps/warehouse run:
+pnpm run migrate:dev
+
+
+3. BUILD APPLICATION: 
+- run:
+pnpm run build
+
+
+4. RUN SERVICES: 
+- run: 
+pnpm run start:prod:system
+pnpm run start:prod:warehouse
+pnpm run start:prod:api-gateway
+
+
+5. CREATE ADMIN 
+
+- run: 
+curl -X POST -H "Content-Type: application/json" -d '{"password": "admin123"}' http://localhost:4001/auth/create-admin
+
+
+5.5 Update path inside backup scripts inside scripts folder 
+
+
+6. Create backup folder in root 
+inside backup folder create folders: 
+- "logs"
+- "system_db" 
+- "warehouse_db"
+
+
+7. open crontab -e and paste 
+
+0 2 * * * /home/jay/Documents/projects/leyeco/lvis/scripts/system_db_backup.sh
+0 2 * * * /home/jay/Documents/projects/leyeco/lvis/scripts/warehouse_db_backup.sh
+
+Note: replace the path

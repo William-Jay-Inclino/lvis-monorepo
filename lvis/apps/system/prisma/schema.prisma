@@ -1,0 +1,292 @@
+generator client {
+  output   = "./generated/client"
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Division {
+  id            String     @id @default(uuid())
+  department_id String
+  department    Department @relation(fields: [department_id], references: [id], onDelete: Restrict)
+  code          String     @unique
+  name          String
+  status        Int        @default(1)
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("division")
+}
+
+model Department {
+  id     String @id @default(uuid())
+  code   String @unique
+  name   String
+  status Int    @default(1)
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Division Division[]
+
+  @@map("department")
+}
+
+model Account {
+  id          String @id @default(uuid())
+  code        String @unique
+  name        String
+  description String
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("account")
+}
+
+model Employee {
+  id         String  @id @default(uuid())
+  firstname  String 
+  middlename String?
+  lastname   String
+  signature_src String?
+  position_id  String
+
+  is_budget_officer  Boolean @default(false)
+  is_finance_manager Boolean @default(false)
+
+  position    Position  @relation(fields: [position_id], references: [id], onDelete: Restrict)
+
+  jo_approver_setting   JOApproverSetting?   @relation("JOApproverSetting")
+  meqs_approver_setting MEQSApproverSetting? @relation("MEQSApproverSetting")
+  po_approver_setting   POApproverSetting?   @relation("POApproverSetting")
+  rv_approver_setting   RVApproverSetting?   @relation("RVApproverSetting")
+  spr_approver_setting  SPRApproverSetting?  @relation("SPRApproverSetting")
+  rr_approver_setting   RRApproverSetting?   @relation("RRApproverSetting")
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  user_employee UserEmployee?
+
+
+  @@index([firstname, lastname])
+
+  @@map("employee")
+}
+
+model Classification {
+  id   String @id @default(uuid())
+  name String
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("classification")
+}
+
+model Position {
+  id   String @id @default(uuid())
+  name String
+  permissions Json?
+
+  employees  Employee[]
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("position")
+}
+
+model User {
+  id          String  @id @default(uuid())
+  username    String  @unique
+  password    String
+  firstname   String  @default("")
+  middlename  String?
+  lastname    String  @default("")
+  status      Int     @default(1)
+  role        Role    @default(USER)
+  permissions Json?
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  // user_permissions UserPermission[]
+  user_employee UserEmployee?
+
+  @@map("user")
+}
+
+model UserEmployee {
+  id          String   @id @default(uuid())
+  user_id     String   @unique
+  user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  employee_id String   @unique
+  employee    Employee @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+
+  created_by String
+  updated_by String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("user_employee")
+}
+
+model JOApproverSetting {
+  id          String @id @default(uuid())
+  label       String
+  order       Int    @unique
+  approver_id String @unique
+
+  created_by String
+  updated_by String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  approver Employee @relation("JOApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
+
+  @@map("jo_approver_setting")
+}
+
+model RVApproverSetting {
+  id          String @id @default(uuid())
+  label       String
+  order       Int    @unique
+  approver_id String @unique
+
+  created_by String
+  updated_by String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  approver Employee @relation("RVApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
+
+  @@map("rv_approver_setting")
+}
+
+model SPRApproverSetting {
+  id          String @id @default(uuid())
+  label       String
+  order       Int    @unique
+  approver_id String @unique
+
+  created_by String
+  updated_by String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  approver Employee @relation("SPRApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
+
+  @@map("spr_approver_setting")
+}
+
+model MEQSApproverSetting {
+  id          String @id @default(uuid())
+  label       String
+  order       Int    @unique
+  approver_id String @unique
+
+  created_by String
+  updated_by String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  approver Employee @relation("MEQSApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
+
+  @@map("meqs_approver_setting")
+}
+
+model POApproverSetting {
+  id          String @id @default(uuid())
+  label       String
+  order       Int    @unique
+  approver_id String @unique
+
+  created_by String
+  updated_by String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  approver Employee @relation("POApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
+
+  @@map("po_approver_setting")
+}
+
+model RRApproverSetting {
+  id          String @id @default(uuid())
+  label       String
+  order       Int    @unique
+  approver_id String @unique
+
+  created_by String
+  updated_by String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  approver Employee @relation("RRApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
+
+  @@map("rr_approver_setting")
+}
+
+model Setting {
+  id String @id @default(uuid())
+  key String @unique
+  value String 
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("setting")
+}

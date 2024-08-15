@@ -1,0 +1,21 @@
+query {
+  canvasses(page: 1, pageSize: 5) {
+    data {
+      id
+      rc_number
+      date_requested
+      purpose
+      notes
+      requested_by_id
+      canvass_items {
+        id
+        description
+        unit {
+          id
+          name
+        }
+        quantity
+      }
+    }
+  }
+}

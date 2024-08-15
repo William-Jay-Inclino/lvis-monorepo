@@ -1,0 +1,58 @@
+query {
+  items(page: 1, pageSize: 10) {
+    data {
+      id
+      item_type {
+        id
+        name
+      }
+      unit {
+        id
+        name
+      }
+      code
+      description
+      initial_quantity
+      total_quantity
+      item_transactions {
+        txn_number
+        rr_item {
+          id
+          rr {
+            rr_number
+          }
+          unit {
+            name
+          }
+          item_class
+          quantity_delivered
+          quantity_accepted
+          description
+          vat_type
+          gross_price
+          net_price
+        }
+        type
+        quantity
+        price
+        remarks
+      }
+      rr_items {
+        id
+        rr {
+          rr_number
+        }
+        unit {
+          name
+        }
+        item_class
+        quantity_delivered
+        quantity_accepted
+        description
+        vat_type
+        gross_price
+        net_price
+      }
+    }
+  }
+}

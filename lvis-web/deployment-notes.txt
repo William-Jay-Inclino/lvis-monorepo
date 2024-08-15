@@ -1,0 +1,12 @@
+
+
+0. CONFIGURE ENV FILE 
+- Update env variables specially the ip address
+
+
+1. BUILD APPLICATION 
+- run pnpm run build
+
+
+2. RUN APPLICATION 
+- pnpm run preview

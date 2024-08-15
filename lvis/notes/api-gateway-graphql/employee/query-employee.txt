@@ -1,0 +1,13 @@
+query{
+  employees(page: 1, pageSize: 5){
+    data{
+      id
+      firstname
+      middlename
+      lastname
+    }
+    totalItems
+    totalPages
+    currentPage
+  }
+}
