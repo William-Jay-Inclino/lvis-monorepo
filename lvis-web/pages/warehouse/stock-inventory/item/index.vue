@@ -87,22 +87,24 @@
                                                 <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice) }}
                                                 </td>
                                                 <td class="text-muted align-middle"> {{ i.total_quantity }} </td>
-                                                <td class="text-muted align-middle text-center">
-                                                    <button :disabled="!canDelete(authUser, 'canManageItem')"
+                                                <td class="align-middle text-center">
+                                                    <!-- <button :disabled="!canDelete(authUser, 'canManageItem')"
                                                         @click="onClickDelete(i.id)" class="btn btn-light btn-sm me-3">
                                                         <i class="fas fa-trash"
                                                             :class="{ 'text-danger': canDelete(authUser, 'canManageItem') }"></i>
-                                                    </button>
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm me-3"
+                                                    </button> -->
+                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
+                                                        :class="{ 'text-primary': canViewDetails(authUser, 'canManageItem') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageItem')">
                                                         <i class="fas fa-info-circle"
-                                                            :class="{ 'text-info': canViewDetails(authUser, 'canManageItem') }"></i>
+                                                            ></i>
+                                                        View details
                                                     </button>
-                                                    <button @click="onClickEdit(i.id)" class="btn btn-light btn-sm"
+                                                    <!-- <button @click="onClickEdit(i.id)" class="btn btn-light btn-sm"
                                                         :disabled="!canEdit(authUser, 'canManageItem')">
                                                         <i class="fas fa-edit"
                                                             :class="{ 'text-primary': canEdit(authUser, 'canManageItem') }"></i>
-                                                    </button>
+                                                    </button> -->
                                                 </td>
                                             </tr>
                                         </tbody>

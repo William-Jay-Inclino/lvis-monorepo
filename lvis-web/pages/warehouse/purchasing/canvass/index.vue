@@ -86,16 +86,16 @@
                 getFullname(i.requested_by!.firstname, i.requested_by!.middlename,
                     i.requested_by!.lastname) }} </td>
                                                 <td class="text-muted align-middle"> {{ formatDate(i.date_requested) }} </td>
-                                                <td class="text-muted align-middle">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light w-50"
+                                                <td class="align-middle text-center">
+                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageCanvass') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageCanvass')">
-                                                        <i class="fas fa-info-circle"
-                                                            :class="{ 'text-info': canViewDetails(authUser, 'canManageCanvass') }"></i>
+                                                        <i class="fas fa-info-circle"> </i>
+                                                            View details
                                                     </button>
-                                                    <button :disabled="!i.can_update" @click="onClickEdit(i.id)"
+                                                    <!-- <button :disabled="!i.can_update" @click="onClickEdit(i.id)"
                                                         class="btn btn-light w-50">
                                                         <i class="fas fa-edit" :class="{ 'text-primary': !!i.can_update }"></i>
-                                                    </button>
+                                                    </button> -->
                                                 </td>
                                             </tr>
                                         </tbody>
