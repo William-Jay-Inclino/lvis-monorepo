@@ -8,6 +8,130 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ========================= DATA MANAGEMENT ========================= 
+
+model ItemType {
+  id   String @id @default(uuid())
+  name String
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  items Item[]
+
+  metadata Json?
+
+  @@map("item_type")
+}
+
+model Supplier {
+  id       String @id @default(uuid())
+  name     String
+  contact  String
+  tin  String @default("")
+  address  String @default("")
+  vat_type Int    @default(1)
+  is_vat_registered Boolean @default(false)
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  MEQSSupplier MEQSSupplier[]
+
+  metadata Json?
+
+  @@index([name])
+  @@map("supplier")
+}
+
+model Unit {
+  id   String @id @default(uuid())
+  name String @unique
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  canvass_items CanvassItem[]
+  items         Item[]
+
+  metadata Json?
+
+  @@map("unit")
+}
+
+model Vehicle {
+  id           String @id @default(uuid())
+  name         String
+  plate_number String
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  sprs SPR[]
+
+  metadata Json?
+
+  @@map("vehicle")
+}
+
+model Station {
+  id         String         @id @default(uuid())
+  name       String
+  location    String
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  items      ItemLocation[]
+
+  metadata Json?
+
+
+  @@map("station")
+}
+
+model Project {
+  id   String @id @default(uuid())
+  name String
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  metadata Json?
+
+  @@map("project")
+}
+
 model Pending {
   id               Int      @id @default(autoincrement())
   approver_id      String
@@ -21,6 +145,116 @@ model Pending {
   @@index([approver_id, transaction_date])
   @@map("pending")
 }
+
+
+
+
+
+// ========================= STOCK ITEM INVENTORY ========================= 
+
+model Item {
+  id               String  @id @default(uuid())
+  item_type_id     String
+  unit_id          String
+  code             String  @unique
+  name             String
+  description      String?
+  total_quantity   Int
+  initial_quantity Int
+  alert_level      Int     @default(20)
+
+  created_by String
+  updated_by String?
+  deleted_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  item_type         ItemType          @relation(fields: [item_type_id], references: [id], onDelete: Restrict)
+  item_transactions ItemTransaction[]
+  unit              Unit              @relation(fields: [unit_id], references: [id], onDelete: Restrict)
+  canvass_items     CanvassItem[]
+  item_locations ItemLocation[]
+
+  osrivs OSRIV[]
+  osriv_items OSRIVItem[]
+
+  serivs SERIV[]
+  seriv_items SERIVItem[]
+
+  mrvs MRV[]
+  mrv_items MRVItem[]
+
+  metadata Json?
+
+  @@index([item_type_id, unit_id, name, created_by])
+  @@map("item")
+}
+
+model ItemLocation {
+  id               String @id @default(uuid())
+  item_id          String
+  station_id       String
+  quantity_on_hand Int
+
+  created_by String
+  created_at DateTime  @default(now())
+
+  item                  Item           @relation(fields: [item_id], references: [id], onDelete: Cascade)
+  station               Station        @relation(fields: [station_id], references: [id], onDelete: Cascade)
+  origin_movements      ItemMovement[] @relation("Origin")
+  destination_movements ItemMovement[] @relation("Destination")
+
+  metadata Json?
+
+  @@map("item_location")
+}
+
+model ItemMovement {
+  id             String @id @default(uuid())
+  origin_id      String
+  destination_id String
+  quantity_moved Int
+
+  created_by String
+  created_at DateTime  @default(now())
+
+  origin      ItemLocation @relation("Origin", fields: [origin_id], references: [id], onDelete: Cascade)
+  destination ItemLocation @relation("Destination", fields: [destination_id], references: [id], onDelete: Cascade)
+
+  metadata Json?
+
+  @@map("item_movement")
+}
+
+model ItemTransaction {
+  id         Int     @id @default(autoincrement())
+  item_id    String
+  rr_item_id String? @unique
+  type       Int
+  quantity   Int
+  price      Float
+  remarks    String?
+  is_initial Boolean @default(false)
+
+  item    Item    @relation(fields: [item_id], references: [id], onDelete: Cascade)
+  rr_item RRItem? @relation(fields: [rr_item_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  created_by String   @default("admin")
+
+  metadata Json?
+
+  @@index([item_id])
+  @@map("item_transaction")
+}
+
+
+
+
+
+// ========================= PURCHASING ========================= 
 
 model Canvass {
   id              String   @id @default(uuid())
@@ -421,196 +655,294 @@ model RRItem {
   @@map("rr_item")
 }
 
-model Item {
-  id               String  @id @default(uuid())
-  item_type_id     String
-  unit_id          String
-  code             String  @unique
-  name             String
-  description      String?
-  total_quantity   Int
-  initial_quantity Int
-  alert_level      Int     @default(20)
 
-  created_by String
-  updated_by String?
-  deleted_by String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
-  item_type         ItemType          @relation(fields: [item_type_id], references: [id], onDelete: Restrict)
-  item_transactions ItemTransaction[]
-  unit              Unit              @relation(fields: [unit_id], references: [id], onDelete: Restrict)
-  canvass_items     CanvassItem[]
-  item_locations ItemLocation[]
+
+// ========================= WAREHOUSING ========================= 
+
+model OSRIV {
+  id                String    @id @default(uuid())
+  osriv_number         String    @unique
+  date_requested    DateTime
+  purpose             String
+
+  requested_by_id String
+  department_id String
+  item_from_id String
+
+  cancelled_by String?
+  created_by   String
+  updated_by   String?
+
+  cancelled_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  item_from      Item      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
+  osriv_approvers OSRIVApprover[]
+  osriv_items OSRIVItem[]
 
   metadata Json?
 
-  @@index([item_type_id, unit_id, name, created_by])
-  @@map("item")
+  @@index([date_requested])
+  @@map("osriv")
 }
 
-model ItemLocation {
-  id               String @id @default(uuid())
-  item_id          String
-  station_id       String
-  quantity_on_hand Int
+model OSRIVApprover {
+  id            String    @id @default(uuid())
+  osriv_id         String
+  approver_id   String
+  date_approval DateTime?
+  notes         String
+  status        Int
+  label         String
+  order         Int
 
-  created_by String
-  created_at DateTime  @default(now())
-
-  item                  Item           @relation(fields: [item_id], references: [id], onDelete: Cascade)
-  station               Station        @relation(fields: [station_id], references: [id], onDelete: Cascade)
-  origin_movements      ItemMovement[] @relation("Origin")
-  destination_movements ItemMovement[] @relation("Destination")
+  osriv OSRIV @relation(fields: [osriv_id], references: [id], onDelete: Cascade)
 
   metadata Json?
 
-  @@map("item_location")
+  @@index([osriv_id])
+  @@map("osriv_approver")
 }
 
-model ItemMovement {
-  id             String @id @default(uuid())
-  origin_id      String
-  destination_id String
-  quantity_moved Int
+model OSRIVItem {
+  id            String    @id @default(uuid())
+  osriv_id         String
+  item_id         String
+  quantity     Int
 
-  created_by String
-  created_at DateTime  @default(now())
-
-  origin      ItemLocation @relation("Origin", fields: [origin_id], references: [id], onDelete: Cascade)
-  destination ItemLocation @relation("Destination", fields: [destination_id], references: [id], onDelete: Cascade)
+  osriv OSRIV @relation(fields: [osriv_id], references: [id], onDelete: Cascade)
+  item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
 
   metadata Json?
 
-  @@map("item_movement")
+  @@index([osriv_id, item_id])
+  @@map("osriv_item")
 }
 
-model ItemTransaction {
-  id         Int     @id @default(autoincrement())
-  item_id    String
-  rr_item_id String? @unique
-  type       Int
-  quantity   Int
-  price      Float
-  remarks    String?
-  is_initial Boolean @default(false)
+model SERIV {
+  id                String    @id @default(uuid())
+  seriv_number         String    @unique
+  date_requested    DateTime
+  purpose             String
+  requested_by_id String
+  request_type String
+  mwo_number String?
+  jo_number String?
+  consumer_name String
+  location String
+  department_id String
+  item_from_id String
 
-  item    Item    @relation(fields: [item_id], references: [id], onDelete: Cascade)
-  rr_item RRItem? @relation(fields: [rr_item_id], references: [id], onDelete: Cascade)
+  cancelled_by String?
+  created_by   String
+  updated_by   String?
 
-  created_at DateTime @default(now())
-  created_by String   @default("admin")
+  cancelled_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  item_from      Item      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
+  seriv_approvers SERIVApprover[]
+  seriv_items SERIVItem[]
 
   metadata Json?
 
-  @@index([item_id])
-  @@map("item_transaction")
+  @@index([date_requested])
+  @@map("seriv")
 }
 
-model ItemType {
-  id   String @id @default(uuid())
-  name String
+model SERIVApprover {
+  id            String    @id @default(uuid())
+  seriv_id         String
+  approver_id   String
+  date_approval DateTime?
+  notes         String
+  status        Int
+  label         String
+  order         Int
 
-  created_by String
-  updated_by String?
-  deleted_by String?
-
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
-
-  items Item[]
+  seriv SERIV @relation(fields: [seriv_id], references: [id], onDelete: Cascade)
 
   metadata Json?
 
-  @@map("item_type")
+  @@index([seriv_id])
+  @@map("seriv_approver")
 }
 
-model Supplier {
-  id       String @id @default(uuid())
-  name     String
-  contact  String
-  tin  String @default("")
-  address  String @default("")
-  vat_type Int    @default(1)
-  is_vat_registered Boolean @default(false)
+model SERIVItem {
+  id            String    @id @default(uuid())
+  seriv_id         String
+  item_id         String
+  quantity     Int
 
-  created_by String
-  updated_by String?
-  deleted_by String?
-
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
-
-  MEQSSupplier MEQSSupplier[]
+  seriv SERIV @relation(fields: [seriv_id], references: [id], onDelete: Cascade)
+  item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
 
   metadata Json?
 
-  @@index([name])
-  @@map("supplier")
+  @@index([seriv_id, item_id])
+  @@map("seriv_item")
 }
 
-model Unit {
-  id   String @id @default(uuid())
-  name String @unique
+model MRV {
+  id                String    @id @default(uuid())
+  project_id                String
+  mrv_number         String    @unique
+  date_requested    DateTime
+  purpose             String
+  requested_by_id String
+  request_type String
+  or_number String?
+  jo_number String?
+  cwo_number String?
+  consumer_name String
+  location String
+  item_from_id String
 
-  created_by String
-  updated_by String?
-  deleted_by String?
+  cancelled_by String?
+  created_by   String
+  updated_by   String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
+  cancelled_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
 
-  canvass_items CanvassItem[]
-  items         Item[]
+  item_from      Item      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
+  mrv_approvers MRVApprover[]
+  mrv_items MRVItem[]
+  mcts MCT[]
 
   metadata Json?
 
-  @@map("unit")
+  @@index([date_requested])
+  @@map("mrv")
 }
 
-model Vehicle {
-  id           String @id @default(uuid())
-  name         String
-  plate_number String
+model MRVApprover {
+  id            String    @id @default(uuid())
+  mrv_id         String
+  approver_id   String
+  date_approval DateTime?
+  notes         String
+  status        Int
+  label         String
+  order         Int
 
-  created_by String
-  updated_by String?
-  deleted_by String?
-
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
-
-  sprs SPR[]
+  mrv MRV @relation(fields: [mrv_id], references: [id], onDelete: Cascade)
 
   metadata Json?
 
-  @@map("vehicle")
+  @@index([mrv_id])
+  @@map("mrv_approver")
 }
 
-model Station {
-  id         String         @id @default(uuid())
-  name       String
-  location    String
+model MRVItem {
+  id            String    @id @default(uuid())
+  mrv_id         String
+  item_id         String
+  quantity     Int
 
-  created_by String
-  updated_by String?
-  deleted_by String?
-
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
-
-  items      ItemLocation[]
+  mrv MRV @relation(fields: [mrv_id], references: [id], onDelete: Cascade)
+  item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
 
   metadata Json?
 
+  @@index([mrv_id, item_id])
+  @@map("mrv_item")
+}
 
-  @@map("station")
+model MCT {
+  id                String    @id @default(uuid())
+  mrv_id                String
+  mct_number         String    @unique
+  mct_date    DateTime
+
+  cancelled_by String?
+  created_by   String
+  updated_by   String?
+
+  cancelled_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  mrv      MRV      @relation(fields: [mrv_id], references: [id], onDelete: Restrict)
+  mct_approvers MCTApprover[]
+  mcrts MCRT[]
+
+  metadata Json?
+
+  @@index([mrv_id, mct_date])
+  @@map("mct")
+}
+
+model MCTApprover {
+  id            String    @id @default(uuid())
+  mct_id         String
+  approver_id   String
+  date_approval DateTime?
+  notes         String
+  status        Int
+  label         String
+  order         Int
+
+  mct MCT @relation(fields: [mct_id], references: [id], onDelete: Cascade)
+
+  metadata Json?
+
+  @@index([mct_id])
+  @@map("mct_approver")
+}
+
+model MCRT {
+  id                String    @id @default(uuid())
+  mct_id                String
+  mcrt_number         String    @unique
+  mcrt_date    DateTime
+
+  prepared_by_id String
+  returned_by_id String
+  received_by_id String
+
+  wo_number String?
+  mo_number String?
+  jo_number String?
+
+  note String
+
+  cancelled_by String?
+  created_by   String
+  updated_by   String?
+
+  cancelled_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  mct      MCT      @relation(fields: [mct_id], references: [id], onDelete: Restrict)
+  mcrt_approvers MCRTApprover[]
+
+  metadata Json?
+
+  @@index([mct_id, mcrt_date])
+  @@map("mcrt")
+}
+
+model MCRTApprover {
+  id            String    @id @default(uuid())
+  mcrt_id         String
+  approver_id   String
+  date_approval DateTime?
+  notes         String
+  status        Int
+  label         String
+  order         Int
+
+  mcrt MCRT @relation(fields: [mcrt_id], references: [id], onDelete: Cascade)
+
+  metadata Json?
+
+  @@index([mcrt_id])
+  @@map("mcrt_approver")
 }

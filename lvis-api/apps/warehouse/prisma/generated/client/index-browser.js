@@ -107,6 +107,85 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.ItemTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.SupplierScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  contact: 'contact',
+  tin: 'tin',
+  address: 'address',
+  vat_type: 'vat_type',
+  is_vat_registered: 'is_vat_registered',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.UnitScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.VehicleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  plate_number: 'plate_number',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.StationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  location: 'location',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.ProjectScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
+};
+
 exports.Prisma.PendingScalarFieldEnum = {
   id: 'id',
   approver_id: 'approver_id',
@@ -114,6 +193,59 @@ exports.Prisma.PendingScalarFieldEnum = {
   reference_table: 'reference_table',
   description: 'description',
   transaction_date: 'transaction_date'
+};
+
+exports.Prisma.ItemScalarFieldEnum = {
+  id: 'id',
+  item_type_id: 'item_type_id',
+  unit_id: 'unit_id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  total_quantity: 'total_quantity',
+  initial_quantity: 'initial_quantity',
+  alert_level: 'alert_level',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.ItemLocationScalarFieldEnum = {
+  id: 'id',
+  item_id: 'item_id',
+  station_id: 'station_id',
+  quantity_on_hand: 'quantity_on_hand',
+  created_by: 'created_by',
+  created_at: 'created_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.ItemMovementScalarFieldEnum = {
+  id: 'id',
+  origin_id: 'origin_id',
+  destination_id: 'destination_id',
+  quantity_moved: 'quantity_moved',
+  created_by: 'created_by',
+  created_at: 'created_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.ItemTransactionScalarFieldEnum = {
+  id: 'id',
+  item_id: 'item_id',
+  rr_item_id: 'rr_item_id',
+  type: 'type',
+  quantity: 'quantity',
+  price: 'price',
+  remarks: 'remarks',
+  is_initial: 'is_initial',
+  created_at: 'created_at',
+  created_by: 'created_by',
+  metadata: 'metadata'
 };
 
 exports.Prisma.CanvassScalarFieldEnum = {
@@ -361,123 +493,184 @@ exports.Prisma.RRItemScalarFieldEnum = {
   metadata: 'metadata'
 };
 
-exports.Prisma.ItemScalarFieldEnum = {
+exports.Prisma.OSRIVScalarFieldEnum = {
   id: 'id',
-  item_type_id: 'item_type_id',
-  unit_id: 'unit_id',
-  code: 'code',
-  name: 'name',
-  description: 'description',
-  total_quantity: 'total_quantity',
-  initial_quantity: 'initial_quantity',
-  alert_level: 'alert_level',
+  osriv_number: 'osriv_number',
+  date_requested: 'date_requested',
+  purpose: 'purpose',
+  requested_by_id: 'requested_by_id',
+  department_id: 'department_id',
+  item_from_id: 'item_from_id',
+  cancelled_by: 'cancelled_by',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
+  cancelled_at: 'cancelled_at',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
   metadata: 'metadata'
 };
 
-exports.Prisma.ItemLocationScalarFieldEnum = {
+exports.Prisma.OSRIVApproverScalarFieldEnum = {
   id: 'id',
+  osriv_id: 'osriv_id',
+  approver_id: 'approver_id',
+  date_approval: 'date_approval',
+  notes: 'notes',
+  status: 'status',
+  label: 'label',
+  order: 'order',
+  metadata: 'metadata'
+};
+
+exports.Prisma.OSRIVItemScalarFieldEnum = {
+  id: 'id',
+  osriv_id: 'osriv_id',
   item_id: 'item_id',
-  station_id: 'station_id',
-  quantity_on_hand: 'quantity_on_hand',
-  created_by: 'created_by',
-  created_at: 'created_at',
-  metadata: 'metadata'
-};
-
-exports.Prisma.ItemMovementScalarFieldEnum = {
-  id: 'id',
-  origin_id: 'origin_id',
-  destination_id: 'destination_id',
-  quantity_moved: 'quantity_moved',
-  created_by: 'created_by',
-  created_at: 'created_at',
-  metadata: 'metadata'
-};
-
-exports.Prisma.ItemTransactionScalarFieldEnum = {
-  id: 'id',
-  item_id: 'item_id',
-  rr_item_id: 'rr_item_id',
-  type: 'type',
   quantity: 'quantity',
-  price: 'price',
-  remarks: 'remarks',
-  is_initial: 'is_initial',
-  created_at: 'created_at',
-  created_by: 'created_by',
   metadata: 'metadata'
 };
 
-exports.Prisma.ItemTypeScalarFieldEnum = {
+exports.Prisma.SERIVScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
-  metadata: 'metadata'
-};
-
-exports.Prisma.SupplierScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  contact: 'contact',
-  tin: 'tin',
-  address: 'address',
-  vat_type: 'vat_type',
-  is_vat_registered: 'is_vat_registered',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
-  metadata: 'metadata'
-};
-
-exports.Prisma.UnitScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
-  metadata: 'metadata'
-};
-
-exports.Prisma.VehicleScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  plate_number: 'plate_number',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
-  metadata: 'metadata'
-};
-
-exports.Prisma.StationScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
+  seriv_number: 'seriv_number',
+  date_requested: 'date_requested',
+  purpose: 'purpose',
+  requested_by_id: 'requested_by_id',
+  request_type: 'request_type',
+  mwo_number: 'mwo_number',
+  jo_number: 'jo_number',
+  consumer_name: 'consumer_name',
   location: 'location',
+  department_id: 'department_id',
+  item_from_id: 'item_from_id',
+  cancelled_by: 'cancelled_by',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
+  cancelled_at: 'cancelled_at',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.SERIVApproverScalarFieldEnum = {
+  id: 'id',
+  seriv_id: 'seriv_id',
+  approver_id: 'approver_id',
+  date_approval: 'date_approval',
+  notes: 'notes',
+  status: 'status',
+  label: 'label',
+  order: 'order',
+  metadata: 'metadata'
+};
+
+exports.Prisma.SERIVItemScalarFieldEnum = {
+  id: 'id',
+  seriv_id: 'seriv_id',
+  item_id: 'item_id',
+  quantity: 'quantity',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MRVScalarFieldEnum = {
+  id: 'id',
+  project_id: 'project_id',
+  mrv_number: 'mrv_number',
+  date_requested: 'date_requested',
+  purpose: 'purpose',
+  requested_by_id: 'requested_by_id',
+  request_type: 'request_type',
+  or_number: 'or_number',
+  jo_number: 'jo_number',
+  cwo_number: 'cwo_number',
+  consumer_name: 'consumer_name',
+  location: 'location',
+  item_from_id: 'item_from_id',
+  cancelled_by: 'cancelled_by',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  cancelled_at: 'cancelled_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MRVApproverScalarFieldEnum = {
+  id: 'id',
+  mrv_id: 'mrv_id',
+  approver_id: 'approver_id',
+  date_approval: 'date_approval',
+  notes: 'notes',
+  status: 'status',
+  label: 'label',
+  order: 'order',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MRVItemScalarFieldEnum = {
+  id: 'id',
+  mrv_id: 'mrv_id',
+  item_id: 'item_id',
+  quantity: 'quantity',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MCTScalarFieldEnum = {
+  id: 'id',
+  mrv_id: 'mrv_id',
+  mct_number: 'mct_number',
+  mct_date: 'mct_date',
+  cancelled_by: 'cancelled_by',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  cancelled_at: 'cancelled_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MCTApproverScalarFieldEnum = {
+  id: 'id',
+  mct_id: 'mct_id',
+  approver_id: 'approver_id',
+  date_approval: 'date_approval',
+  notes: 'notes',
+  status: 'status',
+  label: 'label',
+  order: 'order',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MCRTScalarFieldEnum = {
+  id: 'id',
+  mct_id: 'mct_id',
+  mcrt_number: 'mcrt_number',
+  mcrt_date: 'mcrt_date',
+  prepared_by_id: 'prepared_by_id',
+  returned_by_id: 'returned_by_id',
+  received_by_id: 'received_by_id',
+  wo_number: 'wo_number',
+  mo_number: 'mo_number',
+  jo_number: 'jo_number',
+  note: 'note',
+  cancelled_by: 'cancelled_by',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  cancelled_at: 'cancelled_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MCRTApproverScalarFieldEnum = {
+  id: 'id',
+  mcrt_id: 'mcrt_id',
+  approver_id: 'approver_id',
+  date_approval: 'date_approval',
+  notes: 'notes',
+  status: 'status',
+  label: 'label',
+  order: 'order',
   metadata: 'metadata'
 };
 
@@ -509,7 +702,17 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
+  ItemType: 'ItemType',
+  Supplier: 'Supplier',
+  Unit: 'Unit',
+  Vehicle: 'Vehicle',
+  Station: 'Station',
+  Project: 'Project',
   Pending: 'Pending',
+  Item: 'Item',
+  ItemLocation: 'ItemLocation',
+  ItemMovement: 'ItemMovement',
+  ItemTransaction: 'ItemTransaction',
   Canvass: 'Canvass',
   CanvassItem: 'CanvassItem',
   RV: 'RV',
@@ -528,15 +731,19 @@ exports.Prisma.ModelName = {
   RR: 'RR',
   RRApprover: 'RRApprover',
   RRItem: 'RRItem',
-  Item: 'Item',
-  ItemLocation: 'ItemLocation',
-  ItemMovement: 'ItemMovement',
-  ItemTransaction: 'ItemTransaction',
-  ItemType: 'ItemType',
-  Supplier: 'Supplier',
-  Unit: 'Unit',
-  Vehicle: 'Vehicle',
-  Station: 'Station'
+  OSRIV: 'OSRIV',
+  OSRIVApprover: 'OSRIVApprover',
+  OSRIVItem: 'OSRIVItem',
+  SERIV: 'SERIV',
+  SERIVApprover: 'SERIVApprover',
+  SERIVItem: 'SERIVItem',
+  MRV: 'MRV',
+  MRVApprover: 'MRVApprover',
+  MRVItem: 'MRVItem',
+  MCT: 'MCT',
+  MCTApprover: 'MCTApprover',
+  MCRT: 'MCRT',
+  MCRTApprover: 'MCRTApprover'
 };
 
 /**
