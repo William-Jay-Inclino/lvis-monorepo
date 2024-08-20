@@ -28,7 +28,7 @@ import { PoService } from './po/po.service';
 import { PoResolver } from './po/po.resolver';
 import { PoModule } from './po/po.module';
 import { VehicleModule } from './vehicle/vehicle.module';
-import { PoApproverResolver } from './po-approver/po-approver.resolver';
+// import { PoApproverResolver } from './po-approver/po-approver.resolver';
 import { PoApproverModule } from './po-approver/po-approver.module';
 import { ItemTypeModule } from './item-type/item-type.module';
 import { ItemModule } from './item/item.module';
@@ -86,6 +86,13 @@ import { PendingModule } from './pending/pending.module';
     // PrometheusModule.register()
   ],
   controllers: [],
-  providers: [RvService, MeqsService, MeqsResolver, PoService, PoResolver, PoApproverResolver],
+  providers: [
+    RvService, 
+    MeqsService, 
+    MeqsResolver, 
+    PoService, 
+    PoResolver, 
+    // PoApproverResolver
+  ],
 })
 export class WarehouseModule { }

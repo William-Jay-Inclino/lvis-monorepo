@@ -37,7 +37,6 @@ export class CanvassItemService {
 			item: input.item_id ? { connect: { id: input.item_id } } : undefined,
 			description: input.description,
 			quantity: input.quantity,
-			created_by: createdBy
 		}
 
 		const meqsSuppliers = await this.prisma.mEQSSupplier.findMany({
@@ -100,7 +99,6 @@ export class CanvassItemService {
 					notes: i.notes,
 					is_awarded: false,
 					vat_type: VAT_TYPE.NONE,
-					created_by: i.created_by
 				}
 
 				return meqsSupplierItemData
@@ -155,7 +153,6 @@ export class CanvassItemService {
 			unit: input.unit_id ? { connect: { id: input.unit_id } } : { disconnect: true },
 			item: input.item_id ? { connect: { id: input.item_id } } : { disconnect: true },
 			quantity: input.quantity,
-			updated_by: updatedBy
 		}
 
 		const updated = await this.prisma.canvassItem.update({

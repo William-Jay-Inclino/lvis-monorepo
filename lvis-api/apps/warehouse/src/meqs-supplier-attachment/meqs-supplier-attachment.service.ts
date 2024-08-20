@@ -30,7 +30,6 @@ export class MeqsSupplierAttachmentService {
             meqs_supplier: { connect: { id: input.meqs_supplier_id } },
             src: input.src,
             filename: input.filename,
-            created_by: this.authUser.user.username
         }
 
         const created = await this.prisma.mEQSSupplierAttachment.create({
@@ -75,7 +74,6 @@ export class MeqsSupplierAttachmentService {
         const data: Prisma.MEQSSupplierAttachmentUpdateInput = {
             src: input.src ?? existingItem.src,
             filename: input.filename ?? existingItem.filename,
-            updated_by: this.authUser.user.username
         }
 
         const updated = await this.prisma.mEQSSupplierAttachment.update({

@@ -18,7 +18,7 @@ export class CreateSupplierInput {
   @Field(() => String)
   @IsNotEmpty()
   @IsString()
-  tin_no: string;
+  tin: string;
 
   @Field(() => String)
   @IsNotEmpty()

@@ -128,7 +128,8 @@ exports.Prisma.CanvassScalarFieldEnum = {
   deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.CanvassItemScalarFieldEnum = {
@@ -138,10 +139,7 @@ exports.Prisma.CanvassItemScalarFieldEnum = {
   item_id: 'item_id',
   description: 'description',
   quantity: 'quantity',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.RVScalarFieldEnum = {
@@ -159,7 +157,8 @@ exports.Prisma.RVScalarFieldEnum = {
   updated_by: 'updated_by',
   cancelled_at: 'cancelled_at',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.RVApproverScalarFieldEnum = {
@@ -172,12 +171,7 @@ exports.Prisma.RVApproverScalarFieldEnum = {
   label: 'label',
   order: 'order',
   is_supervisor: 'is_supervisor',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.JOScalarFieldEnum = {
@@ -195,7 +189,8 @@ exports.Prisma.JOScalarFieldEnum = {
   updated_by: 'updated_by',
   cancelled_at: 'cancelled_at',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.JOApproverScalarFieldEnum = {
@@ -208,12 +203,7 @@ exports.Prisma.JOApproverScalarFieldEnum = {
   label: 'label',
   order: 'order',
   is_supervisor: 'is_supervisor',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.SPRScalarFieldEnum = {
@@ -230,7 +220,8 @@ exports.Prisma.SPRScalarFieldEnum = {
   updated_by: 'updated_by',
   cancelled_at: 'cancelled_at',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.SPRApproverScalarFieldEnum = {
@@ -243,12 +234,7 @@ exports.Prisma.SPRApproverScalarFieldEnum = {
   label: 'label',
   order: 'order',
   is_supervisor: 'is_supervisor',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.MEQSScalarFieldEnum = {
@@ -264,7 +250,8 @@ exports.Prisma.MEQSScalarFieldEnum = {
   cancelled_by: 'cancelled_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  cancelled_at: 'cancelled_at'
+  cancelled_at: 'cancelled_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.MEQSSupplierScalarFieldEnum = {
@@ -272,10 +259,7 @@ exports.Prisma.MEQSSupplierScalarFieldEnum = {
   meqs_id: 'meqs_id',
   supplier_id: 'supplier_id',
   payment_terms: 'payment_terms',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.MEQSSupplierItemScalarFieldEnum = {
@@ -286,10 +270,7 @@ exports.Prisma.MEQSSupplierItemScalarFieldEnum = {
   notes: 'notes',
   is_awarded: 'is_awarded',
   vat_type: 'vat_type',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.MEQSSupplierAttachmentScalarFieldEnum = {
@@ -297,10 +278,7 @@ exports.Prisma.MEQSSupplierAttachmentScalarFieldEnum = {
   meqs_supplier_id: 'meqs_supplier_id',
   filename: 'filename',
   src: 'src',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.MEQSApproverScalarFieldEnum = {
@@ -312,12 +290,7 @@ exports.Prisma.MEQSApproverScalarFieldEnum = {
   status: 'status',
   label: 'label',
   order: 'order',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.POScalarFieldEnum = {
@@ -332,7 +305,8 @@ exports.Prisma.POScalarFieldEnum = {
   updated_by: 'updated_by',
   cancelled_at: 'cancelled_at',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.POApproverScalarFieldEnum = {
@@ -344,12 +318,7 @@ exports.Prisma.POApproverScalarFieldEnum = {
   status: 'status',
   label: 'label',
   order: 'order',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.RRScalarFieldEnum = {
@@ -368,7 +337,8 @@ exports.Prisma.RRScalarFieldEnum = {
   updated_by: 'updated_by',
   cancelled_at: 'cancelled_at',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.RRApproverScalarFieldEnum = {
@@ -380,12 +350,7 @@ exports.Prisma.RRApproverScalarFieldEnum = {
   status: 'status',
   label: 'label',
   order: 'order',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.RRItemScalarFieldEnum = {
@@ -393,10 +358,7 @@ exports.Prisma.RRItemScalarFieldEnum = {
   rr_id: 'rr_id',
   meqs_supplier_item_id: 'meqs_supplier_item_id',
   quantity_accepted: 'quantity_accepted',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  metadata: 'metadata'
 };
 
 exports.Prisma.ItemScalarFieldEnum = {
@@ -414,7 +376,28 @@ exports.Prisma.ItemScalarFieldEnum = {
   deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.ItemLocationScalarFieldEnum = {
+  id: 'id',
+  item_id: 'item_id',
+  station_id: 'station_id',
+  quantity_on_hand: 'quantity_on_hand',
+  created_by: 'created_by',
+  created_at: 'created_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.ItemMovementScalarFieldEnum = {
+  id: 'id',
+  origin_id: 'origin_id',
+  destination_id: 'destination_id',
+  quantity_moved: 'quantity_moved',
+  created_by: 'created_by',
+  created_at: 'created_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.ItemTransactionScalarFieldEnum = {
@@ -427,7 +410,8 @@ exports.Prisma.ItemTransactionScalarFieldEnum = {
   remarks: 'remarks',
   is_initial: 'is_initial',
   created_at: 'created_at',
-  created_by: 'created_by'
+  created_by: 'created_by',
+  metadata: 'metadata'
 };
 
 exports.Prisma.ItemTypeScalarFieldEnum = {
@@ -438,14 +422,15 @@ exports.Prisma.ItemTypeScalarFieldEnum = {
   deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.SupplierScalarFieldEnum = {
   id: 'id',
   name: 'name',
   contact: 'contact',
-  tin_no: 'tin_no',
+  tin: 'tin',
   address: 'address',
   vat_type: 'vat_type',
   is_vat_registered: 'is_vat_registered',
@@ -454,7 +439,8 @@ exports.Prisma.SupplierScalarFieldEnum = {
   deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.UnitScalarFieldEnum = {
@@ -465,7 +451,8 @@ exports.Prisma.UnitScalarFieldEnum = {
   deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.VehicleScalarFieldEnum = {
@@ -477,7 +464,21 @@ exports.Prisma.VehicleScalarFieldEnum = {
   deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.StationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  location: 'location',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  metadata: 'metadata'
 };
 
 exports.Prisma.SortOrder = {
@@ -485,9 +486,20 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.NullsOrder = {
@@ -517,11 +529,14 @@ exports.Prisma.ModelName = {
   RRApprover: 'RRApprover',
   RRItem: 'RRItem',
   Item: 'Item',
+  ItemLocation: 'ItemLocation',
+  ItemMovement: 'ItemMovement',
   ItemTransaction: 'ItemTransaction',
   ItemType: 'ItemType',
   Supplier: 'Supplier',
   Unit: 'Unit',
-  Vehicle: 'Vehicle'
+  Vehicle: 'Vehicle',
+  Station: 'Station'
 };
 
 /**

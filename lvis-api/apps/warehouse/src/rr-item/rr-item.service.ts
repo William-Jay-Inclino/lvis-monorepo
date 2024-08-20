@@ -78,7 +78,6 @@ export class RrItemService {
 
 		const data: Prisma.RRItemUpdateInput = {
 			quantity_accepted: input.quantity_accepted ?? existingItem.quantity_accepted,
-			updated_by: this.authUser.user.username
 		};
 
 
@@ -126,7 +125,6 @@ export class RrItemService {
 				},
 				data: {
 					quantity_accepted: input.quantity_accepted,
-					updated_by: this.authUser.user.username
 				},
 			})
 

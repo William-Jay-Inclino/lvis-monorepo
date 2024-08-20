@@ -41,7 +41,6 @@ export class MeqsSupplierService {
             meqs: { connect: { id: input.meqs_id } },
             supplier: { connect: { id: input.supplier_id } },
             payment_terms: input.payment_terms,
-            created_by: createdBy,
             // attachments: {
             //     create: input.attachments.map(attachment => {
             //         const attachmentInput: Prisma.MEQSSupplierAttachmentCreateWithoutMeqs_supplierInput = {
@@ -61,7 +60,6 @@ export class MeqsSupplierService {
                         vat_type: item.vat_type,
                         is_awarded: item.is_awarded,
                         canvass_item: { connect: { id: item.canvass_item_id } },
-                        created_by: createdBy
                     }
 
                     return itemInput
@@ -130,7 +128,6 @@ export class MeqsSupplierService {
 
         const data: Prisma.MEQSSupplierUpdateInput = {
             payment_terms: input.payment_terms ?? existingItem.payment_terms,
-            updated_by: updatedBy
         }
 
         const queries = []

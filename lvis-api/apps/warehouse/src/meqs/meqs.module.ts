@@ -8,7 +8,12 @@ import { MeqsPdfService } from './meqs.pdf.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [MeqsResolver, MeqsService, MeqsPdfService, MeqsApproverService],
+  providers: [
+    MeqsResolver, 
+    MeqsService, 
+    MeqsPdfService, 
+    MeqsApproverService
+  ],
   controllers: [MeqsController],
 })
 

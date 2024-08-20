@@ -160,7 +160,7 @@ export class PoPdfService {
                                     ${ po.meqs_supplier.supplier.address.toUpperCase() }
                                 </div>
                                 <div>
-                                    TIN: ${ po.meqs_supplier.supplier.tin_no.trim() !== '' ? po.meqs_supplier.supplier.tin_no : 'N/A' }
+                                    TIN: ${ po.meqs_supplier.supplier.tin.trim() !== '' ? po.meqs_supplier.supplier.tin : 'N/A' }
                                 </div>
                             </div>
                         </td>
@@ -635,9 +635,6 @@ export class PoPdfService {
                     }
                 },
                 po_approvers: {
-                    where: {
-                        deleted_at: null,
-                    },
                     orderBy: {
                         order: 'asc'
                     }

@@ -10,7 +10,7 @@ import { PoApproverService } from '../po-approver/po-approver.service';
 import { RrApproverService } from '../rr-approver/rr-approver.service';
 import { EmployeeService } from './employee.service';
 // import { SprService } from '../spr/spr.service';
-import { SprApproverService } from '../spr-approver/spr-approver.service';
+// import { SprApproverService } from '../spr-approver/spr-approver.service';
 import { JoApproverService } from '../jo-approver/jo-approver.service';
 import { PendingService } from '../pending/pending.service';
 // import { JoService } from '../jo/jo.service';
@@ -24,7 +24,7 @@ import { PendingService } from '../pending/pending.service';
     // RvService,
     RvApproverService,
     // SprService,
-    SprApproverService,
+    // SprApproverService,
     // JoService,
     JoApproverService,
     // MeqsService,

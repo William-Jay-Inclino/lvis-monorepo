@@ -9,7 +9,12 @@ import { SprPdfService } from './spr.pdf.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [SprService, SprResolver, SprPdfService, SprApproverService, CanvassService],
+  providers: [
+    SprService, 
+    SprResolver, 
+    SprPdfService, 
+    SprApproverService, 
+    CanvassService],
   exports: [SprService],
   controllers: [SprController]
 })

@@ -122,13 +122,11 @@ export class MeqsService {
                 const supplierInput: Prisma.MEQSSupplierCreateWithoutMeqsInput = {
                     supplier: { connect: { id: supplier.supplier_id } },
                     payment_terms: supplier.payment_terms,
-                    created_by: createdBy,
                     attachments: {
                         create: supplier.attachments.map(attachment => {
                             const attachmentInput: Prisma.MEQSSupplierAttachmentCreateWithoutMeqs_supplierInput = {
                                 src: attachment.src,
                                 filename: attachment.filename,
-                                created_by: createdBy
                             }
                             return attachmentInput
                         })
@@ -142,7 +140,6 @@ export class MeqsService {
                                 vat_type: item.vat_type,
                                 is_awarded: item.is_awarded,
                                 canvass_item: { connect: { id: item.canvass_item_id } },
-                                created_by: createdBy
                             }
 
                             return itemInput
@@ -440,7 +437,6 @@ export class MeqsService {
         const approvers = await this.prisma.mEQSApprover.findMany({
             where: {
                 meqs_id: id,
-                deleted_at: null
             }
         })
 
@@ -666,7 +662,6 @@ export class MeqsService {
             const approvers = await this.prisma.rVApprover.findMany({
                 where: {
                     rv_id: input.rv_id,
-                    deleted_at: null
                 }
             })
 

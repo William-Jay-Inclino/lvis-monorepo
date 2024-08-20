@@ -407,7 +407,6 @@ export class SprService {
         const approvers = await this.prisma.sPRApprover.findMany({
             where: {
                 spr_id: id,
-                deleted_at: null
             }
         })
 
@@ -497,7 +496,6 @@ export class SprService {
                 notes,
                 status,
                 date_approval: new Date(),
-                updated_by: this.authUser.user.username
             }
         })
 

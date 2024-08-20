@@ -433,9 +433,6 @@ export class MeqsPdfService {
                     }
                 },
                 meqs_approvers: {
-                    where: {
-                        deleted_at: null
-                    },
                     orderBy: {
                         order: 'asc'
                     }

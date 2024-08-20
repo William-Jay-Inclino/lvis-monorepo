@@ -114,6 +114,16 @@ export type RRItem = $Result.DefaultSelection<Prisma.$RRItemPayload>
  */
 export type Item = $Result.DefaultSelection<Prisma.$ItemPayload>
 /**
+ * Model ItemLocation
+ * 
+ */
+export type ItemLocation = $Result.DefaultSelection<Prisma.$ItemLocationPayload>
+/**
+ * Model ItemMovement
+ * 
+ */
+export type ItemMovement = $Result.DefaultSelection<Prisma.$ItemMovementPayload>
+/**
  * Model ItemTransaction
  * 
  */
@@ -138,6 +148,11 @@ export type Unit = $Result.DefaultSelection<Prisma.$UnitPayload>
  * 
  */
 export type Vehicle = $Result.DefaultSelection<Prisma.$VehiclePayload>
+/**
+ * Model Station
+ * 
+ */
+export type Station = $Result.DefaultSelection<Prisma.$StationPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -462,6 +477,26 @@ export class PrismaClient<
   get item(): Prisma.ItemDelegate<ExtArgs>;
 
   /**
+   * `prisma.itemLocation`: Exposes CRUD operations for the **ItemLocation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ItemLocations
+    * const itemLocations = await prisma.itemLocation.findMany()
+    * ```
+    */
+  get itemLocation(): Prisma.ItemLocationDelegate<ExtArgs>;
+
+  /**
+   * `prisma.itemMovement`: Exposes CRUD operations for the **ItemMovement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ItemMovements
+    * const itemMovements = await prisma.itemMovement.findMany()
+    * ```
+    */
+  get itemMovement(): Prisma.ItemMovementDelegate<ExtArgs>;
+
+  /**
    * `prisma.itemTransaction`: Exposes CRUD operations for the **ItemTransaction** model.
     * Example usage:
     * ```ts
@@ -510,6 +545,16 @@ export class PrismaClient<
     * ```
     */
   get vehicle(): Prisma.VehicleDelegate<ExtArgs>;
+
+  /**
+   * `prisma.station`: Exposes CRUD operations for the **Station** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Stations
+    * const stations = await prisma.station.findMany()
+    * ```
+    */
+  get station(): Prisma.StationDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1000,11 +1045,14 @@ export namespace Prisma {
     RRApprover: 'RRApprover',
     RRItem: 'RRItem',
     Item: 'Item',
+    ItemLocation: 'ItemLocation',
+    ItemMovement: 'ItemMovement',
     ItemTransaction: 'ItemTransaction',
     ItemType: 'ItemType',
     Supplier: 'Supplier',
     Unit: 'Unit',
-    Vehicle: 'Vehicle'
+    Vehicle: 'Vehicle',
+    Station: 'Station'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1021,7 +1069,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'pending' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'item' | 'itemTransaction' | 'itemType' | 'supplier' | 'unit' | 'vehicle'
+      modelProps: 'pending' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'item' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'itemType' | 'supplier' | 'unit' | 'vehicle' | 'station'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2345,6 +2393,138 @@ export namespace Prisma {
           }
         }
       }
+      ItemLocation: {
+        payload: Prisma.$ItemLocationPayload<ExtArgs>
+        fields: Prisma.ItemLocationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ItemLocationFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemLocationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ItemLocationFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemLocationPayload>
+          }
+          findFirst: {
+            args: Prisma.ItemLocationFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemLocationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ItemLocationFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemLocationPayload>
+          }
+          findMany: {
+            args: Prisma.ItemLocationFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemLocationPayload>[]
+          }
+          create: {
+            args: Prisma.ItemLocationCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemLocationPayload>
+          }
+          createMany: {
+            args: Prisma.ItemLocationCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ItemLocationDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemLocationPayload>
+          }
+          update: {
+            args: Prisma.ItemLocationUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemLocationPayload>
+          }
+          deleteMany: {
+            args: Prisma.ItemLocationDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ItemLocationUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ItemLocationUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemLocationPayload>
+          }
+          aggregate: {
+            args: Prisma.ItemLocationAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateItemLocation>
+          }
+          groupBy: {
+            args: Prisma.ItemLocationGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ItemLocationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ItemLocationCountArgs<ExtArgs>,
+            result: $Utils.Optional<ItemLocationCountAggregateOutputType> | number
+          }
+        }
+      }
+      ItemMovement: {
+        payload: Prisma.$ItemMovementPayload<ExtArgs>
+        fields: Prisma.ItemMovementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ItemMovementFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemMovementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ItemMovementFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemMovementPayload>
+          }
+          findFirst: {
+            args: Prisma.ItemMovementFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemMovementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ItemMovementFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemMovementPayload>
+          }
+          findMany: {
+            args: Prisma.ItemMovementFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemMovementPayload>[]
+          }
+          create: {
+            args: Prisma.ItemMovementCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemMovementPayload>
+          }
+          createMany: {
+            args: Prisma.ItemMovementCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ItemMovementDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemMovementPayload>
+          }
+          update: {
+            args: Prisma.ItemMovementUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemMovementPayload>
+          }
+          deleteMany: {
+            args: Prisma.ItemMovementDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ItemMovementUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ItemMovementUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemMovementPayload>
+          }
+          aggregate: {
+            args: Prisma.ItemMovementAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateItemMovement>
+          }
+          groupBy: {
+            args: Prisma.ItemMovementGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ItemMovementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ItemMovementCountArgs<ExtArgs>,
+            result: $Utils.Optional<ItemMovementCountAggregateOutputType> | number
+          }
+        }
+      }
       ItemTransaction: {
         payload: Prisma.$ItemTransactionPayload<ExtArgs>
         fields: Prisma.ItemTransactionFieldRefs
@@ -2672,6 +2852,72 @@ export namespace Prisma {
           count: {
             args: Prisma.VehicleCountArgs<ExtArgs>,
             result: $Utils.Optional<VehicleCountAggregateOutputType> | number
+          }
+        }
+      }
+      Station: {
+        payload: Prisma.$StationPayload<ExtArgs>
+        fields: Prisma.StationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StationFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$StationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StationFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$StationPayload>
+          }
+          findFirst: {
+            args: Prisma.StationFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$StationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StationFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$StationPayload>
+          }
+          findMany: {
+            args: Prisma.StationFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$StationPayload>[]
+          }
+          create: {
+            args: Prisma.StationCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$StationPayload>
+          }
+          createMany: {
+            args: Prisma.StationCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.StationDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$StationPayload>
+          }
+          update: {
+            args: Prisma.StationUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$StationPayload>
+          }
+          deleteMany: {
+            args: Prisma.StationDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StationUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.StationUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$StationPayload>
+          }
+          aggregate: {
+            args: Prisma.StationAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateStation>
+          }
+          groupBy: {
+            args: Prisma.StationGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<StationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StationCountArgs<ExtArgs>,
+            result: $Utils.Optional<StationCountAggregateOutputType> | number
           }
         }
       }
@@ -3206,11 +3452,13 @@ export namespace Prisma {
   export type ItemCountOutputType = {
     item_transactions: number
     canvass_items: number
+    item_locations: number
   }
 
   export type ItemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     item_transactions?: boolean | ItemCountOutputTypeCountItem_transactionsArgs
     canvass_items?: boolean | ItemCountOutputTypeCountCanvass_itemsArgs
+    item_locations?: boolean | ItemCountOutputTypeCountItem_locationsArgs
   }
 
   // Custom InputTypes
@@ -3239,6 +3487,58 @@ export namespace Prisma {
    */
   export type ItemCountOutputTypeCountCanvass_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CanvassItemWhereInput
+  }
+
+
+  /**
+   * ItemCountOutputType without action
+   */
+  export type ItemCountOutputTypeCountItem_locationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemLocationWhereInput
+  }
+
+
+
+  /**
+   * Count Type ItemLocationCountOutputType
+   */
+
+  export type ItemLocationCountOutputType = {
+    origin_movements: number
+    destination_movements: number
+  }
+
+  export type ItemLocationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    origin_movements?: boolean | ItemLocationCountOutputTypeCountOrigin_movementsArgs
+    destination_movements?: boolean | ItemLocationCountOutputTypeCountDestination_movementsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ItemLocationCountOutputType without action
+   */
+  export type ItemLocationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocationCountOutputType
+     */
+    select?: ItemLocationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ItemLocationCountOutputType without action
+   */
+  export type ItemLocationCountOutputTypeCountOrigin_movementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemMovementWhereInput
+  }
+
+
+  /**
+   * ItemLocationCountOutputType without action
+   */
+  export type ItemLocationCountOutputTypeCountDestination_movementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemMovementWhereInput
   }
 
 
@@ -3385,6 +3685,40 @@ export namespace Prisma {
    */
   export type VehicleCountOutputTypeCountSprsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SPRWhereInput
+  }
+
+
+
+  /**
+   * Count Type StationCountOutputType
+   */
+
+  export type StationCountOutputType = {
+    items: number
+  }
+
+  export type StationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    items?: boolean | StationCountOutputTypeCountItemsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * StationCountOutputType without action
+   */
+  export type StationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StationCountOutputType
+     */
+    select?: StationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * StationCountOutputType without action
+   */
+  export type StationCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemLocationWhereInput
   }
 
 
@@ -4361,6 +4695,7 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -4408,6 +4743,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -4496,6 +4832,7 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     deleted_at: Date | null
+    metadata: JsonValue | null
     _count: CanvassCountAggregateOutputType | null
     _min: CanvassMinAggregateOutputType | null
     _max: CanvassMaxAggregateOutputType | null
@@ -4528,6 +4865,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
     canvass_items?: boolean | Canvass$canvass_itemsArgs<ExtArgs>
     jo?: boolean | Canvass$joArgs<ExtArgs>
     rv?: boolean | Canvass$rvArgs<ExtArgs>
@@ -4548,6 +4886,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type CanvassInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4580,6 +4919,7 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["canvass"]>
     composites: {}
   }
@@ -4993,6 +5333,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"Canvass", 'DateTime'>
     readonly updated_at: FieldRef<"Canvass", 'DateTime'>
     readonly deleted_at: FieldRef<"Canvass", 'DateTime'>
+    readonly metadata: FieldRef<"Canvass", 'Json'>
   }
     
 
@@ -5416,10 +5757,6 @@ export namespace Prisma {
     item_id: string | null
     description: string | null
     quantity: number | null
-    created_by: string | null
-    updated_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type CanvassItemMaxAggregateOutputType = {
@@ -5429,10 +5766,6 @@ export namespace Prisma {
     item_id: string | null
     description: string | null
     quantity: number | null
-    created_by: string | null
-    updated_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type CanvassItemCountAggregateOutputType = {
@@ -5442,10 +5775,7 @@ export namespace Prisma {
     item_id: number
     description: number
     quantity: number
-    created_by: number
-    updated_by: number
-    created_at: number
-    updated_at: number
+    metadata: number
     _all: number
   }
 
@@ -5465,10 +5795,6 @@ export namespace Prisma {
     item_id?: true
     description?: true
     quantity?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type CanvassItemMaxAggregateInputType = {
@@ -5478,10 +5804,6 @@ export namespace Prisma {
     item_id?: true
     description?: true
     quantity?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type CanvassItemCountAggregateInputType = {
@@ -5491,10 +5813,7 @@ export namespace Prisma {
     item_id?: true
     description?: true
     quantity?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -5591,10 +5910,7 @@ export namespace Prisma {
     item_id: string | null
     description: string
     quantity: number
-    created_by: string
-    updated_by: string | null
-    created_at: Date
-    updated_at: Date
+    metadata: JsonValue | null
     _count: CanvassItemCountAggregateOutputType | null
     _avg: CanvassItemAvgAggregateOutputType | null
     _sum: CanvassItemSumAggregateOutputType | null
@@ -5623,10 +5939,7 @@ export namespace Prisma {
     item_id?: boolean
     description?: boolean
     quantity?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
+    metadata?: boolean
     meqs_supplier_items?: boolean | CanvassItem$meqs_supplier_itemsArgs<ExtArgs>
     canvass?: boolean | CanvassDefaultArgs<ExtArgs>
     unit?: boolean | CanvassItem$unitArgs<ExtArgs>
@@ -5641,10 +5954,7 @@ export namespace Prisma {
     item_id?: boolean
     description?: boolean
     quantity?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
+    metadata?: boolean
   }
 
   export type CanvassItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5671,10 +5981,7 @@ export namespace Prisma {
       item_id: string | null
       description: string
       quantity: number
-      created_by: string
-      updated_by: string | null
-      created_at: Date
-      updated_at: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["canvassItem"]>
     composites: {}
   }
@@ -6082,10 +6389,7 @@ export namespace Prisma {
     readonly item_id: FieldRef<"CanvassItem", 'String'>
     readonly description: FieldRef<"CanvassItem", 'String'>
     readonly quantity: FieldRef<"CanvassItem", 'Int'>
-    readonly created_by: FieldRef<"CanvassItem", 'String'>
-    readonly updated_by: FieldRef<"CanvassItem", 'String'>
-    readonly created_at: FieldRef<"CanvassItem", 'DateTime'>
-    readonly updated_at: FieldRef<"CanvassItem", 'DateTime'>
+    readonly metadata: FieldRef<"CanvassItem", 'Json'>
   }
     
 
@@ -6528,6 +6832,7 @@ export namespace Prisma {
     cancelled_at: number
     created_at: number
     updated_at: number
+    metadata: number
     _all: number
   }
 
@@ -6584,6 +6889,7 @@ export namespace Prisma {
     cancelled_at?: true
     created_at?: true
     updated_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -6675,6 +6981,7 @@ export namespace Prisma {
     cancelled_at: Date | null
     created_at: Date
     updated_at: Date
+    metadata: JsonValue | null
     _count: RVCountAggregateOutputType | null
     _min: RVMinAggregateOutputType | null
     _max: RVMaxAggregateOutputType | null
@@ -6710,6 +7017,7 @@ export namespace Prisma {
     cancelled_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    metadata?: boolean
     canvass?: boolean | RV$canvassArgs<ExtArgs>
     meqs?: boolean | RV$meqsArgs<ExtArgs>
     rv_approvers?: boolean | RV$rv_approversArgs<ExtArgs>
@@ -6732,6 +7040,7 @@ export namespace Prisma {
     cancelled_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    metadata?: boolean
   }
 
   export type RVInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6765,6 +7074,7 @@ export namespace Prisma {
       cancelled_at: Date | null
       created_at: Date
       updated_at: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["rV"]>
     composites: {}
   }
@@ -7179,6 +7489,7 @@ export namespace Prisma {
     readonly cancelled_at: FieldRef<"RV", 'DateTime'>
     readonly created_at: FieldRef<"RV", 'DateTime'>
     readonly updated_at: FieldRef<"RV", 'DateTime'>
+    readonly metadata: FieldRef<"RV", 'Json'>
   }
     
 
@@ -7591,12 +7902,6 @@ export namespace Prisma {
     label: string | null
     order: number | null
     is_supervisor: boolean | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type RVApproverMaxAggregateOutputType = {
@@ -7609,12 +7914,6 @@ export namespace Prisma {
     label: string | null
     order: number | null
     is_supervisor: boolean | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type RVApproverCountAggregateOutputType = {
@@ -7627,12 +7926,7 @@ export namespace Prisma {
     label: number
     order: number
     is_supervisor: number
-    created_by: number
-    updated_by: number
-    deleted_by: number
-    created_at: number
-    updated_at: number
-    deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -7657,12 +7951,6 @@ export namespace Prisma {
     label?: true
     order?: true
     is_supervisor?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type RVApproverMaxAggregateInputType = {
@@ -7675,12 +7963,6 @@ export namespace Prisma {
     label?: true
     order?: true
     is_supervisor?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type RVApproverCountAggregateInputType = {
@@ -7693,12 +7975,7 @@ export namespace Prisma {
     label?: true
     order?: true
     is_supervisor?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -7798,12 +8075,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor: boolean
-    created_by: string
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date
-    updated_at: Date
-    deleted_at: Date | null
+    metadata: JsonValue | null
     _count: RVApproverCountAggregateOutputType | null
     _avg: RVApproverAvgAggregateOutputType | null
     _sum: RVApproverSumAggregateOutputType | null
@@ -7835,12 +8107,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     is_supervisor?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
     rv?: boolean | RVDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rVApprover"]>
 
@@ -7854,12 +8121,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     is_supervisor?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type RVApproverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7882,12 +8144,7 @@ export namespace Prisma {
       label: string
       order: number
       is_supervisor: boolean
-      created_by: string
-      updated_by: string | null
-      deleted_by: string | null
-      created_at: Date
-      updated_at: Date
-      deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["rVApprover"]>
     composites: {}
   }
@@ -8292,12 +8549,7 @@ export namespace Prisma {
     readonly label: FieldRef<"RVApprover", 'String'>
     readonly order: FieldRef<"RVApprover", 'Int'>
     readonly is_supervisor: FieldRef<"RVApprover", 'Boolean'>
-    readonly created_by: FieldRef<"RVApprover", 'String'>
-    readonly updated_by: FieldRef<"RVApprover", 'String'>
-    readonly deleted_by: FieldRef<"RVApprover", 'String'>
-    readonly created_at: FieldRef<"RVApprover", 'DateTime'>
-    readonly updated_at: FieldRef<"RVApprover", 'DateTime'>
-    readonly deleted_at: FieldRef<"RVApprover", 'DateTime'>
+    readonly metadata: FieldRef<"RVApprover", 'Json'>
   }
     
 
@@ -8687,6 +8939,7 @@ export namespace Prisma {
     cancelled_at: number
     created_at: number
     updated_at: number
+    metadata: number
     _all: number
   }
 
@@ -8743,6 +8996,7 @@ export namespace Prisma {
     cancelled_at?: true
     created_at?: true
     updated_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -8834,6 +9088,7 @@ export namespace Prisma {
     cancelled_at: Date | null
     created_at: Date
     updated_at: Date
+    metadata: JsonValue | null
     _count: JOCountAggregateOutputType | null
     _min: JOMinAggregateOutputType | null
     _max: JOMaxAggregateOutputType | null
@@ -8869,6 +9124,7 @@ export namespace Prisma {
     cancelled_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    metadata?: boolean
     canvass?: boolean | JO$canvassArgs<ExtArgs>
     meqs?: boolean | JO$meqsArgs<ExtArgs>
     jo_approvers?: boolean | JO$jo_approversArgs<ExtArgs>
@@ -8891,6 +9147,7 @@ export namespace Prisma {
     cancelled_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    metadata?: boolean
   }
 
   export type JOInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8924,6 +9181,7 @@ export namespace Prisma {
       cancelled_at: Date | null
       created_at: Date
       updated_at: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["jO"]>
     composites: {}
   }
@@ -9338,6 +9596,7 @@ export namespace Prisma {
     readonly cancelled_at: FieldRef<"JO", 'DateTime'>
     readonly created_at: FieldRef<"JO", 'DateTime'>
     readonly updated_at: FieldRef<"JO", 'DateTime'>
+    readonly metadata: FieldRef<"JO", 'Json'>
   }
     
 
@@ -9750,12 +10009,6 @@ export namespace Prisma {
     label: string | null
     order: number | null
     is_supervisor: boolean | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type JOApproverMaxAggregateOutputType = {
@@ -9768,12 +10021,6 @@ export namespace Prisma {
     label: string | null
     order: number | null
     is_supervisor: boolean | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type JOApproverCountAggregateOutputType = {
@@ -9786,12 +10033,7 @@ export namespace Prisma {
     label: number
     order: number
     is_supervisor: number
-    created_by: number
-    updated_by: number
-    deleted_by: number
-    created_at: number
-    updated_at: number
-    deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -9816,12 +10058,6 @@ export namespace Prisma {
     label?: true
     order?: true
     is_supervisor?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type JOApproverMaxAggregateInputType = {
@@ -9834,12 +10070,6 @@ export namespace Prisma {
     label?: true
     order?: true
     is_supervisor?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type JOApproverCountAggregateInputType = {
@@ -9852,12 +10082,7 @@ export namespace Prisma {
     label?: true
     order?: true
     is_supervisor?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -9957,12 +10182,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor: boolean
-    created_by: string
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date
-    updated_at: Date
-    deleted_at: Date | null
+    metadata: JsonValue | null
     _count: JOApproverCountAggregateOutputType | null
     _avg: JOApproverAvgAggregateOutputType | null
     _sum: JOApproverSumAggregateOutputType | null
@@ -9994,12 +10214,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     is_supervisor?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
     jo?: boolean | JODefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jOApprover"]>
 
@@ -10013,12 +10228,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     is_supervisor?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type JOApproverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10041,12 +10251,7 @@ export namespace Prisma {
       label: string
       order: number
       is_supervisor: boolean
-      created_by: string
-      updated_by: string | null
-      deleted_by: string | null
-      created_at: Date
-      updated_at: Date
-      deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["jOApprover"]>
     composites: {}
   }
@@ -10451,12 +10656,7 @@ export namespace Prisma {
     readonly label: FieldRef<"JOApprover", 'String'>
     readonly order: FieldRef<"JOApprover", 'Int'>
     readonly is_supervisor: FieldRef<"JOApprover", 'Boolean'>
-    readonly created_by: FieldRef<"JOApprover", 'String'>
-    readonly updated_by: FieldRef<"JOApprover", 'String'>
-    readonly deleted_by: FieldRef<"JOApprover", 'String'>
-    readonly created_at: FieldRef<"JOApprover", 'DateTime'>
-    readonly updated_at: FieldRef<"JOApprover", 'DateTime'>
-    readonly deleted_at: FieldRef<"JOApprover", 'DateTime'>
+    readonly metadata: FieldRef<"JOApprover", 'Json'>
   }
     
 
@@ -10843,6 +11043,7 @@ export namespace Prisma {
     cancelled_at: number
     created_at: number
     updated_at: number
+    metadata: number
     _all: number
   }
 
@@ -10896,6 +11097,7 @@ export namespace Prisma {
     cancelled_at?: true
     created_at?: true
     updated_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -10986,6 +11188,7 @@ export namespace Prisma {
     cancelled_at: Date | null
     created_at: Date
     updated_at: Date
+    metadata: JsonValue | null
     _count: SPRCountAggregateOutputType | null
     _min: SPRMinAggregateOutputType | null
     _max: SPRMaxAggregateOutputType | null
@@ -11020,6 +11223,7 @@ export namespace Prisma {
     cancelled_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    metadata?: boolean
     canvass?: boolean | SPR$canvassArgs<ExtArgs>
     meqs?: boolean | SPR$meqsArgs<ExtArgs>
     vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
@@ -11042,6 +11246,7 @@ export namespace Prisma {
     cancelled_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    metadata?: boolean
   }
 
   export type SPRInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11076,6 +11281,7 @@ export namespace Prisma {
       cancelled_at: Date | null
       created_at: Date
       updated_at: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["sPR"]>
     composites: {}
   }
@@ -11491,6 +11697,7 @@ export namespace Prisma {
     readonly cancelled_at: FieldRef<"SPR", 'DateTime'>
     readonly created_at: FieldRef<"SPR", 'DateTime'>
     readonly updated_at: FieldRef<"SPR", 'DateTime'>
+    readonly metadata: FieldRef<"SPR", 'Json'>
   }
     
 
@@ -11903,12 +12110,6 @@ export namespace Prisma {
     label: string | null
     order: number | null
     is_supervisor: boolean | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type SPRApproverMaxAggregateOutputType = {
@@ -11921,12 +12122,6 @@ export namespace Prisma {
     label: string | null
     order: number | null
     is_supervisor: boolean | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type SPRApproverCountAggregateOutputType = {
@@ -11939,12 +12134,7 @@ export namespace Prisma {
     label: number
     order: number
     is_supervisor: number
-    created_by: number
-    updated_by: number
-    deleted_by: number
-    created_at: number
-    updated_at: number
-    deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -11969,12 +12159,6 @@ export namespace Prisma {
     label?: true
     order?: true
     is_supervisor?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type SPRApproverMaxAggregateInputType = {
@@ -11987,12 +12171,6 @@ export namespace Prisma {
     label?: true
     order?: true
     is_supervisor?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type SPRApproverCountAggregateInputType = {
@@ -12005,12 +12183,7 @@ export namespace Prisma {
     label?: true
     order?: true
     is_supervisor?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -12110,12 +12283,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor: boolean
-    created_by: string
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date
-    updated_at: Date
-    deleted_at: Date | null
+    metadata: JsonValue | null
     _count: SPRApproverCountAggregateOutputType | null
     _avg: SPRApproverAvgAggregateOutputType | null
     _sum: SPRApproverSumAggregateOutputType | null
@@ -12147,12 +12315,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     is_supervisor?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
     spr?: boolean | SPRDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sPRApprover"]>
 
@@ -12166,12 +12329,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     is_supervisor?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type SPRApproverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12194,12 +12352,7 @@ export namespace Prisma {
       label: string
       order: number
       is_supervisor: boolean
-      created_by: string
-      updated_by: string | null
-      deleted_by: string | null
-      created_at: Date
-      updated_at: Date
-      deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["sPRApprover"]>
     composites: {}
   }
@@ -12604,12 +12757,7 @@ export namespace Prisma {
     readonly label: FieldRef<"SPRApprover", 'String'>
     readonly order: FieldRef<"SPRApprover", 'Int'>
     readonly is_supervisor: FieldRef<"SPRApprover", 'Boolean'>
-    readonly created_by: FieldRef<"SPRApprover", 'String'>
-    readonly updated_by: FieldRef<"SPRApprover", 'String'>
-    readonly deleted_by: FieldRef<"SPRApprover", 'String'>
-    readonly created_at: FieldRef<"SPRApprover", 'DateTime'>
-    readonly updated_at: FieldRef<"SPRApprover", 'DateTime'>
-    readonly deleted_at: FieldRef<"SPRApprover", 'DateTime'>
+    readonly metadata: FieldRef<"SPRApprover", 'Json'>
   }
     
 
@@ -12993,6 +13141,7 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     cancelled_at: number
+    metadata: number
     _all: number
   }
 
@@ -13043,6 +13192,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     cancelled_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -13132,6 +13282,7 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     cancelled_at: Date | null
+    metadata: JsonValue | null
     _count: MEQSCountAggregateOutputType | null
     _min: MEQSMinAggregateOutputType | null
     _max: MEQSMaxAggregateOutputType | null
@@ -13165,6 +13316,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     cancelled_at?: boolean
+    metadata?: boolean
     jo?: boolean | MEQS$joArgs<ExtArgs>
     rv?: boolean | MEQS$rvArgs<ExtArgs>
     spr?: boolean | MEQS$sprArgs<ExtArgs>
@@ -13187,6 +13339,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     cancelled_at?: boolean
+    metadata?: boolean
   }
 
   export type MEQSInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13222,6 +13375,7 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       cancelled_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mEQS"]>
     composites: {}
   }
@@ -13638,6 +13792,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"MEQS", 'DateTime'>
     readonly updated_at: FieldRef<"MEQS", 'DateTime'>
     readonly cancelled_at: FieldRef<"MEQS", 'DateTime'>
+    readonly metadata: FieldRef<"MEQS", 'Json'>
   }
     
 
@@ -14070,10 +14225,6 @@ export namespace Prisma {
     meqs_id: string | null
     supplier_id: string | null
     payment_terms: string | null
-    created_by: string | null
-    updated_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type MEQSSupplierMaxAggregateOutputType = {
@@ -14081,10 +14232,6 @@ export namespace Prisma {
     meqs_id: string | null
     supplier_id: string | null
     payment_terms: string | null
-    created_by: string | null
-    updated_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type MEQSSupplierCountAggregateOutputType = {
@@ -14092,10 +14239,7 @@ export namespace Prisma {
     meqs_id: number
     supplier_id: number
     payment_terms: number
-    created_by: number
-    updated_by: number
-    created_at: number
-    updated_at: number
+    metadata: number
     _all: number
   }
 
@@ -14105,10 +14249,6 @@ export namespace Prisma {
     meqs_id?: true
     supplier_id?: true
     payment_terms?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type MEQSSupplierMaxAggregateInputType = {
@@ -14116,10 +14256,6 @@ export namespace Prisma {
     meqs_id?: true
     supplier_id?: true
     payment_terms?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type MEQSSupplierCountAggregateInputType = {
@@ -14127,10 +14263,7 @@ export namespace Prisma {
     meqs_id?: true
     supplier_id?: true
     payment_terms?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -14211,10 +14344,7 @@ export namespace Prisma {
     meqs_id: string
     supplier_id: string
     payment_terms: string
-    created_by: string
-    updated_by: string | null
-    created_at: Date
-    updated_at: Date
+    metadata: JsonValue | null
     _count: MEQSSupplierCountAggregateOutputType | null
     _min: MEQSSupplierMinAggregateOutputType | null
     _max: MEQSSupplierMaxAggregateOutputType | null
@@ -14239,10 +14369,7 @@ export namespace Prisma {
     meqs_id?: boolean
     supplier_id?: boolean
     payment_terms?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
+    metadata?: boolean
     meqs?: boolean | MEQSDefaultArgs<ExtArgs>
     supplier?: boolean | SupplierDefaultArgs<ExtArgs>
     attachments?: boolean | MEQSSupplier$attachmentsArgs<ExtArgs>
@@ -14256,10 +14383,7 @@ export namespace Prisma {
     meqs_id?: boolean
     supplier_id?: boolean
     payment_terms?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
+    metadata?: boolean
   }
 
   export type MEQSSupplierInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14286,10 +14410,7 @@ export namespace Prisma {
       meqs_id: string
       supplier_id: string
       payment_terms: string
-      created_by: string
-      updated_by: string | null
-      created_at: Date
-      updated_at: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mEQSSupplier"]>
     composites: {}
   }
@@ -14697,10 +14818,7 @@ export namespace Prisma {
     readonly meqs_id: FieldRef<"MEQSSupplier", 'String'>
     readonly supplier_id: FieldRef<"MEQSSupplier", 'String'>
     readonly payment_terms: FieldRef<"MEQSSupplier", 'String'>
-    readonly created_by: FieldRef<"MEQSSupplier", 'String'>
-    readonly updated_by: FieldRef<"MEQSSupplier", 'String'>
-    readonly created_at: FieldRef<"MEQSSupplier", 'DateTime'>
-    readonly updated_at: FieldRef<"MEQSSupplier", 'DateTime'>
+    readonly metadata: FieldRef<"MEQSSupplier", 'Json'>
   }
     
 
@@ -15116,10 +15234,6 @@ export namespace Prisma {
     notes: string | null
     is_awarded: boolean | null
     vat_type: number | null
-    created_by: string | null
-    updated_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type MEQSSupplierItemMaxAggregateOutputType = {
@@ -15130,10 +15244,6 @@ export namespace Prisma {
     notes: string | null
     is_awarded: boolean | null
     vat_type: number | null
-    created_by: string | null
-    updated_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type MEQSSupplierItemCountAggregateOutputType = {
@@ -15144,10 +15254,7 @@ export namespace Prisma {
     notes: number
     is_awarded: number
     vat_type: number
-    created_by: number
-    updated_by: number
-    created_at: number
-    updated_at: number
+    metadata: number
     _all: number
   }
 
@@ -15170,10 +15277,6 @@ export namespace Prisma {
     notes?: true
     is_awarded?: true
     vat_type?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type MEQSSupplierItemMaxAggregateInputType = {
@@ -15184,10 +15287,6 @@ export namespace Prisma {
     notes?: true
     is_awarded?: true
     vat_type?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type MEQSSupplierItemCountAggregateInputType = {
@@ -15198,10 +15297,7 @@ export namespace Prisma {
     notes?: true
     is_awarded?: true
     vat_type?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -15299,10 +15395,7 @@ export namespace Prisma {
     notes: string
     is_awarded: boolean
     vat_type: number
-    created_by: string
-    updated_by: string | null
-    created_at: Date
-    updated_at: Date
+    metadata: JsonValue | null
     _count: MEQSSupplierItemCountAggregateOutputType | null
     _avg: MEQSSupplierItemAvgAggregateOutputType | null
     _sum: MEQSSupplierItemSumAggregateOutputType | null
@@ -15332,10 +15425,7 @@ export namespace Prisma {
     notes?: boolean
     is_awarded?: boolean
     vat_type?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
+    metadata?: boolean
     canvass_item?: boolean | CanvassItemDefaultArgs<ExtArgs>
     meqs_supplier?: boolean | MEQSSupplierDefaultArgs<ExtArgs>
     rr_items?: boolean | MEQSSupplierItem$rr_itemsArgs<ExtArgs>
@@ -15350,10 +15440,7 @@ export namespace Prisma {
     notes?: boolean
     is_awarded?: boolean
     vat_type?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
+    metadata?: boolean
   }
 
   export type MEQSSupplierItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15379,10 +15466,7 @@ export namespace Prisma {
       notes: string
       is_awarded: boolean
       vat_type: number
-      created_by: string
-      updated_by: string | null
-      created_at: Date
-      updated_at: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mEQSSupplierItem"]>
     composites: {}
   }
@@ -15789,10 +15873,7 @@ export namespace Prisma {
     readonly notes: FieldRef<"MEQSSupplierItem", 'String'>
     readonly is_awarded: FieldRef<"MEQSSupplierItem", 'Boolean'>
     readonly vat_type: FieldRef<"MEQSSupplierItem", 'Int'>
-    readonly created_by: FieldRef<"MEQSSupplierItem", 'String'>
-    readonly updated_by: FieldRef<"MEQSSupplierItem", 'String'>
-    readonly created_at: FieldRef<"MEQSSupplierItem", 'DateTime'>
-    readonly updated_at: FieldRef<"MEQSSupplierItem", 'DateTime'>
+    readonly metadata: FieldRef<"MEQSSupplierItem", 'Json'>
   }
     
 
@@ -16156,10 +16237,6 @@ export namespace Prisma {
     meqs_supplier_id: string | null
     filename: string | null
     src: string | null
-    created_by: string | null
-    updated_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type MEQSSupplierAttachmentMaxAggregateOutputType = {
@@ -16167,10 +16244,6 @@ export namespace Prisma {
     meqs_supplier_id: string | null
     filename: string | null
     src: string | null
-    created_by: string | null
-    updated_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type MEQSSupplierAttachmentCountAggregateOutputType = {
@@ -16178,10 +16251,7 @@ export namespace Prisma {
     meqs_supplier_id: number
     filename: number
     src: number
-    created_by: number
-    updated_by: number
-    created_at: number
-    updated_at: number
+    metadata: number
     _all: number
   }
 
@@ -16191,10 +16261,6 @@ export namespace Prisma {
     meqs_supplier_id?: true
     filename?: true
     src?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type MEQSSupplierAttachmentMaxAggregateInputType = {
@@ -16202,10 +16268,6 @@ export namespace Prisma {
     meqs_supplier_id?: true
     filename?: true
     src?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type MEQSSupplierAttachmentCountAggregateInputType = {
@@ -16213,10 +16275,7 @@ export namespace Prisma {
     meqs_supplier_id?: true
     filename?: true
     src?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -16297,10 +16356,7 @@ export namespace Prisma {
     meqs_supplier_id: string
     filename: string
     src: string
-    created_by: string
-    updated_by: string | null
-    created_at: Date
-    updated_at: Date
+    metadata: JsonValue | null
     _count: MEQSSupplierAttachmentCountAggregateOutputType | null
     _min: MEQSSupplierAttachmentMinAggregateOutputType | null
     _max: MEQSSupplierAttachmentMaxAggregateOutputType | null
@@ -16325,10 +16381,7 @@ export namespace Prisma {
     meqs_supplier_id?: boolean
     filename?: boolean
     src?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
+    metadata?: boolean
     meqs_supplier?: boolean | MEQSSupplierDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mEQSSupplierAttachment"]>
 
@@ -16337,10 +16390,7 @@ export namespace Prisma {
     meqs_supplier_id?: boolean
     filename?: boolean
     src?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
+    metadata?: boolean
   }
 
   export type MEQSSupplierAttachmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16358,10 +16408,7 @@ export namespace Prisma {
       meqs_supplier_id: string
       filename: string
       src: string
-      created_by: string
-      updated_by: string | null
-      created_at: Date
-      updated_at: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mEQSSupplierAttachment"]>
     composites: {}
   }
@@ -16761,10 +16808,7 @@ export namespace Prisma {
     readonly meqs_supplier_id: FieldRef<"MEQSSupplierAttachment", 'String'>
     readonly filename: FieldRef<"MEQSSupplierAttachment", 'String'>
     readonly src: FieldRef<"MEQSSupplierAttachment", 'String'>
-    readonly created_by: FieldRef<"MEQSSupplierAttachment", 'String'>
-    readonly updated_by: FieldRef<"MEQSSupplierAttachment", 'String'>
-    readonly created_at: FieldRef<"MEQSSupplierAttachment", 'DateTime'>
-    readonly updated_at: FieldRef<"MEQSSupplierAttachment", 'DateTime'>
+    readonly metadata: FieldRef<"MEQSSupplierAttachment", 'Json'>
   }
     
 
@@ -17123,12 +17167,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type MEQSApproverMaxAggregateOutputType = {
@@ -17140,12 +17178,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type MEQSApproverCountAggregateOutputType = {
@@ -17157,12 +17189,7 @@ export namespace Prisma {
     status: number
     label: number
     order: number
-    created_by: number
-    updated_by: number
-    deleted_by: number
-    created_at: number
-    updated_at: number
-    deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -17186,12 +17213,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type MEQSApproverMaxAggregateInputType = {
@@ -17203,12 +17224,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type MEQSApproverCountAggregateInputType = {
@@ -17220,12 +17235,7 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -17324,12 +17334,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date
-    updated_at: Date
-    deleted_at: Date | null
+    metadata: JsonValue | null
     _count: MEQSApproverCountAggregateOutputType | null
     _avg: MEQSApproverAvgAggregateOutputType | null
     _sum: MEQSApproverSumAggregateOutputType | null
@@ -17360,12 +17365,7 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
     meqs?: boolean | MEQSDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mEQSApprover"]>
 
@@ -17378,12 +17378,7 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type MEQSApproverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17405,12 +17400,7 @@ export namespace Prisma {
       status: number
       label: string
       order: number
-      created_by: string
-      updated_by: string | null
-      deleted_by: string | null
-      created_at: Date
-      updated_at: Date
-      deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mEQSApprover"]>
     composites: {}
   }
@@ -17814,12 +17804,7 @@ export namespace Prisma {
     readonly status: FieldRef<"MEQSApprover", 'Int'>
     readonly label: FieldRef<"MEQSApprover", 'String'>
     readonly order: FieldRef<"MEQSApprover", 'Int'>
-    readonly created_by: FieldRef<"MEQSApprover", 'String'>
-    readonly updated_by: FieldRef<"MEQSApprover", 'String'>
-    readonly deleted_by: FieldRef<"MEQSApprover", 'String'>
-    readonly created_at: FieldRef<"MEQSApprover", 'DateTime'>
-    readonly updated_at: FieldRef<"MEQSApprover", 'DateTime'>
-    readonly deleted_at: FieldRef<"MEQSApprover", 'DateTime'>
+    readonly metadata: FieldRef<"MEQSApprover", 'Json'>
   }
     
 
@@ -18200,6 +18185,7 @@ export namespace Prisma {
     cancelled_at: number
     created_at: number
     updated_at: number
+    metadata: number
     _all: number
   }
 
@@ -18247,6 +18233,7 @@ export namespace Prisma {
     cancelled_at?: true
     created_at?: true
     updated_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -18335,6 +18322,7 @@ export namespace Prisma {
     cancelled_at: Date | null
     created_at: Date
     updated_at: Date
+    metadata: JsonValue | null
     _count: POCountAggregateOutputType | null
     _min: POMinAggregateOutputType | null
     _max: POMaxAggregateOutputType | null
@@ -18367,6 +18355,7 @@ export namespace Prisma {
     cancelled_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    metadata?: boolean
     meqs_supplier?: boolean | PO$meqs_supplierArgs<ExtArgs>
     rrs?: boolean | PO$rrsArgs<ExtArgs>
     po_approvers?: boolean | PO$po_approversArgs<ExtArgs>
@@ -18386,6 +18375,7 @@ export namespace Prisma {
     cancelled_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    metadata?: boolean
   }
 
   export type POInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18416,6 +18406,7 @@ export namespace Prisma {
       cancelled_at: Date | null
       created_at: Date
       updated_at: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["pO"]>
     composites: {}
   }
@@ -18827,6 +18818,7 @@ export namespace Prisma {
     readonly cancelled_at: FieldRef<"PO", 'DateTime'>
     readonly created_at: FieldRef<"PO", 'DateTime'>
     readonly updated_at: FieldRef<"PO", 'DateTime'>
+    readonly metadata: FieldRef<"PO", 'Json'>
   }
     
 
@@ -19243,12 +19235,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type POApproverMaxAggregateOutputType = {
@@ -19260,12 +19246,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type POApproverCountAggregateOutputType = {
@@ -19277,12 +19257,7 @@ export namespace Prisma {
     status: number
     label: number
     order: number
-    created_by: number
-    updated_by: number
-    deleted_by: number
-    created_at: number
-    updated_at: number
-    deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -19306,12 +19281,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type POApproverMaxAggregateInputType = {
@@ -19323,12 +19292,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type POApproverCountAggregateInputType = {
@@ -19340,12 +19303,7 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -19444,12 +19402,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date
-    updated_at: Date
-    deleted_at: Date | null
+    metadata: JsonValue | null
     _count: POApproverCountAggregateOutputType | null
     _avg: POApproverAvgAggregateOutputType | null
     _sum: POApproverSumAggregateOutputType | null
@@ -19480,12 +19433,7 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
     po?: boolean | PODefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pOApprover"]>
 
@@ -19498,12 +19446,7 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type POApproverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19525,12 +19468,7 @@ export namespace Prisma {
       status: number
       label: string
       order: number
-      created_by: string
-      updated_by: string | null
-      deleted_by: string | null
-      created_at: Date
-      updated_at: Date
-      deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["pOApprover"]>
     composites: {}
   }
@@ -19934,12 +19872,7 @@ export namespace Prisma {
     readonly status: FieldRef<"POApprover", 'Int'>
     readonly label: FieldRef<"POApprover", 'String'>
     readonly order: FieldRef<"POApprover", 'Int'>
-    readonly created_by: FieldRef<"POApprover", 'String'>
-    readonly updated_by: FieldRef<"POApprover", 'String'>
-    readonly deleted_by: FieldRef<"POApprover", 'String'>
-    readonly created_at: FieldRef<"POApprover", 'DateTime'>
-    readonly updated_at: FieldRef<"POApprover", 'DateTime'>
-    readonly deleted_at: FieldRef<"POApprover", 'DateTime'>
+    readonly metadata: FieldRef<"POApprover", 'Json'>
   }
     
 
@@ -20342,6 +20275,7 @@ export namespace Prisma {
     cancelled_at: number
     created_at: number
     updated_at: number
+    metadata: number
     _all: number
   }
 
@@ -20409,6 +20343,7 @@ export namespace Prisma {
     cancelled_at?: true
     created_at?: true
     updated_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -20515,6 +20450,7 @@ export namespace Prisma {
     cancelled_at: Date | null
     created_at: Date
     updated_at: Date
+    metadata: JsonValue | null
     _count: RRCountAggregateOutputType | null
     _avg: RRAvgAggregateOutputType | null
     _sum: RRSumAggregateOutputType | null
@@ -20553,6 +20489,7 @@ export namespace Prisma {
     cancelled_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    metadata?: boolean
     po?: boolean | RR$poArgs<ExtArgs>
     rr_approvers?: boolean | RR$rr_approversArgs<ExtArgs>
     rr_items?: boolean | RR$rr_itemsArgs<ExtArgs>
@@ -20576,6 +20513,7 @@ export namespace Prisma {
     cancelled_at?: boolean
     created_at?: boolean
     updated_at?: boolean
+    metadata?: boolean
   }
 
   export type RRInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -20610,6 +20548,7 @@ export namespace Prisma {
       cancelled_at: Date | null
       created_at: Date
       updated_at: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["rR"]>
     composites: {}
   }
@@ -21025,6 +20964,7 @@ export namespace Prisma {
     readonly cancelled_at: FieldRef<"RR", 'DateTime'>
     readonly created_at: FieldRef<"RR", 'DateTime'>
     readonly updated_at: FieldRef<"RR", 'DateTime'>
+    readonly metadata: FieldRef<"RR", 'Json'>
   }
     
 
@@ -21441,12 +21381,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type RRApproverMaxAggregateOutputType = {
@@ -21458,12 +21392,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type RRApproverCountAggregateOutputType = {
@@ -21475,12 +21403,7 @@ export namespace Prisma {
     status: number
     label: number
     order: number
-    created_by: number
-    updated_by: number
-    deleted_by: number
-    created_at: number
-    updated_at: number
-    deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -21504,12 +21427,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type RRApproverMaxAggregateInputType = {
@@ -21521,12 +21438,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
   }
 
   export type RRApproverCountAggregateInputType = {
@@ -21538,12 +21449,7 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -21642,12 +21548,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date
-    updated_at: Date
-    deleted_at: Date | null
+    metadata: JsonValue | null
     _count: RRApproverCountAggregateOutputType | null
     _avg: RRApproverAvgAggregateOutputType | null
     _sum: RRApproverSumAggregateOutputType | null
@@ -21678,12 +21579,7 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
     rr?: boolean | RRDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rRApprover"]>
 
@@ -21696,12 +21592,7 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type RRApproverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21723,12 +21614,7 @@ export namespace Prisma {
       status: number
       label: string
       order: number
-      created_by: string
-      updated_by: string | null
-      deleted_by: string | null
-      created_at: Date
-      updated_at: Date
-      deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["rRApprover"]>
     composites: {}
   }
@@ -22132,12 +22018,7 @@ export namespace Prisma {
     readonly status: FieldRef<"RRApprover", 'Int'>
     readonly label: FieldRef<"RRApprover", 'String'>
     readonly order: FieldRef<"RRApprover", 'Int'>
-    readonly created_by: FieldRef<"RRApprover", 'String'>
-    readonly updated_by: FieldRef<"RRApprover", 'String'>
-    readonly deleted_by: FieldRef<"RRApprover", 'String'>
-    readonly created_at: FieldRef<"RRApprover", 'DateTime'>
-    readonly updated_at: FieldRef<"RRApprover", 'DateTime'>
-    readonly deleted_at: FieldRef<"RRApprover", 'DateTime'>
+    readonly metadata: FieldRef<"RRApprover", 'Json'>
   }
     
 
@@ -22490,10 +22371,6 @@ export namespace Prisma {
     rr_id: string | null
     meqs_supplier_item_id: string | null
     quantity_accepted: number | null
-    created_by: string | null
-    updated_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type RRItemMaxAggregateOutputType = {
@@ -22501,10 +22378,6 @@ export namespace Prisma {
     rr_id: string | null
     meqs_supplier_item_id: string | null
     quantity_accepted: number | null
-    created_by: string | null
-    updated_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type RRItemCountAggregateOutputType = {
@@ -22512,10 +22385,7 @@ export namespace Prisma {
     rr_id: number
     meqs_supplier_item_id: number
     quantity_accepted: number
-    created_by: number
-    updated_by: number
-    created_at: number
-    updated_at: number
+    metadata: number
     _all: number
   }
 
@@ -22533,10 +22403,6 @@ export namespace Prisma {
     rr_id?: true
     meqs_supplier_item_id?: true
     quantity_accepted?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type RRItemMaxAggregateInputType = {
@@ -22544,10 +22410,6 @@ export namespace Prisma {
     rr_id?: true
     meqs_supplier_item_id?: true
     quantity_accepted?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type RRItemCountAggregateInputType = {
@@ -22555,10 +22417,7 @@ export namespace Prisma {
     rr_id?: true
     meqs_supplier_item_id?: true
     quantity_accepted?: true
-    created_by?: true
-    updated_by?: true
-    created_at?: true
-    updated_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -22653,10 +22512,7 @@ export namespace Prisma {
     rr_id: string
     meqs_supplier_item_id: string
     quantity_accepted: number
-    created_by: string
-    updated_by: string | null
-    created_at: Date
-    updated_at: Date
+    metadata: JsonValue | null
     _count: RRItemCountAggregateOutputType | null
     _avg: RRItemAvgAggregateOutputType | null
     _sum: RRItemSumAggregateOutputType | null
@@ -22683,10 +22539,7 @@ export namespace Prisma {
     rr_id?: boolean
     meqs_supplier_item_id?: boolean
     quantity_accepted?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
+    metadata?: boolean
     rr?: boolean | RRDefaultArgs<ExtArgs>
     item_transaction?: boolean | RRItem$item_transactionArgs<ExtArgs>
     meqs_supplier_item?: boolean | MEQSSupplierItemDefaultArgs<ExtArgs>
@@ -22697,10 +22550,7 @@ export namespace Prisma {
     rr_id?: boolean
     meqs_supplier_item_id?: boolean
     quantity_accepted?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
+    metadata?: boolean
   }
 
   export type RRItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -22722,10 +22572,7 @@ export namespace Prisma {
       rr_id: string
       meqs_supplier_item_id: string
       quantity_accepted: number
-      created_by: string
-      updated_by: string | null
-      created_at: Date
-      updated_at: Date
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["rRItem"]>
     composites: {}
   }
@@ -23129,10 +22976,7 @@ export namespace Prisma {
     readonly rr_id: FieldRef<"RRItem", 'String'>
     readonly meqs_supplier_item_id: FieldRef<"RRItem", 'String'>
     readonly quantity_accepted: FieldRef<"RRItem", 'Int'>
-    readonly created_by: FieldRef<"RRItem", 'String'>
-    readonly updated_by: FieldRef<"RRItem", 'String'>
-    readonly created_at: FieldRef<"RRItem", 'DateTime'>
-    readonly updated_at: FieldRef<"RRItem", 'DateTime'>
+    readonly metadata: FieldRef<"RRItem", 'Json'>
   }
     
 
@@ -23552,6 +23396,7 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -23620,6 +23465,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -23725,6 +23571,7 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     deleted_at: Date | null
+    metadata: JsonValue | null
     _count: ItemCountAggregateOutputType | null
     _avg: ItemAvgAggregateOutputType | null
     _sum: ItemSumAggregateOutputType | null
@@ -23762,10 +23609,12 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
     item_type?: boolean | ItemTypeDefaultArgs<ExtArgs>
     item_transactions?: boolean | Item$item_transactionsArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     canvass_items?: boolean | Item$canvass_itemsArgs<ExtArgs>
+    item_locations?: boolean | Item$item_locationsArgs<ExtArgs>
     _count?: boolean | ItemCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["item"]>
 
@@ -23785,6 +23634,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -23792,6 +23642,7 @@ export namespace Prisma {
     item_transactions?: boolean | Item$item_transactionsArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     canvass_items?: boolean | Item$canvass_itemsArgs<ExtArgs>
+    item_locations?: boolean | Item$item_locationsArgs<ExtArgs>
     _count?: boolean | ItemCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -23803,6 +23654,7 @@ export namespace Prisma {
       item_transactions: Prisma.$ItemTransactionPayload<ExtArgs>[]
       unit: Prisma.$UnitPayload<ExtArgs>
       canvass_items: Prisma.$CanvassItemPayload<ExtArgs>[]
+      item_locations: Prisma.$ItemLocationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -23820,6 +23672,7 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["item"]>
     composites: {}
   }
@@ -24193,6 +24046,8 @@ export namespace Prisma {
 
     canvass_items<T extends Item$canvass_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Item$canvass_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CanvassItemPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    item_locations<T extends Item$item_locationsArgs<ExtArgs> = {}>(args?: Subset<T, Item$item_locationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -24236,6 +24091,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"Item", 'DateTime'>
     readonly updated_at: FieldRef<"Item", 'DateTime'>
     readonly deleted_at: FieldRef<"Item", 'DateTime'>
+    readonly metadata: FieldRef<"Item", 'Json'>
   }
     
 
@@ -24590,6 +24446,27 @@ export namespace Prisma {
 
 
   /**
+   * Item.item_locations
+   */
+  export type Item$item_locationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    where?: ItemLocationWhereInput
+    orderBy?: ItemLocationOrderByWithRelationInput | ItemLocationOrderByWithRelationInput[]
+    cursor?: ItemLocationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItemLocationScalarFieldEnum | ItemLocationScalarFieldEnum[]
+  }
+
+
+  /**
    * Item without action
    */
   export type ItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24601,6 +24478,2010 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: ItemInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model ItemLocation
+   */
+
+  export type AggregateItemLocation = {
+    _count: ItemLocationCountAggregateOutputType | null
+    _avg: ItemLocationAvgAggregateOutputType | null
+    _sum: ItemLocationSumAggregateOutputType | null
+    _min: ItemLocationMinAggregateOutputType | null
+    _max: ItemLocationMaxAggregateOutputType | null
+  }
+
+  export type ItemLocationAvgAggregateOutputType = {
+    quantity_on_hand: number | null
+  }
+
+  export type ItemLocationSumAggregateOutputType = {
+    quantity_on_hand: number | null
+  }
+
+  export type ItemLocationMinAggregateOutputType = {
+    id: string | null
+    item_id: string | null
+    station_id: string | null
+    quantity_on_hand: number | null
+    created_by: string | null
+    created_at: Date | null
+  }
+
+  export type ItemLocationMaxAggregateOutputType = {
+    id: string | null
+    item_id: string | null
+    station_id: string | null
+    quantity_on_hand: number | null
+    created_by: string | null
+    created_at: Date | null
+  }
+
+  export type ItemLocationCountAggregateOutputType = {
+    id: number
+    item_id: number
+    station_id: number
+    quantity_on_hand: number
+    created_by: number
+    created_at: number
+    metadata: number
+    _all: number
+  }
+
+
+  export type ItemLocationAvgAggregateInputType = {
+    quantity_on_hand?: true
+  }
+
+  export type ItemLocationSumAggregateInputType = {
+    quantity_on_hand?: true
+  }
+
+  export type ItemLocationMinAggregateInputType = {
+    id?: true
+    item_id?: true
+    station_id?: true
+    quantity_on_hand?: true
+    created_by?: true
+    created_at?: true
+  }
+
+  export type ItemLocationMaxAggregateInputType = {
+    id?: true
+    item_id?: true
+    station_id?: true
+    quantity_on_hand?: true
+    created_by?: true
+    created_at?: true
+  }
+
+  export type ItemLocationCountAggregateInputType = {
+    id?: true
+    item_id?: true
+    station_id?: true
+    quantity_on_hand?: true
+    created_by?: true
+    created_at?: true
+    metadata?: true
+    _all?: true
+  }
+
+  export type ItemLocationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemLocation to aggregate.
+     */
+    where?: ItemLocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemLocations to fetch.
+     */
+    orderBy?: ItemLocationOrderByWithRelationInput | ItemLocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ItemLocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemLocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemLocations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ItemLocations
+    **/
+    _count?: true | ItemLocationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ItemLocationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ItemLocationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ItemLocationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ItemLocationMaxAggregateInputType
+  }
+
+  export type GetItemLocationAggregateType<T extends ItemLocationAggregateArgs> = {
+        [P in keyof T & keyof AggregateItemLocation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateItemLocation[P]>
+      : GetScalarType<T[P], AggregateItemLocation[P]>
+  }
+
+
+
+
+  export type ItemLocationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemLocationWhereInput
+    orderBy?: ItemLocationOrderByWithAggregationInput | ItemLocationOrderByWithAggregationInput[]
+    by: ItemLocationScalarFieldEnum[] | ItemLocationScalarFieldEnum
+    having?: ItemLocationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ItemLocationCountAggregateInputType | true
+    _avg?: ItemLocationAvgAggregateInputType
+    _sum?: ItemLocationSumAggregateInputType
+    _min?: ItemLocationMinAggregateInputType
+    _max?: ItemLocationMaxAggregateInputType
+  }
+
+  export type ItemLocationGroupByOutputType = {
+    id: string
+    item_id: string
+    station_id: string
+    quantity_on_hand: number
+    created_by: string
+    created_at: Date
+    metadata: JsonValue | null
+    _count: ItemLocationCountAggregateOutputType | null
+    _avg: ItemLocationAvgAggregateOutputType | null
+    _sum: ItemLocationSumAggregateOutputType | null
+    _min: ItemLocationMinAggregateOutputType | null
+    _max: ItemLocationMaxAggregateOutputType | null
+  }
+
+  type GetItemLocationGroupByPayload<T extends ItemLocationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ItemLocationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ItemLocationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ItemLocationGroupByOutputType[P]>
+            : GetScalarType<T[P], ItemLocationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ItemLocationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    item_id?: boolean
+    station_id?: boolean
+    quantity_on_hand?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    metadata?: boolean
+    item?: boolean | ItemDefaultArgs<ExtArgs>
+    station?: boolean | StationDefaultArgs<ExtArgs>
+    origin_movements?: boolean | ItemLocation$origin_movementsArgs<ExtArgs>
+    destination_movements?: boolean | ItemLocation$destination_movementsArgs<ExtArgs>
+    _count?: boolean | ItemLocationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itemLocation"]>
+
+  export type ItemLocationSelectScalar = {
+    id?: boolean
+    item_id?: boolean
+    station_id?: boolean
+    quantity_on_hand?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    metadata?: boolean
+  }
+
+  export type ItemLocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    item?: boolean | ItemDefaultArgs<ExtArgs>
+    station?: boolean | StationDefaultArgs<ExtArgs>
+    origin_movements?: boolean | ItemLocation$origin_movementsArgs<ExtArgs>
+    destination_movements?: boolean | ItemLocation$destination_movementsArgs<ExtArgs>
+    _count?: boolean | ItemLocationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $ItemLocationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ItemLocation"
+    objects: {
+      item: Prisma.$ItemPayload<ExtArgs>
+      station: Prisma.$StationPayload<ExtArgs>
+      origin_movements: Prisma.$ItemMovementPayload<ExtArgs>[]
+      destination_movements: Prisma.$ItemMovementPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      item_id: string
+      station_id: string
+      quantity_on_hand: number
+      created_by: string
+      created_at: Date
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["itemLocation"]>
+    composites: {}
+  }
+
+
+  type ItemLocationGetPayload<S extends boolean | null | undefined | ItemLocationDefaultArgs> = $Result.GetResult<Prisma.$ItemLocationPayload, S>
+
+  type ItemLocationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ItemLocationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ItemLocationCountAggregateInputType | true
+    }
+
+  export interface ItemLocationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ItemLocation'], meta: { name: 'ItemLocation' } }
+    /**
+     * Find zero or one ItemLocation that matches the filter.
+     * @param {ItemLocationFindUniqueArgs} args - Arguments to find a ItemLocation
+     * @example
+     * // Get one ItemLocation
+     * const itemLocation = await prisma.itemLocation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ItemLocationFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemLocationFindUniqueArgs<ExtArgs>>
+    ): Prisma__ItemLocationClient<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one ItemLocation that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ItemLocationFindUniqueOrThrowArgs} args - Arguments to find a ItemLocation
+     * @example
+     * // Get one ItemLocation
+     * const itemLocation = await prisma.itemLocation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ItemLocationFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemLocationFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ItemLocationClient<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first ItemLocation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemLocationFindFirstArgs} args - Arguments to find a ItemLocation
+     * @example
+     * // Get one ItemLocation
+     * const itemLocation = await prisma.itemLocation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ItemLocationFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemLocationFindFirstArgs<ExtArgs>>
+    ): Prisma__ItemLocationClient<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first ItemLocation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemLocationFindFirstOrThrowArgs} args - Arguments to find a ItemLocation
+     * @example
+     * // Get one ItemLocation
+     * const itemLocation = await prisma.itemLocation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ItemLocationFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemLocationFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ItemLocationClient<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more ItemLocations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemLocationFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ItemLocations
+     * const itemLocations = await prisma.itemLocation.findMany()
+     * 
+     * // Get first 10 ItemLocations
+     * const itemLocations = await prisma.itemLocation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const itemLocationWithIdOnly = await prisma.itemLocation.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ItemLocationFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemLocationFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a ItemLocation.
+     * @param {ItemLocationCreateArgs} args - Arguments to create a ItemLocation.
+     * @example
+     * // Create one ItemLocation
+     * const ItemLocation = await prisma.itemLocation.create({
+     *   data: {
+     *     // ... data to create a ItemLocation
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ItemLocationCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemLocationCreateArgs<ExtArgs>>
+    ): Prisma__ItemLocationClient<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many ItemLocations.
+     *     @param {ItemLocationCreateManyArgs} args - Arguments to create many ItemLocations.
+     *     @example
+     *     // Create many ItemLocations
+     *     const itemLocation = await prisma.itemLocation.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ItemLocationCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemLocationCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ItemLocation.
+     * @param {ItemLocationDeleteArgs} args - Arguments to delete one ItemLocation.
+     * @example
+     * // Delete one ItemLocation
+     * const ItemLocation = await prisma.itemLocation.delete({
+     *   where: {
+     *     // ... filter to delete one ItemLocation
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ItemLocationDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemLocationDeleteArgs<ExtArgs>>
+    ): Prisma__ItemLocationClient<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one ItemLocation.
+     * @param {ItemLocationUpdateArgs} args - Arguments to update one ItemLocation.
+     * @example
+     * // Update one ItemLocation
+     * const itemLocation = await prisma.itemLocation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ItemLocationUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemLocationUpdateArgs<ExtArgs>>
+    ): Prisma__ItemLocationClient<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more ItemLocations.
+     * @param {ItemLocationDeleteManyArgs} args - Arguments to filter ItemLocations to delete.
+     * @example
+     * // Delete a few ItemLocations
+     * const { count } = await prisma.itemLocation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ItemLocationDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemLocationDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItemLocations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemLocationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ItemLocations
+     * const itemLocation = await prisma.itemLocation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ItemLocationUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemLocationUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ItemLocation.
+     * @param {ItemLocationUpsertArgs} args - Arguments to update or create a ItemLocation.
+     * @example
+     * // Update or create a ItemLocation
+     * const itemLocation = await prisma.itemLocation.upsert({
+     *   create: {
+     *     // ... data to create a ItemLocation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ItemLocation we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ItemLocationUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemLocationUpsertArgs<ExtArgs>>
+    ): Prisma__ItemLocationClient<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of ItemLocations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemLocationCountArgs} args - Arguments to filter ItemLocations to count.
+     * @example
+     * // Count the number of ItemLocations
+     * const count = await prisma.itemLocation.count({
+     *   where: {
+     *     // ... the filter for the ItemLocations we want to count
+     *   }
+     * })
+    **/
+    count<T extends ItemLocationCountArgs>(
+      args?: Subset<T, ItemLocationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ItemLocationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ItemLocation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemLocationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ItemLocationAggregateArgs>(args: Subset<T, ItemLocationAggregateArgs>): Prisma.PrismaPromise<GetItemLocationAggregateType<T>>
+
+    /**
+     * Group by ItemLocation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemLocationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ItemLocationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ItemLocationGroupByArgs['orderBy'] }
+        : { orderBy?: ItemLocationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ItemLocationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetItemLocationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ItemLocation model
+   */
+  readonly fields: ItemLocationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ItemLocation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ItemLocationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    item<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    station<T extends StationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StationDefaultArgs<ExtArgs>>): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    origin_movements<T extends ItemLocation$origin_movementsArgs<ExtArgs> = {}>(args?: Subset<T, ItemLocation$origin_movementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    destination_movements<T extends ItemLocation$destination_movementsArgs<ExtArgs> = {}>(args?: Subset<T, ItemLocation$destination_movementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the ItemLocation model
+   */ 
+  interface ItemLocationFieldRefs {
+    readonly id: FieldRef<"ItemLocation", 'String'>
+    readonly item_id: FieldRef<"ItemLocation", 'String'>
+    readonly station_id: FieldRef<"ItemLocation", 'String'>
+    readonly quantity_on_hand: FieldRef<"ItemLocation", 'Int'>
+    readonly created_by: FieldRef<"ItemLocation", 'String'>
+    readonly created_at: FieldRef<"ItemLocation", 'DateTime'>
+    readonly metadata: FieldRef<"ItemLocation", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * ItemLocation findUnique
+   */
+  export type ItemLocationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemLocation to fetch.
+     */
+    where: ItemLocationWhereUniqueInput
+  }
+
+
+  /**
+   * ItemLocation findUniqueOrThrow
+   */
+  export type ItemLocationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemLocation to fetch.
+     */
+    where: ItemLocationWhereUniqueInput
+  }
+
+
+  /**
+   * ItemLocation findFirst
+   */
+  export type ItemLocationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemLocation to fetch.
+     */
+    where?: ItemLocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemLocations to fetch.
+     */
+    orderBy?: ItemLocationOrderByWithRelationInput | ItemLocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemLocations.
+     */
+    cursor?: ItemLocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemLocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemLocations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemLocations.
+     */
+    distinct?: ItemLocationScalarFieldEnum | ItemLocationScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemLocation findFirstOrThrow
+   */
+  export type ItemLocationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemLocation to fetch.
+     */
+    where?: ItemLocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemLocations to fetch.
+     */
+    orderBy?: ItemLocationOrderByWithRelationInput | ItemLocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemLocations.
+     */
+    cursor?: ItemLocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemLocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemLocations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemLocations.
+     */
+    distinct?: ItemLocationScalarFieldEnum | ItemLocationScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemLocation findMany
+   */
+  export type ItemLocationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemLocations to fetch.
+     */
+    where?: ItemLocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemLocations to fetch.
+     */
+    orderBy?: ItemLocationOrderByWithRelationInput | ItemLocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ItemLocations.
+     */
+    cursor?: ItemLocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemLocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemLocations.
+     */
+    skip?: number
+    distinct?: ItemLocationScalarFieldEnum | ItemLocationScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemLocation create
+   */
+  export type ItemLocationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ItemLocation.
+     */
+    data: XOR<ItemLocationCreateInput, ItemLocationUncheckedCreateInput>
+  }
+
+
+  /**
+   * ItemLocation createMany
+   */
+  export type ItemLocationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ItemLocations.
+     */
+    data: ItemLocationCreateManyInput | ItemLocationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ItemLocation update
+   */
+  export type ItemLocationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ItemLocation.
+     */
+    data: XOR<ItemLocationUpdateInput, ItemLocationUncheckedUpdateInput>
+    /**
+     * Choose, which ItemLocation to update.
+     */
+    where: ItemLocationWhereUniqueInput
+  }
+
+
+  /**
+   * ItemLocation updateMany
+   */
+  export type ItemLocationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ItemLocations.
+     */
+    data: XOR<ItemLocationUpdateManyMutationInput, ItemLocationUncheckedUpdateManyInput>
+    /**
+     * Filter which ItemLocations to update
+     */
+    where?: ItemLocationWhereInput
+  }
+
+
+  /**
+   * ItemLocation upsert
+   */
+  export type ItemLocationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ItemLocation to update in case it exists.
+     */
+    where: ItemLocationWhereUniqueInput
+    /**
+     * In case the ItemLocation found by the `where` argument doesn't exist, create a new ItemLocation with this data.
+     */
+    create: XOR<ItemLocationCreateInput, ItemLocationUncheckedCreateInput>
+    /**
+     * In case the ItemLocation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ItemLocationUpdateInput, ItemLocationUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ItemLocation delete
+   */
+  export type ItemLocationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    /**
+     * Filter which ItemLocation to delete.
+     */
+    where: ItemLocationWhereUniqueInput
+  }
+
+
+  /**
+   * ItemLocation deleteMany
+   */
+  export type ItemLocationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemLocations to delete
+     */
+    where?: ItemLocationWhereInput
+  }
+
+
+  /**
+   * ItemLocation.origin_movements
+   */
+  export type ItemLocation$origin_movementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    where?: ItemMovementWhereInput
+    orderBy?: ItemMovementOrderByWithRelationInput | ItemMovementOrderByWithRelationInput[]
+    cursor?: ItemMovementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItemMovementScalarFieldEnum | ItemMovementScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemLocation.destination_movements
+   */
+  export type ItemLocation$destination_movementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    where?: ItemMovementWhereInput
+    orderBy?: ItemMovementOrderByWithRelationInput | ItemMovementOrderByWithRelationInput[]
+    cursor?: ItemMovementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItemMovementScalarFieldEnum | ItemMovementScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemLocation without action
+   */
+  export type ItemLocationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model ItemMovement
+   */
+
+  export type AggregateItemMovement = {
+    _count: ItemMovementCountAggregateOutputType | null
+    _avg: ItemMovementAvgAggregateOutputType | null
+    _sum: ItemMovementSumAggregateOutputType | null
+    _min: ItemMovementMinAggregateOutputType | null
+    _max: ItemMovementMaxAggregateOutputType | null
+  }
+
+  export type ItemMovementAvgAggregateOutputType = {
+    quantity_moved: number | null
+  }
+
+  export type ItemMovementSumAggregateOutputType = {
+    quantity_moved: number | null
+  }
+
+  export type ItemMovementMinAggregateOutputType = {
+    id: string | null
+    origin_id: string | null
+    destination_id: string | null
+    quantity_moved: number | null
+    created_by: string | null
+    created_at: Date | null
+  }
+
+  export type ItemMovementMaxAggregateOutputType = {
+    id: string | null
+    origin_id: string | null
+    destination_id: string | null
+    quantity_moved: number | null
+    created_by: string | null
+    created_at: Date | null
+  }
+
+  export type ItemMovementCountAggregateOutputType = {
+    id: number
+    origin_id: number
+    destination_id: number
+    quantity_moved: number
+    created_by: number
+    created_at: number
+    metadata: number
+    _all: number
+  }
+
+
+  export type ItemMovementAvgAggregateInputType = {
+    quantity_moved?: true
+  }
+
+  export type ItemMovementSumAggregateInputType = {
+    quantity_moved?: true
+  }
+
+  export type ItemMovementMinAggregateInputType = {
+    id?: true
+    origin_id?: true
+    destination_id?: true
+    quantity_moved?: true
+    created_by?: true
+    created_at?: true
+  }
+
+  export type ItemMovementMaxAggregateInputType = {
+    id?: true
+    origin_id?: true
+    destination_id?: true
+    quantity_moved?: true
+    created_by?: true
+    created_at?: true
+  }
+
+  export type ItemMovementCountAggregateInputType = {
+    id?: true
+    origin_id?: true
+    destination_id?: true
+    quantity_moved?: true
+    created_by?: true
+    created_at?: true
+    metadata?: true
+    _all?: true
+  }
+
+  export type ItemMovementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemMovement to aggregate.
+     */
+    where?: ItemMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemMovements to fetch.
+     */
+    orderBy?: ItemMovementOrderByWithRelationInput | ItemMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ItemMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemMovements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ItemMovements
+    **/
+    _count?: true | ItemMovementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ItemMovementAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ItemMovementSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ItemMovementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ItemMovementMaxAggregateInputType
+  }
+
+  export type GetItemMovementAggregateType<T extends ItemMovementAggregateArgs> = {
+        [P in keyof T & keyof AggregateItemMovement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateItemMovement[P]>
+      : GetScalarType<T[P], AggregateItemMovement[P]>
+  }
+
+
+
+
+  export type ItemMovementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemMovementWhereInput
+    orderBy?: ItemMovementOrderByWithAggregationInput | ItemMovementOrderByWithAggregationInput[]
+    by: ItemMovementScalarFieldEnum[] | ItemMovementScalarFieldEnum
+    having?: ItemMovementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ItemMovementCountAggregateInputType | true
+    _avg?: ItemMovementAvgAggregateInputType
+    _sum?: ItemMovementSumAggregateInputType
+    _min?: ItemMovementMinAggregateInputType
+    _max?: ItemMovementMaxAggregateInputType
+  }
+
+  export type ItemMovementGroupByOutputType = {
+    id: string
+    origin_id: string
+    destination_id: string
+    quantity_moved: number
+    created_by: string
+    created_at: Date
+    metadata: JsonValue | null
+    _count: ItemMovementCountAggregateOutputType | null
+    _avg: ItemMovementAvgAggregateOutputType | null
+    _sum: ItemMovementSumAggregateOutputType | null
+    _min: ItemMovementMinAggregateOutputType | null
+    _max: ItemMovementMaxAggregateOutputType | null
+  }
+
+  type GetItemMovementGroupByPayload<T extends ItemMovementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ItemMovementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ItemMovementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ItemMovementGroupByOutputType[P]>
+            : GetScalarType<T[P], ItemMovementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ItemMovementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    origin_id?: boolean
+    destination_id?: boolean
+    quantity_moved?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    metadata?: boolean
+    origin?: boolean | ItemLocationDefaultArgs<ExtArgs>
+    destination?: boolean | ItemLocationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itemMovement"]>
+
+  export type ItemMovementSelectScalar = {
+    id?: boolean
+    origin_id?: boolean
+    destination_id?: boolean
+    quantity_moved?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    metadata?: boolean
+  }
+
+  export type ItemMovementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    origin?: boolean | ItemLocationDefaultArgs<ExtArgs>
+    destination?: boolean | ItemLocationDefaultArgs<ExtArgs>
+  }
+
+
+  export type $ItemMovementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ItemMovement"
+    objects: {
+      origin: Prisma.$ItemLocationPayload<ExtArgs>
+      destination: Prisma.$ItemLocationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      origin_id: string
+      destination_id: string
+      quantity_moved: number
+      created_by: string
+      created_at: Date
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["itemMovement"]>
+    composites: {}
+  }
+
+
+  type ItemMovementGetPayload<S extends boolean | null | undefined | ItemMovementDefaultArgs> = $Result.GetResult<Prisma.$ItemMovementPayload, S>
+
+  type ItemMovementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ItemMovementFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ItemMovementCountAggregateInputType | true
+    }
+
+  export interface ItemMovementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ItemMovement'], meta: { name: 'ItemMovement' } }
+    /**
+     * Find zero or one ItemMovement that matches the filter.
+     * @param {ItemMovementFindUniqueArgs} args - Arguments to find a ItemMovement
+     * @example
+     * // Get one ItemMovement
+     * const itemMovement = await prisma.itemMovement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ItemMovementFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemMovementFindUniqueArgs<ExtArgs>>
+    ): Prisma__ItemMovementClient<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one ItemMovement that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ItemMovementFindUniqueOrThrowArgs} args - Arguments to find a ItemMovement
+     * @example
+     * // Get one ItemMovement
+     * const itemMovement = await prisma.itemMovement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ItemMovementFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemMovementFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ItemMovementClient<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first ItemMovement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemMovementFindFirstArgs} args - Arguments to find a ItemMovement
+     * @example
+     * // Get one ItemMovement
+     * const itemMovement = await prisma.itemMovement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ItemMovementFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemMovementFindFirstArgs<ExtArgs>>
+    ): Prisma__ItemMovementClient<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first ItemMovement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemMovementFindFirstOrThrowArgs} args - Arguments to find a ItemMovement
+     * @example
+     * // Get one ItemMovement
+     * const itemMovement = await prisma.itemMovement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ItemMovementFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemMovementFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ItemMovementClient<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more ItemMovements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemMovementFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ItemMovements
+     * const itemMovements = await prisma.itemMovement.findMany()
+     * 
+     * // Get first 10 ItemMovements
+     * const itemMovements = await prisma.itemMovement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const itemMovementWithIdOnly = await prisma.itemMovement.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ItemMovementFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemMovementFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a ItemMovement.
+     * @param {ItemMovementCreateArgs} args - Arguments to create a ItemMovement.
+     * @example
+     * // Create one ItemMovement
+     * const ItemMovement = await prisma.itemMovement.create({
+     *   data: {
+     *     // ... data to create a ItemMovement
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ItemMovementCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemMovementCreateArgs<ExtArgs>>
+    ): Prisma__ItemMovementClient<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many ItemMovements.
+     *     @param {ItemMovementCreateManyArgs} args - Arguments to create many ItemMovements.
+     *     @example
+     *     // Create many ItemMovements
+     *     const itemMovement = await prisma.itemMovement.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ItemMovementCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemMovementCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ItemMovement.
+     * @param {ItemMovementDeleteArgs} args - Arguments to delete one ItemMovement.
+     * @example
+     * // Delete one ItemMovement
+     * const ItemMovement = await prisma.itemMovement.delete({
+     *   where: {
+     *     // ... filter to delete one ItemMovement
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ItemMovementDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemMovementDeleteArgs<ExtArgs>>
+    ): Prisma__ItemMovementClient<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one ItemMovement.
+     * @param {ItemMovementUpdateArgs} args - Arguments to update one ItemMovement.
+     * @example
+     * // Update one ItemMovement
+     * const itemMovement = await prisma.itemMovement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ItemMovementUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemMovementUpdateArgs<ExtArgs>>
+    ): Prisma__ItemMovementClient<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more ItemMovements.
+     * @param {ItemMovementDeleteManyArgs} args - Arguments to filter ItemMovements to delete.
+     * @example
+     * // Delete a few ItemMovements
+     * const { count } = await prisma.itemMovement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ItemMovementDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemMovementDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItemMovements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemMovementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ItemMovements
+     * const itemMovement = await prisma.itemMovement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ItemMovementUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemMovementUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ItemMovement.
+     * @param {ItemMovementUpsertArgs} args - Arguments to update or create a ItemMovement.
+     * @example
+     * // Update or create a ItemMovement
+     * const itemMovement = await prisma.itemMovement.upsert({
+     *   create: {
+     *     // ... data to create a ItemMovement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ItemMovement we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ItemMovementUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemMovementUpsertArgs<ExtArgs>>
+    ): Prisma__ItemMovementClient<$Result.GetResult<Prisma.$ItemMovementPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of ItemMovements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemMovementCountArgs} args - Arguments to filter ItemMovements to count.
+     * @example
+     * // Count the number of ItemMovements
+     * const count = await prisma.itemMovement.count({
+     *   where: {
+     *     // ... the filter for the ItemMovements we want to count
+     *   }
+     * })
+    **/
+    count<T extends ItemMovementCountArgs>(
+      args?: Subset<T, ItemMovementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ItemMovementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ItemMovement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemMovementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ItemMovementAggregateArgs>(args: Subset<T, ItemMovementAggregateArgs>): Prisma.PrismaPromise<GetItemMovementAggregateType<T>>
+
+    /**
+     * Group by ItemMovement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemMovementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ItemMovementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ItemMovementGroupByArgs['orderBy'] }
+        : { orderBy?: ItemMovementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ItemMovementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetItemMovementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ItemMovement model
+   */
+  readonly fields: ItemMovementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ItemMovement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ItemMovementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    origin<T extends ItemLocationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemLocationDefaultArgs<ExtArgs>>): Prisma__ItemLocationClient<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    destination<T extends ItemLocationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemLocationDefaultArgs<ExtArgs>>): Prisma__ItemLocationClient<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the ItemMovement model
+   */ 
+  interface ItemMovementFieldRefs {
+    readonly id: FieldRef<"ItemMovement", 'String'>
+    readonly origin_id: FieldRef<"ItemMovement", 'String'>
+    readonly destination_id: FieldRef<"ItemMovement", 'String'>
+    readonly quantity_moved: FieldRef<"ItemMovement", 'Int'>
+    readonly created_by: FieldRef<"ItemMovement", 'String'>
+    readonly created_at: FieldRef<"ItemMovement", 'DateTime'>
+    readonly metadata: FieldRef<"ItemMovement", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * ItemMovement findUnique
+   */
+  export type ItemMovementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemMovement to fetch.
+     */
+    where: ItemMovementWhereUniqueInput
+  }
+
+
+  /**
+   * ItemMovement findUniqueOrThrow
+   */
+  export type ItemMovementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemMovement to fetch.
+     */
+    where: ItemMovementWhereUniqueInput
+  }
+
+
+  /**
+   * ItemMovement findFirst
+   */
+  export type ItemMovementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemMovement to fetch.
+     */
+    where?: ItemMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemMovements to fetch.
+     */
+    orderBy?: ItemMovementOrderByWithRelationInput | ItemMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemMovements.
+     */
+    cursor?: ItemMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemMovements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemMovements.
+     */
+    distinct?: ItemMovementScalarFieldEnum | ItemMovementScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemMovement findFirstOrThrow
+   */
+  export type ItemMovementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemMovement to fetch.
+     */
+    where?: ItemMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemMovements to fetch.
+     */
+    orderBy?: ItemMovementOrderByWithRelationInput | ItemMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemMovements.
+     */
+    cursor?: ItemMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemMovements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemMovements.
+     */
+    distinct?: ItemMovementScalarFieldEnum | ItemMovementScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemMovement findMany
+   */
+  export type ItemMovementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemMovements to fetch.
+     */
+    where?: ItemMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemMovements to fetch.
+     */
+    orderBy?: ItemMovementOrderByWithRelationInput | ItemMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ItemMovements.
+     */
+    cursor?: ItemMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemMovements.
+     */
+    skip?: number
+    distinct?: ItemMovementScalarFieldEnum | ItemMovementScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemMovement create
+   */
+  export type ItemMovementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ItemMovement.
+     */
+    data: XOR<ItemMovementCreateInput, ItemMovementUncheckedCreateInput>
+  }
+
+
+  /**
+   * ItemMovement createMany
+   */
+  export type ItemMovementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ItemMovements.
+     */
+    data: ItemMovementCreateManyInput | ItemMovementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ItemMovement update
+   */
+  export type ItemMovementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ItemMovement.
+     */
+    data: XOR<ItemMovementUpdateInput, ItemMovementUncheckedUpdateInput>
+    /**
+     * Choose, which ItemMovement to update.
+     */
+    where: ItemMovementWhereUniqueInput
+  }
+
+
+  /**
+   * ItemMovement updateMany
+   */
+  export type ItemMovementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ItemMovements.
+     */
+    data: XOR<ItemMovementUpdateManyMutationInput, ItemMovementUncheckedUpdateManyInput>
+    /**
+     * Filter which ItemMovements to update
+     */
+    where?: ItemMovementWhereInput
+  }
+
+
+  /**
+   * ItemMovement upsert
+   */
+  export type ItemMovementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ItemMovement to update in case it exists.
+     */
+    where: ItemMovementWhereUniqueInput
+    /**
+     * In case the ItemMovement found by the `where` argument doesn't exist, create a new ItemMovement with this data.
+     */
+    create: XOR<ItemMovementCreateInput, ItemMovementUncheckedCreateInput>
+    /**
+     * In case the ItemMovement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ItemMovementUpdateInput, ItemMovementUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ItemMovement delete
+   */
+  export type ItemMovementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
+    /**
+     * Filter which ItemMovement to delete.
+     */
+    where: ItemMovementWhereUniqueInput
+  }
+
+
+  /**
+   * ItemMovement deleteMany
+   */
+  export type ItemMovementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemMovements to delete
+     */
+    where?: ItemMovementWhereInput
+  }
+
+
+  /**
+   * ItemMovement without action
+   */
+  export type ItemMovementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemMovement
+     */
+    select?: ItemMovementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemMovementInclude<ExtArgs> | null
   }
 
 
@@ -24668,6 +26549,7 @@ export namespace Prisma {
     is_initial: number
     created_at: number
     created_by: number
+    metadata: number
     _all: number
   }
 
@@ -24723,6 +26605,7 @@ export namespace Prisma {
     is_initial?: true
     created_at?: true
     created_by?: true
+    metadata?: true
     _all?: true
   }
 
@@ -24823,6 +26706,7 @@ export namespace Prisma {
     is_initial: boolean
     created_at: Date
     created_by: string
+    metadata: JsonValue | null
     _count: ItemTransactionCountAggregateOutputType | null
     _avg: ItemTransactionAvgAggregateOutputType | null
     _sum: ItemTransactionSumAggregateOutputType | null
@@ -24855,6 +26739,7 @@ export namespace Prisma {
     is_initial?: boolean
     created_at?: boolean
     created_by?: boolean
+    metadata?: boolean
     item?: boolean | ItemDefaultArgs<ExtArgs>
     rr_item?: boolean | ItemTransaction$rr_itemArgs<ExtArgs>
   }, ExtArgs["result"]["itemTransaction"]>
@@ -24870,6 +26755,7 @@ export namespace Prisma {
     is_initial?: boolean
     created_at?: boolean
     created_by?: boolean
+    metadata?: boolean
   }
 
   export type ItemTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24895,6 +26781,7 @@ export namespace Prisma {
       is_initial: boolean
       created_at: Date
       created_by: string
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["itemTransaction"]>
     composites: {}
   }
@@ -25302,6 +27189,7 @@ export namespace Prisma {
     readonly is_initial: FieldRef<"ItemTransaction", 'Boolean'>
     readonly created_at: FieldRef<"ItemTransaction", 'DateTime'>
     readonly created_by: FieldRef<"ItemTransaction", 'String'>
+    readonly metadata: FieldRef<"ItemTransaction", 'Json'>
   }
     
 
@@ -25686,6 +27574,7 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -25721,6 +27610,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -25805,6 +27695,7 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     deleted_at: Date | null
+    metadata: JsonValue | null
     _count: ItemTypeCountAggregateOutputType | null
     _min: ItemTypeMinAggregateOutputType | null
     _max: ItemTypeMaxAggregateOutputType | null
@@ -25833,6 +27724,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
     items?: boolean | ItemType$itemsArgs<ExtArgs>
     _count?: boolean | ItemTypeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["itemType"]>
@@ -25846,6 +27738,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type ItemTypeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -25868,6 +27761,7 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["itemType"]>
     composites: {}
   }
@@ -26271,6 +28165,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"ItemType", 'DateTime'>
     readonly updated_at: FieldRef<"ItemType", 'DateTime'>
     readonly deleted_at: FieldRef<"ItemType", 'DateTime'>
+    readonly metadata: FieldRef<"ItemType", 'Json'>
   }
     
 
@@ -26643,7 +28538,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     contact: string | null
-    tin_no: string | null
+    tin: string | null
     address: string | null
     vat_type: number | null
     is_vat_registered: boolean | null
@@ -26659,7 +28554,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     contact: string | null
-    tin_no: string | null
+    tin: string | null
     address: string | null
     vat_type: number | null
     is_vat_registered: boolean | null
@@ -26675,7 +28570,7 @@ export namespace Prisma {
     id: number
     name: number
     contact: number
-    tin_no: number
+    tin: number
     address: number
     vat_type: number
     is_vat_registered: number
@@ -26685,6 +28580,7 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -26701,7 +28597,7 @@ export namespace Prisma {
     id?: true
     name?: true
     contact?: true
-    tin_no?: true
+    tin?: true
     address?: true
     vat_type?: true
     is_vat_registered?: true
@@ -26717,7 +28613,7 @@ export namespace Prisma {
     id?: true
     name?: true
     contact?: true
-    tin_no?: true
+    tin?: true
     address?: true
     vat_type?: true
     is_vat_registered?: true
@@ -26733,7 +28629,7 @@ export namespace Prisma {
     id?: true
     name?: true
     contact?: true
-    tin_no?: true
+    tin?: true
     address?: true
     vat_type?: true
     is_vat_registered?: true
@@ -26743,6 +28639,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -26836,7 +28733,7 @@ export namespace Prisma {
     id: string
     name: string
     contact: string
-    tin_no: string
+    tin: string
     address: string
     vat_type: number
     is_vat_registered: boolean
@@ -26846,6 +28743,7 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     deleted_at: Date | null
+    metadata: JsonValue | null
     _count: SupplierCountAggregateOutputType | null
     _avg: SupplierAvgAggregateOutputType | null
     _sum: SupplierSumAggregateOutputType | null
@@ -26871,7 +28769,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     contact?: boolean
-    tin_no?: boolean
+    tin?: boolean
     address?: boolean
     vat_type?: boolean
     is_vat_registered?: boolean
@@ -26881,6 +28779,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
     MEQSSupplier?: boolean | Supplier$MEQSSupplierArgs<ExtArgs>
     _count?: boolean | SupplierCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["supplier"]>
@@ -26889,7 +28788,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     contact?: boolean
-    tin_no?: boolean
+    tin?: boolean
     address?: boolean
     vat_type?: boolean
     is_vat_registered?: boolean
@@ -26899,6 +28798,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type SupplierInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26916,7 +28816,7 @@ export namespace Prisma {
       id: string
       name: string
       contact: string
-      tin_no: string
+      tin: string
       address: string
       vat_type: number
       is_vat_registered: boolean
@@ -26926,6 +28826,7 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["supplier"]>
     composites: {}
   }
@@ -27324,7 +29225,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Supplier", 'String'>
     readonly name: FieldRef<"Supplier", 'String'>
     readonly contact: FieldRef<"Supplier", 'String'>
-    readonly tin_no: FieldRef<"Supplier", 'String'>
+    readonly tin: FieldRef<"Supplier", 'String'>
     readonly address: FieldRef<"Supplier", 'String'>
     readonly vat_type: FieldRef<"Supplier", 'Int'>
     readonly is_vat_registered: FieldRef<"Supplier", 'Boolean'>
@@ -27334,6 +29235,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"Supplier", 'DateTime'>
     readonly updated_at: FieldRef<"Supplier", 'DateTime'>
     readonly deleted_at: FieldRef<"Supplier", 'DateTime'>
+    readonly metadata: FieldRef<"Supplier", 'Json'>
   }
     
 
@@ -27723,6 +29625,7 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -27758,6 +29661,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -27842,6 +29746,7 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     deleted_at: Date | null
+    metadata: JsonValue | null
     _count: UnitCountAggregateOutputType | null
     _min: UnitMinAggregateOutputType | null
     _max: UnitMaxAggregateOutputType | null
@@ -27870,6 +29775,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
     canvass_items?: boolean | Unit$canvass_itemsArgs<ExtArgs>
     items?: boolean | Unit$itemsArgs<ExtArgs>
     _count?: boolean | UnitCountOutputTypeDefaultArgs<ExtArgs>
@@ -27884,6 +29790,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type UnitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -27908,6 +29815,7 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["unit"]>
     composites: {}
   }
@@ -28313,6 +30221,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"Unit", 'DateTime'>
     readonly updated_at: FieldRef<"Unit", 'DateTime'>
     readonly deleted_at: FieldRef<"Unit", 'DateTime'>
+    readonly metadata: FieldRef<"Unit", 'Json'>
   }
     
 
@@ -28726,6 +30635,7 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     deleted_at: number
+    metadata: number
     _all: number
   }
 
@@ -28764,6 +30674,7 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     deleted_at?: true
+    metadata?: true
     _all?: true
   }
 
@@ -28849,6 +30760,7 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     deleted_at: Date | null
+    metadata: JsonValue | null
     _count: VehicleCountAggregateOutputType | null
     _min: VehicleMinAggregateOutputType | null
     _max: VehicleMaxAggregateOutputType | null
@@ -28878,6 +30790,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
     sprs?: boolean | Vehicle$sprsArgs<ExtArgs>
     _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vehicle"]>
@@ -28892,6 +30805,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     deleted_at?: boolean
+    metadata?: boolean
   }
 
   export type VehicleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28915,6 +30829,7 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["vehicle"]>
     composites: {}
   }
@@ -29319,6 +31234,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"Vehicle", 'DateTime'>
     readonly updated_at: FieldRef<"Vehicle", 'DateTime'>
     readonly deleted_at: FieldRef<"Vehicle", 'DateTime'>
+    readonly metadata: FieldRef<"Vehicle", 'Json'>
   }
     
 
@@ -29668,6 +31584,998 @@ export namespace Prisma {
 
 
   /**
+   * Model Station
+   */
+
+  export type AggregateStation = {
+    _count: StationCountAggregateOutputType | null
+    _min: StationMinAggregateOutputType | null
+    _max: StationMaxAggregateOutputType | null
+  }
+
+  export type StationMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    location: string | null
+    created_by: string | null
+    updated_by: string | null
+    deleted_by: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    deleted_at: Date | null
+  }
+
+  export type StationMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    location: string | null
+    created_by: string | null
+    updated_by: string | null
+    deleted_by: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    deleted_at: Date | null
+  }
+
+  export type StationCountAggregateOutputType = {
+    id: number
+    name: number
+    location: number
+    created_by: number
+    updated_by: number
+    deleted_by: number
+    created_at: number
+    updated_at: number
+    deleted_at: number
+    metadata: number
+    _all: number
+  }
+
+
+  export type StationMinAggregateInputType = {
+    id?: true
+    name?: true
+    location?: true
+    created_by?: true
+    updated_by?: true
+    deleted_by?: true
+    created_at?: true
+    updated_at?: true
+    deleted_at?: true
+  }
+
+  export type StationMaxAggregateInputType = {
+    id?: true
+    name?: true
+    location?: true
+    created_by?: true
+    updated_by?: true
+    deleted_by?: true
+    created_at?: true
+    updated_at?: true
+    deleted_at?: true
+  }
+
+  export type StationCountAggregateInputType = {
+    id?: true
+    name?: true
+    location?: true
+    created_by?: true
+    updated_by?: true
+    deleted_by?: true
+    created_at?: true
+    updated_at?: true
+    deleted_at?: true
+    metadata?: true
+    _all?: true
+  }
+
+  export type StationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Station to aggregate.
+     */
+    where?: StationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stations to fetch.
+     */
+    orderBy?: StationOrderByWithRelationInput | StationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Stations
+    **/
+    _count?: true | StationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StationMaxAggregateInputType
+  }
+
+  export type GetStationAggregateType<T extends StationAggregateArgs> = {
+        [P in keyof T & keyof AggregateStation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStation[P]>
+      : GetScalarType<T[P], AggregateStation[P]>
+  }
+
+
+
+
+  export type StationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StationWhereInput
+    orderBy?: StationOrderByWithAggregationInput | StationOrderByWithAggregationInput[]
+    by: StationScalarFieldEnum[] | StationScalarFieldEnum
+    having?: StationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StationCountAggregateInputType | true
+    _min?: StationMinAggregateInputType
+    _max?: StationMaxAggregateInputType
+  }
+
+  export type StationGroupByOutputType = {
+    id: string
+    name: string
+    location: string
+    created_by: string
+    updated_by: string | null
+    deleted_by: string | null
+    created_at: Date
+    updated_at: Date
+    deleted_at: Date | null
+    metadata: JsonValue | null
+    _count: StationCountAggregateOutputType | null
+    _min: StationMinAggregateOutputType | null
+    _max: StationMaxAggregateOutputType | null
+  }
+
+  type GetStationGroupByPayload<T extends StationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StationGroupByOutputType[P]>
+            : GetScalarType<T[P], StationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    location?: boolean
+    created_by?: boolean
+    updated_by?: boolean
+    deleted_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    deleted_at?: boolean
+    metadata?: boolean
+    items?: boolean | Station$itemsArgs<ExtArgs>
+    _count?: boolean | StationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["station"]>
+
+  export type StationSelectScalar = {
+    id?: boolean
+    name?: boolean
+    location?: boolean
+    created_by?: boolean
+    updated_by?: boolean
+    deleted_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    deleted_at?: boolean
+    metadata?: boolean
+  }
+
+  export type StationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    items?: boolean | Station$itemsArgs<ExtArgs>
+    _count?: boolean | StationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $StationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Station"
+    objects: {
+      items: Prisma.$ItemLocationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      location: string
+      created_by: string
+      updated_by: string | null
+      deleted_by: string | null
+      created_at: Date
+      updated_at: Date
+      deleted_at: Date | null
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["station"]>
+    composites: {}
+  }
+
+
+  type StationGetPayload<S extends boolean | null | undefined | StationDefaultArgs> = $Result.GetResult<Prisma.$StationPayload, S>
+
+  type StationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StationCountAggregateInputType | true
+    }
+
+  export interface StationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Station'], meta: { name: 'Station' } }
+    /**
+     * Find zero or one Station that matches the filter.
+     * @param {StationFindUniqueArgs} args - Arguments to find a Station
+     * @example
+     * // Get one Station
+     * const station = await prisma.station.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends StationFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, StationFindUniqueArgs<ExtArgs>>
+    ): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Station that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {StationFindUniqueOrThrowArgs} args - Arguments to find a Station
+     * @example
+     * // Get one Station
+     * const station = await prisma.station.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends StationFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, StationFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Station that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StationFindFirstArgs} args - Arguments to find a Station
+     * @example
+     * // Get one Station
+     * const station = await prisma.station.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends StationFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, StationFindFirstArgs<ExtArgs>>
+    ): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Station that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StationFindFirstOrThrowArgs} args - Arguments to find a Station
+     * @example
+     * // Get one Station
+     * const station = await prisma.station.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends StationFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, StationFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Stations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StationFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Stations
+     * const stations = await prisma.station.findMany()
+     * 
+     * // Get first 10 Stations
+     * const stations = await prisma.station.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const stationWithIdOnly = await prisma.station.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends StationFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, StationFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Station.
+     * @param {StationCreateArgs} args - Arguments to create a Station.
+     * @example
+     * // Create one Station
+     * const Station = await prisma.station.create({
+     *   data: {
+     *     // ... data to create a Station
+     *   }
+     * })
+     * 
+    **/
+    create<T extends StationCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, StationCreateArgs<ExtArgs>>
+    ): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Stations.
+     *     @param {StationCreateManyArgs} args - Arguments to create many Stations.
+     *     @example
+     *     // Create many Stations
+     *     const station = await prisma.station.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends StationCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, StationCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Station.
+     * @param {StationDeleteArgs} args - Arguments to delete one Station.
+     * @example
+     * // Delete one Station
+     * const Station = await prisma.station.delete({
+     *   where: {
+     *     // ... filter to delete one Station
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends StationDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, StationDeleteArgs<ExtArgs>>
+    ): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Station.
+     * @param {StationUpdateArgs} args - Arguments to update one Station.
+     * @example
+     * // Update one Station
+     * const station = await prisma.station.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends StationUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, StationUpdateArgs<ExtArgs>>
+    ): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Stations.
+     * @param {StationDeleteManyArgs} args - Arguments to filter Stations to delete.
+     * @example
+     * // Delete a few Stations
+     * const { count } = await prisma.station.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends StationDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, StationDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Stations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Stations
+     * const station = await prisma.station.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends StationUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, StationUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Station.
+     * @param {StationUpsertArgs} args - Arguments to update or create a Station.
+     * @example
+     * // Update or create a Station
+     * const station = await prisma.station.upsert({
+     *   create: {
+     *     // ... data to create a Station
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Station we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends StationUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, StationUpsertArgs<ExtArgs>>
+    ): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Stations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StationCountArgs} args - Arguments to filter Stations to count.
+     * @example
+     * // Count the number of Stations
+     * const count = await prisma.station.count({
+     *   where: {
+     *     // ... the filter for the Stations we want to count
+     *   }
+     * })
+    **/
+    count<T extends StationCountArgs>(
+      args?: Subset<T, StationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Station.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StationAggregateArgs>(args: Subset<T, StationAggregateArgs>): Prisma.PrismaPromise<GetStationAggregateType<T>>
+
+    /**
+     * Group by Station.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StationGroupByArgs['orderBy'] }
+        : { orderBy?: StationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Station model
+   */
+  readonly fields: StationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Station.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    items<T extends Station$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Station$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Station model
+   */ 
+  interface StationFieldRefs {
+    readonly id: FieldRef<"Station", 'String'>
+    readonly name: FieldRef<"Station", 'String'>
+    readonly location: FieldRef<"Station", 'String'>
+    readonly created_by: FieldRef<"Station", 'String'>
+    readonly updated_by: FieldRef<"Station", 'String'>
+    readonly deleted_by: FieldRef<"Station", 'String'>
+    readonly created_at: FieldRef<"Station", 'DateTime'>
+    readonly updated_at: FieldRef<"Station", 'DateTime'>
+    readonly deleted_at: FieldRef<"Station", 'DateTime'>
+    readonly metadata: FieldRef<"Station", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Station findUnique
+   */
+  export type StationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: StationInclude<ExtArgs> | null
+    /**
+     * Filter, which Station to fetch.
+     */
+    where: StationWhereUniqueInput
+  }
+
+
+  /**
+   * Station findUniqueOrThrow
+   */
+  export type StationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: StationInclude<ExtArgs> | null
+    /**
+     * Filter, which Station to fetch.
+     */
+    where: StationWhereUniqueInput
+  }
+
+
+  /**
+   * Station findFirst
+   */
+  export type StationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: StationInclude<ExtArgs> | null
+    /**
+     * Filter, which Station to fetch.
+     */
+    where?: StationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stations to fetch.
+     */
+    orderBy?: StationOrderByWithRelationInput | StationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stations.
+     */
+    cursor?: StationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stations.
+     */
+    distinct?: StationScalarFieldEnum | StationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Station findFirstOrThrow
+   */
+  export type StationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: StationInclude<ExtArgs> | null
+    /**
+     * Filter, which Station to fetch.
+     */
+    where?: StationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stations to fetch.
+     */
+    orderBy?: StationOrderByWithRelationInput | StationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stations.
+     */
+    cursor?: StationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stations.
+     */
+    distinct?: StationScalarFieldEnum | StationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Station findMany
+   */
+  export type StationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: StationInclude<ExtArgs> | null
+    /**
+     * Filter, which Stations to fetch.
+     */
+    where?: StationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stations to fetch.
+     */
+    orderBy?: StationOrderByWithRelationInput | StationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Stations.
+     */
+    cursor?: StationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stations.
+     */
+    skip?: number
+    distinct?: StationScalarFieldEnum | StationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Station create
+   */
+  export type StationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: StationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Station.
+     */
+    data: XOR<StationCreateInput, StationUncheckedCreateInput>
+  }
+
+
+  /**
+   * Station createMany
+   */
+  export type StationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Stations.
+     */
+    data: StationCreateManyInput | StationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Station update
+   */
+  export type StationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: StationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Station.
+     */
+    data: XOR<StationUpdateInput, StationUncheckedUpdateInput>
+    /**
+     * Choose, which Station to update.
+     */
+    where: StationWhereUniqueInput
+  }
+
+
+  /**
+   * Station updateMany
+   */
+  export type StationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Stations.
+     */
+    data: XOR<StationUpdateManyMutationInput, StationUncheckedUpdateManyInput>
+    /**
+     * Filter which Stations to update
+     */
+    where?: StationWhereInput
+  }
+
+
+  /**
+   * Station upsert
+   */
+  export type StationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: StationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Station to update in case it exists.
+     */
+    where: StationWhereUniqueInput
+    /**
+     * In case the Station found by the `where` argument doesn't exist, create a new Station with this data.
+     */
+    create: XOR<StationCreateInput, StationUncheckedCreateInput>
+    /**
+     * In case the Station was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StationUpdateInput, StationUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Station delete
+   */
+  export type StationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: StationInclude<ExtArgs> | null
+    /**
+     * Filter which Station to delete.
+     */
+    where: StationWhereUniqueInput
+  }
+
+
+  /**
+   * Station deleteMany
+   */
+  export type StationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Stations to delete
+     */
+    where?: StationWhereInput
+  }
+
+
+  /**
+   * Station.items
+   */
+  export type Station$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemLocation
+     */
+    select?: ItemLocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemLocationInclude<ExtArgs> | null
+    where?: ItemLocationWhereInput
+    orderBy?: ItemLocationOrderByWithRelationInput | ItemLocationOrderByWithRelationInput[]
+    cursor?: ItemLocationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItemLocationScalarFieldEnum | ItemLocationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Station without action
+   */
+  export type StationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: StationInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -29705,7 +32613,8 @@ export namespace Prisma {
     deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    metadata: 'metadata'
   };
 
   export type CanvassScalarFieldEnum = (typeof CanvassScalarFieldEnum)[keyof typeof CanvassScalarFieldEnum]
@@ -29718,10 +32627,7 @@ export namespace Prisma {
     item_id: 'item_id',
     description: 'description',
     quantity: 'quantity',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    metadata: 'metadata'
   };
 
   export type CanvassItemScalarFieldEnum = (typeof CanvassItemScalarFieldEnum)[keyof typeof CanvassItemScalarFieldEnum]
@@ -29742,7 +32648,8 @@ export namespace Prisma {
     updated_by: 'updated_by',
     cancelled_at: 'cancelled_at',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    metadata: 'metadata'
   };
 
   export type RVScalarFieldEnum = (typeof RVScalarFieldEnum)[keyof typeof RVScalarFieldEnum]
@@ -29758,12 +32665,7 @@ export namespace Prisma {
     label: 'label',
     order: 'order',
     is_supervisor: 'is_supervisor',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    metadata: 'metadata'
   };
 
   export type RVApproverScalarFieldEnum = (typeof RVApproverScalarFieldEnum)[keyof typeof RVApproverScalarFieldEnum]
@@ -29784,7 +32686,8 @@ export namespace Prisma {
     updated_by: 'updated_by',
     cancelled_at: 'cancelled_at',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    metadata: 'metadata'
   };
 
   export type JOScalarFieldEnum = (typeof JOScalarFieldEnum)[keyof typeof JOScalarFieldEnum]
@@ -29800,12 +32703,7 @@ export namespace Prisma {
     label: 'label',
     order: 'order',
     is_supervisor: 'is_supervisor',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    metadata: 'metadata'
   };
 
   export type JOApproverScalarFieldEnum = (typeof JOApproverScalarFieldEnum)[keyof typeof JOApproverScalarFieldEnum]
@@ -29825,7 +32723,8 @@ export namespace Prisma {
     updated_by: 'updated_by',
     cancelled_at: 'cancelled_at',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    metadata: 'metadata'
   };
 
   export type SPRScalarFieldEnum = (typeof SPRScalarFieldEnum)[keyof typeof SPRScalarFieldEnum]
@@ -29841,12 +32740,7 @@ export namespace Prisma {
     label: 'label',
     order: 'order',
     is_supervisor: 'is_supervisor',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    metadata: 'metadata'
   };
 
   export type SPRApproverScalarFieldEnum = (typeof SPRApproverScalarFieldEnum)[keyof typeof SPRApproverScalarFieldEnum]
@@ -29865,7 +32759,8 @@ export namespace Prisma {
     cancelled_by: 'cancelled_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    cancelled_at: 'cancelled_at'
+    cancelled_at: 'cancelled_at',
+    metadata: 'metadata'
   };
 
   export type MEQSScalarFieldEnum = (typeof MEQSScalarFieldEnum)[keyof typeof MEQSScalarFieldEnum]
@@ -29876,10 +32771,7 @@ export namespace Prisma {
     meqs_id: 'meqs_id',
     supplier_id: 'supplier_id',
     payment_terms: 'payment_terms',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    metadata: 'metadata'
   };
 
   export type MEQSSupplierScalarFieldEnum = (typeof MEQSSupplierScalarFieldEnum)[keyof typeof MEQSSupplierScalarFieldEnum]
@@ -29893,10 +32785,7 @@ export namespace Prisma {
     notes: 'notes',
     is_awarded: 'is_awarded',
     vat_type: 'vat_type',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    metadata: 'metadata'
   };
 
   export type MEQSSupplierItemScalarFieldEnum = (typeof MEQSSupplierItemScalarFieldEnum)[keyof typeof MEQSSupplierItemScalarFieldEnum]
@@ -29907,10 +32796,7 @@ export namespace Prisma {
     meqs_supplier_id: 'meqs_supplier_id',
     filename: 'filename',
     src: 'src',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    metadata: 'metadata'
   };
 
   export type MEQSSupplierAttachmentScalarFieldEnum = (typeof MEQSSupplierAttachmentScalarFieldEnum)[keyof typeof MEQSSupplierAttachmentScalarFieldEnum]
@@ -29925,12 +32811,7 @@ export namespace Prisma {
     status: 'status',
     label: 'label',
     order: 'order',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    metadata: 'metadata'
   };
 
   export type MEQSApproverScalarFieldEnum = (typeof MEQSApproverScalarFieldEnum)[keyof typeof MEQSApproverScalarFieldEnum]
@@ -29948,7 +32829,8 @@ export namespace Prisma {
     updated_by: 'updated_by',
     cancelled_at: 'cancelled_at',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    metadata: 'metadata'
   };
 
   export type POScalarFieldEnum = (typeof POScalarFieldEnum)[keyof typeof POScalarFieldEnum]
@@ -29963,12 +32845,7 @@ export namespace Prisma {
     status: 'status',
     label: 'label',
     order: 'order',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    metadata: 'metadata'
   };
 
   export type POApproverScalarFieldEnum = (typeof POApproverScalarFieldEnum)[keyof typeof POApproverScalarFieldEnum]
@@ -29990,7 +32867,8 @@ export namespace Prisma {
     updated_by: 'updated_by',
     cancelled_at: 'cancelled_at',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    metadata: 'metadata'
   };
 
   export type RRScalarFieldEnum = (typeof RRScalarFieldEnum)[keyof typeof RRScalarFieldEnum]
@@ -30005,12 +32883,7 @@ export namespace Prisma {
     status: 'status',
     label: 'label',
     order: 'order',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    metadata: 'metadata'
   };
 
   export type RRApproverScalarFieldEnum = (typeof RRApproverScalarFieldEnum)[keyof typeof RRApproverScalarFieldEnum]
@@ -30021,10 +32894,7 @@ export namespace Prisma {
     rr_id: 'rr_id',
     meqs_supplier_item_id: 'meqs_supplier_item_id',
     quantity_accepted: 'quantity_accepted',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    metadata: 'metadata'
   };
 
   export type RRItemScalarFieldEnum = (typeof RRItemScalarFieldEnum)[keyof typeof RRItemScalarFieldEnum]
@@ -30045,10 +32915,37 @@ export namespace Prisma {
     deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    metadata: 'metadata'
   };
 
   export type ItemScalarFieldEnum = (typeof ItemScalarFieldEnum)[keyof typeof ItemScalarFieldEnum]
+
+
+  export const ItemLocationScalarFieldEnum: {
+    id: 'id',
+    item_id: 'item_id',
+    station_id: 'station_id',
+    quantity_on_hand: 'quantity_on_hand',
+    created_by: 'created_by',
+    created_at: 'created_at',
+    metadata: 'metadata'
+  };
+
+  export type ItemLocationScalarFieldEnum = (typeof ItemLocationScalarFieldEnum)[keyof typeof ItemLocationScalarFieldEnum]
+
+
+  export const ItemMovementScalarFieldEnum: {
+    id: 'id',
+    origin_id: 'origin_id',
+    destination_id: 'destination_id',
+    quantity_moved: 'quantity_moved',
+    created_by: 'created_by',
+    created_at: 'created_at',
+    metadata: 'metadata'
+  };
+
+  export type ItemMovementScalarFieldEnum = (typeof ItemMovementScalarFieldEnum)[keyof typeof ItemMovementScalarFieldEnum]
 
 
   export const ItemTransactionScalarFieldEnum: {
@@ -30061,7 +32958,8 @@ export namespace Prisma {
     remarks: 'remarks',
     is_initial: 'is_initial',
     created_at: 'created_at',
-    created_by: 'created_by'
+    created_by: 'created_by',
+    metadata: 'metadata'
   };
 
   export type ItemTransactionScalarFieldEnum = (typeof ItemTransactionScalarFieldEnum)[keyof typeof ItemTransactionScalarFieldEnum]
@@ -30075,7 +32973,8 @@ export namespace Prisma {
     deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    metadata: 'metadata'
   };
 
   export type ItemTypeScalarFieldEnum = (typeof ItemTypeScalarFieldEnum)[keyof typeof ItemTypeScalarFieldEnum]
@@ -30085,7 +32984,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     contact: 'contact',
-    tin_no: 'tin_no',
+    tin: 'tin',
     address: 'address',
     vat_type: 'vat_type',
     is_vat_registered: 'is_vat_registered',
@@ -30094,7 +32993,8 @@ export namespace Prisma {
     deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    metadata: 'metadata'
   };
 
   export type SupplierScalarFieldEnum = (typeof SupplierScalarFieldEnum)[keyof typeof SupplierScalarFieldEnum]
@@ -30108,7 +33008,8 @@ export namespace Prisma {
     deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    metadata: 'metadata'
   };
 
   export type UnitScalarFieldEnum = (typeof UnitScalarFieldEnum)[keyof typeof UnitScalarFieldEnum]
@@ -30123,10 +33024,27 @@ export namespace Prisma {
     deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    metadata: 'metadata'
   };
 
   export type VehicleScalarFieldEnum = (typeof VehicleScalarFieldEnum)[keyof typeof VehicleScalarFieldEnum]
+
+
+  export const StationScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    location: 'location',
+    created_by: 'created_by',
+    updated_by: 'updated_by',
+    deleted_by: 'deleted_by',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    deleted_at: 'deleted_at',
+    metadata: 'metadata'
+  };
+
+  export type StationScalarFieldEnum = (typeof StationScalarFieldEnum)[keyof typeof StationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -30137,12 +33055,29 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -30197,6 +33132,13 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
@@ -30300,6 +33242,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Canvass"> | Date | string
     updated_at?: DateTimeFilter<"Canvass"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Canvass"> | Date | string | null
+    metadata?: JsonNullableFilter<"Canvass">
     canvass_items?: CanvassItemListRelationFilter
     jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
     rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
@@ -30319,6 +33262,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     canvass_items?: CanvassItemOrderByRelationAggregateInput
     jo?: JOOrderByWithRelationInput
     rv?: RVOrderByWithRelationInput
@@ -30341,6 +33285,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Canvass"> | Date | string
     updated_at?: DateTimeFilter<"Canvass"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Canvass"> | Date | string | null
+    metadata?: JsonNullableFilter<"Canvass">
     canvass_items?: CanvassItemListRelationFilter
     jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
     rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
@@ -30360,6 +33305,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: CanvassCountOrderByAggregateInput
     _max?: CanvassMaxOrderByAggregateInput
     _min?: CanvassMinOrderByAggregateInput
@@ -30381,6 +33327,7 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Canvass"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Canvass"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"Canvass"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"Canvass">
   }
 
   export type CanvassItemWhereInput = {
@@ -30393,10 +33340,7 @@ export namespace Prisma {
     item_id?: StringNullableFilter<"CanvassItem"> | string | null
     description?: StringFilter<"CanvassItem"> | string
     quantity?: IntFilter<"CanvassItem"> | number
-    created_by?: StringFilter<"CanvassItem"> | string
-    updated_by?: StringNullableFilter<"CanvassItem"> | string | null
-    created_at?: DateTimeFilter<"CanvassItem"> | Date | string
-    updated_at?: DateTimeFilter<"CanvassItem"> | Date | string
+    metadata?: JsonNullableFilter<"CanvassItem">
     meqs_supplier_items?: MEQSSupplierItemListRelationFilter
     canvass?: XOR<CanvassRelationFilter, CanvassWhereInput>
     unit?: XOR<UnitNullableRelationFilter, UnitWhereInput> | null
@@ -30410,10 +33354,7 @@ export namespace Prisma {
     item_id?: SortOrderInput | SortOrder
     description?: SortOrder
     quantity?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     meqs_supplier_items?: MEQSSupplierItemOrderByRelationAggregateInput
     canvass?: CanvassOrderByWithRelationInput
     unit?: UnitOrderByWithRelationInput
@@ -30430,10 +33371,7 @@ export namespace Prisma {
     item_id?: StringNullableFilter<"CanvassItem"> | string | null
     description?: StringFilter<"CanvassItem"> | string
     quantity?: IntFilter<"CanvassItem"> | number
-    created_by?: StringFilter<"CanvassItem"> | string
-    updated_by?: StringNullableFilter<"CanvassItem"> | string | null
-    created_at?: DateTimeFilter<"CanvassItem"> | Date | string
-    updated_at?: DateTimeFilter<"CanvassItem"> | Date | string
+    metadata?: JsonNullableFilter<"CanvassItem">
     meqs_supplier_items?: MEQSSupplierItemListRelationFilter
     canvass?: XOR<CanvassRelationFilter, CanvassWhereInput>
     unit?: XOR<UnitNullableRelationFilter, UnitWhereInput> | null
@@ -30447,10 +33385,7 @@ export namespace Prisma {
     item_id?: SortOrderInput | SortOrder
     description?: SortOrder
     quantity?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: CanvassItemCountOrderByAggregateInput
     _avg?: CanvassItemAvgOrderByAggregateInput
     _max?: CanvassItemMaxOrderByAggregateInput
@@ -30468,10 +33403,7 @@ export namespace Prisma {
     item_id?: StringNullableWithAggregatesFilter<"CanvassItem"> | string | null
     description?: StringWithAggregatesFilter<"CanvassItem"> | string
     quantity?: IntWithAggregatesFilter<"CanvassItem"> | number
-    created_by?: StringWithAggregatesFilter<"CanvassItem"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"CanvassItem"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"CanvassItem"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"CanvassItem"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"CanvassItem">
   }
 
   export type RVWhereInput = {
@@ -30493,6 +33425,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RV"> | Date | string | null
     created_at?: DateTimeFilter<"RV"> | Date | string
     updated_at?: DateTimeFilter<"RV"> | Date | string
+    metadata?: JsonNullableFilter<"RV">
     canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
     meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     rv_approvers?: RVApproverListRelationFilter
@@ -30514,6 +33447,7 @@ export namespace Prisma {
     cancelled_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     canvass?: CanvassOrderByWithRelationInput
     meqs?: MEQSOrderByWithRelationInput
     rv_approvers?: RVApproverOrderByRelationAggregateInput
@@ -30538,6 +33472,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RV"> | Date | string | null
     created_at?: DateTimeFilter<"RV"> | Date | string
     updated_at?: DateTimeFilter<"RV"> | Date | string
+    metadata?: JsonNullableFilter<"RV">
     canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
     meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     rv_approvers?: RVApproverListRelationFilter
@@ -30559,6 +33494,7 @@ export namespace Prisma {
     cancelled_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: RVCountOrderByAggregateInput
     _max?: RVMaxOrderByAggregateInput
     _min?: RVMinOrderByAggregateInput
@@ -30583,6 +33519,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableWithAggregatesFilter<"RV"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"RV"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"RV"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"RV">
   }
 
   export type RVApproverWhereInput = {
@@ -30598,12 +33535,7 @@ export namespace Prisma {
     label?: StringFilter<"RVApprover"> | string
     order?: IntFilter<"RVApprover"> | number
     is_supervisor?: BoolFilter<"RVApprover"> | boolean
-    created_by?: StringFilter<"RVApprover"> | string
-    updated_by?: StringNullableFilter<"RVApprover"> | string | null
-    deleted_by?: StringNullableFilter<"RVApprover"> | string | null
-    created_at?: DateTimeFilter<"RVApprover"> | Date | string
-    updated_at?: DateTimeFilter<"RVApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"RVApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"RVApprover">
     rv?: XOR<RVRelationFilter, RVWhereInput>
   }
 
@@ -30617,12 +33549,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     rv?: RVOrderByWithRelationInput
   }
 
@@ -30639,12 +33566,7 @@ export namespace Prisma {
     label?: StringFilter<"RVApprover"> | string
     order?: IntFilter<"RVApprover"> | number
     is_supervisor?: BoolFilter<"RVApprover"> | boolean
-    created_by?: StringFilter<"RVApprover"> | string
-    updated_by?: StringNullableFilter<"RVApprover"> | string | null
-    deleted_by?: StringNullableFilter<"RVApprover"> | string | null
-    created_at?: DateTimeFilter<"RVApprover"> | Date | string
-    updated_at?: DateTimeFilter<"RVApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"RVApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"RVApprover">
     rv?: XOR<RVRelationFilter, RVWhereInput>
   }, "id">
 
@@ -30658,12 +33580,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: RVApproverCountOrderByAggregateInput
     _avg?: RVApproverAvgOrderByAggregateInput
     _max?: RVApproverMaxOrderByAggregateInput
@@ -30684,12 +33601,7 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"RVApprover"> | string
     order?: IntWithAggregatesFilter<"RVApprover"> | number
     is_supervisor?: BoolWithAggregatesFilter<"RVApprover"> | boolean
-    created_by?: StringWithAggregatesFilter<"RVApprover"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"RVApprover"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"RVApprover"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"RVApprover"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"RVApprover"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"RVApprover"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"RVApprover">
   }
 
   export type JOWhereInput = {
@@ -30711,6 +33623,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"JO"> | Date | string | null
     created_at?: DateTimeFilter<"JO"> | Date | string
     updated_at?: DateTimeFilter<"JO"> | Date | string
+    metadata?: JsonNullableFilter<"JO">
     canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
     meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     jo_approvers?: JOApproverListRelationFilter
@@ -30732,6 +33645,7 @@ export namespace Prisma {
     cancelled_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     canvass?: CanvassOrderByWithRelationInput
     meqs?: MEQSOrderByWithRelationInput
     jo_approvers?: JOApproverOrderByRelationAggregateInput
@@ -30756,6 +33670,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"JO"> | Date | string | null
     created_at?: DateTimeFilter<"JO"> | Date | string
     updated_at?: DateTimeFilter<"JO"> | Date | string
+    metadata?: JsonNullableFilter<"JO">
     canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
     meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     jo_approvers?: JOApproverListRelationFilter
@@ -30777,6 +33692,7 @@ export namespace Prisma {
     cancelled_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: JOCountOrderByAggregateInput
     _max?: JOMaxOrderByAggregateInput
     _min?: JOMinOrderByAggregateInput
@@ -30801,6 +33717,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableWithAggregatesFilter<"JO"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"JO"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"JO"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"JO">
   }
 
   export type JOApproverWhereInput = {
@@ -30816,12 +33733,7 @@ export namespace Prisma {
     label?: StringFilter<"JOApprover"> | string
     order?: IntFilter<"JOApprover"> | number
     is_supervisor?: BoolFilter<"JOApprover"> | boolean
-    created_by?: StringFilter<"JOApprover"> | string
-    updated_by?: StringNullableFilter<"JOApprover"> | string | null
-    deleted_by?: StringNullableFilter<"JOApprover"> | string | null
-    created_at?: DateTimeFilter<"JOApprover"> | Date | string
-    updated_at?: DateTimeFilter<"JOApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"JOApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"JOApprover">
     jo?: XOR<JORelationFilter, JOWhereInput>
   }
 
@@ -30835,12 +33747,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     jo?: JOOrderByWithRelationInput
   }
 
@@ -30857,12 +33764,7 @@ export namespace Prisma {
     label?: StringFilter<"JOApprover"> | string
     order?: IntFilter<"JOApprover"> | number
     is_supervisor?: BoolFilter<"JOApprover"> | boolean
-    created_by?: StringFilter<"JOApprover"> | string
-    updated_by?: StringNullableFilter<"JOApprover"> | string | null
-    deleted_by?: StringNullableFilter<"JOApprover"> | string | null
-    created_at?: DateTimeFilter<"JOApprover"> | Date | string
-    updated_at?: DateTimeFilter<"JOApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"JOApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"JOApprover">
     jo?: XOR<JORelationFilter, JOWhereInput>
   }, "id">
 
@@ -30876,12 +33778,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: JOApproverCountOrderByAggregateInput
     _avg?: JOApproverAvgOrderByAggregateInput
     _max?: JOApproverMaxOrderByAggregateInput
@@ -30902,12 +33799,7 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"JOApprover"> | string
     order?: IntWithAggregatesFilter<"JOApprover"> | number
     is_supervisor?: BoolWithAggregatesFilter<"JOApprover"> | boolean
-    created_by?: StringWithAggregatesFilter<"JOApprover"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"JOApprover"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"JOApprover"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"JOApprover"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"JOApprover"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"JOApprover"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"JOApprover">
   }
 
   export type SPRWhereInput = {
@@ -30928,6 +33820,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SPR"> | Date | string | null
     created_at?: DateTimeFilter<"SPR"> | Date | string
     updated_at?: DateTimeFilter<"SPR"> | Date | string
+    metadata?: JsonNullableFilter<"SPR">
     canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
     meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
@@ -30949,6 +33842,7 @@ export namespace Prisma {
     cancelled_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     canvass?: CanvassOrderByWithRelationInput
     meqs?: MEQSOrderByWithRelationInput
     vehicle?: VehicleOrderByWithRelationInput
@@ -30973,6 +33867,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SPR"> | Date | string | null
     created_at?: DateTimeFilter<"SPR"> | Date | string
     updated_at?: DateTimeFilter<"SPR"> | Date | string
+    metadata?: JsonNullableFilter<"SPR">
     canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
     meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
@@ -30994,6 +33889,7 @@ export namespace Prisma {
     cancelled_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: SPRCountOrderByAggregateInput
     _max?: SPRMaxOrderByAggregateInput
     _min?: SPRMinOrderByAggregateInput
@@ -31017,6 +33913,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableWithAggregatesFilter<"SPR"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"SPR"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"SPR"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"SPR">
   }
 
   export type SPRApproverWhereInput = {
@@ -31032,12 +33929,7 @@ export namespace Prisma {
     label?: StringFilter<"SPRApprover"> | string
     order?: IntFilter<"SPRApprover"> | number
     is_supervisor?: BoolFilter<"SPRApprover"> | boolean
-    created_by?: StringFilter<"SPRApprover"> | string
-    updated_by?: StringNullableFilter<"SPRApprover"> | string | null
-    deleted_by?: StringNullableFilter<"SPRApprover"> | string | null
-    created_at?: DateTimeFilter<"SPRApprover"> | Date | string
-    updated_at?: DateTimeFilter<"SPRApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"SPRApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"SPRApprover">
     spr?: XOR<SPRRelationFilter, SPRWhereInput>
   }
 
@@ -31051,12 +33943,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     spr?: SPROrderByWithRelationInput
   }
 
@@ -31073,12 +33960,7 @@ export namespace Prisma {
     label?: StringFilter<"SPRApprover"> | string
     order?: IntFilter<"SPRApprover"> | number
     is_supervisor?: BoolFilter<"SPRApprover"> | boolean
-    created_by?: StringFilter<"SPRApprover"> | string
-    updated_by?: StringNullableFilter<"SPRApprover"> | string | null
-    deleted_by?: StringNullableFilter<"SPRApprover"> | string | null
-    created_at?: DateTimeFilter<"SPRApprover"> | Date | string
-    updated_at?: DateTimeFilter<"SPRApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"SPRApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"SPRApprover">
     spr?: XOR<SPRRelationFilter, SPRWhereInput>
   }, "id">
 
@@ -31092,12 +33974,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: SPRApproverCountOrderByAggregateInput
     _avg?: SPRApproverAvgOrderByAggregateInput
     _max?: SPRApproverMaxOrderByAggregateInput
@@ -31118,12 +33995,7 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"SPRApprover"> | string
     order?: IntWithAggregatesFilter<"SPRApprover"> | number
     is_supervisor?: BoolWithAggregatesFilter<"SPRApprover"> | boolean
-    created_by?: StringWithAggregatesFilter<"SPRApprover"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"SPRApprover"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"SPRApprover"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"SPRApprover"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"SPRApprover"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"SPRApprover"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"SPRApprover">
   }
 
   export type MEQSWhereInput = {
@@ -31143,6 +34015,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MEQS"> | Date | string
     updated_at?: DateTimeFilter<"MEQS"> | Date | string
     cancelled_at?: DateTimeNullableFilter<"MEQS"> | Date | string | null
+    metadata?: JsonNullableFilter<"MEQS">
     jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
     rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
     spr?: XOR<SPRNullableRelationFilter, SPRWhereInput> | null
@@ -31164,6 +34037,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     cancelled_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     jo?: JOOrderByWithRelationInput
     rv?: RVOrderByWithRelationInput
     spr?: SPROrderByWithRelationInput
@@ -31188,6 +34062,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MEQS"> | Date | string
     updated_at?: DateTimeFilter<"MEQS"> | Date | string
     cancelled_at?: DateTimeNullableFilter<"MEQS"> | Date | string | null
+    metadata?: JsonNullableFilter<"MEQS">
     jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
     rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
     spr?: XOR<SPRNullableRelationFilter, SPRWhereInput> | null
@@ -31209,6 +34084,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     cancelled_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: MEQSCountOrderByAggregateInput
     _max?: MEQSMaxOrderByAggregateInput
     _min?: MEQSMinOrderByAggregateInput
@@ -31231,6 +34107,7 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"MEQS"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"MEQS"> | Date | string
     cancelled_at?: DateTimeNullableWithAggregatesFilter<"MEQS"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"MEQS">
   }
 
   export type MEQSSupplierWhereInput = {
@@ -31241,10 +34118,7 @@ export namespace Prisma {
     meqs_id?: StringFilter<"MEQSSupplier"> | string
     supplier_id?: StringFilter<"MEQSSupplier"> | string
     payment_terms?: StringFilter<"MEQSSupplier"> | string
-    created_by?: StringFilter<"MEQSSupplier"> | string
-    updated_by?: StringNullableFilter<"MEQSSupplier"> | string | null
-    created_at?: DateTimeFilter<"MEQSSupplier"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSSupplier"> | Date | string
+    metadata?: JsonNullableFilter<"MEQSSupplier">
     meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
     supplier?: XOR<SupplierRelationFilter, SupplierWhereInput>
     attachments?: MEQSSupplierAttachmentListRelationFilter
@@ -31257,10 +34131,7 @@ export namespace Prisma {
     meqs_id?: SortOrder
     supplier_id?: SortOrder
     payment_terms?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     meqs?: MEQSOrderByWithRelationInput
     supplier?: SupplierOrderByWithRelationInput
     attachments?: MEQSSupplierAttachmentOrderByRelationAggregateInput
@@ -31277,10 +34148,7 @@ export namespace Prisma {
     meqs_id?: StringFilter<"MEQSSupplier"> | string
     supplier_id?: StringFilter<"MEQSSupplier"> | string
     payment_terms?: StringFilter<"MEQSSupplier"> | string
-    created_by?: StringFilter<"MEQSSupplier"> | string
-    updated_by?: StringNullableFilter<"MEQSSupplier"> | string | null
-    created_at?: DateTimeFilter<"MEQSSupplier"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSSupplier"> | Date | string
+    metadata?: JsonNullableFilter<"MEQSSupplier">
     meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
     supplier?: XOR<SupplierRelationFilter, SupplierWhereInput>
     attachments?: MEQSSupplierAttachmentListRelationFilter
@@ -31293,10 +34161,7 @@ export namespace Prisma {
     meqs_id?: SortOrder
     supplier_id?: SortOrder
     payment_terms?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: MEQSSupplierCountOrderByAggregateInput
     _max?: MEQSSupplierMaxOrderByAggregateInput
     _min?: MEQSSupplierMinOrderByAggregateInput
@@ -31310,10 +34175,7 @@ export namespace Prisma {
     meqs_id?: StringWithAggregatesFilter<"MEQSSupplier"> | string
     supplier_id?: StringWithAggregatesFilter<"MEQSSupplier"> | string
     payment_terms?: StringWithAggregatesFilter<"MEQSSupplier"> | string
-    created_by?: StringWithAggregatesFilter<"MEQSSupplier"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"MEQSSupplier"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"MEQSSupplier"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"MEQSSupplier"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"MEQSSupplier">
   }
 
   export type MEQSSupplierItemWhereInput = {
@@ -31327,10 +34189,7 @@ export namespace Prisma {
     notes?: StringFilter<"MEQSSupplierItem"> | string
     is_awarded?: BoolFilter<"MEQSSupplierItem"> | boolean
     vat_type?: IntFilter<"MEQSSupplierItem"> | number
-    created_by?: StringFilter<"MEQSSupplierItem"> | string
-    updated_by?: StringNullableFilter<"MEQSSupplierItem"> | string | null
-    created_at?: DateTimeFilter<"MEQSSupplierItem"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSSupplierItem"> | Date | string
+    metadata?: JsonNullableFilter<"MEQSSupplierItem">
     canvass_item?: XOR<CanvassItemRelationFilter, CanvassItemWhereInput>
     meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
     rr_items?: RRItemListRelationFilter
@@ -31344,10 +34203,7 @@ export namespace Prisma {
     notes?: SortOrder
     is_awarded?: SortOrder
     vat_type?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     canvass_item?: CanvassItemOrderByWithRelationInput
     meqs_supplier?: MEQSSupplierOrderByWithRelationInput
     rr_items?: RRItemOrderByRelationAggregateInput
@@ -31364,10 +34220,7 @@ export namespace Prisma {
     notes?: StringFilter<"MEQSSupplierItem"> | string
     is_awarded?: BoolFilter<"MEQSSupplierItem"> | boolean
     vat_type?: IntFilter<"MEQSSupplierItem"> | number
-    created_by?: StringFilter<"MEQSSupplierItem"> | string
-    updated_by?: StringNullableFilter<"MEQSSupplierItem"> | string | null
-    created_at?: DateTimeFilter<"MEQSSupplierItem"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSSupplierItem"> | Date | string
+    metadata?: JsonNullableFilter<"MEQSSupplierItem">
     canvass_item?: XOR<CanvassItemRelationFilter, CanvassItemWhereInput>
     meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
     rr_items?: RRItemListRelationFilter
@@ -31381,10 +34234,7 @@ export namespace Prisma {
     notes?: SortOrder
     is_awarded?: SortOrder
     vat_type?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: MEQSSupplierItemCountOrderByAggregateInput
     _avg?: MEQSSupplierItemAvgOrderByAggregateInput
     _max?: MEQSSupplierItemMaxOrderByAggregateInput
@@ -31403,10 +34253,7 @@ export namespace Prisma {
     notes?: StringWithAggregatesFilter<"MEQSSupplierItem"> | string
     is_awarded?: BoolWithAggregatesFilter<"MEQSSupplierItem"> | boolean
     vat_type?: IntWithAggregatesFilter<"MEQSSupplierItem"> | number
-    created_by?: StringWithAggregatesFilter<"MEQSSupplierItem"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"MEQSSupplierItem"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"MEQSSupplierItem"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"MEQSSupplierItem"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"MEQSSupplierItem">
   }
 
   export type MEQSSupplierAttachmentWhereInput = {
@@ -31417,10 +34264,7 @@ export namespace Prisma {
     meqs_supplier_id?: StringFilter<"MEQSSupplierAttachment"> | string
     filename?: StringFilter<"MEQSSupplierAttachment"> | string
     src?: StringFilter<"MEQSSupplierAttachment"> | string
-    created_by?: StringFilter<"MEQSSupplierAttachment"> | string
-    updated_by?: StringNullableFilter<"MEQSSupplierAttachment"> | string | null
-    created_at?: DateTimeFilter<"MEQSSupplierAttachment"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSSupplierAttachment"> | Date | string
+    metadata?: JsonNullableFilter<"MEQSSupplierAttachment">
     meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
   }
 
@@ -31429,10 +34273,7 @@ export namespace Prisma {
     meqs_supplier_id?: SortOrder
     filename?: SortOrder
     src?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     meqs_supplier?: MEQSSupplierOrderByWithRelationInput
   }
 
@@ -31444,10 +34285,7 @@ export namespace Prisma {
     NOT?: MEQSSupplierAttachmentWhereInput | MEQSSupplierAttachmentWhereInput[]
     meqs_supplier_id?: StringFilter<"MEQSSupplierAttachment"> | string
     filename?: StringFilter<"MEQSSupplierAttachment"> | string
-    created_by?: StringFilter<"MEQSSupplierAttachment"> | string
-    updated_by?: StringNullableFilter<"MEQSSupplierAttachment"> | string | null
-    created_at?: DateTimeFilter<"MEQSSupplierAttachment"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSSupplierAttachment"> | Date | string
+    metadata?: JsonNullableFilter<"MEQSSupplierAttachment">
     meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
   }, "id" | "src">
 
@@ -31456,10 +34294,7 @@ export namespace Prisma {
     meqs_supplier_id?: SortOrder
     filename?: SortOrder
     src?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: MEQSSupplierAttachmentCountOrderByAggregateInput
     _max?: MEQSSupplierAttachmentMaxOrderByAggregateInput
     _min?: MEQSSupplierAttachmentMinOrderByAggregateInput
@@ -31473,10 +34308,7 @@ export namespace Prisma {
     meqs_supplier_id?: StringWithAggregatesFilter<"MEQSSupplierAttachment"> | string
     filename?: StringWithAggregatesFilter<"MEQSSupplierAttachment"> | string
     src?: StringWithAggregatesFilter<"MEQSSupplierAttachment"> | string
-    created_by?: StringWithAggregatesFilter<"MEQSSupplierAttachment"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"MEQSSupplierAttachment"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"MEQSSupplierAttachment"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"MEQSSupplierAttachment"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"MEQSSupplierAttachment">
   }
 
   export type MEQSApproverWhereInput = {
@@ -31491,12 +34323,7 @@ export namespace Prisma {
     status?: IntFilter<"MEQSApprover"> | number
     label?: StringFilter<"MEQSApprover"> | string
     order?: IntFilter<"MEQSApprover"> | number
-    created_by?: StringFilter<"MEQSApprover"> | string
-    updated_by?: StringNullableFilter<"MEQSApprover"> | string | null
-    deleted_by?: StringNullableFilter<"MEQSApprover"> | string | null
-    created_at?: DateTimeFilter<"MEQSApprover"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"MEQSApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"MEQSApprover">
     meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
   }
 
@@ -31509,12 +34336,7 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     meqs?: MEQSOrderByWithRelationInput
   }
 
@@ -31530,12 +34352,7 @@ export namespace Prisma {
     status?: IntFilter<"MEQSApprover"> | number
     label?: StringFilter<"MEQSApprover"> | string
     order?: IntFilter<"MEQSApprover"> | number
-    created_by?: StringFilter<"MEQSApprover"> | string
-    updated_by?: StringNullableFilter<"MEQSApprover"> | string | null
-    deleted_by?: StringNullableFilter<"MEQSApprover"> | string | null
-    created_at?: DateTimeFilter<"MEQSApprover"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"MEQSApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"MEQSApprover">
     meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
   }, "id">
 
@@ -31548,12 +34365,7 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: MEQSApproverCountOrderByAggregateInput
     _avg?: MEQSApproverAvgOrderByAggregateInput
     _max?: MEQSApproverMaxOrderByAggregateInput
@@ -31573,12 +34385,7 @@ export namespace Prisma {
     status?: IntWithAggregatesFilter<"MEQSApprover"> | number
     label?: StringWithAggregatesFilter<"MEQSApprover"> | string
     order?: IntWithAggregatesFilter<"MEQSApprover"> | number
-    created_by?: StringWithAggregatesFilter<"MEQSApprover"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"MEQSApprover"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"MEQSApprover"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"MEQSApprover"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"MEQSApprover"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"MEQSApprover"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"MEQSApprover">
   }
 
   export type POWhereInput = {
@@ -31597,6 +34404,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"PO"> | Date | string | null
     created_at?: DateTimeFilter<"PO"> | Date | string
     updated_at?: DateTimeFilter<"PO"> | Date | string
+    metadata?: JsonNullableFilter<"PO">
     meqs_supplier?: XOR<MEQSSupplierNullableRelationFilter, MEQSSupplierWhereInput> | null
     rrs?: RRListRelationFilter
     po_approvers?: POApproverListRelationFilter
@@ -31615,6 +34423,7 @@ export namespace Prisma {
     cancelled_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     meqs_supplier?: MEQSSupplierOrderByWithRelationInput
     rrs?: RROrderByRelationAggregateInput
     po_approvers?: POApproverOrderByRelationAggregateInput
@@ -31636,6 +34445,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"PO"> | Date | string | null
     created_at?: DateTimeFilter<"PO"> | Date | string
     updated_at?: DateTimeFilter<"PO"> | Date | string
+    metadata?: JsonNullableFilter<"PO">
     meqs_supplier?: XOR<MEQSSupplierNullableRelationFilter, MEQSSupplierWhereInput> | null
     rrs?: RRListRelationFilter
     po_approvers?: POApproverListRelationFilter
@@ -31654,6 +34464,7 @@ export namespace Prisma {
     cancelled_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: POCountOrderByAggregateInput
     _max?: POMaxOrderByAggregateInput
     _min?: POMinOrderByAggregateInput
@@ -31675,6 +34486,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableWithAggregatesFilter<"PO"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"PO"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"PO"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"PO">
   }
 
   export type POApproverWhereInput = {
@@ -31689,12 +34501,7 @@ export namespace Prisma {
     status?: IntFilter<"POApprover"> | number
     label?: StringFilter<"POApprover"> | string
     order?: IntFilter<"POApprover"> | number
-    created_by?: StringFilter<"POApprover"> | string
-    updated_by?: StringNullableFilter<"POApprover"> | string | null
-    deleted_by?: StringNullableFilter<"POApprover"> | string | null
-    created_at?: DateTimeFilter<"POApprover"> | Date | string
-    updated_at?: DateTimeFilter<"POApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"POApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"POApprover">
     po?: XOR<PORelationFilter, POWhereInput>
   }
 
@@ -31707,12 +34514,7 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     po?: POOrderByWithRelationInput
   }
 
@@ -31728,12 +34530,7 @@ export namespace Prisma {
     status?: IntFilter<"POApprover"> | number
     label?: StringFilter<"POApprover"> | string
     order?: IntFilter<"POApprover"> | number
-    created_by?: StringFilter<"POApprover"> | string
-    updated_by?: StringNullableFilter<"POApprover"> | string | null
-    deleted_by?: StringNullableFilter<"POApprover"> | string | null
-    created_at?: DateTimeFilter<"POApprover"> | Date | string
-    updated_at?: DateTimeFilter<"POApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"POApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"POApprover">
     po?: XOR<PORelationFilter, POWhereInput>
   }, "id">
 
@@ -31746,12 +34543,7 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: POApproverCountOrderByAggregateInput
     _avg?: POApproverAvgOrderByAggregateInput
     _max?: POApproverMaxOrderByAggregateInput
@@ -31771,12 +34563,7 @@ export namespace Prisma {
     status?: IntWithAggregatesFilter<"POApprover"> | number
     label?: StringWithAggregatesFilter<"POApprover"> | string
     order?: IntWithAggregatesFilter<"POApprover"> | number
-    created_by?: StringWithAggregatesFilter<"POApprover"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"POApprover"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"POApprover"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"POApprover"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"POApprover"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"POApprover"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"POApprover">
   }
 
   export type RRWhereInput = {
@@ -31799,6 +34586,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RR"> | Date | string | null
     created_at?: DateTimeFilter<"RR"> | Date | string
     updated_at?: DateTimeFilter<"RR"> | Date | string
+    metadata?: JsonNullableFilter<"RR">
     po?: XOR<PONullableRelationFilter, POWhereInput> | null
     rr_approvers?: RRApproverListRelationFilter
     rr_items?: RRItemListRelationFilter
@@ -31821,6 +34609,7 @@ export namespace Prisma {
     cancelled_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     po?: POOrderByWithRelationInput
     rr_approvers?: RRApproverOrderByRelationAggregateInput
     rr_items?: RRItemOrderByRelationAggregateInput
@@ -31846,6 +34635,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RR"> | Date | string | null
     created_at?: DateTimeFilter<"RR"> | Date | string
     updated_at?: DateTimeFilter<"RR"> | Date | string
+    metadata?: JsonNullableFilter<"RR">
     po?: XOR<PONullableRelationFilter, POWhereInput> | null
     rr_approvers?: RRApproverListRelationFilter
     rr_items?: RRItemListRelationFilter
@@ -31868,6 +34658,7 @@ export namespace Prisma {
     cancelled_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: RRCountOrderByAggregateInput
     _avg?: RRAvgOrderByAggregateInput
     _max?: RRMaxOrderByAggregateInput
@@ -31895,6 +34686,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableWithAggregatesFilter<"RR"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"RR"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"RR"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"RR">
   }
 
   export type RRApproverWhereInput = {
@@ -31909,12 +34701,7 @@ export namespace Prisma {
     status?: IntFilter<"RRApprover"> | number
     label?: StringFilter<"RRApprover"> | string
     order?: IntFilter<"RRApprover"> | number
-    created_by?: StringFilter<"RRApprover"> | string
-    updated_by?: StringNullableFilter<"RRApprover"> | string | null
-    deleted_by?: StringNullableFilter<"RRApprover"> | string | null
-    created_at?: DateTimeFilter<"RRApprover"> | Date | string
-    updated_at?: DateTimeFilter<"RRApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"RRApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"RRApprover">
     rr?: XOR<RRRelationFilter, RRWhereInput>
   }
 
@@ -31927,12 +34714,7 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     rr?: RROrderByWithRelationInput
   }
 
@@ -31948,12 +34730,7 @@ export namespace Prisma {
     status?: IntFilter<"RRApprover"> | number
     label?: StringFilter<"RRApprover"> | string
     order?: IntFilter<"RRApprover"> | number
-    created_by?: StringFilter<"RRApprover"> | string
-    updated_by?: StringNullableFilter<"RRApprover"> | string | null
-    deleted_by?: StringNullableFilter<"RRApprover"> | string | null
-    created_at?: DateTimeFilter<"RRApprover"> | Date | string
-    updated_at?: DateTimeFilter<"RRApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"RRApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"RRApprover">
     rr?: XOR<RRRelationFilter, RRWhereInput>
   }, "id">
 
@@ -31966,12 +34743,7 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: RRApproverCountOrderByAggregateInput
     _avg?: RRApproverAvgOrderByAggregateInput
     _max?: RRApproverMaxOrderByAggregateInput
@@ -31991,12 +34763,7 @@ export namespace Prisma {
     status?: IntWithAggregatesFilter<"RRApprover"> | number
     label?: StringWithAggregatesFilter<"RRApprover"> | string
     order?: IntWithAggregatesFilter<"RRApprover"> | number
-    created_by?: StringWithAggregatesFilter<"RRApprover"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"RRApprover"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"RRApprover"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"RRApprover"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"RRApprover"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"RRApprover"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"RRApprover">
   }
 
   export type RRItemWhereInput = {
@@ -32007,10 +34774,7 @@ export namespace Prisma {
     rr_id?: StringFilter<"RRItem"> | string
     meqs_supplier_item_id?: StringFilter<"RRItem"> | string
     quantity_accepted?: IntFilter<"RRItem"> | number
-    created_by?: StringFilter<"RRItem"> | string
-    updated_by?: StringNullableFilter<"RRItem"> | string | null
-    created_at?: DateTimeFilter<"RRItem"> | Date | string
-    updated_at?: DateTimeFilter<"RRItem"> | Date | string
+    metadata?: JsonNullableFilter<"RRItem">
     rr?: XOR<RRRelationFilter, RRWhereInput>
     item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
     meqs_supplier_item?: XOR<MEQSSupplierItemRelationFilter, MEQSSupplierItemWhereInput>
@@ -32021,10 +34785,7 @@ export namespace Prisma {
     rr_id?: SortOrder
     meqs_supplier_item_id?: SortOrder
     quantity_accepted?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     rr?: RROrderByWithRelationInput
     item_transaction?: ItemTransactionOrderByWithRelationInput
     meqs_supplier_item?: MEQSSupplierItemOrderByWithRelationInput
@@ -32038,10 +34799,7 @@ export namespace Prisma {
     rr_id?: StringFilter<"RRItem"> | string
     meqs_supplier_item_id?: StringFilter<"RRItem"> | string
     quantity_accepted?: IntFilter<"RRItem"> | number
-    created_by?: StringFilter<"RRItem"> | string
-    updated_by?: StringNullableFilter<"RRItem"> | string | null
-    created_at?: DateTimeFilter<"RRItem"> | Date | string
-    updated_at?: DateTimeFilter<"RRItem"> | Date | string
+    metadata?: JsonNullableFilter<"RRItem">
     rr?: XOR<RRRelationFilter, RRWhereInput>
     item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
     meqs_supplier_item?: XOR<MEQSSupplierItemRelationFilter, MEQSSupplierItemWhereInput>
@@ -32052,10 +34810,7 @@ export namespace Prisma {
     rr_id?: SortOrder
     meqs_supplier_item_id?: SortOrder
     quantity_accepted?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: RRItemCountOrderByAggregateInput
     _avg?: RRItemAvgOrderByAggregateInput
     _max?: RRItemMaxOrderByAggregateInput
@@ -32071,10 +34826,7 @@ export namespace Prisma {
     rr_id?: StringWithAggregatesFilter<"RRItem"> | string
     meqs_supplier_item_id?: StringWithAggregatesFilter<"RRItem"> | string
     quantity_accepted?: IntWithAggregatesFilter<"RRItem"> | number
-    created_by?: StringWithAggregatesFilter<"RRItem"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"RRItem"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"RRItem"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"RRItem"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"RRItem">
   }
 
   export type ItemWhereInput = {
@@ -32096,10 +34848,12 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
+    metadata?: JsonNullableFilter<"Item">
     item_type?: XOR<ItemTypeRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
     unit?: XOR<UnitRelationFilter, UnitWhereInput>
     canvass_items?: CanvassItemListRelationFilter
+    item_locations?: ItemLocationListRelationFilter
   }
 
   export type ItemOrderByWithRelationInput = {
@@ -32118,10 +34872,12 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     item_type?: ItemTypeOrderByWithRelationInput
     item_transactions?: ItemTransactionOrderByRelationAggregateInput
     unit?: UnitOrderByWithRelationInput
     canvass_items?: CanvassItemOrderByRelationAggregateInput
+    item_locations?: ItemLocationOrderByRelationAggregateInput
   }
 
   export type ItemWhereUniqueInput = Prisma.AtLeast<{
@@ -32143,10 +34899,12 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
+    metadata?: JsonNullableFilter<"Item">
     item_type?: XOR<ItemTypeRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
     unit?: XOR<UnitRelationFilter, UnitWhereInput>
     canvass_items?: CanvassItemListRelationFilter
+    item_locations?: ItemLocationListRelationFilter
   }, "id" | "code">
 
   export type ItemOrderByWithAggregationInput = {
@@ -32165,6 +34923,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: ItemCountOrderByAggregateInput
     _avg?: ItemAvgOrderByAggregateInput
     _max?: ItemMaxOrderByAggregateInput
@@ -32191,6 +34950,153 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Item"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Item"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"Item">
+  }
+
+  export type ItemLocationWhereInput = {
+    AND?: ItemLocationWhereInput | ItemLocationWhereInput[]
+    OR?: ItemLocationWhereInput[]
+    NOT?: ItemLocationWhereInput | ItemLocationWhereInput[]
+    id?: StringFilter<"ItemLocation"> | string
+    item_id?: StringFilter<"ItemLocation"> | string
+    station_id?: StringFilter<"ItemLocation"> | string
+    quantity_on_hand?: IntFilter<"ItemLocation"> | number
+    created_by?: StringFilter<"ItemLocation"> | string
+    created_at?: DateTimeFilter<"ItemLocation"> | Date | string
+    metadata?: JsonNullableFilter<"ItemLocation">
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    station?: XOR<StationRelationFilter, StationWhereInput>
+    origin_movements?: ItemMovementListRelationFilter
+    destination_movements?: ItemMovementListRelationFilter
+  }
+
+  export type ItemLocationOrderByWithRelationInput = {
+    id?: SortOrder
+    item_id?: SortOrder
+    station_id?: SortOrder
+    quantity_on_hand?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    item?: ItemOrderByWithRelationInput
+    station?: StationOrderByWithRelationInput
+    origin_movements?: ItemMovementOrderByRelationAggregateInput
+    destination_movements?: ItemMovementOrderByRelationAggregateInput
+  }
+
+  export type ItemLocationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ItemLocationWhereInput | ItemLocationWhereInput[]
+    OR?: ItemLocationWhereInput[]
+    NOT?: ItemLocationWhereInput | ItemLocationWhereInput[]
+    item_id?: StringFilter<"ItemLocation"> | string
+    station_id?: StringFilter<"ItemLocation"> | string
+    quantity_on_hand?: IntFilter<"ItemLocation"> | number
+    created_by?: StringFilter<"ItemLocation"> | string
+    created_at?: DateTimeFilter<"ItemLocation"> | Date | string
+    metadata?: JsonNullableFilter<"ItemLocation">
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    station?: XOR<StationRelationFilter, StationWhereInput>
+    origin_movements?: ItemMovementListRelationFilter
+    destination_movements?: ItemMovementListRelationFilter
+  }, "id">
+
+  export type ItemLocationOrderByWithAggregationInput = {
+    id?: SortOrder
+    item_id?: SortOrder
+    station_id?: SortOrder
+    quantity_on_hand?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: ItemLocationCountOrderByAggregateInput
+    _avg?: ItemLocationAvgOrderByAggregateInput
+    _max?: ItemLocationMaxOrderByAggregateInput
+    _min?: ItemLocationMinOrderByAggregateInput
+    _sum?: ItemLocationSumOrderByAggregateInput
+  }
+
+  export type ItemLocationScalarWhereWithAggregatesInput = {
+    AND?: ItemLocationScalarWhereWithAggregatesInput | ItemLocationScalarWhereWithAggregatesInput[]
+    OR?: ItemLocationScalarWhereWithAggregatesInput[]
+    NOT?: ItemLocationScalarWhereWithAggregatesInput | ItemLocationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ItemLocation"> | string
+    item_id?: StringWithAggregatesFilter<"ItemLocation"> | string
+    station_id?: StringWithAggregatesFilter<"ItemLocation"> | string
+    quantity_on_hand?: IntWithAggregatesFilter<"ItemLocation"> | number
+    created_by?: StringWithAggregatesFilter<"ItemLocation"> | string
+    created_at?: DateTimeWithAggregatesFilter<"ItemLocation"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"ItemLocation">
+  }
+
+  export type ItemMovementWhereInput = {
+    AND?: ItemMovementWhereInput | ItemMovementWhereInput[]
+    OR?: ItemMovementWhereInput[]
+    NOT?: ItemMovementWhereInput | ItemMovementWhereInput[]
+    id?: StringFilter<"ItemMovement"> | string
+    origin_id?: StringFilter<"ItemMovement"> | string
+    destination_id?: StringFilter<"ItemMovement"> | string
+    quantity_moved?: IntFilter<"ItemMovement"> | number
+    created_by?: StringFilter<"ItemMovement"> | string
+    created_at?: DateTimeFilter<"ItemMovement"> | Date | string
+    metadata?: JsonNullableFilter<"ItemMovement">
+    origin?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
+    destination?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
+  }
+
+  export type ItemMovementOrderByWithRelationInput = {
+    id?: SortOrder
+    origin_id?: SortOrder
+    destination_id?: SortOrder
+    quantity_moved?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    origin?: ItemLocationOrderByWithRelationInput
+    destination?: ItemLocationOrderByWithRelationInput
+  }
+
+  export type ItemMovementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ItemMovementWhereInput | ItemMovementWhereInput[]
+    OR?: ItemMovementWhereInput[]
+    NOT?: ItemMovementWhereInput | ItemMovementWhereInput[]
+    origin_id?: StringFilter<"ItemMovement"> | string
+    destination_id?: StringFilter<"ItemMovement"> | string
+    quantity_moved?: IntFilter<"ItemMovement"> | number
+    created_by?: StringFilter<"ItemMovement"> | string
+    created_at?: DateTimeFilter<"ItemMovement"> | Date | string
+    metadata?: JsonNullableFilter<"ItemMovement">
+    origin?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
+    destination?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
+  }, "id">
+
+  export type ItemMovementOrderByWithAggregationInput = {
+    id?: SortOrder
+    origin_id?: SortOrder
+    destination_id?: SortOrder
+    quantity_moved?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: ItemMovementCountOrderByAggregateInput
+    _avg?: ItemMovementAvgOrderByAggregateInput
+    _max?: ItemMovementMaxOrderByAggregateInput
+    _min?: ItemMovementMinOrderByAggregateInput
+    _sum?: ItemMovementSumOrderByAggregateInput
+  }
+
+  export type ItemMovementScalarWhereWithAggregatesInput = {
+    AND?: ItemMovementScalarWhereWithAggregatesInput | ItemMovementScalarWhereWithAggregatesInput[]
+    OR?: ItemMovementScalarWhereWithAggregatesInput[]
+    NOT?: ItemMovementScalarWhereWithAggregatesInput | ItemMovementScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ItemMovement"> | string
+    origin_id?: StringWithAggregatesFilter<"ItemMovement"> | string
+    destination_id?: StringWithAggregatesFilter<"ItemMovement"> | string
+    quantity_moved?: IntWithAggregatesFilter<"ItemMovement"> | number
+    created_by?: StringWithAggregatesFilter<"ItemMovement"> | string
+    created_at?: DateTimeWithAggregatesFilter<"ItemMovement"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"ItemMovement">
   }
 
   export type ItemTransactionWhereInput = {
@@ -32207,6 +35113,7 @@ export namespace Prisma {
     is_initial?: BoolFilter<"ItemTransaction"> | boolean
     created_at?: DateTimeFilter<"ItemTransaction"> | Date | string
     created_by?: StringFilter<"ItemTransaction"> | string
+    metadata?: JsonNullableFilter<"ItemTransaction">
     item?: XOR<ItemRelationFilter, ItemWhereInput>
     rr_item?: XOR<RRItemNullableRelationFilter, RRItemWhereInput> | null
   }
@@ -32222,6 +35129,7 @@ export namespace Prisma {
     is_initial?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     item?: ItemOrderByWithRelationInput
     rr_item?: RRItemOrderByWithRelationInput
   }
@@ -32240,6 +35148,7 @@ export namespace Prisma {
     is_initial?: BoolFilter<"ItemTransaction"> | boolean
     created_at?: DateTimeFilter<"ItemTransaction"> | Date | string
     created_by?: StringFilter<"ItemTransaction"> | string
+    metadata?: JsonNullableFilter<"ItemTransaction">
     item?: XOR<ItemRelationFilter, ItemWhereInput>
     rr_item?: XOR<RRItemNullableRelationFilter, RRItemWhereInput> | null
   }, "id" | "rr_item_id">
@@ -32255,6 +35164,7 @@ export namespace Prisma {
     is_initial?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: ItemTransactionCountOrderByAggregateInput
     _avg?: ItemTransactionAvgOrderByAggregateInput
     _max?: ItemTransactionMaxOrderByAggregateInput
@@ -32276,6 +35186,7 @@ export namespace Prisma {
     is_initial?: BoolWithAggregatesFilter<"ItemTransaction"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"ItemTransaction"> | Date | string
     created_by?: StringWithAggregatesFilter<"ItemTransaction"> | string
+    metadata?: JsonNullableWithAggregatesFilter<"ItemTransaction">
   }
 
   export type ItemTypeWhereInput = {
@@ -32290,6 +35201,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"ItemType"> | Date | string
     updated_at?: DateTimeFilter<"ItemType"> | Date | string
     deleted_at?: DateTimeNullableFilter<"ItemType"> | Date | string | null
+    metadata?: JsonNullableFilter<"ItemType">
     items?: ItemListRelationFilter
   }
 
@@ -32302,6 +35214,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     items?: ItemOrderByRelationAggregateInput
   }
 
@@ -32317,6 +35230,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"ItemType"> | Date | string
     updated_at?: DateTimeFilter<"ItemType"> | Date | string
     deleted_at?: DateTimeNullableFilter<"ItemType"> | Date | string | null
+    metadata?: JsonNullableFilter<"ItemType">
     items?: ItemListRelationFilter
   }, "id">
 
@@ -32329,6 +35243,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: ItemTypeCountOrderByAggregateInput
     _max?: ItemTypeMaxOrderByAggregateInput
     _min?: ItemTypeMinOrderByAggregateInput
@@ -32346,6 +35261,7 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"ItemType"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"ItemType"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"ItemType"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"ItemType">
   }
 
   export type SupplierWhereInput = {
@@ -32355,7 +35271,7 @@ export namespace Prisma {
     id?: StringFilter<"Supplier"> | string
     name?: StringFilter<"Supplier"> | string
     contact?: StringFilter<"Supplier"> | string
-    tin_no?: StringFilter<"Supplier"> | string
+    tin?: StringFilter<"Supplier"> | string
     address?: StringFilter<"Supplier"> | string
     vat_type?: IntFilter<"Supplier"> | number
     is_vat_registered?: BoolFilter<"Supplier"> | boolean
@@ -32365,6 +35281,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Supplier"> | Date | string
     updated_at?: DateTimeFilter<"Supplier"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Supplier"> | Date | string | null
+    metadata?: JsonNullableFilter<"Supplier">
     MEQSSupplier?: MEQSSupplierListRelationFilter
   }
 
@@ -32372,7 +35289,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     contact?: SortOrder
-    tin_no?: SortOrder
+    tin?: SortOrder
     address?: SortOrder
     vat_type?: SortOrder
     is_vat_registered?: SortOrder
@@ -32382,6 +35299,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     MEQSSupplier?: MEQSSupplierOrderByRelationAggregateInput
   }
 
@@ -32392,7 +35310,7 @@ export namespace Prisma {
     NOT?: SupplierWhereInput | SupplierWhereInput[]
     name?: StringFilter<"Supplier"> | string
     contact?: StringFilter<"Supplier"> | string
-    tin_no?: StringFilter<"Supplier"> | string
+    tin?: StringFilter<"Supplier"> | string
     address?: StringFilter<"Supplier"> | string
     vat_type?: IntFilter<"Supplier"> | number
     is_vat_registered?: BoolFilter<"Supplier"> | boolean
@@ -32402,6 +35320,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Supplier"> | Date | string
     updated_at?: DateTimeFilter<"Supplier"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Supplier"> | Date | string | null
+    metadata?: JsonNullableFilter<"Supplier">
     MEQSSupplier?: MEQSSupplierListRelationFilter
   }, "id">
 
@@ -32409,7 +35328,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     contact?: SortOrder
-    tin_no?: SortOrder
+    tin?: SortOrder
     address?: SortOrder
     vat_type?: SortOrder
     is_vat_registered?: SortOrder
@@ -32419,6 +35338,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: SupplierCountOrderByAggregateInput
     _avg?: SupplierAvgOrderByAggregateInput
     _max?: SupplierMaxOrderByAggregateInput
@@ -32433,7 +35353,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Supplier"> | string
     name?: StringWithAggregatesFilter<"Supplier"> | string
     contact?: StringWithAggregatesFilter<"Supplier"> | string
-    tin_no?: StringWithAggregatesFilter<"Supplier"> | string
+    tin?: StringWithAggregatesFilter<"Supplier"> | string
     address?: StringWithAggregatesFilter<"Supplier"> | string
     vat_type?: IntWithAggregatesFilter<"Supplier"> | number
     is_vat_registered?: BoolWithAggregatesFilter<"Supplier"> | boolean
@@ -32443,6 +35363,7 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"Supplier"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"Supplier">
   }
 
   export type UnitWhereInput = {
@@ -32457,6 +35378,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Unit"> | Date | string
     updated_at?: DateTimeFilter<"Unit"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Unit"> | Date | string | null
+    metadata?: JsonNullableFilter<"Unit">
     canvass_items?: CanvassItemListRelationFilter
     items?: ItemListRelationFilter
   }
@@ -32470,6 +35392,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     canvass_items?: CanvassItemOrderByRelationAggregateInput
     items?: ItemOrderByRelationAggregateInput
   }
@@ -32486,6 +35409,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Unit"> | Date | string
     updated_at?: DateTimeFilter<"Unit"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Unit"> | Date | string | null
+    metadata?: JsonNullableFilter<"Unit">
     canvass_items?: CanvassItemListRelationFilter
     items?: ItemListRelationFilter
   }, "id" | "name">
@@ -32499,6 +35423,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: UnitCountOrderByAggregateInput
     _max?: UnitMaxOrderByAggregateInput
     _min?: UnitMinOrderByAggregateInput
@@ -32516,6 +35441,7 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Unit"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Unit"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"Unit"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"Unit">
   }
 
   export type VehicleWhereInput = {
@@ -32531,6 +35457,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Vehicle"> | Date | string
     updated_at?: DateTimeFilter<"Vehicle"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    metadata?: JsonNullableFilter<"Vehicle">
     sprs?: SPRListRelationFilter
   }
 
@@ -32544,6 +35471,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     sprs?: SPROrderByRelationAggregateInput
   }
 
@@ -32560,6 +35488,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Vehicle"> | Date | string
     updated_at?: DateTimeFilter<"Vehicle"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    metadata?: JsonNullableFilter<"Vehicle">
     sprs?: SPRListRelationFilter
   }, "id">
 
@@ -32573,6 +35502,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
     _count?: VehicleCountOrderByAggregateInput
     _max?: VehicleMaxOrderByAggregateInput
     _min?: VehicleMinOrderByAggregateInput
@@ -32591,6 +35521,87 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"Vehicle"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"Vehicle">
+  }
+
+  export type StationWhereInput = {
+    AND?: StationWhereInput | StationWhereInput[]
+    OR?: StationWhereInput[]
+    NOT?: StationWhereInput | StationWhereInput[]
+    id?: StringFilter<"Station"> | string
+    name?: StringFilter<"Station"> | string
+    location?: StringFilter<"Station"> | string
+    created_by?: StringFilter<"Station"> | string
+    updated_by?: StringNullableFilter<"Station"> | string | null
+    deleted_by?: StringNullableFilter<"Station"> | string | null
+    created_at?: DateTimeFilter<"Station"> | Date | string
+    updated_at?: DateTimeFilter<"Station"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Station"> | Date | string | null
+    metadata?: JsonNullableFilter<"Station">
+    items?: ItemLocationListRelationFilter
+  }
+
+  export type StationOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    deleted_by?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    items?: ItemLocationOrderByRelationAggregateInput
+  }
+
+  export type StationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StationWhereInput | StationWhereInput[]
+    OR?: StationWhereInput[]
+    NOT?: StationWhereInput | StationWhereInput[]
+    name?: StringFilter<"Station"> | string
+    location?: StringFilter<"Station"> | string
+    created_by?: StringFilter<"Station"> | string
+    updated_by?: StringNullableFilter<"Station"> | string | null
+    deleted_by?: StringNullableFilter<"Station"> | string | null
+    created_at?: DateTimeFilter<"Station"> | Date | string
+    updated_at?: DateTimeFilter<"Station"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Station"> | Date | string | null
+    metadata?: JsonNullableFilter<"Station">
+    items?: ItemLocationListRelationFilter
+  }, "id">
+
+  export type StationOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    deleted_by?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: StationCountOrderByAggregateInput
+    _max?: StationMaxOrderByAggregateInput
+    _min?: StationMinOrderByAggregateInput
+  }
+
+  export type StationScalarWhereWithAggregatesInput = {
+    AND?: StationScalarWhereWithAggregatesInput | StationScalarWhereWithAggregatesInput[]
+    OR?: StationScalarWhereWithAggregatesInput[]
+    NOT?: StationScalarWhereWithAggregatesInput | StationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Station"> | string
+    name?: StringWithAggregatesFilter<"Station"> | string
+    location?: StringWithAggregatesFilter<"Station"> | string
+    created_by?: StringWithAggregatesFilter<"Station"> | string
+    updated_by?: StringNullableWithAggregatesFilter<"Station"> | string | null
+    deleted_by?: StringNullableWithAggregatesFilter<"Station"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"Station"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Station"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Station"> | Date | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"Station">
   }
 
   export type PendingCreateInput = {
@@ -32666,6 +35677,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutCanvassInput
     jo?: JOCreateNestedOneWithoutCanvassInput
     rv?: RVCreateNestedOneWithoutCanvassInput
@@ -32685,6 +35697,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutCanvassInput
     jo?: JOUncheckedCreateNestedOneWithoutCanvassInput
     rv?: RVUncheckedCreateNestedOneWithoutCanvassInput
@@ -32704,6 +35717,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutCanvassNestedInput
     jo?: JOUpdateOneWithoutCanvassNestedInput
     rv?: RVUpdateOneWithoutCanvassNestedInput
@@ -32723,6 +35737,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutCanvassNestedInput
     jo?: JOUncheckedUpdateOneWithoutCanvassNestedInput
     rv?: RVUncheckedUpdateOneWithoutCanvassNestedInput
@@ -32742,6 +35757,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassUpdateManyMutationInput = {
@@ -32757,6 +35773,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassUncheckedUpdateManyInput = {
@@ -32772,16 +35789,14 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassItemCreateInput = {
     id?: string
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemCreateNestedManyWithoutCanvass_itemInput
     canvass: CanvassCreateNestedOneWithoutCanvass_itemsInput
     unit?: UnitCreateNestedOneWithoutCanvass_itemsInput
@@ -32795,10 +35810,7 @@ export namespace Prisma {
     item_id?: string | null
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUncheckedCreateNestedManyWithoutCanvass_itemInput
   }
 
@@ -32806,10 +35818,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUpdateManyWithoutCanvass_itemNestedInput
     canvass?: CanvassUpdateOneRequiredWithoutCanvass_itemsNestedInput
     unit?: UnitUpdateOneWithoutCanvass_itemsNestedInput
@@ -32823,10 +35832,7 @@ export namespace Prisma {
     item_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUncheckedUpdateManyWithoutCanvass_itemNestedInput
   }
 
@@ -32837,20 +35843,14 @@ export namespace Prisma {
     item_id?: string | null
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassItemUncheckedUpdateManyInput = {
@@ -32860,10 +35860,7 @@ export namespace Prisma {
     item_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVCreateInput = {
@@ -32881,6 +35878,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutRvInput
     meqs?: MEQSCreateNestedOneWithoutRvInput
     rv_approvers?: RVApproverCreateNestedManyWithoutRvInput
@@ -32902,6 +35900,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedCreateNestedOneWithoutRvInput
     rv_approvers?: RVApproverUncheckedCreateNestedManyWithoutRvInput
   }
@@ -32921,6 +35920,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutRvNestedInput
     meqs?: MEQSUpdateOneWithoutRvNestedInput
     rv_approvers?: RVApproverUpdateManyWithoutRvNestedInput
@@ -32942,6 +35942,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedUpdateOneWithoutRvNestedInput
     rv_approvers?: RVApproverUncheckedUpdateManyWithoutRvNestedInput
   }
@@ -32962,6 +35963,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVUpdateManyMutationInput = {
@@ -32979,6 +35981,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVUncheckedUpdateManyInput = {
@@ -32997,6 +36000,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverCreateInput = {
@@ -33008,12 +36012,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rv: RVCreateNestedOneWithoutRv_approversInput
   }
 
@@ -33027,12 +36026,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverUpdateInput = {
@@ -33044,12 +36038,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rv?: RVUpdateOneRequiredWithoutRv_approversNestedInput
   }
 
@@ -33063,12 +36052,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverCreateManyInput = {
@@ -33081,12 +36065,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverUpdateManyMutationInput = {
@@ -33098,12 +36077,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverUncheckedUpdateManyInput = {
@@ -33116,12 +36090,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOCreateInput = {
@@ -33139,6 +36108,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutJoInput
     meqs?: MEQSCreateNestedOneWithoutJoInput
     jo_approvers?: JOApproverCreateNestedManyWithoutJoInput
@@ -33160,6 +36130,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedCreateNestedOneWithoutJoInput
     jo_approvers?: JOApproverUncheckedCreateNestedManyWithoutJoInput
   }
@@ -33179,6 +36150,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutJoNestedInput
     meqs?: MEQSUpdateOneWithoutJoNestedInput
     jo_approvers?: JOApproverUpdateManyWithoutJoNestedInput
@@ -33200,6 +36172,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedUpdateOneWithoutJoNestedInput
     jo_approvers?: JOApproverUncheckedUpdateManyWithoutJoNestedInput
   }
@@ -33220,6 +36193,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOUpdateManyMutationInput = {
@@ -33237,6 +36211,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOUncheckedUpdateManyInput = {
@@ -33255,6 +36230,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverCreateInput = {
@@ -33266,12 +36242,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo: JOCreateNestedOneWithoutJo_approversInput
   }
 
@@ -33285,12 +36256,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverUpdateInput = {
@@ -33302,12 +36268,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUpdateOneRequiredWithoutJo_approversNestedInput
   }
 
@@ -33321,12 +36282,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverCreateManyInput = {
@@ -33339,12 +36295,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverUpdateManyMutationInput = {
@@ -33356,12 +36307,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverUncheckedUpdateManyInput = {
@@ -33374,12 +36320,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRCreateInput = {
@@ -33395,6 +36336,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutSprInput
     meqs?: MEQSCreateNestedOneWithoutSprInput
     vehicle: VehicleCreateNestedOneWithoutSprsInput
@@ -33416,6 +36358,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedCreateNestedOneWithoutSprInput
     spr_approvers?: SPRApproverUncheckedCreateNestedManyWithoutSprInput
   }
@@ -33433,6 +36376,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutSprNestedInput
     meqs?: MEQSUpdateOneWithoutSprNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
@@ -33454,6 +36398,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedUpdateOneWithoutSprNestedInput
     spr_approvers?: SPRApproverUncheckedUpdateManyWithoutSprNestedInput
   }
@@ -33473,6 +36418,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRUpdateManyMutationInput = {
@@ -33488,6 +36434,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRUncheckedUpdateManyInput = {
@@ -33505,6 +36452,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverCreateInput = {
@@ -33516,12 +36464,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     spr: SPRCreateNestedOneWithoutSpr_approversInput
   }
 
@@ -33535,12 +36478,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverUpdateInput = {
@@ -33552,12 +36490,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     spr?: SPRUpdateOneRequiredWithoutSpr_approversNestedInput
   }
 
@@ -33571,12 +36504,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverCreateManyInput = {
@@ -33589,12 +36517,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverUpdateManyMutationInput = {
@@ -33606,12 +36529,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverUncheckedUpdateManyInput = {
@@ -33624,12 +36542,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSCreateInput = {
@@ -33643,6 +36556,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOCreateNestedOneWithoutMeqsInput
     rv?: RVCreateNestedOneWithoutMeqsInput
     spr?: SPRCreateNestedOneWithoutMeqsInput
@@ -33664,6 +36578,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_approvers?: MEQSApproverUncheckedCreateNestedManyWithoutMeqsInput
     meqs_suppliers?: MEQSSupplierUncheckedCreateNestedManyWithoutMeqsInput
   }
@@ -33679,6 +36594,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUpdateOneWithoutMeqsNestedInput
     rv?: RVUpdateOneWithoutMeqsNestedInput
     spr?: SPRUpdateOneWithoutMeqsNestedInput
@@ -33700,6 +36616,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_approvers?: MEQSApproverUncheckedUpdateManyWithoutMeqsNestedInput
     meqs_suppliers?: MEQSSupplierUncheckedUpdateManyWithoutMeqsNestedInput
   }
@@ -33718,6 +36635,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSUpdateManyMutationInput = {
@@ -33731,6 +36649,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSUncheckedUpdateManyInput = {
@@ -33747,15 +36666,13 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierCreateInput = {
     id?: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs: MEQSCreateNestedOneWithoutMeqs_suppliersInput
     supplier: SupplierCreateNestedOneWithoutMEQSSupplierInput
     attachments?: MEQSSupplierAttachmentCreateNestedManyWithoutMeqs_supplierInput
@@ -33768,10 +36685,7 @@ export namespace Prisma {
     meqs_id: string
     supplier_id: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     attachments?: MEQSSupplierAttachmentUncheckedCreateNestedManyWithoutMeqs_supplierInput
     meqs_supplier_items?: MEQSSupplierItemUncheckedCreateNestedManyWithoutMeqs_supplierInput
     po?: POUncheckedCreateNestedOneWithoutMeqs_supplierInput
@@ -33780,10 +36694,7 @@ export namespace Prisma {
   export type MEQSSupplierUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneRequiredWithoutMeqs_suppliersNestedInput
     supplier?: SupplierUpdateOneRequiredWithoutMEQSSupplierNestedInput
     attachments?: MEQSSupplierAttachmentUpdateManyWithoutMeqs_supplierNestedInput
@@ -33796,10 +36707,7 @@ export namespace Prisma {
     meqs_id?: StringFieldUpdateOperationsInput | string
     supplier_id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     attachments?: MEQSSupplierAttachmentUncheckedUpdateManyWithoutMeqs_supplierNestedInput
     meqs_supplier_items?: MEQSSupplierItemUncheckedUpdateManyWithoutMeqs_supplierNestedInput
     po?: POUncheckedUpdateOneWithoutMeqs_supplierNestedInput
@@ -33810,19 +36718,13 @@ export namespace Prisma {
     meqs_id: string
     supplier_id: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierUncheckedUpdateManyInput = {
@@ -33830,10 +36732,7 @@ export namespace Prisma {
     meqs_id?: StringFieldUpdateOperationsInput | string
     supplier_id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierItemCreateInput = {
@@ -33842,10 +36741,7 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_item: CanvassItemCreateNestedOneWithoutMeqs_supplier_itemsInput
     meqs_supplier: MEQSSupplierCreateNestedOneWithoutMeqs_supplier_itemsInput
     rr_items?: RRItemCreateNestedManyWithoutMeqs_supplier_itemInput
@@ -33859,10 +36755,7 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_items?: RRItemUncheckedCreateNestedManyWithoutMeqs_supplier_itemInput
   }
 
@@ -33872,10 +36765,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_item?: CanvassItemUpdateOneRequiredWithoutMeqs_supplier_itemsNestedInput
     meqs_supplier?: MEQSSupplierUpdateOneRequiredWithoutMeqs_supplier_itemsNestedInput
     rr_items?: RRItemUpdateManyWithoutMeqs_supplier_itemNestedInput
@@ -33889,10 +36779,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_items?: RRItemUncheckedUpdateManyWithoutMeqs_supplier_itemNestedInput
   }
 
@@ -33904,10 +36791,7 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierItemUpdateManyMutationInput = {
@@ -33916,10 +36800,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierItemUncheckedUpdateManyInput = {
@@ -33930,20 +36811,14 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentCreateInput = {
     id?: string
     filename?: string
     src: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier: MEQSSupplierCreateNestedOneWithoutAttachmentsInput
   }
 
@@ -33952,20 +36827,14 @@ export namespace Prisma {
     meqs_supplier_id: string
     filename?: string
     src: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     src?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier?: MEQSSupplierUpdateOneRequiredWithoutAttachmentsNestedInput
   }
 
@@ -33974,10 +36843,7 @@ export namespace Prisma {
     meqs_supplier_id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     src?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentCreateManyInput = {
@@ -33985,20 +36851,14 @@ export namespace Prisma {
     meqs_supplier_id: string
     filename?: string
     src: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     src?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentUncheckedUpdateManyInput = {
@@ -34006,10 +36866,7 @@ export namespace Prisma {
     meqs_supplier_id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     src?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverCreateInput = {
@@ -34020,12 +36877,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs: MEQSCreateNestedOneWithoutMeqs_approversInput
   }
 
@@ -34038,12 +36890,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverUpdateInput = {
@@ -34054,12 +36901,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneRequiredWithoutMeqs_approversNestedInput
   }
 
@@ -34072,12 +36914,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverCreateManyInput = {
@@ -34089,12 +36926,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverUpdateManyMutationInput = {
@@ -34105,12 +36937,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverUncheckedUpdateManyInput = {
@@ -34122,12 +36949,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POCreateInput = {
@@ -34142,6 +36964,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier?: MEQSSupplierCreateNestedOneWithoutPoInput
     rrs?: RRCreateNestedManyWithoutPoInput
     po_approvers?: POApproverCreateNestedManyWithoutPoInput
@@ -34160,6 +36983,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rrs?: RRUncheckedCreateNestedManyWithoutPoInput
     po_approvers?: POApproverUncheckedCreateNestedManyWithoutPoInput
   }
@@ -34176,6 +37000,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier?: MEQSSupplierUpdateOneWithoutPoNestedInput
     rrs?: RRUpdateManyWithoutPoNestedInput
     po_approvers?: POApproverUpdateManyWithoutPoNestedInput
@@ -34194,6 +37019,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rrs?: RRUncheckedUpdateManyWithoutPoNestedInput
     po_approvers?: POApproverUncheckedUpdateManyWithoutPoNestedInput
   }
@@ -34211,6 +37037,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POUpdateManyMutationInput = {
@@ -34225,6 +37052,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POUncheckedUpdateManyInput = {
@@ -34240,6 +37068,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverCreateInput = {
@@ -34250,12 +37079,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     po: POCreateNestedOneWithoutPo_approversInput
   }
 
@@ -34268,12 +37092,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverUpdateInput = {
@@ -34284,12 +37103,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     po?: POUpdateOneRequiredWithoutPo_approversNestedInput
   }
 
@@ -34302,12 +37116,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverCreateManyInput = {
@@ -34319,12 +37128,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverUpdateManyMutationInput = {
@@ -34335,12 +37139,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverUncheckedUpdateManyInput = {
@@ -34352,12 +37151,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRCreateInput = {
@@ -34376,6 +37170,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     po?: POCreateNestedOneWithoutRrsInput
     rr_approvers?: RRApproverCreateNestedManyWithoutRrInput
     rr_items?: RRItemCreateNestedManyWithoutRrInput
@@ -34398,6 +37193,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_approvers?: RRApproverUncheckedCreateNestedManyWithoutRrInput
     rr_items?: RRItemUncheckedCreateNestedManyWithoutRrInput
   }
@@ -34418,6 +37214,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     po?: POUpdateOneWithoutRrsNestedInput
     rr_approvers?: RRApproverUpdateManyWithoutRrNestedInput
     rr_items?: RRItemUpdateManyWithoutRrNestedInput
@@ -34440,6 +37237,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_approvers?: RRApproverUncheckedUpdateManyWithoutRrNestedInput
     rr_items?: RRItemUncheckedUpdateManyWithoutRrNestedInput
   }
@@ -34461,6 +37259,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRUpdateManyMutationInput = {
@@ -34479,6 +37278,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRUncheckedUpdateManyInput = {
@@ -34498,6 +37298,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverCreateInput = {
@@ -34508,12 +37309,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr: RRCreateNestedOneWithoutRr_approversInput
   }
 
@@ -34526,12 +37322,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverUpdateInput = {
@@ -34542,12 +37333,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr?: RRUpdateOneRequiredWithoutRr_approversNestedInput
   }
 
@@ -34560,12 +37346,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverCreateManyInput = {
@@ -34577,12 +37358,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverUpdateManyMutationInput = {
@@ -34593,12 +37369,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverUncheckedUpdateManyInput = {
@@ -34610,21 +37381,13 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRItemCreateInput = {
     id?: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr: RRCreateNestedOneWithoutRr_itemsInput
     item_transaction?: ItemTransactionCreateNestedOneWithoutRr_itemInput
     meqs_supplier_item: MEQSSupplierItemCreateNestedOneWithoutRr_itemsInput
@@ -34635,20 +37398,14 @@ export namespace Prisma {
     rr_id: string
     meqs_supplier_item_id: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutRr_itemInput
   }
 
   export type RRItemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr?: RRUpdateOneRequiredWithoutRr_itemsNestedInput
     item_transaction?: ItemTransactionUpdateOneWithoutRr_itemNestedInput
     meqs_supplier_item?: MEQSSupplierItemUpdateOneRequiredWithoutRr_itemsNestedInput
@@ -34659,10 +37416,7 @@ export namespace Prisma {
     rr_id?: StringFieldUpdateOperationsInput | string
     meqs_supplier_item_id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutRr_itemNestedInput
   }
 
@@ -34671,19 +37425,13 @@ export namespace Prisma {
     rr_id: string
     meqs_supplier_item_id: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRItemUncheckedUpdateManyInput = {
@@ -34691,10 +37439,7 @@ export namespace Prisma {
     rr_id?: StringFieldUpdateOperationsInput | string
     meqs_supplier_item_id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemCreateInput = {
@@ -34711,10 +37456,12 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateInput = {
@@ -34733,8 +37480,10 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemUpdateInput = {
@@ -34751,10 +37500,12 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateInput = {
@@ -34773,8 +37524,10 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type ItemCreateManyInput = {
@@ -34793,6 +37546,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemUpdateManyMutationInput = {
@@ -34809,6 +37563,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemUncheckedUpdateManyInput = {
@@ -34827,6 +37582,151 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemLocationCreateInput = {
+    id?: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item: ItemCreateNestedOneWithoutItem_locationsInput
+    station: StationCreateNestedOneWithoutItemsInput
+    origin_movements?: ItemMovementCreateNestedManyWithoutOriginInput
+    destination_movements?: ItemMovementCreateNestedManyWithoutDestinationInput
+  }
+
+  export type ItemLocationUncheckedCreateInput = {
+    id?: string
+    item_id: string
+    station_id: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin_movements?: ItemMovementUncheckedCreateNestedManyWithoutOriginInput
+    destination_movements?: ItemMovementUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type ItemLocationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item?: ItemUpdateOneRequiredWithoutItem_locationsNestedInput
+    station?: StationUpdateOneRequiredWithoutItemsNestedInput
+    origin_movements?: ItemMovementUpdateManyWithoutOriginNestedInput
+    destination_movements?: ItemMovementUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type ItemLocationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    station_id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin_movements?: ItemMovementUncheckedUpdateManyWithoutOriginNestedInput
+    destination_movements?: ItemMovementUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type ItemLocationCreateManyInput = {
+    id?: string
+    item_id: string
+    station_id: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemLocationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemLocationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    station_id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementCreateInput = {
+    id?: string
+    quantity_moved: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin: ItemLocationCreateNestedOneWithoutOrigin_movementsInput
+    destination: ItemLocationCreateNestedOneWithoutDestination_movementsInput
+  }
+
+  export type ItemMovementUncheckedCreateInput = {
+    id?: string
+    origin_id: string
+    destination_id: string
+    quantity_moved: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity_moved?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin?: ItemLocationUpdateOneRequiredWithoutOrigin_movementsNestedInput
+    destination?: ItemLocationUpdateOneRequiredWithoutDestination_movementsNestedInput
+  }
+
+  export type ItemMovementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    origin_id?: StringFieldUpdateOperationsInput | string
+    destination_id?: StringFieldUpdateOperationsInput | string
+    quantity_moved?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementCreateManyInput = {
+    id?: string
+    origin_id: string
+    destination_id: string
+    quantity_moved: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity_moved?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    origin_id?: StringFieldUpdateOperationsInput | string
+    destination_id?: StringFieldUpdateOperationsInput | string
+    quantity_moved?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionCreateInput = {
@@ -34837,6 +37737,7 @@ export namespace Prisma {
     is_initial?: boolean
     created_at?: Date | string
     created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutItem_transactionsInput
     rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
   }
@@ -34852,6 +37753,7 @@ export namespace Prisma {
     is_initial?: boolean
     created_at?: Date | string
     created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionUpdateInput = {
@@ -34862,6 +37764,7 @@ export namespace Prisma {
     is_initial?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
     rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
   }
@@ -34877,6 +37780,7 @@ export namespace Prisma {
     is_initial?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionCreateManyInput = {
@@ -34890,6 +37794,7 @@ export namespace Prisma {
     is_initial?: boolean
     created_at?: Date | string
     created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionUpdateManyMutationInput = {
@@ -34900,6 +37805,7 @@ export namespace Prisma {
     is_initial?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionUncheckedUpdateManyInput = {
@@ -34913,6 +37819,7 @@ export namespace Prisma {
     is_initial?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTypeCreateInput = {
@@ -34924,6 +37831,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemCreateNestedManyWithoutItem_typeInput
   }
 
@@ -34936,6 +37844,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemUncheckedCreateNestedManyWithoutItem_typeInput
   }
 
@@ -34948,6 +37857,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemUpdateManyWithoutItem_typeNestedInput
   }
 
@@ -34960,6 +37870,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemUncheckedUpdateManyWithoutItem_typeNestedInput
   }
 
@@ -34972,6 +37883,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTypeUpdateManyMutationInput = {
@@ -34983,6 +37895,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTypeUncheckedUpdateManyInput = {
@@ -34994,13 +37907,14 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SupplierCreateInput = {
     id?: string
     name: string
     contact: string
-    tin_no?: string
+    tin?: string
     address?: string
     vat_type?: number
     is_vat_registered?: boolean
@@ -35010,6 +37924,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     MEQSSupplier?: MEQSSupplierCreateNestedManyWithoutSupplierInput
   }
 
@@ -35017,7 +37932,7 @@ export namespace Prisma {
     id?: string
     name: string
     contact: string
-    tin_no?: string
+    tin?: string
     address?: string
     vat_type?: number
     is_vat_registered?: boolean
@@ -35027,6 +37942,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     MEQSSupplier?: MEQSSupplierUncheckedCreateNestedManyWithoutSupplierInput
   }
 
@@ -35034,7 +37950,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
-    tin_no?: StringFieldUpdateOperationsInput | string
+    tin?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
@@ -35044,6 +37960,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     MEQSSupplier?: MEQSSupplierUpdateManyWithoutSupplierNestedInput
   }
 
@@ -35051,7 +37968,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
-    tin_no?: StringFieldUpdateOperationsInput | string
+    tin?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
@@ -35061,6 +37978,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     MEQSSupplier?: MEQSSupplierUncheckedUpdateManyWithoutSupplierNestedInput
   }
 
@@ -35068,7 +37986,7 @@ export namespace Prisma {
     id?: string
     name: string
     contact: string
-    tin_no?: string
+    tin?: string
     address?: string
     vat_type?: number
     is_vat_registered?: boolean
@@ -35078,13 +37996,14 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SupplierUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
-    tin_no?: StringFieldUpdateOperationsInput | string
+    tin?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
@@ -35094,13 +38013,14 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SupplierUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
-    tin_no?: StringFieldUpdateOperationsInput | string
+    tin?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
@@ -35110,6 +38030,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UnitCreateInput = {
@@ -35121,6 +38042,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutUnitInput
     items?: ItemCreateNestedManyWithoutUnitInput
   }
@@ -35134,6 +38056,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutUnitInput
     items?: ItemUncheckedCreateNestedManyWithoutUnitInput
   }
@@ -35147,6 +38070,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutUnitNestedInput
     items?: ItemUpdateManyWithoutUnitNestedInput
   }
@@ -35160,6 +38084,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutUnitNestedInput
     items?: ItemUncheckedUpdateManyWithoutUnitNestedInput
   }
@@ -35173,6 +38098,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UnitUpdateManyMutationInput = {
@@ -35184,6 +38110,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UnitUncheckedUpdateManyInput = {
@@ -35195,6 +38122,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type VehicleCreateInput = {
@@ -35207,6 +38135,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     sprs?: SPRCreateNestedManyWithoutVehicleInput
   }
 
@@ -35220,6 +38149,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
   }
 
@@ -35233,6 +38163,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     sprs?: SPRUpdateManyWithoutVehicleNestedInput
   }
 
@@ -35246,6 +38177,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
@@ -35259,6 +38191,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type VehicleUpdateManyMutationInput = {
@@ -35271,6 +38204,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type VehicleUncheckedUpdateManyInput = {
@@ -35283,6 +38217,102 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type StationCreateInput = {
+    id?: string
+    name: string
+    location: string
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    items?: ItemLocationCreateNestedManyWithoutStationInput
+  }
+
+  export type StationUncheckedCreateInput = {
+    id?: string
+    name: string
+    location: string
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    items?: ItemLocationUncheckedCreateNestedManyWithoutStationInput
+  }
+
+  export type StationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    items?: ItemLocationUpdateManyWithoutStationNestedInput
+  }
+
+  export type StationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    items?: ItemLocationUncheckedUpdateManyWithoutStationNestedInput
+  }
+
+  export type StationCreateManyInput = {
+    id?: string
+    name: string
+    location: string
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type StationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type StationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -35436,6 +38466,28 @@ export namespace Prisma {
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
+  export type JsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type CanvassItemListRelationFilter = {
     every?: CanvassItemWhereInput
@@ -35480,6 +38532,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type CanvassMaxOrderByAggregateInput = {
@@ -35543,6 +38596,31 @@ export namespace Prisma {
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
 
   export type MEQSSupplierItemListRelationFilter = {
     every?: MEQSSupplierItemWhereInput
@@ -35576,10 +38654,7 @@ export namespace Prisma {
     item_id?: SortOrder
     description?: SortOrder
     quantity?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type CanvassItemAvgOrderByAggregateInput = {
@@ -35593,10 +38668,6 @@ export namespace Prisma {
     item_id?: SortOrder
     description?: SortOrder
     quantity?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type CanvassItemMinOrderByAggregateInput = {
@@ -35606,10 +38677,6 @@ export namespace Prisma {
     item_id?: SortOrder
     description?: SortOrder
     quantity?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type CanvassItemSumOrderByAggregateInput = {
@@ -35652,6 +38719,7 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type RVMaxOrderByAggregateInput = {
@@ -35710,12 +38778,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type RVApproverAvgOrderByAggregateInput = {
@@ -35733,12 +38796,6 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type RVApproverMinOrderByAggregateInput = {
@@ -35751,12 +38808,6 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type RVApproverSumOrderByAggregateInput = {
@@ -35798,6 +38849,7 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type JOMaxOrderByAggregateInput = {
@@ -35851,12 +38903,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type JOApproverAvgOrderByAggregateInput = {
@@ -35874,12 +38921,6 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type JOApproverMinOrderByAggregateInput = {
@@ -35892,12 +38933,6 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type JOApproverSumOrderByAggregateInput = {
@@ -35935,6 +38970,7 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type SPRMaxOrderByAggregateInput = {
@@ -35986,12 +39022,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type SPRApproverAvgOrderByAggregateInput = {
@@ -36009,12 +39040,6 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type SPRApproverMinOrderByAggregateInput = {
@@ -36027,12 +39052,6 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     is_supervisor?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type SPRApproverSumOrderByAggregateInput = {
@@ -36074,6 +39093,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     cancelled_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type MEQSMaxOrderByAggregateInput = {
@@ -36143,10 +39163,7 @@ export namespace Prisma {
     meqs_id?: SortOrder
     supplier_id?: SortOrder
     payment_terms?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type MEQSSupplierMaxOrderByAggregateInput = {
@@ -36154,10 +39171,6 @@ export namespace Prisma {
     meqs_id?: SortOrder
     supplier_id?: SortOrder
     payment_terms?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type MEQSSupplierMinOrderByAggregateInput = {
@@ -36165,10 +39178,6 @@ export namespace Prisma {
     meqs_id?: SortOrder
     supplier_id?: SortOrder
     payment_terms?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -36210,10 +39219,7 @@ export namespace Prisma {
     notes?: SortOrder
     is_awarded?: SortOrder
     vat_type?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type MEQSSupplierItemAvgOrderByAggregateInput = {
@@ -36229,10 +39235,6 @@ export namespace Prisma {
     notes?: SortOrder
     is_awarded?: SortOrder
     vat_type?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type MEQSSupplierItemMinOrderByAggregateInput = {
@@ -36243,10 +39245,6 @@ export namespace Prisma {
     notes?: SortOrder
     is_awarded?: SortOrder
     vat_type?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type MEQSSupplierItemSumOrderByAggregateInput = {
@@ -36275,10 +39273,7 @@ export namespace Prisma {
     meqs_supplier_id?: SortOrder
     filename?: SortOrder
     src?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type MEQSSupplierAttachmentMaxOrderByAggregateInput = {
@@ -36286,10 +39281,6 @@ export namespace Prisma {
     meqs_supplier_id?: SortOrder
     filename?: SortOrder
     src?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type MEQSSupplierAttachmentMinOrderByAggregateInput = {
@@ -36297,10 +39288,6 @@ export namespace Prisma {
     meqs_supplier_id?: SortOrder
     filename?: SortOrder
     src?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type MEQSApproverCountOrderByAggregateInput = {
@@ -36312,12 +39299,7 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type MEQSApproverAvgOrderByAggregateInput = {
@@ -36334,12 +39316,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type MEQSApproverMinOrderByAggregateInput = {
@@ -36351,12 +39327,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type MEQSApproverSumOrderByAggregateInput = {
@@ -36402,6 +39372,7 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type POMaxOrderByAggregateInput = {
@@ -36448,12 +39419,7 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type POApproverAvgOrderByAggregateInput = {
@@ -36470,12 +39436,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type POApproverMinOrderByAggregateInput = {
@@ -36487,12 +39447,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type POApproverSumOrderByAggregateInput = {
@@ -36527,6 +39481,7 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type RRAvgOrderByAggregateInput = {
@@ -36589,12 +39544,7 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type RRApproverAvgOrderByAggregateInput = {
@@ -36611,12 +39561,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type RRApproverMinOrderByAggregateInput = {
@@ -36628,12 +39572,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type RRApproverSumOrderByAggregateInput = {
@@ -36656,10 +39594,7 @@ export namespace Prisma {
     rr_id?: SortOrder
     meqs_supplier_item_id?: SortOrder
     quantity_accepted?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type RRItemAvgOrderByAggregateInput = {
@@ -36671,10 +39606,6 @@ export namespace Prisma {
     rr_id?: SortOrder
     meqs_supplier_item_id?: SortOrder
     quantity_accepted?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type RRItemMinOrderByAggregateInput = {
@@ -36682,10 +39613,6 @@ export namespace Prisma {
     rr_id?: SortOrder
     meqs_supplier_item_id?: SortOrder
     quantity_accepted?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type RRItemSumOrderByAggregateInput = {
@@ -36708,7 +39635,17 @@ export namespace Prisma {
     isNot?: UnitWhereInput
   }
 
+  export type ItemLocationListRelationFilter = {
+    every?: ItemLocationWhereInput
+    some?: ItemLocationWhereInput
+    none?: ItemLocationWhereInput
+  }
+
   export type ItemTransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ItemLocationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -36728,6 +39665,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type ItemAvgOrderByAggregateInput = {
@@ -36783,6 +39721,98 @@ export namespace Prisma {
     isNot?: ItemWhereInput
   }
 
+  export type StationRelationFilter = {
+    is?: StationWhereInput
+    isNot?: StationWhereInput
+  }
+
+  export type ItemMovementListRelationFilter = {
+    every?: ItemMovementWhereInput
+    some?: ItemMovementWhereInput
+    none?: ItemMovementWhereInput
+  }
+
+  export type ItemMovementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ItemLocationCountOrderByAggregateInput = {
+    id?: SortOrder
+    item_id?: SortOrder
+    station_id?: SortOrder
+    quantity_on_hand?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    metadata?: SortOrder
+  }
+
+  export type ItemLocationAvgOrderByAggregateInput = {
+    quantity_on_hand?: SortOrder
+  }
+
+  export type ItemLocationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    item_id?: SortOrder
+    station_id?: SortOrder
+    quantity_on_hand?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ItemLocationMinOrderByAggregateInput = {
+    id?: SortOrder
+    item_id?: SortOrder
+    station_id?: SortOrder
+    quantity_on_hand?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ItemLocationSumOrderByAggregateInput = {
+    quantity_on_hand?: SortOrder
+  }
+
+  export type ItemLocationRelationFilter = {
+    is?: ItemLocationWhereInput
+    isNot?: ItemLocationWhereInput
+  }
+
+  export type ItemMovementCountOrderByAggregateInput = {
+    id?: SortOrder
+    origin_id?: SortOrder
+    destination_id?: SortOrder
+    quantity_moved?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    metadata?: SortOrder
+  }
+
+  export type ItemMovementAvgOrderByAggregateInput = {
+    quantity_moved?: SortOrder
+  }
+
+  export type ItemMovementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    origin_id?: SortOrder
+    destination_id?: SortOrder
+    quantity_moved?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ItemMovementMinOrderByAggregateInput = {
+    id?: SortOrder
+    origin_id?: SortOrder
+    destination_id?: SortOrder
+    quantity_moved?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ItemMovementSumOrderByAggregateInput = {
+    quantity_moved?: SortOrder
+  }
+
   export type RRItemNullableRelationFilter = {
     is?: RRItemWhereInput | null
     isNot?: RRItemWhereInput | null
@@ -36799,6 +39829,7 @@ export namespace Prisma {
     is_initial?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
+    metadata?: SortOrder
   }
 
   export type ItemTransactionAvgOrderByAggregateInput = {
@@ -36860,6 +39891,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type ItemTypeMaxOrderByAggregateInput = {
@@ -36888,7 +39920,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     contact?: SortOrder
-    tin_no?: SortOrder
+    tin?: SortOrder
     address?: SortOrder
     vat_type?: SortOrder
     is_vat_registered?: SortOrder
@@ -36898,6 +39930,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type SupplierAvgOrderByAggregateInput = {
@@ -36908,7 +39941,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     contact?: SortOrder
-    tin_no?: SortOrder
+    tin?: SortOrder
     address?: SortOrder
     vat_type?: SortOrder
     is_vat_registered?: SortOrder
@@ -36924,7 +39957,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     contact?: SortOrder
-    tin_no?: SortOrder
+    tin?: SortOrder
     address?: SortOrder
     vat_type?: SortOrder
     is_vat_registered?: SortOrder
@@ -36949,6 +39982,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type UnitMaxOrderByAggregateInput = {
@@ -36993,6 +40027,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     deleted_at?: SortOrder
+    metadata?: SortOrder
   }
 
   export type VehicleMaxOrderByAggregateInput = {
@@ -37011,6 +40046,43 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     plate_number?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrder
+    deleted_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type StationCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrder
+    deleted_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrder
+    metadata?: SortOrder
+  }
+
+  export type StationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrder
+    deleted_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type StationMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
@@ -38295,6 +41367,13 @@ export namespace Prisma {
     connect?: CanvassItemWhereUniqueInput | CanvassItemWhereUniqueInput[]
   }
 
+  export type ItemLocationCreateNestedManyWithoutItemInput = {
+    create?: XOR<ItemLocationCreateWithoutItemInput, ItemLocationUncheckedCreateWithoutItemInput> | ItemLocationCreateWithoutItemInput[] | ItemLocationUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutItemInput | ItemLocationCreateOrConnectWithoutItemInput[]
+    createMany?: ItemLocationCreateManyItemInputEnvelope
+    connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+  }
+
   export type ItemTransactionUncheckedCreateNestedManyWithoutItemInput = {
     create?: XOR<ItemTransactionCreateWithoutItemInput, ItemTransactionUncheckedCreateWithoutItemInput> | ItemTransactionCreateWithoutItemInput[] | ItemTransactionUncheckedCreateWithoutItemInput[]
     connectOrCreate?: ItemTransactionCreateOrConnectWithoutItemInput | ItemTransactionCreateOrConnectWithoutItemInput[]
@@ -38307,6 +41386,13 @@ export namespace Prisma {
     connectOrCreate?: CanvassItemCreateOrConnectWithoutItemInput | CanvassItemCreateOrConnectWithoutItemInput[]
     createMany?: CanvassItemCreateManyItemInputEnvelope
     connect?: CanvassItemWhereUniqueInput | CanvassItemWhereUniqueInput[]
+  }
+
+  export type ItemLocationUncheckedCreateNestedManyWithoutItemInput = {
+    create?: XOR<ItemLocationCreateWithoutItemInput, ItemLocationUncheckedCreateWithoutItemInput> | ItemLocationCreateWithoutItemInput[] | ItemLocationUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutItemInput | ItemLocationCreateOrConnectWithoutItemInput[]
+    createMany?: ItemLocationCreateManyItemInputEnvelope
+    connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
   }
 
   export type ItemTypeUpdateOneRequiredWithoutItemsNestedInput = {
@@ -38353,6 +41439,20 @@ export namespace Prisma {
     deleteMany?: CanvassItemScalarWhereInput | CanvassItemScalarWhereInput[]
   }
 
+  export type ItemLocationUpdateManyWithoutItemNestedInput = {
+    create?: XOR<ItemLocationCreateWithoutItemInput, ItemLocationUncheckedCreateWithoutItemInput> | ItemLocationCreateWithoutItemInput[] | ItemLocationUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutItemInput | ItemLocationCreateOrConnectWithoutItemInput[]
+    upsert?: ItemLocationUpsertWithWhereUniqueWithoutItemInput | ItemLocationUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: ItemLocationCreateManyItemInputEnvelope
+    set?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    disconnect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    delete?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    update?: ItemLocationUpdateWithWhereUniqueWithoutItemInput | ItemLocationUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: ItemLocationUpdateManyWithWhereWithoutItemInput | ItemLocationUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: ItemLocationScalarWhereInput | ItemLocationScalarWhereInput[]
+  }
+
   export type ItemTransactionUncheckedUpdateManyWithoutItemNestedInput = {
     create?: XOR<ItemTransactionCreateWithoutItemInput, ItemTransactionUncheckedCreateWithoutItemInput> | ItemTransactionCreateWithoutItemInput[] | ItemTransactionUncheckedCreateWithoutItemInput[]
     connectOrCreate?: ItemTransactionCreateOrConnectWithoutItemInput | ItemTransactionCreateOrConnectWithoutItemInput[]
@@ -38379,6 +41479,160 @@ export namespace Prisma {
     update?: CanvassItemUpdateWithWhereUniqueWithoutItemInput | CanvassItemUpdateWithWhereUniqueWithoutItemInput[]
     updateMany?: CanvassItemUpdateManyWithWhereWithoutItemInput | CanvassItemUpdateManyWithWhereWithoutItemInput[]
     deleteMany?: CanvassItemScalarWhereInput | CanvassItemScalarWhereInput[]
+  }
+
+  export type ItemLocationUncheckedUpdateManyWithoutItemNestedInput = {
+    create?: XOR<ItemLocationCreateWithoutItemInput, ItemLocationUncheckedCreateWithoutItemInput> | ItemLocationCreateWithoutItemInput[] | ItemLocationUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutItemInput | ItemLocationCreateOrConnectWithoutItemInput[]
+    upsert?: ItemLocationUpsertWithWhereUniqueWithoutItemInput | ItemLocationUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: ItemLocationCreateManyItemInputEnvelope
+    set?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    disconnect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    delete?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    update?: ItemLocationUpdateWithWhereUniqueWithoutItemInput | ItemLocationUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: ItemLocationUpdateManyWithWhereWithoutItemInput | ItemLocationUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: ItemLocationScalarWhereInput | ItemLocationScalarWhereInput[]
+  }
+
+  export type ItemCreateNestedOneWithoutItem_locationsInput = {
+    create?: XOR<ItemCreateWithoutItem_locationsInput, ItemUncheckedCreateWithoutItem_locationsInput>
+    connectOrCreate?: ItemCreateOrConnectWithoutItem_locationsInput
+    connect?: ItemWhereUniqueInput
+  }
+
+  export type StationCreateNestedOneWithoutItemsInput = {
+    create?: XOR<StationCreateWithoutItemsInput, StationUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: StationCreateOrConnectWithoutItemsInput
+    connect?: StationWhereUniqueInput
+  }
+
+  export type ItemMovementCreateNestedManyWithoutOriginInput = {
+    create?: XOR<ItemMovementCreateWithoutOriginInput, ItemMovementUncheckedCreateWithoutOriginInput> | ItemMovementCreateWithoutOriginInput[] | ItemMovementUncheckedCreateWithoutOriginInput[]
+    connectOrCreate?: ItemMovementCreateOrConnectWithoutOriginInput | ItemMovementCreateOrConnectWithoutOriginInput[]
+    createMany?: ItemMovementCreateManyOriginInputEnvelope
+    connect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+  }
+
+  export type ItemMovementCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<ItemMovementCreateWithoutDestinationInput, ItemMovementUncheckedCreateWithoutDestinationInput> | ItemMovementCreateWithoutDestinationInput[] | ItemMovementUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: ItemMovementCreateOrConnectWithoutDestinationInput | ItemMovementCreateOrConnectWithoutDestinationInput[]
+    createMany?: ItemMovementCreateManyDestinationInputEnvelope
+    connect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+  }
+
+  export type ItemMovementUncheckedCreateNestedManyWithoutOriginInput = {
+    create?: XOR<ItemMovementCreateWithoutOriginInput, ItemMovementUncheckedCreateWithoutOriginInput> | ItemMovementCreateWithoutOriginInput[] | ItemMovementUncheckedCreateWithoutOriginInput[]
+    connectOrCreate?: ItemMovementCreateOrConnectWithoutOriginInput | ItemMovementCreateOrConnectWithoutOriginInput[]
+    createMany?: ItemMovementCreateManyOriginInputEnvelope
+    connect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+  }
+
+  export type ItemMovementUncheckedCreateNestedManyWithoutDestinationInput = {
+    create?: XOR<ItemMovementCreateWithoutDestinationInput, ItemMovementUncheckedCreateWithoutDestinationInput> | ItemMovementCreateWithoutDestinationInput[] | ItemMovementUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: ItemMovementCreateOrConnectWithoutDestinationInput | ItemMovementCreateOrConnectWithoutDestinationInput[]
+    createMany?: ItemMovementCreateManyDestinationInputEnvelope
+    connect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+  }
+
+  export type ItemUpdateOneRequiredWithoutItem_locationsNestedInput = {
+    create?: XOR<ItemCreateWithoutItem_locationsInput, ItemUncheckedCreateWithoutItem_locationsInput>
+    connectOrCreate?: ItemCreateOrConnectWithoutItem_locationsInput
+    upsert?: ItemUpsertWithoutItem_locationsInput
+    connect?: ItemWhereUniqueInput
+    update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutItem_locationsInput, ItemUpdateWithoutItem_locationsInput>, ItemUncheckedUpdateWithoutItem_locationsInput>
+  }
+
+  export type StationUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<StationCreateWithoutItemsInput, StationUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: StationCreateOrConnectWithoutItemsInput
+    upsert?: StationUpsertWithoutItemsInput
+    connect?: StationWhereUniqueInput
+    update?: XOR<XOR<StationUpdateToOneWithWhereWithoutItemsInput, StationUpdateWithoutItemsInput>, StationUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type ItemMovementUpdateManyWithoutOriginNestedInput = {
+    create?: XOR<ItemMovementCreateWithoutOriginInput, ItemMovementUncheckedCreateWithoutOriginInput> | ItemMovementCreateWithoutOriginInput[] | ItemMovementUncheckedCreateWithoutOriginInput[]
+    connectOrCreate?: ItemMovementCreateOrConnectWithoutOriginInput | ItemMovementCreateOrConnectWithoutOriginInput[]
+    upsert?: ItemMovementUpsertWithWhereUniqueWithoutOriginInput | ItemMovementUpsertWithWhereUniqueWithoutOriginInput[]
+    createMany?: ItemMovementCreateManyOriginInputEnvelope
+    set?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    disconnect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    delete?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    connect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    update?: ItemMovementUpdateWithWhereUniqueWithoutOriginInput | ItemMovementUpdateWithWhereUniqueWithoutOriginInput[]
+    updateMany?: ItemMovementUpdateManyWithWhereWithoutOriginInput | ItemMovementUpdateManyWithWhereWithoutOriginInput[]
+    deleteMany?: ItemMovementScalarWhereInput | ItemMovementScalarWhereInput[]
+  }
+
+  export type ItemMovementUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<ItemMovementCreateWithoutDestinationInput, ItemMovementUncheckedCreateWithoutDestinationInput> | ItemMovementCreateWithoutDestinationInput[] | ItemMovementUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: ItemMovementCreateOrConnectWithoutDestinationInput | ItemMovementCreateOrConnectWithoutDestinationInput[]
+    upsert?: ItemMovementUpsertWithWhereUniqueWithoutDestinationInput | ItemMovementUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: ItemMovementCreateManyDestinationInputEnvelope
+    set?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    disconnect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    delete?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    connect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    update?: ItemMovementUpdateWithWhereUniqueWithoutDestinationInput | ItemMovementUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: ItemMovementUpdateManyWithWhereWithoutDestinationInput | ItemMovementUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: ItemMovementScalarWhereInput | ItemMovementScalarWhereInput[]
+  }
+
+  export type ItemMovementUncheckedUpdateManyWithoutOriginNestedInput = {
+    create?: XOR<ItemMovementCreateWithoutOriginInput, ItemMovementUncheckedCreateWithoutOriginInput> | ItemMovementCreateWithoutOriginInput[] | ItemMovementUncheckedCreateWithoutOriginInput[]
+    connectOrCreate?: ItemMovementCreateOrConnectWithoutOriginInput | ItemMovementCreateOrConnectWithoutOriginInput[]
+    upsert?: ItemMovementUpsertWithWhereUniqueWithoutOriginInput | ItemMovementUpsertWithWhereUniqueWithoutOriginInput[]
+    createMany?: ItemMovementCreateManyOriginInputEnvelope
+    set?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    disconnect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    delete?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    connect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    update?: ItemMovementUpdateWithWhereUniqueWithoutOriginInput | ItemMovementUpdateWithWhereUniqueWithoutOriginInput[]
+    updateMany?: ItemMovementUpdateManyWithWhereWithoutOriginInput | ItemMovementUpdateManyWithWhereWithoutOriginInput[]
+    deleteMany?: ItemMovementScalarWhereInput | ItemMovementScalarWhereInput[]
+  }
+
+  export type ItemMovementUncheckedUpdateManyWithoutDestinationNestedInput = {
+    create?: XOR<ItemMovementCreateWithoutDestinationInput, ItemMovementUncheckedCreateWithoutDestinationInput> | ItemMovementCreateWithoutDestinationInput[] | ItemMovementUncheckedCreateWithoutDestinationInput[]
+    connectOrCreate?: ItemMovementCreateOrConnectWithoutDestinationInput | ItemMovementCreateOrConnectWithoutDestinationInput[]
+    upsert?: ItemMovementUpsertWithWhereUniqueWithoutDestinationInput | ItemMovementUpsertWithWhereUniqueWithoutDestinationInput[]
+    createMany?: ItemMovementCreateManyDestinationInputEnvelope
+    set?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    disconnect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    delete?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    connect?: ItemMovementWhereUniqueInput | ItemMovementWhereUniqueInput[]
+    update?: ItemMovementUpdateWithWhereUniqueWithoutDestinationInput | ItemMovementUpdateWithWhereUniqueWithoutDestinationInput[]
+    updateMany?: ItemMovementUpdateManyWithWhereWithoutDestinationInput | ItemMovementUpdateManyWithWhereWithoutDestinationInput[]
+    deleteMany?: ItemMovementScalarWhereInput | ItemMovementScalarWhereInput[]
+  }
+
+  export type ItemLocationCreateNestedOneWithoutOrigin_movementsInput = {
+    create?: XOR<ItemLocationCreateWithoutOrigin_movementsInput, ItemLocationUncheckedCreateWithoutOrigin_movementsInput>
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutOrigin_movementsInput
+    connect?: ItemLocationWhereUniqueInput
+  }
+
+  export type ItemLocationCreateNestedOneWithoutDestination_movementsInput = {
+    create?: XOR<ItemLocationCreateWithoutDestination_movementsInput, ItemLocationUncheckedCreateWithoutDestination_movementsInput>
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutDestination_movementsInput
+    connect?: ItemLocationWhereUniqueInput
+  }
+
+  export type ItemLocationUpdateOneRequiredWithoutOrigin_movementsNestedInput = {
+    create?: XOR<ItemLocationCreateWithoutOrigin_movementsInput, ItemLocationUncheckedCreateWithoutOrigin_movementsInput>
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutOrigin_movementsInput
+    upsert?: ItemLocationUpsertWithoutOrigin_movementsInput
+    connect?: ItemLocationWhereUniqueInput
+    update?: XOR<XOR<ItemLocationUpdateToOneWithWhereWithoutOrigin_movementsInput, ItemLocationUpdateWithoutOrigin_movementsInput>, ItemLocationUncheckedUpdateWithoutOrigin_movementsInput>
+  }
+
+  export type ItemLocationUpdateOneRequiredWithoutDestination_movementsNestedInput = {
+    create?: XOR<ItemLocationCreateWithoutDestination_movementsInput, ItemLocationUncheckedCreateWithoutDestination_movementsInput>
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutDestination_movementsInput
+    upsert?: ItemLocationUpsertWithoutDestination_movementsInput
+    connect?: ItemLocationWhereUniqueInput
+    update?: XOR<XOR<ItemLocationUpdateToOneWithWhereWithoutDestination_movementsInput, ItemLocationUpdateWithoutDestination_movementsInput>, ItemLocationUncheckedUpdateWithoutDestination_movementsInput>
   }
 
   export type ItemCreateNestedOneWithoutItem_transactionsInput = {
@@ -38621,6 +41875,48 @@ export namespace Prisma {
     deleteMany?: SPRScalarWhereInput | SPRScalarWhereInput[]
   }
 
+  export type ItemLocationCreateNestedManyWithoutStationInput = {
+    create?: XOR<ItemLocationCreateWithoutStationInput, ItemLocationUncheckedCreateWithoutStationInput> | ItemLocationCreateWithoutStationInput[] | ItemLocationUncheckedCreateWithoutStationInput[]
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutStationInput | ItemLocationCreateOrConnectWithoutStationInput[]
+    createMany?: ItemLocationCreateManyStationInputEnvelope
+    connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+  }
+
+  export type ItemLocationUncheckedCreateNestedManyWithoutStationInput = {
+    create?: XOR<ItemLocationCreateWithoutStationInput, ItemLocationUncheckedCreateWithoutStationInput> | ItemLocationCreateWithoutStationInput[] | ItemLocationUncheckedCreateWithoutStationInput[]
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutStationInput | ItemLocationCreateOrConnectWithoutStationInput[]
+    createMany?: ItemLocationCreateManyStationInputEnvelope
+    connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+  }
+
+  export type ItemLocationUpdateManyWithoutStationNestedInput = {
+    create?: XOR<ItemLocationCreateWithoutStationInput, ItemLocationUncheckedCreateWithoutStationInput> | ItemLocationCreateWithoutStationInput[] | ItemLocationUncheckedCreateWithoutStationInput[]
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutStationInput | ItemLocationCreateOrConnectWithoutStationInput[]
+    upsert?: ItemLocationUpsertWithWhereUniqueWithoutStationInput | ItemLocationUpsertWithWhereUniqueWithoutStationInput[]
+    createMany?: ItemLocationCreateManyStationInputEnvelope
+    set?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    disconnect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    delete?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    update?: ItemLocationUpdateWithWhereUniqueWithoutStationInput | ItemLocationUpdateWithWhereUniqueWithoutStationInput[]
+    updateMany?: ItemLocationUpdateManyWithWhereWithoutStationInput | ItemLocationUpdateManyWithWhereWithoutStationInput[]
+    deleteMany?: ItemLocationScalarWhereInput | ItemLocationScalarWhereInput[]
+  }
+
+  export type ItemLocationUncheckedUpdateManyWithoutStationNestedInput = {
+    create?: XOR<ItemLocationCreateWithoutStationInput, ItemLocationUncheckedCreateWithoutStationInput> | ItemLocationCreateWithoutStationInput[] | ItemLocationUncheckedCreateWithoutStationInput[]
+    connectOrCreate?: ItemLocationCreateOrConnectWithoutStationInput | ItemLocationCreateOrConnectWithoutStationInput[]
+    upsert?: ItemLocationUpsertWithWhereUniqueWithoutStationInput | ItemLocationUpsertWithWhereUniqueWithoutStationInput[]
+    createMany?: ItemLocationCreateManyStationInputEnvelope
+    set?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    disconnect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    delete?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+    update?: ItemLocationUpdateWithWhereUniqueWithoutStationInput | ItemLocationUpdateWithWhereUniqueWithoutStationInput[]
+    updateMany?: ItemLocationUpdateManyWithWhereWithoutStationInput | ItemLocationUpdateManyWithWhereWithoutStationInput[]
+    deleteMany?: ItemLocationScalarWhereInput | ItemLocationScalarWhereInput[]
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -38781,6 +42077,28 @@ export namespace Prisma {
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
@@ -38815,10 +42133,7 @@ export namespace Prisma {
     id?: string
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemCreateNestedManyWithoutCanvass_itemInput
     unit?: UnitCreateNestedOneWithoutCanvass_itemsInput
     item?: ItemCreateNestedOneWithoutCanvass_itemsInput
@@ -38830,10 +42145,7 @@ export namespace Prisma {
     item_id?: string | null
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUncheckedCreateNestedManyWithoutCanvass_itemInput
   }
 
@@ -38862,6 +42174,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSCreateNestedOneWithoutJoInput
     jo_approvers?: JOApproverCreateNestedManyWithoutJoInput
   }
@@ -38881,6 +42194,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedCreateNestedOneWithoutJoInput
     jo_approvers?: JOApproverUncheckedCreateNestedManyWithoutJoInput
   }
@@ -38905,6 +42219,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSCreateNestedOneWithoutRvInput
     rv_approvers?: RVApproverCreateNestedManyWithoutRvInput
   }
@@ -38924,6 +42239,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedCreateNestedOneWithoutRvInput
     rv_approvers?: RVApproverUncheckedCreateNestedManyWithoutRvInput
   }
@@ -38946,6 +42262,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSCreateNestedOneWithoutSprInput
     vehicle: VehicleCreateNestedOneWithoutSprsInput
     spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
@@ -38965,6 +42282,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedCreateNestedOneWithoutSprInput
     spr_approvers?: SPRApproverUncheckedCreateNestedManyWithoutSprInput
   }
@@ -39000,10 +42318,7 @@ export namespace Prisma {
     item_id?: StringNullableFilter<"CanvassItem"> | string | null
     description?: StringFilter<"CanvassItem"> | string
     quantity?: IntFilter<"CanvassItem"> | number
-    created_by?: StringFilter<"CanvassItem"> | string
-    updated_by?: StringNullableFilter<"CanvassItem"> | string | null
-    created_at?: DateTimeFilter<"CanvassItem"> | Date | string
-    updated_at?: DateTimeFilter<"CanvassItem"> | Date | string
+    metadata?: JsonNullableFilter<"CanvassItem">
   }
 
   export type JOUpsertWithoutCanvassInput = {
@@ -39032,6 +42347,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneWithoutJoNestedInput
     jo_approvers?: JOApproverUpdateManyWithoutJoNestedInput
   }
@@ -39051,6 +42367,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedUpdateOneWithoutJoNestedInput
     jo_approvers?: JOApproverUncheckedUpdateManyWithoutJoNestedInput
   }
@@ -39081,6 +42398,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneWithoutRvNestedInput
     rv_approvers?: RVApproverUpdateManyWithoutRvNestedInput
   }
@@ -39100,6 +42418,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedUpdateOneWithoutRvNestedInput
     rv_approvers?: RVApproverUncheckedUpdateManyWithoutRvNestedInput
   }
@@ -39128,6 +42447,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneWithoutSprNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
     spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
@@ -39147,6 +42467,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedUpdateOneWithoutSprNestedInput
     spr_approvers?: SPRApproverUncheckedUpdateManyWithoutSprNestedInput
   }
@@ -39157,10 +42478,7 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier: MEQSSupplierCreateNestedOneWithoutMeqs_supplier_itemsInput
     rr_items?: RRItemCreateNestedManyWithoutMeqs_supplier_itemInput
   }
@@ -39172,10 +42490,7 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_items?: RRItemUncheckedCreateNestedManyWithoutMeqs_supplier_itemInput
   }
 
@@ -39202,6 +42517,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOCreateNestedOneWithoutCanvassInput
     rv?: RVCreateNestedOneWithoutCanvassInput
     spr?: SPRCreateNestedOneWithoutCanvassInput
@@ -39220,6 +42536,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUncheckedCreateNestedOneWithoutCanvassInput
     rv?: RVUncheckedCreateNestedOneWithoutCanvassInput
     spr?: SPRUncheckedCreateNestedOneWithoutCanvassInput
@@ -39239,6 +42556,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemCreateNestedManyWithoutUnitInput
   }
 
@@ -39251,6 +42569,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemUncheckedCreateNestedManyWithoutUnitInput
   }
 
@@ -39273,9 +42592,11 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
+    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutCanvass_itemsInput = {
@@ -39294,7 +42615,9 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutCanvass_itemsInput = {
@@ -39329,10 +42652,7 @@ export namespace Prisma {
     notes?: StringFilter<"MEQSSupplierItem"> | string
     is_awarded?: BoolFilter<"MEQSSupplierItem"> | boolean
     vat_type?: IntFilter<"MEQSSupplierItem"> | number
-    created_by?: StringFilter<"MEQSSupplierItem"> | string
-    updated_by?: StringNullableFilter<"MEQSSupplierItem"> | string | null
-    created_at?: DateTimeFilter<"MEQSSupplierItem"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSSupplierItem"> | Date | string
+    metadata?: JsonNullableFilter<"MEQSSupplierItem">
   }
 
   export type CanvassUpsertWithoutCanvass_itemsInput = {
@@ -39359,6 +42679,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUpdateOneWithoutCanvassNestedInput
     rv?: RVUpdateOneWithoutCanvassNestedInput
     spr?: SPRUpdateOneWithoutCanvassNestedInput
@@ -39377,6 +42698,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUncheckedUpdateOneWithoutCanvassNestedInput
     rv?: RVUncheckedUpdateOneWithoutCanvassNestedInput
     spr?: SPRUncheckedUpdateOneWithoutCanvassNestedInput
@@ -39402,6 +42724,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemUpdateManyWithoutUnitNestedInput
   }
 
@@ -39414,6 +42737,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemUncheckedUpdateManyWithoutUnitNestedInput
   }
 
@@ -39442,9 +42766,11 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
+    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutCanvass_itemsInput = {
@@ -39463,7 +42789,9 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type CanvassCreateWithoutRvInput = {
@@ -39479,6 +42807,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutCanvassInput
     jo?: JOCreateNestedOneWithoutCanvassInput
     spr?: SPRCreateNestedOneWithoutCanvassInput
@@ -39497,6 +42826,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutCanvassInput
     jo?: JOUncheckedCreateNestedOneWithoutCanvassInput
     spr?: SPRUncheckedCreateNestedOneWithoutCanvassInput
@@ -39518,6 +42848,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOCreateNestedOneWithoutMeqsInput
     spr?: SPRCreateNestedOneWithoutMeqsInput
     meqs_approvers?: MEQSApproverCreateNestedManyWithoutMeqsInput
@@ -39537,6 +42868,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_approvers?: MEQSApproverUncheckedCreateNestedManyWithoutMeqsInput
     meqs_suppliers?: MEQSSupplierUncheckedCreateNestedManyWithoutMeqsInput
   }
@@ -39555,12 +42887,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverUncheckedCreateWithoutRvInput = {
@@ -39572,12 +42899,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverCreateOrConnectWithoutRvInput = {
@@ -39614,6 +42936,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutCanvassNestedInput
     jo?: JOUpdateOneWithoutCanvassNestedInput
     spr?: SPRUpdateOneWithoutCanvassNestedInput
@@ -39632,6 +42955,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutCanvassNestedInput
     jo?: JOUncheckedUpdateOneWithoutCanvassNestedInput
     spr?: SPRUncheckedUpdateOneWithoutCanvassNestedInput
@@ -39659,6 +42983,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUpdateOneWithoutMeqsNestedInput
     spr?: SPRUpdateOneWithoutMeqsNestedInput
     meqs_approvers?: MEQSApproverUpdateManyWithoutMeqsNestedInput
@@ -39678,6 +43003,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_approvers?: MEQSApproverUncheckedUpdateManyWithoutMeqsNestedInput
     meqs_suppliers?: MEQSSupplierUncheckedUpdateManyWithoutMeqsNestedInput
   }
@@ -39711,12 +43037,7 @@ export namespace Prisma {
     label?: StringFilter<"RVApprover"> | string
     order?: IntFilter<"RVApprover"> | number
     is_supervisor?: BoolFilter<"RVApprover"> | boolean
-    created_by?: StringFilter<"RVApprover"> | string
-    updated_by?: StringNullableFilter<"RVApprover"> | string | null
-    deleted_by?: StringNullableFilter<"RVApprover"> | string | null
-    created_at?: DateTimeFilter<"RVApprover"> | Date | string
-    updated_at?: DateTimeFilter<"RVApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"RVApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"RVApprover">
   }
 
   export type RVCreateWithoutRv_approversInput = {
@@ -39734,6 +43055,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutRvInput
     meqs?: MEQSCreateNestedOneWithoutRvInput
   }
@@ -39754,6 +43076,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedCreateNestedOneWithoutRvInput
   }
 
@@ -39788,6 +43111,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutRvNestedInput
     meqs?: MEQSUpdateOneWithoutRvNestedInput
   }
@@ -39808,6 +43132,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedUpdateOneWithoutRvNestedInput
   }
 
@@ -39824,6 +43149,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutCanvassInput
     rv?: RVCreateNestedOneWithoutCanvassInput
     spr?: SPRCreateNestedOneWithoutCanvassInput
@@ -39842,6 +43168,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutCanvassInput
     rv?: RVUncheckedCreateNestedOneWithoutCanvassInput
     spr?: SPRUncheckedCreateNestedOneWithoutCanvassInput
@@ -39863,6 +43190,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rv?: RVCreateNestedOneWithoutMeqsInput
     spr?: SPRCreateNestedOneWithoutMeqsInput
     meqs_approvers?: MEQSApproverCreateNestedManyWithoutMeqsInput
@@ -39882,6 +43210,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_approvers?: MEQSApproverUncheckedCreateNestedManyWithoutMeqsInput
     meqs_suppliers?: MEQSSupplierUncheckedCreateNestedManyWithoutMeqsInput
   }
@@ -39900,12 +43229,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverUncheckedCreateWithoutJoInput = {
@@ -39917,12 +43241,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverCreateOrConnectWithoutJoInput = {
@@ -39959,6 +43278,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutCanvassNestedInput
     rv?: RVUpdateOneWithoutCanvassNestedInput
     spr?: SPRUpdateOneWithoutCanvassNestedInput
@@ -39977,6 +43297,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutCanvassNestedInput
     rv?: RVUncheckedUpdateOneWithoutCanvassNestedInput
     spr?: SPRUncheckedUpdateOneWithoutCanvassNestedInput
@@ -40004,6 +43325,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rv?: RVUpdateOneWithoutMeqsNestedInput
     spr?: SPRUpdateOneWithoutMeqsNestedInput
     meqs_approvers?: MEQSApproverUpdateManyWithoutMeqsNestedInput
@@ -40023,6 +43345,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_approvers?: MEQSApproverUncheckedUpdateManyWithoutMeqsNestedInput
     meqs_suppliers?: MEQSSupplierUncheckedUpdateManyWithoutMeqsNestedInput
   }
@@ -40056,12 +43379,7 @@ export namespace Prisma {
     label?: StringFilter<"JOApprover"> | string
     order?: IntFilter<"JOApprover"> | number
     is_supervisor?: BoolFilter<"JOApprover"> | boolean
-    created_by?: StringFilter<"JOApprover"> | string
-    updated_by?: StringNullableFilter<"JOApprover"> | string | null
-    deleted_by?: StringNullableFilter<"JOApprover"> | string | null
-    created_at?: DateTimeFilter<"JOApprover"> | Date | string
-    updated_at?: DateTimeFilter<"JOApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"JOApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"JOApprover">
   }
 
   export type JOCreateWithoutJo_approversInput = {
@@ -40079,6 +43397,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutJoInput
     meqs?: MEQSCreateNestedOneWithoutJoInput
   }
@@ -40099,6 +43418,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedCreateNestedOneWithoutJoInput
   }
 
@@ -40133,6 +43453,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutJoNestedInput
     meqs?: MEQSUpdateOneWithoutJoNestedInput
   }
@@ -40153,6 +43474,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedUpdateOneWithoutJoNestedInput
   }
 
@@ -40169,6 +43491,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutCanvassInput
     jo?: JOCreateNestedOneWithoutCanvassInput
     rv?: RVCreateNestedOneWithoutCanvassInput
@@ -40187,6 +43510,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutCanvassInput
     jo?: JOUncheckedCreateNestedOneWithoutCanvassInput
     rv?: RVUncheckedCreateNestedOneWithoutCanvassInput
@@ -40208,6 +43532,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOCreateNestedOneWithoutMeqsInput
     rv?: RVCreateNestedOneWithoutMeqsInput
     meqs_approvers?: MEQSApproverCreateNestedManyWithoutMeqsInput
@@ -40227,6 +43552,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_approvers?: MEQSApproverUncheckedCreateNestedManyWithoutMeqsInput
     meqs_suppliers?: MEQSSupplierUncheckedCreateNestedManyWithoutMeqsInput
   }
@@ -40246,6 +43572,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type VehicleUncheckedCreateWithoutSprsInput = {
@@ -40258,6 +43585,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type VehicleCreateOrConnectWithoutSprsInput = {
@@ -40274,12 +43602,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverUncheckedCreateWithoutSprInput = {
@@ -40291,12 +43614,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverCreateOrConnectWithoutSprInput = {
@@ -40333,6 +43651,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutCanvassNestedInput
     jo?: JOUpdateOneWithoutCanvassNestedInput
     rv?: RVUpdateOneWithoutCanvassNestedInput
@@ -40351,6 +43670,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutCanvassNestedInput
     jo?: JOUncheckedUpdateOneWithoutCanvassNestedInput
     rv?: RVUncheckedUpdateOneWithoutCanvassNestedInput
@@ -40378,6 +43698,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUpdateOneWithoutMeqsNestedInput
     rv?: RVUpdateOneWithoutMeqsNestedInput
     meqs_approvers?: MEQSApproverUpdateManyWithoutMeqsNestedInput
@@ -40397,6 +43718,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_approvers?: MEQSApproverUncheckedUpdateManyWithoutMeqsNestedInput
     meqs_suppliers?: MEQSSupplierUncheckedUpdateManyWithoutMeqsNestedInput
   }
@@ -40422,6 +43744,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type VehicleUncheckedUpdateWithoutSprsInput = {
@@ -40434,6 +43757,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverUpsertWithWhereUniqueWithoutSprInput = {
@@ -40465,12 +43789,7 @@ export namespace Prisma {
     label?: StringFilter<"SPRApprover"> | string
     order?: IntFilter<"SPRApprover"> | number
     is_supervisor?: BoolFilter<"SPRApprover"> | boolean
-    created_by?: StringFilter<"SPRApprover"> | string
-    updated_by?: StringNullableFilter<"SPRApprover"> | string | null
-    deleted_by?: StringNullableFilter<"SPRApprover"> | string | null
-    created_at?: DateTimeFilter<"SPRApprover"> | Date | string
-    updated_at?: DateTimeFilter<"SPRApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"SPRApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"SPRApprover">
   }
 
   export type SPRCreateWithoutSpr_approversInput = {
@@ -40486,6 +43805,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutSprInput
     meqs?: MEQSCreateNestedOneWithoutSprInput
     vehicle: VehicleCreateNestedOneWithoutSprsInput
@@ -40506,6 +43826,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedCreateNestedOneWithoutSprInput
   }
 
@@ -40538,6 +43859,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutSprNestedInput
     meqs?: MEQSUpdateOneWithoutSprNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
@@ -40558,6 +43880,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedUpdateOneWithoutSprNestedInput
   }
 
@@ -40576,6 +43899,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutJoInput
     jo_approvers?: JOApproverCreateNestedManyWithoutJoInput
   }
@@ -40596,6 +43920,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo_approvers?: JOApproverUncheckedCreateNestedManyWithoutJoInput
   }
 
@@ -40619,6 +43944,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutRvInput
     rv_approvers?: RVApproverCreateNestedManyWithoutRvInput
   }
@@ -40639,6 +43965,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rv_approvers?: RVApproverUncheckedCreateNestedManyWithoutRvInput
   }
 
@@ -40660,6 +43987,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutSprInput
     vehicle: VehicleCreateNestedOneWithoutSprsInput
     spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
@@ -40680,6 +44008,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     spr_approvers?: SPRApproverUncheckedCreateNestedManyWithoutSprInput
   }
 
@@ -40696,12 +44025,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverUncheckedCreateWithoutMeqsInput = {
@@ -40712,12 +44036,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverCreateOrConnectWithoutMeqsInput = {
@@ -40733,10 +44052,7 @@ export namespace Prisma {
   export type MEQSSupplierCreateWithoutMeqsInput = {
     id?: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     supplier: SupplierCreateNestedOneWithoutMEQSSupplierInput
     attachments?: MEQSSupplierAttachmentCreateNestedManyWithoutMeqs_supplierInput
     meqs_supplier_items?: MEQSSupplierItemCreateNestedManyWithoutMeqs_supplierInput
@@ -40747,10 +44063,7 @@ export namespace Prisma {
     id?: string
     supplier_id: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     attachments?: MEQSSupplierAttachmentUncheckedCreateNestedManyWithoutMeqs_supplierInput
     meqs_supplier_items?: MEQSSupplierItemUncheckedCreateNestedManyWithoutMeqs_supplierInput
     po?: POUncheckedCreateNestedOneWithoutMeqs_supplierInput
@@ -40792,6 +44105,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutJoNestedInput
     jo_approvers?: JOApproverUpdateManyWithoutJoNestedInput
   }
@@ -40812,6 +44126,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo_approvers?: JOApproverUncheckedUpdateManyWithoutJoNestedInput
   }
 
@@ -40841,6 +44156,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutRvNestedInput
     rv_approvers?: RVApproverUpdateManyWithoutRvNestedInput
   }
@@ -40861,6 +44177,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rv_approvers?: RVApproverUncheckedUpdateManyWithoutRvNestedInput
   }
 
@@ -40888,6 +44205,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutSprNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
     spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
@@ -40908,6 +44226,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     spr_approvers?: SPRApproverUncheckedUpdateManyWithoutSprNestedInput
   }
 
@@ -40939,12 +44258,7 @@ export namespace Prisma {
     status?: IntFilter<"MEQSApprover"> | number
     label?: StringFilter<"MEQSApprover"> | string
     order?: IntFilter<"MEQSApprover"> | number
-    created_by?: StringFilter<"MEQSApprover"> | string
-    updated_by?: StringNullableFilter<"MEQSApprover"> | string | null
-    deleted_by?: StringNullableFilter<"MEQSApprover"> | string | null
-    created_at?: DateTimeFilter<"MEQSApprover"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"MEQSApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"MEQSApprover">
   }
 
   export type MEQSSupplierUpsertWithWhereUniqueWithoutMeqsInput = {
@@ -40971,10 +44285,7 @@ export namespace Prisma {
     meqs_id?: StringFilter<"MEQSSupplier"> | string
     supplier_id?: StringFilter<"MEQSSupplier"> | string
     payment_terms?: StringFilter<"MEQSSupplier"> | string
-    created_by?: StringFilter<"MEQSSupplier"> | string
-    updated_by?: StringNullableFilter<"MEQSSupplier"> | string | null
-    created_at?: DateTimeFilter<"MEQSSupplier"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSSupplier"> | Date | string
+    metadata?: JsonNullableFilter<"MEQSSupplier">
   }
 
   export type MEQSCreateWithoutMeqs_suppliersInput = {
@@ -40988,6 +44299,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOCreateNestedOneWithoutMeqsInput
     rv?: RVCreateNestedOneWithoutMeqsInput
     spr?: SPRCreateNestedOneWithoutMeqsInput
@@ -41008,6 +44320,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_approvers?: MEQSApproverUncheckedCreateNestedManyWithoutMeqsInput
   }
 
@@ -41020,7 +44333,7 @@ export namespace Prisma {
     id?: string
     name: string
     contact: string
-    tin_no?: string
+    tin?: string
     address?: string
     vat_type?: number
     is_vat_registered?: boolean
@@ -41030,13 +44343,14 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SupplierUncheckedCreateWithoutMEQSSupplierInput = {
     id?: string
     name: string
     contact: string
-    tin_no?: string
+    tin?: string
     address?: string
     vat_type?: number
     is_vat_registered?: boolean
@@ -41046,6 +44360,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SupplierCreateOrConnectWithoutMEQSSupplierInput = {
@@ -41057,20 +44372,14 @@ export namespace Prisma {
     id?: string
     filename?: string
     src: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentUncheckedCreateWithoutMeqs_supplierInput = {
     id?: string
     filename?: string
     src: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentCreateOrConnectWithoutMeqs_supplierInput = {
@@ -41089,10 +44398,7 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_item: CanvassItemCreateNestedOneWithoutMeqs_supplier_itemsInput
     rr_items?: RRItemCreateNestedManyWithoutMeqs_supplier_itemInput
   }
@@ -41104,10 +44410,7 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_items?: RRItemUncheckedCreateNestedManyWithoutMeqs_supplier_itemInput
   }
 
@@ -41133,6 +44436,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rrs?: RRCreateNestedManyWithoutPoInput
     po_approvers?: POApproverCreateNestedManyWithoutPoInput
   }
@@ -41149,6 +44453,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rrs?: RRUncheckedCreateNestedManyWithoutPoInput
     po_approvers?: POApproverUncheckedCreateNestedManyWithoutPoInput
   }
@@ -41180,6 +44485,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUpdateOneWithoutMeqsNestedInput
     rv?: RVUpdateOneWithoutMeqsNestedInput
     spr?: SPRUpdateOneWithoutMeqsNestedInput
@@ -41200,6 +44506,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_approvers?: MEQSApproverUncheckedUpdateManyWithoutMeqsNestedInput
   }
 
@@ -41218,7 +44525,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
-    tin_no?: StringFieldUpdateOperationsInput | string
+    tin?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
@@ -41228,13 +44535,14 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SupplierUncheckedUpdateWithoutMEQSSupplierInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
-    tin_no?: StringFieldUpdateOperationsInput | string
+    tin?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
@@ -41244,6 +44552,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentUpsertWithWhereUniqueWithoutMeqs_supplierInput = {
@@ -41270,10 +44579,7 @@ export namespace Prisma {
     meqs_supplier_id?: StringFilter<"MEQSSupplierAttachment"> | string
     filename?: StringFilter<"MEQSSupplierAttachment"> | string
     src?: StringFilter<"MEQSSupplierAttachment"> | string
-    created_by?: StringFilter<"MEQSSupplierAttachment"> | string
-    updated_by?: StringNullableFilter<"MEQSSupplierAttachment"> | string | null
-    created_at?: DateTimeFilter<"MEQSSupplierAttachment"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSSupplierAttachment"> | Date | string
+    metadata?: JsonNullableFilter<"MEQSSupplierAttachment">
   }
 
   export type MEQSSupplierItemUpsertWithWhereUniqueWithoutMeqs_supplierInput = {
@@ -41315,6 +44621,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rrs?: RRUpdateManyWithoutPoNestedInput
     po_approvers?: POApproverUpdateManyWithoutPoNestedInput
   }
@@ -41331,6 +44638,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rrs?: RRUncheckedUpdateManyWithoutPoNestedInput
     po_approvers?: POApproverUncheckedUpdateManyWithoutPoNestedInput
   }
@@ -41339,10 +44647,7 @@ export namespace Prisma {
     id?: string
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass: CanvassCreateNestedOneWithoutCanvass_itemsInput
     unit?: UnitCreateNestedOneWithoutCanvass_itemsInput
     item?: ItemCreateNestedOneWithoutCanvass_itemsInput
@@ -41355,10 +44660,7 @@ export namespace Prisma {
     item_id?: string | null
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassItemCreateOrConnectWithoutMeqs_supplier_itemsInput = {
@@ -41369,10 +44671,7 @@ export namespace Prisma {
   export type MEQSSupplierCreateWithoutMeqs_supplier_itemsInput = {
     id?: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs: MEQSCreateNestedOneWithoutMeqs_suppliersInput
     supplier: SupplierCreateNestedOneWithoutMEQSSupplierInput
     attachments?: MEQSSupplierAttachmentCreateNestedManyWithoutMeqs_supplierInput
@@ -41384,10 +44683,7 @@ export namespace Prisma {
     meqs_id: string
     supplier_id: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     attachments?: MEQSSupplierAttachmentUncheckedCreateNestedManyWithoutMeqs_supplierInput
     po?: POUncheckedCreateNestedOneWithoutMeqs_supplierInput
   }
@@ -41400,10 +44696,7 @@ export namespace Prisma {
   export type RRItemCreateWithoutMeqs_supplier_itemInput = {
     id?: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr: RRCreateNestedOneWithoutRr_itemsInput
     item_transaction?: ItemTransactionCreateNestedOneWithoutRr_itemInput
   }
@@ -41412,10 +44705,7 @@ export namespace Prisma {
     id?: string
     rr_id: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutRr_itemInput
   }
 
@@ -41444,10 +44734,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneRequiredWithoutCanvass_itemsNestedInput
     unit?: UnitUpdateOneWithoutCanvass_itemsNestedInput
     item?: ItemUpdateOneWithoutCanvass_itemsNestedInput
@@ -41460,10 +44747,7 @@ export namespace Prisma {
     item_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierUpsertWithoutMeqs_supplier_itemsInput = {
@@ -41480,10 +44764,7 @@ export namespace Prisma {
   export type MEQSSupplierUpdateWithoutMeqs_supplier_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneRequiredWithoutMeqs_suppliersNestedInput
     supplier?: SupplierUpdateOneRequiredWithoutMEQSSupplierNestedInput
     attachments?: MEQSSupplierAttachmentUpdateManyWithoutMeqs_supplierNestedInput
@@ -41495,10 +44776,7 @@ export namespace Prisma {
     meqs_id?: StringFieldUpdateOperationsInput | string
     supplier_id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     attachments?: MEQSSupplierAttachmentUncheckedUpdateManyWithoutMeqs_supplierNestedInput
     po?: POUncheckedUpdateOneWithoutMeqs_supplierNestedInput
   }
@@ -41527,19 +44805,13 @@ export namespace Prisma {
     rr_id?: StringFilter<"RRItem"> | string
     meqs_supplier_item_id?: StringFilter<"RRItem"> | string
     quantity_accepted?: IntFilter<"RRItem"> | number
-    created_by?: StringFilter<"RRItem"> | string
-    updated_by?: StringNullableFilter<"RRItem"> | string | null
-    created_at?: DateTimeFilter<"RRItem"> | Date | string
-    updated_at?: DateTimeFilter<"RRItem"> | Date | string
+    metadata?: JsonNullableFilter<"RRItem">
   }
 
   export type MEQSSupplierCreateWithoutAttachmentsInput = {
     id?: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs: MEQSCreateNestedOneWithoutMeqs_suppliersInput
     supplier: SupplierCreateNestedOneWithoutMEQSSupplierInput
     meqs_supplier_items?: MEQSSupplierItemCreateNestedManyWithoutMeqs_supplierInput
@@ -41551,10 +44823,7 @@ export namespace Prisma {
     meqs_id: string
     supplier_id: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUncheckedCreateNestedManyWithoutMeqs_supplierInput
     po?: POUncheckedCreateNestedOneWithoutMeqs_supplierInput
   }
@@ -41578,10 +44847,7 @@ export namespace Prisma {
   export type MEQSSupplierUpdateWithoutAttachmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneRequiredWithoutMeqs_suppliersNestedInput
     supplier?: SupplierUpdateOneRequiredWithoutMEQSSupplierNestedInput
     meqs_supplier_items?: MEQSSupplierItemUpdateManyWithoutMeqs_supplierNestedInput
@@ -41593,10 +44859,7 @@ export namespace Prisma {
     meqs_id?: StringFieldUpdateOperationsInput | string
     supplier_id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUncheckedUpdateManyWithoutMeqs_supplierNestedInput
     po?: POUncheckedUpdateOneWithoutMeqs_supplierNestedInput
   }
@@ -41612,6 +44875,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOCreateNestedOneWithoutMeqsInput
     rv?: RVCreateNestedOneWithoutMeqsInput
     spr?: SPRCreateNestedOneWithoutMeqsInput
@@ -41632,6 +44896,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     cancelled_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_suppliers?: MEQSSupplierUncheckedCreateNestedManyWithoutMeqsInput
   }
 
@@ -41662,6 +44927,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUpdateOneWithoutMeqsNestedInput
     rv?: RVUpdateOneWithoutMeqsNestedInput
     spr?: SPRUpdateOneWithoutMeqsNestedInput
@@ -41682,16 +44948,14 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_suppliers?: MEQSSupplierUncheckedUpdateManyWithoutMeqsNestedInput
   }
 
   export type MEQSSupplierCreateWithoutPoInput = {
     id?: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs: MEQSCreateNestedOneWithoutMeqs_suppliersInput
     supplier: SupplierCreateNestedOneWithoutMEQSSupplierInput
     attachments?: MEQSSupplierAttachmentCreateNestedManyWithoutMeqs_supplierInput
@@ -41703,10 +44967,7 @@ export namespace Prisma {
     meqs_id: string
     supplier_id: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     attachments?: MEQSSupplierAttachmentUncheckedCreateNestedManyWithoutMeqs_supplierInput
     meqs_supplier_items?: MEQSSupplierItemUncheckedCreateNestedManyWithoutMeqs_supplierInput
   }
@@ -41732,6 +44993,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_approvers?: RRApproverCreateNestedManyWithoutRrInput
     rr_items?: RRItemCreateNestedManyWithoutRrInput
   }
@@ -41752,6 +45014,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_approvers?: RRApproverUncheckedCreateNestedManyWithoutRrInput
     rr_items?: RRItemUncheckedCreateNestedManyWithoutRrInput
   }
@@ -41774,12 +45037,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverUncheckedCreateWithoutPoInput = {
@@ -41790,12 +45048,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverCreateOrConnectWithoutPoInput = {
@@ -41822,10 +45075,7 @@ export namespace Prisma {
   export type MEQSSupplierUpdateWithoutPoInput = {
     id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneRequiredWithoutMeqs_suppliersNestedInput
     supplier?: SupplierUpdateOneRequiredWithoutMEQSSupplierNestedInput
     attachments?: MEQSSupplierAttachmentUpdateManyWithoutMeqs_supplierNestedInput
@@ -41837,10 +45087,7 @@ export namespace Prisma {
     meqs_id?: StringFieldUpdateOperationsInput | string
     supplier_id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     attachments?: MEQSSupplierAttachmentUncheckedUpdateManyWithoutMeqs_supplierNestedInput
     meqs_supplier_items?: MEQSSupplierItemUncheckedUpdateManyWithoutMeqs_supplierNestedInput
   }
@@ -41881,6 +45128,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RR"> | Date | string | null
     created_at?: DateTimeFilter<"RR"> | Date | string
     updated_at?: DateTimeFilter<"RR"> | Date | string
+    metadata?: JsonNullableFilter<"RR">
   }
 
   export type POApproverUpsertWithWhereUniqueWithoutPoInput = {
@@ -41911,12 +45159,7 @@ export namespace Prisma {
     status?: IntFilter<"POApprover"> | number
     label?: StringFilter<"POApprover"> | string
     order?: IntFilter<"POApprover"> | number
-    created_by?: StringFilter<"POApprover"> | string
-    updated_by?: StringNullableFilter<"POApprover"> | string | null
-    deleted_by?: StringNullableFilter<"POApprover"> | string | null
-    created_at?: DateTimeFilter<"POApprover"> | Date | string
-    updated_at?: DateTimeFilter<"POApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"POApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"POApprover">
   }
 
   export type POCreateWithoutPo_approversInput = {
@@ -41931,6 +45174,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier?: MEQSSupplierCreateNestedOneWithoutPoInput
     rrs?: RRCreateNestedManyWithoutPoInput
   }
@@ -41948,6 +45192,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rrs?: RRUncheckedCreateNestedManyWithoutPoInput
   }
 
@@ -41979,6 +45224,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier?: MEQSSupplierUpdateOneWithoutPoNestedInput
     rrs?: RRUpdateManyWithoutPoNestedInput
   }
@@ -41996,6 +45242,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rrs?: RRUncheckedUpdateManyWithoutPoNestedInput
   }
 
@@ -42011,6 +45258,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier?: MEQSSupplierCreateNestedOneWithoutPoInput
     po_approvers?: POApproverCreateNestedManyWithoutPoInput
   }
@@ -42028,6 +45276,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     po_approvers?: POApproverUncheckedCreateNestedManyWithoutPoInput
   }
 
@@ -42044,12 +45293,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverUncheckedCreateWithoutRrInput = {
@@ -42060,12 +45304,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverCreateOrConnectWithoutRrInput = {
@@ -42081,10 +45320,7 @@ export namespace Prisma {
   export type RRItemCreateWithoutRrInput = {
     id?: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionCreateNestedOneWithoutRr_itemInput
     meqs_supplier_item: MEQSSupplierItemCreateNestedOneWithoutRr_itemsInput
   }
@@ -42093,10 +45329,7 @@ export namespace Prisma {
     id?: string
     meqs_supplier_item_id: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutRr_itemInput
   }
 
@@ -42133,6 +45366,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier?: MEQSSupplierUpdateOneWithoutPoNestedInput
     po_approvers?: POApproverUpdateManyWithoutPoNestedInput
   }
@@ -42150,6 +45384,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     po_approvers?: POApproverUncheckedUpdateManyWithoutPoNestedInput
   }
 
@@ -42181,12 +45416,7 @@ export namespace Prisma {
     status?: IntFilter<"RRApprover"> | number
     label?: StringFilter<"RRApprover"> | string
     order?: IntFilter<"RRApprover"> | number
-    created_by?: StringFilter<"RRApprover"> | string
-    updated_by?: StringNullableFilter<"RRApprover"> | string | null
-    deleted_by?: StringNullableFilter<"RRApprover"> | string | null
-    created_at?: DateTimeFilter<"RRApprover"> | Date | string
-    updated_at?: DateTimeFilter<"RRApprover"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"RRApprover"> | Date | string | null
+    metadata?: JsonNullableFilter<"RRApprover">
   }
 
   export type RRItemUpsertWithWhereUniqueWithoutRrInput = {
@@ -42221,6 +45451,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     po?: POCreateNestedOneWithoutRrsInput
     rr_items?: RRItemCreateNestedManyWithoutRrInput
   }
@@ -42242,6 +45473,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_items?: RRItemUncheckedCreateNestedManyWithoutRrInput
   }
 
@@ -42277,6 +45509,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     po?: POUpdateOneWithoutRrsNestedInput
     rr_items?: RRItemUpdateManyWithoutRrNestedInput
   }
@@ -42298,6 +45531,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_items?: RRItemUncheckedUpdateManyWithoutRrNestedInput
   }
 
@@ -42317,6 +45551,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     po?: POCreateNestedOneWithoutRrsInput
     rr_approvers?: RRApproverCreateNestedManyWithoutRrInput
   }
@@ -42338,6 +45573,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_approvers?: RRApproverUncheckedCreateNestedManyWithoutRrInput
   }
 
@@ -42354,6 +45590,7 @@ export namespace Prisma {
     is_initial?: boolean
     created_at?: Date | string
     created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutItem_transactionsInput
   }
 
@@ -42367,6 +45604,7 @@ export namespace Prisma {
     is_initial?: boolean
     created_at?: Date | string
     created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionCreateOrConnectWithoutRr_itemInput = {
@@ -42380,10 +45618,7 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_item: CanvassItemCreateNestedOneWithoutMeqs_supplier_itemsInput
     meqs_supplier: MEQSSupplierCreateNestedOneWithoutMeqs_supplier_itemsInput
   }
@@ -42396,10 +45631,7 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierItemCreateOrConnectWithoutRr_itemsInput = {
@@ -42434,6 +45666,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     po?: POUpdateOneWithoutRrsNestedInput
     rr_approvers?: RRApproverUpdateManyWithoutRrNestedInput
   }
@@ -42455,6 +45688,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_approvers?: RRApproverUncheckedUpdateManyWithoutRrNestedInput
   }
 
@@ -42477,6 +45711,7 @@ export namespace Prisma {
     is_initial?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
   }
 
@@ -42490,6 +45725,7 @@ export namespace Prisma {
     is_initial?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierItemUpsertWithoutRr_itemsInput = {
@@ -42509,10 +45745,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_item?: CanvassItemUpdateOneRequiredWithoutMeqs_supplier_itemsNestedInput
     meqs_supplier?: MEQSSupplierUpdateOneRequiredWithoutMeqs_supplier_itemsNestedInput
   }
@@ -42525,10 +45758,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTypeCreateWithoutItemsInput = {
@@ -42540,6 +45770,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTypeUncheckedCreateWithoutItemsInput = {
@@ -42551,6 +45782,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTypeCreateOrConnectWithoutItemsInput = {
@@ -42566,6 +45798,7 @@ export namespace Prisma {
     is_initial?: boolean
     created_at?: Date | string
     created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
   }
 
@@ -42579,6 +45812,7 @@ export namespace Prisma {
     is_initial?: boolean
     created_at?: Date | string
     created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionCreateOrConnectWithoutItemInput = {
@@ -42600,6 +45834,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutUnitInput
   }
 
@@ -42612,6 +45847,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutUnitInput
   }
 
@@ -42624,10 +45860,7 @@ export namespace Prisma {
     id?: string
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemCreateNestedManyWithoutCanvass_itemInput
     canvass: CanvassCreateNestedOneWithoutCanvass_itemsInput
     unit?: UnitCreateNestedOneWithoutCanvass_itemsInput
@@ -42639,10 +45872,7 @@ export namespace Prisma {
     unit_id?: string | null
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUncheckedCreateNestedManyWithoutCanvass_itemInput
   }
 
@@ -42653,6 +45883,38 @@ export namespace Prisma {
 
   export type CanvassItemCreateManyItemInputEnvelope = {
     data: CanvassItemCreateManyItemInput | CanvassItemCreateManyItemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ItemLocationCreateWithoutItemInput = {
+    id?: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    station: StationCreateNestedOneWithoutItemsInput
+    origin_movements?: ItemMovementCreateNestedManyWithoutOriginInput
+    destination_movements?: ItemMovementCreateNestedManyWithoutDestinationInput
+  }
+
+  export type ItemLocationUncheckedCreateWithoutItemInput = {
+    id?: string
+    station_id: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin_movements?: ItemMovementUncheckedCreateNestedManyWithoutOriginInput
+    destination_movements?: ItemMovementUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type ItemLocationCreateOrConnectWithoutItemInput = {
+    where: ItemLocationWhereUniqueInput
+    create: XOR<ItemLocationCreateWithoutItemInput, ItemLocationUncheckedCreateWithoutItemInput>
+  }
+
+  export type ItemLocationCreateManyItemInputEnvelope = {
+    data: ItemLocationCreateManyItemInput | ItemLocationCreateManyItemInput[]
     skipDuplicates?: boolean
   }
 
@@ -42676,6 +45938,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTypeUncheckedUpdateWithoutItemsInput = {
@@ -42687,6 +45950,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionUpsertWithWhereUniqueWithoutItemInput = {
@@ -42719,6 +45983,7 @@ export namespace Prisma {
     is_initial?: BoolFilter<"ItemTransaction"> | boolean
     created_at?: DateTimeFilter<"ItemTransaction"> | Date | string
     created_by?: StringFilter<"ItemTransaction"> | string
+    metadata?: JsonNullableFilter<"ItemTransaction">
   }
 
   export type UnitUpsertWithoutItemsInput = {
@@ -42741,6 +46006,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutUnitNestedInput
   }
 
@@ -42753,6 +46019,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutUnitNestedInput
   }
 
@@ -42772,6 +46039,424 @@ export namespace Prisma {
     data: XOR<CanvassItemUpdateManyMutationInput, CanvassItemUncheckedUpdateManyWithoutItemInput>
   }
 
+  export type ItemLocationUpsertWithWhereUniqueWithoutItemInput = {
+    where: ItemLocationWhereUniqueInput
+    update: XOR<ItemLocationUpdateWithoutItemInput, ItemLocationUncheckedUpdateWithoutItemInput>
+    create: XOR<ItemLocationCreateWithoutItemInput, ItemLocationUncheckedCreateWithoutItemInput>
+  }
+
+  export type ItemLocationUpdateWithWhereUniqueWithoutItemInput = {
+    where: ItemLocationWhereUniqueInput
+    data: XOR<ItemLocationUpdateWithoutItemInput, ItemLocationUncheckedUpdateWithoutItemInput>
+  }
+
+  export type ItemLocationUpdateManyWithWhereWithoutItemInput = {
+    where: ItemLocationScalarWhereInput
+    data: XOR<ItemLocationUpdateManyMutationInput, ItemLocationUncheckedUpdateManyWithoutItemInput>
+  }
+
+  export type ItemLocationScalarWhereInput = {
+    AND?: ItemLocationScalarWhereInput | ItemLocationScalarWhereInput[]
+    OR?: ItemLocationScalarWhereInput[]
+    NOT?: ItemLocationScalarWhereInput | ItemLocationScalarWhereInput[]
+    id?: StringFilter<"ItemLocation"> | string
+    item_id?: StringFilter<"ItemLocation"> | string
+    station_id?: StringFilter<"ItemLocation"> | string
+    quantity_on_hand?: IntFilter<"ItemLocation"> | number
+    created_by?: StringFilter<"ItemLocation"> | string
+    created_at?: DateTimeFilter<"ItemLocation"> | Date | string
+    metadata?: JsonNullableFilter<"ItemLocation">
+  }
+
+  export type ItemCreateWithoutItem_locationsInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    total_quantity: number
+    initial_quantity: number
+    alert_level?: number
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
+    item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
+    unit: UnitCreateNestedOneWithoutItemsInput
+    canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemUncheckedCreateWithoutItem_locationsInput = {
+    id?: string
+    item_type_id: string
+    unit_id: string
+    code: string
+    name: string
+    description?: string | null
+    total_quantity: number
+    initial_quantity: number
+    alert_level?: number
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
+    canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemCreateOrConnectWithoutItem_locationsInput = {
+    where: ItemWhereUniqueInput
+    create: XOR<ItemCreateWithoutItem_locationsInput, ItemUncheckedCreateWithoutItem_locationsInput>
+  }
+
+  export type StationCreateWithoutItemsInput = {
+    id?: string
+    name: string
+    location: string
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type StationUncheckedCreateWithoutItemsInput = {
+    id?: string
+    name: string
+    location: string
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type StationCreateOrConnectWithoutItemsInput = {
+    where: StationWhereUniqueInput
+    create: XOR<StationCreateWithoutItemsInput, StationUncheckedCreateWithoutItemsInput>
+  }
+
+  export type ItemMovementCreateWithoutOriginInput = {
+    id?: string
+    quantity_moved: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    destination: ItemLocationCreateNestedOneWithoutDestination_movementsInput
+  }
+
+  export type ItemMovementUncheckedCreateWithoutOriginInput = {
+    id?: string
+    destination_id: string
+    quantity_moved: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementCreateOrConnectWithoutOriginInput = {
+    where: ItemMovementWhereUniqueInput
+    create: XOR<ItemMovementCreateWithoutOriginInput, ItemMovementUncheckedCreateWithoutOriginInput>
+  }
+
+  export type ItemMovementCreateManyOriginInputEnvelope = {
+    data: ItemMovementCreateManyOriginInput | ItemMovementCreateManyOriginInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ItemMovementCreateWithoutDestinationInput = {
+    id?: string
+    quantity_moved: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin: ItemLocationCreateNestedOneWithoutOrigin_movementsInput
+  }
+
+  export type ItemMovementUncheckedCreateWithoutDestinationInput = {
+    id?: string
+    origin_id: string
+    quantity_moved: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementCreateOrConnectWithoutDestinationInput = {
+    where: ItemMovementWhereUniqueInput
+    create: XOR<ItemMovementCreateWithoutDestinationInput, ItemMovementUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type ItemMovementCreateManyDestinationInputEnvelope = {
+    data: ItemMovementCreateManyDestinationInput | ItemMovementCreateManyDestinationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ItemUpsertWithoutItem_locationsInput = {
+    update: XOR<ItemUpdateWithoutItem_locationsInput, ItemUncheckedUpdateWithoutItem_locationsInput>
+    create: XOR<ItemCreateWithoutItem_locationsInput, ItemUncheckedCreateWithoutItem_locationsInput>
+    where?: ItemWhereInput
+  }
+
+  export type ItemUpdateToOneWithWhereWithoutItem_locationsInput = {
+    where?: ItemWhereInput
+    data: XOR<ItemUpdateWithoutItem_locationsInput, ItemUncheckedUpdateWithoutItem_locationsInput>
+  }
+
+  export type ItemUpdateWithoutItem_locationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    total_quantity?: IntFieldUpdateOperationsInput | number
+    initial_quantity?: IntFieldUpdateOperationsInput | number
+    alert_level?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
+    item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
+    unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
+    canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemUncheckedUpdateWithoutItem_locationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: StringFieldUpdateOperationsInput | string
+    unit_id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    total_quantity?: IntFieldUpdateOperationsInput | number
+    initial_quantity?: IntFieldUpdateOperationsInput | number
+    alert_level?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
+    canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type StationUpsertWithoutItemsInput = {
+    update: XOR<StationUpdateWithoutItemsInput, StationUncheckedUpdateWithoutItemsInput>
+    create: XOR<StationCreateWithoutItemsInput, StationUncheckedCreateWithoutItemsInput>
+    where?: StationWhereInput
+  }
+
+  export type StationUpdateToOneWithWhereWithoutItemsInput = {
+    where?: StationWhereInput
+    data: XOR<StationUpdateWithoutItemsInput, StationUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type StationUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type StationUncheckedUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementUpsertWithWhereUniqueWithoutOriginInput = {
+    where: ItemMovementWhereUniqueInput
+    update: XOR<ItemMovementUpdateWithoutOriginInput, ItemMovementUncheckedUpdateWithoutOriginInput>
+    create: XOR<ItemMovementCreateWithoutOriginInput, ItemMovementUncheckedCreateWithoutOriginInput>
+  }
+
+  export type ItemMovementUpdateWithWhereUniqueWithoutOriginInput = {
+    where: ItemMovementWhereUniqueInput
+    data: XOR<ItemMovementUpdateWithoutOriginInput, ItemMovementUncheckedUpdateWithoutOriginInput>
+  }
+
+  export type ItemMovementUpdateManyWithWhereWithoutOriginInput = {
+    where: ItemMovementScalarWhereInput
+    data: XOR<ItemMovementUpdateManyMutationInput, ItemMovementUncheckedUpdateManyWithoutOriginInput>
+  }
+
+  export type ItemMovementScalarWhereInput = {
+    AND?: ItemMovementScalarWhereInput | ItemMovementScalarWhereInput[]
+    OR?: ItemMovementScalarWhereInput[]
+    NOT?: ItemMovementScalarWhereInput | ItemMovementScalarWhereInput[]
+    id?: StringFilter<"ItemMovement"> | string
+    origin_id?: StringFilter<"ItemMovement"> | string
+    destination_id?: StringFilter<"ItemMovement"> | string
+    quantity_moved?: IntFilter<"ItemMovement"> | number
+    created_by?: StringFilter<"ItemMovement"> | string
+    created_at?: DateTimeFilter<"ItemMovement"> | Date | string
+    metadata?: JsonNullableFilter<"ItemMovement">
+  }
+
+  export type ItemMovementUpsertWithWhereUniqueWithoutDestinationInput = {
+    where: ItemMovementWhereUniqueInput
+    update: XOR<ItemMovementUpdateWithoutDestinationInput, ItemMovementUncheckedUpdateWithoutDestinationInput>
+    create: XOR<ItemMovementCreateWithoutDestinationInput, ItemMovementUncheckedCreateWithoutDestinationInput>
+  }
+
+  export type ItemMovementUpdateWithWhereUniqueWithoutDestinationInput = {
+    where: ItemMovementWhereUniqueInput
+    data: XOR<ItemMovementUpdateWithoutDestinationInput, ItemMovementUncheckedUpdateWithoutDestinationInput>
+  }
+
+  export type ItemMovementUpdateManyWithWhereWithoutDestinationInput = {
+    where: ItemMovementScalarWhereInput
+    data: XOR<ItemMovementUpdateManyMutationInput, ItemMovementUncheckedUpdateManyWithoutDestinationInput>
+  }
+
+  export type ItemLocationCreateWithoutOrigin_movementsInput = {
+    id?: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item: ItemCreateNestedOneWithoutItem_locationsInput
+    station: StationCreateNestedOneWithoutItemsInput
+    destination_movements?: ItemMovementCreateNestedManyWithoutDestinationInput
+  }
+
+  export type ItemLocationUncheckedCreateWithoutOrigin_movementsInput = {
+    id?: string
+    item_id: string
+    station_id: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    destination_movements?: ItemMovementUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type ItemLocationCreateOrConnectWithoutOrigin_movementsInput = {
+    where: ItemLocationWhereUniqueInput
+    create: XOR<ItemLocationCreateWithoutOrigin_movementsInput, ItemLocationUncheckedCreateWithoutOrigin_movementsInput>
+  }
+
+  export type ItemLocationCreateWithoutDestination_movementsInput = {
+    id?: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item: ItemCreateNestedOneWithoutItem_locationsInput
+    station: StationCreateNestedOneWithoutItemsInput
+    origin_movements?: ItemMovementCreateNestedManyWithoutOriginInput
+  }
+
+  export type ItemLocationUncheckedCreateWithoutDestination_movementsInput = {
+    id?: string
+    item_id: string
+    station_id: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin_movements?: ItemMovementUncheckedCreateNestedManyWithoutOriginInput
+  }
+
+  export type ItemLocationCreateOrConnectWithoutDestination_movementsInput = {
+    where: ItemLocationWhereUniqueInput
+    create: XOR<ItemLocationCreateWithoutDestination_movementsInput, ItemLocationUncheckedCreateWithoutDestination_movementsInput>
+  }
+
+  export type ItemLocationUpsertWithoutOrigin_movementsInput = {
+    update: XOR<ItemLocationUpdateWithoutOrigin_movementsInput, ItemLocationUncheckedUpdateWithoutOrigin_movementsInput>
+    create: XOR<ItemLocationCreateWithoutOrigin_movementsInput, ItemLocationUncheckedCreateWithoutOrigin_movementsInput>
+    where?: ItemLocationWhereInput
+  }
+
+  export type ItemLocationUpdateToOneWithWhereWithoutOrigin_movementsInput = {
+    where?: ItemLocationWhereInput
+    data: XOR<ItemLocationUpdateWithoutOrigin_movementsInput, ItemLocationUncheckedUpdateWithoutOrigin_movementsInput>
+  }
+
+  export type ItemLocationUpdateWithoutOrigin_movementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item?: ItemUpdateOneRequiredWithoutItem_locationsNestedInput
+    station?: StationUpdateOneRequiredWithoutItemsNestedInput
+    destination_movements?: ItemMovementUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type ItemLocationUncheckedUpdateWithoutOrigin_movementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    station_id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    destination_movements?: ItemMovementUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type ItemLocationUpsertWithoutDestination_movementsInput = {
+    update: XOR<ItemLocationUpdateWithoutDestination_movementsInput, ItemLocationUncheckedUpdateWithoutDestination_movementsInput>
+    create: XOR<ItemLocationCreateWithoutDestination_movementsInput, ItemLocationUncheckedCreateWithoutDestination_movementsInput>
+    where?: ItemLocationWhereInput
+  }
+
+  export type ItemLocationUpdateToOneWithWhereWithoutDestination_movementsInput = {
+    where?: ItemLocationWhereInput
+    data: XOR<ItemLocationUpdateWithoutDestination_movementsInput, ItemLocationUncheckedUpdateWithoutDestination_movementsInput>
+  }
+
+  export type ItemLocationUpdateWithoutDestination_movementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item?: ItemUpdateOneRequiredWithoutItem_locationsNestedInput
+    station?: StationUpdateOneRequiredWithoutItemsNestedInput
+    origin_movements?: ItemMovementUpdateManyWithoutOriginNestedInput
+  }
+
+  export type ItemLocationUncheckedUpdateWithoutDestination_movementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    station_id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin_movements?: ItemMovementUncheckedUpdateManyWithoutOriginNestedInput
+  }
+
   export type ItemCreateWithoutItem_transactionsInput = {
     id?: string
     code: string
@@ -42786,9 +46471,11 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutItem_transactionsInput = {
@@ -42807,7 +46494,9 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutItem_transactionsInput = {
@@ -42818,10 +46507,7 @@ export namespace Prisma {
   export type RRItemCreateWithoutItem_transactionInput = {
     id?: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr: RRCreateNestedOneWithoutRr_itemsInput
     meqs_supplier_item: MEQSSupplierItemCreateNestedOneWithoutRr_itemsInput
   }
@@ -42831,10 +46517,7 @@ export namespace Prisma {
     rr_id: string
     meqs_supplier_item_id: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRItemCreateOrConnectWithoutItem_transactionInput = {
@@ -42867,9 +46550,11 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutItem_transactionsInput = {
@@ -42888,7 +46573,9 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type RRItemUpsertWithoutItem_transactionInput = {
@@ -42905,10 +46592,7 @@ export namespace Prisma {
   export type RRItemUpdateWithoutItem_transactionInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr?: RRUpdateOneRequiredWithoutRr_itemsNestedInput
     meqs_supplier_item?: MEQSSupplierItemUpdateOneRequiredWithoutRr_itemsNestedInput
   }
@@ -42918,10 +46602,7 @@ export namespace Prisma {
     rr_id?: StringFieldUpdateOperationsInput | string
     meqs_supplier_item_id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemCreateWithoutItem_typeInput = {
@@ -42938,9 +46619,11 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutItem_typeInput = {
@@ -42958,8 +46641,10 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutItem_typeInput = {
@@ -43007,15 +46692,13 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
+    metadata?: JsonNullableFilter<"Item">
   }
 
   export type MEQSSupplierCreateWithoutSupplierInput = {
     id?: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs: MEQSCreateNestedOneWithoutMeqs_suppliersInput
     attachments?: MEQSSupplierAttachmentCreateNestedManyWithoutMeqs_supplierInput
     meqs_supplier_items?: MEQSSupplierItemCreateNestedManyWithoutMeqs_supplierInput
@@ -43026,10 +46709,7 @@ export namespace Prisma {
     id?: string
     meqs_id: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     attachments?: MEQSSupplierAttachmentUncheckedCreateNestedManyWithoutMeqs_supplierInput
     meqs_supplier_items?: MEQSSupplierItemUncheckedCreateNestedManyWithoutMeqs_supplierInput
     po?: POUncheckedCreateNestedOneWithoutMeqs_supplierInput
@@ -43065,10 +46745,7 @@ export namespace Prisma {
     id?: string
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemCreateNestedManyWithoutCanvass_itemInput
     canvass: CanvassCreateNestedOneWithoutCanvass_itemsInput
     item?: ItemCreateNestedOneWithoutCanvass_itemsInput
@@ -43080,10 +46757,7 @@ export namespace Prisma {
     item_id?: string | null
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUncheckedCreateNestedManyWithoutCanvass_itemInput
   }
 
@@ -43111,9 +46785,11 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutUnitInput = {
@@ -43131,8 +46807,10 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutUnitInput = {
@@ -43190,6 +46868,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutSprInput
     meqs?: MEQSCreateNestedOneWithoutSprInput
     spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
@@ -43209,6 +46888,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedCreateNestedOneWithoutSprInput
     spr_approvers?: SPRApproverUncheckedCreateNestedManyWithoutSprInput
   }
@@ -43257,6 +46937,55 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SPR"> | Date | string | null
     created_at?: DateTimeFilter<"SPR"> | Date | string
     updated_at?: DateTimeFilter<"SPR"> | Date | string
+    metadata?: JsonNullableFilter<"SPR">
+  }
+
+  export type ItemLocationCreateWithoutStationInput = {
+    id?: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item: ItemCreateNestedOneWithoutItem_locationsInput
+    origin_movements?: ItemMovementCreateNestedManyWithoutOriginInput
+    destination_movements?: ItemMovementCreateNestedManyWithoutDestinationInput
+  }
+
+  export type ItemLocationUncheckedCreateWithoutStationInput = {
+    id?: string
+    item_id: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin_movements?: ItemMovementUncheckedCreateNestedManyWithoutOriginInput
+    destination_movements?: ItemMovementUncheckedCreateNestedManyWithoutDestinationInput
+  }
+
+  export type ItemLocationCreateOrConnectWithoutStationInput = {
+    where: ItemLocationWhereUniqueInput
+    create: XOR<ItemLocationCreateWithoutStationInput, ItemLocationUncheckedCreateWithoutStationInput>
+  }
+
+  export type ItemLocationCreateManyStationInputEnvelope = {
+    data: ItemLocationCreateManyStationInput | ItemLocationCreateManyStationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ItemLocationUpsertWithWhereUniqueWithoutStationInput = {
+    where: ItemLocationWhereUniqueInput
+    update: XOR<ItemLocationUpdateWithoutStationInput, ItemLocationUncheckedUpdateWithoutStationInput>
+    create: XOR<ItemLocationCreateWithoutStationInput, ItemLocationUncheckedCreateWithoutStationInput>
+  }
+
+  export type ItemLocationUpdateWithWhereUniqueWithoutStationInput = {
+    where: ItemLocationWhereUniqueInput
+    data: XOR<ItemLocationUpdateWithoutStationInput, ItemLocationUncheckedUpdateWithoutStationInput>
+  }
+
+  export type ItemLocationUpdateManyWithWhereWithoutStationInput = {
+    where: ItemLocationScalarWhereInput
+    data: XOR<ItemLocationUpdateManyMutationInput, ItemLocationUncheckedUpdateManyWithoutStationInput>
   }
 
   export type CanvassItemCreateManyCanvassInput = {
@@ -43265,20 +46994,14 @@ export namespace Prisma {
     item_id?: string | null
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassItemUpdateWithoutCanvassInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUpdateManyWithoutCanvass_itemNestedInput
     unit?: UnitUpdateOneWithoutCanvass_itemsNestedInput
     item?: ItemUpdateOneWithoutCanvass_itemsNestedInput
@@ -43290,10 +47013,7 @@ export namespace Prisma {
     item_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUncheckedUpdateManyWithoutCanvass_itemNestedInput
   }
 
@@ -43303,10 +47023,7 @@ export namespace Prisma {
     item_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierItemCreateManyCanvass_itemInput = {
@@ -43316,10 +47033,7 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierItemUpdateWithoutCanvass_itemInput = {
@@ -43328,10 +47042,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier?: MEQSSupplierUpdateOneRequiredWithoutMeqs_supplier_itemsNestedInput
     rr_items?: RRItemUpdateManyWithoutMeqs_supplier_itemNestedInput
   }
@@ -43343,10 +47054,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_items?: RRItemUncheckedUpdateManyWithoutMeqs_supplier_itemNestedInput
   }
 
@@ -43357,10 +47065,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverCreateManyRvInput = {
@@ -43372,12 +47077,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverUpdateWithoutRvInput = {
@@ -43389,12 +47089,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverUncheckedUpdateWithoutRvInput = {
@@ -43406,12 +47101,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RVApproverUncheckedUpdateManyWithoutRvInput = {
@@ -43423,12 +47113,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverCreateManyJoInput = {
@@ -43440,12 +47125,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverUpdateWithoutJoInput = {
@@ -43457,12 +47137,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverUncheckedUpdateWithoutJoInput = {
@@ -43474,12 +47149,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverUncheckedUpdateManyWithoutJoInput = {
@@ -43491,12 +47161,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverCreateManySprInput = {
@@ -43508,12 +47173,7 @@ export namespace Prisma {
     label: string
     order: number
     is_supervisor?: boolean
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverUpdateWithoutSprInput = {
@@ -43525,12 +47185,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverUncheckedUpdateWithoutSprInput = {
@@ -43542,12 +47197,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRApproverUncheckedUpdateManyWithoutSprInput = {
@@ -43559,12 +47209,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverCreateManyMeqsInput = {
@@ -43575,22 +47220,14 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierCreateManyMeqsInput = {
     id?: string
     supplier_id: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverUpdateWithoutMeqsInput = {
@@ -43601,12 +47238,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverUncheckedUpdateWithoutMeqsInput = {
@@ -43617,12 +47249,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSApproverUncheckedUpdateManyWithoutMeqsInput = {
@@ -43633,21 +47260,13 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierUpdateWithoutMeqsInput = {
     id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     supplier?: SupplierUpdateOneRequiredWithoutMEQSSupplierNestedInput
     attachments?: MEQSSupplierAttachmentUpdateManyWithoutMeqs_supplierNestedInput
     meqs_supplier_items?: MEQSSupplierItemUpdateManyWithoutMeqs_supplierNestedInput
@@ -43658,10 +47277,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     supplier_id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     attachments?: MEQSSupplierAttachmentUncheckedUpdateManyWithoutMeqs_supplierNestedInput
     meqs_supplier_items?: MEQSSupplierItemUncheckedUpdateManyWithoutMeqs_supplierNestedInput
     po?: POUncheckedUpdateOneWithoutMeqs_supplierNestedInput
@@ -43671,20 +47287,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     supplier_id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentCreateManyMeqs_supplierInput = {
     id?: string
     filename?: string
     src: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierItemCreateManyMeqs_supplierInput = {
@@ -43694,40 +47304,28 @@ export namespace Prisma {
     notes: string
     is_awarded?: boolean
     vat_type?: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentUpdateWithoutMeqs_supplierInput = {
     id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     src?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentUncheckedUpdateWithoutMeqs_supplierInput = {
     id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     src?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierAttachmentUncheckedUpdateManyWithoutMeqs_supplierInput = {
     id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     src?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierItemUpdateWithoutMeqs_supplierInput = {
@@ -43736,10 +47334,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_item?: CanvassItemUpdateOneRequiredWithoutMeqs_supplier_itemsNestedInput
     rr_items?: RRItemUpdateManyWithoutMeqs_supplier_itemNestedInput
   }
@@ -43751,10 +47346,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_items?: RRItemUncheckedUpdateManyWithoutMeqs_supplier_itemNestedInput
   }
 
@@ -43765,29 +47357,20 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     is_awarded?: BoolFieldUpdateOperationsInput | boolean
     vat_type?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRItemCreateManyMeqs_supplier_itemInput = {
     id?: string
     rr_id: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRItemUpdateWithoutMeqs_supplier_itemInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr?: RRUpdateOneRequiredWithoutRr_itemsNestedInput
     item_transaction?: ItemTransactionUpdateOneWithoutRr_itemNestedInput
   }
@@ -43796,10 +47379,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rr_id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutRr_itemNestedInput
   }
 
@@ -43807,10 +47387,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rr_id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRCreateManyPoInput = {
@@ -43829,6 +47406,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverCreateManyPoInput = {
@@ -43839,12 +47417,7 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRUpdateWithoutPoInput = {
@@ -43863,6 +47436,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_approvers?: RRApproverUpdateManyWithoutRrNestedInput
     rr_items?: RRItemUpdateManyWithoutRrNestedInput
   }
@@ -43883,6 +47457,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_approvers?: RRApproverUncheckedUpdateManyWithoutRrNestedInput
     rr_items?: RRItemUncheckedUpdateManyWithoutRrNestedInput
   }
@@ -43903,6 +47478,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverUpdateWithoutPoInput = {
@@ -43913,12 +47489,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverUncheckedUpdateWithoutPoInput = {
@@ -43929,12 +47500,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type POApproverUncheckedUpdateManyWithoutPoInput = {
@@ -43945,12 +47511,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverCreateManyRrInput = {
@@ -43961,22 +47522,14 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRItemCreateManyRrInput = {
     id?: string
     meqs_supplier_item_id: string
     quantity_accepted: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverUpdateWithoutRrInput = {
@@ -43987,12 +47540,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverUncheckedUpdateWithoutRrInput = {
@@ -44003,12 +47551,7 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRApproverUncheckedUpdateManyWithoutRrInput = {
@@ -44019,21 +47562,13 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RRItemUpdateWithoutRrInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUpdateOneWithoutRr_itemNestedInput
     meqs_supplier_item?: MEQSSupplierItemUpdateOneRequiredWithoutRr_itemsNestedInput
   }
@@ -44042,10 +47577,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     meqs_supplier_item_id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutRr_itemNestedInput
   }
 
@@ -44053,10 +47585,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     meqs_supplier_item_id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionCreateManyItemInput = {
@@ -44069,6 +47598,7 @@ export namespace Prisma {
     is_initial?: boolean
     created_at?: Date | string
     created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassItemCreateManyItemInput = {
@@ -44077,10 +47607,16 @@ export namespace Prisma {
     unit_id?: string | null
     description: string
     quantity: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemLocationCreateManyItemInput = {
+    id?: string
+    station_id: string
+    quantity_on_hand: number
     created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionUpdateWithoutItemInput = {
@@ -44091,6 +47627,7 @@ export namespace Prisma {
     is_initial?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
   }
 
@@ -44104,6 +47641,7 @@ export namespace Prisma {
     is_initial?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemTransactionUncheckedUpdateManyWithoutItemInput = {
@@ -44116,16 +47654,14 @@ export namespace Prisma {
     is_initial?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassItemUpdateWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUpdateManyWithoutCanvass_itemNestedInput
     canvass?: CanvassUpdateOneRequiredWithoutCanvass_itemsNestedInput
     unit?: UnitUpdateOneWithoutCanvass_itemsNestedInput
@@ -44137,10 +47673,7 @@ export namespace Prisma {
     unit_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUncheckedUpdateManyWithoutCanvass_itemNestedInput
   }
 
@@ -44150,10 +47683,110 @@ export namespace Prisma {
     unit_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemLocationUpdateWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    station?: StationUpdateOneRequiredWithoutItemsNestedInput
+    origin_movements?: ItemMovementUpdateManyWithoutOriginNestedInput
+    destination_movements?: ItemMovementUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type ItemLocationUncheckedUpdateWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    station_id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin_movements?: ItemMovementUncheckedUpdateManyWithoutOriginNestedInput
+    destination_movements?: ItemMovementUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type ItemLocationUncheckedUpdateManyWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    station_id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementCreateManyOriginInput = {
+    id?: string
+    destination_id: string
+    quantity_moved: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementCreateManyDestinationInput = {
+    id?: string
+    origin_id: string
+    quantity_moved: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementUpdateWithoutOriginInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity_moved?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    destination?: ItemLocationUpdateOneRequiredWithoutDestination_movementsNestedInput
+  }
+
+  export type ItemMovementUncheckedUpdateWithoutOriginInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    destination_id?: StringFieldUpdateOperationsInput | string
+    quantity_moved?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementUncheckedUpdateManyWithoutOriginInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    destination_id?: StringFieldUpdateOperationsInput | string
+    quantity_moved?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementUpdateWithoutDestinationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity_moved?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin?: ItemLocationUpdateOneRequiredWithoutOrigin_movementsNestedInput
+  }
+
+  export type ItemMovementUncheckedUpdateWithoutDestinationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    origin_id?: StringFieldUpdateOperationsInput | string
+    quantity_moved?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemMovementUncheckedUpdateManyWithoutDestinationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    origin_id?: StringFieldUpdateOperationsInput | string
+    quantity_moved?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemCreateManyItem_typeInput = {
@@ -44171,6 +47804,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemUpdateWithoutItem_typeInput = {
@@ -44187,9 +47821,11 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutItem_typeInput = {
@@ -44207,8 +47843,10 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateManyWithoutItem_typeInput = {
@@ -44226,25 +47864,20 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierCreateManySupplierInput = {
     id?: string
     meqs_id: string
     payment_terms: string
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierUpdateWithoutSupplierInput = {
     id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneRequiredWithoutMeqs_suppliersNestedInput
     attachments?: MEQSSupplierAttachmentUpdateManyWithoutMeqs_supplierNestedInput
     meqs_supplier_items?: MEQSSupplierItemUpdateManyWithoutMeqs_supplierNestedInput
@@ -44255,10 +47888,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     meqs_id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     attachments?: MEQSSupplierAttachmentUncheckedUpdateManyWithoutMeqs_supplierNestedInput
     meqs_supplier_items?: MEQSSupplierItemUncheckedUpdateManyWithoutMeqs_supplierNestedInput
     po?: POUncheckedUpdateOneWithoutMeqs_supplierNestedInput
@@ -44268,10 +47898,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     meqs_id?: StringFieldUpdateOperationsInput | string
     payment_terms?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassItemCreateManyUnitInput = {
@@ -44280,10 +47907,7 @@ export namespace Prisma {
     item_id?: string | null
     description: string
     quantity: number
-    created_by: string
-    updated_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemCreateManyUnitInput = {
@@ -44301,16 +47925,14 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CanvassItemUpdateWithoutUnitInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUpdateManyWithoutCanvass_itemNestedInput
     canvass?: CanvassUpdateOneRequiredWithoutCanvass_itemsNestedInput
     item?: ItemUpdateOneWithoutCanvass_itemsNestedInput
@@ -44322,10 +47944,7 @@ export namespace Prisma {
     item_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs_supplier_items?: MEQSSupplierItemUncheckedUpdateManyWithoutCanvass_itemNestedInput
   }
 
@@ -44335,10 +47954,7 @@ export namespace Prisma {
     item_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemUpdateWithoutUnitInput = {
@@ -44355,9 +47971,11 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutUnitInput = {
@@ -44375,8 +47993,10 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateManyWithoutUnitInput = {
@@ -44394,6 +48014,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRCreateManyVehicleInput = {
@@ -44410,6 +48031,7 @@ export namespace Prisma {
     cancelled_at?: Date | string | null
     created_at?: Date | string
     updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SPRUpdateWithoutVehicleInput = {
@@ -44425,6 +48047,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutSprNestedInput
     meqs?: MEQSUpdateOneWithoutSprNestedInput
     spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
@@ -44444,6 +48067,7 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUncheckedUpdateOneWithoutSprNestedInput
     spr_approvers?: SPRApproverUncheckedUpdateManyWithoutSprNestedInput
   }
@@ -44462,6 +48086,47 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemLocationCreateManyStationInput = {
+    id?: string
+    item_id: string
+    quantity_on_hand: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemLocationUpdateWithoutStationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item?: ItemUpdateOneRequiredWithoutItem_locationsNestedInput
+    origin_movements?: ItemMovementUpdateManyWithoutOriginNestedInput
+    destination_movements?: ItemMovementUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type ItemLocationUncheckedUpdateWithoutStationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    origin_movements?: ItemMovementUncheckedUpdateManyWithoutOriginNestedInput
+    destination_movements?: ItemMovementUncheckedUpdateManyWithoutDestinationNestedInput
+  }
+
+  export type ItemLocationUncheckedUpdateManyWithoutStationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    quantity_on_hand?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
 
@@ -44514,6 +48179,10 @@ export namespace Prisma {
      */
     export type ItemCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use ItemLocationCountOutputTypeDefaultArgs instead
+     */
+    export type ItemLocationCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemLocationCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use ItemTypeCountOutputTypeDefaultArgs instead
      */
     export type ItemTypeCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemTypeCountOutputTypeDefaultArgs<ExtArgs>
@@ -44529,6 +48198,10 @@ export namespace Prisma {
      * @deprecated Use VehicleCountOutputTypeDefaultArgs instead
      */
     export type VehicleCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StationCountOutputTypeDefaultArgs instead
+     */
+    export type StationCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StationCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use PendingDefaultArgs instead
      */
@@ -44610,6 +48283,14 @@ export namespace Prisma {
      */
     export type ItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use ItemLocationDefaultArgs instead
+     */
+    export type ItemLocationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemLocationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ItemMovementDefaultArgs instead
+     */
+    export type ItemMovementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemMovementDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use ItemTransactionDefaultArgs instead
      */
     export type ItemTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemTransactionDefaultArgs<ExtArgs>
@@ -44629,6 +48310,10 @@ export namespace Prisma {
      * @deprecated Use VehicleDefaultArgs instead
      */
     export type VehicleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StationDefaultArgs instead
+     */
+    export type StationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StationDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

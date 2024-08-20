@@ -19,7 +19,7 @@ export class UpdateSupplierInput extends PartialType(CreateSupplierInput) {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
-  tin_no?: string | null;
+  tin?: string | null;
 
   @Field(() => String, { nullable: true })
   @IsOptional()

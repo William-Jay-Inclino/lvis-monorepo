@@ -412,11 +412,7 @@ export class ItemService {
 								}
 							}
 						},
-						rr_approvers: {
-							where: {
-								deleted_at: null
-							}
-						}
+						rr_approvers: true
 					}
 				}
 			}

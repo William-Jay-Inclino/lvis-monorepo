@@ -23,7 +23,7 @@ export class SupplierService {
 		const data: Prisma.SupplierCreateInput = {
 			name: input.name,
 			contact: input.contact,
-			tin_no: input.tin_no,
+			tin: input.tin,
 			address: input.address,
 			is_vat_registered: input.is_vat_registered,
 			vat_type: input.vat_type,
@@ -70,7 +70,7 @@ export class SupplierService {
 		const data: Prisma.SupplierUpdateInput = {
 			name: input.name ?? existingItem.name,
 			contact: input.contact ?? existingItem.contact,
-			tin_no: input.tin_no ?? existingItem.tin_no,
+			tin: input.tin ?? existingItem.tin,
 			address: input.address ?? existingItem.address,
 			is_vat_registered: input.is_vat_registered ?? existingItem.is_vat_registered,
 			vat_type: input.vat_type ?? existingItem.vat_type,

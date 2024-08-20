@@ -104,7 +104,6 @@ export class PoService {
                         order: i.order,
                         status: APPROVAL_STATUS.PENDING,
                         notes: '',
-                        created_by: createdBy
                     }
 
                     return approver
@@ -384,7 +383,6 @@ export class PoService {
         const approvers = await this.prisma.pOApprover.findMany({
             where: {
                 po_id,
-                deleted_at: null
             }
         })
 
@@ -462,7 +460,6 @@ export class PoService {
                 notes,
                 status,
                 date_approval: new Date(),
-                updated_by: this.authUser.user.username
             }
         })
 

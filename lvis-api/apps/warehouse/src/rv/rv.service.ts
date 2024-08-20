@@ -410,7 +410,6 @@ export class RvService {
         const approvers = await this.prisma.rVApprover.findMany({
             where: {
                 rv_id: id,
-                deleted_at: null
             }
         })
 
@@ -500,7 +499,6 @@ export class RvService {
                 notes,
                 status,
                 date_approval: new Date(),
-                updated_by: this.authUser.user.username
             }
         })
 

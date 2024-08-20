@@ -16,7 +16,7 @@ export interface Supplier {
     id: string
     name: string
     contact: string
-    tin_no: string
+    tin: string
     address: string
     vat_type: VAT_TYPE
     is_vat_registered: boolean

@@ -402,9 +402,6 @@ export class SprPdfService {
                     }
                 },
                 spr_approvers: {
-                    where: {
-                        deleted_at: null,
-                    },
                     orderBy: {
                         order: 'asc'
                     }

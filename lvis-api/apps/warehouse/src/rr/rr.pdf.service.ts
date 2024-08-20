@@ -175,7 +175,7 @@ export class RrPdfService {
                                     ${ rr.po.meqs_supplier.supplier.address.toUpperCase() }
                                 </div>
                                 <div>
-                                    TIN: ${ rr.po.meqs_supplier.supplier.tin_no.trim() !== '' ? rr.po.meqs_supplier.supplier.tin_no : 'N/A' }
+                                    TIN: ${ rr.po.meqs_supplier.supplier.tin.trim() !== '' ? rr.po.meqs_supplier.supplier.tin : 'N/A' }
                                 </div>
                             </div>
                         </td>
@@ -548,9 +548,6 @@ export class RrPdfService {
                     }
                 },
                 rr_approvers: {
-                    where: {
-                        deleted_at: null,
-                    },
                     orderBy: {
                         order: 'asc'
                     }

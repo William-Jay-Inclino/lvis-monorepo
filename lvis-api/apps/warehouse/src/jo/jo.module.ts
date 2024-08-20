@@ -9,7 +9,13 @@ import { JoPdfService } from './jo.pdf.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [JoService, JoResolver, JoPdfService, JoApproverService, CanvassService],
+  providers: [
+    JoService, 
+    JoResolver, 
+    JoPdfService, 
+    JoApproverService, 
+    CanvassService
+  ],
   exports: [JoService],
   controllers: [JoController]
 })

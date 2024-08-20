@@ -32,7 +32,6 @@ export class MeqsSupplierItemService {
 			notes: input.notes ?? null,
 			is_awarded: input.is_awarded,
 			vat_type: input.vat_type,
-			created_by: this.authUser.user.username
 		}
 
 		const created = await this.prisma.mEQSSupplierItem.create({
@@ -78,7 +77,6 @@ export class MeqsSupplierItemService {
 			notes: input.notes ?? existingItem.notes,
 			is_awarded: input.is_awarded ?? existingItem.is_awarded,
 			vat_type: input.vat_type ?? existingItem.vat_type,
-			updated_by: this.authUser.user.username
 		}
 
 		const updated = await this.prisma.mEQSSupplierItem.update({
@@ -168,7 +166,6 @@ export class MeqsSupplierItemService {
 					},
 					data: {
 						is_awarded: false,
-						updated_by: updatedBy
 					}
 				})
 
@@ -182,7 +179,6 @@ export class MeqsSupplierItemService {
 			where: { id },
 			data: {
 				is_awarded: true,
-				updated_by: updatedBy
 			}
 		})
 
@@ -246,7 +242,6 @@ export class MeqsSupplierItemService {
 					},
 					data: {
 						notes,
-						updated_by: updatedBy
 					}
 				})
 

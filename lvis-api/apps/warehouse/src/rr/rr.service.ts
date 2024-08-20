@@ -132,7 +132,6 @@ export class RrService {
                         order: i.order,
                         notes: '',
                         status: APPROVAL_STATUS.PENDING,
-                        created_by: createdBy
                     }
 
                     return approver
@@ -145,7 +144,6 @@ export class RrService {
                     const item: Prisma.RRItemCreateWithoutRrInput = {
                         meqs_supplier_item: { connect: { id: i.meqs_supplier_item_id } },
                         quantity_accepted: i.quantity_accepted,
-                        created_by: createdBy
                     }
 
                     return item
@@ -379,7 +377,6 @@ export class RrService {
         const approvers = await this.prisma.rRApprover.findMany({
             where: {
                 rr_id,
-                deleted_at: null
             }
         })
 
@@ -594,7 +591,6 @@ export class RrService {
         const approvers = await this.prisma.pOApprover.findMany({
             where: {
                 po_id: input.po_id,
-                deleted_at: null
             }
         })
 

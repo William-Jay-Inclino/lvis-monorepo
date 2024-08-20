@@ -8,7 +8,12 @@ import { RrPdfService } from './rr.pdf.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [RrResolver, RrService, RrPdfService, RrApproverService],
+  providers: [
+    RrResolver, 
+    RrService, 
+    RrPdfService, 
+    RrApproverService
+  ],
   exports: [RrService],
   controllers: [RrController]
 })

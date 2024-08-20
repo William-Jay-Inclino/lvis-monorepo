@@ -9,7 +9,12 @@ import { RvPdfService } from './rv.pdf.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [RvResolver, RvService, RvPdfService, RvApproverService, CanvassService],
+  providers: [
+    RvResolver, 
+    RvService, 
+    RvPdfService, 
+    RvApproverService, 
+    CanvassService],
   exports: [RvService],
   controllers: [RvController]
 })

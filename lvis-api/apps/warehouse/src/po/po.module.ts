@@ -8,7 +8,12 @@ import { PoPdfService } from './po.pdf.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [PoResolver, PoService, PoPdfService, PoApproverService],
+  providers: [
+    PoResolver, 
+    PoService, 
+    PoPdfService, 
+    PoApproverService
+  ],
   exports: [PoService],
   controllers: [PoController]
 })

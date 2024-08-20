@@ -14,7 +14,7 @@ export class Supplier {
   contact: string;
 
   @Field()
-  tin_no: string;
+  tin: string;
 
   @Field()
   address: string;

@@ -66,64 +66,64 @@ export class PoApproverService {
         this.authUser = authUser
     }
 
-    async create(input: CreatePoApproverInput): Promise<POApprover> {
+    // async create(input: CreatePoApproverInput): Promise<POApprover> {
 
-        const employeeIds = []
+    //     const employeeIds = []
 
-        employeeIds.push(input.approver_id)
+    //     employeeIds.push(input.approver_id)
 
-        if (employeeIds.length > 0) {
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+    //     if (employeeIds.length > 0) {
+    //         const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
 
-            if (!isValidEmployeeIds) {
-                throw new BadRequestException("One or more employee id is invalid")
-            }
-        }
-
-        const data: Prisma.POApproverCreateInput = {
-            po: { connect: { id: input.po_id } },
-            approver_id: input.approver_id,
-            label: input.label,
-            notes: '',
-            order: input.order,
-            status: APPROVAL_STATUS.PENDING,
-            created_by: this.authUser.user.username
-        }
-
-        const created = await this.prisma.pOApprover.create({
-            data,
-            include: this.includedFields
-        })
-
-        this.logger.log('Successfully created pOApprover')
-
-        return created
-    }
-
-    // async findAll(): Promise<POApprover[]> {
-    //     return await this.prisma.pOApprover.findMany({
-    //         include: this.includedFields,
-    //         where: { is_deleted: false },
-    //         orderBy: {
-    //             label: 'asc'
+    //         if (!isValidEmployeeIds) {
+    //             throw new BadRequestException("One or more employee id is invalid")
     //         }
+    //     }
+
+    //     const data: Prisma.POApproverCreateInput = {
+    //         po: { connect: { id: input.po_id } },
+    //         approver_id: input.approver_id,
+    //         label: input.label,
+    //         notes: '',
+    //         order: input.order,
+    //         status: APPROVAL_STATUS.PENDING,
+    //         created_by: this.authUser.user.username
+    //     }
+
+    //     const created = await this.prisma.pOApprover.create({
+    //         data,
+    //         include: this.includedFields
     //     })
+
+    //     this.logger.log('Successfully created pOApprover')
+
+    //     return created
     // }
 
-    async findOne(id: string): Promise<POApprover | null> {
+    // // async findAll(): Promise<POApprover[]> {
+    // //     return await this.prisma.pOApprover.findMany({
+    // //         include: this.includedFields,
+    // //         where: { is_deleted: false },
+    // //         orderBy: {
+    // //             label: 'asc'
+    // //         }
+    // //     })
+    // // }
 
-        const item = await this.prisma.pOApprover.findUnique({
-            where: { id },
-            include: this.includedFields
-        })
+    // async findOne(id: string): Promise<POApprover | null> {
 
-        if (!item) {
-            throw new NotFoundException('PO Approver not found')
-        }
+    //     const item = await this.prisma.pOApprover.findUnique({
+    //         where: { id },
+    //         include: this.includedFields
+    //     })
 
-        return item
+    //     if (!item) {
+    //         throw new NotFoundException('PO Approver not found')
+    //     }
 
-    }
+    //     return item
+
+    // }
 
     async findByPoId(poId: string): Promise<POApprover[]> {
 
@@ -131,7 +131,6 @@ export class PoApproverService {
 
         return await this.prisma.pOApprover.findMany({
             where: {
-                deleted_at: null,
                 po_id: poId
             },
             orderBy: {
@@ -140,222 +139,222 @@ export class PoApproverService {
         })
     }
 
-    async findByPoNumber(poNumber: string): Promise<POApprover[]> {
-        return await this.prisma.pOApprover.findMany({
-            include: this.includedFields,
-            where: {
-                deleted_at: null,
-                po: {
-                    po_number: poNumber
-                }
-            },
-            orderBy: {
-                order: 'asc'
-            }
-        })
-    }
+    // async findByPoNumber(poNumber: string): Promise<POApprover[]> {
+    //     return await this.prisma.pOApprover.findMany({
+    //         include: this.includedFields,
+    //         where: {
+    //             deleted_at: null,
+    //             po: {
+    //                 po_number: poNumber
+    //             }
+    //         },
+    //         orderBy: {
+    //             order: 'asc'
+    //         }
+    //     })
+    // }
 
-    async update(id: string, input: UpdatePoApproverInput): Promise<POApprover> {
-        this.logger.log('update()')
+    // async update(id: string, input: UpdatePoApproverInput): Promise<POApprover> {
+    //     this.logger.log('update()')
 
-        const existingItem = await this.findOne(id)
+    //     const existingItem = await this.findOne(id)
 
-        let isApprover = false
+    //     let isApprover = false
 
-        if (this.authUser.user.user_employee && this.authUser.user.user_employee.employee) {
-            isApprover = this.authUser.user.user_employee.employee.id === existingItem.approver_id
-        }
+    //     if (this.authUser.user.user_employee && this.authUser.user.user_employee.employee) {
+    //         isApprover = this.authUser.user.user_employee.employee.id === existingItem.approver_id
+    //     }
 
-        console.log('isApprover', isApprover)
+    //     console.log('isApprover', isApprover)
 
-        if (!isAdmin(this.authUser) && !isApprover) {
-            throw new ForbiddenException('Only Admin and Approver can update')
-        }
+    //     if (!isAdmin(this.authUser) && !isApprover) {
+    //         throw new ForbiddenException('Only Admin and Approver can update')
+    //     }
 
-        await this.validateInput(input)
+    //     await this.validateInput(input)
 
-        let dateApproval = isAdmin(this.authUser) ? (input.date_approval ? new Date(input.date_approval) : new Date()) : new Date()
+    //     let dateApproval = isAdmin(this.authUser) ? (input.date_approval ? new Date(input.date_approval) : new Date()) : new Date()
 
-        if (input.status && input.status === APPROVAL_STATUS.PENDING) {
-            dateApproval = null
-        } else if (!dateApproval) {
-            dateApproval = existingItem.date_approval
-        }
+    //     if (input.status && input.status === APPROVAL_STATUS.PENDING) {
+    //         dateApproval = null
+    //     } else if (!dateApproval) {
+    //         dateApproval = existingItem.date_approval
+    //     }
 
-        const data: Prisma.POApproverUpdateInput = {
-            approver_id: input.approver_id ?? existingItem.approver_id,
-            date_approval: dateApproval,
-            notes: input.notes ?? existingItem.notes,
-            status: input.status ?? existingItem.status,
-            label: input.label ?? existingItem.label,
-            order: input.order ?? existingItem.order,
-            updated_by: this.authUser.user.username
-        }
+    //     const data: Prisma.POApproverUpdateInput = {
+    //         approver_id: input.approver_id ?? existingItem.approver_id,
+    //         date_approval: dateApproval,
+    //         notes: input.notes ?? existingItem.notes,
+    //         status: input.status ?? existingItem.status,
+    //         label: input.label ?? existingItem.label,
+    //         order: input.order ?? existingItem.order,
+    //         updated_by: this.authUser.user.username
+    //     }
 
-        const updated = await this.prisma.pOApprover.update({
-            data,
-            where: { id },
-            include: this.includedFields,
-        });
-        this.logger.log('Successfully updated PO Approver');
-        return updated;
+    //     const updated = await this.prisma.pOApprover.update({
+    //         data,
+    //         where: { id },
+    //         include: this.includedFields,
+    //     });
+    //     this.logger.log('Successfully updated PO Approver');
+    //     return updated;
 
-    }
+    // }
 
-    async remove(id: string): Promise<WarehouseRemoveResponse> {
+    // async remove(id: string): Promise<WarehouseRemoveResponse> {
 
-        const existingItem = await this.findOne(id)
+    //     const existingItem = await this.findOne(id)
 
-        await this.prisma.pOApprover.update({
-            where: { id },
-            data: {
-                deleted_at: new Date(),
-                deleted_by: this.authUser.user.username
-            }
-        })
+    //     await this.prisma.pOApprover.update({
+    //         where: { id },
+    //         data: {
+    //             deleted_at: new Date(),
+    //             deleted_by: this.authUser.user.username
+    //         }
+    //     })
 
-        return {
-            success: true,
-            msg: "PO Approver successfully deleted"
-        }
+    //     return {
+    //         success: true,
+    //         msg: "PO Approver successfully deleted"
+    //     }
 
-    }
+    // }
 
-    async updateManyOrders(inputs: { id: string; order: number }[]): Promise<UpdatePoOrderResponse> {
-        try {
+    // async updateManyOrders(inputs: { id: string; order: number }[]): Promise<UpdatePoOrderResponse> {
+    //     try {
 
-            const queries = []
+    //         const queries = []
 
-            for (let input of inputs) {
+    //         for (let input of inputs) {
 
-                const updateQuery = this.prisma.pOApprover.update({
-                    where: { id: input.id },
-                    data: { order: input.order },
-                    select: {
-                        po_id: true
-                    }
-                })
+    //             const updateQuery = this.prisma.pOApprover.update({
+    //                 where: { id: input.id },
+    //                 data: { order: input.order },
+    //                 select: {
+    //                     po_id: true
+    //                 }
+    //             })
 
-                queries.push(updateQuery)
+    //             queries.push(updateQuery)
 
-            }
+    //         }
 
-            const result = await this.prisma.$transaction(queries)
+    //         const result = await this.prisma.$transaction(queries)
 
-            const po = result[0] as POApprover
+    //         const po = result[0] as POApprover
 
-            console.log('po', po)
+    //         console.log('po', po)
 
-            const approvers = await this.findByPoId(po.po_id)
+    //         const approvers = await this.findByPoId(po.po_id)
 
-            return {
-                success: true,
-                approvers: approvers
-            };
-        } catch (error) {
-            this.logger.error(error);
-            return { success: false, approvers: [] };
-        }
-    }
+    //         return {
+    //             success: true,
+    //             approvers: approvers
+    //         };
+    //     } catch (error) {
+    //         this.logger.error(error);
+    //         return { success: false, approvers: [] };
+    //     }
+    // }
 
-    async forEmployeePendingApprovals(employeeId: string): Promise<POApprover[]> {
-        return await this.prisma.pOApprover.findMany({
-            where: {
-                approver_id: employeeId,
-                status: APPROVAL_STATUS.PENDING,
-                deleted_at: null,
-                po: {
-                    cancelled_at: null
-                }
-            },
-            orderBy: {
-                created_at: 'asc'
-            },
-            include: {
-                po: {
-                    include: {
-                        po_approvers: {
-                            where: {
-                                deleted_at: null
-                            },
-                            orderBy: {
-                                order: 'asc'
-                            }
-                        }
-                    }
-                }
-            }
-        })
-    }
+    // async forEmployeePendingApprovals(employeeId: string): Promise<POApprover[]> {
+    //     return await this.prisma.pOApprover.findMany({
+    //         where: {
+    //             approver_id: employeeId,
+    //             status: APPROVAL_STATUS.PENDING,
+    //             deleted_at: null,
+    //             po: {
+    //                 cancelled_at: null
+    //             }
+    //         },
+    //         orderBy: {
+    //             created_at: 'asc'
+    //         },
+    //         include: {
+    //             po: {
+    //                 include: {
+    //                     po_approvers: {
+    //                         where: {
+    //                             deleted_at: null
+    //                         },
+    //                         orderBy: {
+    //                             order: 'asc'
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     })
+    // }
 
-    private async areEmployeesExist(employeeIds: string[], authUser: AuthUser): Promise<boolean> {
+    // private async areEmployeesExist(employeeIds: string[], authUser: AuthUser): Promise<boolean> {
 
-        this.logger.log('areEmployeesExist', employeeIds);
+    //     this.logger.log('areEmployeesExist', employeeIds);
 
-        const query = `
-            query {
-                validateEmployeeIds(ids: ${JSON.stringify(employeeIds)})
-            }
-        `;
+    //     const query = `
+    //         query {
+    //             validateEmployeeIds(ids: ${JSON.stringify(employeeIds)})
+    //         }
+    //     `;
 
-        console.log('query', query)
+    //     console.log('query', query)
 
-        try {
-            const { data } = await firstValueFrom(
-                this.httpService.post(
-                    process.env.API_GATEWAY_URL,
-                    { query },
-                    {
-                        headers: {
-                            Authorization: authUser.authorization,
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                ).pipe(
-                    catchError((error) => {
-                        throw error;
-                    }),
-                ),
-            );
+    //     try {
+    //         const { data } = await firstValueFrom(
+    //             this.httpService.post(
+    //                 process.env.API_GATEWAY_URL,
+    //                 { query },
+    //                 {
+    //                     headers: {
+    //                         Authorization: authUser.authorization,
+    //                         'Content-Type': 'application/json',
+    //                     },
+    //                 }
+    //             ).pipe(
+    //                 catchError((error) => {
+    //                     throw error;
+    //                 }),
+    //             ),
+    //         );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
+    //         console.log('data', data);
+    //         console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
 
-            if (!data || !data.data) {
-                console.log('No data returned');
-                return false;
-            }
+    //         if (!data || !data.data) {
+    //             console.log('No data returned');
+    //             return false;
+    //         }
 
-            return data.data.validateEmployeeIds;
+    //         return data.data.validateEmployeeIds;
 
-        } catch (error) {
-            console.error('Error querying employees:', error.message);
-            return false;
-        }
-    }
+    //     } catch (error) {
+    //         console.error('Error querying employees:', error.message);
+    //         return false;
+    //     }
+    // }
 
-    private async validateInput(input: UpdatePoApproverInput): Promise<void> {
-        if (input.status && !isValidApprovalStatus(input.status)) {
-            throw new BadRequestException('Invalid status value');
-        }
+    // private async validateInput(input: UpdatePoApproverInput): Promise<void> {
+    //     if (input.status && !isValidApprovalStatus(input.status)) {
+    //         throw new BadRequestException('Invalid status value');
+    //     }
 
-        if (input.status && input.status === APPROVAL_STATUS.CANCELLED) {
-            throw new BadRequestException('Cancelled status not allowed');
-        }
+    //     if (input.status && input.status === APPROVAL_STATUS.CANCELLED) {
+    //         throw new BadRequestException('Cancelled status not allowed');
+    //     }
 
-        const employeeIds = []
+    //     const employeeIds = []
 
-        if (input.approver_id) {
-            employeeIds.push(input.approver_id)
-        }
+    //     if (input.approver_id) {
+    //         employeeIds.push(input.approver_id)
+    //     }
 
-        if (employeeIds.length > 0) {
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+    //     if (employeeIds.length > 0) {
+    //         const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
 
-            if (!isValidEmployeeIds) {
-                throw new BadRequestException("One or more employee id is invalid")
-            }
-        }
-    }
+    //         if (!isValidEmployeeIds) {
+    //             throw new BadRequestException("One or more employee id is invalid")
+    //         }
+    //     }
+    // }
 
 }

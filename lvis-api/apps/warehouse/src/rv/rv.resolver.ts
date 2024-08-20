@@ -11,7 +11,7 @@ import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { RVApprover } from '../rv-approver/entities/rv-approver.entity';
 import { RvApproverService } from '../rv-approver/rv-approver.service';
-import { RvNumber } from './entities/rv-number.entity';
+// import { RvNumber } from './entities/rv-number.entity';
 import { RVsResponse } from './entities/rvs-response.entity';
 import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';

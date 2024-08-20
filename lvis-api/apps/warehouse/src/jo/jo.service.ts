@@ -407,7 +407,6 @@ export class JoService {
         const approvers = await this.prisma.jOApprover.findMany({
             where: {
                 jo_id: id,
-                deleted_at: null
             }
         })
 
@@ -497,7 +496,6 @@ export class JoService {
                 notes,
                 status,
                 date_approval: new Date(),
-                updated_by: this.authUser.user.username
             }
         })
 
