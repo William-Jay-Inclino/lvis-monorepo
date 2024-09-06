@@ -49,6 +49,7 @@ model Department {
   Division Division[]
 
   @@map("department")
+  Employee Employee[]
 }
 
 model Account {
@@ -70,6 +71,7 @@ model Account {
 
 model Employee {
   id         String  @id @default(uuid())
+  department_id String
   firstname  String 
   middlename String?
   lastname   String
@@ -87,6 +89,8 @@ model Employee {
   rv_approver_setting   RVApproverSetting?   @relation("RVApproverSetting")
   spr_approver_setting  SPRApproverSetting?  @relation("SPRApproverSetting")
   rr_approver_setting   RRApproverSetting?   @relation("RRApproverSetting")
+
+  department Department @relation(fields: [department_id], references: [id], onDelete: Restrict)
 
   created_by String
   updated_by String?

@@ -93,6 +93,11 @@ export enum MODULES {
     RR_ITEM = 'RR_ITEM',
 
 
+    // ========= WAREHOUSING ========= 
+    OSRIV = 'OSRIV',
+    OSRIV_APPROVER = 'OSRIV_APPROVER',
+    OSRIV_ITEM = 'OSRIV_ITEM',
+
     // ========= DATA MANAGEMENT ========= 
     SUPPLIER = 'SUPPLIER',
     UNIT = 'UNIT',
@@ -175,6 +180,15 @@ export enum RESOLVERS {
     updateRr = 'updateRr',
     cancelRr = 'cancelRr',
     printRr = 'printRr',
+
+    // ========= OSRIV ========= 
+    createOsriv = 'createOsriv',
+    osrivs = 'osrivs',
+    osriv_numbers = 'osriv_numbers',
+    osriv = 'osriv',
+    updateOsriv = 'updateOsriv',
+    cancelOsriv = 'cancelOsriv',
+    printOsriv = 'printOsriv',
 
 
     // ========= SUPPLIER ========= 

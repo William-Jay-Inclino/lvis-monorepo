@@ -1,21 +1,21 @@
-// import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, ResolveField, Parent } from '@nestjs/graphql';
 // import { PoApproverService } from './po-approver.service';
 // import { CreatePoApproverInput } from './dto/create-po-approver.input';
 // import { UpdatePoApproverInput } from './dto/update-po-approver.input';
 // import { WarehouseRemoveResponse } from '../__common__/classes';
-// import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-// import { ForbiddenException, UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { UseGuards } from '@nestjs/common';
 // import { AuthUser } from '../__common__/auth-user.entity';
 // import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-// import { Employee } from '../__employee__/entities/employee.entity';
+import { Employee } from '../__employee__/entities/employee.entity';
 // import { UpdatePoOrderResponse } from './entities/update-po-order-response.entity';
 // import { UpdatePoOrderInput } from './dto/update-po-order.input';
-// import { POApprover } from './entities/po-approver.entity';
+import { POApprover } from './entities/po-approver.entity';
 // import { isAdmin } from '../__common__/helpers';
 
-// @UseGuards(GqlAuthGuard)
-// @Resolver(() => POApprover)
-// export class PoApproverResolver {
+@UseGuards(GqlAuthGuard)
+@Resolver(() => POApprover)
+export class PoApproverResolver {
 //   constructor(private readonly poApproverService: PoApproverService) { }
 
 //   @Mutation(() => POApprover)
@@ -88,9 +88,9 @@
 //     return this.poApproverService.remove(id);
 //   }
 
-//   @ResolveField(() => Employee)
-//   approver(@Parent() poApprover: POApprover): any {
-//     return { __typename: 'Employee', id: poApprover.approver_id }
-//   }
+  @ResolveField(() => Employee)
+  approver(@Parent() poApprover: POApprover): any {
+    return { __typename: 'Employee', id: poApprover.approver_id }
+  }
 
-// }
+}

@@ -91,7 +91,6 @@ export class SprService {
                         notes: '',
                         status: APPROVAL_STATUS.PENDING,
                         is_supervisor: i.is_supervisor,
-                        created_by: createdBy
                     }
                 })
             }
@@ -193,6 +192,10 @@ export class SprService {
 
                 console.log('Updating SPR Approver supervisor');
 
+                if(existingSupervisor.status !== APPROVAL_STATUS.PENDING) {
+                    throw new BadRequestException(`Existing supervisor's status is not pending. Cannot update supervisor`)
+                }
+
                 const updateSprApproverQuery = this.prisma.sPRApprover.update({
                     where: {
                         id: existingSupervisor.id
@@ -203,6 +206,37 @@ export class SprService {
                 })
 
                 queries.push(updateSprApproverQuery)
+
+                // ======= add new supervisor in pendings if existing supervisor exists in pendings ======= 
+                const prevSupervisorInPendings = await this.prisma.pending.findUnique({
+                    where: {
+                        approver_id_reference_number_reference_table: {
+                            approver_id: existingSupervisor.approver_id,
+                            reference_number: existingItem.spr_number,
+                            reference_table: DB_ENTITY.SPR
+                        }
+                    }
+                })
+
+                // if previous supervisor exists in pending table then remove it and add the new supervisor in pendings
+                if(prevSupervisorInPendings) {
+                    const deletePendingQuery = this.prisma.pending.delete({
+                        where: {id: prevSupervisorInPendings.id}
+                    })
+                    queries.push(deletePendingQuery)
+
+                    const createPendingQuery = this.prisma.pending.create({
+                        data: {
+                            approver_id: input.supervisor_id,
+                            reference_number: existingItem.spr_number,
+                            reference_table: DB_ENTITY.SPR,
+                            description: `SPR no. ${existingItem.spr_number}`
+                        }
+                    })
+
+                    queries.push(createPendingQuery)
+
+                }
 
             }
 
@@ -250,7 +284,9 @@ export class SprService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const updated = await this.prisma.sPR.update({
+        const queries: Prisma.PrismaPromise<any>[] = []
+        
+        const updateSprQuery = this.prisma.sPR.update({
             data: {
                 cancelled_at: new Date(),
                 cancelled_by: this.authUser.user.username,
@@ -261,13 +297,27 @@ export class SprService {
             where: { id }
         })
 
+        queries.push(updateSprQuery)
+
+        // delete all associated pendings
+
+        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+            where: {
+                reference_number: existingItem.spr_number
+            }
+        })
+
+        queries.push(deleteAssociatedPendings)
+
+        const result = await this.prisma.$transaction(queries)
+
         this.logger.log('Successfully cancelled SPR')
 
         return {
             success: true,
             msg: 'Successfully cancelled SPR',
-            cancelled_at: updated.cancelled_at,
-            cancelled_by: updated.cancelled_by
+            cancelled_at: result[0].cancelled_at,
+            cancelled_by: result[0].cancelled_by
         }
 
     }

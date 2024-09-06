@@ -142,7 +142,7 @@ model Pending {
 
 
   @@unique([approver_id, reference_number, reference_table])
-  @@index([approver_id, transaction_date])
+  @@index([reference_number, approver_id, reference_table, transaction_date])
   @@map("pending")
 }
 
@@ -670,6 +670,8 @@ model OSRIV {
   requested_by_id String
   department_id String
   item_from_id String
+  supervisor_id String
+  warehouse_custodian_id String
 
   cancelled_by String?
   created_by   String
@@ -698,6 +700,8 @@ model OSRIVApprover {
   status        Int
   label         String
   order         Int
+  is_supervisor Boolean @default(false)
+  is_warehouse_custodian Boolean @default(false)
 
   osriv OSRIV @relation(fields: [osriv_id], references: [id], onDelete: Cascade)
 

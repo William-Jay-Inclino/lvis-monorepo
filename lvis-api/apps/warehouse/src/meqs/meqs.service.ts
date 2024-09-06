@@ -101,7 +101,6 @@ export class MeqsService {
 
         const meqsNumber = await this.getLatestMeqsNumber()
         const today = moment().format('MM/DD/YYYY')
-        const createdBy = this.authUser.user.username
 
         const meqs_approvers: Prisma.MEQSApproverCreateNestedManyWithoutMeqsInput = {
             create: input.approvers.map(i => {
@@ -110,7 +109,6 @@ export class MeqsService {
                     label: i.label,
                     order: i.order,
                     status: APPROVAL_STATUS.PENDING,
-                    created_by: createdBy,
                     notes: ''
                 }
             })
@@ -292,18 +290,34 @@ export class MeqsService {
             }
         }
 
-        const updated = await this.prisma.mEQS.update({
+        const queries: Prisma.PrismaPromise<any>[] = []
+
+        const updateMeqsQuery = this.prisma.mEQS.update({
             data,
             where: { id }
         })
+
+        queries.push(updateMeqsQuery)
+
+        // delete all associated pendings
+
+        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+            where: {
+                reference_number: existingItem.meqs_number
+            }
+        })
+
+        queries.push(deleteAssociatedPendings)
+
+        const result = await this.prisma.$transaction(queries)
 
         this.logger.log('Successfully cancelled MEQS')
 
         return {
             success: true,
             msg: 'Successfully cancelled MEQS',
-            cancelled_at: updated.cancelled_at,
-            cancelled_by: updated.cancelled_by
+            cancelled_at: result[0].cancelled_at,
+            cancelled_by: result[0].cancelled_by
         }
 
     }

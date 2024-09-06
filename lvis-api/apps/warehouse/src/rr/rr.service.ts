@@ -95,7 +95,6 @@ export class RrService {
 
         const rrNumber = await this.getLatestRrNumber()
         const today = moment().format('MM/DD/YYYY')
-        const createdBy = this.authUser.user.username
 
         // add the requisitioner as the 1st approver
         const requested_by_id = await this.getRequestedById(input.po_id)
@@ -114,7 +113,7 @@ export class RrService {
 
 
         const data: Prisma.RRCreateInput = {
-            created_by: createdBy,
+            created_by: this.authUser.user.username,
             po: { connect: { id: input.po_id } },
             rr_number: rrNumber,
             rr_date: new Date(today),
@@ -460,7 +459,9 @@ export class RrService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const updated = await this.prisma.rR.update({
+        const queries: Prisma.PrismaPromise<any>[] = []
+
+        const updateRrQuery = this.prisma.rR.update({
             data: {
                 cancelled_at: new Date(),
                 cancelled_by: this.authUser.user.username,
@@ -471,13 +472,27 @@ export class RrService {
             where: { id }
         })
 
+        queries.push(updateRrQuery)
+
+        // delete all associated pendings
+
+        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+            where: {
+                reference_number: existingItem.rr_number
+            }
+        })
+
+        queries.push(deleteAssociatedPendings)
+
+        const result = await this.prisma.$transaction(queries)
+
         this.logger.log('Successfully cancelled RR')
 
         return {
             success: true,
             msg: 'Successfully cancelled RR',
-            cancelled_at: updated.cancelled_at,
-            cancelled_by: updated.cancelled_by
+            cancelled_at: result[0].cancelled_at,
+            cancelled_by: result[0].cancelled_by
         }
 
     }

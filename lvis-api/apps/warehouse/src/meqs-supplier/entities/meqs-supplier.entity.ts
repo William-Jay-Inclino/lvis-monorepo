@@ -20,18 +20,6 @@ export class MeqsSupplier {
   @Field(() => String)
   payment_terms: string;
 
-  @Field()
-  created_by: string;
-
-  @Field({ nullable: true })
-  updated_by: string | null;
-
-  @Field(() => Date)
-  created_at: Date;
-
-  @Field(() => Date)
-  updated_at: Date;
-
 
 
 

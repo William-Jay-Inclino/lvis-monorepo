@@ -29,8 +29,6 @@ export class CanvassItemService {
 			throw new ForbiddenException('Only Admin and Owner can create canvass item!')
 		}
 
-		const createdBy = this.authUser.user.username
-
 		const data: Prisma.CanvassItemCreateInput = {
 			canvass: { connect: { id: input.canvass_id } },
 			unit: input.unit_id ? { connect: { id: input.unit_id } } : undefined,
@@ -85,7 +83,6 @@ export class CanvassItemService {
 				notes: '',
 				is_awarded: false,
 				vat_type: VAT_TYPE.NONE,
-				created_by: createdBy
 			})
 
 		}
@@ -145,8 +142,6 @@ export class CanvassItemService {
 		if (!this.canAccess(existingItem.canvass_id)) {
 			throw new ForbiddenException('Only Admin and Owner can update canvass item!')
 		}
-
-		const updatedBy = this.authUser.user.username
 
 		const data: Prisma.CanvassItemUpdateInput = {
 			description: input.description ?? existingItem.description,

@@ -42,6 +42,9 @@ import { SprModule } from './spr/spr.module';
 import { SprApproverModule } from './spr-approver/spr-approver.module';
 // import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { PendingModule } from './pending/pending.module';
+import { OsrivModule } from './osriv/osriv.module';
+import { OsrivApproverModule } from './osriv-approver/osriv-approver.module';
+import { OsrivItemModule } from './osriv-item/osriv-item.module';
 
 
 @Module({
@@ -83,6 +86,9 @@ import { PendingModule } from './pending/pending.module';
     SprModule,
     SprApproverModule,
     PendingModule,
+    OsrivModule,
+    OsrivApproverModule,
+    OsrivItemModule,
     // PrometheusModule.register()
   ],
   controllers: [],

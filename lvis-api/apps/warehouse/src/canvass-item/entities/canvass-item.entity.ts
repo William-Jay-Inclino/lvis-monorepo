@@ -25,18 +25,6 @@ export class CanvassItem {
   @Field(() => Int)
   quantity: string;
 
-  @Field(() => String)
-  created_by: string;
-
-  @Field(() => String, { nullable: true })
-  updated_by: string | null;
-
-  @Field(() => Date)
-  created_at: Date;
-
-  @Field(() => Date)
-  updated_at: Date;
-
 
   // =============== derived / resolvers =============== 
 

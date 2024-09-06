@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { Transform, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 import { IsArray, IsDate, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { CreateRvApproverSubInput } from './create-rv-approver.sub.input';
 

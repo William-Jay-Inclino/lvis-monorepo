@@ -1,21 +1,21 @@
-// import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, ResolveField, Parent } from '@nestjs/graphql';
 // import { SprApproverService } from './spr-approver.service';
-// import { SPRApprover } from './entities/spr-approver.entity';
+import { SPRApprover } from './entities/spr-approver.entity';
 // import { CreateSprApproverInput } from './dto/create-spr-approver.input';
 // import { UpdateSprApproverInput } from './dto/update-spr-approver.input';
 // import { WarehouseRemoveResponse } from '../__common__/classes';
-// import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-// import { ForbiddenException, UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { UseGuards } from '@nestjs/common';
 // import { AuthUser } from '../__common__/auth-user.entity';
 // import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-// import { Employee } from '../__employee__/entities/employee.entity';
+import { Employee } from '../__employee__/entities/employee.entity';
 // import { UpdateSPROrderResponse } from './entities/update-spr-order-response.entity';
 // import { UpdateSPROrderInput } from './dto/update-spr-order.input'
 // import { isAdmin } from '../__common__/helpers';
 
-// @UseGuards(GqlAuthGuard)
-// @Resolver(() => SPRApprover)
-// export class SprApproverResolver {
+@UseGuards(GqlAuthGuard)
+@Resolver(() => SPRApprover)
+export class SprApproverResolver {
 //   constructor(private readonly sprApproverService: SprApproverService) { }
 
 //   @Mutation(() => SPRApprover)
@@ -88,9 +88,9 @@
 //     return this.sprApproverService.remove(id);
 //   }
 
-//   @ResolveField(() => Employee)
-//   approver(@Parent() sprApprover: SPRApprover): any {
-//     return { __typename: 'Employee', id: sprApprover.approver_id }
-//   }
+  @ResolveField(() => Employee)
+  approver(@Parent() sprApprover: SPRApprover): any {
+    return { __typename: 'Employee', id: sprApprover.approver_id }
+  }
 
-// }
+}

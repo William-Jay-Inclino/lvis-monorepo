@@ -1,21 +1,21 @@
-// import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, ResolveField, Parent } from '@nestjs/graphql';
 // import { MeqsApproverService } from './meqs-approver.service';
-// import { MEQSApprover } from './entities/meqs-approver.entity';
+import { MEQSApprover } from './entities/meqs-approver.entity';
 // import { CreateMeqsApproverInput } from './dto/create-meqs-approver.input';
 // import { UpdateMeqsApproverInput } from './dto/update-meqs-approver.input';
 // import { WarehouseRemoveResponse } from '../__common__/classes';
-// import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-// import { ForbiddenException, UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { UseGuards } from '@nestjs/common';
 // import { AuthUser } from '../__common__/auth-user.entity';
 // import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-// import { Employee } from '../__employee__/entities/employee.entity';
+import { Employee } from '../__employee__/entities/employee.entity';
 // import { UpdateMeqsOrderResponse } from './entities/update-meqs-order-response.entity';
 // import { UpdateMeqsOrderInput } from './dto/update-meqs-order.input';
 // import { isAdmin } from '../__common__/helpers';
 
-// @UseGuards(GqlAuthGuard)
-// @Resolver(() => MEQSApprover)
-// export class MeqsApproverResolver {
+@UseGuards(GqlAuthGuard)
+@Resolver(() => MEQSApprover)
+export class MeqsApproverResolver {
 //   constructor(private readonly meqsApproverService: MeqsApproverService) { }
 
 //   @Mutation(() => MEQSApprover)
@@ -88,9 +88,9 @@
 //     return this.meqsApproverService.remove(id);
 //   }
 
-//   @ResolveField(() => Employee)
-//   approver(@Parent() meqsApprover: MEQSApprover): any {
-//     return { __typename: 'Employee', id: meqsApprover.approver_id }
-//   }
+  @ResolveField(() => Employee)
+  approver(@Parent() meqsApprover: MEQSApprover): any {
+    return { __typename: 'Employee', id: meqsApprover.approver_id }
+  }
 
-// }
+}

@@ -171,6 +171,10 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             // [RESOLVERS.rr_numbers]: warehousePermissions.canManageRR?.search ?? false,
             // [RESOLVERS.rr]: warehousePermissions.canManageRR?.viewDetails ?? false,
         },
+        [MODULES.OSRIV]: {
+            [RESOLVERS.createOsriv]: warehousePermissions.canManageOSRIV?.create ?? false,
+            [RESOLVERS.printOsriv]: warehousePermissions.canManageOSRIV?.print ?? false,
+        },
         [MODULES.SUPPLIER]: {
             [RESOLVERS.createSupplier]: warehousePermissions.canManageSupplier?.create ?? false,
             // [RESOLVERS.suppliers]: warehousePermissions.canManageSupplier?.search ?? false,

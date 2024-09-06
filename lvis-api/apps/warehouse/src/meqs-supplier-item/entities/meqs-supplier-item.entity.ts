@@ -28,18 +28,6 @@ export class MeqsSupplierItem {
   @Field(() => Int)
   vat_type: VAT_TYPE;
 
-  @Field()
-  created_by: string;
-
-  @Field({ nullable: true })
-  updated_by: string | null;
-
-  @Field(() => Date)
-  created_at: Date;
-
-  @Field(() => Date)
-  updated_at: Date;
-
 
 
 

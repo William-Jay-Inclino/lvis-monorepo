@@ -80,7 +80,6 @@ export class PoService {
 
         const poNumber = await this.getLatestPoNumber()
         const today = moment().format('MM/DD/YYYY')
-        const createdBy = this.authUser.user.username
 
         console.log('today', today)
 
@@ -212,7 +211,9 @@ export class PoService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const updated = await this.prisma.pO.update({
+        const queries: Prisma.PrismaPromise<any>[] = []
+        
+        const updatePoQuery = this.prisma.pO.update({
             data: {
                 cancelled_at: new Date(),
                 cancelled_by: this.authUser.user.username,
@@ -223,13 +224,27 @@ export class PoService {
             where: { id }
         })
 
+        queries.push(updatePoQuery)
+
+        // delete all associated pendings
+
+        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+            where: {
+                reference_number: existingItem.po_number
+            }
+        })
+
+        queries.push(deleteAssociatedPendings)
+
+        const result = await this.prisma.$transaction(queries)
+
         this.logger.log('Successfully cancelled PO')
 
         return {
             success: true,
             msg: 'Successfully cancelled PO',
-            cancelled_at: updated.cancelled_at,
-            cancelled_by: updated.cancelled_by
+            cancelled_at: result[0].cancelled_at,
+            cancelled_by: result[0].cancelled_by
         }
 
     }

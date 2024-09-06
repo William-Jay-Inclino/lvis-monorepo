@@ -27,6 +27,7 @@ export enum DB_ENTITY {
     MEQS = 'material_equipment_quotation_summary',
     PO = 'purchase_order',
     RR = 'receiving_report',
+    OSRIV = 'osriv',
 }
 
 export const MODULE_MAPPER = {

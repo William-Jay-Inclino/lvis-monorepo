@@ -91,7 +91,6 @@ export class JoService {
                         notes: '',
                         status: APPROVAL_STATUS.PENDING,
                         is_supervisor: i.is_supervisor,
-                        created_by: createdBy
                     }
                 })
             }
@@ -194,6 +193,10 @@ export class JoService {
 
                 console.log('Updating JO Approver supervisor');
 
+                if(existingSupervisor.status !== APPROVAL_STATUS.PENDING) {
+                    throw new BadRequestException(`Existing supervisor's status is not pending. Cannot update supervisor`)
+                }
+
                 const updateJoApproverQuery = this.prisma.jOApprover.update({
                     where: {
                         id: existingSupervisor.id
@@ -204,6 +207,37 @@ export class JoService {
                 })
 
                 queries.push(updateJoApproverQuery)
+
+                // ======= add new supervisor in pendings if existing supervisor exists in pendings ======= 
+                const prevSupervisorInPendings = await this.prisma.pending.findUnique({
+                    where: {
+                        approver_id_reference_number_reference_table: {
+                            approver_id: existingSupervisor.approver_id,
+                            reference_number: existingItem.jo_number,
+                            reference_table: DB_ENTITY.JO
+                        }
+                    }
+                })
+
+                // if previous supervisor exists in pending table then remove it and add the new supervisor in pendings
+                if(prevSupervisorInPendings) {
+                    const deletePendingQuery = this.prisma.pending.delete({
+                        where: {id: prevSupervisorInPendings.id}
+                    })
+                    queries.push(deletePendingQuery)
+
+                    const createPendingQuery = this.prisma.pending.create({
+                        data: {
+                            approver_id: input.supervisor_id,
+                            reference_number: existingItem.jo_number,
+                            reference_table: DB_ENTITY.JO,
+                            description: `JO no. ${existingItem.jo_number}`
+                        }
+                    })
+
+                    queries.push(createPendingQuery)
+
+                }
 
             }
 
@@ -249,7 +283,9 @@ export class JoService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const updated = await this.prisma.jO.update({
+        const queries: Prisma.PrismaPromise<any>[] = []
+        
+        const updateJoQuery = this.prisma.jO.update({
             data: {
                 cancelled_at: new Date(),
                 cancelled_by: this.authUser.user.username,
@@ -260,13 +296,27 @@ export class JoService {
             where: { id }
         })
 
+        queries.push(updateJoQuery)
+
+        // delete all associated pendings
+
+        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+            where: {
+                reference_number: existingItem.jo_number
+            }
+        })
+
+        queries.push(deleteAssociatedPendings)
+
+        const result = await this.prisma.$transaction(queries)
+
         this.logger.log('Successfully cancelled JO')
 
         return {
             success: true,
             msg: 'Successfully cancelled JO',
-            cancelled_at: updated.cancelled_at,
-            cancelled_by: updated.cancelled_by
+            cancelled_at: result[0].cancelled_at,
+            cancelled_by: result[0].cancelled_by
         }
 
     }

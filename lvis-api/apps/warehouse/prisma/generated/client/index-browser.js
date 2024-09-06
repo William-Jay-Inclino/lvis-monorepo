@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.8.1
- * Query Engine version: 4c784e32044a8a016d99474bd02a3b6123742169
+ * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3
  */
 Prisma.prismaVersion = {
   client: "5.8.1",
-  engine: "4c784e32044a8a016d99474bd02a3b6123742169"
+  engine: "69d742ee20b815d88e17e54db4a2a7a3b30324e3"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -501,6 +501,8 @@ exports.Prisma.OSRIVScalarFieldEnum = {
   requested_by_id: 'requested_by_id',
   department_id: 'department_id',
   item_from_id: 'item_from_id',
+  supervisor_id: 'supervisor_id',
+  warehouse_custodian_id: 'warehouse_custodian_id',
   cancelled_by: 'cancelled_by',
   created_by: 'created_by',
   updated_by: 'updated_by',
@@ -519,6 +521,8 @@ exports.Prisma.OSRIVApproverScalarFieldEnum = {
   status: 'status',
   label: 'label',
   order: 'order',
+  is_supervisor: 'is_supervisor',
+  is_warehouse_custodian: 'is_warehouse_custodian',
   metadata: 'metadata'
 };
 

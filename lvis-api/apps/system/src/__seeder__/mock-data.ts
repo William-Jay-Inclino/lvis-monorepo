@@ -50,7 +50,28 @@ export const departments: Department[] = [
         name: 'Human Resource',
         status: DepartmentStatus.ACTIVE,
         created_by: 'admin'
-    }
+    },
+    {
+        id: faker.string.uuid(),
+        code: 'Accounting',
+        name: 'Accounting',
+        status: DepartmentStatus.ACTIVE,
+        created_by: 'admin'
+    },
+    {
+        id: faker.string.uuid(),
+        code: 'OGM',
+        name: 'Office of the General Manager',
+        status: DepartmentStatus.ACTIVE,
+        created_by: 'admin'
+    },
+    {
+        id: faker.string.uuid(),
+        code: 'Warehouse',
+        name: 'Warehouse',
+        status: DepartmentStatus.ACTIVE,
+        created_by: 'admin'
+    },
 ]
 
 export const classifications: Classification[] = [
@@ -344,6 +365,7 @@ export const employees: Employee[] = [
         lastname: 'Pastor',
         created_by: 'admin',
         position_id: positions[6].id,
+        department_id: departments[3].id,
     },
     // Budget Officer = 1
     {
@@ -352,7 +374,8 @@ export const employees: Employee[] = [
         middlename: null,
         lastname: 'Suan',
         created_by: 'admin',
-        position_id: positions[3].id
+        position_id: positions[3].id,
+        department_id: departments[3].id,
     },
     // AUDIT = 2
     {
@@ -361,7 +384,8 @@ export const employees: Employee[] = [
         middlename: null,
         lastname: 'Sanico',
         created_by: 'admin',
-        position_id: positions[2].id
+        position_id: positions[2].id,
+        department_id: departments[0].id,
     },
     // GM / OIC = 3
     {
@@ -370,7 +394,8 @@ export const employees: Employee[] = [
         middlename: null,
         lastname: 'Dayandayan',
         created_by: 'admin',
-        position_id: positions[0].id
+        position_id: positions[0].id,
+        department_id: departments[4].id,
     },
     // 1st CPC Member = 4
     {
@@ -379,7 +404,8 @@ export const employees: Employee[] = [
         middlename: null,
         lastname: 'Nahine',
         position_id: positions[6].id,
-        created_by: 'admin'
+        created_by: 'admin',
+        department_id: departments[2].id,
     },
     // 2nd CPC Member = 5
     {
@@ -388,7 +414,8 @@ export const employees: Employee[] = [
         middlename: null,
         lastname: 'Tagalog',
         position_id: positions[6].id,
-        created_by: 'admin'
+        created_by: 'admin',
+        department_id: departments[3].id,
     },
     // Witness = 6
     {
@@ -397,7 +424,8 @@ export const employees: Employee[] = [
         middlename: null,
         lastname: 'De La Pena',
         position_id: positions[6].id,
-        created_by: 'admin'
+        created_by: 'admin',
+        department_id: departments[0].id,
     },
     // CPC Chairman = 7
     {
@@ -406,7 +434,8 @@ export const employees: Employee[] = [
         middlename: null,
         lastname: 'Cecilio',
         position_id: positions[6].id,
-        created_by: 'admin'
+        created_by: 'admin',
+        department_id: departments[4].id,
     },
     // Finance Manager = 8
     {
@@ -415,7 +444,8 @@ export const employees: Employee[] = [
         middlename: null,
         lastname: 'Lumacang',
         created_by: 'admin',
-        position_id: positions[3].id
+        position_id: positions[3].id,
+        department_id: departments[3].id,
     },
     {
         id: faker.string.uuid(),
@@ -423,7 +453,8 @@ export const employees: Employee[] = [
         middlename: 'Intales',
         lastname: 'Inclino',
         created_by: 'admin',
-        position_id: positions[1].id
+        position_id: positions[1].id,
+        department_id: departments[1].id,
     },
     {
         id: faker.string.uuid(),
@@ -431,7 +462,8 @@ export const employees: Employee[] = [
         middlename: 'X',
         lastname: 'Tayag',
         created_by: 'admin',
-        position_id: positions[1].id
+        position_id: positions[1].id,
+        department_id: departments[1].id,
     },
     {
         id: faker.string.uuid(),
@@ -439,7 +471,8 @@ export const employees: Employee[] = [
         middlename: 'X',
         lastname: 'Pelones',
         created_by: 'admin',
-        position_id: positions[1].id
+        position_id: positions[1].id,
+        department_id: departments[1].id,
     },
     {
         id: faker.string.uuid(),
@@ -447,7 +480,8 @@ export const employees: Employee[] = [
         middlename: 'X',
         lastname: 'Estrera',
         created_by: 'admin',
-        position_id: positions[5].id
+        position_id: positions[5].id,
+        department_id: departments[2].id,
     },
     {
         id: faker.string.uuid(),
@@ -455,7 +489,8 @@ export const employees: Employee[] = [
         middlename: 'X',
         lastname: 'Singcol',
         position_id: positions[6].id,
-        created_by: 'admin'
+        created_by: 'admin',
+        department_id: departments[4].id,
     },
     {
         id: faker.string.uuid(),
@@ -463,7 +498,8 @@ export const employees: Employee[] = [
         middlename: 'Bioco',
         lastname: 'Tudio',
         created_by: 'admin',
-        position_id: positions[2].id
+        position_id: positions[2].id,
+        department_id: departments[0].id,
     },
     {
         id: faker.string.uuid(),
@@ -471,7 +507,8 @@ export const employees: Employee[] = [
         middlename: '',
         lastname: 'Valida',
         created_by: 'admin',
-        position_id: positions[2].id
+        position_id: positions[2].id,
+        department_id: departments[0].id,
     },
     {
         id: faker.string.uuid(),
@@ -479,7 +516,8 @@ export const employees: Employee[] = [
         middlename: '',
         lastname: 'Laurente',
         position_id: positions[6].id,
-        created_by: 'admin'
+        created_by: 'admin',
+        department_id: departments[1].id,
     },
     {
         id: faker.string.uuid(),
@@ -487,7 +525,8 @@ export const employees: Employee[] = [
         middlename: '',
         lastname: 'Estremos',
         created_by: 'admin',
-        position_id: positions[4].id
+        position_id: positions[4].id,
+        department_id: departments[5].id,
     },
     {
         id: faker.string.uuid(),
@@ -495,7 +534,8 @@ export const employees: Employee[] = [
         middlename: '',
         lastname: 'Mendoza',
         created_by: 'admin',
-        position_id: positions[4].id
+        position_id: positions[4].id,
+        department_id: departments[5].id,
     }
 ]
 

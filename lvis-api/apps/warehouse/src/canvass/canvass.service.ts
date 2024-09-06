@@ -116,7 +116,6 @@ export class CanvassService {
                         item: item.item_id ? { connect: { id: item.item_id } } : undefined,
                         description: item.description,
                         quantity: item.quantity,
-                        created_by: createdBy
                     }
                 })
             }

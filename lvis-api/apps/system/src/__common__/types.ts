@@ -141,6 +141,7 @@ export interface Employee {
     middlename: string
     lastname: string
     position_id: string
+    department_id: string
     created_by: string
 }
 

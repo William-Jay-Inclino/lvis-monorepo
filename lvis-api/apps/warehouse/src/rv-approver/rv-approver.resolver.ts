@@ -1,22 +1,22 @@
-// import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, ResolveField, Parent } from '@nestjs/graphql';
 // import { RvApproverService } from './rv-approver.service';
-// import { RVApprover } from './entities/rv-approver.entity';
+import { RVApprover } from './entities/rv-approver.entity';
 // import { CreateRvApproverInput } from './dto/create-rv-approver.input';
 // import { UpdateRvApproverInput } from './dto/update-rv-approver.input';
 // import { WarehouseRemoveResponse } from '../__common__/classes';
-// import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-// import { ForbiddenException, UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { UseGuards } from '@nestjs/common';
 // import { AuthUser } from '../__common__/auth-user.entity';
 // import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-// import { Employee } from '../__employee__/entities/employee.entity';
+import { Employee } from '../__employee__/entities/employee.entity';
 // import { UpdateRVOrderResponse } from './entities/update-rv-order-response.entity';
 // import { UpdateRVOrderInput } from './dto/update-rv-order.input'
 // import { isAdmin } from '../__common__/helpers';
 
-// @UseGuards(GqlAuthGuard)
-// @Resolver(() => RVApprover)
-// export class RvApproverResolver {
-//   constructor(private readonly rvApproverService: RvApproverService) { }
+@UseGuards(GqlAuthGuard)
+@Resolver(() => RVApprover)
+export class RvApproverResolver {
+//   constructor() { }
 
 //   @Mutation(() => RVApprover)
 //   createRvApprover(
@@ -88,9 +88,9 @@
 //     return this.rvApproverService.remove(id);
 //   }
 
-//   @ResolveField(() => Employee)
-//   approver(@Parent() rvApprover: RVApprover): any {
-//     return { __typename: 'Employee', id: rvApprover.approver_id }
-//   }
+  @ResolveField(() => Employee)
+  approver(@Parent() rvApprover: RVApprover): any {
+    return { __typename: 'Employee', id: rvApprover.approver_id }
+  }
 
-// }
+}
