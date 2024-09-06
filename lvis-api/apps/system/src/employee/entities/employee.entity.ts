@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
 import { UserEmployee } from '../../user/entities/user-employee.entity';
 import { Position } from '../../position/entities/position.entity';
+import { Department } from '../../department/entities/department.entity';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -20,6 +21,9 @@ export class Employee {
 
   @Field(() => String)
   position_id: string;
+
+  @Field(() => String)
+  department_id: string;
 
   @Field(() => Boolean)
   is_budget_officer: boolean;
@@ -59,4 +63,7 @@ export class Employee {
 
   @Field(() => Position)
   position: Position;
+
+  @Field(() => Department)
+  department: Department;
 }

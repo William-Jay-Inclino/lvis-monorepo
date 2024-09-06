@@ -28,6 +28,7 @@ export class EmployeeService {
 			middlename: input.middlename,
 			lastname: input.lastname,
 			position: { connect: { id: input.position_id } },
+			department: { connect: { id: input.department_id } },
 			signature_src: input.signature_src,
 		}
 
@@ -128,6 +129,7 @@ export class EmployeeService {
 			middlename: input.middlename ?? existingItem.middlename,
 			lastname: input.lastname ?? existingItem.lastname,
 			position: input.position_id ? { connect: { id: input.position_id } } : { connect: { id: existingItem.position_id } },
+			department: input.department_id ? { connect: { id: input.department_id } } : { connect: { id: existingItem.department_id } },
 			signature_src: input.signature_src ?? existingItem.signature_src,
 			is_budget_officer: input.is_budget_officer ?? existingItem.is_budget_officer,
 			is_finance_manager: input.is_finance_manager ?? existingItem.is_finance_manager,

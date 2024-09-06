@@ -1,0 +1,6 @@
+pgadmin
+
+http://localhost:8080/pgadmin4/login
+
+wjay.inclino@gmail.com
+wjay.inclino123
