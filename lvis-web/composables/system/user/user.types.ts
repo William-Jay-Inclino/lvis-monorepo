@@ -161,6 +161,14 @@ export interface WarehousePermissions {
     },
 
 
+    // ========= WAREHOUSING ========= 
+    canManageOSRIV?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean,
+        print?: boolean,
+    },
+
     // ========= DATA MANAGEMENT ========= 
     canManageSupplier?: {
         create?: boolean,

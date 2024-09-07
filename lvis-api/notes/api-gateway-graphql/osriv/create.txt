@@ -1,0 +1,34 @@
+mutation{
+  createOsriv(input: {
+    purpose: "test",
+    requested_by_id: "8e834a32-4534-4305-be0f-d4e821276789",
+    department_id: "c5125da6-fe2e-4dba-a6d2-87781b8b195b",
+    item_from_id: "abc123",
+    supervisor_id:"08b1f07f-ce63-4a85-a645-e5d80e95efe0",
+    warehouse_custodian_id:"04d64d09-a72a-426d-b667-f6d6cfd98e28",
+    approvers:[
+      {
+        approver_id: "08b1f07f-ce63-4a85-a645-e5d80e95efe0",
+        label: "Supervisor",
+        order:1,
+        is_supervisor: true,
+        is_warehouse_custodian: false
+      },
+      {
+        approver_id: "04d64d09-a72a-426d-b667-f6d6cfd98e28",
+        label: "Warehouse Custodian",
+        order:2,
+        is_supervisor: false,
+        is_warehouse_custodian: true
+      },
+    ]
+    items: [
+      {
+        item_id:"cd0bb714-694a-40fa-972d-924180df2fa3",
+        quantity: 5
+      }
+    ]
+  }) {
+    id
+  }
+}

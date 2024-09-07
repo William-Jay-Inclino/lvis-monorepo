@@ -1,0 +1,550 @@
+import type { CreateOsrivInput, FindAllResponse, MutationResponse, OSRIV, UpdateOsrivInput } from "./osriv.types";
+import { sendRequest } from "~/utils/api"
+import type { Employee } from "~/composables/system/employee/employee.types";
+
+export async function fetchDataInSearchFilters(): Promise<{
+    osrivs: OSRIV[],
+    employees: Employee[]
+}> {
+    const query = `
+        query {
+            osrivs(page: 1, pageSize: 10) {
+                data{
+                    osriv_number
+                }
+            },
+            employees(page: 1, pageSize: 10) {
+                data {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let osrivs = []
+        let employees = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        if (data.osrivs && data.osrivs.data) {
+            osrivs = data.osrivs.data
+        }
+
+        return {
+            osrivs,
+            employees,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            osrivs: [],
+            employees: [],
+        }
+    }
+}
+
+export async function findByOsrivNumber(osrivNumber: string): Promise<OSRIV | undefined> {
+    const query = `
+        query {
+            osriv(osriv_number: "${osrivNumber}") {
+                id
+                osriv_number
+                created_by
+                status
+                can_update
+                date_requested
+                cancelled_at
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (response.data && response.data.data && response.data.data.osriv) {
+            return response.data.data.osriv;
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+        return undefined
+    }
+}
+
+export async function findOne(id: string): Promise<OSRIV | undefined> {
+
+    console.log('isValidRcNumber(id)', isValidRcNumber(id));
+    let args = ''
+    if(isValidRcNumber(id)){
+        args = `osriv_number: "${id}"`
+    } else {
+        args = `id: "${id}"`
+    }
+
+    const query = `
+        query {
+            osriv(${args}) {
+                id
+                osriv_number
+                status
+                date_requested 
+                purpose
+                cancelled_at
+                created_by
+                can_update
+                supervisor {
+                    firstname 
+                    middlename 
+                    lastname
+                }
+                warehouse_custodian {
+                    firstname 
+                    middlename 
+                    lastname
+                }
+                osriv_approvers{
+                    approver {
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    status
+                    label
+                    order
+                    notes
+                    date_approval
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (response.data && response.data.data && response.data.data.osriv) {
+            return response.data.data.osriv;
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+        return undefined
+    }
+}
+
+export async function findAll(payload: { page: number, pageSize: number, date_requested: string | null, requested_by_id: string | null }): Promise<FindAllResponse> {
+
+    const { page, pageSize, date_requested, requested_by_id } = payload;
+
+    let date_requested2 = null
+    let requested_by_id2 = null
+
+    if (date_requested) {
+        date_requested2 = `"${date_requested}"`
+    }
+
+    if (requested_by_id) {
+        requested_by_id2 = `"${requested_by_id}"`
+    }
+
+    const query = `
+        query {
+            osrivs(
+                page: ${page},
+                pageSize: ${pageSize},
+                date_requested: ${date_requested2},
+                requested_by_id: ${requested_by_id2},
+            ) {
+                data {
+                    id
+                    osriv_number
+                    requested_by {
+                        id
+                        firstname
+                        middlename 
+                        lastname
+                    }
+                    created_by
+                    status
+                    can_update
+                    date_requested
+                    cancelled_at
+                }
+                totalItems
+                currentPage
+                totalPages
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return response.data.data.osrivs;
+    } catch (error) {
+        console.error(error);
+        throw error
+    }
+}
+
+export async function fetchFormDataInCreate(): Promise<{
+    employees: Employee[],
+}> {
+
+    const query = `
+        query {
+            employees(page: 1, pageSize: 10) {
+                data{
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+        return {
+            employees,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            employees: [],
+        }
+    }
+
+
+}
+
+export async function fetchFormDataInUpdate(id: string): Promise<{
+    employees: Employee[],
+    osriv: OSRIV | undefined
+}> {
+    const query = `
+        query {
+            osriv(id: "${id}") {
+                id
+                osriv_number
+                status
+                created_by
+                can_update
+                supervisor {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                warehouse_custodian {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                date_requested
+                purpose
+                cancelled_at
+                osriv_approvers {
+                    id
+                    approver {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    date_approval 
+                    notes
+                    status
+                    label
+                    order
+                }
+
+            },
+            employees(page: 1, pageSize: 10) {
+                data {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees: Employee[] = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (!data.osriv) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const osriv = data.osriv
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        return {
+            osriv,
+            employees,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            osriv: undefined,
+            employees: [],
+        }
+    }
+}
+
+export async function create(input: CreateOsrivInput): Promise<MutationResponse> {
+
+    const approvers = input.approvers.map(i => {
+        return `
+        {
+          approver_id: "${i.approver?.id}"
+          label: "${i.label}"
+          order: ${i.order}
+          is_supervisor: ${ !!i.is_supervisor ? i.is_supervisor : false }
+          is_warehouse_custodian: ${ !!i.is_warehouse_custodian ? i.is_warehouse_custodian : false }
+        }`;
+    }).join(', ');
+
+    const items = input.items.map(i => {
+        return `
+        {
+          item_id: "${i.item?.id}"
+          quantity: ${i.quantity}
+        }`;
+    }).join(', ');
+
+    const mutation = `
+        mutation {
+            createOsriv(
+                input: {
+                    purpose: "${input.purpose}"
+                    requested_by_id: "${input.requested_by?.id}"
+                    department_id: "${input.requested_by?.department_id}"
+                    item_from_id: "${input.item_from?.id}"
+                    supervisor_id: "${input.supervisor?.id}"
+                    warehouse_custodian_id: "${input.warehouse_custodian?.id}"
+                    approvers: [${approvers}]
+                    items: [${items}]
+                }
+            ) {
+                id
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.createOsriv) {
+            return {
+                success: true,
+                msg: 'OSRIV created successfully!',
+                data: response.data.data.createOsriv
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to create OSRIV. Please contact system administrator'
+        };
+    }
+}
+
+export async function update(id: string, input: UpdateOsrivInput): Promise<MutationResponse> {
+
+    const mutation = `
+        mutation {
+            updateOsriv(
+                id: "${id}",
+                input: {
+                    purpose: "${input.purpose}"
+                    requested_by_id: "${input.requested_by?.id}"
+                    department_id: "${input.requested_by?.department_id}"
+                    item_from_id: "${input.item_from?.id}"
+                    supervisor_id: "${input.supervisor?.id}"
+                    warehouse_custodian_id: "${input.warehouse_custodian?.id}"
+                }
+            ) {
+                id
+                osriv_approvers {
+                    id
+                    approver {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    date_approval 
+                    notes
+                    status
+                    label
+                    order
+                }
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateOsriv) {
+            return {
+                success: true,
+                msg: 'OSRIV updated successfully!',
+                data: response.data.data.updateOsriv
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update OSRIV. Please contact system administrator'
+        };
+    }
+}
+
+export async function cancel(id: string): Promise<CancelResponse> {
+
+    const mutation = `
+        mutation {
+            cancelOsriv(
+                id: "${id}"
+            ) {
+                msg
+                success
+                cancelled_at
+                cancelled_by
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.cancelOsriv) {
+            return response.data.data.cancelOsriv
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to cancel OSRIV. Please contact system administrator'
+        };
+    }
+}
+
+export async function fetchOsrivNumbers(payload: string): Promise<OSRIV[]> {
+    const query = `
+        query {
+            osrivs_by_osriv_number(osriv_number: "${payload}") {
+                osriv_number
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+        return response.data.data.osrivs_by_osriv_number
+
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
+
+
+export async function fetchOSRIVsByOsrivNumber(payload: string): Promise<OSRIV[]> {
+    const query = `
+        query {
+            osrivs_by_osriv_number(osriv_number: "${payload}", is_detail_included: true) {
+                id
+                osriv_number
+                status
+                is_referenced
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+        return response.data.data.osrivs_by_osriv_number
+
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}

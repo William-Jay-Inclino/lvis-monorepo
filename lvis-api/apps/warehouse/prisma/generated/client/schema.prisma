@@ -111,6 +111,10 @@ model Station {
 
   metadata Json?
 
+  osrivs OSRIV[]
+  mrvs MRV[]
+  serivs SERIV[]
+
 
   @@map("station")
 }
@@ -177,13 +181,8 @@ model Item {
   canvass_items     CanvassItem[]
   item_locations ItemLocation[]
 
-  osrivs OSRIV[]
   osriv_items OSRIVItem[]
-
-  serivs SERIV[]
   seriv_items SERIVItem[]
-
-  mrvs MRV[]
   mrv_items MRVItem[]
 
   metadata Json?
@@ -681,7 +680,7 @@ model OSRIV {
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
 
-  item_from      Item      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
+  item_from      Station      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
   osriv_approvers OSRIVApprover[]
   osriv_items OSRIVItem[]
 
@@ -748,7 +747,7 @@ model SERIV {
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
 
-  item_from      Item      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
+  item_from      Station      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
   seriv_approvers SERIVApprover[]
   seriv_items SERIVItem[]
 
@@ -814,7 +813,7 @@ model MRV {
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
 
-  item_from      Item      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
+  item_from      Station      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
   mrv_approvers MRVApprover[]
   mrv_items MRVItem[]
   mcts MCT[]

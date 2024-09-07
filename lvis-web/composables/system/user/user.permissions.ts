@@ -83,6 +83,15 @@ export const warehousePermissions: WarehousePermissions = {
     },
 
 
+    // ========= WAREHOUSING ========= 
+    canManageOSRIV: {
+        create: false,
+        search: false,
+        viewDetails: false,
+        print: false,
+    },
+
+
     // ========= DATA MANAGEMENT ========= 
     canManageSupplier: {
         create: false,

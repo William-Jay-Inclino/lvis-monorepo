@@ -5,6 +5,7 @@ import type { UserEmployee } from "../user/user.types"
 
 export interface Employee {
     id: string
+    department_id: string
     firstname: string
     middlename: string
     lastname: string
@@ -22,6 +23,7 @@ export interface Employee {
     // set programmatically
     fullname?: string
     user_employee?: UserEmployee
+    department: Department
 }
 
 export interface FindAllResponse {

@@ -87,6 +87,11 @@ export class OsrivResolver {
     }
 
     @ResolveField(() => Employee)
+    requested_by(@Parent() osriv: OSRIV): any {
+        return { __typename: 'Employee', id: osriv.requested_by_id }
+    }
+
+    @ResolveField(() => Employee)
     supervisor(@Parent() osriv: OSRIV): any {
         return { __typename: 'Employee', id: osriv.supervisor_id }
     }

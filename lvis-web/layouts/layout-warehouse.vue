@@ -52,6 +52,17 @@
                                 </li>
                             </ul>
                         </li>
+                        <li v-if="canViewWarehousing(authUser)" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Warehouse
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><nuxt-link class="dropdown-item"
+                                        to="/warehouse/warehousing/osriv">OSRIV</nuxt-link>
+                                </li>
+                            </ul>
+                        </li>
                         <li v-if="canViewStockInventory(authUser)" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -181,6 +192,17 @@
                                     to="/warehouse/purchasing/rr">RR</nuxt-link></li>
                         </ul>
                     </li>
+                    <li v-if="canViewWarehousing(authUser)" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Warehouse
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><nuxt-link class="dropdown-item"
+                                    to="/warehouse/warehousing/osriv">OSRIV</nuxt-link>
+                            </li>
+                        </ul>
+                    </li>
                     <li v-if="canViewStockInventory(authUser)" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -277,6 +299,20 @@ function canViewPurchasing(authUser: AuthUser) {
         (!!warehousePermissions.canManageMEQS && warehousePermissions.canManageMEQS.search) ||
         (!!warehousePermissions.canManagePO && warehousePermissions.canManagePO.search) ||
         (!!warehousePermissions.canManageRR && warehousePermissions.canManageRR.search)
+    )
+}
+
+function canViewWarehousing(authUser: AuthUser) {
+
+    if (isAdmin(authUser)) return true
+
+    if (!authUser.user.permissions) return false
+
+    const warehousePermissions = authUser.user.permissions.warehouse
+
+
+    return (
+        (!!warehousePermissions.canManageOSRIV && warehousePermissions.canManageOSRIV.search)
     )
 }
 

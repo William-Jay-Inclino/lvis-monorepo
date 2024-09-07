@@ -4365,10 +4365,16 @@ export namespace Prisma {
 
   export type StationCountOutputType = {
     items: number
+    osrivs: number
+    mrvs: number
+    serivs: number
   }
 
   export type StationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | StationCountOutputTypeCountItemsArgs
+    osrivs?: boolean | StationCountOutputTypeCountOsrivsArgs
+    mrvs?: boolean | StationCountOutputTypeCountMrvsArgs
+    serivs?: boolean | StationCountOutputTypeCountSerivsArgs
   }
 
   // Custom InputTypes
@@ -4392,6 +4398,30 @@ export namespace Prisma {
   }
 
 
+  /**
+   * StationCountOutputType without action
+   */
+  export type StationCountOutputTypeCountOsrivsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OSRIVWhereInput
+  }
+
+
+  /**
+   * StationCountOutputType without action
+   */
+  export type StationCountOutputTypeCountMrvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MRVWhereInput
+  }
+
+
+  /**
+   * StationCountOutputType without action
+   */
+  export type StationCountOutputTypeCountSerivsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SERIVWhereInput
+  }
+
+
 
   /**
    * Count Type ItemCountOutputType
@@ -4401,11 +4431,8 @@ export namespace Prisma {
     item_transactions: number
     canvass_items: number
     item_locations: number
-    osrivs: number
     osriv_items: number
-    serivs: number
     seriv_items: number
-    mrvs: number
     mrv_items: number
   }
 
@@ -4413,11 +4440,8 @@ export namespace Prisma {
     item_transactions?: boolean | ItemCountOutputTypeCountItem_transactionsArgs
     canvass_items?: boolean | ItemCountOutputTypeCountCanvass_itemsArgs
     item_locations?: boolean | ItemCountOutputTypeCountItem_locationsArgs
-    osrivs?: boolean | ItemCountOutputTypeCountOsrivsArgs
     osriv_items?: boolean | ItemCountOutputTypeCountOsriv_itemsArgs
-    serivs?: boolean | ItemCountOutputTypeCountSerivsArgs
     seriv_items?: boolean | ItemCountOutputTypeCountSeriv_itemsArgs
-    mrvs?: boolean | ItemCountOutputTypeCountMrvsArgs
     mrv_items?: boolean | ItemCountOutputTypeCountMrv_itemsArgs
   }
 
@@ -4461,14 +4485,6 @@ export namespace Prisma {
   /**
    * ItemCountOutputType without action
    */
-  export type ItemCountOutputTypeCountOsrivsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: OSRIVWhereInput
-  }
-
-
-  /**
-   * ItemCountOutputType without action
-   */
   export type ItemCountOutputTypeCountOsriv_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OSRIVItemWhereInput
   }
@@ -4477,24 +4493,8 @@ export namespace Prisma {
   /**
    * ItemCountOutputType without action
    */
-  export type ItemCountOutputTypeCountSerivsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SERIVWhereInput
-  }
-
-
-  /**
-   * ItemCountOutputType without action
-   */
   export type ItemCountOutputTypeCountSeriv_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SERIVItemWhereInput
-  }
-
-
-  /**
-   * ItemCountOutputType without action
-   */
-  export type ItemCountOutputTypeCountMrvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MRVWhereInput
   }
 
 
@@ -9406,6 +9406,9 @@ export namespace Prisma {
     deleted_at?: boolean
     metadata?: boolean
     items?: boolean | Station$itemsArgs<ExtArgs>
+    osrivs?: boolean | Station$osrivsArgs<ExtArgs>
+    mrvs?: boolean | Station$mrvsArgs<ExtArgs>
+    serivs?: boolean | Station$serivsArgs<ExtArgs>
     _count?: boolean | StationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["station"]>
 
@@ -9424,6 +9427,9 @@ export namespace Prisma {
 
   export type StationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | Station$itemsArgs<ExtArgs>
+    osrivs?: boolean | Station$osrivsArgs<ExtArgs>
+    mrvs?: boolean | Station$mrvsArgs<ExtArgs>
+    serivs?: boolean | Station$serivsArgs<ExtArgs>
     _count?: boolean | StationCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -9432,6 +9438,9 @@ export namespace Prisma {
     name: "Station"
     objects: {
       items: Prisma.$ItemLocationPayload<ExtArgs>[]
+      osrivs: Prisma.$OSRIVPayload<ExtArgs>[]
+      mrvs: Prisma.$MRVPayload<ExtArgs>[]
+      serivs: Prisma.$SERIVPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9811,6 +9820,12 @@ export namespace Prisma {
 
     items<T extends Station$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Station$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    osrivs<T extends Station$osrivsArgs<ExtArgs> = {}>(args?: Subset<T, Station$osrivsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OSRIVPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    mrvs<T extends Station$mrvsArgs<ExtArgs> = {}>(args?: Subset<T, Station$mrvsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MRVPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    serivs<T extends Station$serivsArgs<ExtArgs> = {}>(args?: Subset<T, Station$serivsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SERIVPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10178,6 +10193,69 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ItemLocationScalarFieldEnum | ItemLocationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Station.osrivs
+   */
+  export type Station$osrivsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OSRIV
+     */
+    select?: OSRIVSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OSRIVInclude<ExtArgs> | null
+    where?: OSRIVWhereInput
+    orderBy?: OSRIVOrderByWithRelationInput | OSRIVOrderByWithRelationInput[]
+    cursor?: OSRIVWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OSRIVScalarFieldEnum | OSRIVScalarFieldEnum[]
+  }
+
+
+  /**
+   * Station.mrvs
+   */
+  export type Station$mrvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MRV
+     */
+    select?: MRVSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MRVInclude<ExtArgs> | null
+    where?: MRVWhereInput
+    orderBy?: MRVOrderByWithRelationInput | MRVOrderByWithRelationInput[]
+    cursor?: MRVWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MRVScalarFieldEnum | MRVScalarFieldEnum[]
+  }
+
+
+  /**
+   * Station.serivs
+   */
+  export type Station$serivsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SERIV
+     */
+    select?: SERIVSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SERIVInclude<ExtArgs> | null
+    where?: SERIVWhereInput
+    orderBy?: SERIVOrderByWithRelationInput | SERIVOrderByWithRelationInput[]
+    cursor?: SERIVWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SERIVScalarFieldEnum | SERIVScalarFieldEnum[]
   }
 
 
@@ -12317,11 +12395,8 @@ export namespace Prisma {
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     canvass_items?: boolean | Item$canvass_itemsArgs<ExtArgs>
     item_locations?: boolean | Item$item_locationsArgs<ExtArgs>
-    osrivs?: boolean | Item$osrivsArgs<ExtArgs>
     osriv_items?: boolean | Item$osriv_itemsArgs<ExtArgs>
-    serivs?: boolean | Item$serivsArgs<ExtArgs>
     seriv_items?: boolean | Item$seriv_itemsArgs<ExtArgs>
-    mrvs?: boolean | Item$mrvsArgs<ExtArgs>
     mrv_items?: boolean | Item$mrv_itemsArgs<ExtArgs>
     _count?: boolean | ItemCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["item"]>
@@ -12351,11 +12426,8 @@ export namespace Prisma {
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     canvass_items?: boolean | Item$canvass_itemsArgs<ExtArgs>
     item_locations?: boolean | Item$item_locationsArgs<ExtArgs>
-    osrivs?: boolean | Item$osrivsArgs<ExtArgs>
     osriv_items?: boolean | Item$osriv_itemsArgs<ExtArgs>
-    serivs?: boolean | Item$serivsArgs<ExtArgs>
     seriv_items?: boolean | Item$seriv_itemsArgs<ExtArgs>
-    mrvs?: boolean | Item$mrvsArgs<ExtArgs>
     mrv_items?: boolean | Item$mrv_itemsArgs<ExtArgs>
     _count?: boolean | ItemCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -12369,11 +12441,8 @@ export namespace Prisma {
       unit: Prisma.$UnitPayload<ExtArgs>
       canvass_items: Prisma.$CanvassItemPayload<ExtArgs>[]
       item_locations: Prisma.$ItemLocationPayload<ExtArgs>[]
-      osrivs: Prisma.$OSRIVPayload<ExtArgs>[]
       osriv_items: Prisma.$OSRIVItemPayload<ExtArgs>[]
-      serivs: Prisma.$SERIVPayload<ExtArgs>[]
       seriv_items: Prisma.$SERIVItemPayload<ExtArgs>[]
-      mrvs: Prisma.$MRVPayload<ExtArgs>[]
       mrv_items: Prisma.$MRVItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -12768,15 +12837,9 @@ export namespace Prisma {
 
     item_locations<T extends Item$item_locationsArgs<ExtArgs> = {}>(args?: Subset<T, Item$item_locationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemLocationPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    osrivs<T extends Item$osrivsArgs<ExtArgs> = {}>(args?: Subset<T, Item$osrivsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OSRIVPayload<ExtArgs>, T, 'findMany'> | Null>;
-
     osriv_items<T extends Item$osriv_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Item$osriv_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OSRIVItemPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    serivs<T extends Item$serivsArgs<ExtArgs> = {}>(args?: Subset<T, Item$serivsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SERIVPayload<ExtArgs>, T, 'findMany'> | Null>;
-
     seriv_items<T extends Item$seriv_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Item$seriv_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SERIVItemPayload<ExtArgs>, T, 'findMany'> | Null>;
-
-    mrvs<T extends Item$mrvsArgs<ExtArgs> = {}>(args?: Subset<T, Item$mrvsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MRVPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     mrv_items<T extends Item$mrv_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Item$mrv_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MRVItemPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -13199,27 +13262,6 @@ export namespace Prisma {
 
 
   /**
-   * Item.osrivs
-   */
-  export type Item$osrivsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OSRIV
-     */
-    select?: OSRIVSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: OSRIVInclude<ExtArgs> | null
-    where?: OSRIVWhereInput
-    orderBy?: OSRIVOrderByWithRelationInput | OSRIVOrderByWithRelationInput[]
-    cursor?: OSRIVWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OSRIVScalarFieldEnum | OSRIVScalarFieldEnum[]
-  }
-
-
-  /**
    * Item.osriv_items
    */
   export type Item$osriv_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13241,27 +13283,6 @@ export namespace Prisma {
 
 
   /**
-   * Item.serivs
-   */
-  export type Item$serivsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SERIV
-     */
-    select?: SERIVSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SERIVInclude<ExtArgs> | null
-    where?: SERIVWhereInput
-    orderBy?: SERIVOrderByWithRelationInput | SERIVOrderByWithRelationInput[]
-    cursor?: SERIVWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SERIVScalarFieldEnum | SERIVScalarFieldEnum[]
-  }
-
-
-  /**
    * Item.seriv_items
    */
   export type Item$seriv_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13279,27 +13300,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SERIVItemScalarFieldEnum | SERIVItemScalarFieldEnum[]
-  }
-
-
-  /**
-   * Item.mrvs
-   */
-  export type Item$mrvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MRV
-     */
-    select?: MRVSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: MRVInclude<ExtArgs> | null
-    where?: MRVWhereInput
-    orderBy?: MRVOrderByWithRelationInput | MRVOrderByWithRelationInput[]
-    cursor?: MRVWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MRVScalarFieldEnum | MRVScalarFieldEnum[]
   }
 
 
@@ -35317,7 +35317,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     metadata?: boolean
-    item_from?: boolean | ItemDefaultArgs<ExtArgs>
+    item_from?: boolean | StationDefaultArgs<ExtArgs>
     osriv_approvers?: boolean | OSRIV$osriv_approversArgs<ExtArgs>
     osriv_items?: boolean | OSRIV$osriv_itemsArgs<ExtArgs>
     _count?: boolean | OSRIVCountOutputTypeDefaultArgs<ExtArgs>
@@ -35343,7 +35343,7 @@ export namespace Prisma {
   }
 
   export type OSRIVInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    item_from?: boolean | ItemDefaultArgs<ExtArgs>
+    item_from?: boolean | StationDefaultArgs<ExtArgs>
     osriv_approvers?: boolean | OSRIV$osriv_approversArgs<ExtArgs>
     osriv_items?: boolean | OSRIV$osriv_itemsArgs<ExtArgs>
     _count?: boolean | OSRIVCountOutputTypeDefaultArgs<ExtArgs>
@@ -35353,7 +35353,7 @@ export namespace Prisma {
   export type $OSRIVPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "OSRIV"
     objects: {
-      item_from: Prisma.$ItemPayload<ExtArgs>
+      item_from: Prisma.$StationPayload<ExtArgs>
       osriv_approvers: Prisma.$OSRIVApproverPayload<ExtArgs>[]
       osriv_items: Prisma.$OSRIVItemPayload<ExtArgs>[]
     }
@@ -35739,7 +35739,7 @@ export namespace Prisma {
   export interface Prisma__OSRIVClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    item_from<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    item_from<T extends StationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StationDefaultArgs<ExtArgs>>): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     osriv_approvers<T extends OSRIV$osriv_approversArgs<ExtArgs> = {}>(args?: Subset<T, OSRIV$osriv_approversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OSRIVApproverPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -38401,7 +38401,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     metadata?: boolean
-    item_from?: boolean | ItemDefaultArgs<ExtArgs>
+    item_from?: boolean | StationDefaultArgs<ExtArgs>
     seriv_approvers?: boolean | SERIV$seriv_approversArgs<ExtArgs>
     seriv_items?: boolean | SERIV$seriv_itemsArgs<ExtArgs>
     _count?: boolean | SERIVCountOutputTypeDefaultArgs<ExtArgs>
@@ -38430,7 +38430,7 @@ export namespace Prisma {
   }
 
   export type SERIVInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    item_from?: boolean | ItemDefaultArgs<ExtArgs>
+    item_from?: boolean | StationDefaultArgs<ExtArgs>
     seriv_approvers?: boolean | SERIV$seriv_approversArgs<ExtArgs>
     seriv_items?: boolean | SERIV$seriv_itemsArgs<ExtArgs>
     _count?: boolean | SERIVCountOutputTypeDefaultArgs<ExtArgs>
@@ -38440,7 +38440,7 @@ export namespace Prisma {
   export type $SERIVPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SERIV"
     objects: {
-      item_from: Prisma.$ItemPayload<ExtArgs>
+      item_from: Prisma.$StationPayload<ExtArgs>
       seriv_approvers: Prisma.$SERIVApproverPayload<ExtArgs>[]
       seriv_items: Prisma.$SERIVItemPayload<ExtArgs>[]
     }
@@ -38829,7 +38829,7 @@ export namespace Prisma {
   export interface Prisma__SERIVClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    item_from<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    item_from<T extends StationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StationDefaultArgs<ExtArgs>>): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     seriv_approvers<T extends SERIV$seriv_approversArgs<ExtArgs> = {}>(args?: Subset<T, SERIV$seriv_approversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SERIVApproverPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -41480,7 +41480,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     metadata?: boolean
-    item_from?: boolean | ItemDefaultArgs<ExtArgs>
+    item_from?: boolean | StationDefaultArgs<ExtArgs>
     mrv_approvers?: boolean | MRV$mrv_approversArgs<ExtArgs>
     mrv_items?: boolean | MRV$mrv_itemsArgs<ExtArgs>
     mcts?: boolean | MRV$mctsArgs<ExtArgs>
@@ -41511,7 +41511,7 @@ export namespace Prisma {
   }
 
   export type MRVInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    item_from?: boolean | ItemDefaultArgs<ExtArgs>
+    item_from?: boolean | StationDefaultArgs<ExtArgs>
     mrv_approvers?: boolean | MRV$mrv_approversArgs<ExtArgs>
     mrv_items?: boolean | MRV$mrv_itemsArgs<ExtArgs>
     mcts?: boolean | MRV$mctsArgs<ExtArgs>
@@ -41522,7 +41522,7 @@ export namespace Prisma {
   export type $MRVPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MRV"
     objects: {
-      item_from: Prisma.$ItemPayload<ExtArgs>
+      item_from: Prisma.$StationPayload<ExtArgs>
       mrv_approvers: Prisma.$MRVApproverPayload<ExtArgs>[]
       mrv_items: Prisma.$MRVItemPayload<ExtArgs>[]
       mcts: Prisma.$MCTPayload<ExtArgs>[]
@@ -41913,7 +41913,7 @@ export namespace Prisma {
   export interface Prisma__MRVClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    item_from<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    item_from<T extends StationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StationDefaultArgs<ExtArgs>>): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     mrv_approvers<T extends MRV$mrv_approversArgs<ExtArgs> = {}>(args?: Subset<T, MRV$mrv_approversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MRVApproverPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -49599,6 +49599,9 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"Station"> | Date | string | null
     metadata?: JsonNullableFilter<"Station">
     items?: ItemLocationListRelationFilter
+    osrivs?: OSRIVListRelationFilter
+    mrvs?: MRVListRelationFilter
+    serivs?: SERIVListRelationFilter
   }
 
   export type StationOrderByWithRelationInput = {
@@ -49613,6 +49616,9 @@ export namespace Prisma {
     deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     items?: ItemLocationOrderByRelationAggregateInput
+    osrivs?: OSRIVOrderByRelationAggregateInput
+    mrvs?: MRVOrderByRelationAggregateInput
+    serivs?: SERIVOrderByRelationAggregateInput
   }
 
   export type StationWhereUniqueInput = Prisma.AtLeast<{
@@ -49630,6 +49636,9 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"Station"> | Date | string | null
     metadata?: JsonNullableFilter<"Station">
     items?: ItemLocationListRelationFilter
+    osrivs?: OSRIVListRelationFilter
+    mrvs?: MRVListRelationFilter
+    serivs?: SERIVListRelationFilter
   }, "id">
 
   export type StationOrderByWithAggregationInput = {
@@ -49821,11 +49830,8 @@ export namespace Prisma {
     unit?: XOR<UnitRelationFilter, UnitWhereInput>
     canvass_items?: CanvassItemListRelationFilter
     item_locations?: ItemLocationListRelationFilter
-    osrivs?: OSRIVListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
-    serivs?: SERIVListRelationFilter
     seriv_items?: SERIVItemListRelationFilter
-    mrvs?: MRVListRelationFilter
     mrv_items?: MRVItemListRelationFilter
   }
 
@@ -49851,11 +49857,8 @@ export namespace Prisma {
     unit?: UnitOrderByWithRelationInput
     canvass_items?: CanvassItemOrderByRelationAggregateInput
     item_locations?: ItemLocationOrderByRelationAggregateInput
-    osrivs?: OSRIVOrderByRelationAggregateInput
     osriv_items?: OSRIVItemOrderByRelationAggregateInput
-    serivs?: SERIVOrderByRelationAggregateInput
     seriv_items?: SERIVItemOrderByRelationAggregateInput
-    mrvs?: MRVOrderByRelationAggregateInput
     mrv_items?: MRVItemOrderByRelationAggregateInput
   }
 
@@ -49884,11 +49887,8 @@ export namespace Prisma {
     unit?: XOR<UnitRelationFilter, UnitWhereInput>
     canvass_items?: CanvassItemListRelationFilter
     item_locations?: ItemLocationListRelationFilter
-    osrivs?: OSRIVListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
-    serivs?: SERIVListRelationFilter
     seriv_items?: SERIVItemListRelationFilter
-    mrvs?: MRVListRelationFilter
     mrv_items?: MRVItemListRelationFilter
   }, "id" | "code">
 
@@ -51797,7 +51797,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"OSRIV"> | Date | string
     updated_at?: DateTimeFilter<"OSRIV"> | Date | string
     metadata?: JsonNullableFilter<"OSRIV">
-    item_from?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     osriv_approvers?: OSRIVApproverListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
   }
@@ -51819,7 +51819,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
-    item_from?: ItemOrderByWithRelationInput
+    item_from?: StationOrderByWithRelationInput
     osriv_approvers?: OSRIVApproverOrderByRelationAggregateInput
     osriv_items?: OSRIVItemOrderByRelationAggregateInput
   }
@@ -51844,7 +51844,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"OSRIV"> | Date | string
     updated_at?: DateTimeFilter<"OSRIV"> | Date | string
     metadata?: JsonNullableFilter<"OSRIV">
-    item_from?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     osriv_approvers?: OSRIVApproverListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
   }, "id" | "osriv_number">
@@ -52063,7 +52063,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"SERIV"> | Date | string
     updated_at?: DateTimeFilter<"SERIV"> | Date | string
     metadata?: JsonNullableFilter<"SERIV">
-    item_from?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     seriv_approvers?: SERIVApproverListRelationFilter
     seriv_items?: SERIVItemListRelationFilter
   }
@@ -52088,7 +52088,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
-    item_from?: ItemOrderByWithRelationInput
+    item_from?: StationOrderByWithRelationInput
     seriv_approvers?: SERIVApproverOrderByRelationAggregateInput
     seriv_items?: SERIVItemOrderByRelationAggregateInput
   }
@@ -52116,7 +52116,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"SERIV"> | Date | string
     updated_at?: DateTimeFilter<"SERIV"> | Date | string
     metadata?: JsonNullableFilter<"SERIV">
-    item_from?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     seriv_approvers?: SERIVApproverListRelationFilter
     seriv_items?: SERIVItemListRelationFilter
   }, "id" | "seriv_number">
@@ -52332,7 +52332,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MRV"> | Date | string
     updated_at?: DateTimeFilter<"MRV"> | Date | string
     metadata?: JsonNullableFilter<"MRV">
-    item_from?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     mrv_approvers?: MRVApproverListRelationFilter
     mrv_items?: MRVItemListRelationFilter
     mcts?: MCTListRelationFilter
@@ -52359,7 +52359,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
-    item_from?: ItemOrderByWithRelationInput
+    item_from?: StationOrderByWithRelationInput
     mrv_approvers?: MRVApproverOrderByRelationAggregateInput
     mrv_items?: MRVItemOrderByRelationAggregateInput
     mcts?: MCTOrderByRelationAggregateInput
@@ -52389,7 +52389,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MRV"> | Date | string
     updated_at?: DateTimeFilter<"MRV"> | Date | string
     metadata?: JsonNullableFilter<"MRV">
-    item_from?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     mrv_approvers?: MRVApproverListRelationFilter
     mrv_items?: MRVItemListRelationFilter
     mcts?: MCTListRelationFilter
@@ -53362,6 +53362,9 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationCreateNestedManyWithoutStationInput
+    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
+    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
+    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
   }
 
   export type StationUncheckedCreateInput = {
@@ -53376,6 +53379,9 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUncheckedCreateNestedManyWithoutStationInput
+    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
+    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
+    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
   }
 
   export type StationUpdateInput = {
@@ -53390,6 +53396,9 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUpdateManyWithoutStationNestedInput
+    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
+    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
+    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
   }
 
   export type StationUncheckedUpdateInput = {
@@ -53404,6 +53413,9 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUncheckedUpdateManyWithoutStationNestedInput
+    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
+    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
+    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
   }
 
   export type StationCreateManyInput = {
@@ -53609,11 +53621,8 @@ export namespace Prisma {
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
-    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
-    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
   }
 
@@ -53637,11 +53646,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
-    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
-    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
   }
 
@@ -53665,11 +53671,8 @@ export namespace Prisma {
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
   }
 
@@ -53693,11 +53696,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
@@ -55787,7 +55787,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from: ItemCreateNestedOneWithoutOsrivsInput
+    item_from: StationCreateNestedOneWithoutOsrivsInput
     osriv_approvers?: OSRIVApproverCreateNestedManyWithoutOsrivInput
     osriv_items?: OSRIVItemCreateNestedManyWithoutOsrivInput
   }
@@ -55829,7 +55829,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from?: ItemUpdateOneRequiredWithoutOsrivsNestedInput
+    item_from?: StationUpdateOneRequiredWithoutOsrivsNestedInput
     osriv_approvers?: OSRIVApproverUpdateManyWithoutOsrivNestedInput
     osriv_items?: OSRIVItemUpdateManyWithoutOsrivNestedInput
   }
@@ -56081,7 +56081,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from: ItemCreateNestedOneWithoutSerivsInput
+    item_from: StationCreateNestedOneWithoutSerivsInput
     seriv_approvers?: SERIVApproverCreateNestedManyWithoutSerivInput
     seriv_items?: SERIVItemCreateNestedManyWithoutSerivInput
   }
@@ -56129,7 +56129,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from?: ItemUpdateOneRequiredWithoutSerivsNestedInput
+    item_from?: StationUpdateOneRequiredWithoutSerivsNestedInput
     seriv_approvers?: SERIVApproverUpdateManyWithoutSerivNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutSerivNestedInput
   }
@@ -56380,7 +56380,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from: ItemCreateNestedOneWithoutMrvsInput
+    item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
     mcts?: MCTCreateNestedManyWithoutMrvInput
@@ -56432,7 +56432,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from?: ItemUpdateOneRequiredWithoutMrvsNestedInput
+    item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
     mcts?: MCTUpdateManyWithoutMrvNestedInput
@@ -57506,7 +57506,37 @@ export namespace Prisma {
     none?: ItemLocationWhereInput
   }
 
+  export type OSRIVListRelationFilter = {
+    every?: OSRIVWhereInput
+    some?: OSRIVWhereInput
+    none?: OSRIVWhereInput
+  }
+
+  export type MRVListRelationFilter = {
+    every?: MRVWhereInput
+    some?: MRVWhereInput
+    none?: MRVWhereInput
+  }
+
+  export type SERIVListRelationFilter = {
+    every?: SERIVWhereInput
+    some?: SERIVWhereInput
+    none?: SERIVWhereInput
+  }
+
   export type ItemLocationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OSRIVOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MRVOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SERIVOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -57638,34 +57668,16 @@ export namespace Prisma {
     isNot?: UnitWhereInput
   }
 
-  export type OSRIVListRelationFilter = {
-    every?: OSRIVWhereInput
-    some?: OSRIVWhereInput
-    none?: OSRIVWhereInput
-  }
-
   export type OSRIVItemListRelationFilter = {
     every?: OSRIVItemWhereInput
     some?: OSRIVItemWhereInput
     none?: OSRIVItemWhereInput
   }
 
-  export type SERIVListRelationFilter = {
-    every?: SERIVWhereInput
-    some?: SERIVWhereInput
-    none?: SERIVWhereInput
-  }
-
   export type SERIVItemListRelationFilter = {
     every?: SERIVItemWhereInput
     some?: SERIVItemWhereInput
     none?: SERIVItemWhereInput
-  }
-
-  export type MRVListRelationFilter = {
-    every?: MRVWhereInput
-    some?: MRVWhereInput
-    none?: MRVWhereInput
   }
 
   export type MRVItemListRelationFilter = {
@@ -57678,23 +57690,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type OSRIVOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type OSRIVItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type SERIVOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type SERIVItemOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type MRVOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -59903,11 +59903,53 @@ export namespace Prisma {
     connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
   }
 
+  export type OSRIVCreateNestedManyWithoutItem_fromInput = {
+    create?: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput> | OSRIVCreateWithoutItem_fromInput[] | OSRIVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: OSRIVCreateOrConnectWithoutItem_fromInput | OSRIVCreateOrConnectWithoutItem_fromInput[]
+    createMany?: OSRIVCreateManyItem_fromInputEnvelope
+    connect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
+  }
+
+  export type MRVCreateNestedManyWithoutItem_fromInput = {
+    create?: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput> | MRVCreateWithoutItem_fromInput[] | MRVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: MRVCreateOrConnectWithoutItem_fromInput | MRVCreateOrConnectWithoutItem_fromInput[]
+    createMany?: MRVCreateManyItem_fromInputEnvelope
+    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+  }
+
+  export type SERIVCreateNestedManyWithoutItem_fromInput = {
+    create?: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput> | SERIVCreateWithoutItem_fromInput[] | SERIVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: SERIVCreateOrConnectWithoutItem_fromInput | SERIVCreateOrConnectWithoutItem_fromInput[]
+    createMany?: SERIVCreateManyItem_fromInputEnvelope
+    connect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
+  }
+
   export type ItemLocationUncheckedCreateNestedManyWithoutStationInput = {
     create?: XOR<ItemLocationCreateWithoutStationInput, ItemLocationUncheckedCreateWithoutStationInput> | ItemLocationCreateWithoutStationInput[] | ItemLocationUncheckedCreateWithoutStationInput[]
     connectOrCreate?: ItemLocationCreateOrConnectWithoutStationInput | ItemLocationCreateOrConnectWithoutStationInput[]
     createMany?: ItemLocationCreateManyStationInputEnvelope
     connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
+  }
+
+  export type OSRIVUncheckedCreateNestedManyWithoutItem_fromInput = {
+    create?: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput> | OSRIVCreateWithoutItem_fromInput[] | OSRIVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: OSRIVCreateOrConnectWithoutItem_fromInput | OSRIVCreateOrConnectWithoutItem_fromInput[]
+    createMany?: OSRIVCreateManyItem_fromInputEnvelope
+    connect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
+  }
+
+  export type MRVUncheckedCreateNestedManyWithoutItem_fromInput = {
+    create?: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput> | MRVCreateWithoutItem_fromInput[] | MRVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: MRVCreateOrConnectWithoutItem_fromInput | MRVCreateOrConnectWithoutItem_fromInput[]
+    createMany?: MRVCreateManyItem_fromInputEnvelope
+    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+  }
+
+  export type SERIVUncheckedCreateNestedManyWithoutItem_fromInput = {
+    create?: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput> | SERIVCreateWithoutItem_fromInput[] | SERIVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: SERIVCreateOrConnectWithoutItem_fromInput | SERIVCreateOrConnectWithoutItem_fromInput[]
+    createMany?: SERIVCreateManyItem_fromInputEnvelope
+    connect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
   }
 
   export type ItemLocationUpdateManyWithoutStationNestedInput = {
@@ -59924,6 +59966,48 @@ export namespace Prisma {
     deleteMany?: ItemLocationScalarWhereInput | ItemLocationScalarWhereInput[]
   }
 
+  export type OSRIVUpdateManyWithoutItem_fromNestedInput = {
+    create?: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput> | OSRIVCreateWithoutItem_fromInput[] | OSRIVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: OSRIVCreateOrConnectWithoutItem_fromInput | OSRIVCreateOrConnectWithoutItem_fromInput[]
+    upsert?: OSRIVUpsertWithWhereUniqueWithoutItem_fromInput | OSRIVUpsertWithWhereUniqueWithoutItem_fromInput[]
+    createMany?: OSRIVCreateManyItem_fromInputEnvelope
+    set?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
+    disconnect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
+    delete?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
+    connect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
+    update?: OSRIVUpdateWithWhereUniqueWithoutItem_fromInput | OSRIVUpdateWithWhereUniqueWithoutItem_fromInput[]
+    updateMany?: OSRIVUpdateManyWithWhereWithoutItem_fromInput | OSRIVUpdateManyWithWhereWithoutItem_fromInput[]
+    deleteMany?: OSRIVScalarWhereInput | OSRIVScalarWhereInput[]
+  }
+
+  export type MRVUpdateManyWithoutItem_fromNestedInput = {
+    create?: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput> | MRVCreateWithoutItem_fromInput[] | MRVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: MRVCreateOrConnectWithoutItem_fromInput | MRVCreateOrConnectWithoutItem_fromInput[]
+    upsert?: MRVUpsertWithWhereUniqueWithoutItem_fromInput | MRVUpsertWithWhereUniqueWithoutItem_fromInput[]
+    createMany?: MRVCreateManyItem_fromInputEnvelope
+    set?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    disconnect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    delete?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    update?: MRVUpdateWithWhereUniqueWithoutItem_fromInput | MRVUpdateWithWhereUniqueWithoutItem_fromInput[]
+    updateMany?: MRVUpdateManyWithWhereWithoutItem_fromInput | MRVUpdateManyWithWhereWithoutItem_fromInput[]
+    deleteMany?: MRVScalarWhereInput | MRVScalarWhereInput[]
+  }
+
+  export type SERIVUpdateManyWithoutItem_fromNestedInput = {
+    create?: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput> | SERIVCreateWithoutItem_fromInput[] | SERIVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: SERIVCreateOrConnectWithoutItem_fromInput | SERIVCreateOrConnectWithoutItem_fromInput[]
+    upsert?: SERIVUpsertWithWhereUniqueWithoutItem_fromInput | SERIVUpsertWithWhereUniqueWithoutItem_fromInput[]
+    createMany?: SERIVCreateManyItem_fromInputEnvelope
+    set?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
+    disconnect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
+    delete?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
+    connect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
+    update?: SERIVUpdateWithWhereUniqueWithoutItem_fromInput | SERIVUpdateWithWhereUniqueWithoutItem_fromInput[]
+    updateMany?: SERIVUpdateManyWithWhereWithoutItem_fromInput | SERIVUpdateManyWithWhereWithoutItem_fromInput[]
+    deleteMany?: SERIVScalarWhereInput | SERIVScalarWhereInput[]
+  }
+
   export type ItemLocationUncheckedUpdateManyWithoutStationNestedInput = {
     create?: XOR<ItemLocationCreateWithoutStationInput, ItemLocationUncheckedCreateWithoutStationInput> | ItemLocationCreateWithoutStationInput[] | ItemLocationUncheckedCreateWithoutStationInput[]
     connectOrCreate?: ItemLocationCreateOrConnectWithoutStationInput | ItemLocationCreateOrConnectWithoutStationInput[]
@@ -59936,6 +60020,48 @@ export namespace Prisma {
     update?: ItemLocationUpdateWithWhereUniqueWithoutStationInput | ItemLocationUpdateWithWhereUniqueWithoutStationInput[]
     updateMany?: ItemLocationUpdateManyWithWhereWithoutStationInput | ItemLocationUpdateManyWithWhereWithoutStationInput[]
     deleteMany?: ItemLocationScalarWhereInput | ItemLocationScalarWhereInput[]
+  }
+
+  export type OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput = {
+    create?: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput> | OSRIVCreateWithoutItem_fromInput[] | OSRIVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: OSRIVCreateOrConnectWithoutItem_fromInput | OSRIVCreateOrConnectWithoutItem_fromInput[]
+    upsert?: OSRIVUpsertWithWhereUniqueWithoutItem_fromInput | OSRIVUpsertWithWhereUniqueWithoutItem_fromInput[]
+    createMany?: OSRIVCreateManyItem_fromInputEnvelope
+    set?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
+    disconnect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
+    delete?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
+    connect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
+    update?: OSRIVUpdateWithWhereUniqueWithoutItem_fromInput | OSRIVUpdateWithWhereUniqueWithoutItem_fromInput[]
+    updateMany?: OSRIVUpdateManyWithWhereWithoutItem_fromInput | OSRIVUpdateManyWithWhereWithoutItem_fromInput[]
+    deleteMany?: OSRIVScalarWhereInput | OSRIVScalarWhereInput[]
+  }
+
+  export type MRVUncheckedUpdateManyWithoutItem_fromNestedInput = {
+    create?: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput> | MRVCreateWithoutItem_fromInput[] | MRVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: MRVCreateOrConnectWithoutItem_fromInput | MRVCreateOrConnectWithoutItem_fromInput[]
+    upsert?: MRVUpsertWithWhereUniqueWithoutItem_fromInput | MRVUpsertWithWhereUniqueWithoutItem_fromInput[]
+    createMany?: MRVCreateManyItem_fromInputEnvelope
+    set?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    disconnect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    delete?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    update?: MRVUpdateWithWhereUniqueWithoutItem_fromInput | MRVUpdateWithWhereUniqueWithoutItem_fromInput[]
+    updateMany?: MRVUpdateManyWithWhereWithoutItem_fromInput | MRVUpdateManyWithWhereWithoutItem_fromInput[]
+    deleteMany?: MRVScalarWhereInput | MRVScalarWhereInput[]
+  }
+
+  export type SERIVUncheckedUpdateManyWithoutItem_fromNestedInput = {
+    create?: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput> | SERIVCreateWithoutItem_fromInput[] | SERIVUncheckedCreateWithoutItem_fromInput[]
+    connectOrCreate?: SERIVCreateOrConnectWithoutItem_fromInput | SERIVCreateOrConnectWithoutItem_fromInput[]
+    upsert?: SERIVUpsertWithWhereUniqueWithoutItem_fromInput | SERIVUpsertWithWhereUniqueWithoutItem_fromInput[]
+    createMany?: SERIVCreateManyItem_fromInputEnvelope
+    set?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
+    disconnect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
+    delete?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
+    connect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
+    update?: SERIVUpdateWithWhereUniqueWithoutItem_fromInput | SERIVUpdateWithWhereUniqueWithoutItem_fromInput[]
+    updateMany?: SERIVUpdateManyWithWhereWithoutItem_fromInput | SERIVUpdateManyWithWhereWithoutItem_fromInput[]
+    deleteMany?: SERIVScalarWhereInput | SERIVScalarWhereInput[]
   }
 
   export type ItemTypeCreateNestedOneWithoutItemsInput = {
@@ -59971,13 +60097,6 @@ export namespace Prisma {
     connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
   }
 
-  export type OSRIVCreateNestedManyWithoutItem_fromInput = {
-    create?: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput> | OSRIVCreateWithoutItem_fromInput[] | OSRIVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: OSRIVCreateOrConnectWithoutItem_fromInput | OSRIVCreateOrConnectWithoutItem_fromInput[]
-    createMany?: OSRIVCreateManyItem_fromInputEnvelope
-    connect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
-  }
-
   export type OSRIVItemCreateNestedManyWithoutItemInput = {
     create?: XOR<OSRIVItemCreateWithoutItemInput, OSRIVItemUncheckedCreateWithoutItemInput> | OSRIVItemCreateWithoutItemInput[] | OSRIVItemUncheckedCreateWithoutItemInput[]
     connectOrCreate?: OSRIVItemCreateOrConnectWithoutItemInput | OSRIVItemCreateOrConnectWithoutItemInput[]
@@ -59985,25 +60104,11 @@ export namespace Prisma {
     connect?: OSRIVItemWhereUniqueInput | OSRIVItemWhereUniqueInput[]
   }
 
-  export type SERIVCreateNestedManyWithoutItem_fromInput = {
-    create?: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput> | SERIVCreateWithoutItem_fromInput[] | SERIVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: SERIVCreateOrConnectWithoutItem_fromInput | SERIVCreateOrConnectWithoutItem_fromInput[]
-    createMany?: SERIVCreateManyItem_fromInputEnvelope
-    connect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
-  }
-
   export type SERIVItemCreateNestedManyWithoutItemInput = {
     create?: XOR<SERIVItemCreateWithoutItemInput, SERIVItemUncheckedCreateWithoutItemInput> | SERIVItemCreateWithoutItemInput[] | SERIVItemUncheckedCreateWithoutItemInput[]
     connectOrCreate?: SERIVItemCreateOrConnectWithoutItemInput | SERIVItemCreateOrConnectWithoutItemInput[]
     createMany?: SERIVItemCreateManyItemInputEnvelope
     connect?: SERIVItemWhereUniqueInput | SERIVItemWhereUniqueInput[]
-  }
-
-  export type MRVCreateNestedManyWithoutItem_fromInput = {
-    create?: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput> | MRVCreateWithoutItem_fromInput[] | MRVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: MRVCreateOrConnectWithoutItem_fromInput | MRVCreateOrConnectWithoutItem_fromInput[]
-    createMany?: MRVCreateManyItem_fromInputEnvelope
-    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
   }
 
   export type MRVItemCreateNestedManyWithoutItemInput = {
@@ -60034,13 +60139,6 @@ export namespace Prisma {
     connect?: ItemLocationWhereUniqueInput | ItemLocationWhereUniqueInput[]
   }
 
-  export type OSRIVUncheckedCreateNestedManyWithoutItem_fromInput = {
-    create?: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput> | OSRIVCreateWithoutItem_fromInput[] | OSRIVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: OSRIVCreateOrConnectWithoutItem_fromInput | OSRIVCreateOrConnectWithoutItem_fromInput[]
-    createMany?: OSRIVCreateManyItem_fromInputEnvelope
-    connect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
-  }
-
   export type OSRIVItemUncheckedCreateNestedManyWithoutItemInput = {
     create?: XOR<OSRIVItemCreateWithoutItemInput, OSRIVItemUncheckedCreateWithoutItemInput> | OSRIVItemCreateWithoutItemInput[] | OSRIVItemUncheckedCreateWithoutItemInput[]
     connectOrCreate?: OSRIVItemCreateOrConnectWithoutItemInput | OSRIVItemCreateOrConnectWithoutItemInput[]
@@ -60048,25 +60146,11 @@ export namespace Prisma {
     connect?: OSRIVItemWhereUniqueInput | OSRIVItemWhereUniqueInput[]
   }
 
-  export type SERIVUncheckedCreateNestedManyWithoutItem_fromInput = {
-    create?: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput> | SERIVCreateWithoutItem_fromInput[] | SERIVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: SERIVCreateOrConnectWithoutItem_fromInput | SERIVCreateOrConnectWithoutItem_fromInput[]
-    createMany?: SERIVCreateManyItem_fromInputEnvelope
-    connect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
-  }
-
   export type SERIVItemUncheckedCreateNestedManyWithoutItemInput = {
     create?: XOR<SERIVItemCreateWithoutItemInput, SERIVItemUncheckedCreateWithoutItemInput> | SERIVItemCreateWithoutItemInput[] | SERIVItemUncheckedCreateWithoutItemInput[]
     connectOrCreate?: SERIVItemCreateOrConnectWithoutItemInput | SERIVItemCreateOrConnectWithoutItemInput[]
     createMany?: SERIVItemCreateManyItemInputEnvelope
     connect?: SERIVItemWhereUniqueInput | SERIVItemWhereUniqueInput[]
-  }
-
-  export type MRVUncheckedCreateNestedManyWithoutItem_fromInput = {
-    create?: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput> | MRVCreateWithoutItem_fromInput[] | MRVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: MRVCreateOrConnectWithoutItem_fromInput | MRVCreateOrConnectWithoutItem_fromInput[]
-    createMany?: MRVCreateManyItem_fromInputEnvelope
-    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
   }
 
   export type MRVItemUncheckedCreateNestedManyWithoutItemInput = {
@@ -60134,20 +60218,6 @@ export namespace Prisma {
     deleteMany?: ItemLocationScalarWhereInput | ItemLocationScalarWhereInput[]
   }
 
-  export type OSRIVUpdateManyWithoutItem_fromNestedInput = {
-    create?: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput> | OSRIVCreateWithoutItem_fromInput[] | OSRIVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: OSRIVCreateOrConnectWithoutItem_fromInput | OSRIVCreateOrConnectWithoutItem_fromInput[]
-    upsert?: OSRIVUpsertWithWhereUniqueWithoutItem_fromInput | OSRIVUpsertWithWhereUniqueWithoutItem_fromInput[]
-    createMany?: OSRIVCreateManyItem_fromInputEnvelope
-    set?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
-    disconnect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
-    delete?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
-    connect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
-    update?: OSRIVUpdateWithWhereUniqueWithoutItem_fromInput | OSRIVUpdateWithWhereUniqueWithoutItem_fromInput[]
-    updateMany?: OSRIVUpdateManyWithWhereWithoutItem_fromInput | OSRIVUpdateManyWithWhereWithoutItem_fromInput[]
-    deleteMany?: OSRIVScalarWhereInput | OSRIVScalarWhereInput[]
-  }
-
   export type OSRIVItemUpdateManyWithoutItemNestedInput = {
     create?: XOR<OSRIVItemCreateWithoutItemInput, OSRIVItemUncheckedCreateWithoutItemInput> | OSRIVItemCreateWithoutItemInput[] | OSRIVItemUncheckedCreateWithoutItemInput[]
     connectOrCreate?: OSRIVItemCreateOrConnectWithoutItemInput | OSRIVItemCreateOrConnectWithoutItemInput[]
@@ -60162,20 +60232,6 @@ export namespace Prisma {
     deleteMany?: OSRIVItemScalarWhereInput | OSRIVItemScalarWhereInput[]
   }
 
-  export type SERIVUpdateManyWithoutItem_fromNestedInput = {
-    create?: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput> | SERIVCreateWithoutItem_fromInput[] | SERIVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: SERIVCreateOrConnectWithoutItem_fromInput | SERIVCreateOrConnectWithoutItem_fromInput[]
-    upsert?: SERIVUpsertWithWhereUniqueWithoutItem_fromInput | SERIVUpsertWithWhereUniqueWithoutItem_fromInput[]
-    createMany?: SERIVCreateManyItem_fromInputEnvelope
-    set?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
-    disconnect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
-    delete?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
-    connect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
-    update?: SERIVUpdateWithWhereUniqueWithoutItem_fromInput | SERIVUpdateWithWhereUniqueWithoutItem_fromInput[]
-    updateMany?: SERIVUpdateManyWithWhereWithoutItem_fromInput | SERIVUpdateManyWithWhereWithoutItem_fromInput[]
-    deleteMany?: SERIVScalarWhereInput | SERIVScalarWhereInput[]
-  }
-
   export type SERIVItemUpdateManyWithoutItemNestedInput = {
     create?: XOR<SERIVItemCreateWithoutItemInput, SERIVItemUncheckedCreateWithoutItemInput> | SERIVItemCreateWithoutItemInput[] | SERIVItemUncheckedCreateWithoutItemInput[]
     connectOrCreate?: SERIVItemCreateOrConnectWithoutItemInput | SERIVItemCreateOrConnectWithoutItemInput[]
@@ -60188,20 +60244,6 @@ export namespace Prisma {
     update?: SERIVItemUpdateWithWhereUniqueWithoutItemInput | SERIVItemUpdateWithWhereUniqueWithoutItemInput[]
     updateMany?: SERIVItemUpdateManyWithWhereWithoutItemInput | SERIVItemUpdateManyWithWhereWithoutItemInput[]
     deleteMany?: SERIVItemScalarWhereInput | SERIVItemScalarWhereInput[]
-  }
-
-  export type MRVUpdateManyWithoutItem_fromNestedInput = {
-    create?: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput> | MRVCreateWithoutItem_fromInput[] | MRVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: MRVCreateOrConnectWithoutItem_fromInput | MRVCreateOrConnectWithoutItem_fromInput[]
-    upsert?: MRVUpsertWithWhereUniqueWithoutItem_fromInput | MRVUpsertWithWhereUniqueWithoutItem_fromInput[]
-    createMany?: MRVCreateManyItem_fromInputEnvelope
-    set?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
-    disconnect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
-    delete?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
-    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
-    update?: MRVUpdateWithWhereUniqueWithoutItem_fromInput | MRVUpdateWithWhereUniqueWithoutItem_fromInput[]
-    updateMany?: MRVUpdateManyWithWhereWithoutItem_fromInput | MRVUpdateManyWithWhereWithoutItem_fromInput[]
-    deleteMany?: MRVScalarWhereInput | MRVScalarWhereInput[]
   }
 
   export type MRVItemUpdateManyWithoutItemNestedInput = {
@@ -60260,20 +60302,6 @@ export namespace Prisma {
     deleteMany?: ItemLocationScalarWhereInput | ItemLocationScalarWhereInput[]
   }
 
-  export type OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput = {
-    create?: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput> | OSRIVCreateWithoutItem_fromInput[] | OSRIVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: OSRIVCreateOrConnectWithoutItem_fromInput | OSRIVCreateOrConnectWithoutItem_fromInput[]
-    upsert?: OSRIVUpsertWithWhereUniqueWithoutItem_fromInput | OSRIVUpsertWithWhereUniqueWithoutItem_fromInput[]
-    createMany?: OSRIVCreateManyItem_fromInputEnvelope
-    set?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
-    disconnect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
-    delete?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
-    connect?: OSRIVWhereUniqueInput | OSRIVWhereUniqueInput[]
-    update?: OSRIVUpdateWithWhereUniqueWithoutItem_fromInput | OSRIVUpdateWithWhereUniqueWithoutItem_fromInput[]
-    updateMany?: OSRIVUpdateManyWithWhereWithoutItem_fromInput | OSRIVUpdateManyWithWhereWithoutItem_fromInput[]
-    deleteMany?: OSRIVScalarWhereInput | OSRIVScalarWhereInput[]
-  }
-
   export type OSRIVItemUncheckedUpdateManyWithoutItemNestedInput = {
     create?: XOR<OSRIVItemCreateWithoutItemInput, OSRIVItemUncheckedCreateWithoutItemInput> | OSRIVItemCreateWithoutItemInput[] | OSRIVItemUncheckedCreateWithoutItemInput[]
     connectOrCreate?: OSRIVItemCreateOrConnectWithoutItemInput | OSRIVItemCreateOrConnectWithoutItemInput[]
@@ -60288,20 +60316,6 @@ export namespace Prisma {
     deleteMany?: OSRIVItemScalarWhereInput | OSRIVItemScalarWhereInput[]
   }
 
-  export type SERIVUncheckedUpdateManyWithoutItem_fromNestedInput = {
-    create?: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput> | SERIVCreateWithoutItem_fromInput[] | SERIVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: SERIVCreateOrConnectWithoutItem_fromInput | SERIVCreateOrConnectWithoutItem_fromInput[]
-    upsert?: SERIVUpsertWithWhereUniqueWithoutItem_fromInput | SERIVUpsertWithWhereUniqueWithoutItem_fromInput[]
-    createMany?: SERIVCreateManyItem_fromInputEnvelope
-    set?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
-    disconnect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
-    delete?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
-    connect?: SERIVWhereUniqueInput | SERIVWhereUniqueInput[]
-    update?: SERIVUpdateWithWhereUniqueWithoutItem_fromInput | SERIVUpdateWithWhereUniqueWithoutItem_fromInput[]
-    updateMany?: SERIVUpdateManyWithWhereWithoutItem_fromInput | SERIVUpdateManyWithWhereWithoutItem_fromInput[]
-    deleteMany?: SERIVScalarWhereInput | SERIVScalarWhereInput[]
-  }
-
   export type SERIVItemUncheckedUpdateManyWithoutItemNestedInput = {
     create?: XOR<SERIVItemCreateWithoutItemInput, SERIVItemUncheckedCreateWithoutItemInput> | SERIVItemCreateWithoutItemInput[] | SERIVItemUncheckedCreateWithoutItemInput[]
     connectOrCreate?: SERIVItemCreateOrConnectWithoutItemInput | SERIVItemCreateOrConnectWithoutItemInput[]
@@ -60314,20 +60328,6 @@ export namespace Prisma {
     update?: SERIVItemUpdateWithWhereUniqueWithoutItemInput | SERIVItemUpdateWithWhereUniqueWithoutItemInput[]
     updateMany?: SERIVItemUpdateManyWithWhereWithoutItemInput | SERIVItemUpdateManyWithWhereWithoutItemInput[]
     deleteMany?: SERIVItemScalarWhereInput | SERIVItemScalarWhereInput[]
-  }
-
-  export type MRVUncheckedUpdateManyWithoutItem_fromNestedInput = {
-    create?: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput> | MRVCreateWithoutItem_fromInput[] | MRVUncheckedCreateWithoutItem_fromInput[]
-    connectOrCreate?: MRVCreateOrConnectWithoutItem_fromInput | MRVCreateOrConnectWithoutItem_fromInput[]
-    upsert?: MRVUpsertWithWhereUniqueWithoutItem_fromInput | MRVUpsertWithWhereUniqueWithoutItem_fromInput[]
-    createMany?: MRVCreateManyItem_fromInputEnvelope
-    set?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
-    disconnect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
-    delete?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
-    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
-    update?: MRVUpdateWithWhereUniqueWithoutItem_fromInput | MRVUpdateWithWhereUniqueWithoutItem_fromInput[]
-    updateMany?: MRVUpdateManyWithWhereWithoutItem_fromInput | MRVUpdateManyWithWhereWithoutItem_fromInput[]
-    deleteMany?: MRVScalarWhereInput | MRVScalarWhereInput[]
   }
 
   export type MRVItemUncheckedUpdateManyWithoutItemNestedInput = {
@@ -61736,10 +61736,10 @@ export namespace Prisma {
     update?: XOR<XOR<ItemTransactionUpdateToOneWithWhereWithoutRr_itemInput, ItemTransactionUpdateWithoutRr_itemInput>, ItemTransactionUncheckedUpdateWithoutRr_itemInput>
   }
 
-  export type ItemCreateNestedOneWithoutOsrivsInput = {
-    create?: XOR<ItemCreateWithoutOsrivsInput, ItemUncheckedCreateWithoutOsrivsInput>
-    connectOrCreate?: ItemCreateOrConnectWithoutOsrivsInput
-    connect?: ItemWhereUniqueInput
+  export type StationCreateNestedOneWithoutOsrivsInput = {
+    create?: XOR<StationCreateWithoutOsrivsInput, StationUncheckedCreateWithoutOsrivsInput>
+    connectOrCreate?: StationCreateOrConnectWithoutOsrivsInput
+    connect?: StationWhereUniqueInput
   }
 
   export type OSRIVApproverCreateNestedManyWithoutOsrivInput = {
@@ -61770,12 +61770,12 @@ export namespace Prisma {
     connect?: OSRIVItemWhereUniqueInput | OSRIVItemWhereUniqueInput[]
   }
 
-  export type ItemUpdateOneRequiredWithoutOsrivsNestedInput = {
-    create?: XOR<ItemCreateWithoutOsrivsInput, ItemUncheckedCreateWithoutOsrivsInput>
-    connectOrCreate?: ItemCreateOrConnectWithoutOsrivsInput
-    upsert?: ItemUpsertWithoutOsrivsInput
-    connect?: ItemWhereUniqueInput
-    update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutOsrivsInput, ItemUpdateWithoutOsrivsInput>, ItemUncheckedUpdateWithoutOsrivsInput>
+  export type StationUpdateOneRequiredWithoutOsrivsNestedInput = {
+    create?: XOR<StationCreateWithoutOsrivsInput, StationUncheckedCreateWithoutOsrivsInput>
+    connectOrCreate?: StationCreateOrConnectWithoutOsrivsInput
+    upsert?: StationUpsertWithoutOsrivsInput
+    connect?: StationWhereUniqueInput
+    update?: XOR<XOR<StationUpdateToOneWithWhereWithoutOsrivsInput, StationUpdateWithoutOsrivsInput>, StationUncheckedUpdateWithoutOsrivsInput>
   }
 
   export type OSRIVApproverUpdateManyWithoutOsrivNestedInput = {
@@ -61876,10 +61876,10 @@ export namespace Prisma {
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutOsriv_itemsInput, ItemUpdateWithoutOsriv_itemsInput>, ItemUncheckedUpdateWithoutOsriv_itemsInput>
   }
 
-  export type ItemCreateNestedOneWithoutSerivsInput = {
-    create?: XOR<ItemCreateWithoutSerivsInput, ItemUncheckedCreateWithoutSerivsInput>
-    connectOrCreate?: ItemCreateOrConnectWithoutSerivsInput
-    connect?: ItemWhereUniqueInput
+  export type StationCreateNestedOneWithoutSerivsInput = {
+    create?: XOR<StationCreateWithoutSerivsInput, StationUncheckedCreateWithoutSerivsInput>
+    connectOrCreate?: StationCreateOrConnectWithoutSerivsInput
+    connect?: StationWhereUniqueInput
   }
 
   export type SERIVApproverCreateNestedManyWithoutSerivInput = {
@@ -61910,12 +61910,12 @@ export namespace Prisma {
     connect?: SERIVItemWhereUniqueInput | SERIVItemWhereUniqueInput[]
   }
 
-  export type ItemUpdateOneRequiredWithoutSerivsNestedInput = {
-    create?: XOR<ItemCreateWithoutSerivsInput, ItemUncheckedCreateWithoutSerivsInput>
-    connectOrCreate?: ItemCreateOrConnectWithoutSerivsInput
-    upsert?: ItemUpsertWithoutSerivsInput
-    connect?: ItemWhereUniqueInput
-    update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutSerivsInput, ItemUpdateWithoutSerivsInput>, ItemUncheckedUpdateWithoutSerivsInput>
+  export type StationUpdateOneRequiredWithoutSerivsNestedInput = {
+    create?: XOR<StationCreateWithoutSerivsInput, StationUncheckedCreateWithoutSerivsInput>
+    connectOrCreate?: StationCreateOrConnectWithoutSerivsInput
+    upsert?: StationUpsertWithoutSerivsInput
+    connect?: StationWhereUniqueInput
+    update?: XOR<XOR<StationUpdateToOneWithWhereWithoutSerivsInput, StationUpdateWithoutSerivsInput>, StationUncheckedUpdateWithoutSerivsInput>
   }
 
   export type SERIVApproverUpdateManyWithoutSerivNestedInput = {
@@ -62016,10 +62016,10 @@ export namespace Prisma {
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutSeriv_itemsInput, ItemUpdateWithoutSeriv_itemsInput>, ItemUncheckedUpdateWithoutSeriv_itemsInput>
   }
 
-  export type ItemCreateNestedOneWithoutMrvsInput = {
-    create?: XOR<ItemCreateWithoutMrvsInput, ItemUncheckedCreateWithoutMrvsInput>
-    connectOrCreate?: ItemCreateOrConnectWithoutMrvsInput
-    connect?: ItemWhereUniqueInput
+  export type StationCreateNestedOneWithoutMrvsInput = {
+    create?: XOR<StationCreateWithoutMrvsInput, StationUncheckedCreateWithoutMrvsInput>
+    connectOrCreate?: StationCreateOrConnectWithoutMrvsInput
+    connect?: StationWhereUniqueInput
   }
 
   export type MRVApproverCreateNestedManyWithoutMrvInput = {
@@ -62064,12 +62064,12 @@ export namespace Prisma {
     connect?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
   }
 
-  export type ItemUpdateOneRequiredWithoutMrvsNestedInput = {
-    create?: XOR<ItemCreateWithoutMrvsInput, ItemUncheckedCreateWithoutMrvsInput>
-    connectOrCreate?: ItemCreateOrConnectWithoutMrvsInput
-    upsert?: ItemUpsertWithoutMrvsInput
-    connect?: ItemWhereUniqueInput
-    update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutMrvsInput, ItemUpdateWithoutMrvsInput>, ItemUncheckedUpdateWithoutMrvsInput>
+  export type StationUpdateOneRequiredWithoutMrvsNestedInput = {
+    create?: XOR<StationCreateWithoutMrvsInput, StationUncheckedCreateWithoutMrvsInput>
+    connectOrCreate?: StationCreateOrConnectWithoutMrvsInput
+    upsert?: StationUpsertWithoutMrvsInput
+    connect?: StationWhereUniqueInput
+    update?: XOR<XOR<StationUpdateToOneWithWhereWithoutMrvsInput, StationUpdateWithoutMrvsInput>, StationUncheckedUpdateWithoutMrvsInput>
   }
 
   export type MRVApproverUpdateManyWithoutMrvNestedInput = {
@@ -62611,11 +62611,8 @@ export namespace Prisma {
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
-    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
-    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
   }
 
@@ -62638,11 +62635,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
-    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
-    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
   }
 
@@ -62800,11 +62794,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
-    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
-    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
   }
 
@@ -62827,11 +62818,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
-    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
-    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
   }
 
@@ -63007,6 +62995,172 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OSRIVCreateWithoutItem_fromInput = {
+    id?: string
+    osriv_number: string
+    date_requested: Date | string
+    purpose: string
+    requested_by_id: string
+    department_id: string
+    supervisor_id: string
+    warehouse_custodian_id: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    osriv_approvers?: OSRIVApproverCreateNestedManyWithoutOsrivInput
+    osriv_items?: OSRIVItemCreateNestedManyWithoutOsrivInput
+  }
+
+  export type OSRIVUncheckedCreateWithoutItem_fromInput = {
+    id?: string
+    osriv_number: string
+    date_requested: Date | string
+    purpose: string
+    requested_by_id: string
+    department_id: string
+    supervisor_id: string
+    warehouse_custodian_id: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    osriv_approvers?: OSRIVApproverUncheckedCreateNestedManyWithoutOsrivInput
+    osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutOsrivInput
+  }
+
+  export type OSRIVCreateOrConnectWithoutItem_fromInput = {
+    where: OSRIVWhereUniqueInput
+    create: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput>
+  }
+
+  export type OSRIVCreateManyItem_fromInputEnvelope = {
+    data: OSRIVCreateManyItem_fromInput | OSRIVCreateManyItem_fromInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MRVCreateWithoutItem_fromInput = {
+    id?: string
+    project_id: string
+    mrv_number: string
+    date_requested: Date | string
+    purpose: string
+    requested_by_id: string
+    request_type: string
+    or_number?: string | null
+    jo_number?: string | null
+    cwo_number?: string | null
+    consumer_name: string
+    location: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
+    mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
+    mcts?: MCTCreateNestedManyWithoutMrvInput
+  }
+
+  export type MRVUncheckedCreateWithoutItem_fromInput = {
+    id?: string
+    project_id: string
+    mrv_number: string
+    date_requested: Date | string
+    purpose: string
+    requested_by_id: string
+    request_type: string
+    or_number?: string | null
+    jo_number?: string | null
+    cwo_number?: string | null
+    consumer_name: string
+    location: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mrv_approvers?: MRVApproverUncheckedCreateNestedManyWithoutMrvInput
+    mrv_items?: MRVItemUncheckedCreateNestedManyWithoutMrvInput
+    mcts?: MCTUncheckedCreateNestedManyWithoutMrvInput
+  }
+
+  export type MRVCreateOrConnectWithoutItem_fromInput = {
+    where: MRVWhereUniqueInput
+    create: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput>
+  }
+
+  export type MRVCreateManyItem_fromInputEnvelope = {
+    data: MRVCreateManyItem_fromInput | MRVCreateManyItem_fromInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SERIVCreateWithoutItem_fromInput = {
+    id?: string
+    seriv_number: string
+    date_requested: Date | string
+    purpose: string
+    requested_by_id: string
+    request_type: string
+    mwo_number?: string | null
+    jo_number?: string | null
+    consumer_name: string
+    location: string
+    department_id: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    seriv_approvers?: SERIVApproverCreateNestedManyWithoutSerivInput
+    seriv_items?: SERIVItemCreateNestedManyWithoutSerivInput
+  }
+
+  export type SERIVUncheckedCreateWithoutItem_fromInput = {
+    id?: string
+    seriv_number: string
+    date_requested: Date | string
+    purpose: string
+    requested_by_id: string
+    request_type: string
+    mwo_number?: string | null
+    jo_number?: string | null
+    consumer_name: string
+    location: string
+    department_id: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    seriv_approvers?: SERIVApproverUncheckedCreateNestedManyWithoutSerivInput
+    seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutSerivInput
+  }
+
+  export type SERIVCreateOrConnectWithoutItem_fromInput = {
+    where: SERIVWhereUniqueInput
+    create: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput>
+  }
+
+  export type SERIVCreateManyItem_fromInputEnvelope = {
+    data: SERIVCreateManyItem_fromInput | SERIVCreateManyItem_fromInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ItemLocationUpsertWithWhereUniqueWithoutStationInput = {
     where: ItemLocationWhereUniqueInput
     update: XOR<ItemLocationUpdateWithoutStationInput, ItemLocationUncheckedUpdateWithoutStationInput>
@@ -63034,6 +63188,127 @@ export namespace Prisma {
     created_by?: StringFilter<"ItemLocation"> | string
     created_at?: DateTimeFilter<"ItemLocation"> | Date | string
     metadata?: JsonNullableFilter<"ItemLocation">
+  }
+
+  export type OSRIVUpsertWithWhereUniqueWithoutItem_fromInput = {
+    where: OSRIVWhereUniqueInput
+    update: XOR<OSRIVUpdateWithoutItem_fromInput, OSRIVUncheckedUpdateWithoutItem_fromInput>
+    create: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput>
+  }
+
+  export type OSRIVUpdateWithWhereUniqueWithoutItem_fromInput = {
+    where: OSRIVWhereUniqueInput
+    data: XOR<OSRIVUpdateWithoutItem_fromInput, OSRIVUncheckedUpdateWithoutItem_fromInput>
+  }
+
+  export type OSRIVUpdateManyWithWhereWithoutItem_fromInput = {
+    where: OSRIVScalarWhereInput
+    data: XOR<OSRIVUpdateManyMutationInput, OSRIVUncheckedUpdateManyWithoutItem_fromInput>
+  }
+
+  export type OSRIVScalarWhereInput = {
+    AND?: OSRIVScalarWhereInput | OSRIVScalarWhereInput[]
+    OR?: OSRIVScalarWhereInput[]
+    NOT?: OSRIVScalarWhereInput | OSRIVScalarWhereInput[]
+    id?: StringFilter<"OSRIV"> | string
+    osriv_number?: StringFilter<"OSRIV"> | string
+    date_requested?: DateTimeFilter<"OSRIV"> | Date | string
+    purpose?: StringFilter<"OSRIV"> | string
+    requested_by_id?: StringFilter<"OSRIV"> | string
+    department_id?: StringFilter<"OSRIV"> | string
+    item_from_id?: StringFilter<"OSRIV"> | string
+    supervisor_id?: StringFilter<"OSRIV"> | string
+    warehouse_custodian_id?: StringFilter<"OSRIV"> | string
+    cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
+    created_by?: StringFilter<"OSRIV"> | string
+    updated_by?: StringNullableFilter<"OSRIV"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"OSRIV"> | Date | string | null
+    created_at?: DateTimeFilter<"OSRIV"> | Date | string
+    updated_at?: DateTimeFilter<"OSRIV"> | Date | string
+    metadata?: JsonNullableFilter<"OSRIV">
+  }
+
+  export type MRVUpsertWithWhereUniqueWithoutItem_fromInput = {
+    where: MRVWhereUniqueInput
+    update: XOR<MRVUpdateWithoutItem_fromInput, MRVUncheckedUpdateWithoutItem_fromInput>
+    create: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput>
+  }
+
+  export type MRVUpdateWithWhereUniqueWithoutItem_fromInput = {
+    where: MRVWhereUniqueInput
+    data: XOR<MRVUpdateWithoutItem_fromInput, MRVUncheckedUpdateWithoutItem_fromInput>
+  }
+
+  export type MRVUpdateManyWithWhereWithoutItem_fromInput = {
+    where: MRVScalarWhereInput
+    data: XOR<MRVUpdateManyMutationInput, MRVUncheckedUpdateManyWithoutItem_fromInput>
+  }
+
+  export type MRVScalarWhereInput = {
+    AND?: MRVScalarWhereInput | MRVScalarWhereInput[]
+    OR?: MRVScalarWhereInput[]
+    NOT?: MRVScalarWhereInput | MRVScalarWhereInput[]
+    id?: StringFilter<"MRV"> | string
+    project_id?: StringFilter<"MRV"> | string
+    mrv_number?: StringFilter<"MRV"> | string
+    date_requested?: DateTimeFilter<"MRV"> | Date | string
+    purpose?: StringFilter<"MRV"> | string
+    requested_by_id?: StringFilter<"MRV"> | string
+    request_type?: StringFilter<"MRV"> | string
+    or_number?: StringNullableFilter<"MRV"> | string | null
+    jo_number?: StringNullableFilter<"MRV"> | string | null
+    cwo_number?: StringNullableFilter<"MRV"> | string | null
+    consumer_name?: StringFilter<"MRV"> | string
+    location?: StringFilter<"MRV"> | string
+    item_from_id?: StringFilter<"MRV"> | string
+    cancelled_by?: StringNullableFilter<"MRV"> | string | null
+    created_by?: StringFilter<"MRV"> | string
+    updated_by?: StringNullableFilter<"MRV"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"MRV"> | Date | string | null
+    created_at?: DateTimeFilter<"MRV"> | Date | string
+    updated_at?: DateTimeFilter<"MRV"> | Date | string
+    metadata?: JsonNullableFilter<"MRV">
+  }
+
+  export type SERIVUpsertWithWhereUniqueWithoutItem_fromInput = {
+    where: SERIVWhereUniqueInput
+    update: XOR<SERIVUpdateWithoutItem_fromInput, SERIVUncheckedUpdateWithoutItem_fromInput>
+    create: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput>
+  }
+
+  export type SERIVUpdateWithWhereUniqueWithoutItem_fromInput = {
+    where: SERIVWhereUniqueInput
+    data: XOR<SERIVUpdateWithoutItem_fromInput, SERIVUncheckedUpdateWithoutItem_fromInput>
+  }
+
+  export type SERIVUpdateManyWithWhereWithoutItem_fromInput = {
+    where: SERIVScalarWhereInput
+    data: XOR<SERIVUpdateManyMutationInput, SERIVUncheckedUpdateManyWithoutItem_fromInput>
+  }
+
+  export type SERIVScalarWhereInput = {
+    AND?: SERIVScalarWhereInput | SERIVScalarWhereInput[]
+    OR?: SERIVScalarWhereInput[]
+    NOT?: SERIVScalarWhereInput | SERIVScalarWhereInput[]
+    id?: StringFilter<"SERIV"> | string
+    seriv_number?: StringFilter<"SERIV"> | string
+    date_requested?: DateTimeFilter<"SERIV"> | Date | string
+    purpose?: StringFilter<"SERIV"> | string
+    requested_by_id?: StringFilter<"SERIV"> | string
+    request_type?: StringFilter<"SERIV"> | string
+    mwo_number?: StringNullableFilter<"SERIV"> | string | null
+    jo_number?: StringNullableFilter<"SERIV"> | string | null
+    consumer_name?: StringFilter<"SERIV"> | string
+    location?: StringFilter<"SERIV"> | string
+    department_id?: StringFilter<"SERIV"> | string
+    item_from_id?: StringFilter<"SERIV"> | string
+    cancelled_by?: StringNullableFilter<"SERIV"> | string | null
+    created_by?: StringFilter<"SERIV"> | string
+    updated_by?: StringNullableFilter<"SERIV"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"SERIV"> | Date | string | null
+    created_at?: DateTimeFilter<"SERIV"> | Date | string
+    updated_at?: DateTimeFilter<"SERIV"> | Date | string
+    metadata?: JsonNullableFilter<"SERIV">
   }
 
   export type ItemTypeCreateWithoutItemsInput = {
@@ -63193,56 +63468,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type OSRIVCreateWithoutItem_fromInput = {
-    id?: string
-    osriv_number: string
-    date_requested: Date | string
-    purpose: string
-    requested_by_id: string
-    department_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    osriv_approvers?: OSRIVApproverCreateNestedManyWithoutOsrivInput
-    osriv_items?: OSRIVItemCreateNestedManyWithoutOsrivInput
-  }
-
-  export type OSRIVUncheckedCreateWithoutItem_fromInput = {
-    id?: string
-    osriv_number: string
-    date_requested: Date | string
-    purpose: string
-    requested_by_id: string
-    department_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    osriv_approvers?: OSRIVApproverUncheckedCreateNestedManyWithoutOsrivInput
-    osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutOsrivInput
-  }
-
-  export type OSRIVCreateOrConnectWithoutItem_fromInput = {
-    where: OSRIVWhereUniqueInput
-    create: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput>
-  }
-
-  export type OSRIVCreateManyItem_fromInputEnvelope = {
-    data: OSRIVCreateManyItem_fromInput | OSRIVCreateManyItem_fromInput[]
-    skipDuplicates?: boolean
-  }
-
   export type OSRIVItemCreateWithoutItemInput = {
     id?: string
     quantity: number
@@ -63267,62 +63492,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type SERIVCreateWithoutItem_fromInput = {
-    id?: string
-    seriv_number: string
-    date_requested: Date | string
-    purpose: string
-    requested_by_id: string
-    request_type: string
-    mwo_number?: string | null
-    jo_number?: string | null
-    consumer_name: string
-    location: string
-    department_id: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    seriv_approvers?: SERIVApproverCreateNestedManyWithoutSerivInput
-    seriv_items?: SERIVItemCreateNestedManyWithoutSerivInput
-  }
-
-  export type SERIVUncheckedCreateWithoutItem_fromInput = {
-    id?: string
-    seriv_number: string
-    date_requested: Date | string
-    purpose: string
-    requested_by_id: string
-    request_type: string
-    mwo_number?: string | null
-    jo_number?: string | null
-    consumer_name: string
-    location: string
-    department_id: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    seriv_approvers?: SERIVApproverUncheckedCreateNestedManyWithoutSerivInput
-    seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutSerivInput
-  }
-
-  export type SERIVCreateOrConnectWithoutItem_fromInput = {
-    where: SERIVWhereUniqueInput
-    create: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput>
-  }
-
-  export type SERIVCreateManyItem_fromInputEnvelope = {
-    data: SERIVCreateManyItem_fromInput | SERIVCreateManyItem_fromInput[]
-    skipDuplicates?: boolean
-  }
-
   export type SERIVItemCreateWithoutItemInput = {
     id?: string
     quantity: number
@@ -63344,66 +63513,6 @@ export namespace Prisma {
 
   export type SERIVItemCreateManyItemInputEnvelope = {
     data: SERIVItemCreateManyItemInput | SERIVItemCreateManyItemInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MRVCreateWithoutItem_fromInput = {
-    id?: string
-    project_id: string
-    mrv_number: string
-    date_requested: Date | string
-    purpose: string
-    requested_by_id: string
-    request_type: string
-    or_number?: string | null
-    jo_number?: string | null
-    cwo_number?: string | null
-    consumer_name: string
-    location: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
-    mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
-    mcts?: MCTCreateNestedManyWithoutMrvInput
-  }
-
-  export type MRVUncheckedCreateWithoutItem_fromInput = {
-    id?: string
-    project_id: string
-    mrv_number: string
-    date_requested: Date | string
-    purpose: string
-    requested_by_id: string
-    request_type: string
-    or_number?: string | null
-    jo_number?: string | null
-    cwo_number?: string | null
-    consumer_name: string
-    location: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    mrv_approvers?: MRVApproverUncheckedCreateNestedManyWithoutMrvInput
-    mrv_items?: MRVItemUncheckedCreateNestedManyWithoutMrvInput
-    mcts?: MCTUncheckedCreateNestedManyWithoutMrvInput
-  }
-
-  export type MRVCreateOrConnectWithoutItem_fromInput = {
-    where: MRVWhereUniqueInput
-    create: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput>
-  }
-
-  export type MRVCreateManyItem_fromInputEnvelope = {
-    data: MRVCreateManyItem_fromInput | MRVCreateManyItem_fromInput[]
     skipDuplicates?: boolean
   }
 
@@ -63568,44 +63677,6 @@ export namespace Prisma {
     data: XOR<ItemLocationUpdateManyMutationInput, ItemLocationUncheckedUpdateManyWithoutItemInput>
   }
 
-  export type OSRIVUpsertWithWhereUniqueWithoutItem_fromInput = {
-    where: OSRIVWhereUniqueInput
-    update: XOR<OSRIVUpdateWithoutItem_fromInput, OSRIVUncheckedUpdateWithoutItem_fromInput>
-    create: XOR<OSRIVCreateWithoutItem_fromInput, OSRIVUncheckedCreateWithoutItem_fromInput>
-  }
-
-  export type OSRIVUpdateWithWhereUniqueWithoutItem_fromInput = {
-    where: OSRIVWhereUniqueInput
-    data: XOR<OSRIVUpdateWithoutItem_fromInput, OSRIVUncheckedUpdateWithoutItem_fromInput>
-  }
-
-  export type OSRIVUpdateManyWithWhereWithoutItem_fromInput = {
-    where: OSRIVScalarWhereInput
-    data: XOR<OSRIVUpdateManyMutationInput, OSRIVUncheckedUpdateManyWithoutItem_fromInput>
-  }
-
-  export type OSRIVScalarWhereInput = {
-    AND?: OSRIVScalarWhereInput | OSRIVScalarWhereInput[]
-    OR?: OSRIVScalarWhereInput[]
-    NOT?: OSRIVScalarWhereInput | OSRIVScalarWhereInput[]
-    id?: StringFilter<"OSRIV"> | string
-    osriv_number?: StringFilter<"OSRIV"> | string
-    date_requested?: DateTimeFilter<"OSRIV"> | Date | string
-    purpose?: StringFilter<"OSRIV"> | string
-    requested_by_id?: StringFilter<"OSRIV"> | string
-    department_id?: StringFilter<"OSRIV"> | string
-    item_from_id?: StringFilter<"OSRIV"> | string
-    supervisor_id?: StringFilter<"OSRIV"> | string
-    warehouse_custodian_id?: StringFilter<"OSRIV"> | string
-    cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
-    created_by?: StringFilter<"OSRIV"> | string
-    updated_by?: StringNullableFilter<"OSRIV"> | string | null
-    cancelled_at?: DateTimeNullableFilter<"OSRIV"> | Date | string | null
-    created_at?: DateTimeFilter<"OSRIV"> | Date | string
-    updated_at?: DateTimeFilter<"OSRIV"> | Date | string
-    metadata?: JsonNullableFilter<"OSRIV">
-  }
-
   export type OSRIVItemUpsertWithWhereUniqueWithoutItemInput = {
     where: OSRIVItemWhereUniqueInput
     update: XOR<OSRIVItemUpdateWithoutItemInput, OSRIVItemUncheckedUpdateWithoutItemInput>
@@ -63633,47 +63704,6 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"OSRIVItem">
   }
 
-  export type SERIVUpsertWithWhereUniqueWithoutItem_fromInput = {
-    where: SERIVWhereUniqueInput
-    update: XOR<SERIVUpdateWithoutItem_fromInput, SERIVUncheckedUpdateWithoutItem_fromInput>
-    create: XOR<SERIVCreateWithoutItem_fromInput, SERIVUncheckedCreateWithoutItem_fromInput>
-  }
-
-  export type SERIVUpdateWithWhereUniqueWithoutItem_fromInput = {
-    where: SERIVWhereUniqueInput
-    data: XOR<SERIVUpdateWithoutItem_fromInput, SERIVUncheckedUpdateWithoutItem_fromInput>
-  }
-
-  export type SERIVUpdateManyWithWhereWithoutItem_fromInput = {
-    where: SERIVScalarWhereInput
-    data: XOR<SERIVUpdateManyMutationInput, SERIVUncheckedUpdateManyWithoutItem_fromInput>
-  }
-
-  export type SERIVScalarWhereInput = {
-    AND?: SERIVScalarWhereInput | SERIVScalarWhereInput[]
-    OR?: SERIVScalarWhereInput[]
-    NOT?: SERIVScalarWhereInput | SERIVScalarWhereInput[]
-    id?: StringFilter<"SERIV"> | string
-    seriv_number?: StringFilter<"SERIV"> | string
-    date_requested?: DateTimeFilter<"SERIV"> | Date | string
-    purpose?: StringFilter<"SERIV"> | string
-    requested_by_id?: StringFilter<"SERIV"> | string
-    request_type?: StringFilter<"SERIV"> | string
-    mwo_number?: StringNullableFilter<"SERIV"> | string | null
-    jo_number?: StringNullableFilter<"SERIV"> | string | null
-    consumer_name?: StringFilter<"SERIV"> | string
-    location?: StringFilter<"SERIV"> | string
-    department_id?: StringFilter<"SERIV"> | string
-    item_from_id?: StringFilter<"SERIV"> | string
-    cancelled_by?: StringNullableFilter<"SERIV"> | string | null
-    created_by?: StringFilter<"SERIV"> | string
-    updated_by?: StringNullableFilter<"SERIV"> | string | null
-    cancelled_at?: DateTimeNullableFilter<"SERIV"> | Date | string | null
-    created_at?: DateTimeFilter<"SERIV"> | Date | string
-    updated_at?: DateTimeFilter<"SERIV"> | Date | string
-    metadata?: JsonNullableFilter<"SERIV">
-  }
-
   export type SERIVItemUpsertWithWhereUniqueWithoutItemInput = {
     where: SERIVItemWhereUniqueInput
     update: XOR<SERIVItemUpdateWithoutItemInput, SERIVItemUncheckedUpdateWithoutItemInput>
@@ -63699,48 +63729,6 @@ export namespace Prisma {
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
     metadata?: JsonNullableFilter<"SERIVItem">
-  }
-
-  export type MRVUpsertWithWhereUniqueWithoutItem_fromInput = {
-    where: MRVWhereUniqueInput
-    update: XOR<MRVUpdateWithoutItem_fromInput, MRVUncheckedUpdateWithoutItem_fromInput>
-    create: XOR<MRVCreateWithoutItem_fromInput, MRVUncheckedCreateWithoutItem_fromInput>
-  }
-
-  export type MRVUpdateWithWhereUniqueWithoutItem_fromInput = {
-    where: MRVWhereUniqueInput
-    data: XOR<MRVUpdateWithoutItem_fromInput, MRVUncheckedUpdateWithoutItem_fromInput>
-  }
-
-  export type MRVUpdateManyWithWhereWithoutItem_fromInput = {
-    where: MRVScalarWhereInput
-    data: XOR<MRVUpdateManyMutationInput, MRVUncheckedUpdateManyWithoutItem_fromInput>
-  }
-
-  export type MRVScalarWhereInput = {
-    AND?: MRVScalarWhereInput | MRVScalarWhereInput[]
-    OR?: MRVScalarWhereInput[]
-    NOT?: MRVScalarWhereInput | MRVScalarWhereInput[]
-    id?: StringFilter<"MRV"> | string
-    project_id?: StringFilter<"MRV"> | string
-    mrv_number?: StringFilter<"MRV"> | string
-    date_requested?: DateTimeFilter<"MRV"> | Date | string
-    purpose?: StringFilter<"MRV"> | string
-    requested_by_id?: StringFilter<"MRV"> | string
-    request_type?: StringFilter<"MRV"> | string
-    or_number?: StringNullableFilter<"MRV"> | string | null
-    jo_number?: StringNullableFilter<"MRV"> | string | null
-    cwo_number?: StringNullableFilter<"MRV"> | string | null
-    consumer_name?: StringFilter<"MRV"> | string
-    location?: StringFilter<"MRV"> | string
-    item_from_id?: StringFilter<"MRV"> | string
-    cancelled_by?: StringNullableFilter<"MRV"> | string | null
-    created_by?: StringFilter<"MRV"> | string
-    updated_by?: StringNullableFilter<"MRV"> | string | null
-    cancelled_at?: DateTimeNullableFilter<"MRV"> | Date | string | null
-    created_at?: DateTimeFilter<"MRV"> | Date | string
-    updated_at?: DateTimeFilter<"MRV"> | Date | string
-    metadata?: JsonNullableFilter<"MRV">
   }
 
   export type MRVItemUpsertWithWhereUniqueWithoutItemInput = {
@@ -63789,11 +63777,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
-    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
-    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
   }
 
@@ -63816,11 +63801,8 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
-    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
-    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
   }
 
@@ -63840,6 +63822,9 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
+    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
+    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
   }
 
   export type StationUncheckedCreateWithoutItemsInput = {
@@ -63853,6 +63838,9 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
+    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
+    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
   }
 
   export type StationCreateOrConnectWithoutItemsInput = {
@@ -63946,11 +63934,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
   }
 
@@ -63973,11 +63958,8 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
@@ -64003,6 +63985,9 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
+    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
+    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
   }
 
   export type StationUncheckedUpdateWithoutItemsInput = {
@@ -64016,6 +64001,9 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
+    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
+    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
   }
 
   export type ItemMovementUpsertWithWhereUniqueWithoutOriginInput = {
@@ -64202,11 +64190,8 @@ export namespace Prisma {
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
-    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
-    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
   }
 
@@ -64229,11 +64214,8 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
-    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
-    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
   }
 
@@ -64293,11 +64275,8 @@ export namespace Prisma {
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
   }
 
@@ -64320,11 +64299,8 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
@@ -64810,11 +64786,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
-    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
-    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
   }
 
@@ -64837,11 +64810,8 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
-    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
-    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
   }
 
@@ -64996,11 +64966,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
   }
 
@@ -65023,11 +64990,8 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
@@ -67987,14 +67951,10 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type ItemCreateWithoutOsrivsInput = {
+  export type StationCreateWithoutOsrivsInput = {
     id?: string
-    code: string
     name: string
-    description?: string | null
-    total_quantity: number
-    initial_quantity: number
-    alert_level?: number
+    location: string
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -68002,28 +67962,15 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_type: ItemTypeCreateNestedOneWithoutItemsInput
-    item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
-    unit: UnitCreateNestedOneWithoutItemsInput
-    canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
-    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
-    osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
-    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
-    seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
+    items?: ItemLocationCreateNestedManyWithoutStationInput
     mrvs?: MRVCreateNestedManyWithoutItem_fromInput
-    mrv_items?: MRVItemCreateNestedManyWithoutItemInput
+    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
   }
 
-  export type ItemUncheckedCreateWithoutOsrivsInput = {
+  export type StationUncheckedCreateWithoutOsrivsInput = {
     id?: string
-    item_type_id: string
-    unit_id: string
-    code: string
     name: string
-    description?: string | null
-    total_quantity: number
-    initial_quantity: number
-    alert_level?: number
+    location: string
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -68031,19 +67978,14 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
-    canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
-    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
-    osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
-    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
-    seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
+    items?: ItemLocationUncheckedCreateNestedManyWithoutStationInput
     mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
-    mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
+    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
   }
 
-  export type ItemCreateOrConnectWithoutOsrivsInput = {
-    where: ItemWhereUniqueInput
-    create: XOR<ItemCreateWithoutOsrivsInput, ItemUncheckedCreateWithoutOsrivsInput>
+  export type StationCreateOrConnectWithoutOsrivsInput = {
+    where: StationWhereUniqueInput
+    create: XOR<StationCreateWithoutOsrivsInput, StationUncheckedCreateWithoutOsrivsInput>
   }
 
   export type OSRIVApproverCreateWithoutOsrivInput = {
@@ -68106,25 +68048,21 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ItemUpsertWithoutOsrivsInput = {
-    update: XOR<ItemUpdateWithoutOsrivsInput, ItemUncheckedUpdateWithoutOsrivsInput>
-    create: XOR<ItemCreateWithoutOsrivsInput, ItemUncheckedCreateWithoutOsrivsInput>
-    where?: ItemWhereInput
+  export type StationUpsertWithoutOsrivsInput = {
+    update: XOR<StationUpdateWithoutOsrivsInput, StationUncheckedUpdateWithoutOsrivsInput>
+    create: XOR<StationCreateWithoutOsrivsInput, StationUncheckedCreateWithoutOsrivsInput>
+    where?: StationWhereInput
   }
 
-  export type ItemUpdateToOneWithWhereWithoutOsrivsInput = {
-    where?: ItemWhereInput
-    data: XOR<ItemUpdateWithoutOsrivsInput, ItemUncheckedUpdateWithoutOsrivsInput>
+  export type StationUpdateToOneWithWhereWithoutOsrivsInput = {
+    where?: StationWhereInput
+    data: XOR<StationUpdateWithoutOsrivsInput, StationUncheckedUpdateWithoutOsrivsInput>
   }
 
-  export type ItemUpdateWithoutOsrivsInput = {
+  export type StationUpdateWithoutOsrivsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    total_quantity?: IntFieldUpdateOperationsInput | number
-    initial_quantity?: IntFieldUpdateOperationsInput | number
-    alert_level?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68132,28 +68070,15 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
-    item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
-    unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
-    canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
-    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
-    osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
-    seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
+    items?: ItemLocationUpdateManyWithoutStationNestedInput
     mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
-    mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
+    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
   }
 
-  export type ItemUncheckedUpdateWithoutOsrivsInput = {
+  export type StationUncheckedUpdateWithoutOsrivsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    item_type_id?: StringFieldUpdateOperationsInput | string
-    unit_id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    total_quantity?: IntFieldUpdateOperationsInput | number
-    initial_quantity?: IntFieldUpdateOperationsInput | number
-    alert_level?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68161,14 +68086,9 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
-    canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
-    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
-    osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
-    seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
+    items?: ItemLocationUncheckedUpdateManyWithoutStationNestedInput
     mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
-    mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
+    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
   }
 
   export type OSRIVApproverUpsertWithWhereUniqueWithoutOsrivInput = {
@@ -68236,7 +68156,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from: ItemCreateNestedOneWithoutOsrivsInput
+    item_from: StationCreateNestedOneWithoutOsrivsInput
     osriv_items?: OSRIVItemCreateNestedManyWithoutOsrivInput
   }
 
@@ -68292,7 +68212,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from?: ItemUpdateOneRequiredWithoutOsrivsNestedInput
+    item_from?: StationUpdateOneRequiredWithoutOsrivsNestedInput
     osriv_items?: OSRIVItemUpdateManyWithoutOsrivNestedInput
   }
 
@@ -68332,7 +68252,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from: ItemCreateNestedOneWithoutOsrivsInput
+    item_from: StationCreateNestedOneWithoutOsrivsInput
     osriv_approvers?: OSRIVApproverCreateNestedManyWithoutOsrivInput
   }
 
@@ -68381,10 +68301,7 @@ export namespace Prisma {
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
-    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
-    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
   }
 
@@ -68408,10 +68325,7 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
-    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
-    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
   }
 
@@ -68447,7 +68361,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from?: ItemUpdateOneRequiredWithoutOsrivsNestedInput
+    item_from?: StationUpdateOneRequiredWithoutOsrivsNestedInput
     osriv_approvers?: OSRIVApproverUpdateManyWithoutOsrivNestedInput
   }
 
@@ -68502,10 +68416,7 @@ export namespace Prisma {
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
-    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
   }
 
@@ -68529,21 +68440,14 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
-    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
-  export type ItemCreateWithoutSerivsInput = {
+  export type StationCreateWithoutSerivsInput = {
     id?: string
-    code: string
     name: string
-    description?: string | null
-    total_quantity: number
-    initial_quantity: number
-    alert_level?: number
+    location: string
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -68551,28 +68455,15 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_type: ItemTypeCreateNestedOneWithoutItemsInput
-    item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
-    unit: UnitCreateNestedOneWithoutItemsInput
-    canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
-    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
+    items?: ItemLocationCreateNestedManyWithoutStationInput
     osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
-    osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
-    seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mrvs?: MRVCreateNestedManyWithoutItem_fromInput
-    mrv_items?: MRVItemCreateNestedManyWithoutItemInput
   }
 
-  export type ItemUncheckedCreateWithoutSerivsInput = {
+  export type StationUncheckedCreateWithoutSerivsInput = {
     id?: string
-    item_type_id: string
-    unit_id: string
-    code: string
     name: string
-    description?: string | null
-    total_quantity: number
-    initial_quantity: number
-    alert_level?: number
+    location: string
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -68580,19 +68471,14 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
-    canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
-    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
+    items?: ItemLocationUncheckedCreateNestedManyWithoutStationInput
     osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
-    osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
-    seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
-    mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
   }
 
-  export type ItemCreateOrConnectWithoutSerivsInput = {
-    where: ItemWhereUniqueInput
-    create: XOR<ItemCreateWithoutSerivsInput, ItemUncheckedCreateWithoutSerivsInput>
+  export type StationCreateOrConnectWithoutSerivsInput = {
+    where: StationWhereUniqueInput
+    create: XOR<StationCreateWithoutSerivsInput, StationUncheckedCreateWithoutSerivsInput>
   }
 
   export type SERIVApproverCreateWithoutSerivInput = {
@@ -68651,25 +68537,21 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ItemUpsertWithoutSerivsInput = {
-    update: XOR<ItemUpdateWithoutSerivsInput, ItemUncheckedUpdateWithoutSerivsInput>
-    create: XOR<ItemCreateWithoutSerivsInput, ItemUncheckedCreateWithoutSerivsInput>
-    where?: ItemWhereInput
+  export type StationUpsertWithoutSerivsInput = {
+    update: XOR<StationUpdateWithoutSerivsInput, StationUncheckedUpdateWithoutSerivsInput>
+    create: XOR<StationCreateWithoutSerivsInput, StationUncheckedCreateWithoutSerivsInput>
+    where?: StationWhereInput
   }
 
-  export type ItemUpdateToOneWithWhereWithoutSerivsInput = {
-    where?: ItemWhereInput
-    data: XOR<ItemUpdateWithoutSerivsInput, ItemUncheckedUpdateWithoutSerivsInput>
+  export type StationUpdateToOneWithWhereWithoutSerivsInput = {
+    where?: StationWhereInput
+    data: XOR<StationUpdateWithoutSerivsInput, StationUncheckedUpdateWithoutSerivsInput>
   }
 
-  export type ItemUpdateWithoutSerivsInput = {
+  export type StationUpdateWithoutSerivsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    total_quantity?: IntFieldUpdateOperationsInput | number
-    initial_quantity?: IntFieldUpdateOperationsInput | number
-    alert_level?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68677,28 +68559,15 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
-    item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
-    unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
-    canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
-    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
+    items?: ItemLocationUpdateManyWithoutStationNestedInput
     osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
-    osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
-    seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
-    mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
   }
 
-  export type ItemUncheckedUpdateWithoutSerivsInput = {
+  export type StationUncheckedUpdateWithoutSerivsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    item_type_id?: StringFieldUpdateOperationsInput | string
-    unit_id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    total_quantity?: IntFieldUpdateOperationsInput | number
-    initial_quantity?: IntFieldUpdateOperationsInput | number
-    alert_level?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68706,14 +68575,9 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
-    canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
-    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
+    items?: ItemLocationUncheckedUpdateManyWithoutStationNestedInput
     osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
-    osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
-    seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
-    mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type SERIVApproverUpsertWithWhereUniqueWithoutSerivInput = {
@@ -68782,7 +68646,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from: ItemCreateNestedOneWithoutSerivsInput
+    item_from: StationCreateNestedOneWithoutSerivsInput
     seriv_items?: SERIVItemCreateNestedManyWithoutSerivInput
   }
 
@@ -68844,7 +68708,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from?: ItemUpdateOneRequiredWithoutSerivsNestedInput
+    item_from?: StationUpdateOneRequiredWithoutSerivsNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutSerivNestedInput
   }
 
@@ -68890,7 +68754,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from: ItemCreateNestedOneWithoutSerivsInput
+    item_from: StationCreateNestedOneWithoutSerivsInput
     seriv_approvers?: SERIVApproverCreateNestedManyWithoutSerivInput
   }
 
@@ -68942,10 +68806,7 @@ export namespace Prisma {
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
-    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
-    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
   }
 
@@ -68969,10 +68830,7 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
-    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
-    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
   }
 
@@ -69011,7 +68869,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from?: ItemUpdateOneRequiredWithoutSerivsNestedInput
+    item_from?: StationUpdateOneRequiredWithoutSerivsNestedInput
     seriv_approvers?: SERIVApproverUpdateManyWithoutSerivNestedInput
   }
 
@@ -69069,10 +68927,7 @@ export namespace Prisma {
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
-    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
   }
 
@@ -69096,21 +68951,14 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
-    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
-  export type ItemCreateWithoutMrvsInput = {
+  export type StationCreateWithoutMrvsInput = {
     id?: string
-    code: string
     name: string
-    description?: string | null
-    total_quantity: number
-    initial_quantity: number
-    alert_level?: number
+    location: string
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -69118,28 +68966,15 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_type: ItemTypeCreateNestedOneWithoutItemsInput
-    item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
-    unit: UnitCreateNestedOneWithoutItemsInput
-    canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
-    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
+    items?: ItemLocationCreateNestedManyWithoutStationInput
     osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
-    osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
     serivs?: SERIVCreateNestedManyWithoutItem_fromInput
-    seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
-    mrv_items?: MRVItemCreateNestedManyWithoutItemInput
   }
 
-  export type ItemUncheckedCreateWithoutMrvsInput = {
+  export type StationUncheckedCreateWithoutMrvsInput = {
     id?: string
-    item_type_id: string
-    unit_id: string
-    code: string
     name: string
-    description?: string | null
-    total_quantity: number
-    initial_quantity: number
-    alert_level?: number
+    location: string
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -69147,19 +68982,14 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
-    canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
-    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
+    items?: ItemLocationUncheckedCreateNestedManyWithoutStationInput
     osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
-    osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
     serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
-    seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
-    mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
   }
 
-  export type ItemCreateOrConnectWithoutMrvsInput = {
-    where: ItemWhereUniqueInput
-    create: XOR<ItemCreateWithoutMrvsInput, ItemUncheckedCreateWithoutMrvsInput>
+  export type StationCreateOrConnectWithoutMrvsInput = {
+    where: StationWhereUniqueInput
+    create: XOR<StationCreateWithoutMrvsInput, StationUncheckedCreateWithoutMrvsInput>
   }
 
   export type MRVApproverCreateWithoutMrvInput = {
@@ -69258,25 +69088,21 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ItemUpsertWithoutMrvsInput = {
-    update: XOR<ItemUpdateWithoutMrvsInput, ItemUncheckedUpdateWithoutMrvsInput>
-    create: XOR<ItemCreateWithoutMrvsInput, ItemUncheckedCreateWithoutMrvsInput>
-    where?: ItemWhereInput
+  export type StationUpsertWithoutMrvsInput = {
+    update: XOR<StationUpdateWithoutMrvsInput, StationUncheckedUpdateWithoutMrvsInput>
+    create: XOR<StationCreateWithoutMrvsInput, StationUncheckedCreateWithoutMrvsInput>
+    where?: StationWhereInput
   }
 
-  export type ItemUpdateToOneWithWhereWithoutMrvsInput = {
-    where?: ItemWhereInput
-    data: XOR<ItemUpdateWithoutMrvsInput, ItemUncheckedUpdateWithoutMrvsInput>
+  export type StationUpdateToOneWithWhereWithoutMrvsInput = {
+    where?: StationWhereInput
+    data: XOR<StationUpdateWithoutMrvsInput, StationUncheckedUpdateWithoutMrvsInput>
   }
 
-  export type ItemUpdateWithoutMrvsInput = {
+  export type StationUpdateWithoutMrvsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    total_quantity?: IntFieldUpdateOperationsInput | number
-    initial_quantity?: IntFieldUpdateOperationsInput | number
-    alert_level?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69284,28 +69110,15 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
-    item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
-    unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
-    canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
-    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
+    items?: ItemLocationUpdateManyWithoutStationNestedInput
     osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
-    osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
     serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
-    seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
-    mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
   }
 
-  export type ItemUncheckedUpdateWithoutMrvsInput = {
+  export type StationUncheckedUpdateWithoutMrvsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    item_type_id?: StringFieldUpdateOperationsInput | string
-    unit_id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    total_quantity?: IntFieldUpdateOperationsInput | number
-    initial_quantity?: IntFieldUpdateOperationsInput | number
-    alert_level?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69313,14 +69126,9 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
-    canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
-    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
+    items?: ItemLocationUncheckedUpdateManyWithoutStationNestedInput
     osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
-    osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
     serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
-    seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
-    mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type MRVApproverUpsertWithWhereUniqueWithoutMrvInput = {
@@ -69423,7 +69231,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from: ItemCreateNestedOneWithoutMrvsInput
+    item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
     mcts?: MCTCreateNestedManyWithoutMrvInput
   }
@@ -69489,7 +69297,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from?: ItemUpdateOneRequiredWithoutMrvsNestedInput
+    item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
     mcts?: MCTUpdateManyWithoutMrvNestedInput
   }
@@ -69539,7 +69347,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from: ItemCreateNestedOneWithoutMrvsInput
+    item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
     mcts?: MCTCreateNestedManyWithoutMrvInput
   }
@@ -69594,11 +69402,8 @@ export namespace Prisma {
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
-    serivs?: SERIVCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
-    mrvs?: MRVCreateNestedManyWithoutItem_fromInput
   }
 
   export type ItemUncheckedCreateWithoutMrv_itemsInput = {
@@ -69621,11 +69426,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
-    osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
-    serivs?: SERIVUncheckedCreateNestedManyWithoutItem_fromInput
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
-    mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
   }
 
   export type ItemCreateOrConnectWithoutMrv_itemsInput = {
@@ -69664,7 +69466,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from?: ItemUpdateOneRequiredWithoutMrvsNestedInput
+    item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
     mcts?: MCTUpdateManyWithoutMrvNestedInput
   }
@@ -69725,11 +69527,8 @@ export namespace Prisma {
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutMrv_itemsInput = {
@@ -69752,11 +69551,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
   }
 
   export type MRVCreateWithoutMctsInput = {
@@ -69779,7 +69575,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from: ItemCreateNestedOneWithoutMrvsInput
+    item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
   }
@@ -69929,7 +69725,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    item_from?: ItemUpdateOneRequiredWithoutMrvsNestedInput
+    item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
   }
@@ -70382,11 +70178,8 @@ export namespace Prisma {
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
   }
 
@@ -70409,11 +70202,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
@@ -70544,11 +70334,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
   }
 
@@ -70571,11 +70358,8 @@ export namespace Prisma {
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
-    osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
-    serivs?: SERIVUncheckedUpdateManyWithoutItem_fromNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
-    mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
@@ -70678,6 +70462,67 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
+  export type OSRIVCreateManyItem_fromInput = {
+    id?: string
+    osriv_number: string
+    date_requested: Date | string
+    purpose: string
+    requested_by_id: string
+    department_id: string
+    supervisor_id: string
+    warehouse_custodian_id: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MRVCreateManyItem_fromInput = {
+    id?: string
+    project_id: string
+    mrv_number: string
+    date_requested: Date | string
+    purpose: string
+    requested_by_id: string
+    request_type: string
+    or_number?: string | null
+    jo_number?: string | null
+    cwo_number?: string | null
+    consumer_name: string
+    location: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type SERIVCreateManyItem_fromInput = {
+    id?: string
+    seriv_number: string
+    date_requested: Date | string
+    purpose: string
+    requested_by_id: string
+    request_type: string
+    mwo_number?: string | null
+    jo_number?: string | null
+    consumer_name: string
+    location: string
+    department_id: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type ItemLocationUpdateWithoutStationInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity_on_hand?: IntFieldUpdateOperationsInput | number
@@ -70706,6 +70551,203 @@ export namespace Prisma {
     quantity_on_hand?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type OSRIVUpdateWithoutItem_fromInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    osriv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    department_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    osriv_approvers?: OSRIVApproverUpdateManyWithoutOsrivNestedInput
+    osriv_items?: OSRIVItemUpdateManyWithoutOsrivNestedInput
+  }
+
+  export type OSRIVUncheckedUpdateWithoutItem_fromInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    osriv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    department_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    osriv_approvers?: OSRIVApproverUncheckedUpdateManyWithoutOsrivNestedInput
+    osriv_items?: OSRIVItemUncheckedUpdateManyWithoutOsrivNestedInput
+  }
+
+  export type OSRIVUncheckedUpdateManyWithoutItem_fromInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    osriv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    department_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MRVUpdateWithoutItem_fromInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    project_id?: StringFieldUpdateOperationsInput | string
+    mrv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    request_type?: StringFieldUpdateOperationsInput | string
+    or_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    consumer_name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
+    mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
+    mcts?: MCTUpdateManyWithoutMrvNestedInput
+  }
+
+  export type MRVUncheckedUpdateWithoutItem_fromInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    project_id?: StringFieldUpdateOperationsInput | string
+    mrv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    request_type?: StringFieldUpdateOperationsInput | string
+    or_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    consumer_name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mrv_approvers?: MRVApproverUncheckedUpdateManyWithoutMrvNestedInput
+    mrv_items?: MRVItemUncheckedUpdateManyWithoutMrvNestedInput
+    mcts?: MCTUncheckedUpdateManyWithoutMrvNestedInput
+  }
+
+  export type MRVUncheckedUpdateManyWithoutItem_fromInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    project_id?: StringFieldUpdateOperationsInput | string
+    mrv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    request_type?: StringFieldUpdateOperationsInput | string
+    or_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    consumer_name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type SERIVUpdateWithoutItem_fromInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    seriv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    request_type?: StringFieldUpdateOperationsInput | string
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    consumer_name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    department_id?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    seriv_approvers?: SERIVApproverUpdateManyWithoutSerivNestedInput
+    seriv_items?: SERIVItemUpdateManyWithoutSerivNestedInput
+  }
+
+  export type SERIVUncheckedUpdateWithoutItem_fromInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    seriv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    request_type?: StringFieldUpdateOperationsInput | string
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    consumer_name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    department_id?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    seriv_approvers?: SERIVApproverUncheckedUpdateManyWithoutSerivNestedInput
+    seriv_items?: SERIVItemUncheckedUpdateManyWithoutSerivNestedInput
+  }
+
+  export type SERIVUncheckedUpdateManyWithoutItem_fromInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    seriv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    request_type?: StringFieldUpdateOperationsInput | string
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    consumer_name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    department_id?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70740,24 +70782,6 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type OSRIVCreateManyItem_fromInput = {
-    id?: string
-    osriv_number: string
-    date_requested: Date | string
-    purpose: string
-    requested_by_id: string
-    department_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
   export type OSRIVItemCreateManyItemInput = {
     id?: string
     osriv_id: string
@@ -70765,53 +70789,10 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type SERIVCreateManyItem_fromInput = {
-    id?: string
-    seriv_number: string
-    date_requested: Date | string
-    purpose: string
-    requested_by_id: string
-    request_type: string
-    mwo_number?: string | null
-    jo_number?: string | null
-    consumer_name: string
-    location: string
-    department_id: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
   export type SERIVItemCreateManyItemInput = {
     id?: string
     seriv_id: string
     quantity: number
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type MRVCreateManyItem_fromInput = {
-    id?: string
-    project_id: string
-    mrv_number: string
-    date_requested: Date | string
-    purpose: string
-    requested_by_id: string
-    request_type: string
-    or_number?: string | null
-    jo_number?: string | null
-    cwo_number?: string | null
-    consumer_name: string
-    location: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70920,64 +70901,6 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type OSRIVUpdateWithoutItem_fromInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    osriv_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    osriv_approvers?: OSRIVApproverUpdateManyWithoutOsrivNestedInput
-    osriv_items?: OSRIVItemUpdateManyWithoutOsrivNestedInput
-  }
-
-  export type OSRIVUncheckedUpdateWithoutItem_fromInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    osriv_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    osriv_approvers?: OSRIVApproverUncheckedUpdateManyWithoutOsrivNestedInput
-    osriv_items?: OSRIVItemUncheckedUpdateManyWithoutOsrivNestedInput
-  }
-
-  export type OSRIVUncheckedUpdateManyWithoutItem_fromInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    osriv_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
   export type OSRIVItemUpdateWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -70999,73 +70922,6 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type SERIVUpdateWithoutItem_fromInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
-    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    seriv_approvers?: SERIVApproverUpdateManyWithoutSerivNestedInput
-    seriv_items?: SERIVItemUpdateManyWithoutSerivNestedInput
-  }
-
-  export type SERIVUncheckedUpdateWithoutItem_fromInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
-    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    seriv_approvers?: SERIVApproverUncheckedUpdateManyWithoutSerivNestedInput
-    seriv_items?: SERIVItemUncheckedUpdateManyWithoutSerivNestedInput
-  }
-
-  export type SERIVUncheckedUpdateManyWithoutItem_fromInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
-    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
   export type SERIVItemUpdateWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -71084,78 +70940,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     seriv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type MRVUpdateWithoutItem_fromInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    project_id?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
-    or_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
-    mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUpdateManyWithoutMrvNestedInput
-  }
-
-  export type MRVUncheckedUpdateWithoutItem_fromInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    project_id?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
-    or_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    mrv_approvers?: MRVApproverUncheckedUpdateManyWithoutMrvNestedInput
-    mrv_items?: MRVItemUncheckedUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUncheckedUpdateManyWithoutMrvNestedInput
-  }
-
-  export type MRVUncheckedUpdateManyWithoutItem_fromInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    project_id?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
-    or_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
