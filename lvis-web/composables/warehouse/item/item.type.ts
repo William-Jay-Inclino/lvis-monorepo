@@ -9,6 +9,7 @@ export interface Item {
 	name: string;
 	description: string;
 	total_quantity: number;
+	available_quantity: number;
 	initial_quantity: number;
 	item_type: ItemType;
 	item_transactions: ItemTransaction[];

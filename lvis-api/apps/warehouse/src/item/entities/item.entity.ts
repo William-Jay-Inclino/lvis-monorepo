@@ -28,6 +28,9 @@ export class Item {
   total_quantity: number;
 
   @Field(() => Int)
+  available_quantity: number;
+
+  @Field(() => Int)
   initial_quantity: number;
 
   @Field(() => Int)
@@ -64,6 +67,9 @@ export class Item {
 
   @Field(() => Unit)
   unit: Unit;
+
+  @Field(() => Int)
+  average_price: number;
 
   // @Field(() => [CanvassItem])
   // canvass_items: CanvassItem[];

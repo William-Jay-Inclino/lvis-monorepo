@@ -68,6 +68,7 @@ export class ItemService {
 			description: input.description,
 			initial_quantity: input.initial_quantity,
 			total_quantity: input.initial_quantity,
+			available_quantity: input.initial_quantity,
 			alert_level: input.alert_level,
 			created_by: createdBy,
 			item_transactions: {

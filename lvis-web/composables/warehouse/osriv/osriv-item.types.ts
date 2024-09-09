@@ -14,7 +14,15 @@ export interface OSRIVItem {
     item: Item
 }
 
+
 export interface CreateOSRIVItem {
-    quantity: number 
-    item: Item | null
+	id: string;
+	code: string;
+	name: string;
+	description: string;
+	available_quantity: number;
+	unit: Unit;
+	GWAPrice: number
+
+    qty_input: number
 }

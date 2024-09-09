@@ -1,6 +1,8 @@
 import type { CreateOsrivInput, FindAllResponse, MutationResponse, OSRIV, UpdateOsrivInput } from "./osriv.types";
 import { sendRequest } from "~/utils/api"
 import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Station } from "../station/station";
+import type { Item } from "../item/item.type";
 
 export async function fetchDataInSearchFilters(): Promise<{
     osrivs: OSRIV[],
@@ -210,11 +212,27 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
 
 export async function fetchFormDataInCreate(): Promise<{
     employees: Employee[],
+    stations: Station[],
+    items: Item[],
 }> {
 
     const query = `
         query {
-            employees(page: 1, pageSize: 10) {
+            items(page: 1, pageSize: 200) {
+                data{
+                    id
+                    code
+                    name
+                    description
+                    unit {
+                        id 
+                        name
+                    }
+                    available_quantity
+                    GWAPrice
+                }
+            },
+            employees(page: 1, pageSize: 300) {
                 data{
                     id
                     firstname
@@ -222,6 +240,11 @@ export async function fetchFormDataInCreate(): Promise<{
                     lastname
                 }
             },
+            stations {
+                id 
+                name
+                location
+            }
         }
     `;
 
@@ -230,23 +253,39 @@ export async function fetchFormDataInCreate(): Promise<{
         console.log('response', response)
 
         let employees = []
+        let stations = []
+        let items = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
         }
 
         const data = response.data.data
+
         if (data.employees && data.employees.data) {
             employees = response.data.data.employees.data
         }
+
+        if (data.items && data.items.data) {
+            items = response.data.data.items.data
+        }
+
+        if (data.stations) {
+            stations = response.data.data.stations
+        }
+
         return {
             employees,
+            stations,
+            items,
         }
 
     } catch (error) {
         console.error(error);
         return {
             employees: [],
+            stations: [],
+            items: [],
         }
     }
 
@@ -359,8 +398,8 @@ export async function create(input: CreateOsrivInput): Promise<MutationResponse>
     const items = input.items.map(i => {
         return `
         {
-          item_id: "${i.item?.id}"
-          quantity: ${i.quantity}
+          item_id: "${i.id}"
+          quantity: ${i.qty_input}
         }`;
     }).join(', ');
 

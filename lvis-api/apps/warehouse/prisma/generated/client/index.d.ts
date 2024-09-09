@@ -12114,12 +12114,14 @@ export namespace Prisma {
 
   export type ItemAvgAggregateOutputType = {
     total_quantity: number | null
+    available_quantity: number | null
     initial_quantity: number | null
     alert_level: number | null
   }
 
   export type ItemSumAggregateOutputType = {
     total_quantity: number | null
+    available_quantity: number | null
     initial_quantity: number | null
     alert_level: number | null
   }
@@ -12132,6 +12134,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     total_quantity: number | null
+    available_quantity: number | null
     initial_quantity: number | null
     alert_level: number | null
     created_by: string | null
@@ -12150,6 +12153,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     total_quantity: number | null
+    available_quantity: number | null
     initial_quantity: number | null
     alert_level: number | null
     created_by: string | null
@@ -12168,6 +12172,7 @@ export namespace Prisma {
     name: number
     description: number
     total_quantity: number
+    available_quantity: number
     initial_quantity: number
     alert_level: number
     created_by: number
@@ -12183,12 +12188,14 @@ export namespace Prisma {
 
   export type ItemAvgAggregateInputType = {
     total_quantity?: true
+    available_quantity?: true
     initial_quantity?: true
     alert_level?: true
   }
 
   export type ItemSumAggregateInputType = {
     total_quantity?: true
+    available_quantity?: true
     initial_quantity?: true
     alert_level?: true
   }
@@ -12201,6 +12208,7 @@ export namespace Prisma {
     name?: true
     description?: true
     total_quantity?: true
+    available_quantity?: true
     initial_quantity?: true
     alert_level?: true
     created_by?: true
@@ -12219,6 +12227,7 @@ export namespace Prisma {
     name?: true
     description?: true
     total_quantity?: true
+    available_quantity?: true
     initial_quantity?: true
     alert_level?: true
     created_by?: true
@@ -12237,6 +12246,7 @@ export namespace Prisma {
     name?: true
     description?: true
     total_quantity?: true
+    available_quantity?: true
     initial_quantity?: true
     alert_level?: true
     created_by?: true
@@ -12343,6 +12353,7 @@ export namespace Prisma {
     name: string
     description: string | null
     total_quantity: number
+    available_quantity: number
     initial_quantity: number
     alert_level: number
     created_by: string
@@ -12381,6 +12392,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     total_quantity?: boolean
+    available_quantity?: boolean
     initial_quantity?: boolean
     alert_level?: boolean
     created_by?: boolean
@@ -12409,6 +12421,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     total_quantity?: boolean
+    available_quantity?: boolean
     initial_quantity?: boolean
     alert_level?: boolean
     created_by?: boolean
@@ -12453,6 +12466,7 @@ export namespace Prisma {
       name: string
       description: string | null
       total_quantity: number
+      available_quantity: number
       initial_quantity: number
       alert_level: number
       created_by: string
@@ -12878,6 +12892,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Item", 'String'>
     readonly description: FieldRef<"Item", 'String'>
     readonly total_quantity: FieldRef<"Item", 'Int'>
+    readonly available_quantity: FieldRef<"Item", 'Int'>
     readonly initial_quantity: FieldRef<"Item", 'Int'>
     readonly alert_level: FieldRef<"Item", 'Int'>
     readonly created_by: FieldRef<"Item", 'String'>
@@ -48550,6 +48565,7 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     total_quantity: 'total_quantity',
+    available_quantity: 'available_quantity',
     initial_quantity: 'initial_quantity',
     alert_level: 'alert_level',
     created_by: 'created_by',
@@ -49816,6 +49832,7 @@ export namespace Prisma {
     name?: StringFilter<"Item"> | string
     description?: StringNullableFilter<"Item"> | string | null
     total_quantity?: IntFilter<"Item"> | number
+    available_quantity?: IntFilter<"Item"> | number
     initial_quantity?: IntFilter<"Item"> | number
     alert_level?: IntFilter<"Item"> | number
     created_by?: StringFilter<"Item"> | string
@@ -49843,6 +49860,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     total_quantity?: SortOrder
+    available_quantity?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
     created_by?: SortOrder
@@ -49873,6 +49891,7 @@ export namespace Prisma {
     name?: StringFilter<"Item"> | string
     description?: StringNullableFilter<"Item"> | string | null
     total_quantity?: IntFilter<"Item"> | number
+    available_quantity?: IntFilter<"Item"> | number
     initial_quantity?: IntFilter<"Item"> | number
     alert_level?: IntFilter<"Item"> | number
     created_by?: StringFilter<"Item"> | string
@@ -49900,6 +49919,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     total_quantity?: SortOrder
+    available_quantity?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
     created_by?: SortOrder
@@ -49927,6 +49947,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Item"> | string
     description?: StringNullableWithAggregatesFilter<"Item"> | string | null
     total_quantity?: IntWithAggregatesFilter<"Item"> | number
+    available_quantity?: IntWithAggregatesFilter<"Item"> | number
     initial_quantity?: IntWithAggregatesFilter<"Item"> | number
     alert_level?: IntWithAggregatesFilter<"Item"> | number
     created_by?: StringWithAggregatesFilter<"Item"> | string
@@ -53607,6 +53628,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -53634,6 +53656,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -53657,6 +53680,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -53684,6 +53708,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -53709,6 +53734,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -53726,6 +53752,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -53745,6 +53772,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -57710,6 +57738,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     total_quantity?: SortOrder
+    available_quantity?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
     created_by?: SortOrder
@@ -57723,6 +57752,7 @@ export namespace Prisma {
 
   export type ItemAvgOrderByAggregateInput = {
     total_quantity?: SortOrder
+    available_quantity?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
   }
@@ -57735,6 +57765,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     total_quantity?: SortOrder
+    available_quantity?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
     created_by?: SortOrder
@@ -57753,6 +57784,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     total_quantity?: SortOrder
+    available_quantity?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
     created_by?: SortOrder
@@ -57765,6 +57797,7 @@ export namespace Prisma {
 
   export type ItemSumOrderByAggregateInput = {
     total_quantity?: SortOrder
+    available_quantity?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
   }
@@ -62598,6 +62631,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -62623,6 +62657,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -62677,6 +62712,7 @@ export namespace Prisma {
     name?: StringFilter<"Item"> | string
     description?: StringNullableFilter<"Item"> | string | null
     total_quantity?: IntFilter<"Item"> | number
+    available_quantity?: IntFilter<"Item"> | number
     initial_quantity?: IntFilter<"Item"> | number
     alert_level?: IntFilter<"Item"> | number
     created_by?: StringFilter<"Item"> | string
@@ -62781,6 +62817,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -62806,6 +62843,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -63764,6 +63802,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -63790,6 +63829,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -63921,6 +63961,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -63947,6 +63988,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -64177,6 +64219,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -64203,6 +64246,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -64262,6 +64306,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -64288,6 +64333,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -64773,6 +64819,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -64799,6 +64846,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -64953,6 +65001,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -64979,6 +65028,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -68287,6 +68337,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -68313,6 +68364,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -68402,6 +68454,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -68428,6 +68481,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -68792,6 +68846,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -68818,6 +68873,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -68913,6 +68969,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -68939,6 +68996,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -69388,6 +69446,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -69414,6 +69473,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -69513,6 +69573,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -69539,6 +69600,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70148,6 +70210,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -70165,6 +70228,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70190,6 +70254,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70214,6 +70279,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70275,6 +70341,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     total_quantity: number
+    available_quantity?: number
     initial_quantity: number
     alert_level?: number
     created_by: string
@@ -70321,6 +70388,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70346,6 +70414,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70370,6 +70439,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
+    available_quantity?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
