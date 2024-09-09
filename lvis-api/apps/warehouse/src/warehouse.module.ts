@@ -45,6 +45,7 @@ import { PendingModule } from './pending/pending.module';
 import { OsrivModule } from './osriv/osriv.module';
 import { OsrivApproverModule } from './osriv-approver/osriv-approver.module';
 import { OsrivItemModule } from './osriv-item/osriv-item.module';
+import { StationModule } from './station/station.module';
 
 
 @Module({
@@ -89,6 +90,7 @@ import { OsrivItemModule } from './osriv-item/osriv-item.module';
     OsrivModule,
     OsrivApproverModule,
     OsrivItemModule,
+    StationModule,
     // PrometheusModule.register()
   ],
   controllers: [],

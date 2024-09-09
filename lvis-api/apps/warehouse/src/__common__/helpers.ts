@@ -196,6 +196,11 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.updateVehicle]: warehousePermissions.canManageVehicle?.update ?? false,
             [RESOLVERS.removeVehicle]: warehousePermissions.canManageVehicle?.delete ?? false,
         },
+        [MODULES.STATION]: {
+            [RESOLVERS.createStation]: warehousePermissions.canManageStation?.create ?? false,
+            [RESOLVERS.updateStation]: warehousePermissions.canManageStation?.update ?? false,
+            [RESOLVERS.removeStation]: warehousePermissions.canManageStation?.delete ?? false,
+        },
         [MODULES.ITEM]: {
             [RESOLVERS.createItem]: warehousePermissions.canManageItem?.create ?? false,
             // [RESOLVERS.items]: warehousePermissions.canManageItem?.search ?? false,

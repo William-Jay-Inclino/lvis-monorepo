@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">RV Number</label>
                             <client-only>
@@ -17,13 +17,13 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="date_requested" type="date" class="form-control">
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
@@ -336,8 +336,8 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
 
 // ======================== UTILS ======================== 
 
-const onClickViewDetails = (id: string) => router.push('/warehouse/purchasing/osriv/view/' + id)
-const onClickAdd = () => router.push('/warehouse/purchasing/osriv/create')
+const onClickViewDetails = (id: string) => router.push('/warehouse/warehousing/osriv/view/' + id)
+const onClickAdd = () => router.push('/warehouse/warehousing/osriv/create')
 
 const debouncedSearchOsrivNumbers = debounce((input: string, loading: (status: boolean) => void) => {
   searchOsrivNumbers(input, loading);

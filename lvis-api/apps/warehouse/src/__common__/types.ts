@@ -102,6 +102,7 @@ export enum MODULES {
     SUPPLIER = 'SUPPLIER',
     UNIT = 'UNIT',
     VEHICLE = 'VEHICLE',
+    STATION = 'STATION',
 
 
     // ========= STOCK INVENTORY ========= 
@@ -213,6 +214,13 @@ export enum RESOLVERS {
     vehicle = 'vehicle',
     updateVehicle = 'updateVehicle',
     removeVehicle = 'removeVehicle',
+
+    // ========= STATION ========= 
+    createStation = 'createStation',
+    stations = 'stations',
+    station = 'station',
+    updateStation = 'updateStation',
+    removeStation = 'removeStation',
 
 
     // ========= ITEM ========= 
