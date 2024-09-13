@@ -202,7 +202,7 @@ import type { CreateOSRIVApprover } from '~/composables/warehouse/osriv/osriv-ap
                 code: i.code,
                 name: i.name,
                 description: i.description,
-                available_quantity: i.available_quantity,
+                available_quantity: i.total_quantity - i.quantity_on_queue,
                 unit: i.unit,
                 qty_request: 0,
                 GWAPrice: i.GWAPrice,

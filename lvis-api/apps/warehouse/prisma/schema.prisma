@@ -164,7 +164,7 @@ model Item {
   name             String
   description      String?
   total_quantity   Int
-  available_quantity   Int @default(0)
+  quantity_on_queue   Int @default(0)
   initial_quantity Int
   alert_level      Int     @default(20)
 

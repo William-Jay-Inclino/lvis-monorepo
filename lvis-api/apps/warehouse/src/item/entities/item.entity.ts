@@ -28,7 +28,7 @@ export class Item {
   total_quantity: number;
 
   @Field(() => Int)
-  available_quantity: number;
+  quantity_on_queue: number;
 
   @Field(() => Int)
   initial_quantity: number;

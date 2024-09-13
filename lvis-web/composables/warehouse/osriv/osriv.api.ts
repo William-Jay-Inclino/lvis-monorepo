@@ -229,7 +229,8 @@ export async function fetchFormDataInCreate(): Promise<{
                         id 
                         name
                     }
-                    available_quantity
+                    total_quantity
+                    quantity_on_queue
                     GWAPrice
                 }
             },

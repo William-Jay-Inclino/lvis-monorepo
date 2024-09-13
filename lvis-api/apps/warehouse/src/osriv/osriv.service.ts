@@ -12,6 +12,7 @@ import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { OSRIVsResponse } from './entities/osrivs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
+import { CreateOsrivItemSubInput } from './dto/create-osriv-item.sub.input';
 
 @Injectable()
 export class OsrivService {
@@ -72,41 +73,60 @@ export class OsrivService {
             }
         }
 
-        const queries = []
+        const queries: Prisma.PrismaPromise<any>[] = []
 
-        const createOsrivQuery = this.prisma.oSRIV.create({
-            data,
-        })
 
+
+        // create OSRIV
+        const createOsrivQuery = this.prisma.oSRIV.create({ data })
         queries.push(createOsrivQuery)
 
+        // create pending
         const createPendingQuery = this.getCreatePendingQuery(input.approvers, osrivNumber)
-
         queries.push(createPendingQuery)
 
-        const result = await this.prisma.$transaction(queries)
+        // update item quantity_on_queue on each item
+        const updateItemQueries = this.generateUpdateItemQueries(input.items); 
+
+        const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
+
+        const result = await this.prisma.$transaction(allQueries)
 
         console.log('OSRIV created successfully');
+        console.log('Increment quantity_on_queue on each item')
         console.log('Pending with associated approver created successfully');
 
         return result[0]
 
     }
 
-    private getCreatePendingQuery(approvers: CreateOsrivApproverSubInput[], osrivNumber: string) {
-
-    const firstApprover = approvers.reduce((min, obj) => {
-        return obj.order < min.order ? obj : min;
-    }, approvers[0]);
-
-    const data = {
-        approver_id: firstApprover.approver_id,
-        reference_number: osrivNumber,
-        reference_table: DB_ENTITY.OSRIV,
-        description: `OSRIV no. ${osrivNumber}`
+    private generateUpdateItemQueries(items: CreateOsrivItemSubInput[]) {
+        return items.map(item => {
+            return this.prisma.item.update({
+                where: { id: item.item_id },
+                data: {
+                    quantity_on_queue: {
+                        increment: item.quantity
+                    }
+                }
+            });
+        });
     }
 
-    return this.prisma.pending.create({ data })
+    private getCreatePendingQuery(approvers: CreateOsrivApproverSubInput[], osrivNumber: string) {
+
+        const firstApprover = approvers.reduce((min, obj) => {
+            return obj.order < min.order ? obj : min;
+        }, approvers[0]);
+
+        const data = {
+            approver_id: firstApprover.approver_id,
+            reference_number: osrivNumber,
+            reference_table: DB_ENTITY.OSRIV,
+            description: `OSRIV no. ${osrivNumber}`
+        }
+
+        return this.prisma.pending.create({ data })
 
     }
 
