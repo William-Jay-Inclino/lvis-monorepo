@@ -413,7 +413,7 @@ export async function create(input: CreateOsrivInput): Promise<MutationResponse>
         return `
         {
           item_id: "${i.id}"
-          quantity: ${i.qty_input}
+          quantity: ${i.qty_request}
         }`;
     }).join(', ');
 

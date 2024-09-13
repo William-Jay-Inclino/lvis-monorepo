@@ -76,7 +76,19 @@
                 </div>
         
                 <div v-show="currentStep === 2" class="row justify-content-center pt-5">
-                    <WarehouseAddItem :items="items" :selected-items="osrivData.items" @update-items="handleUpdateItems" @remove-item="handleRemoveItem"/>
+                    <div class="col-lg-10">
+                        <div class="mb-3">
+                            <small class="form-label fst-italic text-muted">
+                                Input the name of the item in the search field below
+                            </small>
+                            <client-only>
+                                <v-select :options="items" v-model="osrivData.items" label="name" multiple></v-select>
+                            </client-only>
+                        </div>
+
+                        <WarehouseItems :items="osrivData.items" @remove-item="handleRemoveItem"/>
+
+                    </div>
                 </div> 
 
                 <div class="row justify-content-center pt-5">
@@ -86,7 +98,7 @@
                             <nuxt-link class="btn btn-secondary" to="/warehouse/warehousing/osriv">
                                 <i class="fas fa-chevron-left"></i> Back to Search
                             </nuxt-link>
-                            <button @click="onClickNextStep1()" type="button" class="btn btn-primary">
+                            <button @click="onClickNextStep1()" class="btn btn-primary">
                                 <i class="fas fa-chevron-right"></i> Next
                             </button>
                         </div>
@@ -95,7 +107,7 @@
                             <button @click="currentStep--" type="button" class="btn btn-secondary">
                                 <i class="fas fa-chevron-left"></i> Back
                             </button>
-                            <button @click="save()" :disabled="isSaving" type="button"
+                            <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                 class="btn btn-primary">
                                 <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
                             </button>
@@ -120,183 +132,234 @@
 
 <script setup lang="ts">
 
-import * as osrivApi from '~/composables/warehouse/osriv/osriv.api'
-import type { CreateOsrivInput } from '~/composables/warehouse/osriv/osriv.types';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
-import type { Station } from '~/composables/warehouse/station/station';
-import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
+    import * as osrivApi from '~/composables/warehouse/osriv/osriv.api'
+    import type { CreateOsrivInput } from '~/composables/warehouse/osriv/osriv.types';
+    import type { Employee } from '~/composables/system/employee/employee.types';
+    import { addPropertyFullName } from '~/composables/system/employee/employee';
+    import type { Station } from '~/composables/warehouse/station/station';
+    import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
+import Swal from 'sweetalert2';
+import type { CreateOSRIVApprover } from '~/composables/warehouse/osriv/osriv-approver.types';
 
-definePageMeta({
-    name: ROUTES.RV_CREATE,
-    layout: "layout-warehouse",
-    middleware: ['auth'],
-})
-const isLoadingPage = ref(true)
-const authUser = ref<AuthUser>({} as AuthUser)
+    definePageMeta({
+        name: ROUTES.RV_CREATE,
+        layout: "layout-warehouse",
+        middleware: ['auth'],
+    })
+    const isLoadingPage = ref(true)
+    const authUser = ref<AuthUser>({} as AuthUser)
 
-// CONSTANTS
-const router = useRouter();
+    // CONSTANTS
+    const router = useRouter()
+    // FLAGS
+    const isSaving = ref(false)
 
-// FLAGS
-const isSaving = ref(false)
+    // INITIAL DATA
+    const _osrivDataErrorsInitial = {
+        purpose: false,
+        requested_by: false,
+        item_from: false,
+        supervisor: false,
+        warehouse_custodian: false,
+        items: false,
+    }
 
-// INITIAL DATA
-const _osrivDataErrorsInitial = {
-    purpose: false,
-    requested_by: false,
-    item_from: false,
-    supervisor: false,
-    warehouse_custodian: false,
-    items: false,
-}
+    const currentStep = ref(1)
 
-const currentStep = ref(1)
-
-// FORM DATA
-const osrivData = ref<CreateOsrivInput>({
-    purpose: "",
-    requested_by: null,
-    item_from: null,
-    supervisor: null,
-    warehouse_custodian: null,
-    approvers: [],
-    items: []
-})
-const osrivDataErrors = ref({ ..._osrivDataErrorsInitial })
-
-
-// DROPDOWNS
-const employees = ref<Employee[]>([])
-const stations = ref<Station[]>([])
-const items = ref<AddItem[]>([])
+    // FORM DATA
+    const osrivData = ref<CreateOsrivInput>({
+        purpose: "",
+        requested_by: null,
+        item_from: null,
+        supervisor: null,
+        warehouse_custodian: null,
+        approvers: [],
+        items: []
+    })
+    const osrivDataErrors = ref({ ..._osrivDataErrorsInitial })
 
 
+    // DROPDOWNS
+    const employees = ref<Employee[]>([])
+    const stations = ref<Station[]>([])
+    const items = ref<AddItem[]>([])
 
-// ======================== LIFECYCLE HOOKS ========================  
-onMounted(async () => {
-    authUser.value = getAuthUser()
 
-    const response = await osrivApi.fetchFormDataInCreate()
 
-    employees.value = addPropertyFullName(response.employees)
-    stations.value = response.stations
-    // items.value = response.items
+    // ======================== LIFECYCLE HOOKS ========================  
+    onMounted(async () => {
+        authUser.value = getAuthUser()
 
-    items.value = response.items.map(i => {
-        const x: AddItem = {
-            id: i.id,
-            code: i.code,
-            name: i.name,
-            description: i.description,
-            available_quantity: i.available_quantity,
-            unit: i.unit,
-            qty_input: 0,
-            GWAPrice: i.GWAPrice,
+        const response = await osrivApi.fetchFormDataInCreate()
+
+        employees.value = addPropertyFullName(response.employees)
+        stations.value = response.stations
+        // items.value = response.items
+
+        items.value = response.items.map(i => {
+            const x: AddItem = {
+                id: i.id,
+                code: i.code,
+                name: i.name,
+                description: i.description,
+                available_quantity: i.available_quantity,
+                unit: i.unit,
+                qty_request: 0,
+                GWAPrice: i.GWAPrice,
+            }
+
+            return x
+        })
+
+        if(response.warehouse_custodian) {
+            const wc = response.warehouse_custodian
+            response.warehouse_custodian['fullname'] = getFullname(wc.firstname, wc.middlename, wc.lastname)
+            osrivData.value.warehouse_custodian = response.warehouse_custodian
         }
 
-        return x
+        isLoadingPage.value = false
+
     })
 
-    if(response.warehouse_custodian) {
-        const wc = response.warehouse_custodian
-        response.warehouse_custodian['fullname'] = getFullname(wc.firstname, wc.middlename, wc.lastname)
-        osrivData.value.warehouse_custodian = response.warehouse_custodian
+
+
+    // ======================== COMPUTED ========================  
+
+    const isDisabledSave = computed((): boolean => {
+        if(hasErrorStep1() || hasErrorStep2()) {
+            return true 
+        }
+        return false
+    })
+
+
+    // ======================== FUNCTIONS ========================  
+
+    async function save() {
+
+        console.log('save')
+
+        console.log('saving...')
+
+        const supervisor: CreateOSRIVApprover = {
+            approver: osrivData.value.supervisor,
+            label: 'Imd Superior',
+            order: 1,
+            is_supervisor: true,
+            is_warehouse_custodian: false,
+        }
+
+        const warehouseCustodian: CreateOSRIVApprover = {
+            approver: osrivData.value.warehouse_custodian,
+            label: 'Warehouse Custodian',
+            order: 2,
+            is_supervisor: false,
+            is_warehouse_custodian: true,
+        }
+
+        osrivData.value.approvers.push(supervisor)
+        osrivData.value.approvers.push(warehouseCustodian)
+
+        console.log('osrivData.value', osrivData.value);
+
+        isSaving.value = true
+        const response = await osrivApi.create(osrivData.value)
+        isSaving.value = false
+
+        if (response.success && response.data) {
+
+            Swal.fire({
+                title: 'Success!',
+                text: response.msg,
+                icon: 'success',
+                position: 'top',
+            })
+
+            router.push(`/warehouse/warehousing/osriv/view/${response.data.id}`);
+
+        } else {
+            Swal.fire({
+                title: 'Error!',
+                text: response.msg,
+                icon: 'error',
+                position: 'top',
+            })
+        }
+
     }
 
-    isLoadingPage.value = false
+    function handleRemoveItem(item: AddItem) {
+        console.log('handleRemoveItem', item);
 
-})
+        const indx = osrivData.value.items.findIndex(i => i.id === item.id)
 
+        if(indx === -1) {
+            console.error('item not found in osrivData.items with id of ', item.id);
+            return 
+        }
 
-
-// ======================== FUNCTIONS ========================  
-
-async function save() {
-
-    console.log('save')
-
-    // if (!isValid()) {
-    //     return
-    // }
-
-    // console.log('saving...')
-
-    // isSaving.value = true
-    // const response = await rvApi.create(rvData.value)
-    // isSaving.value = false
-
-    // if (response.success && response.data) {
-
-    //     Swal.fire({
-    //         title: 'Success!',
-    //         text: response.msg,
-    //         icon: 'success',
-    //         position: 'top',
-    //     })
-
-    //     router.push(`/warehouse/purchasing/rv/view/${response.data.id}`);
-    // } else {
-    //     Swal.fire({
-    //         title: 'Error!',
-    //         text: response.msg,
-    //         icon: 'error',
-    //         position: 'top',
-    //     })
-    // }
-
-}
-
-function handleUpdateItems(items: AddItem[]) {
-    console.log('handleUpdateItems', items);
-    osrivData.value.items = items
-}
-
-function handleRemoveItem(item: AddItem) {
-    console.log('handleRemoveItem', item);
-
-    const indx = osrivData.value.items.findIndex(i => i.id === item.id)
-
-    if(indx === -1) {
-        console.error('item not found in osrivData.items with id of ', item.id);
-        return 
+        osrivData.value.items.splice(indx, 1)
     }
 
-    osrivData.value.items.splice(indx, 1)
-}
+
+    async function onClickNextStep1() {
+
+        osrivDataErrors.value = { ..._osrivDataErrorsInitial }
+
+        if (osrivData.value.purpose.trim() === '') {
+            osrivDataErrors.value.purpose = true
+        }
+
+        if (!osrivData.value.requested_by) {
+            osrivDataErrors.value.requested_by = true
+        }
+
+        if (!osrivData.value.item_from) {
+            osrivDataErrors.value.item_from = true
+        }
+
+        if (!osrivData.value.supervisor) {
+            osrivDataErrors.value.supervisor = true
+        }
+
+        if (!osrivData.value.warehouse_custodian) {
+            osrivDataErrors.value.warehouse_custodian = true
+        }
+
+        if(!hasErrorStep1()) {
+            currentStep.value += 1
+        }
+
+    }
+
+    function hasErrorStep1(): boolean {
+        console.log('hasErrorStep1');
+        const hasError = Object.values(osrivDataErrors.value).includes(true);
+        console.log('hasError', hasError);
+        if (hasError) {
+            return true
+        }
+
+        return false 
+    }
+
+    function hasErrorStep2(): boolean {
+
+        if(osrivData.value.items.length === 0) {
+            return true
+        }
+
+        for(let item of osrivData.value.items) {
+            if(item.qty_request <= 0 || item.qty_request > item.available_quantity) {
+                return true 
+            }
+        }
+
+        return false 
+    }
 
 
-async function onClickNextStep1() {
 
-    // osrivDataErrors.value = { ..._osrivDataErrorsInitial }
 
-    // if (osrivData.value.purpose.trim() === '') {
-    //     osrivDataErrors.value.purpose = true
-    // }
-
-    // if (!osrivData.value.requested_by) {
-    //     osrivDataErrors.value.requested_by = true
-    // }
-
-    // if (!osrivData.value.item_from) {
-    //     osrivDataErrors.value.item_from = true
-    // }
-
-    // if (!osrivData.value.supervisor) {
-    //     osrivDataErrors.value.supervisor = true
-    // }
-
-    // if (!osrivData.value.warehouse_custodian) {
-    //     osrivDataErrors.value.warehouse_custodian = true
-    // }
-
-    // const hasError = Object.values(osrivDataErrors.value).includes(true);
-
-    // if (hasError) {
-    //     return
-    // }
-
-    currentStep.value += 1
-}
 
 </script>

@@ -68,5 +68,5 @@ export interface AddItem {
 	available_quantity: number;
 	unit: Unit;
 	GWAPrice: number
-    qty_input: number
+    qty_request: number
 }

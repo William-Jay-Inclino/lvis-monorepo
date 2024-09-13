@@ -58,6 +58,7 @@ export class OsrivService {
                         notes: '',
                         status: APPROVAL_STATUS.PENDING,
                         is_supervisor: i.is_supervisor,
+                        is_warehouse_custodian: i.is_warehouse_custodian,
                     }
                 })
             },
