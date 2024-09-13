@@ -23,11 +23,12 @@ export interface Supplier {
     created_by: string
 }
 
-// export interface Station {
-//     id: string 
-//     name: string 
-//     address: string 
-// }
+export interface Station {
+    id: string 
+    name: string 
+    location: string
+    created_by: string
+}
 
 export interface ItemType {
     id: string

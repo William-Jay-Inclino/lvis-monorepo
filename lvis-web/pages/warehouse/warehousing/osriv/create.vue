@@ -28,6 +28,7 @@
                             <client-only>
                                 <v-select :options="stations" label="name" v-model="osrivData.item_from" :clearable="false"></v-select>
                             </client-only>
+                            <small class="text-danger fst-italic" v-show="osrivDataErrors.item_from"> This field is required </small>
                         </div>
 
                         <div class="mb-3">
@@ -37,6 +38,7 @@
                             <client-only>
                                 <v-select :options="employees" label="fullname" v-model="osrivData.requested_by" :clearable="false"></v-select>
                             </client-only>
+                            <small class="text-danger fst-italic" v-show="osrivDataErrors.requested_by"> This field is required </small>
                         </div>
 
                         <div class="mb-3">
@@ -46,6 +48,7 @@
                             <client-only>
                                 <v-select :options="employees" label="fullname" v-model="osrivData.supervisor" :clearable="false"></v-select>
                             </client-only>
+                            <small class="text-danger fst-italic" v-show="osrivDataErrors.supervisor"> This field is required </small>
                         </div>
 
                         <div class="mb-3">
@@ -53,8 +56,9 @@
                                 Warehouse Custodian <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="osrivData.warehouse_custodian" :clearable="false"></v-select>
+                                <v-select :options="employees" label="fullname" v-model="osrivData.warehouse_custodian" :clearable="false" disabled></v-select>
                             </client-only>
+                            <small class="text-danger fst-italic" v-show="osrivDataErrors.warehouse_custodian"> This field is required </small>
                         </div>
 
                         <div class="mb-3">
@@ -72,68 +76,8 @@
                 </div>
         
                 <div v-show="currentStep === 2" class="row justify-content-center pt-5">
-                    <div class="col-lg-10">
-                        
-                        <div class="mb-3">
-                            <small class="form-label fst-italic text-muted">
-                                Input the name of the item in the search field below
-                            </small>
-                            <client-only>
-                                <v-select :options="items" label="name" v-model="osrivData.items" multiple></v-select>
-                            </client-only>
-                        </div>
-
-                        <div v-if="osrivData.items.length > 0" class="mb-3">
-
-                            <div class="alert alert-info">
-                                <small class="fst-italic">
-                                    Input qty should be greater than 0 and less than or equal to the available quantity
-                                </small>
-                            </div>
-                            
-                            <table class="table table-bordered table-hovered table-sm small">
-                                <thead>
-                                    <tr>
-                                        <th class="text-muted">Description</th>
-                                        <th class="text-muted">Unit</th>
-                                        <th class="text-muted">Available Qty</th>
-                                        <th class="text-muted">Ave. Price</th>
-                                        <th class="text-muted">Input Qty</th>
-                                        <th class="text-muted">Amount</th>
-                                        <th class="text-muted">Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="i, indx in osrivData.items">
-                                        <td class="text-muted"> {{ i.name + ' - ' + i.description }} </td>
-                                        <td class="text-muted"> {{ i.unit.name }} </td>
-                                        <td class="text-muted"> {{ i.available_quantity }} </td>
-                                        <td class="text-muted"> {{ i.GWAPrice }} </td>
-                                        <td class="text-muted">
-                                           <input
-                                             type="number"
-                                             class="form-control"
-                                             :class="{'border-danger': i.qty_input <= 0 || i.qty_input > i.available_quantity}"
-                                             v-model="i.qty_input"/>
-                                        </td>
-                                        <td class="text-muted">
-                                            <input
-                                             type="number"
-                                             class="form-control"
-                                             :value="i.GWAPrice * i.qty_input"/>
-                                        </td>
-                                        <td class="text-center">
-                                            <button @click="handleRemoveItem(indx)" class="btn btn-sm btn-light me-3">
-                                                <i class="fas fa-trash text-danger"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
+                    <WarehouseAddItem :items="items" :selected-items="osrivData.items" @update-items="handleUpdateItems" @remove-item="handleRemoveItem"/>
+                </div> 
 
                 <div class="row justify-content-center pt-5">
                     <div :class="{ 'col-lg-6': currentStep === 1, 'col-lg-10 col-md-10 col-sm-12': currentStep === 2 }">
@@ -181,7 +125,7 @@ import type { CreateOsrivInput } from '~/composables/warehouse/osriv/osriv.types
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
-import type { CreateOSRIVItem } from '~/composables/warehouse/osriv/osriv-item.types';
+import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
 
 definePageMeta({
     name: ROUTES.RV_CREATE,
@@ -225,7 +169,7 @@ const osrivDataErrors = ref({ ..._osrivDataErrorsInitial })
 // DROPDOWNS
 const employees = ref<Employee[]>([])
 const stations = ref<Station[]>([])
-const items = ref<CreateOSRIVItem[]>([])
+const items = ref<AddItem[]>([])
 
 
 
@@ -237,8 +181,10 @@ onMounted(async () => {
 
     employees.value = addPropertyFullName(response.employees)
     stations.value = response.stations
+    // items.value = response.items
+
     items.value = response.items.map(i => {
-        const x: CreateOSRIVItem = {
+        const x: AddItem = {
             id: i.id,
             code: i.code,
             name: i.name,
@@ -251,6 +197,12 @@ onMounted(async () => {
 
         return x
     })
+
+    if(response.warehouse_custodian) {
+        const wc = response.warehouse_custodian
+        response.warehouse_custodian['fullname'] = getFullname(wc.firstname, wc.middlename, wc.lastname)
+        osrivData.value.warehouse_custodian = response.warehouse_custodian
+    }
 
     isLoadingPage.value = false
 
@@ -295,24 +247,54 @@ async function save() {
 
 }
 
-function handleRemoveItem(indx: number) {
+function handleUpdateItems(items: AddItem[]) {
+    console.log('handleUpdateItems', items);
+    osrivData.value.items = items
+}
+
+function handleRemoveItem(item: AddItem) {
+    console.log('handleRemoveItem', item);
+
+    const indx = osrivData.value.items.findIndex(i => i.id === item.id)
+
+    if(indx === -1) {
+        console.error('item not found in osrivData.items with id of ', item.id);
+        return 
+    }
+
     osrivData.value.items.splice(indx, 1)
 }
 
 
 async function onClickNextStep1() {
 
-    osrivDataErrors.value = { ..._osrivDataErrorsInitial }
+    // osrivDataErrors.value = { ..._osrivDataErrorsInitial }
 
     // if (osrivData.value.purpose.trim() === '') {
     //     osrivDataErrors.value.purpose = true
     // }
 
-    const hasError = Object.values(osrivDataErrors.value).includes(true);
+    // if (!osrivData.value.requested_by) {
+    //     osrivDataErrors.value.requested_by = true
+    // }
 
-    if (hasError) {
-        return
-    }
+    // if (!osrivData.value.item_from) {
+    //     osrivDataErrors.value.item_from = true
+    // }
+
+    // if (!osrivData.value.supervisor) {
+    //     osrivDataErrors.value.supervisor = true
+    // }
+
+    // if (!osrivData.value.warehouse_custodian) {
+    //     osrivDataErrors.value.warehouse_custodian = true
+    // }
+
+    // const hasError = Object.values(osrivDataErrors.value).includes(true);
+
+    // if (hasError) {
+    //     return
+    // }
 
     currentStep.value += 1
 }

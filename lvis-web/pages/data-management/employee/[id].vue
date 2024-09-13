@@ -49,6 +49,23 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
+                                    Department
+                                </label>
+                                <client-only>
+                                    <v-select :options="departments" label="name" v-model="item.department">
+                                        <template #search="{attributes, events}">
+                                            <input
+                                            class="vs__search"
+                                            :required="!item.department"
+                                            v-bind="attributes"
+                                            v-on="events"
+                                            />
+                                        </template>
+                                    </v-select>
+                                </client-only>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
                                     Signature
                                 </label>
                                 <input class="form-control" type="file" @change="handleFileUpload">
@@ -108,6 +125,7 @@ const API_URL = config.public.apiUrl
 
 const item = ref<Employee>()
 const positions = ref<Position[]>([])
+const departments = ref<Department[]>([])
 
 const signatureFile = ref<File>()
 
@@ -123,6 +141,7 @@ onMounted(async () => {
 
     item.value = response.employee
     positions.value = response.positions
+    departments.value = response.departments
 
     isLoadingPage.value = false
 })
@@ -138,7 +157,8 @@ async function onSubmit() {
         firstname: item.value.firstname,
         middlename: item.value.middlename,
         lastname: item.value.lastname,
-        position: item.value.position
+        position: item.value.position,
+        department: item.value.department,
     }
 
     isSaving.value = true

@@ -38,6 +38,7 @@ export interface CreateEmployeeInput {
     middlename: string
     lastname: string
     position: Position | null
+    department: Department | null
     signature_src?: string | null
 }
 

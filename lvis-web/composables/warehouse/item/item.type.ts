@@ -58,3 +58,15 @@ export interface MutationResponse {
 	msg: string
 	data?: Item
 }
+
+// Use in OSRIV/SERIV add item
+export interface AddItem {
+	id: string;
+	code: string;
+	name: string;
+	description: string;
+	available_quantity: number;
+	unit: Unit;
+	GWAPrice: number
+    qty_input: number
+}

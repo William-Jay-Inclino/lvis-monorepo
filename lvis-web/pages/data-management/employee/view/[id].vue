@@ -37,6 +37,10 @@
                                             <td> {{ item.position.name }} </td>
                                         </tr>
                                         <tr>
+                                            <td class="text-muted">Department</td>
+                                            <td> {{ item.department.name }} </td>
+                                        </tr>
+                                        <tr>
                                             <td class="text-muted">Signature</td>
                                             <td>
                                                 <div v-if="item.signature_src">

@@ -1,8 +1,8 @@
 import type { Employee } from "~/composables/system/employee/employee.types";
-import type { Item } from "../item/item.type";
+import type { AddItem, Item } from "../item/item.type";
 import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateOSRIVApprover, OSRIVApprover } from "./osriv-approver.types";
-import type { CreateOSRIVItem, OSRIVItem } from "./osriv-item.types";
+import type { OSRIVItem } from "./osriv-item.types";
 
 
 export interface OSRIV {
@@ -67,7 +67,7 @@ export interface OSRIV {
     supervisor: Employee | null 
     warehouse_custodian: Employee | null 
     approvers: CreateOSRIVApprover[]
-    items: CreateOSRIVItem[]
+    items: AddItem[]
   }
   
   export interface UpdateOsrivInput {

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { ItemType, Supplier, Unit, VAT_TYPE, Vehicle } from "../__common__/types"
+import { ItemType, Station, Supplier, Unit, VAT_TYPE, Vehicle } from "../__common__/types"
 
 export const suppliers: Supplier[] = [
     {
@@ -47,63 +47,71 @@ export const suppliers: Supplier[] = [
 export const itemTypes: ItemType[] = [
     {
         id: faker.string.uuid(),
-        name: 'Item type 1',
+        name: 'Office Supply',
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        name: 'Item type 2',
+        name: 'Special Equipment',
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        name: 'Item type 3',
+        name: 'Others',
         created_by: 'admin'
     }
 ]
 
-// export const stations: Station[] = [
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Main Office',
-//         address: 'Ormoc City',
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Talisayan',
-//         address: 'Talisayan kilid julies',
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Mahayag',
-//         address: 'Mahayag Eskina kanang dili ngit2',
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Tabango',
-//         address: 'Tabango mo tanan kay akoy pinaka isog',
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Sambulawan',
-//         address: 'Sambulawan Dimension',
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Libongao',
-//         address: 'Libongao States',
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Calibuan',
-//         address: 'Calibuan atbang sapa',
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Palompon',
-//         address: 'Palompon atbang kalanggaman',
-//     }
-// ]
+export const stations: Station[] = [
+    {
+        id: faker.string.uuid(),
+        name: 'Main Office',
+        location: 'Ormoc City',
+        created_by: 'admin',
+    },
+    {
+        id: faker.string.uuid(),
+        name: 'Talisayan Substation',
+        location: 'Talisayan kilid julies',
+        created_by: 'admin',
+    },
+    {
+        id: faker.string.uuid(),
+        name: 'Mahayag Substation',
+        location: 'Mahayag Eskina',
+        created_by: 'admin',
+    },
+    {
+        id: faker.string.uuid(),
+        name: 'Tabango Substation',
+        location: 'Tabango mo tanan',
+        created_by: 'admin',
+    },
+    {
+        id: faker.string.uuid(),
+        name: 'Sambulawan Substation',
+        location: 'Sambulawan Dimension',
+        created_by: 'admin',
+    },
+    {
+        id: faker.string.uuid(),
+        name: 'Libongao Substation',
+        location: 'Libongao States',
+        created_by: 'admin',
+    },
+    {
+        id: faker.string.uuid(),
+        name: 'Calibuan Substation',
+        location: 'Calibuan atbang sapa',
+        created_by: 'admin',
+    },
+    {
+        id: faker.string.uuid(),
+        name: 'Palompon Substation',
+        location: 'Palompon atbang kalanggaman',
+        created_by: 'admin',
+    }
+]
 
 export const units: Unit[] = [
     {

@@ -12,4 +12,10 @@ export class SettingResolver {
   general_manager() {
     return this.settingService.findGM();
   }
+
+  @Query(() => Employee)
+  warehouse_custodian() {
+    return this.settingService.findWarehouseCustodian();
+  }
+
 }

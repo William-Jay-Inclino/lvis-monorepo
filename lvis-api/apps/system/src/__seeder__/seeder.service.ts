@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import * as data from './mock-data';
+import { SETTINGS } from '../__common__/constants';
 
 @Injectable()
 export class SeederService {
@@ -12,10 +13,6 @@ export class SeederService {
 
         try {
             await this.prisma.$transaction([
-                // this.seedService(),
-                // this.seedFeature(),
-                // this.seedModule(),
-                // this.seedSubModule(),
                 this.seedDepartment(),
                 this.seedClassification(),
                 this.seedAccount(),
@@ -219,18 +216,23 @@ export class SeederService {
 
     seedSettingTable() {
         console.log('seeding setting table....');
-
+    
         try {
             return this.prisma.setting.createMany({
-                data: {
-                    key: 'general_manager',
-                    value: data.employees[3].id
-                }
-            })
+                data: [
+                    {
+                        key: SETTINGS.GENERAL_MANAGER,
+                        value: data.employees[3].id
+                    },
+                    {
+                        key: SETTINGS.WAREHOUSE_CUSTODIAN,
+                        value: data.employees[19].id
+                    }
+                ]
+            });
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-
     }
 
 }

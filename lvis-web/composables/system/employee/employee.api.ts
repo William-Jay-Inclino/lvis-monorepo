@@ -63,6 +63,10 @@ export async function findOne(id: string): Promise<Employee | undefined> {
                     id 
                     name
                 }
+                department {
+                    id 
+                    name
+                }   
             }
         }
     `;
@@ -97,12 +101,17 @@ export async function create(input: CreateEmployeeInput): Promise<MutationRespon
                 lastname: "${input.lastname}",
                 signature_src: ${signature_src},
                 position_id: "${input.position?.id}",
+                department_id: "${input.department?.id}",
             }) {
                 id
                 firstname
                 middlename
                 lastname
                 position {
+                    id 
+                    name
+                }
+                department {
                     id 
                     name
                 }
@@ -149,12 +158,17 @@ export async function update(id: string, input: CreateEmployeeInput): Promise<Mu
                 lastname: "${input.lastname}",
                 signature_src: ${signature_src},
                 position_id: "${input.position?.id}",
+                department_id: "${input.department?.id}",
             }) {
                 id
                 firstname
                 middlename
                 lastname
                 position {
+                    id 
+                    name
+                }
+                department {
                     id 
                     name
                 }
@@ -252,11 +266,15 @@ export async function uploadSingleAttachment(attachment: any, apiUrl: string): P
 }
 
 
-export async function fetchFormDataInCreate(): Promise<{ positions: Position[] }> {
+export async function fetchFormDataInCreate(): Promise<{ positions: Position[], departments: Department[] }> {
 
     const query = `
         query {
             positions {
+                id 
+                name 
+            }
+            departments {
                 id 
                 name 
             }
@@ -268,6 +286,7 @@ export async function fetchFormDataInCreate(): Promise<{ positions: Position[] }
         console.log('response', response)
 
         let positions = []
+        let departments = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -282,20 +301,31 @@ export async function fetchFormDataInCreate(): Promise<{ positions: Position[] }
             })
         }
 
+        if(data.departments) {
+            departments = data.departments
+        }
+
         return {
-            positions
+            positions,
+            departments,
         }
 
     } catch (error) {
         console.error(error);
         return {
             positions: [],
+            departments: [],
         }
     }
 
 }
 
-export async function fetchFormDataInUpdate(id: string): Promise<{ positions: Position[], employee: Employee | undefined }> {
+export async function fetchFormDataInUpdate(id: string): 
+    Promise<{ 
+        positions: Position[], 
+        departments: Department[], 
+        employee: Employee | undefined, 
+    }> {
 
     const query = `
         query {
@@ -309,8 +339,16 @@ export async function fetchFormDataInUpdate(id: string): Promise<{ positions: Po
                     id 
                     name
                 }
+                department {
+                    id 
+                    name
+                }
             }
             positions {
+                id 
+                name 
+            }
+            departments {
                 id 
                 name 
             }
@@ -322,6 +360,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{ positions: Po
         console.log('response', response)
 
         let positions = []
+        let departments = []
         let employee
 
         if (!response.data || !response.data.data) {
@@ -343,16 +382,22 @@ export async function fetchFormDataInUpdate(id: string): Promise<{ positions: Po
             })
         }
 
+        if(data.departments) {
+            departments = data.departments
+        }
+
         return {
             positions,
-            employee
+            departments,
+            employee,
         }
 
     } catch (error) {
         console.error(error);
         return {
             positions: [],
-            employee: undefined
+            departments: [],
+            employee: undefined,
         }
     }
 

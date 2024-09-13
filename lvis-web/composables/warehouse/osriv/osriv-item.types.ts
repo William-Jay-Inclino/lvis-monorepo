@@ -15,14 +15,13 @@ export interface OSRIVItem {
 }
 
 
-export interface CreateOSRIVItem {
-	id: string;
-	code: string;
-	name: string;
-	description: string;
-	available_quantity: number;
-	unit: Unit;
-	GWAPrice: number
-
-    qty_input: number
-}
+// export interface CreateOSRIVItem {
+// 	id: string;
+// 	code: string;
+// 	name: string;
+// 	description: string;
+// 	available_quantity: number;
+// 	unit: Unit;
+// 	GWAPrice: number
+//     qty_input: number
+// }

@@ -49,6 +49,23 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
+                                    Department
+                                </label>
+                                <client-only>
+                                    <v-select :options="departments" label="name" v-model="formData.department">
+                                        <template #search="{attributes, events}">
+                                            <input
+                                            class="vs__search"
+                                            :required="!formData.department"
+                                            v-bind="attributes"
+                                            v-on="events"
+                                            />
+                                        </template>
+                                    </v-select>
+                                </client-only>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
                                     Signature
                                 </label>
                                 <input class="form-control" type="file" @change="handleFileUpload">
@@ -104,13 +121,16 @@ const isSaving = ref(false)
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 
+// dropdowns
 const positions = ref<Position[]>([])
+const departments = ref<Department[]>([])
 
 const _initialFormData: CreateEmployeeInput = {
     firstname: '',
     middlename: '',
     lastname: '',
     position: null,
+    department: null,
     signature_src: null,
 }
 
@@ -124,6 +144,7 @@ onMounted( async () => {
     const response = await api.fetchFormDataInCreate()
 
     positions.value = response.positions 
+    departments.value = response.departments
 
     isLoadingPage.value = false
 

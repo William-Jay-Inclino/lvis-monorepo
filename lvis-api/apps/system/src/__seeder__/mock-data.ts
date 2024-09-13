@@ -447,6 +447,7 @@ export const employees: Employee[] = [
         position_id: positions[3].id,
         department_id: departments[3].id,
     },
+    // 9
     {
         id: faker.string.uuid(),
         firstname: 'William Jay',
@@ -456,6 +457,7 @@ export const employees: Employee[] = [
         position_id: positions[1].id,
         department_id: departments[1].id,
     },
+    // 10
     {
         id: faker.string.uuid(),
         firstname: 'Joshua',
@@ -465,6 +467,7 @@ export const employees: Employee[] = [
         position_id: positions[1].id,
         department_id: departments[1].id,
     },
+    // 11
     {
         id: faker.string.uuid(),
         firstname: 'Jessa',
@@ -474,6 +477,7 @@ export const employees: Employee[] = [
         position_id: positions[1].id,
         department_id: departments[1].id,
     },
+    // 12
     {
         id: faker.string.uuid(),
         firstname: 'Joseph Ken',
@@ -483,6 +487,7 @@ export const employees: Employee[] = [
         position_id: positions[5].id,
         department_id: departments[2].id,
     },
+    // 13
     {
         id: faker.string.uuid(),
         firstname: 'Jared',
@@ -492,6 +497,7 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: departments[4].id,
     },
+    // 14
     {
         id: faker.string.uuid(),
         firstname: 'Hannah Grace',
@@ -501,6 +507,7 @@ export const employees: Employee[] = [
         position_id: positions[2].id,
         department_id: departments[0].id,
     },
+    // 15
     {
         id: faker.string.uuid(),
         firstname: 'Jessa',
@@ -510,6 +517,7 @@ export const employees: Employee[] = [
         position_id: positions[2].id,
         department_id: departments[0].id,
     },
+    // 16
     {
         id: faker.string.uuid(),
         firstname: 'Roger',
@@ -519,6 +527,7 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: departments[1].id,
     },
+    // 17
     {
         id: faker.string.uuid(),
         firstname: 'Adam',
@@ -528,6 +537,7 @@ export const employees: Employee[] = [
         position_id: positions[4].id,
         department_id: departments[5].id,
     },
+    // 18
     {
         id: faker.string.uuid(),
         firstname: 'John',
@@ -536,10 +546,21 @@ export const employees: Employee[] = [
         created_by: 'admin',
         position_id: positions[4].id,
         department_id: departments[5].id,
+    },
+    // 19
+    {
+        id: faker.string.uuid(),
+        firstname: 'Genevieve',
+        middlename: '',
+        lastname: 'Salgarino',
+        created_by: 'admin',
+        position_id: positions[4].id,
+        department_id: departments[5].id,
     }
 ]
 
 export const users: User[] = [
+    // 0
     {
         id: faker.string.uuid(),
         username: 'anamaria.pastor',
@@ -548,6 +569,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 1
     {
         id: faker.string.uuid(),
         username: 'suan.ricaflor',
@@ -556,6 +578,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 2
     {
         id: faker.string.uuid(),
         username: 'marlon.sanico',
@@ -564,6 +587,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 3
     {
         id: faker.string.uuid(),
         username: 'jannieann.dayandayan',
@@ -572,6 +596,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 4
     {
         id: faker.string.uuid(),
         username: 'jhunrey.nahine',
@@ -580,6 +605,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 5
     {
         id: faker.string.uuid(),
         username: 'gretchen.tagalog',
@@ -588,6 +614,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 6
     {
         id: faker.string.uuid(),
         username: 'dionic.delapena',
@@ -596,6 +623,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 7
     {
         id: faker.string.uuid(),
         username: 'anthony.cecilio',
@@ -604,6 +632,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 8
     {
         id: faker.string.uuid(),
         username: 'francespaula.lumacang',
@@ -612,6 +641,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 9
     {
         id: faker.string.uuid(),
         username: 'williamjay.inclino',
@@ -620,6 +650,7 @@ export const users: User[] = [
         role: Role.ADMIN,
         created_by: 'admin'
     },
+    // 10
     {
         id: faker.string.uuid(),
         username: 'joshua.tayag',
@@ -628,6 +659,7 @@ export const users: User[] = [
         role: Role.ADMIN,
         created_by: 'admin'
     },
+    // 11
     {
         id: faker.string.uuid(),
         username: 'jessa.pelones',
@@ -636,6 +668,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 12
     {
         id: faker.string.uuid(),
         username: 'josephken.estrera',
@@ -644,6 +677,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 13
     {
         id: faker.string.uuid(),
         username: 'jared.singkol',
@@ -652,6 +686,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 14
     {
         id: faker.string.uuid(),
         username: 'hannahgrace.tudio',
@@ -660,6 +695,7 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 15
     {
         id: faker.string.uuid(),
         username: 'jessa.valida',
@@ -668,10 +704,20 @@ export const users: User[] = [
         role: Role.USER,
         created_by: 'admin'
     },
+    // 16
     {
         id: faker.string.uuid(),
         username: 'roger.laurente',
         password: 'roger.laurente123',
+        status: UserStatus.ACTIVE,
+        role: Role.USER,
+        created_by: 'admin'
+    },
+    // 17
+    {
+        id: faker.string.uuid(),
+        username: 'genevieve.salgarino',
+        password: 'genevieve.salgarino123',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
@@ -779,6 +825,12 @@ export const userEmployees: UserEmployee[] = [
         id: faker.string.uuid(),
         employee_id: employees[16].id,
         user_id: users[16].id,
+        created_by: 'admin'
+    },
+    {
+        id: faker.string.uuid(),
+        employee_id: employees[19].id,
+        user_id: users[17].id,
         created_by: 'admin'
     }
 ]

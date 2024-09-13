@@ -214,6 +214,7 @@ export async function fetchFormDataInCreate(): Promise<{
     employees: Employee[],
     stations: Station[],
     items: Item[],
+    warehouse_custodian: Employee | null,
 }> {
 
     const query = `
@@ -244,6 +245,12 @@ export async function fetchFormDataInCreate(): Promise<{
                 id 
                 name
                 location
+            },
+            warehouse_custodian {
+                id 
+                firstname
+                middlename
+                lastname
             }
         }
     `;
@@ -255,6 +262,7 @@ export async function fetchFormDataInCreate(): Promise<{
         let employees = []
         let stations = []
         let items = []
+        let warehouse_custodian = undefined
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -274,10 +282,15 @@ export async function fetchFormDataInCreate(): Promise<{
             stations = response.data.data.stations
         }
 
+        if(data.warehouse_custodian) {
+            warehouse_custodian = data.warehouse_custodian
+        }
+
         return {
             employees,
             stations,
             items,
+            warehouse_custodian,
         }
 
     } catch (error) {
@@ -286,6 +299,7 @@ export async function fetchFormDataInCreate(): Promise<{
             employees: [],
             stations: [],
             items: [],
+            warehouse_custodian: null,
         }
     }
 

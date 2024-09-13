@@ -35,7 +35,8 @@ export class EmployeeService {
 		const created = await this.prisma.employee.create({
 			data,
 			include: {
-				position: true
+				position: true,
+				department: true,
 			}
 		})
 
@@ -72,7 +73,8 @@ export class EmployeeService {
 		const items = await this.prisma.employee.findMany({
 			include: {
 				user_employee: true,
-				position: true
+				position: true,
+				department: true,
 			},
 			orderBy: [{ lastname: 'asc' }, { firstname: 'asc' }],
 			skip,
@@ -104,7 +106,8 @@ export class EmployeeService {
 		const item = await this.prisma.employee.findUnique({
 			where: { id },
 			include: {
-				position: true
+				position: true,
+				department: true,
 			}
 		})
 
@@ -142,7 +145,8 @@ export class EmployeeService {
 				id
 			},
 			include: {
-				position: true
+				position: true,
+				department: true,
 			}
 		})
 
