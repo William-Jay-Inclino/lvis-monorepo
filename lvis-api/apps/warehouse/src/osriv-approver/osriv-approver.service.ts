@@ -31,15 +31,15 @@ export class OsrivApproverService {
     return `This action removes a #${id} osrivApprover`;
   }
 
-  async findByOsrivId(rvId: string): Promise<OSRIVApprover[]> {
+  async findByOsrivId(osrivId: string): Promise<OSRIVApprover[]> {
 
-    if (!rvId) {
+    if (!osrivId) {
         throw new BadRequestException('osriv_id is undefined')
     }
 
     return await this.prisma.oSRIVApprover.findMany({
         where: {
-            osriv_id: rvId
+            osriv_id: osrivId
         },
         orderBy: {
             order: 'asc'

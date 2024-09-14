@@ -1,35 +1,16 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { OsrivApproverService } from './osriv-approver.service';
+import { Resolver, ResolveField, Parent } from '@nestjs/graphql';
 import { OSRIVApprover } from './entities/osriv-approver.entity';
-import { CreateOsrivApproverInput } from './dto/create-osriv-approver.input';
-import { UpdateOsrivApproverInput } from './dto/update-osriv-approver.input';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { UseGuards } from '@nestjs/common';
+import { Employee } from '../__employee__/entities/employee.entity';
 
-// @Resolver(() => OsrivApprover)
-// export class OsrivApproverResolver {
-//   constructor(private readonly osrivApproverService: OsrivApproverService) {}
+@UseGuards(GqlAuthGuard)
+@Resolver(() => OSRIVApprover)
+export class OsrivApproverResolver {
 
-//   @Mutation(() => OsrivApprover)
-//   createOsrivApprover(@Args('createOsrivApproverInput') createOsrivApproverInput: CreateOsrivApproverInput) {
-//     return this.osrivApproverService.create(createOsrivApproverInput);
-//   }
+  @ResolveField(() => Employee)
+  approver(@Parent() osrivApprover: OSRIVApprover): any {
+    return { __typename: 'Employee', id: osrivApprover.approver_id }
+  }
 
-//   @Query(() => [OsrivApprover], { name: 'osrivApprover' })
-//   findAll() {
-//     return this.osrivApproverService.findAll();
-//   }
-
-//   @Query(() => OsrivApprover, { name: 'osrivApprover' })
-//   findOne(@Args('id', { type: () => Int }) id: number) {
-//     return this.osrivApproverService.findOne(id);
-//   }
-
-//   @Mutation(() => OsrivApprover)
-//   updateOsrivApprover(@Args('updateOsrivApproverInput') updateOsrivApproverInput: UpdateOsrivApproverInput) {
-//     return this.osrivApproverService.update(updateOsrivApproverInput.id, updateOsrivApproverInput);
-//   }
-
-//   @Mutation(() => OsrivApprover)
-//   removeOsrivApprover(@Args('id', { type: () => Int }) id: number) {
-//     return this.osrivApproverService.remove(id);
-//   }
-// }
+}
