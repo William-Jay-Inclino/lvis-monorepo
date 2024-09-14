@@ -71,7 +71,8 @@
                                         <thead>
                                             <tr>
                                                 <th class="bg-secondary text-white">OSRIV Number</th>
-                                                <th class="bg-secondary text-white">Requisitioner</th>
+                                                <th class="bg-secondary text-white">Requested By</th>
+                                                <th class="bg-secondary text-white">Department</th>
                                                 <th class="bg-secondary text-white">Date</th>
                                                 <th class="bg-secondary text-white text-center">Status</th>
                                                 <th class="text-center bg-secondary text-white">
@@ -85,6 +86,7 @@
                                                 <td class="text-muted align-middle">
                                                     {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
                                                 </td>
+                                                <td class="text-muted align-middle"> {{ i.department.name }} </td>
                                                 <td class="text-muted align-middle"> {{ formatDate(i.date_requested) }}
                                                 </td>
                                                 <td class="text-center align-middle">

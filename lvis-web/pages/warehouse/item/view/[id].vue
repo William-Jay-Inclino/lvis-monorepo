@@ -51,6 +51,14 @@
                                                 <td> {{ item.total_quantity }} </td>
                                             </tr>
                                             <tr>
+                                                <td class="text-muted">Quantity on Queue</td>
+                                                <td> {{ item.quantity_on_queue }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Available Quantity</td>
+                                                <td> {{ item.total_quantity - item.quantity_on_queue }} </td>
+                                            </tr>
+                                            <tr>
                                                 <td class="text-muted">Highest Price</td>
                                                 <td> {{ highestPrice }} </td>
                                             </tr>
@@ -117,7 +125,14 @@
                                                         Initial Transaction
                                                     </div>
                                                 </td>
-                                                <td class="text-muted"> {{ itemTransaction[i.type].label }} </td>
+                                                <td>
+                                                    <span :class="{
+                                                            'text-success': i.type === ITEM_TRANSACTION_TYPE.STOCK_IN,
+                                                            'text-danger': i.type === ITEM_TRANSACTION_TYPE.STOCK_OUT
+                                                    }">
+                                                        {{ itemTransaction[i.type].label }}
+                                                    </span>
+                                                </td>
                                                 <td class="text-muted"> {{ i.quantity }} </td>
                                                 <td class="text-muted"> {{ formatToPhpCurrency(i.price) }} </td>
                                                 <td class="text-muted"> {{ formatDate(i.created_at) }} </td>

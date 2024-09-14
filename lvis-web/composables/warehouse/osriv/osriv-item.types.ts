@@ -7,7 +7,7 @@ export interface OSRIVItem {
     osriv_id: string 
     item_id: string 
     quantity: number 
-
+    price: number
 
     // =============== derived / resolvers =============== 
     osriv: OSRIV

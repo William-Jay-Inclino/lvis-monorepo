@@ -27,6 +27,7 @@ export enum MODULES {
     MEQS = 'MEQS',
     PO = 'PO',
     RR = 'RR',
+    OSRIV = 'OSRIV',
 
     // =======================  DATA MANAGEMENT ======================= 
     SUPPLIER = 'SUPPLIER',
@@ -169,6 +170,7 @@ export enum DB_ENTITY {
     MEQS = 'material_equipment_quotation_summary',
     PO = 'purchase_order',
     RR = 'receiving_report',
+    OSRIV = 'osriv',
 }
 
 export const approvalStatus = {
@@ -281,5 +283,6 @@ export const MODULE_MAPPER = {
     [DB_ENTITY.MEQS]: 'meqs',
     [DB_ENTITY.PO]: 'po',
     [DB_ENTITY.RR]: 'rr',
+    [DB_ENTITY.OSRIV]: 'osriv',
 }
 

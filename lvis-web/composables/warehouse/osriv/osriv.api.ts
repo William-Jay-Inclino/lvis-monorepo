@@ -150,6 +150,7 @@ export async function findOne(id: string): Promise<OSRIV | undefined> {
                 osriv_items {
                     id 
                     quantity
+                    price
                     item {
                         id 
                         name
@@ -159,7 +160,6 @@ export async function findOne(id: string): Promise<OSRIV | undefined> {
                         }
                         total_quantity
                         quantity_on_queue
-                        GWAPrice
                     }
                 }
             }
@@ -208,6 +208,9 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 data {
                     id
                     osriv_number
+                    department {
+                        name
+                    }
                     requested_by {
                         id
                         firstname
@@ -447,6 +450,7 @@ export async function create(input: CreateOsrivInput): Promise<MutationResponse>
         {
           item_id: "${i.id}"
           quantity: ${i.qty_request}
+          price: ${i.GWAPrice}
         }`;
     }).join(', ');
 

@@ -83,6 +83,7 @@ export async function findAll(payload: { page: number, pageSize: number, name: s
                     name
                     description
                     total_quantity
+                    quantity_on_queue
                     GWAPrice
                     item_type {
                         id 
@@ -115,6 +116,7 @@ export async function findByCode(code: string): Promise<Item | undefined> {
                 name
                 description
                 total_quantity
+                quantity_on_queue
                 GWAPrice
                 item_type {
                     id 
@@ -149,6 +151,7 @@ export async function findOne(id: string): Promise<Item | undefined> {
                 name
                 description
                 total_quantity
+                quantity_on_queue
                 initial_quantity
                 GWAPrice
                 alert_level

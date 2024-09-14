@@ -332,7 +332,7 @@ async function onClickDelete(id: string) {
 // ======================== UTILS ======================== 
 
 const onClickViewDetails = (id: string) => router.push('/warehouse/item/view/' + id)
-const onClickEdit = (id: string) => router.push('/warehouse/item/' + id)
+// const onClickEdit = (id: string) => router.push('/warehouse/item/' + id)
 const onClickAdd = () => router.push('/warehouse/item/create')
 
 </script>
