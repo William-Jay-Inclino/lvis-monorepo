@@ -32,23 +32,23 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li v-if="canView('canManageCanvass', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/purchasing/canvass">Canvass</nuxt-link></li>
+                                        to="/warehouse/canvass">Canvass</nuxt-link></li>
                                 <li v-if="canView('canManageRV', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/purchasing/rv">RV</nuxt-link>
+                                        to="/warehouse/rv">RV</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageJO', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/purchasing/jo">JO</nuxt-link>
+                                        to="/warehouse/jo">JO</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageSPR', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/purchasing/spr">SPR</nuxt-link>
+                                        to="/warehouse/spr">SPR</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageMEQS', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/purchasing/meqs">MEQS</nuxt-link></li>
+                                        to="/warehouse/meqs">MEQS</nuxt-link></li>
                                 <li v-if="canView('canManagePO', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/purchasing/po">PO</nuxt-link>
+                                        to="/warehouse/po">PO</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageRR', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/purchasing/rr">RR</nuxt-link>
+                                        to="/warehouse/rr">RR</nuxt-link>
                                 </li>
                             </ul>
                         </li>
@@ -59,7 +59,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item"
-                                        to="/warehouse/warehousing/osriv">OSRIV</nuxt-link>
+                                        to="/warehouse/osriv">OSRIV</nuxt-link>
                                 </li>
                             </ul>
                         </li>
@@ -71,10 +71,10 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li v-if="canView('canManageItem', authUser)">
                                     <nuxt-link class="dropdown-item"
-                                        to="/warehouse/stock-inventory/item">Item</nuxt-link>
+                                        to="/warehouse/item">Item</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageItemType', authUser)">
-                                    <nuxt-link class="dropdown-item" to="/warehouse/stock-inventory/item-type">Item
+                                    <nuxt-link class="dropdown-item" to="/warehouse/item-type">Item
                                         Type</nuxt-link>
                                 </li>
                             </ul>
@@ -86,14 +86,14 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li v-if="canView('canManageUnit', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/data-management/unit">Unit</nuxt-link></li>
+                                        to="/warehouse/unit">Unit</nuxt-link></li>
                                 <li v-if="canView('canManageVehicle', authUser)">
                                     <nuxt-link class="dropdown-item"
-                                        to="/warehouse/data-management/vehicle">Vehicle</nuxt-link>
+                                        to="/warehouse/vehicle">Vehicle</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageSupplier', authUser)">
                                     <nuxt-link class="dropdown-item"
-                                        to="/warehouse/data-management/supplier">Supplier</nuxt-link>
+                                        to="/warehouse/supplier">Supplier</nuxt-link>
                                 </li>
                             </ul>
                         </li>
@@ -176,20 +176,20 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li v-if="canView('canManageCanvass', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/purchasing/canvass">Canvass</nuxt-link>
+                                    to="/warehouse/canvass">Canvass</nuxt-link>
                             </li>
                             <li v-if="canView('canManageRV', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/purchasing/rv">RV</nuxt-link></li>
+                                    to="/warehouse/rv">RV</nuxt-link></li>
                             <li v-if="canView('canManageJO', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/purchasing/jo">JO</nuxt-link></li>
+                                    to="/warehouse/jo">JO</nuxt-link></li>
                             <li v-if="canView('canManageSPR', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/purchasing/spr">SPR</nuxt-link></li>
+                                    to="/warehouse/spr">SPR</nuxt-link></li>
                             <li v-if="canView('canManageMEQS', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/purchasing/meqs">MEQS</nuxt-link></li>
+                                    to="/warehouse/meqs">MEQS</nuxt-link></li>
                             <li v-if="canView('canManagePO', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/purchasing/po">PO</nuxt-link></li>
+                                    to="/warehouse/po">PO</nuxt-link></li>
                             <li v-if="canView('canManageRR', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/purchasing/rr">RR</nuxt-link></li>
+                                    to="/warehouse/rr">RR</nuxt-link></li>
                         </ul>
                     </li>
                     <li v-if="canViewWarehousing(authUser)" class="nav-item dropdown">
@@ -199,7 +199,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><nuxt-link class="dropdown-item"
-                                    to="/warehouse/warehousing/osriv">OSRIV</nuxt-link>
+                                    to="/warehouse/osriv">OSRIV</nuxt-link>
                             </li>
                         </ul>
                     </li>
@@ -210,10 +210,10 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li v-if="canView('canManageItem', authUser)">
-                                <nuxt-link class="dropdown-item" to="/warehouse/stock-inventory/item">Item</nuxt-link>
+                                <nuxt-link class="dropdown-item" to="/warehouse/item">Item</nuxt-link>
                             </li>
                             <li v-if="canView('canManageItemType', authUser)">
-                                <nuxt-link class="dropdown-item" to="/warehouse/stock-inventory/item-type">Item
+                                <nuxt-link class="dropdown-item" to="/warehouse/item-type">Item
                                     Type</nuxt-link>
                             </li>
                         </ul>
@@ -225,15 +225,15 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li v-if="canView('canManageUnit', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/data-management/unit">Unit</nuxt-link>
+                                    to="/warehouse/unit">Unit</nuxt-link>
                             </li>
                             <li v-if="canView('canManageVehicle', authUser)">
                                 <nuxt-link class="dropdown-item"
-                                    to="/warehouse/data-management/vehicle">Vehicle</nuxt-link>
+                                    to="/warehouse/vehicle">Vehicle</nuxt-link>
                             </li>
                             <li v-if="canView('canManageSupplier', authUser)">
                                 <nuxt-link class="dropdown-item"
-                                    to="/warehouse/data-management/supplier">Supplier</nuxt-link>
+                                    to="/warehouse/supplier">Supplier</nuxt-link>
                             </li>
                         </ul>
                     </li>

@@ -160,7 +160,7 @@ const isFinanceManager = computed(() => {
 
 function getLink(entity: DB_ENTITY, reference_number: string) {
     const module = MODULE_MAPPER[entity]
-    return `/warehouse/purchasing/${module}/view/` + reference_number
+    return `/warehouse/${module}/view/` + reference_number
 }
 
 function isDefaultApproval(pending: Pending) {
