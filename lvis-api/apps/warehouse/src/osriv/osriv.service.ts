@@ -69,7 +69,8 @@ export class OsrivService {
                 create: input.items.map(i => {
                     return {
                         item: {connect: {id: i.item_id}},
-                        quantity: i.quantity
+                        quantity: i.quantity,
+                        price: i.price,
                     }
                 })
             }

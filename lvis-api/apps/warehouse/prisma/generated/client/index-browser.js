@@ -239,6 +239,7 @@ exports.Prisma.ItemTransactionScalarFieldEnum = {
   id: 'id',
   item_id: 'item_id',
   rr_item_id: 'rr_item_id',
+  osriv_item_id: 'osriv_item_id',
   type: 'type',
   quantity: 'quantity',
   price: 'price',
@@ -499,6 +500,7 @@ exports.Prisma.OSRIVScalarFieldEnum = {
   osriv_number: 'osriv_number',
   date_requested: 'date_requested',
   purpose: 'purpose',
+  is_completed: 'is_completed',
   requested_by_id: 'requested_by_id',
   department_id: 'department_id',
   item_from_id: 'item_from_id',
@@ -532,6 +534,7 @@ exports.Prisma.OSRIVItemScalarFieldEnum = {
   osriv_id: 'osriv_id',
   item_id: 'item_id',
   quantity: 'quantity',
+  price: 'price',
   metadata: 'metadata'
 };
 

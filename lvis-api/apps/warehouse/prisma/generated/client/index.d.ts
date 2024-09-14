@@ -15389,6 +15389,7 @@ export namespace Prisma {
     id: number | null
     item_id: string | null
     rr_item_id: string | null
+    osriv_item_id: string | null
     type: number | null
     quantity: number | null
     price: number | null
@@ -15402,6 +15403,7 @@ export namespace Prisma {
     id: number | null
     item_id: string | null
     rr_item_id: string | null
+    osriv_item_id: string | null
     type: number | null
     quantity: number | null
     price: number | null
@@ -15415,6 +15417,7 @@ export namespace Prisma {
     id: number
     item_id: number
     rr_item_id: number
+    osriv_item_id: number
     type: number
     quantity: number
     price: number
@@ -15445,6 +15448,7 @@ export namespace Prisma {
     id?: true
     item_id?: true
     rr_item_id?: true
+    osriv_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -15458,6 +15462,7 @@ export namespace Prisma {
     id?: true
     item_id?: true
     rr_item_id?: true
+    osriv_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -15471,6 +15476,7 @@ export namespace Prisma {
     id?: true
     item_id?: true
     rr_item_id?: true
+    osriv_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -15572,6 +15578,7 @@ export namespace Prisma {
     id: number
     item_id: string
     rr_item_id: string | null
+    osriv_item_id: string | null
     type: number
     quantity: number
     price: number
@@ -15605,6 +15612,7 @@ export namespace Prisma {
     id?: boolean
     item_id?: boolean
     rr_item_id?: boolean
+    osriv_item_id?: boolean
     type?: boolean
     quantity?: boolean
     price?: boolean
@@ -15615,12 +15623,14 @@ export namespace Prisma {
     metadata?: boolean
     item?: boolean | ItemDefaultArgs<ExtArgs>
     rr_item?: boolean | ItemTransaction$rr_itemArgs<ExtArgs>
+    osriv_item?: boolean | ItemTransaction$osriv_itemArgs<ExtArgs>
   }, ExtArgs["result"]["itemTransaction"]>
 
   export type ItemTransactionSelectScalar = {
     id?: boolean
     item_id?: boolean
     rr_item_id?: boolean
+    osriv_item_id?: boolean
     type?: boolean
     quantity?: boolean
     price?: boolean
@@ -15634,6 +15644,7 @@ export namespace Prisma {
   export type ItemTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     item?: boolean | ItemDefaultArgs<ExtArgs>
     rr_item?: boolean | ItemTransaction$rr_itemArgs<ExtArgs>
+    osriv_item?: boolean | ItemTransaction$osriv_itemArgs<ExtArgs>
   }
 
 
@@ -15642,11 +15653,13 @@ export namespace Prisma {
     objects: {
       item: Prisma.$ItemPayload<ExtArgs>
       rr_item: Prisma.$RRItemPayload<ExtArgs> | null
+      osriv_item: Prisma.$OSRIVItemPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       item_id: string
       rr_item_id: string | null
+      osriv_item_id: string | null
       type: number
       quantity: number
       price: number
@@ -16024,6 +16037,8 @@ export namespace Prisma {
 
     rr_item<T extends ItemTransaction$rr_itemArgs<ExtArgs> = {}>(args?: Subset<T, ItemTransaction$rr_itemArgs<ExtArgs>>): Prisma__RRItemClient<$Result.GetResult<Prisma.$RRItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    osriv_item<T extends ItemTransaction$osriv_itemArgs<ExtArgs> = {}>(args?: Subset<T, ItemTransaction$osriv_itemArgs<ExtArgs>>): Prisma__OSRIVItemClient<$Result.GetResult<Prisma.$OSRIVItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16055,6 +16070,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ItemTransaction", 'Int'>
     readonly item_id: FieldRef<"ItemTransaction", 'String'>
     readonly rr_item_id: FieldRef<"ItemTransaction", 'String'>
+    readonly osriv_item_id: FieldRef<"ItemTransaction", 'String'>
     readonly type: FieldRef<"ItemTransaction", 'Int'>
     readonly quantity: FieldRef<"ItemTransaction", 'Int'>
     readonly price: FieldRef<"ItemTransaction", 'Float'>
@@ -16387,6 +16403,22 @@ export namespace Prisma {
      */
     include?: RRItemInclude<ExtArgs> | null
     where?: RRItemWhereInput
+  }
+
+
+  /**
+   * ItemTransaction.osriv_item
+   */
+  export type ItemTransaction$osriv_itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OSRIVItem
+     */
+    select?: OSRIVItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: OSRIVItemInclude<ExtArgs> | null
+    where?: OSRIVItemWhereInput
   }
 
 
@@ -35099,6 +35131,7 @@ export namespace Prisma {
     osriv_number: string | null
     date_requested: Date | null
     purpose: string | null
+    is_completed: boolean | null
     requested_by_id: string | null
     department_id: string | null
     item_from_id: string | null
@@ -35117,6 +35150,7 @@ export namespace Prisma {
     osriv_number: string | null
     date_requested: Date | null
     purpose: string | null
+    is_completed: boolean | null
     requested_by_id: string | null
     department_id: string | null
     item_from_id: string | null
@@ -35135,6 +35169,7 @@ export namespace Prisma {
     osriv_number: number
     date_requested: number
     purpose: number
+    is_completed: number
     requested_by_id: number
     department_id: number
     item_from_id: number
@@ -35156,6 +35191,7 @@ export namespace Prisma {
     osriv_number?: true
     date_requested?: true
     purpose?: true
+    is_completed?: true
     requested_by_id?: true
     department_id?: true
     item_from_id?: true
@@ -35174,6 +35210,7 @@ export namespace Prisma {
     osriv_number?: true
     date_requested?: true
     purpose?: true
+    is_completed?: true
     requested_by_id?: true
     department_id?: true
     item_from_id?: true
@@ -35192,6 +35229,7 @@ export namespace Prisma {
     osriv_number?: true
     date_requested?: true
     purpose?: true
+    is_completed?: true
     requested_by_id?: true
     department_id?: true
     item_from_id?: true
@@ -35284,6 +35322,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date
     purpose: string
+    is_completed: boolean
     requested_by_id: string
     department_id: string
     item_from_id: string
@@ -35320,6 +35359,7 @@ export namespace Prisma {
     osriv_number?: boolean
     date_requested?: boolean
     purpose?: boolean
+    is_completed?: boolean
     requested_by_id?: boolean
     department_id?: boolean
     item_from_id?: boolean
@@ -35343,6 +35383,7 @@ export namespace Prisma {
     osriv_number?: boolean
     date_requested?: boolean
     purpose?: boolean
+    is_completed?: boolean
     requested_by_id?: boolean
     department_id?: boolean
     item_from_id?: boolean
@@ -35377,6 +35418,7 @@ export namespace Prisma {
       osriv_number: string
       date_requested: Date
       purpose: string
+      is_completed: boolean
       requested_by_id: string
       department_id: string
       item_from_id: string
@@ -35792,6 +35834,7 @@ export namespace Prisma {
     readonly osriv_number: FieldRef<"OSRIV", 'String'>
     readonly date_requested: FieldRef<"OSRIV", 'DateTime'>
     readonly purpose: FieldRef<"OSRIV", 'String'>
+    readonly is_completed: FieldRef<"OSRIV", 'Boolean'>
     readonly requested_by_id: FieldRef<"OSRIV", 'String'>
     readonly department_id: FieldRef<"OSRIV", 'String'>
     readonly item_from_id: FieldRef<"OSRIV", 'String'>
@@ -37205,10 +37248,12 @@ export namespace Prisma {
 
   export type OSRIVItemAvgAggregateOutputType = {
     quantity: number | null
+    price: number | null
   }
 
   export type OSRIVItemSumAggregateOutputType = {
     quantity: number | null
+    price: number | null
   }
 
   export type OSRIVItemMinAggregateOutputType = {
@@ -37216,6 +37261,7 @@ export namespace Prisma {
     osriv_id: string | null
     item_id: string | null
     quantity: number | null
+    price: number | null
   }
 
   export type OSRIVItemMaxAggregateOutputType = {
@@ -37223,6 +37269,7 @@ export namespace Prisma {
     osriv_id: string | null
     item_id: string | null
     quantity: number | null
+    price: number | null
   }
 
   export type OSRIVItemCountAggregateOutputType = {
@@ -37230,6 +37277,7 @@ export namespace Prisma {
     osriv_id: number
     item_id: number
     quantity: number
+    price: number
     metadata: number
     _all: number
   }
@@ -37237,10 +37285,12 @@ export namespace Prisma {
 
   export type OSRIVItemAvgAggregateInputType = {
     quantity?: true
+    price?: true
   }
 
   export type OSRIVItemSumAggregateInputType = {
     quantity?: true
+    price?: true
   }
 
   export type OSRIVItemMinAggregateInputType = {
@@ -37248,6 +37298,7 @@ export namespace Prisma {
     osriv_id?: true
     item_id?: true
     quantity?: true
+    price?: true
   }
 
   export type OSRIVItemMaxAggregateInputType = {
@@ -37255,6 +37306,7 @@ export namespace Prisma {
     osriv_id?: true
     item_id?: true
     quantity?: true
+    price?: true
   }
 
   export type OSRIVItemCountAggregateInputType = {
@@ -37262,6 +37314,7 @@ export namespace Prisma {
     osriv_id?: true
     item_id?: true
     quantity?: true
+    price?: true
     metadata?: true
     _all?: true
   }
@@ -37357,6 +37410,7 @@ export namespace Prisma {
     osriv_id: string
     item_id: string
     quantity: number
+    price: number
     metadata: JsonValue | null
     _count: OSRIVItemCountAggregateOutputType | null
     _avg: OSRIVItemAvgAggregateOutputType | null
@@ -37384,9 +37438,11 @@ export namespace Prisma {
     osriv_id?: boolean
     item_id?: boolean
     quantity?: boolean
+    price?: boolean
     metadata?: boolean
     osriv?: boolean | OSRIVDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    item_transaction?: boolean | OSRIVItem$item_transactionArgs<ExtArgs>
   }, ExtArgs["result"]["oSRIVItem"]>
 
   export type OSRIVItemSelectScalar = {
@@ -37394,12 +37450,14 @@ export namespace Prisma {
     osriv_id?: boolean
     item_id?: boolean
     quantity?: boolean
+    price?: boolean
     metadata?: boolean
   }
 
   export type OSRIVItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     osriv?: boolean | OSRIVDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    item_transaction?: boolean | OSRIVItem$item_transactionArgs<ExtArgs>
   }
 
 
@@ -37408,12 +37466,14 @@ export namespace Prisma {
     objects: {
       osriv: Prisma.$OSRIVPayload<ExtArgs>
       item: Prisma.$ItemPayload<ExtArgs>
+      item_transaction: Prisma.$ItemTransactionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       osriv_id: string
       item_id: string
       quantity: number
+      price: number
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["oSRIVItem"]>
     composites: {}
@@ -37784,6 +37844,8 @@ export namespace Prisma {
 
     item<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
+    item_transaction<T extends OSRIVItem$item_transactionArgs<ExtArgs> = {}>(args?: Subset<T, OSRIVItem$item_transactionArgs<ExtArgs>>): Prisma__ItemTransactionClient<$Result.GetResult<Prisma.$ItemTransactionPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -37816,6 +37878,7 @@ export namespace Prisma {
     readonly osriv_id: FieldRef<"OSRIVItem", 'String'>
     readonly item_id: FieldRef<"OSRIVItem", 'String'>
     readonly quantity: FieldRef<"OSRIVItem", 'Int'>
+    readonly price: FieldRef<"OSRIVItem", 'Float'>
     readonly metadata: FieldRef<"OSRIVItem", 'Json'>
   }
     
@@ -38125,6 +38188,22 @@ export namespace Prisma {
      * Filter which OSRIVItems to delete
      */
     where?: OSRIVItemWhereInput
+  }
+
+
+  /**
+   * OSRIVItem.item_transaction
+   */
+  export type OSRIVItem$item_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemTransaction
+     */
+    select?: ItemTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTransactionInclude<ExtArgs> | null
+    where?: ItemTransactionWhereInput
   }
 
 
@@ -48610,6 +48689,7 @@ export namespace Prisma {
     id: 'id',
     item_id: 'item_id',
     rr_item_id: 'rr_item_id',
+    osriv_item_id: 'osriv_item_id',
     type: 'type',
     quantity: 'quantity',
     price: 'price',
@@ -48927,6 +49007,7 @@ export namespace Prisma {
     osriv_number: 'osriv_number',
     date_requested: 'date_requested',
     purpose: 'purpose',
+    is_completed: 'is_completed',
     requested_by_id: 'requested_by_id',
     department_id: 'department_id',
     item_from_id: 'item_from_id',
@@ -48966,6 +49047,7 @@ export namespace Prisma {
     osriv_id: 'osriv_id',
     item_id: 'item_id',
     quantity: 'quantity',
+    price: 'price',
     metadata: 'metadata'
   };
 
@@ -50112,6 +50194,7 @@ export namespace Prisma {
     id?: IntFilter<"ItemTransaction"> | number
     item_id?: StringFilter<"ItemTransaction"> | string
     rr_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
+    osriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     type?: IntFilter<"ItemTransaction"> | number
     quantity?: IntFilter<"ItemTransaction"> | number
     price?: FloatFilter<"ItemTransaction"> | number
@@ -50122,12 +50205,14 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"ItemTransaction">
     item?: XOR<ItemRelationFilter, ItemWhereInput>
     rr_item?: XOR<RRItemNullableRelationFilter, RRItemWhereInput> | null
+    osriv_item?: XOR<OSRIVItemNullableRelationFilter, OSRIVItemWhereInput> | null
   }
 
   export type ItemTransactionOrderByWithRelationInput = {
     id?: SortOrder
     item_id?: SortOrder
     rr_item_id?: SortOrderInput | SortOrder
+    osriv_item_id?: SortOrderInput | SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -50138,11 +50223,13 @@ export namespace Prisma {
     metadata?: SortOrderInput | SortOrder
     item?: ItemOrderByWithRelationInput
     rr_item?: RRItemOrderByWithRelationInput
+    osriv_item?: OSRIVItemOrderByWithRelationInput
   }
 
   export type ItemTransactionWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     rr_item_id?: string
+    osriv_item_id?: string
     AND?: ItemTransactionWhereInput | ItemTransactionWhereInput[]
     OR?: ItemTransactionWhereInput[]
     NOT?: ItemTransactionWhereInput | ItemTransactionWhereInput[]
@@ -50157,12 +50244,14 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"ItemTransaction">
     item?: XOR<ItemRelationFilter, ItemWhereInput>
     rr_item?: XOR<RRItemNullableRelationFilter, RRItemWhereInput> | null
-  }, "id" | "rr_item_id">
+    osriv_item?: XOR<OSRIVItemNullableRelationFilter, OSRIVItemWhereInput> | null
+  }, "id" | "rr_item_id" | "osriv_item_id">
 
   export type ItemTransactionOrderByWithAggregationInput = {
     id?: SortOrder
     item_id?: SortOrder
     rr_item_id?: SortOrderInput | SortOrder
+    osriv_item_id?: SortOrderInput | SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -50185,6 +50274,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"ItemTransaction"> | number
     item_id?: StringWithAggregatesFilter<"ItemTransaction"> | string
     rr_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
+    osriv_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
     type?: IntWithAggregatesFilter<"ItemTransaction"> | number
     quantity?: IntWithAggregatesFilter<"ItemTransaction"> | number
     price?: FloatWithAggregatesFilter<"ItemTransaction"> | number
@@ -51806,6 +51896,7 @@ export namespace Prisma {
     osriv_number?: StringFilter<"OSRIV"> | string
     date_requested?: DateTimeFilter<"OSRIV"> | Date | string
     purpose?: StringFilter<"OSRIV"> | string
+    is_completed?: BoolFilter<"OSRIV"> | boolean
     requested_by_id?: StringFilter<"OSRIV"> | string
     department_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
@@ -51828,6 +51919,7 @@ export namespace Prisma {
     osriv_number?: SortOrder
     date_requested?: SortOrder
     purpose?: SortOrder
+    is_completed?: SortOrder
     requested_by_id?: SortOrder
     department_id?: SortOrder
     item_from_id?: SortOrder
@@ -51853,6 +51945,7 @@ export namespace Prisma {
     NOT?: OSRIVWhereInput | OSRIVWhereInput[]
     date_requested?: DateTimeFilter<"OSRIV"> | Date | string
     purpose?: StringFilter<"OSRIV"> | string
+    is_completed?: BoolFilter<"OSRIV"> | boolean
     requested_by_id?: StringFilter<"OSRIV"> | string
     department_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
@@ -51875,6 +51968,7 @@ export namespace Prisma {
     osriv_number?: SortOrder
     date_requested?: SortOrder
     purpose?: SortOrder
+    is_completed?: SortOrder
     requested_by_id?: SortOrder
     department_id?: SortOrder
     item_from_id?: SortOrder
@@ -51900,6 +51994,7 @@ export namespace Prisma {
     osriv_number?: StringWithAggregatesFilter<"OSRIV"> | string
     date_requested?: DateTimeWithAggregatesFilter<"OSRIV"> | Date | string
     purpose?: StringWithAggregatesFilter<"OSRIV"> | string
+    is_completed?: BoolWithAggregatesFilter<"OSRIV"> | boolean
     requested_by_id?: StringWithAggregatesFilter<"OSRIV"> | string
     department_id?: StringWithAggregatesFilter<"OSRIV"> | string
     item_from_id?: StringWithAggregatesFilter<"OSRIV"> | string
@@ -52009,9 +52104,11 @@ export namespace Prisma {
     osriv_id?: StringFilter<"OSRIVItem"> | string
     item_id?: StringFilter<"OSRIVItem"> | string
     quantity?: IntFilter<"OSRIVItem"> | number
+    price?: FloatFilter<"OSRIVItem"> | number
     metadata?: JsonNullableFilter<"OSRIVItem">
     osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type OSRIVItemOrderByWithRelationInput = {
@@ -52019,9 +52116,11 @@ export namespace Prisma {
     osriv_id?: SortOrder
     item_id?: SortOrder
     quantity?: SortOrder
+    price?: SortOrder
     metadata?: SortOrderInput | SortOrder
     osriv?: OSRIVOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
+    item_transaction?: ItemTransactionOrderByWithRelationInput
   }
 
   export type OSRIVItemWhereUniqueInput = Prisma.AtLeast<{
@@ -52032,9 +52131,11 @@ export namespace Prisma {
     osriv_id?: StringFilter<"OSRIVItem"> | string
     item_id?: StringFilter<"OSRIVItem"> | string
     quantity?: IntFilter<"OSRIVItem"> | number
+    price?: FloatFilter<"OSRIVItem"> | number
     metadata?: JsonNullableFilter<"OSRIVItem">
     osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type OSRIVItemOrderByWithAggregationInput = {
@@ -52042,6 +52143,7 @@ export namespace Prisma {
     osriv_id?: SortOrder
     item_id?: SortOrder
     quantity?: SortOrder
+    price?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: OSRIVItemCountOrderByAggregateInput
     _avg?: OSRIVItemAvgOrderByAggregateInput
@@ -52058,6 +52160,7 @@ export namespace Prisma {
     osriv_id?: StringWithAggregatesFilter<"OSRIVItem"> | string
     item_id?: StringWithAggregatesFilter<"OSRIVItem"> | string
     quantity?: IntWithAggregatesFilter<"OSRIVItem"> | number
+    price?: FloatWithAggregatesFilter<"OSRIVItem"> | number
     metadata?: JsonNullableWithAggregatesFilter<"OSRIVItem">
   }
 
@@ -53939,12 +54042,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutItem_transactionsInput
     rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
+    osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateInput = {
     id?: number
     item_id: string
     rr_item_id?: string | null
+    osriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -53966,12 +54071,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
     rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
+    osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     item_id?: StringFieldUpdateOperationsInput | string
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -53986,6 +54093,7 @@ export namespace Prisma {
     id?: number
     item_id: string
     rr_item_id?: string | null
+    osriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -54011,6 +54119,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     item_id?: StringFieldUpdateOperationsInput | string
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -55804,6 +55913,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date | string
     purpose: string
+    is_completed?: boolean
     requested_by_id: string
     department_id: string
     supervisor_id: string
@@ -55825,6 +55935,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date | string
     purpose: string
+    is_completed?: boolean
     requested_by_id: string
     department_id: string
     item_from_id: string
@@ -55846,6 +55957,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
@@ -55867,6 +55979,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
@@ -55888,6 +56001,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date | string
     purpose: string
+    is_completed?: boolean
     requested_by_id: string
     department_id: string
     item_from_id: string
@@ -55907,6 +56021,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
@@ -55925,6 +56040,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
@@ -56039,9 +56155,11 @@ export namespace Prisma {
   export type OSRIVItemCreateInput = {
     id?: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv: OSRIVCreateNestedOneWithoutOsriv_itemsInput
     item: ItemCreateNestedOneWithoutOsriv_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutOsriv_itemInput
   }
 
   export type OSRIVItemUncheckedCreateInput = {
@@ -56049,15 +56167,19 @@ export namespace Prisma {
     osriv_id: string
     item_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutOsriv_itemInput
   }
 
   export type OSRIVItemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv?: OSRIVUpdateOneRequiredWithoutOsriv_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutOsriv_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutOsriv_itemNestedInput
   }
 
   export type OSRIVItemUncheckedUpdateInput = {
@@ -56065,7 +56187,9 @@ export namespace Prisma {
     osriv_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutOsriv_itemNestedInput
   }
 
   export type OSRIVItemCreateManyInput = {
@@ -56073,12 +56197,14 @@ export namespace Prisma {
     osriv_id: string
     item_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type OSRIVItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -56087,6 +56213,7 @@ export namespace Prisma {
     osriv_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -57915,10 +58042,16 @@ export namespace Prisma {
     isNot?: RRItemWhereInput | null
   }
 
+  export type OSRIVItemNullableRelationFilter = {
+    is?: OSRIVItemWhereInput | null
+    isNot?: OSRIVItemWhereInput | null
+  }
+
   export type ItemTransactionCountOrderByAggregateInput = {
     id?: SortOrder
     item_id?: SortOrder
     rr_item_id?: SortOrder
+    osriv_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -57940,6 +58073,7 @@ export namespace Prisma {
     id?: SortOrder
     item_id?: SortOrder
     rr_item_id?: SortOrder
+    osriv_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -57953,6 +58087,7 @@ export namespace Prisma {
     id?: SortOrder
     item_id?: SortOrder
     rr_item_id?: SortOrder
+    osriv_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -59008,6 +59143,7 @@ export namespace Prisma {
     osriv_number?: SortOrder
     date_requested?: SortOrder
     purpose?: SortOrder
+    is_completed?: SortOrder
     requested_by_id?: SortOrder
     department_id?: SortOrder
     item_from_id?: SortOrder
@@ -59027,6 +59163,7 @@ export namespace Prisma {
     osriv_number?: SortOrder
     date_requested?: SortOrder
     purpose?: SortOrder
+    is_completed?: SortOrder
     requested_by_id?: SortOrder
     department_id?: SortOrder
     item_from_id?: SortOrder
@@ -59045,6 +59182,7 @@ export namespace Prisma {
     osriv_number?: SortOrder
     date_requested?: SortOrder
     purpose?: SortOrder
+    is_completed?: SortOrder
     requested_by_id?: SortOrder
     department_id?: SortOrder
     item_from_id?: SortOrder
@@ -59118,11 +59256,13 @@ export namespace Prisma {
     osriv_id?: SortOrder
     item_id?: SortOrder
     quantity?: SortOrder
+    price?: SortOrder
     metadata?: SortOrder
   }
 
   export type OSRIVItemAvgOrderByAggregateInput = {
     quantity?: SortOrder
+    price?: SortOrder
   }
 
   export type OSRIVItemMaxOrderByAggregateInput = {
@@ -59130,6 +59270,7 @@ export namespace Prisma {
     osriv_id?: SortOrder
     item_id?: SortOrder
     quantity?: SortOrder
+    price?: SortOrder
   }
 
   export type OSRIVItemMinOrderByAggregateInput = {
@@ -59137,10 +59278,12 @@ export namespace Prisma {
     osriv_id?: SortOrder
     item_id?: SortOrder
     quantity?: SortOrder
+    price?: SortOrder
   }
 
   export type OSRIVItemSumOrderByAggregateInput = {
     quantity?: SortOrder
+    price?: SortOrder
   }
 
   export type SERIVApproverListRelationFilter = {
@@ -60529,6 +60672,12 @@ export namespace Prisma {
     connect?: RRItemWhereUniqueInput
   }
 
+  export type OSRIVItemCreateNestedOneWithoutItem_transactionInput = {
+    create?: XOR<OSRIVItemCreateWithoutItem_transactionInput, OSRIVItemUncheckedCreateWithoutItem_transactionInput>
+    connectOrCreate?: OSRIVItemCreateOrConnectWithoutItem_transactionInput
+    connect?: OSRIVItemWhereUniqueInput
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -60553,6 +60702,16 @@ export namespace Prisma {
     delete?: RRItemWhereInput | boolean
     connect?: RRItemWhereUniqueInput
     update?: XOR<XOR<RRItemUpdateToOneWithWhereWithoutItem_transactionInput, RRItemUpdateWithoutItem_transactionInput>, RRItemUncheckedUpdateWithoutItem_transactionInput>
+  }
+
+  export type OSRIVItemUpdateOneWithoutItem_transactionNestedInput = {
+    create?: XOR<OSRIVItemCreateWithoutItem_transactionInput, OSRIVItemUncheckedCreateWithoutItem_transactionInput>
+    connectOrCreate?: OSRIVItemCreateOrConnectWithoutItem_transactionInput
+    upsert?: OSRIVItemUpsertWithoutItem_transactionInput
+    disconnect?: OSRIVItemWhereInput | boolean
+    delete?: OSRIVItemWhereInput | boolean
+    connect?: OSRIVItemWhereUniqueInput
+    update?: XOR<XOR<OSRIVItemUpdateToOneWithWhereWithoutItem_transactionInput, OSRIVItemUpdateWithoutItem_transactionInput>, OSRIVItemUncheckedUpdateWithoutItem_transactionInput>
   }
 
   export type CanvassItemCreateNestedManyWithoutCanvassInput = {
@@ -61893,6 +62052,18 @@ export namespace Prisma {
     connect?: ItemWhereUniqueInput
   }
 
+  export type ItemTransactionCreateNestedOneWithoutOsriv_itemInput = {
+    create?: XOR<ItemTransactionCreateWithoutOsriv_itemInput, ItemTransactionUncheckedCreateWithoutOsriv_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutOsriv_itemInput
+    connect?: ItemTransactionWhereUniqueInput
+  }
+
+  export type ItemTransactionUncheckedCreateNestedOneWithoutOsriv_itemInput = {
+    create?: XOR<ItemTransactionCreateWithoutOsriv_itemInput, ItemTransactionUncheckedCreateWithoutOsriv_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutOsriv_itemInput
+    connect?: ItemTransactionWhereUniqueInput
+  }
+
   export type OSRIVUpdateOneRequiredWithoutOsriv_itemsNestedInput = {
     create?: XOR<OSRIVCreateWithoutOsriv_itemsInput, OSRIVUncheckedCreateWithoutOsriv_itemsInput>
     connectOrCreate?: OSRIVCreateOrConnectWithoutOsriv_itemsInput
@@ -61907,6 +62078,26 @@ export namespace Prisma {
     upsert?: ItemUpsertWithoutOsriv_itemsInput
     connect?: ItemWhereUniqueInput
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutOsriv_itemsInput, ItemUpdateWithoutOsriv_itemsInput>, ItemUncheckedUpdateWithoutOsriv_itemsInput>
+  }
+
+  export type ItemTransactionUpdateOneWithoutOsriv_itemNestedInput = {
+    create?: XOR<ItemTransactionCreateWithoutOsriv_itemInput, ItemTransactionUncheckedCreateWithoutOsriv_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutOsriv_itemInput
+    upsert?: ItemTransactionUpsertWithoutOsriv_itemInput
+    disconnect?: ItemTransactionWhereInput | boolean
+    delete?: ItemTransactionWhereInput | boolean
+    connect?: ItemTransactionWhereUniqueInput
+    update?: XOR<XOR<ItemTransactionUpdateToOneWithWhereWithoutOsriv_itemInput, ItemTransactionUpdateWithoutOsriv_itemInput>, ItemTransactionUncheckedUpdateWithoutOsriv_itemInput>
+  }
+
+  export type ItemTransactionUncheckedUpdateOneWithoutOsriv_itemNestedInput = {
+    create?: XOR<ItemTransactionCreateWithoutOsriv_itemInput, ItemTransactionUncheckedCreateWithoutOsriv_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutOsriv_itemInput
+    upsert?: ItemTransactionUpsertWithoutOsriv_itemInput
+    disconnect?: ItemTransactionWhereInput | boolean
+    delete?: ItemTransactionWhereInput | boolean
+    connect?: ItemTransactionWhereUniqueInput
+    update?: XOR<XOR<ItemTransactionUpdateToOneWithWhereWithoutOsriv_itemInput, ItemTransactionUpdateWithoutOsriv_itemInput>, ItemTransactionUncheckedUpdateWithoutOsriv_itemInput>
   }
 
   export type StationCreateNestedOneWithoutSerivsInput = {
@@ -63038,6 +63229,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date | string
     purpose: string
+    is_completed?: boolean
     requested_by_id: string
     department_id: string
     supervisor_id: string
@@ -63058,6 +63250,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date | string
     purpose: string
+    is_completed?: boolean
     requested_by_id: string
     department_id: string
     supervisor_id: string
@@ -63252,6 +63445,7 @@ export namespace Prisma {
     osriv_number?: StringFilter<"OSRIV"> | string
     date_requested?: DateTimeFilter<"OSRIV"> | Date | string
     purpose?: StringFilter<"OSRIV"> | string
+    is_completed?: BoolFilter<"OSRIV"> | boolean
     requested_by_id?: StringFilter<"OSRIV"> | string
     department_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
@@ -63388,11 +63582,13 @@ export namespace Prisma {
     created_by?: string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
+    osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutItemInput = {
     id?: number
     rr_item_id?: string | null
+    osriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -63509,15 +63705,19 @@ export namespace Prisma {
   export type OSRIVItemCreateWithoutItemInput = {
     id?: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv: OSRIVCreateNestedOneWithoutOsriv_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutOsriv_itemInput
   }
 
   export type OSRIVItemUncheckedCreateWithoutItemInput = {
     id?: string
     osriv_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutOsriv_itemInput
   }
 
   export type OSRIVItemCreateOrConnectWithoutItemInput = {
@@ -63636,6 +63836,7 @@ export namespace Prisma {
     id?: IntFilter<"ItemTransaction"> | number
     item_id?: StringFilter<"ItemTransaction"> | string
     rr_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
+    osriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     type?: IntFilter<"ItemTransaction"> | number
     quantity?: IntFilter<"ItemTransaction"> | number
     price?: FloatFilter<"ItemTransaction"> | number
@@ -63739,6 +63940,7 @@ export namespace Prisma {
     osriv_id?: StringFilter<"OSRIVItem"> | string
     item_id?: StringFilter<"OSRIVItem"> | string
     quantity?: IntFilter<"OSRIVItem"> | number
+    price?: FloatFilter<"OSRIVItem"> | number
     metadata?: JsonNullableFilter<"OSRIVItem">
   }
 
@@ -64289,6 +64491,29 @@ export namespace Prisma {
     create: XOR<RRItemCreateWithoutItem_transactionInput, RRItemUncheckedCreateWithoutItem_transactionInput>
   }
 
+  export type OSRIVItemCreateWithoutItem_transactionInput = {
+    id?: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    osriv: OSRIVCreateNestedOneWithoutOsriv_itemsInput
+    item: ItemCreateNestedOneWithoutOsriv_itemsInput
+  }
+
+  export type OSRIVItemUncheckedCreateWithoutItem_transactionInput = {
+    id?: string
+    osriv_id: string
+    item_id: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type OSRIVItemCreateOrConnectWithoutItem_transactionInput = {
+    where: OSRIVItemWhereUniqueInput
+    create: XOR<OSRIVItemCreateWithoutItem_transactionInput, OSRIVItemUncheckedCreateWithoutItem_transactionInput>
+  }
+
   export type ItemUpsertWithoutItem_transactionsInput = {
     update: XOR<ItemUpdateWithoutItem_transactionsInput, ItemUncheckedUpdateWithoutItem_transactionsInput>
     create: XOR<ItemCreateWithoutItem_transactionsInput, ItemUncheckedCreateWithoutItem_transactionsInput>
@@ -64374,6 +64599,35 @@ export namespace Prisma {
     rr_id?: StringFieldUpdateOperationsInput | string
     meqs_supplier_item_id?: StringFieldUpdateOperationsInput | string
     quantity_accepted?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type OSRIVItemUpsertWithoutItem_transactionInput = {
+    update: XOR<OSRIVItemUpdateWithoutItem_transactionInput, OSRIVItemUncheckedUpdateWithoutItem_transactionInput>
+    create: XOR<OSRIVItemCreateWithoutItem_transactionInput, OSRIVItemUncheckedCreateWithoutItem_transactionInput>
+    where?: OSRIVItemWhereInput
+  }
+
+  export type OSRIVItemUpdateToOneWithWhereWithoutItem_transactionInput = {
+    where?: OSRIVItemWhereInput
+    data: XOR<OSRIVItemUpdateWithoutItem_transactionInput, OSRIVItemUncheckedUpdateWithoutItem_transactionInput>
+  }
+
+  export type OSRIVItemUpdateWithoutItem_transactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    osriv?: OSRIVUpdateOneRequiredWithoutOsriv_itemsNestedInput
+    item?: ItemUpdateOneRequiredWithoutOsriv_itemsNestedInput
+  }
+
+  export type OSRIVItemUncheckedUpdateWithoutItem_transactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    osriv_id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -67832,11 +68086,13 @@ export namespace Prisma {
     created_by?: string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutItem_transactionsInput
+    osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutRr_itemInput = {
     id?: number
     item_id: string
+    osriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -67953,11 +68209,13 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
+    osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutRr_itemInput = {
     id?: IntFieldUpdateOperationsInput | number
     item_id?: StringFieldUpdateOperationsInput | string
+    osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -68077,15 +68335,19 @@ export namespace Prisma {
   export type OSRIVItemCreateWithoutOsrivInput = {
     id?: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutOsriv_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutOsriv_itemInput
   }
 
   export type OSRIVItemUncheckedCreateWithoutOsrivInput = {
     id?: string
     item_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutOsriv_itemInput
   }
 
   export type OSRIVItemCreateOrConnectWithoutOsrivInput = {
@@ -68195,6 +68457,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date | string
     purpose: string
+    is_completed?: boolean
     requested_by_id: string
     department_id: string
     supervisor_id: string
@@ -68215,6 +68478,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date | string
     purpose: string
+    is_completed?: boolean
     requested_by_id: string
     department_id: string
     item_from_id: string
@@ -68251,6 +68515,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
@@ -68271,6 +68536,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
@@ -68291,6 +68557,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date | string
     purpose: string
+    is_completed?: boolean
     requested_by_id: string
     department_id: string
     supervisor_id: string
@@ -68311,6 +68578,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date | string
     purpose: string
+    is_completed?: boolean
     requested_by_id: string
     department_id: string
     item_from_id: string
@@ -68386,6 +68654,38 @@ export namespace Prisma {
     create: XOR<ItemCreateWithoutOsriv_itemsInput, ItemUncheckedCreateWithoutOsriv_itemsInput>
   }
 
+  export type ItemTransactionCreateWithoutOsriv_itemInput = {
+    type: number
+    quantity: number
+    price: number
+    remarks?: string | null
+    is_initial?: boolean
+    created_at?: Date | string
+    created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item: ItemCreateNestedOneWithoutItem_transactionsInput
+    rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
+  }
+
+  export type ItemTransactionUncheckedCreateWithoutOsriv_itemInput = {
+    id?: number
+    item_id: string
+    rr_item_id?: string | null
+    type: number
+    quantity: number
+    price: number
+    remarks?: string | null
+    is_initial?: boolean
+    created_at?: Date | string
+    created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemTransactionCreateOrConnectWithoutOsriv_itemInput = {
+    where: ItemTransactionWhereUniqueInput
+    create: XOR<ItemTransactionCreateWithoutOsriv_itemInput, ItemTransactionUncheckedCreateWithoutOsriv_itemInput>
+  }
+
   export type OSRIVUpsertWithoutOsriv_itemsInput = {
     update: XOR<OSRIVUpdateWithoutOsriv_itemsInput, OSRIVUncheckedUpdateWithoutOsriv_itemsInput>
     create: XOR<OSRIVCreateWithoutOsriv_itemsInput, OSRIVUncheckedCreateWithoutOsriv_itemsInput>
@@ -68402,6 +68702,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
@@ -68422,6 +68723,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
@@ -68496,6 +68798,44 @@ export namespace Prisma {
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemTransactionUpsertWithoutOsriv_itemInput = {
+    update: XOR<ItemTransactionUpdateWithoutOsriv_itemInput, ItemTransactionUncheckedUpdateWithoutOsriv_itemInput>
+    create: XOR<ItemTransactionCreateWithoutOsriv_itemInput, ItemTransactionUncheckedCreateWithoutOsriv_itemInput>
+    where?: ItemTransactionWhereInput
+  }
+
+  export type ItemTransactionUpdateToOneWithWhereWithoutOsriv_itemInput = {
+    where?: ItemTransactionWhereInput
+    data: XOR<ItemTransactionUpdateWithoutOsriv_itemInput, ItemTransactionUncheckedUpdateWithoutOsriv_itemInput>
+  }
+
+  export type ItemTransactionUpdateWithoutOsriv_itemInput = {
+    type?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    is_initial?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
+    rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
+  }
+
+  export type ItemTransactionUncheckedUpdateWithoutOsriv_itemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    item_id?: StringFieldUpdateOperationsInput | string
+    rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    is_initial?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type StationCreateWithoutSerivsInput = {
@@ -70537,6 +70877,7 @@ export namespace Prisma {
     osriv_number: string
     date_requested: Date | string
     purpose: string
+    is_completed?: boolean
     requested_by_id: string
     department_id: string
     supervisor_id: string
@@ -70629,6 +70970,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
@@ -70649,6 +70991,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
@@ -70669,6 +71012,7 @@ export namespace Prisma {
     osriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
@@ -70824,6 +71168,7 @@ export namespace Prisma {
   export type ItemTransactionCreateManyItemInput = {
     id?: number
     rr_item_id?: string | null
+    osriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -70856,6 +71201,7 @@ export namespace Prisma {
     id?: string
     osriv_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70883,11 +71229,13 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
+    osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutItemInput = {
     id?: IntFieldUpdateOperationsInput | number
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -70901,6 +71249,7 @@ export namespace Prisma {
   export type ItemTransactionUncheckedUpdateManyWithoutItemInput = {
     id?: IntFieldUpdateOperationsInput | number
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -70974,21 +71323,26 @@ export namespace Prisma {
   export type OSRIVItemUpdateWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv?: OSRIVUpdateOneRequiredWithoutOsriv_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutOsriv_itemNestedInput
   }
 
   export type OSRIVItemUncheckedUpdateWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     osriv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutOsriv_itemNestedInput
   }
 
   export type OSRIVItemUncheckedUpdateManyWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     osriv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -71723,6 +72077,7 @@ export namespace Prisma {
     id?: string
     item_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -71768,21 +72123,26 @@ export namespace Prisma {
   export type OSRIVItemUpdateWithoutOsrivInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutOsriv_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutOsriv_itemNestedInput
   }
 
   export type OSRIVItemUncheckedUpdateWithoutOsrivInput = {
     id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutOsriv_itemNestedInput
   }
 
   export type OSRIVItemUncheckedUpdateManyWithoutOsrivInput = {
     id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 

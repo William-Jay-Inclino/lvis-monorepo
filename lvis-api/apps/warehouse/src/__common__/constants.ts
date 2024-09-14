@@ -73,4 +73,11 @@ export const MODULE_MAPPER = {
         approverModel: 'rRApprover',
         approvers: 'rr_approvers',
     },
+    [DB_ENTITY.OSRIV]: {
+        model: 'oSRIV',
+        rcNumber: 'osriv_number',
+        id: 'osriv_id',
+        approverModel: 'oSRIVApprover',
+        approvers: 'osriv_approvers',
+    },
 }

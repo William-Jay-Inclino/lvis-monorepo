@@ -232,6 +232,7 @@ model ItemTransaction {
   id         Int     @id @default(autoincrement())
   item_id    String
   rr_item_id String? @unique
+  osriv_item_id String? @unique
   type       Int
   quantity   Int
   price      Float
@@ -240,6 +241,7 @@ model ItemTransaction {
 
   item    Item    @relation(fields: [item_id], references: [id], onDelete: Cascade)
   rr_item RRItem? @relation(fields: [rr_item_id], references: [id], onDelete: Cascade)
+  osriv_item OSRIVItem? @relation(fields: [osriv_item_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   created_by String   @default("admin")
@@ -666,6 +668,7 @@ model OSRIV {
   osriv_number         String    @unique
   date_requested    DateTime
   purpose             String
+  is_completed    Boolean  @default(false)
 
   requested_by_id String
   department_id String
@@ -716,9 +719,11 @@ model OSRIVItem {
   osriv_id         String
   item_id         String
   quantity     Int
+  price      Float @default(0)
 
   osriv OSRIV @relation(fields: [osriv_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
+  item_transaction   ItemTransaction?
 
   metadata Json?
 

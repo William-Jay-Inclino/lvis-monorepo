@@ -2,7 +2,7 @@ import { ConflictException, Injectable, Logger, NotFoundException } from '@nestj
 import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Item, Prisma, RRApprover } from 'apps/warehouse/prisma/generated/client';
+import { Item, OSRIVApprover, OSRIVItem, Prisma, RRApprover } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE } from '../__common__/types';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { ItemsResponse } from './entities/items-response.entity';
@@ -11,6 +11,7 @@ import { ItemTransaction } from './entities/item-transaction.entity';
 import { RrApproverStatusUpdated } from '../rr-approver/events/rr-approver-status-updated.event';
 import { OnEvent } from '@nestjs/event-emitter';
 import { RrItem } from '../rr-item/entities/rr-item.entity';
+import { OsrivApproverStatusUpdated } from '../osriv-approver/events/osriv-approver-status-updated.event';
 
 @Injectable()
 export class ItemService {
@@ -288,10 +289,75 @@ export class ItemService {
 
 	getGWAPrice(itemTransactions: ItemTransaction[]): number {
 
-		const totalPrices = itemTransactions.reduce((total, item) => total + item.price, 0);
-		const gwa = totalPrices / itemTransactions.length;
+		const stockInTransactions = itemTransactions.filter(i => i.type === ITEM_TRANSACTION_TYPE.STOCK_IN)
+		const totalPrices = stockInTransactions.reduce((total, item) => total + item.price, 0);
+		const gwa = totalPrices / stockInTransactions.length;
 
 		return gwa
+
+	}
+
+
+	// ================== RR EVENTS ================== 
+
+	@OnEvent('rr-approver-status.updated')
+	async handleRrApproverStatusUpdated(payload: RrApproverStatusUpdated) {
+
+		this.logger.log('=== item-transaction.service.ts ===')
+
+		console.log('handleRrApproverStatusUpdated()', payload)
+
+		const rrApprover = await this.prisma.rRApprover.findUnique({
+			where: { id: payload.id },
+			include: {
+				rr: {
+					include: {
+						rr_items: {
+							include: {
+								meqs_supplier_item: {
+									include: {
+										canvass_item: {
+											include: {
+												item: true
+											}
+										}
+									}
+								}
+							}
+						},
+						rr_approvers: true
+					}
+				}
+			}
+		})
+
+		if (!rrApprover) {
+			throw new NotFoundException('rrApprover not found with id: ' + payload.id)
+		}
+
+		if (rrApprover.rr.is_completed) {
+			console.log('RR is already completed. End function')
+			return
+		}
+
+		const approvers = rrApprover.rr.rr_approvers
+
+		console.log('approvers', approvers)
+
+		const isApproved = this.isRrStatusApproved(approvers)
+
+		if (!isApproved) {
+			console.log('RR status is not approved. End function')
+			return
+		}
+
+		console.log('Transacting RR items...')
+
+		// add rr items to item_transaction table and update total quantity of item in the item table
+		// @ts-ignore
+		const response = await this.transactRrItems(rrApprover.rr_id, rrApprover.rr.rr_items)
+
+		console.log('response', response)
 
 	}
 
@@ -352,11 +418,15 @@ export class ItemService {
 				throw new NotFoundException(`Item not found with item_id: ${transaction.item_id}`);
 			}
 
-			const totalQuantity = item.total_quantity + transaction.quantity;
+			// const totalQuantity = item.total_quantity + transaction.quantity;
 
 			const updateItemQtyQuery = this.prisma.item.update({
 				where: { id: item.id },
-				data: { total_quantity: totalQuantity },
+				data: {
+					total_quantity: {
+						increment: transaction.quantity
+					}
+				},
 			});
 
 			queries.push(updateItemQtyQuery)
@@ -387,90 +457,144 @@ export class ItemService {
 
 	}
 
-	@OnEvent('rr-approver-status.updated')
-	async handleRrApproverStatusUpdated(payload: RrApproverStatusUpdated) {
+
+
+	// ================== OSRIV EVENTS ================== 
+
+	@OnEvent('osriv-approver-status.updated')
+	async handleOsrivApproverStatusUpdated(payload: OsrivApproverStatusUpdated) {
 
 		this.logger.log('=== item-transaction.service.ts ===')
 
-		console.log('handleRrApproverStatusUpdated()', payload)
+		console.log('handleOsrivApproverStatusUpdated()', payload)
 
-		const rrApprover = await this.prisma.rRApprover.findUnique({
+		const osrivApprover = await this.prisma.oSRIVApprover.findUnique({
 			where: { id: payload.id },
 			include: {
-				rr: {
+				osriv: {
 					include: {
-						rr_items: {
+						osriv_items: {
 							include: {
-								meqs_supplier_item: {
-									include: {
-										canvass_item: {
-											include: {
-												item: true
-											}
-										}
-									}
-								}
+								item: true
 							}
 						},
-						rr_approvers: true
+						osriv_approvers: true
 					}
 				}
 			}
 		})
 
-		if (!rrApprover) {
-			throw new NotFoundException('rrApprover not found with id: ' + payload.id)
+		if (!osrivApprover) {
+			throw new NotFoundException('osrivApprover not found with id: ' + payload.id)
 		}
 
-		if (rrApprover.rr.is_completed) {
-			console.log('RR is already completed. End function')
+		if (osrivApprover.osriv.is_completed) {
+			console.log('OSRIV is already completed. End function')
 			return
 		}
 
-		const approvers = rrApprover.rr.rr_approvers
+		const approvers = osrivApprover.osriv.osriv_approvers
 
 		console.log('approvers', approvers)
 
-		const isApproved = this.isRrStatusApproved(approvers)
+		const isApproved = this.isOsrivStatusApproved(approvers)
 
 		if (!isApproved) {
-			console.log('RR status is not approved. End function')
+			console.log('OSRIV status is not approved. End function')
 			return
 		}
 
-		console.log('Transacting RR items...')
+		console.log('Transacting OSRIV items...')
 
-
-		// throw new Error('Something bad happened')
-
-
-		// const hasItemToTransact = rrApprover.rr.rr_items.find(i => !!i.item_id)
-
-		// // if no items to transact just set the rr to complete
-		// if(!hasItemToTransact) {
-
-		//     const updatedRR = await this.prisma.rR.update({
-		//         select: {
-		//             is_completed: true
-		//         },
-		//         where: { id: rrApprover.rr_id },
-		//         data: {
-		//             is_completed: true
-		//         }
-		//     })
-
-		//     console.log('RR is_complete', updatedRR.is_completed)
-
-		//     return 
-
-		// }   
-
-		// add rr items to item_transaction table and update total quantity of item in the item table
+		// add osriv items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
 		// @ts-ignore
-		const response = await this.transactRrItems(rrApprover.rr_id, rrApprover.rr.rr_items)
+		const response = await this.transactOsrivItems(osrivApprover.osriv_id, osrivApprover.osriv.osriv_items)
 
 		console.log('response', response)
 
 	}
 
+	private isOsrivStatusApproved(approvers: OSRIVApprover[]): boolean {
+
+		for (let approver of approvers) {
+
+			if (approver.status !== APPROVAL_STATUS.APPROVED) {
+				return false
+			}
+
+		}
+
+		return true
+
+	}
+
+	// add osriv items to item_transaction
+	// update total_quantity and quantity_on_queue of item
+
+	private async transactOsrivItems(osrivId: string, osrivItems: OSRIVItem[]): Promise<{ success: boolean }> {
+
+		const queries: Prisma.PrismaPromise<any>[] = []
+		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
+
+		for(let osrivItem of osrivItems) {
+			
+			const data: Prisma.ItemTransactionCreateManyInput = {
+				item_id: osrivItem.item_id,
+				osriv_item_id: osrivItem.id,
+				type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
+				quantity: osrivItem.quantity,
+				price: osrivItem.price,
+				remarks: 'OSRIV Request'
+			}
+
+			itemTransactions.push(data)
+
+		}
+
+		const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
+			data: itemTransactions
+		})
+
+		queries.push(createItemTransactionsQuery)
+
+		// set is_completed field in osriv table to true 
+		const updateOSRIVQuery = this.prisma.oSRIV.update({
+			where: {
+				id: osrivId
+			},
+			data: {
+				is_completed: true
+			}
+		})
+		queries.push(updateOSRIVQuery)
+
+		// update item total_quantity and quantity_on_queue on each item
+        const updateItemQueries = this.generateUpdateItemQueries(osrivItems); 
+
+		const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
+
+		// EXECUTE QUERIES
+		await this.prisma.$transaction(allQueries)
+
+		return {
+			success: true
+		}
+
+	}
+
+	private generateUpdateItemQueries(osrivItems: OSRIVItem[]) {
+        return osrivItems.map(item => {
+            return this.prisma.item.update({
+                where: { id: item.item_id },
+                data: {
+                    quantity_on_queue: {
+                        decrement: item.quantity
+                    },
+					total_quantity: {
+						decrement: item.quantity
+					}
+                }
+            });
+        });
+    }
 }

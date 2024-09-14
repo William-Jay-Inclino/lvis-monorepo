@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "osriv_item" ADD COLUMN     "price" DOUBLE PRECISION NOT NULL DEFAULT 0;

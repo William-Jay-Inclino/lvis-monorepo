@@ -1,5 +1,5 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { InputType, Int, Field, Float } from '@nestjs/graphql';
+import { IsInt, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 @InputType()
 export class CreateOsrivItemSubInput {
@@ -13,4 +13,10 @@ export class CreateOsrivItemSubInput {
   @IsNotEmpty()
   @IsInt()
   quantity: number;
+
+  @Field(() => Float)
+  @IsNotEmpty()
+  @IsNumber()
+  price: number;
+
 }
