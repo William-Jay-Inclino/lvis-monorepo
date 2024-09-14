@@ -2,6 +2,8 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Item } from '../../item/entities/item.entity';
 import { OSRIVApprover } from '../../osriv-approver/entities/osriv-approver.entity';
 import { OSRIVItem } from '../../osriv-item/entities/osriv-item.entity';
+import { Department } from '../../__department__ /entities/department.entity';
+import { Station } from '../../station/entities/station.entity';
 
 @ObjectType()
 export class OSRIV {
@@ -62,8 +64,11 @@ export class OSRIV {
 
   // =============== derived / resolvers ===============
 
-  @Field(() => Item)
-  item_from: Item;
+  @Field(() => Station)
+  item_from: Station;
+
+  @Field(() => Department)
+  department: Department;
 
   @Field(() => [OSRIVApprover])
   osriv_approvers: OSRIVApprover[]

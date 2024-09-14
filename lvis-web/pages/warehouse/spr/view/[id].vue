@@ -91,11 +91,6 @@
                                                 <td> {{ formatDate(item.date_requested) }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Imd. Sup.</td>
-                                                <td> {{ getFullname(item.supervisor.firstname, item.supervisor.middlename,
-                item.supervisor.lastname) }} </td>
-                                            </tr>
-                                            <tr>
                                                 <td class="text-muted">Vehicle</td>
                                                 <td> {{ item.vehicle.name }} </td>
                                             </tr>

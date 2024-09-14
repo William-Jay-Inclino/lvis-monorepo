@@ -15,6 +15,7 @@ import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
+import { Department } from '../__department__ /entities/department.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => OSRIV)
@@ -99,6 +100,12 @@ export class OsrivResolver {
     @ResolveField(() => Employee)
     warehouse_custodian(@Parent() osriv: OSRIV): any {
         return { __typename: 'Employee', id: osriv.warehouse_custodian_id }
+    }
+
+    @ResolveField(() => Department)
+    department(@Parent() osriv: OSRIV): any {
+        console.log('department', osriv);
+        return { __typename: 'Department', id: osriv.department_id }
     }
 
     @ResolveField(() => [OSRIVApprover])

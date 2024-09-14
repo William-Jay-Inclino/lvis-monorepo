@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { OsrivApproverService } from './osriv-approver.service';
-// import { OsrivApproverResolver } from './osriv-approver.resolver';
+import { OsrivApproverResolver } from './osriv-approver.resolver';
 
 @Module({
   providers: [
-    // OsrivApproverResolver, 
+    OsrivApproverResolver, 
     OsrivApproverService],
 })
 export class OsrivApproverModule {}

@@ -46,6 +46,8 @@ export class DepartmentService {
 
   async findOne(id: string): Promise<Department | null> {
 
+    console.log('department findOne', id);
+
     const item = await this.prisma.department.findUnique({
       where: { id }
     })

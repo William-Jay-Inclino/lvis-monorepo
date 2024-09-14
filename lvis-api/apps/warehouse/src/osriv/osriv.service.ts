@@ -30,6 +30,8 @@ export class OsrivService {
 
     async create(input: CreateOsrivInput) {
 
+        console.log('osriv create', input);
+
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create RV. Please try again')
         }
@@ -359,6 +361,19 @@ export class OsrivService {
 
     async findBy(payload: { id?: string, osriv_number?: string }): Promise<OSRIV | null> {
         const item = await this.prisma.oSRIV.findFirst({
+            include: {
+                osriv_items: {
+                    include: {
+                        item: {
+                            include: {
+                                unit: true,
+                                item_transactions: true
+                            }
+                        }
+                    }
+                },
+                item_from: true,
+            },
             where: {
                 OR: [
                     { id: payload.id },

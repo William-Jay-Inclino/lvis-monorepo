@@ -113,6 +113,17 @@ export async function findOne(id: string): Promise<OSRIV | undefined> {
                 cancelled_at
                 created_by
                 can_update
+                item_from {
+                    name
+                }
+                department {
+                    name
+                }
+                requested_by {
+                    firstname 
+                    middlename 
+                    lastname
+                }
                 supervisor {
                     firstname 
                     middlename 
@@ -125,6 +136,7 @@ export async function findOne(id: string): Promise<OSRIV | undefined> {
                 }
                 osriv_approvers{
                     approver {
+                        id
                         firstname
                         middlename
                         lastname
@@ -134,6 +146,21 @@ export async function findOne(id: string): Promise<OSRIV | undefined> {
                     order
                     notes
                     date_approval
+                }
+                osriv_items {
+                    id 
+                    quantity
+                    item {
+                        id 
+                        name
+                        description
+                        unit {
+                            name 
+                        }
+                        total_quantity
+                        quantity_on_queue
+                        GWAPrice
+                    }
                 }
             }
         }
@@ -240,6 +267,9 @@ export async function fetchFormDataInCreate(): Promise<{
                     firstname
                     middlename
                     lastname
+                    department {
+                        id
+                    }
                 }
             },
             stations {
@@ -399,6 +429,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
 
 export async function create(input: CreateOsrivInput): Promise<MutationResponse> {
 
+    console.log('create', input);
+
     const approvers = input.approvers.map(i => {
         return `
         {
@@ -424,7 +456,7 @@ export async function create(input: CreateOsrivInput): Promise<MutationResponse>
                 input: {
                     purpose: "${input.purpose}"
                     requested_by_id: "${input.requested_by?.id}"
-                    department_id: "${input.requested_by?.department_id}"
+                    department_id: "${input.requested_by?.department.id}"
                     item_from_id: "${input.item_from?.id}"
                     supervisor_id: "${input.supervisor?.id}"
                     warehouse_custodian_id: "${input.warehouse_custodian?.id}"

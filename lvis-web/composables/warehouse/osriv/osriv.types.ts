@@ -3,6 +3,7 @@ import type { AddItem, Item } from "../item/item.type";
 import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateOSRIVApprover, OSRIVApprover } from "./osriv-approver.types";
 import type { OSRIVItem } from "./osriv-item.types";
+import type { Station } from "../station/station";
 
 
 export interface OSRIV {
@@ -34,7 +35,7 @@ export interface OSRIV {
   
     requested_by: Employee;
     department: Department;
-    item_from: Item;
+    item_from: Station;
     supervisor: Employee
     warehouse_custodian: Employee
     osriv_approvers: OSRIVApprover[]

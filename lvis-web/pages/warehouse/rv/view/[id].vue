@@ -90,19 +90,6 @@
                                                 <td class="text-muted">Date</td>
                                                 <td> {{ formatDate(item.date_requested) }} </td>
                                             </tr>
-                                            <!-- <tr>
-                                                <td class="text-muted">Requisitioner</td>
-                                                <td> {{ getFullname(item.canvass.requested_by!.firstname, item.canvass.requested_by!.middlename, item.canvass.requested_by!.lastname) }} </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-muted">Purpose</td>
-                                                <td> {{ item.canvass.purpose }} </td>
-                                            </tr> -->
-                                            <tr>
-                                                <td class="text-muted">Imd. Sup.</td>
-                                                <td> {{ getFullname(item.supervisor.firstname, item.supervisor.middlename,
-                item.supervisor.lastname) }} </td>
-                                            </tr>
                                             <tr>
                                                 <td class="text-muted">Classification</td>
                                                 <td> {{ item.classification?.name }} </td>

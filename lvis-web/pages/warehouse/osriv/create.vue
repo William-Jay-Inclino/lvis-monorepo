@@ -138,11 +138,11 @@
     import { addPropertyFullName } from '~/composables/system/employee/employee';
     import type { Station } from '~/composables/warehouse/station/station';
     import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
-import Swal from 'sweetalert2';
-import type { CreateOSRIVApprover } from '~/composables/warehouse/osriv/osriv-approver.types';
+    import Swal from 'sweetalert2';
+    import type { CreateOSRIVApprover } from '~/composables/warehouse/osriv/osriv-approver.types';
 
     definePageMeta({
-        name: ROUTES.RV_CREATE,
+        name: ROUTES.OSRIV_CREATE,
         layout: "layout-warehouse",
         middleware: ['auth'],
     })

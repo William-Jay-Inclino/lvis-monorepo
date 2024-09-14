@@ -90,6 +90,7 @@ export class RvApproverResolver {
 
   @ResolveField(() => Employee)
   approver(@Parent() rvApprover: RVApprover): any {
+    console.log('rvApprover', rvApprover);
     return { __typename: 'Employee', id: rvApprover.approver_id }
   }
 

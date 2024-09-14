@@ -38,9 +38,16 @@
                                                 <td> {{ formatDate(item.date_requested) }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Imd. Superior</td>
-                                                <td> {{ getFullname(item.supervisor.firstname, item.supervisor.middlename,
-                item.supervisor.lastname) }} </td>
+                                                <td class="text-muted">Requested by</td>
+                                                <td> {{ getFullname(item.requested_by.firstname, item.requested_by.middlename, item.requested_by.lastname) }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Department</td>
+                                                <td> {{ item.department.name }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Item from</td>
+                                                <td> {{ item.item_from.name }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Purpose</td>
@@ -131,16 +138,21 @@
                                                 <th class="bg-secondary text-white"> No. </th>
                                                 <th class="bg-secondary text-white"> Description </th>
                                                 <th class="bg-secondary text-white"> Unit </th>
-                                                <th class="bg-secondary text-white"> Quantity </th>
+                                                <th class="bg-secondary text-white"> Available Qty </th>
+                                                <th class="bg-secondary text-white"> Avg. Price </th>
+                                                <th class="bg-secondary text-white"> Qty Request </th>
+                                                <th class="bg-secondary text-white"> Amount </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.osriv_items">
                                                 <td> {{ count + 1 }} </td>
                                                 <td> {{ i.item.name + ' - ' + i.item.description }} </td>
-                                                <td> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
                                                 <td> {{ i.item.unit.name }} </td>
+                                                <td> {{ i.item.total_quantity - i.item.quantity_on_queue }} </td>
+                                                <td> {{ formatToPhpCurrency(i.item.GWAPrice) }} </td>
                                                 <td> {{ i.quantity }} </td>
+                                                <td> {{ formatToPhpCurrency(i.quantity * i.item.GWAPrice) }} </td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -12,7 +12,7 @@
                     <th class="text-muted">Description</th>
                     <th class="text-muted">Unit</th>
                     <th class="text-muted">Available Qty</th>
-                    <th class="text-muted">Ave. Price</th>
+                    <th class="text-muted">Avg. Price</th>
                     <th class="text-muted">Quantity Request</th>
                     <th class="text-muted">Amount</th>
                     <th class="text-muted">Remove</th>
@@ -33,10 +33,10 @@
                     </td>
                     <td class="text-muted">
                         <input
-                            type="number"
+                            type="text"
                             class="form-control form-control-sm"
                             disabled
-                            :value="i.GWAPrice * i.qty_request"/>
+                            :value="formatToPhpCurrency(i.GWAPrice * i.qty_request)"/>
                     </td>
                     <td class="text-center">
                         <button @click="handleRemoveItem(i)" class="btn btn-sm btn-light">
