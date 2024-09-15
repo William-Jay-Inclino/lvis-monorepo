@@ -46,6 +46,9 @@ import { OsrivModule } from './osriv/osriv.module';
 import { OsrivApproverModule } from './osriv-approver/osriv-approver.module';
 import { OsrivItemModule } from './osriv-item/osriv-item.module';
 import { StationModule } from './station/station.module';
+import { SerivModule } from './seriv/seriv.module';
+import { SerivApproverModule } from './seriv-approver/seriv-approver.module';
+import { SerivItemModule } from './seriv-item/seriv-item.module';
 
 
 @Module({
@@ -91,6 +94,9 @@ import { StationModule } from './station/station.module';
     OsrivApproverModule,
     OsrivItemModule,
     StationModule,
+    SerivModule,
+    SerivApproverModule,
+    SerivItemModule,
     // PrometheusModule.register()
   ],
   controllers: [],

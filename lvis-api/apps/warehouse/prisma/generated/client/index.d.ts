@@ -14292,6 +14292,7 @@ export namespace Prisma {
     item_id: string | null
     rr_item_id: string | null
     osriv_item_id: string | null
+    seriv_item_id: string | null
     type: number | null
     quantity: number | null
     price: number | null
@@ -14306,6 +14307,7 @@ export namespace Prisma {
     item_id: string | null
     rr_item_id: string | null
     osriv_item_id: string | null
+    seriv_item_id: string | null
     type: number | null
     quantity: number | null
     price: number | null
@@ -14320,6 +14322,7 @@ export namespace Prisma {
     item_id: number
     rr_item_id: number
     osriv_item_id: number
+    seriv_item_id: number
     type: number
     quantity: number
     price: number
@@ -14351,6 +14354,7 @@ export namespace Prisma {
     item_id?: true
     rr_item_id?: true
     osriv_item_id?: true
+    seriv_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -14365,6 +14369,7 @@ export namespace Prisma {
     item_id?: true
     rr_item_id?: true
     osriv_item_id?: true
+    seriv_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -14379,6 +14384,7 @@ export namespace Prisma {
     item_id?: true
     rr_item_id?: true
     osriv_item_id?: true
+    seriv_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -14481,6 +14487,7 @@ export namespace Prisma {
     item_id: string
     rr_item_id: string | null
     osriv_item_id: string | null
+    seriv_item_id: string | null
     type: number
     quantity: number
     price: number
@@ -14515,6 +14522,7 @@ export namespace Prisma {
     item_id?: boolean
     rr_item_id?: boolean
     osriv_item_id?: boolean
+    seriv_item_id?: boolean
     type?: boolean
     quantity?: boolean
     price?: boolean
@@ -14526,6 +14534,7 @@ export namespace Prisma {
     item?: boolean | ItemDefaultArgs<ExtArgs>
     rr_item?: boolean | ItemTransaction$rr_itemArgs<ExtArgs>
     osriv_item?: boolean | ItemTransaction$osriv_itemArgs<ExtArgs>
+    seriv_item?: boolean | ItemTransaction$seriv_itemArgs<ExtArgs>
   }, ExtArgs["result"]["itemTransaction"]>
 
   export type ItemTransactionSelectScalar = {
@@ -14533,6 +14542,7 @@ export namespace Prisma {
     item_id?: boolean
     rr_item_id?: boolean
     osriv_item_id?: boolean
+    seriv_item_id?: boolean
     type?: boolean
     quantity?: boolean
     price?: boolean
@@ -14547,6 +14557,7 @@ export namespace Prisma {
     item?: boolean | ItemDefaultArgs<ExtArgs>
     rr_item?: boolean | ItemTransaction$rr_itemArgs<ExtArgs>
     osriv_item?: boolean | ItemTransaction$osriv_itemArgs<ExtArgs>
+    seriv_item?: boolean | ItemTransaction$seriv_itemArgs<ExtArgs>
   }
 
 
@@ -14556,12 +14567,14 @@ export namespace Prisma {
       item: Prisma.$ItemPayload<ExtArgs>
       rr_item: Prisma.$RRItemPayload<ExtArgs> | null
       osriv_item: Prisma.$OSRIVItemPayload<ExtArgs> | null
+      seriv_item: Prisma.$SERIVItemPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       item_id: string
       rr_item_id: string | null
       osriv_item_id: string | null
+      seriv_item_id: string | null
       type: number
       quantity: number
       price: number
@@ -14941,6 +14954,8 @@ export namespace Prisma {
 
     osriv_item<T extends ItemTransaction$osriv_itemArgs<ExtArgs> = {}>(args?: Subset<T, ItemTransaction$osriv_itemArgs<ExtArgs>>): Prisma__OSRIVItemClient<$Result.GetResult<Prisma.$OSRIVItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    seriv_item<T extends ItemTransaction$seriv_itemArgs<ExtArgs> = {}>(args?: Subset<T, ItemTransaction$seriv_itemArgs<ExtArgs>>): Prisma__SERIVItemClient<$Result.GetResult<Prisma.$SERIVItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14973,6 +14988,7 @@ export namespace Prisma {
     readonly item_id: FieldRef<"ItemTransaction", 'String'>
     readonly rr_item_id: FieldRef<"ItemTransaction", 'String'>
     readonly osriv_item_id: FieldRef<"ItemTransaction", 'String'>
+    readonly seriv_item_id: FieldRef<"ItemTransaction", 'String'>
     readonly type: FieldRef<"ItemTransaction", 'Int'>
     readonly quantity: FieldRef<"ItemTransaction", 'Int'>
     readonly price: FieldRef<"ItemTransaction", 'Float'>
@@ -15321,6 +15337,22 @@ export namespace Prisma {
      */
     include?: OSRIVItemInclude<ExtArgs> | null
     where?: OSRIVItemWhereInput
+  }
+
+
+  /**
+   * ItemTransaction.seriv_item
+   */
+  export type ItemTransaction$seriv_itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SERIVItem
+     */
+    select?: SERIVItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SERIVItemInclude<ExtArgs> | null
+    where?: SERIVItemWhereInput
   }
 
 
@@ -37131,8 +37163,18 @@ export namespace Prisma {
 
   export type AggregateSERIV = {
     _count: SERIVCountAggregateOutputType | null
+    _avg: SERIVAvgAggregateOutputType | null
+    _sum: SERIVSumAggregateOutputType | null
     _min: SERIVMinAggregateOutputType | null
     _max: SERIVMaxAggregateOutputType | null
+  }
+
+  export type SERIVAvgAggregateOutputType = {
+    request_type: number | null
+  }
+
+  export type SERIVSumAggregateOutputType = {
+    request_type: number | null
   }
 
   export type SERIVMinAggregateOutputType = {
@@ -37140,13 +37182,13 @@ export namespace Prisma {
     seriv_number: string | null
     date_requested: Date | null
     purpose: string | null
-    requested_by_id: string | null
-    request_type: string | null
+    is_completed: boolean | null
+    request_type: number | null
     mwo_number: string | null
     jo_number: string | null
     consumer_name: string | null
     location: string | null
-    department_id: string | null
+    requested_by_id: string | null
     item_from_id: string | null
     cancelled_by: string | null
     created_by: string | null
@@ -37161,13 +37203,13 @@ export namespace Prisma {
     seriv_number: string | null
     date_requested: Date | null
     purpose: string | null
-    requested_by_id: string | null
-    request_type: string | null
+    is_completed: boolean | null
+    request_type: number | null
     mwo_number: string | null
     jo_number: string | null
     consumer_name: string | null
     location: string | null
-    department_id: string | null
+    requested_by_id: string | null
     item_from_id: string | null
     cancelled_by: string | null
     created_by: string | null
@@ -37182,13 +37224,13 @@ export namespace Prisma {
     seriv_number: number
     date_requested: number
     purpose: number
-    requested_by_id: number
+    is_completed: number
     request_type: number
     mwo_number: number
     jo_number: number
     consumer_name: number
     location: number
-    department_id: number
+    requested_by_id: number
     item_from_id: number
     cancelled_by: number
     created_by: number
@@ -37201,18 +37243,26 @@ export namespace Prisma {
   }
 
 
+  export type SERIVAvgAggregateInputType = {
+    request_type?: true
+  }
+
+  export type SERIVSumAggregateInputType = {
+    request_type?: true
+  }
+
   export type SERIVMinAggregateInputType = {
     id?: true
     seriv_number?: true
     date_requested?: true
     purpose?: true
-    requested_by_id?: true
+    is_completed?: true
     request_type?: true
     mwo_number?: true
     jo_number?: true
     consumer_name?: true
     location?: true
-    department_id?: true
+    requested_by_id?: true
     item_from_id?: true
     cancelled_by?: true
     created_by?: true
@@ -37227,13 +37277,13 @@ export namespace Prisma {
     seriv_number?: true
     date_requested?: true
     purpose?: true
-    requested_by_id?: true
+    is_completed?: true
     request_type?: true
     mwo_number?: true
     jo_number?: true
     consumer_name?: true
     location?: true
-    department_id?: true
+    requested_by_id?: true
     item_from_id?: true
     cancelled_by?: true
     created_by?: true
@@ -37248,13 +37298,13 @@ export namespace Prisma {
     seriv_number?: true
     date_requested?: true
     purpose?: true
-    requested_by_id?: true
+    is_completed?: true
     request_type?: true
     mwo_number?: true
     jo_number?: true
     consumer_name?: true
     location?: true
-    department_id?: true
+    requested_by_id?: true
     item_from_id?: true
     cancelled_by?: true
     created_by?: true
@@ -37304,6 +37354,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: SERIVAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SERIVSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: SERIVMinAggregateInputType
@@ -37334,6 +37396,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SERIVCountAggregateInputType | true
+    _avg?: SERIVAvgAggregateInputType
+    _sum?: SERIVSumAggregateInputType
     _min?: SERIVMinAggregateInputType
     _max?: SERIVMaxAggregateInputType
   }
@@ -37343,13 +37407,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed: boolean
+    request_type: number
     mwo_number: string | null
     jo_number: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     item_from_id: string
     cancelled_by: string | null
     created_by: string
@@ -37359,6 +37423,8 @@ export namespace Prisma {
     updated_at: Date
     metadata: JsonValue | null
     _count: SERIVCountAggregateOutputType | null
+    _avg: SERIVAvgAggregateOutputType | null
+    _sum: SERIVSumAggregateOutputType | null
     _min: SERIVMinAggregateOutputType | null
     _max: SERIVMaxAggregateOutputType | null
   }
@@ -37382,13 +37448,13 @@ export namespace Prisma {
     seriv_number?: boolean
     date_requested?: boolean
     purpose?: boolean
-    requested_by_id?: boolean
+    is_completed?: boolean
     request_type?: boolean
     mwo_number?: boolean
     jo_number?: boolean
     consumer_name?: boolean
     location?: boolean
-    department_id?: boolean
+    requested_by_id?: boolean
     item_from_id?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -37408,13 +37474,13 @@ export namespace Prisma {
     seriv_number?: boolean
     date_requested?: boolean
     purpose?: boolean
-    requested_by_id?: boolean
+    is_completed?: boolean
     request_type?: boolean
     mwo_number?: boolean
     jo_number?: boolean
     consumer_name?: boolean
     location?: boolean
-    department_id?: boolean
+    requested_by_id?: boolean
     item_from_id?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -37445,13 +37511,13 @@ export namespace Prisma {
       seriv_number: string
       date_requested: Date
       purpose: string
-      requested_by_id: string
-      request_type: string
+      is_completed: boolean
+      request_type: number
       mwo_number: string | null
       jo_number: string | null
       consumer_name: string
       location: string
-      department_id: string
+      requested_by_id: string
       item_from_id: string
       cancelled_by: string | null
       created_by: string
@@ -37863,13 +37929,13 @@ export namespace Prisma {
     readonly seriv_number: FieldRef<"SERIV", 'String'>
     readonly date_requested: FieldRef<"SERIV", 'DateTime'>
     readonly purpose: FieldRef<"SERIV", 'String'>
-    readonly requested_by_id: FieldRef<"SERIV", 'String'>
-    readonly request_type: FieldRef<"SERIV", 'String'>
+    readonly is_completed: FieldRef<"SERIV", 'Boolean'>
+    readonly request_type: FieldRef<"SERIV", 'Int'>
     readonly mwo_number: FieldRef<"SERIV", 'String'>
     readonly jo_number: FieldRef<"SERIV", 'String'>
     readonly consumer_name: FieldRef<"SERIV", 'String'>
     readonly location: FieldRef<"SERIV", 'String'>
-    readonly department_id: FieldRef<"SERIV", 'String'>
+    readonly requested_by_id: FieldRef<"SERIV", 'String'>
     readonly item_from_id: FieldRef<"SERIV", 'String'>
     readonly cancelled_by: FieldRef<"SERIV", 'String'>
     readonly created_by: FieldRef<"SERIV", 'String'>
@@ -39257,10 +39323,12 @@ export namespace Prisma {
 
   export type SERIVItemAvgAggregateOutputType = {
     quantity: number | null
+    price: number | null
   }
 
   export type SERIVItemSumAggregateOutputType = {
     quantity: number | null
+    price: number | null
   }
 
   export type SERIVItemMinAggregateOutputType = {
@@ -39268,6 +39336,7 @@ export namespace Prisma {
     seriv_id: string | null
     item_id: string | null
     quantity: number | null
+    price: number | null
   }
 
   export type SERIVItemMaxAggregateOutputType = {
@@ -39275,6 +39344,7 @@ export namespace Prisma {
     seriv_id: string | null
     item_id: string | null
     quantity: number | null
+    price: number | null
   }
 
   export type SERIVItemCountAggregateOutputType = {
@@ -39282,6 +39352,7 @@ export namespace Prisma {
     seriv_id: number
     item_id: number
     quantity: number
+    price: number
     metadata: number
     _all: number
   }
@@ -39289,10 +39360,12 @@ export namespace Prisma {
 
   export type SERIVItemAvgAggregateInputType = {
     quantity?: true
+    price?: true
   }
 
   export type SERIVItemSumAggregateInputType = {
     quantity?: true
+    price?: true
   }
 
   export type SERIVItemMinAggregateInputType = {
@@ -39300,6 +39373,7 @@ export namespace Prisma {
     seriv_id?: true
     item_id?: true
     quantity?: true
+    price?: true
   }
 
   export type SERIVItemMaxAggregateInputType = {
@@ -39307,6 +39381,7 @@ export namespace Prisma {
     seriv_id?: true
     item_id?: true
     quantity?: true
+    price?: true
   }
 
   export type SERIVItemCountAggregateInputType = {
@@ -39314,6 +39389,7 @@ export namespace Prisma {
     seriv_id?: true
     item_id?: true
     quantity?: true
+    price?: true
     metadata?: true
     _all?: true
   }
@@ -39409,6 +39485,7 @@ export namespace Prisma {
     seriv_id: string
     item_id: string
     quantity: number
+    price: number
     metadata: JsonValue | null
     _count: SERIVItemCountAggregateOutputType | null
     _avg: SERIVItemAvgAggregateOutputType | null
@@ -39436,9 +39513,11 @@ export namespace Prisma {
     seriv_id?: boolean
     item_id?: boolean
     quantity?: boolean
+    price?: boolean
     metadata?: boolean
     seriv?: boolean | SERIVDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    item_transaction?: boolean | SERIVItem$item_transactionArgs<ExtArgs>
   }, ExtArgs["result"]["sERIVItem"]>
 
   export type SERIVItemSelectScalar = {
@@ -39446,12 +39525,14 @@ export namespace Prisma {
     seriv_id?: boolean
     item_id?: boolean
     quantity?: boolean
+    price?: boolean
     metadata?: boolean
   }
 
   export type SERIVItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     seriv?: boolean | SERIVDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    item_transaction?: boolean | SERIVItem$item_transactionArgs<ExtArgs>
   }
 
 
@@ -39460,12 +39541,14 @@ export namespace Prisma {
     objects: {
       seriv: Prisma.$SERIVPayload<ExtArgs>
       item: Prisma.$ItemPayload<ExtArgs>
+      item_transaction: Prisma.$ItemTransactionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       seriv_id: string
       item_id: string
       quantity: number
+      price: number
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["sERIVItem"]>
     composites: {}
@@ -39836,6 +39919,8 @@ export namespace Prisma {
 
     item<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
+    item_transaction<T extends SERIVItem$item_transactionArgs<ExtArgs> = {}>(args?: Subset<T, SERIVItem$item_transactionArgs<ExtArgs>>): Prisma__ItemTransactionClient<$Result.GetResult<Prisma.$ItemTransactionPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39868,6 +39953,7 @@ export namespace Prisma {
     readonly seriv_id: FieldRef<"SERIVItem", 'String'>
     readonly item_id: FieldRef<"SERIVItem", 'String'>
     readonly quantity: FieldRef<"SERIVItem", 'Int'>
+    readonly price: FieldRef<"SERIVItem", 'Float'>
     readonly metadata: FieldRef<"SERIVItem", 'Json'>
   }
     
@@ -40177,6 +40263,22 @@ export namespace Prisma {
      * Filter which SERIVItems to delete
      */
     where?: SERIVItemWhereInput
+  }
+
+
+  /**
+   * SERIVItem.item_transaction
+   */
+  export type SERIVItem$item_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemTransaction
+     */
+    select?: ItemTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTransactionInclude<ExtArgs> | null
+    where?: ItemTransactionWhereInput
   }
 
 
@@ -47577,6 +47679,7 @@ export namespace Prisma {
     item_id: 'item_id',
     rr_item_id: 'rr_item_id',
     osriv_item_id: 'osriv_item_id',
+    seriv_item_id: 'seriv_item_id',
     type: 'type',
     quantity: 'quantity',
     price: 'price',
@@ -47946,13 +48049,13 @@ export namespace Prisma {
     seriv_number: 'seriv_number',
     date_requested: 'date_requested',
     purpose: 'purpose',
-    requested_by_id: 'requested_by_id',
+    is_completed: 'is_completed',
     request_type: 'request_type',
     mwo_number: 'mwo_number',
     jo_number: 'jo_number',
     consumer_name: 'consumer_name',
     location: 'location',
-    department_id: 'department_id',
+    requested_by_id: 'requested_by_id',
     item_from_id: 'item_from_id',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
@@ -47986,6 +48089,7 @@ export namespace Prisma {
     seriv_id: 'seriv_id',
     item_id: 'item_id',
     quantity: 'quantity',
+    price: 'price',
     metadata: 'metadata'
   };
 
@@ -49004,6 +49108,7 @@ export namespace Prisma {
     item_id?: StringFilter<"ItemTransaction"> | string
     rr_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     osriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
+    seriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     type?: IntFilter<"ItemTransaction"> | number
     quantity?: IntFilter<"ItemTransaction"> | number
     price?: FloatFilter<"ItemTransaction"> | number
@@ -49015,6 +49120,7 @@ export namespace Prisma {
     item?: XOR<ItemRelationFilter, ItemWhereInput>
     rr_item?: XOR<RRItemNullableRelationFilter, RRItemWhereInput> | null
     osriv_item?: XOR<OSRIVItemNullableRelationFilter, OSRIVItemWhereInput> | null
+    seriv_item?: XOR<SERIVItemNullableRelationFilter, SERIVItemWhereInput> | null
   }
 
   export type ItemTransactionOrderByWithRelationInput = {
@@ -49022,6 +49128,7 @@ export namespace Prisma {
     item_id?: SortOrder
     rr_item_id?: SortOrderInput | SortOrder
     osriv_item_id?: SortOrderInput | SortOrder
+    seriv_item_id?: SortOrderInput | SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -49033,12 +49140,14 @@ export namespace Prisma {
     item?: ItemOrderByWithRelationInput
     rr_item?: RRItemOrderByWithRelationInput
     osriv_item?: OSRIVItemOrderByWithRelationInput
+    seriv_item?: SERIVItemOrderByWithRelationInput
   }
 
   export type ItemTransactionWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     rr_item_id?: string
     osriv_item_id?: string
+    seriv_item_id?: string
     AND?: ItemTransactionWhereInput | ItemTransactionWhereInput[]
     OR?: ItemTransactionWhereInput[]
     NOT?: ItemTransactionWhereInput | ItemTransactionWhereInput[]
@@ -49054,13 +49163,15 @@ export namespace Prisma {
     item?: XOR<ItemRelationFilter, ItemWhereInput>
     rr_item?: XOR<RRItemNullableRelationFilter, RRItemWhereInput> | null
     osriv_item?: XOR<OSRIVItemNullableRelationFilter, OSRIVItemWhereInput> | null
-  }, "id" | "rr_item_id" | "osriv_item_id">
+    seriv_item?: XOR<SERIVItemNullableRelationFilter, SERIVItemWhereInput> | null
+  }, "id" | "rr_item_id" | "osriv_item_id" | "seriv_item_id">
 
   export type ItemTransactionOrderByWithAggregationInput = {
     id?: SortOrder
     item_id?: SortOrder
     rr_item_id?: SortOrderInput | SortOrder
     osriv_item_id?: SortOrderInput | SortOrder
+    seriv_item_id?: SortOrderInput | SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -49084,6 +49195,7 @@ export namespace Prisma {
     item_id?: StringWithAggregatesFilter<"ItemTransaction"> | string
     rr_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
     osriv_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
+    seriv_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
     type?: IntWithAggregatesFilter<"ItemTransaction"> | number
     quantity?: IntWithAggregatesFilter<"ItemTransaction"> | number
     price?: FloatWithAggregatesFilter<"ItemTransaction"> | number
@@ -50981,13 +51093,13 @@ export namespace Prisma {
     seriv_number?: StringFilter<"SERIV"> | string
     date_requested?: DateTimeFilter<"SERIV"> | Date | string
     purpose?: StringFilter<"SERIV"> | string
-    requested_by_id?: StringFilter<"SERIV"> | string
-    request_type?: StringFilter<"SERIV"> | string
+    is_completed?: BoolFilter<"SERIV"> | boolean
+    request_type?: IntFilter<"SERIV"> | number
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
     jo_number?: StringNullableFilter<"SERIV"> | string | null
     consumer_name?: StringFilter<"SERIV"> | string
     location?: StringFilter<"SERIV"> | string
-    department_id?: StringFilter<"SERIV"> | string
+    requested_by_id?: StringFilter<"SERIV"> | string
     item_from_id?: StringFilter<"SERIV"> | string
     cancelled_by?: StringNullableFilter<"SERIV"> | string | null
     created_by?: StringFilter<"SERIV"> | string
@@ -51006,13 +51118,13 @@ export namespace Prisma {
     seriv_number?: SortOrder
     date_requested?: SortOrder
     purpose?: SortOrder
-    requested_by_id?: SortOrder
+    is_completed?: SortOrder
     request_type?: SortOrder
     mwo_number?: SortOrderInput | SortOrder
     jo_number?: SortOrderInput | SortOrder
     consumer_name?: SortOrder
     location?: SortOrder
-    department_id?: SortOrder
+    requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -51034,13 +51146,13 @@ export namespace Prisma {
     NOT?: SERIVWhereInput | SERIVWhereInput[]
     date_requested?: DateTimeFilter<"SERIV"> | Date | string
     purpose?: StringFilter<"SERIV"> | string
-    requested_by_id?: StringFilter<"SERIV"> | string
-    request_type?: StringFilter<"SERIV"> | string
+    is_completed?: BoolFilter<"SERIV"> | boolean
+    request_type?: IntFilter<"SERIV"> | number
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
     jo_number?: StringNullableFilter<"SERIV"> | string | null
     consumer_name?: StringFilter<"SERIV"> | string
     location?: StringFilter<"SERIV"> | string
-    department_id?: StringFilter<"SERIV"> | string
+    requested_by_id?: StringFilter<"SERIV"> | string
     item_from_id?: StringFilter<"SERIV"> | string
     cancelled_by?: StringNullableFilter<"SERIV"> | string | null
     created_by?: StringFilter<"SERIV"> | string
@@ -51059,13 +51171,13 @@ export namespace Prisma {
     seriv_number?: SortOrder
     date_requested?: SortOrder
     purpose?: SortOrder
-    requested_by_id?: SortOrder
+    is_completed?: SortOrder
     request_type?: SortOrder
     mwo_number?: SortOrderInput | SortOrder
     jo_number?: SortOrderInput | SortOrder
     consumer_name?: SortOrder
     location?: SortOrder
-    department_id?: SortOrder
+    requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -51075,8 +51187,10 @@ export namespace Prisma {
     updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: SERIVCountOrderByAggregateInput
+    _avg?: SERIVAvgOrderByAggregateInput
     _max?: SERIVMaxOrderByAggregateInput
     _min?: SERIVMinOrderByAggregateInput
+    _sum?: SERIVSumOrderByAggregateInput
   }
 
   export type SERIVScalarWhereWithAggregatesInput = {
@@ -51087,13 +51201,13 @@ export namespace Prisma {
     seriv_number?: StringWithAggregatesFilter<"SERIV"> | string
     date_requested?: DateTimeWithAggregatesFilter<"SERIV"> | Date | string
     purpose?: StringWithAggregatesFilter<"SERIV"> | string
-    requested_by_id?: StringWithAggregatesFilter<"SERIV"> | string
-    request_type?: StringWithAggregatesFilter<"SERIV"> | string
+    is_completed?: BoolWithAggregatesFilter<"SERIV"> | boolean
+    request_type?: IntWithAggregatesFilter<"SERIV"> | number
     mwo_number?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
     jo_number?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
     consumer_name?: StringWithAggregatesFilter<"SERIV"> | string
     location?: StringWithAggregatesFilter<"SERIV"> | string
-    department_id?: StringWithAggregatesFilter<"SERIV"> | string
+    requested_by_id?: StringWithAggregatesFilter<"SERIV"> | string
     item_from_id?: StringWithAggregatesFilter<"SERIV"> | string
     cancelled_by?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
     created_by?: StringWithAggregatesFilter<"SERIV"> | string
@@ -51135,6 +51249,7 @@ export namespace Prisma {
 
   export type SERIVApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    seriv_id_label?: SERIVApproverSeriv_idLabelCompoundUniqueInput
     AND?: SERIVApproverWhereInput | SERIVApproverWhereInput[]
     OR?: SERIVApproverWhereInput[]
     NOT?: SERIVApproverWhereInput | SERIVApproverWhereInput[]
@@ -51147,7 +51262,7 @@ export namespace Prisma {
     order?: IntFilter<"SERIVApprover"> | number
     metadata?: JsonNullableFilter<"SERIVApprover">
     seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
-  }, "id">
+  }, "id" | "seriv_id_label">
 
   export type SERIVApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -51189,9 +51304,11 @@ export namespace Prisma {
     seriv_id?: StringFilter<"SERIVItem"> | string
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
+    price?: FloatFilter<"SERIVItem"> | number
     metadata?: JsonNullableFilter<"SERIVItem">
     seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type SERIVItemOrderByWithRelationInput = {
@@ -51199,9 +51316,11 @@ export namespace Prisma {
     seriv_id?: SortOrder
     item_id?: SortOrder
     quantity?: SortOrder
+    price?: SortOrder
     metadata?: SortOrderInput | SortOrder
     seriv?: SERIVOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
+    item_transaction?: ItemTransactionOrderByWithRelationInput
   }
 
   export type SERIVItemWhereUniqueInput = Prisma.AtLeast<{
@@ -51212,9 +51331,11 @@ export namespace Prisma {
     seriv_id?: StringFilter<"SERIVItem"> | string
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
+    price?: FloatFilter<"SERIVItem"> | number
     metadata?: JsonNullableFilter<"SERIVItem">
     seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type SERIVItemOrderByWithAggregationInput = {
@@ -51222,6 +51343,7 @@ export namespace Prisma {
     seriv_id?: SortOrder
     item_id?: SortOrder
     quantity?: SortOrder
+    price?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: SERIVItemCountOrderByAggregateInput
     _avg?: SERIVItemAvgOrderByAggregateInput
@@ -51238,6 +51360,7 @@ export namespace Prisma {
     seriv_id?: StringWithAggregatesFilter<"SERIVItem"> | string
     item_id?: StringWithAggregatesFilter<"SERIVItem"> | string
     quantity?: IntWithAggregatesFilter<"SERIVItem"> | number
+    price?: FloatWithAggregatesFilter<"SERIVItem"> | number
     metadata?: JsonNullableWithAggregatesFilter<"SERIVItem">
   }
 
@@ -52765,6 +52888,7 @@ export namespace Prisma {
     item: ItemCreateNestedOneWithoutItem_transactionsInput
     rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
+    seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateInput = {
@@ -52772,6 +52896,7 @@ export namespace Prisma {
     item_id: string
     rr_item_id?: string | null
     osriv_item_id?: string | null
+    seriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -52794,6 +52919,7 @@ export namespace Prisma {
     item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
     rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
+    seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateInput = {
@@ -52801,6 +52927,7 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -52816,6 +52943,7 @@ export namespace Prisma {
     item_id: string
     rr_item_id?: string | null
     osriv_item_id?: string | null
+    seriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -52842,6 +52970,7 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -54944,13 +55073,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date | string
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed?: boolean
+    request_type: number
     mwo_number?: string | null
     jo_number?: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -54968,13 +55097,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date | string
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed?: boolean
+    request_type: number
     mwo_number?: string | null
     jo_number?: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
     created_by: string
@@ -54992,13 +55121,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55016,13 +55145,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -55040,13 +55169,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date | string
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed?: boolean
+    request_type: number
     mwo_number?: string | null
     jo_number?: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
     created_by: string
@@ -55062,13 +55191,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55083,13 +55212,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -55186,9 +55315,11 @@ export namespace Prisma {
   export type SERIVItemCreateInput = {
     id?: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv: SERIVCreateNestedOneWithoutSeriv_itemsInput
     item: ItemCreateNestedOneWithoutSeriv_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutSeriv_itemInput
   }
 
   export type SERIVItemUncheckedCreateInput = {
@@ -55196,15 +55327,19 @@ export namespace Prisma {
     seriv_id: string
     item_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutSeriv_itemInput
   }
 
   export type SERIVItemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv?: SERIVUpdateOneRequiredWithoutSeriv_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutSeriv_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutSeriv_itemNestedInput
   }
 
   export type SERIVItemUncheckedUpdateInput = {
@@ -55212,7 +55347,9 @@ export namespace Prisma {
     seriv_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutSeriv_itemNestedInput
   }
 
   export type SERIVItemCreateManyInput = {
@@ -55220,12 +55357,14 @@ export namespace Prisma {
     seriv_id: string
     item_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SERIVItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -55234,6 +55373,7 @@ export namespace Prisma {
     seriv_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -56732,11 +56872,17 @@ export namespace Prisma {
     isNot?: OSRIVItemWhereInput | null
   }
 
+  export type SERIVItemNullableRelationFilter = {
+    is?: SERIVItemWhereInput | null
+    isNot?: SERIVItemWhereInput | null
+  }
+
   export type ItemTransactionCountOrderByAggregateInput = {
     id?: SortOrder
     item_id?: SortOrder
     rr_item_id?: SortOrder
     osriv_item_id?: SortOrder
+    seriv_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -56759,6 +56905,7 @@ export namespace Prisma {
     item_id?: SortOrder
     rr_item_id?: SortOrder
     osriv_item_id?: SortOrder
+    seriv_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -56773,6 +56920,7 @@ export namespace Prisma {
     item_id?: SortOrder
     rr_item_id?: SortOrder
     osriv_item_id?: SortOrder
+    seriv_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -57986,13 +58134,13 @@ export namespace Prisma {
     seriv_number?: SortOrder
     date_requested?: SortOrder
     purpose?: SortOrder
-    requested_by_id?: SortOrder
+    is_completed?: SortOrder
     request_type?: SortOrder
     mwo_number?: SortOrder
     jo_number?: SortOrder
     consumer_name?: SortOrder
     location?: SortOrder
-    department_id?: SortOrder
+    requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -58003,18 +58151,22 @@ export namespace Prisma {
     metadata?: SortOrder
   }
 
+  export type SERIVAvgOrderByAggregateInput = {
+    request_type?: SortOrder
+  }
+
   export type SERIVMaxOrderByAggregateInput = {
     id?: SortOrder
     seriv_number?: SortOrder
     date_requested?: SortOrder
     purpose?: SortOrder
-    requested_by_id?: SortOrder
+    is_completed?: SortOrder
     request_type?: SortOrder
     mwo_number?: SortOrder
     jo_number?: SortOrder
     consumer_name?: SortOrder
     location?: SortOrder
-    department_id?: SortOrder
+    requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -58029,13 +58181,13 @@ export namespace Prisma {
     seriv_number?: SortOrder
     date_requested?: SortOrder
     purpose?: SortOrder
-    requested_by_id?: SortOrder
+    is_completed?: SortOrder
     request_type?: SortOrder
     mwo_number?: SortOrder
     jo_number?: SortOrder
     consumer_name?: SortOrder
     location?: SortOrder
-    department_id?: SortOrder
+    requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -58045,9 +58197,18 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
+  export type SERIVSumOrderByAggregateInput = {
+    request_type?: SortOrder
+  }
+
   export type SERIVRelationFilter = {
     is?: SERIVWhereInput
     isNot?: SERIVWhereInput
+  }
+
+  export type SERIVApproverSeriv_idLabelCompoundUniqueInput = {
+    seriv_id: string
+    label: string
   }
 
   export type SERIVApproverCountOrderByAggregateInput = {
@@ -58099,11 +58260,13 @@ export namespace Prisma {
     seriv_id?: SortOrder
     item_id?: SortOrder
     quantity?: SortOrder
+    price?: SortOrder
     metadata?: SortOrder
   }
 
   export type SERIVItemAvgOrderByAggregateInput = {
     quantity?: SortOrder
+    price?: SortOrder
   }
 
   export type SERIVItemMaxOrderByAggregateInput = {
@@ -58111,6 +58274,7 @@ export namespace Prisma {
     seriv_id?: SortOrder
     item_id?: SortOrder
     quantity?: SortOrder
+    price?: SortOrder
   }
 
   export type SERIVItemMinOrderByAggregateInput = {
@@ -58118,10 +58282,12 @@ export namespace Prisma {
     seriv_id?: SortOrder
     item_id?: SortOrder
     quantity?: SortOrder
+    price?: SortOrder
   }
 
   export type SERIVItemSumOrderByAggregateInput = {
     quantity?: SortOrder
+    price?: SortOrder
   }
 
   export type MRVApproverListRelationFilter = {
@@ -59307,6 +59473,12 @@ export namespace Prisma {
     connect?: OSRIVItemWhereUniqueInput
   }
 
+  export type SERIVItemCreateNestedOneWithoutItem_transactionInput = {
+    create?: XOR<SERIVItemCreateWithoutItem_transactionInput, SERIVItemUncheckedCreateWithoutItem_transactionInput>
+    connectOrCreate?: SERIVItemCreateOrConnectWithoutItem_transactionInput
+    connect?: SERIVItemWhereUniqueInput
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -59341,6 +59513,16 @@ export namespace Prisma {
     delete?: OSRIVItemWhereInput | boolean
     connect?: OSRIVItemWhereUniqueInput
     update?: XOR<XOR<OSRIVItemUpdateToOneWithWhereWithoutItem_transactionInput, OSRIVItemUpdateWithoutItem_transactionInput>, OSRIVItemUncheckedUpdateWithoutItem_transactionInput>
+  }
+
+  export type SERIVItemUpdateOneWithoutItem_transactionNestedInput = {
+    create?: XOR<SERIVItemCreateWithoutItem_transactionInput, SERIVItemUncheckedCreateWithoutItem_transactionInput>
+    connectOrCreate?: SERIVItemCreateOrConnectWithoutItem_transactionInput
+    upsert?: SERIVItemUpsertWithoutItem_transactionInput
+    disconnect?: SERIVItemWhereInput | boolean
+    delete?: SERIVItemWhereInput | boolean
+    connect?: SERIVItemWhereUniqueInput
+    update?: XOR<XOR<SERIVItemUpdateToOneWithWhereWithoutItem_transactionInput, SERIVItemUpdateWithoutItem_transactionInput>, SERIVItemUncheckedUpdateWithoutItem_transactionInput>
   }
 
   export type CanvassItemCreateNestedManyWithoutCanvassInput = {
@@ -60853,6 +61035,18 @@ export namespace Prisma {
     connect?: ItemWhereUniqueInput
   }
 
+  export type ItemTransactionCreateNestedOneWithoutSeriv_itemInput = {
+    create?: XOR<ItemTransactionCreateWithoutSeriv_itemInput, ItemTransactionUncheckedCreateWithoutSeriv_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutSeriv_itemInput
+    connect?: ItemTransactionWhereUniqueInput
+  }
+
+  export type ItemTransactionUncheckedCreateNestedOneWithoutSeriv_itemInput = {
+    create?: XOR<ItemTransactionCreateWithoutSeriv_itemInput, ItemTransactionUncheckedCreateWithoutSeriv_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutSeriv_itemInput
+    connect?: ItemTransactionWhereUniqueInput
+  }
+
   export type SERIVUpdateOneRequiredWithoutSeriv_itemsNestedInput = {
     create?: XOR<SERIVCreateWithoutSeriv_itemsInput, SERIVUncheckedCreateWithoutSeriv_itemsInput>
     connectOrCreate?: SERIVCreateOrConnectWithoutSeriv_itemsInput
@@ -60867,6 +61061,26 @@ export namespace Prisma {
     upsert?: ItemUpsertWithoutSeriv_itemsInput
     connect?: ItemWhereUniqueInput
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutSeriv_itemsInput, ItemUpdateWithoutSeriv_itemsInput>, ItemUncheckedUpdateWithoutSeriv_itemsInput>
+  }
+
+  export type ItemTransactionUpdateOneWithoutSeriv_itemNestedInput = {
+    create?: XOR<ItemTransactionCreateWithoutSeriv_itemInput, ItemTransactionUncheckedCreateWithoutSeriv_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutSeriv_itemInput
+    upsert?: ItemTransactionUpsertWithoutSeriv_itemInput
+    disconnect?: ItemTransactionWhereInput | boolean
+    delete?: ItemTransactionWhereInput | boolean
+    connect?: ItemTransactionWhereUniqueInput
+    update?: XOR<XOR<ItemTransactionUpdateToOneWithWhereWithoutSeriv_itemInput, ItemTransactionUpdateWithoutSeriv_itemInput>, ItemTransactionUncheckedUpdateWithoutSeriv_itemInput>
+  }
+
+  export type ItemTransactionUncheckedUpdateOneWithoutSeriv_itemNestedInput = {
+    create?: XOR<ItemTransactionCreateWithoutSeriv_itemInput, ItemTransactionUncheckedCreateWithoutSeriv_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutSeriv_itemInput
+    upsert?: ItemTransactionUpsertWithoutSeriv_itemInput
+    disconnect?: ItemTransactionWhereInput | boolean
+    delete?: ItemTransactionWhereInput | boolean
+    connect?: ItemTransactionWhereUniqueInput
+    update?: XOR<XOR<ItemTransactionUpdateToOneWithWhereWithoutSeriv_itemInput, ItemTransactionUpdateWithoutSeriv_itemInput>, ItemTransactionUncheckedUpdateWithoutSeriv_itemInput>
   }
 
   export type StationCreateNestedOneWithoutMrvsInput = {
@@ -61894,13 +62108,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date | string
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed?: boolean
+    request_type: number
     mwo_number?: string | null
     jo_number?: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -61917,13 +62131,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date | string
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed?: boolean
+    request_type: number
     mwo_number?: string | null
     jo_number?: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -62079,13 +62293,13 @@ export namespace Prisma {
     seriv_number?: StringFilter<"SERIV"> | string
     date_requested?: DateTimeFilter<"SERIV"> | Date | string
     purpose?: StringFilter<"SERIV"> | string
-    requested_by_id?: StringFilter<"SERIV"> | string
-    request_type?: StringFilter<"SERIV"> | string
+    is_completed?: BoolFilter<"SERIV"> | boolean
+    request_type?: IntFilter<"SERIV"> | number
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
     jo_number?: StringNullableFilter<"SERIV"> | string | null
     consumer_name?: StringFilter<"SERIV"> | string
     location?: StringFilter<"SERIV"> | string
-    department_id?: StringFilter<"SERIV"> | string
+    requested_by_id?: StringFilter<"SERIV"> | string
     item_from_id?: StringFilter<"SERIV"> | string
     cancelled_by?: StringNullableFilter<"SERIV"> | string | null
     created_by?: StringFilter<"SERIV"> | string
@@ -62107,12 +62321,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
+    seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutItemInput = {
     id?: number
     rr_item_id?: string | null
     osriv_item_id?: string | null
+    seriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -62257,15 +62473,19 @@ export namespace Prisma {
   export type SERIVItemCreateWithoutItemInput = {
     id?: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv: SERIVCreateNestedOneWithoutSeriv_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutSeriv_itemInput
   }
 
   export type SERIVItemUncheckedCreateWithoutItemInput = {
     id?: string
     seriv_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutSeriv_itemInput
   }
 
   export type SERIVItemCreateOrConnectWithoutItemInput = {
@@ -62326,6 +62546,7 @@ export namespace Prisma {
     item_id?: StringFilter<"ItemTransaction"> | string
     rr_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     osriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
+    seriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     type?: IntFilter<"ItemTransaction"> | number
     quantity?: IntFilter<"ItemTransaction"> | number
     price?: FloatFilter<"ItemTransaction"> | number
@@ -62457,6 +62678,7 @@ export namespace Prisma {
     seriv_id?: StringFilter<"SERIVItem"> | string
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
+    price?: FloatFilter<"SERIVItem"> | number
     metadata?: JsonNullableFilter<"SERIVItem">
   }
 
@@ -63003,6 +63225,29 @@ export namespace Prisma {
     create: XOR<OSRIVItemCreateWithoutItem_transactionInput, OSRIVItemUncheckedCreateWithoutItem_transactionInput>
   }
 
+  export type SERIVItemCreateWithoutItem_transactionInput = {
+    id?: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    seriv: SERIVCreateNestedOneWithoutSeriv_itemsInput
+    item: ItemCreateNestedOneWithoutSeriv_itemsInput
+  }
+
+  export type SERIVItemUncheckedCreateWithoutItem_transactionInput = {
+    id?: string
+    seriv_id: string
+    item_id: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type SERIVItemCreateOrConnectWithoutItem_transactionInput = {
+    where: SERIVItemWhereUniqueInput
+    create: XOR<SERIVItemCreateWithoutItem_transactionInput, SERIVItemUncheckedCreateWithoutItem_transactionInput>
+  }
+
   export type ItemUpsertWithoutItem_transactionsInput = {
     update: XOR<ItemUpdateWithoutItem_transactionsInput, ItemUncheckedUpdateWithoutItem_transactionsInput>
     create: XOR<ItemCreateWithoutItem_transactionsInput, ItemUncheckedCreateWithoutItem_transactionsInput>
@@ -63114,6 +63359,35 @@ export namespace Prisma {
   export type OSRIVItemUncheckedUpdateWithoutItem_transactionInput = {
     id?: StringFieldUpdateOperationsInput | string
     osriv_id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type SERIVItemUpsertWithoutItem_transactionInput = {
+    update: XOR<SERIVItemUpdateWithoutItem_transactionInput, SERIVItemUncheckedUpdateWithoutItem_transactionInput>
+    create: XOR<SERIVItemCreateWithoutItem_transactionInput, SERIVItemUncheckedCreateWithoutItem_transactionInput>
+    where?: SERIVItemWhereInput
+  }
+
+  export type SERIVItemUpdateToOneWithWhereWithoutItem_transactionInput = {
+    where?: SERIVItemWhereInput
+    data: XOR<SERIVItemUpdateWithoutItem_transactionInput, SERIVItemUncheckedUpdateWithoutItem_transactionInput>
+  }
+
+  export type SERIVItemUpdateWithoutItem_transactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    seriv?: SERIVUpdateOneRequiredWithoutSeriv_itemsNestedInput
+    item?: ItemUpdateOneRequiredWithoutSeriv_itemsNestedInput
+  }
+
+  export type SERIVItemUncheckedUpdateWithoutItem_transactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    seriv_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -66576,12 +66850,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutItem_transactionsInput
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
+    seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutRr_itemInput = {
     id?: number
     item_id: string
     osriv_item_id?: string | null
+    seriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -66699,12 +66975,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
+    seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutRr_itemInput = {
     id?: IntFieldUpdateOperationsInput | number
     item_id?: StringFieldUpdateOperationsInput | string
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -67154,12 +67432,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutItem_transactionsInput
     rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
+    seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutOsriv_itemInput = {
     id?: number
     item_id: string
     rr_item_id?: string | null
+    seriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -67311,12 +67591,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
     rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
+    seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutOsriv_itemInput = {
     id?: IntFieldUpdateOperationsInput | number
     item_id?: StringFieldUpdateOperationsInput | string
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -67399,15 +67681,19 @@ export namespace Prisma {
   export type SERIVItemCreateWithoutSerivInput = {
     id?: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutSeriv_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutSeriv_itemInput
   }
 
   export type SERIVItemUncheckedCreateWithoutSerivInput = {
     id?: string
     item_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutSeriv_itemInput
   }
 
   export type SERIVItemCreateOrConnectWithoutSerivInput = {
@@ -67515,13 +67801,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date | string
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed?: boolean
+    request_type: number
     mwo_number?: string | null
     jo_number?: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -67538,13 +67824,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date | string
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed?: boolean
+    request_type: number
     mwo_number?: string | null
     jo_number?: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
     created_by: string
@@ -67577,13 +67863,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67600,13 +67886,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -67623,13 +67909,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date | string
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed?: boolean
+    request_type: number
     mwo_number?: string | null
     jo_number?: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -67646,13 +67932,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date | string
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed?: boolean
+    request_type: number
     mwo_number?: string | null
     jo_number?: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
     created_by: string
@@ -67724,6 +68010,40 @@ export namespace Prisma {
     create: XOR<ItemCreateWithoutSeriv_itemsInput, ItemUncheckedCreateWithoutSeriv_itemsInput>
   }
 
+  export type ItemTransactionCreateWithoutSeriv_itemInput = {
+    type: number
+    quantity: number
+    price: number
+    remarks?: string | null
+    is_initial?: boolean
+    created_at?: Date | string
+    created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item: ItemCreateNestedOneWithoutItem_transactionsInput
+    rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
+    osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
+  }
+
+  export type ItemTransactionUncheckedCreateWithoutSeriv_itemInput = {
+    id?: number
+    item_id: string
+    rr_item_id?: string | null
+    osriv_item_id?: string | null
+    type: number
+    quantity: number
+    price: number
+    remarks?: string | null
+    is_initial?: boolean
+    created_at?: Date | string
+    created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemTransactionCreateOrConnectWithoutSeriv_itemInput = {
+    where: ItemTransactionWhereUniqueInput
+    create: XOR<ItemTransactionCreateWithoutSeriv_itemInput, ItemTransactionUncheckedCreateWithoutSeriv_itemInput>
+  }
+
   export type SERIVUpsertWithoutSeriv_itemsInput = {
     update: XOR<SERIVUpdateWithoutSeriv_itemsInput, SERIVUncheckedUpdateWithoutSeriv_itemsInput>
     create: XOR<SERIVCreateWithoutSeriv_itemsInput, SERIVUncheckedCreateWithoutSeriv_itemsInput>
@@ -67740,13 +68060,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67763,13 +68083,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -67840,6 +68160,46 @@ export namespace Prisma {
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemTransactionUpsertWithoutSeriv_itemInput = {
+    update: XOR<ItemTransactionUpdateWithoutSeriv_itemInput, ItemTransactionUncheckedUpdateWithoutSeriv_itemInput>
+    create: XOR<ItemTransactionCreateWithoutSeriv_itemInput, ItemTransactionUncheckedCreateWithoutSeriv_itemInput>
+    where?: ItemTransactionWhereInput
+  }
+
+  export type ItemTransactionUpdateToOneWithWhereWithoutSeriv_itemInput = {
+    where?: ItemTransactionWhereInput
+    data: XOR<ItemTransactionUpdateWithoutSeriv_itemInput, ItemTransactionUncheckedUpdateWithoutSeriv_itemInput>
+  }
+
+  export type ItemTransactionUpdateWithoutSeriv_itemInput = {
+    type?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    is_initial?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
+    rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
+    osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
+  }
+
+  export type ItemTransactionUncheckedUpdateWithoutSeriv_itemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    item_id?: StringFieldUpdateOperationsInput | string
+    rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    is_initial?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type StationCreateWithoutMrvsInput = {
@@ -69319,13 +69679,13 @@ export namespace Prisma {
     seriv_number: string
     date_requested: Date | string
     purpose: string
-    requested_by_id: string
-    request_type: string
+    is_completed?: boolean
+    request_type: number
     mwo_number?: string | null
     jo_number?: string | null
     consumer_name: string
     location: string
-    department_id: string
+    requested_by_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -69504,13 +69864,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69527,13 +69887,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69550,13 +69910,13 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
-    requested_by_id?: StringFieldUpdateOperationsInput | string
-    request_type?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69570,6 +69930,7 @@ export namespace Prisma {
     id?: number
     rr_item_id?: string | null
     osriv_item_id?: string | null
+    seriv_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -69610,6 +69971,7 @@ export namespace Prisma {
     id?: string
     seriv_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69631,12 +69993,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
+    seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutItemInput = {
     id?: IntFieldUpdateOperationsInput | number
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -69651,6 +70015,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -69750,21 +70115,26 @@ export namespace Prisma {
   export type SERIVItemUpdateWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv?: SERIVUpdateOneRequiredWithoutSeriv_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutSeriv_itemNestedInput
   }
 
   export type SERIVItemUncheckedUpdateWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     seriv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutSeriv_itemNestedInput
   }
 
   export type SERIVItemUncheckedUpdateManyWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     seriv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70562,6 +70932,7 @@ export namespace Prisma {
     id?: string
     item_id: string
     quantity: number
+    price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70601,21 +70972,26 @@ export namespace Prisma {
   export type SERIVItemUpdateWithoutSerivInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutSeriv_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutSeriv_itemNestedInput
   }
 
   export type SERIVItemUncheckedUpdateWithoutSerivInput = {
     id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutSeriv_itemNestedInput
   }
 
   export type SERIVItemUncheckedUpdateManyWithoutSerivInput = {
     id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 

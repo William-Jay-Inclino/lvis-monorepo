@@ -1,17 +1,17 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { APPROVAL_STATUS } from "../../__common__/types";
 import { Employee } from "../../__employee__/entities/employee.entity";
-import { OSRIV } from "../../osriv/entities/osriv.entity";
+import { SERIV } from "../../seriv/entities/seriv.entity";
 
 
 @ObjectType()
-export class OSRIVApprover {
+export class SERIVApprover {
 
     @Field(() => String)
     id: string;
 
     @Field(() => String)
-    osriv_id: string
+    seriv_id: string
 
     @Field(() => String)
     approver_id: string
@@ -31,20 +31,14 @@ export class OSRIVApprover {
     @Field(() => Int)
     order: number
 
-    @Field(() => Boolean)
-    is_supervisor: boolean
-
-    @Field(() => Boolean)
-    is_warehouse_custodian: boolean
-
     @Field({ nullable: true })
     metadata?: string
 
 
     // =============== derived / resolvers =============== 
 
-    @Field(() => OSRIV)
-    osriv: OSRIV
+    @Field(() => SERIV)
+    seriv: SERIV
 
     @Field(() => Employee, { nullable: true })
     approver?: Employee | null

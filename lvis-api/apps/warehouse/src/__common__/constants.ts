@@ -40,6 +40,14 @@ export const itemTypeMapper = {
     [ITEM_TYPE.SPECIAL_EQUIPMENT]: 'Special Equipment',
 }
 
+export const enum WAREHOUSE_REQUEST_TYPE {
+    MAINTENANCE_WORK_ORDER = 1,
+}
+
+export const warehouseRequestTypeMapper = {
+    [WAREHOUSE_REQUEST_TYPE.MAINTENANCE_WORK_ORDER]: 'Maintenance Work Order',
+}
+
 export const MODULE_MAPPER = {
     [DB_ENTITY.RV]: {
         model: 'rV',

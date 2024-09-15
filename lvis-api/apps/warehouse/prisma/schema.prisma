@@ -234,6 +234,7 @@ model ItemTransaction {
   item_id    String
   rr_item_id String? @unique
   osriv_item_id String? @unique
+  seriv_item_id String? @unique
   type       Int
   quantity   Int
   price      Float
@@ -243,6 +244,7 @@ model ItemTransaction {
   item    Item    @relation(fields: [item_id], references: [id], onDelete: Cascade)
   rr_item RRItem? @relation(fields: [rr_item_id], references: [id], onDelete: Cascade)
   osriv_item OSRIVItem? @relation(fields: [osriv_item_id], references: [id], onDelete: Cascade)
+  seriv_item SERIVItem? @relation(fields: [seriv_item_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   created_by String   @default("admin")
@@ -737,13 +739,15 @@ model SERIV {
   seriv_number         String    @unique
   date_requested    DateTime
   purpose             String
-  requested_by_id String
-  request_type String
+  is_completed    Boolean  @default(false)
+
+  request_type Int
   mwo_number String?
   jo_number String?
   consumer_name String
   location String
-  department_id String
+
+  requested_by_id String
   item_from_id String
 
   cancelled_by String?
@@ -778,6 +782,7 @@ model SERIVApprover {
 
   metadata Json?
 
+  @@unique([seriv_id, label]) // para pag update sa specific approver
   @@index([seriv_id])
   @@map("seriv_approver")
 }
@@ -787,9 +792,11 @@ model SERIVItem {
   seriv_id         String
   item_id         String
   quantity     Int
+  price      Float @default(0)
 
   seriv SERIV @relation(fields: [seriv_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
+  item_transaction   ItemTransaction?
 
   metadata Json?
 
