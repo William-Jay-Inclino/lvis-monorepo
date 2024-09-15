@@ -113,9 +113,10 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/warehouse/item/item.api'
-import type { CreateItemInput } from '~/composables/warehouse/item/item.type'
+import type { CreateItemInput, ItemType } from '~/composables/warehouse/item/item.type'
 import { generateNumbersBy5 } from '~/composables/warehouse/item/item.common'
 import Swal from 'sweetalert2'
+import { ITEM_TYPES } from '~/utils/constants';
 
 definePageMeta({
     name: ROUTES.ITEM_CREATE,
@@ -142,7 +143,10 @@ const _initialFormErrors = {
 }
 
 const _initialFormData: CreateItemInput = {
-    item_type: null,
+    item_type: {
+        id: ITEM_TYPE.OFFICE_SUPPLY,
+        name: itemTypeMapper[ITEM_TYPE.OFFICE_SUPPLY],
+    },
     unit: null,
     code: '',
     name: '',
@@ -159,8 +163,8 @@ onMounted(async () => {
 
     const response = await api.fetchFormDataInCreate()
 
-    itemTypes.value = response.itemTypes
     units.value = response.units
+    itemTypes.value = ITEM_TYPES
     alertLevels.value = generateNumbersBy5({ max: 100 })
     isLoadingPage.value = false
 })

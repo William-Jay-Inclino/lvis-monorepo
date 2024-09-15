@@ -1,10 +1,10 @@
+import type { ITEM_TYPE } from "#imports";
 import type { CreateItemInput, FindAllResponse, Item, MutationResponse, UpdateItemInput } from "./item.type";
 
 
 
 export async function fetchDataInSearchFilters(): Promise<{
-    items: Item[],
-    itemTypes: ItemType[]
+    items: Item[]
 }> {
     const query = `
         query {
@@ -12,10 +12,6 @@ export async function fetchDataInSearchFilters(): Promise<{
                 data{
                     code
                 }
-            },
-            item_types{
-                id
-                name
             }
         }
     `;
@@ -25,7 +21,6 @@ export async function fetchDataInSearchFilters(): Promise<{
         console.log('response', response)
 
         let items = []
-        let itemTypes = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -36,37 +31,26 @@ export async function fetchDataInSearchFilters(): Promise<{
         if (data.items && data.items.data) {
             items = response.data.data.items.data
         }
-
-        if (data.item_types) {
-            itemTypes = data.item_types
-        }
         return {
             items,
-            itemTypes
         }
 
     } catch (error) {
         console.error(error);
         return {
             items: [],
-            itemTypes: [],
         }
     }
 }
 
-export async function findAll(payload: { page: number, pageSize: number, name: string | null, item_type_id: string | null }): Promise<FindAllResponse> {
+export async function findAll(payload: { page: number, pageSize: number, name: string | null, item_type: ITEM_TYPE | null }): Promise<FindAllResponse> {
 
-    const { page, pageSize, name, item_type_id } = payload;
+    const { page, pageSize, name, item_type } = payload;
 
     let name2 = null
-    let item_type_id2 = null
 
     if (name) {
         name2 = `"${name}"`
-    }
-
-    if (item_type_id) {
-        item_type_id2 = `"${item_type_id}"`
     }
 
     const query = `
@@ -75,20 +59,17 @@ export async function findAll(payload: { page: number, pageSize: number, name: s
                 page: ${page},
                 pageSize: ${pageSize},
                 name: ${name2},
-                item_type_id: ${item_type_id2},
+                item_type: ${item_type},
             ) {
                 data {
                     id
                     code 
                     name
+                    item_type
                     description
                     total_quantity
                     quantity_on_queue
                     GWAPrice
-                    item_type {
-                        id 
-                        name
-                    }
                 }
                 totalItems
                 currentPage
@@ -114,14 +95,11 @@ export async function findByCode(code: string): Promise<Item | undefined> {
                 id
                 code 
                 name
+                item_type
                 description
                 total_quantity
                 quantity_on_queue
                 GWAPrice
-                item_type {
-                    id 
-                    name
-                }
             }
         }
     `;
@@ -155,10 +133,7 @@ export async function findOne(id: string): Promise<Item | undefined> {
                 initial_quantity
                 GWAPrice
                 alert_level
-                item_type {
-                    id 
-                    name
-                }
+                item_type
                 unit {
                     id
                     name
@@ -198,17 +173,12 @@ export async function findOne(id: string): Promise<Item | undefined> {
 }
 
 export async function fetchFormDataInCreate(): Promise<{
-    itemTypes: ItemType[],
     units: Unit[],
 }> {
 
 
     const query = `
         query {
-            item_types{
-                id
-                name
-            }
             units{
                 id
                 name
@@ -220,7 +190,6 @@ export async function fetchFormDataInCreate(): Promise<{
         const response = await sendRequest(query);
         console.log('response', response)
 
-        let itemTypes = []
         let units = []
 
         if (!response.data || !response.data.data) {
@@ -229,23 +198,17 @@ export async function fetchFormDataInCreate(): Promise<{
 
         const data = response.data.data
 
-        if (data.item_types) {
-            itemTypes = data.item_types
-        }
-
         if (data.units) {
             units = data.units
         }
 
         return {
-            itemTypes,
             units,
         }
 
     } catch (error) {
         console.error(error);
         return {
-            itemTypes: [],
             units: [],
         }
     }
@@ -254,7 +217,6 @@ export async function fetchFormDataInCreate(): Promise<{
 }
 
 export async function fetchFormDataInUpdate(id: string): Promise<{
-    itemTypes: ItemType[],
     units: Unit[],
     item: Item | undefined
 }> {
@@ -268,18 +230,11 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 name
                 description
                 alert_level
-                item_type {
-                    id 
-                    name
-                }
+                item_type
                 unit {
                     id
                     name
                 }
-            }
-            item_types{
-                id
-                name
             }
             units{
                 id
@@ -292,7 +247,6 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         const response = await sendRequest(query);
         console.log('response', response)
 
-        let itemTypes = []
         let units = []
 
         if (!response.data || !response.data.data) {
@@ -307,16 +261,11 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
 
         const item = data.item
 
-        if (data.item_types) {
-            itemTypes = data.item_types
-        }
-
         if (data.units) {
             units = data.units
         }
 
         return {
-            itemTypes,
             units,
             item
         }
@@ -325,7 +274,6 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         console.error(error);
         return {
             item: undefined,
-            itemTypes: [],
             units: [],
         }
     }
@@ -338,7 +286,7 @@ export async function create(input: CreateItemInput): Promise<MutationResponse> 
     const mutation = `
         mutation {
             createItem(input: {
-                item_type_id: "${input.item_type?.id}",
+                item_type: ${input.item_type.id},
                 unit_id: "${input.unit?.id}",
                 code: "${input.code}",
                 name: "${input.name}",
@@ -390,7 +338,7 @@ export async function update(id: string, input: UpdateItemInput): Promise<Mutati
     const mutation = `
         mutation {
             updateItem(id: "${id}", input: {
-                item_type_id: "${input.item_type?.id}",
+                item_type: ${input.item_type},
                 unit_id: "${input.unit?.id}",
                 code: "${input.code}",
                 name: "${input.name}",

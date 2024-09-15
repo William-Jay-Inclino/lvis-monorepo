@@ -107,18 +107,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.ItemTypeScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
-  metadata: 'metadata'
-};
-
 exports.Prisma.SupplierScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -197,7 +185,6 @@ exports.Prisma.PendingScalarFieldEnum = {
 
 exports.Prisma.ItemScalarFieldEnum = {
   id: 'id',
-  item_type_id: 'item_type_id',
   unit_id: 'unit_id',
   code: 'code',
   name: 'name',
@@ -206,6 +193,7 @@ exports.Prisma.ItemScalarFieldEnum = {
   quantity_on_queue: 'quantity_on_queue',
   initial_quantity: 'initial_quantity',
   alert_level: 'alert_level',
+  item_type: 'item_type',
   created_by: 'created_by',
   updated_by: 'updated_by',
   deleted_by: 'deleted_by',
@@ -710,7 +698,6 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  ItemType: 'ItemType',
   Supplier: 'Supplier',
   Unit: 'Unit',
   Vehicle: 'Vehicle',

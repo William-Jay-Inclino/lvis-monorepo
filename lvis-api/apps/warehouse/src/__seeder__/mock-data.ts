@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { ItemType, Station, Supplier, Unit, VAT_TYPE, Vehicle } from "../__common__/types"
+import { Station, Supplier, Unit, VAT_TYPE, Vehicle } from "../__common__/types"
 
 export const suppliers: Supplier[] = [
     {
@@ -44,23 +44,23 @@ export const suppliers: Supplier[] = [
     }
 ]
 
-export const itemTypes: ItemType[] = [
-    {
-        id: faker.string.uuid(),
-        name: 'Office Supply',
-        created_by: 'admin'
-    },
-    {
-        id: faker.string.uuid(),
-        name: 'Special Equipment',
-        created_by: 'admin'
-    },
-    {
-        id: faker.string.uuid(),
-        name: 'Others',
-        created_by: 'admin'
-    }
-]
+// export const itemTypes: ItemType[] = [
+//     {
+//         id: faker.string.uuid(),
+//         name: 'Office Supply',
+//         created_by: 'admin'
+//     },
+//     {
+//         id: faker.string.uuid(),
+//         name: 'Special Equipment',
+//         created_by: 'admin'
+//     },
+//     {
+//         id: faker.string.uuid(),
+//         name: 'Others',
+//         created_by: 'admin'
+//     }
+// ]
 
 export const stations: Station[] = [
     {

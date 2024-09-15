@@ -4,10 +4,10 @@ import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'cla
 @InputType()
 export class CreateItemInput {
 
-  @Field()
+  @Field(() => Int)
   @IsNotEmpty()
-  @IsString()
-  item_type_id: string;
+  @IsInt()
+  item_type: number;
 
   @Field()
   @IsNotEmpty()

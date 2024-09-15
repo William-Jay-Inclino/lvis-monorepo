@@ -75,11 +75,6 @@ export interface UpdateApproverInput {
     order: number
 }
 
-export interface ItemType {
-    id: string;
-    name: string;
-}
-
 export interface Unit {
     id: string
     name: string

@@ -1,9 +1,10 @@
+import type { ITEM_TYPE } from "#imports";
 import type { RrItem } from "../rr/rr-item.types";
 import type { ItemTransaction } from './item-transaction.type'
 
 export interface Item {
 	id: string;
-	item_type_id: string;
+	item_type: ITEM_TYPE;
 	unit_id: string;
 	code: string;
 	name: string;
@@ -11,7 +12,6 @@ export interface Item {
 	total_quantity: number;
 	quantity_on_queue: number;
 	initial_quantity: number;
-	item_type: ItemType;
 	item_transactions: ItemTransaction[];
 	rr_items: RrItem[];
 	unit: Unit;
@@ -20,8 +20,16 @@ export interface Item {
 
 	// set programmatically
 	label?: string
+	item_type_object: {
+		id: ITEM_TYPE,
+		name: string,
+	}
 }
 
+export interface ItemType {
+	id: number
+	name: string
+}
 
 export interface FindAllResponse {
 	data: Item[]
@@ -32,7 +40,10 @@ export interface FindAllResponse {
 
 
 export interface CreateItemInput {
-	item_type: ItemType | null
+	item_type: {
+		id: ITEM_TYPE,
+		name: string,
+	}
 	unit: Unit | null
 	code: string
 	name: string
@@ -44,7 +55,7 @@ export interface CreateItemInput {
 
 
 export interface UpdateItemInput {
-	item_type: ItemType
+	item_type: ITEM_TYPE
 	unit: Unit
 	code: string
 	name: string

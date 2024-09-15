@@ -30,7 +30,7 @@ import { PoModule } from './po/po.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 // import { PoApproverResolver } from './po-approver/po-approver.resolver';
 import { PoApproverModule } from './po-approver/po-approver.module';
-import { ItemTypeModule } from './item-type/item-type.module';
+// import { ItemTypeModule } from './item-type/item-type.module';
 import { ItemModule } from './item/item.module';
 import { RrModule } from './rr/rr.module';
 import { RrApproverModule } from './rr-approver/rr-approver.module';
@@ -77,7 +77,7 @@ import { StationModule } from './station/station.module';
     PoModule,
     PoApproverModule,
     VehicleModule,
-    ItemTypeModule,
+    // ItemTypeModule,
     ItemModule,
     RrModule,
     RrApproverModule,

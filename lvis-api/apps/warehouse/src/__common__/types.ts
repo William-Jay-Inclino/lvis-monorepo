@@ -30,11 +30,11 @@ export interface Station {
     created_by: string
 }
 
-export interface ItemType {
-    id: string
-    name: string
-    created_by: string
-}
+// export interface ItemType {
+//     id: string
+//     name: string
+//     created_by: string
+// }
 
 export enum APPROVAL_STATUS {
     PENDING = 1,

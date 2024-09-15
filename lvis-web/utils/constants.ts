@@ -1,4 +1,5 @@
 import { DEPARTMENT_STATUS } from "~/composables/common.types"
+import type { ItemType } from "~/composables/warehouse/item/item.type"
 
 
 export enum SERVICES {
@@ -286,3 +287,23 @@ export const MODULE_MAPPER = {
     [DB_ENTITY.OSRIV]: 'osriv',
 }
 
+export const enum ITEM_TYPE {
+    OFFICE_SUPPLY = 1,
+    SPECIAL_EQUIPMENT = 2,
+}
+
+export const itemTypeMapper = {
+    [ITEM_TYPE.OFFICE_SUPPLY]: 'Office Supply',
+    [ITEM_TYPE.SPECIAL_EQUIPMENT]: 'Special Equipment',
+}
+
+export const ITEM_TYPES: ItemType[] = [
+    {
+        id: ITEM_TYPE.OFFICE_SUPPLY,
+        name: itemTypeMapper[ITEM_TYPE.OFFICE_SUPPLY],
+    },
+    {
+        id: ITEM_TYPE.SPECIAL_EQUIPMENT,
+        name: itemTypeMapper[ITEM_TYPE.SPECIAL_EQUIPMENT],
+    },
+]

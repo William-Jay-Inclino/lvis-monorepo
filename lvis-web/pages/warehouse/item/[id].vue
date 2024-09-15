@@ -44,7 +44,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Item Types</label>
                                 <client-only>
-                                    <v-select :options="itemTypes" label="name" v-model="item.item_type"
+                                    <v-select :options="itemTypes" label="name" v-model="item.item_type_object"
                                         :clearable="false"></v-select>
                                 </client-only>
                             </div>
@@ -91,7 +91,7 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/warehouse/item/item.api'
-import type { UpdateItemInput, Item } from '~/composables/warehouse/item/item.type'
+import type { UpdateItemInput, Item, ItemType } from '~/composables/warehouse/item/item.type'
 import Swal from 'sweetalert2'
 import { generateNumbersBy5 } from '~/composables/warehouse/item/item.common';
 
@@ -128,9 +128,12 @@ onMounted(async () => {
         console.error('Item not found')
         return
     }
-
+    itemTypes.value = ITEM_TYPES
     item.value = response.item
-    itemTypes.value = response.itemTypes
+    item.value.item_type_object = {
+        id: response.item.item_type,
+        name: itemTypeMapper[response.item.item_type]
+    }
     units.value = response.units
     alertLevels.value = generateNumbersBy5({ max: 100 })
     isLoadingPage.value = false
@@ -146,7 +149,7 @@ async function onSubmit() {
     if (!isValid()) return
 
     const data: UpdateItemInput = {
-        item_type: item.value.item_type,
+        item_type: item.value.item_type_object.id,
         unit: item.value.unit,
         code: item.value.code,
         name: item.value.name,

@@ -35,7 +35,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Item Type</td>
-                                                <td> {{ item.item_type.name }} </td>
+                                                <td> {{ itemTypeMapper[item.item_type] }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Unit</td>

@@ -83,7 +83,7 @@
                                                 <td class="text-muted align-middle"> {{ i.code }} </td>
                                                 <td class="text-muted align-middle"> {{ i.name }} </td>
                                                 <td class="text-muted align-middle"> {{ i.description }} </td>
-                                                <td class="text-muted align-middle"> {{ i.item_type.name }} </td>
+                                                <td class="text-muted align-middle"> {{ itemTypeMapper[i.item_type] }} </td>
                                                 <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice) }}
                                                 </td>
                                                 <td class="text-muted align-middle"> {{ i.total_quantity }} </td>
@@ -155,10 +155,11 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/warehouse/item/item.api'
-import type { Item } from '~/composables/warehouse/item/item.type';
+import type { Item, ItemType } from '~/composables/warehouse/item/item.type';
 import { PAGINATION_SIZE } from '~/utils/config'
 import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
+import { ITEM_TYPES, itemTypeMapper } from '~/utils/constants';
 
 
 definePageMeta({
@@ -209,8 +210,7 @@ onMounted(async () => {
     console.log('response', response)
 
     itemOptions.value = response.items
-    itemTypes.value = response.itemTypes
-
+    itemTypes.value = ITEM_TYPES
     isLoadingPage.value = false
 
 })
@@ -227,7 +227,7 @@ async function changePage(page: number) {
         page,
         pageSize: pagination.value.pageSize,
         name: searchName.value,
-        item_type_id: searchItemType.value ? searchItemType.value.id : null
+        item_type: searchItemType.value ? searchItemType.value.id : null
 
     })
 
@@ -265,7 +265,7 @@ async function search() {
         page: 1,
         pageSize: pagination.value.pageSize,
         name: searchName.value,
-        item_type_id: searchItemType.value ? searchItemType.value.id : null
+        item_type: searchItemType.value ? searchItemType.value.id : null
 
     })
 

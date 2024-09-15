@@ -7,8 +7,8 @@ export class UpdateItemInput extends PartialType(CreateItemInput) {
 
   @Field({ nullable: true })
   @IsOptional()
-  @IsString()
-  item_type_id?: string;
+  @IsInt()
+  item_type?: number;
 
   @Field({ nullable: true })
   @IsOptional()

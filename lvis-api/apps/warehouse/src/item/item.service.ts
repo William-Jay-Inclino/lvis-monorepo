@@ -19,7 +19,6 @@ export class ItemService {
 	private readonly logger = new Logger(ItemService.name);
 	private authUser: AuthUser
 	private includedFields = {
-		item_type: true,
 		unit: true
 	}
 
@@ -58,9 +57,7 @@ export class ItemService {
 		const createdBy = this.authUser.user.username
 
 		const data: Prisma.ItemCreateInput = {
-			item_type: {
-				connect: { id: input.item_type_id }
-			},
+			item_type: input.item_type,
 			unit: {
 				connect: { id: input.unit_id }
 			},
@@ -87,7 +84,7 @@ export class ItemService {
 
 	}
 
-	async findAll(page: number, pageSize: number, name?: string, item_type_id?: string): Promise<ItemsResponse> {
+	async findAll(page: number, pageSize: number, name?: string, item_type?: number): Promise<ItemsResponse> {
 
 		const skip = (page - 1) * pageSize;
 
@@ -101,15 +98,14 @@ export class ItemService {
 			};
 		}
 
-		if (item_type_id) {
-			whereCondition.item_type_id = {
-				equals: item_type_id,
+		if (item_type) {
+			whereCondition.item_type = {
+				equals: item_type,
 			};
 		}
 
 		const items = await this.prisma.item.findMany({
 			include: {
-				item_type: true,
 				unit: true,
 				item_transactions: true
 			},
@@ -152,7 +148,6 @@ export class ItemService {
 						}
 					}
 				},
-				item_type: true,
 				unit: true,
 			},
 			where: { id }
@@ -184,7 +179,6 @@ export class ItemService {
 						}
 					}
 				},
-				item_type: true,
 				unit: true,
 			},
 			where: { code }
@@ -241,10 +235,7 @@ export class ItemService {
 		const updatedBy = this.authUser.user.username
 
 		const data: Prisma.ItemUpdateInput = {
-			item_type: input.item_type_id ?
-				{ connect: { id: input.item_type_id } }
-				:
-				{ connect: { id: existingItem.item_type_id } },
+			item_type: input.item_type ? input.item_type : existingItem.item_type,
 			unit: input.unit_id ?
 				{ connect: { id: input.unit_id } }
 				:

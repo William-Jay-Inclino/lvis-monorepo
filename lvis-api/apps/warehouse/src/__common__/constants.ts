@@ -20,7 +20,7 @@ export const VAT = {
     },
 }
 
-export enum DB_ENTITY {
+export const enum DB_ENTITY {
     RV = 'request_voucher',
     SPR = 'spare_parts_request',
     JO = 'job_order',
@@ -28,6 +28,16 @@ export enum DB_ENTITY {
     PO = 'purchase_order',
     RR = 'receiving_report',
     OSRIV = 'osriv',
+}
+
+export const enum ITEM_TYPE {
+    OFFICE_SUPPLY = 1,
+    SPECIAL_EQUIPMENT = 2,
+}
+
+export const itemTypeMapper = {
+    [ITEM_TYPE.OFFICE_SUPPLY]: 'Office Supply',
+    [ITEM_TYPE.SPECIAL_EQUIPMENT]: 'Special Equipment',
 }
 
 export const MODULE_MAPPER = {
