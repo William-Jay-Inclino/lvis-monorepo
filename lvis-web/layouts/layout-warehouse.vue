@@ -63,28 +63,14 @@
                                 </li>
                             </ul>
                         </li>
-                        <li v-if="canViewStockInventory(authUser)" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Stock Inventory
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li v-if="canView('canManageItem', authUser)">
-                                    <nuxt-link class="dropdown-item"
-                                        to="/warehouse/item">Item</nuxt-link>
-                                </li>
-                                <li v-if="canView('canManageItemType', authUser)">
-                                    <nuxt-link class="dropdown-item" to="/warehouse/item-type">Item
-                                        Type</nuxt-link>
-                                </li>
-                            </ul>
-                        </li>
                         <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Data Management
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li v-if="canView('canManageItem', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/warehouse/item">Item</nuxt-link></li>
                                 <li v-if="canView('canManageUnit', authUser)"><nuxt-link class="dropdown-item"
                                         to="/warehouse/unit">Unit</nuxt-link></li>
                                 <li v-if="canView('canManageVehicle', authUser)">
