@@ -88,7 +88,10 @@ export default defineNuxtRouteMiddleware((to, from) => {
             const isMEQSModule = to.name?.toString().includes(MODULES.MEQS)
             const isPOModule = to.name?.toString().includes(MODULES.PO)
             const isRRModule = to.name?.toString().includes(MODULES.RR)
+
+            // warehousing
             const isOSRIVModule = to.name?.toString().includes(MODULES.OSRIV)
+            const isSERIVModule = to.name?.toString().includes(MODULES.SERIV)
 
             // data management
             const isSupplierModule = to.name?.toString().includes(MODULES.SUPPLIER)
@@ -142,6 +145,12 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
             if (isOSRIVModule) {
                 if (!canAccessOSRIV(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+
+            }
+
+            if (isSERIVModule) {
+                if (!canAccessSERIV(to.name as ROUTES, permissions)) return redirectTo401Page()
                 return
 
             }
@@ -419,6 +428,25 @@ function canAccessOSRIV(route: ROUTES, permissions: WarehousePermissions) {
     if (route === ROUTES.OSRIV_CREATE) return !!permissions.canManageOSRIV.create
     if (route === ROUTES.OSRIV_VIEW) {
         return !!permissions.canManageOSRIV.viewDetails || isApprover(authUser)
+    }
+
+
+    return true
+
+}
+
+function canAccessSERIV(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessSERIV', route, permissions)
+
+    if (!permissions.canManageSERIV) return false
+
+    const authUser = getAuthUser()
+
+    if (route === ROUTES.SERIV_INDEX) return !!permissions.canManageSERIV.search
+    if (route === ROUTES.SERIV_CREATE) return !!permissions.canManageSERIV.create
+    if (route === ROUTES.SERIV_VIEW) {
+        return !!permissions.canManageSERIV.viewDetails || isApprover(authUser)
     }
 
 

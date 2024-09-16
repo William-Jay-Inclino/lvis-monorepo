@@ -169,6 +169,13 @@ export interface WarehousePermissions {
         print?: boolean,
     },
 
+    canManageSERIV?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean,
+        print?: boolean,
+    },
+
     // ========= DATA MANAGEMENT ========= 
     canManageSupplier?: {
         create?: boolean,

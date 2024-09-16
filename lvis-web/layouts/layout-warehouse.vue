@@ -61,6 +61,9 @@
                                 <li><nuxt-link class="dropdown-item"
                                         to="/warehouse/osriv">OSRIV</nuxt-link>
                                 </li>
+                                <li><nuxt-link class="dropdown-item"
+                                        to="/warehouse/seriv">SERIV</nuxt-link>
+                                </li>
                             </ul>
                         </li>
                         <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
@@ -187,6 +190,9 @@
                             <li><nuxt-link class="dropdown-item"
                                     to="/warehouse/osriv">OSRIV</nuxt-link>
                             </li>
+                            <li><nuxt-link class="dropdown-item"
+                                    to="/warehouse/seriv">SERIV</nuxt-link>
+                            </li>
                         </ul>
                     </li>
                     <li v-if="canViewStockInventory(authUser)" class="nav-item dropdown">
@@ -298,7 +304,8 @@ function canViewWarehousing(authUser: AuthUser) {
 
 
     return (
-        (!!warehousePermissions.canManageOSRIV && warehousePermissions.canManageOSRIV.search)
+        (!!warehousePermissions.canManageOSRIV && warehousePermissions.canManageOSRIV.search) || 
+        (!!warehousePermissions.canManageSERIV && warehousePermissions.canManageSERIV.search)
     )
 }
 

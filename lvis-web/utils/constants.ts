@@ -1,4 +1,4 @@
-import { DEPARTMENT_STATUS } from "~/composables/common.types"
+import { DEPARTMENT_STATUS, type WarehouseRequestType } from "~/composables/common.types"
 import type { ItemType } from "~/composables/warehouse/item/item.type"
 
 
@@ -29,6 +29,7 @@ export enum MODULES {
     PO = 'PO',
     RR = 'RR',
     OSRIV = 'OSRIV',
+    SERIV = 'SERIV',
 
     // =======================  DATA MANAGEMENT ======================= 
     SUPPLIER = 'SUPPLIER',
@@ -133,6 +134,12 @@ export enum ROUTES {
     OSRIV_UPDATE = `${SERVICES.WAREHOUSE}_OSRIV_UPDATE`,
     OSRIV_VIEW = `${SERVICES.WAREHOUSE}_OSRIV_VIEW`,
 
+    // =======================  SERIV ======================= 
+    SERIV_INDEX = `${SERVICES.WAREHOUSE}_SERIV_INDEX`,
+    SERIV_CREATE = `${SERVICES.WAREHOUSE}_SERIV_CREATE`,
+    SERIV_UPDATE = `${SERVICES.WAREHOUSE}_SERIV_UPDATE`,
+    SERIV_VIEW = `${SERVICES.WAREHOUSE}_SERIV_VIEW`,
+
     // =======================  SUPPLIER ======================= 
     SUPPLIER_INDEX = `${SERVICES.WAREHOUSE}_SUPPLIER_INDEX`,
     SUPPLIER_CREATE = `${SERVICES.WAREHOUSE}_SUPPLIER_CREATE`,
@@ -172,6 +179,7 @@ export enum DB_ENTITY {
     PO = 'purchase_order',
     RR = 'receiving_report',
     OSRIV = 'osriv',
+    SERIV = 'seriv',
 }
 
 export const approvalStatus = {
@@ -306,4 +314,19 @@ export const ITEM_TYPES: ItemType[] = [
         id: ITEM_TYPE.SPECIAL_EQUIPMENT,
         name: itemTypeMapper[ITEM_TYPE.SPECIAL_EQUIPMENT],
     },
+]
+
+export const enum WAREHOUSE_REQUEST_TYPE {
+    MAINTENANCE_WORK_ORDER = 1,
+}
+
+export const warehouseRequestTypeMapper = {
+    [WAREHOUSE_REQUEST_TYPE.MAINTENANCE_WORK_ORDER]: 'Maintenance Work Order',
+}
+
+export const WAREHOUSE_REQUEST_TYPES: WarehouseRequestType[] = [
+    {
+        id: WAREHOUSE_REQUEST_TYPE.MAINTENANCE_WORK_ORDER,
+        name: warehouseRequestTypeMapper[WAREHOUSE_REQUEST_TYPE.MAINTENANCE_WORK_ORDER]
+    }
 ]

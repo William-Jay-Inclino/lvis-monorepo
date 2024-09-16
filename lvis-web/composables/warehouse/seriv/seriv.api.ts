@@ -1,0 +1,558 @@
+import type { CreateSerivInput, FindAllResponse, MutationResponse, SERIV } from "./seriv.types";
+import { sendRequest } from "~/utils/api"
+import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Station } from "../station/station";
+import type { Item } from "../item/item.type";
+
+export async function fetchDataInSearchFilters(): Promise<{
+    serivs: SERIV[],
+    employees: Employee[]
+}> {
+    const query = `
+        query {
+            serivs(page: 1, pageSize: 10) {
+                data{
+                    seriv_number
+                }
+            },
+            employees(page: 1, pageSize: 10) {
+                data {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let serivs = []
+        let employees = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        if (data.serivs && data.serivs.data) {
+            serivs = data.serivs.data
+        }
+
+        return {
+            serivs,
+            employees,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            serivs: [],
+            employees: [],
+        }
+    }
+}
+
+export async function findBySerivNumber(serivNumber: string): Promise<SERIV | undefined> {
+    const query = `
+        query {
+            seriv(seriv_number: "${serivNumber}") {
+                id
+                seriv_number
+                created_by
+                status
+                can_update
+                date_requested
+                cancelled_at
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (response.data && response.data.data && response.data.data.seriv) {
+            return response.data.data.seriv;
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+        return undefined
+    }
+}
+
+export async function findOne(id: string): Promise<SERIV | undefined> {
+
+    console.log('isValidRcNumber(id)', isValidRcNumber(id));
+    let args = ''
+    if(isValidRcNumber(id)){
+        args = `seriv_number: "${id}"`
+    } else {
+        args = `id: "${id}"`
+    }
+
+    const query = `
+        query {
+            seriv(${args}) {
+                id
+                seriv_number
+                status
+                date_requested 
+                purpose
+                request_type
+                mwo_number
+                jo_number
+                consumer_name
+                location
+                cancelled_at
+                created_by
+                can_update
+                item_from {
+                    name
+                }
+                requested_by {
+                    firstname 
+                    middlename 
+                    lastname
+                }
+                seriv_approvers{
+                    approver {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    status
+                    label
+                    order
+                    notes
+                    date_approval
+                }
+                seriv_items {
+                    id 
+                    quantity
+                    price
+                    item {
+                        id 
+                        name
+                        description
+                        unit {
+                            name 
+                        }
+                        total_quantity
+                        quantity_on_queue
+                    }
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (response.data && response.data.data && response.data.data.seriv) {
+            return response.data.data.seriv;
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+        return undefined
+    }
+}
+
+export async function findAll(payload: { page: number, pageSize: number, date_requested: string | null, requested_by_id: string | null }): Promise<FindAllResponse> {
+
+    const { page, pageSize, date_requested, requested_by_id } = payload;
+
+    let date_requested2 = null
+    let requested_by_id2 = null
+
+    if (date_requested) {
+        date_requested2 = `"${date_requested}"`
+    }
+
+    if (requested_by_id) {
+        requested_by_id2 = `"${requested_by_id}"`
+    }
+
+    const query = `
+        query {
+            serivs(
+                page: ${page},
+                pageSize: ${pageSize},
+                date_requested: ${date_requested2},
+                requested_by_id: ${requested_by_id2},
+            ) {
+                data {
+                    id
+                    seriv_number
+                    requested_by {
+                        id
+                        firstname
+                        middlename 
+                        lastname
+                    }
+                    created_by
+                    status
+                    can_update
+                    date_requested
+                    cancelled_at
+                }
+                totalItems
+                currentPage
+                totalPages
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return response.data.data.serivs;
+    } catch (error) {
+        console.error(error);
+        throw error
+    }
+}
+
+export async function fetchFormDataInCreate(): Promise<{
+    employees: Employee[],
+    stations: Station[],
+    items: Item[],
+    warehouse_custodian: Employee | null,
+}> {
+
+    const query = `
+        query {
+            items(page: 1, pageSize: 200, item_type: ${ITEM_TYPE.OFFICE_SUPPLY}) {
+                data{
+                    id
+                    code
+                    name
+                    description
+                    unit {
+                        id 
+                        name
+                    }
+                    total_quantity
+                    quantity_on_queue
+                    GWAPrice
+                }
+            },
+            employees(page: 1, pageSize: 300) {
+                data{
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+            stations {
+                id 
+                name
+                location
+            },
+            warehouse_custodian {
+                id 
+                firstname
+                middlename
+                lastname
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees = []
+        let stations = []
+        let items = []
+        let warehouse_custodian = undefined
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        if (data.items && data.items.data) {
+            items = response.data.data.items.data
+        }
+
+        if (data.stations) {
+            stations = response.data.data.stations
+        }
+
+        if(data.warehouse_custodian) {
+            warehouse_custodian = data.warehouse_custodian
+        }
+
+        return {
+            employees,
+            stations,
+            items,
+            warehouse_custodian,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            employees: [],
+            stations: [],
+            items: [],
+            warehouse_custodian: null,
+        }
+    }
+
+
+}
+
+export async function fetchFormDataInUpdate(id: string): Promise<{
+    employees: Employee[],
+    seriv: SERIV | undefined
+}> {
+    const query = `
+        query {
+            seriv(id: "${id}") {
+                id
+                seriv_number
+                status
+                created_by
+                can_update
+                date_requested
+                purpose
+                request_type
+                mwo_number
+                jo_number
+                consumer_name
+                location
+                cancelled_at
+                seriv_approvers {
+                    id
+                    approver {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    date_approval 
+                    notes
+                    status
+                    label
+                    order
+                }
+
+            },
+            employees(page: 1, pageSize: 10) {
+                data {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees: Employee[] = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (!data.seriv) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const seriv = data.seriv
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        return {
+            seriv,
+            employees,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            seriv: undefined,
+            employees: [],
+        }
+    }
+}
+
+export async function create(input: CreateSerivInput): Promise<MutationResponse> {
+
+    console.log('create', input);
+
+    const approvers = input.approvers.map(i => {
+        return `
+        {
+          approver_id: "${i.approver?.id}"
+          label: "${i.label}"
+          order: ${i.order}
+        }`;
+    }).join(', ');
+
+    const items = input.items.map(i => {
+        return `
+        {
+          item_id: "${i.id}"
+          quantity: ${i.qty_request}
+          price: ${i.GWAPrice}
+        }`;
+    }).join(', ');
+
+    const mutation = `
+        mutation {
+            createSeriv(
+                input: {
+                    request_type: ${input.request_type.id}
+                    purpose: "${input.purpose}"
+                    requested_by_id: "${input.requested_by?.id}"
+                    item_from_id: "${input.item_from?.id}"
+                    approvers: [${approvers}]
+                    items: [${items}]
+                }
+            ) {
+                id
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.createSeriv) {
+            return {
+                success: true,
+                msg: 'SERIV created successfully!',
+                data: response.data.data.createSeriv
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to create SERIV. Please contact system administrator'
+        };
+    }
+}
+
+export async function cancel(id: string): Promise<CancelResponse> {
+
+    const mutation = `
+        mutation {
+            cancelSeriv(
+                id: "${id}"
+            ) {
+                msg
+                success
+                cancelled_at
+                cancelled_by
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.cancelSeriv) {
+            return response.data.data.cancelSeriv
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to cancel SERIV. Please contact system administrator'
+        };
+    }
+}
+
+export async function fetchSerivNumbers(payload: string): Promise<SERIV[]> {
+    const query = `
+        query {
+            serivs_by_seriv_number(seriv_number: "${payload}") {
+                seriv_number
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+        return response.data.data.serivs_by_seriv_number
+
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
+
+
+export async function fetchSERIVsBySerivNumber(payload: string): Promise<SERIV[]> {
+    const query = `
+        query {
+            serivs_by_seriv_number(seriv_number: "${payload}", is_detail_included: true) {
+                id
+                seriv_number
+                status
+                is_referenced
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+        return response.data.data.serivs_by_seriv_number
+
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}

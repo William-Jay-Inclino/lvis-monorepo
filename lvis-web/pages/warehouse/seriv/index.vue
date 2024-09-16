@@ -4,16 +4,16 @@
         <div class="card-body">
 
             <div v-if="!isLoadingPage && authUser">
-                <h2 class="text-warning">Search OSRIV</h2>
+                <h2 class="text-warning">Search SERIV</h2>
         
                 <hr>
         
                 <div class="row pt-3">
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
-                            <label class="form-label">RV Number</label>
+                            <label class="form-label">SERIV Number</label>
                             <client-only>
-                                <v-select @search="handleSearchOsrivNumber" :options="osrivs" label="osriv_number" v-model="osriv"></v-select>
+                                <v-select @search="handleSearchSerivNumber" :options="serivs" label="seriv_number" v-model="seriv"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -37,8 +37,8 @@
                     <button @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <i class="fas fa-search"></i> {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageOSRIV')" @click="onClickAdd" class="btn btn-primary float-end">
-                        <i class="fas fa-plus"></i> Create OSRIV
+                    <button v-if="canCreate(authUser, 'canManageSeriv')" @click="onClickAdd" class="btn btn-primary float-end">
+                        <i class="fas fa-plus"></i> Create SERIV
                     </button>
                 </div>
         
@@ -70,9 +70,8 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white">OSRIV Number</th>
+                                                <th class="bg-secondary text-white">SERIV Number</th>
                                                 <th class="bg-secondary text-white">Requested By</th>
-                                                <th class="bg-secondary text-white">Department</th>
                                                 <th class="bg-secondary text-white">Date</th>
                                                 <th class="bg-secondary text-white text-center">Status</th>
                                                 <th class="text-center bg-secondary text-white">
@@ -82,11 +81,10 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in items">
-                                                <td class="text-muted align-middle"> {{ i.osriv_number }} </td>
+                                                <td class="text-muted align-middle"> {{ i.seriv_number }} </td>
                                                 <td class="text-muted align-middle">
                                                     {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
                                                 </td>
-                                                <td class="text-muted align-middle"> {{ i.department.name }} </td>
                                                 <td class="text-muted align-middle"> {{ formatDate(i.date_requested) }}
                                                 </td>
                                                 <td class="text-center align-middle">
@@ -95,8 +93,8 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageOSRIV') }"
-                                                        :disabled="!canViewDetails(authUser, 'canManageOSRIV')">
+                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageSERIV') }"
+                                                        :disabled="!canViewDetails(authUser, 'canManageSERIV')">
                                                         <i class="fas fa-info-circle"
                                                             ></i>
                                                         View details
@@ -153,8 +151,8 @@
 
 <script setup lang="ts">
 
-import { type OSRIV } from '~/composables/warehouse/osriv/osriv.types';
-import * as osrivApi from '~/composables/warehouse/osriv/osriv.api'
+import { type SERIV } from '~/composables/warehouse/seriv/seriv.types';
+import * as serivApi from '~/composables/warehouse/seriv/seriv.api'
 import { getFullname, formatDate } from '~/utils/helpers'
 import { PAGINATION_SIZE } from '~/utils/config'
 import { ROUTES, approvalStatus } from '~/utils/constants';
@@ -163,7 +161,7 @@ import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 
 definePageMeta({
-    name: ROUTES.OSRIV_INDEX,
+    name: ROUTES.SERIV_INDEX,
     layout: "layout-warehouse",
     middleware: ['auth'],
 })
@@ -189,16 +187,16 @@ const pagination = ref({ ..._paginationInitial })
 
 
 // search filters
-const osriv = ref<OSRIV | null>(null)
+const seriv = ref<SERIV | null>(null)
 const date_requested = ref(null)
 const requested_by = ref<Employee | null>(null)
-const osrivs = ref<OSRIV[]>([])
+const serivs = ref<SERIV[]>([])
 const employees = ref<Employee[]>([])
 // ----------------
 
 
 // table data
-const items = ref<OSRIV[]>([])
+const items = ref<SERIV[]>([])
 
 
 
@@ -208,9 +206,9 @@ onMounted(async () => {
 
     authUser.value = getAuthUser()
 
-    const response = await osrivApi.fetchDataInSearchFilters()
+    const response = await serivApi.fetchDataInSearchFilters()
 
-    osrivs.value = response.osrivs
+    serivs.value = response.serivs
     employees.value = addPropertyFullName(response.employees)
 
     isLoadingPage.value = false
@@ -230,7 +228,7 @@ async function changePage(page: number) {
 
     isPaginating.value = true
 
-    const { data, currentPage, totalItems, totalPages } = await osrivApi.findAll({
+    const { data, currentPage, totalItems, totalPages } = await serivApi.findAll({
         page,
         pageSize: pagination.value.pageSize,
         date_requested: null,
@@ -253,8 +251,8 @@ async function search() {
     items.value = []
 
     // find by RV NUMBER
-    if (osriv.value) {
-        const response = await osrivApi.findByOsrivNumber(osriv.value.osriv_number)
+    if (seriv.value) {
+        const response = await serivApi.findBySerivNumber(seriv.value.seriv_number)
         isSearching.value = false
         if (response) {
             items.value.push(response)
@@ -265,7 +263,7 @@ async function search() {
 
 
     // find by DATE REQUESTED and/or REQUISITIONER
-    const { data, currentPage, totalItems, totalPages } = await osrivApi.findAll({
+    const { data, currentPage, totalItems, totalPages } = await serivApi.findAll({
         page: 1,
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
@@ -280,14 +278,14 @@ async function search() {
 
 }
 
-async function handleSearchOsrivNumber(input: string, loading: (status: boolean) => void ) {
+async function handleSearchSerivNumber(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === '') {
-        osrivs.value = []
+        serivs.value = []
         return
     } 
 
-    debouncedSearchOsrivNumbers(input, loading)
+    debouncedSearchSerivNumbers(input, loading)
 
 }
 
@@ -302,18 +300,18 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 
 }
 
-async function searchOsrivNumbers(input: string, loading: (status: boolean) => void) {
-    console.log('searchOsrivNumbers');
+async function searchSerivNumbers(input: string, loading: (status: boolean) => void) {
+    console.log('searchSerivNumbers');
     console.log('input', input);
 
     loading(true)
 
     try {
-        const response = await osrivApi.fetchOsrivNumbers(input);
+        const response = await serivApi.fetchSerivNumbers(input);
         console.log('response', response);
-        osrivs.value = response;
+        serivs.value = response;
     } catch (error) {
-        console.error('Error fetching OSRIV numbers:', error);
+        console.error('Error fetching SERIV numbers:', error);
     } finally {
         loading(false);
     }
@@ -338,11 +336,11 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
 
 // ======================== UTILS ======================== 
 
-const onClickViewDetails = (id: string) => router.push('/warehouse/osriv/view/' + id)
-const onClickAdd = () => router.push('/warehouse/osriv/create')
+const onClickViewDetails = (id: string) => router.push('/warehouse/seriv/view/' + id)
+const onClickAdd = () => router.push('/warehouse/seriv/create')
 
-const debouncedSearchOsrivNumbers = debounce((input: string, loading: (status: boolean) => void) => {
-  searchOsrivNumbers(input, loading);
+const debouncedSearchSerivNumbers = debounce((input: string, loading: (status: boolean) => void) => {
+  searchSerivNumbers(input, loading);
 }, 500);
 
 const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
