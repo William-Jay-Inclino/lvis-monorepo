@@ -37411,8 +37411,8 @@ export namespace Prisma {
     request_type: number
     mwo_number: string | null
     jo_number: string | null
-    consumer_name: string
-    location: string
+    consumer_name: string | null
+    location: string | null
     requested_by_id: string
     item_from_id: string
     cancelled_by: string | null
@@ -37515,8 +37515,8 @@ export namespace Prisma {
       request_type: number
       mwo_number: string | null
       jo_number: string | null
-      consumer_name: string
-      location: string
+      consumer_name: string | null
+      location: string | null
       requested_by_id: string
       item_from_id: string
       cancelled_by: string | null
@@ -51097,8 +51097,8 @@ export namespace Prisma {
     request_type?: IntFilter<"SERIV"> | number
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
     jo_number?: StringNullableFilter<"SERIV"> | string | null
-    consumer_name?: StringFilter<"SERIV"> | string
-    location?: StringFilter<"SERIV"> | string
+    consumer_name?: StringNullableFilter<"SERIV"> | string | null
+    location?: StringNullableFilter<"SERIV"> | string | null
     requested_by_id?: StringFilter<"SERIV"> | string
     item_from_id?: StringFilter<"SERIV"> | string
     cancelled_by?: StringNullableFilter<"SERIV"> | string | null
@@ -51122,8 +51122,8 @@ export namespace Prisma {
     request_type?: SortOrder
     mwo_number?: SortOrderInput | SortOrder
     jo_number?: SortOrderInput | SortOrder
-    consumer_name?: SortOrder
-    location?: SortOrder
+    consumer_name?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
     requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
@@ -51150,8 +51150,8 @@ export namespace Prisma {
     request_type?: IntFilter<"SERIV"> | number
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
     jo_number?: StringNullableFilter<"SERIV"> | string | null
-    consumer_name?: StringFilter<"SERIV"> | string
-    location?: StringFilter<"SERIV"> | string
+    consumer_name?: StringNullableFilter<"SERIV"> | string | null
+    location?: StringNullableFilter<"SERIV"> | string | null
     requested_by_id?: StringFilter<"SERIV"> | string
     item_from_id?: StringFilter<"SERIV"> | string
     cancelled_by?: StringNullableFilter<"SERIV"> | string | null
@@ -51175,8 +51175,8 @@ export namespace Prisma {
     request_type?: SortOrder
     mwo_number?: SortOrderInput | SortOrder
     jo_number?: SortOrderInput | SortOrder
-    consumer_name?: SortOrder
-    location?: SortOrder
+    consumer_name?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
     requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
@@ -51205,8 +51205,8 @@ export namespace Prisma {
     request_type?: IntWithAggregatesFilter<"SERIV"> | number
     mwo_number?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
     jo_number?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
-    consumer_name?: StringWithAggregatesFilter<"SERIV"> | string
-    location?: StringWithAggregatesFilter<"SERIV"> | string
+    consumer_name?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
+    location?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
     requested_by_id?: StringWithAggregatesFilter<"SERIV"> | string
     item_from_id?: StringWithAggregatesFilter<"SERIV"> | string
     cancelled_by?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
@@ -55077,8 +55077,8 @@ export namespace Prisma {
     request_type: number
     mwo_number?: string | null
     jo_number?: string | null
-    consumer_name: string
-    location: string
+    consumer_name?: string | null
+    location?: string | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -55101,8 +55101,8 @@ export namespace Prisma {
     request_type: number
     mwo_number?: string | null
     jo_number?: string | null
-    consumer_name: string
-    location: string
+    consumer_name?: string | null
+    location?: string | null
     requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
@@ -55125,8 +55125,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -55149,8 +55149,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55173,8 +55173,8 @@ export namespace Prisma {
     request_type: number
     mwo_number?: string | null
     jo_number?: string | null
-    consumer_name: string
-    location: string
+    consumer_name?: string | null
+    location?: string | null
     requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
@@ -55195,8 +55195,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -55216,8 +55216,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62112,8 +62112,8 @@ export namespace Prisma {
     request_type: number
     mwo_number?: string | null
     jo_number?: string | null
-    consumer_name: string
-    location: string
+    consumer_name?: string | null
+    location?: string | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -62135,8 +62135,8 @@ export namespace Prisma {
     request_type: number
     mwo_number?: string | null
     jo_number?: string | null
-    consumer_name: string
-    location: string
+    consumer_name?: string | null
+    location?: string | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -62297,8 +62297,8 @@ export namespace Prisma {
     request_type?: IntFilter<"SERIV"> | number
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
     jo_number?: StringNullableFilter<"SERIV"> | string | null
-    consumer_name?: StringFilter<"SERIV"> | string
-    location?: StringFilter<"SERIV"> | string
+    consumer_name?: StringNullableFilter<"SERIV"> | string | null
+    location?: StringNullableFilter<"SERIV"> | string | null
     requested_by_id?: StringFilter<"SERIV"> | string
     item_from_id?: StringFilter<"SERIV"> | string
     cancelled_by?: StringNullableFilter<"SERIV"> | string | null
@@ -67805,8 +67805,8 @@ export namespace Prisma {
     request_type: number
     mwo_number?: string | null
     jo_number?: string | null
-    consumer_name: string
-    location: string
+    consumer_name?: string | null
+    location?: string | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -67828,8 +67828,8 @@ export namespace Prisma {
     request_type: number
     mwo_number?: string | null
     jo_number?: string | null
-    consumer_name: string
-    location: string
+    consumer_name?: string | null
+    location?: string | null
     requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
@@ -67867,8 +67867,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -67890,8 +67890,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67913,8 +67913,8 @@ export namespace Prisma {
     request_type: number
     mwo_number?: string | null
     jo_number?: string | null
-    consumer_name: string
-    location: string
+    consumer_name?: string | null
+    location?: string | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -67936,8 +67936,8 @@ export namespace Prisma {
     request_type: number
     mwo_number?: string | null
     jo_number?: string | null
-    consumer_name: string
-    location: string
+    consumer_name?: string | null
+    location?: string | null
     requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
@@ -68064,8 +68064,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -68087,8 +68087,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69683,8 +69683,8 @@ export namespace Prisma {
     request_type: number
     mwo_number?: string | null
     jo_number?: string | null
-    consumer_name: string
-    location: string
+    consumer_name?: string | null
+    location?: string | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -69868,8 +69868,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -69891,8 +69891,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -69914,8 +69914,8 @@ export namespace Prisma {
     request_type?: IntFieldUpdateOperationsInput | number
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     jo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    consumer_name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    consumer_name?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string

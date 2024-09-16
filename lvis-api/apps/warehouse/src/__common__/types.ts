@@ -99,6 +99,10 @@ export enum MODULES {
     OSRIV_APPROVER = 'OSRIV_APPROVER',
     OSRIV_ITEM = 'OSRIV_ITEM',
 
+    SERIV = 'SERIV',
+    SERIV_APPROVER = 'SERIV_APPROVER',
+    SERIV_ITEM = 'SERIV_ITEM',
+
     // ========= DATA MANAGEMENT ========= 
     SUPPLIER = 'SUPPLIER',
     UNIT = 'UNIT',
@@ -191,6 +195,15 @@ export enum RESOLVERS {
     updateOsriv = 'updateOsriv',
     cancelOsriv = 'cancelOsriv',
     printOsriv = 'printOsriv',
+
+    // ========= SERIV ========= 
+    createSeriv = 'createSeriv',
+    serivs = 'serivs',
+    seriv_numbers = 'seriv_numbers',
+    seriv = 'seriv',
+    updateSeriv = 'updateSeriv',
+    cancelSeriv = 'cancelSeriv',
+    printSeriv = 'printSeriv',
 
 
     // ========= SUPPLIER ========= 

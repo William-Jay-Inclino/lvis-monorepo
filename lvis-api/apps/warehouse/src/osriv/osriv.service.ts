@@ -33,7 +33,7 @@ export class OsrivService {
         console.log('osriv create', input);
 
         if (!(await this.canCreate(input))) {
-            throw new Error('Failed to create RV. Please try again')
+            throw new Error('Failed to create OSRIV. Please try again')
         }
 
         const osrivNumber = await this.getLatestOsrivNumber()
@@ -622,9 +622,9 @@ export class OsrivService {
 
             console.log('is normal user')
 
-            const approvers = await this.prisma.rVApprover.findMany({
+            const approvers = await this.prisma.oSRIVApprover.findMany({
                 where: {
-                    rv_id: existingItem.id
+                    osriv_id: existingItem.id
                 }
             })
 

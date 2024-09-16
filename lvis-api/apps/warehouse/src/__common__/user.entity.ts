@@ -172,6 +172,22 @@ export interface WarehousePermissions {
         search?: boolean,
         viewDetails?: boolean
     },
+    canManageSERIV?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+        print?: boolean,
+    },
+    canManageSERIVApprover?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+    },
+    canManageSERIVItem?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+    },
 
     // ========= DATA MANAGEMENT ========= 
     canManageSupplier?: {

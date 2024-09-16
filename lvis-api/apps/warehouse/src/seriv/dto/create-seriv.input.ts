@@ -1,4 +1,4 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
 import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateSerivApproverSubInput } from './create-seriv-approver.sub.input';
@@ -7,9 +7,9 @@ import { CreateSerivItemSubInput } from './create-seriv-item.sub.input';
 @InputType()
 export class CreateSerivInput {
 
-  @Field(() => String)
+  @Field(() => Int)
   @IsString()
-  request_type: string;
+  request_type: number;
 
   @Field(() => String)
   @IsString()

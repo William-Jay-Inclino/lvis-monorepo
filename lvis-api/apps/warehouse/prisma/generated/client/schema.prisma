@@ -744,8 +744,8 @@ model SERIV {
   request_type Int
   mwo_number String?
   jo_number String?
-  consumer_name String
-  location String
+  consumer_name String?
+  location String?
 
   requested_by_id String
   item_from_id String
@@ -782,7 +782,7 @@ model SERIVApprover {
 
   metadata Json?
 
-  @@unique([seriv_id, label])
+  @@unique([seriv_id, label]) // para pag update sa specific approver
   @@index([seriv_id])
   @@map("seriv_approver")
 }

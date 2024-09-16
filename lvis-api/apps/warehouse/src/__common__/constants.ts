@@ -28,6 +28,7 @@ export const enum DB_ENTITY {
     PO = 'purchase_order',
     RR = 'receiving_report',
     OSRIV = 'osriv',
+    SERIV = 'seriv',
 }
 
 export const enum ITEM_TYPE {
@@ -97,5 +98,12 @@ export const MODULE_MAPPER = {
         id: 'osriv_id',
         approverModel: 'oSRIVApprover',
         approvers: 'osriv_approvers',
+    },
+    [DB_ENTITY.SERIV]: {
+        model: 'sERIV',
+        rcNumber: 'seriv_number',
+        id: 'seriv_id',
+        approverModel: 'sERIVApprover',
+        approvers: 'seriv_approvers',
     },
 }

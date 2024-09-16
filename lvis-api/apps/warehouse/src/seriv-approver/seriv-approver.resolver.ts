@@ -1,35 +1,17 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { SerivApproverService } from './seriv-approver.service';
+import { Resolver, ResolveField, Parent } from '@nestjs/graphql';
 import { SERIVApprover } from './entities/seriv-approver.entity';
-import { CreateSerivApproverInput } from './dto/create-seriv-approver.input';
-import { UpdateSerivApproverInput } from './dto/update-seriv-approver.input';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { UseGuards } from '@nestjs/common';
+import { Employee } from '../__employee__/entities/employee.entity';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => SERIVApprover)
 export class SerivApproverResolver {
-  constructor(private readonly serivApproverService: SerivApproverService) {}
 
-  // @Mutation(() => SerivApprover)
-  // createSerivApprover(@Args('createSerivApproverInput') createSerivApproverInput: CreateSerivApproverInput) {
-  //   return this.serivApproverService.create(createSerivApproverInput);
-  // }
+  @ResolveField(() => Employee)
+  approver(@Parent() serivApprover: SERIVApprover): any {
+    console.log('serivApprover', serivApprover);
+    return { __typename: 'Employee', id: serivApprover.approver_id }
+  }
 
-  // @Query(() => [SerivApprover], { name: 'serivApprover' })
-  // findAll() {
-  //   return this.serivApproverService.findAll();
-  // }
-
-  // @Query(() => SerivApprover, { name: 'serivApprover' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.serivApproverService.findOne(id);
-  // }
-
-  // @Mutation(() => SerivApprover)
-  // updateSerivApprover(@Args('updateSerivApproverInput') updateSerivApproverInput: UpdateSerivApproverInput) {
-  //   return this.serivApproverService.update(updateSerivApproverInput.id, updateSerivApproverInput);
-  // }
-
-  // @Mutation(() => SerivApprover)
-  // removeSerivApprover(@Args('id', { type: () => Int }) id: number) {
-  //   return this.serivApproverService.remove(id);
-  // }
 }
