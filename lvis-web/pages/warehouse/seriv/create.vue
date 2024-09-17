@@ -21,6 +21,12 @@
         
                     <div class="col-lg-6">
 
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic">
+                                Fields with * are required
+                            </small>
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label">
                                 Request Type <span class="text-danger">*</span>
@@ -28,7 +34,47 @@
                             <client-only>
                                 <v-select :options="request_types" label="name" v-model="serivData.request_type" :clearable="false"></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.request_type"> This field is required </small>
+                            <small class="text-danger fst-italic" v-show="serivDataErrors.request_type"> {{ errorMsg }} </small>
+                        </div>
+
+                        <div v-if="showOrNumber" class="mb-3">
+                            <label class="form-label">
+                                OR Number <span class="text-danger">*</span>
+                            </label>
+                            <input v-model="serivData.or_number" class="form-control"
+                                rows="3" />
+                            <small class="text-danger fst-italic" v-show="serivDataErrors.or_number"> {{ errorMsg }}
+                            </small>
+                        </div>
+
+                        <div v-if="showMwoNumber" class="mb-3">
+                            <label class="form-label">
+                                MWO Number <span class="text-danger">*</span>
+                            </label>
+                            <input v-model="serivData.mwo_number" class="form-control"
+                                rows="3" />
+                            <small class="text-danger fst-italic" v-show="serivDataErrors.mwo_number"> {{ errorMsg }}
+                            </small>
+                        </div>
+
+                        <div v-if="showCwoNumber" class="mb-3">
+                            <label class="form-label">
+                                CWO Number <span class="text-danger">*</span>
+                            </label>
+                            <input v-model="serivData.cwo_number" class="form-control"
+                                rows="3" />
+                            <small class="text-danger fst-italic" v-show="serivDataErrors.cwo_number"> {{ errorMsg }}
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                JO Number <span class="text-danger">*</span>
+                            </label>
+                            <input v-model="serivData.jo_number" class="form-control"
+                                rows="3" />
+                            <small class="text-danger fst-italic" v-show="serivDataErrors.jo_number"> {{ errorMsg }}
+                            </small>
                         </div>
 
                         <div class="mb-3">
@@ -38,7 +84,37 @@
                             <client-only>
                                 <v-select :options="stations" label="name" v-model="serivData.item_from" :clearable="false"></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.item_from"> This field is required </small>
+                            <small class="text-danger fst-italic" v-show="serivDataErrors.item_from"> {{ errorMsg }} </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Consumer Name <span class="text-danger">*</span>
+                            </label>
+                            <textarea v-model="serivData.consumer_name" class="form-control"
+                                rows="3"> </textarea>
+                            <small class="text-danger fst-italic" v-show="serivDataErrors.consumer_name"> {{ errorMsg }}
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Location <span class="text-danger">*</span>
+                            </label>
+                            <textarea v-model="serivData.location" class="form-control"
+                                rows="3"> </textarea>
+                            <small class="text-danger fst-italic" v-show="serivDataErrors.location"> {{ errorMsg }}
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Purpose <span class="text-danger">*</span>
+                            </label>
+                            <textarea v-model="serivData.purpose" class="form-control"
+                                rows="3"> </textarea>
+                            <small class="text-danger fst-italic" v-show="serivDataErrors.purpose"> {{ errorMsg }}
+                            </small>
                         </div>
 
                         <div class="mb-3">
@@ -48,17 +124,32 @@
                             <client-only>
                                 <v-select :options="employees" label="fullname" v-model="serivData.requested_by" :clearable="false"></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.requested_by"> This field is required </small>
+                            <small class="text-danger fst-italic" v-show="serivDataErrors.requested_by"> {{ errorMsg }} </small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">
-                                Purpose <span class="text-danger">*</span>
+                                Withdrawn By
                             </label>
-                            <textarea v-model="serivData.purpose" class="form-control"
-                                rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.purpose"> This field is required
-                            </small>
+                            <client-only>
+                                <v-select :options="employees" label="fullname" v-model="serivData.withdrawn_by"></v-select>
+                            </client-only>
+                        </div>
+
+                        <div v-for="approver in serivData.approvers" class="mb-3">
+                            <label class="form-label">
+                                {{ approver.label }} <span class="text-danger">*</span>
+                            </label>
+                            <client-only>
+                                <v-select
+                                    :options="employees"
+                                    label="fullname"
+                                    v-model="approver.approver"
+                                    :clearable="false"
+                                    :disabled="approver.label_id === SERIV_APPROVER.WAREHOUSE_CUSTODIAN"
+                                  ></v-select>
+                            </client-only>
+                            <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
                         </div>
 
                     </div>
@@ -129,7 +220,8 @@
     import type { Station } from '~/composables/warehouse/station/station';
     import type { AddItem } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';
-    import type { CreateSERIVApprover } from '~/composables/warehouse/seriv/seriv-approver.types';
+    import { SERIV_APPROVER, SERIV_DEFAULT_APPROVERS } from '~/composables/warehouse/seriv/seriv.constants';
+import { showCWOnumber, showMWOnumber, showORnumber } from '~/composables/warehouse/seriv/seriv.helpers';
 
     definePageMeta({
         name: ROUTES.SERIV_CREATE,
@@ -143,11 +235,18 @@
     const router = useRouter()
     // FLAGS
     const isSaving = ref(false)
+    const errorMsg = 'This field is required'
 
     // INITIAL DATA
     const _serivDataErrorsInitial = {
         request_type: false,
         purpose: false,
+        or_number: false,
+        mwo_number: false,
+        cwo_number: false,
+        jo_number: false,
+        consumer_name: false,
+        location: false,
         requested_by: false,
         item_from: false,
         items: false,
@@ -157,12 +256,16 @@
 
     // FORM DATA
     const serivData = ref<CreateSerivInput>({
-        request_type: {
-            id: WAREHOUSE_REQUEST_TYPE.MAINTENANCE_WORK_ORDER,
-            name: warehouseRequestTypeMapper[WAREHOUSE_REQUEST_TYPE.MAINTENANCE_WORK_ORDER]
-        },
+        request_type: null,
         purpose: "",
+        or_number: "",
+        mwo_number: "",
+        cwo_number: "",
+        jo_number: "",
+        consumer_name: "",
+        location: "",
         requested_by: null,
+        withdrawn_by: null,
         item_from: null,
         approvers: [],
         items: []
@@ -185,7 +288,7 @@
 
         employees.value = addPropertyFullName(response.employees)
         stations.value = response.stations
-        request_types.value = WAREHOUSE_REQUEST_TYPES
+        request_types.value = WAREHOUSE_REQUEST_TYPES.map(i => ({...i}))
 
         items.value = response.items.map(i => {
             const x: AddItem = {
@@ -202,6 +305,18 @@
             return x
         })
 
+        serivData.value.approvers = SERIV_DEFAULT_APPROVERS.map(i => ({...i}))
+
+        // set default warehouse_custodian
+        if(response.warehouse_custodian) {
+            const wc = serivData.value.approvers.find(i => i.label_id === SERIV_APPROVER.WAREHOUSE_CUSTODIAN)
+            if(wc) {
+                wc.approver = response.warehouse_custodian
+                wc.approver['fullname'] = getFullname(wc.approver.firstname, wc.approver.middlename, wc.approver.lastname)
+            }
+
+        }
+
         isLoadingPage.value = false
 
     })
@@ -217,6 +332,30 @@
         return false
     })
 
+    const showOrNumber = computed( () => {
+
+        if(!serivData.value.request_type) return false 
+
+        return showORnumber(serivData.value.request_type.id)
+        
+    })
+
+    const showMwoNumber = computed( () => {
+
+        if(!serivData.value.request_type) return false 
+
+        return showMWOnumber(serivData.value.request_type.id)
+
+
+    })
+
+    const showCwoNumber = computed( () => {
+
+        if(!serivData.value.request_type) return false 
+
+        return showCWOnumber(serivData.value.request_type.id)
+
+    })
 
     // ======================== FUNCTIONS ========================  
 
@@ -266,33 +405,66 @@
 
     async function onClickNextStep1() {
 
-        // serivDataErrors.value = { ..._serivDataErrorsInitial }
+        serivDataErrors.value = { ..._serivDataErrorsInitial }
 
-        // if (serivData.value.purpose.trim() === '') {
-        //     serivDataErrors.value.purpose = true
-        // }
+        if(!serivData.value.request_type) {
+            serivDataErrors.value.request_type = true
+        }
 
-        // if (!serivData.value.requested_by) {
-        //     serivDataErrors.value.requested_by = true
-        // }
+        if (serivData.value.purpose.trim() === '') {
+            serivDataErrors.value.purpose = true
+        }
 
-        // if (!serivData.value.item_from) {
-        //     serivDataErrors.value.item_from = true
-        // }
+        if(showOrNumber.value === true && serivData.value.or_number?.trim() === '') {
+            serivDataErrors.value.or_number = true
+        }
 
-        // if(!hasErrorStep1()) {
-        //     currentStep.value += 1
-        // }
+        if(showMwoNumber.value === true && serivData.value.mwo_number?.trim() === '') {
+            serivDataErrors.value.mwo_number = true
+        }
 
-        currentStep.value += 1
+        if(showCwoNumber.value === true && serivData.value.cwo_number?.trim() === '') {
+            serivDataErrors.value.cwo_number = true
+        }
+
+        if(serivData.value.jo_number?.trim() === '') {
+            serivDataErrors.value.jo_number = true
+        }
+
+        if(serivData.value.consumer_name?.trim() === '') {
+            serivDataErrors.value.consumer_name = true
+        }
+
+        if(serivData.value.consumer_name?.trim() === '') {
+            serivDataErrors.value.location = true
+        }
+
+        if (!serivData.value.requested_by) {
+            serivDataErrors.value.requested_by = true
+        }
+
+        if (!serivData.value.item_from) {
+            serivDataErrors.value.item_from = true
+        }
+
+        for(let i of serivData.value.approvers) {
+            if(!i.approver) {
+                i.showRequiredMsg = true
+            } else {
+                i.showRequiredMsg = false 
+            }
+        }
+
+        if(!hasErrorStep1()) {
+            currentStep.value += 1
+        }
 
     }
 
     function hasErrorStep1(): boolean {
-        console.log('hasErrorStep1');
         const hasError = Object.values(serivDataErrors.value).includes(true);
-        console.log('hasError', hasError);
-        if (hasError) {
+        const hasErrorApprovers = serivData.value.approvers.some(i => i.showRequiredMsg === true)
+        if (hasError || hasErrorApprovers) {
             return true
         }
 

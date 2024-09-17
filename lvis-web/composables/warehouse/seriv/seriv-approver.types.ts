@@ -22,5 +22,7 @@ export interface SERIVApprover {
 export interface CreateSERIVApprover {
   approver: Employee | null
   label: string
+  label_id: string
   order: number
+  showRequiredMsg: boolean
 }

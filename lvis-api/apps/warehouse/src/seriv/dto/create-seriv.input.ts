@@ -1,5 +1,5 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
-import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateSerivApproverSubInput } from './create-seriv-approver.sub.input';
 import { CreateSerivItemSubInput } from './create-seriv-item.sub.input';
@@ -13,11 +13,47 @@ export class CreateSerivInput {
 
   @Field(() => String)
   @IsString()
+  @IsNotEmpty()
   purpose: string;
+
+  @Field(() => String, { nullable: true })
+  @IsString()
+  @IsOptional()
+  or_number: string | null;
+
+  @Field(() => String, { nullable: true })
+  @IsString()
+  @IsOptional()
+  mwo_number: string | null;
+
+  @Field(() => String, { nullable: true })
+  @IsString()
+  @IsOptional()
+  cwo_number: string | null;
+
+  @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  jo_number: string;
+
+  @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  consumer_name: string;
+
+  @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  location: string;
 
   @Field(() => String)
   @IsString()
   requested_by_id: string;
+
+  @Field(() => String, { nullable: true })
+  @IsString()
+  @IsOptional()
+  withdrawn_by_id: string | null;
 
   @Field(() => String)
   @IsString()

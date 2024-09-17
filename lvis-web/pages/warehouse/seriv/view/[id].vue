@@ -38,16 +38,49 @@
                                                 <td> {{ formatDate(item.date_requested) }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Requested by</td>
-                                                <td> {{ getFullname(item.requested_by.firstname, item.requested_by.middlename, item.requested_by.lastname) }} </td>
+                                                <td class="text-muted">Request Type</td>
+                                                <td> {{ warehouseRequestTypeMapper[item.request_type] }} </td>
+                                            </tr>
+                                            <tr v-if="showORnumber(item.request_type)">
+                                                <td class="text-muted">OR Number</td>
+                                                <td> {{ item.or_number }} </td>
+                                            </tr>
+                                            <tr v-if="showMWOnumber(item.request_type)">
+                                                <td class="text-muted">MWO Number</td>
+                                                <td> {{ item.mwo_number }} </td>
+                                            </tr>
+                                            <tr v-if="showCWOnumber(item.request_type)">
+                                                <td class="text-muted">CWO Number</td>
+                                                <td> {{ item.cwo_number }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">JO Number</td>
+                                                <td> {{ item.jo_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Item from</td>
                                                 <td> {{ item.item_from.name }} </td>
                                             </tr>
                                             <tr>
+                                                <td class="text-muted">Consumer Name</td>
+                                                <td> {{ item.consumer_name }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Location</td>
+                                                <td> {{ item.location }} </td>
+                                            </tr>
+                                            <tr>
                                                 <td class="text-muted">Purpose</td>
                                                 <td> {{ item.purpose }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Requested by</td>
+                                                <td> {{ getFullname(item.requested_by.firstname, item.requested_by.middlename, item.requested_by.lastname) }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Withdrawn by</td>
+                                                <td v-if="item.withdrawn_by"> {{ getFullname(item.withdrawn_by.firstname, item.withdrawn_by.middlename, item.withdrawn_by.lastname) }} </td>
+                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -219,6 +252,7 @@ import Swal from 'sweetalert2'
 import axios from 'axios';
 import { canPrint } from '~/utils/permissions';
 import { APPROVAL_STATUS, isBlankStatus } from '#imports';
+import { showCWOnumber, showMWOnumber, showORnumber } from '~/composables/warehouse/seriv/seriv.helpers';
 
 definePageMeta({
     name: ROUTES.SERIV_VIEW,
@@ -332,9 +366,6 @@ async function onClickPrint() {
         console.error('Error loading PDF:', error);
     }
 }
-
-
-
 
 
 const onClickAdd = () => router.push('/warehouse/seriv/create')

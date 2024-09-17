@@ -22,8 +22,14 @@ export class SERIV {
   @Field(() => Int)
   request_type: WAREHOUSE_REQUEST_TYPE;
 
-  @Field(() => String)
-  mwo_number: string;
+  @Field(() => String, { nullable: true })
+  or_number: string | null;
+
+  @Field(() => String, { nullable: true })
+  mwo_number: string | null;
+
+  @Field(() => String, { nullable: true })
+  cwo_number: string | null;
 
   @Field(() => String)
   jo_number: string;
@@ -36,6 +42,9 @@ export class SERIV {
 
   @Field(() => String)
   requested_by_id: string;
+
+  @Field(() => String, { nullable: true })
+  withdrawn_by_id: string | null;
 
   @Field(() => String)
   item_from_id: string;

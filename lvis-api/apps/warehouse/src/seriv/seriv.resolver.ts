@@ -91,6 +91,14 @@ export class SerivResolver {
         return { __typename: 'Employee', id: seriv.requested_by_id }
     }
 
+    @ResolveField(() => Employee, { nullable: true })
+    withdrawn_by(@Parent() seriv: SERIV): any {
+        if(!seriv.withdrawn_by_id) {
+            return null
+        }
+        return { __typename: 'Employee', id: seriv.withdrawn_by_id }
+    }
+
     @ResolveField(() => [SERIVApprover])
     seriv_approvers(@Parent() seriv: SERIV): any {
         return this.serivApproverService.findBySerivId(seriv.id)

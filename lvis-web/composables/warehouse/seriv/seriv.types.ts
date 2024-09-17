@@ -14,12 +14,15 @@ export interface SERIV {
     purpose: string;
 
     request_type: WAREHOUSE_REQUEST_TYPE
-    mwo_number: string;
+    or_number: string | null;
+    mwo_number: string | null;
+    cwo_number: string | null;
     jo_number: string;
     consumer_name: string;
     location: string;
     
     requested_by_id: string;
+    withdrawn_by_id: string | null;
     item_from_id: string;
   
 
@@ -37,6 +40,7 @@ export interface SERIV {
     // =============== derived / resolvers =============== 
   
     requested_by: Employee;
+    withdrawn_by: Employee | null;
     item_from: Station;
     seriv_approvers: SERIVApprover[]
     seriv_items: SERIVItem[]
@@ -62,12 +66,16 @@ export interface SERIV {
   
   
   export interface CreateSerivInput {
-    request_type: {
-      id: WAREHOUSE_REQUEST_TYPE,
-      name: string
-    }
+    request_type: WarehouseRequestType | null
     purpose: string 
+    or_number: string | null
+    mwo_number: string | null 
+    cwo_number: string | null 
+    jo_number: string 
+    consumer_name: string 
+    location: string 
     requested_by: Employee | null 
+    withdrawn_by: Employee | null 
     item_from: Item | null 
     approvers: CreateSERIVApprover[]
     items: AddItem[]

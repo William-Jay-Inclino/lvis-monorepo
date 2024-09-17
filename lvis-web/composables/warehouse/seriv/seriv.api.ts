@@ -111,7 +111,9 @@ export async function findOne(id: string): Promise<SERIV | undefined> {
                 date_requested 
                 purpose
                 request_type
+                or_number
                 mwo_number
+                cwo_number
                 jo_number
                 consumer_name
                 location
@@ -122,6 +124,11 @@ export async function findOne(id: string): Promise<SERIV | undefined> {
                     name
                 }
                 requested_by {
+                    firstname 
+                    middlename 
+                    lastname
+                }
+                withdrawn_by {
                     firstname 
                     middlename 
                     lastname
@@ -238,7 +245,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 200, item_type: ${ITEM_TYPE.OFFICE_SUPPLY}) {
+            items(page: 1, pageSize: 200, item_type: ${ITEM_TYPE.SPECIAL_EQUIPMENT}) {
                 data{
                     id
                     code
@@ -413,11 +420,16 @@ export async function create(input: CreateSerivInput): Promise<MutationResponse>
 
     console.log('create', input);
 
+    const or_number = input.or_number?.trim() === '' ? null : `"${input.or_number}"`
+    const mwo_number = input.mwo_number?.trim() === '' ? null : `"${input.mwo_number}"`
+    const cwo_number = input.cwo_number?.trim() === '' ? null : `"${input.cwo_number}"`
+
     const approvers = input.approvers.map(i => {
         return `
         {
           approver_id: "${i.approver?.id}"
           label: "${i.label}"
+          label_id: "${i.label_id}"
           order: ${i.order}
         }`;
     }).join(', ');
@@ -435,9 +447,16 @@ export async function create(input: CreateSerivInput): Promise<MutationResponse>
         mutation {
             createSeriv(
                 input: {
-                    request_type: ${input.request_type.id}
+                    request_type: ${input.request_type?.id}
                     purpose: "${input.purpose}"
+                    or_number: ${or_number}
+                    mwo_number: ${mwo_number}
+                    cwo_number: ${cwo_number}
+                    jo_number: "${input.jo_number}"
+                    consumer_name: "${input.consumer_name}"
+                    location: "${input.location}"
                     requested_by_id: "${input.requested_by?.id}"
+                    withdrawn_by_id: "${input.withdrawn_by?.id}"
                     item_from_id: "${input.item_from?.id}"
                     approvers: [${approvers}]
                     items: [${items}]

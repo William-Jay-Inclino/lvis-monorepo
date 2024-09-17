@@ -534,11 +534,14 @@ exports.Prisma.SERIVScalarFieldEnum = {
   purpose: 'purpose',
   is_completed: 'is_completed',
   request_type: 'request_type',
+  or_number: 'or_number',
   mwo_number: 'mwo_number',
+  cwo_number: 'cwo_number',
   jo_number: 'jo_number',
   consumer_name: 'consumer_name',
   location: 'location',
   requested_by_id: 'requested_by_id',
+  withdrawn_by_id: 'withdrawn_by_id',
   item_from_id: 'item_from_id',
   cancelled_by: 'cancelled_by',
   created_by: 'created_by',
@@ -557,6 +560,7 @@ exports.Prisma.SERIVApproverScalarFieldEnum = {
   notes: 'notes',
   status: 'status',
   label: 'label',
+  label_id: 'label_id',
   order: 'order',
   metadata: 'metadata'
 };

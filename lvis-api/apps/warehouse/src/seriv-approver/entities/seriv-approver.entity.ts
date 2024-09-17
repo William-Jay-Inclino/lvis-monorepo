@@ -28,6 +28,9 @@ export class SERIVApprover {
     @Field(() => String)
     label: string
 
+    @Field(() => String)
+    label_id: string
+
     @Field(() => Int)
     order: number
 

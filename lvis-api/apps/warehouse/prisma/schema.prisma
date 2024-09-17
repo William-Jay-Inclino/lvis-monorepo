@@ -742,12 +742,15 @@ model SERIV {
   is_completed    Boolean  @default(false)
 
   request_type Int
+  or_number String?
   mwo_number String?
-  jo_number String?
-  consumer_name String?
-  location String?
+  cwo_number String?
+  jo_number String
+  consumer_name String
+  location String
 
   requested_by_id String
+  withdrawn_by_id String?
   item_from_id String
 
   cancelled_by String?
@@ -776,13 +779,14 @@ model SERIVApprover {
   notes         String
   status        Int
   label         String
+  label_id         String
   order         Int
 
   seriv SERIV @relation(fields: [seriv_id], references: [id], onDelete: Cascade)
 
   metadata Json?
 
-  @@unique([seriv_id, label]) // para pag update sa specific approver
+  @@unique([seriv_id, label_id]) // para pag update sa specific approver
   @@index([seriv_id])
   @@map("seriv_approver")
 }

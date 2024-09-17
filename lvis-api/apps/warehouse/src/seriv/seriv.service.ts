@@ -43,8 +43,15 @@ export class SerivService {
             seriv_number: serivNumber,
             date_requested: new Date(),
             request_type: input.request_type,
+            or_number: input.or_number,
+            mwo_number: input.mwo_number,
+            cwo_number: input.cwo_number,
+            jo_number: input.jo_number,
+            consumer_name: input.consumer_name,
+            location: input.location,
             purpose: input.purpose,
             requested_by_id: input.requested_by_id,
+            withdrawn_by_id: input.withdrawn_by_id,
             item_from: {
                 connect: {
                     id: input.item_from_id
@@ -55,6 +62,7 @@ export class SerivService {
                     return {
                         approver_id: i.approver_id,
                         label: i.label,
+                        label_id: i.label_id,
                         order: i.order,
                         notes: '',
                         status: APPROVAL_STATUS.PENDING,
@@ -424,6 +432,10 @@ export class SerivService {
     private async canCreate(input: CreateSerivInput): Promise<boolean> {
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
+
+        if(input.withdrawn_by_id) {
+            employeeIds.push(input.withdrawn_by_id)
+        }
 
         const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
 
