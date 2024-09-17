@@ -814,13 +814,17 @@ model MRV {
   mrv_number         String    @unique
   date_requested    DateTime
   purpose             String
-  requested_by_id String
-  request_type String
+  
+  request_type Int
   or_number String?
-  jo_number String?
+  mwo_number String?
   cwo_number String?
+  jo_number String
   consumer_name String
   location String
+
+  requested_by_id String
+  withdrawn_by_id String?
   item_from_id String
 
   cancelled_by String?
@@ -850,12 +854,14 @@ model MRVApprover {
   notes         String
   status        Int
   label         String
+  label_id         String
   order         Int
 
   mrv MRV @relation(fields: [mrv_id], references: [id], onDelete: Cascade)
 
   metadata Json?
 
+  @@unique([mrv_id, label_id]) // para pag update sa specific approver
   @@index([mrv_id])
   @@map("mrv_approver")
 }
@@ -865,6 +871,7 @@ model MRVItem {
   mrv_id         String
   item_id         String
   quantity     Int
+  price      Float @default(0)
 
   mrv MRV @relation(fields: [mrv_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)

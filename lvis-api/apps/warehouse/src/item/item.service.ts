@@ -2,7 +2,7 @@ import { ConflictException, Injectable, Logger, NotFoundException } from '@nestj
 import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Item, OSRIVApprover, OSRIVItem, Prisma, RRApprover } from 'apps/warehouse/prisma/generated/client';
+import { Item, OSRIVApprover, OSRIVItem, Prisma, RRApprover, SERIVApprover, SERIVItem } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE } from '../__common__/types';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { ItemsResponse } from './entities/items-response.entity';
@@ -12,6 +12,7 @@ import { RrApproverStatusUpdated } from '../rr-approver/events/rr-approver-statu
 import { OnEvent } from '@nestjs/event-emitter';
 import { RrItem } from '../rr-item/entities/rr-item.entity';
 import { OsrivApproverStatusUpdated } from '../osriv-approver/events/osriv-approver-status-updated.event';
+import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-approver-status-updated.event';
 
 @Injectable()
 export class ItemService {
@@ -335,7 +336,7 @@ export class ItemService {
 
 		console.log('approvers', approvers)
 
-		const isApproved = this.isRrStatusApproved(approvers)
+		const isApproved = this.isStatusApproved(approvers)
 
 		if (!isApproved) {
 			console.log('RR status is not approved. End function')
@@ -349,20 +350,6 @@ export class ItemService {
 		const response = await this.transactRrItems(rrApprover.rr_id, rrApprover.rr.rr_items)
 
 		console.log('response', response)
-
-	}
-
-	private isRrStatusApproved(approvers: RRApprover[]): boolean {
-
-		for (let approver of approvers) {
-
-			if (approver.status !== APPROVAL_STATUS.APPROVED) {
-				return false
-			}
-
-		}
-
-		return true
 
 	}
 
@@ -488,7 +475,7 @@ export class ItemService {
 
 		console.log('approvers', approvers)
 
-		const isApproved = this.isOsrivStatusApproved(approvers)
+		const isApproved = this.isStatusApproved(approvers)
 
 		if (!isApproved) {
 			console.log('OSRIV status is not approved. End function')
@@ -502,20 +489,6 @@ export class ItemService {
 		const response = await this.transactOsrivItems(osrivApprover.osriv_id, osrivApprover.osriv.osriv_items)
 
 		console.log('response', response)
-
-	}
-
-	private isOsrivStatusApproved(approvers: OSRIVApprover[]): boolean {
-
-		for (let approver of approvers) {
-
-			if (approver.status !== APPROVAL_STATUS.APPROVED) {
-				return false
-			}
-
-		}
-
-		return true
 
 	}
 
@@ -573,19 +546,147 @@ export class ItemService {
 
 	}
 
-	private generateUpdateItemQueries(osrivItems: OSRIVItem[]) {
-        return osrivItems.map(item => {
-            return this.prisma.item.update({
-                where: { id: item.item_id },
-                data: {
-                    quantity_on_queue: {
-                        decrement: item.quantity
-                    },
+	// ================== SERIV EVENTS ================== 
+
+	@OnEvent('seriv-approver-status.updated')
+	async handleSerivApproverStatusUpdated(payload: SerivApproverStatusUpdated) {
+
+		this.logger.log('=== item-transaction.service.ts ===')
+
+		console.log('handleSerivApproverStatusUpdated()', payload)
+
+		const serivApprover = await this.prisma.sERIVApprover.findUnique({
+			where: { id: payload.id },
+			include: {
+				seriv: {
+					include: {
+						seriv_items: {
+							include: {
+								item: true
+							}
+						},
+						seriv_approvers: true
+					}
+				}
+			}
+		})
+
+		if (!serivApprover) {
+			throw new NotFoundException('serivApprover not found with id: ' + payload.id)
+		}
+
+		if (serivApprover.seriv.is_completed) {
+			console.log('SERIV is already completed. End function')
+			return
+		}
+
+		const approvers = serivApprover.seriv.seriv_approvers
+
+		console.log('approvers', approvers)
+
+		const isApproved = this.isStatusApproved(approvers)
+
+		if (!isApproved) {
+			console.log('SERIV status is not approved. End function')
+			return
+		}
+
+		console.log('Transacting SERIV items...')
+
+		// add seriv items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
+		// @ts-ignore
+		const response = await this.transactSerivItems(serivApprover.seriv_id, serivApprover.seriv.seriv_items)
+
+		console.log('response', response)
+
+	}
+
+	// add seriv items to item_transaction
+	// update total_quantity and quantity_on_queue of item
+
+	private async transactSerivItems(serivId: string, serivItems: SERIVItem[]): Promise<{ success: boolean }> {
+
+		const queries: Prisma.PrismaPromise<any>[] = []
+		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
+
+		for(let serivItem of serivItems) {
+			
+			const data: Prisma.ItemTransactionCreateManyInput = {
+				item_id: serivItem.item_id,
+				seriv_item_id: serivItem.id,
+				type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
+				quantity: serivItem.quantity,
+				price: serivItem.price,
+				remarks: 'SERIV Request'
+			}
+
+			itemTransactions.push(data)
+
+		}
+
+		const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
+			data: itemTransactions
+		})
+
+		queries.push(createItemTransactionsQuery)
+
+		// set is_completed field in osriv table to true 
+		const updateSERIVQuery = this.prisma.sERIV.update({
+			where: {
+				id: serivId
+			},
+			data: {
+				is_completed: true
+			}
+		})
+		queries.push(updateSERIVQuery)
+
+		// update item total_quantity and quantity_on_queue on each item
+		const updateItemQueries = this.generateUpdateItemQueries(serivItems); 
+
+		const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
+
+		// EXECUTE QUERIES
+		await this.prisma.$transaction(allQueries)
+
+		return {
+			success: true
+		}
+
+	}
+
+
+
+	// ================== REUSABLE FUNCTIONS ================== 
+
+	private isStatusApproved(approvers: OSRIVApprover[] | SERIVApprover[] | RRApprover[]): boolean {
+
+		for (let approver of approvers) {
+
+			if (approver.status !== APPROVAL_STATUS.APPROVED) {
+				return false
+			}
+
+		}
+
+		return true
+
+	}
+
+	private generateUpdateItemQueries(items: OSRIVItem[] | SERIVItem[]) {
+		return items.map(item => {
+			return this.prisma.item.update({
+				where: { id: item.item_id },
+				data: {
+					quantity_on_queue: {
+						decrement: item.quantity
+					},
 					total_quantity: {
 						decrement: item.quantity
 					}
-                }
-            });
-        });
-    }
-}
+				}
+			});
+		});
+	}
+
+}	

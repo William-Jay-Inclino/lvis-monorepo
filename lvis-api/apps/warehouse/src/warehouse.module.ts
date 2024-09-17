@@ -49,6 +49,9 @@ import { StationModule } from './station/station.module';
 import { SerivModule } from './seriv/seriv.module';
 import { SerivApproverModule } from './seriv-approver/seriv-approver.module';
 import { SerivItemModule } from './seriv-item/seriv-item.module';
+import { MrvModule } from './mrv/mrv.module';
+import { MrvApproverModule } from './mrv-approver/mrv-approver.module';
+import { MrvItemModule } from './mrv-item/mrv-item.module';
 
 
 @Module({
@@ -97,6 +100,9 @@ import { SerivItemModule } from './seriv-item/seriv-item.module';
     SerivModule,
     SerivApproverModule,
     SerivItemModule,
+    MrvModule,
+    MrvApproverModule,
+    MrvItemModule,
     // PrometheusModule.register()
   ],
   controllers: [],

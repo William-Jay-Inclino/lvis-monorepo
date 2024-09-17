@@ -9,6 +9,7 @@ import { HttpService } from '@nestjs/axios';
 import { RrApproverStatusUpdated } from '../rr-approver/events/rr-approver-status-updated.event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { OsrivApproverStatusUpdated } from '../osriv-approver/events/osriv-approver-status-updated.event';
+import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-approver-status-updated.event';
 
 @Injectable()
 export class PendingService {
@@ -238,15 +239,18 @@ export class PendingService {
             
             this.printLogsInConsole(logs)
 
-            // emit event so that item will be transacted and stock qty will be added on the item inventory
+            // emit event so that item will be transacted and stock qty will be added/deducted on the item inventory
+            // handler functions are located at item.service.ts
+            // approverModel.id = rrApproverID / osrivApproverID / serivApproverID
+
             if(status === APPROVAL_STATUS.APPROVED && module.model === 'rR') {
-                // id = rrApprover ID
-                // handler function is located at item.service.ts -> handleRrApproverStatusUpdated
                 this.eventEmitter.emit('rr-approver-status.updated', new RrApproverStatusUpdated(approverModel.id))
             } 
-            // emit event so that item will be transacted and stock qty will be deducted on the item inventory
             else if(status === APPROVAL_STATUS.APPROVED && module.model === 'oSRIV') {
                 this.eventEmitter.emit('osriv-approver-status.updated', new OsrivApproverStatusUpdated(approverModel.id))
+            }
+            else if(status === APPROVAL_STATUS.APPROVED && module.model === 'sERIV') {
+                this.eventEmitter.emit('seriv-approver-status.updated', new SerivApproverStatusUpdated(approverModel.id))
             }
 
             return {
