@@ -450,7 +450,7 @@ export class OsrivService {
                 item_from: true
             }; 
         } else {
-            selectClause = { osirv_number: true };
+            selectClause = { osriv_number: true };
         }
 
         const items = await this.prisma.oSRIV.findMany({

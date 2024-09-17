@@ -76,19 +76,25 @@ export enum MODULES {
     // ========= PURCHASING ========= 
     CANVASS = 'CANVASS',
     CANVASS_ITEM = 'CANVASS_ITEM',
+
     RV = 'RV',
     RV_APPROVER = 'RV_APPROVER',
+
     SPR = 'SPR',
     SPR_APPROVER = 'SPR_APPROVER',
+
     JO = 'JO',
     JO_APPROVER = 'JO_APPROVER',
+
     MEQS = 'MEQS',
     MEQS_APPROVER = 'MEQS_APPROVER',
     MEQS_SUPPLIER = 'MEQS_SUPPLIER',
     MEQS_SUPPLIER_ITEM = 'MEQS_SUPPLIER_ITEM',
     MEQS_SUPPLIER_ATTACHMENT = 'MEQS_SUPPLIER_ATTACHMENT',
+
     PO = 'PO',
     PO_APPROVER = 'PO_APPROVER',
+
     RR = 'RR',
     RR_APPROVER = 'RR_APPROVER',
     RR_ITEM = 'RR_ITEM',
@@ -102,6 +108,10 @@ export enum MODULES {
     SERIV = 'SERIV',
     SERIV_APPROVER = 'SERIV_APPROVER',
     SERIV_ITEM = 'SERIV_ITEM',
+
+    MRV = 'MRV',
+    MRV_APPROVER = 'MRV_APPROVER',
+    MRV_ITEM = 'MRV_ITEM',
 
     // ========= DATA MANAGEMENT ========= 
     SUPPLIER = 'SUPPLIER',
@@ -204,6 +214,15 @@ export enum RESOLVERS {
     updateSeriv = 'updateSeriv',
     cancelSeriv = 'cancelSeriv',
     printSeriv = 'printSeriv',
+
+    // ========= MRV ========= 
+    createMrv = 'createMrv',
+    mrvs = 'mrvs',
+    mrv_numbers = 'mrv_numbers',
+    mrv = 'mrv',
+    updateMrv = 'updateMrv',
+    cancelMrv = 'cancelMrv',
+    printMrv = 'printMrv',
 
 
     // ========= SUPPLIER ========= 

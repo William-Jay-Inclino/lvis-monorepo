@@ -274,7 +274,7 @@ export class SerivService {
                 item_from: true
             }; 
         } else {
-            selectClause = { osirv_number: true };
+            selectClause = { seriv_number: true };
         }
 
         const items = await this.prisma.sERIV.findMany({
