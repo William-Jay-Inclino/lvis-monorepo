@@ -14,7 +14,7 @@
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
-                                        <i class="fas fa-info-circle"></i> SERIV Info
+                                        <i class="fas fa-info-circle"></i> MRV Info
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -30,8 +30,8 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">SERIV Number</td>
-                                                <td> {{ item.seriv_number }} </td>
+                                                <td class="text-muted">MRV Number</td>
+                                                <td> {{ item.mrv_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Date</td>
@@ -60,6 +60,10 @@
                                             <tr>
                                                 <td class="text-muted">Item from</td>
                                                 <td> {{ item.item_from.name }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Project Name</td>
+                                                <td> {{ item.project.name }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Consumer Name</td>
@@ -117,7 +121,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i, count in item.seriv_approvers">
+                                            <tr v-for="i, count in item.mrv_approvers">
                                                 <td class="align-middle"> {{ i.order }} </td>
                                                 <td class="align-middle"> {{ i.label }} </td>
                                                 <td class="align-middle"> {{ getFullname(i.approver!.firstname,
@@ -174,7 +178,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i, count in item.seriv_items">
+                                            <tr v-for="i, count in item.mrv_items">
                                                 <td> {{ count + 1 }} </td>
                                                 <td> {{ i.item.name + ' - ' + i.item.description }} </td>
                                                 <td> {{ i.item.unit.name }} </td>
@@ -196,28 +200,28 @@
                             <div class="col">
                                 <div class="d-flex justify-content-end">
                                     <div class="me-2">
-                                        <nuxt-link v-if="canSearch(authUser, 'canManageSERIV')" class="btn btn-secondary me-2"
-                                            to="/warehouse/SERIV">
-                                            <i class="fas fa-search"></i> Search SERIV
+                                        <nuxt-link v-if="canSearch(authUser, 'canManageMRV')" class="btn btn-secondary me-2"
+                                            to="/warehouse/MRV">
+                                            <i class="fas fa-search"></i> Search MRV
                                         </nuxt-link>
-                                        <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')" @click="onClickPrint" class="btn btn-danger">
-                                            <i class="fas fa-print"></i> Print SERIV
+                                        <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMRV')" @click="onClickPrint" class="btn btn-danger">
+                                            <i class="fas fa-print"></i> Print MRV
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>
                                     <div v-if="!item.cancelled_at">
                                         <button v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
-                                            @click="onCancelSERIV()">
-                                            <i class="fas fa-times-circle"></i> Cancel SERIV
+                                            @click="onCancelMRV()">
+                                            <i class="fas fa-times-circle"></i> Cancel MRV
                                         </button>
                                         <button v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
-                                            <i class="fas fa-sync"></i> Update SERIV
+                                            <i class="fas fa-sync"></i> Update MRV
                                         </button>
-                                        <button v-if="canCreate(authUser, 'canManageSERIV')" class="btn btn-primary me-2"
+                                        <button v-if="canCreate(authUser, 'canManageMRV')" class="btn btn-primary me-2"
                                             @click="onClickAdd">
-                                            <i class="fas fa-plus"></i> Add New SERIV
+                                            <i class="fas fa-plus"></i> Add New MRV
                                         </button>
                                     </div>
                                 </div>
@@ -244,8 +248,8 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/warehouse/seriv/seriv.api'
-import type { SERIV } from '~/composables/warehouse/seriv/seriv.types';
+import * as api from '~/composables/warehouse/mrv/mrv.api'
+import type { MRV } from '~/composables/warehouse/mrv/mrv.types';
 import { approvalStatus } from '~/utils/constants'
 import { useToast } from "vue-toastification";
 import Swal from 'sweetalert2'
@@ -255,7 +259,7 @@ import { APPROVAL_STATUS, isBlankStatus } from '#imports';
 import { showCWOnumber, showMWOnumber, showORnumber } from '~/utils/helpers';
 
 definePageMeta({
-    name: ROUTES.SERIV_VIEW,
+    name: ROUTES.MRV_VIEW,
     layout: "layout-warehouse",
     middleware: ['auth'],
 })
@@ -274,7 +278,7 @@ const toast = useToast();
 
 const printBtn = ref<HTMLButtonElement>()
 
-const item = ref<SERIV | undefined>()
+const item = ref<MRV | undefined>()
 
 const pdfUrl = ref('')
 
@@ -290,11 +294,11 @@ onMounted(async () => {
 })
 
 
-async function onCancelSERIV() {
+async function onCancelMRV() {
 
     Swal.fire({
         title: "Are you sure?",
-        text: `This SERIV will be cancelled!`,
+        text: `This MRV will be cancelled!`,
         position: "top",
         icon: "warning",
         showCancelButton: true,
@@ -306,7 +310,7 @@ async function onCancelSERIV() {
         preConfirm: async (remove) => {
 
             if (remove) {
-                await cancelSeriv()
+                await cancelMrv()
             }
 
         },
@@ -315,8 +319,8 @@ async function onCancelSERIV() {
 
 }
 
-async function cancelSeriv() {
-    console.log('cancelSeriv')
+async function cancelMrv() {
+    console.log('cancelMrv')
 
     if (!item.value) return
 
@@ -326,7 +330,7 @@ async function cancelSeriv() {
         toast.success(response.msg)
         item.value.cancelled_at = response.cancelled_at!
 
-        router.push('/warehouse/seriv')
+        router.push('/warehouse/mrv')
 
     } else {
         Swal.fire({
@@ -351,7 +355,7 @@ async function onClickPrint() {
 
         isLoadingPdf.value = true
 
-        const response = await axios.get(WAREHOUSE_API_URL + '/seriv/pdf/' + item.value?.id, {
+        const response = await axios.get(WAREHOUSE_API_URL + '/mrv/pdf/' + item.value?.id, {
             responseType: 'blob',
             headers: {
                 Authorization: `Bearer ${accessToken}`, // Include Authorization header
@@ -368,7 +372,7 @@ async function onClickPrint() {
 }
 
 
-const onClickAdd = () => router.push('/warehouse/seriv/create')
-const onClickUpdate = (id: string) => router.push('/warehouse/seriv/' + id)
+const onClickAdd = () => router.push('/warehouse/mrv/create')
+const onClickUpdate = (id: string) => router.push('/warehouse/mrv/' + id)
 
 </script>

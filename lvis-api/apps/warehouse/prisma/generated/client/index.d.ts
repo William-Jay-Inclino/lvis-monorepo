@@ -4308,6 +4308,40 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ProjectCountOutputType
+   */
+
+  export type ProjectCountOutputType = {
+    mrv: number
+  }
+
+  export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mrv?: boolean | ProjectCountOutputTypeCountMrvArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectCountOutputType
+     */
+    select?: ProjectCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountMrvArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MRVWhereInput
+  }
+
+
+
+  /**
    * Count Type ItemCountOutputType
    */
 
@@ -9370,6 +9404,8 @@ export namespace Prisma {
     updated_at?: boolean
     deleted_at?: boolean
     metadata?: boolean
+    mrv?: boolean | Project$mrvArgs<ExtArgs>
+    _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
   export type ProjectSelectScalar = {
@@ -9384,10 +9420,17 @@ export namespace Prisma {
     metadata?: boolean
   }
 
+  export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mrv?: boolean | Project$mrvArgs<ExtArgs>
+    _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
 
   export type $ProjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Project"
-    objects: {}
+    objects: {
+      mrv: Prisma.$MRVPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
@@ -9763,6 +9806,7 @@ export namespace Prisma {
   export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
+    mrv<T extends Project$mrvArgs<ExtArgs> = {}>(args?: Subset<T, Project$mrvArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MRVPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9815,6 +9859,10 @@ export namespace Prisma {
      */
     select?: ProjectSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
      * Filter, which Project to fetch.
      */
     where: ProjectWhereUniqueInput
@@ -9830,6 +9878,10 @@ export namespace Prisma {
      */
     select?: ProjectSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
      * Filter, which Project to fetch.
      */
     where: ProjectWhereUniqueInput
@@ -9844,6 +9896,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Project
      */
     select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectInclude<ExtArgs> | null
     /**
      * Filter, which Project to fetch.
      */
@@ -9890,6 +9946,10 @@ export namespace Prisma {
      */
     select?: ProjectSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
      * Filter, which Project to fetch.
      */
     where?: ProjectWhereInput
@@ -9935,6 +9995,10 @@ export namespace Prisma {
      */
     select?: ProjectSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
      * Filter, which Projects to fetch.
      */
     where?: ProjectWhereInput
@@ -9975,6 +10039,10 @@ export namespace Prisma {
      */
     select?: ProjectSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
      * The data needed to create a Project.
      */
     data: XOR<ProjectCreateInput, ProjectUncheckedCreateInput>
@@ -10001,6 +10069,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Project
      */
     select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectInclude<ExtArgs> | null
     /**
      * The data needed to update a Project.
      */
@@ -10036,6 +10108,10 @@ export namespace Prisma {
      */
     select?: ProjectSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
      * The filter to search for the Project to update in case it exists.
      */
     where: ProjectWhereUniqueInput
@@ -10059,6 +10135,10 @@ export namespace Prisma {
      */
     select?: ProjectSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
      * Filter which Project to delete.
      */
     where: ProjectWhereUniqueInput
@@ -10077,6 +10157,27 @@ export namespace Prisma {
 
 
   /**
+   * Project.mrv
+   */
+  export type Project$mrvArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MRV
+     */
+    select?: MRVSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MRVInclude<ExtArgs> | null
+    where?: MRVWhereInput
+    orderBy?: MRVOrderByWithRelationInput | MRVOrderByWithRelationInput[]
+    cursor?: MRVWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MRVScalarFieldEnum | MRVScalarFieldEnum[]
+  }
+
+
+  /**
    * Project without action
    */
   export type ProjectDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10084,6 +10185,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Project
      */
     select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectInclude<ExtArgs> | null
   }
 
 
@@ -40676,6 +40781,7 @@ export namespace Prisma {
     mrv_approvers?: boolean | MRV$mrv_approversArgs<ExtArgs>
     mrv_items?: boolean | MRV$mrv_itemsArgs<ExtArgs>
     mcts?: boolean | MRV$mctsArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
     _count?: boolean | MRVCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mRV"]>
 
@@ -40709,6 +40815,7 @@ export namespace Prisma {
     mrv_approvers?: boolean | MRV$mrv_approversArgs<ExtArgs>
     mrv_items?: boolean | MRV$mrv_itemsArgs<ExtArgs>
     mcts?: boolean | MRV$mctsArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
     _count?: boolean | MRVCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -40720,6 +40827,7 @@ export namespace Prisma {
       mrv_approvers: Prisma.$MRVApproverPayload<ExtArgs>[]
       mrv_items: Prisma.$MRVItemPayload<ExtArgs>[]
       mcts: Prisma.$MCTPayload<ExtArgs>[]
+      project: Prisma.$ProjectPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -41116,6 +41224,8 @@ export namespace Prisma {
     mrv_items<T extends MRV$mrv_itemsArgs<ExtArgs> = {}>(args?: Subset<T, MRV$mrv_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MRVItemPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     mcts<T extends MRV$mctsArgs<ExtArgs> = {}>(args?: Subset<T, MRV$mctsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCTPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -48834,6 +48944,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Project"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Project"> | Date | string | null
     metadata?: JsonNullableFilter<"Project">
+    mrv?: MRVListRelationFilter
   }
 
   export type ProjectOrderByWithRelationInput = {
@@ -48846,6 +48957,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
+    mrv?: MRVOrderByRelationAggregateInput
   }
 
   export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -48861,6 +48973,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Project"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Project"> | Date | string | null
     metadata?: JsonNullableFilter<"Project">
+    mrv?: MRVListRelationFilter
   }, "id">
 
   export type ProjectOrderByWithAggregationInput = {
@@ -51548,6 +51661,7 @@ export namespace Prisma {
     mrv_approvers?: MRVApproverListRelationFilter
     mrv_items?: MRVItemListRelationFilter
     mcts?: MCTListRelationFilter
+    project?: XOR<ProjectRelationFilter, ProjectWhereInput>
   }
 
   export type MRVOrderByWithRelationInput = {
@@ -51577,6 +51691,7 @@ export namespace Prisma {
     mrv_approvers?: MRVApproverOrderByRelationAggregateInput
     mrv_items?: MRVItemOrderByRelationAggregateInput
     mcts?: MCTOrderByRelationAggregateInput
+    project?: ProjectOrderByWithRelationInput
   }
 
   export type MRVWhereUniqueInput = Prisma.AtLeast<{
@@ -51609,6 +51724,7 @@ export namespace Prisma {
     mrv_approvers?: MRVApproverListRelationFilter
     mrv_items?: MRVItemListRelationFilter
     mcts?: MCTListRelationFilter
+    project?: XOR<ProjectRelationFilter, ProjectWhereInput>
   }, "id" | "mrv_number">
 
   export type MRVOrderByWithAggregationInput = {
@@ -52612,6 +52728,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    mrv?: MRVCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateInput = {
@@ -52624,6 +52741,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    mrv?: MRVUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUpdateInput = {
@@ -52636,6 +52754,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    mrv?: MRVUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateInput = {
@@ -52648,6 +52767,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    mrv?: MRVUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyInput = {
@@ -55584,7 +55704,6 @@ export namespace Prisma {
 
   export type MRVCreateInput = {
     id?: string
-    project_id: string
     mrv_number: string
     date_requested: Date | string
     purpose: string
@@ -55608,6 +55727,7 @@ export namespace Prisma {
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
     mcts?: MCTCreateNestedManyWithoutMrvInput
+    project: ProjectCreateNestedOneWithoutMrvInput
   }
 
   export type MRVUncheckedCreateInput = {
@@ -55640,7 +55760,6 @@ export namespace Prisma {
 
   export type MRVUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    project_id?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
@@ -55664,6 +55783,7 @@ export namespace Prisma {
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
     mcts?: MCTUpdateManyWithoutMrvNestedInput
+    project?: ProjectUpdateOneRequiredWithoutMrvNestedInput
   }
 
   export type MRVUncheckedUpdateInput = {
@@ -55721,7 +55841,6 @@ export namespace Prisma {
 
   export type MRVUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    project_id?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
@@ -58547,6 +58666,11 @@ export namespace Prisma {
     none?: MCTWhereInput
   }
 
+  export type ProjectRelationFilter = {
+    is?: ProjectWhereInput
+    isNot?: ProjectWhereInput
+  }
+
   export type MRVApproverOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -59319,6 +59443,48 @@ export namespace Prisma {
     update?: SERIVUpdateWithWhereUniqueWithoutItem_fromInput | SERIVUpdateWithWhereUniqueWithoutItem_fromInput[]
     updateMany?: SERIVUpdateManyWithWhereWithoutItem_fromInput | SERIVUpdateManyWithWhereWithoutItem_fromInput[]
     deleteMany?: SERIVScalarWhereInput | SERIVScalarWhereInput[]
+  }
+
+  export type MRVCreateNestedManyWithoutProjectInput = {
+    create?: XOR<MRVCreateWithoutProjectInput, MRVUncheckedCreateWithoutProjectInput> | MRVCreateWithoutProjectInput[] | MRVUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: MRVCreateOrConnectWithoutProjectInput | MRVCreateOrConnectWithoutProjectInput[]
+    createMany?: MRVCreateManyProjectInputEnvelope
+    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+  }
+
+  export type MRVUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<MRVCreateWithoutProjectInput, MRVUncheckedCreateWithoutProjectInput> | MRVCreateWithoutProjectInput[] | MRVUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: MRVCreateOrConnectWithoutProjectInput | MRVCreateOrConnectWithoutProjectInput[]
+    createMany?: MRVCreateManyProjectInputEnvelope
+    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+  }
+
+  export type MRVUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<MRVCreateWithoutProjectInput, MRVUncheckedCreateWithoutProjectInput> | MRVCreateWithoutProjectInput[] | MRVUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: MRVCreateOrConnectWithoutProjectInput | MRVCreateOrConnectWithoutProjectInput[]
+    upsert?: MRVUpsertWithWhereUniqueWithoutProjectInput | MRVUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: MRVCreateManyProjectInputEnvelope
+    set?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    disconnect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    delete?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    update?: MRVUpdateWithWhereUniqueWithoutProjectInput | MRVUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: MRVUpdateManyWithWhereWithoutProjectInput | MRVUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: MRVScalarWhereInput | MRVScalarWhereInput[]
+  }
+
+  export type MRVUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<MRVCreateWithoutProjectInput, MRVUncheckedCreateWithoutProjectInput> | MRVCreateWithoutProjectInput[] | MRVUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: MRVCreateOrConnectWithoutProjectInput | MRVCreateOrConnectWithoutProjectInput[]
+    upsert?: MRVUpsertWithWhereUniqueWithoutProjectInput | MRVUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: MRVCreateManyProjectInputEnvelope
+    set?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    disconnect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    delete?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+    update?: MRVUpdateWithWhereUniqueWithoutProjectInput | MRVUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: MRVUpdateManyWithWhereWithoutProjectInput | MRVUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: MRVScalarWhereInput | MRVScalarWhereInput[]
   }
 
   export type ItemTransactionCreateNestedManyWithoutItemInput = {
@@ -61382,6 +61548,12 @@ export namespace Prisma {
     connect?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
   }
 
+  export type ProjectCreateNestedOneWithoutMrvInput = {
+    create?: XOR<ProjectCreateWithoutMrvInput, ProjectUncheckedCreateWithoutMrvInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutMrvInput
+    connect?: ProjectWhereUniqueInput
+  }
+
   export type MRVApproverUncheckedCreateNestedManyWithoutMrvInput = {
     create?: XOR<MRVApproverCreateWithoutMrvInput, MRVApproverUncheckedCreateWithoutMrvInput> | MRVApproverCreateWithoutMrvInput[] | MRVApproverUncheckedCreateWithoutMrvInput[]
     connectOrCreate?: MRVApproverCreateOrConnectWithoutMrvInput | MRVApproverCreateOrConnectWithoutMrvInput[]
@@ -61451,6 +61623,14 @@ export namespace Prisma {
     update?: MCTUpdateWithWhereUniqueWithoutMrvInput | MCTUpdateWithWhereUniqueWithoutMrvInput[]
     updateMany?: MCTUpdateManyWithWhereWithoutMrvInput | MCTUpdateManyWithWhereWithoutMrvInput[]
     deleteMany?: MCTScalarWhereInput | MCTScalarWhereInput[]
+  }
+
+  export type ProjectUpdateOneRequiredWithoutMrvNestedInput = {
+    create?: XOR<ProjectCreateWithoutMrvInput, ProjectUncheckedCreateWithoutMrvInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutMrvInput
+    upsert?: ProjectUpsertWithoutMrvInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutMrvInput, ProjectUpdateWithoutMrvInput>, ProjectUncheckedUpdateWithoutMrvInput>
   }
 
   export type MRVApproverUncheckedUpdateManyWithoutMrvNestedInput = {
@@ -62317,7 +62497,6 @@ export namespace Prisma {
 
   export type MRVCreateWithoutItem_fromInput = {
     id?: string
-    project_id: string
     mrv_number: string
     date_requested: Date | string
     purpose: string
@@ -62340,6 +62519,7 @@ export namespace Prisma {
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
     mcts?: MCTCreateNestedManyWithoutMrvInput
+    project: ProjectCreateNestedOneWithoutMrvInput
   }
 
   export type MRVUncheckedCreateWithoutItem_fromInput = {
@@ -62595,6 +62775,86 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"SERIV"> | Date | string
     updated_at?: DateTimeFilter<"SERIV"> | Date | string
     metadata?: JsonNullableFilter<"SERIV">
+  }
+
+  export type MRVCreateWithoutProjectInput = {
+    id?: string
+    mrv_number: string
+    date_requested: Date | string
+    purpose: string
+    request_type: number
+    or_number?: string | null
+    mwo_number?: string | null
+    cwo_number?: string | null
+    jo_number: string
+    consumer_name: string
+    location: string
+    requested_by_id: string
+    withdrawn_by_id?: string | null
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_from: StationCreateNestedOneWithoutMrvsInput
+    mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
+    mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
+    mcts?: MCTCreateNestedManyWithoutMrvInput
+  }
+
+  export type MRVUncheckedCreateWithoutProjectInput = {
+    id?: string
+    mrv_number: string
+    date_requested: Date | string
+    purpose: string
+    request_type: number
+    or_number?: string | null
+    mwo_number?: string | null
+    cwo_number?: string | null
+    jo_number: string
+    consumer_name: string
+    location: string
+    requested_by_id: string
+    withdrawn_by_id?: string | null
+    item_from_id: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mrv_approvers?: MRVApproverUncheckedCreateNestedManyWithoutMrvInput
+    mrv_items?: MRVItemUncheckedCreateNestedManyWithoutMrvInput
+    mcts?: MCTUncheckedCreateNestedManyWithoutMrvInput
+  }
+
+  export type MRVCreateOrConnectWithoutProjectInput = {
+    where: MRVWhereUniqueInput
+    create: XOR<MRVCreateWithoutProjectInput, MRVUncheckedCreateWithoutProjectInput>
+  }
+
+  export type MRVCreateManyProjectInputEnvelope = {
+    data: MRVCreateManyProjectInput | MRVCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MRVUpsertWithWhereUniqueWithoutProjectInput = {
+    where: MRVWhereUniqueInput
+    update: XOR<MRVUpdateWithoutProjectInput, MRVUncheckedUpdateWithoutProjectInput>
+    create: XOR<MRVCreateWithoutProjectInput, MRVUncheckedCreateWithoutProjectInput>
+  }
+
+  export type MRVUpdateWithWhereUniqueWithoutProjectInput = {
+    where: MRVWhereUniqueInput
+    data: XOR<MRVUpdateWithoutProjectInput, MRVUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type MRVUpdateManyWithWhereWithoutProjectInput = {
+    where: MRVScalarWhereInput
+    data: XOR<MRVUpdateManyMutationInput, MRVUncheckedUpdateManyWithoutProjectInput>
   }
 
   export type ItemTransactionCreateWithoutItemInput = {
@@ -68656,6 +68916,35 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProjectCreateWithoutMrvInput = {
+    id?: string
+    name: string
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ProjectUncheckedCreateWithoutMrvInput = {
+    id?: string
+    name: string
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ProjectCreateOrConnectWithoutMrvInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutMrvInput, ProjectUncheckedCreateWithoutMrvInput>
+  }
+
   export type StationUpsertWithoutMrvsInput = {
     update: XOR<StationUpdateWithoutMrvsInput, StationUncheckedUpdateWithoutMrvsInput>
     create: XOR<StationCreateWithoutMrvsInput, StationUncheckedCreateWithoutMrvsInput>
@@ -68780,9 +69069,43 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"MCT">
   }
 
+  export type ProjectUpsertWithoutMrvInput = {
+    update: XOR<ProjectUpdateWithoutMrvInput, ProjectUncheckedUpdateWithoutMrvInput>
+    create: XOR<ProjectCreateWithoutMrvInput, ProjectUncheckedCreateWithoutMrvInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutMrvInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutMrvInput, ProjectUncheckedUpdateWithoutMrvInput>
+  }
+
+  export type ProjectUpdateWithoutMrvInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ProjectUncheckedUpdateWithoutMrvInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type MRVCreateWithoutMrv_approversInput = {
     id?: string
-    project_id: string
     mrv_number: string
     date_requested: Date | string
     purpose: string
@@ -68805,6 +69128,7 @@ export namespace Prisma {
     item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
     mcts?: MCTCreateNestedManyWithoutMrvInput
+    project: ProjectCreateNestedOneWithoutMrvInput
   }
 
   export type MRVUncheckedCreateWithoutMrv_approversInput = {
@@ -68852,7 +69176,6 @@ export namespace Prisma {
 
   export type MRVUpdateWithoutMrv_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
-    project_id?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
@@ -68875,6 +69198,7 @@ export namespace Prisma {
     item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
     mcts?: MCTUpdateManyWithoutMrvNestedInput
+    project?: ProjectUpdateOneRequiredWithoutMrvNestedInput
   }
 
   export type MRVUncheckedUpdateWithoutMrv_approversInput = {
@@ -68906,7 +69230,6 @@ export namespace Prisma {
 
   export type MRVCreateWithoutMrv_itemsInput = {
     id?: string
-    project_id: string
     mrv_number: string
     date_requested: Date | string
     purpose: string
@@ -68929,6 +69252,7 @@ export namespace Prisma {
     item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
     mcts?: MCTCreateNestedManyWithoutMrvInput
+    project: ProjectCreateNestedOneWithoutMrvInput
   }
 
   export type MRVUncheckedCreateWithoutMrv_itemsInput = {
@@ -69031,7 +69355,6 @@ export namespace Prisma {
 
   export type MRVUpdateWithoutMrv_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    project_id?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
@@ -69054,6 +69377,7 @@ export namespace Prisma {
     item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
     mcts?: MCTUpdateManyWithoutMrvNestedInput
+    project?: ProjectUpdateOneRequiredWithoutMrvNestedInput
   }
 
   export type MRVUncheckedUpdateWithoutMrv_itemsInput = {
@@ -69146,7 +69470,6 @@ export namespace Prisma {
 
   export type MRVCreateWithoutMctsInput = {
     id?: string
-    project_id: string
     mrv_number: string
     date_requested: Date | string
     purpose: string
@@ -69169,6 +69492,7 @@ export namespace Prisma {
     item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
+    project: ProjectCreateNestedOneWithoutMrvInput
   }
 
   export type MRVUncheckedCreateWithoutMctsInput = {
@@ -69300,7 +69624,6 @@ export namespace Prisma {
 
   export type MRVUpdateWithoutMctsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    project_id?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
@@ -69323,6 +69646,7 @@ export namespace Prisma {
     item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
+    project?: ProjectUpdateOneRequiredWithoutMrvNestedInput
   }
 
   export type MRVUncheckedUpdateWithoutMctsInput = {
@@ -70140,7 +70464,6 @@ export namespace Prisma {
 
   export type MRVUpdateWithoutItem_fromInput = {
     id?: StringFieldUpdateOperationsInput | string
-    project_id?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
@@ -70163,6 +70486,7 @@ export namespace Prisma {
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
     mcts?: MCTUpdateManyWithoutMrvNestedInput
+    project?: ProjectUpdateOneRequiredWithoutMrvNestedInput
   }
 
   export type MRVUncheckedUpdateWithoutItem_fromInput = {
@@ -70283,6 +70607,108 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
     withdrawn_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MRVCreateManyProjectInput = {
+    id?: string
+    mrv_number: string
+    date_requested: Date | string
+    purpose: string
+    request_type: number
+    or_number?: string | null
+    mwo_number?: string | null
+    cwo_number?: string | null
+    jo_number: string
+    consumer_name: string
+    location: string
+    requested_by_id: string
+    withdrawn_by_id?: string | null
+    item_from_id: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MRVUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mrv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    request_type?: IntFieldUpdateOperationsInput | number
+    or_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: StringFieldUpdateOperationsInput | string
+    consumer_name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    withdrawn_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
+    mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
+    mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
+    mcts?: MCTUpdateManyWithoutMrvNestedInput
+  }
+
+  export type MRVUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mrv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    request_type?: IntFieldUpdateOperationsInput | number
+    or_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: StringFieldUpdateOperationsInput | string
+    consumer_name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    withdrawn_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    item_from_id?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mrv_approvers?: MRVApproverUncheckedUpdateManyWithoutMrvNestedInput
+    mrv_items?: MRVItemUncheckedUpdateManyWithoutMrvNestedInput
+    mcts?: MCTUncheckedUpdateManyWithoutMrvNestedInput
+  }
+
+  export type MRVUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mrv_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    request_type?: IntFieldUpdateOperationsInput | number
+    or_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: StringFieldUpdateOperationsInput | string
+    consumer_name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    requested_by_id?: StringFieldUpdateOperationsInput | string
+    withdrawn_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71696,6 +72122,10 @@ export namespace Prisma {
      * @deprecated Use StationCountOutputTypeDefaultArgs instead
      */
     export type StationCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StationCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ProjectCountOutputTypeDefaultArgs instead
+     */
+    export type ProjectCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProjectCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ItemCountOutputTypeDefaultArgs instead
      */

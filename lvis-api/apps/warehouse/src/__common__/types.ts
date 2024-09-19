@@ -30,6 +30,12 @@ export interface Station {
     created_by: string
 }
 
+export interface Project {
+    id: string 
+    name: string 
+    created_by: string
+}
+
 // export interface ItemType {
 //     id: string
 //     name: string
@@ -116,6 +122,7 @@ export enum MODULES {
     // ========= DATA MANAGEMENT ========= 
     SUPPLIER = 'SUPPLIER',
     UNIT = 'UNIT',
+    PROJECT = 'PROJECT',
     VEHICLE = 'VEHICLE',
     STATION = 'STATION',
 
@@ -255,6 +262,13 @@ export enum RESOLVERS {
     updateStation = 'updateStation',
     removeStation = 'removeStation',
 
+    // ========= PROJECT ========= 
+    createProject = 'createProject',
+    projects = 'projects',
+    project = 'project',
+    updateProject = 'updateProject',
+    removeProject = 'removeProject',
+
 
     // ========= ITEM ========= 
     createItem = 'createItem',
@@ -265,10 +279,10 @@ export enum RESOLVERS {
 
 
     // ========= ITEM TYPE ========= 
-    createItemType = 'createItemType',
-    item_types = 'item_types',
-    item_type = 'item_type',
-    updateItemType = 'updateItemType',
-    removeItemType = 'removeItemType',
+    // createItemType = 'createItemType',
+    // item_types = 'item_types',
+    // item_type = 'item_type',
+    // updateItemType = 'updateItemType',
+    // removeItemType = 'removeItemType',
 
 }

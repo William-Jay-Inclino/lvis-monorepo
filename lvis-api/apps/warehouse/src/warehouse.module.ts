@@ -52,6 +52,7 @@ import { SerivItemModule } from './seriv-item/seriv-item.module';
 import { MrvModule } from './mrv/mrv.module';
 import { MrvApproverModule } from './mrv-approver/mrv-approver.module';
 import { MrvItemModule } from './mrv-item/mrv-item.module';
+import { ProjectModule } from './project/project.module';
 
 
 @Module({
@@ -103,6 +104,7 @@ import { MrvItemModule } from './mrv-item/mrv-item.module';
     MrvModule,
     MrvApproverModule,
     MrvItemModule,
+    ProjectModule,
     // PrometheusModule.register()
   ],
   controllers: [],

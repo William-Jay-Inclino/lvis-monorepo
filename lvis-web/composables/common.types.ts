@@ -105,6 +105,11 @@ export interface Vehicle {
     plate_number: string
 }
 
+export interface Project {
+    id: string
+    name: string
+}
+
 export interface WarehouseRequestType {
 	id: number
 	name: string

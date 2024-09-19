@@ -4,14 +4,14 @@
         <div class="card-body">
 
             <div v-if="!isLoadingPage && authUser">
-                <h2 class="text-warning">Create SERIV</h2>
+                <h2 class="text-warning">Create MRV</h2>
                 <hr>
 
                 <div class="row pt-3">
                     <div class="col">
                         <span class="text-secondary">
                             Step {{ currentStep }} of 2:
-                            <span v-if="currentStep === 1"> Fill up SERIV info </span>
+                            <span v-if="currentStep === 1"> Fill up MRV info </span>
                             <span v-if="currentStep === 2"> Add SERIV items </span>
                         </span>
                     </div>
@@ -32,18 +32,18 @@
                                 Request Type <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="request_types" label="name" v-model="serivData.request_type" :clearable="false"></v-select>
+                                <v-select :options="request_types" label="name" v-model="mrvData.request_type" :clearable="false"></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.request_type"> {{ errorMsg }} </small>
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.request_type"> {{ errorMsg }} </small>
                         </div>
 
                         <div v-if="showOrNumber" class="mb-3">
                             <label class="form-label">
                                 OR Number <span class="text-danger">*</span>
                             </label>
-                            <input v-model="serivData.or_number" class="form-control"
+                            <input v-model="mrvData.or_number" class="form-control"
                                 rows="3" />
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.or_number"> {{ errorMsg }}
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.or_number"> {{ errorMsg }}
                             </small>
                         </div>
 
@@ -51,9 +51,9 @@
                             <label class="form-label">
                                 MWO Number <span class="text-danger">*</span>
                             </label>
-                            <input v-model="serivData.mwo_number" class="form-control"
+                            <input v-model="mrvData.mwo_number" class="form-control"
                                 rows="3" />
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.mwo_number"> {{ errorMsg }}
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.mwo_number"> {{ errorMsg }}
                             </small>
                         </div>
 
@@ -61,9 +61,9 @@
                             <label class="form-label">
                                 CWO Number <span class="text-danger">*</span>
                             </label>
-                            <input v-model="serivData.cwo_number" class="form-control"
+                            <input v-model="mrvData.cwo_number" class="form-control"
                                 rows="3" />
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.cwo_number"> {{ errorMsg }}
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.cwo_number"> {{ errorMsg }}
                             </small>
                         </div>
 
@@ -71,9 +71,9 @@
                             <label class="form-label">
                                 JO Number <span class="text-danger">*</span>
                             </label>
-                            <input v-model="serivData.jo_number" class="form-control"
+                            <input v-model="mrvData.jo_number" class="form-control"
                                 rows="3" />
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.jo_number"> {{ errorMsg }}
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.jo_number"> {{ errorMsg }}
                             </small>
                         </div>
 
@@ -82,18 +82,28 @@
                                 Item From <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="stations" label="name" v-model="serivData.item_from" :clearable="false"></v-select>
+                                <v-select :options="stations" label="name" v-model="mrvData.item_from" :clearable="false"></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.item_from"> {{ errorMsg }} </small>
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.item_from"> {{ errorMsg }} </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Project Name <span class="text-danger">*</span>
+                            </label>
+                            <client-only>
+                                <v-select :options="projects" label="name" v-model="mrvData.project" :clearable="false"></v-select>
+                            </client-only>
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.project"> {{ errorMsg }} </small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">
                                 Consumer Name <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="serivData.consumer_name" class="form-control"
+                            <textarea v-model="mrvData.consumer_name" class="form-control"
                                 rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.consumer_name"> {{ errorMsg }}
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.consumer_name"> {{ errorMsg }}
                             </small>
                         </div>
 
@@ -101,9 +111,9 @@
                             <label class="form-label">
                                 Location <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="serivData.location" class="form-control"
+                            <textarea v-model="mrvData.location" class="form-control"
                                 rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.location"> {{ errorMsg }}
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.location"> {{ errorMsg }}
                             </small>
                         </div>
 
@@ -111,9 +121,9 @@
                             <label class="form-label">
                                 Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="serivData.purpose" class="form-control"
+                            <textarea v-model="mrvData.purpose" class="form-control"
                                 rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.purpose"> {{ errorMsg }}
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.purpose"> {{ errorMsg }}
                             </small>
                         </div>
 
@@ -122,9 +132,9 @@
                                 Requested By <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="serivData.requested_by" :clearable="false"></v-select>
+                                <v-select :options="employees" label="fullname" v-model="mrvData.requested_by" :clearable="false"></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.requested_by"> {{ errorMsg }} </small>
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.requested_by"> {{ errorMsg }} </small>
                         </div>
 
                         <div class="mb-3">
@@ -132,11 +142,11 @@
                                 Withdrawn By
                             </label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="serivData.withdrawn_by"></v-select>
+                                <v-select :options="employees" label="fullname" v-model="mrvData.withdrawn_by"></v-select>
                             </client-only>
                         </div>
 
-                        <div v-for="approver in serivData.approvers" class="mb-3">
+                        <div v-for="approver in mrvData.approvers" class="mb-3">
                             <label class="form-label">
                                 {{ approver.label }} <span class="text-danger">*</span>
                             </label>
@@ -146,7 +156,6 @@
                                     label="fullname"
                                     v-model="approver.approver"
                                     :clearable="false"
-                                    :disabled="approver.label_id === SERIV_APPROVER.WAREHOUSE_CUSTODIAN"
                                   ></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
@@ -163,11 +172,11 @@
                                 Input the name of the item in the search field below
                             </small>
                             <client-only>
-                                <v-select :options="items" v-model="serivData.items" label="name" multiple></v-select>
+                                <v-select :options="items" v-model="mrvData.items" label="name" multiple></v-select>
                             </client-only>
                         </div>
 
-                        <WarehouseItems :items="serivData.items" @remove-item="handleRemoveItem"/>
+                        <WarehouseItems :items="mrvData.items" @remove-item="handleRemoveItem"/>
 
                     </div>
                 </div> 
@@ -176,7 +185,7 @@
                     <div :class="{ 'col-lg-6': currentStep === 1, 'col-lg-10 col-md-10 col-sm-12': currentStep === 2 }">
         
                         <div v-if="currentStep === 1" class="d-flex justify-content-between">
-                            <nuxt-link class="btn btn-secondary" to="/warehouse/seriv">
+                            <nuxt-link class="btn btn-secondary" to="/warehouse/mrv">
                                 <i class="fas fa-chevron-left"></i> Back to Search
                             </nuxt-link>
                             <button @click="onClickNextStep1()" class="btn btn-primary">
@@ -213,18 +222,18 @@
 
 <script setup lang="ts">
 
-    import * as serivApi from '~/composables/warehouse/seriv/seriv.api'
-    import type { CreateSerivInput } from '~/composables/warehouse/seriv/seriv.types';
+    import * as mrvApi from '~/composables/warehouse/mrv/mrv.api'
+    import type { CreateMrvInput } from '~/composables/warehouse/mrv/mrv.types';
     import type { Employee } from '~/composables/system/employee/employee.types';
     import { addPropertyFullName } from '~/composables/system/employee/employee';
     import type { Station } from '~/composables/warehouse/station/station';
     import type { AddItem } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';
-    import { SERIV_APPROVER, SERIV_DEFAULT_APPROVERS } from '~/composables/warehouse/seriv/seriv.constants';
+    import { MRV_APPROVER, MRV_DEFAULT_APPROVERS } from '~/composables/warehouse/mrv/mrv.constants';
     import { showCWOnumber, showMWOnumber, showORnumber } from '~/utils/helpers';
 
     definePageMeta({
-        name: ROUTES.SERIV_CREATE,
+        name: ROUTES.MRV_CREATE,
         layout: "layout-warehouse",
         middleware: ['auth'],
     })
@@ -238,8 +247,9 @@
     const errorMsg = 'This field is required'
 
     // INITIAL DATA
-    const _serivDataErrorsInitial = {
+    const _mrvDataErrorsInitial = {
         request_type: false,
+        project: false,
         purpose: false,
         or_number: false,
         mwo_number: false,
@@ -255,8 +265,9 @@
     const currentStep = ref(1)
 
     // FORM DATA
-    const serivData = ref<CreateSerivInput>({
+    const mrvData = ref<CreateMrvInput>({
         request_type: null,
+        project: null,
         purpose: "",
         or_number: "",
         mwo_number: "",
@@ -270,11 +281,12 @@
         approvers: [],
         items: []
     })
-    const serivDataErrors = ref({ ..._serivDataErrorsInitial })
+    const mrvDataErrors = ref({ ..._mrvDataErrorsInitial })
 
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
+    const projects = ref<Project[]>([])
     const stations = ref<Station[]>([])
     const items = ref<AddItem[]>([])
     const request_types = ref<WarehouseRequestType[]>([])
@@ -284,10 +296,11 @@
     onMounted(async () => {
         authUser.value = getAuthUser()
 
-        const response = await serivApi.fetchFormDataInCreate()
+        const response = await mrvApi.fetchFormDataInCreate()
 
         employees.value = addPropertyFullName(response.employees)
         stations.value = response.stations
+        projects.value = response.projects
         request_types.value = WAREHOUSE_REQUEST_TYPES.map(i => ({...i}))
 
         items.value = response.items.map(i => {
@@ -305,17 +318,7 @@
             return x
         })
 
-        serivData.value.approvers = SERIV_DEFAULT_APPROVERS.map(i => ({...i}))
-
-        // set default warehouse_custodian
-        if(response.warehouse_custodian) {
-            const wc = serivData.value.approvers.find(i => i.label_id === SERIV_APPROVER.WAREHOUSE_CUSTODIAN)
-            if(wc) {
-                wc.approver = response.warehouse_custodian
-                wc.approver['fullname'] = getFullname(wc.approver.firstname, wc.approver.middlename, wc.approver.lastname)
-            }
-
-        }
+        mrvData.value.approvers = MRV_DEFAULT_APPROVERS.map(i => ({...i}))
 
         isLoadingPage.value = false
 
@@ -334,26 +337,26 @@
 
     const showOrNumber = computed( () => {
 
-        if(!serivData.value.request_type) return false 
+        if(!mrvData.value.request_type) return false 
 
-        return showORnumber(serivData.value.request_type.id)
+        return showORnumber(mrvData.value.request_type.id)
         
     })
 
     const showMwoNumber = computed( () => {
 
-        if(!serivData.value.request_type) return false 
+        if(!mrvData.value.request_type) return false 
 
-        return showMWOnumber(serivData.value.request_type.id)
+        return showMWOnumber(mrvData.value.request_type.id)
 
 
     })
 
     const showCwoNumber = computed( () => {
 
-        if(!serivData.value.request_type) return false 
+        if(!mrvData.value.request_type) return false 
 
-        return showCWOnumber(serivData.value.request_type.id)
+        return showCWOnumber(mrvData.value.request_type.id)
 
     })
 
@@ -364,7 +367,7 @@
         console.log('save')
 
         isSaving.value = true
-        const response = await serivApi.create(serivData.value)
+        const response = await mrvApi.create(mrvData.value)
         isSaving.value = false
 
         if (response.success && response.data) {
@@ -376,7 +379,7 @@
                 position: 'top',
             })
 
-            router.push(`/warehouse/seriv/view/${response.data.id}`);
+            router.push(`/warehouse/mrv/view/${response.data.id}`);
 
         } else {
             Swal.fire({
@@ -392,62 +395,66 @@
     function handleRemoveItem(item: AddItem) {
         console.log('handleRemoveItem', item);
 
-        const indx = serivData.value.items.findIndex(i => i.id === item.id)
+        const indx = mrvData.value.items.findIndex(i => i.id === item.id)
 
         if(indx === -1) {
-            console.error('item not found in serivData.items with id of ', item.id);
+            console.error('item not found in mrvData.items with id of ', item.id);
             return 
         }
 
-        serivData.value.items.splice(indx, 1)
+        mrvData.value.items.splice(indx, 1)
     }
 
 
     async function onClickNextStep1() {
 
-        serivDataErrors.value = { ..._serivDataErrorsInitial }
+        mrvDataErrors.value = { ..._mrvDataErrorsInitial }
 
-        if(!serivData.value.request_type) {
-            serivDataErrors.value.request_type = true
+        if(!mrvData.value.request_type) {
+            mrvDataErrors.value.request_type = true
         }
 
-        if (serivData.value.purpose.trim() === '') {
-            serivDataErrors.value.purpose = true
+        if(!mrvData.value.project) {
+            mrvDataErrors.value.project = true
         }
 
-        if(showOrNumber.value === true && serivData.value.or_number?.trim() === '') {
-            serivDataErrors.value.or_number = true
+        if (mrvData.value.purpose.trim() === '') {
+            mrvDataErrors.value.purpose = true
         }
 
-        if(showMwoNumber.value === true && serivData.value.mwo_number?.trim() === '') {
-            serivDataErrors.value.mwo_number = true
+        if(showOrNumber.value === true && mrvData.value.or_number?.trim() === '') {
+            mrvDataErrors.value.or_number = true
         }
 
-        if(showCwoNumber.value === true && serivData.value.cwo_number?.trim() === '') {
-            serivDataErrors.value.cwo_number = true
+        if(showMwoNumber.value === true && mrvData.value.mwo_number?.trim() === '') {
+            mrvDataErrors.value.mwo_number = true
         }
 
-        if(serivData.value.jo_number?.trim() === '') {
-            serivDataErrors.value.jo_number = true
+        if(showCwoNumber.value === true && mrvData.value.cwo_number?.trim() === '') {
+            mrvDataErrors.value.cwo_number = true
         }
 
-        if(serivData.value.consumer_name?.trim() === '') {
-            serivDataErrors.value.consumer_name = true
+        if(mrvData.value.jo_number?.trim() === '') {
+            mrvDataErrors.value.jo_number = true
         }
 
-        if(serivData.value.consumer_name?.trim() === '') {
-            serivDataErrors.value.location = true
+        if(mrvData.value.consumer_name?.trim() === '') {
+            mrvDataErrors.value.consumer_name = true
         }
 
-        if (!serivData.value.requested_by) {
-            serivDataErrors.value.requested_by = true
+        if(mrvData.value.consumer_name?.trim() === '') {
+            mrvDataErrors.value.location = true
         }
 
-        if (!serivData.value.item_from) {
-            serivDataErrors.value.item_from = true
+        if (!mrvData.value.requested_by) {
+            mrvDataErrors.value.requested_by = true
         }
 
-        for(let i of serivData.value.approvers) {
+        if (!mrvData.value.item_from) {
+            mrvDataErrors.value.item_from = true
+        }
+
+        for(let i of mrvData.value.approvers) {
             if(!i.approver) {
                 i.showRequiredMsg = true
             } else {
@@ -462,8 +469,8 @@
     }
 
     function hasErrorStep1(): boolean {
-        const hasError = Object.values(serivDataErrors.value).includes(true);
-        const hasErrorApprovers = serivData.value.approvers.some(i => i.showRequiredMsg === true)
+        const hasError = Object.values(mrvDataErrors.value).includes(true);
+        const hasErrorApprovers = mrvData.value.approvers.some(i => i.showRequiredMsg === true)
         if (hasError || hasErrorApprovers) {
             return true
         }
@@ -473,11 +480,11 @@
 
     function hasErrorStep2(): boolean {
 
-        if(serivData.value.items.length === 0) {
+        if(mrvData.value.items.length === 0) {
             return true
         }
 
-        for(let item of serivData.value.items) {
+        for(let item of mrvData.value.items) {
             if(item.qty_request <= 0 || item.qty_request > item.available_quantity) {
                 return true 
             }

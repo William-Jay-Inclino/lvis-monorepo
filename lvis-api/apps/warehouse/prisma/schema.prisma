@@ -132,6 +132,8 @@ model Project {
   deleted_at DateTime?
 
   metadata Json?
+  
+  mrv MRV[]
 
   @@map("project")
 }
@@ -839,6 +841,7 @@ model MRV {
   mrv_approvers MRVApprover[]
   mrv_items MRVItem[]
   mcts MCT[]
+  project Project @relation(fields: [project_id], references: [id], onDelete: Restrict)
 
   metadata Json?
 

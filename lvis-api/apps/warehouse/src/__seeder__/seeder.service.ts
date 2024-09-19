@@ -44,14 +44,14 @@ export class SeederService {
         }
     }
 
-    // seedItemType() {
-    //     console.log('seeding item type table...')
-    //     try {
-    //         return this.prisma.itemType.createMany({ data: data.itemTypes })
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-    // }
+    seedProject() {
+        console.log('seeding project table...')
+        try {
+            return this.prisma.project.createMany({ data: data.projects })
+        } catch (error) {
+            console.error(error)            
+        }
+    }
 
     seedUnit() {
         console.log('seeding unit table...')

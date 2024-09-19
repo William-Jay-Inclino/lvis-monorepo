@@ -40,7 +40,6 @@ export class MrvService {
 
         const data: Prisma.MRVCreateInput = {
             created_by: this.authUser.user.username,
-            project_id: input.project_id,
             mrv_number: mrvNumber,
             date_requested: new Date(),
             request_type: input.request_type,
@@ -56,6 +55,11 @@ export class MrvService {
             item_from: {
                 connect: {
                     id: input.item_from_id
+                }
+            },
+            project: {
+                connect: {
+                    id: input.project_id
                 }
             },
             mrv_approvers: {
@@ -199,6 +203,7 @@ export class MrvService {
                     }
                 },
                 item_from: true,
+                project: true,
             },
             where: {
                 OR: [

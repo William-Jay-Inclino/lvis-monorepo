@@ -234,6 +234,13 @@ export interface WarehousePermissions {
         update?: boolean,
         delete?: boolean,
     },
+    canManageProject?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+        update?: boolean,
+        delete?: boolean,
+    },
 
 
     // ========= STOCK INVENTORY ========= 

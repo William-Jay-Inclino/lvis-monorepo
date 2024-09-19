@@ -3,6 +3,7 @@ import { Station } from '../../station/entities/station.entity';
 import { MRVApprover } from '../../mrv-approver/entities/mrv-approver.entity';
 import { MRVItem } from '../../mrv-item/entities/mrv-item.entity';
 import { WAREHOUSE_REQUEST_TYPE } from '../../__common__/constants';
+import { Project } from '../../project/entities/project.entity';
 
 @ObjectType()
 export class MRV {
@@ -83,6 +84,9 @@ export class MRV {
 
   @Field(() => Station)
   item_from: Station;
+
+  @Field(() => Project)
+  project: Project;
 
   @Field(() => [MRVApprover])
   mrv_approvers: MRVApprover[]

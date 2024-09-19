@@ -209,6 +209,11 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.updateStation]: warehousePermissions.canManageStation?.update ?? false,
             [RESOLVERS.removeStation]: warehousePermissions.canManageStation?.delete ?? false,
         },
+        [MODULES.PROJECT]: {
+            [RESOLVERS.createProject]: warehousePermissions.canManageProject?.create ?? false,
+            [RESOLVERS.updateProject]: warehousePermissions.canManageProject?.update ?? false,
+            [RESOLVERS.removeProject]: warehousePermissions.canManageProject?.delete ?? false,
+        },
         [MODULES.ITEM]: {
             [RESOLVERS.createItem]: warehousePermissions.canManageItem?.create ?? false,
             // [RESOLVERS.items]: warehousePermissions.canManageItem?.search ?? false,
@@ -216,13 +221,13 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.updateItem]: warehousePermissions.canManageItem?.update ?? false,
             [RESOLVERS.removeItem]: warehousePermissions.canManageItem?.delete ?? false,
         },
-        [MODULES.ITEM_TYPE]: {
-            [RESOLVERS.createItemType]: warehousePermissions.canManageItemType?.create ?? false,
-            // [RESOLVERS.item_types]: warehousePermissions.canManageItemType?.search ?? false,
-            // [RESOLVERS.item_type]: warehousePermissions.canManageItemType?.viewDetails ?? false,
-            [RESOLVERS.updateItemType]: warehousePermissions.canManageItemType?.update ?? false,
-            [RESOLVERS.removeItemType]: warehousePermissions.canManageItemType?.delete ?? false,
-        },
+        // [MODULES.ITEM_TYPE]: {
+        //     [RESOLVERS.createItemType]: warehousePermissions.canManageItemType?.create ?? false,
+        //     // [RESOLVERS.item_types]: warehousePermissions.canManageItemType?.search ?? false,
+        //     // [RESOLVERS.item_type]: warehousePermissions.canManageItemType?.viewDetails ?? false,
+        //     [RESOLVERS.updateItemType]: warehousePermissions.canManageItemType?.update ?? false,
+        //     [RESOLVERS.removeItemType]: warehousePermissions.canManageItemType?.delete ?? false,
+        // },
     };
 
     return accessMap[module]?.[resolver] ?? false;

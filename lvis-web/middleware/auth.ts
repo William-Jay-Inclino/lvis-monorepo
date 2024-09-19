@@ -92,6 +92,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
             // warehousing
             const isOSRIVModule = to.name?.toString().includes(MODULES.OSRIV)
             const isSERIVModule = to.name?.toString().includes(MODULES.SERIV)
+            const isMRVModule = to.name?.toString().includes(MODULES.MRV)
 
             // data management
             const isSupplierModule = to.name?.toString().includes(MODULES.SUPPLIER)
@@ -151,6 +152,12 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
             if (isSERIVModule) {
                 if (!canAccessSERIV(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+
+            }
+
+            if (isMRVModule) {
+                if (!canAccessMRV(to.name as ROUTES, permissions)) return redirectTo401Page()
                 return
 
             }
@@ -447,6 +454,25 @@ function canAccessSERIV(route: ROUTES, permissions: WarehousePermissions) {
     if (route === ROUTES.SERIV_CREATE) return !!permissions.canManageSERIV.create
     if (route === ROUTES.SERIV_VIEW) {
         return !!permissions.canManageSERIV.viewDetails || isApprover(authUser)
+    }
+
+
+    return true
+
+}
+
+function canAccessMRV(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessMRV', route, permissions)
+
+    if (!permissions.canManageMRV) return false
+
+    const authUser = getAuthUser()
+
+    if (route === ROUTES.MRV_INDEX) return !!permissions.canManageMRV.search
+    if (route === ROUTES.MRV_CREATE) return !!permissions.canManageMRV.create
+    if (route === ROUTES.MRV_VIEW) {
+        return !!permissions.canManageMRV.viewDetails || isApprover(authUser)
     }
 
 

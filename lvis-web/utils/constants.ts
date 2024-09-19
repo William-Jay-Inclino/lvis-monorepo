@@ -30,6 +30,7 @@ export enum MODULES {
     RR = 'RR',
     OSRIV = 'OSRIV',
     SERIV = 'SERIV',
+    MRV = 'MRV',
 
     // =======================  DATA MANAGEMENT ======================= 
     SUPPLIER = 'SUPPLIER',
@@ -140,6 +141,12 @@ export enum ROUTES {
     SERIV_UPDATE = `${SERVICES.WAREHOUSE}_SERIV_UPDATE`,
     SERIV_VIEW = `${SERVICES.WAREHOUSE}_SERIV_VIEW`,
 
+    // =======================  SERIV ======================= 
+    MRV_INDEX = `${SERVICES.WAREHOUSE}_MRV_INDEX`,
+    MRV_CREATE = `${SERVICES.WAREHOUSE}_MRV_CREATE`,
+    MRV_UPDATE = `${SERVICES.WAREHOUSE}_MRV_UPDATE`,
+    MRV_VIEW = `${SERVICES.WAREHOUSE}_MRV_VIEW`,
+
     // =======================  SUPPLIER ======================= 
     SUPPLIER_INDEX = `${SERVICES.WAREHOUSE}_SUPPLIER_INDEX`,
     SUPPLIER_CREATE = `${SERVICES.WAREHOUSE}_SUPPLIER_CREATE`,
@@ -180,6 +187,7 @@ export enum DB_ENTITY {
     RR = 'receiving_report',
     OSRIV = 'osriv',
     SERIV = 'seriv',
+    MRV = 'mrv',
 }
 
 export const approvalStatus = {

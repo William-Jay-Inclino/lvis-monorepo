@@ -59,10 +59,13 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item"
-                                        to="/warehouse/osriv">OSRIV</nuxt-link>
+                                    to="/warehouse/osriv">OSRIV</nuxt-link>
                                 </li>
                                 <li><nuxt-link class="dropdown-item"
-                                        to="/warehouse/seriv">SERIV</nuxt-link>
+                                    to="/warehouse/seriv">SERIV</nuxt-link>
+                                </li>
+                                <li><nuxt-link class="dropdown-item"
+                                    to="/warehouse/mrv">MRV</nuxt-link>
                                 </li>
                             </ul>
                         </li>
@@ -188,10 +191,13 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><nuxt-link class="dropdown-item"
-                                    to="/warehouse/osriv">OSRIV</nuxt-link>
+                                to="/warehouse/osriv">OSRIV</nuxt-link>
                             </li>
                             <li><nuxt-link class="dropdown-item"
-                                    to="/warehouse/seriv">SERIV</nuxt-link>
+                                to="/warehouse/seriv">SERIV</nuxt-link>
+                            </li>
+                            <li><nuxt-link class="dropdown-item"
+                                to="/warehouse/mrv">MRV</nuxt-link>
                             </li>
                         </ul>
                     </li>
