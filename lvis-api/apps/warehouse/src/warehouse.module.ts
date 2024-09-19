@@ -53,6 +53,8 @@ import { MrvModule } from './mrv/mrv.module';
 import { MrvApproverModule } from './mrv-approver/mrv-approver.module';
 import { MrvItemModule } from './mrv-item/mrv-item.module';
 import { ProjectModule } from './project/project.module';
+import { MctModule } from './mct/mct.module';
+import { MctApproverModule } from './mct-approver/mct-approver.module';
 
 
 @Module({
@@ -105,6 +107,8 @@ import { ProjectModule } from './project/project.module';
     MrvApproverModule,
     MrvItemModule,
     ProjectModule,
+    MctModule,
+    MctApproverModule,
     // PrometheusModule.register()
   ],
   controllers: [],
