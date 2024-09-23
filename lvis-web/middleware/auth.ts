@@ -93,6 +93,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
             const isOSRIVModule = to.name?.toString().includes(MODULES.OSRIV)
             const isSERIVModule = to.name?.toString().includes(MODULES.SERIV)
             const isMRVModule = to.name?.toString().includes(MODULES.MRV)
+            const isMCTModule = to.name?.toString().includes(MODULES.MCT)
 
             // data management
             const isSupplierModule = to.name?.toString().includes(MODULES.SUPPLIER)
@@ -158,6 +159,12 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
             if (isMRVModule) {
                 if (!canAccessMRV(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+
+            }
+
+            if (isMCTModule) {
+                if (!canAccessMCT(to.name as ROUTES, permissions)) return redirectTo401Page()
                 return
 
             }
@@ -473,6 +480,25 @@ function canAccessMRV(route: ROUTES, permissions: WarehousePermissions) {
     if (route === ROUTES.MRV_CREATE) return !!permissions.canManageMRV.create
     if (route === ROUTES.MRV_VIEW) {
         return !!permissions.canManageMRV.viewDetails || isApprover(authUser)
+    }
+
+
+    return true
+
+}
+
+function canAccessMCT(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessMCT', route, permissions)
+
+    if (!permissions.canManageMCT) return false
+
+    const authUser = getAuthUser()
+
+    if (route === ROUTES.MCT_INDEX) return !!permissions.canManageMCT.search
+    if (route === ROUTES.MCT_CREATE) return !!permissions.canManageMCT.create
+    if (route === ROUTES.MCT_VIEW) {
+        return !!permissions.canManageMCT.viewDetails || isApprover(authUser)
     }
 
 

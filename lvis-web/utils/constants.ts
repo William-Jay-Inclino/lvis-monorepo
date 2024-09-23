@@ -31,6 +31,7 @@ export enum MODULES {
     OSRIV = 'OSRIV',
     SERIV = 'SERIV',
     MRV = 'MRV',
+    MCT = 'MCT',
 
     // =======================  DATA MANAGEMENT ======================= 
     SUPPLIER = 'SUPPLIER',
@@ -141,11 +142,17 @@ export enum ROUTES {
     SERIV_UPDATE = `${SERVICES.WAREHOUSE}_SERIV_UPDATE`,
     SERIV_VIEW = `${SERVICES.WAREHOUSE}_SERIV_VIEW`,
 
-    // =======================  SERIV ======================= 
+    // =======================  MRV ======================= 
     MRV_INDEX = `${SERVICES.WAREHOUSE}_MRV_INDEX`,
     MRV_CREATE = `${SERVICES.WAREHOUSE}_MRV_CREATE`,
     MRV_UPDATE = `${SERVICES.WAREHOUSE}_MRV_UPDATE`,
     MRV_VIEW = `${SERVICES.WAREHOUSE}_MRV_VIEW`,
+
+    // =======================  MCT ======================= 
+    MCT_INDEX = `${SERVICES.WAREHOUSE}_MCT_INDEX`,
+    MCT_CREATE = `${SERVICES.WAREHOUSE}_MCT_CREATE`,
+    MCT_UPDATE = `${SERVICES.WAREHOUSE}_MCT_UPDATE`,
+    MCT_VIEW = `${SERVICES.WAREHOUSE}_MCT_VIEW`,
 
     // =======================  SUPPLIER ======================= 
     SUPPLIER_INDEX = `${SERVICES.WAREHOUSE}_SUPPLIER_INDEX`,
@@ -188,6 +195,7 @@ export enum DB_ENTITY {
     OSRIV = 'osriv',
     SERIV = 'seriv',
     MRV = 'mrv',
+    MCT = 'mct',
 }
 
 export const approvalStatus = {
@@ -301,6 +309,9 @@ export const MODULE_MAPPER = {
     [DB_ENTITY.PO]: 'po',
     [DB_ENTITY.RR]: 'rr',
     [DB_ENTITY.OSRIV]: 'osriv',
+    [DB_ENTITY.SERIV]: 'seriv',
+    [DB_ENTITY.MRV]: 'mrv',
+    [DB_ENTITY.MCT]: 'mct',
 }
 
 export const enum ITEM_TYPE {
