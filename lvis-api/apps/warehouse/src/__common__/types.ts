@@ -119,6 +119,10 @@ export enum MODULES {
     MRV_APPROVER = 'MRV_APPROVER',
     MRV_ITEM = 'MRV_ITEM',
 
+    MCT = 'MCT',
+    MCT_APPROVER = 'MCT_APPROVER',
+    MCT_ITEM = 'MCT_ITEM',
+
     // ========= DATA MANAGEMENT ========= 
     SUPPLIER = 'SUPPLIER',
     UNIT = 'UNIT',
@@ -230,6 +234,15 @@ export enum RESOLVERS {
     updateMrv = 'updateMrv',
     cancelMrv = 'cancelMrv',
     printMrv = 'printMrv',
+
+    // ========= MCT ========= 
+    createMct = 'createMct',
+    mcts = 'mcts',
+    mct_numbers = 'mct_numbers',
+    mct = 'mct',
+    updateMct = 'updateMct',
+    cancelMct = 'cancelMct',
+    printMct = 'printMct',
 
 
     // ========= SUPPLIER ========= 

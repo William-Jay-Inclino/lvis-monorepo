@@ -180,8 +180,12 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.printSeriv]: warehousePermissions.canManageSERIV?.print ?? false,
         },
         [MODULES.MRV]: {
-            [RESOLVERS.createMrv]: warehousePermissions.canManageSERIV?.create ?? false,
-            [RESOLVERS.printMrv]: warehousePermissions.canManageSERIV?.print ?? false,
+            [RESOLVERS.createMrv]: warehousePermissions.canManageMRV?.create ?? false,
+            [RESOLVERS.printMrv]: warehousePermissions.canManageMRV?.print ?? false,
+        },
+        [MODULES.MCT]: {
+            [RESOLVERS.createMct]: warehousePermissions.canManageMCT?.create ?? false,
+            [RESOLVERS.printMct]: warehousePermissions.canManageMCT?.print ?? false,
         },
         [MODULES.SUPPLIER]: {
             [RESOLVERS.createSupplier]: warehousePermissions.canManageSupplier?.create ?? false,

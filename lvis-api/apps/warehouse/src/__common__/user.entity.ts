@@ -204,6 +204,17 @@ export interface WarehousePermissions {
         search?: boolean,
         viewDetails?: boolean
     },
+    canManageMCT?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+        print?: boolean,
+    },
+    canManageMCTApprover?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+    },
 
     // ========= DATA MANAGEMENT ========= 
     canManageSupplier?: {
