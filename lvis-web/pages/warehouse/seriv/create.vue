@@ -314,7 +314,6 @@
                 wc.approver = response.warehouse_custodian
                 wc.approver['fullname'] = getFullname(wc.approver.firstname, wc.approver.middlename, wc.approver.lastname)
             }
-
         }
 
         isLoadingPage.value = false

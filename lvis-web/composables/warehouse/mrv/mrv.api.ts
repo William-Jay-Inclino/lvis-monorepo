@@ -127,11 +127,13 @@ export async function findOne(id: string): Promise<MRV | undefined> {
                     name
                 }
                 requested_by {
+                    id
                     firstname 
                     middlename 
                     lastname
                 }
                 withdrawn_by {
+                    id
                     firstname 
                     middlename 
                     lastname

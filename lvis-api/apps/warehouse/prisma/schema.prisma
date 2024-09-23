@@ -917,6 +917,7 @@ model MCTApprover {
   notes         String
   status        Int
   label         String
+  label_id         String
   order         Int
 
   mct MCT @relation(fields: [mct_id], references: [id], onDelete: Cascade)

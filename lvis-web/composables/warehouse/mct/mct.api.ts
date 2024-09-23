@@ -249,6 +249,7 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
 export async function fetchFormDataInCreate(): Promise<{
     employees: Employee[],
     mrvs: MRV[],
+    warehouse_custodian: Employee | null,
 }> {
 
     const query = `
@@ -261,9 +262,60 @@ export async function fetchFormDataInCreate(): Promise<{
                     lastname
                 }
             },
+            warehouse_custodian {
+                id 
+                firstname
+                middlename
+                lastname
+            }
             mrvs(page: 1, pageSize: 10) {
                 data{
+                    id
                     mrv_number
+                    date_requested
+                    item_from {
+                        name
+                    }
+                    purpose
+                    location
+                    requested_by {
+                        firstname 
+                        middlename 
+                        lastname
+                    }
+                    withdrawn_by {
+                        firstname 
+                        middlename 
+                        lastname
+                    }
+                    mrv_approvers{
+                        approver {
+                            id
+                            firstname
+                            middlename
+                            lastname
+                        }
+                        status
+                        label
+                        order
+                        notes
+                        date_approval
+                    }
+                    mrv_items {
+                        id 
+                        quantity
+                        price
+                        item {
+                            id 
+                            name
+                            description
+                            unit {
+                                name 
+                            }
+                            total_quantity
+                            quantity_on_queue
+                        }
+                    }
                 }
             },
         }
@@ -275,6 +327,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
         let employees = []
         let mrvs = []
+        let warehouse_custodian = null
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -290,9 +343,14 @@ export async function fetchFormDataInCreate(): Promise<{
             mrvs = response.data.data.mrvs.data
         }
 
+        if(data.warehouse_custodian) {
+            warehouse_custodian = data.warehouse_custodian
+        }
+
         return {
             employees,
             mrvs,
+            warehouse_custodian
         }
 
     } catch (error) {
@@ -300,6 +358,7 @@ export async function fetchFormDataInCreate(): Promise<{
         return {
             employees: [],
             mrvs: [],
+            warehouse_custodian: null
         }
     }
 

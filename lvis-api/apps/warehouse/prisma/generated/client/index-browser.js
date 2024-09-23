@@ -643,6 +643,7 @@ exports.Prisma.MCTApproverScalarFieldEnum = {
   notes: 'notes',
   status: 'status',
   label: 'label',
+  label_id: 'label_id',
   order: 'order',
   metadata: 'metadata'
 };

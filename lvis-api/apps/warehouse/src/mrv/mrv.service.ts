@@ -248,6 +248,19 @@ export class MrvService {
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mRV.findMany({
+                include: {
+                    item_from: true,
+                    mrv_approvers: true,
+                    mrv_items: {
+                        include: {
+                            item: {
+                                include: {
+                                    unit: true
+                                }
+                            }
+                        }
+                    }
+                },
                 where: whereCondition,
                 orderBy: {
                     mrv_number: 'desc'

@@ -44706,6 +44706,7 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
+    label_id: string | null
     order: number | null
   }
 
@@ -44717,6 +44718,7 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
+    label_id: string | null
     order: number | null
   }
 
@@ -44728,6 +44730,7 @@ export namespace Prisma {
     notes: number
     status: number
     label: number
+    label_id: number
     order: number
     metadata: number
     _all: number
@@ -44752,6 +44755,7 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
+    label_id?: true
     order?: true
   }
 
@@ -44763,6 +44767,7 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
+    label_id?: true
     order?: true
   }
 
@@ -44774,6 +44779,7 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
+    label_id?: true
     order?: true
     metadata?: true
     _all?: true
@@ -44873,6 +44879,7 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
     metadata: JsonValue | null
     _count: MCTApproverCountAggregateOutputType | null
@@ -44904,6 +44911,7 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
+    label_id?: boolean
     order?: boolean
     metadata?: boolean
     mct?: boolean | MCTDefaultArgs<ExtArgs>
@@ -44917,6 +44925,7 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
+    label_id?: boolean
     order?: boolean
     metadata?: boolean
   }
@@ -44939,6 +44948,7 @@ export namespace Prisma {
       notes: string
       status: number
       label: string
+      label_id: string
       order: number
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mCTApprover"]>
@@ -45343,6 +45353,7 @@ export namespace Prisma {
     readonly notes: FieldRef<"MCTApprover", 'String'>
     readonly status: FieldRef<"MCTApprover", 'Int'>
     readonly label: FieldRef<"MCTApprover", 'String'>
+    readonly label_id: FieldRef<"MCTApprover", 'String'>
     readonly order: FieldRef<"MCTApprover", 'Int'>
     readonly metadata: FieldRef<"MCTApprover", 'Json'>
   }
@@ -48417,6 +48428,7 @@ export namespace Prisma {
     notes: 'notes',
     status: 'status',
     label: 'label',
+    label_id: 'label_id',
     order: 'order',
     metadata: 'metadata'
   };
@@ -52035,6 +52047,7 @@ export namespace Prisma {
     notes?: StringFilter<"MCTApprover"> | string
     status?: IntFilter<"MCTApprover"> | number
     label?: StringFilter<"MCTApprover"> | string
+    label_id?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
     metadata?: JsonNullableFilter<"MCTApprover">
     mct?: XOR<MCTRelationFilter, MCTWhereInput>
@@ -52048,6 +52061,7 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
+    label_id?: SortOrder
     order?: SortOrder
     metadata?: SortOrderInput | SortOrder
     mct?: MCTOrderByWithRelationInput
@@ -52064,6 +52078,7 @@ export namespace Prisma {
     notes?: StringFilter<"MCTApprover"> | string
     status?: IntFilter<"MCTApprover"> | number
     label?: StringFilter<"MCTApprover"> | string
+    label_id?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
     metadata?: JsonNullableFilter<"MCTApprover">
     mct?: XOR<MCTRelationFilter, MCTWhereInput>
@@ -52077,6 +52092,7 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
+    label_id?: SortOrder
     order?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: MCTApproverCountOrderByAggregateInput
@@ -52097,6 +52113,7 @@ export namespace Prisma {
     notes?: StringWithAggregatesFilter<"MCTApprover"> | string
     status?: IntWithAggregatesFilter<"MCTApprover"> | number
     label?: StringWithAggregatesFilter<"MCTApprover"> | string
+    label_id?: StringWithAggregatesFilter<"MCTApprover"> | string
     order?: IntWithAggregatesFilter<"MCTApprover"> | number
     metadata?: JsonNullableWithAggregatesFilter<"MCTApprover">
   }
@@ -56150,6 +56167,7 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mct: MCTCreateNestedOneWithoutMct_approversInput
@@ -56163,6 +56181,7 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -56174,6 +56193,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mct?: MCTUpdateOneRequiredWithoutMct_approversNestedInput
@@ -56187,6 +56207,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -56199,6 +56220,7 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -56210,6 +56232,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -56222,6 +56245,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -58925,6 +58949,7 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
+    label_id?: SortOrder
     order?: SortOrder
     metadata?: SortOrder
   }
@@ -58942,6 +58967,7 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
+    label_id?: SortOrder
     order?: SortOrder
   }
 
@@ -58953,6 +58979,7 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
+    label_id?: SortOrder
     order?: SortOrder
   }
 
@@ -69534,6 +69561,7 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -69545,6 +69573,7 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -69703,6 +69732,7 @@ export namespace Prisma {
     notes?: StringFilter<"MCTApprover"> | string
     status?: IntFilter<"MCTApprover"> | number
     label?: StringFilter<"MCTApprover"> | string
+    label_id?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
     metadata?: JsonNullableFilter<"MCTApprover">
   }
@@ -71938,6 +71968,7 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -71969,6 +72000,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -71980,6 +72012,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -71991,6 +72024,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }

@@ -202,6 +202,9 @@ export class MctService {
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mCT.findMany({
+                include: {
+                    mrv: true,
+                },
                 where: whereCondition,
                 orderBy: {
                     mct_number: 'desc'
