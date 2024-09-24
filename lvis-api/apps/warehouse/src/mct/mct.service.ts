@@ -281,6 +281,18 @@ export class MctService {
 
     }
 
+    async isReferenced(mctId: string): Promise<Boolean> {
+
+        const mcrt = await this.prisma.mCRT.findUnique({
+            where: { mct_id: mctId }
+        })
+
+        if (mcrt) return true
+
+        return false
+
+    }
+
     async update(id: string, input: UpdateMctInput) {
         console.log('TBA: update');
     }

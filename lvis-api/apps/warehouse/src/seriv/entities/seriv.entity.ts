@@ -3,6 +3,7 @@ import { Station } from '../../station/entities/station.entity';
 import { SERIVApprover } from '../../seriv-approver/entities/seriv-approver.entity';
 import { SERIVItem } from '../../seriv-item/entities/seriv-item.entity';
 import { WAREHOUSE_REQUEST_TYPE } from '../../__common__/constants';
+import { MCRT } from '../../mcrt/entities/mcrt.entity';
 
 @ObjectType()
 export class SERIV {
@@ -77,6 +78,9 @@ export class SERIV {
 
 
   // =============== derived / resolvers ===============
+
+  @Field(() => MCRT, { nullable: true })
+  mcrt: MCRT | null;
 
   @Field(() => Station)
   item_from: Station;

@@ -7,10 +7,15 @@ import { CreateMcrtItemSubInput } from './create-mcrt-item.sub.input';
 @InputType()
 export class CreateMcrtInput {
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @IsString()
-  @IsNotEmpty()
-  mct_id: string;
+  @IsOptional()
+  mct_id: string | null;
+
+  @Field(() => String, { nullable: true })
+  @IsString()
+  @IsOptional()
+  seriv_id: string | null;
 
   @Field(() => String)
   @IsString()

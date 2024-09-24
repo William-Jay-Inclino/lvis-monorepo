@@ -318,6 +318,18 @@ export class SerivService {
 
     }
 
+    async isReferenced(serivId: string): Promise<Boolean> {
+
+        const mcrt = await this.prisma.mCRT.findUnique({
+            where: { seriv_id: serivId }
+        })
+
+        if (mcrt) return true
+
+        return false
+
+    }
+
     async update(id: string, input: UpdateSerivInput) {
         console.log('TBA: update');
     }

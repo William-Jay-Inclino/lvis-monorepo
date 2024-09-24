@@ -769,6 +769,7 @@ model SERIV {
   item_from      Station      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
   seriv_approvers SERIVApprover[]
   seriv_items SERIVItem[]
+  mcrt MCRT?
 
   metadata Json?
 
@@ -935,7 +936,8 @@ model MCTApprover {
 
 model MCRT {
   id                String    @id @default(uuid())
-  mct_id                String @unique
+  mct_id                String? @unique
+  seriv_id                String? @unique
   mcrt_number         String    @unique
   mcrt_date    DateTime
 
@@ -955,13 +957,14 @@ model MCRT {
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
 
-  mct      MCT      @relation(fields: [mct_id], references: [id], onDelete: Restrict)
+  mct      MCT?      @relation(fields: [mct_id], references: [id], onDelete: Restrict)
+  seriv      SERIV?      @relation(fields: [seriv_id], references: [id], onDelete: Restrict)
   mcrt_approvers MCRTApprover[]
   mcrt_items MCRTItem[]
 
   metadata Json?
 
-  @@index([mct_id, mcrt_date])
+  @@index([mcrt_date])
   @@map("mcrt")
 }
 

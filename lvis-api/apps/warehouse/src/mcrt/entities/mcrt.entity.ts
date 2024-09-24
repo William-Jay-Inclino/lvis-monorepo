@@ -2,6 +2,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { MCT } from '../../mct/entities/mct.entity';
 import { MCRTApprover } from '../../mcrt-approver/entities/mcrt-approver.entity';
 import { MCRTItem } from '../../mcrt-item/entities/mcrt-item.entity';
+import { SERIV } from '../../seriv/entities/seriv.entity';
 
 @ObjectType()
 export class MCRT {
@@ -9,8 +10,11 @@ export class MCRT {
   @Field(() => ID)
   id: string;
 
-  @Field(() => String)
-  mct_id: string;
+  @Field(() => String, { nullable: true })
+  mct_id: string | null;
+
+  @Field(() => String, { nullable: true })
+  seriv_id: string | null;
 
   @Field(() => String)
   mcrt_number: string;
@@ -62,8 +66,11 @@ export class MCRT {
 
   // =============== derived / resolvers ===============
 
-  @Field(() => MCT)
-  mct: MCT
+  @Field(() => MCT, { nullable: true })
+  mct: MCT | null
+
+  @Field(() => SERIV, { nullable: true })
+  seriv: SERIV | null
 
   @Field(() => [MCRTApprover])
   mcrt_approvers: MCRTApprover[]

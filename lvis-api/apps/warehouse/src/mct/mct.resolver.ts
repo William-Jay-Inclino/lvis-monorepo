@@ -103,6 +103,11 @@ export class MctResolver {
     }
 
     @ResolveField(() => Boolean)
+    async is_referenced(@Parent() mct: MCT) {
+        return await this.mctService.isReferenced(mct.id)
+    }
+
+    @ResolveField(() => Boolean)
     can_update(
         @Parent() mct: MCT,
         @CurrentAuthUser() authUser: AuthUser

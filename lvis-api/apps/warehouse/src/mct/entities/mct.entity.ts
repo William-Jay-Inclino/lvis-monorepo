@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { MRV } from '../../mrv/entities/mrv.entity';
 import { MCTApprover } from '../../mct-approver/entities/mct-approver.entity';
+import { MCRT } from '../../mcrt/entities/mcrt.entity';
 
 @ObjectType()
 export class MCT {
@@ -48,6 +49,9 @@ export class MCT {
 
   @Field(() => MRV)
   mrv: MRV;
+
+  @Field(() => MCRT, { nullable: true })
+  mcrt: MCRT | null;
 
   @Field(() => [MCTApprover])
   mct_approvers: MCTApprover[]

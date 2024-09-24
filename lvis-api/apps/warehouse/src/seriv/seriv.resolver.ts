@@ -116,6 +116,11 @@ export class SerivResolver {
     }
 
     @ResolveField(() => Boolean)
+    async is_referenced(@Parent() seriv: SERIV) {
+        return await this.serivService.isReferenced(seriv.id)
+    }
+
+    @ResolveField(() => Boolean)
     can_update(
         @Parent() seriv: SERIV,
         @CurrentAuthUser() authUser: AuthUser

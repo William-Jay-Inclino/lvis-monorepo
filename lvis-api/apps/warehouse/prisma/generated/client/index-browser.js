@@ -653,6 +653,7 @@ exports.Prisma.MCTApproverScalarFieldEnum = {
 exports.Prisma.MCRTScalarFieldEnum = {
   id: 'id',
   mct_id: 'mct_id',
+  seriv_id: 'seriv_id',
   mcrt_number: 'mcrt_number',
   mcrt_date: 'mcrt_date',
   returned_by_id: 'returned_by_id',
