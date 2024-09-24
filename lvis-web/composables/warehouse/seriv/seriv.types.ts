@@ -41,6 +41,7 @@ export interface SERIV {
   
     requested_by: Employee;
     withdrawn_by: Employee | null;
+    is_referenced: boolean;
     item_from: Station;
     seriv_approvers: SERIVApprover[]
     seriv_items: SERIVItem[]

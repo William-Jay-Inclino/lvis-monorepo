@@ -24,9 +24,10 @@ export interface MCT {
     mrv: MRV;  
     mct_approvers: MCTApprover[]
     status: APPROVAL_STATUS
+    is_referenced: boolean;
     can_update?: boolean;
   
-  }
+  } 
 
 
   export interface FindAllResponse {

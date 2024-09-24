@@ -434,7 +434,7 @@
             serivDataErrors.value.consumer_name = true
         }
 
-        if(serivData.value.consumer_name?.trim() === '') {
+        if(serivData.value.location?.trim() === '') {
             serivDataErrors.value.location = true
         }
 

@@ -258,6 +258,25 @@ import { fetchMRVsByMrvNumber } from '~/composables/warehouse/mrv/mrv.api';
         return false
     })
 
+    const mrvId = computed(() => {
+        if (mctData.value.mrv) {
+            return mctData.value.mrv.id
+        }
+        return null
+    })
+
+
+    // ======================== WATCHERS ========================  
+
+    watch(mrvId, (val) => {
+
+        if (!val) {
+            currentMrv = null
+        }
+
+    })
+
+
     // ======================== FUNCTIONS ========================  
 
     async function save() {
