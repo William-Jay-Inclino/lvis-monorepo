@@ -190,6 +190,13 @@ export interface WarehousePermissions {
         print?: boolean,
     },
 
+    canManageMCRT?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean,
+        print?: boolean,
+    },
+
     // ========= DATA MANAGEMENT ========= 
     canManageSupplier?: {
         create?: boolean,

@@ -70,6 +70,9 @@
                                 <li><nuxt-link class="dropdown-item"
                                     to="/warehouse/mct">MCT</nuxt-link>
                                 </li>
+                                <li><nuxt-link class="dropdown-item"
+                                    to="/warehouse/mcrt">MCRT</nuxt-link>
+                                </li>
                             </ul>
                         </li>
                         <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
@@ -205,6 +208,9 @@
                             <li><nuxt-link class="dropdown-item"
                                 to="/warehouse/mct">MCT</nuxt-link>
                             </li>
+                            <li><nuxt-link class="dropdown-item"
+                                to="/warehouse/mcrt">MCRT</nuxt-link>
+                            </li>
                         </ul>
                     </li>
                     <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
@@ -304,7 +310,10 @@ function canViewWarehousing(authUser: AuthUser) {
 
     return (
         (!!warehousePermissions.canManageOSRIV && warehousePermissions.canManageOSRIV.search) || 
-        (!!warehousePermissions.canManageSERIV && warehousePermissions.canManageSERIV.search)
+        (!!warehousePermissions.canManageSERIV && warehousePermissions.canManageSERIV.search) || 
+        (!!warehousePermissions.canManageMRV && warehousePermissions.canManageMRV.search) || 
+        (!!warehousePermissions.canManageMCT && warehousePermissions.canManageMCT.search) || 
+        (!!warehousePermissions.canManageMCRT && warehousePermissions.canManageMCRT.search)
     )
 }
 
