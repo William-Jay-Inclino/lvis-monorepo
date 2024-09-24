@@ -188,6 +188,7 @@ model Item {
   osriv_items OSRIVItem[]
   seriv_items SERIVItem[]
   mrv_items MRVItem[]
+  mcrt_items MCRTItem[]
 
   metadata Json?
 
@@ -901,7 +902,7 @@ model MCT {
 
   mrv      MRV      @relation(fields: [mrv_id], references: [id], onDelete: Restrict)
   mct_approvers MCTApprover[]
-  mcrts MCRT[]
+  mcrt MCRT?
 
   metadata Json?
 
@@ -930,13 +931,11 @@ model MCTApprover {
 
 model MCRT {
   id                String    @id @default(uuid())
-  mct_id                String
+  mct_id                String @unique
   mcrt_number         String    @unique
   mcrt_date    DateTime
 
-  prepared_by_id String
   returned_by_id String
-  received_by_id String
 
   wo_number String?
   mo_number String?
@@ -954,6 +953,7 @@ model MCRT {
 
   mct      MCT      @relation(fields: [mct_id], references: [id], onDelete: Restrict)
   mcrt_approvers MCRTApprover[]
+  mcrt_items MCRTItem[]
 
   metadata Json?
 
@@ -969,6 +969,7 @@ model MCRTApprover {
   notes         String
   status        Int
   label         String
+  label_id         String
   order         Int
 
   mcrt MCRT @relation(fields: [mcrt_id], references: [id], onDelete: Cascade)
@@ -977,4 +978,20 @@ model MCRTApprover {
 
   @@index([mcrt_id])
   @@map("mcrt_approver")
+}
+
+model MCRTItem {
+  id            String    @id @default(uuid())
+  mcrt_id         String
+  item_id         String
+  quantity     Int
+  price      Float @default(0)
+
+  mcrt MCRT @relation(fields: [mcrt_id], references: [id], onDelete: Cascade)
+  item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
+
+  metadata Json?
+
+  @@index([mcrt_id, item_id])
+  @@map("mcrt_item")
 }

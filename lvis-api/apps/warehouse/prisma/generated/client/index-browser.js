@@ -653,9 +653,7 @@ exports.Prisma.MCRTScalarFieldEnum = {
   mct_id: 'mct_id',
   mcrt_number: 'mcrt_number',
   mcrt_date: 'mcrt_date',
-  prepared_by_id: 'prepared_by_id',
   returned_by_id: 'returned_by_id',
-  received_by_id: 'received_by_id',
   wo_number: 'wo_number',
   mo_number: 'mo_number',
   jo_number: 'jo_number',
@@ -677,7 +675,17 @@ exports.Prisma.MCRTApproverScalarFieldEnum = {
   notes: 'notes',
   status: 'status',
   label: 'label',
+  label_id: 'label_id',
   order: 'order',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MCRTItemScalarFieldEnum = {
+  id: 'id',
+  mcrt_id: 'mcrt_id',
+  item_id: 'item_id',
+  quantity: 'quantity',
+  price: 'price',
   metadata: 'metadata'
 };
 
@@ -749,7 +757,8 @@ exports.Prisma.ModelName = {
   MCT: 'MCT',
   MCTApprover: 'MCTApprover',
   MCRT: 'MCRT',
-  MCRTApprover: 'MCRTApprover'
+  MCRTApprover: 'MCRTApprover',
+  MCRTItem: 'MCRTItem'
 };
 
 /**
