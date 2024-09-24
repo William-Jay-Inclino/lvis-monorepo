@@ -101,7 +101,7 @@
                             <div class="h5wrapper mb-3">
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
-                                    <i class="fas fa-info-circle"></i> MRV Items
+                                    <i class="fas fa-shopping-cart"></i> MRV Items
                                 </h5>
                                 <hr class="result">
                             </div>

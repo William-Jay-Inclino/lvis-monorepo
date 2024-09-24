@@ -238,6 +238,26 @@ export async function fetchFormDataInCreate(): Promise<{
                     mct_number
                     status
                     is_referenced
+                    mrv {
+                        mrv_items {
+                            id
+                            quantity
+                            price
+                            item {
+                                id 
+                                unit {
+                                    id 
+                                    name
+                                }
+                                code 
+                                name
+                                description
+                                total_quantity
+                                quantity_on_queue
+                                GWAPrice
+                            }
+                        }
+                    }
                 }
             },
             serivs(page: 1, pageSize: 10) {
@@ -246,6 +266,24 @@ export async function fetchFormDataInCreate(): Promise<{
                     seriv_number
                     status
                     is_referenced
+                    seriv_items {
+                        id
+                        quantity
+                        price
+                        item {
+                            id 
+                            unit {
+                                id 
+                                name
+                            }
+                            code 
+                            name
+                            description
+                            total_quantity
+                            quantity_on_queue
+                            GWAPrice
+                        }
+                    }
                 }
             },
         }

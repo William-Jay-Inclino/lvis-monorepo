@@ -242,6 +242,18 @@ export class SerivService {
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.sERIV.findMany({
+                include: {
+                    seriv_items: {
+                        include: {
+                            item: {
+                                include: {
+                                    unit: true,
+                                    item_transactions: true,
+                                }
+                            }
+                        }
+                    }
+                },
                 where: whereCondition,
                 orderBy: {
                     seriv_number: 'desc'

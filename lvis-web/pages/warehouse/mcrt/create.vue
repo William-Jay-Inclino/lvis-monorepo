@@ -6,20 +6,10 @@
             <div v-if="!isLoadingPage && authUser">
                 <h2 class="text-warning">Create MCRT</h2>
                 <hr>
-
-                <div class="row pt-3">
-                    <div class="col">
-                        <span class="text-secondary">
-                            Step {{ currentStep }} of 2:
-                            <span v-if="currentStep === 1"> Fill up MCRT info </span>
-                            <span v-if="currentStep === 2"> Add MCRT items </span>
-                        </span>
-                    </div>
-                </div>
         
-                <div v-show="currentStep === 1" class="row justify-content-center pt-5 pb-3">
+                <div class="row justify-content-center pt-5 pb-3">
         
-                    <div class="col-lg-6">
+                    <div class="col-lg-8 mb-4">
 
                         <div class="alert alert-info" role="alert">
                             <small class="fst-italic">
@@ -188,48 +178,46 @@
                         </div>
 
                     </div>
-        
-                </div>
-        
-                <div v-show="currentStep === 2" class="row justify-content-center pt-5">
-                    <div class="col-lg-10">
-                        <div class="mb-3">
-                            <small class="form-label fst-italic text-muted">
-                                Input the name of the item in the search field below
-                            </small>
-                            <client-only>
-                                <v-select :options="items" v-model="mcrtData.items" label="name" multiple></v-select>
-                            </client-only>
+
+                    <div v-show="mcrtData.seriv || mcrtData.mct" class="col-lg-8">
+
+                        <div class="h5wrapper mb-3">
+                            <hr class="result">
+                            <h5 class="text-warning fst-italic">
+                                <i class="fas fa-shopping-cart"></i> Item list
+                            </h5>
+                            <hr class="result">
                         </div>
 
-                        <WarehouseItems :items="mcrtData.items" @remove-item="handleRemoveItem"/>
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic">
+                                Items are based on either SERIV or MCT, but you can still add or remove items.
+                            </small>
+                        </div>
+
+                        <div class="text-end">
+                            <button class="btn btn-success btn-sm">
+                                <i class="fas fa-plus"></i> Add Item
+                            </button>
+                        </div>
+                        
+                        <WarehouseMCRTItems :items="mcrtData.items" @remove-item="handleRemoveItem"/>
 
                     </div>
-                </div> 
-
-                <div class="row justify-content-center pt-5">
-                    <div :class="{ 'col-lg-6': currentStep === 1, 'col-lg-10 col-md-10 col-sm-12': currentStep === 2 }">
         
-                        <div v-if="currentStep === 1" class="d-flex justify-content-between">
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="d-flex justify-content-between">
                             <nuxt-link class="btn btn-secondary" to="/warehouse/mcrt">
                                 <i class="fas fa-chevron-left"></i> Back to Search
                             </nuxt-link>
-                            <button @click="onClickNextStep1()" class="btn btn-primary">
-                                <i class="fas fa-chevron-right"></i> Next
-                            </button>
-                        </div>
-        
-                        <div v-else class="d-flex justify-content-between">
-                            <button @click="currentStep--" type="button" class="btn btn-secondary">
-                                <i class="fas fa-chevron-left"></i> Back
-                            </button>
                             <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                 class="btn btn-primary">
                                 <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
                             </button>
                         </div>
-        
-        
                     </div>
                 </div>
         
@@ -257,8 +245,8 @@
     import { MCRT_DEFAULT_APPROVERS } from '~/composables/warehouse/mcrt/mcrt.constants';
     import type { MCT } from '~/composables/warehouse/mct/mct.types';
     import type { SERIV } from '~/composables/warehouse/seriv/seriv.types';
-import { fetchMCTsByMctNumber } from '~/composables/warehouse/mct/mct.api';
-import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.api';
+    import { fetchMCTsByMctNumber } from '~/composables/warehouse/mct/mct.api';
+    import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.api';
 
     definePageMeta({
         name: ROUTES.MCRT_CREATE,
@@ -281,7 +269,6 @@ import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.ap
         items: false,
     }
 
-    const currentStep = ref(1)
     const referenceTypes = ref(['MCT', 'SERIV'])
     const referenceType = ref<'MCT' | 'SERIV'>('MCT')
 
@@ -344,12 +331,7 @@ import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.ap
 
     // ======================== COMPUTED ========================  
 
-    const isDisabledSave = computed((): boolean => {
-        if(hasErrorStep1() || hasErrorStep2()) {
-            return true 
-        }
-        return false
-    })
+    const isDisabledSave = computed((): boolean => true)
 
     const mctId = computed(() => {
         if (mcrtData.value.mct) {
@@ -373,7 +355,6 @@ import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.ap
     watch(mctId, (val) => {
         if (!val) {
             currentMct = null
-
         }
     })
 
@@ -381,6 +362,7 @@ import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.ap
 
         if (!val) {
             currentSeriv = null
+            return 
         }
 
     })
@@ -407,6 +389,8 @@ import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.ap
     async function save() {
 
         console.log('save')
+
+        if(!isValid()) return 
 
         isSaving.value = true
         const response = await mcrtApi.create(mcrtData.value)
@@ -455,7 +439,25 @@ import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.ap
             } else {
                 mcrtData.value.seriv = null
             }
+            return 
         }
+
+        if(!mcrtData.value.seriv) return 
+
+        // populate mcrtData.items
+        mcrtData.value.items = mcrtData.value.seriv.seriv_items.map(i => {
+            const item: AddItem = {
+                id: i.item.id,
+                code: i.item.code,
+                name: i.item.name,
+                description: i.item.description,
+                available_quantity: i.item.total_quantity - i.item.quantity_on_queue,
+                unit: i.item.unit,
+                GWAPrice: i.price,
+                qty_request: i.quantity
+            }
+            return item
+        })
     }
 
     async function handleSearchMctNumber(input: string, loading: (status: boolean) => void ) {
@@ -494,7 +496,7 @@ import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.ap
     }
 
 
-    async function onClickNextStep1() {
+    async function isValid() {
 
         mcrtDataErrors.value = { ..._mcrtDataErrorsInitial }
 
@@ -514,37 +516,15 @@ import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.ap
             }
         }
 
-        if(!hasErrorStep1()) {
-            currentStep.value += 1
-        }
-
-    }
-
-    function hasErrorStep1(): boolean {
         const hasError = Object.values(mcrtDataErrors.value).includes(true);
         const hasErrorApprovers = mcrtData.value.approvers.some(i => i.showRequiredMsg === true)
         if (hasError || hasErrorApprovers) {
-            return true
+            return false
         }
 
-        return false 
+        return true
+
     }
-
-    function hasErrorStep2(): boolean {
-
-        if(mcrtData.value.items.length === 0) {
-            return true
-        }
-
-        for(let item of mcrtData.value.items) {
-            if(item.qty_request <= 0 || item.qty_request > item.available_quantity) {
-                return true 
-            }
-        }
-
-        return false 
-    }
-
 
     async function searchMctNumbers(input: string, loading: (status: boolean) => void) {
 
