@@ -4,6 +4,7 @@ import { MRVApprover } from '../../mrv-approver/entities/mrv-approver.entity';
 import { MRVItem } from '../../mrv-item/entities/mrv-item.entity';
 import { WAREHOUSE_REQUEST_TYPE } from '../../__common__/constants';
 import { Project } from '../../project/entities/project.entity';
+import { MCT } from '../../mct/entities/mct.entity';
 
 @ObjectType()
 export class MRV {
@@ -81,6 +82,9 @@ export class MRV {
 
 
   // =============== derived / resolvers ===============
+
+  @Field(() => MCT, { nullable: true })
+  mct: MCT | null;
 
   @Field(() => Station)
   item_from: Station;

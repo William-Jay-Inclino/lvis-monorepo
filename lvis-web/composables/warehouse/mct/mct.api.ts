@@ -111,6 +111,8 @@ export async function findOne(id: string): Promise<MCT | undefined> {
                 status
                 mct_date 
                 mrv {
+                    id
+                    mrv_number
                     purpose
                     date_requested
                     location
@@ -273,6 +275,7 @@ export async function fetchFormDataInCreate(): Promise<{
                     id
                     mrv_number
                     date_requested
+                    is_referenced
                     item_from {
                         name
                     }

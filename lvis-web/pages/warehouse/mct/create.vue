@@ -22,9 +22,35 @@
                                 MRV Number <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="mrvs" label="mrv_number" v-model="mctData.mrv" :clearable="false"></v-select>
+                                <v-select @search="handleSearchMrvNumber" @option:selected="onMrvNumberSelected" :options="mrvs" label="mrv_number"
+                                    v-model="mctData.mrv" :clearable="false">
+                                    <template v-slot:option="option">
+                                        <div v-if="option.is_referenced" class="row">
+                                            <div class="col">
+                                                <span class="text-danger">{{ option.mrv_number }}</span>
+                                            </div>
+                                            <div class="col text-end">
+                                                <small class="text-muted fst-italic">
+                                                    Referenced
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div v-else class="row">
+                                            <div class="col">
+                                                <span>{{ option.mrv_number }}</span>
+                                            </div>
+                                            <div class="col text-end">
+                                                <small class="text-success fst-italic"> Available </small>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="mctDataErrors.mrv"> {{ errorMsg }} </small>
+                            <nuxt-link v-if="mctData.mrv" class="btn btn-sm btn-light text-primary"
+                                :to="'/warehouse/mrv/view/' + mctData.mrv.id" target="_blank">View
+                                canvass details</nuxt-link>
+                            <small class="text-danger fst-italic" v-if="mctDataErrors.mrv"> {{ errorMsg }}
+                            </small>
                         </div>
 
                         <div class="mb-3" v-if="mctData.mrv">
@@ -165,6 +191,7 @@
     import Swal from 'sweetalert2';
     import { MCT_APPROVER, MCT_DEFAULT_APPROVERS } from '~/composables/warehouse/mct/mct.constants';
     import type { MRV } from '~/composables/warehouse/mrv/mrv.types';
+import { fetchMRVsByMrvNumber } from '~/composables/warehouse/mrv/mrv.api';
 
     definePageMeta({
         name: ROUTES.MCT_CREATE,
@@ -191,7 +218,8 @@
         approvers: [],
     })
     const mctDataErrors = ref({ ..._mctDataErrorsInitial })
-
+    
+    let currentMrv: MRV | null = null
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
@@ -266,6 +294,31 @@
 
     }
 
+    // check if MRV is_referenced. If true then rollback to previous mrv else set new current mrv
+    function onMrvNumberSelected(payload: MRV) {
+        console.log('onMrvNumberSelected()', payload)
+        if (payload.is_referenced) {
+            if (currentMrv) {
+                mctData.value.mrv = currentMrv
+            } else {
+                mctData.value.mrv = null
+            }
+        } else {
+            currentMrv = payload
+        }
+    }
+
+    async function handleSearchMrvNumber(input: string, loading: (status: boolean) => void ) {
+
+        if(input.trim() === '') {
+            mrvs.value = []
+            return
+        } 
+
+        debouncedSearchMrvNumbers(input, loading)
+
+    }
+
 
     function isValid(): boolean {
 
@@ -283,6 +336,27 @@
         return true
 
     }
+
+    async function searchMrvNumbers(input: string, loading: (status: boolean) => void) {
+        console.log('searchMrvNumbers');
+        console.log('input', input);
+
+        loading(true)
+
+        try {
+            const response = await fetchMRVsByMrvNumber(input);
+            console.log('response', response);
+            mrvs.value = response;
+        } catch (error) {
+            console.error('Error fetching MRV numbers:', error);
+        } finally {
+            loading(false);
+        }
+    }
+
+    const debouncedSearchMrvNumbers = debounce((input: string, loading: (status: boolean) => void) => {
+        searchMrvNumbers(input, loading);
+    }, 500);
 
 
 </script>

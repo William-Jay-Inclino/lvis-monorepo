@@ -34,6 +34,17 @@
                                                 <td> {{ item.mrv_number }} </td>
                                             </tr>
                                             <tr>
+                                                <td class="text-muted">MCT Number</td>
+                                                <td>
+                                                    <nuxt-link
+                                                        v-if="item.mct"
+                                                        :to="'/warehouse/mct/view/' + item.mct.id">{{
+                                                        item.mct.mct_number
+                                                        }}</nuxt-link>
+                                                    <div v-else> N/A </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td class="text-muted">Date</td>
                                                 <td> {{ formatDate(item.date_requested) }} </td>
                                             </tr>

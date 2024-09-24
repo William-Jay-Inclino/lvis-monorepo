@@ -116,6 +116,11 @@ export class MrvResolver {
     }
 
     @ResolveField(() => Boolean)
+    async is_referenced(@Parent() mrv: MRV) {
+        return await this.mrvService.isReferenced(mrv.id)
+    }
+
+    @ResolveField(() => Boolean)
     can_update(
         @Parent() mrv: MRV,
         @CurrentAuthUser() authUser: AuthUser

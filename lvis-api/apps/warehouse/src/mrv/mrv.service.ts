@@ -204,6 +204,7 @@ export class MrvService {
                 },
                 item_from: true,
                 project: true,
+                mct: true,
             },
             where: {
                 OR: [
@@ -334,6 +335,18 @@ export class MrvService {
         }
 
         return APPROVAL_STATUS.APPROVED
+
+    }
+
+    async isReferenced(mrvId: string): Promise<Boolean> {
+
+        const mct = await this.prisma.mCT.findUnique({
+            where: { mrv_id: mrvId }
+        })
+
+        if (mct) return true
+
+        return false
 
     }
 

@@ -4944,13 +4944,11 @@ export namespace Prisma {
   export type MRVCountOutputType = {
     mrv_approvers: number
     mrv_items: number
-    mcts: number
   }
 
   export type MRVCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mrv_approvers?: boolean | MRVCountOutputTypeCountMrv_approversArgs
     mrv_items?: boolean | MRVCountOutputTypeCountMrv_itemsArgs
-    mcts?: boolean | MRVCountOutputTypeCountMctsArgs
   }
 
   // Custom InputTypes
@@ -4979,14 +4977,6 @@ export namespace Prisma {
    */
   export type MRVCountOutputTypeCountMrv_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MRVItemWhereInput
-  }
-
-
-  /**
-   * MRVCountOutputType without action
-   */
-  export type MRVCountOutputTypeCountMctsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MCTWhereInput
   }
 
 
@@ -40780,7 +40770,7 @@ export namespace Prisma {
     item_from?: boolean | StationDefaultArgs<ExtArgs>
     mrv_approvers?: boolean | MRV$mrv_approversArgs<ExtArgs>
     mrv_items?: boolean | MRV$mrv_itemsArgs<ExtArgs>
-    mcts?: boolean | MRV$mctsArgs<ExtArgs>
+    mct?: boolean | MRV$mctArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
     _count?: boolean | MRVCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mRV"]>
@@ -40814,7 +40804,7 @@ export namespace Prisma {
     item_from?: boolean | StationDefaultArgs<ExtArgs>
     mrv_approvers?: boolean | MRV$mrv_approversArgs<ExtArgs>
     mrv_items?: boolean | MRV$mrv_itemsArgs<ExtArgs>
-    mcts?: boolean | MRV$mctsArgs<ExtArgs>
+    mct?: boolean | MRV$mctArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
     _count?: boolean | MRVCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -40826,7 +40816,7 @@ export namespace Prisma {
       item_from: Prisma.$StationPayload<ExtArgs>
       mrv_approvers: Prisma.$MRVApproverPayload<ExtArgs>[]
       mrv_items: Prisma.$MRVItemPayload<ExtArgs>[]
-      mcts: Prisma.$MCTPayload<ExtArgs>[]
+      mct: Prisma.$MCTPayload<ExtArgs> | null
       project: Prisma.$ProjectPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -41223,7 +41213,7 @@ export namespace Prisma {
 
     mrv_items<T extends MRV$mrv_itemsArgs<ExtArgs> = {}>(args?: Subset<T, MRV$mrv_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MRVItemPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    mcts<T extends MRV$mctsArgs<ExtArgs> = {}>(args?: Subset<T, MRV$mctsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCTPayload<ExtArgs>, T, 'findMany'> | Null>;
+    mct<T extends MRV$mctArgs<ExtArgs> = {}>(args?: Subset<T, MRV$mctArgs<ExtArgs>>): Prisma__MCTClient<$Result.GetResult<Prisma.$MCTPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
@@ -41631,9 +41621,9 @@ export namespace Prisma {
 
 
   /**
-   * MRV.mcts
+   * MRV.mct
    */
-  export type MRV$mctsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MRV$mctArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the MCT
      */
@@ -41643,11 +41633,6 @@ export namespace Prisma {
      */
     include?: MCTInclude<ExtArgs> | null
     where?: MCTWhereInput
-    orderBy?: MCTOrderByWithRelationInput | MCTOrderByWithRelationInput[]
-    cursor?: MCTWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MCTScalarFieldEnum | MCTScalarFieldEnum[]
   }
 
 
@@ -51672,7 +51657,7 @@ export namespace Prisma {
     item_from?: XOR<StationRelationFilter, StationWhereInput>
     mrv_approvers?: MRVApproverListRelationFilter
     mrv_items?: MRVItemListRelationFilter
-    mcts?: MCTListRelationFilter
+    mct?: XOR<MCTNullableRelationFilter, MCTWhereInput> | null
     project?: XOR<ProjectRelationFilter, ProjectWhereInput>
   }
 
@@ -51702,7 +51687,7 @@ export namespace Prisma {
     item_from?: StationOrderByWithRelationInput
     mrv_approvers?: MRVApproverOrderByRelationAggregateInput
     mrv_items?: MRVItemOrderByRelationAggregateInput
-    mcts?: MCTOrderByRelationAggregateInput
+    mct?: MCTOrderByWithRelationInput
     project?: ProjectOrderByWithRelationInput
   }
 
@@ -51735,7 +51720,7 @@ export namespace Prisma {
     item_from?: XOR<StationRelationFilter, StationWhereInput>
     mrv_approvers?: MRVApproverListRelationFilter
     mrv_items?: MRVItemListRelationFilter
-    mcts?: MCTListRelationFilter
+    mct?: XOR<MCTNullableRelationFilter, MCTWhereInput> | null
     project?: XOR<ProjectRelationFilter, ProjectWhereInput>
   }, "id" | "mrv_number">
 
@@ -51984,11 +51969,11 @@ export namespace Prisma {
 
   export type MCTWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    mrv_id?: string
     mct_number?: string
     AND?: MCTWhereInput | MCTWhereInput[]
     OR?: MCTWhereInput[]
     NOT?: MCTWhereInput | MCTWhereInput[]
-    mrv_id?: StringFilter<"MCT"> | string
     mct_date?: DateTimeFilter<"MCT"> | Date | string
     cancelled_by?: StringNullableFilter<"MCT"> | string | null
     created_by?: StringFilter<"MCT"> | string
@@ -52000,7 +51985,7 @@ export namespace Prisma {
     mrv?: XOR<MRVRelationFilter, MRVWhereInput>
     mct_approvers?: MCTApproverListRelationFilter
     mcrts?: MCRTListRelationFilter
-  }, "id" | "mct_number">
+  }, "id" | "mrv_id" | "mct_number">
 
   export type MCTOrderByWithAggregationInput = {
     id?: SortOrder
@@ -55743,7 +55728,7 @@ export namespace Prisma {
     item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
-    mcts?: MCTCreateNestedManyWithoutMrvInput
+    mct?: MCTCreateNestedOneWithoutMrvInput
     project: ProjectCreateNestedOneWithoutMrvInput
   }
 
@@ -55772,7 +55757,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_approvers?: MRVApproverUncheckedCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutMrvInput
-    mcts?: MCTUncheckedCreateNestedManyWithoutMrvInput
+    mct?: MCTUncheckedCreateNestedOneWithoutMrvInput
   }
 
   export type MRVUpdateInput = {
@@ -55799,7 +55784,7 @@ export namespace Prisma {
     item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUpdateManyWithoutMrvNestedInput
+    mct?: MCTUpdateOneWithoutMrvNestedInput
     project?: ProjectUpdateOneRequiredWithoutMrvNestedInput
   }
 
@@ -55828,7 +55813,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_approvers?: MRVApproverUncheckedUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUncheckedUpdateManyWithoutMrvNestedInput
+    mct?: MCTUncheckedUpdateOneWithoutMrvNestedInput
   }
 
   export type MRVCreateManyInput = {
@@ -56066,7 +56051,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    mrv: MRVCreateNestedOneWithoutMctsInput
+    mrv: MRVCreateNestedOneWithoutMctInput
     mct_approvers?: MCTApproverCreateNestedManyWithoutMctInput
     mcrts?: MCRTCreateNestedManyWithoutMctInput
   }
@@ -56098,7 +56083,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    mrv?: MRVUpdateOneRequiredWithoutMctsNestedInput
+    mrv?: MRVUpdateOneRequiredWithoutMctNestedInput
     mct_approvers?: MCTApproverUpdateManyWithoutMctNestedInput
     mcrts?: MCRTUpdateManyWithoutMctNestedInput
   }
@@ -58684,10 +58669,9 @@ export namespace Prisma {
     none?: MRVApproverWhereInput
   }
 
-  export type MCTListRelationFilter = {
-    every?: MCTWhereInput
-    some?: MCTWhereInput
-    none?: MCTWhereInput
+  export type MCTNullableRelationFilter = {
+    is?: MCTWhereInput | null
+    isNot?: MCTWhereInput | null
   }
 
   export type ProjectRelationFilter = {
@@ -58696,10 +58680,6 @@ export namespace Prisma {
   }
 
   export type MRVApproverOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type MCTOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -61568,11 +61548,10 @@ export namespace Prisma {
     connect?: MRVItemWhereUniqueInput | MRVItemWhereUniqueInput[]
   }
 
-  export type MCTCreateNestedManyWithoutMrvInput = {
-    create?: XOR<MCTCreateWithoutMrvInput, MCTUncheckedCreateWithoutMrvInput> | MCTCreateWithoutMrvInput[] | MCTUncheckedCreateWithoutMrvInput[]
-    connectOrCreate?: MCTCreateOrConnectWithoutMrvInput | MCTCreateOrConnectWithoutMrvInput[]
-    createMany?: MCTCreateManyMrvInputEnvelope
-    connect?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
+  export type MCTCreateNestedOneWithoutMrvInput = {
+    create?: XOR<MCTCreateWithoutMrvInput, MCTUncheckedCreateWithoutMrvInput>
+    connectOrCreate?: MCTCreateOrConnectWithoutMrvInput
+    connect?: MCTWhereUniqueInput
   }
 
   export type ProjectCreateNestedOneWithoutMrvInput = {
@@ -61595,11 +61574,10 @@ export namespace Prisma {
     connect?: MRVItemWhereUniqueInput | MRVItemWhereUniqueInput[]
   }
 
-  export type MCTUncheckedCreateNestedManyWithoutMrvInput = {
-    create?: XOR<MCTCreateWithoutMrvInput, MCTUncheckedCreateWithoutMrvInput> | MCTCreateWithoutMrvInput[] | MCTUncheckedCreateWithoutMrvInput[]
-    connectOrCreate?: MCTCreateOrConnectWithoutMrvInput | MCTCreateOrConnectWithoutMrvInput[]
-    createMany?: MCTCreateManyMrvInputEnvelope
-    connect?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
+  export type MCTUncheckedCreateNestedOneWithoutMrvInput = {
+    create?: XOR<MCTCreateWithoutMrvInput, MCTUncheckedCreateWithoutMrvInput>
+    connectOrCreate?: MCTCreateOrConnectWithoutMrvInput
+    connect?: MCTWhereUniqueInput
   }
 
   export type StationUpdateOneRequiredWithoutMrvsNestedInput = {
@@ -61638,18 +61616,14 @@ export namespace Prisma {
     deleteMany?: MRVItemScalarWhereInput | MRVItemScalarWhereInput[]
   }
 
-  export type MCTUpdateManyWithoutMrvNestedInput = {
-    create?: XOR<MCTCreateWithoutMrvInput, MCTUncheckedCreateWithoutMrvInput> | MCTCreateWithoutMrvInput[] | MCTUncheckedCreateWithoutMrvInput[]
-    connectOrCreate?: MCTCreateOrConnectWithoutMrvInput | MCTCreateOrConnectWithoutMrvInput[]
-    upsert?: MCTUpsertWithWhereUniqueWithoutMrvInput | MCTUpsertWithWhereUniqueWithoutMrvInput[]
-    createMany?: MCTCreateManyMrvInputEnvelope
-    set?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
-    disconnect?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
-    delete?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
-    connect?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
-    update?: MCTUpdateWithWhereUniqueWithoutMrvInput | MCTUpdateWithWhereUniqueWithoutMrvInput[]
-    updateMany?: MCTUpdateManyWithWhereWithoutMrvInput | MCTUpdateManyWithWhereWithoutMrvInput[]
-    deleteMany?: MCTScalarWhereInput | MCTScalarWhereInput[]
+  export type MCTUpdateOneWithoutMrvNestedInput = {
+    create?: XOR<MCTCreateWithoutMrvInput, MCTUncheckedCreateWithoutMrvInput>
+    connectOrCreate?: MCTCreateOrConnectWithoutMrvInput
+    upsert?: MCTUpsertWithoutMrvInput
+    disconnect?: MCTWhereInput | boolean
+    delete?: MCTWhereInput | boolean
+    connect?: MCTWhereUniqueInput
+    update?: XOR<XOR<MCTUpdateToOneWithWhereWithoutMrvInput, MCTUpdateWithoutMrvInput>, MCTUncheckedUpdateWithoutMrvInput>
   }
 
   export type ProjectUpdateOneRequiredWithoutMrvNestedInput = {
@@ -61688,18 +61662,14 @@ export namespace Prisma {
     deleteMany?: MRVItemScalarWhereInput | MRVItemScalarWhereInput[]
   }
 
-  export type MCTUncheckedUpdateManyWithoutMrvNestedInput = {
-    create?: XOR<MCTCreateWithoutMrvInput, MCTUncheckedCreateWithoutMrvInput> | MCTCreateWithoutMrvInput[] | MCTUncheckedCreateWithoutMrvInput[]
-    connectOrCreate?: MCTCreateOrConnectWithoutMrvInput | MCTCreateOrConnectWithoutMrvInput[]
-    upsert?: MCTUpsertWithWhereUniqueWithoutMrvInput | MCTUpsertWithWhereUniqueWithoutMrvInput[]
-    createMany?: MCTCreateManyMrvInputEnvelope
-    set?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
-    disconnect?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
-    delete?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
-    connect?: MCTWhereUniqueInput | MCTWhereUniqueInput[]
-    update?: MCTUpdateWithWhereUniqueWithoutMrvInput | MCTUpdateWithWhereUniqueWithoutMrvInput[]
-    updateMany?: MCTUpdateManyWithWhereWithoutMrvInput | MCTUpdateManyWithWhereWithoutMrvInput[]
-    deleteMany?: MCTScalarWhereInput | MCTScalarWhereInput[]
+  export type MCTUncheckedUpdateOneWithoutMrvNestedInput = {
+    create?: XOR<MCTCreateWithoutMrvInput, MCTUncheckedCreateWithoutMrvInput>
+    connectOrCreate?: MCTCreateOrConnectWithoutMrvInput
+    upsert?: MCTUpsertWithoutMrvInput
+    disconnect?: MCTWhereInput | boolean
+    delete?: MCTWhereInput | boolean
+    connect?: MCTWhereUniqueInput
+    update?: XOR<XOR<MCTUpdateToOneWithWhereWithoutMrvInput, MCTUpdateWithoutMrvInput>, MCTUncheckedUpdateWithoutMrvInput>
   }
 
   export type MRVCreateNestedOneWithoutMrv_approversInput = {
@@ -61744,9 +61714,9 @@ export namespace Prisma {
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutMrv_itemsInput, ItemUpdateWithoutMrv_itemsInput>, ItemUncheckedUpdateWithoutMrv_itemsInput>
   }
 
-  export type MRVCreateNestedOneWithoutMctsInput = {
-    create?: XOR<MRVCreateWithoutMctsInput, MRVUncheckedCreateWithoutMctsInput>
-    connectOrCreate?: MRVCreateOrConnectWithoutMctsInput
+  export type MRVCreateNestedOneWithoutMctInput = {
+    create?: XOR<MRVCreateWithoutMctInput, MRVUncheckedCreateWithoutMctInput>
+    connectOrCreate?: MRVCreateOrConnectWithoutMctInput
     connect?: MRVWhereUniqueInput
   }
 
@@ -61778,12 +61748,12 @@ export namespace Prisma {
     connect?: MCRTWhereUniqueInput | MCRTWhereUniqueInput[]
   }
 
-  export type MRVUpdateOneRequiredWithoutMctsNestedInput = {
-    create?: XOR<MRVCreateWithoutMctsInput, MRVUncheckedCreateWithoutMctsInput>
-    connectOrCreate?: MRVCreateOrConnectWithoutMctsInput
-    upsert?: MRVUpsertWithoutMctsInput
+  export type MRVUpdateOneRequiredWithoutMctNestedInput = {
+    create?: XOR<MRVCreateWithoutMctInput, MRVUncheckedCreateWithoutMctInput>
+    connectOrCreate?: MRVCreateOrConnectWithoutMctInput
+    upsert?: MRVUpsertWithoutMctInput
     connect?: MRVWhereUniqueInput
-    update?: XOR<XOR<MRVUpdateToOneWithWhereWithoutMctsInput, MRVUpdateWithoutMctsInput>, MRVUncheckedUpdateWithoutMctsInput>
+    update?: XOR<XOR<MRVUpdateToOneWithWhereWithoutMctInput, MRVUpdateWithoutMctInput>, MRVUncheckedUpdateWithoutMctInput>
   }
 
   export type MCTApproverUpdateManyWithoutMctNestedInput = {
@@ -62545,7 +62515,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
-    mcts?: MCTCreateNestedManyWithoutMrvInput
+    mct?: MCTCreateNestedOneWithoutMrvInput
     project: ProjectCreateNestedOneWithoutMrvInput
   }
 
@@ -62573,7 +62543,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_approvers?: MRVApproverUncheckedCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutMrvInput
-    mcts?: MCTUncheckedCreateNestedManyWithoutMrvInput
+    mct?: MCTUncheckedCreateNestedOneWithoutMrvInput
   }
 
   export type MRVCreateOrConnectWithoutItem_fromInput = {
@@ -62828,7 +62798,7 @@ export namespace Prisma {
     item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
-    mcts?: MCTCreateNestedManyWithoutMrvInput
+    mct?: MCTCreateNestedOneWithoutMrvInput
   }
 
   export type MRVUncheckedCreateWithoutProjectInput = {
@@ -62855,7 +62825,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_approvers?: MRVApproverUncheckedCreateNestedManyWithoutMrvInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutMrvInput
-    mcts?: MCTUncheckedCreateNestedManyWithoutMrvInput
+    mct?: MCTUncheckedCreateNestedOneWithoutMrvInput
   }
 
   export type MRVCreateOrConnectWithoutProjectInput = {
@@ -68938,11 +68908,6 @@ export namespace Prisma {
     create: XOR<MCTCreateWithoutMrvInput, MCTUncheckedCreateWithoutMrvInput>
   }
 
-  export type MCTCreateManyMrvInputEnvelope = {
-    data: MCTCreateManyMrvInput | MCTCreateManyMrvInput[]
-    skipDuplicates?: boolean
-  }
-
   export type ProjectCreateWithoutMrvInput = {
     id?: string
     name: string
@@ -69063,37 +69028,45 @@ export namespace Prisma {
     data: XOR<MRVItemUpdateManyMutationInput, MRVItemUncheckedUpdateManyWithoutMrvInput>
   }
 
-  export type MCTUpsertWithWhereUniqueWithoutMrvInput = {
-    where: MCTWhereUniqueInput
+  export type MCTUpsertWithoutMrvInput = {
     update: XOR<MCTUpdateWithoutMrvInput, MCTUncheckedUpdateWithoutMrvInput>
     create: XOR<MCTCreateWithoutMrvInput, MCTUncheckedCreateWithoutMrvInput>
+    where?: MCTWhereInput
   }
 
-  export type MCTUpdateWithWhereUniqueWithoutMrvInput = {
-    where: MCTWhereUniqueInput
+  export type MCTUpdateToOneWithWhereWithoutMrvInput = {
+    where?: MCTWhereInput
     data: XOR<MCTUpdateWithoutMrvInput, MCTUncheckedUpdateWithoutMrvInput>
   }
 
-  export type MCTUpdateManyWithWhereWithoutMrvInput = {
-    where: MCTScalarWhereInput
-    data: XOR<MCTUpdateManyMutationInput, MCTUncheckedUpdateManyWithoutMrvInput>
+  export type MCTUpdateWithoutMrvInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mct_number?: StringFieldUpdateOperationsInput | string
+    mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mct_approvers?: MCTApproverUpdateManyWithoutMctNestedInput
+    mcrts?: MCRTUpdateManyWithoutMctNestedInput
   }
 
-  export type MCTScalarWhereInput = {
-    AND?: MCTScalarWhereInput | MCTScalarWhereInput[]
-    OR?: MCTScalarWhereInput[]
-    NOT?: MCTScalarWhereInput | MCTScalarWhereInput[]
-    id?: StringFilter<"MCT"> | string
-    mrv_id?: StringFilter<"MCT"> | string
-    mct_number?: StringFilter<"MCT"> | string
-    mct_date?: DateTimeFilter<"MCT"> | Date | string
-    cancelled_by?: StringNullableFilter<"MCT"> | string | null
-    created_by?: StringFilter<"MCT"> | string
-    updated_by?: StringNullableFilter<"MCT"> | string | null
-    cancelled_at?: DateTimeNullableFilter<"MCT"> | Date | string | null
-    created_at?: DateTimeFilter<"MCT"> | Date | string
-    updated_at?: DateTimeFilter<"MCT"> | Date | string
-    metadata?: JsonNullableFilter<"MCT">
+  export type MCTUncheckedUpdateWithoutMrvInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mct_number?: StringFieldUpdateOperationsInput | string
+    mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mct_approvers?: MCTApproverUncheckedUpdateManyWithoutMctNestedInput
+    mcrts?: MCRTUncheckedUpdateManyWithoutMctNestedInput
   }
 
   export type ProjectUpsertWithoutMrvInput = {
@@ -69154,7 +69127,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_items?: MRVItemCreateNestedManyWithoutMrvInput
-    mcts?: MCTCreateNestedManyWithoutMrvInput
+    mct?: MCTCreateNestedOneWithoutMrvInput
     project: ProjectCreateNestedOneWithoutMrvInput
   }
 
@@ -69182,7 +69155,7 @@ export namespace Prisma {
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutMrvInput
-    mcts?: MCTUncheckedCreateNestedManyWithoutMrvInput
+    mct?: MCTUncheckedCreateNestedOneWithoutMrvInput
   }
 
   export type MRVCreateOrConnectWithoutMrv_approversInput = {
@@ -69224,7 +69197,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUpdateManyWithoutMrvNestedInput
+    mct?: MCTUpdateOneWithoutMrvNestedInput
     project?: ProjectUpdateOneRequiredWithoutMrvNestedInput
   }
 
@@ -69252,7 +69225,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_items?: MRVItemUncheckedUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUncheckedUpdateManyWithoutMrvNestedInput
+    mct?: MCTUncheckedUpdateOneWithoutMrvNestedInput
   }
 
   export type MRVCreateWithoutMrv_itemsInput = {
@@ -69278,7 +69251,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_from: StationCreateNestedOneWithoutMrvsInput
     mrv_approvers?: MRVApproverCreateNestedManyWithoutMrvInput
-    mcts?: MCTCreateNestedManyWithoutMrvInput
+    mct?: MCTCreateNestedOneWithoutMrvInput
     project: ProjectCreateNestedOneWithoutMrvInput
   }
 
@@ -69306,7 +69279,7 @@ export namespace Prisma {
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_approvers?: MRVApproverUncheckedCreateNestedManyWithoutMrvInput
-    mcts?: MCTUncheckedCreateNestedManyWithoutMrvInput
+    mct?: MCTUncheckedCreateNestedOneWithoutMrvInput
   }
 
   export type MRVCreateOrConnectWithoutMrv_itemsInput = {
@@ -69403,7 +69376,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUpdateManyWithoutMrvNestedInput
+    mct?: MCTUpdateOneWithoutMrvNestedInput
     project?: ProjectUpdateOneRequiredWithoutMrvNestedInput
   }
 
@@ -69431,7 +69404,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_approvers?: MRVApproverUncheckedUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUncheckedUpdateManyWithoutMrvNestedInput
+    mct?: MCTUncheckedUpdateOneWithoutMrvNestedInput
   }
 
   export type ItemUpsertWithoutMrv_itemsInput = {
@@ -69495,7 +69468,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
-  export type MRVCreateWithoutMctsInput = {
+  export type MRVCreateWithoutMctInput = {
     id?: string
     mrv_number: string
     date_requested: Date | string
@@ -69522,7 +69495,7 @@ export namespace Prisma {
     project: ProjectCreateNestedOneWithoutMrvInput
   }
 
-  export type MRVUncheckedCreateWithoutMctsInput = {
+  export type MRVUncheckedCreateWithoutMctInput = {
     id?: string
     project_id: string
     mrv_number: string
@@ -69549,9 +69522,9 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutMrvInput
   }
 
-  export type MRVCreateOrConnectWithoutMctsInput = {
+  export type MRVCreateOrConnectWithoutMctInput = {
     where: MRVWhereUniqueInput
-    create: XOR<MRVCreateWithoutMctsInput, MRVUncheckedCreateWithoutMctsInput>
+    create: XOR<MRVCreateWithoutMctInput, MRVUncheckedCreateWithoutMctInput>
   }
 
   export type MCTApproverCreateWithoutMctInput = {
@@ -69640,18 +69613,18 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type MRVUpsertWithoutMctsInput = {
-    update: XOR<MRVUpdateWithoutMctsInput, MRVUncheckedUpdateWithoutMctsInput>
-    create: XOR<MRVCreateWithoutMctsInput, MRVUncheckedCreateWithoutMctsInput>
+  export type MRVUpsertWithoutMctInput = {
+    update: XOR<MRVUpdateWithoutMctInput, MRVUncheckedUpdateWithoutMctInput>
+    create: XOR<MRVCreateWithoutMctInput, MRVUncheckedCreateWithoutMctInput>
     where?: MRVWhereInput
   }
 
-  export type MRVUpdateToOneWithWhereWithoutMctsInput = {
+  export type MRVUpdateToOneWithWhereWithoutMctInput = {
     where?: MRVWhereInput
-    data: XOR<MRVUpdateWithoutMctsInput, MRVUncheckedUpdateWithoutMctsInput>
+    data: XOR<MRVUpdateWithoutMctInput, MRVUncheckedUpdateWithoutMctInput>
   }
 
-  export type MRVUpdateWithoutMctsInput = {
+  export type MRVUpdateWithoutMctInput = {
     id?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69678,7 +69651,7 @@ export namespace Prisma {
     project?: ProjectUpdateOneRequiredWithoutMrvNestedInput
   }
 
-  export type MRVUncheckedUpdateWithoutMctsInput = {
+  export type MRVUncheckedUpdateWithoutMctInput = {
     id?: StringFieldUpdateOperationsInput | string
     project_id?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -69788,7 +69761,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    mrv: MRVCreateNestedOneWithoutMctsInput
+    mrv: MRVCreateNestedOneWithoutMctInput
     mcrts?: MCRTCreateNestedManyWithoutMctInput
   }
 
@@ -69834,7 +69807,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    mrv?: MRVUpdateOneRequiredWithoutMctsNestedInput
+    mrv?: MRVUpdateOneRequiredWithoutMctNestedInput
     mcrts?: MCRTUpdateManyWithoutMctNestedInput
   }
 
@@ -69864,7 +69837,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    mrv: MRVCreateNestedOneWithoutMctsInput
+    mrv: MRVCreateNestedOneWithoutMctInput
     mct_approvers?: MCTApproverCreateNestedManyWithoutMctInput
   }
 
@@ -69942,7 +69915,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    mrv?: MRVUpdateOneRequiredWithoutMctsNestedInput
+    mrv?: MRVUpdateOneRequiredWithoutMctNestedInput
     mct_approvers?: MCTApproverUpdateManyWithoutMctNestedInput
   }
 
@@ -70515,7 +70488,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUpdateManyWithoutMrvNestedInput
+    mct?: MCTUpdateOneWithoutMrvNestedInput
     project?: ProjectUpdateOneRequiredWithoutMrvNestedInput
   }
 
@@ -70543,7 +70516,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_approvers?: MRVApproverUncheckedUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUncheckedUpdateManyWithoutMrvNestedInput
+    mct?: MCTUncheckedUpdateOneWithoutMrvNestedInput
   }
 
   export type MRVUncheckedUpdateManyWithoutItem_fromInput = {
@@ -70694,7 +70667,7 @@ export namespace Prisma {
     item_from?: StationUpdateOneRequiredWithoutMrvsNestedInput
     mrv_approvers?: MRVApproverUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUpdateManyWithoutMrvNestedInput
+    mct?: MCTUpdateOneWithoutMrvNestedInput
   }
 
   export type MRVUncheckedUpdateWithoutProjectInput = {
@@ -70721,7 +70694,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv_approvers?: MRVApproverUncheckedUpdateManyWithoutMrvNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutMrvNestedInput
-    mcts?: MCTUncheckedUpdateManyWithoutMrvNestedInput
+    mct?: MCTUncheckedUpdateOneWithoutMrvNestedInput
   }
 
   export type MRVUncheckedUpdateManyWithoutProjectInput = {
@@ -71845,19 +71818,6 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type MCTCreateManyMrvInput = {
-    id?: string
-    mct_number: string
-    mct_date: Date | string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
   export type MRVApproverUpdateWithoutMrvInput = {
     id?: StringFieldUpdateOperationsInput | string
     approver_id?: StringFieldUpdateOperationsInput | string
@@ -71915,49 +71875,6 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type MCTUpdateWithoutMrvInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    mct_number?: StringFieldUpdateOperationsInput | string
-    mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    mct_approvers?: MCTApproverUpdateManyWithoutMctNestedInput
-    mcrts?: MCRTUpdateManyWithoutMctNestedInput
-  }
-
-  export type MCTUncheckedUpdateWithoutMrvInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    mct_number?: StringFieldUpdateOperationsInput | string
-    mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    mct_approvers?: MCTApproverUncheckedUpdateManyWithoutMctNestedInput
-    mcrts?: MCRTUncheckedUpdateManyWithoutMctNestedInput
-  }
-
-  export type MCTUncheckedUpdateManyWithoutMrvInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    mct_number?: StringFieldUpdateOperationsInput | string
-    mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 

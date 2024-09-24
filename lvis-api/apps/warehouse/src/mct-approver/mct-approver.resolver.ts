@@ -1,35 +1,16 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { MctApproverService } from './mct-approver.service';
+import { Resolver, ResolveField, Parent } from '@nestjs/graphql';
 import { MCTApprover } from './entities/mct-approver.entity';
-import { CreateMctApproverInput } from './dto/create-mct-approver.input';
-import { UpdateMctApproverInput } from './dto/update-mct-approver.input';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { UseGuards } from '@nestjs/common';
+import { Employee } from '../__employee__/entities/employee.entity';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => MCTApprover)
 export class MctApproverResolver {
-  constructor(private readonly mctApproverService: MctApproverService) {}
 
-  @Mutation(() => MCTApprover)
-  createMctApprover(@Args('createMctApproverInput') createMctApproverInput: CreateMctApproverInput) {
-    return this.mctApproverService.create(createMctApproverInput);
+  @ResolveField(() => Employee)
+  approver(@Parent() mctApprover: MCTApprover): any {
+    return { __typename: 'Employee', id: mctApprover.approver_id }
   }
 
-  @Query(() => [MCTApprover], { name: 'mctApprover' })
-  findAll() {
-    return this.mctApproverService.findAll();
-  }
-
-  @Query(() => MCTApprover, { name: 'mctApprover' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.mctApproverService.findOne(id);
-  }
-
-  @Mutation(() => MCTApprover)
-  updateMctApprover(@Args('updateMctApproverInput') updateMctApproverInput: UpdateMctApproverInput) {
-    return this.mctApproverService.update(updateMctApproverInput.id, updateMctApproverInput);
-  }
-
-  @Mutation(() => MCTApprover)
-  removeMctApprover(@Args('id', { type: () => Int }) id: number) {
-    return this.mctApproverService.remove(id);
-  }
 }

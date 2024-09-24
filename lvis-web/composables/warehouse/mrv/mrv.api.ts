@@ -138,6 +138,10 @@ export async function findOne(id: string): Promise<MRV | undefined> {
                     middlename 
                     lastname
                 }
+                mct {
+                    id
+                    mct_number
+                }
                 mrv_approvers{
                     approver {
                         id

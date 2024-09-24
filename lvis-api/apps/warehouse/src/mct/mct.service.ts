@@ -193,7 +193,7 @@ export class MctService {
         }
 
         if (requested_by_id) {
-            whereCondition = { ...whereCondition, requested_by_id }
+            whereCondition = { ...whereCondition, mrv: { requested_by_id: requested_by_id } }
         }
         
         whereCondition.cancelled_at = {

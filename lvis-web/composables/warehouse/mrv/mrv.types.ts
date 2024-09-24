@@ -5,6 +5,7 @@ import type { CreateMRVApprover, MRVApprover } from "./mrv-approver.types";
 import type { MRVItem } from "./mrv-item.types";
 import type { Station } from "../station/station";
 import { WAREHOUSE_REQUEST_TYPE } from "#imports";
+import type { MCT } from "../mct/mct.types";
 
 
 export interface MRV {
@@ -39,8 +40,10 @@ export interface MRV {
   
   
     // =============== derived / resolvers =============== 
-  
+    
+    mct: MCT | undefined;
     requested_by: Employee;
+    is_referenced: boolean;
     withdrawn_by: Employee | null;
     item_from: Station;
     project: Project

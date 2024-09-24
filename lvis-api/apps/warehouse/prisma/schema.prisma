@@ -840,7 +840,7 @@ model MRV {
   item_from      Station      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
   mrv_approvers MRVApprover[]
   mrv_items MRVItem[]
-  mcts MCT[]
+  mct MCT?
   project Project @relation(fields: [project_id], references: [id], onDelete: Restrict)
 
   metadata Json?
@@ -887,7 +887,7 @@ model MRVItem {
 
 model MCT {
   id                String    @id @default(uuid())
-  mrv_id                String
+  mrv_id                String @unique
   mct_number         String    @unique
   mct_date    DateTime
 

@@ -19,7 +19,7 @@
                                     </label>
                                     <client-only>
                                         <v-select @search="handleSearchRcNumber" @option:selected="onRcNumberSelected" :options="canvasses" label="rc_number"
-                                            v-model="rvData.canvass">
+                                            v-model="rvData.canvass" :clearable=false>
                                             <template v-slot:option="option">
                                                 <div v-if="option.is_referenced" class="row">
                                                     <div class="col">
