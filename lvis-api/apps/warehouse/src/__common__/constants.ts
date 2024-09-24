@@ -20,7 +20,7 @@ export const VAT = {
     },
 }
 
-export const enum DB_ENTITY {
+export enum DB_ENTITY {
     RV = 'request_voucher',
     SPR = 'spare_parts_request',
     JO = 'job_order',

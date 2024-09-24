@@ -10,6 +10,7 @@ import { RrApproverStatusUpdated } from '../rr-approver/events/rr-approver-statu
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { OsrivApproverStatusUpdated } from '../osriv-approver/events/osriv-approver-status-updated.event';
 import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-approver-status-updated.event';
+import { MctApproverStatusUpdated } from '../mct-approver/events/mct-approver-status-updated.event';
 
 @Injectable()
 export class PendingService {
@@ -241,17 +242,35 @@ export class PendingService {
 
             // emit event so that item will be transacted and stock qty will be added/deducted on the item inventory
             // handler functions are located at item.service.ts
-            // approverModel.id = rrApproverID / osrivApproverID / serivApproverID
 
-            if(status === APPROVAL_STATUS.APPROVED && module.model === 'rR') {
-                this.eventEmitter.emit('rr-approver-status.updated', new RrApproverStatusUpdated(approverModel.id))
-            } 
-            else if(status === APPROVAL_STATUS.APPROVED && module.model === 'oSRIV') {
-                this.eventEmitter.emit('osriv-approver-status.updated', new OsrivApproverStatusUpdated(approverModel.id))
+            if (status === APPROVAL_STATUS.APPROVED) {
+                const eventMap = {
+                    [DB_ENTITY.RR]: { event: 'rr-approver-status.updated', eventClass: RrApproverStatusUpdated },
+                    [DB_ENTITY.OSRIV]: { event: 'osriv-approver-status.updated', eventClass: OsrivApproverStatusUpdated },
+                    [DB_ENTITY.SERIV]: { event: 'seriv-approver-status.updated', eventClass: SerivApproverStatusUpdated },
+                    [DB_ENTITY.MCT]: { event: 'mct-approver-status.updated', eventClass: MctApproverStatusUpdated },
+                };
+            
+                const entity = Object.values(DB_ENTITY).find(key => module.model === MODULE_MAPPER[key].model);
+                
+                if (entity && eventMap[entity]) {
+                    const { event, eventClass } = eventMap[entity];
+                    this.eventEmitter.emit(event, new eventClass(approverModel.id));
+                }
             }
-            else if(status === APPROVAL_STATUS.APPROVED && module.model === 'sERIV') {
-                this.eventEmitter.emit('seriv-approver-status.updated', new SerivApproverStatusUpdated(approverModel.id))
-            }
+
+            // if(status === APPROVAL_STATUS.APPROVED && module.model === MODULE_MAPPER[DB_ENTITY.RR].model) {
+            //     this.eventEmitter.emit('rr-approver-status.updated', new RrApproverStatusUpdated(approverModel.id))
+            // } 
+            // else if(status === APPROVAL_STATUS.APPROVED && module.model === MODULE_MAPPER[DB_ENTITY.OSRIV].model) {
+            //     this.eventEmitter.emit('osriv-approver-status.updated', new OsrivApproverStatusUpdated(approverModel.id))
+            // }
+            // else if(status === APPROVAL_STATUS.APPROVED && module.model === MODULE_MAPPER[DB_ENTITY.SERIV].model) {
+            //     this.eventEmitter.emit('seriv-approver-status.updated', new SerivApproverStatusUpdated(approverModel.id))
+            // }
+            // else if(status === APPROVAL_STATUS.APPROVED && module.model === MODULE_MAPPER[DB_ENTITY.MCT].model) {
+            //     this.eventEmitter.emit('mct-approver-status.updated', new MctApproverStatusUpdated(approverModel.id))
+            // }
 
             return {
                 success: true,

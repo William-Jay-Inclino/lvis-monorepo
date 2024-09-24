@@ -238,6 +238,7 @@ model ItemTransaction {
   rr_item_id String? @unique
   osriv_item_id String? @unique
   seriv_item_id String? @unique
+  mrv_item_id String? @unique
   type       Int
   quantity   Int
   price      Float
@@ -248,6 +249,7 @@ model ItemTransaction {
   rr_item RRItem? @relation(fields: [rr_item_id], references: [id], onDelete: Cascade)
   osriv_item OSRIVItem? @relation(fields: [osriv_item_id], references: [id], onDelete: Cascade)
   seriv_item SERIVItem? @relation(fields: [seriv_item_id], references: [id], onDelete: Cascade)
+  mrv_item MRVItem? @relation(fields: [mrv_item_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   created_by String   @default("admin")
@@ -879,6 +881,7 @@ model MRVItem {
 
   mrv MRV @relation(fields: [mrv_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
+  item_transaction   ItemTransaction?
 
   metadata Json?
 
@@ -891,6 +894,7 @@ model MCT {
   mrv_id                String @unique
   mct_number         String    @unique
   mct_date    DateTime
+  is_completed    Boolean  @default(false)
 
   cancelled_by String?
   created_by   String
