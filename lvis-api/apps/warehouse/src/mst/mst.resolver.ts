@@ -41,8 +41,9 @@ export class MstResolver {
         @Args('page') page: number,
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
+        @Args('returned_by_id', { nullable: true }) returned_by_id?: string,
     ) {
-        return this.mstService.findAll(page, pageSize, date_requested);
+        return this.mstService.findAll(page, pageSize, date_requested, returned_by_id);
     }
 
     @Query(() => [MST])

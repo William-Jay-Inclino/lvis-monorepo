@@ -5,6 +5,7 @@ import type { Item } from "../item/item.type";
 
 export async function fetchDataInSearchFilters(): Promise<{
     msts: MST[],
+    employees: Employee[]
 }> {
     const query = `
         query {
@@ -13,6 +14,14 @@ export async function fetchDataInSearchFilters(): Promise<{
                     mst_number
                 }
             },
+            employees(page: 1, pageSize: 10) {
+                data {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            }
         }
     `;
 
@@ -21,6 +30,7 @@ export async function fetchDataInSearchFilters(): Promise<{
         console.log('response', response)
 
         let msts = []
+        let employees = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -28,18 +38,24 @@ export async function fetchDataInSearchFilters(): Promise<{
 
         const data = response.data.data
 
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
         if (data.msts && data.msts.data) {
             msts = data.msts.data
         }
 
         return {
             msts,
+            employees
         }
 
     } catch (error) {
         console.error(error);
         return {
             msts: [],
+            employees: [],
         }
     }
 }
@@ -55,6 +71,12 @@ export async function findByMstNumber(mstNumber: string): Promise<MST | undefine
                 can_update
                 mst_date
                 cancelled_at
+                returned_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
             }
         }
     `;
@@ -153,14 +175,19 @@ export async function findOne(id: string): Promise<MST | undefined> {
     }
 }
 
-export async function findAll(payload: { page: number, pageSize: number, date_requested: string | null}): Promise<FindAllResponse> {
+export async function findAll(payload: { page: number, pageSize: number, date_requested: string | null, returned_by_id: string | null}): Promise<FindAllResponse> {
 
-    const { page, pageSize, date_requested } = payload;
+    const { page, pageSize, date_requested, returned_by_id } = payload;
 
     let date_requested2 = null
+    let returned_by_id2 = null
 
     if (date_requested) {
         date_requested2 = `"${date_requested}"`
+    }
+
+    if (returned_by_id) {
+        returned_by_id2 = `"${returned_by_id}"`
     }
 
     const query = `
@@ -169,6 +196,7 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 page: ${page},
                 pageSize: ${pageSize},
                 date_requested: ${date_requested2},
+                returned_by_id: ${returned_by_id2},
             ) {
                 data {
                     id
@@ -178,6 +206,12 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                     can_update
                     mst_date
                     cancelled_at
+                    returned_by {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
                 }
                 totalItems
                 currentPage
@@ -301,7 +335,7 @@ export async function create(input: CreateMstInput): Promise<MutationResponse> {
                     returned_by_id: "${input.returned_by?.id}"
                     cwo_number: ${cwo_number}
                     mwo_number: ${mwo_number}
-                    jwo_number: ${jo_number}
+                    jo_number: ${jo_number}
                     remarks: "${input.remarks}"
                     approvers: [${approvers}]
                     items: [${items}]

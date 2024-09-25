@@ -73,6 +73,9 @@
                                 <li><nuxt-link class="dropdown-item"
                                     to="/warehouse/mcrt">MCRT</nuxt-link>
                                 </li>
+                                <li><nuxt-link class="dropdown-item"
+                                    to="/warehouse/mst">MST</nuxt-link>
+                                </li>
                             </ul>
                         </li>
                         <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
@@ -210,6 +213,9 @@
                             </li>
                             <li><nuxt-link class="dropdown-item"
                                 to="/warehouse/mcrt">MCRT</nuxt-link>
+                            </li>
+                            <li><nuxt-link class="dropdown-item"
+                                to="/warehouse/mst">MST</nuxt-link>
                             </li>
                         </ul>
                     </li>

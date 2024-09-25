@@ -33,6 +33,7 @@ export enum MODULES {
     MRV = 'MRV',
     MCT = 'MCT',
     MCRT = 'MCRT',
+    MST = 'MST',
 
     // =======================  DATA MANAGEMENT ======================= 
     SUPPLIER = 'SUPPLIER',
@@ -161,6 +162,12 @@ export enum ROUTES {
     MCRT_UPDATE = `${SERVICES.WAREHOUSE}_MCRT_UPDATE`,
     MCRT_VIEW = `${SERVICES.WAREHOUSE}_MCRT_VIEW`,
 
+    // =======================  MST ======================= 
+    MST_INDEX = `${SERVICES.WAREHOUSE}_MST_INDEX`,
+    MST_CREATE = `${SERVICES.WAREHOUSE}_MST_CREATE`,
+    MST_UPDATE = `${SERVICES.WAREHOUSE}_MST_UPDATE`,
+    MST_VIEW = `${SERVICES.WAREHOUSE}_MST_VIEW`,
+
     // =======================  SUPPLIER ======================= 
     SUPPLIER_INDEX = `${SERVICES.WAREHOUSE}_SUPPLIER_INDEX`,
     SUPPLIER_CREATE = `${SERVICES.WAREHOUSE}_SUPPLIER_CREATE`,
@@ -204,6 +211,7 @@ export enum DB_ENTITY {
     MRV = 'mrv',
     MCT = 'mct',
     MCRT = 'MCRT',
+    MST = 'MST',
 }
 
 export const approvalStatus = {
@@ -321,6 +329,7 @@ export const MODULE_MAPPER = {
     [DB_ENTITY.MRV]: 'mrv',
     [DB_ENTITY.MCT]: 'mct',
     [DB_ENTITY.MCRT]: 'mcrt',
+    [DB_ENTITY.MST]: 'mst',
 }
 
 export const enum ITEM_TYPE {

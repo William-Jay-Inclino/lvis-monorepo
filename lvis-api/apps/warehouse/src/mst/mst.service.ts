@@ -203,7 +203,7 @@ export class MstService {
         return item;
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string): Promise<MSTsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, returned_by_id?: string): Promise<MSTsResponse> {
         console.log('mst: findAll');
         const skip = (page - 1) * pageSize;
 
@@ -219,6 +219,10 @@ export class MstService {
                 lte: endDate,
             };
 
+        }
+
+        if (returned_by_id) {
+            whereCondition = { ...whereCondition, returned_by_id }
         }
         
         whereCondition.cancelled_at = {
