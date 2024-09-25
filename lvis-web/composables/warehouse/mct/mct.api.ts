@@ -110,6 +110,10 @@ export async function findOne(id: string): Promise<MCT | undefined> {
                 mct_number
                 status
                 mct_date 
+                mcrt {
+                    id
+                    mcrt_number
+                }
                 mrv {
                     id
                     mrv_number

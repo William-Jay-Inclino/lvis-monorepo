@@ -1,6 +1,7 @@
 import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateMCTApprover, MCTApprover } from "./mct-approver.types";
 import type { MRV } from "../mrv/mrv.types";
+import type { MCRT } from "../mcrt/mcrt.types";
 
 
 export interface MCT {
@@ -22,6 +23,7 @@ export interface MCT {
   
     // =============== derived / resolvers =============== 
     mrv: MRV;  
+    mcrt: MCRT;  
     mct_approvers: MCTApprover[]
     status: APPROVAL_STATUS
     is_referenced: boolean;

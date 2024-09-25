@@ -44,6 +44,17 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td class="text-muted">MCRT Number</td>
+                                                <td>
+                                                    <nuxt-link
+                                                        v-if="item.mcrt"
+                                                        :to="'/warehouse/mcrt/view/' + item.mcrt.id">{{
+                                                        item.mcrt.mcrt_number
+                                                        }}</nuxt-link>
+                                                    <div v-else> N/A </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td class="text-muted">Date</td>
                                                 <td> {{ formatDate(item.mct_date) }} </td>
                                             </tr>
@@ -173,7 +184,6 @@ import Swal from 'sweetalert2'
 import axios from 'axios';
 import { canPrint } from '~/utils/permissions';
 import { APPROVAL_STATUS, isBlankStatus } from '#imports';
-import { showCWOnumber, showMWOnumber, showORnumber } from '~/utils/helpers';
 
 definePageMeta({
     name: ROUTES.MCT_VIEW,

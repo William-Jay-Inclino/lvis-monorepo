@@ -144,20 +144,21 @@ export class MctService {
     async findBy(payload: { id?: string, mct_number?: string }): Promise<MCT | null> {
         const item = await this.prisma.mCT.findFirst({
             include: {
-              mrv: {
-                include: {
-                  mrv_items: {
+                mcrt: true,
+                mrv: {
                     include: {
-                        item: {
-                            include: {
-                                unit: true,
-                                item_transactions: true
+                    mrv_items: {
+                        include: {
+                            item: {
+                                include: {
+                                    unit: true,
+                                    item_transactions: true
+                                }
                             }
                         }
+                    },
                     }
-                },
                 }
-              }
             },
             where: {
                 OR: [
