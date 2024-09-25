@@ -5,6 +5,7 @@ import type { CreateSERIVApprover, SERIVApprover } from "./seriv-approver.types"
 import type { SERIVItem } from "./seriv-item.types";
 import type { Station } from "../station/station";
 import { WAREHOUSE_REQUEST_TYPE } from "#imports";
+import type { MCRT } from "../mcrt/mcrt.types";
 
 
 export interface SERIV {
@@ -38,7 +39,8 @@ export interface SERIV {
   
   
     // =============== derived / resolvers =============== 
-  
+
+    mcrt: MCRT | null;
     requested_by: Employee;
     withdrawn_by: Employee | null;
     is_referenced: boolean;

@@ -198,6 +198,7 @@ export class SerivService {
                     }
                 },
                 item_from: true,
+                mcrt: true,
             },
             where: {
                 OR: [

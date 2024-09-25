@@ -179,6 +179,8 @@ export class McrtService {
     async findBy(payload: { id?: string, mcrt_number?: string }): Promise<MCRT | null> {
         const item = await this.prisma.mCRT.findFirst({
             include: {
+                mct: true,
+                seriv: true,
                 mcrt_items: {
                     include: {
                         item: {

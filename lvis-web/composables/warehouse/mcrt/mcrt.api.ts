@@ -103,6 +103,14 @@ export async function findOne(id: string): Promise<MCRT | undefined> {
                 created_by
                 can_update
                 note
+                mct {
+                    id 
+                    mct_number
+                }
+                seriv {
+                    id 
+                    seriv_number
+                }
                 returned_by {
                     firstname 
                     middlename 

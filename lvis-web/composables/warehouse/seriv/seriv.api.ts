@@ -120,6 +120,10 @@ export async function findOne(id: string): Promise<SERIV | undefined> {
                 cancelled_at
                 created_by
                 can_update
+                mcrt {
+                    id
+                    mcrt_number
+                }
                 item_from {
                     name
                 }
