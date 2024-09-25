@@ -32,6 +32,7 @@ export enum DB_ENTITY {
     MRV = 'mrv',
     MCT = 'mct',
     MCRT = 'mcrt',
+    MST = 'mst',
 }
 
 export const enum ITEM_TYPE {
@@ -141,5 +142,12 @@ export const MODULE_MAPPER = {
         id: 'mcrt_id',
         approverModel: 'mCRTApprover',
         approvers: 'mcrt_approvers',
+    },
+    [DB_ENTITY.MST]: {
+        model: 'mST',
+        rcNumber: 'mst_number',
+        id: 'mst_id',
+        approverModel: 'mSTApprover',
+        approvers: 'mst_approvers',
     },
 }

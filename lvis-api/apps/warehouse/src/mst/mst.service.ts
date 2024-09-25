@@ -1,21 +1,21 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateMcrtInput } from './dto/create-mcrt.input';
+import { CreateMstInput } from './dto/create-mst.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { AuthUser } from '../__common__/auth-user.entity';
-import { MCRT, Prisma } from 'apps/warehouse/prisma/generated/client';
+import { MST, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { CreateMcrtApproverSubInput } from './dto/create-mcrt-approver.sub.input';
+import { CreateMstApproverSubInput } from './dto/create-mst-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
-import { UpdateMcrtInput } from './dto/update-mcrt.input';
+import { UpdateMstInput } from './dto/update-mst.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
-import { MCRTsResponse } from './entities/mcrts-response.entity';
+import { MSTsResponse } from './entities/msts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { CreateMcrtItemSubInput } from './dto/create-mcrt-item.sub.input';
+import { CreateMstItemSubInput } from './dto/create-mst-item.sub.input';
 
 @Injectable()
-export class McrtService {
+export class MstService {
 
     private authUser: AuthUser
 
@@ -28,28 +28,26 @@ export class McrtService {
         this.authUser = authUser
     }
 
-    async create(input: CreateMcrtInput) {
+    async create(input: CreateMstInput) {
 
-        console.log('mcrt create', input);
+        console.log('mst create', input);
 
         if (!(await this.canCreate(input))) {
-            throw new Error('Failed to create MCRT. Please try again')
+            throw new Error('Failed to create MST. Please try again')
         }
 
-        const mcrtNumber = await this.getLatestMcrtNumber()
+        const mstNumber = await this.getLatestMstNumber()
 
-        const data: Prisma.MCRTCreateInput = {
+        const data: Prisma.MSTCreateInput = {
             created_by: this.authUser.user.username,
-            mct: input.mct_id ? { connect: { id: input.mct_id } } : undefined,
-            seriv: input.seriv_id? { connect: { id: input.seriv_id } } : undefined,
-            mcrt_number: mcrtNumber,
-            mcrt_date: new Date(),
+            mst_number: mstNumber,
+            mst_date: new Date(),
             returned_by_id: input.returned_by_id,
-            wo_number: input.wo_number,
-            mo_number: input.mo_number,
+            cwo_number: input.cwo_number,
+            mwo_number: input.mwo_number,
             jo_number: input.jo_number,
-            note: input.note,
-            mcrt_approvers: {
+            remarks: input.remarks,
+            mst_approvers: {
                 create: input.approvers.map(i => {
                     return {
                         approver_id: i.approver_id,
@@ -61,7 +59,7 @@ export class McrtService {
                     }
                 })
             },
-            mcrt_items: {
+            mst_items: {
                 create: input.items.map(i => {
                     return {
                         item: {connect: {id: i.item_id}},
@@ -74,12 +72,12 @@ export class McrtService {
 
         const queries: Prisma.PrismaPromise<any>[] = []
 
-        // create MCRT
-        const createMcrtQuery = this.prisma.mCRT.create({ data })
-        queries.push(createMcrtQuery)
+        // create MST
+        const createMstQuery = this.prisma.mST.create({ data })
+        queries.push(createMstQuery)
 
         // create pending
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, mcrtNumber)
+        const createPendingQuery = this.getCreatePendingQuery(input.approvers, mstNumber)
         queries.push(createPendingQuery)
 
         // update item quantity_on_queue on each item
@@ -89,7 +87,7 @@ export class McrtService {
 
         const result = await this.prisma.$transaction(allQueries)
 
-        console.log('MCRT created successfully');
+        console.log('MST created successfully');
         console.log('Increment quantity_on_queue on each item')
         console.log('Pending with associated approver created successfully');
 
@@ -97,7 +95,7 @@ export class McrtService {
 
     }
 
-    private generateUpdateItemQueries(items: CreateMcrtItemSubInput[]) {
+    private generateUpdateItemQueries(items: CreateMstItemSubInput[]) {
         return items.map(item => {
             return this.prisma.item.update({
                 where: { id: item.item_id },
@@ -110,7 +108,7 @@ export class McrtService {
         });
     }
 
-    private getCreatePendingQuery(approvers: CreateMcrtApproverSubInput[], mcrtNumber: string) {
+    private getCreatePendingQuery(approvers: CreateMstApproverSubInput[], mstNumber: string) {
 
         const firstApprover = approvers.reduce((min, obj) => {
             return obj.order < min.order ? obj : min;
@@ -118,9 +116,9 @@ export class McrtService {
 
         const data = {
             approver_id: firstApprover.approver_id,
-            reference_number: mcrtNumber,
-            reference_table: DB_ENTITY.MCRT,
-            description: `MCRT no. ${mcrtNumber}`
+            reference_number: mstNumber,
+            reference_table: DB_ENTITY.MST,
+            description: `MST no. ${mstNumber}`
         }
 
         return this.prisma.pending.create({ data })
@@ -129,12 +127,12 @@ export class McrtService {
 
     async cancel(id: string): Promise<WarehouseCancelResponse> {
 
-        const existingItem = await this.prisma.mCRT.findUnique({
+        const existingItem = await this.prisma.mST.findUnique({
             where: { id },
         })
 
         if (!existingItem) {
-            throw new NotFoundException('MCRT not found')
+            throw new NotFoundException('MST not found')
         }
 
         if (!this.canAccess(existingItem)) {
@@ -143,7 +141,7 @@ export class McrtService {
 
         const queries: Prisma.PrismaPromise<any>[] = []
         
-        const updateMcrtQuery = this.prisma.mCRT.update({
+        const updateMstQuery = this.prisma.mST.update({
             data: {
                 cancelled_at: new Date(),
                 cancelled_by: this.authUser.user.username,
@@ -151,13 +149,13 @@ export class McrtService {
             where: { id }
         })
 
-        queries.push(updateMcrtQuery)
+        queries.push(updateMstQuery)
 
         // delete all associated pendings
 
         const deleteAssociatedPendings = this.prisma.pending.deleteMany({
             where: {
-                reference_number: existingItem.mcrt_number
+                reference_number: existingItem.mst_number
             }
         })
 
@@ -165,23 +163,21 @@ export class McrtService {
 
         const result = await this.prisma.$transaction(queries)
 
-        console.log('Successfully cancelled MCRT');
+        console.log('Successfully cancelled MST');
 
         return {
             success: true,
-            msg: 'Successfully cancelled MCRT',
+            msg: 'Successfully cancelled MST',
             cancelled_at: result[0].cancelled_at,
             cancelled_by: result[0].cancelled_by
         }
 
     }
 
-    async findBy(payload: { id?: string, mcrt_number?: string }): Promise<MCRT | null> {
-        const item = await this.prisma.mCRT.findFirst({
+    async findBy(payload: { id?: string, mst_number?: string }): Promise<MST | null> {
+        const item = await this.prisma.mST.findFirst({
             include: {
-                mct: true,
-                seriv: true,
-                mcrt_items: {
+                mst_items: {
                     include: {
                         item: {
                             include: {
@@ -195,20 +191,20 @@ export class McrtService {
             where: {
                 OR: [
                     { id: payload.id },
-                    { mcrt_number: payload.mcrt_number }
+                    { mst_number: payload.mst_number }
                 ]
             }
         });
     
         if (!item) {
-            throw new NotFoundException('MCRT not found');
+            throw new NotFoundException('MST not found');
         }
     
         return item;
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string): Promise<MCRTsResponse> {
-        console.log('mcrt: findAll');
+    async findAll(page: number, pageSize: number, date_requested?: string): Promise<MSTsResponse> {
+        console.log('mst: findAll');
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
@@ -218,7 +214,7 @@ export class McrtService {
             console.log('startDate', startDate);
             console.log('endDate', endDate)
 
-            whereCondition.mcrt_date = {
+            whereCondition.mst_date = {
                 gte: startDate,
                 lte: endDate,
             };
@@ -230,15 +226,15 @@ export class McrtService {
         }
 
         const [items, totalItems] = await this.prisma.$transaction([
-            this.prisma.mCRT.findMany({
+            this.prisma.mST.findMany({
                 where: whereCondition,
                 orderBy: {
-                    mcrt_number: 'desc'
+                    mst_number: 'desc'
                 },
                 skip,
                 take: pageSize,
             }),
-            this.prisma.mCRT.count({
+            this.prisma.mST.count({
                 where: whereCondition,
             })
         ])
@@ -251,30 +247,30 @@ export class McrtService {
         };
     }
 
-    async findMcrtsByMcrtNumber(mcrtNumber: string, includeDetails: boolean = false) {
+    async findMstsByMstNumber(mstNumber: string, includeDetails: boolean = false) {
 
-		const trimmedMcrtNumber = mcrtNumber.trim(); 
+		const trimmedMstNumber = mstNumber.trim(); 
 
         let selectClause;
         if (includeDetails) {
             selectClause = { 
                 id: true,
-                mcrt_number: true, 
+                mst_number: true, 
             }; 
         } else {
-            selectClause = { mcrt_number: true };
+            selectClause = { mst_number: true };
         }
 
-        const items = await this.prisma.mCRT.findMany({
+        const items = await this.prisma.mST.findMany({
             select: selectClause,
             where: {
-                mcrt_number: {
-                    startsWith: trimmedMcrtNumber
+                mst_number: {
+                    startsWith: trimmedMstNumber
                 },
                 cancelled_at: null
             },
             orderBy: {
-                mcrt_number: 'desc'
+                mst_number: 'desc'
             },
             take: 10,
         });
@@ -284,9 +280,9 @@ export class McrtService {
 
     async getStatus(id: string): Promise<APPROVAL_STATUS> {
 
-        const approvers = await this.prisma.mCRTApprover.findMany({
+        const approvers = await this.prisma.mSTApprover.findMany({
             where: {
-                mcrt_id: id,
+                mst_id: id,
             }
         })
 
@@ -306,33 +302,33 @@ export class McrtService {
 
     }
 
-    async update(id: string, input: UpdateMcrtInput) {
+    async update(id: string, input: UpdateMstInput) {
         console.log('TBA: update');
     }
 
-    async canUpdateForm(mcrtId: string): Promise<Boolean> {
+    async canUpdateForm(mstId: string): Promise<Boolean> {
 
         if (isAdmin(this.authUser)) {
             return true
         }
 
-        const mcrt = await this.prisma.mCRT.findUnique({
+        const mst = await this.prisma.mST.findUnique({
             where: {
-                id: mcrtId
+                id: mstId
             },
             select: {
                 created_by: true,
-                mcrt_approvers: true
+                mst_approvers: true
             }
         })
 
-        const isOwner = mcrt.created_by === this.authUser.user.username
+        const isOwner = mst.created_by === this.authUser.user.username
 
         if (!isOwner) {
             return false
         }
 
-        const hasApproval = mcrt.mcrt_approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)
+        const hasApproval = mst.mst_approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)
 
         if (hasApproval) {
             return false
@@ -342,16 +338,16 @@ export class McrtService {
 
     }
 
-    private async getLatestMcrtNumber(): Promise<string> {
+    private async getLatestMstNumber(): Promise<string> {
         const currentYear = new Date().getFullYear().toString().slice(-2);
 
-        const latestItem = await this.prisma.mCRT.findFirst({
-            where: { mcrt_number: { startsWith: currentYear } },
-            orderBy: { mcrt_number: 'desc' },
+        const latestItem = await this.prisma.mST.findFirst({
+            where: { mst_number: { startsWith: currentYear } },
+            orderBy: { mst_number: 'desc' },
         });
 
         if (latestItem) {
-            const latestNumericPart = parseInt(latestItem.mcrt_number.slice(-5), 10);
+            const latestNumericPart = parseInt(latestItem.mst_number.slice(-5), 10);
             const newNumericPart = latestNumericPart + 1;
             const newRcNumber = `${currentYear}-${newNumericPart.toString().padStart(5, '0')}`;
             return newRcNumber;
@@ -361,7 +357,7 @@ export class McrtService {
         }
     }
 
-    private canAccess(item: MCRT): boolean {
+    private canAccess(item: MST): boolean {
 
         if (isAdmin(this.authUser)) return true
 
@@ -417,7 +413,7 @@ export class McrtService {
         }
     }
 
-    private async canCreate(input: CreateMcrtInput): Promise<boolean> {
+    private async canCreate(input: CreateMstInput): Promise<boolean> {
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
@@ -435,23 +431,23 @@ export class McrtService {
 
     }
 
-    private async canUpdate(input: UpdateMcrtInput, existingItem: MCRT): Promise<boolean> {
+    private async canUpdate(input: UpdateMstInput, existingItem: MST): Promise<boolean> {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
 
             console.log('is normal user')
 
-            const approvers = await this.prisma.mCRTApprover.findMany({
+            const approvers = await this.prisma.mSTApprover.findMany({
                 where: {
-                    mcrt_id: existingItem.id
+                    mst_id: existingItem.id
                 }
             })
 
             const hasAnyNonPendingApprover = approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)
 
             if (hasAnyNonPendingApprover) {
-                throw new BadRequestException(`Unable to update MCRT. Can only update if all approver's status is pending`)
+                throw new BadRequestException(`Unable to update MST. Can only update if all approver's status is pending`)
             }
         }
 

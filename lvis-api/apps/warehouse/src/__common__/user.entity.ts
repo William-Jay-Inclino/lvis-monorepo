@@ -231,6 +231,22 @@ export interface WarehousePermissions {
         search?: boolean,
         viewDetails?: boolean
     },
+    canManageMST?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+        print?: boolean,
+    },
+    canManageMSTApprover?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+    },
+    canManageMSTItem?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+    },
 
     // ========= DATA MANAGEMENT ========= 
     canManageSupplier?: {

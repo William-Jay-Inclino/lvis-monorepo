@@ -191,6 +191,10 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.createMcrt]: warehousePermissions.canManageMCRT?.create ?? false,
             [RESOLVERS.printMcrt]: warehousePermissions.canManageMCRT?.print ?? false,
         },
+        [MODULES.MST]: {
+            [RESOLVERS.createMst]: warehousePermissions.canManageMST?.create ?? false,
+            [RESOLVERS.printMst]: warehousePermissions.canManageMST?.print ?? false,
+        },
         [MODULES.SUPPLIER]: {
             [RESOLVERS.createSupplier]: warehousePermissions.canManageSupplier?.create ?? false,
             // [RESOLVERS.suppliers]: warehousePermissions.canManageSupplier?.search ?? false,

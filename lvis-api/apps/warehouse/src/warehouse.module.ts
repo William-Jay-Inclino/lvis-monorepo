@@ -58,6 +58,9 @@ import { MctApproverModule } from './mct-approver/mct-approver.module';
 import { McrtModule } from './mcrt/mcrt.module';
 import { McrtApproverModule } from './mcrt-approver/mcrt-approver.module';
 import { McrtItemModule } from './mcrt-item/mcrt-item.module';
+import { MstModule } from './mst/mst.module';
+import { MstApproverModule } from './mst-approver/mst-approver.module';
+import { MstItemModule } from './mst-item/mst-item.module';
 
 
 @Module({
@@ -115,6 +118,9 @@ import { McrtItemModule } from './mcrt-item/mcrt-item.module';
     McrtModule,
     McrtApproverModule,
     McrtItemModule,
+    MstModule,
+    MstApproverModule,
+    MstItemModule,
     // PrometheusModule.register()
   ],
   controllers: [],
