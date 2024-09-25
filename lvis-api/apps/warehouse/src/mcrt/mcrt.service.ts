@@ -216,7 +216,7 @@ export class McrtService {
             console.log('startDate', startDate);
             console.log('endDate', endDate)
 
-            whereCondition.date_requested = {
+            whereCondition.mcrt_date = {
                 gte: startDate,
                 lte: endDate,
             };
