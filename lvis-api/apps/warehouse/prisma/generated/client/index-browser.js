@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.8.1
- * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3
+ * Query Engine version: 06fc58a368dc7be9fbbbe894adf8d445d208c284
  */
 Prisma.prismaVersion = {
   client: "5.8.1",
-  engine: "69d742ee20b815d88e17e54db4a2a7a3b30324e3"
+  engine: "06fc58a368dc7be9fbbbe894adf8d445d208c284"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -230,6 +230,7 @@ exports.Prisma.ItemTransactionScalarFieldEnum = {
   osriv_item_id: 'osriv_item_id',
   seriv_item_id: 'seriv_item_id',
   mrv_item_id: 'mrv_item_id',
+  mcrt_item_id: 'mcrt_item_id',
   type: 'type',
   quantity: 'quantity',
   price: 'price',
@@ -656,6 +657,7 @@ exports.Prisma.MCRTScalarFieldEnum = {
   seriv_id: 'seriv_id',
   mcrt_number: 'mcrt_number',
   mcrt_date: 'mcrt_date',
+  is_completed: 'is_completed',
   returned_by_id: 'returned_by_id',
   wo_number: 'wo_number',
   mo_number: 'mo_number',
@@ -686,6 +688,46 @@ exports.Prisma.MCRTApproverScalarFieldEnum = {
 exports.Prisma.MCRTItemScalarFieldEnum = {
   id: 'id',
   mcrt_id: 'mcrt_id',
+  item_id: 'item_id',
+  quantity: 'quantity',
+  price: 'price',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MSTScalarFieldEnum = {
+  id: 'id',
+  mst_number: 'mst_number',
+  mst_date: 'mst_date',
+  returned_by_id: 'returned_by_id',
+  cwo_number: 'cwo_number',
+  mwo_number: 'mwo_number',
+  jo_number: 'jo_number',
+  remarks: 'remarks',
+  cancelled_by: 'cancelled_by',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  cancelled_at: 'cancelled_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MSTApproverScalarFieldEnum = {
+  id: 'id',
+  mst_id: 'mst_id',
+  approver_id: 'approver_id',
+  date_approval: 'date_approval',
+  notes: 'notes',
+  status: 'status',
+  label: 'label',
+  label_id: 'label_id',
+  order: 'order',
+  metadata: 'metadata'
+};
+
+exports.Prisma.MSTItemScalarFieldEnum = {
+  id: 'id',
+  mst_id: 'mst_id',
   item_id: 'item_id',
   quantity: 'quantity',
   price: 'price',
@@ -761,7 +803,10 @@ exports.Prisma.ModelName = {
   MCTApprover: 'MCTApprover',
   MCRT: 'MCRT',
   MCRTApprover: 'MCRTApprover',
-  MCRTItem: 'MCRTItem'
+  MCRTItem: 'MCRTItem',
+  MST: 'MST',
+  MSTApprover: 'MSTApprover',
+  MSTItem: 'MSTItem'
 };
 
 /**

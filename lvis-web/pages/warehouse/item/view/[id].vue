@@ -121,6 +121,34 @@
                                                         </nuxt-link>
         
                                                     </div>
+                                                    <div v-else-if="i.osriv_item">
+                                                        <nuxt-link :to="'/warehouse/osriv/view/' + i.osriv_item.osriv!.id"
+                                                            target="_blank">
+                                                            {{ `OSRIV#${i.osriv_item.osriv?.osriv_number}` }}
+                                                        </nuxt-link>
+        
+                                                    </div>
+                                                    <div v-else-if="i.seriv_item">
+                                                        <nuxt-link :to="'/warehouse/seriv/view/' + i.seriv_item.seriv!.id"
+                                                            target="_blank">
+                                                            {{ `SERIV#${i.seriv_item.seriv?.seriv_number}` }}
+                                                        </nuxt-link>
+        
+                                                    </div>
+                                                    <div v-else-if="i.mrv_item">
+                                                        <nuxt-link :to="'/warehouse/mrv/view/' + i.mrv_item.mrv!.id"
+                                                            target="_blank">
+                                                            {{ `MRV#${i.mrv_item.mrv?.mrv_number}` }}
+                                                        </nuxt-link>
+        
+                                                    </div>
+                                                    <div v-else-if="i.mcrt_item">
+                                                        <nuxt-link :to="'/warehouse/mcrt/view/' + i.mcrt_item.mcrt!.id"
+                                                            target="_blank">
+                                                            {{ `MCRT#${i.mcrt_item.mcrt?.mcrt_number}` }}
+                                                        </nuxt-link>
+        
+                                                    </div>
                                                     <div v-else>
                                                         Initial Transaction
                                                     </div>

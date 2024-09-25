@@ -189,6 +189,7 @@ model Item {
   seriv_items SERIVItem[]
   mrv_items MRVItem[]
   mcrt_items MCRTItem[]
+  mst_items MSTItem[]
 
   metadata Json?
 
@@ -239,6 +240,7 @@ model ItemTransaction {
   osriv_item_id String? @unique
   seriv_item_id String? @unique
   mrv_item_id String? @unique
+  mcrt_item_id String? @unique
   type       Int
   quantity   Int
   price      Float
@@ -250,6 +252,7 @@ model ItemTransaction {
   osriv_item OSRIVItem? @relation(fields: [osriv_item_id], references: [id], onDelete: Cascade)
   seriv_item SERIVItem? @relation(fields: [seriv_item_id], references: [id], onDelete: Cascade)
   mrv_item MRVItem? @relation(fields: [mrv_item_id], references: [id], onDelete: Cascade)
+  mcrt_item MCRTItem? @relation(fields: [mcrt_item_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   created_by String   @default("admin")
@@ -940,6 +943,7 @@ model MCRT {
   seriv_id                String? @unique
   mcrt_number         String    @unique
   mcrt_date    DateTime
+  is_completed    Boolean  @default(false)
 
   returned_by_id String
 
@@ -996,9 +1000,75 @@ model MCRTItem {
 
   mcrt MCRT @relation(fields: [mcrt_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
+  item_transaction   ItemTransaction?
 
   metadata Json?
 
   @@index([mcrt_id, item_id])
   @@map("mcrt_item")
+}
+
+model MST {
+  id                String    @id @default(uuid())
+  mst_number         String    @unique
+  mst_date    DateTime
+
+  returned_by_id String
+
+  cwo_number String?
+  mwo_number String?
+  jo_number String?
+
+  remarks String
+
+  cancelled_by String?
+  created_by   String
+  updated_by   String?
+
+  cancelled_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  mst_approvers MSTApprover[]
+  mst_items MSTItem[]
+
+  metadata Json?
+
+  @@index([mst_date])
+  @@map("mst")
+}
+
+model MSTApprover {
+  id            String    @id @default(uuid())
+  mst_id         String
+  approver_id   String
+  date_approval DateTime?
+  notes         String
+  status        Int
+  label         String
+  label_id         String
+  order         Int
+
+  mst MST @relation(fields: [mst_id], references: [id], onDelete: Cascade)
+
+  metadata Json?
+
+  @@index([mst_id])
+  @@map("mst_approver")
+}
+
+model MSTItem {
+  id            String    @id @default(uuid())
+  mst_id         String
+  item_id         String
+  quantity     Int
+  price      Float @default(0)
+
+  mst MST @relation(fields: [mst_id], references: [id], onDelete: Cascade)
+  item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
+
+  metadata Json?
+
+  @@index([mst_id, item_id])
+  @@map("mst_item")
 }

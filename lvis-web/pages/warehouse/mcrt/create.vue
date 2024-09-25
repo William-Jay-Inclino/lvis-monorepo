@@ -442,7 +442,25 @@
             } else {
                 mcrtData.value.mct = null
             }
+            return 
         }
+
+        if(!mcrtData.value.mct) return 
+
+        // populate mcrtData.items
+        mcrtData.value.items = mcrtData.value.mct.mrv.mrv_items.map(i => {
+            const item: AddMCRTItem = {
+                itemId: i.item.id,
+                name: i.item.name,
+                description: i.item.description,
+                referenceQty: i.quantity,
+                mcrtQty: 0,
+                unit: i.item.unit,
+                unitPrice: i.price,
+                showQtyError: false,
+            }
+            return item
+        })
     }
 
     function onSerivNumberSelected(payload: SERIV) {

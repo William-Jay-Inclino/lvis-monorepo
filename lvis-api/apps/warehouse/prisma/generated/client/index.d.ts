@@ -223,6 +223,21 @@ export type MCRTApprover = $Result.DefaultSelection<Prisma.$MCRTApproverPayload>
  * 
  */
 export type MCRTItem = $Result.DefaultSelection<Prisma.$MCRTItemPayload>
+/**
+ * Model MST
+ * 
+ */
+export type MST = $Result.DefaultSelection<Prisma.$MSTPayload>
+/**
+ * Model MSTApprover
+ * 
+ */
+export type MSTApprover = $Result.DefaultSelection<Prisma.$MSTApproverPayload>
+/**
+ * Model MSTItem
+ * 
+ */
+export type MSTItem = $Result.DefaultSelection<Prisma.$MSTItemPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -765,6 +780,36 @@ export class PrismaClient<
     * ```
     */
   get mCRTItem(): Prisma.MCRTItemDelegate<ExtArgs>;
+
+  /**
+   * `prisma.mST`: Exposes CRUD operations for the **MST** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MSTS
+    * const mSTS = await prisma.mST.findMany()
+    * ```
+    */
+  get mST(): Prisma.MSTDelegate<ExtArgs>;
+
+  /**
+   * `prisma.mSTApprover`: Exposes CRUD operations for the **MSTApprover** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MSTApprovers
+    * const mSTApprovers = await prisma.mSTApprover.findMany()
+    * ```
+    */
+  get mSTApprover(): Prisma.MSTApproverDelegate<ExtArgs>;
+
+  /**
+   * `prisma.mSTItem`: Exposes CRUD operations for the **MSTItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MSTItems
+    * const mSTItems = await prisma.mSTItem.findMany()
+    * ```
+    */
+  get mSTItem(): Prisma.MSTItemDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -823,7 +868,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.8.1
-   * Query Engine version: 69d742ee20b815d88e17e54db4a2a7a3b30324e3
+   * Query Engine version: 06fc58a368dc7be9fbbbe894adf8d445d208c284
    */
   export type PrismaVersion = {
     client: string
@@ -1276,7 +1321,10 @@ export namespace Prisma {
     MCTApprover: 'MCTApprover',
     MCRT: 'MCRT',
     MCRTApprover: 'MCRTApprover',
-    MCRTItem: 'MCRTItem'
+    MCRTItem: 'MCRTItem',
+    MST: 'MST',
+    MSTApprover: 'MSTApprover',
+    MSTItem: 'MSTItem'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1293,7 +1341,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'supplier' | 'unit' | 'vehicle' | 'station' | 'project' | 'pending' | 'item' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem'
+      modelProps: 'supplier' | 'unit' | 'vehicle' | 'station' | 'project' | 'pending' | 'item' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -4069,6 +4117,204 @@ export namespace Prisma {
           }
         }
       }
+      MST: {
+        payload: Prisma.$MSTPayload<ExtArgs>
+        fields: Prisma.MSTFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MSTFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MSTFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTPayload>
+          }
+          findFirst: {
+            args: Prisma.MSTFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MSTFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTPayload>
+          }
+          findMany: {
+            args: Prisma.MSTFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTPayload>[]
+          }
+          create: {
+            args: Prisma.MSTCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTPayload>
+          }
+          createMany: {
+            args: Prisma.MSTCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.MSTDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTPayload>
+          }
+          update: {
+            args: Prisma.MSTUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTPayload>
+          }
+          deleteMany: {
+            args: Prisma.MSTDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MSTUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.MSTUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTPayload>
+          }
+          aggregate: {
+            args: Prisma.MSTAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateMST>
+          }
+          groupBy: {
+            args: Prisma.MSTGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<MSTGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MSTCountArgs<ExtArgs>,
+            result: $Utils.Optional<MSTCountAggregateOutputType> | number
+          }
+        }
+      }
+      MSTApprover: {
+        payload: Prisma.$MSTApproverPayload<ExtArgs>
+        fields: Prisma.MSTApproverFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MSTApproverFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTApproverPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MSTApproverFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTApproverPayload>
+          }
+          findFirst: {
+            args: Prisma.MSTApproverFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTApproverPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MSTApproverFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTApproverPayload>
+          }
+          findMany: {
+            args: Prisma.MSTApproverFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTApproverPayload>[]
+          }
+          create: {
+            args: Prisma.MSTApproverCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTApproverPayload>
+          }
+          createMany: {
+            args: Prisma.MSTApproverCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.MSTApproverDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTApproverPayload>
+          }
+          update: {
+            args: Prisma.MSTApproverUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTApproverPayload>
+          }
+          deleteMany: {
+            args: Prisma.MSTApproverDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MSTApproverUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.MSTApproverUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTApproverPayload>
+          }
+          aggregate: {
+            args: Prisma.MSTApproverAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateMSTApprover>
+          }
+          groupBy: {
+            args: Prisma.MSTApproverGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<MSTApproverGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MSTApproverCountArgs<ExtArgs>,
+            result: $Utils.Optional<MSTApproverCountAggregateOutputType> | number
+          }
+        }
+      }
+      MSTItem: {
+        payload: Prisma.$MSTItemPayload<ExtArgs>
+        fields: Prisma.MSTItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MSTItemFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MSTItemFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTItemPayload>
+          }
+          findFirst: {
+            args: Prisma.MSTItemFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MSTItemFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTItemPayload>
+          }
+          findMany: {
+            args: Prisma.MSTItemFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTItemPayload>[]
+          }
+          create: {
+            args: Prisma.MSTItemCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTItemPayload>
+          }
+          createMany: {
+            args: Prisma.MSTItemCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.MSTItemDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTItemPayload>
+          }
+          update: {
+            args: Prisma.MSTItemUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.MSTItemDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MSTItemUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.MSTItemUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MSTItemPayload>
+          }
+          aggregate: {
+            args: Prisma.MSTItemAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateMSTItem>
+          }
+          groupBy: {
+            args: Prisma.MSTItemGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<MSTItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MSTItemCountArgs<ExtArgs>,
+            result: $Utils.Optional<MSTItemCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4435,6 +4681,7 @@ export namespace Prisma {
     seriv_items: number
     mrv_items: number
     mcrt_items: number
+    mst_items: number
   }
 
   export type ItemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4445,6 +4692,7 @@ export namespace Prisma {
     seriv_items?: boolean | ItemCountOutputTypeCountSeriv_itemsArgs
     mrv_items?: boolean | ItemCountOutputTypeCountMrv_itemsArgs
     mcrt_items?: boolean | ItemCountOutputTypeCountMcrt_itemsArgs
+    mst_items?: boolean | ItemCountOutputTypeCountMst_itemsArgs
   }
 
   // Custom InputTypes
@@ -4513,6 +4761,14 @@ export namespace Prisma {
    */
   export type ItemCountOutputTypeCountMcrt_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MCRTItemWhereInput
+  }
+
+
+  /**
+   * ItemCountOutputType without action
+   */
+  export type ItemCountOutputTypeCountMst_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MSTItemWhereInput
   }
 
 
@@ -5147,6 +5403,50 @@ export namespace Prisma {
    */
   export type MCRTCountOutputTypeCountMcrt_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MCRTItemWhereInput
+  }
+
+
+
+  /**
+   * Count Type MSTCountOutputType
+   */
+
+  export type MSTCountOutputType = {
+    mst_approvers: number
+    mst_items: number
+  }
+
+  export type MSTCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mst_approvers?: boolean | MSTCountOutputTypeCountMst_approversArgs
+    mst_items?: boolean | MSTCountOutputTypeCountMst_itemsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * MSTCountOutputType without action
+   */
+  export type MSTCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTCountOutputType
+     */
+    select?: MSTCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * MSTCountOutputType without action
+   */
+  export type MSTCountOutputTypeCountMst_approversArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MSTApproverWhereInput
+  }
+
+
+  /**
+   * MSTCountOutputType without action
+   */
+  export type MSTCountOutputTypeCountMst_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MSTItemWhereInput
   }
 
 
@@ -11504,6 +11804,7 @@ export namespace Prisma {
     seriv_items?: boolean | Item$seriv_itemsArgs<ExtArgs>
     mrv_items?: boolean | Item$mrv_itemsArgs<ExtArgs>
     mcrt_items?: boolean | Item$mcrt_itemsArgs<ExtArgs>
+    mst_items?: boolean | Item$mst_itemsArgs<ExtArgs>
     _count?: boolean | ItemCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["item"]>
 
@@ -11536,6 +11837,7 @@ export namespace Prisma {
     seriv_items?: boolean | Item$seriv_itemsArgs<ExtArgs>
     mrv_items?: boolean | Item$mrv_itemsArgs<ExtArgs>
     mcrt_items?: boolean | Item$mcrt_itemsArgs<ExtArgs>
+    mst_items?: boolean | Item$mst_itemsArgs<ExtArgs>
     _count?: boolean | ItemCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -11551,6 +11853,7 @@ export namespace Prisma {
       seriv_items: Prisma.$SERIVItemPayload<ExtArgs>[]
       mrv_items: Prisma.$MRVItemPayload<ExtArgs>[]
       mcrt_items: Prisma.$MCRTItemPayload<ExtArgs>[]
+      mst_items: Prisma.$MSTItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11950,6 +12253,8 @@ export namespace Prisma {
     mrv_items<T extends Item$mrv_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Item$mrv_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MRVItemPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     mcrt_items<T extends Item$mcrt_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Item$mcrt_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCRTItemPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    mst_items<T extends Item$mst_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Item$mst_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -12451,6 +12756,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MCRTItemScalarFieldEnum | MCRTItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * Item.mst_items
+   */
+  export type Item$mst_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    where?: MSTItemWhereInput
+    orderBy?: MSTItemOrderByWithRelationInput | MSTItemOrderByWithRelationInput[]
+    cursor?: MSTItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MSTItemScalarFieldEnum | MSTItemScalarFieldEnum[]
   }
 
 
@@ -14507,6 +14833,7 @@ export namespace Prisma {
     osriv_item_id: string | null
     seriv_item_id: string | null
     mrv_item_id: string | null
+    mcrt_item_id: string | null
     type: number | null
     quantity: number | null
     price: number | null
@@ -14523,6 +14850,7 @@ export namespace Prisma {
     osriv_item_id: string | null
     seriv_item_id: string | null
     mrv_item_id: string | null
+    mcrt_item_id: string | null
     type: number | null
     quantity: number | null
     price: number | null
@@ -14539,6 +14867,7 @@ export namespace Prisma {
     osriv_item_id: number
     seriv_item_id: number
     mrv_item_id: number
+    mcrt_item_id: number
     type: number
     quantity: number
     price: number
@@ -14572,6 +14901,7 @@ export namespace Prisma {
     osriv_item_id?: true
     seriv_item_id?: true
     mrv_item_id?: true
+    mcrt_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -14588,6 +14918,7 @@ export namespace Prisma {
     osriv_item_id?: true
     seriv_item_id?: true
     mrv_item_id?: true
+    mcrt_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -14604,6 +14935,7 @@ export namespace Prisma {
     osriv_item_id?: true
     seriv_item_id?: true
     mrv_item_id?: true
+    mcrt_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -14708,6 +15040,7 @@ export namespace Prisma {
     osriv_item_id: string | null
     seriv_item_id: string | null
     mrv_item_id: string | null
+    mcrt_item_id: string | null
     type: number
     quantity: number
     price: number
@@ -14744,6 +15077,7 @@ export namespace Prisma {
     osriv_item_id?: boolean
     seriv_item_id?: boolean
     mrv_item_id?: boolean
+    mcrt_item_id?: boolean
     type?: boolean
     quantity?: boolean
     price?: boolean
@@ -14757,6 +15091,7 @@ export namespace Prisma {
     osriv_item?: boolean | ItemTransaction$osriv_itemArgs<ExtArgs>
     seriv_item?: boolean | ItemTransaction$seriv_itemArgs<ExtArgs>
     mrv_item?: boolean | ItemTransaction$mrv_itemArgs<ExtArgs>
+    mcrt_item?: boolean | ItemTransaction$mcrt_itemArgs<ExtArgs>
   }, ExtArgs["result"]["itemTransaction"]>
 
   export type ItemTransactionSelectScalar = {
@@ -14766,6 +15101,7 @@ export namespace Prisma {
     osriv_item_id?: boolean
     seriv_item_id?: boolean
     mrv_item_id?: boolean
+    mcrt_item_id?: boolean
     type?: boolean
     quantity?: boolean
     price?: boolean
@@ -14782,6 +15118,7 @@ export namespace Prisma {
     osriv_item?: boolean | ItemTransaction$osriv_itemArgs<ExtArgs>
     seriv_item?: boolean | ItemTransaction$seriv_itemArgs<ExtArgs>
     mrv_item?: boolean | ItemTransaction$mrv_itemArgs<ExtArgs>
+    mcrt_item?: boolean | ItemTransaction$mcrt_itemArgs<ExtArgs>
   }
 
 
@@ -14793,6 +15130,7 @@ export namespace Prisma {
       osriv_item: Prisma.$OSRIVItemPayload<ExtArgs> | null
       seriv_item: Prisma.$SERIVItemPayload<ExtArgs> | null
       mrv_item: Prisma.$MRVItemPayload<ExtArgs> | null
+      mcrt_item: Prisma.$MCRTItemPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -14801,6 +15139,7 @@ export namespace Prisma {
       osriv_item_id: string | null
       seriv_item_id: string | null
       mrv_item_id: string | null
+      mcrt_item_id: string | null
       type: number
       quantity: number
       price: number
@@ -15184,6 +15523,8 @@ export namespace Prisma {
 
     mrv_item<T extends ItemTransaction$mrv_itemArgs<ExtArgs> = {}>(args?: Subset<T, ItemTransaction$mrv_itemArgs<ExtArgs>>): Prisma__MRVItemClient<$Result.GetResult<Prisma.$MRVItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    mcrt_item<T extends ItemTransaction$mcrt_itemArgs<ExtArgs> = {}>(args?: Subset<T, ItemTransaction$mcrt_itemArgs<ExtArgs>>): Prisma__MCRTItemClient<$Result.GetResult<Prisma.$MCRTItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15218,6 +15559,7 @@ export namespace Prisma {
     readonly osriv_item_id: FieldRef<"ItemTransaction", 'String'>
     readonly seriv_item_id: FieldRef<"ItemTransaction", 'String'>
     readonly mrv_item_id: FieldRef<"ItemTransaction", 'String'>
+    readonly mcrt_item_id: FieldRef<"ItemTransaction", 'String'>
     readonly type: FieldRef<"ItemTransaction", 'Int'>
     readonly quantity: FieldRef<"ItemTransaction", 'Int'>
     readonly price: FieldRef<"ItemTransaction", 'Float'>
@@ -15598,6 +15940,22 @@ export namespace Prisma {
      */
     include?: MRVItemInclude<ExtArgs> | null
     where?: MRVItemWhereInput
+  }
+
+
+  /**
+   * ItemTransaction.mcrt_item
+   */
+  export type ItemTransaction$mcrt_itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCRTItem
+     */
+    select?: MCRTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MCRTItemInclude<ExtArgs> | null
+    where?: MCRTItemWhereInput
   }
 
 
@@ -45882,6 +46240,7 @@ export namespace Prisma {
     seriv_id: string | null
     mcrt_number: string | null
     mcrt_date: Date | null
+    is_completed: boolean | null
     returned_by_id: string | null
     wo_number: string | null
     mo_number: string | null
@@ -45901,6 +46260,7 @@ export namespace Prisma {
     seriv_id: string | null
     mcrt_number: string | null
     mcrt_date: Date | null
+    is_completed: boolean | null
     returned_by_id: string | null
     wo_number: string | null
     mo_number: string | null
@@ -45920,6 +46280,7 @@ export namespace Prisma {
     seriv_id: number
     mcrt_number: number
     mcrt_date: number
+    is_completed: number
     returned_by_id: number
     wo_number: number
     mo_number: number
@@ -45942,6 +46303,7 @@ export namespace Prisma {
     seriv_id?: true
     mcrt_number?: true
     mcrt_date?: true
+    is_completed?: true
     returned_by_id?: true
     wo_number?: true
     mo_number?: true
@@ -45961,6 +46323,7 @@ export namespace Prisma {
     seriv_id?: true
     mcrt_number?: true
     mcrt_date?: true
+    is_completed?: true
     returned_by_id?: true
     wo_number?: true
     mo_number?: true
@@ -45980,6 +46343,7 @@ export namespace Prisma {
     seriv_id?: true
     mcrt_number?: true
     mcrt_date?: true
+    is_completed?: true
     returned_by_id?: true
     wo_number?: true
     mo_number?: true
@@ -46073,6 +46437,7 @@ export namespace Prisma {
     seriv_id: string | null
     mcrt_number: string
     mcrt_date: Date
+    is_completed: boolean
     returned_by_id: string
     wo_number: string | null
     mo_number: string | null
@@ -46110,6 +46475,7 @@ export namespace Prisma {
     seriv_id?: boolean
     mcrt_number?: boolean
     mcrt_date?: boolean
+    is_completed?: boolean
     returned_by_id?: boolean
     wo_number?: boolean
     mo_number?: boolean
@@ -46135,6 +46501,7 @@ export namespace Prisma {
     seriv_id?: boolean
     mcrt_number?: boolean
     mcrt_date?: boolean
+    is_completed?: boolean
     returned_by_id?: boolean
     wo_number?: boolean
     mo_number?: boolean
@@ -46172,6 +46539,7 @@ export namespace Prisma {
       seriv_id: string | null
       mcrt_number: string
       mcrt_date: Date
+      is_completed: boolean
       returned_by_id: string
       wo_number: string | null
       mo_number: string | null
@@ -46590,6 +46958,7 @@ export namespace Prisma {
     readonly seriv_id: FieldRef<"MCRT", 'String'>
     readonly mcrt_number: FieldRef<"MCRT", 'String'>
     readonly mcrt_date: FieldRef<"MCRT", 'DateTime'>
+    readonly is_completed: FieldRef<"MCRT", 'Boolean'>
     readonly returned_by_id: FieldRef<"MCRT", 'String'>
     readonly wo_number: FieldRef<"MCRT", 'String'>
     readonly mo_number: FieldRef<"MCRT", 'String'>
@@ -48218,6 +48587,7 @@ export namespace Prisma {
     metadata?: boolean
     mcrt?: boolean | MCRTDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    item_transaction?: boolean | MCRTItem$item_transactionArgs<ExtArgs>
   }, ExtArgs["result"]["mCRTItem"]>
 
   export type MCRTItemSelectScalar = {
@@ -48232,6 +48602,7 @@ export namespace Prisma {
   export type MCRTItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mcrt?: boolean | MCRTDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    item_transaction?: boolean | MCRTItem$item_transactionArgs<ExtArgs>
   }
 
 
@@ -48240,6 +48611,7 @@ export namespace Prisma {
     objects: {
       mcrt: Prisma.$MCRTPayload<ExtArgs>
       item: Prisma.$ItemPayload<ExtArgs>
+      item_transaction: Prisma.$ItemTransactionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -48617,6 +48989,8 @@ export namespace Prisma {
 
     item<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
+    item_transaction<T extends MCRTItem$item_transactionArgs<ExtArgs> = {}>(args?: Subset<T, MCRTItem$item_transactionArgs<ExtArgs>>): Prisma__ItemTransactionClient<$Result.GetResult<Prisma.$ItemTransactionPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -48963,6 +49337,22 @@ export namespace Prisma {
 
 
   /**
+   * MCRTItem.item_transaction
+   */
+  export type MCRTItem$item_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemTransaction
+     */
+    select?: ItemTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTransactionInclude<ExtArgs> | null
+    where?: ItemTransactionWhereInput
+  }
+
+
+  /**
    * MCRTItem without action
    */
   export type MCRTItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -48974,6 +49364,3054 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: MCRTItemInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model MST
+   */
+
+  export type AggregateMST = {
+    _count: MSTCountAggregateOutputType | null
+    _min: MSTMinAggregateOutputType | null
+    _max: MSTMaxAggregateOutputType | null
+  }
+
+  export type MSTMinAggregateOutputType = {
+    id: string | null
+    mst_number: string | null
+    mst_date: Date | null
+    returned_by_id: string | null
+    cwo_number: string | null
+    mwo_number: string | null
+    jo_number: string | null
+    remarks: string | null
+    cancelled_by: string | null
+    created_by: string | null
+    updated_by: string | null
+    cancelled_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type MSTMaxAggregateOutputType = {
+    id: string | null
+    mst_number: string | null
+    mst_date: Date | null
+    returned_by_id: string | null
+    cwo_number: string | null
+    mwo_number: string | null
+    jo_number: string | null
+    remarks: string | null
+    cancelled_by: string | null
+    created_by: string | null
+    updated_by: string | null
+    cancelled_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type MSTCountAggregateOutputType = {
+    id: number
+    mst_number: number
+    mst_date: number
+    returned_by_id: number
+    cwo_number: number
+    mwo_number: number
+    jo_number: number
+    remarks: number
+    cancelled_by: number
+    created_by: number
+    updated_by: number
+    cancelled_at: number
+    created_at: number
+    updated_at: number
+    metadata: number
+    _all: number
+  }
+
+
+  export type MSTMinAggregateInputType = {
+    id?: true
+    mst_number?: true
+    mst_date?: true
+    returned_by_id?: true
+    cwo_number?: true
+    mwo_number?: true
+    jo_number?: true
+    remarks?: true
+    cancelled_by?: true
+    created_by?: true
+    updated_by?: true
+    cancelled_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type MSTMaxAggregateInputType = {
+    id?: true
+    mst_number?: true
+    mst_date?: true
+    returned_by_id?: true
+    cwo_number?: true
+    mwo_number?: true
+    jo_number?: true
+    remarks?: true
+    cancelled_by?: true
+    created_by?: true
+    updated_by?: true
+    cancelled_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type MSTCountAggregateInputType = {
+    id?: true
+    mst_number?: true
+    mst_date?: true
+    returned_by_id?: true
+    cwo_number?: true
+    mwo_number?: true
+    jo_number?: true
+    remarks?: true
+    cancelled_by?: true
+    created_by?: true
+    updated_by?: true
+    cancelled_at?: true
+    created_at?: true
+    updated_at?: true
+    metadata?: true
+    _all?: true
+  }
+
+  export type MSTAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MST to aggregate.
+     */
+    where?: MSTWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTS to fetch.
+     */
+    orderBy?: MSTOrderByWithRelationInput | MSTOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MSTWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MSTS
+    **/
+    _count?: true | MSTCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MSTMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MSTMaxAggregateInputType
+  }
+
+  export type GetMSTAggregateType<T extends MSTAggregateArgs> = {
+        [P in keyof T & keyof AggregateMST]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMST[P]>
+      : GetScalarType<T[P], AggregateMST[P]>
+  }
+
+
+
+
+  export type MSTGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MSTWhereInput
+    orderBy?: MSTOrderByWithAggregationInput | MSTOrderByWithAggregationInput[]
+    by: MSTScalarFieldEnum[] | MSTScalarFieldEnum
+    having?: MSTScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MSTCountAggregateInputType | true
+    _min?: MSTMinAggregateInputType
+    _max?: MSTMaxAggregateInputType
+  }
+
+  export type MSTGroupByOutputType = {
+    id: string
+    mst_number: string
+    mst_date: Date
+    returned_by_id: string
+    cwo_number: string | null
+    mwo_number: string | null
+    jo_number: string | null
+    remarks: string
+    cancelled_by: string | null
+    created_by: string
+    updated_by: string | null
+    cancelled_at: Date | null
+    created_at: Date
+    updated_at: Date
+    metadata: JsonValue | null
+    _count: MSTCountAggregateOutputType | null
+    _min: MSTMinAggregateOutputType | null
+    _max: MSTMaxAggregateOutputType | null
+  }
+
+  type GetMSTGroupByPayload<T extends MSTGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MSTGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MSTGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MSTGroupByOutputType[P]>
+            : GetScalarType<T[P], MSTGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MSTSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    mst_number?: boolean
+    mst_date?: boolean
+    returned_by_id?: boolean
+    cwo_number?: boolean
+    mwo_number?: boolean
+    jo_number?: boolean
+    remarks?: boolean
+    cancelled_by?: boolean
+    created_by?: boolean
+    updated_by?: boolean
+    cancelled_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    metadata?: boolean
+    mst_approvers?: boolean | MST$mst_approversArgs<ExtArgs>
+    mst_items?: boolean | MST$mst_itemsArgs<ExtArgs>
+    _count?: boolean | MSTCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mST"]>
+
+  export type MSTSelectScalar = {
+    id?: boolean
+    mst_number?: boolean
+    mst_date?: boolean
+    returned_by_id?: boolean
+    cwo_number?: boolean
+    mwo_number?: boolean
+    jo_number?: boolean
+    remarks?: boolean
+    cancelled_by?: boolean
+    created_by?: boolean
+    updated_by?: boolean
+    cancelled_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    metadata?: boolean
+  }
+
+  export type MSTInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mst_approvers?: boolean | MST$mst_approversArgs<ExtArgs>
+    mst_items?: boolean | MST$mst_itemsArgs<ExtArgs>
+    _count?: boolean | MSTCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $MSTPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MST"
+    objects: {
+      mst_approvers: Prisma.$MSTApproverPayload<ExtArgs>[]
+      mst_items: Prisma.$MSTItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      mst_number: string
+      mst_date: Date
+      returned_by_id: string
+      cwo_number: string | null
+      mwo_number: string | null
+      jo_number: string | null
+      remarks: string
+      cancelled_by: string | null
+      created_by: string
+      updated_by: string | null
+      cancelled_at: Date | null
+      created_at: Date
+      updated_at: Date
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["mST"]>
+    composites: {}
+  }
+
+
+  type MSTGetPayload<S extends boolean | null | undefined | MSTDefaultArgs> = $Result.GetResult<Prisma.$MSTPayload, S>
+
+  type MSTCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MSTFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MSTCountAggregateInputType | true
+    }
+
+  export interface MSTDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MST'], meta: { name: 'MST' } }
+    /**
+     * Find zero or one MST that matches the filter.
+     * @param {MSTFindUniqueArgs} args - Arguments to find a MST
+     * @example
+     * // Get one MST
+     * const mST = await prisma.mST.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends MSTFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTFindUniqueArgs<ExtArgs>>
+    ): Prisma__MSTClient<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one MST that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {MSTFindUniqueOrThrowArgs} args - Arguments to find a MST
+     * @example
+     * // Get one MST
+     * const mST = await prisma.mST.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends MSTFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__MSTClient<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first MST that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTFindFirstArgs} args - Arguments to find a MST
+     * @example
+     * // Get one MST
+     * const mST = await prisma.mST.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends MSTFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTFindFirstArgs<ExtArgs>>
+    ): Prisma__MSTClient<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first MST that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTFindFirstOrThrowArgs} args - Arguments to find a MST
+     * @example
+     * // Get one MST
+     * const mST = await prisma.mST.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends MSTFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__MSTClient<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more MSTS that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MSTS
+     * const mSTS = await prisma.mST.findMany()
+     * 
+     * // Get first 10 MSTS
+     * const mSTS = await prisma.mST.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mSTWithIdOnly = await prisma.mST.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends MSTFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a MST.
+     * @param {MSTCreateArgs} args - Arguments to create a MST.
+     * @example
+     * // Create one MST
+     * const MST = await prisma.mST.create({
+     *   data: {
+     *     // ... data to create a MST
+     *   }
+     * })
+     * 
+    **/
+    create<T extends MSTCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTCreateArgs<ExtArgs>>
+    ): Prisma__MSTClient<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many MSTS.
+     *     @param {MSTCreateManyArgs} args - Arguments to create many MSTS.
+     *     @example
+     *     // Create many MSTS
+     *     const mST = await prisma.mST.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends MSTCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a MST.
+     * @param {MSTDeleteArgs} args - Arguments to delete one MST.
+     * @example
+     * // Delete one MST
+     * const MST = await prisma.mST.delete({
+     *   where: {
+     *     // ... filter to delete one MST
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends MSTDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTDeleteArgs<ExtArgs>>
+    ): Prisma__MSTClient<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one MST.
+     * @param {MSTUpdateArgs} args - Arguments to update one MST.
+     * @example
+     * // Update one MST
+     * const mST = await prisma.mST.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends MSTUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTUpdateArgs<ExtArgs>>
+    ): Prisma__MSTClient<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more MSTS.
+     * @param {MSTDeleteManyArgs} args - Arguments to filter MSTS to delete.
+     * @example
+     * // Delete a few MSTS
+     * const { count } = await prisma.mST.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends MSTDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MSTS.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MSTS
+     * const mST = await prisma.mST.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends MSTUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MST.
+     * @param {MSTUpsertArgs} args - Arguments to update or create a MST.
+     * @example
+     * // Update or create a MST
+     * const mST = await prisma.mST.upsert({
+     *   create: {
+     *     // ... data to create a MST
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MST we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends MSTUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTUpsertArgs<ExtArgs>>
+    ): Prisma__MSTClient<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of MSTS.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTCountArgs} args - Arguments to filter MSTS to count.
+     * @example
+     * // Count the number of MSTS
+     * const count = await prisma.mST.count({
+     *   where: {
+     *     // ... the filter for the MSTS we want to count
+     *   }
+     * })
+    **/
+    count<T extends MSTCountArgs>(
+      args?: Subset<T, MSTCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MSTCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MST.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MSTAggregateArgs>(args: Subset<T, MSTAggregateArgs>): Prisma.PrismaPromise<GetMSTAggregateType<T>>
+
+    /**
+     * Group by MST.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MSTGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MSTGroupByArgs['orderBy'] }
+        : { orderBy?: MSTGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MSTGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMSTGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MST model
+   */
+  readonly fields: MSTFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MST.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MSTClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    mst_approvers<T extends MST$mst_approversArgs<ExtArgs> = {}>(args?: Subset<T, MST$mst_approversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MSTApproverPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    mst_items<T extends MST$mst_itemsArgs<ExtArgs> = {}>(args?: Subset<T, MST$mst_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the MST model
+   */ 
+  interface MSTFieldRefs {
+    readonly id: FieldRef<"MST", 'String'>
+    readonly mst_number: FieldRef<"MST", 'String'>
+    readonly mst_date: FieldRef<"MST", 'DateTime'>
+    readonly returned_by_id: FieldRef<"MST", 'String'>
+    readonly cwo_number: FieldRef<"MST", 'String'>
+    readonly mwo_number: FieldRef<"MST", 'String'>
+    readonly jo_number: FieldRef<"MST", 'String'>
+    readonly remarks: FieldRef<"MST", 'String'>
+    readonly cancelled_by: FieldRef<"MST", 'String'>
+    readonly created_by: FieldRef<"MST", 'String'>
+    readonly updated_by: FieldRef<"MST", 'String'>
+    readonly cancelled_at: FieldRef<"MST", 'DateTime'>
+    readonly created_at: FieldRef<"MST", 'DateTime'>
+    readonly updated_at: FieldRef<"MST", 'DateTime'>
+    readonly metadata: FieldRef<"MST", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * MST findUnique
+   */
+  export type MSTFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MST
+     */
+    select?: MSTSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTInclude<ExtArgs> | null
+    /**
+     * Filter, which MST to fetch.
+     */
+    where: MSTWhereUniqueInput
+  }
+
+
+  /**
+   * MST findUniqueOrThrow
+   */
+  export type MSTFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MST
+     */
+    select?: MSTSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTInclude<ExtArgs> | null
+    /**
+     * Filter, which MST to fetch.
+     */
+    where: MSTWhereUniqueInput
+  }
+
+
+  /**
+   * MST findFirst
+   */
+  export type MSTFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MST
+     */
+    select?: MSTSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTInclude<ExtArgs> | null
+    /**
+     * Filter, which MST to fetch.
+     */
+    where?: MSTWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTS to fetch.
+     */
+    orderBy?: MSTOrderByWithRelationInput | MSTOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MSTS.
+     */
+    cursor?: MSTWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MSTS.
+     */
+    distinct?: MSTScalarFieldEnum | MSTScalarFieldEnum[]
+  }
+
+
+  /**
+   * MST findFirstOrThrow
+   */
+  export type MSTFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MST
+     */
+    select?: MSTSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTInclude<ExtArgs> | null
+    /**
+     * Filter, which MST to fetch.
+     */
+    where?: MSTWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTS to fetch.
+     */
+    orderBy?: MSTOrderByWithRelationInput | MSTOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MSTS.
+     */
+    cursor?: MSTWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MSTS.
+     */
+    distinct?: MSTScalarFieldEnum | MSTScalarFieldEnum[]
+  }
+
+
+  /**
+   * MST findMany
+   */
+  export type MSTFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MST
+     */
+    select?: MSTSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTS to fetch.
+     */
+    where?: MSTWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTS to fetch.
+     */
+    orderBy?: MSTOrderByWithRelationInput | MSTOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MSTS.
+     */
+    cursor?: MSTWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTS.
+     */
+    skip?: number
+    distinct?: MSTScalarFieldEnum | MSTScalarFieldEnum[]
+  }
+
+
+  /**
+   * MST create
+   */
+  export type MSTCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MST
+     */
+    select?: MSTSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MST.
+     */
+    data: XOR<MSTCreateInput, MSTUncheckedCreateInput>
+  }
+
+
+  /**
+   * MST createMany
+   */
+  export type MSTCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MSTS.
+     */
+    data: MSTCreateManyInput | MSTCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * MST update
+   */
+  export type MSTUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MST
+     */
+    select?: MSTSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MST.
+     */
+    data: XOR<MSTUpdateInput, MSTUncheckedUpdateInput>
+    /**
+     * Choose, which MST to update.
+     */
+    where: MSTWhereUniqueInput
+  }
+
+
+  /**
+   * MST updateMany
+   */
+  export type MSTUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MSTS.
+     */
+    data: XOR<MSTUpdateManyMutationInput, MSTUncheckedUpdateManyInput>
+    /**
+     * Filter which MSTS to update
+     */
+    where?: MSTWhereInput
+  }
+
+
+  /**
+   * MST upsert
+   */
+  export type MSTUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MST
+     */
+    select?: MSTSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MST to update in case it exists.
+     */
+    where: MSTWhereUniqueInput
+    /**
+     * In case the MST found by the `where` argument doesn't exist, create a new MST with this data.
+     */
+    create: XOR<MSTCreateInput, MSTUncheckedCreateInput>
+    /**
+     * In case the MST was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MSTUpdateInput, MSTUncheckedUpdateInput>
+  }
+
+
+  /**
+   * MST delete
+   */
+  export type MSTDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MST
+     */
+    select?: MSTSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTInclude<ExtArgs> | null
+    /**
+     * Filter which MST to delete.
+     */
+    where: MSTWhereUniqueInput
+  }
+
+
+  /**
+   * MST deleteMany
+   */
+  export type MSTDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MSTS to delete
+     */
+    where?: MSTWhereInput
+  }
+
+
+  /**
+   * MST.mst_approvers
+   */
+  export type MST$mst_approversArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+    where?: MSTApproverWhereInput
+    orderBy?: MSTApproverOrderByWithRelationInput | MSTApproverOrderByWithRelationInput[]
+    cursor?: MSTApproverWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MSTApproverScalarFieldEnum | MSTApproverScalarFieldEnum[]
+  }
+
+
+  /**
+   * MST.mst_items
+   */
+  export type MST$mst_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    where?: MSTItemWhereInput
+    orderBy?: MSTItemOrderByWithRelationInput | MSTItemOrderByWithRelationInput[]
+    cursor?: MSTItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MSTItemScalarFieldEnum | MSTItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * MST without action
+   */
+  export type MSTDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MST
+     */
+    select?: MSTSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model MSTApprover
+   */
+
+  export type AggregateMSTApprover = {
+    _count: MSTApproverCountAggregateOutputType | null
+    _avg: MSTApproverAvgAggregateOutputType | null
+    _sum: MSTApproverSumAggregateOutputType | null
+    _min: MSTApproverMinAggregateOutputType | null
+    _max: MSTApproverMaxAggregateOutputType | null
+  }
+
+  export type MSTApproverAvgAggregateOutputType = {
+    status: number | null
+    order: number | null
+  }
+
+  export type MSTApproverSumAggregateOutputType = {
+    status: number | null
+    order: number | null
+  }
+
+  export type MSTApproverMinAggregateOutputType = {
+    id: string | null
+    mst_id: string | null
+    approver_id: string | null
+    date_approval: Date | null
+    notes: string | null
+    status: number | null
+    label: string | null
+    label_id: string | null
+    order: number | null
+  }
+
+  export type MSTApproverMaxAggregateOutputType = {
+    id: string | null
+    mst_id: string | null
+    approver_id: string | null
+    date_approval: Date | null
+    notes: string | null
+    status: number | null
+    label: string | null
+    label_id: string | null
+    order: number | null
+  }
+
+  export type MSTApproverCountAggregateOutputType = {
+    id: number
+    mst_id: number
+    approver_id: number
+    date_approval: number
+    notes: number
+    status: number
+    label: number
+    label_id: number
+    order: number
+    metadata: number
+    _all: number
+  }
+
+
+  export type MSTApproverAvgAggregateInputType = {
+    status?: true
+    order?: true
+  }
+
+  export type MSTApproverSumAggregateInputType = {
+    status?: true
+    order?: true
+  }
+
+  export type MSTApproverMinAggregateInputType = {
+    id?: true
+    mst_id?: true
+    approver_id?: true
+    date_approval?: true
+    notes?: true
+    status?: true
+    label?: true
+    label_id?: true
+    order?: true
+  }
+
+  export type MSTApproverMaxAggregateInputType = {
+    id?: true
+    mst_id?: true
+    approver_id?: true
+    date_approval?: true
+    notes?: true
+    status?: true
+    label?: true
+    label_id?: true
+    order?: true
+  }
+
+  export type MSTApproverCountAggregateInputType = {
+    id?: true
+    mst_id?: true
+    approver_id?: true
+    date_approval?: true
+    notes?: true
+    status?: true
+    label?: true
+    label_id?: true
+    order?: true
+    metadata?: true
+    _all?: true
+  }
+
+  export type MSTApproverAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MSTApprover to aggregate.
+     */
+    where?: MSTApproverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTApprovers to fetch.
+     */
+    orderBy?: MSTApproverOrderByWithRelationInput | MSTApproverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MSTApproverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTApprovers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTApprovers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MSTApprovers
+    **/
+    _count?: true | MSTApproverCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MSTApproverAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MSTApproverSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MSTApproverMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MSTApproverMaxAggregateInputType
+  }
+
+  export type GetMSTApproverAggregateType<T extends MSTApproverAggregateArgs> = {
+        [P in keyof T & keyof AggregateMSTApprover]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMSTApprover[P]>
+      : GetScalarType<T[P], AggregateMSTApprover[P]>
+  }
+
+
+
+
+  export type MSTApproverGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MSTApproverWhereInput
+    orderBy?: MSTApproverOrderByWithAggregationInput | MSTApproverOrderByWithAggregationInput[]
+    by: MSTApproverScalarFieldEnum[] | MSTApproverScalarFieldEnum
+    having?: MSTApproverScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MSTApproverCountAggregateInputType | true
+    _avg?: MSTApproverAvgAggregateInputType
+    _sum?: MSTApproverSumAggregateInputType
+    _min?: MSTApproverMinAggregateInputType
+    _max?: MSTApproverMaxAggregateInputType
+  }
+
+  export type MSTApproverGroupByOutputType = {
+    id: string
+    mst_id: string
+    approver_id: string
+    date_approval: Date | null
+    notes: string
+    status: number
+    label: string
+    label_id: string
+    order: number
+    metadata: JsonValue | null
+    _count: MSTApproverCountAggregateOutputType | null
+    _avg: MSTApproverAvgAggregateOutputType | null
+    _sum: MSTApproverSumAggregateOutputType | null
+    _min: MSTApproverMinAggregateOutputType | null
+    _max: MSTApproverMaxAggregateOutputType | null
+  }
+
+  type GetMSTApproverGroupByPayload<T extends MSTApproverGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MSTApproverGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MSTApproverGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MSTApproverGroupByOutputType[P]>
+            : GetScalarType<T[P], MSTApproverGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MSTApproverSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    mst_id?: boolean
+    approver_id?: boolean
+    date_approval?: boolean
+    notes?: boolean
+    status?: boolean
+    label?: boolean
+    label_id?: boolean
+    order?: boolean
+    metadata?: boolean
+    mst?: boolean | MSTDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mSTApprover"]>
+
+  export type MSTApproverSelectScalar = {
+    id?: boolean
+    mst_id?: boolean
+    approver_id?: boolean
+    date_approval?: boolean
+    notes?: boolean
+    status?: boolean
+    label?: boolean
+    label_id?: boolean
+    order?: boolean
+    metadata?: boolean
+  }
+
+  export type MSTApproverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mst?: boolean | MSTDefaultArgs<ExtArgs>
+  }
+
+
+  export type $MSTApproverPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MSTApprover"
+    objects: {
+      mst: Prisma.$MSTPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      mst_id: string
+      approver_id: string
+      date_approval: Date | null
+      notes: string
+      status: number
+      label: string
+      label_id: string
+      order: number
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["mSTApprover"]>
+    composites: {}
+  }
+
+
+  type MSTApproverGetPayload<S extends boolean | null | undefined | MSTApproverDefaultArgs> = $Result.GetResult<Prisma.$MSTApproverPayload, S>
+
+  type MSTApproverCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MSTApproverFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MSTApproverCountAggregateInputType | true
+    }
+
+  export interface MSTApproverDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MSTApprover'], meta: { name: 'MSTApprover' } }
+    /**
+     * Find zero or one MSTApprover that matches the filter.
+     * @param {MSTApproverFindUniqueArgs} args - Arguments to find a MSTApprover
+     * @example
+     * // Get one MSTApprover
+     * const mSTApprover = await prisma.mSTApprover.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends MSTApproverFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTApproverFindUniqueArgs<ExtArgs>>
+    ): Prisma__MSTApproverClient<$Result.GetResult<Prisma.$MSTApproverPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one MSTApprover that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {MSTApproverFindUniqueOrThrowArgs} args - Arguments to find a MSTApprover
+     * @example
+     * // Get one MSTApprover
+     * const mSTApprover = await prisma.mSTApprover.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends MSTApproverFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTApproverFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__MSTApproverClient<$Result.GetResult<Prisma.$MSTApproverPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first MSTApprover that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTApproverFindFirstArgs} args - Arguments to find a MSTApprover
+     * @example
+     * // Get one MSTApprover
+     * const mSTApprover = await prisma.mSTApprover.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends MSTApproverFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTApproverFindFirstArgs<ExtArgs>>
+    ): Prisma__MSTApproverClient<$Result.GetResult<Prisma.$MSTApproverPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first MSTApprover that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTApproverFindFirstOrThrowArgs} args - Arguments to find a MSTApprover
+     * @example
+     * // Get one MSTApprover
+     * const mSTApprover = await prisma.mSTApprover.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends MSTApproverFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTApproverFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__MSTApproverClient<$Result.GetResult<Prisma.$MSTApproverPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more MSTApprovers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTApproverFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MSTApprovers
+     * const mSTApprovers = await prisma.mSTApprover.findMany()
+     * 
+     * // Get first 10 MSTApprovers
+     * const mSTApprovers = await prisma.mSTApprover.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mSTApproverWithIdOnly = await prisma.mSTApprover.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends MSTApproverFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTApproverFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MSTApproverPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a MSTApprover.
+     * @param {MSTApproverCreateArgs} args - Arguments to create a MSTApprover.
+     * @example
+     * // Create one MSTApprover
+     * const MSTApprover = await prisma.mSTApprover.create({
+     *   data: {
+     *     // ... data to create a MSTApprover
+     *   }
+     * })
+     * 
+    **/
+    create<T extends MSTApproverCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTApproverCreateArgs<ExtArgs>>
+    ): Prisma__MSTApproverClient<$Result.GetResult<Prisma.$MSTApproverPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many MSTApprovers.
+     *     @param {MSTApproverCreateManyArgs} args - Arguments to create many MSTApprovers.
+     *     @example
+     *     // Create many MSTApprovers
+     *     const mSTApprover = await prisma.mSTApprover.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends MSTApproverCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTApproverCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a MSTApprover.
+     * @param {MSTApproverDeleteArgs} args - Arguments to delete one MSTApprover.
+     * @example
+     * // Delete one MSTApprover
+     * const MSTApprover = await prisma.mSTApprover.delete({
+     *   where: {
+     *     // ... filter to delete one MSTApprover
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends MSTApproverDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTApproverDeleteArgs<ExtArgs>>
+    ): Prisma__MSTApproverClient<$Result.GetResult<Prisma.$MSTApproverPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one MSTApprover.
+     * @param {MSTApproverUpdateArgs} args - Arguments to update one MSTApprover.
+     * @example
+     * // Update one MSTApprover
+     * const mSTApprover = await prisma.mSTApprover.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends MSTApproverUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTApproverUpdateArgs<ExtArgs>>
+    ): Prisma__MSTApproverClient<$Result.GetResult<Prisma.$MSTApproverPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more MSTApprovers.
+     * @param {MSTApproverDeleteManyArgs} args - Arguments to filter MSTApprovers to delete.
+     * @example
+     * // Delete a few MSTApprovers
+     * const { count } = await prisma.mSTApprover.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends MSTApproverDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTApproverDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MSTApprovers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTApproverUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MSTApprovers
+     * const mSTApprover = await prisma.mSTApprover.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends MSTApproverUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTApproverUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MSTApprover.
+     * @param {MSTApproverUpsertArgs} args - Arguments to update or create a MSTApprover.
+     * @example
+     * // Update or create a MSTApprover
+     * const mSTApprover = await prisma.mSTApprover.upsert({
+     *   create: {
+     *     // ... data to create a MSTApprover
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MSTApprover we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends MSTApproverUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTApproverUpsertArgs<ExtArgs>>
+    ): Prisma__MSTApproverClient<$Result.GetResult<Prisma.$MSTApproverPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of MSTApprovers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTApproverCountArgs} args - Arguments to filter MSTApprovers to count.
+     * @example
+     * // Count the number of MSTApprovers
+     * const count = await prisma.mSTApprover.count({
+     *   where: {
+     *     // ... the filter for the MSTApprovers we want to count
+     *   }
+     * })
+    **/
+    count<T extends MSTApproverCountArgs>(
+      args?: Subset<T, MSTApproverCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MSTApproverCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MSTApprover.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTApproverAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MSTApproverAggregateArgs>(args: Subset<T, MSTApproverAggregateArgs>): Prisma.PrismaPromise<GetMSTApproverAggregateType<T>>
+
+    /**
+     * Group by MSTApprover.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTApproverGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MSTApproverGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MSTApproverGroupByArgs['orderBy'] }
+        : { orderBy?: MSTApproverGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MSTApproverGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMSTApproverGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MSTApprover model
+   */
+  readonly fields: MSTApproverFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MSTApprover.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MSTApproverClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    mst<T extends MSTDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MSTDefaultArgs<ExtArgs>>): Prisma__MSTClient<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the MSTApprover model
+   */ 
+  interface MSTApproverFieldRefs {
+    readonly id: FieldRef<"MSTApprover", 'String'>
+    readonly mst_id: FieldRef<"MSTApprover", 'String'>
+    readonly approver_id: FieldRef<"MSTApprover", 'String'>
+    readonly date_approval: FieldRef<"MSTApprover", 'DateTime'>
+    readonly notes: FieldRef<"MSTApprover", 'String'>
+    readonly status: FieldRef<"MSTApprover", 'Int'>
+    readonly label: FieldRef<"MSTApprover", 'String'>
+    readonly label_id: FieldRef<"MSTApprover", 'String'>
+    readonly order: FieldRef<"MSTApprover", 'Int'>
+    readonly metadata: FieldRef<"MSTApprover", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * MSTApprover findUnique
+   */
+  export type MSTApproverFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTApprover to fetch.
+     */
+    where: MSTApproverWhereUniqueInput
+  }
+
+
+  /**
+   * MSTApprover findUniqueOrThrow
+   */
+  export type MSTApproverFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTApprover to fetch.
+     */
+    where: MSTApproverWhereUniqueInput
+  }
+
+
+  /**
+   * MSTApprover findFirst
+   */
+  export type MSTApproverFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTApprover to fetch.
+     */
+    where?: MSTApproverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTApprovers to fetch.
+     */
+    orderBy?: MSTApproverOrderByWithRelationInput | MSTApproverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MSTApprovers.
+     */
+    cursor?: MSTApproverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTApprovers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTApprovers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MSTApprovers.
+     */
+    distinct?: MSTApproverScalarFieldEnum | MSTApproverScalarFieldEnum[]
+  }
+
+
+  /**
+   * MSTApprover findFirstOrThrow
+   */
+  export type MSTApproverFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTApprover to fetch.
+     */
+    where?: MSTApproverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTApprovers to fetch.
+     */
+    orderBy?: MSTApproverOrderByWithRelationInput | MSTApproverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MSTApprovers.
+     */
+    cursor?: MSTApproverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTApprovers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTApprovers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MSTApprovers.
+     */
+    distinct?: MSTApproverScalarFieldEnum | MSTApproverScalarFieldEnum[]
+  }
+
+
+  /**
+   * MSTApprover findMany
+   */
+  export type MSTApproverFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTApprovers to fetch.
+     */
+    where?: MSTApproverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTApprovers to fetch.
+     */
+    orderBy?: MSTApproverOrderByWithRelationInput | MSTApproverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MSTApprovers.
+     */
+    cursor?: MSTApproverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTApprovers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTApprovers.
+     */
+    skip?: number
+    distinct?: MSTApproverScalarFieldEnum | MSTApproverScalarFieldEnum[]
+  }
+
+
+  /**
+   * MSTApprover create
+   */
+  export type MSTApproverCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MSTApprover.
+     */
+    data: XOR<MSTApproverCreateInput, MSTApproverUncheckedCreateInput>
+  }
+
+
+  /**
+   * MSTApprover createMany
+   */
+  export type MSTApproverCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MSTApprovers.
+     */
+    data: MSTApproverCreateManyInput | MSTApproverCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * MSTApprover update
+   */
+  export type MSTApproverUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MSTApprover.
+     */
+    data: XOR<MSTApproverUpdateInput, MSTApproverUncheckedUpdateInput>
+    /**
+     * Choose, which MSTApprover to update.
+     */
+    where: MSTApproverWhereUniqueInput
+  }
+
+
+  /**
+   * MSTApprover updateMany
+   */
+  export type MSTApproverUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MSTApprovers.
+     */
+    data: XOR<MSTApproverUpdateManyMutationInput, MSTApproverUncheckedUpdateManyInput>
+    /**
+     * Filter which MSTApprovers to update
+     */
+    where?: MSTApproverWhereInput
+  }
+
+
+  /**
+   * MSTApprover upsert
+   */
+  export type MSTApproverUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MSTApprover to update in case it exists.
+     */
+    where: MSTApproverWhereUniqueInput
+    /**
+     * In case the MSTApprover found by the `where` argument doesn't exist, create a new MSTApprover with this data.
+     */
+    create: XOR<MSTApproverCreateInput, MSTApproverUncheckedCreateInput>
+    /**
+     * In case the MSTApprover was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MSTApproverUpdateInput, MSTApproverUncheckedUpdateInput>
+  }
+
+
+  /**
+   * MSTApprover delete
+   */
+  export type MSTApproverDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+    /**
+     * Filter which MSTApprover to delete.
+     */
+    where: MSTApproverWhereUniqueInput
+  }
+
+
+  /**
+   * MSTApprover deleteMany
+   */
+  export type MSTApproverDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MSTApprovers to delete
+     */
+    where?: MSTApproverWhereInput
+  }
+
+
+  /**
+   * MSTApprover without action
+   */
+  export type MSTApproverDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTApprover
+     */
+    select?: MSTApproverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTApproverInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model MSTItem
+   */
+
+  export type AggregateMSTItem = {
+    _count: MSTItemCountAggregateOutputType | null
+    _avg: MSTItemAvgAggregateOutputType | null
+    _sum: MSTItemSumAggregateOutputType | null
+    _min: MSTItemMinAggregateOutputType | null
+    _max: MSTItemMaxAggregateOutputType | null
+  }
+
+  export type MSTItemAvgAggregateOutputType = {
+    quantity: number | null
+    price: number | null
+  }
+
+  export type MSTItemSumAggregateOutputType = {
+    quantity: number | null
+    price: number | null
+  }
+
+  export type MSTItemMinAggregateOutputType = {
+    id: string | null
+    mst_id: string | null
+    item_id: string | null
+    quantity: number | null
+    price: number | null
+  }
+
+  export type MSTItemMaxAggregateOutputType = {
+    id: string | null
+    mst_id: string | null
+    item_id: string | null
+    quantity: number | null
+    price: number | null
+  }
+
+  export type MSTItemCountAggregateOutputType = {
+    id: number
+    mst_id: number
+    item_id: number
+    quantity: number
+    price: number
+    metadata: number
+    _all: number
+  }
+
+
+  export type MSTItemAvgAggregateInputType = {
+    quantity?: true
+    price?: true
+  }
+
+  export type MSTItemSumAggregateInputType = {
+    quantity?: true
+    price?: true
+  }
+
+  export type MSTItemMinAggregateInputType = {
+    id?: true
+    mst_id?: true
+    item_id?: true
+    quantity?: true
+    price?: true
+  }
+
+  export type MSTItemMaxAggregateInputType = {
+    id?: true
+    mst_id?: true
+    item_id?: true
+    quantity?: true
+    price?: true
+  }
+
+  export type MSTItemCountAggregateInputType = {
+    id?: true
+    mst_id?: true
+    item_id?: true
+    quantity?: true
+    price?: true
+    metadata?: true
+    _all?: true
+  }
+
+  export type MSTItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MSTItem to aggregate.
+     */
+    where?: MSTItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTItems to fetch.
+     */
+    orderBy?: MSTItemOrderByWithRelationInput | MSTItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MSTItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MSTItems
+    **/
+    _count?: true | MSTItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MSTItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MSTItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MSTItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MSTItemMaxAggregateInputType
+  }
+
+  export type GetMSTItemAggregateType<T extends MSTItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateMSTItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMSTItem[P]>
+      : GetScalarType<T[P], AggregateMSTItem[P]>
+  }
+
+
+
+
+  export type MSTItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MSTItemWhereInput
+    orderBy?: MSTItemOrderByWithAggregationInput | MSTItemOrderByWithAggregationInput[]
+    by: MSTItemScalarFieldEnum[] | MSTItemScalarFieldEnum
+    having?: MSTItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MSTItemCountAggregateInputType | true
+    _avg?: MSTItemAvgAggregateInputType
+    _sum?: MSTItemSumAggregateInputType
+    _min?: MSTItemMinAggregateInputType
+    _max?: MSTItemMaxAggregateInputType
+  }
+
+  export type MSTItemGroupByOutputType = {
+    id: string
+    mst_id: string
+    item_id: string
+    quantity: number
+    price: number
+    metadata: JsonValue | null
+    _count: MSTItemCountAggregateOutputType | null
+    _avg: MSTItemAvgAggregateOutputType | null
+    _sum: MSTItemSumAggregateOutputType | null
+    _min: MSTItemMinAggregateOutputType | null
+    _max: MSTItemMaxAggregateOutputType | null
+  }
+
+  type GetMSTItemGroupByPayload<T extends MSTItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MSTItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MSTItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MSTItemGroupByOutputType[P]>
+            : GetScalarType<T[P], MSTItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MSTItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    mst_id?: boolean
+    item_id?: boolean
+    quantity?: boolean
+    price?: boolean
+    metadata?: boolean
+    mst?: boolean | MSTDefaultArgs<ExtArgs>
+    item?: boolean | ItemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mSTItem"]>
+
+  export type MSTItemSelectScalar = {
+    id?: boolean
+    mst_id?: boolean
+    item_id?: boolean
+    quantity?: boolean
+    price?: boolean
+    metadata?: boolean
+  }
+
+  export type MSTItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mst?: boolean | MSTDefaultArgs<ExtArgs>
+    item?: boolean | ItemDefaultArgs<ExtArgs>
+  }
+
+
+  export type $MSTItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MSTItem"
+    objects: {
+      mst: Prisma.$MSTPayload<ExtArgs>
+      item: Prisma.$ItemPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      mst_id: string
+      item_id: string
+      quantity: number
+      price: number
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["mSTItem"]>
+    composites: {}
+  }
+
+
+  type MSTItemGetPayload<S extends boolean | null | undefined | MSTItemDefaultArgs> = $Result.GetResult<Prisma.$MSTItemPayload, S>
+
+  type MSTItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MSTItemFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MSTItemCountAggregateInputType | true
+    }
+
+  export interface MSTItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MSTItem'], meta: { name: 'MSTItem' } }
+    /**
+     * Find zero or one MSTItem that matches the filter.
+     * @param {MSTItemFindUniqueArgs} args - Arguments to find a MSTItem
+     * @example
+     * // Get one MSTItem
+     * const mSTItem = await prisma.mSTItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends MSTItemFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTItemFindUniqueArgs<ExtArgs>>
+    ): Prisma__MSTItemClient<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one MSTItem that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {MSTItemFindUniqueOrThrowArgs} args - Arguments to find a MSTItem
+     * @example
+     * // Get one MSTItem
+     * const mSTItem = await prisma.mSTItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends MSTItemFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTItemFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__MSTItemClient<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first MSTItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTItemFindFirstArgs} args - Arguments to find a MSTItem
+     * @example
+     * // Get one MSTItem
+     * const mSTItem = await prisma.mSTItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends MSTItemFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTItemFindFirstArgs<ExtArgs>>
+    ): Prisma__MSTItemClient<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first MSTItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTItemFindFirstOrThrowArgs} args - Arguments to find a MSTItem
+     * @example
+     * // Get one MSTItem
+     * const mSTItem = await prisma.mSTItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends MSTItemFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTItemFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__MSTItemClient<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more MSTItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTItemFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MSTItems
+     * const mSTItems = await prisma.mSTItem.findMany()
+     * 
+     * // Get first 10 MSTItems
+     * const mSTItems = await prisma.mSTItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mSTItemWithIdOnly = await prisma.mSTItem.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends MSTItemFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTItemFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a MSTItem.
+     * @param {MSTItemCreateArgs} args - Arguments to create a MSTItem.
+     * @example
+     * // Create one MSTItem
+     * const MSTItem = await prisma.mSTItem.create({
+     *   data: {
+     *     // ... data to create a MSTItem
+     *   }
+     * })
+     * 
+    **/
+    create<T extends MSTItemCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTItemCreateArgs<ExtArgs>>
+    ): Prisma__MSTItemClient<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many MSTItems.
+     *     @param {MSTItemCreateManyArgs} args - Arguments to create many MSTItems.
+     *     @example
+     *     // Create many MSTItems
+     *     const mSTItem = await prisma.mSTItem.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends MSTItemCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTItemCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a MSTItem.
+     * @param {MSTItemDeleteArgs} args - Arguments to delete one MSTItem.
+     * @example
+     * // Delete one MSTItem
+     * const MSTItem = await prisma.mSTItem.delete({
+     *   where: {
+     *     // ... filter to delete one MSTItem
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends MSTItemDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTItemDeleteArgs<ExtArgs>>
+    ): Prisma__MSTItemClient<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one MSTItem.
+     * @param {MSTItemUpdateArgs} args - Arguments to update one MSTItem.
+     * @example
+     * // Update one MSTItem
+     * const mSTItem = await prisma.mSTItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends MSTItemUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTItemUpdateArgs<ExtArgs>>
+    ): Prisma__MSTItemClient<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more MSTItems.
+     * @param {MSTItemDeleteManyArgs} args - Arguments to filter MSTItems to delete.
+     * @example
+     * // Delete a few MSTItems
+     * const { count } = await prisma.mSTItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends MSTItemDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MSTItemDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MSTItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MSTItems
+     * const mSTItem = await prisma.mSTItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends MSTItemUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTItemUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MSTItem.
+     * @param {MSTItemUpsertArgs} args - Arguments to update or create a MSTItem.
+     * @example
+     * // Update or create a MSTItem
+     * const mSTItem = await prisma.mSTItem.upsert({
+     *   create: {
+     *     // ... data to create a MSTItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MSTItem we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends MSTItemUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, MSTItemUpsertArgs<ExtArgs>>
+    ): Prisma__MSTItemClient<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of MSTItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTItemCountArgs} args - Arguments to filter MSTItems to count.
+     * @example
+     * // Count the number of MSTItems
+     * const count = await prisma.mSTItem.count({
+     *   where: {
+     *     // ... the filter for the MSTItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends MSTItemCountArgs>(
+      args?: Subset<T, MSTItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MSTItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MSTItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MSTItemAggregateArgs>(args: Subset<T, MSTItemAggregateArgs>): Prisma.PrismaPromise<GetMSTItemAggregateType<T>>
+
+    /**
+     * Group by MSTItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MSTItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MSTItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MSTItemGroupByArgs['orderBy'] }
+        : { orderBy?: MSTItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MSTItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMSTItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MSTItem model
+   */
+  readonly fields: MSTItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MSTItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MSTItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    mst<T extends MSTDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MSTDefaultArgs<ExtArgs>>): Prisma__MSTClient<$Result.GetResult<Prisma.$MSTPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    item<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the MSTItem model
+   */ 
+  interface MSTItemFieldRefs {
+    readonly id: FieldRef<"MSTItem", 'String'>
+    readonly mst_id: FieldRef<"MSTItem", 'String'>
+    readonly item_id: FieldRef<"MSTItem", 'String'>
+    readonly quantity: FieldRef<"MSTItem", 'Int'>
+    readonly price: FieldRef<"MSTItem", 'Float'>
+    readonly metadata: FieldRef<"MSTItem", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * MSTItem findUnique
+   */
+  export type MSTItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTItem to fetch.
+     */
+    where: MSTItemWhereUniqueInput
+  }
+
+
+  /**
+   * MSTItem findUniqueOrThrow
+   */
+  export type MSTItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTItem to fetch.
+     */
+    where: MSTItemWhereUniqueInput
+  }
+
+
+  /**
+   * MSTItem findFirst
+   */
+  export type MSTItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTItem to fetch.
+     */
+    where?: MSTItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTItems to fetch.
+     */
+    orderBy?: MSTItemOrderByWithRelationInput | MSTItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MSTItems.
+     */
+    cursor?: MSTItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MSTItems.
+     */
+    distinct?: MSTItemScalarFieldEnum | MSTItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * MSTItem findFirstOrThrow
+   */
+  export type MSTItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTItem to fetch.
+     */
+    where?: MSTItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTItems to fetch.
+     */
+    orderBy?: MSTItemOrderByWithRelationInput | MSTItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MSTItems.
+     */
+    cursor?: MSTItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MSTItems.
+     */
+    distinct?: MSTItemScalarFieldEnum | MSTItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * MSTItem findMany
+   */
+  export type MSTItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    /**
+     * Filter, which MSTItems to fetch.
+     */
+    where?: MSTItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MSTItems to fetch.
+     */
+    orderBy?: MSTItemOrderByWithRelationInput | MSTItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MSTItems.
+     */
+    cursor?: MSTItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MSTItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MSTItems.
+     */
+    skip?: number
+    distinct?: MSTItemScalarFieldEnum | MSTItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * MSTItem create
+   */
+  export type MSTItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MSTItem.
+     */
+    data: XOR<MSTItemCreateInput, MSTItemUncheckedCreateInput>
+  }
+
+
+  /**
+   * MSTItem createMany
+   */
+  export type MSTItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MSTItems.
+     */
+    data: MSTItemCreateManyInput | MSTItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * MSTItem update
+   */
+  export type MSTItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MSTItem.
+     */
+    data: XOR<MSTItemUpdateInput, MSTItemUncheckedUpdateInput>
+    /**
+     * Choose, which MSTItem to update.
+     */
+    where: MSTItemWhereUniqueInput
+  }
+
+
+  /**
+   * MSTItem updateMany
+   */
+  export type MSTItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MSTItems.
+     */
+    data: XOR<MSTItemUpdateManyMutationInput, MSTItemUncheckedUpdateManyInput>
+    /**
+     * Filter which MSTItems to update
+     */
+    where?: MSTItemWhereInput
+  }
+
+
+  /**
+   * MSTItem upsert
+   */
+  export type MSTItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MSTItem to update in case it exists.
+     */
+    where: MSTItemWhereUniqueInput
+    /**
+     * In case the MSTItem found by the `where` argument doesn't exist, create a new MSTItem with this data.
+     */
+    create: XOR<MSTItemCreateInput, MSTItemUncheckedCreateInput>
+    /**
+     * In case the MSTItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MSTItemUpdateInput, MSTItemUncheckedUpdateInput>
+  }
+
+
+  /**
+   * MSTItem delete
+   */
+  export type MSTItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    /**
+     * Filter which MSTItem to delete.
+     */
+    where: MSTItemWhereUniqueInput
+  }
+
+
+  /**
+   * MSTItem deleteMany
+   */
+  export type MSTItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MSTItems to delete
+     */
+    where?: MSTItemWhereInput
+  }
+
+
+  /**
+   * MSTItem without action
+   */
+  export type MSTItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
   }
 
 
@@ -49142,6 +52580,7 @@ export namespace Prisma {
     osriv_item_id: 'osriv_item_id',
     seriv_item_id: 'seriv_item_id',
     mrv_item_id: 'mrv_item_id',
+    mcrt_item_id: 'mcrt_item_id',
     type: 'type',
     quantity: 'quantity',
     price: 'price',
@@ -49658,6 +53097,7 @@ export namespace Prisma {
     seriv_id: 'seriv_id',
     mcrt_number: 'mcrt_number',
     mcrt_date: 'mcrt_date',
+    is_completed: 'is_completed',
     returned_by_id: 'returned_by_id',
     wo_number: 'wo_number',
     mo_number: 'mo_number',
@@ -49701,6 +53141,55 @@ export namespace Prisma {
   };
 
   export type MCRTItemScalarFieldEnum = (typeof MCRTItemScalarFieldEnum)[keyof typeof MCRTItemScalarFieldEnum]
+
+
+  export const MSTScalarFieldEnum: {
+    id: 'id',
+    mst_number: 'mst_number',
+    mst_date: 'mst_date',
+    returned_by_id: 'returned_by_id',
+    cwo_number: 'cwo_number',
+    mwo_number: 'mwo_number',
+    jo_number: 'jo_number',
+    remarks: 'remarks',
+    cancelled_by: 'cancelled_by',
+    created_by: 'created_by',
+    updated_by: 'updated_by',
+    cancelled_at: 'cancelled_at',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    metadata: 'metadata'
+  };
+
+  export type MSTScalarFieldEnum = (typeof MSTScalarFieldEnum)[keyof typeof MSTScalarFieldEnum]
+
+
+  export const MSTApproverScalarFieldEnum: {
+    id: 'id',
+    mst_id: 'mst_id',
+    approver_id: 'approver_id',
+    date_approval: 'date_approval',
+    notes: 'notes',
+    status: 'status',
+    label: 'label',
+    label_id: 'label_id',
+    order: 'order',
+    metadata: 'metadata'
+  };
+
+  export type MSTApproverScalarFieldEnum = (typeof MSTApproverScalarFieldEnum)[keyof typeof MSTApproverScalarFieldEnum]
+
+
+  export const MSTItemScalarFieldEnum: {
+    id: 'id',
+    mst_id: 'mst_id',
+    item_id: 'item_id',
+    quantity: 'quantity',
+    price: 'price',
+    metadata: 'metadata'
+  };
+
+  export type MSTItemScalarFieldEnum = (typeof MSTItemScalarFieldEnum)[keyof typeof MSTItemScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -50335,6 +53824,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemListRelationFilter
     mrv_items?: MRVItemListRelationFilter
     mcrt_items?: MCRTItemListRelationFilter
+    mst_items?: MSTItemListRelationFilter
   }
 
   export type ItemOrderByWithRelationInput = {
@@ -50363,6 +53853,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemOrderByRelationAggregateInput
     mrv_items?: MRVItemOrderByRelationAggregateInput
     mcrt_items?: MCRTItemOrderByRelationAggregateInput
+    mst_items?: MSTItemOrderByRelationAggregateInput
   }
 
   export type ItemWhereUniqueInput = Prisma.AtLeast<{
@@ -50394,6 +53885,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemListRelationFilter
     mrv_items?: MRVItemListRelationFilter
     mcrt_items?: MCRTItemListRelationFilter
+    mst_items?: MSTItemListRelationFilter
   }, "id" | "code">
 
   export type ItemOrderByWithAggregationInput = {
@@ -50600,6 +54092,7 @@ export namespace Prisma {
     osriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     seriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     mrv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
+    mcrt_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     type?: IntFilter<"ItemTransaction"> | number
     quantity?: IntFilter<"ItemTransaction"> | number
     price?: FloatFilter<"ItemTransaction"> | number
@@ -50613,6 +54106,7 @@ export namespace Prisma {
     osriv_item?: XOR<OSRIVItemNullableRelationFilter, OSRIVItemWhereInput> | null
     seriv_item?: XOR<SERIVItemNullableRelationFilter, SERIVItemWhereInput> | null
     mrv_item?: XOR<MRVItemNullableRelationFilter, MRVItemWhereInput> | null
+    mcrt_item?: XOR<MCRTItemNullableRelationFilter, MCRTItemWhereInput> | null
   }
 
   export type ItemTransactionOrderByWithRelationInput = {
@@ -50622,6 +54116,7 @@ export namespace Prisma {
     osriv_item_id?: SortOrderInput | SortOrder
     seriv_item_id?: SortOrderInput | SortOrder
     mrv_item_id?: SortOrderInput | SortOrder
+    mcrt_item_id?: SortOrderInput | SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -50635,6 +54130,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemOrderByWithRelationInput
     seriv_item?: SERIVItemOrderByWithRelationInput
     mrv_item?: MRVItemOrderByWithRelationInput
+    mcrt_item?: MCRTItemOrderByWithRelationInput
   }
 
   export type ItemTransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -50643,6 +54139,7 @@ export namespace Prisma {
     osriv_item_id?: string
     seriv_item_id?: string
     mrv_item_id?: string
+    mcrt_item_id?: string
     AND?: ItemTransactionWhereInput | ItemTransactionWhereInput[]
     OR?: ItemTransactionWhereInput[]
     NOT?: ItemTransactionWhereInput | ItemTransactionWhereInput[]
@@ -50660,7 +54157,8 @@ export namespace Prisma {
     osriv_item?: XOR<OSRIVItemNullableRelationFilter, OSRIVItemWhereInput> | null
     seriv_item?: XOR<SERIVItemNullableRelationFilter, SERIVItemWhereInput> | null
     mrv_item?: XOR<MRVItemNullableRelationFilter, MRVItemWhereInput> | null
-  }, "id" | "rr_item_id" | "osriv_item_id" | "seriv_item_id" | "mrv_item_id">
+    mcrt_item?: XOR<MCRTItemNullableRelationFilter, MCRTItemWhereInput> | null
+  }, "id" | "rr_item_id" | "osriv_item_id" | "seriv_item_id" | "mrv_item_id" | "mcrt_item_id">
 
   export type ItemTransactionOrderByWithAggregationInput = {
     id?: SortOrder
@@ -50669,6 +54167,7 @@ export namespace Prisma {
     osriv_item_id?: SortOrderInput | SortOrder
     seriv_item_id?: SortOrderInput | SortOrder
     mrv_item_id?: SortOrderInput | SortOrder
+    mcrt_item_id?: SortOrderInput | SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -50694,6 +54193,7 @@ export namespace Prisma {
     osriv_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
     seriv_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
     mrv_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
+    mcrt_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
     type?: IntWithAggregatesFilter<"ItemTransaction"> | number
     quantity?: IntWithAggregatesFilter<"ItemTransaction"> | number
     price?: FloatWithAggregatesFilter<"ItemTransaction"> | number
@@ -53377,6 +56877,7 @@ export namespace Prisma {
     seriv_id?: StringNullableFilter<"MCRT"> | string | null
     mcrt_number?: StringFilter<"MCRT"> | string
     mcrt_date?: DateTimeFilter<"MCRT"> | Date | string
+    is_completed?: BoolFilter<"MCRT"> | boolean
     returned_by_id?: StringFilter<"MCRT"> | string
     wo_number?: StringNullableFilter<"MCRT"> | string | null
     mo_number?: StringNullableFilter<"MCRT"> | string | null
@@ -53401,6 +56902,7 @@ export namespace Prisma {
     seriv_id?: SortOrderInput | SortOrder
     mcrt_number?: SortOrder
     mcrt_date?: SortOrder
+    is_completed?: SortOrder
     returned_by_id?: SortOrder
     wo_number?: SortOrderInput | SortOrder
     mo_number?: SortOrderInput | SortOrder
@@ -53428,6 +56930,7 @@ export namespace Prisma {
     OR?: MCRTWhereInput[]
     NOT?: MCRTWhereInput | MCRTWhereInput[]
     mcrt_date?: DateTimeFilter<"MCRT"> | Date | string
+    is_completed?: BoolFilter<"MCRT"> | boolean
     returned_by_id?: StringFilter<"MCRT"> | string
     wo_number?: StringNullableFilter<"MCRT"> | string | null
     mo_number?: StringNullableFilter<"MCRT"> | string | null
@@ -53452,6 +56955,7 @@ export namespace Prisma {
     seriv_id?: SortOrderInput | SortOrder
     mcrt_number?: SortOrder
     mcrt_date?: SortOrder
+    is_completed?: SortOrder
     returned_by_id?: SortOrder
     wo_number?: SortOrderInput | SortOrder
     mo_number?: SortOrderInput | SortOrder
@@ -53478,6 +56982,7 @@ export namespace Prisma {
     seriv_id?: StringNullableWithAggregatesFilter<"MCRT"> | string | null
     mcrt_number?: StringWithAggregatesFilter<"MCRT"> | string
     mcrt_date?: DateTimeWithAggregatesFilter<"MCRT"> | Date | string
+    is_completed?: BoolWithAggregatesFilter<"MCRT"> | boolean
     returned_by_id?: StringWithAggregatesFilter<"MCRT"> | string
     wo_number?: StringNullableWithAggregatesFilter<"MCRT"> | string | null
     mo_number?: StringNullableWithAggregatesFilter<"MCRT"> | string | null
@@ -53586,6 +57091,7 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"MCRTItem">
     mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type MCRTItemOrderByWithRelationInput = {
@@ -53597,6 +57103,7 @@ export namespace Prisma {
     metadata?: SortOrderInput | SortOrder
     mcrt?: MCRTOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
+    item_transaction?: ItemTransactionOrderByWithRelationInput
   }
 
   export type MCRTItemWhereUniqueInput = Prisma.AtLeast<{
@@ -53611,6 +57118,7 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"MCRTItem">
     mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type MCRTItemOrderByWithAggregationInput = {
@@ -53637,6 +57145,261 @@ export namespace Prisma {
     quantity?: IntWithAggregatesFilter<"MCRTItem"> | number
     price?: FloatWithAggregatesFilter<"MCRTItem"> | number
     metadata?: JsonNullableWithAggregatesFilter<"MCRTItem">
+  }
+
+  export type MSTWhereInput = {
+    AND?: MSTWhereInput | MSTWhereInput[]
+    OR?: MSTWhereInput[]
+    NOT?: MSTWhereInput | MSTWhereInput[]
+    id?: StringFilter<"MST"> | string
+    mst_number?: StringFilter<"MST"> | string
+    mst_date?: DateTimeFilter<"MST"> | Date | string
+    returned_by_id?: StringFilter<"MST"> | string
+    cwo_number?: StringNullableFilter<"MST"> | string | null
+    mwo_number?: StringNullableFilter<"MST"> | string | null
+    jo_number?: StringNullableFilter<"MST"> | string | null
+    remarks?: StringFilter<"MST"> | string
+    cancelled_by?: StringNullableFilter<"MST"> | string | null
+    created_by?: StringFilter<"MST"> | string
+    updated_by?: StringNullableFilter<"MST"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"MST"> | Date | string | null
+    created_at?: DateTimeFilter<"MST"> | Date | string
+    updated_at?: DateTimeFilter<"MST"> | Date | string
+    metadata?: JsonNullableFilter<"MST">
+    mst_approvers?: MSTApproverListRelationFilter
+    mst_items?: MSTItemListRelationFilter
+  }
+
+  export type MSTOrderByWithRelationInput = {
+    id?: SortOrder
+    mst_number?: SortOrder
+    mst_date?: SortOrder
+    returned_by_id?: SortOrder
+    cwo_number?: SortOrderInput | SortOrder
+    mwo_number?: SortOrderInput | SortOrder
+    jo_number?: SortOrderInput | SortOrder
+    remarks?: SortOrder
+    cancelled_by?: SortOrderInput | SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    cancelled_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    mst_approvers?: MSTApproverOrderByRelationAggregateInput
+    mst_items?: MSTItemOrderByRelationAggregateInput
+  }
+
+  export type MSTWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    mst_number?: string
+    AND?: MSTWhereInput | MSTWhereInput[]
+    OR?: MSTWhereInput[]
+    NOT?: MSTWhereInput | MSTWhereInput[]
+    mst_date?: DateTimeFilter<"MST"> | Date | string
+    returned_by_id?: StringFilter<"MST"> | string
+    cwo_number?: StringNullableFilter<"MST"> | string | null
+    mwo_number?: StringNullableFilter<"MST"> | string | null
+    jo_number?: StringNullableFilter<"MST"> | string | null
+    remarks?: StringFilter<"MST"> | string
+    cancelled_by?: StringNullableFilter<"MST"> | string | null
+    created_by?: StringFilter<"MST"> | string
+    updated_by?: StringNullableFilter<"MST"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"MST"> | Date | string | null
+    created_at?: DateTimeFilter<"MST"> | Date | string
+    updated_at?: DateTimeFilter<"MST"> | Date | string
+    metadata?: JsonNullableFilter<"MST">
+    mst_approvers?: MSTApproverListRelationFilter
+    mst_items?: MSTItemListRelationFilter
+  }, "id" | "mst_number">
+
+  export type MSTOrderByWithAggregationInput = {
+    id?: SortOrder
+    mst_number?: SortOrder
+    mst_date?: SortOrder
+    returned_by_id?: SortOrder
+    cwo_number?: SortOrderInput | SortOrder
+    mwo_number?: SortOrderInput | SortOrder
+    jo_number?: SortOrderInput | SortOrder
+    remarks?: SortOrder
+    cancelled_by?: SortOrderInput | SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    cancelled_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: MSTCountOrderByAggregateInput
+    _max?: MSTMaxOrderByAggregateInput
+    _min?: MSTMinOrderByAggregateInput
+  }
+
+  export type MSTScalarWhereWithAggregatesInput = {
+    AND?: MSTScalarWhereWithAggregatesInput | MSTScalarWhereWithAggregatesInput[]
+    OR?: MSTScalarWhereWithAggregatesInput[]
+    NOT?: MSTScalarWhereWithAggregatesInput | MSTScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MST"> | string
+    mst_number?: StringWithAggregatesFilter<"MST"> | string
+    mst_date?: DateTimeWithAggregatesFilter<"MST"> | Date | string
+    returned_by_id?: StringWithAggregatesFilter<"MST"> | string
+    cwo_number?: StringNullableWithAggregatesFilter<"MST"> | string | null
+    mwo_number?: StringNullableWithAggregatesFilter<"MST"> | string | null
+    jo_number?: StringNullableWithAggregatesFilter<"MST"> | string | null
+    remarks?: StringWithAggregatesFilter<"MST"> | string
+    cancelled_by?: StringNullableWithAggregatesFilter<"MST"> | string | null
+    created_by?: StringWithAggregatesFilter<"MST"> | string
+    updated_by?: StringNullableWithAggregatesFilter<"MST"> | string | null
+    cancelled_at?: DateTimeNullableWithAggregatesFilter<"MST"> | Date | string | null
+    created_at?: DateTimeWithAggregatesFilter<"MST"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"MST"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"MST">
+  }
+
+  export type MSTApproverWhereInput = {
+    AND?: MSTApproverWhereInput | MSTApproverWhereInput[]
+    OR?: MSTApproverWhereInput[]
+    NOT?: MSTApproverWhereInput | MSTApproverWhereInput[]
+    id?: StringFilter<"MSTApprover"> | string
+    mst_id?: StringFilter<"MSTApprover"> | string
+    approver_id?: StringFilter<"MSTApprover"> | string
+    date_approval?: DateTimeNullableFilter<"MSTApprover"> | Date | string | null
+    notes?: StringFilter<"MSTApprover"> | string
+    status?: IntFilter<"MSTApprover"> | number
+    label?: StringFilter<"MSTApprover"> | string
+    label_id?: StringFilter<"MSTApprover"> | string
+    order?: IntFilter<"MSTApprover"> | number
+    metadata?: JsonNullableFilter<"MSTApprover">
+    mst?: XOR<MSTRelationFilter, MSTWhereInput>
+  }
+
+  export type MSTApproverOrderByWithRelationInput = {
+    id?: SortOrder
+    mst_id?: SortOrder
+    approver_id?: SortOrder
+    date_approval?: SortOrderInput | SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    label?: SortOrder
+    label_id?: SortOrder
+    order?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    mst?: MSTOrderByWithRelationInput
+  }
+
+  export type MSTApproverWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MSTApproverWhereInput | MSTApproverWhereInput[]
+    OR?: MSTApproverWhereInput[]
+    NOT?: MSTApproverWhereInput | MSTApproverWhereInput[]
+    mst_id?: StringFilter<"MSTApprover"> | string
+    approver_id?: StringFilter<"MSTApprover"> | string
+    date_approval?: DateTimeNullableFilter<"MSTApprover"> | Date | string | null
+    notes?: StringFilter<"MSTApprover"> | string
+    status?: IntFilter<"MSTApprover"> | number
+    label?: StringFilter<"MSTApprover"> | string
+    label_id?: StringFilter<"MSTApprover"> | string
+    order?: IntFilter<"MSTApprover"> | number
+    metadata?: JsonNullableFilter<"MSTApprover">
+    mst?: XOR<MSTRelationFilter, MSTWhereInput>
+  }, "id">
+
+  export type MSTApproverOrderByWithAggregationInput = {
+    id?: SortOrder
+    mst_id?: SortOrder
+    approver_id?: SortOrder
+    date_approval?: SortOrderInput | SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    label?: SortOrder
+    label_id?: SortOrder
+    order?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: MSTApproverCountOrderByAggregateInput
+    _avg?: MSTApproverAvgOrderByAggregateInput
+    _max?: MSTApproverMaxOrderByAggregateInput
+    _min?: MSTApproverMinOrderByAggregateInput
+    _sum?: MSTApproverSumOrderByAggregateInput
+  }
+
+  export type MSTApproverScalarWhereWithAggregatesInput = {
+    AND?: MSTApproverScalarWhereWithAggregatesInput | MSTApproverScalarWhereWithAggregatesInput[]
+    OR?: MSTApproverScalarWhereWithAggregatesInput[]
+    NOT?: MSTApproverScalarWhereWithAggregatesInput | MSTApproverScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MSTApprover"> | string
+    mst_id?: StringWithAggregatesFilter<"MSTApprover"> | string
+    approver_id?: StringWithAggregatesFilter<"MSTApprover"> | string
+    date_approval?: DateTimeNullableWithAggregatesFilter<"MSTApprover"> | Date | string | null
+    notes?: StringWithAggregatesFilter<"MSTApprover"> | string
+    status?: IntWithAggregatesFilter<"MSTApprover"> | number
+    label?: StringWithAggregatesFilter<"MSTApprover"> | string
+    label_id?: StringWithAggregatesFilter<"MSTApprover"> | string
+    order?: IntWithAggregatesFilter<"MSTApprover"> | number
+    metadata?: JsonNullableWithAggregatesFilter<"MSTApprover">
+  }
+
+  export type MSTItemWhereInput = {
+    AND?: MSTItemWhereInput | MSTItemWhereInput[]
+    OR?: MSTItemWhereInput[]
+    NOT?: MSTItemWhereInput | MSTItemWhereInput[]
+    id?: StringFilter<"MSTItem"> | string
+    mst_id?: StringFilter<"MSTItem"> | string
+    item_id?: StringFilter<"MSTItem"> | string
+    quantity?: IntFilter<"MSTItem"> | number
+    price?: FloatFilter<"MSTItem"> | number
+    metadata?: JsonNullableFilter<"MSTItem">
+    mst?: XOR<MSTRelationFilter, MSTWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+  }
+
+  export type MSTItemOrderByWithRelationInput = {
+    id?: SortOrder
+    mst_id?: SortOrder
+    item_id?: SortOrder
+    quantity?: SortOrder
+    price?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    mst?: MSTOrderByWithRelationInput
+    item?: ItemOrderByWithRelationInput
+  }
+
+  export type MSTItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MSTItemWhereInput | MSTItemWhereInput[]
+    OR?: MSTItemWhereInput[]
+    NOT?: MSTItemWhereInput | MSTItemWhereInput[]
+    mst_id?: StringFilter<"MSTItem"> | string
+    item_id?: StringFilter<"MSTItem"> | string
+    quantity?: IntFilter<"MSTItem"> | number
+    price?: FloatFilter<"MSTItem"> | number
+    metadata?: JsonNullableFilter<"MSTItem">
+    mst?: XOR<MSTRelationFilter, MSTWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+  }, "id">
+
+  export type MSTItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    mst_id?: SortOrder
+    item_id?: SortOrder
+    quantity?: SortOrder
+    price?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: MSTItemCountOrderByAggregateInput
+    _avg?: MSTItemAvgOrderByAggregateInput
+    _max?: MSTItemMaxOrderByAggregateInput
+    _min?: MSTItemMinOrderByAggregateInput
+    _sum?: MSTItemSumOrderByAggregateInput
+  }
+
+  export type MSTItemScalarWhereWithAggregatesInput = {
+    AND?: MSTItemScalarWhereWithAggregatesInput | MSTItemScalarWhereWithAggregatesInput[]
+    OR?: MSTItemScalarWhereWithAggregatesInput[]
+    NOT?: MSTItemScalarWhereWithAggregatesInput | MSTItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MSTItem"> | string
+    mst_id?: StringWithAggregatesFilter<"MSTItem"> | string
+    item_id?: StringWithAggregatesFilter<"MSTItem"> | string
+    quantity?: IntWithAggregatesFilter<"MSTItem"> | number
+    price?: FloatWithAggregatesFilter<"MSTItem"> | number
+    metadata?: JsonNullableWithAggregatesFilter<"MSTItem">
   }
 
   export type SupplierCreateInput = {
@@ -54229,6 +57992,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateInput = {
@@ -54256,6 +58020,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemUpdateInput = {
@@ -54283,6 +58048,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateInput = {
@@ -54310,6 +58076,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type ItemCreateManyInput = {
@@ -54529,6 +58296,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
+    mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateInput = {
@@ -54538,6 +58306,7 @@ export namespace Prisma {
     osriv_item_id?: string | null
     seriv_item_id?: string | null
     mrv_item_id?: string | null
+    mcrt_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -54562,6 +58331,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
+    mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateInput = {
@@ -54571,6 +58341,7 @@ export namespace Prisma {
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -54588,6 +58359,7 @@ export namespace Prisma {
     osriv_item_id?: string | null
     seriv_item_id?: string | null
     mrv_item_id?: string | null
+    mcrt_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -54616,6 +58388,7 @@ export namespace Prisma {
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -57600,6 +61373,7 @@ export namespace Prisma {
     id?: string
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -57624,6 +61398,7 @@ export namespace Prisma {
     seriv_id?: string | null
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -57644,6 +61419,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57668,6 +61444,7 @@ export namespace Prisma {
     seriv_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57690,6 +61467,7 @@ export namespace Prisma {
     seriv_id?: string | null
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -57708,6 +61486,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57728,6 +61507,7 @@ export namespace Prisma {
     seriv_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57839,6 +61619,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt: MCRTCreateNestedOneWithoutMcrt_itemsInput
     item: ItemCreateNestedOneWithoutMcrt_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutMcrt_itemInput
   }
 
   export type MCRTItemUncheckedCreateInput = {
@@ -57848,6 +61629,7 @@ export namespace Prisma {
     quantity: number
     price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMcrt_itemInput
   }
 
   export type MCRTItemUpdateInput = {
@@ -57857,6 +61639,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt?: MCRTUpdateOneRequiredWithoutMcrt_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutMcrt_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutMcrt_itemNestedInput
   }
 
   export type MCRTItemUncheckedUpdateInput = {
@@ -57866,6 +61649,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMcrt_itemNestedInput
   }
 
   export type MCRTItemCreateManyInput = {
@@ -57887,6 +61671,291 @@ export namespace Prisma {
   export type MCRTItemUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     mcrt_id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTCreateInput = {
+    id?: string
+    mst_number: string
+    mst_date: Date | string
+    returned_by_id: string
+    cwo_number?: string | null
+    mwo_number?: string | null
+    jo_number?: string | null
+    remarks: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_approvers?: MSTApproverCreateNestedManyWithoutMstInput
+    mst_items?: MSTItemCreateNestedManyWithoutMstInput
+  }
+
+  export type MSTUncheckedCreateInput = {
+    id?: string
+    mst_number: string
+    mst_date: Date | string
+    returned_by_id: string
+    cwo_number?: string | null
+    mwo_number?: string | null
+    jo_number?: string | null
+    remarks: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_approvers?: MSTApproverUncheckedCreateNestedManyWithoutMstInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutMstInput
+  }
+
+  export type MSTUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_number?: StringFieldUpdateOperationsInput | string
+    mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    returned_by_id?: StringFieldUpdateOperationsInput | string
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_approvers?: MSTApproverUpdateManyWithoutMstNestedInput
+    mst_items?: MSTItemUpdateManyWithoutMstNestedInput
+  }
+
+  export type MSTUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_number?: StringFieldUpdateOperationsInput | string
+    mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    returned_by_id?: StringFieldUpdateOperationsInput | string
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_approvers?: MSTApproverUncheckedUpdateManyWithoutMstNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutMstNestedInput
+  }
+
+  export type MSTCreateManyInput = {
+    id?: string
+    mst_number: string
+    mst_date: Date | string
+    returned_by_id: string
+    cwo_number?: string | null
+    mwo_number?: string | null
+    jo_number?: string | null
+    remarks: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_number?: StringFieldUpdateOperationsInput | string
+    mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    returned_by_id?: StringFieldUpdateOperationsInput | string
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_number?: StringFieldUpdateOperationsInput | string
+    mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    returned_by_id?: StringFieldUpdateOperationsInput | string
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverCreateInput = {
+    id?: string
+    approver_id: string
+    date_approval?: Date | string | null
+    notes: string
+    status: number
+    label: string
+    label_id: string
+    order: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst: MSTCreateNestedOneWithoutMst_approversInput
+  }
+
+  export type MSTApproverUncheckedCreateInput = {
+    id?: string
+    mst_id: string
+    approver_id: string
+    date_approval?: Date | string | null
+    notes: string
+    status: number
+    label: string
+    label_id: string
+    order: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    approver_id?: StringFieldUpdateOperationsInput | string
+    date_approval?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst?: MSTUpdateOneRequiredWithoutMst_approversNestedInput
+  }
+
+  export type MSTApproverUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_id?: StringFieldUpdateOperationsInput | string
+    approver_id?: StringFieldUpdateOperationsInput | string
+    date_approval?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverCreateManyInput = {
+    id?: string
+    mst_id: string
+    approver_id: string
+    date_approval?: Date | string | null
+    notes: string
+    status: number
+    label: string
+    label_id: string
+    order: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    approver_id?: StringFieldUpdateOperationsInput | string
+    date_approval?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_id?: StringFieldUpdateOperationsInput | string
+    approver_id?: StringFieldUpdateOperationsInput | string
+    date_approval?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemCreateInput = {
+    id?: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst: MSTCreateNestedOneWithoutMst_itemsInput
+    item: ItemCreateNestedOneWithoutMst_itemsInput
+  }
+
+  export type MSTItemUncheckedCreateInput = {
+    id?: string
+    mst_id: string
+    item_id: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst?: MSTUpdateOneRequiredWithoutMst_itemsNestedInput
+    item?: ItemUpdateOneRequiredWithoutMst_itemsNestedInput
+  }
+
+  export type MSTItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemCreateManyInput = {
+    id?: string
+    mst_id: string
+    item_id: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -58456,6 +62525,12 @@ export namespace Prisma {
     none?: MCRTItemWhereInput
   }
 
+  export type MSTItemListRelationFilter = {
+    every?: MSTItemWhereInput
+    some?: MSTItemWhereInput
+    none?: MSTItemWhereInput
+  }
+
   export type ItemTransactionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -58473,6 +62548,10 @@ export namespace Prisma {
   }
 
   export type MCRTItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MSTItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -58678,6 +62757,11 @@ export namespace Prisma {
     isNot?: MRVItemWhereInput | null
   }
 
+  export type MCRTItemNullableRelationFilter = {
+    is?: MCRTItemWhereInput | null
+    isNot?: MCRTItemWhereInput | null
+  }
+
   export type ItemTransactionCountOrderByAggregateInput = {
     id?: SortOrder
     item_id?: SortOrder
@@ -58685,6 +62769,7 @@ export namespace Prisma {
     osriv_item_id?: SortOrder
     seriv_item_id?: SortOrder
     mrv_item_id?: SortOrder
+    mcrt_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -58709,6 +62794,7 @@ export namespace Prisma {
     osriv_item_id?: SortOrder
     seriv_item_id?: SortOrder
     mrv_item_id?: SortOrder
+    mcrt_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -58725,6 +62811,7 @@ export namespace Prisma {
     osriv_item_id?: SortOrder
     seriv_item_id?: SortOrder
     mrv_item_id?: SortOrder
+    mcrt_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -60430,6 +64517,7 @@ export namespace Prisma {
     seriv_id?: SortOrder
     mcrt_number?: SortOrder
     mcrt_date?: SortOrder
+    is_completed?: SortOrder
     returned_by_id?: SortOrder
     wo_number?: SortOrder
     mo_number?: SortOrder
@@ -60450,6 +64538,7 @@ export namespace Prisma {
     seriv_id?: SortOrder
     mcrt_number?: SortOrder
     mcrt_date?: SortOrder
+    is_completed?: SortOrder
     returned_by_id?: SortOrder
     wo_number?: SortOrder
     mo_number?: SortOrder
@@ -60469,6 +64558,7 @@ export namespace Prisma {
     seriv_id?: SortOrder
     mcrt_number?: SortOrder
     mcrt_date?: SortOrder
+    is_completed?: SortOrder
     returned_by_id?: SortOrder
     wo_number?: SortOrder
     mo_number?: SortOrder
@@ -60565,6 +64655,155 @@ export namespace Prisma {
   }
 
   export type MCRTItemSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    price?: SortOrder
+  }
+
+  export type MSTApproverListRelationFilter = {
+    every?: MSTApproverWhereInput
+    some?: MSTApproverWhereInput
+    none?: MSTApproverWhereInput
+  }
+
+  export type MSTApproverOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MSTCountOrderByAggregateInput = {
+    id?: SortOrder
+    mst_number?: SortOrder
+    mst_date?: SortOrder
+    returned_by_id?: SortOrder
+    cwo_number?: SortOrder
+    mwo_number?: SortOrder
+    jo_number?: SortOrder
+    remarks?: SortOrder
+    cancelled_by?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrder
+    cancelled_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    metadata?: SortOrder
+  }
+
+  export type MSTMaxOrderByAggregateInput = {
+    id?: SortOrder
+    mst_number?: SortOrder
+    mst_date?: SortOrder
+    returned_by_id?: SortOrder
+    cwo_number?: SortOrder
+    mwo_number?: SortOrder
+    jo_number?: SortOrder
+    remarks?: SortOrder
+    cancelled_by?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrder
+    cancelled_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MSTMinOrderByAggregateInput = {
+    id?: SortOrder
+    mst_number?: SortOrder
+    mst_date?: SortOrder
+    returned_by_id?: SortOrder
+    cwo_number?: SortOrder
+    mwo_number?: SortOrder
+    jo_number?: SortOrder
+    remarks?: SortOrder
+    cancelled_by?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrder
+    cancelled_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MSTRelationFilter = {
+    is?: MSTWhereInput
+    isNot?: MSTWhereInput
+  }
+
+  export type MSTApproverCountOrderByAggregateInput = {
+    id?: SortOrder
+    mst_id?: SortOrder
+    approver_id?: SortOrder
+    date_approval?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    label?: SortOrder
+    label_id?: SortOrder
+    order?: SortOrder
+    metadata?: SortOrder
+  }
+
+  export type MSTApproverAvgOrderByAggregateInput = {
+    status?: SortOrder
+    order?: SortOrder
+  }
+
+  export type MSTApproverMaxOrderByAggregateInput = {
+    id?: SortOrder
+    mst_id?: SortOrder
+    approver_id?: SortOrder
+    date_approval?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    label?: SortOrder
+    label_id?: SortOrder
+    order?: SortOrder
+  }
+
+  export type MSTApproverMinOrderByAggregateInput = {
+    id?: SortOrder
+    mst_id?: SortOrder
+    approver_id?: SortOrder
+    date_approval?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    label?: SortOrder
+    label_id?: SortOrder
+    order?: SortOrder
+  }
+
+  export type MSTApproverSumOrderByAggregateInput = {
+    status?: SortOrder
+    order?: SortOrder
+  }
+
+  export type MSTItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    mst_id?: SortOrder
+    item_id?: SortOrder
+    quantity?: SortOrder
+    price?: SortOrder
+    metadata?: SortOrder
+  }
+
+  export type MSTItemAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    price?: SortOrder
+  }
+
+  export type MSTItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    mst_id?: SortOrder
+    item_id?: SortOrder
+    quantity?: SortOrder
+    price?: SortOrder
+  }
+
+  export type MSTItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    mst_id?: SortOrder
+    item_id?: SortOrder
+    quantity?: SortOrder
+    price?: SortOrder
+  }
+
+  export type MSTItemSumOrderByAggregateInput = {
     quantity?: SortOrder
     price?: SortOrder
   }
@@ -61030,6 +65269,13 @@ export namespace Prisma {
     connect?: MCRTItemWhereUniqueInput | MCRTItemWhereUniqueInput[]
   }
 
+  export type MSTItemCreateNestedManyWithoutItemInput = {
+    create?: XOR<MSTItemCreateWithoutItemInput, MSTItemUncheckedCreateWithoutItemInput> | MSTItemCreateWithoutItemInput[] | MSTItemUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: MSTItemCreateOrConnectWithoutItemInput | MSTItemCreateOrConnectWithoutItemInput[]
+    createMany?: MSTItemCreateManyItemInputEnvelope
+    connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+  }
+
   export type ItemTransactionUncheckedCreateNestedManyWithoutItemInput = {
     create?: XOR<ItemTransactionCreateWithoutItemInput, ItemTransactionUncheckedCreateWithoutItemInput> | ItemTransactionCreateWithoutItemInput[] | ItemTransactionUncheckedCreateWithoutItemInput[]
     connectOrCreate?: ItemTransactionCreateOrConnectWithoutItemInput | ItemTransactionCreateOrConnectWithoutItemInput[]
@@ -61077,6 +65323,13 @@ export namespace Prisma {
     connectOrCreate?: MCRTItemCreateOrConnectWithoutItemInput | MCRTItemCreateOrConnectWithoutItemInput[]
     createMany?: MCRTItemCreateManyItemInputEnvelope
     connect?: MCRTItemWhereUniqueInput | MCRTItemWhereUniqueInput[]
+  }
+
+  export type MSTItemUncheckedCreateNestedManyWithoutItemInput = {
+    create?: XOR<MSTItemCreateWithoutItemInput, MSTItemUncheckedCreateWithoutItemInput> | MSTItemCreateWithoutItemInput[] | MSTItemUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: MSTItemCreateOrConnectWithoutItemInput | MSTItemCreateOrConnectWithoutItemInput[]
+    createMany?: MSTItemCreateManyItemInputEnvelope
+    connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
   }
 
   export type ItemTransactionUpdateManyWithoutItemNestedInput = {
@@ -61185,6 +65438,20 @@ export namespace Prisma {
     deleteMany?: MCRTItemScalarWhereInput | MCRTItemScalarWhereInput[]
   }
 
+  export type MSTItemUpdateManyWithoutItemNestedInput = {
+    create?: XOR<MSTItemCreateWithoutItemInput, MSTItemUncheckedCreateWithoutItemInput> | MSTItemCreateWithoutItemInput[] | MSTItemUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: MSTItemCreateOrConnectWithoutItemInput | MSTItemCreateOrConnectWithoutItemInput[]
+    upsert?: MSTItemUpsertWithWhereUniqueWithoutItemInput | MSTItemUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: MSTItemCreateManyItemInputEnvelope
+    set?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    disconnect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    delete?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    update?: MSTItemUpdateWithWhereUniqueWithoutItemInput | MSTItemUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: MSTItemUpdateManyWithWhereWithoutItemInput | MSTItemUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: MSTItemScalarWhereInput | MSTItemScalarWhereInput[]
+  }
+
   export type ItemTransactionUncheckedUpdateManyWithoutItemNestedInput = {
     create?: XOR<ItemTransactionCreateWithoutItemInput, ItemTransactionUncheckedCreateWithoutItemInput> | ItemTransactionCreateWithoutItemInput[] | ItemTransactionUncheckedCreateWithoutItemInput[]
     connectOrCreate?: ItemTransactionCreateOrConnectWithoutItemInput | ItemTransactionCreateOrConnectWithoutItemInput[]
@@ -61281,6 +65548,20 @@ export namespace Prisma {
     update?: MCRTItemUpdateWithWhereUniqueWithoutItemInput | MCRTItemUpdateWithWhereUniqueWithoutItemInput[]
     updateMany?: MCRTItemUpdateManyWithWhereWithoutItemInput | MCRTItemUpdateManyWithWhereWithoutItemInput[]
     deleteMany?: MCRTItemScalarWhereInput | MCRTItemScalarWhereInput[]
+  }
+
+  export type MSTItemUncheckedUpdateManyWithoutItemNestedInput = {
+    create?: XOR<MSTItemCreateWithoutItemInput, MSTItemUncheckedCreateWithoutItemInput> | MSTItemCreateWithoutItemInput[] | MSTItemUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: MSTItemCreateOrConnectWithoutItemInput | MSTItemCreateOrConnectWithoutItemInput[]
+    upsert?: MSTItemUpsertWithWhereUniqueWithoutItemInput | MSTItemUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: MSTItemCreateManyItemInputEnvelope
+    set?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    disconnect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    delete?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    update?: MSTItemUpdateWithWhereUniqueWithoutItemInput | MSTItemUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: MSTItemUpdateManyWithWhereWithoutItemInput | MSTItemUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: MSTItemScalarWhereInput | MSTItemScalarWhereInput[]
   }
 
   export type ItemCreateNestedOneWithoutItem_locationsInput = {
@@ -61453,6 +65734,12 @@ export namespace Prisma {
     connect?: MRVItemWhereUniqueInput
   }
 
+  export type MCRTItemCreateNestedOneWithoutItem_transactionInput = {
+    create?: XOR<MCRTItemCreateWithoutItem_transactionInput, MCRTItemUncheckedCreateWithoutItem_transactionInput>
+    connectOrCreate?: MCRTItemCreateOrConnectWithoutItem_transactionInput
+    connect?: MCRTItemWhereUniqueInput
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -61507,6 +65794,16 @@ export namespace Prisma {
     delete?: MRVItemWhereInput | boolean
     connect?: MRVItemWhereUniqueInput
     update?: XOR<XOR<MRVItemUpdateToOneWithWhereWithoutItem_transactionInput, MRVItemUpdateWithoutItem_transactionInput>, MRVItemUncheckedUpdateWithoutItem_transactionInput>
+  }
+
+  export type MCRTItemUpdateOneWithoutItem_transactionNestedInput = {
+    create?: XOR<MCRTItemCreateWithoutItem_transactionInput, MCRTItemUncheckedCreateWithoutItem_transactionInput>
+    connectOrCreate?: MCRTItemCreateOrConnectWithoutItem_transactionInput
+    upsert?: MCRTItemUpsertWithoutItem_transactionInput
+    disconnect?: MCRTItemWhereInput | boolean
+    delete?: MCRTItemWhereInput | boolean
+    connect?: MCRTItemWhereUniqueInput
+    update?: XOR<XOR<MCRTItemUpdateToOneWithWhereWithoutItem_transactionInput, MCRTItemUpdateWithoutItem_transactionInput>, MCRTItemUncheckedUpdateWithoutItem_transactionInput>
   }
 
   export type CanvassItemCreateNestedManyWithoutCanvassInput = {
@@ -63561,6 +67858,18 @@ export namespace Prisma {
     connect?: ItemWhereUniqueInput
   }
 
+  export type ItemTransactionCreateNestedOneWithoutMcrt_itemInput = {
+    create?: XOR<ItemTransactionCreateWithoutMcrt_itemInput, ItemTransactionUncheckedCreateWithoutMcrt_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutMcrt_itemInput
+    connect?: ItemTransactionWhereUniqueInput
+  }
+
+  export type ItemTransactionUncheckedCreateNestedOneWithoutMcrt_itemInput = {
+    create?: XOR<ItemTransactionCreateWithoutMcrt_itemInput, ItemTransactionUncheckedCreateWithoutMcrt_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutMcrt_itemInput
+    connect?: ItemTransactionWhereUniqueInput
+  }
+
   export type MCRTUpdateOneRequiredWithoutMcrt_itemsNestedInput = {
     create?: XOR<MCRTCreateWithoutMcrt_itemsInput, MCRTUncheckedCreateWithoutMcrt_itemsInput>
     connectOrCreate?: MCRTCreateOrConnectWithoutMcrt_itemsInput
@@ -63575,6 +67884,152 @@ export namespace Prisma {
     upsert?: ItemUpsertWithoutMcrt_itemsInput
     connect?: ItemWhereUniqueInput
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutMcrt_itemsInput, ItemUpdateWithoutMcrt_itemsInput>, ItemUncheckedUpdateWithoutMcrt_itemsInput>
+  }
+
+  export type ItemTransactionUpdateOneWithoutMcrt_itemNestedInput = {
+    create?: XOR<ItemTransactionCreateWithoutMcrt_itemInput, ItemTransactionUncheckedCreateWithoutMcrt_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutMcrt_itemInput
+    upsert?: ItemTransactionUpsertWithoutMcrt_itemInput
+    disconnect?: ItemTransactionWhereInput | boolean
+    delete?: ItemTransactionWhereInput | boolean
+    connect?: ItemTransactionWhereUniqueInput
+    update?: XOR<XOR<ItemTransactionUpdateToOneWithWhereWithoutMcrt_itemInput, ItemTransactionUpdateWithoutMcrt_itemInput>, ItemTransactionUncheckedUpdateWithoutMcrt_itemInput>
+  }
+
+  export type ItemTransactionUncheckedUpdateOneWithoutMcrt_itemNestedInput = {
+    create?: XOR<ItemTransactionCreateWithoutMcrt_itemInput, ItemTransactionUncheckedCreateWithoutMcrt_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutMcrt_itemInput
+    upsert?: ItemTransactionUpsertWithoutMcrt_itemInput
+    disconnect?: ItemTransactionWhereInput | boolean
+    delete?: ItemTransactionWhereInput | boolean
+    connect?: ItemTransactionWhereUniqueInput
+    update?: XOR<XOR<ItemTransactionUpdateToOneWithWhereWithoutMcrt_itemInput, ItemTransactionUpdateWithoutMcrt_itemInput>, ItemTransactionUncheckedUpdateWithoutMcrt_itemInput>
+  }
+
+  export type MSTApproverCreateNestedManyWithoutMstInput = {
+    create?: XOR<MSTApproverCreateWithoutMstInput, MSTApproverUncheckedCreateWithoutMstInput> | MSTApproverCreateWithoutMstInput[] | MSTApproverUncheckedCreateWithoutMstInput[]
+    connectOrCreate?: MSTApproverCreateOrConnectWithoutMstInput | MSTApproverCreateOrConnectWithoutMstInput[]
+    createMany?: MSTApproverCreateManyMstInputEnvelope
+    connect?: MSTApproverWhereUniqueInput | MSTApproverWhereUniqueInput[]
+  }
+
+  export type MSTItemCreateNestedManyWithoutMstInput = {
+    create?: XOR<MSTItemCreateWithoutMstInput, MSTItemUncheckedCreateWithoutMstInput> | MSTItemCreateWithoutMstInput[] | MSTItemUncheckedCreateWithoutMstInput[]
+    connectOrCreate?: MSTItemCreateOrConnectWithoutMstInput | MSTItemCreateOrConnectWithoutMstInput[]
+    createMany?: MSTItemCreateManyMstInputEnvelope
+    connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+  }
+
+  export type MSTApproverUncheckedCreateNestedManyWithoutMstInput = {
+    create?: XOR<MSTApproverCreateWithoutMstInput, MSTApproverUncheckedCreateWithoutMstInput> | MSTApproverCreateWithoutMstInput[] | MSTApproverUncheckedCreateWithoutMstInput[]
+    connectOrCreate?: MSTApproverCreateOrConnectWithoutMstInput | MSTApproverCreateOrConnectWithoutMstInput[]
+    createMany?: MSTApproverCreateManyMstInputEnvelope
+    connect?: MSTApproverWhereUniqueInput | MSTApproverWhereUniqueInput[]
+  }
+
+  export type MSTItemUncheckedCreateNestedManyWithoutMstInput = {
+    create?: XOR<MSTItemCreateWithoutMstInput, MSTItemUncheckedCreateWithoutMstInput> | MSTItemCreateWithoutMstInput[] | MSTItemUncheckedCreateWithoutMstInput[]
+    connectOrCreate?: MSTItemCreateOrConnectWithoutMstInput | MSTItemCreateOrConnectWithoutMstInput[]
+    createMany?: MSTItemCreateManyMstInputEnvelope
+    connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+  }
+
+  export type MSTApproverUpdateManyWithoutMstNestedInput = {
+    create?: XOR<MSTApproverCreateWithoutMstInput, MSTApproverUncheckedCreateWithoutMstInput> | MSTApproverCreateWithoutMstInput[] | MSTApproverUncheckedCreateWithoutMstInput[]
+    connectOrCreate?: MSTApproverCreateOrConnectWithoutMstInput | MSTApproverCreateOrConnectWithoutMstInput[]
+    upsert?: MSTApproverUpsertWithWhereUniqueWithoutMstInput | MSTApproverUpsertWithWhereUniqueWithoutMstInput[]
+    createMany?: MSTApproverCreateManyMstInputEnvelope
+    set?: MSTApproverWhereUniqueInput | MSTApproverWhereUniqueInput[]
+    disconnect?: MSTApproverWhereUniqueInput | MSTApproverWhereUniqueInput[]
+    delete?: MSTApproverWhereUniqueInput | MSTApproverWhereUniqueInput[]
+    connect?: MSTApproverWhereUniqueInput | MSTApproverWhereUniqueInput[]
+    update?: MSTApproverUpdateWithWhereUniqueWithoutMstInput | MSTApproverUpdateWithWhereUniqueWithoutMstInput[]
+    updateMany?: MSTApproverUpdateManyWithWhereWithoutMstInput | MSTApproverUpdateManyWithWhereWithoutMstInput[]
+    deleteMany?: MSTApproverScalarWhereInput | MSTApproverScalarWhereInput[]
+  }
+
+  export type MSTItemUpdateManyWithoutMstNestedInput = {
+    create?: XOR<MSTItemCreateWithoutMstInput, MSTItemUncheckedCreateWithoutMstInput> | MSTItemCreateWithoutMstInput[] | MSTItemUncheckedCreateWithoutMstInput[]
+    connectOrCreate?: MSTItemCreateOrConnectWithoutMstInput | MSTItemCreateOrConnectWithoutMstInput[]
+    upsert?: MSTItemUpsertWithWhereUniqueWithoutMstInput | MSTItemUpsertWithWhereUniqueWithoutMstInput[]
+    createMany?: MSTItemCreateManyMstInputEnvelope
+    set?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    disconnect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    delete?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    update?: MSTItemUpdateWithWhereUniqueWithoutMstInput | MSTItemUpdateWithWhereUniqueWithoutMstInput[]
+    updateMany?: MSTItemUpdateManyWithWhereWithoutMstInput | MSTItemUpdateManyWithWhereWithoutMstInput[]
+    deleteMany?: MSTItemScalarWhereInput | MSTItemScalarWhereInput[]
+  }
+
+  export type MSTApproverUncheckedUpdateManyWithoutMstNestedInput = {
+    create?: XOR<MSTApproverCreateWithoutMstInput, MSTApproverUncheckedCreateWithoutMstInput> | MSTApproverCreateWithoutMstInput[] | MSTApproverUncheckedCreateWithoutMstInput[]
+    connectOrCreate?: MSTApproverCreateOrConnectWithoutMstInput | MSTApproverCreateOrConnectWithoutMstInput[]
+    upsert?: MSTApproverUpsertWithWhereUniqueWithoutMstInput | MSTApproverUpsertWithWhereUniqueWithoutMstInput[]
+    createMany?: MSTApproverCreateManyMstInputEnvelope
+    set?: MSTApproverWhereUniqueInput | MSTApproverWhereUniqueInput[]
+    disconnect?: MSTApproverWhereUniqueInput | MSTApproverWhereUniqueInput[]
+    delete?: MSTApproverWhereUniqueInput | MSTApproverWhereUniqueInput[]
+    connect?: MSTApproverWhereUniqueInput | MSTApproverWhereUniqueInput[]
+    update?: MSTApproverUpdateWithWhereUniqueWithoutMstInput | MSTApproverUpdateWithWhereUniqueWithoutMstInput[]
+    updateMany?: MSTApproverUpdateManyWithWhereWithoutMstInput | MSTApproverUpdateManyWithWhereWithoutMstInput[]
+    deleteMany?: MSTApproverScalarWhereInput | MSTApproverScalarWhereInput[]
+  }
+
+  export type MSTItemUncheckedUpdateManyWithoutMstNestedInput = {
+    create?: XOR<MSTItemCreateWithoutMstInput, MSTItemUncheckedCreateWithoutMstInput> | MSTItemCreateWithoutMstInput[] | MSTItemUncheckedCreateWithoutMstInput[]
+    connectOrCreate?: MSTItemCreateOrConnectWithoutMstInput | MSTItemCreateOrConnectWithoutMstInput[]
+    upsert?: MSTItemUpsertWithWhereUniqueWithoutMstInput | MSTItemUpsertWithWhereUniqueWithoutMstInput[]
+    createMany?: MSTItemCreateManyMstInputEnvelope
+    set?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    disconnect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    delete?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+    update?: MSTItemUpdateWithWhereUniqueWithoutMstInput | MSTItemUpdateWithWhereUniqueWithoutMstInput[]
+    updateMany?: MSTItemUpdateManyWithWhereWithoutMstInput | MSTItemUpdateManyWithWhereWithoutMstInput[]
+    deleteMany?: MSTItemScalarWhereInput | MSTItemScalarWhereInput[]
+  }
+
+  export type MSTCreateNestedOneWithoutMst_approversInput = {
+    create?: XOR<MSTCreateWithoutMst_approversInput, MSTUncheckedCreateWithoutMst_approversInput>
+    connectOrCreate?: MSTCreateOrConnectWithoutMst_approversInput
+    connect?: MSTWhereUniqueInput
+  }
+
+  export type MSTUpdateOneRequiredWithoutMst_approversNestedInput = {
+    create?: XOR<MSTCreateWithoutMst_approversInput, MSTUncheckedCreateWithoutMst_approversInput>
+    connectOrCreate?: MSTCreateOrConnectWithoutMst_approversInput
+    upsert?: MSTUpsertWithoutMst_approversInput
+    connect?: MSTWhereUniqueInput
+    update?: XOR<XOR<MSTUpdateToOneWithWhereWithoutMst_approversInput, MSTUpdateWithoutMst_approversInput>, MSTUncheckedUpdateWithoutMst_approversInput>
+  }
+
+  export type MSTCreateNestedOneWithoutMst_itemsInput = {
+    create?: XOR<MSTCreateWithoutMst_itemsInput, MSTUncheckedCreateWithoutMst_itemsInput>
+    connectOrCreate?: MSTCreateOrConnectWithoutMst_itemsInput
+    connect?: MSTWhereUniqueInput
+  }
+
+  export type ItemCreateNestedOneWithoutMst_itemsInput = {
+    create?: XOR<ItemCreateWithoutMst_itemsInput, ItemUncheckedCreateWithoutMst_itemsInput>
+    connectOrCreate?: ItemCreateOrConnectWithoutMst_itemsInput
+    connect?: ItemWhereUniqueInput
+  }
+
+  export type MSTUpdateOneRequiredWithoutMst_itemsNestedInput = {
+    create?: XOR<MSTCreateWithoutMst_itemsInput, MSTUncheckedCreateWithoutMst_itemsInput>
+    connectOrCreate?: MSTCreateOrConnectWithoutMst_itemsInput
+    upsert?: MSTUpsertWithoutMst_itemsInput
+    connect?: MSTWhereUniqueInput
+    update?: XOR<XOR<MSTUpdateToOneWithWhereWithoutMst_itemsInput, MSTUpdateWithoutMst_itemsInput>, MSTUncheckedUpdateWithoutMst_itemsInput>
+  }
+
+  export type ItemUpdateOneRequiredWithoutMst_itemsNestedInput = {
+    create?: XOR<ItemCreateWithoutMst_itemsInput, ItemUncheckedCreateWithoutMst_itemsInput>
+    connectOrCreate?: ItemCreateOrConnectWithoutMst_itemsInput
+    upsert?: ItemUpsertWithoutMst_itemsInput
+    connect?: ItemWhereUniqueInput
+    update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutMst_itemsInput, ItemUpdateWithoutMst_itemsInput>, ItemUncheckedUpdateWithoutMst_itemsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -63900,6 +68355,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutUnitInput = {
@@ -63926,6 +68382,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutUnitInput = {
@@ -64552,6 +69009,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
+    mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutItemInput = {
@@ -64560,6 +69018,7 @@ export namespace Prisma {
     osriv_item_id?: string | null
     seriv_item_id?: string | null
     mrv_item_id?: string | null
+    mcrt_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -64763,6 +69222,7 @@ export namespace Prisma {
     price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt: MCRTCreateNestedOneWithoutMcrt_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutMcrt_itemInput
   }
 
   export type MCRTItemUncheckedCreateWithoutItemInput = {
@@ -64771,6 +69231,7 @@ export namespace Prisma {
     quantity: number
     price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMcrt_itemInput
   }
 
   export type MCRTItemCreateOrConnectWithoutItemInput = {
@@ -64780,6 +69241,32 @@ export namespace Prisma {
 
   export type MCRTItemCreateManyItemInputEnvelope = {
     data: MCRTItemCreateManyItemInput | MCRTItemCreateManyItemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MSTItemCreateWithoutItemInput = {
+    id?: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst: MSTCreateNestedOneWithoutMst_itemsInput
+  }
+
+  export type MSTItemUncheckedCreateWithoutItemInput = {
+    id?: string
+    mst_id: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemCreateOrConnectWithoutItemInput = {
+    where: MSTItemWhereUniqueInput
+    create: XOR<MSTItemCreateWithoutItemInput, MSTItemUncheckedCreateWithoutItemInput>
+  }
+
+  export type MSTItemCreateManyItemInputEnvelope = {
+    data: MSTItemCreateManyItemInput | MSTItemCreateManyItemInput[]
     skipDuplicates?: boolean
   }
 
@@ -64809,6 +69296,7 @@ export namespace Prisma {
     osriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     seriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     mrv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
+    mcrt_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     type?: IntFilter<"ItemTransaction"> | number
     quantity?: IntFilter<"ItemTransaction"> | number
     price?: FloatFilter<"ItemTransaction"> | number
@@ -65000,6 +69488,34 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"MCRTItem">
   }
 
+  export type MSTItemUpsertWithWhereUniqueWithoutItemInput = {
+    where: MSTItemWhereUniqueInput
+    update: XOR<MSTItemUpdateWithoutItemInput, MSTItemUncheckedUpdateWithoutItemInput>
+    create: XOR<MSTItemCreateWithoutItemInput, MSTItemUncheckedCreateWithoutItemInput>
+  }
+
+  export type MSTItemUpdateWithWhereUniqueWithoutItemInput = {
+    where: MSTItemWhereUniqueInput
+    data: XOR<MSTItemUpdateWithoutItemInput, MSTItemUncheckedUpdateWithoutItemInput>
+  }
+
+  export type MSTItemUpdateManyWithWhereWithoutItemInput = {
+    where: MSTItemScalarWhereInput
+    data: XOR<MSTItemUpdateManyMutationInput, MSTItemUncheckedUpdateManyWithoutItemInput>
+  }
+
+  export type MSTItemScalarWhereInput = {
+    AND?: MSTItemScalarWhereInput | MSTItemScalarWhereInput[]
+    OR?: MSTItemScalarWhereInput[]
+    NOT?: MSTItemScalarWhereInput | MSTItemScalarWhereInput[]
+    id?: StringFilter<"MSTItem"> | string
+    mst_id?: StringFilter<"MSTItem"> | string
+    item_id?: StringFilter<"MSTItem"> | string
+    quantity?: IntFilter<"MSTItem"> | number
+    price?: FloatFilter<"MSTItem"> | number
+    metadata?: JsonNullableFilter<"MSTItem">
+  }
+
   export type ItemCreateWithoutItem_locationsInput = {
     id?: string
     code: string
@@ -65024,6 +69540,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutItem_locationsInput = {
@@ -65050,6 +69567,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutItem_locationsInput = {
@@ -65185,6 +69703,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutItem_locationsInput = {
@@ -65211,6 +69730,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type StationUpsertWithoutItemsInput = {
@@ -65445,6 +69965,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutItem_transactionsInput = {
@@ -65471,6 +69992,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutItem_transactionsInput = {
@@ -65568,6 +70090,29 @@ export namespace Prisma {
     create: XOR<MRVItemCreateWithoutItem_transactionInput, MRVItemUncheckedCreateWithoutItem_transactionInput>
   }
 
+  export type MCRTItemCreateWithoutItem_transactionInput = {
+    id?: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mcrt: MCRTCreateNestedOneWithoutMcrt_itemsInput
+    item: ItemCreateNestedOneWithoutMcrt_itemsInput
+  }
+
+  export type MCRTItemUncheckedCreateWithoutItem_transactionInput = {
+    id?: string
+    mcrt_id: string
+    item_id: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MCRTItemCreateOrConnectWithoutItem_transactionInput = {
+    where: MCRTItemWhereUniqueInput
+    create: XOR<MCRTItemCreateWithoutItem_transactionInput, MCRTItemUncheckedCreateWithoutItem_transactionInput>
+  }
+
   export type ItemUpsertWithoutItem_transactionsInput = {
     update: XOR<ItemUpdateWithoutItem_transactionsInput, ItemUncheckedUpdateWithoutItem_transactionsInput>
     create: XOR<ItemCreateWithoutItem_transactionsInput, ItemUncheckedCreateWithoutItem_transactionsInput>
@@ -65603,6 +70148,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutItem_transactionsInput = {
@@ -65629,6 +70175,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type RRItemUpsertWithoutItem_transactionInput = {
@@ -65739,6 +70286,35 @@ export namespace Prisma {
   export type MRVItemUncheckedUpdateWithoutItem_transactionInput = {
     id?: StringFieldUpdateOperationsInput | string
     mrv_id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MCRTItemUpsertWithoutItem_transactionInput = {
+    update: XOR<MCRTItemUpdateWithoutItem_transactionInput, MCRTItemUncheckedUpdateWithoutItem_transactionInput>
+    create: XOR<MCRTItemCreateWithoutItem_transactionInput, MCRTItemUncheckedCreateWithoutItem_transactionInput>
+    where?: MCRTItemWhereInput
+  }
+
+  export type MCRTItemUpdateToOneWithWhereWithoutItem_transactionInput = {
+    where?: MCRTItemWhereInput
+    data: XOR<MCRTItemUpdateWithoutItem_transactionInput, MCRTItemUncheckedUpdateWithoutItem_transactionInput>
+  }
+
+  export type MCRTItemUpdateWithoutItem_transactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mcrt?: MCRTUpdateOneRequiredWithoutMcrt_itemsNestedInput
+    item?: ItemUpdateOneRequiredWithoutMcrt_itemsNestedInput
+  }
+
+  export type MCRTItemUncheckedUpdateWithoutItem_transactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mcrt_id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -66205,6 +70781,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutCanvass_itemsInput = {
@@ -66231,6 +70808,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutCanvass_itemsInput = {
@@ -66389,6 +70967,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutCanvass_itemsInput = {
@@ -66415,6 +70994,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type CanvassCreateWithoutRvInput = {
@@ -69207,6 +73787,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
+    mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutRr_itemInput = {
@@ -69215,6 +73796,7 @@ export namespace Prisma {
     osriv_item_id?: string | null
     seriv_item_id?: string | null
     mrv_item_id?: string | null
+    mcrt_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -69334,6 +73916,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
+    mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutRr_itemInput = {
@@ -69342,6 +73925,7 @@ export namespace Prisma {
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -69749,6 +74333,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutOsriv_itemsInput = {
@@ -69775,6 +74360,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutOsriv_itemsInput = {
@@ -69795,6 +74381,7 @@ export namespace Prisma {
     rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
+    mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutOsriv_itemInput = {
@@ -69803,6 +74390,7 @@ export namespace Prisma {
     rr_item_id?: string | null
     seriv_item_id?: string | null
     mrv_item_id?: string | null
+    mcrt_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -69906,6 +74494,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutOsriv_itemsInput = {
@@ -69932,6 +74521,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type ItemTransactionUpsertWithoutOsriv_itemInput = {
@@ -69958,6 +74548,7 @@ export namespace Prisma {
     rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
+    mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutOsriv_itemInput = {
@@ -69966,6 +74557,7 @@ export namespace Prisma {
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -70079,6 +74671,7 @@ export namespace Prisma {
     id?: string
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -70101,6 +74694,7 @@ export namespace Prisma {
     mct_id?: string | null
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -70228,6 +74822,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70250,6 +74845,7 @@ export namespace Prisma {
     mct_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70473,6 +75069,7 @@ export namespace Prisma {
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutSeriv_itemsInput = {
@@ -70499,6 +75096,7 @@ export namespace Prisma {
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutSeriv_itemsInput = {
@@ -70519,6 +75117,7 @@ export namespace Prisma {
     rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
+    mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutSeriv_itemInput = {
@@ -70527,6 +75126,7 @@ export namespace Prisma {
     rr_item_id?: string | null
     osriv_item_id?: string | null
     mrv_item_id?: string | null
+    mcrt_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -70642,6 +75242,7 @@ export namespace Prisma {
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutSeriv_itemsInput = {
@@ -70668,6 +75269,7 @@ export namespace Prisma {
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type ItemTransactionUpsertWithoutSeriv_itemInput = {
@@ -70694,6 +75296,7 @@ export namespace Prisma {
     rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
+    mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutSeriv_itemInput = {
@@ -70702,6 +75305,7 @@ export namespace Prisma {
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -71253,6 +75857,7 @@ export namespace Prisma {
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutMrv_itemsInput = {
@@ -71279,6 +75884,7 @@ export namespace Prisma {
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutMrv_itemsInput = {
@@ -71299,6 +75905,7 @@ export namespace Prisma {
     rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
+    mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutMrv_itemInput = {
@@ -71307,6 +75914,7 @@ export namespace Prisma {
     rr_item_id?: string | null
     osriv_item_id?: string | null
     seriv_item_id?: string | null
+    mcrt_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -71422,6 +76030,7 @@ export namespace Prisma {
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutMrv_itemsInput = {
@@ -71448,6 +76057,7 @@ export namespace Prisma {
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type ItemTransactionUpsertWithoutMrv_itemInput = {
@@ -71474,6 +76084,7 @@ export namespace Prisma {
     rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
+    mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutMrv_itemInput = {
@@ -71482,6 +76093,7 @@ export namespace Prisma {
     rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -71589,6 +76201,7 @@ export namespace Prisma {
     id?: string
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -71611,6 +76224,7 @@ export namespace Prisma {
     seriv_id?: string | null
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -71744,6 +76358,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71766,6 +76381,7 @@ export namespace Prisma {
     seriv_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71998,6 +76614,7 @@ export namespace Prisma {
     price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutMcrt_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutMcrt_itemInput
   }
 
   export type MCRTItemUncheckedCreateWithoutMcrtInput = {
@@ -72006,6 +76623,7 @@ export namespace Prisma {
     quantity: number
     price?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMcrt_itemInput
   }
 
   export type MCRTItemCreateOrConnectWithoutMcrtInput = {
@@ -72178,6 +76796,7 @@ export namespace Prisma {
     id?: string
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -72201,6 +76820,7 @@ export namespace Prisma {
     seriv_id?: string | null
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -72236,6 +76856,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72259,6 +76880,7 @@ export namespace Prisma {
     seriv_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72278,6 +76900,7 @@ export namespace Prisma {
     id?: string
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -72301,6 +76924,7 @@ export namespace Prisma {
     seriv_id?: string | null
     mcrt_number: string
     mcrt_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     wo_number?: string | null
     mo_number?: string | null
@@ -72345,6 +76969,7 @@ export namespace Prisma {
     osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutMcrt_itemsInput = {
@@ -72371,11 +76996,50 @@ export namespace Prisma {
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutMcrt_itemsInput = {
     where: ItemWhereUniqueInput
     create: XOR<ItemCreateWithoutMcrt_itemsInput, ItemUncheckedCreateWithoutMcrt_itemsInput>
+  }
+
+  export type ItemTransactionCreateWithoutMcrt_itemInput = {
+    type: number
+    quantity: number
+    price: number
+    remarks?: string | null
+    is_initial?: boolean
+    created_at?: Date | string
+    created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item: ItemCreateNestedOneWithoutItem_transactionsInput
+    rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
+    osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
+    seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
+    mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
+  }
+
+  export type ItemTransactionUncheckedCreateWithoutMcrt_itemInput = {
+    id?: number
+    item_id: string
+    rr_item_id?: string | null
+    osriv_item_id?: string | null
+    seriv_item_id?: string | null
+    mrv_item_id?: string | null
+    type: number
+    quantity: number
+    price: number
+    remarks?: string | null
+    is_initial?: boolean
+    created_at?: Date | string
+    created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemTransactionCreateOrConnectWithoutMcrt_itemInput = {
+    where: ItemTransactionWhereUniqueInput
+    create: XOR<ItemTransactionCreateWithoutMcrt_itemInput, ItemTransactionUncheckedCreateWithoutMcrt_itemInput>
   }
 
   export type MCRTUpsertWithoutMcrt_itemsInput = {
@@ -72393,6 +77057,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72416,6 +77081,7 @@ export namespace Prisma {
     seriv_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     wo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72466,6 +77132,7 @@ export namespace Prisma {
     osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutMcrt_itemsInput = {
@@ -72492,6 +77159,467 @@ export namespace Prisma {
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemTransactionUpsertWithoutMcrt_itemInput = {
+    update: XOR<ItemTransactionUpdateWithoutMcrt_itemInput, ItemTransactionUncheckedUpdateWithoutMcrt_itemInput>
+    create: XOR<ItemTransactionCreateWithoutMcrt_itemInput, ItemTransactionUncheckedCreateWithoutMcrt_itemInput>
+    where?: ItemTransactionWhereInput
+  }
+
+  export type ItemTransactionUpdateToOneWithWhereWithoutMcrt_itemInput = {
+    where?: ItemTransactionWhereInput
+    data: XOR<ItemTransactionUpdateWithoutMcrt_itemInput, ItemTransactionUncheckedUpdateWithoutMcrt_itemInput>
+  }
+
+  export type ItemTransactionUpdateWithoutMcrt_itemInput = {
+    type?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    is_initial?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
+    rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
+    osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
+    seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
+    mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
+  }
+
+  export type ItemTransactionUncheckedUpdateWithoutMcrt_itemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    item_id?: StringFieldUpdateOperationsInput | string
+    rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    is_initial?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverCreateWithoutMstInput = {
+    id?: string
+    approver_id: string
+    date_approval?: Date | string | null
+    notes: string
+    status: number
+    label: string
+    label_id: string
+    order: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverUncheckedCreateWithoutMstInput = {
+    id?: string
+    approver_id: string
+    date_approval?: Date | string | null
+    notes: string
+    status: number
+    label: string
+    label_id: string
+    order: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverCreateOrConnectWithoutMstInput = {
+    where: MSTApproverWhereUniqueInput
+    create: XOR<MSTApproverCreateWithoutMstInput, MSTApproverUncheckedCreateWithoutMstInput>
+  }
+
+  export type MSTApproverCreateManyMstInputEnvelope = {
+    data: MSTApproverCreateManyMstInput | MSTApproverCreateManyMstInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MSTItemCreateWithoutMstInput = {
+    id?: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item: ItemCreateNestedOneWithoutMst_itemsInput
+  }
+
+  export type MSTItemUncheckedCreateWithoutMstInput = {
+    id?: string
+    item_id: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemCreateOrConnectWithoutMstInput = {
+    where: MSTItemWhereUniqueInput
+    create: XOR<MSTItemCreateWithoutMstInput, MSTItemUncheckedCreateWithoutMstInput>
+  }
+
+  export type MSTItemCreateManyMstInputEnvelope = {
+    data: MSTItemCreateManyMstInput | MSTItemCreateManyMstInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MSTApproverUpsertWithWhereUniqueWithoutMstInput = {
+    where: MSTApproverWhereUniqueInput
+    update: XOR<MSTApproverUpdateWithoutMstInput, MSTApproverUncheckedUpdateWithoutMstInput>
+    create: XOR<MSTApproverCreateWithoutMstInput, MSTApproverUncheckedCreateWithoutMstInput>
+  }
+
+  export type MSTApproverUpdateWithWhereUniqueWithoutMstInput = {
+    where: MSTApproverWhereUniqueInput
+    data: XOR<MSTApproverUpdateWithoutMstInput, MSTApproverUncheckedUpdateWithoutMstInput>
+  }
+
+  export type MSTApproverUpdateManyWithWhereWithoutMstInput = {
+    where: MSTApproverScalarWhereInput
+    data: XOR<MSTApproverUpdateManyMutationInput, MSTApproverUncheckedUpdateManyWithoutMstInput>
+  }
+
+  export type MSTApproverScalarWhereInput = {
+    AND?: MSTApproverScalarWhereInput | MSTApproverScalarWhereInput[]
+    OR?: MSTApproverScalarWhereInput[]
+    NOT?: MSTApproverScalarWhereInput | MSTApproverScalarWhereInput[]
+    id?: StringFilter<"MSTApprover"> | string
+    mst_id?: StringFilter<"MSTApprover"> | string
+    approver_id?: StringFilter<"MSTApprover"> | string
+    date_approval?: DateTimeNullableFilter<"MSTApprover"> | Date | string | null
+    notes?: StringFilter<"MSTApprover"> | string
+    status?: IntFilter<"MSTApprover"> | number
+    label?: StringFilter<"MSTApprover"> | string
+    label_id?: StringFilter<"MSTApprover"> | string
+    order?: IntFilter<"MSTApprover"> | number
+    metadata?: JsonNullableFilter<"MSTApprover">
+  }
+
+  export type MSTItemUpsertWithWhereUniqueWithoutMstInput = {
+    where: MSTItemWhereUniqueInput
+    update: XOR<MSTItemUpdateWithoutMstInput, MSTItemUncheckedUpdateWithoutMstInput>
+    create: XOR<MSTItemCreateWithoutMstInput, MSTItemUncheckedCreateWithoutMstInput>
+  }
+
+  export type MSTItemUpdateWithWhereUniqueWithoutMstInput = {
+    where: MSTItemWhereUniqueInput
+    data: XOR<MSTItemUpdateWithoutMstInput, MSTItemUncheckedUpdateWithoutMstInput>
+  }
+
+  export type MSTItemUpdateManyWithWhereWithoutMstInput = {
+    where: MSTItemScalarWhereInput
+    data: XOR<MSTItemUpdateManyMutationInput, MSTItemUncheckedUpdateManyWithoutMstInput>
+  }
+
+  export type MSTCreateWithoutMst_approversInput = {
+    id?: string
+    mst_number: string
+    mst_date: Date | string
+    returned_by_id: string
+    cwo_number?: string | null
+    mwo_number?: string | null
+    jo_number?: string | null
+    remarks: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_items?: MSTItemCreateNestedManyWithoutMstInput
+  }
+
+  export type MSTUncheckedCreateWithoutMst_approversInput = {
+    id?: string
+    mst_number: string
+    mst_date: Date | string
+    returned_by_id: string
+    cwo_number?: string | null
+    mwo_number?: string | null
+    jo_number?: string | null
+    remarks: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutMstInput
+  }
+
+  export type MSTCreateOrConnectWithoutMst_approversInput = {
+    where: MSTWhereUniqueInput
+    create: XOR<MSTCreateWithoutMst_approversInput, MSTUncheckedCreateWithoutMst_approversInput>
+  }
+
+  export type MSTUpsertWithoutMst_approversInput = {
+    update: XOR<MSTUpdateWithoutMst_approversInput, MSTUncheckedUpdateWithoutMst_approversInput>
+    create: XOR<MSTCreateWithoutMst_approversInput, MSTUncheckedCreateWithoutMst_approversInput>
+    where?: MSTWhereInput
+  }
+
+  export type MSTUpdateToOneWithWhereWithoutMst_approversInput = {
+    where?: MSTWhereInput
+    data: XOR<MSTUpdateWithoutMst_approversInput, MSTUncheckedUpdateWithoutMst_approversInput>
+  }
+
+  export type MSTUpdateWithoutMst_approversInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_number?: StringFieldUpdateOperationsInput | string
+    mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    returned_by_id?: StringFieldUpdateOperationsInput | string
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_items?: MSTItemUpdateManyWithoutMstNestedInput
+  }
+
+  export type MSTUncheckedUpdateWithoutMst_approversInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_number?: StringFieldUpdateOperationsInput | string
+    mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    returned_by_id?: StringFieldUpdateOperationsInput | string
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_items?: MSTItemUncheckedUpdateManyWithoutMstNestedInput
+  }
+
+  export type MSTCreateWithoutMst_itemsInput = {
+    id?: string
+    mst_number: string
+    mst_date: Date | string
+    returned_by_id: string
+    cwo_number?: string | null
+    mwo_number?: string | null
+    jo_number?: string | null
+    remarks: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_approvers?: MSTApproverCreateNestedManyWithoutMstInput
+  }
+
+  export type MSTUncheckedCreateWithoutMst_itemsInput = {
+    id?: string
+    mst_number: string
+    mst_date: Date | string
+    returned_by_id: string
+    cwo_number?: string | null
+    mwo_number?: string | null
+    jo_number?: string | null
+    remarks: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_approvers?: MSTApproverUncheckedCreateNestedManyWithoutMstInput
+  }
+
+  export type MSTCreateOrConnectWithoutMst_itemsInput = {
+    where: MSTWhereUniqueInput
+    create: XOR<MSTCreateWithoutMst_itemsInput, MSTUncheckedCreateWithoutMst_itemsInput>
+  }
+
+  export type ItemCreateWithoutMst_itemsInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    total_quantity: number
+    quantity_on_queue?: number
+    initial_quantity: number
+    alert_level?: number
+    item_type: number
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
+    unit: UnitCreateNestedOneWithoutItemsInput
+    canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
+    osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
+    seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
+    mrv_items?: MRVItemCreateNestedManyWithoutItemInput
+    mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemUncheckedCreateWithoutMst_itemsInput = {
+    id?: string
+    unit_id: string
+    code: string
+    name: string
+    description?: string | null
+    total_quantity: number
+    quantity_on_queue?: number
+    initial_quantity: number
+    alert_level?: number
+    item_type: number
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
+    canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
+    osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
+    seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
+    mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
+    mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemCreateOrConnectWithoutMst_itemsInput = {
+    where: ItemWhereUniqueInput
+    create: XOR<ItemCreateWithoutMst_itemsInput, ItemUncheckedCreateWithoutMst_itemsInput>
+  }
+
+  export type MSTUpsertWithoutMst_itemsInput = {
+    update: XOR<MSTUpdateWithoutMst_itemsInput, MSTUncheckedUpdateWithoutMst_itemsInput>
+    create: XOR<MSTCreateWithoutMst_itemsInput, MSTUncheckedCreateWithoutMst_itemsInput>
+    where?: MSTWhereInput
+  }
+
+  export type MSTUpdateToOneWithWhereWithoutMst_itemsInput = {
+    where?: MSTWhereInput
+    data: XOR<MSTUpdateWithoutMst_itemsInput, MSTUncheckedUpdateWithoutMst_itemsInput>
+  }
+
+  export type MSTUpdateWithoutMst_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_number?: StringFieldUpdateOperationsInput | string
+    mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    returned_by_id?: StringFieldUpdateOperationsInput | string
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_approvers?: MSTApproverUpdateManyWithoutMstNestedInput
+  }
+
+  export type MSTUncheckedUpdateWithoutMst_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_number?: StringFieldUpdateOperationsInput | string
+    mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    returned_by_id?: StringFieldUpdateOperationsInput | string
+    cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst_approvers?: MSTApproverUncheckedUpdateManyWithoutMstNestedInput
+  }
+
+  export type ItemUpsertWithoutMst_itemsInput = {
+    update: XOR<ItemUpdateWithoutMst_itemsInput, ItemUncheckedUpdateWithoutMst_itemsInput>
+    create: XOR<ItemCreateWithoutMst_itemsInput, ItemUncheckedCreateWithoutMst_itemsInput>
+    where?: ItemWhereInput
+  }
+
+  export type ItemUpdateToOneWithWhereWithoutMst_itemsInput = {
+    where?: ItemWhereInput
+    data: XOR<ItemUpdateWithoutMst_itemsInput, ItemUncheckedUpdateWithoutMst_itemsInput>
+  }
+
+  export type ItemUpdateWithoutMst_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    total_quantity?: IntFieldUpdateOperationsInput | number
+    quantity_on_queue?: IntFieldUpdateOperationsInput | number
+    initial_quantity?: IntFieldUpdateOperationsInput | number
+    alert_level?: IntFieldUpdateOperationsInput | number
+    item_type?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
+    unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
+    canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
+    osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
+    seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
+    mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
+    mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemUncheckedUpdateWithoutMst_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    unit_id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    total_quantity?: IntFieldUpdateOperationsInput | number
+    quantity_on_queue?: IntFieldUpdateOperationsInput | number
+    initial_quantity?: IntFieldUpdateOperationsInput | number
+    alert_level?: IntFieldUpdateOperationsInput | number
+    item_type?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
+    canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
+    osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
+    seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
+    mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
+    mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type MEQSSupplierCreateManySupplierInput = {
@@ -72609,6 +77737,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutUnitInput = {
@@ -72635,6 +77764,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateManyWithoutUnitInput = {
@@ -73160,6 +78290,7 @@ export namespace Prisma {
     osriv_item_id?: string | null
     seriv_item_id?: string | null
     mrv_item_id?: string | null
+    mcrt_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -73220,6 +78351,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
+  export type MSTItemCreateManyItemInput = {
+    id?: string
+    mst_id: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type ItemTransactionUpdateWithoutItemInput = {
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
@@ -73233,6 +78372,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
+    mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutItemInput = {
@@ -73241,6 +78381,7 @@ export namespace Prisma {
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -73257,6 +78398,7 @@ export namespace Prisma {
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -73411,6 +78553,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt?: MCRTUpdateOneRequiredWithoutMcrt_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutMcrt_itemNestedInput
   }
 
   export type MCRTItemUncheckedUpdateWithoutItemInput = {
@@ -73419,11 +78562,36 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMcrt_itemNestedInput
   }
 
   export type MCRTItemUncheckedUpdateManyWithoutItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     mcrt_id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemUpdateWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst?: MSTUpdateOneRequiredWithoutMst_itemsNestedInput
+  }
+
+  export type MSTItemUncheckedUpdateWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemUncheckedUpdateManyWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -74461,6 +79629,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutMcrt_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutMcrt_itemNestedInput
   }
 
   export type MCRTItemUncheckedUpdateWithoutMcrtInput = {
@@ -74469,9 +79638,90 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMcrt_itemNestedInput
   }
 
   export type MCRTItemUncheckedUpdateManyWithoutMcrtInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverCreateManyMstInput = {
+    id?: string
+    approver_id: string
+    date_approval?: Date | string | null
+    notes: string
+    status: number
+    label: string
+    label_id: string
+    order: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemCreateManyMstInput = {
+    id?: string
+    item_id: string
+    quantity: number
+    price?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverUpdateWithoutMstInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    approver_id?: StringFieldUpdateOperationsInput | string
+    date_approval?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverUncheckedUpdateWithoutMstInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    approver_id?: StringFieldUpdateOperationsInput | string
+    date_approval?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTApproverUncheckedUpdateManyWithoutMstInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    approver_id?: StringFieldUpdateOperationsInput | string
+    date_approval?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemUpdateWithoutMstInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item?: ItemUpdateOneRequiredWithoutMst_itemsNestedInput
+  }
+
+  export type MSTItemUncheckedUpdateWithoutMstInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemUncheckedUpdateManyWithoutMstInput = {
     id?: StringFieldUpdateOperationsInput | string
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -74572,6 +79822,10 @@ export namespace Prisma {
      * @deprecated Use MCRTCountOutputTypeDefaultArgs instead
      */
     export type MCRTCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MCRTCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MSTCountOutputTypeDefaultArgs instead
+     */
+    export type MSTCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MSTCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use SupplierDefaultArgs instead
      */
@@ -74740,6 +79994,18 @@ export namespace Prisma {
      * @deprecated Use MCRTItemDefaultArgs instead
      */
     export type MCRTItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MCRTItemDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MSTDefaultArgs instead
+     */
+    export type MSTArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MSTDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MSTApproverDefaultArgs instead
+     */
+    export type MSTApproverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MSTApproverDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MSTItemDefaultArgs instead
+     */
+    export type MSTItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MSTItemDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

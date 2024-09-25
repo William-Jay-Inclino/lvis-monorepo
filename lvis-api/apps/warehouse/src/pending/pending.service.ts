@@ -11,6 +11,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { OsrivApproverStatusUpdated } from '../osriv-approver/events/osriv-approver-status-updated.event';
 import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-approver-status-updated.event';
 import { MctApproverStatusUpdated } from '../mct-approver/events/mct-approver-status-updated.event';
+import { McrtApproverStatusUpdated } from '../mcrt-approver/events/mcrt-approver-status-updated.event';
 
 @Injectable()
 export class PendingService {
@@ -249,6 +250,7 @@ export class PendingService {
                     [DB_ENTITY.OSRIV]: { event: 'osriv-approver-status.updated', eventClass: OsrivApproverStatusUpdated },
                     [DB_ENTITY.SERIV]: { event: 'seriv-approver-status.updated', eventClass: SerivApproverStatusUpdated },
                     [DB_ENTITY.MCT]: { event: 'mct-approver-status.updated', eventClass: MctApproverStatusUpdated },
+                    [DB_ENTITY.MCRT]: { event: 'mcrt-approver-status.updated', eventClass: McrtApproverStatusUpdated },
                 };
             
                 const entity = Object.values(DB_ENTITY).find(key => module.model === MODULE_MAPPER[key].model);

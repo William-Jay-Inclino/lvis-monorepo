@@ -151,6 +151,30 @@ export async function findOne(id: string): Promise<Item | undefined> {
                             rr_number
                         }
                     }
+                    osriv_item {
+                        osriv {
+                            id 
+                            osriv_number
+                        }
+                    }
+                    seriv_item {
+                        seriv {
+                            id 
+                            seriv_number
+                        }
+                    }
+                    mrv_item {
+                        mrv {
+                            id 
+                            mrv_number
+                        }
+                    }
+                    mcrt_item {
+                        mcrt {
+                            id 
+                            mcrt_number
+                        }
+                    }
                 }
             }
         }
