@@ -1,0 +1,422 @@
+import type { CreateMstInput, FindAllResponse, MutationResponse, MST } from "./mst.types";
+import { sendRequest } from "~/utils/api"
+import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Item } from "../item/item.type";
+
+export async function fetchDataInSearchFilters(): Promise<{
+    msts: MST[],
+}> {
+    const query = `
+        query {
+            msts(page: 1, pageSize: 10) {
+                data{
+                    mst_number
+                }
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let msts = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (data.msts && data.msts.data) {
+            msts = data.msts.data
+        }
+
+        return {
+            msts,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            msts: [],
+        }
+    }
+}
+
+export async function findByMstNumber(mstNumber: string): Promise<MST | undefined> {
+    const query = `
+        query {
+            mst(mst_number: "${mstNumber}") {
+                id
+                mst_number
+                created_by
+                status
+                can_update
+                mst_date
+                cancelled_at
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (response.data && response.data.data && response.data.data.mst) {
+            return response.data.data.mst;
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+        return undefined
+    }
+}
+
+export async function findOne(id: string): Promise<MST | undefined> {
+
+    console.log('isValidRcNumber(id)', isValidRcNumber(id));
+    let args = ''
+    if(isValidRcNumber(id)){
+        args = `mst_number: "${id}"`
+    } else {
+        args = `id: "${id}"`
+    }
+
+    const query = `
+        query {
+            mst(${args}) {
+                id
+                mst_number
+                status
+                mst_date 
+                remarks
+                cwo_number
+                mwo_number
+                jo_number
+                cancelled_at
+                created_by
+                can_update
+                returned_by {
+                    firstname 
+                    middlename 
+                    lastname
+                }
+                mst_approvers{
+                    approver {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    status
+                    label
+                    label_id
+                    order
+                    notes
+                    date_approval
+                }
+                mst_items {
+                    id 
+                    quantity
+                    price
+                    item {
+                        id 
+                        name
+                        description
+                        unit {
+                            name 
+                        }
+                        total_quantity
+                        quantity_on_queue
+                    }
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (response.data && response.data.data && response.data.data.mst) {
+            return response.data.data.mst;
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+        return undefined
+    }
+}
+
+export async function findAll(payload: { page: number, pageSize: number, date_requested: string | null}): Promise<FindAllResponse> {
+
+    const { page, pageSize, date_requested } = payload;
+
+    let date_requested2 = null
+
+    if (date_requested) {
+        date_requested2 = `"${date_requested}"`
+    }
+
+    const query = `
+        query {
+            msts(
+                page: ${page},
+                pageSize: ${pageSize},
+                date_requested: ${date_requested2},
+            ) {
+                data {
+                    id
+                    mst_number
+                    created_by
+                    status
+                    can_update
+                    mst_date
+                    cancelled_at
+                }
+                totalItems
+                currentPage
+                totalPages
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return response.data.data.msts;
+    } catch (error) {
+        console.error(error);
+        throw error
+    }
+}
+
+export async function fetchFormDataInCreate(): Promise<{
+    employees: Employee[],
+    items: Item[],
+}> {
+
+    const query = `
+        query {
+            items(page: 1, pageSize: 200) {
+                data{
+                    id
+                    code
+                    name
+                    description
+                    item_type
+                    unit {
+                        id 
+                        name
+                    }
+                    total_quantity
+                    quantity_on_queue
+                    GWAPrice
+                }
+            },
+            employees(page: 1, pageSize: 300) {
+                data{
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees = []
+        let items = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        if (data.items && data.items.data) {
+            items = response.data.data.items.data
+        }
+
+        return {
+            employees,
+            items,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            employees: [],
+            items: [],
+        }
+    }
+
+
+}
+
+export async function create(input: CreateMstInput): Promise<MutationResponse> {
+
+    console.log('create', input);
+
+    const cwo_number = input.cwo_number?.trim() === '' ? null : `"${input.cwo_number}"`
+    const mwo_number = input.mwo_number?.trim() === '' ? null : `"${input.mwo_number}"`
+    const jo_number = input.jo_number?.trim() === '' ? null : `"${input.jo_number}"`
+
+    const approvers = input.approvers.map(i => {
+        return `
+        {
+          approver_id: "${i.approver?.id}"
+          label: "${i.label}"
+          label_id: "${i.label_id}"
+          order: ${i.order}
+        }`;
+    }).join(', ');
+
+    const items = input.items.map(i => {
+        return `
+        {
+          item_id: "${i.itemId}"
+          quantity: ${i.quantity}
+          price: ${i.unitPrice}
+        }`;
+    }).join(', ');
+
+    const mutation = `
+        mutation {
+            createMst(
+                input: {
+                    returned_by_id: "${input.returned_by?.id}"
+                    cwo_number: ${cwo_number}
+                    mwo_number: ${mwo_number}
+                    jwo_number: ${jo_number}
+                    remarks: "${input.remarks}"
+                    approvers: [${approvers}]
+                    items: [${items}]
+                }
+            ) {
+                id
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.createMst) {
+            return {
+                success: true,
+                msg: 'MST created successfully!',
+                data: response.data.data.createMst
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to create MST. Please contact system administrator'
+        };
+    }
+}
+
+export async function cancel(id: string): Promise<CancelResponse> {
+
+    const mutation = `
+        mutation {
+            cancelMst(
+                id: "${id}"
+            ) {
+                msg
+                success
+                cancelled_at
+                cancelled_by
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.cancelMst) {
+            return response.data.data.cancelMst
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to cancel MST. Please contact system administrator'
+        };
+    }
+}
+
+export async function fetchMstNumbers(payload: string): Promise<MST[]> {
+    const query = `
+        query {
+            msts_by_mst_number(mst_number: "${payload}") {
+                mst_number
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+        return response.data.data.msts_by_mst_number
+
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
+
+
+export async function fetchMSTsByMstNumber(payload: string): Promise<MST[]> {
+    const query = `
+        query {
+            msts_by_mst_number(mst_number: "${payload}", is_detail_included: true) {
+                id
+                mst_number
+                status
+                is_referenced
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+        return response.data.data.msts_by_mst_number
+
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
