@@ -40,8 +40,8 @@ export class McrtService {
 
         const data: Prisma.MCRTCreateInput = {
             created_by: this.authUser.user.username,
-            mct: input.mct_id ? { connect: { id: input.mct_id } } : null,
-            seriv: input.seriv_id? { connect: { id: input.seriv_id } } : null,
+            mct: input.mct_id ? { connect: { id: input.mct_id } } : undefined,
+            seriv: input.seriv_id? { connect: { id: input.seriv_id } } : undefined,
             mcrt_number: mcrtNumber,
             mcrt_date: new Date(),
             returned_by_id: input.returned_by_id,

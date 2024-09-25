@@ -1,233 +1,248 @@
 <template>
 
-    <div class="card">
-        <div class="card-body">
-
-            <div v-if="!isLoadingPage && authUser">
-                <h2 class="text-warning">Create MCRT</h2>
-                <hr>
-        
-                <div class="row justify-content-center pt-5 pb-3">
-        
-                    <div class="col-lg-8 mb-4">
-
-                        <div class="alert alert-info" role="alert">
-                            <small class="fst-italic">
-                                Fields with * are required
-                            </small>
+    <div>
+        <div class="card">
+            <div class="card-body">
+    
+                <div v-if="!isLoadingPage && authUser">
+                    <h2 class="text-warning">Create MCRT</h2>
+                    <hr>
+            
+                    <div class="row justify-content-center pt-5 pb-3">
+            
+                        <div class="col-lg-8 mb-4">
+    
+                            <div class="alert alert-info" role="alert">
+                                <small class="fst-italic">
+                                    Fields with * are required
+                                </small>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">Reference</label>
+                                <div class="row g-0">
+                                    <div class="col-4">
+                                        <client-only>
+                                            <v-select @option:selected="onChangeReferenceType" :options="referenceTypes" v-model="referenceType"
+                                                :clearable="false"></v-select>
+                                        </client-only>
+                                    </div>
+                                    <div class="col-8" v-if="referenceType === 'MCT'">
+                                        <client-only>
+                                            <v-select @search="handleSearchMctNumber" @option:selected="onMctNumberSelected" :options="mcts" label="mct_number"
+                                                v-model="mcrtData.mct">
+                                                <template v-slot:option="option">
+                                                    <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
+                                                        <div class="col">
+                                                            <span class="text-danger">{{ option.mct_number }}</span>
+                                                        </div>
+                                                        <div class="col text-end">
+                                                            <small class="text-muted fst-italic">
+                                                                {{
+            // @ts-ignore
+            approvalStatus[option.status].label
+        }}
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div v-else-if="option.is_referenced" class="row">
+                                                        <div class="col">
+                                                            <span class="text-danger">{{ option.mct_number }}</span>
+                                                        </div>
+                                                        <div class="col text-end">
+                                                            <small class="text-muted fst-italic">
+                                                                Referenced
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div v-else class="row">
+                                                        <div class="col">
+                                                            <span>{{ option.mct_number }}</span>
+                                                        </div>
+                                                        <div class="col text-end">
+                                                            <small class="text-success fst-italic"> Available </small>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </v-select>
+                                        </client-only>
+                                        <nuxt-link v-if="mcrtData.mct" class="btn btn-sm btn-light text-primary"
+                                            :to="'/warehouse/mct/view/' + mcrtData.mct.id" target="_blank">View MCT
+                                            details</nuxt-link>
+                                    </div>
+                                    <div class="col-8" v-else-if="referenceType === 'SERIV'">
+                                        <client-only>
+                                            <v-select @search="handleSearchSerivNumber" @option:selected="onSerivNumberSelected" :options="serivs" label="seriv_number"
+                                                v-model="mcrtData.seriv">
+                                                <template v-slot:option="option">
+                                                    <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
+                                                        <div class="col">
+                                                            <span class="text-danger">{{ option.seriv_number }}</span>
+                                                        </div>
+                                                        <div class="col text-end">
+                                                            <small class="text-muted fst-italic">
+                                                                {{
+            // @ts-ignore
+            approvalStatus[option.status].label
+        }}
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div v-else-if="option.is_referenced" class="row">
+                                                        <div class="col">
+                                                            <span class="text-danger">{{ option.seriv_number }}</span>
+                                                        </div>
+                                                        <div class="col text-end">
+                                                            <small class="text-muted fst-italic">
+                                                                Referenced
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div v-else class="row">
+                                                        <div class="col">
+                                                            <span>{{ option.seriv_number }}</span>
+                                                        </div>
+                                                        <div class="col text-end">
+                                                            <small class="text-success fst-italic"> Available </small>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </v-select>
+                                        </client-only>
+                                        <nuxt-link v-if="mcrtData.seriv" class="btn btn-sm btn-light text-primary"
+                                            :to="'/warehouse/seriv/view/' + mcrtData.seriv.id" target="_blank">View SERIV
+                                            details</nuxt-link>
+                                    </div>
+                                </div>
+                                <small class="text-danger fst-italic" v-show="mcrtDataErrors.reference">
+                                    Please select {{ referenceType === 'MCT'? 'MCT' : 'SERIV' }} number
+                                </small>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Work Order Number 
+                                </label>
+                                <input v-model="mcrtData.wo_number" class="form-control"
+                                    rows="3" />
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Maint Order Number 
+                                </label>
+                                <input v-model="mcrtData.mo_number" class="form-control"
+                                    rows="3" />
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Job Order Number
+                                </label>
+                                <input v-model="mcrtData.jo_number" class="form-control"
+                                    rows="3" />
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Note <span class="text-danger">*</span>
+                                </label>
+                                <textarea v-model="mcrtData.note" class="form-control"
+                                    rows="3"> </textarea>
+                                <small class="text-danger fst-italic" v-show="mcrtDataErrors.note"> {{ errorMsg }}
+                                </small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Returned By <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select
+                                        :options="employees"
+                                        label="fullname"
+                                        v-model="mcrtData.returned_by"
+                                        :clearable="false"
+                                        ></v-select>
+                                </client-only>
+                                <small class="text-danger fst-italic" v-show="mcrtDataErrors.returned_by"> {{ errorMsg }} </small>
+                            </div>
+                            <div v-for="approver in mcrtData.approvers" class="mb-3">
+                                <label class="form-label">
+                                    {{ approver.label }} <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select
+                                        :options="employees"
+                                        label="fullname"
+                                        v-model="approver.approver"
+                                        :clearable="false"
+                                      ></v-select>
+                                </client-only>
+                                <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
+                            </div>
+    
                         </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Reference</label>
-                            <div class="row g-0">
-                                <div class="col-4">
-                                    <client-only>
-                                        <v-select @option:selected="onChangeReferenceType" :options="referenceTypes" v-model="referenceType"
-                                            :clearable="false"></v-select>
-                                    </client-only>
-                                </div>
-                                <div class="col-8" v-if="referenceType === 'MCT'">
-                                    <client-only>
-                                        <v-select @search="handleSearchMctNumber" @option:selected="onMctNumberSelected" :options="mcts" label="mct_number"
-                                            v-model="mcrtData.mct">
-                                            <template v-slot:option="option">
-                                                <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
-                                                    <div class="col">
-                                                        <span class="text-danger">{{ option.mct_number }}</span>
-                                                    </div>
-                                                    <div class="col text-end">
-                                                        <small class="text-muted fst-italic">
-                                                            {{
-        // @ts-ignore
-        approvalStatus[option.status].label
-    }}
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                                <div v-else-if="option.is_referenced" class="row">
-                                                    <div class="col">
-                                                        <span class="text-danger">{{ option.mct_number }}</span>
-                                                    </div>
-                                                    <div class="col text-end">
-                                                        <small class="text-muted fst-italic">
-                                                            Referenced
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                                <div v-else class="row">
-                                                    <div class="col">
-                                                        <span>{{ option.mct_number }}</span>
-                                                    </div>
-                                                    <div class="col text-end">
-                                                        <small class="text-success fst-italic"> Available </small>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </v-select>
-                                    </client-only>
-                                    <nuxt-link v-if="mcrtData.mct" class="btn btn-sm btn-light text-primary"
-                                        :to="'/warehouse/mct/view/' + mcrtData.mct.id" target="_blank">View MCT
-                                        details</nuxt-link>
-                                </div>
-                                <div class="col-8" v-else-if="referenceType === 'SERIV'">
-                                    <client-only>
-                                        <v-select @search="handleSearchSerivNumber" @option:selected="onSerivNumberSelected" :options="serivs" label="seriv_number"
-                                            v-model="mcrtData.seriv">
-                                            <template v-slot:option="option">
-                                                <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
-                                                    <div class="col">
-                                                        <span class="text-danger">{{ option.seriv_number }}</span>
-                                                    </div>
-                                                    <div class="col text-end">
-                                                        <small class="text-muted fst-italic">
-                                                            {{
-        // @ts-ignore
-        approvalStatus[option.status].label
-    }}
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                                <div v-else-if="option.is_referenced" class="row">
-                                                    <div class="col">
-                                                        <span class="text-danger">{{ option.seriv_number }}</span>
-                                                    </div>
-                                                    <div class="col text-end">
-                                                        <small class="text-muted fst-italic">
-                                                            Referenced <span class="text-danger">*</span>
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                                <div v-else class="row">
-                                                    <div class="col">
-                                                        <span>{{ option.seriv_number }}</span>
-                                                    </div>
-                                                    <div class="col text-end">
-                                                        <small class="text-success fst-italic"> Available </small>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </v-select>
-                                    </client-only>
-                                    <nuxt-link v-if="mcrtData.seriv" class="btn btn-sm btn-light text-primary"
-                                        :to="'/warehouse/seriv/view/' + mcrtData.seriv.id" target="_blank">View SERIV
-                                        details</nuxt-link>
-                                </div>
+    
+                        <div v-show="mcrtData.seriv || mcrtData.mct" class="col-lg-8">
+    
+                            <div class="h5wrapper mb-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <i class="fas fa-shopping-cart"></i> Item list
+                                </h5>
+                                <hr class="result">
+                            </div>
+    
+                            <div class="alert alert-info" role="alert">
+                                <small class="fst-italic">
+                                    Items are based on either SERIV or MCT, but you can still add or remove items.
+                                </small>
+                            </div>
+    
+                            <div class="text-end">
+                                <button
+                                    class="btn btn-success btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#addItemModal">
+                                    <i
+                                    class="fas fa-plus"></i>
+                                    Add Item
+                                    </button>
+                            </div>
+                            
+                            <WarehouseMCRTItems
+                              :items="mcrtData.items"
+                              @remove-item="handleRemoveItem"
+                              @update-item="handleUpdateItem" />
+    
+                        </div>
+            
+                    </div>
+    
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="d-flex justify-content-between">
+                                <nuxt-link class="btn btn-secondary" to="/warehouse/mcrt">
+                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                </nuxt-link>
+                                <button @click="save()" :disabled="isSaving" type="button"
+                                    class="btn btn-primary">
+                                    <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                </button>
                             </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Work Order Number 
-                            </label>
-                            <input v-model="mcrtData.wo_number" class="form-control"
-                                rows="3" />
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Maint Order Number 
-                            </label>
-                            <input v-model="mcrtData.mo_number" class="form-control"
-                                rows="3" />
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Job Order Number
-                            </label>
-                            <input v-model="mcrtData.jo_number" class="form-control"
-                                rows="3" />
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Note <span class="text-danger">*</span>
-                            </label>
-                            <textarea v-model="mcrtData.note" class="form-control"
-                                rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="mcrtDataErrors.note"> {{ errorMsg }}
-                            </small>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Returned By <span class="text-danger">*</span>
-                            </label>
-                            <client-only>
-                                <v-select
-                                    :options="employees"
-                                    label="fullname"
-                                    v-model="mcrtData.returned_by"
-                                    :clearable="false"
-                                    ></v-select>
-                            </client-only>
-                            <small class="text-danger fst-italic" v-show="mcrtDataErrors.returned_by"> {{ errorMsg }} </small>
-                        </div>
-                        <div v-for="approver in mcrtData.approvers" class="mb-3">
-                            <label class="form-label">
-                                {{ approver.label }} <span class="text-danger">*</span>
-                            </label>
-                            <client-only>
-                                <v-select
-                                    :options="employees"
-                                    label="fullname"
-                                    v-model="approver.approver"
-                                    :clearable="false"
-                                  ></v-select>
-                            </client-only>
-                            <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
-                        </div>
-
                     </div>
-
-                    <div v-show="mcrtData.seriv || mcrtData.mct" class="col-lg-8">
-
-                        <div class="h5wrapper mb-3">
-                            <hr class="result">
-                            <h5 class="text-warning fst-italic">
-                                <i class="fas fa-shopping-cart"></i> Item list
-                            </h5>
-                            <hr class="result">
-                        </div>
-
-                        <div class="alert alert-info" role="alert">
-                            <small class="fst-italic">
-                                Items are based on either SERIV or MCT, but you can still add or remove items.
-                            </small>
-                        </div>
-
-                        <div class="text-end">
-                            <button class="btn btn-success btn-sm">
-                                <i class="fas fa-plus"></i> Add Item
-                            </button>
-                        </div>
-                        
-                        <WarehouseMCRTItems :items="mcrtData.items" @remove-item="handleRemoveItem"/>
-
-                    </div>
-        
-                </div>
-
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <div class="d-flex justify-content-between">
-                            <nuxt-link class="btn btn-secondary" to="/warehouse/mcrt">
-                                <i class="fas fa-chevron-left"></i> Back to Search
-                            </nuxt-link>
-                            <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
-                                class="btn btn-primary">
-                                <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-        
-            </div>
-        
-            <div v-else>
-                <LoaderSpinner />
-            </div>
             
+                </div>
+            
+                <div v-else>
+                    <LoaderSpinner />
+                </div>
+                
+            </div>
         </div>
+
+        <WarehouseAddItemModal @add-item="handleAddItem" :items="items" :added-item-ids="mcrtItemIds"/>
     </div>
 
 
@@ -237,7 +252,7 @@
 <script setup lang="ts">
 
     import * as mcrtApi from '~/composables/warehouse/mcrt/mcrt.api'
-    import type { CreateMcrtInput } from '~/composables/warehouse/mcrt/mcrt.types';
+    import type { AddMCRTItem, CreateMcrtInput } from '~/composables/warehouse/mcrt/mcrt.types';
     import type { Employee } from '~/composables/system/employee/employee.types';
     import { addPropertyFullName } from '~/composables/system/employee/employee';
     import type { AddItem } from '~/composables/warehouse/item/item.type';
@@ -247,6 +262,7 @@
     import type { SERIV } from '~/composables/warehouse/seriv/seriv.types';
     import { fetchMCTsByMctNumber } from '~/composables/warehouse/mct/mct.api';
     import { fetchSERIVsBySerivNumber } from '~/composables/warehouse/seriv/seriv.api';
+    import { useToast, POSITION as TOAST_POSITION } from 'vue-toastification';
 
     definePageMeta({
         name: ROUTES.MCRT_CREATE,
@@ -258,12 +274,14 @@
 
     // CONSTANTS
     const router = useRouter()
-    // FLAGS
+    const toast = useToast();
+// FLAGS
     const isSaving = ref(false)
     const errorMsg = 'This field is required'
 
     // INITIAL DATA
     const _mcrtDataErrorsInitial = {
+        reference: false,
         returned_by: false,
         note: false,
         items: false,
@@ -317,6 +335,7 @@
                 unit: i.unit,
                 qty_request: 0,
                 GWAPrice: i.GWAPrice,
+                item_type: i.item_type,
             }
 
             return x
@@ -330,8 +349,6 @@
 
 
     // ======================== COMPUTED ========================  
-
-    const isDisabledSave = computed((): boolean => true)
 
     const mctId = computed(() => {
         if (mcrtData.value.mct) {
@@ -347,8 +364,7 @@
         return null
     })
 
-
-
+    const mcrtItemIds = computed( () => mcrtData.value.items.map(i => i.itemId))
 
     // ======================== WATCHERS ========================  
 
@@ -384,7 +400,6 @@
         }
 
     }
-
 
     async function save() {
 
@@ -446,15 +461,15 @@
 
         // populate mcrtData.items
         mcrtData.value.items = mcrtData.value.seriv.seriv_items.map(i => {
-            const item: AddItem = {
-                id: i.item.id,
-                code: i.item.code,
+            const item: AddMCRTItem = {
+                itemId: i.item.id,
                 name: i.item.name,
                 description: i.item.description,
-                available_quantity: i.item.total_quantity - i.item.quantity_on_queue,
+                referenceQty: i.quantity,
+                mcrtQty: 0,
                 unit: i.item.unit,
-                GWAPrice: i.price,
-                qty_request: i.quantity
+                unitPrice: i.price,
+                showQtyError: false,
             }
             return item
         })
@@ -478,27 +493,77 @@
             return
         } 
 
-        debouncedSearchMctNumbers(input, loading)
+        debouncedSearchSerivNumbers(input, loading)
 
     }
 
-    function handleRemoveItem(item: AddItem) {
+    function handleAddItem(itemId: string) {
+        console.log('handleAddItem', itemId);
+        const item = items.value.find(i => i.id === itemId)
+
+        if(!item) {
+            console.error('item not found');
+            return 
+        }
+
+        const isExist = mcrtData.value.items.find(i => i.itemId === itemId) 
+
+        if(isExist) {
+            toast.error('Item exist!')
+            return 
+        }
+
+        const mcrtItem: AddMCRTItem = {
+            itemId: item.id,
+            name: item.name,
+            description: item.description,
+            referenceQty: 0,
+            mcrtQty: 0,
+            unit: item.unit,
+            unitPrice: item.GWAPrice,
+            showQtyError: false,
+        }
+
+        mcrtData.value.items.push(mcrtItem)
+        toast.success('Item added!')
+    }
+
+    function handleRemoveItem(item: AddMCRTItem) {
         console.log('handleRemoveItem', item);
 
-        const indx = mcrtData.value.items.findIndex(i => i.id === item.id)
+        const indx = mcrtData.value.items.findIndex(i => i.itemId === item.itemId)
 
         if(indx === -1) {
-            console.error('item not found in mcrtData.items with id of ', item.id);
+            console.error('item not found in mcrtData.items with id of ', item.itemId);
             return 
         }
 
         mcrtData.value.items.splice(indx, 1)
+
+        toast.success('Item removed!', {position: TOAST_POSITION.BOTTOM_RIGHT})
     }
 
+    function handleUpdateItem(mcrtItem: AddMCRTItem, data: {qty: number}) {
+        console.log('handleUpdateItem');
+        const item = mcrtData.value.items.find(i => i.itemId === mcrtItem.itemId)
 
-    async function isValid() {
+        if(!item) {
+            console.error('item not found');
+            return 
+        }
+
+        item.mcrtQty = data.qty
+
+        console.log('mcrtData.value.items', mcrtData.value.items);
+    }
+
+    function isValid() {
 
         mcrtDataErrors.value = { ..._mcrtDataErrorsInitial }
+
+        if(!mcrtData.value.seriv && !mcrtData.value.mct) {
+            mcrtDataErrors.value.reference = true
+        }
 
         if (!mcrtData.value.returned_by) {
             mcrtDataErrors.value.returned_by = true
@@ -516,9 +581,18 @@
             }
         }
 
+        for(let i of mcrtData.value.items) {
+            if(i.mcrtQty <= 0) {
+                i.showQtyError = true
+            } else {
+                i.showQtyError = false
+            }
+        }
+
         const hasError = Object.values(mcrtDataErrors.value).includes(true);
         const hasErrorApprovers = mcrtData.value.approvers.some(i => i.showRequiredMsg === true)
-        if (hasError || hasErrorApprovers) {
+        const hasErrorItem = mcrtData.value.items.some(i => i.showQtyError === true)
+        if (hasError || hasErrorApprovers || hasErrorItem) {
             return false
         }
 

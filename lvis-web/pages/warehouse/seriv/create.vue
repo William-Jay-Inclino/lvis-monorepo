@@ -300,6 +300,7 @@
                 unit: i.unit,
                 qty_request: 0,
                 GWAPrice: i.GWAPrice,
+                item_type: i.item_type,
             }
 
             return x

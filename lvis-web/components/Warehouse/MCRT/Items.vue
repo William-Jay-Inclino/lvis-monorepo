@@ -16,10 +16,13 @@
                 <tr v-for="i, count in items">
                     <td class="text-muted align-middle"> {{ count + 1 }} </td>
                     <td class="text-muted align-middle"> {{ i.name + ' - ' + i.description }} </td>
-                    <td class="text-muted align-middle"> {{ i.qty_request }} </td>
+                    <td class="text-muted text-center align-middle">
+                        <input type="text" :class="{'border border-danger': i.showQtyError}" class="form-control form-control-sm" :value="i.mcrtQty" @keyup="handleQtyUpdate(i, $event)">
+                        <small v-show="i.showQtyError" class="fst-italic text-danger">Invalid Quantity</small>
+                    </td>
                     <td class="text-muted align-middle"> {{ i.unit.name }} </td>
-                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice) }} </td>
-                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.qty_request * i.GWAPrice) }} </td>
+                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.unitPrice) }} </td>
+                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.mcrtQty * i.unitPrice) }} </td>
                     <td class="align-middle text-center">
                         <button @click="emits('remove-item', i)" class="btn btn-light btn-sm">
                             <i class="fas fa-trash text-danger"></i>
@@ -32,15 +35,21 @@
 </template>
 
 <script setup lang="ts">
-    import type { AddItem } from '~/composables/warehouse/item/item.type';
+    import type { AddMCRTItem } from '~/composables/warehouse/mcrt/mcrt.types';
 
     const props = defineProps({
         items: {
-            type: Array as () => AddItem[],
+            type: Array as () => AddMCRTItem[],
             default: () => [],
         }
     });
 
-    const emits = defineEmits(['remove-item'])
+    const emits = defineEmits(['remove-item', 'update-item'])
+
+
+    function handleQtyUpdate(item: AddMCRTItem, event: Event) {
+        // @ts-ignore
+        emits('update-item', item, {qty: Number(event.target.value)})
+    }
 
 </script>

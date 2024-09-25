@@ -73,7 +73,16 @@ export interface MCRT {
     jo_number: string 
     note: string 
     approvers: CreateMCRTApprover[]
-    items: AddItem[]
+    items: AddMCRTItem[]
   }
-  
-  
+
+  export interface AddMCRTItem {
+    itemId: string
+    name: string
+    description: string 
+    referenceQty: number 
+    mcrtQty: number 
+    unit: Unit 
+    unitPrice: number 
+    showQtyError: boolean
+  }

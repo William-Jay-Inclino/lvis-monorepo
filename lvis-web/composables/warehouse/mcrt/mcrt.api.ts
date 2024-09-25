@@ -209,12 +209,13 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 200, item_type: ${ITEM_TYPE.SPECIAL_EQUIPMENT}) {
+            items(page: 1, pageSize: 200) {
                 data{
                     id
                     code
                     name
                     description
+                    item_type
                     unit {
                         id 
                         name
@@ -447,9 +448,9 @@ export async function create(input: CreateMcrtInput): Promise<MutationResponse> 
     const items = input.items.map(i => {
         return `
         {
-          item_id: "${i.id}"
-          quantity: ${i.qty_request}
-          price: ${i.GWAPrice}
+          item_id: "${i.itemId}"
+          quantity: ${i.mcrtQty}
+          price: ${i.unitPrice}
         }`;
     }).join(', ');
 
