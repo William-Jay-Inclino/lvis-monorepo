@@ -195,18 +195,18 @@
                                             to="/warehouse/MCRT">
                                             <i class="fas fa-search"></i> Search MCRT
                                         </nuxt-link>
-                                        <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMCRT')" @click="onClickPrint" class="btn btn-danger">
+                                        <button disabled v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMCRT')" @click="onClickPrint" class="btn btn-danger">
                                             <i class="fas fa-print"></i> Print MCRT
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>
                                     <div v-if="!item.cancelled_at">
-                                        <button v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
+                                        <button disabled v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
                                             @click="onCancelMCRT()">
                                             <i class="fas fa-times-circle"></i> Cancel MCRT
                                         </button>
-                                        <button v-if="!!item.can_update" class="btn btn-success me-2"
+                                        <button disabled v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
                                             <i class="fas fa-sync"></i> Update MCRT
                                         </button>

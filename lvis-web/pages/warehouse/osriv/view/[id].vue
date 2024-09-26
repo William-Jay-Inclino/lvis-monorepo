@@ -171,18 +171,18 @@
                                             to="/warehouse/OSRIV">
                                             <i class="fas fa-search"></i> Search OSRIV
                                         </nuxt-link>
-                                        <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageOSRIV')" @click="onClickPrint" class="btn btn-danger">
+                                        <button disabled v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageOSRIV')" @click="onClickPrint" class="btn btn-danger">
                                             <i class="fas fa-print"></i> Print OSRIV
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>
                                     <div v-if="!item.cancelled_at">
-                                        <button v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
+                                        <button disabled v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
                                             @click="onCancelOsriv()">
                                             <i class="fas fa-times-circle"></i> Cancel OSRIV
                                         </button>
-                                        <button v-if="!!item.can_update" class="btn btn-success me-2"
+                                        <button disabled v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
                                             <i class="fas fa-sync"></i> Update OSRIV
                                         </button>
