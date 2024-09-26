@@ -1,5 +1,5 @@
 <template>
-    <div v-if="items.length > 0" class="mb-3">
+    <div class="mb-3">
         <div class="alert alert-info">
             <small class="fst-italic">
                 Quantity Request should be greater than 0 and less than or equal to the available quantity

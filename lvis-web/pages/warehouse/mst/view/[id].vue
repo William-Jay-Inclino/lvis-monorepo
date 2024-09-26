@@ -140,8 +140,8 @@
                                             <tr>
                                                 <th class="bg-secondary text-white"> No. </th>
                                                 <th class="bg-secondary text-white"> Description </th>
-                                                <th class="bg-secondary text-white"> Qty </th>
                                                 <th class="bg-secondary text-white"> Unit </th>
+                                                <th class="bg-secondary text-white"> Quantity </th>
                                                 <th class="bg-secondary text-white"> Unit Price </th>
                                                 <th class="bg-secondary text-white"> Amount </th>
                                             </tr>
@@ -150,8 +150,8 @@
                                             <tr v-for="i, count in item.mst_items">
                                                 <td> {{ count + 1 }} </td>
                                                 <td> {{ i.item.name + ' - ' + i.item.description }} </td>
-                                                <td> {{ i.quantity }} </td>
                                                 <td> {{ i.item.unit.name }} </td>
+                                                <td> {{ i.quantity }} </td>
                                                 <td> {{ formatToPhpCurrency(i.price) }} </td>
                                                 <td> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                                             </tr>

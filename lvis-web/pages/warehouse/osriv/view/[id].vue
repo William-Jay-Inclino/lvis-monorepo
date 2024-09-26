@@ -138,9 +138,9 @@
                                                 <th class="bg-secondary text-white"> No. </th>
                                                 <th class="bg-secondary text-white"> Description </th>
                                                 <th class="bg-secondary text-white"> Unit </th>
-                                                <th class="bg-secondary text-white"> Available Qty </th>
-                                                <th class="bg-secondary text-white"> Price </th>
-                                                <th class="bg-secondary text-white"> Qty Request </th>
+                                                <th class="bg-secondary text-white"> Quantity </th>
+                                                <!-- <th class="bg-secondary text-white"> Available Qty </th> -->
+                                                <th class="bg-secondary text-white"> Unit Price </th>
                                                 <th class="bg-secondary text-white"> Amount </th>
                                             </tr>
                                         </thead>
@@ -149,9 +149,9 @@
                                                 <td> {{ count + 1 }} </td>
                                                 <td> {{ i.item.name + ' - ' + i.item.description }} </td>
                                                 <td> {{ i.item.unit.name }} </td>
-                                                <td> {{ i.item.total_quantity - i.item.quantity_on_queue }} </td>
-                                                <td> {{ formatToPhpCurrency(i.price) }} </td>
                                                 <td> {{ i.quantity }} </td>
+                                                <!-- <td> {{ i.item.total_quantity - i.item.quantity_on_queue }} </td> -->
+                                                <td> {{ formatToPhpCurrency(i.price) }} </td>
                                                 <td> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                                             </tr>
                                         </tbody>
