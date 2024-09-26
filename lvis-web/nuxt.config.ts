@@ -8,7 +8,7 @@ export default defineNuxtConfig({
             graphqlApiUrl: process.env.GRAPHQL_API_URL,
         }
     },
-    devtools: { enabled: true },
+    // devtools: { enabled: true },
     app: {
         baseURL: '/lvis/',
         head: {

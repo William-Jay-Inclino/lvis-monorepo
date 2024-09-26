@@ -5,8 +5,8 @@
                 <tr>
                     <th class="bg-secondary text-white"> No. </th>
                     <th class="bg-secondary text-white"> Description </th>
-                    <th class="bg-secondary text-white"> Qty </th>
                     <th class="bg-secondary text-white"> Unit </th>
+                    <th class="bg-secondary text-white"> Qty </th>
                     <th class="bg-secondary text-white"> Unit Price </th>
                     <th class="bg-secondary text-white"> Amount </th>
                     <th class="bg-secondary text-white"> Remove </th>
@@ -16,11 +16,11 @@
                 <tr v-for="i, count in items">
                     <td class="text-muted align-middle"> {{ count + 1 }} </td>
                     <td class="text-muted align-middle"> {{ i.name + ' - ' + i.description }} </td>
+                    <td class="text-muted align-middle"> {{ i.unit.name }} </td>
                     <td class="text-muted text-center align-middle">
                         <input type="text" :class="{'border border-danger': i.showQtyError}" class="form-control form-control-sm" :value="i.mcrtQty" @keyup="handleQtyUpdate(i, $event)">
                         <small v-show="i.showQtyError" class="fst-italic text-danger">Invalid Quantity</small>
                     </td>
-                    <td class="text-muted align-middle"> {{ i.unit.name }} </td>
                     <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.unitPrice) }} </td>
                     <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.mcrtQty * i.unitPrice) }} </td>
                     <td class="align-middle text-center">

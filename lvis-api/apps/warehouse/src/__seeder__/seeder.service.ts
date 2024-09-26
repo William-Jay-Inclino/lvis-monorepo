@@ -14,6 +14,7 @@ export class SeederService {
             await this.prisma.$transaction([
                 this.seedSupplier(),
                 this.seedStation(),
+                this.seedProject(),
                 // this.seedItemType(),
                 this.seedUnit(),
                 this.seedVehicle()

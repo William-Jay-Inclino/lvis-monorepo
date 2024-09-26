@@ -280,6 +280,7 @@ export async function fetchFormDataInCreate(): Promise<{
                     mrv_number
                     date_requested
                     is_referenced
+                    status
                     item_from {
                         name
                     }

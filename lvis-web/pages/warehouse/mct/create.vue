@@ -23,9 +23,22 @@
                             </label>
                             <client-only>
                                 <v-select @search="handleSearchMrvNumber" @option:selected="onMrvNumberSelected" :options="mrvs" label="mrv_number"
-                                    v-model="mctData.mrv" :clearable="false">
+                                    v-model="mctData.mrv">
                                     <template v-slot:option="option">
-                                        <div v-if="option.is_referenced" class="row">
+                                        <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
+                                            <div class="col">
+                                                <span class="text-danger">{{ option.mrv_number }}</span>
+                                            </div>
+                                            <div class="col text-end">
+                                                <small class="text-muted fst-italic">
+                                                    {{
+                                                        // @ts-ignore
+                                                        approvalStatus[option.status].label
+                                                    }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div v-else-if="option.is_referenced" class="row">
                                             <div class="col">
                                                 <span class="text-danger">{{ option.mrv_number }}</span>
                                             </div>
@@ -48,7 +61,7 @@
                             </client-only>
                             <nuxt-link v-if="mctData.mrv" class="btn btn-sm btn-light text-primary"
                                 :to="'/warehouse/mrv/view/' + mctData.mrv.id" target="_blank">View
-                                canvass details</nuxt-link>
+                                MRV details</nuxt-link>
                             <small class="text-danger fst-italic" v-if="mctDataErrors.mrv"> {{ errorMsg }}
                             </small>
                         </div>
@@ -316,14 +329,15 @@ import { fetchMRVsByMrvNumber } from '~/composables/warehouse/mrv/mrv.api';
     // check if MRV is_referenced. If true then rollback to previous mrv else set new current mrv
     function onMrvNumberSelected(payload: MRV) {
         console.log('onMrvNumberSelected()', payload)
-        if (payload.is_referenced) {
+        if (payload.status === APPROVAL_STATUS.APPROVED && !payload.is_referenced) {
+            currentMrv = payload
+        } else {
             if (currentMrv) {
                 mctData.value.mrv = currentMrv
             } else {
                 mctData.value.mrv = null
             }
-        } else {
-            currentMrv = payload
+            return 
         }
     }
 
