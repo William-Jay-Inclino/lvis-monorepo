@@ -495,8 +495,6 @@ exports.Prisma.OSRIVScalarFieldEnum = {
   requested_by_id: 'requested_by_id',
   department_id: 'department_id',
   item_from_id: 'item_from_id',
-  supervisor_id: 'supervisor_id',
-  warehouse_custodian_id: 'warehouse_custodian_id',
   cancelled_by: 'cancelled_by',
   created_by: 'created_by',
   updated_by: 'updated_by',
@@ -514,9 +512,8 @@ exports.Prisma.OSRIVApproverScalarFieldEnum = {
   notes: 'notes',
   status: 'status',
   label: 'label',
+  label_id: 'label_id',
   order: 'order',
-  is_supervisor: 'is_supervisor',
-  is_warehouse_custodian: 'is_warehouse_custodian',
   metadata: 'metadata'
 };
 

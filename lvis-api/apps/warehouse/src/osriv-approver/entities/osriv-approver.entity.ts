@@ -28,14 +28,11 @@ export class OSRIVApprover {
     @Field(() => String)
     label: string
 
+    @Field(() => String)
+    label_id: string
+
     @Field(() => Int)
     order: number
-
-    @Field(() => Boolean)
-    is_supervisor: boolean
-
-    @Field(() => Boolean)
-    is_warehouse_custodian: boolean
 
     @Field({ nullable: true })
     metadata?: string

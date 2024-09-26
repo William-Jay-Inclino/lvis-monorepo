@@ -1,5 +1,4 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Item } from '../../item/entities/item.entity';
 import { OSRIVApprover } from '../../osriv-approver/entities/osriv-approver.entity';
 import { OSRIVItem } from '../../osriv-item/entities/osriv-item.entity';
 import { Department } from '../../__department__ /entities/department.entity';
@@ -28,12 +27,6 @@ export class OSRIV {
 
   @Field(() => String)
   item_from_id: string;
-
-  @Field(() => String)
-  supervisor_id: string;
-
-  @Field(() => String)
-  warehouse_custodian_id: string;
 
   @Field({ nullable: true })
   metadata?: string

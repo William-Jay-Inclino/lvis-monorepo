@@ -50,18 +50,15 @@ export class OsrivService {
                     id: input.item_from_id
                 }
             },
-            supervisor_id: input.supervisor_id,
-            warehouse_custodian_id: input.warehouse_custodian_id,
             osriv_approvers: {
                 create: input.approvers.map(i => {
                     return {
                         approver_id: i.approver_id,
                         label: i.label,
+                        label_id: i.label_id,
                         order: i.order,
                         notes: '',
                         status: APPROVAL_STATUS.PENDING,
-                        is_supervisor: i.is_supervisor,
-                        is_warehouse_custodian: i.is_warehouse_custodian,
                     }
                 })
             },
@@ -159,155 +156,16 @@ export class OsrivService {
             requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
             department_id: input.department_id ?? existingItem.department_id,
             item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
-            supervisor_id: input.supervisor_id ?? existingItem.supervisor_id,
-            warehouse_custodian_id: input.warehouse_custodian_id ?? existingItem.warehouse_custodian_id,
             updated_by: this.authUser.user.username,
         }
 
-        const queries = []
 
-        const updateOsrivQuery = this.prisma.oSRIV.update({
+        const result = await this.prisma.oSRIV.update({
             data,
             where: { id }
         })
-
-        queries.push(updateOsrivQuery)
-
-        // if supervisor is updated
-        if(input.supervisor_id) {
-
-            const isNewSupervisor = input.supervisor_id !== existingItem.supervisor_id
-
-            // update supervisor in osriv approver as well
-            if(isNewSupervisor) {
-
-                const existingSupervisor = existingItem.osriv_approvers.find(i => i.approver_id === existingItem.supervisor_id && !!i.is_supervisor)
-    
-                if(!existingSupervisor) {
-                    throw new NotFoundException('Existing supervisor not found with id of ' + existingItem.supervisor_id)
-                }
-
-                console.log('Updating OSRIV Approver supervisor');
-
-                if(existingSupervisor.status !== APPROVAL_STATUS.PENDING) {
-                    throw new BadRequestException(`Existing supervisor's status is not pending. Cannot update supervisor`)
-                }
-
-                const updateOsrivApproverQuery = this.prisma.oSRIVApprover.update({
-                    where: {
-                        id: existingSupervisor.id
-                    },
-                    data: {
-                        approver_id: input.supervisor_id
-                    }
-                })
-
-                queries.push(updateOsrivApproverQuery)
-
-                // ======= add new supervisor in pendings if existing supervisor exists in pendings ======= 
-                const prevSupervisorInPendings = await this.prisma.pending.findUnique({
-                    where: {
-                        approver_id_reference_number_reference_table: {
-                            approver_id: existingSupervisor.approver_id,
-                            reference_number: existingItem.osriv_number,
-                            reference_table: DB_ENTITY.OSRIV
-                        }
-                    }
-                })
-
-                // if previous supervisor exists in pending table then remove it and add the new supervisor in pendings
-                if(prevSupervisorInPendings) {
-                    const deletePendingQuery = this.prisma.pending.delete({
-                        where: {id: prevSupervisorInPendings.id}
-                    })
-                    queries.push(deletePendingQuery)
-
-                    const createPendingQuery = this.prisma.pending.create({
-                        data: {
-                            approver_id: input.supervisor_id,
-                            reference_number: existingItem.osriv_number,
-                            reference_table: DB_ENTITY.OSRIV,
-                            description: `OSRIV no. ${existingItem.osriv_number}`
-                        }
-                    })
-
-                    queries.push(createPendingQuery)
-
-                }
-
-            }
-
-        }
-
-        // if warehouse custodian is updated
-        if(input.warehouse_custodian_id) {
-
-            const isNewWarehouseCustodian = input.warehouse_custodian_id !== existingItem.warehouse_custodian_id
-
-            // update warehouse custodian in osriv approver as well
-            if(isNewWarehouseCustodian) {
-
-                const existingWarehouseCustodian = existingItem.osriv_approvers.find(i => i.approver_id === existingItem.warehouse_custodian_id && !!i.is_warehouse_custodian)
-    
-                if(!existingWarehouseCustodian) {
-                    throw new NotFoundException('Existing warehouse custodian not found with id of ' + existingItem.warehouse_custodian_id)
-                }
-
-                console.log('Updating OSRIV Approver warehouse custodian');
-
-                if(existingWarehouseCustodian.status !== APPROVAL_STATUS.PENDING) {
-                    throw new BadRequestException(`Existing warehouse custodian's status is not pending. Cannot update warehouse custodian`)
-                }
-
-                const updateOsrivApproverQuery = this.prisma.oSRIVApprover.update({
-                    where: {
-                        id: existingWarehouseCustodian.id
-                    },
-                    data: {
-                        approver_id: input.warehouse_custodian_id
-                    }
-                })
-
-                queries.push(updateOsrivApproverQuery)
-
-                // ======= add new warehouse custodian in pendings if existing warehouse custodian exists in pendings ======= 
-                const prevWarehouseCustodianInPendings = await this.prisma.pending.findUnique({
-                    where: {
-                        approver_id_reference_number_reference_table: {
-                            approver_id: existingWarehouseCustodian.approver_id,
-                            reference_number: existingItem.osriv_number,
-                            reference_table: DB_ENTITY.OSRIV
-                        }
-                    }
-                })
-
-                // if previous WC exists in pending table then remove it and add the new WC in pendings
-                if(prevWarehouseCustodianInPendings) {
-                    const deletePendingQuery = this.prisma.pending.delete({
-                        where: {id: prevWarehouseCustodianInPendings.id}
-                    })
-                    queries.push(deletePendingQuery)
-
-                    const createPendingQuery = this.prisma.pending.create({
-                        data: {
-                            approver_id: input.warehouse_custodian_id,
-                            reference_number: existingItem.osriv_number,
-                            reference_table: DB_ENTITY.OSRIV,
-                            description: `OSRIV no. ${existingItem.osriv_number}`
-                        }
-                    })
-
-                    queries.push(createPendingQuery)
-
-                }
-
-            }
-
-        }
-
-        const result = await this.prisma.$transaction(queries)
         console.log('Successfully updated OSRIV');
-        return result[0]
+        return result
 
     }
 

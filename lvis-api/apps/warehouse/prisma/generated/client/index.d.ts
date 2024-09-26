@@ -34672,8 +34672,6 @@ export namespace Prisma {
     requested_by_id: string | null
     department_id: string | null
     item_from_id: string | null
-    supervisor_id: string | null
-    warehouse_custodian_id: string | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -34691,8 +34689,6 @@ export namespace Prisma {
     requested_by_id: string | null
     department_id: string | null
     item_from_id: string | null
-    supervisor_id: string | null
-    warehouse_custodian_id: string | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -34710,8 +34706,6 @@ export namespace Prisma {
     requested_by_id: number
     department_id: number
     item_from_id: number
-    supervisor_id: number
-    warehouse_custodian_id: number
     cancelled_by: number
     created_by: number
     updated_by: number
@@ -34732,8 +34726,6 @@ export namespace Prisma {
     requested_by_id?: true
     department_id?: true
     item_from_id?: true
-    supervisor_id?: true
-    warehouse_custodian_id?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -34751,8 +34743,6 @@ export namespace Prisma {
     requested_by_id?: true
     department_id?: true
     item_from_id?: true
-    supervisor_id?: true
-    warehouse_custodian_id?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -34770,8 +34760,6 @@ export namespace Prisma {
     requested_by_id?: true
     department_id?: true
     item_from_id?: true
-    supervisor_id?: true
-    warehouse_custodian_id?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -34863,8 +34851,6 @@ export namespace Prisma {
     requested_by_id: string
     department_id: string
     item_from_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by: string | null
     created_by: string
     updated_by: string | null
@@ -34900,8 +34886,6 @@ export namespace Prisma {
     requested_by_id?: boolean
     department_id?: boolean
     item_from_id?: boolean
-    supervisor_id?: boolean
-    warehouse_custodian_id?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -34924,8 +34908,6 @@ export namespace Prisma {
     requested_by_id?: boolean
     department_id?: boolean
     item_from_id?: boolean
-    supervisor_id?: boolean
-    warehouse_custodian_id?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -34959,8 +34941,6 @@ export namespace Prisma {
       requested_by_id: string
       department_id: string
       item_from_id: string
-      supervisor_id: string
-      warehouse_custodian_id: string
       cancelled_by: string | null
       created_by: string
       updated_by: string | null
@@ -35375,8 +35355,6 @@ export namespace Prisma {
     readonly requested_by_id: FieldRef<"OSRIV", 'String'>
     readonly department_id: FieldRef<"OSRIV", 'String'>
     readonly item_from_id: FieldRef<"OSRIV", 'String'>
-    readonly supervisor_id: FieldRef<"OSRIV", 'String'>
-    readonly warehouse_custodian_id: FieldRef<"OSRIV", 'String'>
     readonly cancelled_by: FieldRef<"OSRIV", 'String'>
     readonly created_by: FieldRef<"OSRIV", 'String'>
     readonly updated_by: FieldRef<"OSRIV", 'String'>
@@ -35783,9 +35761,8 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
+    label_id: string | null
     order: number | null
-    is_supervisor: boolean | null
-    is_warehouse_custodian: boolean | null
   }
 
   export type OSRIVApproverMaxAggregateOutputType = {
@@ -35796,9 +35773,8 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
+    label_id: string | null
     order: number | null
-    is_supervisor: boolean | null
-    is_warehouse_custodian: boolean | null
   }
 
   export type OSRIVApproverCountAggregateOutputType = {
@@ -35809,9 +35785,8 @@ export namespace Prisma {
     notes: number
     status: number
     label: number
+    label_id: number
     order: number
-    is_supervisor: number
-    is_warehouse_custodian: number
     metadata: number
     _all: number
   }
@@ -35835,9 +35810,8 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
+    label_id?: true
     order?: true
-    is_supervisor?: true
-    is_warehouse_custodian?: true
   }
 
   export type OSRIVApproverMaxAggregateInputType = {
@@ -35848,9 +35822,8 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
+    label_id?: true
     order?: true
-    is_supervisor?: true
-    is_warehouse_custodian?: true
   }
 
   export type OSRIVApproverCountAggregateInputType = {
@@ -35861,9 +35834,8 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
+    label_id?: true
     order?: true
-    is_supervisor?: true
-    is_warehouse_custodian?: true
     metadata?: true
     _all?: true
   }
@@ -35962,9 +35934,8 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
-    is_supervisor: boolean
-    is_warehouse_custodian: boolean
     metadata: JsonValue | null
     _count: OSRIVApproverCountAggregateOutputType | null
     _avg: OSRIVApproverAvgAggregateOutputType | null
@@ -35995,9 +35966,8 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
+    label_id?: boolean
     order?: boolean
-    is_supervisor?: boolean
-    is_warehouse_custodian?: boolean
     metadata?: boolean
     osriv?: boolean | OSRIVDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["oSRIVApprover"]>
@@ -36010,9 +35980,8 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
+    label_id?: boolean
     order?: boolean
-    is_supervisor?: boolean
-    is_warehouse_custodian?: boolean
     metadata?: boolean
   }
 
@@ -36034,9 +36003,8 @@ export namespace Prisma {
       notes: string
       status: number
       label: string
+      label_id: string
       order: number
-      is_supervisor: boolean
-      is_warehouse_custodian: boolean
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["oSRIVApprover"]>
     composites: {}
@@ -36440,9 +36408,8 @@ export namespace Prisma {
     readonly notes: FieldRef<"OSRIVApprover", 'String'>
     readonly status: FieldRef<"OSRIVApprover", 'Int'>
     readonly label: FieldRef<"OSRIVApprover", 'String'>
+    readonly label_id: FieldRef<"OSRIVApprover", 'String'>
     readonly order: FieldRef<"OSRIVApprover", 'Int'>
-    readonly is_supervisor: FieldRef<"OSRIVApprover", 'Boolean'>
-    readonly is_warehouse_custodian: FieldRef<"OSRIVApprover", 'Boolean'>
     readonly metadata: FieldRef<"OSRIVApprover", 'Json'>
   }
     
@@ -52902,8 +52869,6 @@ export namespace Prisma {
     requested_by_id: 'requested_by_id',
     department_id: 'department_id',
     item_from_id: 'item_from_id',
-    supervisor_id: 'supervisor_id',
-    warehouse_custodian_id: 'warehouse_custodian_id',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
     updated_by: 'updated_by',
@@ -52924,9 +52889,8 @@ export namespace Prisma {
     notes: 'notes',
     status: 'status',
     label: 'label',
+    label_id: 'label_id',
     order: 'order',
-    is_supervisor: 'is_supervisor',
-    is_warehouse_custodian: 'is_warehouse_custodian',
     metadata: 'metadata'
   };
 
@@ -55819,8 +55783,6 @@ export namespace Prisma {
     requested_by_id?: StringFilter<"OSRIV"> | string
     department_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
-    supervisor_id?: StringFilter<"OSRIV"> | string
-    warehouse_custodian_id?: StringFilter<"OSRIV"> | string
     cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
     created_by?: StringFilter<"OSRIV"> | string
     updated_by?: StringNullableFilter<"OSRIV"> | string | null
@@ -55842,8 +55804,6 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     department_id?: SortOrder
     item_from_id?: SortOrder
-    supervisor_id?: SortOrder
-    warehouse_custodian_id?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -55868,8 +55828,6 @@ export namespace Prisma {
     requested_by_id?: StringFilter<"OSRIV"> | string
     department_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
-    supervisor_id?: StringFilter<"OSRIV"> | string
-    warehouse_custodian_id?: StringFilter<"OSRIV"> | string
     cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
     created_by?: StringFilter<"OSRIV"> | string
     updated_by?: StringNullableFilter<"OSRIV"> | string | null
@@ -55891,8 +55849,6 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     department_id?: SortOrder
     item_from_id?: SortOrder
-    supervisor_id?: SortOrder
-    warehouse_custodian_id?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -55917,8 +55873,6 @@ export namespace Prisma {
     requested_by_id?: StringWithAggregatesFilter<"OSRIV"> | string
     department_id?: StringWithAggregatesFilter<"OSRIV"> | string
     item_from_id?: StringWithAggregatesFilter<"OSRIV"> | string
-    supervisor_id?: StringWithAggregatesFilter<"OSRIV"> | string
-    warehouse_custodian_id?: StringWithAggregatesFilter<"OSRIV"> | string
     cancelled_by?: StringNullableWithAggregatesFilter<"OSRIV"> | string | null
     created_by?: StringWithAggregatesFilter<"OSRIV"> | string
     updated_by?: StringNullableWithAggregatesFilter<"OSRIV"> | string | null
@@ -55939,9 +55893,8 @@ export namespace Prisma {
     notes?: StringFilter<"OSRIVApprover"> | string
     status?: IntFilter<"OSRIVApprover"> | number
     label?: StringFilter<"OSRIVApprover"> | string
+    label_id?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
-    is_supervisor?: BoolFilter<"OSRIVApprover"> | boolean
-    is_warehouse_custodian?: BoolFilter<"OSRIVApprover"> | boolean
     metadata?: JsonNullableFilter<"OSRIVApprover">
     osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
   }
@@ -55954,15 +55907,15 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
+    label_id?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
-    is_warehouse_custodian?: SortOrder
     metadata?: SortOrderInput | SortOrder
     osriv?: OSRIVOrderByWithRelationInput
   }
 
   export type OSRIVApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    osriv_id_label_id?: OSRIVApproverOsriv_idLabel_idCompoundUniqueInput
     AND?: OSRIVApproverWhereInput | OSRIVApproverWhereInput[]
     OR?: OSRIVApproverWhereInput[]
     NOT?: OSRIVApproverWhereInput | OSRIVApproverWhereInput[]
@@ -55972,12 +55925,11 @@ export namespace Prisma {
     notes?: StringFilter<"OSRIVApprover"> | string
     status?: IntFilter<"OSRIVApprover"> | number
     label?: StringFilter<"OSRIVApprover"> | string
+    label_id?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
-    is_supervisor?: BoolFilter<"OSRIVApprover"> | boolean
-    is_warehouse_custodian?: BoolFilter<"OSRIVApprover"> | boolean
     metadata?: JsonNullableFilter<"OSRIVApprover">
     osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
-  }, "id">
+  }, "id" | "osriv_id_label_id">
 
   export type OSRIVApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -55987,9 +55939,8 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
+    label_id?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
-    is_warehouse_custodian?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: OSRIVApproverCountOrderByAggregateInput
     _avg?: OSRIVApproverAvgOrderByAggregateInput
@@ -56009,9 +55960,8 @@ export namespace Prisma {
     notes?: StringWithAggregatesFilter<"OSRIVApprover"> | string
     status?: IntWithAggregatesFilter<"OSRIVApprover"> | number
     label?: StringWithAggregatesFilter<"OSRIVApprover"> | string
+    label_id?: StringWithAggregatesFilter<"OSRIVApprover"> | string
     order?: IntWithAggregatesFilter<"OSRIVApprover"> | number
-    is_supervisor?: BoolWithAggregatesFilter<"OSRIVApprover"> | boolean
-    is_warehouse_custodian?: BoolWithAggregatesFilter<"OSRIVApprover"> | boolean
     metadata?: JsonNullableWithAggregatesFilter<"OSRIVApprover">
   }
 
@@ -60185,8 +60135,6 @@ export namespace Prisma {
     is_completed?: boolean
     requested_by_id: string
     department_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -60208,8 +60156,6 @@ export namespace Prisma {
     requested_by_id: string
     department_id: string
     item_from_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -60229,8 +60175,6 @@ export namespace Prisma {
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60252,8 +60196,6 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60274,8 +60216,6 @@ export namespace Prisma {
     requested_by_id: string
     department_id: string
     item_from_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -60293,8 +60233,6 @@ export namespace Prisma {
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60313,8 +60251,6 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60331,9 +60267,8 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
-    is_supervisor?: boolean
-    is_warehouse_custodian?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv: OSRIVCreateNestedOneWithoutOsriv_approversInput
   }
@@ -60346,9 +60281,8 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
-    is_supervisor?: boolean
-    is_warehouse_custodian?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -60359,9 +60293,8 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    is_warehouse_custodian?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv?: OSRIVUpdateOneRequiredWithoutOsriv_approversNestedInput
   }
@@ -60374,9 +60307,8 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    is_warehouse_custodian?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -60388,9 +60320,8 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
-    is_supervisor?: boolean
-    is_warehouse_custodian?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -60401,9 +60332,8 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    is_warehouse_custodian?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -60415,9 +60345,8 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    is_warehouse_custodian?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -63871,8 +63800,6 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     department_id?: SortOrder
     item_from_id?: SortOrder
-    supervisor_id?: SortOrder
-    warehouse_custodian_id?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -63891,8 +63818,6 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     department_id?: SortOrder
     item_from_id?: SortOrder
-    supervisor_id?: SortOrder
-    warehouse_custodian_id?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -63910,8 +63835,6 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     department_id?: SortOrder
     item_from_id?: SortOrder
-    supervisor_id?: SortOrder
-    warehouse_custodian_id?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -63925,6 +63848,11 @@ export namespace Prisma {
     isNot?: OSRIVWhereInput
   }
 
+  export type OSRIVApproverOsriv_idLabel_idCompoundUniqueInput = {
+    osriv_id: string
+    label_id: string
+  }
+
   export type OSRIVApproverCountOrderByAggregateInput = {
     id?: SortOrder
     osriv_id?: SortOrder
@@ -63933,9 +63861,8 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
+    label_id?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
-    is_warehouse_custodian?: SortOrder
     metadata?: SortOrder
   }
 
@@ -63952,9 +63879,8 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
+    label_id?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
-    is_warehouse_custodian?: SortOrder
   }
 
   export type OSRIVApproverMinOrderByAggregateInput = {
@@ -63965,9 +63891,8 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
+    label_id?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
-    is_warehouse_custodian?: SortOrder
   }
 
   export type OSRIVApproverSumOrderByAggregateInput = {
@@ -68588,8 +68513,6 @@ export namespace Prisma {
     is_completed?: boolean
     requested_by_id: string
     department_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -68609,8 +68532,6 @@ export namespace Prisma {
     is_completed?: boolean
     requested_by_id: string
     department_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -68817,8 +68738,6 @@ export namespace Prisma {
     requested_by_id?: StringFilter<"OSRIV"> | string
     department_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
-    supervisor_id?: StringFilter<"OSRIV"> | string
-    warehouse_custodian_id?: StringFilter<"OSRIV"> | string
     cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
     created_by?: StringFilter<"OSRIV"> | string
     updated_by?: StringNullableFilter<"OSRIV"> | string | null
@@ -74013,9 +73932,8 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
-    is_supervisor?: boolean
-    is_warehouse_custodian?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -74026,9 +73944,8 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
-    is_supervisor?: boolean
-    is_warehouse_custodian?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -74140,9 +74057,8 @@ export namespace Prisma {
     notes?: StringFilter<"OSRIVApprover"> | string
     status?: IntFilter<"OSRIVApprover"> | number
     label?: StringFilter<"OSRIVApprover"> | string
+    label_id?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
-    is_supervisor?: BoolFilter<"OSRIVApprover"> | boolean
-    is_warehouse_custodian?: BoolFilter<"OSRIVApprover"> | boolean
     metadata?: JsonNullableFilter<"OSRIVApprover">
   }
 
@@ -74170,8 +74086,6 @@ export namespace Prisma {
     is_completed?: boolean
     requested_by_id: string
     department_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -74192,8 +74106,6 @@ export namespace Prisma {
     requested_by_id: string
     department_id: string
     item_from_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -74228,8 +74140,6 @@ export namespace Prisma {
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74250,8 +74160,6 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74270,8 +74178,6 @@ export namespace Prisma {
     is_completed?: boolean
     requested_by_id: string
     department_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -74292,8 +74198,6 @@ export namespace Prisma {
     requested_by_id: string
     department_id: string
     item_from_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -74425,8 +74329,6 @@ export namespace Prisma {
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74447,8 +74349,6 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77875,8 +77775,6 @@ export namespace Prisma {
     is_completed?: boolean
     requested_by_id: string
     department_id: string
-    supervisor_id: string
-    warehouse_custodian_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -77973,8 +77871,6 @@ export namespace Prisma {
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77994,8 +77890,6 @@ export namespace Prisma {
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78015,8 +77909,6 @@ export namespace Prisma {
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    warehouse_custodian_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79276,9 +79168,8 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
+    label_id: string
     order: number
-    is_supervisor?: boolean
-    is_warehouse_custodian?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -79297,9 +79188,8 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    is_warehouse_custodian?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -79310,9 +79200,8 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    is_warehouse_custodian?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -79323,9 +79212,8 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
-    is_warehouse_custodian?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 

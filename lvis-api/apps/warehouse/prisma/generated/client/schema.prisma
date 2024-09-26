@@ -684,8 +684,6 @@ model OSRIV {
   requested_by_id String
   department_id String
   item_from_id String
-  supervisor_id String
-  warehouse_custodian_id String
 
   cancelled_by String?
   created_by   String
@@ -713,14 +711,14 @@ model OSRIVApprover {
   notes         String
   status        Int
   label         String
+  label_id         String
   order         Int
-  is_supervisor Boolean @default(false)
-  is_warehouse_custodian Boolean @default(false)
 
   osriv OSRIV @relation(fields: [osriv_id], references: [id], onDelete: Cascade)
 
   metadata Json?
 
+  @@unique([osriv_id, label_id]) // para pag update sa specific approver
   @@index([osriv_id])
   @@map("osriv_approver")
 }
