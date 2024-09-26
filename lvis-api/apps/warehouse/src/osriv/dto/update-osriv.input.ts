@@ -24,14 +24,4 @@ export class UpdateOsrivInput {
   @IsString()
   item_from_id?: string;
 
-  @Field(() => String, { nullable: true })
-  @IsOptional()
-  @IsString()
-  supervisor_id?: string;
-
-  @Field(() => String, { nullable: true })
-  @IsOptional()
-  @IsString()
-  warehouse_custodian_id?: string;
-
 }

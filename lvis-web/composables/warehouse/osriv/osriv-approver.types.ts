@@ -21,15 +21,14 @@ export interface OSRIVApprover {
   notes: string
   status: APPROVAL_STATUS,
   label: string
+  label_id: string
   order: number
-  is_supervisor: boolean
-  is_warehouse_custodian: boolean
 }
 
 export interface CreateOSRIVApprover {
   approver: Employee | null
   label: string
+  label_id: string
   order: number
-  is_supervisor: boolean
-  is_warehouse_custodian: boolean
+  showRequiredMsg: boolean
 }

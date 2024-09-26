@@ -23,14 +23,6 @@ export class CreateOsrivInput {
   @IsString()
   item_from_id: string;
 
-  @Field(() => String)
-  @IsString()
-  supervisor_id: string;
-
-  @Field(() => String)
-  @IsString()
-  warehouse_custodian_id: string;
-
   @Field(() => [CreateOsrivApproverSubInput])
   @IsNotEmpty({ each: true })
   @IsArray()

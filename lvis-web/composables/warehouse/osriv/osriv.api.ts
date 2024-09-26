@@ -67,6 +67,15 @@ export async function findByOsrivNumber(osrivNumber: string): Promise<OSRIV | un
             osriv(osriv_number: "${osrivNumber}") {
                 id
                 osriv_number
+                department {
+                    name
+                }
+                requested_by {
+                    id
+                    firstname
+                    middlename 
+                    lastname
+                }
                 created_by
                 status
                 can_update
@@ -120,16 +129,6 @@ export async function findOne(id: string): Promise<OSRIV | undefined> {
                     name
                 }
                 requested_by {
-                    firstname 
-                    middlename 
-                    lastname
-                }
-                supervisor {
-                    firstname 
-                    middlename 
-                    lastname
-                }
-                warehouse_custodian {
                     firstname 
                     middlename 
                     lastname
@@ -352,18 +351,6 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 status
                 created_by
                 can_update
-                supervisor {
-                    id
-                    firstname
-                    middlename
-                    lastname
-                }
-                warehouse_custodian {
-                    id
-                    firstname
-                    middlename
-                    lastname
-                }
                 date_requested
                 purpose
                 cancelled_at
@@ -439,9 +426,8 @@ export async function create(input: CreateOsrivInput): Promise<MutationResponse>
         {
           approver_id: "${i.approver?.id}"
           label: "${i.label}"
+          label_id: "${i.label_id}"
           order: ${i.order}
-          is_supervisor: ${ !!i.is_supervisor ? i.is_supervisor : false }
-          is_warehouse_custodian: ${ !!i.is_warehouse_custodian ? i.is_warehouse_custodian : false }
         }`;
     }).join(', ');
 
@@ -462,8 +448,6 @@ export async function create(input: CreateOsrivInput): Promise<MutationResponse>
                     requested_by_id: "${input.requested_by?.id}"
                     department_id: "${input.requested_by?.department.id}"
                     item_from_id: "${input.item_from?.id}"
-                    supervisor_id: "${input.supervisor?.id}"
-                    warehouse_custodian_id: "${input.warehouse_custodian?.id}"
                     approvers: [${approvers}]
                     items: [${items}]
                 }
@@ -507,8 +491,6 @@ export async function update(id: string, input: UpdateOsrivInput): Promise<Mutat
                     requested_by_id: "${input.requested_by?.id}"
                     department_id: "${input.requested_by?.department_id}"
                     item_from_id: "${input.item_from?.id}"
-                    supervisor_id: "${input.supervisor?.id}"
-                    warehouse_custodian_id: "${input.warehouse_custodian?.id}"
                 }
             ) {
                 id

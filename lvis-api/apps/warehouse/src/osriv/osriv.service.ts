@@ -495,14 +495,6 @@ export class OsrivService {
 
         const employeeIds = []
 
-        if (input.supervisor_id) {
-            employeeIds.push(input.supervisor_id)
-        }
-
-        if (input.warehouse_custodian_id) {
-            employeeIds.push(input.warehouse_custodian_id)
-        }
-
         if (employeeIds.length > 0) {
 
             const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)

@@ -11,7 +11,7 @@
                 <div class="row pt-3">
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
-                            <label class="form-label">RV Number</label>
+                            <label class="form-label">OSRIV Number</label>
                             <client-only>
                                 <v-select @search="handleSearchOsrivNumber" :options="osrivs" label="osriv_number" v-model="osriv"></v-select>
                             </client-only>

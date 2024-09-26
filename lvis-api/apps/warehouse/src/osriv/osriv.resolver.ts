@@ -92,16 +92,6 @@ export class OsrivResolver {
         return { __typename: 'Employee', id: osriv.requested_by_id }
     }
 
-    @ResolveField(() => Employee)
-    supervisor(@Parent() osriv: OSRIV): any {
-        return { __typename: 'Employee', id: osriv.supervisor_id }
-    }
-
-    @ResolveField(() => Employee)
-    warehouse_custodian(@Parent() osriv: OSRIV): any {
-        return { __typename: 'Employee', id: osriv.warehouse_custodian_id }
-    }
-
     @ResolveField(() => Department)
     department(@Parent() osriv: OSRIV): any {
         console.log('department', osriv);

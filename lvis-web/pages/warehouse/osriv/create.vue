@@ -34,7 +34,16 @@
                             <client-only>
                                 <v-select :options="stations" label="name" v-model="osrivData.item_from" :clearable="false"></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="osrivDataErrors.item_from"> This field is required </small>
+                            <small class="text-danger fst-italic" v-show="osrivDataErrors.item_from"> {{ errorMsg }} </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Purpose <span class="text-danger">*</span>
+                            </label>
+                            <textarea v-model="osrivData.purpose" class="form-control"
+                                rows="3"> </textarea>
+                            <small class="text-danger fst-italic" v-show="osrivDataErrors.purpose"> {{ errorMsg }} </small>
                         </div>
 
                         <div class="mb-3">
@@ -44,38 +53,25 @@
                             <client-only>
                                 <v-select :options="employees" label="fullname" v-model="osrivData.requested_by" :clearable="false"></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="osrivDataErrors.requested_by"> This field is required </small>
+                            <small class="text-danger fst-italic" v-show="osrivDataErrors.requested_by"> {{ errorMsg }} </small>
                         </div>
 
-                        <div class="mb-3">
+                        <div v-for="approver in osrivData.approvers" class="mb-3">
                             <label class="form-label">
-                                Imd Superior <span class="text-danger">*</span>
+                                {{ approver.label }} <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="osrivData.supervisor" :clearable="false"></v-select>
+                                <v-select
+                                    :options="employees"
+                                    label="fullname"
+                                    v-model="approver.approver"
+                                    :clearable="false"
+                                    :disabled="approver.label_id === OSRIV_APPROVER.WAREHOUSE_CUSTODIAN"
+                                  ></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="osrivDataErrors.supervisor"> This field is required </small>
+                            <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Warehouse Custodian <span class="text-danger">*</span>
-                            </label>
-                            <client-only>
-                                <v-select :options="employees" label="fullname" v-model="osrivData.warehouse_custodian" :clearable="false" disabled></v-select>
-                            </client-only>
-                            <small class="text-danger fst-italic" v-show="osrivDataErrors.warehouse_custodian"> This field is required </small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Purpose <span class="text-danger">*</span>
-                            </label>
-                            <textarea v-model="osrivData.purpose" class="form-control"
-                                rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="osrivDataErrors.purpose"> This field is required
-                            </small>
-                        </div>
 
                     </div>
         
@@ -143,9 +139,10 @@
     import type { Employee } from '~/composables/system/employee/employee.types';
     import { addPropertyFullName } from '~/composables/system/employee/employee';
     import type { Station } from '~/composables/warehouse/station/station';
-    import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
+    import type { AddItem } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';
     import type { CreateOSRIVApprover } from '~/composables/warehouse/osriv/osriv-approver.types';
+    import { OSRIV_APPROVER, OSRIV_DEFAULT_APPROVERS } from '~/composables/warehouse/osriv/osriv.constants';
 
     definePageMeta({
         name: ROUTES.OSRIV_CREATE,
@@ -159,14 +156,13 @@
     const router = useRouter()
     // FLAGS
     const isSaving = ref(false)
+    const errorMsg = 'This field is required'
 
     // INITIAL DATA
     const _osrivDataErrorsInitial = {
         purpose: false,
         requested_by: false,
         item_from: false,
-        supervisor: false,
-        warehouse_custodian: false,
         items: false,
     }
 
@@ -177,8 +173,6 @@
         purpose: "",
         requested_by: null,
         item_from: null,
-        supervisor: null,
-        warehouse_custodian: null,
         approvers: [],
         items: []
     })
@@ -218,10 +212,16 @@
             return x
         })
 
+        osrivData.value.approvers = OSRIV_DEFAULT_APPROVERS.map(i => ({...i}))
+
+
+        // set default warehouse_custodian
         if(response.warehouse_custodian) {
-            const wc = response.warehouse_custodian
-            response.warehouse_custodian['fullname'] = getFullname(wc.firstname, wc.middlename, wc.lastname)
-            osrivData.value.warehouse_custodian = response.warehouse_custodian
+            const wc = osrivData.value.approvers.find(i => i.label_id === OSRIV_APPROVER.WAREHOUSE_CUSTODIAN)
+            if(wc) {
+                wc.approver = response.warehouse_custodian
+                wc.approver['fullname'] = getFullname(wc.approver.firstname, wc.approver.middlename, wc.approver.lastname)
+            }
         }
 
         isLoadingPage.value = false
@@ -245,29 +245,6 @@
     async function save() {
 
         console.log('save')
-
-        console.log('saving...')
-
-        const supervisor: CreateOSRIVApprover = {
-            approver: osrivData.value.supervisor,
-            label: 'Imd Superior',
-            order: 1,
-            is_supervisor: true,
-            is_warehouse_custodian: false,
-        }
-
-        const warehouseCustodian: CreateOSRIVApprover = {
-            approver: osrivData.value.warehouse_custodian,
-            label: 'Warehouse Custodian',
-            order: 2,
-            is_supervisor: false,
-            is_warehouse_custodian: true,
-        }
-
-        osrivData.value.approvers.push(supervisor)
-        osrivData.value.approvers.push(warehouseCustodian)
-
-        console.log('osrivData.value', osrivData.value);
 
         isSaving.value = true
         const response = await osrivApi.create(osrivData.value)
@@ -325,12 +302,12 @@
             osrivDataErrors.value.item_from = true
         }
 
-        if (!osrivData.value.supervisor) {
-            osrivDataErrors.value.supervisor = true
-        }
-
-        if (!osrivData.value.warehouse_custodian) {
-            osrivDataErrors.value.warehouse_custodian = true
+        for(let i of osrivData.value.approvers) {
+            if(!i.approver) {
+                i.showRequiredMsg = true
+            } else {
+                i.showRequiredMsg = false 
+            }
         }
 
         if(!hasErrorStep1()) {
@@ -340,10 +317,9 @@
     }
 
     function hasErrorStep1(): boolean {
-        console.log('hasErrorStep1');
         const hasError = Object.values(osrivDataErrors.value).includes(true);
-        console.log('hasError', hasError);
-        if (hasError) {
+        const hasErrorApprovers = osrivData.value.approvers.some(i => i.showRequiredMsg === true)
+        if (hasError || hasErrorApprovers) {
             return true
         }
 

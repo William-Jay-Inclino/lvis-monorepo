@@ -15,9 +15,6 @@ export interface OSRIV {
     requested_by_id: string;
     department_id: string;
     item_from_id: string;
-    supervisor_id: string;
-    warehouse_custodian_id: string;
-  
 
 
     // =============== audit fields =============== 
@@ -36,8 +33,6 @@ export interface OSRIV {
     requested_by: Employee;
     department: Department;
     item_from: Station;
-    supervisor: Employee
-    warehouse_custodian: Employee
     osriv_approvers: OSRIVApprover[]
     osriv_items: OSRIVItem[]
     status: APPROVAL_STATUS
@@ -65,8 +60,6 @@ export interface OSRIV {
     purpose: string 
     requested_by: Employee | null 
     item_from: Item | null 
-    supervisor: Employee | null 
-    warehouse_custodian: Employee | null 
     approvers: CreateOSRIVApprover[]
     items: AddItem[]
   }
