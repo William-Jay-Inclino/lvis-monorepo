@@ -1,7 +1,7 @@
 import type { CreateOSRIVApprover } from "./osriv-approver.types";
 
 
-export const enum OSRIV_APPROVER{
+export const enum OSRIV_APPROVER {
     SUPERVISOR = 'supervisor',
     WAREHOUSE_CUSTODIAN = 'warehouse_custodian',
 }
@@ -16,7 +16,7 @@ export const OSRIV_DEFAULT_APPROVERS: CreateOSRIVApprover[] = [
     },
     {
         approver: null,
-        label: 'Approved By',
+        label: 'Warehouse Custodian',
         label_id: OSRIV_APPROVER.WAREHOUSE_CUSTODIAN,
         order: 2,
         showRequiredMsg: false
