@@ -4,11 +4,11 @@
         <div class="card-body">
 
             <div v-if="!isLoadingPage && authUser" class="row justify-content-center">
-        
+
                 <div class="col-lg-10">
-        
+
                     <div v-if="item">
-        
+
                         <div class="row pt-3">
                             <div class="col">
                                 <div class="h5wrapper mb-3">
@@ -24,7 +24,8 @@
                                             <tr>
                                                 <td class="text-muted">Status</td>
                                                 <td>
-                                                    <div :class="{ [`badge bg-${approvalStatus[item.status].color}`]: true }">
+                                                    <div
+                                                        :class="{ [`badge bg-${approvalStatus[item.status].color}`]: true }">
                                                         {{ approvalStatus[item.status].label }}
                                                     </div>
                                                 </td>
@@ -36,11 +37,10 @@
                                             <tr>
                                                 <td class="text-muted">MCT Number</td>
                                                 <td>
-                                                    <nuxt-link
-                                                        v-if="item.mct"
+                                                    <nuxt-link v-if="item.mct"
                                                         :to="'/warehouse/mct/view/' + item.mct.id">{{
-                                                        item.mct.mct_number
-                                                        }}</nuxt-link>
+                item.mct.mct_number
+            }}</nuxt-link>
                                                     <div v-else> N/A </div>
                                                 </td>
                                             </tr>
@@ -90,28 +90,30 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Requested by</td>
-                                                <td> {{ getFullname(item.requested_by.firstname, item.requested_by.middlename, item.requested_by.lastname) }} </td>
+                                                <td> {{ getFullname(item.requested_by.firstname,
+                item.requested_by.middlename, item.requested_by.lastname) }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Withdrawn by</td>
-                                                <td v-if="item.withdrawn_by"> {{ getFullname(item.withdrawn_by.firstname, item.withdrawn_by.middlename, item.withdrawn_by.lastname) }} </td>
-                                                <td></td>
+                                                <td v-if="item.withdrawn_by"> {{
+                getFullname(item.withdrawn_by.firstname,
+                    item.withdrawn_by.middlename, item.withdrawn_by.lastname) }} </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-        
+
                             </div>
-        
+
                         </div>
-        
-        
-        
-        
+
+
+
+
                         <div class="row pt-3">
                             <div class="col">
-        
-        
+
+
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
@@ -119,7 +121,7 @@
                                     </h5>
                                     <hr class="result">
                                 </div>
-        
+
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover">
                                         <thead>
@@ -137,8 +139,10 @@
                                                 <td class="align-middle"> {{ i.label }} </td>
                                                 <td class="align-middle"> {{ getFullname(i.approver!.firstname,
                 i.approver!.middlename, i.approver!.lastname) }} </td>
-                                                <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle">
-                                                    <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
+                                                <td v-if="!isBlankStatus(item.status, i.status)"
+                                                    class="text-muted text-center align-middle">
+                                                    <div
+                                                        :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
                                                     </div>
                                                     <div class="fst-italic" v-if="i.date_approval">
@@ -156,17 +160,17 @@
                                         </tbody>
                                     </table>
                                 </div>
-        
-        
+
+
                             </div>
                         </div>
-        
+
                         <hr>
 
 
                         <div class="row pt-3">
                             <div class="col">
-        
+
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
@@ -174,7 +178,7 @@
                                     </h5>
                                     <hr class="result">
                                 </div>
-    
+
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover">
                                         <thead>
@@ -201,29 +205,31 @@
                                         </tbody>
                                     </table>
                                 </div>
-        
+
                             </div>
                         </div>
-        
+
                         <hr>
-        
+
                         <div class="row mb-3 pt-3">
                             <div class="col">
                                 <div class="d-flex justify-content-end">
                                     <div class="me-2">
-                                        <nuxt-link v-if="canSearch(authUser, 'canManageMRV')" class="btn btn-secondary me-2"
-                                            to="/warehouse/MRV">
+                                        <nuxt-link v-if="canSearch(authUser, 'canManageMRV')"
+                                            class="btn btn-secondary me-2" to="/warehouse/MRV">
                                             <i class="fas fa-search"></i> Search MRV
                                         </nuxt-link>
-                                        <button disabled v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMRV')" @click="onClickPrint" class="btn btn-danger">
+                                        <button disabled
+                                            v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMRV')"
+                                            @click="onClickPrint" class="btn btn-danger">
                                             <i class="fas fa-print"></i> Print MRV
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>
                                     <div v-if="!item.cancelled_at">
-                                        <button disabled v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
-                                            @click="onCancelMRV()">
+                                        <button disabled v-if="isAdminOrOwner(item.created_by, authUser)"
+                                            class="btn btn-warning me-2" @click="onCancelMRV()">
                                             <i class="fas fa-times-circle"></i> Cancel MRV
                                         </button>
                                         <button disabled v-if="!!item.can_update" class="btn btn-success me-2"
@@ -238,18 +244,18 @@
                                 </div>
                             </div>
                         </div>
-        
+
                     </div>
-        
+
                 </div>
             </div>
-        
+
             <div v-else>
                 <LoaderSpinner />
             </div>
-        
+
             <WarehousePdfModal :is-loading-pdf="isLoadingPdf" :pdf-url="pdfUrl" />
-            
+
         </div>
     </div>
 
@@ -359,7 +365,7 @@ async function onClickPrint() {
     console.log('onClickPrint()');
 
     printBtn.value?.click()
-    
+
     try {
 
         const accessToken = authUser.value.access_token
