@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { RR } from '../../rr/entities/rr.entity';
 import { APPROVAL_STATUS } from '../../__common__/types';
+import { Employee } from '../../__employee__/entities/employee.entity';
 
 @ObjectType()
 export class RrApprover {
@@ -34,5 +35,8 @@ export class RrApprover {
 
   @Field(() => RR)
   rr: RR
+
+  @Field(() => Employee, { nullable: true })
+  approver?: Employee | null
 
 }

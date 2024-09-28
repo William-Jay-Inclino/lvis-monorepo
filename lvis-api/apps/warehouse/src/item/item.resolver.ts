@@ -53,10 +53,10 @@ export class ItemResolver {
   }
 
   @Query(() => [Item])
-  itemsByCodeOrName(
+  itemsByCode(
     @Args('input') input: string,
   ) {
-    return this.itemService.findItemsByCodeOrName(input)
+    return this.itemService.findItemsByCode(input)
   }
 
   @Mutation(() => Item)

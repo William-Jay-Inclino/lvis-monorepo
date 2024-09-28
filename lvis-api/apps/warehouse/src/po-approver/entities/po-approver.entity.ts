@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { PO } from '../../po/entities/po.entity';
 import { APPROVAL_STATUS } from '../../__common__/types';
+import { Employee } from '../../__employee__/entities/employee.entity';
 
 @ObjectType()
 export class POApprover {
@@ -35,5 +36,7 @@ export class POApprover {
   @Field(() => PO)
   po: PO
 
+  @Field(() => Employee, { nullable: true })
+  approver?: Employee | null
 
 }

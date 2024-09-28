@@ -35,15 +35,15 @@ export enum DB_ENTITY {
     MST = 'mst',
 }
 
-export const enum ITEM_TYPE {
-    OFFICE_SUPPLY = 1,
-    SPECIAL_EQUIPMENT = 2,
-}
+// export const enum ITEM_TYPE {
+//     OFFICE_SUPPLY = 1,
+//     SPECIAL_EQUIPMENT = 2,
+// }
 
-export const itemTypeMapper = {
-    [ITEM_TYPE.OFFICE_SUPPLY]: 'Office Supply',
-    [ITEM_TYPE.SPECIAL_EQUIPMENT]: 'Special Equipment',
-}
+// export const itemTypeMapper = {
+//     [ITEM_TYPE.OFFICE_SUPPLY]: 'Office Supply',
+//     [ITEM_TYPE.SPECIAL_EQUIPMENT]: 'Special Equipment',
+// }
 
 export const enum WAREHOUSE_REQUEST_TYPE {
     TURN_ON_ORDER = 1,

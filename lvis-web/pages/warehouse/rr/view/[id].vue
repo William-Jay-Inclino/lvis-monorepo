@@ -324,7 +324,7 @@
                                                     <div class="input-group input-group-sm">
                                                         {{ i + 1 }}.
                                                         <textarea class="form-control ms-2" rows="3"
-                                                            :value="rrItem.meqs_supplier_item.canvass_item.item ? rrItem.meqs_supplier_item.canvass_item.item.code + ' - ' + rrItem.meqs_supplier_item.canvass_item.description : rrItem.meqs_supplier_item.canvass_item.description"
+                                                            :value="rrItem.meqs_supplier_item.canvass_item.item ? rrItem.meqs_supplier_item.canvass_item.item.code + ' - ' + rrItem.meqs_supplier_item.canvass_item.item.description : rrItem.meqs_supplier_item.canvass_item.description"
                                                             disabled></textarea>
                                                     </div>
                                                 </td>
@@ -535,7 +535,7 @@ const grossTotalSummary = computed(() => {
 
 })
 
-const totalPriceSummary = computed(() => grossTotalSummary.value - item.value!.delivery_charge)
+const totalPriceSummary = computed(() => grossTotalSummary.value + item.value!.delivery_charge)
 
 const isApproved = computed( () => item.value && item.value.status === APPROVAL_STATUS.APPROVED)
 

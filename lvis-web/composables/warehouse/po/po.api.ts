@@ -670,7 +670,6 @@ export async function findOne(id: string): Promise<PO | undefined> {
                             item {
                                 id
                                 code 
-                                name 
                                 description
                             }
                         }

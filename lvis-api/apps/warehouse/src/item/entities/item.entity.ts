@@ -1,7 +1,7 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Unit } from '../../unit/entities/unit.entity';
 import { ItemTransaction } from './item-transaction.entity';
-import { ITEM_TYPE } from '../../__common__/constants';
+import { ItemType } from '../../item-type/entities/item-type.entity';
 
 @ObjectType()
 export class Item {
@@ -10,16 +10,13 @@ export class Item {
   id: string;
 
   @Field(() => Int)
-  item_type: ITEM_TYPE;
+  item_type_id: number;
 
   @Field()
   unit_id: string;
 
   @Field()
   code: string;
-
-  @Field()
-  name: string;
 
   @Field({ nullable: true })
   description: string | null;
@@ -67,7 +64,7 @@ export class Item {
   @Field(() => Int)
   average_price: number;
 
-  // @Field(() => [CanvassItem])
-  // canvass_items: CanvassItem[];
+  @Field(() => ItemType)
+  item_type: ItemType;
 
 }

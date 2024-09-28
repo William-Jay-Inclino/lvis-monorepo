@@ -159,7 +159,7 @@ onMounted(async () => {
 
     employees.value = addPropertyFullName(response.employees)
     units.value = response.units
-    items.value = response.items.map(i => ({ ...i, label: `${i.code} - ${i.name}` }))
+    items.value = response.items.map(i => ({ ...i, label: `${i.code} - ${i.description}` }))
 
     isLoadingPage.value = false
 
@@ -234,7 +234,7 @@ async function handleSearchedItems(searchedItems: Item[]) {
 
     console.log('handleSearchedItems');
 
-    items.value = searchedItems.map(i => ({ ...i, label: `${i.code} - ${i.name}` }))
+    items.value = searchedItems.map(i => ({ ...i, label: `${i.code} - ${i.description}` }))
 
 }
 

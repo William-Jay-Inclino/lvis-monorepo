@@ -7,7 +7,7 @@ export class CreateItemInput {
   @Field(() => Int)
   @IsNotEmpty()
   @IsInt()
-  item_type: number;
+  item_type_id: number;
 
   @Field()
   @IsNotEmpty()
@@ -18,11 +18,6 @@ export class CreateItemInput {
   @IsNotEmpty()
   @IsString()
   code: string
-
-  @Field()
-  @IsNotEmpty()
-  @IsString()
-  name: string
 
   @Field()
   @IsOptional()

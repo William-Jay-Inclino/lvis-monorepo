@@ -36,11 +36,18 @@ export interface Project {
     created_by: string
 }
 
-// export interface ItemType {
-//     id: string
-//     name: string
-//     created_by: string
-// }
+export interface ItemType {
+    id: number
+    name: string
+    code: string
+}
+
+export interface ItemCodeTracker {
+    id: number
+    item_code: string
+    year: number
+    last_incremental: number
+}
 
 export enum APPROVAL_STATUS {
     PENDING = 1,
@@ -318,10 +325,10 @@ export enum RESOLVERS {
 
 
     // ========= ITEM TYPE ========= 
-    // createItemType = 'createItemType',
-    // item_types = 'item_types',
-    // item_type = 'item_type',
-    // updateItemType = 'updateItemType',
-    // removeItemType = 'removeItemType',
+    createItemType = 'createItemType',
+    item_types = 'item_types',
+    item_type = 'item_type',
+    updateItemType = 'updateItemType',
+    removeItemType = 'removeItemType',
 
 }

@@ -196,7 +196,6 @@ export async function findOne(id: string): Promise<RV | undefined> {
                         item {
                             id
                             code 
-                            name 
                             description
                         }
                     }

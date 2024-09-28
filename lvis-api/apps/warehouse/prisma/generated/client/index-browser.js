@@ -107,6 +107,12 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.ItemTypeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name'
+};
+
 exports.Prisma.SupplierScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -185,15 +191,14 @@ exports.Prisma.PendingScalarFieldEnum = {
 
 exports.Prisma.ItemScalarFieldEnum = {
   id: 'id',
+  item_type_id: 'item_type_id',
   unit_id: 'unit_id',
   code: 'code',
-  name: 'name',
   description: 'description',
   total_quantity: 'total_quantity',
   quantity_on_queue: 'quantity_on_queue',
   initial_quantity: 'initial_quantity',
   alert_level: 'alert_level',
-  item_type: 'item_type',
   created_by: 'created_by',
   updated_by: 'updated_by',
   deleted_by: 'deleted_by',
@@ -239,6 +244,13 @@ exports.Prisma.ItemTransactionScalarFieldEnum = {
   created_at: 'created_at',
   created_by: 'created_by',
   metadata: 'metadata'
+};
+
+exports.Prisma.ItemCodeTrackerScalarFieldEnum = {
+  id: 'id',
+  item_code: 'item_code',
+  year: 'year',
+  last_incremental: 'last_incremental'
 };
 
 exports.Prisma.CanvassScalarFieldEnum = {
@@ -759,6 +771,7 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
+  ItemType: 'ItemType',
   Supplier: 'Supplier',
   Unit: 'Unit',
   Vehicle: 'Vehicle',
@@ -769,6 +782,7 @@ exports.Prisma.ModelName = {
   ItemLocation: 'ItemLocation',
   ItemMovement: 'ItemMovement',
   ItemTransaction: 'ItemTransaction',
+  ItemCodeTracker: 'ItemCodeTracker',
   Canvass: 'Canvass',
   CanvassItem: 'CanvassItem',
   RV: 'RV',

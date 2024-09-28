@@ -166,7 +166,7 @@
 
 <script setup lang="ts">
 import type { CanvassItem } from '~/composables/warehouse/canvass/canvass-item.types';
-import { fetchItemsByCodeOrName } from '~/composables/warehouse/item/item.api';
+import { fetchItemsByCode } from '~/composables/warehouse/item/item.api';
 import type { Item } from '~/composables/warehouse/item/item.type';
 import { MOBILE_WIDTH } from '~/utils/config';
 
@@ -329,7 +329,7 @@ async function searchItems(input: string, loading: (status: boolean) => void) {
     loading(true)
 
     try {
-        const response = await fetchItemsByCodeOrName(input);
+        const response = await fetchItemsByCode(input);
         emits("searchedItems", response)
         
     } catch (error) {

@@ -199,7 +199,6 @@ export async function findOne(id: string): Promise<JO | undefined> {
                         item {
                             id
                             code 
-                            name 
                             description
                         }
                     }

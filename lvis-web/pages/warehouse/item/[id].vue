@@ -23,14 +23,6 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Name <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" class="form-control" v-model="item.name">
-                                <small v-if="formDataErrors.name" class="text-danger fst-italic"> This field is required
-                                </small>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">
                                     Description
                                 </label>
                                 <textarea rows="3" class="form-control" v-model="item.description"></textarea>
@@ -44,7 +36,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Item Types</label>
                                 <client-only>
-                                    <v-select :options="itemTypes" label="name" v-model="item.item_type_object"
+                                    <v-select :options="itemTypes" label="name" v-model="item.item_type"
                                         :clearable="false"></v-select>
                                 </client-only>
                             </div>
@@ -128,12 +120,8 @@ onMounted(async () => {
         console.error('Item not found')
         return
     }
-    itemTypes.value = ITEM_TYPES
+    itemTypes.value = response.item_types
     item.value = response.item
-    item.value.item_type_object = {
-        id: response.item.item_type,
-        name: itemTypeMapper[response.item.item_type]
-    }
     units.value = response.units
     alertLevels.value = generateNumbersBy5({ max: 100 })
     isLoadingPage.value = false
@@ -149,10 +137,9 @@ async function onSubmit() {
     if (!isValid()) return
 
     const data: UpdateItemInput = {
-        item_type: item.value.item_type_object.id,
+        item_type: item.value.item_type,
         unit: item.value.unit,
         code: item.value.code,
-        name: item.value.name,
         description: item.value.description,
         alert_level: item.value.alert_level,
     }
@@ -192,10 +179,6 @@ function isValid(): boolean {
 
     if (item.value.code.trim() === '') {
         formDataErrors.value.code = true
-    }
-
-    if (item.value.name.trim() === '') {
-        formDataErrors.value.name = true
     }
 
     const hasError = Object.values(formDataErrors.value).includes(true);

@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model ItemType
+ * 
+ */
+export type ItemType = $Result.DefaultSelection<Prisma.$ItemTypePayload>
+/**
  * Model Supplier
  * 
  */
@@ -63,6 +68,11 @@ export type ItemMovement = $Result.DefaultSelection<Prisma.$ItemMovementPayload>
  * 
  */
 export type ItemTransaction = $Result.DefaultSelection<Prisma.$ItemTransactionPayload>
+/**
+ * Model ItemCodeTracker
+ * 
+ */
+export type ItemCodeTracker = $Result.DefaultSelection<Prisma.$ItemCodeTrackerPayload>
 /**
  * Model Canvass
  * 
@@ -246,8 +256,8 @@ export type MSTItem = $Result.DefaultSelection<Prisma.$MSTItemPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Suppliers
- * const suppliers = await prisma.supplier.findMany()
+ * // Fetch zero or more ItemTypes
+ * const itemTypes = await prisma.itemType.findMany()
  * ```
  *
  * 
@@ -267,8 +277,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Suppliers
-   * const suppliers = await prisma.supplier.findMany()
+   * // Fetch zero or more ItemTypes
+   * const itemTypes = await prisma.itemType.findMany()
    * ```
    *
    * 
@@ -362,6 +372,16 @@ export class PrismaClient<
   $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
 
       /**
+   * `prisma.itemType`: Exposes CRUD operations for the **ItemType** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ItemTypes
+    * const itemTypes = await prisma.itemType.findMany()
+    * ```
+    */
+  get itemType(): Prisma.ItemTypeDelegate<ExtArgs>;
+
+  /**
    * `prisma.supplier`: Exposes CRUD operations for the **Supplier** model.
     * Example usage:
     * ```ts
@@ -460,6 +480,16 @@ export class PrismaClient<
     * ```
     */
   get itemTransaction(): Prisma.ItemTransactionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.itemCodeTracker`: Exposes CRUD operations for the **ItemCodeTracker** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ItemCodeTrackers
+    * const itemCodeTrackers = await prisma.itemCodeTracker.findMany()
+    * ```
+    */
+  get itemCodeTracker(): Prisma.ItemCodeTrackerDelegate<ExtArgs>;
 
   /**
    * `prisma.canvass`: Exposes CRUD operations for the **Canvass** model.
@@ -1280,6 +1310,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    ItemType: 'ItemType',
     Supplier: 'Supplier',
     Unit: 'Unit',
     Vehicle: 'Vehicle',
@@ -1290,6 +1321,7 @@ export namespace Prisma {
     ItemLocation: 'ItemLocation',
     ItemMovement: 'ItemMovement',
     ItemTransaction: 'ItemTransaction',
+    ItemCodeTracker: 'ItemCodeTracker',
     Canvass: 'Canvass',
     CanvassItem: 'CanvassItem',
     RV: 'RV',
@@ -1341,10 +1373,76 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'supplier' | 'unit' | 'vehicle' | 'station' | 'project' | 'pending' | 'item' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem'
+      modelProps: 'itemType' | 'supplier' | 'unit' | 'vehicle' | 'station' | 'project' | 'pending' | 'item' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'itemCodeTracker' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
+      ItemType: {
+        payload: Prisma.$ItemTypePayload<ExtArgs>
+        fields: Prisma.ItemTypeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ItemTypeFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemTypePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ItemTypeFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemTypePayload>
+          }
+          findFirst: {
+            args: Prisma.ItemTypeFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemTypePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ItemTypeFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemTypePayload>
+          }
+          findMany: {
+            args: Prisma.ItemTypeFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemTypePayload>[]
+          }
+          create: {
+            args: Prisma.ItemTypeCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemTypePayload>
+          }
+          createMany: {
+            args: Prisma.ItemTypeCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ItemTypeDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemTypePayload>
+          }
+          update: {
+            args: Prisma.ItemTypeUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemTypePayload>
+          }
+          deleteMany: {
+            args: Prisma.ItemTypeDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ItemTypeUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ItemTypeUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemTypePayload>
+          }
+          aggregate: {
+            args: Prisma.ItemTypeAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateItemType>
+          }
+          groupBy: {
+            args: Prisma.ItemTypeGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ItemTypeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ItemTypeCountArgs<ExtArgs>,
+            result: $Utils.Optional<ItemTypeCountAggregateOutputType> | number
+          }
+        }
+      }
       Supplier: {
         payload: Prisma.$SupplierPayload<ExtArgs>
         fields: Prisma.SupplierFieldRefs
@@ -2002,6 +2100,72 @@ export namespace Prisma {
           count: {
             args: Prisma.ItemTransactionCountArgs<ExtArgs>,
             result: $Utils.Optional<ItemTransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      ItemCodeTracker: {
+        payload: Prisma.$ItemCodeTrackerPayload<ExtArgs>
+        fields: Prisma.ItemCodeTrackerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ItemCodeTrackerFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemCodeTrackerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ItemCodeTrackerFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemCodeTrackerPayload>
+          }
+          findFirst: {
+            args: Prisma.ItemCodeTrackerFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemCodeTrackerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ItemCodeTrackerFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemCodeTrackerPayload>
+          }
+          findMany: {
+            args: Prisma.ItemCodeTrackerFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemCodeTrackerPayload>[]
+          }
+          create: {
+            args: Prisma.ItemCodeTrackerCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemCodeTrackerPayload>
+          }
+          createMany: {
+            args: Prisma.ItemCodeTrackerCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ItemCodeTrackerDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemCodeTrackerPayload>
+          }
+          update: {
+            args: Prisma.ItemCodeTrackerUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemCodeTrackerPayload>
+          }
+          deleteMany: {
+            args: Prisma.ItemCodeTrackerDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ItemCodeTrackerUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ItemCodeTrackerUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ItemCodeTrackerPayload>
+          }
+          aggregate: {
+            args: Prisma.ItemCodeTrackerAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateItemCodeTracker>
+          }
+          groupBy: {
+            args: Prisma.ItemCodeTrackerGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ItemCodeTrackerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ItemCodeTrackerCountArgs<ExtArgs>,
+            result: $Utils.Optional<ItemCodeTrackerCountAggregateOutputType> | number
           }
         }
       }
@@ -4460,6 +4624,40 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ItemTypeCountOutputType
+   */
+
+  export type ItemTypeCountOutputType = {
+    items: number
+  }
+
+  export type ItemTypeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    items?: boolean | ItemTypeCountOutputTypeCountItemsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ItemTypeCountOutputType without action
+   */
+  export type ItemTypeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemTypeCountOutputType
+     */
+    select?: ItemTypeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ItemTypeCountOutputType without action
+   */
+  export type ItemTypeCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemWhereInput
+  }
+
+
+
+  /**
    * Count Type SupplierCountOutputType
    */
 
@@ -5454,6 +5652,959 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model ItemType
+   */
+
+  export type AggregateItemType = {
+    _count: ItemTypeCountAggregateOutputType | null
+    _avg: ItemTypeAvgAggregateOutputType | null
+    _sum: ItemTypeSumAggregateOutputType | null
+    _min: ItemTypeMinAggregateOutputType | null
+    _max: ItemTypeMaxAggregateOutputType | null
+  }
+
+  export type ItemTypeAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ItemTypeSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ItemTypeMinAggregateOutputType = {
+    id: number | null
+    code: string | null
+    name: string | null
+  }
+
+  export type ItemTypeMaxAggregateOutputType = {
+    id: number | null
+    code: string | null
+    name: string | null
+  }
+
+  export type ItemTypeCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    _all: number
+  }
+
+
+  export type ItemTypeAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ItemTypeSumAggregateInputType = {
+    id?: true
+  }
+
+  export type ItemTypeMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+  }
+
+  export type ItemTypeMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+  }
+
+  export type ItemTypeCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    _all?: true
+  }
+
+  export type ItemTypeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemType to aggregate.
+     */
+    where?: ItemTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemTypes to fetch.
+     */
+    orderBy?: ItemTypeOrderByWithRelationInput | ItemTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ItemTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ItemTypes
+    **/
+    _count?: true | ItemTypeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ItemTypeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ItemTypeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ItemTypeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ItemTypeMaxAggregateInputType
+  }
+
+  export type GetItemTypeAggregateType<T extends ItemTypeAggregateArgs> = {
+        [P in keyof T & keyof AggregateItemType]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateItemType[P]>
+      : GetScalarType<T[P], AggregateItemType[P]>
+  }
+
+
+
+
+  export type ItemTypeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemTypeWhereInput
+    orderBy?: ItemTypeOrderByWithAggregationInput | ItemTypeOrderByWithAggregationInput[]
+    by: ItemTypeScalarFieldEnum[] | ItemTypeScalarFieldEnum
+    having?: ItemTypeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ItemTypeCountAggregateInputType | true
+    _avg?: ItemTypeAvgAggregateInputType
+    _sum?: ItemTypeSumAggregateInputType
+    _min?: ItemTypeMinAggregateInputType
+    _max?: ItemTypeMaxAggregateInputType
+  }
+
+  export type ItemTypeGroupByOutputType = {
+    id: number
+    code: string
+    name: string
+    _count: ItemTypeCountAggregateOutputType | null
+    _avg: ItemTypeAvgAggregateOutputType | null
+    _sum: ItemTypeSumAggregateOutputType | null
+    _min: ItemTypeMinAggregateOutputType | null
+    _max: ItemTypeMaxAggregateOutputType | null
+  }
+
+  type GetItemTypeGroupByPayload<T extends ItemTypeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ItemTypeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ItemTypeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ItemTypeGroupByOutputType[P]>
+            : GetScalarType<T[P], ItemTypeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ItemTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    items?: boolean | ItemType$itemsArgs<ExtArgs>
+    _count?: boolean | ItemTypeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itemType"]>
+
+  export type ItemTypeSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+  }
+
+  export type ItemTypeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    items?: boolean | ItemType$itemsArgs<ExtArgs>
+    _count?: boolean | ItemTypeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $ItemTypePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ItemType"
+    objects: {
+      items: Prisma.$ItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      code: string
+      name: string
+    }, ExtArgs["result"]["itemType"]>
+    composites: {}
+  }
+
+
+  type ItemTypeGetPayload<S extends boolean | null | undefined | ItemTypeDefaultArgs> = $Result.GetResult<Prisma.$ItemTypePayload, S>
+
+  type ItemTypeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ItemTypeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ItemTypeCountAggregateInputType | true
+    }
+
+  export interface ItemTypeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ItemType'], meta: { name: 'ItemType' } }
+    /**
+     * Find zero or one ItemType that matches the filter.
+     * @param {ItemTypeFindUniqueArgs} args - Arguments to find a ItemType
+     * @example
+     * // Get one ItemType
+     * const itemType = await prisma.itemType.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ItemTypeFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemTypeFindUniqueArgs<ExtArgs>>
+    ): Prisma__ItemTypeClient<$Result.GetResult<Prisma.$ItemTypePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one ItemType that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ItemTypeFindUniqueOrThrowArgs} args - Arguments to find a ItemType
+     * @example
+     * // Get one ItemType
+     * const itemType = await prisma.itemType.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ItemTypeFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemTypeFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ItemTypeClient<$Result.GetResult<Prisma.$ItemTypePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first ItemType that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemTypeFindFirstArgs} args - Arguments to find a ItemType
+     * @example
+     * // Get one ItemType
+     * const itemType = await prisma.itemType.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ItemTypeFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemTypeFindFirstArgs<ExtArgs>>
+    ): Prisma__ItemTypeClient<$Result.GetResult<Prisma.$ItemTypePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first ItemType that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemTypeFindFirstOrThrowArgs} args - Arguments to find a ItemType
+     * @example
+     * // Get one ItemType
+     * const itemType = await prisma.itemType.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ItemTypeFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemTypeFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ItemTypeClient<$Result.GetResult<Prisma.$ItemTypePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more ItemTypes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemTypeFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ItemTypes
+     * const itemTypes = await prisma.itemType.findMany()
+     * 
+     * // Get first 10 ItemTypes
+     * const itemTypes = await prisma.itemType.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const itemTypeWithIdOnly = await prisma.itemType.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ItemTypeFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemTypeFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemTypePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a ItemType.
+     * @param {ItemTypeCreateArgs} args - Arguments to create a ItemType.
+     * @example
+     * // Create one ItemType
+     * const ItemType = await prisma.itemType.create({
+     *   data: {
+     *     // ... data to create a ItemType
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ItemTypeCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemTypeCreateArgs<ExtArgs>>
+    ): Prisma__ItemTypeClient<$Result.GetResult<Prisma.$ItemTypePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many ItemTypes.
+     *     @param {ItemTypeCreateManyArgs} args - Arguments to create many ItemTypes.
+     *     @example
+     *     // Create many ItemTypes
+     *     const itemType = await prisma.itemType.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ItemTypeCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemTypeCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ItemType.
+     * @param {ItemTypeDeleteArgs} args - Arguments to delete one ItemType.
+     * @example
+     * // Delete one ItemType
+     * const ItemType = await prisma.itemType.delete({
+     *   where: {
+     *     // ... filter to delete one ItemType
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ItemTypeDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemTypeDeleteArgs<ExtArgs>>
+    ): Prisma__ItemTypeClient<$Result.GetResult<Prisma.$ItemTypePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one ItemType.
+     * @param {ItemTypeUpdateArgs} args - Arguments to update one ItemType.
+     * @example
+     * // Update one ItemType
+     * const itemType = await prisma.itemType.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ItemTypeUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemTypeUpdateArgs<ExtArgs>>
+    ): Prisma__ItemTypeClient<$Result.GetResult<Prisma.$ItemTypePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more ItemTypes.
+     * @param {ItemTypeDeleteManyArgs} args - Arguments to filter ItemTypes to delete.
+     * @example
+     * // Delete a few ItemTypes
+     * const { count } = await prisma.itemType.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ItemTypeDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemTypeDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItemTypes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemTypeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ItemTypes
+     * const itemType = await prisma.itemType.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ItemTypeUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemTypeUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ItemType.
+     * @param {ItemTypeUpsertArgs} args - Arguments to update or create a ItemType.
+     * @example
+     * // Update or create a ItemType
+     * const itemType = await prisma.itemType.upsert({
+     *   create: {
+     *     // ... data to create a ItemType
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ItemType we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ItemTypeUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemTypeUpsertArgs<ExtArgs>>
+    ): Prisma__ItemTypeClient<$Result.GetResult<Prisma.$ItemTypePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of ItemTypes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemTypeCountArgs} args - Arguments to filter ItemTypes to count.
+     * @example
+     * // Count the number of ItemTypes
+     * const count = await prisma.itemType.count({
+     *   where: {
+     *     // ... the filter for the ItemTypes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ItemTypeCountArgs>(
+      args?: Subset<T, ItemTypeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ItemTypeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ItemType.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemTypeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ItemTypeAggregateArgs>(args: Subset<T, ItemTypeAggregateArgs>): Prisma.PrismaPromise<GetItemTypeAggregateType<T>>
+
+    /**
+     * Group by ItemType.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemTypeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ItemTypeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ItemTypeGroupByArgs['orderBy'] }
+        : { orderBy?: ItemTypeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ItemTypeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetItemTypeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ItemType model
+   */
+  readonly fields: ItemTypeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ItemType.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ItemTypeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    items<T extends ItemType$itemsArgs<ExtArgs> = {}>(args?: Subset<T, ItemType$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the ItemType model
+   */ 
+  interface ItemTypeFieldRefs {
+    readonly id: FieldRef<"ItemType", 'Int'>
+    readonly code: FieldRef<"ItemType", 'String'>
+    readonly name: FieldRef<"ItemType", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * ItemType findUnique
+   */
+  export type ItemTypeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemType
+     */
+    select?: ItemTypeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemType to fetch.
+     */
+    where: ItemTypeWhereUniqueInput
+  }
+
+
+  /**
+   * ItemType findUniqueOrThrow
+   */
+  export type ItemTypeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemType
+     */
+    select?: ItemTypeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemType to fetch.
+     */
+    where: ItemTypeWhereUniqueInput
+  }
+
+
+  /**
+   * ItemType findFirst
+   */
+  export type ItemTypeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemType
+     */
+    select?: ItemTypeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemType to fetch.
+     */
+    where?: ItemTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemTypes to fetch.
+     */
+    orderBy?: ItemTypeOrderByWithRelationInput | ItemTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemTypes.
+     */
+    cursor?: ItemTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemTypes.
+     */
+    distinct?: ItemTypeScalarFieldEnum | ItemTypeScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemType findFirstOrThrow
+   */
+  export type ItemTypeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemType
+     */
+    select?: ItemTypeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemType to fetch.
+     */
+    where?: ItemTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemTypes to fetch.
+     */
+    orderBy?: ItemTypeOrderByWithRelationInput | ItemTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemTypes.
+     */
+    cursor?: ItemTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemTypes.
+     */
+    distinct?: ItemTypeScalarFieldEnum | ItemTypeScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemType findMany
+   */
+  export type ItemTypeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemType
+     */
+    select?: ItemTypeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemTypes to fetch.
+     */
+    where?: ItemTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemTypes to fetch.
+     */
+    orderBy?: ItemTypeOrderByWithRelationInput | ItemTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ItemTypes.
+     */
+    cursor?: ItemTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemTypes.
+     */
+    skip?: number
+    distinct?: ItemTypeScalarFieldEnum | ItemTypeScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemType create
+   */
+  export type ItemTypeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemType
+     */
+    select?: ItemTypeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTypeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ItemType.
+     */
+    data: XOR<ItemTypeCreateInput, ItemTypeUncheckedCreateInput>
+  }
+
+
+  /**
+   * ItemType createMany
+   */
+  export type ItemTypeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ItemTypes.
+     */
+    data: ItemTypeCreateManyInput | ItemTypeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ItemType update
+   */
+  export type ItemTypeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemType
+     */
+    select?: ItemTypeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTypeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ItemType.
+     */
+    data: XOR<ItemTypeUpdateInput, ItemTypeUncheckedUpdateInput>
+    /**
+     * Choose, which ItemType to update.
+     */
+    where: ItemTypeWhereUniqueInput
+  }
+
+
+  /**
+   * ItemType updateMany
+   */
+  export type ItemTypeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ItemTypes.
+     */
+    data: XOR<ItemTypeUpdateManyMutationInput, ItemTypeUncheckedUpdateManyInput>
+    /**
+     * Filter which ItemTypes to update
+     */
+    where?: ItemTypeWhereInput
+  }
+
+
+  /**
+   * ItemType upsert
+   */
+  export type ItemTypeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemType
+     */
+    select?: ItemTypeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTypeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ItemType to update in case it exists.
+     */
+    where: ItemTypeWhereUniqueInput
+    /**
+     * In case the ItemType found by the `where` argument doesn't exist, create a new ItemType with this data.
+     */
+    create: XOR<ItemTypeCreateInput, ItemTypeUncheckedCreateInput>
+    /**
+     * In case the ItemType was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ItemTypeUpdateInput, ItemTypeUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ItemType delete
+   */
+  export type ItemTypeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemType
+     */
+    select?: ItemTypeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTypeInclude<ExtArgs> | null
+    /**
+     * Filter which ItemType to delete.
+     */
+    where: ItemTypeWhereUniqueInput
+  }
+
+
+  /**
+   * ItemType deleteMany
+   */
+  export type ItemTypeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemTypes to delete
+     */
+    where?: ItemTypeWhereInput
+  }
+
+
+  /**
+   * ItemType.items
+   */
+  export type ItemType$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Item
+     */
+    select?: ItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemInclude<ExtArgs> | null
+    where?: ItemWhereInput
+    orderBy?: ItemOrderByWithRelationInput | ItemOrderByWithRelationInput[]
+    cursor?: ItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItemScalarFieldEnum | ItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemType without action
+   */
+  export type ItemTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemType
+     */
+    select?: ItemTypeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTypeInclude<ExtArgs> | null
+  }
+
+
 
   /**
    * Model Supplier
@@ -11503,32 +12654,31 @@ export namespace Prisma {
   }
 
   export type ItemAvgAggregateOutputType = {
+    item_type_id: number | null
     total_quantity: number | null
     quantity_on_queue: number | null
     initial_quantity: number | null
     alert_level: number | null
-    item_type: number | null
   }
 
   export type ItemSumAggregateOutputType = {
+    item_type_id: number | null
     total_quantity: number | null
     quantity_on_queue: number | null
     initial_quantity: number | null
     alert_level: number | null
-    item_type: number | null
   }
 
   export type ItemMinAggregateOutputType = {
     id: string | null
+    item_type_id: number | null
     unit_id: string | null
     code: string | null
-    name: string | null
     description: string | null
     total_quantity: number | null
     quantity_on_queue: number | null
     initial_quantity: number | null
     alert_level: number | null
-    item_type: number | null
     created_by: string | null
     updated_by: string | null
     deleted_by: string | null
@@ -11539,15 +12689,14 @@ export namespace Prisma {
 
   export type ItemMaxAggregateOutputType = {
     id: string | null
+    item_type_id: number | null
     unit_id: string | null
     code: string | null
-    name: string | null
     description: string | null
     total_quantity: number | null
     quantity_on_queue: number | null
     initial_quantity: number | null
     alert_level: number | null
-    item_type: number | null
     created_by: string | null
     updated_by: string | null
     deleted_by: string | null
@@ -11558,15 +12707,14 @@ export namespace Prisma {
 
   export type ItemCountAggregateOutputType = {
     id: number
+    item_type_id: number
     unit_id: number
     code: number
-    name: number
     description: number
     total_quantity: number
     quantity_on_queue: number
     initial_quantity: number
     alert_level: number
-    item_type: number
     created_by: number
     updated_by: number
     deleted_by: number
@@ -11579,32 +12727,31 @@ export namespace Prisma {
 
 
   export type ItemAvgAggregateInputType = {
+    item_type_id?: true
     total_quantity?: true
     quantity_on_queue?: true
     initial_quantity?: true
     alert_level?: true
-    item_type?: true
   }
 
   export type ItemSumAggregateInputType = {
+    item_type_id?: true
     total_quantity?: true
     quantity_on_queue?: true
     initial_quantity?: true
     alert_level?: true
-    item_type?: true
   }
 
   export type ItemMinAggregateInputType = {
     id?: true
+    item_type_id?: true
     unit_id?: true
     code?: true
-    name?: true
     description?: true
     total_quantity?: true
     quantity_on_queue?: true
     initial_quantity?: true
     alert_level?: true
-    item_type?: true
     created_by?: true
     updated_by?: true
     deleted_by?: true
@@ -11615,15 +12762,14 @@ export namespace Prisma {
 
   export type ItemMaxAggregateInputType = {
     id?: true
+    item_type_id?: true
     unit_id?: true
     code?: true
-    name?: true
     description?: true
     total_quantity?: true
     quantity_on_queue?: true
     initial_quantity?: true
     alert_level?: true
-    item_type?: true
     created_by?: true
     updated_by?: true
     deleted_by?: true
@@ -11634,15 +12780,14 @@ export namespace Prisma {
 
   export type ItemCountAggregateInputType = {
     id?: true
+    item_type_id?: true
     unit_id?: true
     code?: true
-    name?: true
     description?: true
     total_quantity?: true
     quantity_on_queue?: true
     initial_quantity?: true
     alert_level?: true
-    item_type?: true
     created_by?: true
     updated_by?: true
     deleted_by?: true
@@ -11741,15 +12886,14 @@ export namespace Prisma {
 
   export type ItemGroupByOutputType = {
     id: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description: string | null
     total_quantity: number
     quantity_on_queue: number
     initial_quantity: number
     alert_level: number
-    item_type: number
     created_by: string
     updated_by: string | null
     deleted_by: string | null
@@ -11780,15 +12924,14 @@ export namespace Prisma {
 
   export type ItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    item_type_id?: boolean
     unit_id?: boolean
     code?: boolean
-    name?: boolean
     description?: boolean
     total_quantity?: boolean
     quantity_on_queue?: boolean
     initial_quantity?: boolean
     alert_level?: boolean
-    item_type?: boolean
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
@@ -11796,6 +12939,7 @@ export namespace Prisma {
     updated_at?: boolean
     deleted_at?: boolean
     metadata?: boolean
+    item_type?: boolean | ItemTypeDefaultArgs<ExtArgs>
     item_transactions?: boolean | Item$item_transactionsArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     canvass_items?: boolean | Item$canvass_itemsArgs<ExtArgs>
@@ -11810,15 +12954,14 @@ export namespace Prisma {
 
   export type ItemSelectScalar = {
     id?: boolean
+    item_type_id?: boolean
     unit_id?: boolean
     code?: boolean
-    name?: boolean
     description?: boolean
     total_quantity?: boolean
     quantity_on_queue?: boolean
     initial_quantity?: boolean
     alert_level?: boolean
-    item_type?: boolean
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
@@ -11829,6 +12972,7 @@ export namespace Prisma {
   }
 
   export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    item_type?: boolean | ItemTypeDefaultArgs<ExtArgs>
     item_transactions?: boolean | Item$item_transactionsArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
     canvass_items?: boolean | Item$canvass_itemsArgs<ExtArgs>
@@ -11845,6 +12989,7 @@ export namespace Prisma {
   export type $ItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Item"
     objects: {
+      item_type: Prisma.$ItemTypePayload<ExtArgs>
       item_transactions: Prisma.$ItemTransactionPayload<ExtArgs>[]
       unit: Prisma.$UnitPayload<ExtArgs>
       canvass_items: Prisma.$CanvassItemPayload<ExtArgs>[]
@@ -11857,15 +13002,14 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      item_type_id: number
       unit_id: string
       code: string
-      name: string
       description: string | null
       total_quantity: number
       quantity_on_queue: number
       initial_quantity: number
       alert_level: number
-      item_type: number
       created_by: string
       updated_by: string | null
       deleted_by: string | null
@@ -12238,6 +13382,8 @@ export namespace Prisma {
   export interface Prisma__ItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
+    item_type<T extends ItemTypeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemTypeDefaultArgs<ExtArgs>>): Prisma__ItemTypeClient<$Result.GetResult<Prisma.$ItemTypePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
     item_transactions<T extends Item$item_transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Item$item_transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemTransactionPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     unit<T extends UnitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitDefaultArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
@@ -12285,15 +13431,14 @@ export namespace Prisma {
    */ 
   interface ItemFieldRefs {
     readonly id: FieldRef<"Item", 'String'>
+    readonly item_type_id: FieldRef<"Item", 'Int'>
     readonly unit_id: FieldRef<"Item", 'String'>
     readonly code: FieldRef<"Item", 'String'>
-    readonly name: FieldRef<"Item", 'String'>
     readonly description: FieldRef<"Item", 'String'>
     readonly total_quantity: FieldRef<"Item", 'Int'>
     readonly quantity_on_queue: FieldRef<"Item", 'Int'>
     readonly initial_quantity: FieldRef<"Item", 'Int'>
     readonly alert_level: FieldRef<"Item", 'Int'>
-    readonly item_type: FieldRef<"Item", 'Int'>
     readonly created_by: FieldRef<"Item", 'String'>
     readonly updated_by: FieldRef<"Item", 'String'>
     readonly deleted_by: FieldRef<"Item", 'String'>
@@ -15971,6 +17116,907 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: ItemTransactionInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model ItemCodeTracker
+   */
+
+  export type AggregateItemCodeTracker = {
+    _count: ItemCodeTrackerCountAggregateOutputType | null
+    _avg: ItemCodeTrackerAvgAggregateOutputType | null
+    _sum: ItemCodeTrackerSumAggregateOutputType | null
+    _min: ItemCodeTrackerMinAggregateOutputType | null
+    _max: ItemCodeTrackerMaxAggregateOutputType | null
+  }
+
+  export type ItemCodeTrackerAvgAggregateOutputType = {
+    id: number | null
+    year: number | null
+    last_incremental: number | null
+  }
+
+  export type ItemCodeTrackerSumAggregateOutputType = {
+    id: number | null
+    year: number | null
+    last_incremental: number | null
+  }
+
+  export type ItemCodeTrackerMinAggregateOutputType = {
+    id: number | null
+    item_code: string | null
+    year: number | null
+    last_incremental: number | null
+  }
+
+  export type ItemCodeTrackerMaxAggregateOutputType = {
+    id: number | null
+    item_code: string | null
+    year: number | null
+    last_incremental: number | null
+  }
+
+  export type ItemCodeTrackerCountAggregateOutputType = {
+    id: number
+    item_code: number
+    year: number
+    last_incremental: number
+    _all: number
+  }
+
+
+  export type ItemCodeTrackerAvgAggregateInputType = {
+    id?: true
+    year?: true
+    last_incremental?: true
+  }
+
+  export type ItemCodeTrackerSumAggregateInputType = {
+    id?: true
+    year?: true
+    last_incremental?: true
+  }
+
+  export type ItemCodeTrackerMinAggregateInputType = {
+    id?: true
+    item_code?: true
+    year?: true
+    last_incremental?: true
+  }
+
+  export type ItemCodeTrackerMaxAggregateInputType = {
+    id?: true
+    item_code?: true
+    year?: true
+    last_incremental?: true
+  }
+
+  export type ItemCodeTrackerCountAggregateInputType = {
+    id?: true
+    item_code?: true
+    year?: true
+    last_incremental?: true
+    _all?: true
+  }
+
+  export type ItemCodeTrackerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemCodeTracker to aggregate.
+     */
+    where?: ItemCodeTrackerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemCodeTrackers to fetch.
+     */
+    orderBy?: ItemCodeTrackerOrderByWithRelationInput | ItemCodeTrackerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ItemCodeTrackerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemCodeTrackers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemCodeTrackers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ItemCodeTrackers
+    **/
+    _count?: true | ItemCodeTrackerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ItemCodeTrackerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ItemCodeTrackerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ItemCodeTrackerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ItemCodeTrackerMaxAggregateInputType
+  }
+
+  export type GetItemCodeTrackerAggregateType<T extends ItemCodeTrackerAggregateArgs> = {
+        [P in keyof T & keyof AggregateItemCodeTracker]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateItemCodeTracker[P]>
+      : GetScalarType<T[P], AggregateItemCodeTracker[P]>
+  }
+
+
+
+
+  export type ItemCodeTrackerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemCodeTrackerWhereInput
+    orderBy?: ItemCodeTrackerOrderByWithAggregationInput | ItemCodeTrackerOrderByWithAggregationInput[]
+    by: ItemCodeTrackerScalarFieldEnum[] | ItemCodeTrackerScalarFieldEnum
+    having?: ItemCodeTrackerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ItemCodeTrackerCountAggregateInputType | true
+    _avg?: ItemCodeTrackerAvgAggregateInputType
+    _sum?: ItemCodeTrackerSumAggregateInputType
+    _min?: ItemCodeTrackerMinAggregateInputType
+    _max?: ItemCodeTrackerMaxAggregateInputType
+  }
+
+  export type ItemCodeTrackerGroupByOutputType = {
+    id: number
+    item_code: string
+    year: number
+    last_incremental: number
+    _count: ItemCodeTrackerCountAggregateOutputType | null
+    _avg: ItemCodeTrackerAvgAggregateOutputType | null
+    _sum: ItemCodeTrackerSumAggregateOutputType | null
+    _min: ItemCodeTrackerMinAggregateOutputType | null
+    _max: ItemCodeTrackerMaxAggregateOutputType | null
+  }
+
+  type GetItemCodeTrackerGroupByPayload<T extends ItemCodeTrackerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ItemCodeTrackerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ItemCodeTrackerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ItemCodeTrackerGroupByOutputType[P]>
+            : GetScalarType<T[P], ItemCodeTrackerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ItemCodeTrackerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    item_code?: boolean
+    year?: boolean
+    last_incremental?: boolean
+  }, ExtArgs["result"]["itemCodeTracker"]>
+
+  export type ItemCodeTrackerSelectScalar = {
+    id?: boolean
+    item_code?: boolean
+    year?: boolean
+    last_incremental?: boolean
+  }
+
+
+  export type $ItemCodeTrackerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ItemCodeTracker"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      item_code: string
+      year: number
+      last_incremental: number
+    }, ExtArgs["result"]["itemCodeTracker"]>
+    composites: {}
+  }
+
+
+  type ItemCodeTrackerGetPayload<S extends boolean | null | undefined | ItemCodeTrackerDefaultArgs> = $Result.GetResult<Prisma.$ItemCodeTrackerPayload, S>
+
+  type ItemCodeTrackerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ItemCodeTrackerFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ItemCodeTrackerCountAggregateInputType | true
+    }
+
+  export interface ItemCodeTrackerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ItemCodeTracker'], meta: { name: 'ItemCodeTracker' } }
+    /**
+     * Find zero or one ItemCodeTracker that matches the filter.
+     * @param {ItemCodeTrackerFindUniqueArgs} args - Arguments to find a ItemCodeTracker
+     * @example
+     * // Get one ItemCodeTracker
+     * const itemCodeTracker = await prisma.itemCodeTracker.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ItemCodeTrackerFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemCodeTrackerFindUniqueArgs<ExtArgs>>
+    ): Prisma__ItemCodeTrackerClient<$Result.GetResult<Prisma.$ItemCodeTrackerPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one ItemCodeTracker that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ItemCodeTrackerFindUniqueOrThrowArgs} args - Arguments to find a ItemCodeTracker
+     * @example
+     * // Get one ItemCodeTracker
+     * const itemCodeTracker = await prisma.itemCodeTracker.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ItemCodeTrackerFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemCodeTrackerFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ItemCodeTrackerClient<$Result.GetResult<Prisma.$ItemCodeTrackerPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first ItemCodeTracker that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCodeTrackerFindFirstArgs} args - Arguments to find a ItemCodeTracker
+     * @example
+     * // Get one ItemCodeTracker
+     * const itemCodeTracker = await prisma.itemCodeTracker.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ItemCodeTrackerFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemCodeTrackerFindFirstArgs<ExtArgs>>
+    ): Prisma__ItemCodeTrackerClient<$Result.GetResult<Prisma.$ItemCodeTrackerPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first ItemCodeTracker that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCodeTrackerFindFirstOrThrowArgs} args - Arguments to find a ItemCodeTracker
+     * @example
+     * // Get one ItemCodeTracker
+     * const itemCodeTracker = await prisma.itemCodeTracker.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ItemCodeTrackerFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemCodeTrackerFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ItemCodeTrackerClient<$Result.GetResult<Prisma.$ItemCodeTrackerPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more ItemCodeTrackers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCodeTrackerFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ItemCodeTrackers
+     * const itemCodeTrackers = await prisma.itemCodeTracker.findMany()
+     * 
+     * // Get first 10 ItemCodeTrackers
+     * const itemCodeTrackers = await prisma.itemCodeTracker.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const itemCodeTrackerWithIdOnly = await prisma.itemCodeTracker.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ItemCodeTrackerFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemCodeTrackerFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemCodeTrackerPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a ItemCodeTracker.
+     * @param {ItemCodeTrackerCreateArgs} args - Arguments to create a ItemCodeTracker.
+     * @example
+     * // Create one ItemCodeTracker
+     * const ItemCodeTracker = await prisma.itemCodeTracker.create({
+     *   data: {
+     *     // ... data to create a ItemCodeTracker
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ItemCodeTrackerCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemCodeTrackerCreateArgs<ExtArgs>>
+    ): Prisma__ItemCodeTrackerClient<$Result.GetResult<Prisma.$ItemCodeTrackerPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many ItemCodeTrackers.
+     *     @param {ItemCodeTrackerCreateManyArgs} args - Arguments to create many ItemCodeTrackers.
+     *     @example
+     *     // Create many ItemCodeTrackers
+     *     const itemCodeTracker = await prisma.itemCodeTracker.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ItemCodeTrackerCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemCodeTrackerCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ItemCodeTracker.
+     * @param {ItemCodeTrackerDeleteArgs} args - Arguments to delete one ItemCodeTracker.
+     * @example
+     * // Delete one ItemCodeTracker
+     * const ItemCodeTracker = await prisma.itemCodeTracker.delete({
+     *   where: {
+     *     // ... filter to delete one ItemCodeTracker
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ItemCodeTrackerDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemCodeTrackerDeleteArgs<ExtArgs>>
+    ): Prisma__ItemCodeTrackerClient<$Result.GetResult<Prisma.$ItemCodeTrackerPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one ItemCodeTracker.
+     * @param {ItemCodeTrackerUpdateArgs} args - Arguments to update one ItemCodeTracker.
+     * @example
+     * // Update one ItemCodeTracker
+     * const itemCodeTracker = await prisma.itemCodeTracker.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ItemCodeTrackerUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemCodeTrackerUpdateArgs<ExtArgs>>
+    ): Prisma__ItemCodeTrackerClient<$Result.GetResult<Prisma.$ItemCodeTrackerPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more ItemCodeTrackers.
+     * @param {ItemCodeTrackerDeleteManyArgs} args - Arguments to filter ItemCodeTrackers to delete.
+     * @example
+     * // Delete a few ItemCodeTrackers
+     * const { count } = await prisma.itemCodeTracker.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ItemCodeTrackerDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ItemCodeTrackerDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItemCodeTrackers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCodeTrackerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ItemCodeTrackers
+     * const itemCodeTracker = await prisma.itemCodeTracker.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ItemCodeTrackerUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemCodeTrackerUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ItemCodeTracker.
+     * @param {ItemCodeTrackerUpsertArgs} args - Arguments to update or create a ItemCodeTracker.
+     * @example
+     * // Update or create a ItemCodeTracker
+     * const itemCodeTracker = await prisma.itemCodeTracker.upsert({
+     *   create: {
+     *     // ... data to create a ItemCodeTracker
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ItemCodeTracker we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ItemCodeTrackerUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ItemCodeTrackerUpsertArgs<ExtArgs>>
+    ): Prisma__ItemCodeTrackerClient<$Result.GetResult<Prisma.$ItemCodeTrackerPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of ItemCodeTrackers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCodeTrackerCountArgs} args - Arguments to filter ItemCodeTrackers to count.
+     * @example
+     * // Count the number of ItemCodeTrackers
+     * const count = await prisma.itemCodeTracker.count({
+     *   where: {
+     *     // ... the filter for the ItemCodeTrackers we want to count
+     *   }
+     * })
+    **/
+    count<T extends ItemCodeTrackerCountArgs>(
+      args?: Subset<T, ItemCodeTrackerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ItemCodeTrackerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ItemCodeTracker.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCodeTrackerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ItemCodeTrackerAggregateArgs>(args: Subset<T, ItemCodeTrackerAggregateArgs>): Prisma.PrismaPromise<GetItemCodeTrackerAggregateType<T>>
+
+    /**
+     * Group by ItemCodeTracker.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCodeTrackerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ItemCodeTrackerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ItemCodeTrackerGroupByArgs['orderBy'] }
+        : { orderBy?: ItemCodeTrackerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ItemCodeTrackerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetItemCodeTrackerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ItemCodeTracker model
+   */
+  readonly fields: ItemCodeTrackerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ItemCodeTracker.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ItemCodeTrackerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the ItemCodeTracker model
+   */ 
+  interface ItemCodeTrackerFieldRefs {
+    readonly id: FieldRef<"ItemCodeTracker", 'Int'>
+    readonly item_code: FieldRef<"ItemCodeTracker", 'String'>
+    readonly year: FieldRef<"ItemCodeTracker", 'Int'>
+    readonly last_incremental: FieldRef<"ItemCodeTracker", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * ItemCodeTracker findUnique
+   */
+  export type ItemCodeTrackerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCodeTracker
+     */
+    select?: ItemCodeTrackerSelect<ExtArgs> | null
+    /**
+     * Filter, which ItemCodeTracker to fetch.
+     */
+    where: ItemCodeTrackerWhereUniqueInput
+  }
+
+
+  /**
+   * ItemCodeTracker findUniqueOrThrow
+   */
+  export type ItemCodeTrackerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCodeTracker
+     */
+    select?: ItemCodeTrackerSelect<ExtArgs> | null
+    /**
+     * Filter, which ItemCodeTracker to fetch.
+     */
+    where: ItemCodeTrackerWhereUniqueInput
+  }
+
+
+  /**
+   * ItemCodeTracker findFirst
+   */
+  export type ItemCodeTrackerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCodeTracker
+     */
+    select?: ItemCodeTrackerSelect<ExtArgs> | null
+    /**
+     * Filter, which ItemCodeTracker to fetch.
+     */
+    where?: ItemCodeTrackerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemCodeTrackers to fetch.
+     */
+    orderBy?: ItemCodeTrackerOrderByWithRelationInput | ItemCodeTrackerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemCodeTrackers.
+     */
+    cursor?: ItemCodeTrackerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemCodeTrackers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemCodeTrackers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemCodeTrackers.
+     */
+    distinct?: ItemCodeTrackerScalarFieldEnum | ItemCodeTrackerScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemCodeTracker findFirstOrThrow
+   */
+  export type ItemCodeTrackerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCodeTracker
+     */
+    select?: ItemCodeTrackerSelect<ExtArgs> | null
+    /**
+     * Filter, which ItemCodeTracker to fetch.
+     */
+    where?: ItemCodeTrackerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemCodeTrackers to fetch.
+     */
+    orderBy?: ItemCodeTrackerOrderByWithRelationInput | ItemCodeTrackerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemCodeTrackers.
+     */
+    cursor?: ItemCodeTrackerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemCodeTrackers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemCodeTrackers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemCodeTrackers.
+     */
+    distinct?: ItemCodeTrackerScalarFieldEnum | ItemCodeTrackerScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemCodeTracker findMany
+   */
+  export type ItemCodeTrackerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCodeTracker
+     */
+    select?: ItemCodeTrackerSelect<ExtArgs> | null
+    /**
+     * Filter, which ItemCodeTrackers to fetch.
+     */
+    where?: ItemCodeTrackerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemCodeTrackers to fetch.
+     */
+    orderBy?: ItemCodeTrackerOrderByWithRelationInput | ItemCodeTrackerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ItemCodeTrackers.
+     */
+    cursor?: ItemCodeTrackerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemCodeTrackers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemCodeTrackers.
+     */
+    skip?: number
+    distinct?: ItemCodeTrackerScalarFieldEnum | ItemCodeTrackerScalarFieldEnum[]
+  }
+
+
+  /**
+   * ItemCodeTracker create
+   */
+  export type ItemCodeTrackerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCodeTracker
+     */
+    select?: ItemCodeTrackerSelect<ExtArgs> | null
+    /**
+     * The data needed to create a ItemCodeTracker.
+     */
+    data: XOR<ItemCodeTrackerCreateInput, ItemCodeTrackerUncheckedCreateInput>
+  }
+
+
+  /**
+   * ItemCodeTracker createMany
+   */
+  export type ItemCodeTrackerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ItemCodeTrackers.
+     */
+    data: ItemCodeTrackerCreateManyInput | ItemCodeTrackerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ItemCodeTracker update
+   */
+  export type ItemCodeTrackerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCodeTracker
+     */
+    select?: ItemCodeTrackerSelect<ExtArgs> | null
+    /**
+     * The data needed to update a ItemCodeTracker.
+     */
+    data: XOR<ItemCodeTrackerUpdateInput, ItemCodeTrackerUncheckedUpdateInput>
+    /**
+     * Choose, which ItemCodeTracker to update.
+     */
+    where: ItemCodeTrackerWhereUniqueInput
+  }
+
+
+  /**
+   * ItemCodeTracker updateMany
+   */
+  export type ItemCodeTrackerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ItemCodeTrackers.
+     */
+    data: XOR<ItemCodeTrackerUpdateManyMutationInput, ItemCodeTrackerUncheckedUpdateManyInput>
+    /**
+     * Filter which ItemCodeTrackers to update
+     */
+    where?: ItemCodeTrackerWhereInput
+  }
+
+
+  /**
+   * ItemCodeTracker upsert
+   */
+  export type ItemCodeTrackerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCodeTracker
+     */
+    select?: ItemCodeTrackerSelect<ExtArgs> | null
+    /**
+     * The filter to search for the ItemCodeTracker to update in case it exists.
+     */
+    where: ItemCodeTrackerWhereUniqueInput
+    /**
+     * In case the ItemCodeTracker found by the `where` argument doesn't exist, create a new ItemCodeTracker with this data.
+     */
+    create: XOR<ItemCodeTrackerCreateInput, ItemCodeTrackerUncheckedCreateInput>
+    /**
+     * In case the ItemCodeTracker was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ItemCodeTrackerUpdateInput, ItemCodeTrackerUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ItemCodeTracker delete
+   */
+  export type ItemCodeTrackerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCodeTracker
+     */
+    select?: ItemCodeTrackerSelect<ExtArgs> | null
+    /**
+     * Filter which ItemCodeTracker to delete.
+     */
+    where: ItemCodeTrackerWhereUniqueInput
+  }
+
+
+  /**
+   * ItemCodeTracker deleteMany
+   */
+  export type ItemCodeTrackerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemCodeTrackers to delete
+     */
+    where?: ItemCodeTrackerWhereInput
+  }
+
+
+  /**
+   * ItemCodeTracker without action
+   */
+  export type ItemCodeTrackerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCodeTracker
+     */
+    select?: ItemCodeTrackerSelect<ExtArgs> | null
   }
 
 
@@ -52397,6 +54443,15 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const ItemTypeScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name'
+  };
+
+  export type ItemTypeScalarFieldEnum = (typeof ItemTypeScalarFieldEnum)[keyof typeof ItemTypeScalarFieldEnum]
+
+
   export const SupplierScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -52493,15 +54548,14 @@ export namespace Prisma {
 
   export const ItemScalarFieldEnum: {
     id: 'id',
+    item_type_id: 'item_type_id',
     unit_id: 'unit_id',
     code: 'code',
-    name: 'name',
     description: 'description',
     total_quantity: 'total_quantity',
     quantity_on_queue: 'quantity_on_queue',
     initial_quantity: 'initial_quantity',
     alert_level: 'alert_level',
-    item_type: 'item_type',
     created_by: 'created_by',
     updated_by: 'updated_by',
     deleted_by: 'deleted_by',
@@ -52559,6 +54613,16 @@ export namespace Prisma {
   };
 
   export type ItemTransactionScalarFieldEnum = (typeof ItemTransactionScalarFieldEnum)[keyof typeof ItemTransactionScalarFieldEnum]
+
+
+  export const ItemCodeTrackerScalarFieldEnum: {
+    id: 'id',
+    item_code: 'item_code',
+    year: 'year',
+    last_incremental: 'last_incremental'
+  };
+
+  export type ItemCodeTrackerScalarFieldEnum = (typeof ItemCodeTrackerScalarFieldEnum)[keyof typeof ItemCodeTrackerScalarFieldEnum]
 
 
   export const CanvassScalarFieldEnum: {
@@ -53203,20 +55267,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'String'
-   */
-  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-    
-
-
-  /**
-   * Reference to a field of type 'String[]'
-   */
-  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -53227,6 +55277,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'String'
+   */
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
     
 
 
@@ -53274,6 +55338,53 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type ItemTypeWhereInput = {
+    AND?: ItemTypeWhereInput | ItemTypeWhereInput[]
+    OR?: ItemTypeWhereInput[]
+    NOT?: ItemTypeWhereInput | ItemTypeWhereInput[]
+    id?: IntFilter<"ItemType"> | number
+    code?: StringFilter<"ItemType"> | string
+    name?: StringFilter<"ItemType"> | string
+    items?: ItemListRelationFilter
+  }
+
+  export type ItemTypeOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    items?: ItemOrderByRelationAggregateInput
+  }
+
+  export type ItemTypeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    code?: string
+    AND?: ItemTypeWhereInput | ItemTypeWhereInput[]
+    OR?: ItemTypeWhereInput[]
+    NOT?: ItemTypeWhereInput | ItemTypeWhereInput[]
+    name?: StringFilter<"ItemType"> | string
+    items?: ItemListRelationFilter
+  }, "id" | "code">
+
+  export type ItemTypeOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    _count?: ItemTypeCountOrderByAggregateInput
+    _avg?: ItemTypeAvgOrderByAggregateInput
+    _max?: ItemTypeMaxOrderByAggregateInput
+    _min?: ItemTypeMinOrderByAggregateInput
+    _sum?: ItemTypeSumOrderByAggregateInput
+  }
+
+  export type ItemTypeScalarWhereWithAggregatesInput = {
+    AND?: ItemTypeScalarWhereWithAggregatesInput | ItemTypeScalarWhereWithAggregatesInput[]
+    OR?: ItemTypeScalarWhereWithAggregatesInput[]
+    NOT?: ItemTypeScalarWhereWithAggregatesInput | ItemTypeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ItemType"> | number
+    code?: StringWithAggregatesFilter<"ItemType"> | string
+    name?: StringWithAggregatesFilter<"ItemType"> | string
+  }
 
   export type SupplierWhereInput = {
     AND?: SupplierWhereInput | SupplierWhereInput[]
@@ -53764,15 +55875,14 @@ export namespace Prisma {
     OR?: ItemWhereInput[]
     NOT?: ItemWhereInput | ItemWhereInput[]
     id?: StringFilter<"Item"> | string
+    item_type_id?: IntFilter<"Item"> | number
     unit_id?: StringFilter<"Item"> | string
     code?: StringFilter<"Item"> | string
-    name?: StringFilter<"Item"> | string
     description?: StringNullableFilter<"Item"> | string | null
     total_quantity?: IntFilter<"Item"> | number
     quantity_on_queue?: IntFilter<"Item"> | number
     initial_quantity?: IntFilter<"Item"> | number
     alert_level?: IntFilter<"Item"> | number
-    item_type?: IntFilter<"Item"> | number
     created_by?: StringFilter<"Item"> | string
     updated_by?: StringNullableFilter<"Item"> | string | null
     deleted_by?: StringNullableFilter<"Item"> | string | null
@@ -53780,6 +55890,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Item"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
     metadata?: JsonNullableFilter<"Item">
+    item_type?: XOR<ItemTypeRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
     unit?: XOR<UnitRelationFilter, UnitWhereInput>
     canvass_items?: CanvassItemListRelationFilter
@@ -53793,15 +55904,14 @@ export namespace Prisma {
 
   export type ItemOrderByWithRelationInput = {
     id?: SortOrder
+    item_type_id?: SortOrder
     unit_id?: SortOrder
     code?: SortOrder
-    name?: SortOrder
     description?: SortOrderInput | SortOrder
     total_quantity?: SortOrder
     quantity_on_queue?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
-    item_type?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     deleted_by?: SortOrderInput | SortOrder
@@ -53809,6 +55919,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
+    item_type?: ItemTypeOrderByWithRelationInput
     item_transactions?: ItemTransactionOrderByRelationAggregateInput
     unit?: UnitOrderByWithRelationInput
     canvass_items?: CanvassItemOrderByRelationAggregateInput
@@ -53826,14 +55937,13 @@ export namespace Prisma {
     AND?: ItemWhereInput | ItemWhereInput[]
     OR?: ItemWhereInput[]
     NOT?: ItemWhereInput | ItemWhereInput[]
+    item_type_id?: IntFilter<"Item"> | number
     unit_id?: StringFilter<"Item"> | string
-    name?: StringFilter<"Item"> | string
     description?: StringNullableFilter<"Item"> | string | null
     total_quantity?: IntFilter<"Item"> | number
     quantity_on_queue?: IntFilter<"Item"> | number
     initial_quantity?: IntFilter<"Item"> | number
     alert_level?: IntFilter<"Item"> | number
-    item_type?: IntFilter<"Item"> | number
     created_by?: StringFilter<"Item"> | string
     updated_by?: StringNullableFilter<"Item"> | string | null
     deleted_by?: StringNullableFilter<"Item"> | string | null
@@ -53841,6 +55951,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Item"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
     metadata?: JsonNullableFilter<"Item">
+    item_type?: XOR<ItemTypeRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
     unit?: XOR<UnitRelationFilter, UnitWhereInput>
     canvass_items?: CanvassItemListRelationFilter
@@ -53854,15 +55965,14 @@ export namespace Prisma {
 
   export type ItemOrderByWithAggregationInput = {
     id?: SortOrder
+    item_type_id?: SortOrder
     unit_id?: SortOrder
     code?: SortOrder
-    name?: SortOrder
     description?: SortOrderInput | SortOrder
     total_quantity?: SortOrder
     quantity_on_queue?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
-    item_type?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     deleted_by?: SortOrderInput | SortOrder
@@ -53882,15 +55992,14 @@ export namespace Prisma {
     OR?: ItemScalarWhereWithAggregatesInput[]
     NOT?: ItemScalarWhereWithAggregatesInput | ItemScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Item"> | string
+    item_type_id?: IntWithAggregatesFilter<"Item"> | number
     unit_id?: StringWithAggregatesFilter<"Item"> | string
     code?: StringWithAggregatesFilter<"Item"> | string
-    name?: StringWithAggregatesFilter<"Item"> | string
     description?: StringNullableWithAggregatesFilter<"Item"> | string | null
     total_quantity?: IntWithAggregatesFilter<"Item"> | number
     quantity_on_queue?: IntWithAggregatesFilter<"Item"> | number
     initial_quantity?: IntWithAggregatesFilter<"Item"> | number
     alert_level?: IntWithAggregatesFilter<"Item"> | number
-    item_type?: IntWithAggregatesFilter<"Item"> | number
     created_by?: StringWithAggregatesFilter<"Item"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Item"> | string | null
     deleted_by?: StringNullableWithAggregatesFilter<"Item"> | string | null
@@ -54166,6 +56275,55 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"ItemTransaction"> | Date | string
     created_by?: StringWithAggregatesFilter<"ItemTransaction"> | string
     metadata?: JsonNullableWithAggregatesFilter<"ItemTransaction">
+  }
+
+  export type ItemCodeTrackerWhereInput = {
+    AND?: ItemCodeTrackerWhereInput | ItemCodeTrackerWhereInput[]
+    OR?: ItemCodeTrackerWhereInput[]
+    NOT?: ItemCodeTrackerWhereInput | ItemCodeTrackerWhereInput[]
+    id?: IntFilter<"ItemCodeTracker"> | number
+    item_code?: StringFilter<"ItemCodeTracker"> | string
+    year?: IntFilter<"ItemCodeTracker"> | number
+    last_incremental?: IntFilter<"ItemCodeTracker"> | number
+  }
+
+  export type ItemCodeTrackerOrderByWithRelationInput = {
+    id?: SortOrder
+    item_code?: SortOrder
+    year?: SortOrder
+    last_incremental?: SortOrder
+  }
+
+  export type ItemCodeTrackerWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    item_code?: string
+    AND?: ItemCodeTrackerWhereInput | ItemCodeTrackerWhereInput[]
+    OR?: ItemCodeTrackerWhereInput[]
+    NOT?: ItemCodeTrackerWhereInput | ItemCodeTrackerWhereInput[]
+    year?: IntFilter<"ItemCodeTracker"> | number
+    last_incremental?: IntFilter<"ItemCodeTracker"> | number
+  }, "id" | "item_code">
+
+  export type ItemCodeTrackerOrderByWithAggregationInput = {
+    id?: SortOrder
+    item_code?: SortOrder
+    year?: SortOrder
+    last_incremental?: SortOrder
+    _count?: ItemCodeTrackerCountOrderByAggregateInput
+    _avg?: ItemCodeTrackerAvgOrderByAggregateInput
+    _max?: ItemCodeTrackerMaxOrderByAggregateInput
+    _min?: ItemCodeTrackerMinOrderByAggregateInput
+    _sum?: ItemCodeTrackerSumOrderByAggregateInput
+  }
+
+  export type ItemCodeTrackerScalarWhereWithAggregatesInput = {
+    AND?: ItemCodeTrackerScalarWhereWithAggregatesInput | ItemCodeTrackerScalarWhereWithAggregatesInput[]
+    OR?: ItemCodeTrackerScalarWhereWithAggregatesInput[]
+    NOT?: ItemCodeTrackerScalarWhereWithAggregatesInput | ItemCodeTrackerScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ItemCodeTracker"> | number
+    item_code?: StringWithAggregatesFilter<"ItemCodeTracker"> | string
+    year?: IntWithAggregatesFilter<"ItemCodeTracker"> | number
+    last_incremental?: IntWithAggregatesFilter<"ItemCodeTracker"> | number
   }
 
   export type CanvassWhereInput = {
@@ -57352,6 +59510,49 @@ export namespace Prisma {
     metadata?: JsonNullableWithAggregatesFilter<"MSTItem">
   }
 
+  export type ItemTypeCreateInput = {
+    code: string
+    name: string
+    items?: ItemCreateNestedManyWithoutItem_typeInput
+  }
+
+  export type ItemTypeUncheckedCreateInput = {
+    id?: number
+    code: string
+    name: string
+    items?: ItemUncheckedCreateNestedManyWithoutItem_typeInput
+  }
+
+  export type ItemTypeUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    items?: ItemUpdateManyWithoutItem_typeNestedInput
+  }
+
+  export type ItemTypeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    items?: ItemUncheckedUpdateManyWithoutItem_typeNestedInput
+  }
+
+  export type ItemTypeCreateManyInput = {
+    id?: number
+    code: string
+    name: string
+  }
+
+  export type ItemTypeUpdateManyMutationInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ItemTypeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
   export type SupplierCreateInput = {
     id?: string
     name: string
@@ -57920,13 +60121,11 @@ export namespace Prisma {
   export type ItemCreateInput = {
     id?: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -57934,6 +60133,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
@@ -57947,15 +60147,14 @@ export namespace Prisma {
 
   export type ItemUncheckedCreateInput = {
     id?: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -57976,13 +60175,11 @@ export namespace Prisma {
   export type ItemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57990,6 +60187,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
@@ -58003,15 +60201,14 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     unit_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58031,15 +60228,14 @@ export namespace Prisma {
 
   export type ItemCreateManyInput = {
     id?: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -58052,13 +60248,11 @@ export namespace Prisma {
   export type ItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58070,15 +60264,14 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     unit_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -58347,6 +60540,52 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemCodeTrackerCreateInput = {
+    item_code: string
+    year: number
+    last_incremental: number
+  }
+
+  export type ItemCodeTrackerUncheckedCreateInput = {
+    id?: number
+    item_code: string
+    year: number
+    last_incremental: number
+  }
+
+  export type ItemCodeTrackerUpdateInput = {
+    item_code?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    last_incremental?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ItemCodeTrackerUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    item_code?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    last_incremental?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ItemCodeTrackerCreateManyInput = {
+    id?: number
+    item_code: string
+    year: number
+    last_incremental: number
+  }
+
+  export type ItemCodeTrackerUpdateManyMutationInput = {
+    item_code?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    last_incremental?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ItemCodeTrackerUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    item_code?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    last_incremental?: IntFieldUpdateOperationsInput | number
   }
 
   export type CanvassCreateInput = {
@@ -61891,6 +64130,17 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -61906,7 +64156,43 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type IntFilter<$PrismaModel = never> = {
+  export type ItemListRelationFilter = {
+    every?: ItemWhereInput
+    some?: ItemWhereInput
+    none?: ItemWhereInput
+  }
+
+  export type ItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ItemTypeCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+  }
+
+  export type ItemTypeAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ItemTypeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+  }
+
+  export type ItemTypeMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+  }
+
+  export type ItemTypeSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -61914,7 +64200,30 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -62053,40 +64362,6 @@ export namespace Prisma {
     vat_type?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -62172,17 +64447,7 @@ export namespace Prisma {
     none?: CanvassItemWhereInput
   }
 
-  export type ItemListRelationFilter = {
-    every?: ItemWhereInput
-    some?: ItemWhereInput
-    none?: ItemWhereInput
-  }
-
   export type CanvassItemOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -62419,6 +64684,11 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type ItemTypeRelationFilter = {
+    is?: ItemTypeWhereInput
+    isNot?: ItemTypeWhereInput
+  }
+
   export type ItemTransactionListRelationFilter = {
     every?: ItemTransactionWhereInput
     some?: ItemTransactionWhereInput
@@ -62486,15 +64756,14 @@ export namespace Prisma {
 
   export type ItemCountOrderByAggregateInput = {
     id?: SortOrder
+    item_type_id?: SortOrder
     unit_id?: SortOrder
     code?: SortOrder
-    name?: SortOrder
     description?: SortOrder
     total_quantity?: SortOrder
     quantity_on_queue?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
-    item_type?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
@@ -62505,24 +64774,23 @@ export namespace Prisma {
   }
 
   export type ItemAvgOrderByAggregateInput = {
+    item_type_id?: SortOrder
     total_quantity?: SortOrder
     quantity_on_queue?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
-    item_type?: SortOrder
   }
 
   export type ItemMaxOrderByAggregateInput = {
     id?: SortOrder
+    item_type_id?: SortOrder
     unit_id?: SortOrder
     code?: SortOrder
-    name?: SortOrder
     description?: SortOrder
     total_quantity?: SortOrder
     quantity_on_queue?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
-    item_type?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
@@ -62533,15 +64801,14 @@ export namespace Prisma {
 
   export type ItemMinOrderByAggregateInput = {
     id?: SortOrder
+    item_type_id?: SortOrder
     unit_id?: SortOrder
     code?: SortOrder
-    name?: SortOrder
     description?: SortOrder
     total_quantity?: SortOrder
     quantity_on_queue?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
-    item_type?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
@@ -62551,11 +64818,11 @@ export namespace Prisma {
   }
 
   export type ItemSumOrderByAggregateInput = {
+    item_type_id?: SortOrder
     total_quantity?: SortOrder
     quantity_on_queue?: SortOrder
     initial_quantity?: SortOrder
     alert_level?: SortOrder
-    item_type?: SortOrder
   }
 
   export type ItemRelationFilter = {
@@ -62771,6 +65038,39 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type ItemCodeTrackerCountOrderByAggregateInput = {
+    id?: SortOrder
+    item_code?: SortOrder
+    year?: SortOrder
+    last_incremental?: SortOrder
+  }
+
+  export type ItemCodeTrackerAvgOrderByAggregateInput = {
+    id?: SortOrder
+    year?: SortOrder
+    last_incremental?: SortOrder
+  }
+
+  export type ItemCodeTrackerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    item_code?: SortOrder
+    year?: SortOrder
+    last_incremental?: SortOrder
+  }
+
+  export type ItemCodeTrackerMinOrderByAggregateInput = {
+    id?: SortOrder
+    item_code?: SortOrder
+    year?: SortOrder
+    last_incremental?: SortOrder
+  }
+
+  export type ItemCodeTrackerSumOrderByAggregateInput = {
+    id?: SortOrder
+    year?: SortOrder
+    last_incremental?: SortOrder
   }
 
   export type JONullableRelationFilter = {
@@ -64733,6 +67033,60 @@ export namespace Prisma {
     price?: SortOrder
   }
 
+  export type ItemCreateNestedManyWithoutItem_typeInput = {
+    create?: XOR<ItemCreateWithoutItem_typeInput, ItemUncheckedCreateWithoutItem_typeInput> | ItemCreateWithoutItem_typeInput[] | ItemUncheckedCreateWithoutItem_typeInput[]
+    connectOrCreate?: ItemCreateOrConnectWithoutItem_typeInput | ItemCreateOrConnectWithoutItem_typeInput[]
+    createMany?: ItemCreateManyItem_typeInputEnvelope
+    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+  }
+
+  export type ItemUncheckedCreateNestedManyWithoutItem_typeInput = {
+    create?: XOR<ItemCreateWithoutItem_typeInput, ItemUncheckedCreateWithoutItem_typeInput> | ItemCreateWithoutItem_typeInput[] | ItemUncheckedCreateWithoutItem_typeInput[]
+    connectOrCreate?: ItemCreateOrConnectWithoutItem_typeInput | ItemCreateOrConnectWithoutItem_typeInput[]
+    createMany?: ItemCreateManyItem_typeInputEnvelope
+    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type ItemUpdateManyWithoutItem_typeNestedInput = {
+    create?: XOR<ItemCreateWithoutItem_typeInput, ItemUncheckedCreateWithoutItem_typeInput> | ItemCreateWithoutItem_typeInput[] | ItemUncheckedCreateWithoutItem_typeInput[]
+    connectOrCreate?: ItemCreateOrConnectWithoutItem_typeInput | ItemCreateOrConnectWithoutItem_typeInput[]
+    upsert?: ItemUpsertWithWhereUniqueWithoutItem_typeInput | ItemUpsertWithWhereUniqueWithoutItem_typeInput[]
+    createMany?: ItemCreateManyItem_typeInputEnvelope
+    set?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    disconnect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    delete?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    update?: ItemUpdateWithWhereUniqueWithoutItem_typeInput | ItemUpdateWithWhereUniqueWithoutItem_typeInput[]
+    updateMany?: ItemUpdateManyWithWhereWithoutItem_typeInput | ItemUpdateManyWithWhereWithoutItem_typeInput[]
+    deleteMany?: ItemScalarWhereInput | ItemScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ItemUncheckedUpdateManyWithoutItem_typeNestedInput = {
+    create?: XOR<ItemCreateWithoutItem_typeInput, ItemUncheckedCreateWithoutItem_typeInput> | ItemCreateWithoutItem_typeInput[] | ItemUncheckedCreateWithoutItem_typeInput[]
+    connectOrCreate?: ItemCreateOrConnectWithoutItem_typeInput | ItemCreateOrConnectWithoutItem_typeInput[]
+    upsert?: ItemUpsertWithWhereUniqueWithoutItem_typeInput | ItemUpsertWithWhereUniqueWithoutItem_typeInput[]
+    createMany?: ItemCreateManyItem_typeInputEnvelope
+    set?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    disconnect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    delete?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    update?: ItemUpdateWithWhereUniqueWithoutItem_typeInput | ItemUpdateWithWhereUniqueWithoutItem_typeInput[]
+    updateMany?: ItemUpdateManyWithWhereWithoutItem_typeInput | ItemUpdateManyWithWhereWithoutItem_typeInput[]
+    deleteMany?: ItemScalarWhereInput | ItemScalarWhereInput[]
+  }
+
   export type MEQSSupplierCreateNestedManyWithoutSupplierInput = {
     create?: XOR<MEQSSupplierCreateWithoutSupplierInput, MEQSSupplierUncheckedCreateWithoutSupplierInput> | MEQSSupplierCreateWithoutSupplierInput[] | MEQSSupplierUncheckedCreateWithoutSupplierInput[]
     connectOrCreate?: MEQSSupplierCreateOrConnectWithoutSupplierInput | MEQSSupplierCreateOrConnectWithoutSupplierInput[]
@@ -64745,18 +67099,6 @@ export namespace Prisma {
     connectOrCreate?: MEQSSupplierCreateOrConnectWithoutSupplierInput | MEQSSupplierCreateOrConnectWithoutSupplierInput[]
     createMany?: MEQSSupplierCreateManySupplierInputEnvelope
     connect?: MEQSSupplierWhereUniqueInput | MEQSSupplierWhereUniqueInput[]
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -65139,6 +67481,12 @@ export namespace Prisma {
     deleteMany?: MRVScalarWhereInput | MRVScalarWhereInput[]
   }
 
+  export type ItemTypeCreateNestedOneWithoutItemsInput = {
+    create?: XOR<ItemTypeCreateWithoutItemsInput, ItemTypeUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: ItemTypeCreateOrConnectWithoutItemsInput
+    connect?: ItemTypeWhereUniqueInput
+  }
+
   export type ItemTransactionCreateNestedManyWithoutItemInput = {
     create?: XOR<ItemTransactionCreateWithoutItemInput, ItemTransactionUncheckedCreateWithoutItemInput> | ItemTransactionCreateWithoutItemInput[] | ItemTransactionUncheckedCreateWithoutItemInput[]
     connectOrCreate?: ItemTransactionCreateOrConnectWithoutItemInput | ItemTransactionCreateOrConnectWithoutItemInput[]
@@ -65255,6 +67603,14 @@ export namespace Prisma {
     connectOrCreate?: MSTItemCreateOrConnectWithoutItemInput | MSTItemCreateOrConnectWithoutItemInput[]
     createMany?: MSTItemCreateManyItemInputEnvelope
     connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+  }
+
+  export type ItemTypeUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<ItemTypeCreateWithoutItemsInput, ItemTypeUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: ItemTypeCreateOrConnectWithoutItemsInput
+    upsert?: ItemTypeUpsertWithoutItemsInput
+    connect?: ItemTypeWhereUniqueInput
+    update?: XOR<XOR<ItemTypeUpdateToOneWithWhereWithoutItemsInput, ItemTypeUpdateWithoutItemsInput>, ItemTypeUncheckedUpdateWithoutItemsInput>
   }
 
   export type ItemTransactionUpdateManyWithoutItemNestedInput = {
@@ -67957,6 +70313,17 @@ export namespace Prisma {
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutMst_itemsInput, ItemUpdateWithoutMst_itemsInput>, ItemUncheckedUpdateWithoutMst_itemsInput>
   }
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -67971,7 +70338,7 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -67979,7 +70346,40 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -68021,50 +70421,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -68169,6 +70525,106 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type ItemCreateWithoutItem_typeInput = {
+    id?: string
+    code: string
+    description?: string | null
+    total_quantity: number
+    quantity_on_queue?: number
+    initial_quantity: number
+    alert_level?: number
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
+    unit: UnitCreateNestedOneWithoutItemsInput
+    canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
+    osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
+    seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
+    mrv_items?: MRVItemCreateNestedManyWithoutItemInput
+    mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemUncheckedCreateWithoutItem_typeInput = {
+    id?: string
+    unit_id: string
+    code: string
+    description?: string | null
+    total_quantity: number
+    quantity_on_queue?: number
+    initial_quantity: number
+    alert_level?: number
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
+    canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
+    osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
+    seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
+    mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
+    mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemCreateOrConnectWithoutItem_typeInput = {
+    where: ItemWhereUniqueInput
+    create: XOR<ItemCreateWithoutItem_typeInput, ItemUncheckedCreateWithoutItem_typeInput>
+  }
+
+  export type ItemCreateManyItem_typeInputEnvelope = {
+    data: ItemCreateManyItem_typeInput | ItemCreateManyItem_typeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ItemUpsertWithWhereUniqueWithoutItem_typeInput = {
+    where: ItemWhereUniqueInput
+    update: XOR<ItemUpdateWithoutItem_typeInput, ItemUncheckedUpdateWithoutItem_typeInput>
+    create: XOR<ItemCreateWithoutItem_typeInput, ItemUncheckedCreateWithoutItem_typeInput>
+  }
+
+  export type ItemUpdateWithWhereUniqueWithoutItem_typeInput = {
+    where: ItemWhereUniqueInput
+    data: XOR<ItemUpdateWithoutItem_typeInput, ItemUncheckedUpdateWithoutItem_typeInput>
+  }
+
+  export type ItemUpdateManyWithWhereWithoutItem_typeInput = {
+    where: ItemScalarWhereInput
+    data: XOR<ItemUpdateManyMutationInput, ItemUncheckedUpdateManyWithoutItem_typeInput>
+  }
+
+  export type ItemScalarWhereInput = {
+    AND?: ItemScalarWhereInput | ItemScalarWhereInput[]
+    OR?: ItemScalarWhereInput[]
+    NOT?: ItemScalarWhereInput | ItemScalarWhereInput[]
+    id?: StringFilter<"Item"> | string
+    item_type_id?: IntFilter<"Item"> | number
+    unit_id?: StringFilter<"Item"> | string
+    code?: StringFilter<"Item"> | string
+    description?: StringNullableFilter<"Item"> | string | null
+    total_quantity?: IntFilter<"Item"> | number
+    quantity_on_queue?: IntFilter<"Item"> | number
+    initial_quantity?: IntFilter<"Item"> | number
+    alert_level?: IntFilter<"Item"> | number
+    created_by?: StringFilter<"Item"> | string
+    updated_by?: StringNullableFilter<"Item"> | string | null
+    deleted_by?: StringNullableFilter<"Item"> | string | null
+    created_at?: DateTimeFilter<"Item"> | Date | string
+    updated_at?: DateTimeFilter<"Item"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
+    metadata?: JsonNullableFilter<"Item">
+  }
+
   export type MEQSSupplierCreateWithoutSupplierInput = {
     id?: string
     payment_terms: string
@@ -68259,13 +70715,11 @@ export namespace Prisma {
   export type ItemCreateWithoutUnitInput = {
     id?: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -68273,6 +70727,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
@@ -68285,14 +70740,13 @@ export namespace Prisma {
 
   export type ItemUncheckedCreateWithoutUnitInput = {
     id?: string
+    item_type_id: number
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -68363,29 +70817,6 @@ export namespace Prisma {
   export type ItemUpdateManyWithWhereWithoutUnitInput = {
     where: ItemScalarWhereInput
     data: XOR<ItemUpdateManyMutationInput, ItemUncheckedUpdateManyWithoutUnitInput>
-  }
-
-  export type ItemScalarWhereInput = {
-    AND?: ItemScalarWhereInput | ItemScalarWhereInput[]
-    OR?: ItemScalarWhereInput[]
-    NOT?: ItemScalarWhereInput | ItemScalarWhereInput[]
-    id?: StringFilter<"Item"> | string
-    unit_id?: StringFilter<"Item"> | string
-    code?: StringFilter<"Item"> | string
-    name?: StringFilter<"Item"> | string
-    description?: StringNullableFilter<"Item"> | string | null
-    total_quantity?: IntFilter<"Item"> | number
-    quantity_on_queue?: IntFilter<"Item"> | number
-    initial_quantity?: IntFilter<"Item"> | number
-    alert_level?: IntFilter<"Item"> | number
-    item_type?: IntFilter<"Item"> | number
-    created_by?: StringFilter<"Item"> | string
-    updated_by?: StringNullableFilter<"Item"> | string | null
-    deleted_by?: StringNullableFilter<"Item"> | string | null
-    created_at?: DateTimeFilter<"Item"> | Date | string
-    updated_at?: DateTimeFilter<"Item"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
-    metadata?: JsonNullableFilter<"Item">
   }
 
   export type SPRCreateWithoutVehicleInput = {
@@ -68915,6 +71346,22 @@ export namespace Prisma {
     data: XOR<MRVUpdateManyMutationInput, MRVUncheckedUpdateManyWithoutProjectInput>
   }
 
+  export type ItemTypeCreateWithoutItemsInput = {
+    code: string
+    name: string
+  }
+
+  export type ItemTypeUncheckedCreateWithoutItemsInput = {
+    id?: number
+    code: string
+    name: string
+  }
+
+  export type ItemTypeCreateOrConnectWithoutItemsInput = {
+    where: ItemTypeWhereUniqueInput
+    create: XOR<ItemTypeCreateWithoutItemsInput, ItemTypeUncheckedCreateWithoutItemsInput>
+  }
+
   export type ItemTransactionCreateWithoutItemInput = {
     type: number
     quantity: number
@@ -69189,6 +71636,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ItemTypeUpsertWithoutItemsInput = {
+    update: XOR<ItemTypeUpdateWithoutItemsInput, ItemTypeUncheckedUpdateWithoutItemsInput>
+    create: XOR<ItemTypeCreateWithoutItemsInput, ItemTypeUncheckedCreateWithoutItemsInput>
+    where?: ItemTypeWhereInput
+  }
+
+  export type ItemTypeUpdateToOneWithWhereWithoutItemsInput = {
+    where?: ItemTypeWhereInput
+    data: XOR<ItemTypeUpdateWithoutItemsInput, ItemTypeUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type ItemTypeUpdateWithoutItemsInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ItemTypeUncheckedUpdateWithoutItemsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
   export type ItemTransactionUpsertWithWhereUniqueWithoutItemInput = {
     where: ItemTransactionWhereUniqueInput
     update: XOR<ItemTransactionUpdateWithoutItemInput, ItemTransactionUncheckedUpdateWithoutItemInput>
@@ -69438,13 +71907,11 @@ export namespace Prisma {
   export type ItemCreateWithoutItem_locationsInput = {
     id?: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -69452,6 +71919,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
@@ -69464,15 +71932,14 @@ export namespace Prisma {
 
   export type ItemUncheckedCreateWithoutItem_locationsInput = {
     id?: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -69601,13 +72068,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutItem_locationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69615,6 +72080,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
@@ -69627,15 +72093,14 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateWithoutItem_locationsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     unit_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69863,13 +72328,11 @@ export namespace Prisma {
   export type ItemCreateWithoutItem_transactionsInput = {
     id?: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -69877,6 +72340,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
@@ -69889,15 +72353,14 @@ export namespace Prisma {
 
   export type ItemUncheckedCreateWithoutItem_transactionsInput = {
     id?: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -70046,13 +72509,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutItem_transactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70060,6 +72521,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
@@ -70072,15 +72534,14 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateWithoutItem_transactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     unit_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70679,13 +73140,11 @@ export namespace Prisma {
   export type ItemCreateWithoutCanvass_itemsInput = {
     id?: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -70693,6 +73152,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     item_locations?: ItemLocationCreateNestedManyWithoutItemInput
@@ -70705,15 +73165,14 @@ export namespace Prisma {
 
   export type ItemUncheckedCreateWithoutCanvass_itemsInput = {
     id?: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -70865,13 +73324,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutCanvass_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70879,6 +73336,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
@@ -70891,15 +73349,14 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateWithoutCanvass_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     unit_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74216,13 +76673,11 @@ export namespace Prisma {
   export type ItemCreateWithoutOsriv_itemsInput = {
     id?: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -74230,6 +76685,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
@@ -74242,15 +76698,14 @@ export namespace Prisma {
 
   export type ItemUncheckedCreateWithoutOsriv_itemsInput = {
     id?: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -74373,13 +76828,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutOsriv_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74387,6 +76840,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
@@ -74399,15 +76853,14 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateWithoutOsriv_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     unit_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74948,13 +77401,11 @@ export namespace Prisma {
   export type ItemCreateWithoutSeriv_itemsInput = {
     id?: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -74962,6 +77413,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
@@ -74974,15 +77426,14 @@ export namespace Prisma {
 
   export type ItemUncheckedCreateWithoutSeriv_itemsInput = {
     id?: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -75121,13 +77572,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutSeriv_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75135,6 +77584,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
@@ -75147,15 +77597,14 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateWithoutSeriv_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     unit_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75736,13 +78185,11 @@ export namespace Prisma {
   export type ItemCreateWithoutMrv_itemsInput = {
     id?: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -75750,6 +78197,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
@@ -75762,15 +78210,14 @@ export namespace Prisma {
 
   export type ItemUncheckedCreateWithoutMrv_itemsInput = {
     id?: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -75909,13 +78356,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutMrv_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75923,6 +78368,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
@@ -75935,15 +78381,14 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateWithoutMrv_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     unit_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76848,13 +79293,11 @@ export namespace Prisma {
   export type ItemCreateWithoutMcrt_itemsInput = {
     id?: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -76862,6 +79305,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
@@ -76874,15 +79318,14 @@ export namespace Prisma {
 
   export type ItemUncheckedCreateWithoutMcrt_itemsInput = {
     id?: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -77011,13 +79454,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutMcrt_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77025,6 +79466,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
@@ -77037,15 +79479,14 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateWithoutMcrt_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     unit_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77352,13 +79793,11 @@ export namespace Prisma {
   export type ItemCreateWithoutMst_itemsInput = {
     id?: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -77366,6 +79805,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
@@ -77378,15 +79818,14 @@ export namespace Prisma {
 
   export type ItemUncheckedCreateWithoutMst_itemsInput = {
     id?: string
+    item_type_id: number
     unit_id: string
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -77471,13 +79910,81 @@ export namespace Prisma {
   export type ItemUpdateWithoutMst_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
+    item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
+    unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
+    canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
+    osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
+    seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
+    mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
+    mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemUncheckedUpdateWithoutMst_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
+    unit_id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    total_quantity?: IntFieldUpdateOperationsInput | number
+    quantity_on_queue?: IntFieldUpdateOperationsInput | number
+    initial_quantity?: IntFieldUpdateOperationsInput | number
+    alert_level?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
+    canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
+    osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
+    seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
+    mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
+    mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemCreateManyItem_typeInput = {
+    id?: string
+    unit_id: string
+    code: string
+    description?: string | null
+    total_quantity: number
+    quantity_on_queue?: number
+    initial_quantity: number
+    alert_level?: number
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemUpdateWithoutItem_typeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    total_quantity?: IntFieldUpdateOperationsInput | number
+    quantity_on_queue?: IntFieldUpdateOperationsInput | number
+    initial_quantity?: IntFieldUpdateOperationsInput | number
+    alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77493,19 +80000,18 @@ export namespace Prisma {
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
   }
 
-  export type ItemUncheckedUpdateWithoutMst_itemsInput = {
+  export type ItemUncheckedUpdateWithoutItem_typeInput = {
     id?: StringFieldUpdateOperationsInput | string
     unit_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77520,6 +80026,25 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemUncheckedUpdateManyWithoutItem_typeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    unit_id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    total_quantity?: IntFieldUpdateOperationsInput | number
+    quantity_on_queue?: IntFieldUpdateOperationsInput | number
+    initial_quantity?: IntFieldUpdateOperationsInput | number
+    alert_level?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MEQSSupplierCreateManySupplierInput = {
@@ -77567,14 +80092,13 @@ export namespace Prisma {
 
   export type ItemCreateManyUnitInput = {
     id?: string
+    item_type_id: number
     code: string
-    name: string
     description?: string | null
     total_quantity: number
     quantity_on_queue?: number
     initial_quantity: number
     alert_level?: number
-    item_type: number
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -77616,13 +80140,11 @@ export namespace Prisma {
   export type ItemUpdateWithoutUnitInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77630,6 +80152,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
@@ -77642,14 +80165,13 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateWithoutUnitInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77669,14 +80191,13 @@ export namespace Prisma {
 
   export type ItemUncheckedUpdateManyWithoutUnitInput = {
     id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
     code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     total_quantity?: IntFieldUpdateOperationsInput | number
     quantity_on_queue?: IntFieldUpdateOperationsInput | number
     initial_quantity?: IntFieldUpdateOperationsInput | number
     alert_level?: IntFieldUpdateOperationsInput | number
-    item_type?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79623,6 +82144,10 @@ export namespace Prisma {
    * Aliases for legacy arg types
    */
     /**
+     * @deprecated Use ItemTypeCountOutputTypeDefaultArgs instead
+     */
+    export type ItemTypeCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemTypeCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use SupplierCountOutputTypeDefaultArgs instead
      */
     export type SupplierCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SupplierCountOutputTypeDefaultArgs<ExtArgs>
@@ -79715,6 +82240,10 @@ export namespace Prisma {
      */
     export type MSTCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MSTCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use ItemTypeDefaultArgs instead
+     */
+    export type ItemTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use SupplierDefaultArgs instead
      */
     export type SupplierArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SupplierDefaultArgs<ExtArgs>
@@ -79754,6 +82283,10 @@ export namespace Prisma {
      * @deprecated Use ItemTransactionDefaultArgs instead
      */
     export type ItemTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemTransactionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ItemCodeTrackerDefaultArgs instead
+     */
+    export type ItemCodeTrackerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemCodeTrackerDefaultArgs<ExtArgs>
     /**
      * @deprecated Use CanvassDefaultArgs instead
      */

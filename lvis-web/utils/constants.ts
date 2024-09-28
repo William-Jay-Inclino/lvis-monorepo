@@ -333,25 +333,27 @@ export const MODULE_MAPPER = {
 }
 
 export const enum ITEM_TYPE {
-    OFFICE_SUPPLY = 1,
-    SPECIAL_EQUIPMENT = 2,
+    OFFICE_SUPPLY = 'OS',
+    SPECIAL_EQUIPMENT = 'SE',
+    LINE_MATERIALS = 'LM',
+    SPARE_PARTS = 'SP',
 }
 
-export const itemTypeMapper = {
-    [ITEM_TYPE.OFFICE_SUPPLY]: 'Office Supply',
-    [ITEM_TYPE.SPECIAL_EQUIPMENT]: 'Special Equipment',
-}
+// export const itemTypeMapper = {
+//     [ITEM_TYPE.OFFICE_SUPPLY]: 'Office Supply',
+//     [ITEM_TYPE.SPECIAL_EQUIPMENT]: 'Special Equipment',
+// }
 
-export const ITEM_TYPES: ItemType[] = [
-    {
-        id: ITEM_TYPE.OFFICE_SUPPLY,
-        name: itemTypeMapper[ITEM_TYPE.OFFICE_SUPPLY],
-    },
-    {
-        id: ITEM_TYPE.SPECIAL_EQUIPMENT,
-        name: itemTypeMapper[ITEM_TYPE.SPECIAL_EQUIPMENT],
-    },
-]
+// export const ITEM_TYPES: ItemType[] = [
+//     {
+//         id: ITEM_TYPE.OFFICE_SUPPLY,
+//         name: itemTypeMapper[ITEM_TYPE.OFFICE_SUPPLY],
+//     },
+//     {
+//         id: ITEM_TYPE.SPECIAL_EQUIPMENT,
+//         name: itemTypeMapper[ITEM_TYPE.SPECIAL_EQUIPMENT],
+//     },
+// ]
 
 export const enum WAREHOUSE_REQUEST_TYPE {
     TURN_ON_ORDER = 1,

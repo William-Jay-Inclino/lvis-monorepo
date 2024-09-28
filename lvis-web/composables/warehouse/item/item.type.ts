@@ -1,13 +1,11 @@
-import type { ITEM_TYPE } from "#imports";
 import type { RrItem } from "../rr/rr-item.types";
 import type { ItemTransaction } from './item-transaction.type'
 
 export interface Item {
 	id: string;
-	item_type: ITEM_TYPE;
+	item_type_id: number;
 	unit_id: string;
 	code: string;
-	name: string;
 	description: string;
 	total_quantity: number;
 	quantity_on_queue: number;
@@ -20,14 +18,16 @@ export interface Item {
 
 	// set programmatically
 	label?: string
-	item_type_object: {
-		id: ITEM_TYPE,
-		name: string,
-	}
+	item_type: ItemType
+	// item_type_object: {
+	// 	id: ITEM_TYPE,
+	// 	name: string,
+	// }
 }
 
 export interface ItemType {
 	id: number
+	code: string
 	name: string
 }
 
@@ -40,13 +40,9 @@ export interface FindAllResponse {
 
 
 export interface CreateItemInput {
-	item_type: {
-		id: ITEM_TYPE,
-		name: string,
-	}
+	item_type: ItemType | null
 	unit: Unit | null
 	code: string
-	name: string
 	description: string
 	initial_quantity: number
 	initial_average_price: number
@@ -55,10 +51,9 @@ export interface CreateItemInput {
 
 
 export interface UpdateItemInput {
-	item_type: ITEM_TYPE
+	item_type: ItemType
 	unit: Unit
 	code: string
-	name: string
 	description: string
 	alert_level: number
 }
@@ -74,11 +69,10 @@ export interface MutationResponse {
 export interface AddItem {
 	id: string;
 	code: string;
-	name: string;
 	description: string;
 	available_quantity: number;
 	unit: Unit;
 	GWAPrice: number
     qty_request: number
-	item_type: ITEM_TYPE
+	item_type: ItemType
 }

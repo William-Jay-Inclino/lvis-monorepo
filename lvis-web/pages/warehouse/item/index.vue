@@ -8,7 +8,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Item Code</label>
                             <client-only>
@@ -16,18 +16,12 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Item Type</label>
                             <client-only>
                                 <v-select :options="itemTypes" label="name" v-model="searchItemType"></v-select>
                             </client-only>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="mb-3">
-                            <label class="form-label">Name</label>
-                            <input v-model="searchName" type="text" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -68,7 +62,6 @@
                                         <thead>
                                             <tr>
                                                 <th class="bg-secondary text-white">Item Code</th>
-                                                <th class="bg-secondary text-white">Name</th>
                                                 <th class="bg-secondary text-white">Description</th>
                                                 <th class="bg-secondary text-white">Type</th>
                                                 <th class="bg-secondary text-white">GWA Price</th>
@@ -81,9 +74,8 @@
                                         <tbody>
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.code }} </td>
-                                                <td class="text-muted align-middle"> {{ i.name }} </td>
                                                 <td class="text-muted align-middle"> {{ i.description }} </td>
-                                                <td class="text-muted align-middle"> {{ itemTypeMapper[i.item_type] }} </td>
+                                                <td class="text-muted align-middle"> {{ i.item_type.name }} </td>
                                                 <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice) }}
                                                 </td>
                                                 <td class="text-muted align-middle"> {{ i.total_quantity }} </td>
@@ -159,7 +151,6 @@ import type { Item, ItemType } from '~/composables/warehouse/item/item.type';
 import { PAGINATION_SIZE } from '~/utils/config'
 import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
-import { ITEM_TYPES, itemTypeMapper } from '~/utils/constants';
 
 
 definePageMeta({
@@ -210,7 +201,7 @@ onMounted(async () => {
     console.log('response', response)
 
     itemOptions.value = response.items
-    itemTypes.value = ITEM_TYPES
+    itemTypes.value = response.item_types
     isLoadingPage.value = false
 
 })
@@ -227,7 +218,6 @@ async function changePage(page: number) {
         page,
         pageSize: pagination.value.pageSize,
         name: searchName.value,
-        item_type: searchItemType.value ? searchItemType.value.id : null
 
     })
 
@@ -265,7 +255,6 @@ async function search() {
         page: 1,
         pageSize: pagination.value.pageSize,
         name: searchName.value,
-        item_type: searchItemType.value ? searchItemType.value.id : null
 
     })
 
@@ -291,7 +280,7 @@ async function onClickDelete(id: string) {
 
     Swal.fire({
         title: "Are you sure?",
-        text: `${item.name} will be removed!`,
+        text: `${item.code} will be removed!`,
         position: "top",
         icon: "warning",
         showCancelButton: true,

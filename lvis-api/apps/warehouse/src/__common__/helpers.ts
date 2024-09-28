@@ -233,13 +233,13 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.updateItem]: warehousePermissions.canManageItem?.update ?? false,
             [RESOLVERS.removeItem]: warehousePermissions.canManageItem?.delete ?? false,
         },
-        // [MODULES.ITEM_TYPE]: {
-        //     [RESOLVERS.createItemType]: warehousePermissions.canManageItemType?.create ?? false,
-        //     // [RESOLVERS.item_types]: warehousePermissions.canManageItemType?.search ?? false,
-        //     // [RESOLVERS.item_type]: warehousePermissions.canManageItemType?.viewDetails ?? false,
-        //     [RESOLVERS.updateItemType]: warehousePermissions.canManageItemType?.update ?? false,
-        //     [RESOLVERS.removeItemType]: warehousePermissions.canManageItemType?.delete ?? false,
-        // },
+        [MODULES.ITEM_TYPE]: {
+            [RESOLVERS.createItemType]: warehousePermissions.canManageItemType?.create ?? false,
+            // [RESOLVERS.item_types]: warehousePermissions.canManageItemType?.search ?? false,
+            // [RESOLVERS.item_type]: warehousePermissions.canManageItemType?.viewDetails ?? false,
+            [RESOLVERS.updateItemType]: warehousePermissions.canManageItemType?.update ?? false,
+            [RESOLVERS.removeItemType]: warehousePermissions.canManageItemType?.delete ?? false,
+        },
     };
 
     return accessMap[module]?.[resolver] ?? false;

@@ -301,7 +301,6 @@ export async function fetchFormDataInCreate(): Promise<{
                                 item {
                                     id 
                                     code 
-                                    name 
                                     description
                                 }
                             }
@@ -340,7 +339,7 @@ export async function fetchFormDataInCreate(): Promise<{
                 data {
                     id
                     code
-                    name
+                    description
                 }
             }
         }
@@ -608,7 +607,6 @@ export async function findOne(id: string): Promise<RR | undefined> {
                             item {
                                 id
                                 code 
-                                name
                                 description
                             }
                         }

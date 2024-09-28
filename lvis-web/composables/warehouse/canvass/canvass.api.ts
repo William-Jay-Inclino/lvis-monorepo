@@ -120,7 +120,6 @@ export async function findOne(id: string): Promise<Canvass | undefined> {
                     item {
                         id
                         code 
-                        name 
                         description
                     }
                 }
@@ -223,7 +222,6 @@ export async function fetchFormDataInCreate(): Promise<{
                 data {
                     id
                     code
-                    name
                     description
                     unit {
                         id 
@@ -313,7 +311,6 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     item {
                         id
                         code 
-                        name
                         description
                     }
                 }
@@ -330,7 +327,6 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 data {
                     id
                     code
-                    name
                     description
                     unit {
                         id 

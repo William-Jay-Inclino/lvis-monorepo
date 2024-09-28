@@ -26,7 +26,7 @@
                                     <input type="text" class="form-control" v-model="searchInput">
                                 </div>
                             </div>
-                            <div class="col">
+                            <!-- <div class="col">
                                 <div class="input-group">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Filter by - {{ itemTypeMapper[filterBy].toUpperCase() }}
@@ -36,7 +36,7 @@
                                         <li><a @click="handleFilterByChange(ITEM_TYPE.SPECIAL_EQUIPMENT)" class="dropdown-item" href="javascript:void(0)">{{ itemTypeMapper[ITEM_TYPE.SPECIAL_EQUIPMENT] }}</a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -54,9 +54,9 @@
                             <tbody> 
                                 <tr v-for="item in filteredItems">
                                     <td class="align-middle text-muted"> {{ item.code }} </td>
-                                    <td class="align-middle text-muted"> {{ item.description2 }} </td>
+                                    <td class="align-middle text-muted"> {{ item.description }} </td>
                                     <td class="align-middle text-muted"> {{ item.unit.name }} </td>
-                                    <td class="align-middle text-muted"> {{ itemTypeMapper[item.item_type] }} </td>
+                                    <td class="align-middle text-muted"> {{ item.item_type.name }} </td>
                                     <td class="align-middle text-center">
                                         <button @click="emits('add-item', item.id)" v-if="!item.isAdded" class="btn btn-primary btn-sm">
                                             Add
@@ -75,12 +75,10 @@
 
 
 <script setup lang="ts">
-    import { ITEM_TYPE } from '#imports';
     import type { AddItem } from '~/composables/warehouse/item/item.type';
 
     type _Item = AddItem & {
         isAdded: boolean
-        description2: string
     }
 
     enum SEARCH_BY {
@@ -102,28 +100,26 @@
     const emits = defineEmits(['add-item'])
 
     const searchBy = ref<SEARCH_BY>(SEARCH_BY.CODE)
-    const filterBy = ref<ITEM_TYPE>(ITEM_TYPE.OFFICE_SUPPLY)
+    // const filterBy = ref<ITEM_TYPE>(ITEM_TYPE.OFFICE_SUPPLY)
     const searchInput = ref('')
 
     const filteredItems = computed(() => {
         const searchTerm = searchInput.value.trim().toLowerCase();
-        const itemTypeFilter = filterBy.value;
+        // const itemTypeFilter = filterBy.value;
 
         return props.items
             .map(item => ({
                 ...item,
-                description2: item.name + ' - ' + item.description,
                 isAdded: props.addedItemIds.includes(item.id),
             }))
             .filter(item => {
-                const matchesType = item.item_type === itemTypeFilter;
                 const matchesSearch = searchTerm === '' || (
-                    (searchBy.value === SEARCH_BY.CODE ? item.code : item.description2)
+                    (searchBy.value === SEARCH_BY.CODE ? item.code : item.description)
                     .toLowerCase()
                     .includes(searchTerm)
                 );
 
-                return matchesType && matchesSearch;
+                return matchesSearch;
             });
     });
 
@@ -131,8 +127,8 @@
         searchBy.value = payload
     }
 
-    function handleFilterByChange(payload: ITEM_TYPE) {
-        filterBy.value = payload
-    }
+    // function handleFilterByChange(payload: ITEM_TYPE) {
+    //     filterBy.value = payload
+    // }
 
 </script>

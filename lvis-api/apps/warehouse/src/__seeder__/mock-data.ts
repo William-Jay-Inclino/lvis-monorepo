@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { Project, Station, Supplier, Unit, VAT_TYPE, Vehicle } from "../__common__/types"
+import { ItemCodeTracker, ItemType, Project, Station, Supplier, Unit, VAT_TYPE, Vehicle } from "../__common__/types"
 
 export const suppliers: Supplier[] = [
     {
@@ -44,23 +44,55 @@ export const suppliers: Supplier[] = [
     }
 ]
 
-// export const itemTypes: ItemType[] = [
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Office Supply',
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Special Equipment',
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Others',
-//         created_by: 'admin'
-//     }
-// ]
+export const itemTypes: ItemType[] = [
+    {
+        id: 1,
+        name: 'Office Supply',
+        code: 'OS',
+    },
+    {
+        id: 2,
+        name: 'Special Equipment',
+        code: 'SE',
+    },
+    {
+        id: 3,
+        name: 'Line Material',
+        code: 'LM',
+    },
+    {
+        id: 4,
+        name: 'Spare Parts',
+        code: 'SP',
+    }
+]
+
+export const itemCodeTracker: ItemCodeTracker[] = [
+    {
+        id: 1,
+        item_code: 'OS',
+        year: 24,
+        last_incremental: 0,
+    },
+    {
+        id: 2,
+        item_code: 'SE',
+        year: 24,
+        last_incremental: 0,
+    },
+    {
+        id: 3,
+        item_code: 'LM',
+        year: 24,
+        last_incremental: 0,
+    },
+    {
+        id: 4,
+        item_code: 'SP',
+        year: 24,
+        last_incremental: 0,
+    }
+]
 
 export const stations: Station[] = [
     {

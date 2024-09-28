@@ -198,7 +198,6 @@ export async function findOne(id: string): Promise<SPR | undefined> {
                         item {
                             id
                             code 
-                            name 
                             description
                         }
                     }

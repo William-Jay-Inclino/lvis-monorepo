@@ -90,6 +90,7 @@ export class PoApproverResolver {
 
   @ResolveField(() => Employee)
   approver(@Parent() poApprover: POApprover): any {
+    console.log('poApprover', poApprover);
     return { __typename: 'Employee', id: poApprover.approver_id }
   }
 

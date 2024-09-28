@@ -3,6 +3,7 @@ import { sendRequest } from "~/utils/api"
 import type { Employee } from "~/composables/system/employee/employee.types";
 import type { Station } from "../station/station";
 import type { Item } from "../item/item.type";
+import { ITEM_TYPE } from "~/utils/constants";
 
 export async function fetchDataInSearchFilters(): Promise<{
     serivs: SERIV[],
@@ -156,7 +157,7 @@ export async function findOne(id: string): Promise<SERIV | undefined> {
                     price
                     item {
                         id 
-                        name
+                        code
                         description
                         unit {
                             name 
@@ -249,7 +250,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 200, item_type: ${ITEM_TYPE.SPECIAL_EQUIPMENT}) {
+            items(page: 1, pageSize: 200, item_code: ${ITEM_TYPE.SPECIAL_EQUIPMENT}) {
                 data{
                     id
                     code

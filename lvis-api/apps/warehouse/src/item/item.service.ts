@@ -15,6 +15,7 @@ import { OsrivApproverStatusUpdated } from '../osriv-approver/events/osriv-appro
 import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-approver-status-updated.event';
 import { MctApproverStatusUpdated } from '../mct-approver/events/mct-approver-status-updated.event';
 import { McrtApproverStatusUpdated } from '../mcrt-approver/events/mcrt-approver-status-updated.event';
+import { connect } from 'http2';
 
 @Injectable()
 export class ItemService {
@@ -60,12 +61,11 @@ export class ItemService {
 		const createdBy = this.authUser.user.username
 
 		const data: Prisma.ItemCreateInput = {
-			item_type: input.item_type,
+			item_type: {connect: { id: input.item_type_id  }},
 			unit: {
 				connect: { id: input.unit_id }
 			},
 			code: input.code,
-			name: input.name,
 			description: input.description,
 			initial_quantity: input.initial_quantity,
 			total_quantity: input.initial_quantity,
@@ -110,7 +110,8 @@ export class ItemService {
 		const items = await this.prisma.item.findMany({
 			include: {
 				unit: true,
-				item_transactions: true
+				item_transactions: true,
+				item_type: true,
 			},
 			where: whereCondition,
 			orderBy: {
@@ -172,6 +173,7 @@ export class ItemService {
 					}
 				},
 				unit: true,
+				item_type: true,
 			},
 			where: { id }
 		})
@@ -202,6 +204,7 @@ export class ItemService {
 						}
 					}
 				},
+				item_type: true,
 				unit: true,
 			},
 			where: { code }
@@ -215,21 +218,19 @@ export class ItemService {
 
 	}
 
-	async findItemsByCodeOrName(q: string) {
+	async findItemsByCode(q: string) {
 		const input = q.trim(); 
 	
 		const items = await this.prisma.item.findMany({
 			select: {
 				id: true,
 				code: true,
-				name: true,
 				description: true,
 			},
 			where: {
 				deleted_at: null,
 				OR: [
 					{ code: { startsWith: input } },
-					{ name: { startsWith: input, mode: 'insensitive' } },
 				],
 			},
 			take: 10,
@@ -258,13 +259,12 @@ export class ItemService {
 		const updatedBy = this.authUser.user.username
 
 		const data: Prisma.ItemUpdateInput = {
-			item_type: input.item_type ? input.item_type : existingItem.item_type,
+			item_type: input.item_type_id ? { connect: { id: input.item_type_id } } : { connect: { id: existingItem.item_type_id } },
 			unit: input.unit_id ?
 				{ connect: { id: input.unit_id } }
 				:
 				{ connect: { id: existingItem.unit_id } },
 			code: input.code ?? existingItem.code,
-			name: input.name ?? existingItem.name,
 			description: input.description ?? existingItem.description,
 			alert_level: input.alert_level ?? existingItem.alert_level,
 			updated_by: updatedBy

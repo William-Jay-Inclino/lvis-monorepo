@@ -10,24 +10,15 @@ datasource db {
 
 // ========================= DATA MANAGEMENT ========================= 
 
-// model ItemType {
-//   id   String @id @default(uuid())
-//   name String
+model ItemType {
+  id         Int     @id @default(autoincrement())
+  code             String  @unique 
+  name String
 
-//   created_by String
-//   updated_by String?
-//   deleted_by String?
+  items Item[]
 
-//   created_at DateTime  @default(now())
-//   updated_at DateTime  @updatedAt
-//   deleted_at DateTime?
-
-//   items Item[]
-
-//   metadata Json?
-
-//   @@map("item_type")
-// }
+  @@map("item_type")
+}
 
 model Supplier {
   id       String @id @default(uuid())
@@ -160,16 +151,15 @@ model Pending {
 
 model Item {
   id               String  @id @default(uuid())
-  // item_type_id     String
+  item_type_id     Int
   unit_id          String
   code             String  @unique
-  name             String
   description      String?
   total_quantity   Int
   quantity_on_queue   Int @default(0)
   initial_quantity Int
   alert_level      Int     @default(20)
-  item_type Int 
+  // item_type Int 
 
   created_by String
   updated_by String?
@@ -179,7 +169,7 @@ model Item {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  // item_type         ItemType          @relation(fields: [item_type_id], references: [id], onDelete: Restrict)
+  item_type         ItemType          @relation(fields: [item_type_id], references: [id], onDelete: Restrict)
   item_transactions ItemTransaction[]
   unit              Unit              @relation(fields: [unit_id], references: [id], onDelete: Restrict)
   canvass_items     CanvassItem[]
@@ -193,7 +183,7 @@ model Item {
 
   metadata Json?
 
-  @@index([item_type, unit_id, name, created_by])
+  @@index([item_type_id, unit_id, created_by])
   @@map("item")
 }
 
@@ -263,7 +253,15 @@ model ItemTransaction {
   @@map("item_transaction")
 }
 
+model ItemCodeTracker {
+  id         Int     @id @default(autoincrement())
+  item_code      String @unique
+  year Int
+  last_incremental Int
+  
 
+  @@map("item_code_tracker")
+}
 
 
 

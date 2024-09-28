@@ -26,16 +26,12 @@
                                                 <td> {{ item.code }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Name</td>
-                                                <td> {{ item.name }} </td>
-                                            </tr>
-                                            <tr>
                                                 <td class="text-muted">Description</td>
                                                 <td> {{ item.description }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Item Type</td>
-                                                <td> {{ itemTypeMapper[item.item_type] }} </td>
+                                                <td> {{ item.item_type.name }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Unit</td>

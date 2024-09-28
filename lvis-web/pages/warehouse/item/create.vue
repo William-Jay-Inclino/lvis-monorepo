@@ -23,14 +23,6 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Name <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" class="form-control" v-model="formData.name">
-                                <small v-if="formDataErrors.name" class="text-danger fst-italic"> This field is required
-                                </small>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">
                                     Description
                                 </label>
                                 <textarea rows="3" class="form-control" v-model="formData.description"></textarea>
@@ -116,7 +108,6 @@ import * as api from '~/composables/warehouse/item/item.api'
 import type { CreateItemInput, ItemType } from '~/composables/warehouse/item/item.type'
 import { generateNumbersBy5 } from '~/composables/warehouse/item/item.common'
 import Swal from 'sweetalert2'
-import { ITEM_TYPES } from '~/utils/constants';
 
 definePageMeta({
     name: ROUTES.ITEM_CREATE,
@@ -143,13 +134,9 @@ const _initialFormErrors = {
 }
 
 const _initialFormData: CreateItemInput = {
-    item_type: {
-        id: ITEM_TYPE.OFFICE_SUPPLY,
-        name: itemTypeMapper[ITEM_TYPE.OFFICE_SUPPLY],
-    },
+    item_type: null,
     unit: null,
     code: '',
-    name: '',
     description: '',
     initial_quantity: 0,
     initial_average_price: 0,
@@ -164,7 +151,7 @@ onMounted(async () => {
     const response = await api.fetchFormDataInCreate()
 
     units.value = response.units
-    itemTypes.value = ITEM_TYPES
+    itemTypes.value = response.item_types
     alertLevels.value = generateNumbersBy5({ max: 100 })
     isLoadingPage.value = false
 })
@@ -211,10 +198,6 @@ function isValid(): boolean {
 
     if (formData.value.code.trim() === '') {
         formDataErrors.value.code = true
-    }
-
-    if (formData.value.name.trim() === '') {
-        formDataErrors.value.name = true
     }
 
     if (!formData.value.initial_quantity || formData.value.initial_quantity < 0) {
