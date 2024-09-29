@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 <tr v-for="i, indx in items">
-                    <td class="text-muted align-middle"> {{ i.name + ' - ' + i.description }} </td>
+                    <td class="text-muted align-middle"> {{ i.label }} </td>
                     <td class="text-muted align-middle"> {{ i.unit.name }} </td>
                     <td class="text-muted align-middle"> {{ i.available_quantity }} </td>
                     <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice) }} </td>

@@ -195,7 +195,7 @@
                                         <tbody>
                                             <tr v-for="i, count in item.mrv_items">
                                                 <td> {{ count + 1 }} </td>
-                                                <td> {{ i.item.name + ' - ' + i.item.description }} </td>
+                                                <td> {{ i.item.code + ' - ' + i.item.description }} </td>
                                                 <td> {{ i.item.unit.name }} </td>
                                                 <td> {{ i.quantity }} </td>
                                                 <!-- <td> {{ i.item.total_quantity - i.item.quantity_on_queue }} </td> -->

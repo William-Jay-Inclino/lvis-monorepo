@@ -189,6 +189,12 @@ exports.Prisma.PendingScalarFieldEnum = {
   transaction_date: 'transaction_date'
 };
 
+exports.Prisma.SettingScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  value: 'value'
+};
+
 exports.Prisma.ItemScalarFieldEnum = {
   id: 'id',
   item_type_id: 'item_type_id',
@@ -502,7 +508,9 @@ exports.Prisma.OSRIVScalarFieldEnum = {
   id: 'id',
   osriv_number: 'osriv_number',
   date_requested: 'date_requested',
+  exp_date: 'exp_date',
   purpose: 'purpose',
+  note: 'note',
   is_completed: 'is_completed',
   requested_by_id: 'requested_by_id',
   department_id: 'department_id',
@@ -542,7 +550,9 @@ exports.Prisma.SERIVScalarFieldEnum = {
   id: 'id',
   seriv_number: 'seriv_number',
   date_requested: 'date_requested',
+  exp_date: 'exp_date',
   purpose: 'purpose',
+  note: 'note',
   is_completed: 'is_completed',
   request_type: 'request_type',
   or_number: 'or_number',
@@ -590,7 +600,9 @@ exports.Prisma.MRVScalarFieldEnum = {
   project_id: 'project_id',
   mrv_number: 'mrv_number',
   date_requested: 'date_requested',
+  exp_date: 'exp_date',
   purpose: 'purpose',
+  note: 'note',
   request_type: 'request_type',
   or_number: 'or_number',
   mwo_number: 'mwo_number',
@@ -778,6 +790,7 @@ exports.Prisma.ModelName = {
   Station: 'Station',
   Project: 'Project',
   Pending: 'Pending',
+  Setting: 'Setting',
   Item: 'Item',
   ItemLocation: 'ItemLocation',
   ItemMovement: 'ItemMovement',

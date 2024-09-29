@@ -285,9 +285,7 @@ exports.Prisma.RRApproverSettingScalarFieldEnum = {
 exports.Prisma.SettingScalarFieldEnum = {
   id: 'id',
   key: 'key',
-  value: 'value',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  value: 'value'
 };
 
 exports.Prisma.SortOrder = {

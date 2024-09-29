@@ -163,7 +163,7 @@
                                 Input the name of the item in the search field below
                             </small>
                             <client-only>
-                                <v-select :options="items" v-model="serivData.items" label="name" multiple></v-select>
+                                <v-select :options="items" v-model="serivData.items" label="label" multiple></v-select>
                             </client-only>
                         </div>
 
@@ -294,7 +294,7 @@
             const x: AddItem = {
                 id: i.id,
                 code: i.code,
-                name: i.name,
+                label: i.code + ' - ' + i.description,
                 description: i.description,
                 available_quantity: i.total_quantity - i.quantity_on_queue,
                 unit: i.unit,

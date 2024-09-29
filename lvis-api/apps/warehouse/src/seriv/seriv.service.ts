@@ -5,9 +5,9 @@ import { AuthUser } from '../__common__/auth-user.entity';
 import { SERIV, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { CreateSerivApproverSubInput } from './dto/create-seriv-approver.sub.input';
-import { DB_ENTITY } from '../__common__/constants';
+import { DB_ENTITY, SETTINGS } from '../__common__/constants';
 import { UpdateSerivInput } from './dto/update-seriv.input';
-import { WarehouseCancelResponse } from '../__common__/classes';
+import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
 import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { SERIVsResponse } from './entities/serivs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
@@ -22,6 +22,7 @@ export class SerivService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly commonService: CommonService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
@@ -37,11 +38,13 @@ export class SerivService {
         }
 
         const serivNumber = await this.getLatestSerivNumber()
+        const expDate = await this.commonService.getExpDate(SETTINGS.SERIV_EXP_PERIOD_IN_DAYS)
 
         const data: Prisma.SERIVCreateInput = {
             created_by: this.authUser.user.username,
             seriv_number: serivNumber,
             date_requested: new Date(),
+            exp_date: expDate,
             request_type: input.request_type,
             or_number: input.or_number,
             mwo_number: input.mwo_number,

@@ -227,7 +227,7 @@ export class SeederService {
                     {
                         key: SETTINGS.WAREHOUSE_CUSTODIAN,
                         value: data.employees[19].id
-                    }
+                    },
                 ]
             });
         } catch (error) {

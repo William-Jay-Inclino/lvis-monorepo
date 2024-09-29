@@ -152,7 +152,7 @@ export async function findOne(id: string): Promise<OSRIV | undefined> {
                     price
                     item {
                         id 
-                        name
+                        code
                         description
                         unit {
                             name 
@@ -248,11 +248,10 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 200, item_type: ${ITEM_TYPE.OFFICE_SUPPLY}) {
+            items(page: 1, pageSize: 200, item_code: "${ITEM_TYPE.OFFICE_SUPPLY}") {
                 data{
                     id
                     code
-                    name
                     description
                     unit {
                         id 

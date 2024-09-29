@@ -84,7 +84,7 @@
                                 Input the name of the item in the search field below
                             </small>
                             <client-only>
-                                <v-select :options="items" v-model="osrivData.items" label="name" multiple></v-select>
+                                <v-select :options="items" v-model="osrivData.items" label="label" multiple></v-select>
                             </client-only>
                         </div>
 
@@ -141,7 +141,6 @@
     import type { Station } from '~/composables/warehouse/station/station';
     import type { AddItem } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';
-    import type { CreateOSRIVApprover } from '~/composables/warehouse/osriv/osriv-approver.types';
     import { OSRIV_APPROVER, OSRIV_DEFAULT_APPROVERS } from '~/composables/warehouse/osriv/osriv.constants';
 
     definePageMeta({
@@ -200,8 +199,8 @@
             const x: AddItem = {
                 id: i.id,
                 code: i.code,
-                name: i.name,
                 description: i.description,
+                label: i.code + ' - ' + i.description,
                 available_quantity: i.total_quantity - i.quantity_on_queue,
                 unit: i.unit,
                 qty_request: 0,

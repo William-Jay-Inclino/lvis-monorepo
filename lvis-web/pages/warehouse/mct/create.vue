@@ -134,7 +134,7 @@
                                         <tbody>
                                             <tr v-for="i, count in mctData.mrv.mrv_items">
                                                 <td> {{ count + 1 }} </td>
-                                                <td> {{ i.item.name + ' - ' + i.item.description }} </td>
+                                                <td> {{ i.item.code + ' - ' + i.item.description }} </td>
                                                 <td> {{ i.item.unit.name }} </td>
                                                 <td> {{ formatToPhpCurrency(i.price) }} </td>
                                                 <td> {{ i.quantity }} </td>

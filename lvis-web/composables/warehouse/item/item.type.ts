@@ -75,4 +75,5 @@ export interface AddItem {
 	GWAPrice: number
     qty_request: number
 	item_type: ItemType
+	label: string
 }

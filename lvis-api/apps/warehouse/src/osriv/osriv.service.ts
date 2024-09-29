@@ -5,9 +5,9 @@ import { AuthUser } from '../__common__/auth-user.entity';
 import { OSRIV, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { CreateOsrivApproverSubInput } from './dto/create-osriv-approver.sub.input';
-import { DB_ENTITY } from '../__common__/constants';
+import { DB_ENTITY, SETTINGS } from '../__common__/constants';
 import { UpdateOsrivInput } from './dto/update-osriv.input';
-import { WarehouseCancelResponse } from '../__common__/classes';
+import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
 import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { OSRIVsResponse } from './entities/osrivs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
@@ -22,6 +22,7 @@ export class OsrivService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly commonService: CommonService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
@@ -37,11 +38,13 @@ export class OsrivService {
         }
 
         const osrivNumber = await this.getLatestOsrivNumber()
+        const expDate = await this.commonService.getExpDate(SETTINGS.OSRIV_EXP_PERIOD_IN_DAYS)
 
         const data: Prisma.OSRIVCreateInput = {
             created_by: this.authUser.user.username,
             osriv_number: osrivNumber,
             date_requested: new Date(),
+            exp_date: expDate,
             purpose: input.purpose,
             requested_by_id: input.requested_by_id,
             department_id: input.department_id,

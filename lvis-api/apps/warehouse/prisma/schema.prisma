@@ -143,7 +143,13 @@ model Pending {
   @@map("pending")
 }
 
+model Setting {
+  id         Int     @id @default(autoincrement())
+  key String @unique
+  value String 
 
+  @@map("setting")
+}
 
 
 
@@ -676,7 +682,9 @@ model OSRIV {
   id                String    @id @default(uuid())
   osriv_number         String    @unique
   date_requested    DateTime
+  exp_date    DateTime
   purpose             String
+  note             String @default("")
   is_completed    Boolean  @default(false)
 
   requested_by_id String
@@ -742,7 +750,9 @@ model SERIV {
   id                String    @id @default(uuid())
   seriv_number         String    @unique
   date_requested    DateTime
+  exp_date    DateTime
   purpose             String
+  note             String @default("")
   is_completed    Boolean  @default(false)
 
   request_type Int
@@ -818,7 +828,9 @@ model MRV {
   project_id                String
   mrv_number         String    @unique
   date_requested    DateTime
+  exp_date    DateTime
   purpose             String
+  note             String @default("")
   
   request_type Int
   or_number String?

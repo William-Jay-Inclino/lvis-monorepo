@@ -149,7 +149,7 @@ export async function findOne(id: string): Promise<MCT | undefined> {
                         price
                         item {
                             id 
-                            name
+                            code
                             description
                             unit {
                                 name 
@@ -315,7 +315,7 @@ export async function fetchFormDataInCreate(): Promise<{
                         price
                         item {
                             id 
-                            name
+                            code
                             description
                             unit {
                                 name 

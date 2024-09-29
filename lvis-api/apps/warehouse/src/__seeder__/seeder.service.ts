@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import * as data from './mock-data';
+import { SETTINGS } from '../__common__/constants';
 
 @Injectable()
 export class SeederService {
@@ -18,7 +19,8 @@ export class SeederService {
                 this.seedItemType(),
                 this.seedItemCodeTracker(),
                 this.seedUnit(),
-                this.seedVehicle()
+                this.seedVehicle(),
+                this.seedSettingTable(),
             ]
 
             );
@@ -88,6 +90,31 @@ export class SeederService {
             return this.prisma.itemCodeTracker.createMany({ data: data.itemCodeTracker })
         } catch (error) {
             console.error(error)
+        }
+    }
+
+    seedSettingTable() {
+        console.log('seeding setting table....');
+    
+        try {
+            return this.prisma.setting.createMany({
+                data: [
+                    {
+                        key: SETTINGS.OSRIV_EXP_PERIOD_IN_DAYS,
+                        value: '7',
+                    },
+                    {
+                        key: SETTINGS.SERIV_EXP_PERIOD_IN_DAYS,
+                        value: '7',
+                    },
+                    {
+                        key: SETTINGS.MRV_EXP_PERIOD_IN_DAYS,
+                        value: '7',
+                    }
+                ]
+            });
+        } catch (error) {
+            console.error(error);
         }
     }
 

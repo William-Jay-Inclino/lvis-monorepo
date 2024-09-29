@@ -1,6 +1,12 @@
 import { VAT_TYPE } from "./types";
 
 
+export const enum SETTINGS {
+    OSRIV_EXP_PERIOD_IN_DAYS = 'osriv_exp_period_in_days',
+    SERIV_EXP_PERIOD_IN_DAYS = 'seriv_exp_period_in_days',
+    MRV_EXP_PERIOD_IN_DAYS = 'mrv_exp_period_in_days',
+}
+
 export const VAT = {
     [VAT_TYPE.NONE]: {
         value: VAT_TYPE.NONE,

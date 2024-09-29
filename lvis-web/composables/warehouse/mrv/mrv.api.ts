@@ -161,7 +161,7 @@ export async function findOne(id: string): Promise<MRV | undefined> {
                     price
                     item {
                         id 
-                        name
+                        code
                         description
                         unit {
                             name 
@@ -254,13 +254,16 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 200) {
+            items(page: 1, pageSize: 200, item_code: "${ITEM_TYPE.LINE_MATERIALS}") {
                 data{
                     id
                     code
-                    name
                     description
-                    item_type
+                    item_type {
+                        id
+                        code 
+                        name
+                    }
                     unit {
                         id 
                         name

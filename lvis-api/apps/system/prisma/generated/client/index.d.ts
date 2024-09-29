@@ -16114,24 +16114,18 @@ export namespace Prisma {
     id: number | null
     key: string | null
     value: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type SettingMaxAggregateOutputType = {
     id: number | null
     key: string | null
     value: string | null
-    created_at: Date | null
-    updated_at: Date | null
   }
 
   export type SettingCountAggregateOutputType = {
     id: number
     key: number
     value: number
-    created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -16148,24 +16142,18 @@ export namespace Prisma {
     id?: true
     key?: true
     value?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type SettingMaxAggregateInputType = {
     id?: true
     key?: true
     value?: true
-    created_at?: true
-    updated_at?: true
   }
 
   export type SettingCountAggregateInputType = {
     id?: true
     key?: true
     value?: true
-    created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -16259,8 +16247,6 @@ export namespace Prisma {
     id: number
     key: string
     value: string
-    created_at: Date
-    updated_at: Date
     _count: SettingCountAggregateOutputType | null
     _avg: SettingAvgAggregateOutputType | null
     _sum: SettingSumAggregateOutputType | null
@@ -16286,16 +16272,12 @@ export namespace Prisma {
     id?: boolean
     key?: boolean
     value?: boolean
-    created_at?: boolean
-    updated_at?: boolean
   }, ExtArgs["result"]["setting"]>
 
   export type SettingSelectScalar = {
     id?: boolean
     key?: boolean
     value?: boolean
-    created_at?: boolean
-    updated_at?: boolean
   }
 
 
@@ -16306,8 +16288,6 @@ export namespace Prisma {
       id: number
       key: string
       value: string
-      created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["setting"]>
     composites: {}
   }
@@ -16705,8 +16685,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Setting", 'Int'>
     readonly key: FieldRef<"Setting", 'String'>
     readonly value: FieldRef<"Setting", 'String'>
-    readonly created_at: FieldRef<"Setting", 'DateTime'>
-    readonly updated_at: FieldRef<"Setting", 'DateTime'>
   }
     
 
@@ -17228,9 +17206,7 @@ export namespace Prisma {
   export const SettingScalarFieldEnum: {
     id: 'id',
     key: 'key',
-    value: 'value',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    value: 'value'
   };
 
   export type SettingScalarFieldEnum = (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum]
@@ -18503,16 +18479,12 @@ export namespace Prisma {
     id?: IntFilter<"Setting"> | number
     key?: StringFilter<"Setting"> | string
     value?: StringFilter<"Setting"> | string
-    created_at?: DateTimeFilter<"Setting"> | Date | string
-    updated_at?: DateTimeFilter<"Setting"> | Date | string
   }
 
   export type SettingOrderByWithRelationInput = {
     id?: SortOrder
     key?: SortOrder
     value?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type SettingWhereUniqueInput = Prisma.AtLeast<{
@@ -18522,16 +18494,12 @@ export namespace Prisma {
     OR?: SettingWhereInput[]
     NOT?: SettingWhereInput | SettingWhereInput[]
     value?: StringFilter<"Setting"> | string
-    created_at?: DateTimeFilter<"Setting"> | Date | string
-    updated_at?: DateTimeFilter<"Setting"> | Date | string
   }, "id" | "key">
 
   export type SettingOrderByWithAggregationInput = {
     id?: SortOrder
     key?: SortOrder
     value?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: SettingCountOrderByAggregateInput
     _avg?: SettingAvgOrderByAggregateInput
     _max?: SettingMaxOrderByAggregateInput
@@ -18546,8 +18514,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Setting"> | number
     key?: StringWithAggregatesFilter<"Setting"> | string
     value?: StringWithAggregatesFilter<"Setting"> | string
-    created_at?: DateTimeWithAggregatesFilter<"Setting"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"Setting"> | Date | string
   }
 
   export type DivisionCreateInput = {
@@ -19811,54 +19777,40 @@ export namespace Prisma {
   export type SettingCreateInput = {
     key: string
     value: string
-    created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type SettingUncheckedCreateInput = {
     id?: number
     key: string
     value: string
-    created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type SettingUpdateInput = {
     key?: StringFieldUpdateOperationsInput | string
     value?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SettingUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     key?: StringFieldUpdateOperationsInput | string
     value?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SettingCreateManyInput = {
     id?: number
     key: string
     value: string
-    created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type SettingUpdateManyMutationInput = {
     key?: StringFieldUpdateOperationsInput | string
     value?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SettingUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     key?: StringFieldUpdateOperationsInput | string
     value?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -20758,8 +20710,6 @@ export namespace Prisma {
     id?: SortOrder
     key?: SortOrder
     value?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type SettingAvgOrderByAggregateInput = {
@@ -20770,16 +20720,12 @@ export namespace Prisma {
     id?: SortOrder
     key?: SortOrder
     value?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type SettingMinOrderByAggregateInput = {
     id?: SortOrder
     key?: SortOrder
     value?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type SettingSumOrderByAggregateInput = {

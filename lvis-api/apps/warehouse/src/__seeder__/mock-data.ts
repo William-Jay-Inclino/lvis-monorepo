@@ -181,7 +181,6 @@ export const units: Unit[] = [
     }
 ]
 
-
 export const vehicles: Vehicle[] = [
     {
         id: faker.string.uuid(),
