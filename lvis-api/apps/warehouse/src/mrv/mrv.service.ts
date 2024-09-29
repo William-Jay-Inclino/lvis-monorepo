@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateMrvInput } from './dto/create-mrv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { AuthUser } from '../__common__/auth-user.entity';
-import { MRV, Prisma } from 'apps/warehouse/prisma/generated/client';
+import { Item, MRV, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { CreateMrvApproverSubInput } from './dto/create-mrv-approver.sub.input';
 import { DB_ENTITY, SETTINGS } from '../__common__/constants';
@@ -31,15 +31,11 @@ export class MrvService {
 
     async create(input: CreateMrvInput) {
 
-        console.log('mrv create', input);
-
-        if (!(await this.canCreate(input))) {
-            throw new Error('Failed to create MRV. Please try again')
-        }
-
-        const mrvNumber = await this.getLatestMrvNumber()
-        const expDate = await this.commonService.getExpDate(SETTINGS.MRV_EXP_PERIOD_IN_DAYS)
-
+        await this.commonService.validateItems(input.items)
+    
+        const mrvNumber = await this.getLatestMrvNumber();
+        const expDate = await this.commonService.getExpDate(SETTINGS.MRV_EXP_PERIOD_IN_DAYS);
+    
         const data: Prisma.MRVCreateInput = {
             created_by: this.authUser.user.username,
             mrv_number: mrvNumber,
@@ -87,31 +83,104 @@ export class MrvService {
                 })
             }
         }
+    
+        const result = await this.prisma.$transaction(async (prisma) => {
 
-        const queries: Prisma.PrismaPromise<any>[] = []
+            const createMrv = prisma.mRV.create({ data });
+            const updateItemQuantities = this.generateUpdateItemQueries(input.items)
+            const createPending = this.getCreatePendingQuery(input.approvers, mrvNumber);
 
-        // create MRV
-        const createMrvQuery = this.prisma.mRV.create({ data })
-        queries.push(createMrvQuery)
-
-        // create pending
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, mrvNumber)
-        queries.push(createPendingQuery)
-
-        // update item quantity_on_queue on each item
-        const updateItemQueries = this.generateUpdateItemQueries(input.items); 
-
-        const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
-
-        const result = await this.prisma.$transaction(allQueries)
-
-        console.log('MRV created successfully');
-        console.log('Increment quantity_on_queue on each item')
-        console.log('Pending with associated approver created successfully');
-
-        return result[0]
-
+            await Promise.all([createMrv, ...updateItemQuantities, createPending]);
+    
+            return createMrv; 
+        });
+    
+        return result;
     }
+
+    // async create2(input: CreateMrvInput) {
+
+    //     console.log('mrv create', input);
+
+    //     if (!(await this.canCreate(input))) {
+    //         throw new Error('Failed to create MRV. Please try again')
+    //     }
+
+    //     const mrvNumber = await this.getLatestMrvNumber()
+    //     const expDate = await this.commonService.getExpDate(SETTINGS.MRV_EXP_PERIOD_IN_DAYS)
+
+    //     const data: Prisma.MRVCreateInput = {
+    //         created_by: this.authUser.user.username,
+    //         mrv_number: mrvNumber,
+    //         date_requested: new Date(),
+    //         exp_date: expDate,
+    //         request_type: input.request_type,
+    //         or_number: input.or_number,
+    //         mwo_number: input.mwo_number,
+    //         cwo_number: input.cwo_number,
+    //         jo_number: input.jo_number,
+    //         consumer_name: input.consumer_name,
+    //         location: input.location,
+    //         purpose: input.purpose,
+    //         requested_by_id: input.requested_by_id,
+    //         withdrawn_by_id: input.withdrawn_by_id,
+    //         item_from: {
+    //             connect: {
+    //                 id: input.item_from_id
+    //             }
+    //         },
+    //         project: {
+    //             connect: {
+    //                 id: input.project_id
+    //             }
+    //         },
+    //         mrv_approvers: {
+    //             create: input.approvers.map(i => {
+    //                 return {
+    //                     approver_id: i.approver_id,
+    //                     label: i.label,
+    //                     label_id: i.label_id,
+    //                     order: i.order,
+    //                     notes: '',
+    //                     status: APPROVAL_STATUS.PENDING,
+    //                 }
+    //             })
+    //         },
+    //         mrv_items: {
+    //             create: input.items.map(i => {
+    //                 return {
+    //                     item: {connect: {id: i.item_id}},
+    //                     quantity: i.quantity,
+    //                     price: i.price,
+    //                 }
+    //             })
+    //         }
+    //     }
+
+    //     const queries: Prisma.PrismaPromise<any>[] = []
+
+    //     // create MRV
+    //     const createMrvQuery = this.prisma.mRV.create({ data })
+    //     queries.push(createMrvQuery)
+
+    //     // create pending
+    //     const createPendingQuery = this.getCreatePendingQuery(input.approvers, mrvNumber)
+    //     queries.push(createPendingQuery)
+
+    //     // update item quantity_on_queue on each item
+    //     const updateItemQueries = this.generateUpdateItemQueries(input.items); 
+
+    //     const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
+
+    //     const result = await this.prisma.$transaction(allQueries)
+
+    //     console.log('MRV created successfully');
+    //     console.log('Increment quantity_on_queue on each item')
+    //     console.log('Pending with associated approver created successfully');
+
+    //     return result[0]
+
+    // }
 
     private generateUpdateItemQueries(items: CreateMrvItemSubInput[]) {
         return items.map(item => {

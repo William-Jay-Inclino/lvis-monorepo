@@ -31,25 +31,7 @@ export class OsrivService {
 
     async create(input: CreateOsrivInput) {
 
-        // Validate if the items can be processed
-        
-        for (let item of input.items) {
-            const _item = await this.prisma.$queryRaw<Item[]>`SELECT total_quantity, quantity_on_queue FROM "item" WHERE id = ${item.item_id} FOR UPDATE`;
-
-            console.log('_item', _item);
-    
-            if (!_item || _item.length === 0) {
-                throw new NotFoundException(`Item with id ${item.item_id} not found in items table`);
-            }
-    
-            const availableQty = _item[0].total_quantity - _item[0].quantity_on_queue;
-    
-            if (availableQty < item.quantity) {
-                throw new BadRequestException(
-                    `Insufficient quantity. Only ${availableQty} available.`,
-                );
-            }
-        }
+        await this.commonService.validateItems(input.items)
     
         const osrivNumber = await this.getLatestOsrivNumber();
         const expDate = await this.commonService.getExpDate(SETTINGS.OSRIV_EXP_PERIOD_IN_DAYS);
@@ -82,18 +64,12 @@ export class OsrivService {
             }
         };
     
-        // Transaction block: This ensures atomicity
         const result = await this.prisma.$transaction(async (prisma) => {
-            // Create OSRIV
+
             const createOsriv = prisma.oSRIV.create({ data });
-    
-            // Update item quantities
             const updateItemQuantities = this.generateUpdateItemQueries(input.items)
-    
-            // Create Pending query
             const createPending = this.getCreatePendingQuery(input.approvers, osrivNumber);
-    
-            // Run all queries inside the transaction
+            
             await Promise.all([createOsriv, ...updateItemQuantities, createPending]);
     
             return createOsriv; 

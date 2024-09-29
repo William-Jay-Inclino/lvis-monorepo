@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateSerivInput } from './dto/create-seriv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { AuthUser } from '../__common__/auth-user.entity';
-import { SERIV, Prisma } from 'apps/warehouse/prisma/generated/client';
+import { SERIV, Prisma, Item } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { CreateSerivApproverSubInput } from './dto/create-seriv-approver.sub.input';
 import { DB_ENTITY, SETTINGS } from '../__common__/constants';
@@ -31,15 +31,11 @@ export class SerivService {
 
     async create(input: CreateSerivInput) {
 
-        console.log('seriv create', input);
-
-        if (!(await this.canCreate(input))) {
-            throw new Error('Failed to create SERIV. Please try again')
-        }
-
-        const serivNumber = await this.getLatestSerivNumber()
-        const expDate = await this.commonService.getExpDate(SETTINGS.SERIV_EXP_PERIOD_IN_DAYS)
-
+        await this.commonService.validateItems(input.items)
+    
+        const serivNumber = await this.getLatestSerivNumber();
+        const expDate = await this.commonService.getExpDate(SETTINGS.SERIV_EXP_PERIOD_IN_DAYS);
+    
         const data: Prisma.SERIVCreateInput = {
             created_by: this.authUser.user.username,
             seriv_number: serivNumber,
@@ -82,31 +78,99 @@ export class SerivService {
                 })
             }
         }
+    
+        const result = await this.prisma.$transaction(async (prisma) => {
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-
-        // create SERIV
-        const createSerivQuery = this.prisma.sERIV.create({ data })
-        queries.push(createSerivQuery)
-
-        // create pending
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, serivNumber)
-        queries.push(createPendingQuery)
-
-        // update item quantity_on_queue on each item
-        const updateItemQueries = this.generateUpdateItemQueries(input.items); 
-
-        const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
-
-        const result = await this.prisma.$transaction(allQueries)
-
-        console.log('SERIV created successfully');
-        console.log('Increment quantity_on_queue on each item')
-        console.log('Pending with associated approver created successfully');
-
-        return result[0]
-
+            const createSeriv = prisma.sERIV.create({ data });
+            const updateItemQuantities = this.generateUpdateItemQueries(input.items)
+            const createPending = this.getCreatePendingQuery(input.approvers, serivNumber);
+            
+            await Promise.all([createSeriv, ...updateItemQuantities, createPending]);
+    
+            return createSeriv; 
+        });
+    
+        return result;
     }
+
+    // async create2(input: CreateSerivInput) {
+
+    //     console.log('seriv create', input);
+
+    //     if (!(await this.canCreate(input))) {
+    //         throw new Error('Failed to create SERIV. Please try again')
+    //     }
+
+    //     const serivNumber = await this.getLatestSerivNumber()
+    //     const expDate = await this.commonService.getExpDate(SETTINGS.SERIV_EXP_PERIOD_IN_DAYS)
+
+    //     const data: Prisma.SERIVCreateInput = {
+    //         created_by: this.authUser.user.username,
+    //         seriv_number: serivNumber,
+    //         date_requested: new Date(),
+    //         exp_date: expDate,
+    //         request_type: input.request_type,
+    //         or_number: input.or_number,
+    //         mwo_number: input.mwo_number,
+    //         cwo_number: input.cwo_number,
+    //         jo_number: input.jo_number,
+    //         consumer_name: input.consumer_name,
+    //         location: input.location,
+    //         purpose: input.purpose,
+    //         requested_by_id: input.requested_by_id,
+    //         withdrawn_by_id: input.withdrawn_by_id,
+    //         item_from: {
+    //             connect: {
+    //                 id: input.item_from_id
+    //             }
+    //         },
+    //         seriv_approvers: {
+    //             create: input.approvers.map(i => {
+    //                 return {
+    //                     approver_id: i.approver_id,
+    //                     label: i.label,
+    //                     label_id: i.label_id,
+    //                     order: i.order,
+    //                     notes: '',
+    //                     status: APPROVAL_STATUS.PENDING,
+    //                 }
+    //             })
+    //         },
+    //         seriv_items: {
+    //             create: input.items.map(i => {
+    //                 return {
+    //                     item: {connect: {id: i.item_id}},
+    //                     quantity: i.quantity,
+    //                     price: i.price,
+    //                 }
+    //             })
+    //         }
+    //     }
+
+    //     const queries: Prisma.PrismaPromise<any>[] = []
+
+    //     // create SERIV
+    //     const createSerivQuery = this.prisma.sERIV.create({ data })
+    //     queries.push(createSerivQuery)
+
+    //     // create pending
+    //     const createPendingQuery = this.getCreatePendingQuery(input.approvers, serivNumber)
+    //     queries.push(createPendingQuery)
+
+    //     // update item quantity_on_queue on each item
+    //     const updateItemQueries = this.generateUpdateItemQueries(input.items); 
+
+    //     const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
+
+    //     const result = await this.prisma.$transaction(allQueries)
+
+    //     console.log('SERIV created successfully');
+    //     console.log('Increment quantity_on_queue on each item')
+    //     console.log('Pending with associated approver created successfully');
+
+    //     return result[0]
+
+    // }
 
     private generateUpdateItemQueries(items: CreateSerivItemSubInput[]) {
         return items.map(item => {
