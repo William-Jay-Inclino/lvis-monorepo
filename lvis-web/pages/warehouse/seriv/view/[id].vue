@@ -224,7 +224,7 @@
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>
                                     <div v-if="!item.cancelled_at">
-                                        <button disabled v-if="isAdminOrOwner(item.created_by, authUser)"
+                                        <button v-if="isAdminOrOwner(item.created_by, authUser)"
                                             class="btn btn-warning me-2" @click="onCancelSERIV()">
                                             <i class="fas fa-times-circle"></i> Cancel SERIV
                                         </button>

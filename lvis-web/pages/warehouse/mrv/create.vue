@@ -326,8 +326,8 @@ import { useToast } from 'vue-toastification';
         items.value = response.items.map(i => {
             const x: AddItem = {
                 id: i.id,
+                label: i.code + ' - ' + i.description, 
                 code: i.code,
-                name: i.name,
                 description: i.description,
                 available_quantity: i.total_quantity - i.quantity_on_queue,
                 unit: i.unit,
@@ -434,7 +434,7 @@ import { useToast } from 'vue-toastification';
         const mstItem: AddItem = {
             id: item.id,
             code: item.code,
-            name: item.name,
+            label: item.code + ' - ' + item.description,
             description: item.description,
             available_quantity: item.available_quantity,
             unit: item.unit,

@@ -34,6 +34,7 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/schedule": "^4.1.1",
     "@prisma/client": "5.8.1",
     "@willsoto/nestjs-prometheus": "^6.0.1",
     "apollo-server-express": "^3.13.0",

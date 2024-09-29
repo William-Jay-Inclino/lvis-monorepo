@@ -62,6 +62,8 @@ import { MstModule } from './mst/mst.module';
 import { MstApproverModule } from './mst-approver/mst-approver.module';
 import { MstItemModule } from './mst-item/mst-item.module';
 import { ItemTypeModule } from './item-type/item-type.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TasksService } from './__task-scheduler__/task.service';
 
 
 @Module({
@@ -73,6 +75,7 @@ import { ItemTypeModule } from './item-type/item-type.module';
       },
     }),
     EventEmitterModule.forRoot(),
+    ScheduleModule.forRoot(),
     HttpModule,
     AuthModule,
     SeederModule,
@@ -127,6 +130,7 @@ import { ItemTypeModule } from './item-type/item-type.module';
   ],
   controllers: [],
   providers: [
+    TasksService,
     RvService, 
     MeqsService, 
     MeqsResolver, 

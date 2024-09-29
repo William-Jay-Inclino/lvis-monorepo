@@ -147,6 +147,9 @@ export class MrvService {
 
         const existingItem = await this.prisma.mRV.findUnique({
             where: { id },
+            include: {
+                mrv_items: true,
+            }
         })
 
         if (!existingItem) {
@@ -178,6 +181,23 @@ export class MrvService {
         })
 
         queries.push(deleteAssociatedPendings)
+
+        // update item qty (decrement based on mrv items qty) 
+
+        for(let mrvItem of existingItem.mrv_items) {
+
+            const updateItemQuery = this.prisma.item.update({
+                where: { id: mrvItem.item_id },
+                data: {
+                    quantity_on_queue: {
+                        decrement: mrvItem.quantity
+                    }
+                }
+            })
+
+            queries.push(updateItemQuery)
+
+        }
 
         const result = await this.prisma.$transaction(queries)
 
@@ -246,9 +266,9 @@ export class MrvService {
             whereCondition = { ...whereCondition, requested_by_id }
         }
         
-        whereCondition.cancelled_at = {
-            equals: null,
-        }
+        // whereCondition.cancelled_at = {
+        //     equals: null,
+        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mRV.findMany({

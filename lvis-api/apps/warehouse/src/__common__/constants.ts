@@ -71,13 +71,23 @@ export const warehouseRequestTypeMapper = {
     [WAREHOUSE_REQUEST_TYPE.HW_KIT_FABRICATED]: 'H/W KIT FABRICATED',
 }
 
-export const MODULE_MAPPER = {
+export interface ModuleMapping {
+    model: string;
+    rcNumber: string;
+    id: string;
+    approverModel: string;
+    approvers: string;
+    items: string;
+}
+
+export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
     [DB_ENTITY.RV]: {
         model: 'rV',
         rcNumber: 'rv_number',
         id: 'rv_id',
         approverModel: 'rVApprover',
         approvers: 'rv_approvers',
+        items: 'rv_items',
     },
     [DB_ENTITY.SPR]: {
         model: 'sPR',
@@ -85,6 +95,7 @@ export const MODULE_MAPPER = {
         id: 'spr_id',
         approverModel: 'sPRApprover',
         approvers: 'spr_approvers',
+        items: 'spr_items',
     },
     [DB_ENTITY.JO]: {
         model: 'jO',
@@ -92,6 +103,7 @@ export const MODULE_MAPPER = {
         id: 'jo_id',
         approverModel: 'jOApprover',
         approvers: 'jo_approvers',
+        items: 'jo_items',
     },
     [DB_ENTITY.MEQS]: {
         model: 'mEQS',
@@ -99,6 +111,7 @@ export const MODULE_MAPPER = {
         id: 'meqs_id',
         approverModel: 'mEQSApprover',
         approvers: 'meqs_approvers',
+        items: 'meqs_items',
     },
     [DB_ENTITY.PO]: {
         model: 'pO',
@@ -106,6 +119,7 @@ export const MODULE_MAPPER = {
         id: 'po_id',
         approverModel: 'pOApprover',
         approvers: 'po_approvers',
+        items: 'po_items',
     },
     [DB_ENTITY.RR]: {
         model: 'rR',
@@ -113,6 +127,7 @@ export const MODULE_MAPPER = {
         id: 'rr_id',
         approverModel: 'rRApprover',
         approvers: 'rr_approvers',
+        items: 'rr_items',
     },
     [DB_ENTITY.OSRIV]: {
         model: 'oSRIV',
@@ -120,6 +135,7 @@ export const MODULE_MAPPER = {
         id: 'osriv_id',
         approverModel: 'oSRIVApprover',
         approvers: 'osriv_approvers',
+        items: 'osriv_items',
     },
     [DB_ENTITY.SERIV]: {
         model: 'sERIV',
@@ -127,6 +143,7 @@ export const MODULE_MAPPER = {
         id: 'seriv_id',
         approverModel: 'sERIVApprover',
         approvers: 'seriv_approvers',
+        items: 'seriv_items',
     },
     [DB_ENTITY.MRV]: {
         model: 'mRV',
@@ -134,6 +151,7 @@ export const MODULE_MAPPER = {
         id: 'mrv_id',
         approverModel: 'mRVApprover',
         approvers: 'mrv_approvers',
+        items: 'mrv_items',
     },
     [DB_ENTITY.MCT]: {
         model: 'mCT',
@@ -141,6 +159,7 @@ export const MODULE_MAPPER = {
         id: 'mct_id',
         approverModel: 'mCTApprover',
         approvers: 'mct_approvers',
+        items: 'mct_items',
     },
     [DB_ENTITY.MCRT]: {
         model: 'mCRT',
@@ -148,6 +167,7 @@ export const MODULE_MAPPER = {
         id: 'mcrt_id',
         approverModel: 'mCRTApprover',
         approvers: 'mcrt_approvers',
+        items: 'mcrt_items',
     },
     [DB_ENTITY.MST]: {
         model: 'mST',
@@ -155,5 +175,6 @@ export const MODULE_MAPPER = {
         id: 'mst_id',
         approverModel: 'mSTApprover',
         approvers: 'mst_approvers',
+        items: 'mst_items',
     },
 }

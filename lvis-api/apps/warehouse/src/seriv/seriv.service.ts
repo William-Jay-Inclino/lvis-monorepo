@@ -142,6 +142,9 @@ export class SerivService {
 
         const existingItem = await this.prisma.sERIV.findUnique({
             where: { id },
+            include: {
+                seriv_items: true
+            }
         })
 
         if (!existingItem) {
@@ -173,6 +176,23 @@ export class SerivService {
         })
 
         queries.push(deleteAssociatedPendings)
+
+        // update item qty (decrement based on osriv items qty) 
+
+        for(let serivItem of existingItem.seriv_items) {
+
+            const updateItemQuery = this.prisma.item.update({
+                where: { id: serivItem.item_id },
+                data: {
+                    quantity_on_queue: {
+                        decrement: serivItem.quantity
+                    }
+                }
+            })
+
+            queries.push(updateItemQuery)
+
+        }
 
         const result = await this.prisma.$transaction(queries)
 
@@ -240,9 +260,9 @@ export class SerivService {
             whereCondition = { ...whereCondition, requested_by_id }
         }
         
-        whereCondition.cancelled_at = {
-            equals: null,
-        }
+        // whereCondition.cancelled_at = {
+        //     equals: null,
+        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.sERIV.findMany({

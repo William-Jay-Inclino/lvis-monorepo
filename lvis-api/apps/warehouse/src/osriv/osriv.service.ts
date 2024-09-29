@@ -176,6 +176,9 @@ export class OsrivService {
 
         const existingItem = await this.prisma.oSRIV.findUnique({
             where: { id },
+            include: {
+                osriv_items: true
+            }
         })
 
         if (!existingItem) {
@@ -188,6 +191,7 @@ export class OsrivService {
 
         const queries: Prisma.PrismaPromise<any>[] = []
         
+        // cancel osriv
         const updateOsrivQuery = this.prisma.oSRIV.update({
             data: {
                 cancelled_at: new Date(),
@@ -199,7 +203,6 @@ export class OsrivService {
         queries.push(updateOsrivQuery)
 
         // delete all associated pendings
-
         const deleteAssociatedPendings = this.prisma.pending.deleteMany({
             where: {
                 reference_number: existingItem.osriv_number
@@ -207,6 +210,24 @@ export class OsrivService {
         })
 
         queries.push(deleteAssociatedPendings)
+
+
+        // update item qty (decrement based on osriv items qty) 
+
+        for(let osrivItem of existingItem.osriv_items) {
+
+            const updateItemQuery = this.prisma.item.update({
+                where: { id: osrivItem.item_id },
+                data: {
+                    quantity_on_queue: {
+                        decrement: osrivItem.quantity
+                    }
+                }
+            })
+
+            queries.push(updateItemQuery)
+
+        }
 
         const result = await this.prisma.$transaction(queries)
 
@@ -273,9 +294,9 @@ export class OsrivService {
             whereCondition = { ...whereCondition, requested_by_id }
         }
         
-        whereCondition.cancelled_at = {
-            equals: null,
-        }
+        // whereCondition.cancelled_at = {
+        //     equals: null,
+        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.oSRIV.findMany({
