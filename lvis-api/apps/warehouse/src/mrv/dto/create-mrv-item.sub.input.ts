@@ -1,5 +1,5 @@
 import { InputType, Int, Field, Float } from '@nestjs/graphql';
-import { IsInt, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
 
 @InputType()
 export class CreateMrvItemSubInput {
@@ -12,6 +12,7 @@ export class CreateMrvItemSubInput {
   @Field(() => Int)
   @IsNotEmpty()
   @IsInt()
+  @Min(1)
   quantity: number;
 
   @Field(() => Float)

@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateOsrivInput } from './dto/create-osriv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { AuthUser } from '../__common__/auth-user.entity';
-import { OSRIV, Prisma } from 'apps/warehouse/prisma/generated/client';
+import { Item, OSRIV, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { CreateOsrivApproverSubInput } from './dto/create-osriv-approver.sub.input';
 import { DB_ENTITY, SETTINGS } from '../__common__/constants';
@@ -31,15 +31,29 @@ export class OsrivService {
 
     async create(input: CreateOsrivInput) {
 
-        console.log('osriv create', input);
+        // Validate if the items can be processed
+        
+        for (let item of input.items) {
+            const _item = await this.prisma.$queryRaw<Item[]>`SELECT total_quantity, quantity_on_queue FROM "item" WHERE id = ${item.item_id} FOR UPDATE`;
 
-        if (!(await this.canCreate(input))) {
-            throw new Error('Failed to create OSRIV. Please try again')
+            console.log('_item', _item);
+    
+            if (!_item || _item.length === 0) {
+                throw new NotFoundException(`Item with id ${item.item_id} not found in items table`);
+            }
+    
+            const availableQty = _item[0].total_quantity - _item[0].quantity_on_queue;
+    
+            if (availableQty < item.quantity) {
+                throw new BadRequestException(
+                    `Insufficient quantity. Only ${availableQty} available.`,
+                );
+            }
         }
-
-        const osrivNumber = await this.getLatestOsrivNumber()
-        const expDate = await this.commonService.getExpDate(SETTINGS.OSRIV_EXP_PERIOD_IN_DAYS)
-
+    
+        const osrivNumber = await this.getLatestOsrivNumber();
+        const expDate = await this.commonService.getExpDate(SETTINGS.OSRIV_EXP_PERIOD_IN_DAYS);
+    
         const data: Prisma.OSRIVCreateInput = {
             created_by: this.authUser.user.username,
             osriv_number: osrivNumber,
@@ -48,60 +62,146 @@ export class OsrivService {
             purpose: input.purpose,
             requested_by_id: input.requested_by_id,
             department_id: input.department_id,
-            item_from: {
-                connect: {
-                    id: input.item_from_id
-                }
-            },
+            item_from: { connect: { id: input.item_from_id } },
             osriv_approvers: {
-                create: input.approvers.map(i => {
-                    return {
-                        approver_id: i.approver_id,
-                        label: i.label,
-                        label_id: i.label_id,
-                        order: i.order,
-                        notes: '',
-                        status: APPROVAL_STATUS.PENDING,
-                    }
-                })
+                create: input.approvers.map(i => ({
+                    approver_id: i.approver_id,
+                    label: i.label,
+                    label_id: i.label_id,
+                    order: i.order,
+                    notes: '',
+                    status: APPROVAL_STATUS.PENDING,
+                }))
             },
             osriv_items: {
-                create: input.items.map(i => {
-                    return {
-                        item: {connect: {id: i.item_id}},
-                        quantity: i.quantity,
-                        price: i.price,
-                    }
-                })
+                create: input.items.map(i => ({
+                    item: { connect: { id: i.item_id } },
+                    quantity: i.quantity,
+                    price: i.price,
+                }))
             }
-        }
-
-        const queries: Prisma.PrismaPromise<any>[] = []
-
-
-
-        // create OSRIV
-        const createOsrivQuery = this.prisma.oSRIV.create({ data })
-        queries.push(createOsrivQuery)
-
-        // create pending
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, osrivNumber)
-        queries.push(createPendingQuery)
-
-        // update item quantity_on_queue on each item
-        const updateItemQueries = this.generateUpdateItemQueries(input.items); 
-
-        const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
-
-        const result = await this.prisma.$transaction(allQueries)
-
-        console.log('OSRIV created successfully');
-        console.log('Increment quantity_on_queue on each item')
-        console.log('Pending with associated approver created successfully');
-
-        return result[0]
-
+        };
+    
+        // Transaction block: This ensures atomicity
+        const result = await this.prisma.$transaction(async (prisma) => {
+            // Create OSRIV
+            const createOsriv = prisma.oSRIV.create({ data });
+    
+            // Update item quantities
+            const updateItemQuantities = this.generateUpdateItemQueries(input.items)
+    
+            // Create Pending query
+            const createPending = this.getCreatePendingQuery(input.approvers, osrivNumber);
+    
+            // Run all queries inside the transaction
+            await Promise.all([createOsriv, ...updateItemQuantities, createPending]);
+    
+            return createOsriv; 
+        });
+    
+        return result;
     }
+    
+
+    // async create(input: CreateOsrivInput) {
+
+    //     console.log('osriv create', input);
+
+    //     if (!(await this.canCreate(input))) {
+    //         throw new Error('Failed to create OSRIV. Please try again')
+    //     }
+
+    //     const osrivNumber = await this.getLatestOsrivNumber()
+    //     const expDate = await this.commonService.getExpDate(SETTINGS.OSRIV_EXP_PERIOD_IN_DAYS)
+
+    //     // check available qty for each item
+
+    //     for(let item of input.items) {
+
+    //         const _item = await this.prisma.item.findUnique({
+    //             select: {
+    //                 total_quantity: true,
+    //                 quantity_on_queue: true,
+    //             },
+    //             where: {
+    //                 id: item.item_id 
+    //             },
+    //         })
+
+    //         if(!_item) {
+    //             throw new NotFoundException(`Item with id ${item.item_id} not found in items table`)
+    //         }
+
+    //         const availableQty = _item.total_quantity - _item.quantity_on_queue
+
+    //         if(availableQty < item.quantity) {
+    //             throw new BadRequestException(
+    //                 `Insufficient quantity. Only ${availableQty} available.`,
+    //             );
+    //         }
+
+    //     }
+
+    //     const data: Prisma.OSRIVCreateInput = {
+    //         created_by: this.authUser.user.username,
+    //         osriv_number: osrivNumber,
+    //         date_requested: new Date(),
+    //         exp_date: expDate,
+    //         purpose: input.purpose,
+    //         requested_by_id: input.requested_by_id,
+    //         department_id: input.department_id,
+    //         item_from: {
+    //             connect: {
+    //                 id: input.item_from_id
+    //             }
+    //         },
+    //         osriv_approvers: {
+    //             create: input.approvers.map(i => {
+    //                 return {
+    //                     approver_id: i.approver_id,
+    //                     label: i.label,
+    //                     label_id: i.label_id,
+    //                     order: i.order,
+    //                     notes: '',
+    //                     status: APPROVAL_STATUS.PENDING,
+    //                 }
+    //             })
+    //         },
+    //         osriv_items: {
+    //             create: input.items.map(i => {
+    //                 return {
+    //                     item: {connect: {id: i.item_id}},
+    //                     quantity: i.quantity,
+    //                     price: i.price,
+    //                 }
+    //             })
+    //         }
+    //     }
+
+    //     const queries: Prisma.PrismaPromise<any>[] = []
+
+    //     // create OSRIV
+    //     const createOsrivQuery = this.prisma.oSRIV.create({ data })
+    //     queries.push(createOsrivQuery)
+
+    //     // create pending
+    //     const createPendingQuery = this.getCreatePendingQuery(input.approvers, osrivNumber)
+    //     queries.push(createPendingQuery)
+
+    //     // update item quantity_on_queue on each item
+    //     const updateItemQueries = this.generateUpdateItemQueries(input.items); 
+
+    //     const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
+
+    //     const result = await this.prisma.$transaction(allQueries)
+
+    //     console.log('OSRIV created successfully');
+    //     console.log('Increment quantity_on_queue on each item')
+    //     console.log('Pending with associated approver created successfully');
+
+    //     return result[0]
+
+    // }
 
     private generateUpdateItemQueries(items: CreateOsrivItemSubInput[]) {
         return items.map(item => {
