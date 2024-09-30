@@ -43,7 +43,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Department</td>
-                                                <td> {{ item.department.name }} </td>
+                                                <td> {{ item.requested_by.department.name }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Item from</td>
@@ -182,7 +182,7 @@
                                             @click="onCancelOsriv()">
                                             <i class="fas fa-times-circle"></i> Cancel OSRIV
                                         </button>
-                                        <button disabled v-if="!!item.can_update" class="btn btn-success me-2"
+                                        <button v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
                                             <i class="fas fa-sync"></i> Update OSRIV
                                         </button>

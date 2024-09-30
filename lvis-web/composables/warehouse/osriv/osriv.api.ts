@@ -67,14 +67,15 @@ export async function findByOsrivNumber(osrivNumber: string): Promise<OSRIV | un
             osriv(osriv_number: "${osrivNumber}") {
                 id
                 osriv_number
-                department {
-                    name
-                }
                 requested_by {
                     id
                     firstname
                     middlename 
                     lastname
+                    department {
+                        id
+                        name
+                    }
                 }
                 created_by
                 status
@@ -125,13 +126,14 @@ export async function findOne(id: string): Promise<OSRIV | undefined> {
                 item_from {
                     name
                 }
-                department {
-                    name
-                }
                 requested_by {
                     firstname 
                     middlename 
                     lastname
+                    department {
+                        id
+                        name
+                    }
                 }
                 osriv_approvers{
                     approver {
@@ -207,14 +209,15 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 data {
                     id
                     osriv_number
-                    department {
-                        name
-                    }
                     requested_by {
                         id
                         firstname
                         middlename 
                         lastname
+                        department {
+                            id
+                            name
+                        }
                     }
                     created_by
                     status
@@ -273,9 +276,6 @@ export async function fetchFormDataInCreate(): Promise<{
                     firstname
                     middlename
                     lastname
-                    department {
-                        id
-                    }
                 }
             },
             stations {
@@ -358,6 +358,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 date_requested
                 purpose
                 cancelled_at
+                requested_by{
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
                 osriv_approvers {
                     id
                     approver {
@@ -450,7 +456,6 @@ export async function create(input: CreateOsrivInput): Promise<MutationResponse>
                 input: {
                     purpose: "${input.purpose}"
                     requested_by_id: "${input.requested_by?.id}"
-                    department_id: "${input.requested_by?.department.id}"
                     item_from_id: "${input.item_from?.id}"
                     approvers: [${approvers}]
                     items: [${items}]
@@ -493,7 +498,6 @@ export async function update(id: string, input: UpdateOsrivInput): Promise<Mutat
                 input: {
                     purpose: "${input.purpose}"
                     requested_by_id: "${input.requested_by?.id}"
-                    department_id: "${input.requested_by?.department_id}"
                     item_from_id: "${input.item_from?.id}"
                 }
             ) {

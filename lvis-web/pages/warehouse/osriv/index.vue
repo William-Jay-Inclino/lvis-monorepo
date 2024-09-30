@@ -86,7 +86,7 @@
                                                 <td class="text-muted align-middle">
                                                     {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
                                                 </td>
-                                                <td class="text-muted align-middle"> {{ i.department.name }} </td>
+                                                <td class="text-muted align-middle"> {{ i.requested_by.department.name }} </td>
                                                 <td class="text-muted align-middle"> {{ formatDate(i.date_requested) }}
                                                 </td>
                                                 <td class="text-center align-middle">

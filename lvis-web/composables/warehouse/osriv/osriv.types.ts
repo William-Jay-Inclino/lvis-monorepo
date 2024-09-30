@@ -13,7 +13,6 @@ export interface OSRIV {
     purpose: string;
 
     requested_by_id: string;
-    department_id: string;
     item_from_id: string;
 
 
@@ -31,7 +30,6 @@ export interface OSRIV {
     // =============== derived / resolvers =============== 
   
     requested_by: Employee;
-    department: Department;
     item_from: Station;
     osriv_approvers: OSRIVApprover[]
     osriv_items: OSRIVItem[]
@@ -67,8 +65,6 @@ export interface OSRIV {
   export interface UpdateOsrivInput {
     purpose: string 
     requested_by: Employee | null 
-    item_from: Item | null 
-    supervisor: Employee | null 
-    warehouse_custodian: Employee | null 
+    item_from: Station | null 
   }
   
