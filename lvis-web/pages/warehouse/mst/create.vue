@@ -83,6 +83,12 @@
                         </div>
     
                         <div class="col-lg-8">
+
+                            <div v-if="mstDataErrors.items" class="alert alert-danger" role="alert">
+                                <small class="fst-italic">
+                                    Please add some items
+                                </small>
+                            </div>
     
                             <div class="h5wrapper mb-3">
                                 <hr class="result">
@@ -347,6 +353,10 @@
             } else {
                 i.showQtyError = false
             }
+        }
+
+        if(mstData.value.items.length === 0) {
+            mstDataErrors.value.items = true 
         }
 
         const hasError = Object.values(mstDataErrors.value).includes(true);

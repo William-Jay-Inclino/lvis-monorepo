@@ -242,7 +242,7 @@
             </div>
         </div>
 
-        <WarehouseAddItemModal @add-item="handleAddItem" :items="items" :added-item-ids="mcrtItemIds"/>
+        <WarehouseAddItemModal @add-item="handleAddItem" :items="filteredItems" :added-item-ids="mcrtItemIds"/>
     </div>
 
 
@@ -362,6 +362,20 @@
             return mcrtData.value.seriv.id
         }
         return null
+    })
+
+    const filteredItems = computed(() => {
+        
+        if(referenceType.value === 'MCT') {
+            return items.value.filter(i => i.item_type.code === ITEM_TYPE.LINE_MATERIALS)
+        }
+
+        if(referenceType.value === 'SERIV') {
+            return items.value.filter(i => i.item_type.code === ITEM_TYPE.SPECIAL_EQUIPMENT)
+        }
+
+        return []
+
     })
 
     const mcrtItemIds = computed( () => mcrtData.value.items.map(i => i.itemId))

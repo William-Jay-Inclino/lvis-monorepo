@@ -202,7 +202,7 @@ export class ItemService {
 		return generatedCode;
 	}
 
-	async findAll(page: number, pageSize: number, name?: string, item_code?: string): Promise<ItemsResponse> {
+	async findAll(page: number, pageSize: number, name?: string, item_codes?: ITEM_TYPE_CODE[]): Promise<ItemsResponse> {
 
 		const skip = (page - 1) * pageSize;
 
@@ -216,8 +216,10 @@ export class ItemService {
 			};
 		}
 
-		if (item_code) {
-			whereCondition = { ...whereCondition, item_type: { code: item_code } }
+		if (item_codes && item_codes.length > 0) {
+			whereCondition.item_type = {
+				code: { in: item_codes }, 
+			};
 		}
 
 		const items = await this.prisma.item.findMany({

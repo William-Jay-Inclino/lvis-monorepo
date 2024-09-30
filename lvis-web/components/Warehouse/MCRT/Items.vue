@@ -15,7 +15,7 @@
             <tbody>
                 <tr v-for="i, count in items">
                     <td class="text-muted align-middle"> {{ count + 1 }} </td>
-                    <td class="text-muted align-middle"> {{ i.name + ' - ' + i.description }} </td>
+                    <td class="text-muted align-middle"> {{ i.code + ' - ' + i.description }} </td>
                     <td class="text-muted align-middle"> {{ i.unit.name }} </td>
                     <td class="text-muted text-center align-middle">
                         <input type="text" :class="{'border border-danger': i.showQtyError}" class="form-control form-control-sm" :value="i.mcrtQty" @keyup="handleQtyUpdate(i, $event)">

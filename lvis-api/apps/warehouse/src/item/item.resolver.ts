@@ -12,6 +12,7 @@ import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseRemoveResponse } from '../__common__/classes';
+import { ITEM_TYPE_CODE } from '../__common__/constants';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Item)
@@ -34,9 +35,16 @@ export class ItemResolver {
     @Args('page') page: number,
     @Args('pageSize') pageSize: number,
     @Args('name', { nullable: true }) name?: string,
-    @Args('item_code', { nullable: true }) item_code?: string,
+    @Args('item_codes', { nullable: true }) item_codes?: string,
   ) {
-    return this.itemService.findAll(page, pageSize, name, item_code);
+    
+    let _item_codes = []
+    
+    if(item_codes) {
+      _item_codes = item_codes.split(',');
+    }
+
+    return this.itemService.findAll(page, pageSize, name, _item_codes as ITEM_TYPE_CODE[]);
   }
 
   @Query(() => Item)

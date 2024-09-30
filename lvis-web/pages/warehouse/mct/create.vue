@@ -101,7 +101,17 @@
                                         </tr>
                                         <tr>
                                             <td>Withdrawn By</td>
-                                            <td class="text-muted"> {{ getFullname(mctData.mrv!.withdrawn_by!.firstname, mctData.mrv!.withdrawn_by!.middlename, mctData.mrv!.withdrawn_by!.lastname) }} </td>
+                                           <td
+                                              class="text-muted">
+                                              <span v-if="mctData.mrv.withdrawn_by">
+                                                {{
+                                                    getFullname(mctData.mrv!.withdrawn_by!.firstname,
+                                                    mctData.mrv!.withdrawn_by!.middlename,
+                                                    mctData.mrv!.withdrawn_by!.lastname)
+                                                }}
+                                              </span>
+                                              <span v-else> N/A </span>
+                                            </td>
                                         </tr>
                                         <tr v-for="mrvApprover in mctData.mrv.mrv_approvers">
                                             <td> {{ mrvApprover.label }} </td>
