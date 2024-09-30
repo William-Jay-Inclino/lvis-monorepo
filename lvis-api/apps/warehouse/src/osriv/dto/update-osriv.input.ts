@@ -17,11 +17,6 @@ export class UpdateOsrivInput {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
-  department_id?: string;
-
-  @Field(() => String, { nullable: true })
-  @IsOptional()
-  @IsString()
   item_from_id?: string;
 
 }

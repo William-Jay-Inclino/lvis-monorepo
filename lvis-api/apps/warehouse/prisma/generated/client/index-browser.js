@@ -518,7 +518,6 @@ exports.Prisma.OSRIVScalarFieldEnum = {
   note: 'note',
   is_completed: 'is_completed',
   requested_by_id: 'requested_by_id',
-  department_id: 'department_id',
   item_from_id: 'item_from_id',
   cancelled_by: 'cancelled_by',
   created_by: 'created_by',

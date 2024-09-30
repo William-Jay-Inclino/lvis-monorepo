@@ -17,10 +17,6 @@ export class CreateOsrivInput {
 
   @Field(() => String)
   @IsString()
-  department_id: string;
-
-  @Field(() => String)
-  @IsString()
   item_from_id: string;
 
   @Field(() => [CreateOsrivApproverSubInput])

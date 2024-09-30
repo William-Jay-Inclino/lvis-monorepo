@@ -1,7 +1,6 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { OSRIVApprover } from '../../osriv-approver/entities/osriv-approver.entity';
 import { OSRIVItem } from '../../osriv-item/entities/osriv-item.entity';
-import { Department } from '../../__department__ /entities/department.entity';
 import { Station } from '../../station/entities/station.entity';
 
 @ObjectType()
@@ -21,9 +20,6 @@ export class OSRIV {
 
   @Field(() => String)
   requested_by_id: string;
-
-  @Field(() => String)
-  department_id: string;
 
   @Field(() => String)
   item_from_id: string;
@@ -59,9 +55,6 @@ export class OSRIV {
 
   @Field(() => Station)
   item_from: Station;
-
-  @Field(() => Department)
-  department: Department;
 
   @Field(() => [OSRIVApprover])
   osriv_approvers: OSRIVApprover[]

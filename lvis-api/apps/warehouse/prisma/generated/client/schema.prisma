@@ -693,7 +693,6 @@ model OSRIV {
   is_completed    Boolean  @default(false)
 
   requested_by_id String
-  department_id String
   item_from_id String
 
   cancelled_by String?

@@ -1,0 +1,11 @@
+
+If something goes wrong suddenly. Pls run: 
+
+pnpm run reinstall
+
+If still there is an error remove pnpm-lock.yaml and run again pnpm run reinstall
+
+
+
+
+This happens bec. nuxt3 has a bug. This solution is cleaning files and installing fresh dependencies

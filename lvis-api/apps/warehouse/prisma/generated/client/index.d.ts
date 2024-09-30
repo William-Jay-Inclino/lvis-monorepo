@@ -37757,7 +37757,6 @@ export namespace Prisma {
     note: string | null
     is_completed: boolean | null
     requested_by_id: string | null
-    department_id: string | null
     item_from_id: string | null
     cancelled_by: string | null
     created_by: string | null
@@ -37776,7 +37775,6 @@ export namespace Prisma {
     note: string | null
     is_completed: boolean | null
     requested_by_id: string | null
-    department_id: string | null
     item_from_id: string | null
     cancelled_by: string | null
     created_by: string | null
@@ -37795,7 +37793,6 @@ export namespace Prisma {
     note: number
     is_completed: number
     requested_by_id: number
-    department_id: number
     item_from_id: number
     cancelled_by: number
     created_by: number
@@ -37817,7 +37814,6 @@ export namespace Prisma {
     note?: true
     is_completed?: true
     requested_by_id?: true
-    department_id?: true
     item_from_id?: true
     cancelled_by?: true
     created_by?: true
@@ -37836,7 +37832,6 @@ export namespace Prisma {
     note?: true
     is_completed?: true
     requested_by_id?: true
-    department_id?: true
     item_from_id?: true
     cancelled_by?: true
     created_by?: true
@@ -37855,7 +37850,6 @@ export namespace Prisma {
     note?: true
     is_completed?: true
     requested_by_id?: true
-    department_id?: true
     item_from_id?: true
     cancelled_by?: true
     created_by?: true
@@ -37948,7 +37942,6 @@ export namespace Prisma {
     note: string
     is_completed: boolean
     requested_by_id: string
-    department_id: string
     item_from_id: string
     cancelled_by: string | null
     created_by: string
@@ -37985,7 +37978,6 @@ export namespace Prisma {
     note?: boolean
     is_completed?: boolean
     requested_by_id?: boolean
-    department_id?: boolean
     item_from_id?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -38009,7 +38001,6 @@ export namespace Prisma {
     note?: boolean
     is_completed?: boolean
     requested_by_id?: boolean
-    department_id?: boolean
     item_from_id?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -38044,7 +38035,6 @@ export namespace Prisma {
       note: string
       is_completed: boolean
       requested_by_id: string
-      department_id: string
       item_from_id: string
       cancelled_by: string | null
       created_by: string
@@ -38460,7 +38450,6 @@ export namespace Prisma {
     readonly note: FieldRef<"OSRIV", 'String'>
     readonly is_completed: FieldRef<"OSRIV", 'Boolean'>
     readonly requested_by_id: FieldRef<"OSRIV", 'String'>
-    readonly department_id: FieldRef<"OSRIV", 'String'>
     readonly item_from_id: FieldRef<"OSRIV", 'String'>
     readonly cancelled_by: FieldRef<"OSRIV", 'String'>
     readonly created_by: FieldRef<"OSRIV", 'String'>
@@ -56111,7 +56100,6 @@ export namespace Prisma {
     note: 'note',
     is_completed: 'is_completed',
     requested_by_id: 'requested_by_id',
-    department_id: 'department_id',
     item_from_id: 'item_from_id',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
@@ -59197,7 +59185,6 @@ export namespace Prisma {
     note?: StringFilter<"OSRIV"> | string
     is_completed?: BoolFilter<"OSRIV"> | boolean
     requested_by_id?: StringFilter<"OSRIV"> | string
-    department_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
     cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
     created_by?: StringFilter<"OSRIV"> | string
@@ -59220,7 +59207,6 @@ export namespace Prisma {
     note?: SortOrder
     is_completed?: SortOrder
     requested_by_id?: SortOrder
-    department_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -59246,7 +59232,6 @@ export namespace Prisma {
     note?: StringFilter<"OSRIV"> | string
     is_completed?: BoolFilter<"OSRIV"> | boolean
     requested_by_id?: StringFilter<"OSRIV"> | string
-    department_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
     cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
     created_by?: StringFilter<"OSRIV"> | string
@@ -59269,7 +59254,6 @@ export namespace Prisma {
     note?: SortOrder
     is_completed?: SortOrder
     requested_by_id?: SortOrder
-    department_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -59295,7 +59279,6 @@ export namespace Prisma {
     note?: StringWithAggregatesFilter<"OSRIV"> | string
     is_completed?: BoolWithAggregatesFilter<"OSRIV"> | boolean
     requested_by_id?: StringWithAggregatesFilter<"OSRIV"> | string
-    department_id?: StringWithAggregatesFilter<"OSRIV"> | string
     item_from_id?: StringWithAggregatesFilter<"OSRIV"> | string
     cancelled_by?: StringNullableWithAggregatesFilter<"OSRIV"> | string | null
     created_by?: StringWithAggregatesFilter<"OSRIV"> | string
@@ -63750,7 +63733,6 @@ export namespace Prisma {
     note?: string
     is_completed?: boolean
     requested_by_id: string
-    department_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -63772,7 +63754,6 @@ export namespace Prisma {
     note?: string
     is_completed?: boolean
     requested_by_id: string
-    department_id: string
     item_from_id: string
     cancelled_by?: string | null
     created_by: string
@@ -63794,7 +63775,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63816,7 +63796,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -63838,7 +63817,6 @@ export namespace Prisma {
     note?: string
     is_completed?: boolean
     requested_by_id: string
-    department_id: string
     item_from_id: string
     cancelled_by?: string | null
     created_by: string
@@ -63858,7 +63836,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63877,7 +63854,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -67579,7 +67555,6 @@ export namespace Prisma {
     note?: SortOrder
     is_completed?: SortOrder
     requested_by_id?: SortOrder
-    department_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -67599,7 +67574,6 @@ export namespace Prisma {
     note?: SortOrder
     is_completed?: SortOrder
     requested_by_id?: SortOrder
-    department_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -67618,7 +67592,6 @@ export namespace Prisma {
     note?: SortOrder
     is_completed?: SortOrder
     requested_by_id?: SortOrder
-    department_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -72483,7 +72456,6 @@ export namespace Prisma {
     note?: string
     is_completed?: boolean
     requested_by_id: string
-    department_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -72504,7 +72476,6 @@ export namespace Prisma {
     note?: string
     is_completed?: boolean
     requested_by_id: string
-    department_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -72719,7 +72690,6 @@ export namespace Prisma {
     note?: StringFilter<"OSRIV"> | string
     is_completed?: BoolFilter<"OSRIV"> | boolean
     requested_by_id?: StringFilter<"OSRIV"> | string
-    department_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
     cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
     created_by?: StringFilter<"OSRIV"> | string
@@ -78187,7 +78157,6 @@ export namespace Prisma {
     note?: string
     is_completed?: boolean
     requested_by_id: string
-    department_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -78208,7 +78177,6 @@ export namespace Prisma {
     note?: string
     is_completed?: boolean
     requested_by_id: string
-    department_id: string
     item_from_id: string
     cancelled_by?: string | null
     created_by: string
@@ -78245,7 +78213,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78266,7 +78233,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -78287,7 +78253,6 @@ export namespace Prisma {
     note?: string
     is_completed?: boolean
     requested_by_id: string
-    department_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -78308,7 +78273,6 @@ export namespace Prisma {
     note?: string
     is_completed?: boolean
     requested_by_id: string
-    department_id: string
     item_from_id: string
     cancelled_by?: string | null
     created_by: string
@@ -78440,7 +78404,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78461,7 +78424,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -81998,7 +81960,6 @@ export namespace Prisma {
     note?: string
     is_completed?: boolean
     requested_by_id: string
-    department_id: string
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -82100,7 +82061,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82121,7 +82081,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82142,7 +82101,6 @@ export namespace Prisma {
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     requested_by_id?: StringFieldUpdateOperationsInput | string
-    department_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
