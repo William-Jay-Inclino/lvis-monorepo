@@ -146,7 +146,7 @@ export async function findOne(id: string): Promise<MST | undefined> {
                     price
                     item {
                         id 
-                        name
+                        code
                         description
                         unit {
                             name 
@@ -241,9 +241,12 @@ export async function fetchFormDataInCreate(): Promise<{
                 data{
                     id
                     code
-                    name
                     description
-                    item_type
+                    item_type {
+                        id 
+                        code 
+                        name
+                    }
                     unit {
                         id 
                         name

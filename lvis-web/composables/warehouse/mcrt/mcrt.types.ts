@@ -78,7 +78,7 @@ export interface MCRT {
 
   export interface AddMCRTItem {
     itemId: string
-    name: string
+    code: string
     description: string 
     referenceQty: number 
     mcrtQty: number 

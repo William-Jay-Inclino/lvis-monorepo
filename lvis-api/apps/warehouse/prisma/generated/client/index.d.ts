@@ -913,7 +913,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.8.1
-   * Query Engine version: 06fc58a368dc7be9fbbbe894adf8d445d208c284
+   * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
    */
   export type PrismaVersion = {
     client: string
@@ -41046,7 +41046,7 @@ export namespace Prisma {
     or_number: string | null
     mwo_number: string | null
     cwo_number: string | null
-    jo_number: string
+    jo_number: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -41168,7 +41168,7 @@ export namespace Prisma {
       or_number: string | null
       mwo_number: string | null
       cwo_number: string | null
-      jo_number: string
+      jo_number: string | null
       consumer_name: string
       location: string
       requested_by_id: string
@@ -44274,7 +44274,7 @@ export namespace Prisma {
     or_number: string | null
     mwo_number: string | null
     cwo_number: string | null
-    jo_number: string
+    jo_number: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -44399,7 +44399,7 @@ export namespace Prisma {
       or_number: string | null
       mwo_number: string | null
       cwo_number: string | null
-      jo_number: string
+      jo_number: string | null
       consumer_name: string
       location: string
       requested_by_id: string
@@ -59305,7 +59305,7 @@ export namespace Prisma {
     or_number?: StringNullableFilter<"SERIV"> | string | null
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
     cwo_number?: StringNullableFilter<"SERIV"> | string | null
-    jo_number?: StringFilter<"SERIV"> | string
+    jo_number?: StringNullableFilter<"SERIV"> | string | null
     consumer_name?: StringFilter<"SERIV"> | string
     location?: StringFilter<"SERIV"> | string
     requested_by_id?: StringFilter<"SERIV"> | string
@@ -59336,7 +59336,7 @@ export namespace Prisma {
     or_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
     cwo_number?: SortOrderInput | SortOrder
-    jo_number?: SortOrder
+    jo_number?: SortOrderInput | SortOrder
     consumer_name?: SortOrder
     location?: SortOrder
     requested_by_id?: SortOrder
@@ -59370,7 +59370,7 @@ export namespace Prisma {
     or_number?: StringNullableFilter<"SERIV"> | string | null
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
     cwo_number?: StringNullableFilter<"SERIV"> | string | null
-    jo_number?: StringFilter<"SERIV"> | string
+    jo_number?: StringNullableFilter<"SERIV"> | string | null
     consumer_name?: StringFilter<"SERIV"> | string
     location?: StringFilter<"SERIV"> | string
     requested_by_id?: StringFilter<"SERIV"> | string
@@ -59401,7 +59401,7 @@ export namespace Prisma {
     or_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
     cwo_number?: SortOrderInput | SortOrder
-    jo_number?: SortOrder
+    jo_number?: SortOrderInput | SortOrder
     consumer_name?: SortOrder
     location?: SortOrder
     requested_by_id?: SortOrder
@@ -59436,7 +59436,7 @@ export namespace Prisma {
     or_number?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
     mwo_number?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
     cwo_number?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
-    jo_number?: StringWithAggregatesFilter<"SERIV"> | string
+    jo_number?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
     consumer_name?: StringWithAggregatesFilter<"SERIV"> | string
     location?: StringWithAggregatesFilter<"SERIV"> | string
     requested_by_id?: StringWithAggregatesFilter<"SERIV"> | string
@@ -59617,7 +59617,7 @@ export namespace Prisma {
     or_number?: StringNullableFilter<"MRV"> | string | null
     mwo_number?: StringNullableFilter<"MRV"> | string | null
     cwo_number?: StringNullableFilter<"MRV"> | string | null
-    jo_number?: StringFilter<"MRV"> | string
+    jo_number?: StringNullableFilter<"MRV"> | string | null
     consumer_name?: StringFilter<"MRV"> | string
     location?: StringFilter<"MRV"> | string
     requested_by_id?: StringFilter<"MRV"> | string
@@ -59649,7 +59649,7 @@ export namespace Prisma {
     or_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
     cwo_number?: SortOrderInput | SortOrder
-    jo_number?: SortOrder
+    jo_number?: SortOrderInput | SortOrder
     consumer_name?: SortOrder
     location?: SortOrder
     requested_by_id?: SortOrder
@@ -59684,7 +59684,7 @@ export namespace Prisma {
     or_number?: StringNullableFilter<"MRV"> | string | null
     mwo_number?: StringNullableFilter<"MRV"> | string | null
     cwo_number?: StringNullableFilter<"MRV"> | string | null
-    jo_number?: StringFilter<"MRV"> | string
+    jo_number?: StringNullableFilter<"MRV"> | string | null
     consumer_name?: StringFilter<"MRV"> | string
     location?: StringFilter<"MRV"> | string
     requested_by_id?: StringFilter<"MRV"> | string
@@ -59716,7 +59716,7 @@ export namespace Prisma {
     or_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
     cwo_number?: SortOrderInput | SortOrder
-    jo_number?: SortOrder
+    jo_number?: SortOrderInput | SortOrder
     consumer_name?: SortOrder
     location?: SortOrder
     requested_by_id?: SortOrder
@@ -59751,7 +59751,7 @@ export namespace Prisma {
     or_number?: StringNullableWithAggregatesFilter<"MRV"> | string | null
     mwo_number?: StringNullableWithAggregatesFilter<"MRV"> | string | null
     cwo_number?: StringNullableWithAggregatesFilter<"MRV"> | string | null
-    jo_number?: StringWithAggregatesFilter<"MRV"> | string
+    jo_number?: StringNullableWithAggregatesFilter<"MRV"> | string | null
     consumer_name?: StringWithAggregatesFilter<"MRV"> | string
     location?: StringWithAggregatesFilter<"MRV"> | string
     requested_by_id?: StringWithAggregatesFilter<"MRV"> | string
@@ -63838,7 +63838,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -63868,7 +63868,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -63898,7 +63898,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -63928,7 +63928,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -63958,7 +63958,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -63985,7 +63985,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -64011,7 +64011,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -64192,7 +64192,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -64223,7 +64223,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -64252,7 +64252,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -64283,7 +64283,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -64313,7 +64313,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -64339,7 +64339,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -64365,7 +64365,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -72243,7 +72243,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -72273,7 +72273,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -72312,7 +72312,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -72341,7 +72341,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -72467,7 +72467,7 @@ export namespace Prisma {
     or_number?: StringNullableFilter<"MRV"> | string | null
     mwo_number?: StringNullableFilter<"MRV"> | string | null
     cwo_number?: StringNullableFilter<"MRV"> | string | null
-    jo_number?: StringFilter<"MRV"> | string
+    jo_number?: StringNullableFilter<"MRV"> | string | null
     consumer_name?: StringFilter<"MRV"> | string
     location?: StringFilter<"MRV"> | string
     requested_by_id?: StringFilter<"MRV"> | string
@@ -72513,7 +72513,7 @@ export namespace Prisma {
     or_number?: StringNullableFilter<"SERIV"> | string | null
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
     cwo_number?: StringNullableFilter<"SERIV"> | string | null
-    jo_number?: StringFilter<"SERIV"> | string
+    jo_number?: StringNullableFilter<"SERIV"> | string | null
     consumer_name?: StringFilter<"SERIV"> | string
     location?: StringFilter<"SERIV"> | string
     requested_by_id?: StringFilter<"SERIV"> | string
@@ -72539,7 +72539,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -72568,7 +72568,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -78509,7 +78509,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -78538,7 +78538,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -78583,7 +78583,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -78612,7 +78612,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -78641,7 +78641,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -78670,7 +78670,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -78810,7 +78810,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -78839,7 +78839,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -79308,7 +79308,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -79338,7 +79338,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -79382,7 +79382,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -79412,7 +79412,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -79440,7 +79440,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -79470,7 +79470,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -79609,7 +79609,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -79639,7 +79639,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -79774,7 +79774,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -79804,7 +79804,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -79931,7 +79931,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -79961,7 +79961,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -80194,7 +80194,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -80223,7 +80223,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -80373,7 +80373,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -80402,7 +80402,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -81649,7 +81649,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -81675,7 +81675,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -81792,7 +81792,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -81822,7 +81822,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -81851,7 +81851,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -81877,7 +81877,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -81906,7 +81906,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -81935,7 +81935,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -81960,7 +81960,7 @@ export namespace Prisma {
     or_number?: string | null
     mwo_number?: string | null
     cwo_number?: string | null
-    jo_number: string
+    jo_number?: string | null
     consumer_name: string
     location: string
     requested_by_id: string
@@ -81986,7 +81986,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -82015,7 +82015,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
@@ -82044,7 +82044,7 @@ export namespace Prisma {
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string

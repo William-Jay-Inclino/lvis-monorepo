@@ -31,10 +31,10 @@ export class CreateSerivInput {
   @IsOptional()
   cwo_number: string | null;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @IsString()
-  @IsNotEmpty()
-  jo_number: string;
+  @IsOptional()
+  jo_number: string | null;
 
   @Field(() => String)
   @IsString()

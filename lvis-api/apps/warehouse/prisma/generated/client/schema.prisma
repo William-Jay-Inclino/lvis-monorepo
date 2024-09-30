@@ -759,7 +759,7 @@ model SERIV {
   or_number String?
   mwo_number String?
   cwo_number String?
-  jo_number String
+  jo_number String?
   consumer_name String
   location String
 
@@ -836,7 +836,7 @@ model MRV {
   or_number String?
   mwo_number String?
   cwo_number String?
-  jo_number String
+  jo_number String?
   consumer_name String
   location String
 

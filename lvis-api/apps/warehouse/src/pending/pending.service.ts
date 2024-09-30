@@ -12,6 +12,7 @@ import { OsrivApproverStatusUpdated } from '../osriv-approver/events/osriv-appro
 import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-approver-status-updated.event';
 import { MctApproverStatusUpdated } from '../mct-approver/events/mct-approver-status-updated.event';
 import { McrtApproverStatusUpdated } from '../mcrt-approver/events/mcrt-approver-status-updated.event';
+import e from 'express';
 
 @Injectable()
 export class PendingService {
@@ -23,7 +24,7 @@ export class PendingService {
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
         private eventEmitter: EventEmitter2
-    ) { }
+    ) {}
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
@@ -169,7 +170,10 @@ export class PendingService {
                 [module.id]: model.id,
                 status: APPROVAL_STATUS.PENDING,
                 NOT: {
-                    approver_id: item.approver_id
+                    AND: [
+                        { approver_id: item.approver_id },
+                        { order: approverModel.order },
+                    ]
                 }
             },
             orderBy: {

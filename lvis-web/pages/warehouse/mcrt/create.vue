@@ -329,7 +329,7 @@
             const x: AddItem = {
                 id: i.id,
                 code: i.code,
-                name: i.name,
+                label: i.code + ' - ' + i.description,
                 description: i.description,
                 available_quantity: i.total_quantity - i.quantity_on_queue,
                 unit: i.unit,
@@ -451,7 +451,7 @@
         mcrtData.value.items = mcrtData.value.mct.mrv.mrv_items.map(i => {
             const item: AddMCRTItem = {
                 itemId: i.item.id,
-                name: i.item.name,
+                code: i.item.code,
                 description: i.item.description,
                 referenceQty: i.quantity,
                 mcrtQty: 0,
@@ -481,7 +481,7 @@
         mcrtData.value.items = mcrtData.value.seriv.seriv_items.map(i => {
             const item: AddMCRTItem = {
                 itemId: i.item.id,
-                name: i.item.name,
+                code: i.item.code,
                 description: i.item.description,
                 referenceQty: i.quantity,
                 mcrtQty: 0,
@@ -533,7 +533,7 @@
 
         const mcrtItem: AddMCRTItem = {
             itemId: item.id,
-            name: item.name,
+            code: item.code,
             description: item.description,
             referenceQty: 0,
             mcrtQty: 0,

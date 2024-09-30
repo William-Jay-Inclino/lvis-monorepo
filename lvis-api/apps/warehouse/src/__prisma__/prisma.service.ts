@@ -14,7 +14,8 @@ export class PrismaService extends PrismaClient {
                 db: {
                     url: config.get('WAREHOUSE_DATABASE_URL'),
                 }
-            }
+            },
+            // log: ['query']
         })
     }
 }

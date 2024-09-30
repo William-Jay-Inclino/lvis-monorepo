@@ -204,7 +204,7 @@
             const x: AddItem = {
                 id: i.id,
                 code: i.code,
-                name: i.name,
+                label: i.code + ' - ' + i.description,
                 description: i.description,
                 available_quantity: i.total_quantity - i.quantity_on_queue,
                 unit: i.unit,
@@ -280,7 +280,7 @@
 
         const mstItem: AddMSTItem = {
             itemId: item.id,
-            name: item.name,
+            code: item.code,
             description: item.description,
             quantity: 0,
             unit: item.unit,

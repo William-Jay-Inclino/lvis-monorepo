@@ -41,7 +41,7 @@
     
                             <div v-if="showOrNumber" class="mb-3">
                                 <label class="form-label">
-                                    OR Number <span class="text-danger">*</span>
+                                    OR Number
                                 </label>
                                 <input v-model="serivData.or_number" class="form-control"
                                     rows="3" />
@@ -51,7 +51,7 @@
     
                             <div v-if="showMwoNumber" class="mb-3">
                                 <label class="form-label">
-                                    MWO Number <span class="text-danger">*</span>
+                                    MWO Number
                                 </label>
                                 <input v-model="serivData.mwo_number" class="form-control"
                                     rows="3" />
@@ -61,7 +61,7 @@
     
                             <div v-if="showCwoNumber" class="mb-3">
                                 <label class="form-label">
-                                    CWO Number <span class="text-danger">*</span>
+                                    CWO Number
                                 </label>
                                 <input v-model="serivData.cwo_number" class="form-control"
                                     rows="3" />
@@ -71,7 +71,7 @@
     
                             <div class="mb-3">
                                 <label class="form-label">
-                                    JO Number <span class="text-danger">*</span>
+                                    JO Number
                                 </label>
                                 <input v-model="serivData.jo_number" class="form-control"
                                     rows="3" />
@@ -468,21 +468,21 @@ import { useToast } from 'vue-toastification';
             serivDataErrors.value.purpose = true
         }
 
-        if(showOrNumber.value === true && serivData.value.or_number?.trim() === '') {
-            serivDataErrors.value.or_number = true
-        }
+        // if(showOrNumber.value === true && serivData.value.or_number?.trim() === '') {
+        //     serivDataErrors.value.or_number = true
+        // }
 
-        if(showMwoNumber.value === true && serivData.value.mwo_number?.trim() === '') {
-            serivDataErrors.value.mwo_number = true
-        }
+        // if(showMwoNumber.value === true && serivData.value.mwo_number?.trim() === '') {
+        //     serivDataErrors.value.mwo_number = true
+        // }
 
-        if(showCwoNumber.value === true && serivData.value.cwo_number?.trim() === '') {
-            serivDataErrors.value.cwo_number = true
-        }
+        // if(showCwoNumber.value === true && serivData.value.cwo_number?.trim() === '') {
+        //     serivDataErrors.value.cwo_number = true
+        // }
 
-        if(serivData.value.jo_number?.trim() === '') {
-            serivDataErrors.value.jo_number = true
-        }
+        // if(serivData.value.jo_number?.trim() === '') {
+        //     serivDataErrors.value.jo_number = true
+        // }
 
         if(serivData.value.consumer_name?.trim() === '') {
             serivDataErrors.value.consumer_name = true

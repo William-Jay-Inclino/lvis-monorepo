@@ -136,7 +136,7 @@ export async function findOne(id: string): Promise<MCRT | undefined> {
                     price
                     item {
                         id 
-                        name
+                        code
                         description
                         unit {
                             name 
@@ -221,9 +221,12 @@ export async function fetchFormDataInCreate(): Promise<{
                 data{
                     id
                     code
-                    name
                     description
-                    item_type
+                    item_type {
+                        id 
+                        code 
+                        name
+                    }
                     unit {
                         id 
                         name
@@ -259,7 +262,6 @@ export async function fetchFormDataInCreate(): Promise<{
                                     name
                                 }
                                 code 
-                                name
                                 description
                                 total_quantity
                                 quantity_on_queue
@@ -286,7 +288,6 @@ export async function fetchFormDataInCreate(): Promise<{
                                 name
                             }
                             code 
-                            name
                             description
                             total_quantity
                             quantity_on_queue

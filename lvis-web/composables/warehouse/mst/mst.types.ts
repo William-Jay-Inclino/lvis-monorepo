@@ -69,7 +69,7 @@ export interface MST {
   export interface AddMSTItem {
     itemId: string
     quantity: number
-    name: string
+    code: string
     description: string 
     unit: Unit 
     unitPrice: number 

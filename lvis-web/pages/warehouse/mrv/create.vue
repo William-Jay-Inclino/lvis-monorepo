@@ -41,7 +41,7 @@
     
                             <div v-if="showOrNumber" class="mb-3">
                                 <label class="form-label">
-                                    OR Number <span class="text-danger">*</span>
+                                    OR Number 
                                 </label>
                                 <input v-model="mrvData.or_number" class="form-control"
                                     rows="3" />
@@ -51,7 +51,7 @@
     
                             <div v-if="showMwoNumber" class="mb-3">
                                 <label class="form-label">
-                                    MWO Number <span class="text-danger">*</span>
+                                    MWO Number
                                 </label>
                                 <input v-model="mrvData.mwo_number" class="form-control"
                                     rows="3" />
@@ -61,7 +61,7 @@
     
                             <div v-if="showCwoNumber" class="mb-3">
                                 <label class="form-label">
-                                    CWO Number <span class="text-danger">*</span>
+                                    CWO Number
                                 </label>
                                 <input v-model="mrvData.cwo_number" class="form-control"
                                     rows="3" />
@@ -71,7 +71,7 @@
     
                             <div class="mb-3">
                                 <label class="form-label">
-                                    JO Number <span class="text-danger">*</span>
+                                    JO Number
                                 </label>
                                 <input v-model="mrvData.jo_number" class="form-control"
                                     rows="3" />
@@ -476,21 +476,21 @@
             mrvDataErrors.value.purpose = true
         }
 
-        if(showOrNumber.value === true && mrvData.value.or_number?.trim() === '') {
-            mrvDataErrors.value.or_number = true
-        }
+        // if(showOrNumber.value === true && mrvData.value.or_number?.trim() === '') {
+        //     mrvDataErrors.value.or_number = true
+        // }
 
-        if(showMwoNumber.value === true && mrvData.value.mwo_number?.trim() === '') {
-            mrvDataErrors.value.mwo_number = true
-        }
+        // if(showMwoNumber.value === true && mrvData.value.mwo_number?.trim() === '') {
+        //     mrvDataErrors.value.mwo_number = true
+        // }
 
-        if(showCwoNumber.value === true && mrvData.value.cwo_number?.trim() === '') {
-            mrvDataErrors.value.cwo_number = true
-        }
+        // if(showCwoNumber.value === true && mrvData.value.cwo_number?.trim() === '') {
+        //     mrvDataErrors.value.cwo_number = true
+        // }
 
-        if(mrvData.value.jo_number?.trim() === '') {
-            mrvDataErrors.value.jo_number = true
-        }
+        // if(mrvData.value.jo_number?.trim() === '') {
+        //     mrvDataErrors.value.jo_number = true
+        // }
 
         if(mrvData.value.consumer_name?.trim() === '') {
             mrvDataErrors.value.consumer_name = true
