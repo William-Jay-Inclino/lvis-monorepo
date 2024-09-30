@@ -35,11 +35,23 @@ export class MctService {
             throw new Error('Failed to create MCT. Please try again')
         }
 
+        const mrv = await this.prisma.mRV.findUnique({
+            select: {
+                mrv_number: true
+            },
+            where: { id: input.mrv_id }
+        })
+
+        if(!mrv) {
+            throw new NotFoundException(`MRV with id ${input.mrv_id} not found in mrv table`)
+        }
+
         const mctNumber = await this.getLatestMctNumber()
 
         const data: Prisma.MCTCreateInput = {
             created_by: this.authUser.user.username,
             mct_number: mctNumber,
+            mrv_number: mrv.mrv_number,
             mct_date: new Date(),
             mrv: { connect: { id: input.mrv_id } },
             mct_approvers: {
@@ -112,6 +124,9 @@ export class MctService {
             data: {
                 cancelled_at: new Date(),
                 cancelled_by: this.authUser.user.username,
+                mrv: {
+                    disconnect: true
+                }
             },
             where: { id }
         })
@@ -144,7 +159,7 @@ export class MctService {
     async findBy(payload: { id?: string, mct_number?: string }): Promise<MCT | null> {
         const item = await this.prisma.mCT.findFirst({
             include: {
-                mcrt: true,
+                mcrts: true,
                 mrv: {
                     include: {
                     mrv_items: {
@@ -197,9 +212,9 @@ export class MctService {
             whereCondition = { ...whereCondition, mrv: { requested_by_id: requested_by_id } }
         }
         
-        whereCondition.cancelled_at = {
-            equals: null,
-        }
+        // whereCondition.cancelled_at = {
+        //     equals: null,
+        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mCT.findMany({
@@ -295,17 +310,17 @@ export class MctService {
 
     }
 
-    async isReferenced(mctId: string): Promise<Boolean> {
+    // async isReferenced(mctId: string): Promise<Boolean> {
 
-        const mcrt = await this.prisma.mCRT.findUnique({
-            where: { mct_id: mctId }
-        })
+    //     const mcrt = await this.prisma.mCRT.findUnique({
+    //         where: { mct_id: mctId }
+    //     })
 
-        if (mcrt) return true
+    //     if (mcrt) return true
 
-        return false
+    //     return false
 
-    }
+    // }
 
     async update(id: string, input: UpdateMctInput) {
         console.log('TBA: update');

@@ -79,8 +79,8 @@ export class SERIV {
 
   // =============== derived / resolvers ===============
 
-  @Field(() => MCRT, { nullable: true })
-  mcrt: MCRT | null;
+  @Field(() => [MCRT])
+  mcrts: MCRT[];
 
   @Field(() => Station)
   item_from: Station;

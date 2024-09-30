@@ -225,9 +225,9 @@ export class MstService {
             whereCondition = { ...whereCondition, returned_by_id }
         }
         
-        whereCondition.cancelled_at = {
-            equals: null,
-        }
+        // whereCondition.cancelled_at = {
+        //     equals: null,
+        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mST.findMany({

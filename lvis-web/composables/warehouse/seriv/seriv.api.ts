@@ -121,7 +121,7 @@ export async function findOne(id: string): Promise<SERIV | undefined> {
                 cancelled_at
                 created_by
                 can_update
-                mcrt {
+                mcrts {
                     id
                     mcrt_number
                 }

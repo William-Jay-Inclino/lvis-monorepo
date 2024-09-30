@@ -108,9 +108,10 @@ export async function findOne(id: string): Promise<MCT | undefined> {
             mct(${args}) {
                 id
                 mct_number
+                mrv_number
                 status
                 mct_date 
-                mcrt {
+                mcrts {
                     id
                     mcrt_number
                 }
@@ -221,6 +222,11 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 data {
                     id
                     mct_number
+                    requested_by {
+                        firstname 
+                        middlename 
+                        lastname
+                    }
                     mrv {
                         requested_by {
                             id

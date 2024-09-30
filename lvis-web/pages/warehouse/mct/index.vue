@@ -83,7 +83,7 @@
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.mct_number }} </td>
                                                 <td class="text-muted align-middle">
-                                                    {{ getFullname(i.mrv.requested_by.firstname, i.mrv.requested_by.middlename, i.mrv.requested_by.lastname) }}
+                                                    {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
                                                 </td>
                                                 <td class="text-muted align-middle"> {{ formatDate(i.mct_date) }}
                                                 </td>

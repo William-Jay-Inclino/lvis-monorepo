@@ -167,7 +167,7 @@ export function debounce<T extends (...args: any[]) => void>(func: T, wait: numb
 
 export function isBlankStatus(itemStatus: APPROVAL_STATUS, approverStatus: APPROVAL_STATUS) {
 
-    if(itemStatus === APPROVAL_STATUS.DISAPPROVED && approverStatus === APPROVAL_STATUS.PENDING) {
+    if((itemStatus === APPROVAL_STATUS.DISAPPROVED || itemStatus === APPROVAL_STATUS.CANCELLED) && approverStatus === APPROVAL_STATUS.PENDING) {
         return true 
     }
 

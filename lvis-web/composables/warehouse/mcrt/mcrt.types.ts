@@ -1,10 +1,7 @@
 import type { Employee } from "~/composables/system/employee/employee.types";
-import type { AddItem, Item } from "../item/item.type";
 import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateMCRTApprover, MCRTApprover } from "./mcrt-approver.types";
 import type { MCRTItem } from "./mcrt-item.types";
-import type { Station } from "../station/station";
-import { WAREHOUSE_REQUEST_TYPE } from "#imports";
 import type { MCT } from "../mct/mct.types";
 import type { SERIV } from "../seriv/seriv.types";
 
@@ -12,7 +9,9 @@ import type { SERIV } from "../seriv/seriv.types";
 export interface MCRT {
     id: string;
     mct_id: string | null;
+    mct_number: string;
     seriv_id: string | null;
+    seriv_number: string;
     mcrt_number: string;
     mcrt_date: string;
 

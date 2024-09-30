@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.8.1
- * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
+ * Query Engine version: 06fc58a368dc7be9fbbbe894adf8d445d208c284
  */
 Prisma.prismaVersion = {
   client: "5.8.1",
-  engine: "78caf6feeaed953168c64e15a249c3e9a033ebe2"
+  engine: "06fc58a368dc7be9fbbbe894adf8d445d208c284"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -647,6 +647,7 @@ exports.Prisma.MRVItemScalarFieldEnum = {
 exports.Prisma.MCTScalarFieldEnum = {
   id: 'id',
   mrv_id: 'mrv_id',
+  mrv_number: 'mrv_number',
   mct_number: 'mct_number',
   mct_date: 'mct_date',
   is_completed: 'is_completed',
@@ -675,7 +676,9 @@ exports.Prisma.MCTApproverScalarFieldEnum = {
 exports.Prisma.MCRTScalarFieldEnum = {
   id: 'id',
   mct_id: 'mct_id',
+  mct_number: 'mct_number',
   seriv_id: 'seriv_id',
+  seriv_number: 'seriv_number',
   mcrt_number: 'mcrt_number',
   mcrt_date: 'mcrt_date',
   is_completed: 'is_completed',

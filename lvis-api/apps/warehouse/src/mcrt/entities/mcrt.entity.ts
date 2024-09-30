@@ -14,7 +14,13 @@ export class MCRT {
   mct_id: string | null;
 
   @Field(() => String, { nullable: true })
+  mct_number: string | null;
+
+  @Field(() => String, { nullable: true })
   seriv_id: string | null;
+
+  @Field(() => String, { nullable: true })
+  seriv_number: string | null;
 
   @Field(() => String)
   mcrt_number: string;

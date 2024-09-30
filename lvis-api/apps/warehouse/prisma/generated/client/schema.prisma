@@ -778,7 +778,7 @@ model SERIV {
   item_from      Station      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
   seriv_approvers SERIVApprover[]
   seriv_items SERIVItem[]
-  mcrt MCRT?
+  mcrts MCRT[]
 
   metadata Json?
 
@@ -903,7 +903,8 @@ model MRVItem {
 
 model MCT {
   id                String    @id @default(uuid())
-  mrv_id                String @unique
+  mrv_id                String? @unique
+  mrv_number         String    @unique
   mct_number         String    @unique
   mct_date    DateTime
   is_completed    Boolean  @default(false)
@@ -916,9 +917,9 @@ model MCT {
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
 
-  mrv      MRV      @relation(fields: [mrv_id], references: [id], onDelete: Restrict)
+  mrv      MRV?      @relation(fields: [mrv_id], references: [id], onDelete: Restrict)
   mct_approvers MCTApprover[]
-  mcrt MCRT?
+  mcrts MCRT[]
 
   metadata Json?
 
@@ -947,8 +948,10 @@ model MCTApprover {
 
 model MCRT {
   id                String    @id @default(uuid())
-  mct_id                String? @unique
-  seriv_id                String? @unique
+  mct_id                String?
+  mct_number String?
+  seriv_id                String?
+  seriv_number String?
   mcrt_number         String    @unique
   mcrt_date    DateTime
   is_completed    Boolean  @default(false)

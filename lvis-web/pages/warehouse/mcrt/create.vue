@@ -45,16 +45,6 @@
                                                             </small>
                                                         </div>
                                                     </div>
-                                                    <div v-else-if="option.is_referenced" class="row">
-                                                        <div class="col">
-                                                            <span class="text-danger">{{ option.mct_number }}</span>
-                                                        </div>
-                                                        <div class="col text-end">
-                                                            <small class="text-muted fst-italic">
-                                                                Referenced
-                                                            </small>
-                                                        </div>
-                                                    </div>
                                                     <div v-else class="row">
                                                         <div class="col">
                                                             <span>{{ option.mct_number }}</span>
@@ -85,16 +75,6 @@
             // @ts-ignore
             approvalStatus[option.status].label
         }}
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                    <div v-else-if="option.is_referenced" class="row">
-                                                        <div class="col">
-                                                            <span class="text-danger">{{ option.seriv_number }}</span>
-                                                        </div>
-                                                        <div class="col text-end">
-                                                            <small class="text-muted fst-italic">
-                                                                Referenced
                                                             </small>
                                                         </div>
                                                     </div>
@@ -448,7 +428,7 @@
     }
 
     function onMctNumberSelected(payload: MCT) {
-        if (payload.status === APPROVAL_STATUS.APPROVED && !payload.is_referenced) {
+        if (payload.status === APPROVAL_STATUS.APPROVED) {
             currentMct = payload
         } else {
             if (currentMct) {
@@ -478,7 +458,7 @@
     }
 
     function onSerivNumberSelected(payload: SERIV) {
-        if (payload.status === APPROVAL_STATUS.APPROVED && !payload.is_referenced) {
+        if (payload.status === APPROVAL_STATUS.APPROVED) {
             currentSeriv = payload
         } else {
             if (currentSeriv) {

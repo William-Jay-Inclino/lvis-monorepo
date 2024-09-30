@@ -38,9 +38,43 @@ export class McrtService {
 
         const mcrtNumber = await this.getLatestMcrtNumber()
 
+        let mct_number = undefined
+        let seriv_number = undefined
+
+        if(input.mct_id) {
+            const mct = await this.prisma.mCT.findUnique({
+                select: {
+                    mct_number: true
+                },
+                where: { id: input.mct_id }
+            })
+
+            if(!mct) {
+                throw new NotFoundException('MCT not found with id of ' + input.mct_id)
+            }
+
+            mct_number = mct.mct_number
+
+        } else if (input.seriv_id) {
+            const seriv = await this.prisma.sERIV.findUnique({
+                select: {
+                    seriv_number: true
+                },
+                where: { id: input.seriv_id }
+            })
+
+            if(!seriv) {
+                throw new NotFoundException('SERIV not found with id of ' + input.seriv_id)
+            }
+
+            seriv_number = seriv.seriv_number
+        }
+
         const data: Prisma.MCRTCreateInput = {
             created_by: this.authUser.user.username,
             mct: input.mct_id ? { connect: { id: input.mct_id } } : undefined,
+            mct_number,
+            seriv_number,
             seriv: input.seriv_id? { connect: { id: input.seriv_id } } : undefined,
             mcrt_number: mcrtNumber,
             mcrt_date: new Date(),
@@ -147,6 +181,12 @@ export class McrtService {
             data: {
                 cancelled_at: new Date(),
                 cancelled_by: this.authUser.user.username,
+                mct: {
+                    disconnect: true,
+                },
+                seriv: {
+                    disconnect: true,
+                }
             },
             where: { id }
         })
@@ -225,9 +265,9 @@ export class McrtService {
 
         }
         
-        whereCondition.cancelled_at = {
-            equals: null,
-        }
+        // whereCondition.cancelled_at = {
+        //     equals: null,
+        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mCRT.findMany({

@@ -7,7 +7,7 @@ import { UpdateMctInput } from './dto/update-mct.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from '../__common__/auth-user.entity';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { NotFoundException, UseGuards } from '@nestjs/common';
 import { MCTApprover } from '../mct-approver/entities/mct-approver.entity';
 import { MctApproverService } from '../mct-approver/mct-approver.service';
 import { MCTsResponse } from './entities/mcts-response.entity';
@@ -15,6 +15,7 @@ import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
+import { MrvService } from '../mrv/mrv.service';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MCT)
@@ -22,7 +23,8 @@ export class MctResolver {
 
     constructor(
         private readonly mctService: MctService,
-        private readonly mctApproverService: MctApproverService
+        private readonly mrvService: MrvService,
+        private readonly mctApproverService: MctApproverService,
     ) { }
 
     @Mutation(() => MCT)
@@ -102,10 +104,19 @@ export class MctResolver {
 
     }
 
-    @ResolveField(() => Boolean)
-    async is_referenced(@Parent() mct: MCT) {
-        return await this.mctService.isReferenced(mct.id)
+    @ResolveField(() => Employee)
+    async requested_by(@Parent() mct: MCT): Promise<any> {
+        const mrv = await this.mrvService.findBy({ mrv_number: mct.mrv_number })
+        if(!mrv) {
+            throw new NotFoundException(`mrv number: ${mct.mrv_number} not found in mrv table`)
+        }
+        return { __typename: 'Employee', id: mrv.requested_by_id }
     }
+
+    // @ResolveField(() => Boolean)
+    // async is_referenced(@Parent() mct: MCT) {
+    //     return await this.mctService.isReferenced(mct.id)
+    // }
 
     @ResolveField(() => Boolean)
     can_update(

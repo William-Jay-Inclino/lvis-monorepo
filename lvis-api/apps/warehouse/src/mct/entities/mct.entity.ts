@@ -13,6 +13,9 @@ export class MCT {
   mrv_id: string;
 
   @Field(() => String)
+  mrv_number: string;
+
+  @Field(() => String)
   mct_number: string;
 
   @Field(() => String)
@@ -47,11 +50,11 @@ export class MCT {
 
   // =============== derived / resolvers ===============
 
-  @Field(() => MRV)
-  mrv: MRV;
+  @Field(() => MRV, { nullable: true })
+  mrv: MRV | null;
 
-  @Field(() => MCRT, { nullable: true })
-  mcrt: MCRT | null;
+  @Field(() => [MCRT])
+  mcrts: MCRT[];
 
   @Field(() => [MCTApprover])
   mct_approvers: MCTApprover[]

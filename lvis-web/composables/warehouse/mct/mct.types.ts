@@ -2,11 +2,13 @@ import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateMCTApprover, MCTApprover } from "./mct-approver.types";
 import type { MRV } from "../mrv/mrv.types";
 import type { MCRT } from "../mcrt/mcrt.types";
+import type { Employee } from "~/composables/system/employee/employee.types";
 
 
 export interface MCT {
     id: string;
     mrv_id: string;
+    mrv_number: string;
     mct_number: string;
     mct_date: string;
 
@@ -23,12 +25,12 @@ export interface MCT {
   
     // =============== derived / resolvers =============== 
     mrv: MRV;  
-    mcrt: MCRT;  
+    mcrts: MCRT[];  
     mct_approvers: MCTApprover[]
     status: APPROVAL_STATUS
     is_referenced: boolean;
     can_update?: boolean;
-  
+    requested_by: Employee;
   } 
 
 

@@ -93,6 +93,8 @@ export async function findOne(id: string): Promise<MCRT | undefined> {
             mcrt(${args}) {
                 id
                 mcrt_number
+                mct_number
+                seriv_number
                 status
                 mcrt_date 
                 note
@@ -249,7 +251,6 @@ export async function fetchFormDataInCreate(): Promise<{
                     id
                     mct_number
                     status
-                    is_referenced
                     mrv {
                         mrv_items {
                             id
@@ -276,7 +277,6 @@ export async function fetchFormDataInCreate(): Promise<{
                     id
                     seriv_number
                     status
-                    is_referenced
                     seriv_items {
                         id
                         quantity

@@ -37,21 +37,22 @@
                                                 <td class="text-muted">MRV Number</td>
                                                 <td>
                                                     <nuxt-link
-                                                      :to="'/warehouse/mrv/view/' + item.mrv.id">{{
-                                                      item.mrv.mrv_number
+                                                      :to="'/warehouse/mrv/view/' + item.mrv_number">{{
+                                                      item.mrv_number
                                                       }}
                                                       </nuxt-link>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">MCRT Number</td>
-                                                <td>
-                                                    <nuxt-link
-                                                        v-if="item.mcrt"
-                                                        :to="'/warehouse/mcrt/view/' + item.mcrt.id">{{
-                                                        item.mcrt.mcrt_number
-                                                        }}</nuxt-link>
-                                                    <div v-else> N/A </div>
+                                                <td class="text-muted">MCRT Number/s</td>
+                                                <td class="align-middle">
+                                                    <div v-if="item.mcrts.length === 0"> N/A </div>
+                                                    <div v-else>
+                                                        <div v-for="mcrt in item.mcrts">
+                                                            <nuxt-link :to="'/warehouse/mcrt/view/' + mcrt.id">{{ mcrt.mcrt_number
+                                                                }}</nuxt-link>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -139,7 +140,7 @@
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>
                                     <div v-if="!item.cancelled_at">
-                                        <button disabled v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
+                                        <button v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
                                             @click="onCancelMCT()">
                                             <i class="fas fa-times-circle"></i> Cancel MCT
                                         </button>

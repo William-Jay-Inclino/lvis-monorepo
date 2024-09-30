@@ -37,9 +37,9 @@
                                                 <td class="text-muted">MCT Number</td>
                                                 <td>
                                                     <nuxt-link
-                                                        v-if="item.mct"
-                                                        :to="'/warehouse/mct/view/' + item.mct.id">{{
-                                                        item.mct.mct_number
+                                                        v-if="item.mct_number"
+                                                        :to="'/warehouse/mct/view/' + item.mct_number">{{
+                                                        item.mct_number
                                                         }}</nuxt-link>
                                                     <div v-else> N/A </div>
                                                 </td>
@@ -48,9 +48,9 @@
                                                 <td class="text-muted">SERIV Number</td>
                                                 <td>
                                                     <nuxt-link
-                                                        v-if="item.seriv"
-                                                        :to="'/warehouse/seriv/view/' + item.seriv.id">{{
-                                                        item.seriv.seriv_number
+                                                        v-if="item.seriv_number"
+                                                        :to="'/warehouse/seriv/view/' + item.seriv_number">{{
+                                                        item.seriv_number
                                                         }}</nuxt-link>
                                                     <div v-else> N/A </div>
                                                 </td>
@@ -202,7 +202,7 @@
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>
                                     <div v-if="!item.cancelled_at">
-                                        <button disabled v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
+                                        <button v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
                                             @click="onCancelMCRT()">
                                             <i class="fas fa-times-circle"></i> Cancel MCRT
                                         </button>

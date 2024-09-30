@@ -40,7 +40,7 @@ export interface SERIV {
   
     // =============== derived / resolvers =============== 
 
-    mcrt: MCRT | null;
+    mcrts: MCRT[];
     requested_by: Employee;
     withdrawn_by: Employee | null;
     is_referenced: boolean;
