@@ -178,3 +178,10 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         items: 'mst_items',
     },
 }
+
+export const enum ITEM_TYPE_CODE {
+    'OS' = 'OS',
+    'SE' = 'SE',
+    'LM' = 'LM',
+    'SP' = 'SP',
+}

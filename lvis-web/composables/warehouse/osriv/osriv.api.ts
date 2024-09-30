@@ -253,6 +253,11 @@ export async function fetchFormDataInCreate(): Promise<{
                     id
                     code
                     description
+                    item_type {
+                        id 
+                        code 
+                        name
+                    }
                     unit {
                         id 
                         name

@@ -361,7 +361,6 @@ export async function create(input: CreateItemInput): Promise<MutationResponse> 
             createItem(input: {
                 item_type_id: ${input.item_type?.id},
                 unit_id: "${input.unit?.id}",
-                code: "${input.code}",
                 description: "${input.description}",
                 initial_quantity: ${input.initial_quantity},
                 initial_average_price: ${input.initial_average_price},

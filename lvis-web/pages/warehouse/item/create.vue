@@ -15,14 +15,6 @@
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Code <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" class="form-control" v-model="formData.code">
-                                <small v-if="formDataErrors.code" class="text-danger fst-italic"> This field is required
-                                </small>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">
                                     Description
                                 </label>
                                 <textarea rows="3" class="form-control" v-model="formData.description"></textarea>
@@ -125,7 +117,6 @@ const units = ref<Unit[]>([])
 const alertLevels = ref<number[]>([])
 
 const _initialFormErrors = {
-    code: false,
     name: false,
     initial_quantity: false,
     initial_average_price: false,
@@ -136,7 +127,6 @@ const _initialFormErrors = {
 const _initialFormData: CreateItemInput = {
     item_type: null,
     unit: null,
-    code: '',
     description: '',
     initial_quantity: 0,
     initial_average_price: 0,
@@ -195,10 +185,6 @@ async function onSubmit() {
 function isValid(): boolean {
 
     formDataErrors.value = { ..._initialFormErrors }
-
-    if (formData.value.code.trim() === '') {
-        formDataErrors.value.code = true
-    }
 
     if (!formData.value.initial_quantity || formData.value.initial_quantity < 0) {
         formDataErrors.value.initial_quantity = true

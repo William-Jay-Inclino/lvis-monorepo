@@ -1,210 +1,227 @@
 <template>
 
-    <div class="card">
-        <div class="card-body">
+    <div>
 
-            <div v-if="!isLoadingPage && authUser">
-                <h2 class="text-warning">Create SERIV</h2>
-                <hr>
-
-                <div class="row pt-3">
-                    <div class="col">
-                        <span class="text-secondary">
-                            Step {{ currentStep }} of 2:
-                            <span v-if="currentStep === 1"> Fill up SERIV info </span>
-                            <span v-if="currentStep === 2"> Add SERIV items </span>
-                        </span>
+        <div class="card">
+            <div class="card-body">
+    
+                <div v-if="!isLoadingPage && authUser">
+                    <h2 class="text-warning">Create SERIV</h2>
+                    <hr>
+    
+                    <div class="row pt-3">
+                        <div class="col">
+                            <span class="text-secondary">
+                                Step {{ currentStep }} of 2:
+                                <span v-if="currentStep === 1"> Fill up SERIV info </span>
+                                <span v-if="currentStep === 2"> Add SERIV items </span>
+                            </span>
+                        </div>
                     </div>
-                </div>
-        
-                <div v-show="currentStep === 1" class="row justify-content-center pt-5 pb-3">
-        
-                    <div class="col-lg-6">
-
-                        <div class="alert alert-info" role="alert">
-                            <small class="fst-italic">
-                                Fields with * are required
-                            </small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Request Type <span class="text-danger">*</span>
-                            </label>
-                            <client-only>
-                                <v-select :options="request_types" label="name" v-model="serivData.request_type" :clearable="false"></v-select>
-                            </client-only>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.request_type"> {{ errorMsg }} </small>
-                        </div>
-
-                        <div v-if="showOrNumber" class="mb-3">
-                            <label class="form-label">
-                                OR Number <span class="text-danger">*</span>
-                            </label>
-                            <input v-model="serivData.or_number" class="form-control"
-                                rows="3" />
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.or_number"> {{ errorMsg }}
-                            </small>
-                        </div>
-
-                        <div v-if="showMwoNumber" class="mb-3">
-                            <label class="form-label">
-                                MWO Number <span class="text-danger">*</span>
-                            </label>
-                            <input v-model="serivData.mwo_number" class="form-control"
-                                rows="3" />
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.mwo_number"> {{ errorMsg }}
-                            </small>
-                        </div>
-
-                        <div v-if="showCwoNumber" class="mb-3">
-                            <label class="form-label">
-                                CWO Number <span class="text-danger">*</span>
-                            </label>
-                            <input v-model="serivData.cwo_number" class="form-control"
-                                rows="3" />
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.cwo_number"> {{ errorMsg }}
-                            </small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                JO Number <span class="text-danger">*</span>
-                            </label>
-                            <input v-model="serivData.jo_number" class="form-control"
-                                rows="3" />
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.jo_number"> {{ errorMsg }}
-                            </small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Item From <span class="text-danger">*</span>
-                            </label>
-                            <client-only>
-                                <v-select :options="stations" label="name" v-model="serivData.item_from" :clearable="false"></v-select>
-                            </client-only>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.item_from"> {{ errorMsg }} </small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Consumer Name <span class="text-danger">*</span>
-                            </label>
-                            <textarea v-model="serivData.consumer_name" class="form-control"
-                                rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.consumer_name"> {{ errorMsg }}
-                            </small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Location <span class="text-danger">*</span>
-                            </label>
-                            <textarea v-model="serivData.location" class="form-control"
-                                rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.location"> {{ errorMsg }}
-                            </small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Purpose <span class="text-danger">*</span>
-                            </label>
-                            <textarea v-model="serivData.purpose" class="form-control"
-                                rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.purpose"> {{ errorMsg }}
-                            </small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Requested By <span class="text-danger">*</span>
-                            </label>
-                            <client-only>
-                                <v-select :options="employees" label="fullname" v-model="serivData.requested_by" :clearable="false"></v-select>
-                            </client-only>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.requested_by"> {{ errorMsg }} </small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Withdrawn By
-                            </label>
-                            <client-only>
-                                <v-select :options="employees" label="fullname" v-model="serivData.withdrawn_by"></v-select>
-                            </client-only>
-                        </div>
-
-                        <div v-for="approver in serivData.approvers" class="mb-3">
-                            <label class="form-label">
-                                {{ approver.label }} <span class="text-danger">*</span>
-                            </label>
-                            <client-only>
-                                <v-select
-                                    :options="employees"
-                                    label="fullname"
-                                    v-model="approver.approver"
-                                    :clearable="false"
-                                    :disabled="approver.label_id === SERIV_APPROVER.WAREHOUSE_CUSTODIAN"
-                                  ></v-select>
-                            </client-only>
-                            <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
-                        </div>
-
-                    </div>
-        
-                </div>
-        
-                <div v-show="currentStep === 2" class="row justify-content-center pt-5">
-                    <div class="col-lg-10">
-                        <div class="mb-3">
-                            <small class="form-label fst-italic text-muted">
-                                Input the name of the item in the search field below
-                            </small>
-                            <client-only>
-                                <v-select :options="items" v-model="serivData.items" label="label" multiple></v-select>
-                            </client-only>
-                        </div>
-
-                        <WarehouseItems :items="serivData.items" @remove-item="handleRemoveItem"/>
-
-                    </div>
-                </div> 
-
-                <div class="row justify-content-center pt-5">
-                    <div :class="{ 'col-lg-6': currentStep === 1, 'col-lg-10 col-md-10 col-sm-12': currentStep === 2 }">
-        
-                        <div v-if="currentStep === 1" class="d-flex justify-content-between">
-                            <nuxt-link class="btn btn-secondary" to="/warehouse/seriv">
-                                <i class="fas fa-chevron-left"></i> Back to Search
-                            </nuxt-link>
-                            <button @click="onClickNextStep1()" class="btn btn-primary">
-                                <i class="fas fa-chevron-right"></i> Next
-                            </button>
-                        </div>
-        
-                        <div v-else class="d-flex justify-content-between">
-                            <button @click="currentStep--" type="button" class="btn btn-secondary">
-                                <i class="fas fa-chevron-left"></i> Back
-                            </button>
-                            <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
-                                class="btn btn-primary">
-                                <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
-                            </button>
-                        </div>
-        
-        
-                    </div>
-                </div>
-        
-            </div>
-        
-            <div v-else>
-                <LoaderSpinner />
-            </div>
             
+                    <div v-show="currentStep === 1" class="row justify-content-center pt-5 pb-3">
+            
+                        <div class="col-lg-6">
+    
+                            <div class="alert alert-info" role="alert">
+                                <small class="fst-italic">
+                                    Fields with * are required
+                                </small>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Request Type <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="request_types" label="name" v-model="serivData.request_type" :clearable="false"></v-select>
+                                </client-only>
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.request_type"> {{ errorMsg }} </small>
+                            </div>
+    
+                            <div v-if="showOrNumber" class="mb-3">
+                                <label class="form-label">
+                                    OR Number <span class="text-danger">*</span>
+                                </label>
+                                <input v-model="serivData.or_number" class="form-control"
+                                    rows="3" />
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.or_number"> {{ errorMsg }}
+                                </small>
+                            </div>
+    
+                            <div v-if="showMwoNumber" class="mb-3">
+                                <label class="form-label">
+                                    MWO Number <span class="text-danger">*</span>
+                                </label>
+                                <input v-model="serivData.mwo_number" class="form-control"
+                                    rows="3" />
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.mwo_number"> {{ errorMsg }}
+                                </small>
+                            </div>
+    
+                            <div v-if="showCwoNumber" class="mb-3">
+                                <label class="form-label">
+                                    CWO Number <span class="text-danger">*</span>
+                                </label>
+                                <input v-model="serivData.cwo_number" class="form-control"
+                                    rows="3" />
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.cwo_number"> {{ errorMsg }}
+                                </small>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    JO Number <span class="text-danger">*</span>
+                                </label>
+                                <input v-model="serivData.jo_number" class="form-control"
+                                    rows="3" />
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.jo_number"> {{ errorMsg }}
+                                </small>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Item From <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="stations" label="name" v-model="serivData.item_from" :clearable="false"></v-select>
+                                </client-only>
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.item_from"> {{ errorMsg }} </small>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Consumer Name <span class="text-danger">*</span>
+                                </label>
+                                <textarea v-model="serivData.consumer_name" class="form-control"
+                                    rows="3"> </textarea>
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.consumer_name"> {{ errorMsg }}
+                                </small>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Location <span class="text-danger">*</span>
+                                </label>
+                                <textarea v-model="serivData.location" class="form-control"
+                                    rows="3"> </textarea>
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.location"> {{ errorMsg }}
+                                </small>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Purpose <span class="text-danger">*</span>
+                                </label>
+                                <textarea v-model="serivData.purpose" class="form-control"
+                                    rows="3"> </textarea>
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.purpose"> {{ errorMsg }}
+                                </small>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Requested By <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="employees" label="fullname" v-model="serivData.requested_by" :clearable="false"></v-select>
+                                </client-only>
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.requested_by"> {{ errorMsg }} </small>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Withdrawn By
+                                </label>
+                                <client-only>
+                                    <v-select :options="employees" label="fullname" v-model="serivData.withdrawn_by"></v-select>
+                                </client-only>
+                            </div>
+    
+                            <div v-for="approver in serivData.approvers" class="mb-3">
+                                <label class="form-label">
+                                    {{ approver.label }} <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select
+                                        :options="employees"
+                                        label="fullname"
+                                        v-model="approver.approver"
+                                        :clearable="false"
+                                        :disabled="approver.label_id === SERIV_APPROVER.WAREHOUSE_CUSTODIAN"
+                                      ></v-select>
+                                </client-only>
+                                <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
+                            </div>
+    
+                        </div>
+            
+                    </div>
+            
+                    <div v-show="currentStep === 2" class="row justify-content-center pt-5">
+                        <div class="col-lg-10">
+                            <!-- <div class="mb-3">
+                                <small class="form-label fst-italic text-muted">
+                                    Input the name of the item in the search field below
+                                </small>
+                                <client-only>
+                                    <v-select :options="items" v-model="serivData.items" label="label" multiple></v-select>
+                                </client-only>
+                            </div> -->
+
+                            <div class="text-end mb-3">
+                                <button
+                                    class="btn btn-success btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#addItemModal">
+                                    <i
+                                    class="fas fa-plus"></i>
+                                    Add Item
+                                </button>
+                            </div>
+    
+                            <WarehouseItems :items="serivData.items" @remove-item="handleRemoveItem"/>
+    
+                        </div>
+                    </div> 
+    
+                    <div class="row justify-content-center pt-5">
+                        <div :class="{ 'col-lg-6': currentStep === 1, 'col-lg-10 col-md-10 col-sm-12': currentStep === 2 }">
+            
+                            <div v-if="currentStep === 1" class="d-flex justify-content-between">
+                                <nuxt-link class="btn btn-secondary" to="/warehouse/seriv">
+                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                </nuxt-link>
+                                <button @click="onClickNextStep1()" class="btn btn-primary">
+                                    <i class="fas fa-chevron-right"></i> Next
+                                </button>
+                            </div>
+            
+                            <div v-else class="d-flex justify-content-between">
+                                <button @click="currentStep--" type="button" class="btn btn-secondary">
+                                    <i class="fas fa-chevron-left"></i> Back
+                                </button>
+                                <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
+                                    class="btn btn-primary">
+                                    <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                </button>
+                            </div>
+            
+            
+                        </div>
+                    </div>
+            
+                </div>
+            
+                <div v-else>
+                    <LoaderSpinner />
+                </div>
+                
+            </div>
         </div>
+
+        <WarehouseAddItemModal @add-item="handleAddItem" :items="items" :added-item-ids="serivItemIds"/>
+
     </div>
 
 
@@ -222,6 +239,7 @@
     import Swal from 'sweetalert2';
     import { SERIV_APPROVER, SERIV_DEFAULT_APPROVERS } from '~/composables/warehouse/seriv/seriv.constants';
     import { showCWOnumber, showMWOnumber, showORnumber } from '~/utils/helpers';
+import { useToast } from 'vue-toastification';
 
     definePageMeta({
         name: ROUTES.SERIV_CREATE,
@@ -233,6 +251,7 @@
 
     // CONSTANTS
     const router = useRouter()
+    const toast = useToast();
     // FLAGS
     const isSaving = ref(false)
     const errorMsg = 'This field is required'
@@ -357,6 +376,9 @@
 
     })
 
+    const serivItemIds = computed( () => serivData.value.items.map(i => i.id))
+
+
     // ======================== FUNCTIONS ========================  
 
     async function save() {
@@ -402,6 +424,37 @@
         serivData.value.items.splice(indx, 1)
     }
 
+    function handleAddItem(itemId: string) {
+        console.log('handleAddItem', itemId);
+        const item = items.value.find(i => i.id === itemId)
+
+        if(!item) {
+            console.error('item not found');
+            return 
+        }
+
+        const isExist = serivData.value.items.find(i => i.id === itemId) 
+
+        if(isExist) {
+            toast.error('Item exist!')
+            return 
+        }
+
+        const serivItem: AddItem = {
+            id: item.id,
+            code: item.code,
+            label: item.code + ' - ' + item.description,
+            description: item.description,
+            available_quantity: item.available_quantity,
+            unit: item.unit,
+            GWAPrice: item.GWAPrice,
+            qty_request: 0,
+            item_type: item.item_type,
+        }
+
+        serivData.value.items.push(serivItem)
+        toast.success('Item added!')
+    }
 
     async function onClickNextStep1() {
 

@@ -42,7 +42,6 @@ export interface FindAllResponse {
 export interface CreateItemInput {
 	item_type: ItemType | null
 	unit: Unit | null
-	code: string
 	description: string
 	initial_quantity: number
 	initial_average_price: number

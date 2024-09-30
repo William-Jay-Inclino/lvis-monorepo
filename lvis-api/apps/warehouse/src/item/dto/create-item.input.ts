@@ -15,11 +15,6 @@ export class CreateItemInput {
   unit_id: string
 
   @Field()
-  @IsNotEmpty()
-  @IsString()
-  code: string
-
-  @Field()
   @IsOptional()
   @IsString()
   description?: string | null

@@ -246,9 +246,9 @@
     import type { Station } from '~/composables/warehouse/station/station';
     import type { AddItem } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';
-    import { MRV_APPROVER, MRV_DEFAULT_APPROVERS } from '~/composables/warehouse/mrv/mrv.constants';
+    import { MRV_DEFAULT_APPROVERS } from '~/composables/warehouse/mrv/mrv.constants';
     import { showCWOnumber, showMWOnumber, showORnumber } from '~/utils/helpers';
-import { useToast } from 'vue-toastification';
+    import { useToast } from 'vue-toastification';
 
     definePageMeta({
         name: ROUTES.MRV_CREATE,
@@ -431,7 +431,7 @@ import { useToast } from 'vue-toastification';
             return 
         }
 
-        const mstItem: AddItem = {
+        const mrvItem: AddItem = {
             id: item.id,
             code: item.code,
             label: item.code + ' - ' + item.description,
@@ -443,7 +443,7 @@ import { useToast } from 'vue-toastification';
             item_type: item.item_type,
         }
 
-        mrvData.value.items.push(mstItem)
+        mrvData.value.items.push(mrvItem)
         toast.success('Item added!')
     }
 

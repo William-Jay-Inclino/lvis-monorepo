@@ -15,6 +15,7 @@ import { OsrivApproverStatusUpdated } from '../osriv-approver/events/osriv-appro
 import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-approver-status-updated.event';
 import { MctApproverStatusUpdated } from '../mct-approver/events/mct-approver-status-updated.event';
 import { McrtApproverStatusUpdated } from '../mcrt-approver/events/mcrt-approver-status-updated.event';
+import { ITEM_TYPE_CODE } from '../__common__/constants';
 
 @Injectable()
 export class ItemService {
@@ -33,57 +34,172 @@ export class ItemService {
 		this.authUser = authUser
 	}
 
+	// async create(input: CreateItemInput): Promise<Item> {
+
+	// 	this.logger.log('create()', input)
+
+	// 	// Check if the code already exists
+	// 	const existingItem = await this.prisma.item.findUnique({
+	// 		where: {
+	// 			code: input.code,
+	// 		},
+	// 	})
+
+	// 	if (existingItem) {
+	// 		throw new ConflictException('Item code must be unique. A different item with the same code already exists.');
+	// 	}
+
+	// 	const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
+	// 		type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+	// 		quantity: input.initial_quantity,
+	// 		price: input.initial_average_price,
+	// 		remarks: 'Initial item transaction',
+	// 		created_at: new Date(),
+	// 		created_by: this.authUser.user.username
+	// 	}
+
+	// 	const createdBy = this.authUser.user.username
+	// 	const itemType = await this.prisma.itemType.findUnique({
+	// 		select: {
+	// 			code: true
+	// 		},
+	// 		where: { id: input.item_type_id }
+	// 	})
+
+	// 	if(!itemType) {
+	// 		throw new NotFoundException('Item type code not found')
+	// 	}
+
+	// 	const itemCode = await this.generateItemCode(itemType.code as ITEM_TYPE_CODE)
+
+	// 	const data: Prisma.ItemCreateInput = {
+	// 		item_type: {connect: { id: input.item_type_id  }},
+	// 		unit: {
+	// 			connect: { id: input.unit_id }
+	// 		},
+	// 		code: itemCode,
+	// 		description: input.description,
+	// 		initial_quantity: input.initial_quantity,
+	// 		total_quantity: input.initial_quantity,
+	// 		alert_level: input.alert_level,
+	// 		created_by: createdBy,
+	// 		item_transactions: {
+	// 			create: item_transaction
+	// 		}
+	// 	}
+
+	// 	const created = await this.prisma.item.create({
+	// 		data,
+	// 		include: this.includedFields
+	// 	})
+
+	// 	this.logger.log('Successfully created Item')
+
+	// 	return created
+
+	// }
+
 	async create(input: CreateItemInput): Promise<Item> {
-
-		this.logger.log('create()', input)
-
-		// Check if the code already exists
-		const existingItem = await this.prisma.item.findUnique({
-			where: {
-				code: input.code,
-			},
-		})
-
-		if (existingItem) {
-			throw new ConflictException('Item code must be unique. A different item with the same code already exists.');
-		}
-
-		const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
+		this.logger.log('create()', input);
+	  
+		// Use a transaction to ensure atomicity
+		const result = await this.prisma.$transaction(async (prisma) => {
+	  
+		  const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
 			type: ITEM_TRANSACTION_TYPE.STOCK_IN,
 			quantity: input.initial_quantity,
 			price: input.initial_average_price,
 			remarks: 'Initial item transaction',
 			created_at: new Date(),
-			created_by: this.authUser.user.username
-		}
-
-		const createdBy = this.authUser.user.username
-
-		const data: Prisma.ItemCreateInput = {
-			item_type: {connect: { id: input.item_type_id  }},
-			unit: {
-				connect: { id: input.unit_id }
+			created_by: this.authUser.user.username,
+		  };
+	  
+		  const createdBy = this.authUser.user.username;
+	  
+		  // Fetch the item type code
+		  const itemType = await prisma.itemType.findUnique({
+			select: {
+			  code: true,
 			},
-			code: input.code,
+			where: { id: input.item_type_id },
+		  });
+	  
+		  if (!itemType) {
+			throw new NotFoundException('Item type code not found');
+		  }
+	  
+		  // Generate the item code within the transaction
+		  const itemCode = await this.generateItemCode(itemType.code as ITEM_TYPE_CODE, prisma);
+	  
+		  const data: Prisma.ItemCreateInput = {
+			item_type: { connect: { id: input.item_type_id } },
+			unit: {
+			  connect: { id: input.unit_id },
+			},
+			code: itemCode,
 			description: input.description,
 			initial_quantity: input.initial_quantity,
 			total_quantity: input.initial_quantity,
 			alert_level: input.alert_level,
 			created_by: createdBy,
 			item_transactions: {
-				create: item_transaction
-			}
-		}
-
-		const created = await this.prisma.item.create({
+			  create: item_transaction,
+			},
+		  };
+	  
+		  // Create the item
+		  const createdItem = await prisma.item.create({
 			data,
-			include: this.includedFields
-		})
-
-		this.logger.log('Successfully created Item')
-
-		return created
-
+			include: this.includedFields,
+		  });
+	  
+		  return createdItem;
+		});
+	  
+		this.logger.log('Successfully created Item');
+		return result;
+	  }
+	  
+	private async generateItemCode(itemTypeCode: ITEM_TYPE_CODE, prisma: Prisma.TransactionClient): Promise<string> {
+		const currentYear = new Date().getFullYear() % 100; // Get the last two digits of the current year
+	  
+		// Check if there's already an entry for this item type and year
+		let itemCodeTracker = await prisma.itemCodeTracker.findFirst({
+		  where: {
+			item_code: itemTypeCode,
+			year: currentYear,
+		  },
+		});
+	  
+		let lastIncremental = 1;
+	  
+		// If no entry found for the current year, create one
+		if (!itemCodeTracker) {
+		  itemCodeTracker = await prisma.itemCodeTracker.create({
+			data: {
+			  item_code: itemTypeCode,
+			  year: currentYear,
+			  last_incremental: lastIncremental,
+			},
+		  });
+		} else {
+		  // Increment the last incremental value
+		  lastIncremental = itemCodeTracker.last_incremental + 1;
+	  
+		  // Update the tracker with the new incremental value
+		  await prisma.itemCodeTracker.update({
+			where: { id: itemCodeTracker.id },
+			data: { last_incremental: lastIncremental },
+		  });
+		}
+	  
+		// Pad the incremental number to ensure it's 5 digits long (e.g., 00001)
+		const paddedIncremental = lastIncremental.toString().padStart(5, '0');
+	  
+		// Generate the final item code in the format XX-YY-XXXXX (e.g., OS-24-00001)
+		const generatedCode = `${itemTypeCode}-${currentYear.toString().padStart(2, '0')}-${paddedIncremental}`;
+	  
+		return generatedCode;
 	}
 
 	async findAll(page: number, pageSize: number, name?: string, item_code?: string): Promise<ItemsResponse> {
@@ -308,6 +424,48 @@ export class ItemService {
 
 	}
 
+	// private async generateItemCode(itemTypeCode: ITEM_TYPE_CODE): Promise<string> {
+	// 	// Get the last two digits of the current year as an integer (e.g., 24 for 2024)
+	// 	const currentYear = new Date().getFullYear() % 100; 
+	
+	// 	// Check if there's already an entry for this item type and year
+	// 	let itemCodeTracker = await this.prisma.itemCodeTracker.findFirst({
+	// 	  where: {
+	// 		item_code: itemTypeCode,
+	// 		year: currentYear,
+	// 	  },
+	// 	});
+	
+	// 	let lastIncremental = 1;
+	
+	// 	// If no entry found for the current year, create one
+	// 	if (!itemCodeTracker) {
+	// 	  itemCodeTracker = await this.prisma.itemCodeTracker.create({
+	// 		data: {
+	// 		  item_code: itemTypeCode,
+	// 		  year: currentYear,
+	// 		  last_incremental: lastIncremental,
+	// 		},
+	// 	  });
+	// 	} else {
+	// 	  // Increment the last incremental value
+	// 	  lastIncremental = itemCodeTracker.last_incremental + 1;
+		  
+	// 	  // Update the tracker with the new incremental value
+	// 	  await this.prisma.itemCodeTracker.update({
+	// 		where: { id: itemCodeTracker.id },
+	// 		data: { last_incremental: lastIncremental },
+	// 	  });
+	// 	}
+	
+	// 	// Pad the incremental number to ensure it's 5 digits long (e.g., 00001)
+	// 	const paddedIncremental = lastIncremental.toString().padStart(5, '0');
+	
+	// 	// Generate the final item code in the format XX-YY-XXXXX (e.g., OS-24-00001)
+	// 	const generatedCode = `${itemTypeCode}-${currentYear.toString().padStart(2, '0')}-${paddedIncremental}`;
+	
+	// 	return generatedCode;
+	// }
 
 	// ================== RR EVENTS ================== 
 
