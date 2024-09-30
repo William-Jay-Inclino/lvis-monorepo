@@ -7,7 +7,7 @@ import { UpdateRrInput } from './dto/update-rr.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from '../__common__/auth-user.entity';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { NotFoundException, UseGuards } from '@nestjs/common';
 import { RrApprover } from '../rr-approver/entities/rr-approver.entity';
 import { RrApproverService } from '../rr-approver/rr-approver.service';
 import { RrNumber } from './entities/rr-number.entity';
@@ -16,6 +16,8 @@ import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
+import { PoService } from '../po/po.service';
+import { PO } from '../po/entities/po.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => RR)
@@ -23,7 +25,8 @@ export class RrResolver {
 
     constructor(
         private readonly rrService: RrService,
-        private readonly rrApproverService: RrApproverService
+        private readonly rrApproverService: RrApproverService,
+        private readonly poService: PoService,
     ) { }
 
     @Mutation(() => RR)
@@ -99,6 +102,29 @@ export class RrResolver {
     @ResolveField(() => Employee)
     received_by(@Parent() rr: RR): any {
         return { __typename: 'Employee', id: rr.received_by_id }
+    }
+
+    @ResolveField(() => Employee)
+    async requested_by(@Parent() rr: RR) {
+
+        const po = await this.poService.findByPoNumber(rr.po_number) as unknown as PO
+
+        if(!po) {
+            throw new NotFoundException(`po number: ${rr.po_number} not found in po table`)
+        }
+
+        if(po.meqs_supplier.meqs.rv) {
+            return { __typename: 'Employee', id: po.meqs_supplier.meqs.rv.canvass.requested_by_id }
+        }
+
+        if(rr.po.meqs_supplier.meqs.spr) {
+            return { __typename: 'Employee', id: po.meqs_supplier.meqs.spr.canvass.requested_by_id }
+        }
+
+        if(rr.po.meqs_supplier.meqs.jo) {
+            return { __typename: 'Employee', id: po.meqs_supplier.meqs.jo.canvass.requested_by_id }
+        }
+
     }
 
     @ResolveField(() => Int)

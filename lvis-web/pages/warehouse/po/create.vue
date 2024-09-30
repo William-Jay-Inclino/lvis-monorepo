@@ -180,7 +180,7 @@
                                         <td class="text-muted"> {{ formatToPhpCurrency(item.price * item.canvass_item.quantity) }} </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="9" class="text-end fw-bold">
+                                        <td colspan="8" class="text-end fw-bold">
                                             Summary Total
                                         </td>
                                         <td class="fw-bold">

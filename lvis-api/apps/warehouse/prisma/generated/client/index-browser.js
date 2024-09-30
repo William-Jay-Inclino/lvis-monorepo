@@ -383,8 +383,11 @@ exports.Prisma.SPRApproverScalarFieldEnum = {
 exports.Prisma.MEQSScalarFieldEnum = {
   id: 'id',
   jo_id: 'jo_id',
+  jo_number: 'jo_number',
   rv_id: 'rv_id',
+  rv_number: 'rv_number',
   spr_id: 'spr_id',
+  spr_number: 'spr_number',
   meqs_number: 'meqs_number',
   meqs_date: 'meqs_date',
   notes: 'notes',
@@ -439,6 +442,7 @@ exports.Prisma.MEQSApproverScalarFieldEnum = {
 exports.Prisma.POScalarFieldEnum = {
   id: 'id',
   meqs_supplier_id: 'meqs_supplier_id',
+  meqs_number: 'meqs_number',
   po_number: 'po_number',
   fund_source_id: 'fund_source_id',
   po_date: 'po_date',
@@ -467,6 +471,7 @@ exports.Prisma.POApproverScalarFieldEnum = {
 exports.Prisma.RRScalarFieldEnum = {
   id: 'id',
   po_id: 'po_id',
+  po_number: 'po_number',
   rr_number: 'rr_number',
   rr_date: 'rr_date',
   received_by_id: 'received_by_id',

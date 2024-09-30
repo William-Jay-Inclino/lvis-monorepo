@@ -3,10 +3,12 @@ import type { MeqsSupplier } from "../meqs/meqs-supplier";
 import type { PoApproverSettings } from "./po-approver.types";
 import type { RR } from "../rr/rr.types";
 import type { Account } from "~/composables/system/account/account";
+import type { Employee } from "~/composables/system/employee/employee.types";
 
 export interface PO {
     id: string;
     meqs_supplier_id?: string | null;
+    meqs_number: string;
     fund_source_id?: string | null;
     po_number: string;
     po_date: string;
@@ -33,6 +35,7 @@ export interface PO {
     is_referenced: boolean
     fund_source: Account | null
     can_update?: boolean
+    requested_by: Employee
 }
 
 export interface CreatePoInput {

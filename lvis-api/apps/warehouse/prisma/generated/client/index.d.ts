@@ -27461,8 +27461,11 @@ export namespace Prisma {
   export type MEQSMinAggregateOutputType = {
     id: string | null
     jo_id: string | null
+    jo_number: string | null
     rv_id: string | null
+    rv_number: string | null
     spr_id: string | null
+    spr_number: string | null
     meqs_number: string | null
     meqs_date: Date | null
     notes: string | null
@@ -27477,8 +27480,11 @@ export namespace Prisma {
   export type MEQSMaxAggregateOutputType = {
     id: string | null
     jo_id: string | null
+    jo_number: string | null
     rv_id: string | null
+    rv_number: string | null
     spr_id: string | null
+    spr_number: string | null
     meqs_number: string | null
     meqs_date: Date | null
     notes: string | null
@@ -27493,8 +27499,11 @@ export namespace Prisma {
   export type MEQSCountAggregateOutputType = {
     id: number
     jo_id: number
+    jo_number: number
     rv_id: number
+    rv_number: number
     spr_id: number
+    spr_number: number
     meqs_number: number
     meqs_date: number
     notes: number
@@ -27512,8 +27521,11 @@ export namespace Prisma {
   export type MEQSMinAggregateInputType = {
     id?: true
     jo_id?: true
+    jo_number?: true
     rv_id?: true
+    rv_number?: true
     spr_id?: true
+    spr_number?: true
     meqs_number?: true
     meqs_date?: true
     notes?: true
@@ -27528,8 +27540,11 @@ export namespace Prisma {
   export type MEQSMaxAggregateInputType = {
     id?: true
     jo_id?: true
+    jo_number?: true
     rv_id?: true
+    rv_number?: true
     spr_id?: true
+    spr_number?: true
     meqs_number?: true
     meqs_date?: true
     notes?: true
@@ -27544,8 +27559,11 @@ export namespace Prisma {
   export type MEQSCountAggregateInputType = {
     id?: true
     jo_id?: true
+    jo_number?: true
     rv_id?: true
+    rv_number?: true
     spr_id?: true
+    spr_number?: true
     meqs_number?: true
     meqs_date?: true
     notes?: true
@@ -27634,8 +27652,11 @@ export namespace Prisma {
   export type MEQSGroupByOutputType = {
     id: string
     jo_id: string | null
+    jo_number: string | null
     rv_id: string | null
+    rv_number: string | null
     spr_id: string | null
+    spr_number: string | null
     meqs_number: string
     meqs_date: Date
     notes: string
@@ -27668,8 +27689,11 @@ export namespace Prisma {
   export type MEQSSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     jo_id?: boolean
+    jo_number?: boolean
     rv_id?: boolean
+    rv_number?: boolean
     spr_id?: boolean
+    spr_number?: boolean
     meqs_number?: boolean
     meqs_date?: boolean
     notes?: boolean
@@ -27691,8 +27715,11 @@ export namespace Prisma {
   export type MEQSSelectScalar = {
     id?: boolean
     jo_id?: boolean
+    jo_number?: boolean
     rv_id?: boolean
+    rv_number?: boolean
     spr_id?: boolean
+    spr_number?: boolean
     meqs_number?: boolean
     meqs_date?: boolean
     notes?: boolean
@@ -27727,8 +27754,11 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       jo_id: string | null
+      jo_number: string | null
       rv_id: string | null
+      rv_number: string | null
       spr_id: string | null
+      spr_number: string | null
       meqs_number: string
       meqs_date: Date
       notes: string
@@ -28144,8 +28174,11 @@ export namespace Prisma {
   interface MEQSFieldRefs {
     readonly id: FieldRef<"MEQS", 'String'>
     readonly jo_id: FieldRef<"MEQS", 'String'>
+    readonly jo_number: FieldRef<"MEQS", 'String'>
     readonly rv_id: FieldRef<"MEQS", 'String'>
+    readonly rv_number: FieldRef<"MEQS", 'String'>
     readonly spr_id: FieldRef<"MEQS", 'String'>
+    readonly spr_number: FieldRef<"MEQS", 'String'>
     readonly meqs_number: FieldRef<"MEQS", 'String'>
     readonly meqs_date: FieldRef<"MEQS", 'DateTime'>
     readonly notes: FieldRef<"MEQS", 'String'>
@@ -32508,6 +32541,7 @@ export namespace Prisma {
   export type POMinAggregateOutputType = {
     id: string | null
     meqs_supplier_id: string | null
+    meqs_number: string | null
     po_number: string | null
     fund_source_id: string | null
     po_date: Date | null
@@ -32523,6 +32557,7 @@ export namespace Prisma {
   export type POMaxAggregateOutputType = {
     id: string | null
     meqs_supplier_id: string | null
+    meqs_number: string | null
     po_number: string | null
     fund_source_id: string | null
     po_date: Date | null
@@ -32538,6 +32573,7 @@ export namespace Prisma {
   export type POCountAggregateOutputType = {
     id: number
     meqs_supplier_id: number
+    meqs_number: number
     po_number: number
     fund_source_id: number
     po_date: number
@@ -32556,6 +32592,7 @@ export namespace Prisma {
   export type POMinAggregateInputType = {
     id?: true
     meqs_supplier_id?: true
+    meqs_number?: true
     po_number?: true
     fund_source_id?: true
     po_date?: true
@@ -32571,6 +32608,7 @@ export namespace Prisma {
   export type POMaxAggregateInputType = {
     id?: true
     meqs_supplier_id?: true
+    meqs_number?: true
     po_number?: true
     fund_source_id?: true
     po_date?: true
@@ -32586,6 +32624,7 @@ export namespace Prisma {
   export type POCountAggregateInputType = {
     id?: true
     meqs_supplier_id?: true
+    meqs_number?: true
     po_number?: true
     fund_source_id?: true
     po_date?: true
@@ -32675,6 +32714,7 @@ export namespace Prisma {
   export type POGroupByOutputType = {
     id: string
     meqs_supplier_id: string | null
+    meqs_number: string
     po_number: string
     fund_source_id: string | null
     po_date: Date
@@ -32708,6 +32748,7 @@ export namespace Prisma {
   export type POSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     meqs_supplier_id?: boolean
+    meqs_number?: boolean
     po_number?: boolean
     fund_source_id?: boolean
     po_date?: boolean
@@ -32728,6 +32769,7 @@ export namespace Prisma {
   export type POSelectScalar = {
     id?: boolean
     meqs_supplier_id?: boolean
+    meqs_number?: boolean
     po_number?: boolean
     fund_source_id?: boolean
     po_date?: boolean
@@ -32759,6 +32801,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       meqs_supplier_id: string | null
+      meqs_number: string
       po_number: string
       fund_source_id: string | null
       po_date: Date
@@ -33171,6 +33214,7 @@ export namespace Prisma {
   interface POFieldRefs {
     readonly id: FieldRef<"PO", 'String'>
     readonly meqs_supplier_id: FieldRef<"PO", 'String'>
+    readonly meqs_number: FieldRef<"PO", 'String'>
     readonly po_number: FieldRef<"PO", 'String'>
     readonly fund_source_id: FieldRef<"PO", 'String'>
     readonly po_date: FieldRef<"PO", 'DateTime'>
@@ -34586,6 +34630,7 @@ export namespace Prisma {
   export type RRMinAggregateOutputType = {
     id: string | null
     po_id: string | null
+    po_number: string | null
     rr_number: string | null
     rr_date: Date | null
     received_by_id: string | null
@@ -34605,6 +34650,7 @@ export namespace Prisma {
   export type RRMaxAggregateOutputType = {
     id: string | null
     po_id: string | null
+    po_number: string | null
     rr_number: string | null
     rr_date: Date | null
     received_by_id: string | null
@@ -34624,6 +34670,7 @@ export namespace Prisma {
   export type RRCountAggregateOutputType = {
     id: number
     po_id: number
+    po_number: number
     rr_number: number
     rr_date: number
     received_by_id: number
@@ -34654,6 +34701,7 @@ export namespace Prisma {
   export type RRMinAggregateInputType = {
     id?: true
     po_id?: true
+    po_number?: true
     rr_number?: true
     rr_date?: true
     received_by_id?: true
@@ -34673,6 +34721,7 @@ export namespace Prisma {
   export type RRMaxAggregateInputType = {
     id?: true
     po_id?: true
+    po_number?: true
     rr_number?: true
     rr_date?: true
     received_by_id?: true
@@ -34692,6 +34741,7 @@ export namespace Prisma {
   export type RRCountAggregateInputType = {
     id?: true
     po_id?: true
+    po_number?: true
     rr_number?: true
     rr_date?: true
     received_by_id?: true
@@ -34799,6 +34849,7 @@ export namespace Prisma {
   export type RRGroupByOutputType = {
     id: string
     po_id: string | null
+    po_number: string
     rr_number: string
     rr_date: Date
     received_by_id: string
@@ -34838,6 +34889,7 @@ export namespace Prisma {
   export type RRSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     po_id?: boolean
+    po_number?: boolean
     rr_number?: boolean
     rr_date?: boolean
     received_by_id?: boolean
@@ -34862,6 +34914,7 @@ export namespace Prisma {
   export type RRSelectScalar = {
     id?: boolean
     po_id?: boolean
+    po_number?: boolean
     rr_number?: boolean
     rr_date?: boolean
     received_by_id?: boolean
@@ -34897,6 +34950,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       po_id: string | null
+      po_number: string
       rr_number: string
       rr_date: Date
       received_by_id: string
@@ -35313,6 +35367,7 @@ export namespace Prisma {
   interface RRFieldRefs {
     readonly id: FieldRef<"RR", 'String'>
     readonly po_id: FieldRef<"RR", 'String'>
+    readonly po_number: FieldRef<"RR", 'String'>
     readonly rr_number: FieldRef<"RR", 'String'>
     readonly rr_date: FieldRef<"RR", 'DateTime'>
     readonly received_by_id: FieldRef<"RR", 'String'>
@@ -55891,8 +55946,11 @@ export namespace Prisma {
   export const MEQSScalarFieldEnum: {
     id: 'id',
     jo_id: 'jo_id',
+    jo_number: 'jo_number',
     rv_id: 'rv_id',
+    rv_number: 'rv_number',
     spr_id: 'spr_id',
+    spr_number: 'spr_number',
     meqs_number: 'meqs_number',
     meqs_date: 'meqs_date',
     notes: 'notes',
@@ -55962,6 +56020,7 @@ export namespace Prisma {
   export const POScalarFieldEnum: {
     id: 'id',
     meqs_supplier_id: 'meqs_supplier_id',
+    meqs_number: 'meqs_number',
     po_number: 'po_number',
     fund_source_id: 'fund_source_id',
     po_date: 'po_date',
@@ -55996,6 +56055,7 @@ export namespace Prisma {
   export const RRScalarFieldEnum: {
     id: 'id',
     po_id: 'po_id',
+    po_number: 'po_number',
     rr_number: 'rr_number',
     rr_date: 'rr_date',
     received_by_id: 'received_by_id',
@@ -58275,8 +58335,11 @@ export namespace Prisma {
     NOT?: MEQSWhereInput | MEQSWhereInput[]
     id?: StringFilter<"MEQS"> | string
     jo_id?: StringNullableFilter<"MEQS"> | string | null
+    jo_number?: StringNullableFilter<"MEQS"> | string | null
     rv_id?: StringNullableFilter<"MEQS"> | string | null
+    rv_number?: StringNullableFilter<"MEQS"> | string | null
     spr_id?: StringNullableFilter<"MEQS"> | string | null
+    spr_number?: StringNullableFilter<"MEQS"> | string | null
     meqs_number?: StringFilter<"MEQS"> | string
     meqs_date?: DateTimeFilter<"MEQS"> | Date | string
     notes?: StringFilter<"MEQS"> | string
@@ -58297,8 +58360,11 @@ export namespace Prisma {
   export type MEQSOrderByWithRelationInput = {
     id?: SortOrder
     jo_id?: SortOrderInput | SortOrder
+    jo_number?: SortOrderInput | SortOrder
     rv_id?: SortOrderInput | SortOrder
+    rv_number?: SortOrderInput | SortOrder
     spr_id?: SortOrderInput | SortOrder
+    spr_number?: SortOrderInput | SortOrder
     meqs_number?: SortOrder
     meqs_date?: SortOrder
     notes?: SortOrder
@@ -58325,6 +58391,9 @@ export namespace Prisma {
     AND?: MEQSWhereInput | MEQSWhereInput[]
     OR?: MEQSWhereInput[]
     NOT?: MEQSWhereInput | MEQSWhereInput[]
+    jo_number?: StringNullableFilter<"MEQS"> | string | null
+    rv_number?: StringNullableFilter<"MEQS"> | string | null
+    spr_number?: StringNullableFilter<"MEQS"> | string | null
     meqs_date?: DateTimeFilter<"MEQS"> | Date | string
     notes?: StringFilter<"MEQS"> | string
     created_by?: StringFilter<"MEQS"> | string
@@ -58344,8 +58413,11 @@ export namespace Prisma {
   export type MEQSOrderByWithAggregationInput = {
     id?: SortOrder
     jo_id?: SortOrderInput | SortOrder
+    jo_number?: SortOrderInput | SortOrder
     rv_id?: SortOrderInput | SortOrder
+    rv_number?: SortOrderInput | SortOrder
     spr_id?: SortOrderInput | SortOrder
+    spr_number?: SortOrderInput | SortOrder
     meqs_number?: SortOrder
     meqs_date?: SortOrder
     notes?: SortOrder
@@ -58367,8 +58439,11 @@ export namespace Prisma {
     NOT?: MEQSScalarWhereWithAggregatesInput | MEQSScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MEQS"> | string
     jo_id?: StringNullableWithAggregatesFilter<"MEQS"> | string | null
+    jo_number?: StringNullableWithAggregatesFilter<"MEQS"> | string | null
     rv_id?: StringNullableWithAggregatesFilter<"MEQS"> | string | null
+    rv_number?: StringNullableWithAggregatesFilter<"MEQS"> | string | null
     spr_id?: StringNullableWithAggregatesFilter<"MEQS"> | string | null
+    spr_number?: StringNullableWithAggregatesFilter<"MEQS"> | string | null
     meqs_number?: StringWithAggregatesFilter<"MEQS"> | string
     meqs_date?: DateTimeWithAggregatesFilter<"MEQS"> | Date | string
     notes?: StringWithAggregatesFilter<"MEQS"> | string
@@ -58665,6 +58740,7 @@ export namespace Prisma {
     NOT?: POWhereInput | POWhereInput[]
     id?: StringFilter<"PO"> | string
     meqs_supplier_id?: StringNullableFilter<"PO"> | string | null
+    meqs_number?: StringFilter<"PO"> | string
     po_number?: StringFilter<"PO"> | string
     fund_source_id?: StringNullableFilter<"PO"> | string | null
     po_date?: DateTimeFilter<"PO"> | Date | string
@@ -58684,6 +58760,7 @@ export namespace Prisma {
   export type POOrderByWithRelationInput = {
     id?: SortOrder
     meqs_supplier_id?: SortOrderInput | SortOrder
+    meqs_number?: SortOrder
     po_number?: SortOrder
     fund_source_id?: SortOrderInput | SortOrder
     po_date?: SortOrder
@@ -58707,6 +58784,7 @@ export namespace Prisma {
     AND?: POWhereInput | POWhereInput[]
     OR?: POWhereInput[]
     NOT?: POWhereInput | POWhereInput[]
+    meqs_number?: StringFilter<"PO"> | string
     fund_source_id?: StringNullableFilter<"PO"> | string | null
     po_date?: DateTimeFilter<"PO"> | Date | string
     notes?: StringFilter<"PO"> | string
@@ -58725,6 +58803,7 @@ export namespace Prisma {
   export type POOrderByWithAggregationInput = {
     id?: SortOrder
     meqs_supplier_id?: SortOrderInput | SortOrder
+    meqs_number?: SortOrder
     po_number?: SortOrder
     fund_source_id?: SortOrderInput | SortOrder
     po_date?: SortOrder
@@ -58747,6 +58826,7 @@ export namespace Prisma {
     NOT?: POScalarWhereWithAggregatesInput | POScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PO"> | string
     meqs_supplier_id?: StringNullableWithAggregatesFilter<"PO"> | string | null
+    meqs_number?: StringWithAggregatesFilter<"PO"> | string
     po_number?: StringWithAggregatesFilter<"PO"> | string
     fund_source_id?: StringNullableWithAggregatesFilter<"PO"> | string | null
     po_date?: DateTimeWithAggregatesFilter<"PO"> | Date | string
@@ -58843,6 +58923,7 @@ export namespace Prisma {
     NOT?: RRWhereInput | RRWhereInput[]
     id?: StringFilter<"RR"> | string
     po_id?: StringNullableFilter<"RR"> | string | null
+    po_number?: StringFilter<"RR"> | string
     rr_number?: StringFilter<"RR"> | string
     rr_date?: DateTimeFilter<"RR"> | Date | string
     received_by_id?: StringFilter<"RR"> | string
@@ -58866,6 +58947,7 @@ export namespace Prisma {
   export type RROrderByWithRelationInput = {
     id?: SortOrder
     po_id?: SortOrderInput | SortOrder
+    po_number?: SortOrder
     rr_number?: SortOrder
     rr_date?: SortOrder
     received_by_id?: SortOrder
@@ -58894,6 +58976,7 @@ export namespace Prisma {
     OR?: RRWhereInput[]
     NOT?: RRWhereInput | RRWhereInput[]
     po_id?: StringNullableFilter<"RR"> | string | null
+    po_number?: StringFilter<"RR"> | string
     rr_date?: DateTimeFilter<"RR"> | Date | string
     received_by_id?: StringFilter<"RR"> | string
     delivery_number?: StringNullableFilter<"RR"> | string | null
@@ -58915,6 +58998,7 @@ export namespace Prisma {
   export type RROrderByWithAggregationInput = {
     id?: SortOrder
     po_id?: SortOrderInput | SortOrder
+    po_number?: SortOrder
     rr_number?: SortOrder
     rr_date?: SortOrder
     received_by_id?: SortOrder
@@ -58943,6 +59027,7 @@ export namespace Prisma {
     NOT?: RRScalarWhereWithAggregatesInput | RRScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"RR"> | string
     po_id?: StringNullableWithAggregatesFilter<"RR"> | string | null
+    po_number?: StringWithAggregatesFilter<"RR"> | string
     rr_number?: StringWithAggregatesFilter<"RR"> | string
     rr_date?: DateTimeWithAggregatesFilter<"RR"> | Date | string
     received_by_id?: StringWithAggregatesFilter<"RR"> | string
@@ -60043,11 +60128,11 @@ export namespace Prisma {
   export type MCTWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     mrv_id?: string
-    mrv_number?: string
     mct_number?: string
     AND?: MCTWhereInput | MCTWhereInput[]
     OR?: MCTWhereInput[]
     NOT?: MCTWhereInput | MCTWhereInput[]
+    mrv_number?: StringFilter<"MCT"> | string
     mct_date?: DateTimeFilter<"MCT"> | Date | string
     is_completed?: BoolFilter<"MCT"> | boolean
     cancelled_by?: StringNullableFilter<"MCT"> | string | null
@@ -60060,7 +60145,7 @@ export namespace Prisma {
     mrv?: XOR<MRVNullableRelationFilter, MRVWhereInput> | null
     mct_approvers?: MCTApproverListRelationFilter
     mcrts?: MCRTListRelationFilter
-  }, "id" | "mrv_id" | "mrv_number" | "mct_number">
+  }, "id" | "mrv_id" | "mct_number">
 
   export type MCTOrderByWithAggregationInput = {
     id?: SortOrder
@@ -62726,6 +62811,9 @@ export namespace Prisma {
 
   export type MEQSCreateInput = {
     id?: string
+    jo_number?: string | null
+    rv_number?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -62746,8 +62834,11 @@ export namespace Prisma {
   export type MEQSUncheckedCreateInput = {
     id?: string
     jo_id?: string | null
+    jo_number?: string | null
     rv_id?: string | null
+    rv_number?: string | null
     spr_id?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -62764,6 +62855,9 @@ export namespace Prisma {
 
   export type MEQSUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -62784,8 +62878,11 @@ export namespace Prisma {
   export type MEQSUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_id?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     rv_id?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
     spr_id?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -62803,8 +62900,11 @@ export namespace Prisma {
   export type MEQSCreateManyInput = {
     id?: string
     jo_id?: string | null
+    jo_number?: string | null
     rv_id?: string | null
+    rv_number?: string | null
     spr_id?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -62819,6 +62919,9 @@ export namespace Prisma {
 
   export type MEQSUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -62834,8 +62937,11 @@ export namespace Prisma {
   export type MEQSUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_id?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     rv_id?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
     spr_id?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -63133,6 +63239,7 @@ export namespace Prisma {
 
   export type POCreateInput = {
     id?: string
+    meqs_number: string
     po_number: string
     fund_source_id?: string | null
     po_date: Date | string
@@ -63152,6 +63259,7 @@ export namespace Prisma {
   export type POUncheckedCreateInput = {
     id?: string
     meqs_supplier_id?: string | null
+    meqs_number: string
     po_number: string
     fund_source_id?: string | null
     po_date: Date | string
@@ -63169,6 +63277,7 @@ export namespace Prisma {
 
   export type POUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meqs_number?: StringFieldUpdateOperationsInput | string
     po_number?: StringFieldUpdateOperationsInput | string
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63188,6 +63297,7 @@ export namespace Prisma {
   export type POUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     meqs_supplier_id?: NullableStringFieldUpdateOperationsInput | string | null
+    meqs_number?: StringFieldUpdateOperationsInput | string
     po_number?: StringFieldUpdateOperationsInput | string
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63206,6 +63316,7 @@ export namespace Prisma {
   export type POCreateManyInput = {
     id?: string
     meqs_supplier_id?: string | null
+    meqs_number: string
     po_number: string
     fund_source_id?: string | null
     po_date: Date | string
@@ -63221,6 +63332,7 @@ export namespace Prisma {
 
   export type POUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meqs_number?: StringFieldUpdateOperationsInput | string
     po_number?: StringFieldUpdateOperationsInput | string
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63237,6 +63349,7 @@ export namespace Prisma {
   export type POUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     meqs_supplier_id?: NullableStringFieldUpdateOperationsInput | string | null
+    meqs_number?: StringFieldUpdateOperationsInput | string
     po_number?: StringFieldUpdateOperationsInput | string
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63335,6 +63448,7 @@ export namespace Prisma {
 
   export type RRCreateInput = {
     id?: string
+    po_number: string
     rr_number: string
     rr_date: Date | string
     received_by_id: string
@@ -63358,6 +63472,7 @@ export namespace Prisma {
   export type RRUncheckedCreateInput = {
     id?: string
     po_id?: string | null
+    po_number: string
     rr_number: string
     rr_date: Date | string
     received_by_id: string
@@ -63379,6 +63494,7 @@ export namespace Prisma {
 
   export type RRUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string
@@ -63402,6 +63518,7 @@ export namespace Prisma {
   export type RRUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     po_id?: NullableStringFieldUpdateOperationsInput | string | null
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string
@@ -63424,6 +63541,7 @@ export namespace Prisma {
   export type RRCreateManyInput = {
     id?: string
     po_id?: string | null
+    po_number: string
     rr_number: string
     rr_date: Date | string
     received_by_id: string
@@ -63443,6 +63561,7 @@ export namespace Prisma {
 
   export type RRUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string
@@ -63463,6 +63582,7 @@ export namespace Prisma {
   export type RRUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     po_id?: NullableStringFieldUpdateOperationsInput | string | null
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string
@@ -66915,8 +67035,11 @@ export namespace Prisma {
   export type MEQSCountOrderByAggregateInput = {
     id?: SortOrder
     jo_id?: SortOrder
+    jo_number?: SortOrder
     rv_id?: SortOrder
+    rv_number?: SortOrder
     spr_id?: SortOrder
+    spr_number?: SortOrder
     meqs_number?: SortOrder
     meqs_date?: SortOrder
     notes?: SortOrder
@@ -66932,8 +67055,11 @@ export namespace Prisma {
   export type MEQSMaxOrderByAggregateInput = {
     id?: SortOrder
     jo_id?: SortOrder
+    jo_number?: SortOrder
     rv_id?: SortOrder
+    rv_number?: SortOrder
     spr_id?: SortOrder
+    spr_number?: SortOrder
     meqs_number?: SortOrder
     meqs_date?: SortOrder
     notes?: SortOrder
@@ -66948,8 +67074,11 @@ export namespace Prisma {
   export type MEQSMinOrderByAggregateInput = {
     id?: SortOrder
     jo_id?: SortOrder
+    jo_number?: SortOrder
     rv_id?: SortOrder
+    rv_number?: SortOrder
     spr_id?: SortOrder
+    spr_number?: SortOrder
     meqs_number?: SortOrder
     meqs_date?: SortOrder
     notes?: SortOrder
@@ -67168,6 +67297,7 @@ export namespace Prisma {
   export type POCountOrderByAggregateInput = {
     id?: SortOrder
     meqs_supplier_id?: SortOrder
+    meqs_number?: SortOrder
     po_number?: SortOrder
     fund_source_id?: SortOrder
     po_date?: SortOrder
@@ -67184,6 +67314,7 @@ export namespace Prisma {
   export type POMaxOrderByAggregateInput = {
     id?: SortOrder
     meqs_supplier_id?: SortOrder
+    meqs_number?: SortOrder
     po_number?: SortOrder
     fund_source_id?: SortOrder
     po_date?: SortOrder
@@ -67199,6 +67330,7 @@ export namespace Prisma {
   export type POMinOrderByAggregateInput = {
     id?: SortOrder
     meqs_supplier_id?: SortOrder
+    meqs_number?: SortOrder
     po_number?: SortOrder
     fund_source_id?: SortOrder
     po_date?: SortOrder
@@ -67273,6 +67405,7 @@ export namespace Prisma {
   export type RRCountOrderByAggregateInput = {
     id?: SortOrder
     po_id?: SortOrder
+    po_number?: SortOrder
     rr_number?: SortOrder
     rr_date?: SortOrder
     received_by_id?: SortOrder
@@ -67297,6 +67430,7 @@ export namespace Prisma {
   export type RRMaxOrderByAggregateInput = {
     id?: SortOrder
     po_id?: SortOrder
+    po_number?: SortOrder
     rr_number?: SortOrder
     rr_date?: SortOrder
     received_by_id?: SortOrder
@@ -67316,6 +67450,7 @@ export namespace Prisma {
   export type RRMinOrderByAggregateInput = {
     id?: SortOrder
     po_id?: SortOrder
+    po_number?: SortOrder
     rr_number?: SortOrder
     rr_date?: SortOrder
     received_by_id?: SortOrder
@@ -74843,6 +74978,9 @@ export namespace Prisma {
 
   export type MEQSCreateWithoutRvInput = {
     id?: string
+    jo_number?: string | null
+    rv_number?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -74862,7 +75000,10 @@ export namespace Prisma {
   export type MEQSUncheckedCreateWithoutRvInput = {
     id?: string
     jo_id?: string | null
+    jo_number?: string | null
+    rv_number?: string | null
     spr_id?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -74978,6 +75119,9 @@ export namespace Prisma {
 
   export type MEQSUpdateWithoutRvInput = {
     id?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -74997,7 +75141,10 @@ export namespace Prisma {
   export type MEQSUncheckedUpdateWithoutRvInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_id?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
     spr_id?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -75185,6 +75332,9 @@ export namespace Prisma {
 
   export type MEQSCreateWithoutJoInput = {
     id?: string
+    jo_number?: string | null
+    rv_number?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -75203,8 +75353,11 @@ export namespace Prisma {
 
   export type MEQSUncheckedCreateWithoutJoInput = {
     id?: string
+    jo_number?: string | null
     rv_id?: string | null
+    rv_number?: string | null
     spr_id?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -75320,6 +75473,9 @@ export namespace Prisma {
 
   export type MEQSUpdateWithoutJoInput = {
     id?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -75338,8 +75494,11 @@ export namespace Prisma {
 
   export type MEQSUncheckedUpdateWithoutJoInput = {
     id?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     rv_id?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
     spr_id?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -75527,6 +75686,9 @@ export namespace Prisma {
 
   export type MEQSCreateWithoutSprInput = {
     id?: string
+    jo_number?: string | null
+    rv_number?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -75546,7 +75708,10 @@ export namespace Prisma {
   export type MEQSUncheckedCreateWithoutSprInput = {
     id?: string
     jo_id?: string | null
+    jo_number?: string | null
     rv_id?: string | null
+    rv_number?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -75693,6 +75858,9 @@ export namespace Prisma {
 
   export type MEQSUpdateWithoutSprInput = {
     id?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -75712,7 +75880,10 @@ export namespace Prisma {
   export type MEQSUncheckedUpdateWithoutSprInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_id?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     rv_id?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -76283,6 +76454,9 @@ export namespace Prisma {
 
   export type MEQSCreateWithoutMeqs_suppliersInput = {
     id?: string
+    jo_number?: string | null
+    rv_number?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -76302,8 +76476,11 @@ export namespace Prisma {
   export type MEQSUncheckedCreateWithoutMeqs_suppliersInput = {
     id?: string
     jo_id?: string | null
+    jo_number?: string | null
     rv_id?: string | null
+    rv_number?: string | null
     spr_id?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -76419,6 +76596,7 @@ export namespace Prisma {
 
   export type POCreateWithoutMeqs_supplierInput = {
     id?: string
+    meqs_number: string
     po_number: string
     fund_source_id?: string | null
     po_date: Date | string
@@ -76436,6 +76614,7 @@ export namespace Prisma {
 
   export type POUncheckedCreateWithoutMeqs_supplierInput = {
     id?: string
+    meqs_number: string
     po_number: string
     fund_source_id?: string | null
     po_date: Date | string
@@ -76469,6 +76648,9 @@ export namespace Prisma {
 
   export type MEQSUpdateWithoutMeqs_suppliersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -76488,8 +76670,11 @@ export namespace Prisma {
   export type MEQSUncheckedUpdateWithoutMeqs_suppliersInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_id?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     rv_id?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
     spr_id?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -76604,6 +76789,7 @@ export namespace Prisma {
 
   export type POUpdateWithoutMeqs_supplierInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meqs_number?: StringFieldUpdateOperationsInput | string
     po_number?: StringFieldUpdateOperationsInput | string
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -76621,6 +76807,7 @@ export namespace Prisma {
 
   export type POUncheckedUpdateWithoutMeqs_supplierInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meqs_number?: StringFieldUpdateOperationsInput | string
     po_number?: StringFieldUpdateOperationsInput | string
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -76859,6 +77046,9 @@ export namespace Prisma {
 
   export type MEQSCreateWithoutMeqs_approversInput = {
     id?: string
+    jo_number?: string | null
+    rv_number?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -76878,8 +77068,11 @@ export namespace Prisma {
   export type MEQSUncheckedCreateWithoutMeqs_approversInput = {
     id?: string
     jo_id?: string | null
+    jo_number?: string | null
     rv_id?: string | null
+    rv_number?: string | null
     spr_id?: string | null
+    spr_number?: string | null
     meqs_number: string
     meqs_date: Date | string
     notes: string
@@ -76911,6 +77104,9 @@ export namespace Prisma {
 
   export type MEQSUpdateWithoutMeqs_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -76930,8 +77126,11 @@ export namespace Prisma {
   export type MEQSUncheckedUpdateWithoutMeqs_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_id?: NullableStringFieldUpdateOperationsInput | string | null
+    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     rv_id?: NullableStringFieldUpdateOperationsInput | string | null
+    rv_number?: NullableStringFieldUpdateOperationsInput | string | null
     spr_id?: NullableStringFieldUpdateOperationsInput | string | null
+    spr_number?: NullableStringFieldUpdateOperationsInput | string | null
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -76972,6 +77171,7 @@ export namespace Prisma {
 
   export type RRCreateWithoutPoInput = {
     id?: string
+    po_number: string
     rr_number: string
     rr_date: Date | string
     received_by_id: string
@@ -76993,6 +77193,7 @@ export namespace Prisma {
 
   export type RRUncheckedCreateWithoutPoInput = {
     id?: string
+    po_number: string
     rr_number: string
     rr_date: Date | string
     received_by_id: string
@@ -77107,6 +77308,7 @@ export namespace Prisma {
     NOT?: RRScalarWhereInput | RRScalarWhereInput[]
     id?: StringFilter<"RR"> | string
     po_id?: StringNullableFilter<"RR"> | string | null
+    po_number?: StringFilter<"RR"> | string
     rr_number?: StringFilter<"RR"> | string
     rr_date?: DateTimeFilter<"RR"> | Date | string
     received_by_id?: StringFilter<"RR"> | string
@@ -77157,6 +77359,7 @@ export namespace Prisma {
 
   export type POCreateWithoutPo_approversInput = {
     id?: string
+    meqs_number: string
     po_number: string
     fund_source_id?: string | null
     po_date: Date | string
@@ -77175,6 +77378,7 @@ export namespace Prisma {
   export type POUncheckedCreateWithoutPo_approversInput = {
     id?: string
     meqs_supplier_id?: string | null
+    meqs_number: string
     po_number: string
     fund_source_id?: string | null
     po_date: Date | string
@@ -77207,6 +77411,7 @@ export namespace Prisma {
 
   export type POUpdateWithoutPo_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meqs_number?: StringFieldUpdateOperationsInput | string
     po_number?: StringFieldUpdateOperationsInput | string
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -77225,6 +77430,7 @@ export namespace Prisma {
   export type POUncheckedUpdateWithoutPo_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
     meqs_supplier_id?: NullableStringFieldUpdateOperationsInput | string | null
+    meqs_number?: StringFieldUpdateOperationsInput | string
     po_number?: StringFieldUpdateOperationsInput | string
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -77241,6 +77447,7 @@ export namespace Prisma {
 
   export type POCreateWithoutRrsInput = {
     id?: string
+    meqs_number: string
     po_number: string
     fund_source_id?: string | null
     po_date: Date | string
@@ -77259,6 +77466,7 @@ export namespace Prisma {
   export type POUncheckedCreateWithoutRrsInput = {
     id?: string
     meqs_supplier_id?: string | null
+    meqs_number: string
     po_number: string
     fund_source_id?: string | null
     po_date: Date | string
@@ -77349,6 +77557,7 @@ export namespace Prisma {
 
   export type POUpdateWithoutRrsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    meqs_number?: StringFieldUpdateOperationsInput | string
     po_number?: StringFieldUpdateOperationsInput | string
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -77367,6 +77576,7 @@ export namespace Prisma {
   export type POUncheckedUpdateWithoutRrsInput = {
     id?: StringFieldUpdateOperationsInput | string
     meqs_supplier_id?: NullableStringFieldUpdateOperationsInput | string | null
+    meqs_number?: StringFieldUpdateOperationsInput | string
     po_number?: StringFieldUpdateOperationsInput | string
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -77430,6 +77640,7 @@ export namespace Prisma {
 
   export type RRCreateWithoutRr_approversInput = {
     id?: string
+    po_number: string
     rr_number: string
     rr_date: Date | string
     received_by_id: string
@@ -77452,6 +77663,7 @@ export namespace Prisma {
   export type RRUncheckedCreateWithoutRr_approversInput = {
     id?: string
     po_id?: string | null
+    po_number: string
     rr_number: string
     rr_date: Date | string
     received_by_id: string
@@ -77488,6 +77700,7 @@ export namespace Prisma {
 
   export type RRUpdateWithoutRr_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string
@@ -77510,6 +77723,7 @@ export namespace Prisma {
   export type RRUncheckedUpdateWithoutRr_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
     po_id?: NullableStringFieldUpdateOperationsInput | string | null
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string
@@ -77530,6 +77744,7 @@ export namespace Prisma {
 
   export type RRCreateWithoutRr_itemsInput = {
     id?: string
+    po_number: string
     rr_number: string
     rr_date: Date | string
     received_by_id: string
@@ -77552,6 +77767,7 @@ export namespace Prisma {
   export type RRUncheckedCreateWithoutRr_itemsInput = {
     id?: string
     po_id?: string | null
+    po_number: string
     rr_number: string
     rr_date: Date | string
     received_by_id: string
@@ -77653,6 +77869,7 @@ export namespace Prisma {
 
   export type RRUpdateWithoutRr_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string
@@ -77675,6 +77892,7 @@ export namespace Prisma {
   export type RRUncheckedUpdateWithoutRr_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     po_id?: NullableStringFieldUpdateOperationsInput | string | null
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string
@@ -83001,6 +83219,7 @@ export namespace Prisma {
 
   export type RRCreateManyPoInput = {
     id?: string
+    po_number: string
     rr_number: string
     rr_date: Date | string
     received_by_id: string
@@ -83031,6 +83250,7 @@ export namespace Prisma {
 
   export type RRUpdateWithoutPoInput = {
     id?: StringFieldUpdateOperationsInput | string
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string
@@ -83052,6 +83272,7 @@ export namespace Prisma {
 
   export type RRUncheckedUpdateWithoutPoInput = {
     id?: StringFieldUpdateOperationsInput | string
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string
@@ -83073,6 +83294,7 @@ export namespace Prisma {
 
   export type RRUncheckedUpdateManyWithoutPoInput = {
     id?: StringFieldUpdateOperationsInput | string
+    po_number?: StringFieldUpdateOperationsInput | string
     rr_number?: StringFieldUpdateOperationsInput | string
     rr_date?: DateTimeFieldUpdateOperationsInput | Date | string
     received_by_id?: StringFieldUpdateOperationsInput | string

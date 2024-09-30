@@ -5,6 +5,7 @@ import { HttpModule } from '@nestjs/axios';
 import { RrApproverService } from '../rr-approver/rr-approver.service';
 import { RrController } from './rr.controller';
 import { RrPdfService } from './rr.pdf.service';
+import { PoService } from '../po/po.service';
 
 @Module({
   imports: [HttpModule],
@@ -12,7 +13,8 @@ import { RrPdfService } from './rr.pdf.service';
     RrResolver, 
     RrService, 
     RrPdfService, 
-    RrApproverService
+    RrApproverService,
+    PoService,
   ],
   exports: [RrService],
   controllers: [RrController]

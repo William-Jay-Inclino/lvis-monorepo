@@ -15,10 +15,19 @@ export class MEQS {
   jo_id: string | null;
 
   @Field(() => String, { nullable: true })
+  jo_number: string | null;
+
+  @Field(() => String, { nullable: true })
   rv_id: string | null;
+  
+  @Field(() => String, { nullable: true })
+  rv_number: string | null;
 
   @Field(() => String, { nullable: true })
   spr_id: string | null;
+
+  @Field(() => String, { nullable: true })
+  spr_number: string | null;
 
   @Field(() => String)
   meqs_number: string;

@@ -22,12 +22,19 @@ export async function findByRefNumber(payload: { po_number?: string, rr_number?:
             rr(${referenceField}: "${referenceValue}") {
                 id
                 rr_number
+                po_number
                 status
                 rr_date
                 is_completed
                 created_by
                 cancelled_at
                 can_update
+                requested_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
                 po {
                     id
                     po_number
@@ -120,12 +127,19 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 data {
                     id
                     rr_number
+                    po_number
                     status
                     rr_date
                     is_completed
                     created_by
                     can_update
                     cancelled_at
+                    requested_by {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
                     po {
                         id
                         po_number
@@ -529,6 +543,7 @@ export async function findOne(id: string): Promise<RR | undefined> {
             rr(${args}) {
                 id
                 rr_number
+                po_number
                 rr_date
                 invoice_number
                 delivery_number

@@ -12,8 +12,11 @@ import type { Employee } from "~/composables/system/employee/employee.types";
 export interface MEQS {
   id: string;
   jo_id: string | null
-  rv_id: string | null
+  jo_number: string | null;
   spr_id: string | null
+  spr_number: string | null;
+  rv_id: string | null
+  rv_number: string | null;
   meqs_number: string;
   meqs_date: string;
   notes: string;
@@ -39,7 +42,7 @@ export interface MEQS {
   status: APPROVAL_STATUS
   is_rr_completed?: boolean
   can_update?: boolean
-
+  requested_by: Employee
 
   // =============== set programmatically =============== 
   hasAvailableSupplier?: boolean

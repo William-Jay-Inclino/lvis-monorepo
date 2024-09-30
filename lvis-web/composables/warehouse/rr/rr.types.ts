@@ -7,6 +7,7 @@ import type { Employee } from "~/composables/system/employee/employee.types";
 export interface RR {
     id: string;
     po_id?: string | null;
+    po_number: string;
     rr_number: string;
     rr_date: Date;
     received_by_id: string;
@@ -32,13 +33,12 @@ export interface RR {
 
     // =============== derived / resolvers =============== 
 
-
     po?: PO | null;
     rr_approvers: Approver[];
     rr_items: RrItem[]
     status: APPROVAL_STATUS;
     received_by: Employee;
-
+    requested_by: Employee;
     can_update?: boolean
 }
 

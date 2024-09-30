@@ -111,10 +111,21 @@ export class RrService {
             order: 2
         })
 
+        const po = await this.prisma.pO.findUnique({
+            select: {
+                po_number: true
+            },
+            where: { id: input.po_id }
+        })
+
+        if(!po) {
+            throw new NotFoundException(`PO with id ${input.po_id} not found in po table`)
+        }
 
         const data: Prisma.RRCreateInput = {
             created_by: this.authUser.user.username,
             po: { connect: { id: input.po_id } },
+            po_number: po.po_number,
             rr_number: rrNumber,
             rr_date: new Date(today),
             received_by_id: input.received_by_id,
@@ -210,9 +221,9 @@ export class RrService {
             ];
         }
 
-        whereCondition.cancelled_at = {
-            equals: null,
-        };
+        // whereCondition.cancelled_at = {
+        //     equals: null,
+        // };
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.rR.findMany({

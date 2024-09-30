@@ -5,6 +5,7 @@ import { HttpModule } from '@nestjs/axios';
 import { PoApproverService } from '../po-approver/po-approver.service';
 import { PoController } from './po.controller';
 import { PoPdfService } from './po.pdf.service';
+import { MeqsService } from '../meqs/meqs.service';
 
 @Module({
   imports: [HttpModule],
@@ -12,7 +13,8 @@ import { PoPdfService } from './po.pdf.service';
     PoResolver, 
     PoService, 
     PoPdfService, 
-    PoApproverService
+    PoApproverService,
+    MeqsService,
   ],
   exports: [PoService],
   controllers: [PoController]

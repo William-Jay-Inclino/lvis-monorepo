@@ -42,13 +42,12 @@
                                         <tr>
                                             <td class="text-muted"> {{ referenceLabel }} Number</td>
                                             <td>
-                                                <nuxt-link v-if="item.rv" :to="'/warehouse/rv/view/' + item.rv.id">
-                                                    {{ item.rv.rv_number }} </nuxt-link>
-                                                <nuxt-link v-else-if="item.spr"
-                                                    :to="'/warehouse/spr/view/' + item.spr.id"> {{
-                item.spr.spr_number }} </nuxt-link>
-                                                <nuxt-link v-else-if="item.jo" :to="'/warehouse/jo/view/' + item.jo.id">
-                                                    {{ item.jo.jo_number }} </nuxt-link>
+                                                <nuxt-link v-if="item.rv_number" :to="'/warehouse/rv/view/' + item.rv_number">
+                                                    {{ item.rv_number }} </nuxt-link>
+                                                <nuxt-link v-else-if="item.spr_number"
+                                                    :to="'/warehouse/spr/view/' + item.spr_number"> {{ item.spr_number }} </nuxt-link>
+                                                <nuxt-link v-else-if="item.jo_number" :to="'/warehouse/jo/view/' + item.jo_number">
+                                                    {{ item.jo_number }} </nuxt-link>
                                                     <div v-else>
                                                         N/A
                                                     </div>

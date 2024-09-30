@@ -21,11 +21,18 @@ export async function findByRefNumber(payload: { po_number?: string, meqs_number
             po(${referenceField}: "${referenceValue}") {
                 id
                 po_number
+                meqs_number
                 status
                 po_date
                 created_by
                 cancelled_at
                 can_update
+                requested_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
                 meqs_supplier {
                     meqs {
                         meqs_number
@@ -113,11 +120,18 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 data {
                     id
                     po_number
+                    meqs_number
                     status
                     po_date
                     created_by
                     cancelled_at
                     can_update
+                    requested_by {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
                     meqs_supplier {
                         meqs {
                             meqs_number
@@ -567,12 +581,19 @@ export async function findOne(id: string): Promise<PO | undefined> {
             po(${args}) {
                 id
                 po_number
+                meqs_number
                 status
                 po_date
                 notes
                 created_by
                 cancelled_at
                 can_update
+                requested_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
                 fund_source {
                     id 
                     name 

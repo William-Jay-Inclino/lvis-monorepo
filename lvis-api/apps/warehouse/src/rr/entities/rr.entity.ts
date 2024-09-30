@@ -13,6 +13,9 @@ export class RR {
   po_id?: string | null;
 
   @Field()
+  po_number: string;
+
+  @Field()
   rr_number: string;
 
   @Field(() => Date)

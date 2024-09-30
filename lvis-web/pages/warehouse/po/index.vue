@@ -90,29 +90,11 @@
                                         <tbody>
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.po_number }} </td>
-                                                <td class="text-muted align-middle"> {{ i.meqs_supplier ? i.meqs_supplier.meqs!.meqs_number : 'N/A' }}
+                                                <td class="text-muted align-middle"> {{ i.meqs_number }}
                                                 </td>
-                                                <td v-if="i.meqs_supplier" class="text-muted align-middle">
-                                                    <span v-if="i.meqs_supplier.meqs!.rv">
-                                                        {{
-                                                            i.meqs_supplier.meqs!.rv.canvass ?                    
-                getRequisitionerFullname(i.meqs_supplier.meqs!.rv.canvass.requested_by) : 'N/A'
-            }}
-                                                    </span>
-                                                    <span v-else-if="i.meqs_supplier.meqs!.spr">
-                                                        {{
-                                                            i.meqs_supplier.meqs!.spr.canvass ?                    
-                getRequisitionerFullname(i.meqs_supplier.meqs!.spr.canvass.requested_by) : 'N/A'
-            }}
-                                                    </span>
-                                                    <span v-else-if="i.meqs_supplier.meqs!.jo">
-                                                        {{
-                                                            i.meqs_supplier.meqs!.jo.canvass ?                    
-                getRequisitionerFullname(i.meqs_supplier.meqs!.jo.canvass.requested_by) : 'N/A'
-            }}
-                                                    </span>
+                                                <td class="text-muted align-middle">
+                                                    {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
                                                 </td>
-                                                <td v-else> N/A </td>
                                                 <td class="text-muted align-middle"> {{ formatDate(i.po_date) }} </td>
                                                 <td>
                                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">

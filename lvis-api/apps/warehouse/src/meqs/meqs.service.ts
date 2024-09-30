@@ -99,6 +99,54 @@ export class MeqsService {
             throw new Error('Unable to create MEQS')
         }
 
+        let jo_number = undefined
+        let rv_number = undefined
+        let spr_number = undefined
+
+        if(input.jo_id) {
+            const jo = await this.prisma.jO.findUnique({
+                select: {
+                    jo_number: true
+                },
+                where: { id: input.jo_id }
+            })
+
+            if(!jo) {
+                throw new NotFoundException('JO not found with id of ' + input.jo_id)
+            }
+
+            jo_number = jo.jo_number
+
+        } else if(input.rv_id) {
+            const rv = await this.prisma.rV.findUnique({
+                select: {
+                    rv_number: true
+                },
+                where: { id: input.rv_id }
+            })
+
+            if(!rv) {
+                throw new NotFoundException('RV not found with id of ' + input.rv_id)
+            }
+
+            rv_number = rv.rv_number
+
+        } else if(input.spr_id) {
+            const spr = await this.prisma.sPR.findUnique({
+                select: {
+                    spr_number: true
+                },
+                where: { id: input.spr_id }
+            })
+
+            if(!spr) {
+                throw new NotFoundException('SPR not found with id of ' + input.spr_id)
+            }
+
+            spr_number = spr.spr_number
+
+        }
+
         const meqsNumber = await this.getLatestMeqsNumber()
         const today = moment().format('MM/DD/YYYY')
 
@@ -154,6 +202,9 @@ export class MeqsService {
             jo: input.jo_id ? { connect: { id: input.jo_id } } : undefined,
             rv: input.rv_id ? { connect: { id: input.rv_id } } : undefined,
             spr: input.spr_id ? { connect: { id: input.spr_id } } : undefined,
+            jo_number,
+            spr_number,
+            rv_number,
             notes: input.notes,
             meqs_number: meqsNumber,
             meqs_date: new Date(today),
@@ -347,9 +398,9 @@ export class MeqsService {
             ];
         }
 
-        whereCondition.cancelled_at = {
-            equals: null,
-        };
+        // whereCondition.cancelled_at = {
+        //     equals: null,
+        // };
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mEQS.findMany({

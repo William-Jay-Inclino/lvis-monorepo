@@ -111,9 +111,18 @@ export async function findByMeqsNumber(meqsNumber: string): Promise<MEQS | undef
             meq(meqs_number: "${meqsNumber}") {
                 id
                 meqs_number
+                rv_number
+                spr_number
+                jo_number
                 created_by
                 status
                 can_update
+                requested_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
                 rv {
                     rv_number
                     canvass {
@@ -194,9 +203,18 @@ export async function findByReferenceNumber(payload: {
             meq(${searchField}: "${rv_number ?? jo_number ?? spr_number}") {
                 id
                 meqs_number
+                rv_number
+                spr_number
+                jo_number
                 created_by
                 status
                 can_update
+                requested_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
                 rv {
                     rv_number
                     canvass {
@@ -281,9 +299,18 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 data {
                     id
                     meqs_number
+                    rv_number
+                    spr_number
+                    jo_number
                     created_by
                     status
                     can_update
+                    requested_by {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
                     rv {
                         rv_number
                         canvass {
@@ -354,6 +381,9 @@ export async function findOne(id: string): Promise<MEQS | undefined> {
             meq(${args}) {
                 id
                 meqs_number
+                rv_number
+                spr_number
+                jo_number
                 created_by
                 notes
                 can_update

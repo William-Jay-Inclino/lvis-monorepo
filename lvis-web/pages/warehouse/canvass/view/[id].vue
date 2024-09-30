@@ -118,7 +118,7 @@
                                             <tr>
                                                 <td class="text-muted">RR Number/s</td>
                                                 <td>
-                                                    <div v-if="hasPO">
+                                                    <div v-if="hasRR">
                                                         <div v-if="item.rv"
                                                             v-for="meqsSupplier in item.rv.meqs!.meqs_suppliers">
                                                             <div v-if="meqsSupplier.po && meqsSupplier.po.rrs.length > 0">
@@ -324,9 +324,9 @@ const hasPO = computed(() => {
 
     if (item.value.rv && item.value.rv.meqs && item.value.rv.meqs.meqs_suppliers) {
 
-        const po = item.value.rv.meqs.meqs_suppliers.find(i => !!i.po)
+        const meqsSupplier = item.value.rv.meqs.meqs_suppliers.find(i => !!i.po)
 
-        if (po) {
+        if (meqsSupplier) {
             return true
         }
 
@@ -336,9 +336,9 @@ const hasPO = computed(() => {
 
     if (item.value.spr && item.value.spr.meqs && item.value.spr.meqs.meqs_suppliers) {
 
-        const po = item.value.spr.meqs.meqs_suppliers.find(i => !!i.po)
+        const meqsSupplier = item.value.spr.meqs.meqs_suppliers.find(i => !!i.po)
 
-        if (po) {
+        if (meqsSupplier) {
             return true
         }
 
@@ -348,9 +348,51 @@ const hasPO = computed(() => {
 
     if (item.value.jo && item.value.jo.meqs && item.value.jo.meqs.meqs_suppliers) {
 
-        const po = item.value.jo.meqs.meqs_suppliers.find(i => !!i.po)
+        const meqsSupplier = item.value.jo.meqs.meqs_suppliers.find(i => !!i.po)
 
-        if (po) {
+        if (meqsSupplier) {
+            return true
+        }
+
+        return false
+
+    }
+
+})
+
+const hasRR = computed(() => {
+
+    if (!item.value) return false
+
+    if (item.value.rv && item.value.rv.meqs && item.value.rv.meqs.meqs_suppliers) {
+
+        const meqsSupplier = item.value.rv.meqs.meqs_suppliers.find(i => !!i.po)
+
+        if (meqsSupplier && meqsSupplier.po && meqsSupplier.po.rrs.length > 0) {
+            return true
+        }
+
+        return false
+
+    }
+
+    if (item.value.spr && item.value.spr.meqs && item.value.spr.meqs.meqs_suppliers) {
+
+        const meqsSupplier = item.value.spr.meqs.meqs_suppliers.find(i => !!i.po)
+
+        if (meqsSupplier && meqsSupplier.po && meqsSupplier.po.rrs.length > 0) {
+            return true
+        }
+
+        return false
+
+    }
+
+    if (item.value.jo && item.value.jo.meqs && item.value.jo.meqs.meqs_suppliers) {
+
+        const meqsSupplier = item.value.jo.meqs.meqs_suppliers.find(i => !!i.po)
+
+        if (meqsSupplier && meqsSupplier.po && meqsSupplier.po.rrs.length > 0) {
             return true
         }
 

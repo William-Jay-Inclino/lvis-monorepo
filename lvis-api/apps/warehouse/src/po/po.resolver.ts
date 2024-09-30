@@ -7,7 +7,7 @@ import { UpdatePoInput } from './dto/update-po.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from '../__common__/auth-user.entity';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { NotFoundException, UseGuards } from '@nestjs/common';
 import { PoApproverService } from '../po-approver/po-approver.service';
 import { PoNumber } from './entities/po-number.entity';
 import { POsResponse } from './entities/pos-response.entity';
@@ -18,6 +18,8 @@ import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { Account } from '../__account__ /entities/account.entity';
 import { UpdatePoByFinanceManagerInput } from './dto/update-po-by-finance-manager.input';
+import { MeqsService } from '../meqs/meqs.service';
+import { MEQS } from '../meqs/entities/meq.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => PO)
@@ -25,7 +27,8 @@ export class PoResolver {
 
     constructor(
         private readonly poService: PoService,
-        private readonly poApproverService: PoApproverService
+        private readonly poApproverService: PoApproverService,
+        private readonly meqsService: MeqsService,
     ) { }
 
     @Mutation(() => PO)
@@ -116,6 +119,29 @@ export class PoResolver {
         }
 
         return await this.poService.getStatus(po.id)
+
+    }
+
+    @ResolveField(() => Employee)
+    async requested_by(@Parent() po: PO) {
+
+        const meqs = await this.meqsService.findByMeqsNumber(po.meqs_number) as unknown as MEQS
+        
+        if(!meqs) {
+            throw new NotFoundException(`meqs number: ${po.meqs_number} not found in meqs table`)
+        }
+
+        if(meqs.rv) {
+            return { __typename: 'Employee', id: meqs.rv.canvass.requested_by_id }
+        }
+
+        if(meqs.spr) {
+            return { __typename: 'Employee', id: meqs.spr.canvass.requested_by_id }
+        }
+
+        if(meqs.jo) {
+            return { __typename: 'Employee', id: meqs.jo.canvass.requested_by_id }
+        }
 
     }
 

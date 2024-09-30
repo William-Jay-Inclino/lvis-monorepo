@@ -466,8 +466,11 @@ model SPRApprover {
 model MEQS {
   id          String   @id @default(uuid())
   jo_id       String?  @unique
+  jo_number       String?
   rv_id       String?  @unique
+  rv_number       String? 
   spr_id      String?  @unique
+  spr_number       String?
   meqs_number String   @unique
   meqs_date   DateTime
   notes       String
@@ -566,6 +569,7 @@ model MEQSApprover {
 model PO {
   id               String   @id @default(uuid())
   meqs_supplier_id String?   @unique
+  meqs_number        String   
   po_number        String   @unique
   fund_source_id   String?
   po_date          DateTime
@@ -610,6 +614,7 @@ model POApprover {
 model RR {
   id              String   @id @default(uuid())
   po_id           String?
+  po_number       String 
   rr_number       String   @unique
   rr_date         DateTime
   received_by_id  String
@@ -904,7 +909,7 @@ model MRVItem {
 model MCT {
   id                String    @id @default(uuid())
   mrv_id                String? @unique
-  mrv_number         String    @unique
+  mrv_number         String   
   mct_number         String    @unique
   mct_date    DateTime
   is_completed    Boolean  @default(false)

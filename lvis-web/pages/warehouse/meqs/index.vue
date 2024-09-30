@@ -107,44 +107,20 @@
                                         <tbody>
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.meqs_number }} </td>
-                                                <td class="text-muted align-middle" v-if="i.rv">
-                                                    RV#{{ i.rv.rv_number }}
+                                                <td class="text-muted align-middle" v-if="i.rv_number">
+                                                    RV#{{ i.rv_number }}
                                                 </td>
-                                                <td class="text-muted align-middle" v-else-if="i.jo">
-                                                    JO#{{ i.jo.jo_number }}
+                                                <td class="text-muted align-middle" v-else-if="i.jo_number">
+                                                    JO#{{ i.jo_number }}
                                                 </td>
-                                                <td class="text-muted align-middle" v-else-if="i.spr">
-                                                    SPR#{{ i.spr.spr_number }}
-                                                </td>
-                                                <td v-else>
-                                                    N/A
-                                                </td>
-                                                <td class="text-muted align-middle" v-if="i.rv">
-                                                    {{
-                                                        i.rv.canvass ?
-                getFullname(i.rv.canvass.requested_by!.firstname,
-                    i.rv.canvass.requested_by!.middlename,
-                    i.rv.canvass.requested_by!.lastname) : 'N/A'
-            }}
-                                                </td>
-                                                <td class="text-muted align-middle" v-else-if="i.jo">
-                                                    {{
-                                                        i.jo.canvass ?
-                getFullname(i.jo.canvass.requested_by!.firstname,
-                    i.jo.canvass.requested_by!.middlename,
-                    i.jo.canvass.requested_by!.lastname) : 'N/A'
-            }}
-                                                </td>
-                                                <td class="text-muted align-middle" v-else-if="i.spr">
-                                                    {{
-                                                        i.spr.canvass ?
-                getFullname(i.spr.canvass.requested_by!.firstname,
-                    i.spr.canvass.requested_by!.middlename,
-                    i.spr.canvass.requested_by!.lastname) : 'N/A'
-            }}
+                                                <td class="text-muted align-middle" v-else-if="i.spr_number">
+                                                    SPR#{{ i.spr_number }}
                                                 </td>
                                                 <td v-else>
                                                     N/A
+                                                </td>
+                                                <td class="text-muted align-middle">
+                                                    {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
                                                 </td>
                                                 <td class="text-muted align-middle"> {{ formatDate(i.meqs_date) }} </td>
                                                 <td class="text-center align-middle">

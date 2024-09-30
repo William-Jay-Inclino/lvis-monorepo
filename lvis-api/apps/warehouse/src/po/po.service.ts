@@ -81,12 +81,28 @@ export class PoService {
         const poNumber = await this.getLatestPoNumber()
         const today = moment().format('MM/DD/YYYY')
 
-        console.log('today', today)
+        const meqsSupplier = await this.prisma.mEQSSupplier.findUnique({
+            select: {
+                meqs: {
+                    select: {
+                        meqs_number: true
+                    }
+                }
+            },
+            where: {
+                id: input.meqs_supplier_id
+            }
+        })
+
+        if(!meqsSupplier) {
+            throw new NotFoundException(`Meqs Supplier not found with id of ${input.meqs_supplier_id}`)
+        }
 
         const data: Prisma.POCreateInput = {
             created_by: this.authUser.user.username,
             fund_source_id: input.fund_source_id ?? null,
             po_number: poNumber,
+            meqs_number: meqsSupplier.meqs.meqs_number,
             notes: '',
             meqs_supplier: {
                 connect: {
@@ -273,9 +289,9 @@ export class PoService {
             ];
         }
 
-        whereCondition.cancelled_at = {
-            equals: null,
-        };
+        // whereCondition.cancelled_at = {
+        //     equals: null,
+        // };
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.pO.findMany({

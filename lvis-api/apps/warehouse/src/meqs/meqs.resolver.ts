@@ -1,6 +1,6 @@
 import { Args, Mutation, Resolver, Query, ResolveField, Parent, Int } from '@nestjs/graphql';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { NotFoundException, UseGuards } from '@nestjs/common';
 import { MeqsService } from './meqs.service';
 import { MEQS } from './entities/meq.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -16,6 +16,12 @@ import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
+import { RvService } from '../rv/rv.service';
+import { SprService } from '../spr/spr.service';
+import { JoService } from '../jo/jo.service';
+import { RV } from '../rv/entities/rv.entity';
+import { JO } from '../jo/entities/jo.entity';
+import { SPR } from '../spr/entities/spr.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MEQS)
@@ -23,7 +29,10 @@ export class MeqsResolver {
 
     constructor(
         private readonly meqsService: MeqsService,
-        private readonly meqsApproverService: MeqsApproverService
+        private readonly meqsApproverService: MeqsApproverService,
+        private readonly rvService: RvService,
+        private readonly sprService: SprService,
+        private readonly joService: JoService,
     ) { }
 
     @Mutation(() => MEQS)
@@ -112,6 +121,28 @@ export class MeqsResolver {
         }
 
         return await this.meqsService.getStatus(meqs.id)
+
+    }
+
+    @ResolveField(() => Employee)
+    async requested_by(@Parent() meqs: MEQS) {
+        
+        if(meqs.rv_number) {
+            const x = await this.rvService.findByRvNumber(meqs.rv_number) as unknown as RV
+            return { __typename: 'Employee', id: x.canvass.requested_by_id }
+        }
+
+        if(meqs.jo_number) {
+            const x = await this.joService.findByJoNumber(meqs.jo_number) as unknown as JO
+            return { __typename: 'Employee', id: x.canvass.requested_by_id }
+        }
+
+        if(meqs.spr_number) {
+            const x = await this.sprService.findBySprNumber(meqs.spr_number) as unknown as SPR
+            return { __typename: 'Employee', id: x.canvass.requested_by_id }
+        }
+
+        throw new NotFoundException(`MEQS has no rv_number, spr_number, and jo_number`)
 
     }
 

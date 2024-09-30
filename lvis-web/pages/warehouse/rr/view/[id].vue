@@ -89,11 +89,8 @@
                                     <tr>
                                         <td class="text-muted">PO Number</td>
                                         <td>
-                                            <nuxt-link v-if="item.po" :to="'/warehouse/po/view/' + item.po.id">{{ item.po.po_number
+                                            <nuxt-link :to="'/warehouse/po/view/' + item.po_number">{{ item.po_number
                                                 }}</nuxt-link>
-                                            <div v-else>
-                                                N/A
-                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -476,7 +473,7 @@
 import * as rrApi from '~/composables/warehouse/rr/rr.api'
 import type { RR } from '~/composables/warehouse/rr/rr.types';
 import { approvalStatus } from '~/utils/constants'
-import { getTotalNetPrice, getVatAmount, getNetPrice, getGrossTotal, getVatTotal } from '~/utils/helpers';
+import { getTotalNetPrice, getVatAmount, getGrossTotal, getVatTotal } from '~/utils/helpers';
 import { useToast } from "vue-toastification";
 import Swal from 'sweetalert2'
 import axios from 'axios';

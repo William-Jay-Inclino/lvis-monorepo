@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-body">
 
-            <div v-if="!isLoadingPage && authUser && item && meqs">
+            <div v-if="!isLoadingPage && authUser && item">
         
                 <div class="row pt-3 justify-content-center">
                     <div class="col-lg-11">
@@ -27,57 +27,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-muted"> RC Number </td>
-                                        <td>
-                                            <nuxt-link v-if="meqs.rv && meqs.rv.canvass"
-                                                :to="'/warehouse/canvass/view/' + meqs?.rv.canvass.id">
-                                                {{ meqs?.rv.canvass.rc_number }}
-                                            </nuxt-link>
-                                            <nuxt-link v-else-if="meqs.jo && meqs.jo.canvass"
-                                                :to="'/warehouse/canvass/view/' + meqs.jo.canvass.id">
-                                                {{ meqs.jo.canvass.rc_number }}
-                                            </nuxt-link>
-                                            <nuxt-link v-else-if="meqs.spr && meqs.spr.canvass"
-                                                :to="'/warehouse/canvass/view/' + meqs.spr.canvass.id">
-                                                {{ meqs.spr.canvass.rc_number }}
-                                            </nuxt-link>
-                                            <div v-else> N/A </div>
-                                        </td>
-                                    </tr>
-                                    <tr v-if="meqs.rv">
-                                        <td class="text-muted"> RV Number </td>
-                                        <td>
-                                            <nuxt-link :to="'/warehouse/rv/view/' + meqs.rv.id">{{
-                meqs.rv.rv_number }}
-                                            </nuxt-link>
-                                        </td>
-                                    </tr>
-                                    <tr v-else-if="meqs.jo">
-                                        <td class="text-muted"> JO Number </td>
-                                        <td>
-                                            <nuxt-link :to="'/warehouse/jo/view/' + meqs.jo.id">{{
-                meqs.jo.jo_number }}
-                                            </nuxt-link>
-                                        </td>
-                                    </tr>
-                                    <tr v-else-if="meqs.spr">
-                                        <td class="text-muted"> SPR Number </td>
-                                        <td>
-                                            <nuxt-link :to="'/warehouse/spr/view/' + meqs.spr.id">{{
-                meqs.spr.spr_number }}
-                                            </nuxt-link>
-                                        </td>
-                                    </tr>
-                                    <tr v-else>
-                                        <td class="text-muted"> RV/SPR/JO Number </td>
-                                        <td> N/A </td>
-                                    </tr>
-                                    <tr>
                                         <td class="text-muted">MEQS Number</td>
                                         <td>
-                                            <nuxt-link v-if="item.meqs_supplier" :to="'/warehouse/meqs/view/' + item.meqs_supplier.meqs!.id">{{
-                                            item.meqs_supplier.meqs!.meqs_number }}</nuxt-link>
-                                            <div v-else> N/A </div>
+                                            <nuxt-link :to="'/warehouse/meqs/view/' + item.meqs_number">{{
+                                            item.meqs_number }}</nuxt-link>
                                         </td>
                                     </tr>
                                     <tr>

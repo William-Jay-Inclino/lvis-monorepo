@@ -5,6 +5,10 @@ import { HttpModule } from '@nestjs/axios';
 import { MeqsApproverService } from '../meqs-approver/meqs-approver.service';
 import { MeqsController } from './meqs.controller';
 import { MeqsPdfService } from './meqs.pdf.service';
+import { RvService } from '../rv/rv.service';
+import { JoService } from '../jo/jo.service';
+import { SprService } from '../spr/spr.service';
+import { CanvassService } from '../canvass/canvass.service';
 
 @Module({
   imports: [HttpModule],
@@ -12,7 +16,11 @@ import { MeqsPdfService } from './meqs.pdf.service';
     MeqsResolver, 
     MeqsService, 
     MeqsPdfService, 
-    MeqsApproverService
+    MeqsApproverService,
+    RvService,
+    JoService,
+    SprService,
+    CanvassService,
   ],
   controllers: [MeqsController],
 })
