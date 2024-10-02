@@ -1,4 +1,5 @@
 <template>
+
     <div class="card">
         <div class="card-body">
 
@@ -23,7 +24,7 @@
                             </li>
                             <li class="nav-item" @click="form = FORM.UPDATE_ITEMS">
                                 <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_ITEMS }" href="#">
-                                    <i class="fas fa-users"></i> Items
+                                    <i class="fas fa-shopping-cart"></i> Items
                                 </a>
                             </li>
                         </ul>
@@ -102,7 +103,21 @@
                 </div>
 
                 <div v-show="form === FORM.UPDATE_ITEMS" class="row justify-content-center">
-                    items
+                    <div class="col-lg-10">
+
+                        <div class="text-end mb-3">
+                            <button
+                                class="btn btn-success btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#addItemModal">
+                                <i
+                                class="fas fa-plus"></i>
+                                Add Item
+                            </button>
+                        </div>
+
+                        <WarehouseItems :items="filteredItems" @remove-item="handleRemoveItem"/>
+                    </div>
                 </div>
         
         
@@ -125,7 +140,8 @@
         
                     </div>
                 </div>
-        
+                
+                <WarehouseAddItemModal @add-item="handleAddItem" :items="items" :added-item-ids="osrivItemIds"/>
         
             </div>
         
@@ -135,6 +151,7 @@
             
         </div>
     </div>
+
 
 </template>
 
@@ -150,6 +167,7 @@ import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
+import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
 
 definePageMeta({
     name: ROUTES.OSRIV_UPDATE,
@@ -175,6 +193,7 @@ const toast = useToast();
 
 // FLAGS
 const isUpdating = ref(false)
+const isUpdatingItem = ref(false)
 const isLoadingPage = ref(true)
 
 // INITIAL DATA
@@ -189,6 +208,7 @@ const form = ref<FORM>(FORM.UPDATE_INFO)
 // DROPDOWNS
 const employees = ref<Employee[]>([])
 const stations = ref<Station[]>([])
+const items = ref<AddItem[]>([])
 
 
 // FORM DATA
@@ -215,6 +235,21 @@ onMounted(async () => {
     populateForm(response.osriv)
 
     employees.value = addPropertyFullName(response.employees)
+    items.value = response.items.map(i => {
+        const x: AddItem = {
+            id: i.id,
+            code: i.code,
+            description: i.description,
+            label: i.code + ' - ' + i.description,
+            available_quantity: i.total_quantity - i.quantity_on_queue,
+            unit: i.unit,
+            qty_request: 0,
+            GWAPrice: i.GWAPrice,
+            item_type: i.item_type,
+        }
+
+        return x
+    })
 
     isLoadingPage.value = false
 
@@ -266,6 +301,25 @@ const approvers = computed( (): Approver[] => {
 
 })
 
+const osrivItemIds = computed( () => osrivData.value.osriv_items.map(i => i.item.id) )
+
+const filteredItems = computed( (): AddItem[] => {
+    return osrivData.value.osriv_items.map(i => {
+            const x: AddItem = {
+                id: i.item.id,
+                code: i.item.code,
+                description: i.item.description,
+                label: i.item.code + ' - ' + i.item.description,
+                available_quantity: i.item.total_quantity - i.item.quantity_on_queue,
+                unit: i.item.unit,
+                qty_request: 0,
+                GWAPrice: i.item.GWAPrice,
+                item_type: i.item.item_type,
+            }
+
+            return x
+        })
+})
 
 // ======================== FUNCTIONS ========================  
 
@@ -283,7 +337,7 @@ function populateForm(data: OSRIV) {
     })
 
     osrivData.value = data
-
+    console.log('osrivData.value', osrivData.value);
 }
 
 async function updateOsrivInfo() {
@@ -337,6 +391,13 @@ async function handleChangeApprover(payload: {currentApprover: Approver, newAppr
     console.log('handleChangeApprover', payload);
 }
 
+function handleRemoveItem() {
+
+}
+
+function handleAddItem() {
+
+}
 
 // ======================== UTILS ========================  
 

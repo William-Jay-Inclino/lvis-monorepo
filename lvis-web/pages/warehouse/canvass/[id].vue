@@ -193,7 +193,7 @@ onMounted(async () => {
 
         const canvassItems = response.canvass.canvass_items.map(i => {
             if (i.item) {
-                i.item['label'] = `${i.item.code} - ${i.item.name}`
+                i.item['label'] = `${i.item.code} - ${i.item.description}`
             }
             return i
         })
@@ -211,7 +211,7 @@ onMounted(async () => {
         return i
     })
     units.value = response.units
-    items.value = response.items.map(i => ({ ...i, label: `${i.code} - ${i.name}` }))
+    items.value = response.items.map(i => ({ ...i, label: `${i.code} - ${i.description}` }))
 
 
     isLoadingPage.value = false
@@ -285,7 +285,7 @@ async function handleSearchedItems(searchedItems: Item[]) {
 
     console.log('handleSearchedItems');
 
-    items.value = searchedItems.map(i => ({ ...i, label: `${i.code} - ${i.name}` }))
+    items.value = searchedItems.map(i => ({ ...i, label: `${i.code} - ${i.description}` }))
 
 }
 
@@ -325,7 +325,7 @@ async function addCanvassItem(data: CanvassItem, closeBtnModal: HTMLInputElement
 
         if (response.data.item) {
             const item = response.data.item
-            response.data.item['label'] = `${item.code} - ${item.name}`
+            response.data.item['label'] = `${item.code} - ${item.description}`
         }
 
         canvass.value.canvass_items.push(response.data)
@@ -356,7 +356,7 @@ async function editCanvassItem(data: CanvassItem, closeBtnModal: HTMLInputElemen
 
         if (response.data.item) {
             const item = response.data.item
-            response.data.item['label'] = `${item.code} - ${item.name}`
+            response.data.item['label'] = `${item.code} - ${item.description}`
         }
 
         canvass.value.canvass_items[indx] = { ...response.data }

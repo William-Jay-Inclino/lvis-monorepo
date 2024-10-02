@@ -227,7 +227,8 @@ export class OsrivService {
                         item: {
                             include: {
                                 unit: true,
-                                item_transactions: true
+                                item_transactions: true,
+                                item_type: true,
                             }
                         }
                     }

@@ -13,7 +13,7 @@
                     <th class="text-muted">Unit</th>
                     <th class="text-muted">Available Qty</th>
                     <th class="text-muted">Avg. Price</th>
-                    <th class="text-muted">Quantity Request</th>
+                    <th width="10%" class="text-muted">Quantity</th>
                     <th class="text-muted">Amount</th>
                     <th class="text-muted">Remove</th>
                 </tr>
@@ -31,14 +31,8 @@
                             :class="{'border-danger': i.qty_request <= 0 || i.qty_request > i.available_quantity}"
                             v-model="i.qty_request"/>
                     </td>
-                    <td class="text-muted">
-                        <input
-                            type="text"
-                            class="form-control form-control-sm"
-                            disabled
-                            :value="formatToPhpCurrency(i.GWAPrice * i.qty_request)"/>
-                    </td>
-                    <td class="text-center">
+                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice * i.qty_request) }} </td>
+                    <td class="text-center align-middle">
                         <button @click="handleRemoveItem(i)" class="btn btn-sm btn-light">
                             <i class="fas fa-trash text-danger"></i>
                         </button>

@@ -345,6 +345,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
 export async function fetchFormDataInUpdate(id: string): Promise<{
     employees: Employee[],
+    items: Item[],
     osriv: OSRIV | undefined
 }> {
     const query = `
@@ -378,6 +379,27 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     label
                     order
                 }
+                osriv_items {
+                    id
+                    quantity
+                    price
+                    item {
+                        id
+                        code
+                        description
+                        item_type {
+                            id 
+                            name
+                        }
+                        unit {
+                            id 
+                            name
+                        }
+                        total_quantity
+                        quantity_on_queue
+                        GWAPrice
+                    }
+                }
 
             },
             employees(page: 1, pageSize: 10) {
@@ -388,6 +410,25 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
+            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.OFFICE_SUPPLY}") {
+                data{
+                    id
+                    code
+                    description
+                    item_type {
+                        id 
+                        code 
+                        name
+                    }
+                    unit {
+                        id 
+                        name
+                    }
+                    total_quantity
+                    quantity_on_queue
+                    GWAPrice
+                }
+            },
         }
     `;
 
@@ -396,6 +437,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         console.log('response', response)
 
         let employees: Employee[] = []
+        let items = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -413,9 +455,14 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             employees = response.data.data.employees.data
         }
 
+        if (data.items && data.items.data) {
+            items = response.data.data.items.data
+        }
+
         return {
             osriv,
             employees,
+            items,
         }
 
     } catch (error) {
@@ -423,6 +470,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         return {
             osriv: undefined,
             employees: [],
+            items: [],
         }
     }
 }
