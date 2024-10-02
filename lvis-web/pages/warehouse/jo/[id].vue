@@ -150,8 +150,8 @@
         
                         <div class="d-flex justify-content-between pt-3">
                             <div>
-                                <nuxt-link class="btn btn-secondary" to="/warehouse/jo">
-                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                <nuxt-link class="btn btn-secondary" :to="`/warehouse/jo/view/${joData.id}`">
+                                    <i class="fas fa-chevron-left"></i> Go Back
                                 </nuxt-link>
                             </div>
                             <div>

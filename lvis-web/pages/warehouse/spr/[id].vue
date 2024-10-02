@@ -40,9 +40,6 @@
                                 SPR Number
                             </label>
                             <input type="text" class="form-control" :value="sprData.spr_number" disabled>
-                            <nuxt-link class="btn btn-sm btn-light text-primary"
-                                :to="'/warehouse/spr/view/' + sprData.id" target="_blank">View SPR
-                                details</nuxt-link>
                         </div>
         
                         <div class="mb-3">
@@ -144,8 +141,8 @@
         
                         <div class="d-flex justify-content-between pt-3">
                             <div>
-                                <nuxt-link class="btn btn-secondary" to="/warehouse/spr">
-                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                <nuxt-link class="btn btn-secondary" :to="`/warehouse/spr/view/${sprData.id}`">
+                                    <i class="fas fa-chevron-left"></i> Go Back
                                 </nuxt-link>
                             </div>
                             <div>

@@ -155,8 +155,8 @@
                     <div :class="{ 'col-lg-6': form === FORM_TYPE.RR_INFO, 'col-12': form !== FORM_TYPE.RR_INFO }">
                         <div class="d-flex justify-content-between pt-3">
                             <div>
-                                <nuxt-link class="btn btn-secondary" to="/warehouse/rr">
-                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                <nuxt-link class="btn btn-secondary" :to="`/warehouse/rr/view/${rrData.id}`">
+                                    <i class="fas fa-chevron-left"></i> Go Back
                                 </nuxt-link>
                             </div>
                             <div>

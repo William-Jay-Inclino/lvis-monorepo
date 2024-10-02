@@ -40,8 +40,8 @@
                                 RV Number
                             </label>
                             <input type="text" class="form-control" :value="rvData.rv_number" disabled>
-                            <nuxt-link class="btn btn-sm btn-light text-primary"
-                                :to="'/warehouse/rv/view/' + rvData.id" target="_blank">View RV details</nuxt-link>
+                            <!-- <nuxt-link class="btn btn-sm btn-light text-primary"
+                                :to="'/warehouse/rv/view/' + rvData.id" target="_blank">View RV details</nuxt-link> -->
                         </div>
         
                         <div class="mb-3">
@@ -145,8 +145,8 @@
         
                         <div class="d-flex justify-content-between pt-3">
                             <div>
-                                <nuxt-link class="btn btn-secondary" to="/warehouse/rv">
-                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                <nuxt-link class="btn btn-secondary" :to="`/warehouse/rv/view/${rvData.id}`">
+                                    <i class="fas fa-chevron-left"></i> Go Back
                                 </nuxt-link>
                             </div>
                             <div>

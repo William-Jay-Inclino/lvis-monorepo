@@ -121,7 +121,7 @@
         
                                 <div class="d-flex justify-content-between">
                                     <nuxt-link class="btn btn-secondary" to="/warehouse/rv">
-                                        <i class="fas fa-chevron-left"></i> Back to Search
+                                        <i class="fas fa-search"></i> Search RV
                                     </nuxt-link>
                                     <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
                                         <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}

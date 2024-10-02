@@ -111,7 +111,7 @@
             
                             <div v-if="currentStep === 1" class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/osriv">
-                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                    <i class="fas fa-search"></i> Search OSRIV
                                 </nuxt-link>
                                 <button @click="onClickNextStep1()" class="btn btn-primary">
                                     <i class="fas fa-chevron-right"></i> Next

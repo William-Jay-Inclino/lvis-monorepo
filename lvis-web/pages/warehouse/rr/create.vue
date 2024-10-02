@@ -160,7 +160,7 @@
         
                             <div>
                                 <nuxt-link v-show="currentStep === 1" class="btn btn-secondary" to="/warehouse/rr">
-                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                    <i class="fas fa-search"></i> Search RR
                                 </nuxt-link>
         
                                 <button v-show="currentStep === 2" @click="goToStep1" class="btn btn-secondary">
@@ -264,7 +264,7 @@ onMounted(async () => {
     units.value = response.units
     rrData.value.approvers = response.approvers
     pos.value = response.pos
-    items.value = response.items.map(i => ({ ...i, label: `${i.code} - ${i.name}` }))
+    items.value = response.items.map(i => ({ ...i, label: `${i.code} - ${i.description}` }))
 
     isLoadingPage.value = false
 

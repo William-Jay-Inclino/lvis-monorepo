@@ -471,7 +471,6 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                             item {
                                 id
                                 code 
-                                name
                                 description
                             }
                         }

@@ -197,7 +197,7 @@
         
                                 <div class="d-flex justify-content-between">
                                     <nuxt-link class="btn btn-secondary" to="/warehouse/meqs">
-                                        <i class="fas fa-chevron-left"></i> Back to Search
+                                        <i class="fas fa-search"></i> Search MEQS
                                     </nuxt-link>
                                     <button @click="goToStep2()" type="button" class="btn btn-primary"
                                         :disabled="!canProceedStep2">

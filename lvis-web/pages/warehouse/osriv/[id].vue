@@ -3,7 +3,9 @@
         <div class="card-body">
 
             <div v-if="!isLoadingPage && authUser && osrivData && !osrivData.cancelled_at" class="mb-3">
+
                 <h2 class="text-warning">Update OSRIV</h2>
+
                 <hr>
 
                 <div class="row pt-3 mb-5">
@@ -49,8 +51,6 @@
                                 OSRIV Number
                             </label>
                             <input type="text" class="form-control" :value="osrivData.osriv_number" disabled>
-                            <nuxt-link class="btn btn-sm btn-light text-primary"
-                                :to="'/warehouse/osriv/view/' + osrivData.id" target="_blank">View OSRIV details</nuxt-link>
                         </div>
         
                         <div class="mb-3">
@@ -111,8 +111,8 @@
         
                         <div class="d-flex justify-content-between pt-3">
                             <div>
-                                <nuxt-link class="btn btn-secondary" to="/warehouse/osriv">
-                                    <i class="fas fa-search"></i> Go to Search
+                                <nuxt-link class="btn btn-secondary" :to="`/warehouse/osriv/view/${osrivData.id}`">
+                                    <i class="fas fa-chevron-left"></i> Go Back
                                 </nuxt-link>
                             </div>
                             <div>
@@ -167,6 +167,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 
 // CONSTANTS
 const errorMsg = 'This field is required'
+const router = useRouter()
 
 // DEPENDENCIES
 const route = useRoute()
@@ -364,5 +365,7 @@ function isValidOsrivInfo(): boolean {
     return true
 
 }
+
+const onClickViewDetails = (id: string) => router.push('/warehouse/osriv/view/' + id)
 
 </script>

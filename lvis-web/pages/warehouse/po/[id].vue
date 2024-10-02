@@ -99,8 +99,8 @@
                     <div :class="{ 'col-lg-6': isPODetailForm, 'col-12': !isPODetailForm }">
                         <div class="d-flex justify-content-between pt-3">
                             <div>
-                                <nuxt-link class="btn btn-secondary" to="/warehouse/po">
-                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                <nuxt-link class="btn btn-secondary" :to="`/warehouse/po/view/${poData.id}`">
+                                    <i class="fas fa-chevron-left"></i> Go Back
                                 </nuxt-link>
                             </div>
                             <div>

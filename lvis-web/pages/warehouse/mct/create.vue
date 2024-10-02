@@ -180,7 +180,7 @@
                     <div class="col-lg-6">
                         <div class="d-flex justify-content-between">
                             <nuxt-link class="btn btn-secondary" to="/warehouse/mct">
-                                <i class="fas fa-chevron-left"></i> Back to Search
+                                <i class="fas fa-search"></i> Search MCT 
                             </nuxt-link>
                             <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                 class="btn btn-primary">

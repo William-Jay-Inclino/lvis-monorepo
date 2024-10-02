@@ -233,7 +233,7 @@
                                         </button>
                                         <button v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
-                                            <i class="fas fa-sync"></i> Update RV
+                                            <i class="fas fa-edit"></i> Edit Form
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageRV')" class="btn btn-primary me-2"
                                             @click="onClickAdd">

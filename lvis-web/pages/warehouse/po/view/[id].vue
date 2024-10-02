@@ -219,7 +219,7 @@
                                     <i class="fas fa-times-circle"></i> Cancel PO
                                 </button>
                                 <button v-if="!!item.can_update" class="btn btn-success me-2" @click="onClickUpdate(item.id)">
-                                    <i class="fas fa-sync"></i> Update PO
+                                    <i class="fas fa-edit"></i> Edit Form
                                 </button>
                                 <button v-if="canCreate(authUser, 'canManagePO')" class="btn btn-primary me-2"
                                     @click="onClickAdd">
