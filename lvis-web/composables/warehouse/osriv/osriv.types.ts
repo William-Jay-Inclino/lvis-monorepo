@@ -36,35 +36,35 @@ export interface OSRIV {
     status: APPROVAL_STATUS
     can_update?: boolean;
   
-  }
+}
 
 
-  export interface FindAllResponse {
-    data: OSRIV[]
-    totalItems: number
-    currentPage: number
-    totalPages: number
-  }
-  
-  
-  export interface MutationResponse {
-    success: boolean
-    msg: string
-    data?: OSRIV
-  }
-  
-  
-  export interface CreateOsrivInput {
-    purpose: string 
-    requested_by: Employee | null 
-    item_from: Item | null 
-    approvers: CreateOSRIVApprover[]
-    items: AddItem[]
-  }
-  
-  export interface UpdateOsrivInput {
-    purpose: string 
-    requested_by: Employee | null 
-    item_from: Station | null 
-  }
+export interface FindAllResponse {
+	data: OSRIV[]
+	totalItems: number
+	currentPage: number
+	totalPages: number
+}
+
+
+export interface MutationResponse {
+	success: boolean
+	msg: string
+	data?: OSRIV
+}
+
+
+export interface CreateOsrivInput {
+	purpose: string 
+	requested_by: Employee | null 
+	item_from: Item | null 
+	approvers: CreateOSRIVApprover[]
+	items: AddItem[]
+}
+
+export interface UpdateOsrivInput {
+	purpose: string 
+	requested_by: Employee | null 
+	item_from: Station | null 
+}
   

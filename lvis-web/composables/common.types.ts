@@ -47,8 +47,8 @@ export enum ITEM_TRANSACTION_TYPE {
 
 export interface Approver {
     id: string
-    approver_id: string
-    approver: Employee | null
+    // approver_id: string
+    approver: Employee
     date_approval: string | null
     notes: string
     status: APPROVAL_STATUS,

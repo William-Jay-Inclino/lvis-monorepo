@@ -5,11 +5,38 @@
             <div v-if="!isLoadingPage && authUser && osrivData && !osrivData.cancelled_at" class="mb-3">
                 <h2 class="text-warning">Update OSRIV</h2>
                 <hr>
+
+                <div class="row pt-3 mb-5">
+                    <div class="col">
+                        <ul class="nav nav-tabs justify-content-center">
+                            <li class="nav-item" @click="form = FORM.UPDATE_INFO">
+                                <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_INFO }" href="#">
+                                    <i class="fas fa-info-circle"></i> OSRIV Info
+                                </a>
+                            </li>
+                            <li class="nav-item" @click="form = FORM.UPDATE_APPROVERS">
+                                <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_APPROVERS }" href="#">
+                                    <i class="fas fa-users"></i> Approvers
+                                </a>
+                            </li>
+                            <li class="nav-item" @click="form = FORM.UPDATE_ITEMS">
+                                <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_ITEMS }" href="#">
+                                    <i class="fas fa-users"></i> Items
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
         
-                <div v-show="isOSRIVDetailForm" class="row justify-content-center">
+                <div v-show="form === FORM.UPDATE_INFO" class="row justify-content-center">
                     <div class="col-lg-6">
-        
-        
+                        
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic">
+                                Fields with * are required
+                            </small>
+                        </div>
+                        
                         <div class="mb-3 d-flex align-items-center">
                             <label class="form-label me-2 mb-0">Status:</label>
                             <div :class="{ [`badge bg-${osrivStatus.color}`]: true }">
@@ -32,37 +59,64 @@
                             </label>
                             <input type="date" class="form-control" :value="osrivData.date_requested" disabled>
                         </div>
-        
+
                         <div class="mb-3">
                             <label class="form-label">
-                                Requisitioner
+                                Item From <span class="text-danger">*</span>
                             </label>
-                            <input :value="osrivData.requested_by.fullname" type="text" class="form-control" disabled>
+                            <client-only>
+                                <v-select :options="stations" label="name" v-model="osrivData.item_from" :clearable="false"></v-select>
+                            </client-only>
+                            <small class="text-danger fst-italic" v-show="osrivDataErrors.item_from"> {{ errorMsg }} </small>
                         </div>
         
                         <div class="mb-3">
                             <label class="form-label">
-                                Purpose
+                                Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea :value="osrivData.purpose" class="form-control" rows="3" disabled> </textarea>
+                            <textarea v-model="osrivData.purpose" class="form-control" rows="3"> </textarea>
                         </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Requisitioner <span class="text-danger">*</span>
+                            </label>
+                            <input v-model="osrivData.requested_by.fullname" type="text" class="form-control">
+                        </div>
+        
         
         
                     </div>
                 </div>
+
+                <div v-show="form === FORM.UPDATE_APPROVERS" class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic">
+                                Only pending status can be change
+                            </small>
+                        </div>
+
+                        <WarehouseUpdateApprovers :approvers="approvers" :employees="employees" @change-approver="handleChangeApprover"/>
+                    </div>
+                </div>
+
+                <div v-show="form === FORM.UPDATE_ITEMS" class="row justify-content-center">
+                    items
+                </div>
         
         
                 <div class="row justify-content-center pt-3">
-                    <div :class="{ 'col-lg-6': isOSRIVDetailForm, 'col-12': !isOSRIVDetailForm }">
+                    <div :class="{ 'col-lg-6': form === FORM.UPDATE_INFO || form === FORM.UPDATE_APPROVERS, 'col-12': form === FORM.UPDATE_ITEMS }">
         
                         <div class="d-flex justify-content-between pt-3">
                             <div>
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/osriv">
-                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                    <i class="fas fa-search"></i> Go to Search
                                 </nuxt-link>
                             </div>
                             <div>
-                                <button v-if="isOSRIVDetailForm" @click="updateOsrivInfo()" type="button" class="btn btn-success"
+                                <button v-if="form === FORM.UPDATE_INFO" @click="updateOsrivInfo()" type="button" class="btn btn-success"
                                     :disabled="isUpdating">
                                     <i class="fas fa-sync"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
                                 </button>
@@ -95,6 +149,7 @@ import { type OSRIV, type UpdateOsrivInput } from '~/composables/warehouse/osriv
 import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Station } from '~/composables/warehouse/station/station';
 
 definePageMeta({
     name: ROUTES.OSRIV_UPDATE,
@@ -102,16 +157,24 @@ definePageMeta({
     middleware: ['auth'],
 })
 
-const isLoadingPage = ref(true)
+const enum FORM {
+    UPDATE_INFO,
+    UPDATE_APPROVERS,
+    UPDATE_ITEMS,
+}
+
 const authUser = ref<AuthUser>({} as AuthUser)
+
+// CONSTANTS
+const errorMsg = 'This field is required'
 
 // DEPENDENCIES
 const route = useRoute()
 const toast = useToast();
 
 // FLAGS
-const isOSRIVDetailForm = ref(true)
 const isUpdating = ref(false)
+const isLoadingPage = ref(true)
 
 // INITIAL DATA
 const _osrivDataErrorsInitial = {
@@ -120,8 +183,11 @@ const _osrivDataErrorsInitial = {
     item_from: false,
 }
 
+const form = ref<FORM>(FORM.UPDATE_INFO)
+
 // DROPDOWNS
 const employees = ref<Employee[]>([])
+const stations = ref<Station[]>([])
 
 
 // FORM DATA
@@ -183,6 +249,21 @@ const osrivStatus = computed(() => {
 
 })
 
+const approvers = computed( (): Approver[] => {
+
+    return osrivData.value.osriv_approvers.map(i => {
+        return {
+            id: i.id,
+            approver: i.approver,
+            date_approval: i.date_approval,
+            notes: i.notes,
+            status: i.status,
+            label: i.label,
+            order: i.order,
+        }
+    })
+
+})
 
 
 // ======================== FUNCTIONS ========================  
@@ -251,7 +332,9 @@ async function updateOsrivInfo() {
 
 // ======================== CHILD EVENTS: <WarehouseApproverV2> ========================  
 
-
+async function handleChangeApprover(payload: {currentApprover: Approver, newApprover: Employee}) {
+    console.log('handleChangeApprover', payload);
+}
 
 
 // ======================== UTILS ========================  

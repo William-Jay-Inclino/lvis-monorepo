@@ -18,44 +18,43 @@
                                     </h5>
                                     <hr class="result">
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover">
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-muted">Status</td>
-                                                <td>
-                                                    <div :class="{ [`badge bg-${approvalStatus[item.status].color}`]: true }">
-                                                        {{ approvalStatus[item.status].label }}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-muted">OSRIV Number</td>
-                                                <td> {{ item.osriv_number }} </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-muted">Date</td>
-                                                <td> {{ formatDate(item.date_requested) }} </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-muted">Requested by</td>
-                                                <td> {{ getFullname(item.requested_by.firstname, item.requested_by.middlename, item.requested_by.lastname) }} </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-muted">Department</td>
-                                                <td> {{ item.requested_by.department.name }} </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-muted">Item from</td>
-                                                <td> {{ item.item_from.name }} </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-muted">Purpose</td>
-                                                <td> {{ item.purpose }} </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-muted">Status</td>
+                                            <td>
+                                                <div :class="{ [`badge bg-${approvalStatus[item.status].color}`]: true }">
+                                                    {{ approvalStatus[item.status].label }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">OSRIV Number</td>
+                                            <td> {{ item.osriv_number }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Date</td>
+                                            <td> {{ formatDate(item.date_requested) }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted align-middle">Requested by</td>
+                                            <td> {{ getFullname(item.requested_by.firstname, item.requested_by.middlename, item.requested_by.lastname) }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Department</td>
+                                            <td> {{ item.requested_by.department.name }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted align-middle">Item from</td>
+                                            <td> {{ item.item_from.name }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted align-middle">Purpose</td>
+                                            <td> {{ item.purpose }} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
         
                             </div>
         
@@ -77,10 +76,9 @@
                                 </div>
         
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white"> Order </th>
                                                 <th class="bg-secondary text-white"> Label </th>
                                                 <th class="bg-secondary text-white"> Approver </th>
                                                 <th class="bg-secondary text-white"> Status </th>
@@ -89,10 +87,10 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.osriv_approvers">
-                                                <td class="align-middle"> {{ i.order }} </td>
                                                 <td class="align-middle"> {{ i.label }} </td>
-                                                <td class="align-middle"> {{ getFullname(i.approver!.firstname,
-                i.approver!.middlename, i.approver!.lastname) }} </td>
+                                                <td class="align-middle"> 
+                                                    {{ getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname) }} 
+                                                </td>
                                                 <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle">
                                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
@@ -130,7 +128,7 @@
                                     </h5>
                                     <hr class="result">
                                 </div>
-    
+
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover">
                                         <thead>
@@ -139,7 +137,6 @@
                                                 <th class="bg-secondary text-white"> Description </th>
                                                 <th class="bg-secondary text-white"> Unit </th>
                                                 <th class="bg-secondary text-white"> Quantity </th>
-                                                <!-- <th class="bg-secondary text-white"> Available Qty </th> -->
                                                 <th class="bg-secondary text-white"> Unit Price </th>
                                                 <th class="bg-secondary text-white"> Amount </th>
                                             </tr>
@@ -184,7 +181,7 @@
                                         </button>
                                         <button v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
-                                            <i class="fas fa-sync"></i> Update OSRIV
+                                            <i class="fas fa-edit"></i> Edit Form
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageOSRIV')" class="btn btn-primary me-2"
                                             @click="onClickAdd">
@@ -209,7 +206,6 @@
         </div>
     </div>
 
-
 </template>
 
 
@@ -230,30 +226,34 @@ definePageMeta({
     middleware: ['auth'],
 })
 
-const isLoadingPage = ref(true)
-const authUser = ref<AuthUser>({} as AuthUser)
-const isLoadingPdf = ref(false)
-
+// CONFIGS
 const config = useRuntimeConfig()
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 
+// CONSTANTS
+const authUser = ref<AuthUser>({} as AuthUser)
 const router = useRouter()
 const route = useRoute()
-
 const toast = useToast();
 
+// FLAGS
+const isLoadingPage = ref(true)
+const isLoadingPdf = ref(false)
+
+// DATA
 const printBtn = ref<HTMLButtonElement>()
-
 const item = ref<OSRIV | undefined>()
-
 const pdfUrl = ref('')
+
 
 
 onMounted(async () => {
 
     authUser.value = getAuthUser()
 
-    item.value = await api.findOne(route.params.id as string)
+    const response = await api.findOne(route.params.id as string)
+
+    item.value = response
 
     isLoadingPage.value = false
 
@@ -336,9 +336,6 @@ async function onClickPrint() {
         console.error('Error loading PDF:', error);
     }
 }
-
-
-
 
 
 const onClickAdd = () => router.push('/warehouse/osriv/create')

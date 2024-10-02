@@ -1,5 +1,4 @@
 import { DEPARTMENT_STATUS, type WarehouseRequestType } from "~/composables/common.types"
-import type { ItemType } from "~/composables/warehouse/item/item.type"
 
 
 export enum SERVICES {

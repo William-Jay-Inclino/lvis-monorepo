@@ -6,7 +6,6 @@ export function getAuthUser(): AuthUser {
     const authUserJson = localStorage.getItem('authUser')
 
     if (!authUserJson) {
-        console.error('authUser in localstorage not found');
         // @ts-ignore
         return redirectTo401Page()
     }
@@ -43,7 +42,6 @@ export function canUpdate(authUser: AuthUser, created_by: string) {
 
 export function canCreate(authUser: AuthUser, permission: string, service?: SERVICES) {
 
-    console.log('canCreate', authUser, permission)
     if (isAdmin(authUser)) return true
 
     if (!authUser.user.permissions) return false

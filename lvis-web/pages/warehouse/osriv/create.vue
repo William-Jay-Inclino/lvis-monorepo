@@ -159,7 +159,7 @@
     import type { AddItem } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';
     import { OSRIV_APPROVER, OSRIV_DEFAULT_APPROVERS } from '~/composables/warehouse/osriv/osriv.constants';
-import { useToast } from 'vue-toastification';
+    import { useToast } from 'vue-toastification';
 
     definePageMeta({
         name: ROUTES.OSRIV_CREATE,

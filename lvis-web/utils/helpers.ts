@@ -20,8 +20,6 @@ export function convertMiddleNameToInitial(middleName: string) {
 
 export function formatDate(d: any, withTime: boolean = false) {
 
-    console.log('d', d)
-
     if (!d) {
         return ""
     }
@@ -48,7 +46,6 @@ export function formatDate(d: any, withTime: boolean = false) {
 // }
 
 export function formatToValidHtmlDate(d: any, hasTime: boolean = false): string {
-    console.log('d', d);
 
     let date = d;
     if (!isNaN(d)) {
@@ -150,7 +147,6 @@ export function getGrossTotal(payload: { price: number, quantity: number }) {
 }
 
 export function redirectTo401Page() {
-    console.log('redirectTo401Page()')
     return window.location.href = '/error/401'
 }
 
