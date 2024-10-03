@@ -79,6 +79,7 @@ export class MrvService {
                         item: {connect: {id: i.item_id}},
                         quantity: i.quantity,
                         price: i.price,
+                        created_by: this.authUser.user.username,
                     }
                 })
             }

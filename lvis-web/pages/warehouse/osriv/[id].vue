@@ -68,7 +68,6 @@
                             <client-only>
                                 <v-select :options="stations" label="name" v-model="osrivData.item_from" :clearable="false"></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-show="osrivDataErrors.item_from"> {{ errorMsg }} </small>
                         </div>
         
                         <div class="mb-3">
@@ -76,13 +75,16 @@
                                 Purpose <span class="text-danger">*</span>
                             </label>
                             <textarea v-model="osrivData.purpose" class="form-control" rows="3"> </textarea>
+                            <small v-if="osrivDataErrors.purpose" class="text-danger fst-italic"> {{ errorMsg }} </small>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">
                                 Requisitioner <span class="text-danger">*</span>
                             </label>
-                            <input v-model="osrivData.requested_by.fullname" type="text" class="form-control">
+                            <client-only>
+                                <v-select :options="employees" label="fullname" v-model="osrivData.requested_by" :clearable="false"></v-select>
+                            </client-only>
                         </div>
         
         
@@ -98,31 +100,38 @@
                             </small>
                         </div>
 
-                        <WarehouseUpdateApprovers :approvers="approvers" :employees="employees" @change-approver="handleChangeApprover"/>
+                        <WarehouseUpdateApprovers :is-updating="isChangingApprover" :approvers="approvers" :employees="employees" @change-approver="handleChangeApprover"/>
                     </div>
                 </div>
 
                 <div v-show="form === FORM.UPDATE_ITEMS" class="row justify-content-center">
                     <div class="col-lg-10">
 
-                        <div class="text-end mb-3">
-                            <button
-                                class="btn btn-success btn-sm"
-                                data-bs-toggle="modal"
-                                data-bs-target="#addItemModal">
-                                <i
-                                class="fas fa-plus"></i>
-                                Add Item
-                            </button>
+                        <div class="text-center fst-italic text-muted" v-if="isFetchingItems">
+                            loading items...
                         </div>
 
-                        <WarehouseItems :items="filteredItems" @remove-item="handleRemoveItem"/>
+                        <div v-else>
+                            <div class="text-end mb-3">
+                                <button
+                                    class="btn btn-success btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#addItemModal">
+                                    <i
+                                    class="fas fa-plus"></i>
+                                    Add Item
+                                </button>
+                            </div>
+    
+                            <WarehouseItems :items="itemsInTable" @remove-item="handleRemoveItem" @update-qty="handleUpdateItemQty"/>
+                        </div>
+
                     </div>
                 </div>
         
         
                 <div class="row justify-content-center pt-3">
-                    <div :class="{ 'col-lg-6': form === FORM.UPDATE_INFO || form === FORM.UPDATE_APPROVERS, 'col-12': form === FORM.UPDATE_ITEMS }">
+                    <div :class="{ 'col-lg-6': form === FORM.UPDATE_INFO || form === FORM.UPDATE_APPROVERS, 'col-10': form === FORM.UPDATE_ITEMS }">
         
                         <div class="d-flex justify-content-between pt-3">
                             <div>
@@ -135,13 +144,17 @@
                                     :disabled="isUpdating">
                                     <i class="fas fa-sync"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
                                 </button>
+                                <button v-if="form === FORM.UPDATE_ITEMS" @click="updateOsrivItems()" type="button" class="btn btn-success"
+                                    :disabled="isUpdatingItems || isDisabledUpdateItemsBtn">
+                                    <i class="fas fa-sync"></i> {{ isUpdatingItems ? 'Updating Items...' : 'Update Items' }}
+                                </button>
                             </div>
                         </div>
         
                     </div>
                 </div>
                 
-                <WarehouseAddItemModal @add-item="handleAddItem" :items="items" :added-item-ids="osrivItemIds"/>
+                <WarehouseAddItemModal @add-item="handleAddItem" :items="itemsInModal" :added-item-ids="osrivItemIds"/>
         
             </div>
         
@@ -162,7 +175,9 @@ import Swal from 'sweetalert2'
 import { getFullname, formatToValidHtmlDate } from '~/utils/helpers'
 import { useToast } from "vue-toastification";
 import * as osrivApi from '~/composables/warehouse/osriv/osriv.api'
-import { type OSRIV, type UpdateOsrivInput } from '~/composables/warehouse/osriv/osriv.types';
+import * as osrivApproverApi from '~/composables/warehouse/osriv/osriv-approver.api'
+import * as osrivItemApi from '~/composables/warehouse/osriv/osriv-item.api'
+import { type OSRIV } from '~/composables/warehouse/osriv/osriv.types';
 import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
@@ -193,14 +208,16 @@ const toast = useToast();
 
 // FLAGS
 const isUpdating = ref(false)
-const isUpdatingItem = ref(false)
+const isUpdatingItems = ref(false)
+const isChangingApprover = ref(false)
 const isLoadingPage = ref(true)
+const isFetchingItems = ref(false)
 
 // INITIAL DATA
 const _osrivDataErrorsInitial = {
-    requested_by: false,
+    // requested_by: false,
     purpose: false,
-    item_from: false,
+    // item_from: false,
 }
 
 const form = ref<FORM>(FORM.UPDATE_INFO)
@@ -208,7 +225,7 @@ const form = ref<FORM>(FORM.UPDATE_INFO)
 // DROPDOWNS
 const employees = ref<Employee[]>([])
 const stations = ref<Station[]>([])
-const items = ref<AddItem[]>([])
+const items = ref<Item[]>([])
 
 
 // FORM DATA
@@ -234,22 +251,9 @@ onMounted(async () => {
 
     populateForm(response.osriv)
 
+    stations.value = response.stations
     employees.value = addPropertyFullName(response.employees)
-    items.value = response.items.map(i => {
-        const x: AddItem = {
-            id: i.id,
-            code: i.code,
-            description: i.description,
-            label: i.code + ' - ' + i.description,
-            available_quantity: i.total_quantity - i.quantity_on_queue,
-            unit: i.unit,
-            qty_request: 0,
-            GWAPrice: i.GWAPrice,
-            item_type: i.item_type,
-        }
-
-        return x
-    })
+    items.value = response.items
 
     isLoadingPage.value = false
 
@@ -303,7 +307,7 @@ const approvers = computed( (): Approver[] => {
 
 const osrivItemIds = computed( () => osrivData.value.osriv_items.map(i => i.item.id) )
 
-const filteredItems = computed( (): AddItem[] => {
+const itemsInTable = computed( (): AddItem[] => {
     return osrivData.value.osriv_items.map(i => {
             const x: AddItem = {
                 id: i.item.id,
@@ -312,13 +316,53 @@ const filteredItems = computed( (): AddItem[] => {
                 label: i.item.code + ' - ' + i.item.description,
                 available_quantity: i.item.total_quantity - i.item.quantity_on_queue,
                 unit: i.item.unit,
-                qty_request: 0,
+                qty_request: i.quantity,
                 GWAPrice: i.item.GWAPrice,
                 item_type: i.item.item_type,
             }
 
             return x
         })
+})
+
+const itemsInModal = computed( (): AddItem[] => {
+    return items.value.map(i => {
+            const x: AddItem = {
+                id: i.id,
+                code: i.code,
+                description: i.description,
+                label: i.code + ' - ' + i.description,
+                available_quantity: i.total_quantity - i.quantity_on_queue,
+                unit: i.unit,
+                qty_request: 0,
+                GWAPrice: i.GWAPrice,
+                item_type: i.item_type,
+            }
+
+            return x
+        })
+})
+
+const isDisabledUpdateItemsBtn = computed( () => {
+
+    const osrivItems = osrivData.value.osriv_items
+
+    if(osrivItems.length === 0) {
+        return true
+    }
+
+    for(let osrivItem of osrivItems) {
+
+        const availableQty = osrivItem.item.total_quantity - osrivItem.item.quantity_on_queue
+
+        if(osrivItem.quantity <= 0 || osrivItem.quantity > availableQty ) {
+            return true
+        }
+
+    }
+
+    return false
+    
 })
 
 // ======================== FUNCTIONS ========================  
@@ -350,12 +394,6 @@ async function updateOsrivInfo() {
 
     console.log('updating...')
 
-    const data: UpdateOsrivInput = {
-        purpose: osrivData.value.purpose,
-        requested_by: osrivData.value.requested_by,
-        item_from: osrivData.value.item_from,
-    }
-
     isUpdating.value = true
     const response = await osrivApi.update(osrivData.value.id, osrivData.value)
     isUpdating.value = false
@@ -385,18 +423,145 @@ async function updateOsrivInfo() {
 
 }
 
-// ======================== CHILD EVENTS: <WarehouseApproverV2> ========================  
+async function updateOsrivItems() {
+    
+    isUpdatingItems.value = true
+    const response = await osrivItemApi.updateOsrivItems(osrivData.value.id, osrivData.value.osriv_items)
+    isUpdatingItems.value = false
 
-async function handleChangeApprover(payload: {currentApprover: Approver, newApprover: Employee}) {
+    if (response.success) {
+        Swal.fire({
+            title: 'Success!',
+            text: response.msg,
+            icon: 'success',
+            position: 'top',
+        })
+
+        osrivData.value.osriv_items = response.osriv_items
+
+        await fetchItems()
+
+    } else {
+        Swal.fire({
+            title: 'Error!',
+            text: response.msg,
+            icon: 'error',
+            position: 'top',
+        })
+    }
+
+}
+
+async function fetchItems() {
+
+    isFetchingItems.value = true
+    const response = await osrivItemApi.fetchItems()
+    isFetchingItems.value = false
+
+    items.value = response.items
+
+}
+
+// ======================== CHILD EVENTS: <WarehouseUpdateApprovers> ========================  
+
+async function handleChangeApprover(payload: {currentApprover: Approver, newApprover: Employee}, closeBtnModal: HTMLButtonElement) {
     console.log('handleChangeApprover', payload);
+
+    const { currentApprover, newApprover } = payload
+
+    isChangingApprover.value = true
+    const response = await osrivApproverApi.changeApprover(currentApprover.id, newApprover.id)
+    isChangingApprover.value = false
+
+    if (response.success && response.data) {
+        Swal.fire({
+            title: 'Success!',
+            text: response.msg,
+            icon: 'success',
+            position: 'top',
+        })
+
+        const approverIndx = osrivData.value.osriv_approvers.findIndex(i => i.id === response.data?.id)
+
+        if(approverIndx === -1) {
+            console.error('Approver not found in osriv approvers with id of ' + response.data.id);
+            return 
+        }
+
+        osrivData.value.osriv_approvers[approverIndx] = {...response.data}
+
+    } else {
+        Swal.fire({
+            title: 'Error!',
+            text: response.msg,
+            icon: 'error',
+            position: 'top',
+        })
+    }
+
+    closeBtnModal.click()
 }
 
-function handleRemoveItem() {
+
+// ======================== CHILD EVENTS: <WarehouseItems> ========================  
+
+function handleUpdateItemQty(item: AddItem, qty: number) {
+    console.log('handleUpdateItemQty', item, qty);
+
+    const osrivItem = osrivData.value.osriv_items.find(i => i.item.id === item.id) 
+
+    if(!osrivItem) {
+        console.error('Item not found', item.code);
+        return 
+    }
+
+    osrivItem.quantity = qty
 
 }
 
-function handleAddItem() {
+function handleRemoveItem(item: AddItem) {
+    console.log('handleRemoveItem', item);
 
+    const indx = osrivData.value.osriv_items.findIndex(i => i.item.id === item.id)
+
+    if(indx === -1) {
+        console.error('item not found in osrivData.items with id of ', item.id);
+        return 
+    }
+
+    osrivData.value.osriv_items.splice(indx, 1)
+}
+
+
+// ======================== CHILD EVENTS: <WarehouseAddItemModal> ========================  
+
+function handleAddItem(itemId: string) {
+    console.log('handleAddItem', itemId);
+    const item = items.value.find(i => i.id === itemId)
+
+    if(!item) {
+        console.error('item not found');
+        return 
+    }
+
+    const isExist = osrivData.value.osriv_items.find(i => i.item.id === itemId) 
+
+    if(isExist) {
+        toast.error('Item exist!')
+        return 
+    }
+
+
+    const osrivItem = {
+        id: '',
+        item,
+        price: item.GWAPrice,
+        quantity: 0,
+    }
+
+    // @ts-ignore
+    osrivData.value.osriv_items.push(osrivItem)
+    toast.success('Item added!')
 }
 
 // ======================== UTILS ========================  
@@ -409,13 +574,13 @@ function isValidOsrivInfo(): boolean {
         osrivDataErrors.value.purpose = true
     }
 
-    if (!osrivData.value.requested_by) {
-        osrivDataErrors.value.requested_by = true
-    }
+    // if (!osrivData.value.requested_by) {
+    //     osrivDataErrors.value.requested_by = true
+    // }
 
-    if (!osrivData.value.item_from) {
-        osrivDataErrors.value.item_from = true
-    }
+    // if (!osrivData.value.item_from) {
+    //     osrivDataErrors.value.item_from = true
+    // }
 
     const hasError = Object.values(osrivDataErrors.value).includes(true);
 
@@ -427,6 +592,5 @@ function isValidOsrivInfo(): boolean {
 
 }
 
-const onClickViewDetails = (id: string) => router.push('/warehouse/osriv/view/' + id)
 
 </script>

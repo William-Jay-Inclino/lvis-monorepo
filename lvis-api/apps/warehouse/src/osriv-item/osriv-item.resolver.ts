@@ -1,35 +1,26 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { OsrivItemService } from './osriv-item.service';
-// import { OsrivItem } from './entities/osriv-item.entity';
-import { CreateOsrivItemInput } from './dto/create-osriv-item.input';
-import { UpdateOsrivItemInput } from './dto/update-osriv-item.input';
+import { OSRIVItem } from './entities/osriv-item.entity';
+import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
+import { AuthUser } from '../__common__/auth-user.entity';
+import { CreateOsrivItemSubInput } from '../osriv/dto/create-osriv-item.sub.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 
-// @Resolver(() => OsrivItem)
-// export class OsrivItemResolver {
-//   constructor(private readonly osrivItemService: OsrivItemService) {}
+@UseGuards(GqlAuthGuard)
+@Resolver(() => OSRIVItem)
+export class OsrivItemResolver {
 
-//   @Mutation(() => OsrivItem)
-//   createOsrivItem(@Args('createOsrivItemInput') createOsrivItemInput: CreateOsrivItemInput) {
-//     return this.osrivItemService.create(createOsrivItemInput);
-//   }
+    constructor(private readonly osrivItemService: OsrivItemService) {}
 
-//   @Query(() => [OsrivItem], { name: 'osrivItem' })
-//   findAll() {
-//     return this.osrivItemService.findAll();
-//   }
-
-//   @Query(() => OsrivItem, { name: 'osrivItem' })
-//   findOne(@Args('id', { type: () => Int }) id: number) {
-//     return this.osrivItemService.findOne(id);
-//   }
-
-//   @Mutation(() => OsrivItem)
-//   updateOsrivItem(@Args('updateOsrivItemInput') updateOsrivItemInput: UpdateOsrivItemInput) {
-//     return this.osrivItemService.update(updateOsrivItemInput.id, updateOsrivItemInput);
-//   }
-
-//   @Mutation(() => OsrivItem)
-//   removeOsrivItem(@Args('id', { type: () => Int }) id: number) {
-//     return this.osrivItemService.remove(id);
-//   }
-// }
+    @Mutation(() => [OSRIVItem])
+    async updateOsrivItems(
+        @Args('osriv_id') osriv_id: string,
+        @Args({ name: 'items', type: () => [CreateOsrivItemSubInput] }) items: CreateOsrivItemSubInput[],
+        @CurrentAuthUser() authUser: AuthUser
+    ) {
+        this.osrivItemService.setAuthUser(authUser)
+        return await this.osrivItemService.updateOsrivItems(osriv_id, items);
+    }
+  
+}

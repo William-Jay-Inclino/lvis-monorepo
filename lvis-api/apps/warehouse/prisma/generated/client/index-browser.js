@@ -538,6 +538,8 @@ exports.Prisma.OSRIVApproverScalarFieldEnum = {
   label: 'label',
   label_id: 'label_id',
   order: 'order',
+  updated_by: 'updated_by',
+  updated_at: 'updated_at',
   metadata: 'metadata'
 };
 
@@ -547,6 +549,8 @@ exports.Prisma.OSRIVItemScalarFieldEnum = {
   item_id: 'item_id',
   quantity: 'quantity',
   price: 'price',
+  created_by: 'created_by',
+  created_at: 'created_at',
   metadata: 'metadata'
 };
 
@@ -587,6 +591,8 @@ exports.Prisma.SERIVApproverScalarFieldEnum = {
   label: 'label',
   label_id: 'label_id',
   order: 'order',
+  updated_by: 'updated_by',
+  updated_at: 'updated_at',
   metadata: 'metadata'
 };
 
@@ -596,6 +602,8 @@ exports.Prisma.SERIVItemScalarFieldEnum = {
   item_id: 'item_id',
   quantity: 'quantity',
   price: 'price',
+  created_by: 'created_by',
+  created_at: 'created_at',
   metadata: 'metadata'
 };
 
@@ -636,6 +644,8 @@ exports.Prisma.MRVApproverScalarFieldEnum = {
   label: 'label',
   label_id: 'label_id',
   order: 'order',
+  updated_by: 'updated_by',
+  updated_at: 'updated_at',
   metadata: 'metadata'
 };
 
@@ -645,6 +655,8 @@ exports.Prisma.MRVItemScalarFieldEnum = {
   item_id: 'item_id',
   quantity: 'quantity',
   price: 'price',
+  created_by: 'created_by',
+  created_at: 'created_at',
   metadata: 'metadata'
 };
 
@@ -674,6 +686,8 @@ exports.Prisma.MCTApproverScalarFieldEnum = {
   label: 'label',
   label_id: 'label_id',
   order: 'order',
+  updated_by: 'updated_by',
+  updated_at: 'updated_at',
   metadata: 'metadata'
 };
 
@@ -710,6 +724,8 @@ exports.Prisma.MCRTApproverScalarFieldEnum = {
   label: 'label',
   label_id: 'label_id',
   order: 'order',
+  updated_by: 'updated_by',
+  updated_at: 'updated_at',
   metadata: 'metadata'
 };
 
@@ -719,6 +735,8 @@ exports.Prisma.MCRTItemScalarFieldEnum = {
   item_id: 'item_id',
   quantity: 'quantity',
   price: 'price',
+  created_by: 'created_by',
+  created_at: 'created_at',
   metadata: 'metadata'
 };
 
@@ -750,6 +768,8 @@ exports.Prisma.MSTApproverScalarFieldEnum = {
   label: 'label',
   label_id: 'label_id',
   order: 'order',
+  updated_by: 'updated_by',
+  updated_at: 'updated_at',
   metadata: 'metadata'
 };
 
@@ -759,6 +779,8 @@ exports.Prisma.MSTItemScalarFieldEnum = {
   item_id: 'item_id',
   quantity: 'quantity',
   price: 'price',
+  created_by: 'created_by',
+  created_at: 'created_at',
   metadata: 'metadata'
 };
 

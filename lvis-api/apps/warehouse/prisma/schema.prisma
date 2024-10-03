@@ -724,6 +724,9 @@ model OSRIVApprover {
   label_id         String
   order         Int
 
+  updated_by   String?
+  updated_at   DateTime  @updatedAt
+
   osriv OSRIV @relation(fields: [osriv_id], references: [id], onDelete: Cascade)
 
   metadata Json?
@@ -739,6 +742,9 @@ model OSRIVItem {
   item_id         String
   quantity     Int
   price      Float @default(0)
+
+  created_by   String
+  created_at   DateTime  @default(now())
 
   osriv OSRIV @relation(fields: [osriv_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
@@ -801,6 +807,9 @@ model SERIVApprover {
   label_id         String
   order         Int
 
+  updated_by   String?
+  updated_at   DateTime  @updatedAt
+
   seriv SERIV @relation(fields: [seriv_id], references: [id], onDelete: Cascade)
 
   metadata Json?
@@ -816,6 +825,9 @@ model SERIVItem {
   item_id         String
   quantity     Int
   price      Float @default(0)
+
+  created_by   String
+  created_at   DateTime  @default(now())
 
   seriv SERIV @relation(fields: [seriv_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
@@ -879,6 +891,9 @@ model MRVApprover {
   label_id         String
   order         Int
 
+  updated_by   String?
+  updated_at   DateTime  @updatedAt
+
   mrv MRV @relation(fields: [mrv_id], references: [id], onDelete: Cascade)
 
   metadata Json?
@@ -894,6 +909,9 @@ model MRVItem {
   item_id         String
   quantity     Int
   price      Float @default(0)
+
+  created_by   String
+  created_at   DateTime  @default(now())
 
   mrv MRV @relation(fields: [mrv_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
@@ -941,6 +959,9 @@ model MCTApprover {
   label         String
   label_id         String
   order         Int
+
+  updated_by   String?
+  updated_at   DateTime  @updatedAt
 
   mct MCT @relation(fields: [mct_id], references: [id], onDelete: Cascade)
 
@@ -998,6 +1019,9 @@ model MCRTApprover {
   label_id         String
   order         Int
 
+  updated_by   String?
+  updated_at   DateTime  @updatedAt
+
   mcrt MCRT @relation(fields: [mcrt_id], references: [id], onDelete: Cascade)
 
   metadata Json?
@@ -1012,6 +1036,9 @@ model MCRTItem {
   item_id         String
   quantity     Int
   price      Float @default(0)
+
+  created_by   String
+  created_at   DateTime  @default(now())
 
   mcrt MCRT @relation(fields: [mcrt_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
@@ -1064,6 +1091,9 @@ model MSTApprover {
   label_id         String
   order         Int
 
+  updated_by   String?
+  updated_at   DateTime  @updatedAt
+  
   mst MST @relation(fields: [mst_id], references: [id], onDelete: Cascade)
 
   metadata Json?
@@ -1079,6 +1109,9 @@ model MSTItem {
   quantity     Int
   price      Float @default(0)
 
+  created_by   String
+  created_at   DateTime  @default(now())
+  
   mst MST @relation(fields: [mst_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
 

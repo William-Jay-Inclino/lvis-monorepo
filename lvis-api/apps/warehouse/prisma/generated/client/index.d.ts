@@ -38859,6 +38859,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type OSRIVApproverMaxAggregateOutputType = {
@@ -38871,6 +38873,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type OSRIVApproverCountAggregateOutputType = {
@@ -38883,6 +38887,8 @@ export namespace Prisma {
     label: number
     label_id: number
     order: number
+    updated_by: number
+    updated_at: number
     metadata: number
     _all: number
   }
@@ -38908,6 +38914,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type OSRIVApproverMaxAggregateInputType = {
@@ -38920,6 +38928,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type OSRIVApproverCountAggregateInputType = {
@@ -38932,6 +38942,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
     metadata?: true
     _all?: true
   }
@@ -39032,6 +39044,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by: string | null
+    updated_at: Date
     metadata: JsonValue | null
     _count: OSRIVApproverCountAggregateOutputType | null
     _avg: OSRIVApproverAvgAggregateOutputType | null
@@ -39064,6 +39078,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
     osriv?: boolean | OSRIVDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["oSRIVApprover"]>
@@ -39078,6 +39094,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
   }
 
@@ -39101,6 +39119,8 @@ export namespace Prisma {
       label: string
       label_id: string
       order: number
+      updated_by: string | null
+      updated_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["oSRIVApprover"]>
     composites: {}
@@ -39506,6 +39526,8 @@ export namespace Prisma {
     readonly label: FieldRef<"OSRIVApprover", 'String'>
     readonly label_id: FieldRef<"OSRIVApprover", 'String'>
     readonly order: FieldRef<"OSRIVApprover", 'Int'>
+    readonly updated_by: FieldRef<"OSRIVApprover", 'String'>
+    readonly updated_at: FieldRef<"OSRIVApprover", 'DateTime'>
     readonly metadata: FieldRef<"OSRIVApprover", 'Json'>
   }
     
@@ -39862,6 +39884,8 @@ export namespace Prisma {
     item_id: string | null
     quantity: number | null
     price: number | null
+    created_by: string | null
+    created_at: Date | null
   }
 
   export type OSRIVItemMaxAggregateOutputType = {
@@ -39870,6 +39894,8 @@ export namespace Prisma {
     item_id: string | null
     quantity: number | null
     price: number | null
+    created_by: string | null
+    created_at: Date | null
   }
 
   export type OSRIVItemCountAggregateOutputType = {
@@ -39878,6 +39904,8 @@ export namespace Prisma {
     item_id: number
     quantity: number
     price: number
+    created_by: number
+    created_at: number
     metadata: number
     _all: number
   }
@@ -39899,6 +39927,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
   }
 
   export type OSRIVItemMaxAggregateInputType = {
@@ -39907,6 +39937,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
   }
 
   export type OSRIVItemCountAggregateInputType = {
@@ -39915,6 +39947,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
     metadata?: true
     _all?: true
   }
@@ -40011,6 +40045,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price: number
+    created_by: string
+    created_at: Date
     metadata: JsonValue | null
     _count: OSRIVItemCountAggregateOutputType | null
     _avg: OSRIVItemAvgAggregateOutputType | null
@@ -40039,6 +40075,8 @@ export namespace Prisma {
     item_id?: boolean
     quantity?: boolean
     price?: boolean
+    created_by?: boolean
+    created_at?: boolean
     metadata?: boolean
     osriv?: boolean | OSRIVDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
@@ -40051,6 +40089,8 @@ export namespace Prisma {
     item_id?: boolean
     quantity?: boolean
     price?: boolean
+    created_by?: boolean
+    created_at?: boolean
     metadata?: boolean
   }
 
@@ -40074,6 +40114,8 @@ export namespace Prisma {
       item_id: string
       quantity: number
       price: number
+      created_by: string
+      created_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["oSRIVItem"]>
     composites: {}
@@ -40479,6 +40521,8 @@ export namespace Prisma {
     readonly item_id: FieldRef<"OSRIVItem", 'String'>
     readonly quantity: FieldRef<"OSRIVItem", 'Int'>
     readonly price: FieldRef<"OSRIVItem", 'Float'>
+    readonly created_by: FieldRef<"OSRIVItem", 'String'>
+    readonly created_at: FieldRef<"OSRIVItem", 'DateTime'>
     readonly metadata: FieldRef<"OSRIVItem", 'Json'>
   }
     
@@ -42092,6 +42136,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type SERIVApproverMaxAggregateOutputType = {
@@ -42104,6 +42150,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type SERIVApproverCountAggregateOutputType = {
@@ -42116,6 +42164,8 @@ export namespace Prisma {
     label: number
     label_id: number
     order: number
+    updated_by: number
+    updated_at: number
     metadata: number
     _all: number
   }
@@ -42141,6 +42191,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type SERIVApproverMaxAggregateInputType = {
@@ -42153,6 +42205,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type SERIVApproverCountAggregateInputType = {
@@ -42165,6 +42219,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
     metadata?: true
     _all?: true
   }
@@ -42265,6 +42321,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by: string | null
+    updated_at: Date
     metadata: JsonValue | null
     _count: SERIVApproverCountAggregateOutputType | null
     _avg: SERIVApproverAvgAggregateOutputType | null
@@ -42297,6 +42355,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
     seriv?: boolean | SERIVDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sERIVApprover"]>
@@ -42311,6 +42371,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
   }
 
@@ -42334,6 +42396,8 @@ export namespace Prisma {
       label: string
       label_id: string
       order: number
+      updated_by: string | null
+      updated_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["sERIVApprover"]>
     composites: {}
@@ -42739,6 +42803,8 @@ export namespace Prisma {
     readonly label: FieldRef<"SERIVApprover", 'String'>
     readonly label_id: FieldRef<"SERIVApprover", 'String'>
     readonly order: FieldRef<"SERIVApprover", 'Int'>
+    readonly updated_by: FieldRef<"SERIVApprover", 'String'>
+    readonly updated_at: FieldRef<"SERIVApprover", 'DateTime'>
     readonly metadata: FieldRef<"SERIVApprover", 'Json'>
   }
     
@@ -43095,6 +43161,8 @@ export namespace Prisma {
     item_id: string | null
     quantity: number | null
     price: number | null
+    created_by: string | null
+    created_at: Date | null
   }
 
   export type SERIVItemMaxAggregateOutputType = {
@@ -43103,6 +43171,8 @@ export namespace Prisma {
     item_id: string | null
     quantity: number | null
     price: number | null
+    created_by: string | null
+    created_at: Date | null
   }
 
   export type SERIVItemCountAggregateOutputType = {
@@ -43111,6 +43181,8 @@ export namespace Prisma {
     item_id: number
     quantity: number
     price: number
+    created_by: number
+    created_at: number
     metadata: number
     _all: number
   }
@@ -43132,6 +43204,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
   }
 
   export type SERIVItemMaxAggregateInputType = {
@@ -43140,6 +43214,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
   }
 
   export type SERIVItemCountAggregateInputType = {
@@ -43148,6 +43224,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
     metadata?: true
     _all?: true
   }
@@ -43244,6 +43322,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price: number
+    created_by: string
+    created_at: Date
     metadata: JsonValue | null
     _count: SERIVItemCountAggregateOutputType | null
     _avg: SERIVItemAvgAggregateOutputType | null
@@ -43272,6 +43352,8 @@ export namespace Prisma {
     item_id?: boolean
     quantity?: boolean
     price?: boolean
+    created_by?: boolean
+    created_at?: boolean
     metadata?: boolean
     seriv?: boolean | SERIVDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
@@ -43284,6 +43366,8 @@ export namespace Prisma {
     item_id?: boolean
     quantity?: boolean
     price?: boolean
+    created_by?: boolean
+    created_at?: boolean
     metadata?: boolean
   }
 
@@ -43307,6 +43391,8 @@ export namespace Prisma {
       item_id: string
       quantity: number
       price: number
+      created_by: string
+      created_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["sERIVItem"]>
     composites: {}
@@ -43712,6 +43798,8 @@ export namespace Prisma {
     readonly item_id: FieldRef<"SERIVItem", 'String'>
     readonly quantity: FieldRef<"SERIVItem", 'Int'>
     readonly price: FieldRef<"SERIVItem", 'Float'>
+    readonly created_by: FieldRef<"SERIVItem", 'String'>
+    readonly created_at: FieldRef<"SERIVItem", 'DateTime'>
     readonly metadata: FieldRef<"SERIVItem", 'Json'>
   }
     
@@ -45325,6 +45413,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type MRVApproverMaxAggregateOutputType = {
@@ -45337,6 +45427,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type MRVApproverCountAggregateOutputType = {
@@ -45349,6 +45441,8 @@ export namespace Prisma {
     label: number
     label_id: number
     order: number
+    updated_by: number
+    updated_at: number
     metadata: number
     _all: number
   }
@@ -45374,6 +45468,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type MRVApproverMaxAggregateInputType = {
@@ -45386,6 +45482,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type MRVApproverCountAggregateInputType = {
@@ -45398,6 +45496,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
     metadata?: true
     _all?: true
   }
@@ -45498,6 +45598,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by: string | null
+    updated_at: Date
     metadata: JsonValue | null
     _count: MRVApproverCountAggregateOutputType | null
     _avg: MRVApproverAvgAggregateOutputType | null
@@ -45530,6 +45632,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
     mrv?: boolean | MRVDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mRVApprover"]>
@@ -45544,6 +45648,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
   }
 
@@ -45567,6 +45673,8 @@ export namespace Prisma {
       label: string
       label_id: string
       order: number
+      updated_by: string | null
+      updated_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mRVApprover"]>
     composites: {}
@@ -45972,6 +46080,8 @@ export namespace Prisma {
     readonly label: FieldRef<"MRVApprover", 'String'>
     readonly label_id: FieldRef<"MRVApprover", 'String'>
     readonly order: FieldRef<"MRVApprover", 'Int'>
+    readonly updated_by: FieldRef<"MRVApprover", 'String'>
+    readonly updated_at: FieldRef<"MRVApprover", 'DateTime'>
     readonly metadata: FieldRef<"MRVApprover", 'Json'>
   }
     
@@ -46328,6 +46438,8 @@ export namespace Prisma {
     item_id: string | null
     quantity: number | null
     price: number | null
+    created_by: string | null
+    created_at: Date | null
   }
 
   export type MRVItemMaxAggregateOutputType = {
@@ -46336,6 +46448,8 @@ export namespace Prisma {
     item_id: string | null
     quantity: number | null
     price: number | null
+    created_by: string | null
+    created_at: Date | null
   }
 
   export type MRVItemCountAggregateOutputType = {
@@ -46344,6 +46458,8 @@ export namespace Prisma {
     item_id: number
     quantity: number
     price: number
+    created_by: number
+    created_at: number
     metadata: number
     _all: number
   }
@@ -46365,6 +46481,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
   }
 
   export type MRVItemMaxAggregateInputType = {
@@ -46373,6 +46491,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
   }
 
   export type MRVItemCountAggregateInputType = {
@@ -46381,6 +46501,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
     metadata?: true
     _all?: true
   }
@@ -46477,6 +46599,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price: number
+    created_by: string
+    created_at: Date
     metadata: JsonValue | null
     _count: MRVItemCountAggregateOutputType | null
     _avg: MRVItemAvgAggregateOutputType | null
@@ -46505,6 +46629,8 @@ export namespace Prisma {
     item_id?: boolean
     quantity?: boolean
     price?: boolean
+    created_by?: boolean
+    created_at?: boolean
     metadata?: boolean
     mrv?: boolean | MRVDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
@@ -46517,6 +46643,8 @@ export namespace Prisma {
     item_id?: boolean
     quantity?: boolean
     price?: boolean
+    created_by?: boolean
+    created_at?: boolean
     metadata?: boolean
   }
 
@@ -46540,6 +46668,8 @@ export namespace Prisma {
       item_id: string
       quantity: number
       price: number
+      created_by: string
+      created_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mRVItem"]>
     composites: {}
@@ -46945,6 +47075,8 @@ export namespace Prisma {
     readonly item_id: FieldRef<"MRVItem", 'String'>
     readonly quantity: FieldRef<"MRVItem", 'Int'>
     readonly price: FieldRef<"MRVItem", 'Float'>
+    readonly created_by: FieldRef<"MRVItem", 'String'>
+    readonly created_at: FieldRef<"MRVItem", 'DateTime'>
     readonly metadata: FieldRef<"MRVItem", 'Json'>
   }
     
@@ -48393,6 +48525,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type MCTApproverMaxAggregateOutputType = {
@@ -48405,6 +48539,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type MCTApproverCountAggregateOutputType = {
@@ -48417,6 +48553,8 @@ export namespace Prisma {
     label: number
     label_id: number
     order: number
+    updated_by: number
+    updated_at: number
     metadata: number
     _all: number
   }
@@ -48442,6 +48580,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type MCTApproverMaxAggregateInputType = {
@@ -48454,6 +48594,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type MCTApproverCountAggregateInputType = {
@@ -48466,6 +48608,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
     metadata?: true
     _all?: true
   }
@@ -48566,6 +48710,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by: string | null
+    updated_at: Date
     metadata: JsonValue | null
     _count: MCTApproverCountAggregateOutputType | null
     _avg: MCTApproverAvgAggregateOutputType | null
@@ -48598,6 +48744,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
     mct?: boolean | MCTDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mCTApprover"]>
@@ -48612,6 +48760,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
   }
 
@@ -48635,6 +48785,8 @@ export namespace Prisma {
       label: string
       label_id: string
       order: number
+      updated_by: string | null
+      updated_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mCTApprover"]>
     composites: {}
@@ -49040,6 +49192,8 @@ export namespace Prisma {
     readonly label: FieldRef<"MCTApprover", 'String'>
     readonly label_id: FieldRef<"MCTApprover", 'String'>
     readonly order: FieldRef<"MCTApprover", 'Int'>
+    readonly updated_by: FieldRef<"MCTApprover", 'String'>
+    readonly updated_at: FieldRef<"MCTApprover", 'DateTime'>
     readonly metadata: FieldRef<"MCTApprover", 'Json'>
   }
     
@@ -50570,6 +50724,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type MCRTApproverMaxAggregateOutputType = {
@@ -50582,6 +50738,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type MCRTApproverCountAggregateOutputType = {
@@ -50594,6 +50752,8 @@ export namespace Prisma {
     label: number
     label_id: number
     order: number
+    updated_by: number
+    updated_at: number
     metadata: number
     _all: number
   }
@@ -50619,6 +50779,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type MCRTApproverMaxAggregateInputType = {
@@ -50631,6 +50793,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type MCRTApproverCountAggregateInputType = {
@@ -50643,6 +50807,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
     metadata?: true
     _all?: true
   }
@@ -50743,6 +50909,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by: string | null
+    updated_at: Date
     metadata: JsonValue | null
     _count: MCRTApproverCountAggregateOutputType | null
     _avg: MCRTApproverAvgAggregateOutputType | null
@@ -50775,6 +50943,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
     mcrt?: boolean | MCRTDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mCRTApprover"]>
@@ -50789,6 +50959,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
   }
 
@@ -50812,6 +50984,8 @@ export namespace Prisma {
       label: string
       label_id: string
       order: number
+      updated_by: string | null
+      updated_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mCRTApprover"]>
     composites: {}
@@ -51217,6 +51391,8 @@ export namespace Prisma {
     readonly label: FieldRef<"MCRTApprover", 'String'>
     readonly label_id: FieldRef<"MCRTApprover", 'String'>
     readonly order: FieldRef<"MCRTApprover", 'Int'>
+    readonly updated_by: FieldRef<"MCRTApprover", 'String'>
+    readonly updated_at: FieldRef<"MCRTApprover", 'DateTime'>
     readonly metadata: FieldRef<"MCRTApprover", 'Json'>
   }
     
@@ -51573,6 +51749,8 @@ export namespace Prisma {
     item_id: string | null
     quantity: number | null
     price: number | null
+    created_by: string | null
+    created_at: Date | null
   }
 
   export type MCRTItemMaxAggregateOutputType = {
@@ -51581,6 +51759,8 @@ export namespace Prisma {
     item_id: string | null
     quantity: number | null
     price: number | null
+    created_by: string | null
+    created_at: Date | null
   }
 
   export type MCRTItemCountAggregateOutputType = {
@@ -51589,6 +51769,8 @@ export namespace Prisma {
     item_id: number
     quantity: number
     price: number
+    created_by: number
+    created_at: number
     metadata: number
     _all: number
   }
@@ -51610,6 +51792,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
   }
 
   export type MCRTItemMaxAggregateInputType = {
@@ -51618,6 +51802,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
   }
 
   export type MCRTItemCountAggregateInputType = {
@@ -51626,6 +51812,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
     metadata?: true
     _all?: true
   }
@@ -51722,6 +51910,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price: number
+    created_by: string
+    created_at: Date
     metadata: JsonValue | null
     _count: MCRTItemCountAggregateOutputType | null
     _avg: MCRTItemAvgAggregateOutputType | null
@@ -51750,6 +51940,8 @@ export namespace Prisma {
     item_id?: boolean
     quantity?: boolean
     price?: boolean
+    created_by?: boolean
+    created_at?: boolean
     metadata?: boolean
     mcrt?: boolean | MCRTDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
@@ -51762,6 +51954,8 @@ export namespace Prisma {
     item_id?: boolean
     quantity?: boolean
     price?: boolean
+    created_by?: boolean
+    created_at?: boolean
     metadata?: boolean
   }
 
@@ -51785,6 +51979,8 @@ export namespace Prisma {
       item_id: string
       quantity: number
       price: number
+      created_by: string
+      created_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mCRTItem"]>
     composites: {}
@@ -52190,6 +52386,8 @@ export namespace Prisma {
     readonly item_id: FieldRef<"MCRTItem", 'String'>
     readonly quantity: FieldRef<"MCRTItem", 'Int'>
     readonly price: FieldRef<"MCRTItem", 'Float'>
+    readonly created_by: FieldRef<"MCRTItem", 'String'>
+    readonly created_at: FieldRef<"MCRTItem", 'DateTime'>
     readonly metadata: FieldRef<"MCRTItem", 'Json'>
   }
     
@@ -53639,6 +53837,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type MSTApproverMaxAggregateOutputType = {
@@ -53651,6 +53851,8 @@ export namespace Prisma {
     label: string | null
     label_id: string | null
     order: number | null
+    updated_by: string | null
+    updated_at: Date | null
   }
 
   export type MSTApproverCountAggregateOutputType = {
@@ -53663,6 +53865,8 @@ export namespace Prisma {
     label: number
     label_id: number
     order: number
+    updated_by: number
+    updated_at: number
     metadata: number
     _all: number
   }
@@ -53688,6 +53892,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type MSTApproverMaxAggregateInputType = {
@@ -53700,6 +53906,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
   }
 
   export type MSTApproverCountAggregateInputType = {
@@ -53712,6 +53920,8 @@ export namespace Prisma {
     label?: true
     label_id?: true
     order?: true
+    updated_by?: true
+    updated_at?: true
     metadata?: true
     _all?: true
   }
@@ -53812,6 +54022,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by: string | null
+    updated_at: Date
     metadata: JsonValue | null
     _count: MSTApproverCountAggregateOutputType | null
     _avg: MSTApproverAvgAggregateOutputType | null
@@ -53844,6 +54056,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
     mst?: boolean | MSTDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mSTApprover"]>
@@ -53858,6 +54072,8 @@ export namespace Prisma {
     label?: boolean
     label_id?: boolean
     order?: boolean
+    updated_by?: boolean
+    updated_at?: boolean
     metadata?: boolean
   }
 
@@ -53881,6 +54097,8 @@ export namespace Prisma {
       label: string
       label_id: string
       order: number
+      updated_by: string | null
+      updated_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mSTApprover"]>
     composites: {}
@@ -54286,6 +54504,8 @@ export namespace Prisma {
     readonly label: FieldRef<"MSTApprover", 'String'>
     readonly label_id: FieldRef<"MSTApprover", 'String'>
     readonly order: FieldRef<"MSTApprover", 'Int'>
+    readonly updated_by: FieldRef<"MSTApprover", 'String'>
+    readonly updated_at: FieldRef<"MSTApprover", 'DateTime'>
     readonly metadata: FieldRef<"MSTApprover", 'Json'>
   }
     
@@ -54642,6 +54862,8 @@ export namespace Prisma {
     item_id: string | null
     quantity: number | null
     price: number | null
+    created_by: string | null
+    created_at: Date | null
   }
 
   export type MSTItemMaxAggregateOutputType = {
@@ -54650,6 +54872,8 @@ export namespace Prisma {
     item_id: string | null
     quantity: number | null
     price: number | null
+    created_by: string | null
+    created_at: Date | null
   }
 
   export type MSTItemCountAggregateOutputType = {
@@ -54658,6 +54882,8 @@ export namespace Prisma {
     item_id: number
     quantity: number
     price: number
+    created_by: number
+    created_at: number
     metadata: number
     _all: number
   }
@@ -54679,6 +54905,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
   }
 
   export type MSTItemMaxAggregateInputType = {
@@ -54687,6 +54915,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
   }
 
   export type MSTItemCountAggregateInputType = {
@@ -54695,6 +54925,8 @@ export namespace Prisma {
     item_id?: true
     quantity?: true
     price?: true
+    created_by?: true
+    created_at?: true
     metadata?: true
     _all?: true
   }
@@ -54791,6 +55023,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price: number
+    created_by: string
+    created_at: Date
     metadata: JsonValue | null
     _count: MSTItemCountAggregateOutputType | null
     _avg: MSTItemAvgAggregateOutputType | null
@@ -54819,6 +55053,8 @@ export namespace Prisma {
     item_id?: boolean
     quantity?: boolean
     price?: boolean
+    created_by?: boolean
+    created_at?: boolean
     metadata?: boolean
     mst?: boolean | MSTDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
@@ -54830,6 +55066,8 @@ export namespace Prisma {
     item_id?: boolean
     quantity?: boolean
     price?: boolean
+    created_by?: boolean
+    created_at?: boolean
     metadata?: boolean
   }
 
@@ -54851,6 +55089,8 @@ export namespace Prisma {
       item_id: string
       quantity: number
       price: number
+      created_by: string
+      created_at: Date
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["mSTItem"]>
     composites: {}
@@ -55254,6 +55494,8 @@ export namespace Prisma {
     readonly item_id: FieldRef<"MSTItem", 'String'>
     readonly quantity: FieldRef<"MSTItem", 'Int'>
     readonly price: FieldRef<"MSTItem", 'Float'>
+    readonly created_by: FieldRef<"MSTItem", 'String'>
+    readonly created_at: FieldRef<"MSTItem", 'DateTime'>
     readonly metadata: FieldRef<"MSTItem", 'Json'>
   }
     
@@ -56123,6 +56365,8 @@ export namespace Prisma {
     label: 'label',
     label_id: 'label_id',
     order: 'order',
+    updated_by: 'updated_by',
+    updated_at: 'updated_at',
     metadata: 'metadata'
   };
 
@@ -56135,6 +56379,8 @@ export namespace Prisma {
     item_id: 'item_id',
     quantity: 'quantity',
     price: 'price',
+    created_by: 'created_by',
+    created_at: 'created_at',
     metadata: 'metadata'
   };
 
@@ -56181,6 +56427,8 @@ export namespace Prisma {
     label: 'label',
     label_id: 'label_id',
     order: 'order',
+    updated_by: 'updated_by',
+    updated_at: 'updated_at',
     metadata: 'metadata'
   };
 
@@ -56193,6 +56441,8 @@ export namespace Prisma {
     item_id: 'item_id',
     quantity: 'quantity',
     price: 'price',
+    created_by: 'created_by',
+    created_at: 'created_at',
     metadata: 'metadata'
   };
 
@@ -56239,6 +56489,8 @@ export namespace Prisma {
     label: 'label',
     label_id: 'label_id',
     order: 'order',
+    updated_by: 'updated_by',
+    updated_at: 'updated_at',
     metadata: 'metadata'
   };
 
@@ -56251,6 +56503,8 @@ export namespace Prisma {
     item_id: 'item_id',
     quantity: 'quantity',
     price: 'price',
+    created_by: 'created_by',
+    created_at: 'created_at',
     metadata: 'metadata'
   };
 
@@ -56286,6 +56540,8 @@ export namespace Prisma {
     label: 'label',
     label_id: 'label_id',
     order: 'order',
+    updated_by: 'updated_by',
+    updated_at: 'updated_at',
     metadata: 'metadata'
   };
 
@@ -56328,6 +56584,8 @@ export namespace Prisma {
     label: 'label',
     label_id: 'label_id',
     order: 'order',
+    updated_by: 'updated_by',
+    updated_at: 'updated_at',
     metadata: 'metadata'
   };
 
@@ -56340,6 +56598,8 @@ export namespace Prisma {
     item_id: 'item_id',
     quantity: 'quantity',
     price: 'price',
+    created_by: 'created_by',
+    created_at: 'created_at',
     metadata: 'metadata'
   };
 
@@ -56377,6 +56637,8 @@ export namespace Prisma {
     label: 'label',
     label_id: 'label_id',
     order: 'order',
+    updated_by: 'updated_by',
+    updated_at: 'updated_at',
     metadata: 'metadata'
   };
 
@@ -56389,6 +56651,8 @@ export namespace Prisma {
     item_id: 'item_id',
     quantity: 'quantity',
     price: 'price',
+    created_by: 'created_by',
+    created_at: 'created_at',
     metadata: 'metadata'
   };
 
@@ -59302,6 +59566,8 @@ export namespace Prisma {
     label?: StringFilter<"OSRIVApprover"> | string
     label_id?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
+    updated_by?: StringNullableFilter<"OSRIVApprover"> | string | null
+    updated_at?: DateTimeFilter<"OSRIVApprover"> | Date | string
     metadata?: JsonNullableFilter<"OSRIVApprover">
     osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
   }
@@ -59316,6 +59582,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     osriv?: OSRIVOrderByWithRelationInput
   }
@@ -59334,6 +59602,8 @@ export namespace Prisma {
     label?: StringFilter<"OSRIVApprover"> | string
     label_id?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
+    updated_by?: StringNullableFilter<"OSRIVApprover"> | string | null
+    updated_at?: DateTimeFilter<"OSRIVApprover"> | Date | string
     metadata?: JsonNullableFilter<"OSRIVApprover">
     osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
   }, "id" | "osriv_id_label_id">
@@ -59348,6 +59618,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: OSRIVApproverCountOrderByAggregateInput
     _avg?: OSRIVApproverAvgOrderByAggregateInput
@@ -59369,6 +59641,8 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"OSRIVApprover"> | string
     label_id?: StringWithAggregatesFilter<"OSRIVApprover"> | string
     order?: IntWithAggregatesFilter<"OSRIVApprover"> | number
+    updated_by?: StringNullableWithAggregatesFilter<"OSRIVApprover"> | string | null
+    updated_at?: DateTimeWithAggregatesFilter<"OSRIVApprover"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"OSRIVApprover">
   }
 
@@ -59381,6 +59655,8 @@ export namespace Prisma {
     item_id?: StringFilter<"OSRIVItem"> | string
     quantity?: IntFilter<"OSRIVItem"> | number
     price?: FloatFilter<"OSRIVItem"> | number
+    created_by?: StringFilter<"OSRIVItem"> | string
+    created_at?: DateTimeFilter<"OSRIVItem"> | Date | string
     metadata?: JsonNullableFilter<"OSRIVItem">
     osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
@@ -59393,6 +59669,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     osriv?: OSRIVOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
@@ -59408,6 +59686,8 @@ export namespace Prisma {
     item_id?: StringFilter<"OSRIVItem"> | string
     quantity?: IntFilter<"OSRIVItem"> | number
     price?: FloatFilter<"OSRIVItem"> | number
+    created_by?: StringFilter<"OSRIVItem"> | string
+    created_at?: DateTimeFilter<"OSRIVItem"> | Date | string
     metadata?: JsonNullableFilter<"OSRIVItem">
     osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
@@ -59420,6 +59700,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: OSRIVItemCountOrderByAggregateInput
     _avg?: OSRIVItemAvgOrderByAggregateInput
@@ -59437,6 +59719,8 @@ export namespace Prisma {
     item_id?: StringWithAggregatesFilter<"OSRIVItem"> | string
     quantity?: IntWithAggregatesFilter<"OSRIVItem"> | number
     price?: FloatWithAggregatesFilter<"OSRIVItem"> | number
+    created_by?: StringWithAggregatesFilter<"OSRIVItem"> | string
+    created_at?: DateTimeWithAggregatesFilter<"OSRIVItem"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"OSRIVItem">
   }
 
@@ -59614,6 +59898,8 @@ export namespace Prisma {
     label?: StringFilter<"SERIVApprover"> | string
     label_id?: StringFilter<"SERIVApprover"> | string
     order?: IntFilter<"SERIVApprover"> | number
+    updated_by?: StringNullableFilter<"SERIVApprover"> | string | null
+    updated_at?: DateTimeFilter<"SERIVApprover"> | Date | string
     metadata?: JsonNullableFilter<"SERIVApprover">
     seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
   }
@@ -59628,6 +59914,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     seriv?: SERIVOrderByWithRelationInput
   }
@@ -59646,6 +59934,8 @@ export namespace Prisma {
     label?: StringFilter<"SERIVApprover"> | string
     label_id?: StringFilter<"SERIVApprover"> | string
     order?: IntFilter<"SERIVApprover"> | number
+    updated_by?: StringNullableFilter<"SERIVApprover"> | string | null
+    updated_at?: DateTimeFilter<"SERIVApprover"> | Date | string
     metadata?: JsonNullableFilter<"SERIVApprover">
     seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
   }, "id" | "seriv_id_label_id">
@@ -59660,6 +59950,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: SERIVApproverCountOrderByAggregateInput
     _avg?: SERIVApproverAvgOrderByAggregateInput
@@ -59681,6 +59973,8 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"SERIVApprover"> | string
     label_id?: StringWithAggregatesFilter<"SERIVApprover"> | string
     order?: IntWithAggregatesFilter<"SERIVApprover"> | number
+    updated_by?: StringNullableWithAggregatesFilter<"SERIVApprover"> | string | null
+    updated_at?: DateTimeWithAggregatesFilter<"SERIVApprover"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"SERIVApprover">
   }
 
@@ -59693,6 +59987,8 @@ export namespace Prisma {
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
     price?: FloatFilter<"SERIVItem"> | number
+    created_by?: StringFilter<"SERIVItem"> | string
+    created_at?: DateTimeFilter<"SERIVItem"> | Date | string
     metadata?: JsonNullableFilter<"SERIVItem">
     seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
@@ -59705,6 +60001,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     seriv?: SERIVOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
@@ -59720,6 +60018,8 @@ export namespace Prisma {
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
     price?: FloatFilter<"SERIVItem"> | number
+    created_by?: StringFilter<"SERIVItem"> | string
+    created_at?: DateTimeFilter<"SERIVItem"> | Date | string
     metadata?: JsonNullableFilter<"SERIVItem">
     seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
@@ -59732,6 +60032,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: SERIVItemCountOrderByAggregateInput
     _avg?: SERIVItemAvgOrderByAggregateInput
@@ -59749,6 +60051,8 @@ export namespace Prisma {
     item_id?: StringWithAggregatesFilter<"SERIVItem"> | string
     quantity?: IntWithAggregatesFilter<"SERIVItem"> | number
     price?: FloatWithAggregatesFilter<"SERIVItem"> | number
+    created_by?: StringWithAggregatesFilter<"SERIVItem"> | string
+    created_at?: DateTimeWithAggregatesFilter<"SERIVItem"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"SERIVItem">
   }
 
@@ -59929,6 +60233,8 @@ export namespace Prisma {
     label?: StringFilter<"MRVApprover"> | string
     label_id?: StringFilter<"MRVApprover"> | string
     order?: IntFilter<"MRVApprover"> | number
+    updated_by?: StringNullableFilter<"MRVApprover"> | string | null
+    updated_at?: DateTimeFilter<"MRVApprover"> | Date | string
     metadata?: JsonNullableFilter<"MRVApprover">
     mrv?: XOR<MRVRelationFilter, MRVWhereInput>
   }
@@ -59943,6 +60249,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     mrv?: MRVOrderByWithRelationInput
   }
@@ -59961,6 +60269,8 @@ export namespace Prisma {
     label?: StringFilter<"MRVApprover"> | string
     label_id?: StringFilter<"MRVApprover"> | string
     order?: IntFilter<"MRVApprover"> | number
+    updated_by?: StringNullableFilter<"MRVApprover"> | string | null
+    updated_at?: DateTimeFilter<"MRVApprover"> | Date | string
     metadata?: JsonNullableFilter<"MRVApprover">
     mrv?: XOR<MRVRelationFilter, MRVWhereInput>
   }, "id" | "mrv_id_label_id">
@@ -59975,6 +60285,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: MRVApproverCountOrderByAggregateInput
     _avg?: MRVApproverAvgOrderByAggregateInput
@@ -59996,6 +60308,8 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"MRVApprover"> | string
     label_id?: StringWithAggregatesFilter<"MRVApprover"> | string
     order?: IntWithAggregatesFilter<"MRVApprover"> | number
+    updated_by?: StringNullableWithAggregatesFilter<"MRVApprover"> | string | null
+    updated_at?: DateTimeWithAggregatesFilter<"MRVApprover"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"MRVApprover">
   }
 
@@ -60008,6 +60322,8 @@ export namespace Prisma {
     item_id?: StringFilter<"MRVItem"> | string
     quantity?: IntFilter<"MRVItem"> | number
     price?: FloatFilter<"MRVItem"> | number
+    created_by?: StringFilter<"MRVItem"> | string
+    created_at?: DateTimeFilter<"MRVItem"> | Date | string
     metadata?: JsonNullableFilter<"MRVItem">
     mrv?: XOR<MRVRelationFilter, MRVWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
@@ -60020,6 +60336,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     mrv?: MRVOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
@@ -60035,6 +60353,8 @@ export namespace Prisma {
     item_id?: StringFilter<"MRVItem"> | string
     quantity?: IntFilter<"MRVItem"> | number
     price?: FloatFilter<"MRVItem"> | number
+    created_by?: StringFilter<"MRVItem"> | string
+    created_at?: DateTimeFilter<"MRVItem"> | Date | string
     metadata?: JsonNullableFilter<"MRVItem">
     mrv?: XOR<MRVRelationFilter, MRVWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
@@ -60047,6 +60367,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: MRVItemCountOrderByAggregateInput
     _avg?: MRVItemAvgOrderByAggregateInput
@@ -60064,6 +60386,8 @@ export namespace Prisma {
     item_id?: StringWithAggregatesFilter<"MRVItem"> | string
     quantity?: IntWithAggregatesFilter<"MRVItem"> | number
     price?: FloatWithAggregatesFilter<"MRVItem"> | number
+    created_by?: StringWithAggregatesFilter<"MRVItem"> | string
+    created_at?: DateTimeWithAggregatesFilter<"MRVItem"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"MRVItem">
   }
 
@@ -60181,6 +60505,8 @@ export namespace Prisma {
     label?: StringFilter<"MCTApprover"> | string
     label_id?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
+    updated_by?: StringNullableFilter<"MCTApprover"> | string | null
+    updated_at?: DateTimeFilter<"MCTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MCTApprover">
     mct?: XOR<MCTRelationFilter, MCTWhereInput>
   }
@@ -60195,6 +60521,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     mct?: MCTOrderByWithRelationInput
   }
@@ -60212,6 +60540,8 @@ export namespace Prisma {
     label?: StringFilter<"MCTApprover"> | string
     label_id?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
+    updated_by?: StringNullableFilter<"MCTApprover"> | string | null
+    updated_at?: DateTimeFilter<"MCTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MCTApprover">
     mct?: XOR<MCTRelationFilter, MCTWhereInput>
   }, "id">
@@ -60226,6 +60556,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: MCTApproverCountOrderByAggregateInput
     _avg?: MCTApproverAvgOrderByAggregateInput
@@ -60247,6 +60579,8 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"MCTApprover"> | string
     label_id?: StringWithAggregatesFilter<"MCTApprover"> | string
     order?: IntWithAggregatesFilter<"MCTApprover"> | number
+    updated_by?: StringNullableWithAggregatesFilter<"MCTApprover"> | string | null
+    updated_at?: DateTimeWithAggregatesFilter<"MCTApprover"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"MCTApprover">
   }
 
@@ -60402,6 +60736,8 @@ export namespace Prisma {
     label?: StringFilter<"MCRTApprover"> | string
     label_id?: StringFilter<"MCRTApprover"> | string
     order?: IntFilter<"MCRTApprover"> | number
+    updated_by?: StringNullableFilter<"MCRTApprover"> | string | null
+    updated_at?: DateTimeFilter<"MCRTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MCRTApprover">
     mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
   }
@@ -60416,6 +60752,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     mcrt?: MCRTOrderByWithRelationInput
   }
@@ -60433,6 +60771,8 @@ export namespace Prisma {
     label?: StringFilter<"MCRTApprover"> | string
     label_id?: StringFilter<"MCRTApprover"> | string
     order?: IntFilter<"MCRTApprover"> | number
+    updated_by?: StringNullableFilter<"MCRTApprover"> | string | null
+    updated_at?: DateTimeFilter<"MCRTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MCRTApprover">
     mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
   }, "id">
@@ -60447,6 +60787,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: MCRTApproverCountOrderByAggregateInput
     _avg?: MCRTApproverAvgOrderByAggregateInput
@@ -60468,6 +60810,8 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"MCRTApprover"> | string
     label_id?: StringWithAggregatesFilter<"MCRTApprover"> | string
     order?: IntWithAggregatesFilter<"MCRTApprover"> | number
+    updated_by?: StringNullableWithAggregatesFilter<"MCRTApprover"> | string | null
+    updated_at?: DateTimeWithAggregatesFilter<"MCRTApprover"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"MCRTApprover">
   }
 
@@ -60480,6 +60824,8 @@ export namespace Prisma {
     item_id?: StringFilter<"MCRTItem"> | string
     quantity?: IntFilter<"MCRTItem"> | number
     price?: FloatFilter<"MCRTItem"> | number
+    created_by?: StringFilter<"MCRTItem"> | string
+    created_at?: DateTimeFilter<"MCRTItem"> | Date | string
     metadata?: JsonNullableFilter<"MCRTItem">
     mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
@@ -60492,6 +60838,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     mcrt?: MCRTOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
@@ -60507,6 +60855,8 @@ export namespace Prisma {
     item_id?: StringFilter<"MCRTItem"> | string
     quantity?: IntFilter<"MCRTItem"> | number
     price?: FloatFilter<"MCRTItem"> | number
+    created_by?: StringFilter<"MCRTItem"> | string
+    created_at?: DateTimeFilter<"MCRTItem"> | Date | string
     metadata?: JsonNullableFilter<"MCRTItem">
     mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
@@ -60519,6 +60869,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: MCRTItemCountOrderByAggregateInput
     _avg?: MCRTItemAvgOrderByAggregateInput
@@ -60536,6 +60888,8 @@ export namespace Prisma {
     item_id?: StringWithAggregatesFilter<"MCRTItem"> | string
     quantity?: IntWithAggregatesFilter<"MCRTItem"> | number
     price?: FloatWithAggregatesFilter<"MCRTItem"> | number
+    created_by?: StringWithAggregatesFilter<"MCRTItem"> | string
+    created_at?: DateTimeWithAggregatesFilter<"MCRTItem"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"MCRTItem">
   }
 
@@ -60660,6 +61014,8 @@ export namespace Prisma {
     label?: StringFilter<"MSTApprover"> | string
     label_id?: StringFilter<"MSTApprover"> | string
     order?: IntFilter<"MSTApprover"> | number
+    updated_by?: StringNullableFilter<"MSTApprover"> | string | null
+    updated_at?: DateTimeFilter<"MSTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MSTApprover">
     mst?: XOR<MSTRelationFilter, MSTWhereInput>
   }
@@ -60674,6 +61030,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     mst?: MSTOrderByWithRelationInput
   }
@@ -60691,6 +61049,8 @@ export namespace Prisma {
     label?: StringFilter<"MSTApprover"> | string
     label_id?: StringFilter<"MSTApprover"> | string
     order?: IntFilter<"MSTApprover"> | number
+    updated_by?: StringNullableFilter<"MSTApprover"> | string | null
+    updated_at?: DateTimeFilter<"MSTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MSTApprover">
     mst?: XOR<MSTRelationFilter, MSTWhereInput>
   }, "id">
@@ -60705,6 +61065,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: MSTApproverCountOrderByAggregateInput
     _avg?: MSTApproverAvgOrderByAggregateInput
@@ -60726,6 +61088,8 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"MSTApprover"> | string
     label_id?: StringWithAggregatesFilter<"MSTApprover"> | string
     order?: IntWithAggregatesFilter<"MSTApprover"> | number
+    updated_by?: StringNullableWithAggregatesFilter<"MSTApprover"> | string | null
+    updated_at?: DateTimeWithAggregatesFilter<"MSTApprover"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"MSTApprover">
   }
 
@@ -60738,6 +61102,8 @@ export namespace Prisma {
     item_id?: StringFilter<"MSTItem"> | string
     quantity?: IntFilter<"MSTItem"> | number
     price?: FloatFilter<"MSTItem"> | number
+    created_by?: StringFilter<"MSTItem"> | string
+    created_at?: DateTimeFilter<"MSTItem"> | Date | string
     metadata?: JsonNullableFilter<"MSTItem">
     mst?: XOR<MSTRelationFilter, MSTWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
@@ -60749,6 +61115,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     mst?: MSTOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
@@ -60763,6 +61131,8 @@ export namespace Prisma {
     item_id?: StringFilter<"MSTItem"> | string
     quantity?: IntFilter<"MSTItem"> | number
     price?: FloatFilter<"MSTItem"> | number
+    created_by?: StringFilter<"MSTItem"> | string
+    created_at?: DateTimeFilter<"MSTItem"> | Date | string
     metadata?: JsonNullableFilter<"MSTItem">
     mst?: XOR<MSTRelationFilter, MSTWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
@@ -60774,6 +61144,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: MSTItemCountOrderByAggregateInput
     _avg?: MSTItemAvgOrderByAggregateInput
@@ -60791,6 +61163,8 @@ export namespace Prisma {
     item_id?: StringWithAggregatesFilter<"MSTItem"> | string
     quantity?: IntWithAggregatesFilter<"MSTItem"> | number
     price?: FloatWithAggregatesFilter<"MSTItem"> | number
+    created_by?: StringWithAggregatesFilter<"MSTItem"> | string
+    created_at?: DateTimeWithAggregatesFilter<"MSTItem"> | Date | string
     metadata?: JsonNullableWithAggregatesFilter<"MSTItem">
   }
 
@@ -63873,6 +64247,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv: OSRIVCreateNestedOneWithoutOsriv_approversInput
   }
@@ -63887,6 +64263,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -63899,6 +64277,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv?: OSRIVUpdateOneRequiredWithoutOsriv_approversNestedInput
   }
@@ -63913,6 +64293,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -63926,6 +64308,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -63938,6 +64322,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -63951,6 +64337,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -63958,6 +64346,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv: OSRIVCreateNestedOneWithoutOsriv_itemsInput
     item: ItemCreateNestedOneWithoutOsriv_itemsInput
@@ -63970,6 +64360,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutOsriv_itemInput
   }
@@ -63978,6 +64370,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv?: OSRIVUpdateOneRequiredWithoutOsriv_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutOsriv_itemsNestedInput
@@ -63990,6 +64384,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutOsriv_itemNestedInput
   }
@@ -64000,6 +64396,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64007,6 +64405,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64016,6 +64416,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64228,6 +64630,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv: SERIVCreateNestedOneWithoutSeriv_approversInput
   }
@@ -64242,6 +64646,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64254,6 +64660,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv?: SERIVUpdateOneRequiredWithoutSeriv_approversNestedInput
   }
@@ -64268,6 +64676,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64281,6 +64691,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64293,6 +64705,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64306,6 +64720,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64313,6 +64729,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv: SERIVCreateNestedOneWithoutSeriv_itemsInput
     item: ItemCreateNestedOneWithoutSeriv_itemsInput
@@ -64325,6 +64743,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutSeriv_itemInput
   }
@@ -64333,6 +64753,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv?: SERIVUpdateOneRequiredWithoutSeriv_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutSeriv_itemsNestedInput
@@ -64345,6 +64767,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutSeriv_itemNestedInput
   }
@@ -64355,6 +64779,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64362,6 +64788,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64371,6 +64799,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64582,6 +65012,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv: MRVCreateNestedOneWithoutMrv_approversInput
   }
@@ -64596,6 +65028,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64608,6 +65042,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv?: MRVUpdateOneRequiredWithoutMrv_approversNestedInput
   }
@@ -64622,6 +65058,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64635,6 +65073,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64647,6 +65087,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64660,6 +65102,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64667,6 +65111,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv: MRVCreateNestedOneWithoutMrv_itemsInput
     item: ItemCreateNestedOneWithoutMrv_itemsInput
@@ -64679,6 +65125,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMrv_itemInput
   }
@@ -64687,6 +65135,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv?: MRVUpdateOneRequiredWithoutMrv_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutMrv_itemsNestedInput
@@ -64699,6 +65149,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMrv_itemNestedInput
   }
@@ -64709,6 +65161,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64716,6 +65170,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64725,6 +65181,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64856,6 +65314,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mct: MCTCreateNestedOneWithoutMct_approversInput
   }
@@ -64870,6 +65330,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64882,6 +65344,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mct?: MCTUpdateOneRequiredWithoutMct_approversNestedInput
   }
@@ -64896,6 +65360,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64909,6 +65375,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64921,6 +65389,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -64934,6 +65404,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65113,6 +65585,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt: MCRTCreateNestedOneWithoutMcrt_approversInput
   }
@@ -65127,6 +65601,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65139,6 +65615,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt?: MCRTUpdateOneRequiredWithoutMcrt_approversNestedInput
   }
@@ -65153,6 +65631,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65166,6 +65646,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65178,6 +65660,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65191,6 +65675,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65198,6 +65684,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt: MCRTCreateNestedOneWithoutMcrt_itemsInput
     item: ItemCreateNestedOneWithoutMcrt_itemsInput
@@ -65210,6 +65698,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMcrt_itemInput
   }
@@ -65218,6 +65708,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt?: MCRTUpdateOneRequiredWithoutMcrt_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutMcrt_itemsNestedInput
@@ -65230,6 +65722,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMcrt_itemNestedInput
   }
@@ -65240,6 +65734,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65247,6 +65743,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65256,6 +65754,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65402,6 +65902,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mst: MSTCreateNestedOneWithoutMst_approversInput
   }
@@ -65416,6 +65918,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65428,6 +65932,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mst?: MSTUpdateOneRequiredWithoutMst_approversNestedInput
   }
@@ -65442,6 +65948,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65455,6 +65963,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65467,6 +65977,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65480,6 +65992,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65487,6 +66001,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mst: MSTCreateNestedOneWithoutMst_itemsInput
     item: ItemCreateNestedOneWithoutMst_itemsInput
@@ -65498,6 +66014,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65505,6 +66023,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mst?: MSTUpdateOneRequiredWithoutMst_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutMst_itemsNestedInput
@@ -65516,6 +66036,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65525,6 +66047,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65532,6 +66056,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -65541,6 +66067,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -67621,6 +68149,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -67639,6 +68169,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type OSRIVApproverMinOrderByAggregateInput = {
@@ -67651,6 +68183,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type OSRIVApproverSumOrderByAggregateInput = {
@@ -67664,6 +68198,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -67678,6 +68214,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
   }
 
   export type OSRIVItemMinOrderByAggregateInput = {
@@ -67686,6 +68224,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
   }
 
   export type OSRIVItemSumOrderByAggregateInput = {
@@ -67820,6 +68360,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -67838,6 +68380,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type SERIVApproverMinOrderByAggregateInput = {
@@ -67850,6 +68394,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type SERIVApproverSumOrderByAggregateInput = {
@@ -67863,6 +68409,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -67877,6 +68425,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
   }
 
   export type SERIVItemMinOrderByAggregateInput = {
@@ -67885,6 +68435,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
   }
 
   export type SERIVItemSumOrderByAggregateInput = {
@@ -68019,6 +68571,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -68037,6 +68591,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type MRVApproverMinOrderByAggregateInput = {
@@ -68049,6 +68605,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type MRVApproverSumOrderByAggregateInput = {
@@ -68062,6 +68620,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -68076,6 +68636,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
   }
 
   export type MRVItemMinOrderByAggregateInput = {
@@ -68084,6 +68646,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
   }
 
   export type MRVItemSumOrderByAggregateInput = {
@@ -68167,6 +68731,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -68185,6 +68751,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type MCTApproverMinOrderByAggregateInput = {
@@ -68197,6 +68765,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type MCTApproverSumOrderByAggregateInput = {
@@ -68301,6 +68871,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -68319,6 +68891,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type MCRTApproverMinOrderByAggregateInput = {
@@ -68331,6 +68905,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type MCRTApproverSumOrderByAggregateInput = {
@@ -68344,6 +68920,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -68358,6 +68936,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
   }
 
   export type MCRTItemMinOrderByAggregateInput = {
@@ -68366,6 +68946,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
   }
 
   export type MCRTItemSumOrderByAggregateInput = {
@@ -68450,6 +69032,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -68468,6 +69052,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type MSTApproverMinOrderByAggregateInput = {
@@ -68480,6 +69066,8 @@ export namespace Prisma {
     label?: SortOrder
     label_id?: SortOrder
     order?: SortOrder
+    updated_by?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type MSTApproverSumOrderByAggregateInput = {
@@ -68493,6 +69081,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -68507,6 +69097,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
   }
 
   export type MSTItemMinOrderByAggregateInput = {
@@ -68515,6 +69107,8 @@ export namespace Prisma {
     item_id?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
   }
 
   export type MSTItemSumOrderByAggregateInput = {
@@ -73032,6 +73626,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv: OSRIVCreateNestedOneWithoutOsriv_itemsInput
     item_transaction?: ItemTransactionCreateNestedOneWithoutOsriv_itemInput
@@ -73042,6 +73638,8 @@ export namespace Prisma {
     osriv_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutOsriv_itemInput
   }
@@ -73060,6 +73658,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv: SERIVCreateNestedOneWithoutSeriv_itemsInput
     item_transaction?: ItemTransactionCreateNestedOneWithoutSeriv_itemInput
@@ -73070,6 +73670,8 @@ export namespace Prisma {
     seriv_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutSeriv_itemInput
   }
@@ -73088,6 +73690,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv: MRVCreateNestedOneWithoutMrv_itemsInput
     item_transaction?: ItemTransactionCreateNestedOneWithoutMrv_itemInput
@@ -73098,6 +73702,8 @@ export namespace Prisma {
     mrv_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMrv_itemInput
   }
@@ -73116,6 +73722,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt: MCRTCreateNestedOneWithoutMcrt_itemsInput
     item_transaction?: ItemTransactionCreateNestedOneWithoutMcrt_itemInput
@@ -73126,6 +73734,8 @@ export namespace Prisma {
     mcrt_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMcrt_itemInput
   }
@@ -73144,6 +73754,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mst: MSTCreateNestedOneWithoutMst_itemsInput
   }
@@ -73153,6 +73765,8 @@ export namespace Prisma {
     mst_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -73319,6 +73933,8 @@ export namespace Prisma {
     item_id?: StringFilter<"OSRIVItem"> | string
     quantity?: IntFilter<"OSRIVItem"> | number
     price?: FloatFilter<"OSRIVItem"> | number
+    created_by?: StringFilter<"OSRIVItem"> | string
+    created_at?: DateTimeFilter<"OSRIVItem"> | Date | string
     metadata?: JsonNullableFilter<"OSRIVItem">
   }
 
@@ -73347,6 +73963,8 @@ export namespace Prisma {
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
     price?: FloatFilter<"SERIVItem"> | number
+    created_by?: StringFilter<"SERIVItem"> | string
+    created_at?: DateTimeFilter<"SERIVItem"> | Date | string
     metadata?: JsonNullableFilter<"SERIVItem">
   }
 
@@ -73375,6 +73993,8 @@ export namespace Prisma {
     item_id?: StringFilter<"MRVItem"> | string
     quantity?: IntFilter<"MRVItem"> | number
     price?: FloatFilter<"MRVItem"> | number
+    created_by?: StringFilter<"MRVItem"> | string
+    created_at?: DateTimeFilter<"MRVItem"> | Date | string
     metadata?: JsonNullableFilter<"MRVItem">
   }
 
@@ -73403,6 +74023,8 @@ export namespace Prisma {
     item_id?: StringFilter<"MCRTItem"> | string
     quantity?: IntFilter<"MCRTItem"> | number
     price?: FloatFilter<"MCRTItem"> | number
+    created_by?: StringFilter<"MCRTItem"> | string
+    created_at?: DateTimeFilter<"MCRTItem"> | Date | string
     metadata?: JsonNullableFilter<"MCRTItem">
   }
 
@@ -73431,6 +74053,8 @@ export namespace Prisma {
     item_id?: StringFilter<"MSTItem"> | string
     quantity?: IntFilter<"MSTItem"> | number
     price?: FloatFilter<"MSTItem"> | number
+    created_by?: StringFilter<"MSTItem"> | string
+    created_at?: DateTimeFilter<"MSTItem"> | Date | string
     metadata?: JsonNullableFilter<"MSTItem">
   }
 
@@ -73937,6 +74561,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv: OSRIVCreateNestedOneWithoutOsriv_itemsInput
     item: ItemCreateNestedOneWithoutOsriv_itemsInput
@@ -73948,6 +74574,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -73960,6 +74588,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv: SERIVCreateNestedOneWithoutSeriv_itemsInput
     item: ItemCreateNestedOneWithoutSeriv_itemsInput
@@ -73971,6 +74601,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -73983,6 +74615,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv: MRVCreateNestedOneWithoutMrv_itemsInput
     item: ItemCreateNestedOneWithoutMrv_itemsInput
@@ -73994,6 +74628,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -74006,6 +74642,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt: MCRTCreateNestedOneWithoutMcrt_itemsInput
     item: ItemCreateNestedOneWithoutMcrt_itemsInput
@@ -74017,6 +74655,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -74130,6 +74770,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv?: OSRIVUpdateOneRequiredWithoutOsriv_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutOsriv_itemsNestedInput
@@ -74141,6 +74783,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -74159,6 +74803,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv?: SERIVUpdateOneRequiredWithoutSeriv_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutSeriv_itemsNestedInput
@@ -74170,6 +74816,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -74188,6 +74836,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv?: MRVUpdateOneRequiredWithoutMrv_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutMrv_itemsNestedInput
@@ -74199,6 +74849,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -74217,6 +74869,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt?: MCRTUpdateOneRequiredWithoutMcrt_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutMcrt_itemsNestedInput
@@ -74228,6 +74882,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -78004,6 +78660,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -78016,6 +78674,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -78033,6 +78693,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutOsriv_itemsInput
     item_transaction?: ItemTransactionCreateNestedOneWithoutOsriv_itemInput
@@ -78043,6 +78705,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutOsriv_itemInput
   }
@@ -78129,6 +78793,8 @@ export namespace Prisma {
     label?: StringFilter<"OSRIVApprover"> | string
     label_id?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
+    updated_by?: StringNullableFilter<"OSRIVApprover"> | string | null
+    updated_at?: DateTimeFilter<"OSRIVApprover"> | Date | string
     metadata?: JsonNullableFilter<"OSRIVApprover">
   }
 
@@ -78588,6 +79254,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -78600,6 +79268,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -78617,6 +79287,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutSeriv_itemsInput
     item_transaction?: ItemTransactionCreateNestedOneWithoutSeriv_itemInput
@@ -78627,6 +79299,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutSeriv_itemInput
   }
@@ -78771,6 +79445,8 @@ export namespace Prisma {
     label?: StringFilter<"SERIVApprover"> | string
     label_id?: StringFilter<"SERIVApprover"> | string
     order?: IntFilter<"SERIVApprover"> | number
+    updated_by?: StringNullableFilter<"SERIVApprover"> | string | null
+    updated_at?: DateTimeFilter<"SERIVApprover"> | Date | string
     metadata?: JsonNullableFilter<"SERIVApprover">
   }
 
@@ -79344,6 +80020,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -79356,6 +80034,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -79373,6 +80053,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutMrv_itemsInput
     item_transaction?: ItemTransactionCreateNestedOneWithoutMrv_itemInput
@@ -79383,6 +80065,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMrv_itemInput
   }
@@ -79537,6 +80221,8 @@ export namespace Prisma {
     label?: StringFilter<"MRVApprover"> | string
     label_id?: StringFilter<"MRVApprover"> | string
     order?: IntFilter<"MRVApprover"> | number
+    updated_by?: StringNullableFilter<"MRVApprover"> | string | null
+    updated_at?: DateTimeFilter<"MRVApprover"> | Date | string
     metadata?: JsonNullableFilter<"MRVApprover">
   }
 
@@ -80174,6 +80860,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -80186,6 +80874,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -80355,6 +81045,8 @@ export namespace Prisma {
     label?: StringFilter<"MCTApprover"> | string
     label_id?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
+    updated_by?: StringNullableFilter<"MCTApprover"> | string | null
+    updated_at?: DateTimeFilter<"MCTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MCTApprover">
   }
 
@@ -80569,6 +81261,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -80581,6 +81275,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -80598,6 +81294,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutMcrt_itemsInput
     item_transaction?: ItemTransactionCreateNestedOneWithoutMcrt_itemInput
@@ -80608,6 +81306,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMcrt_itemInput
   }
@@ -80765,6 +81465,8 @@ export namespace Prisma {
     label?: StringFilter<"MCRTApprover"> | string
     label_id?: StringFilter<"MCRTApprover"> | string
     order?: IntFilter<"MCRTApprover"> | number
+    updated_by?: StringNullableFilter<"MCRTApprover"> | string | null
+    updated_at?: DateTimeFilter<"MCRTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MCRTApprover">
   }
 
@@ -81219,6 +81921,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -81231,6 +81935,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -81248,6 +81954,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutMst_itemsInput
   }
@@ -81257,6 +81965,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -81299,6 +82009,8 @@ export namespace Prisma {
     label?: StringFilter<"MSTApprover"> | string
     label_id?: StringFilter<"MSTApprover"> | string
     order?: IntFilter<"MSTApprover"> | number
+    updated_by?: StringNullableFilter<"MSTApprover"> | string | null
+    updated_at?: DateTimeFilter<"MSTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MSTApprover">
   }
 
@@ -82428,6 +83140,8 @@ export namespace Prisma {
     osriv_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -82436,6 +83150,8 @@ export namespace Prisma {
     seriv_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -82444,6 +83160,8 @@ export namespace Prisma {
     mrv_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -82452,6 +83170,8 @@ export namespace Prisma {
     mcrt_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -82460,6 +83180,8 @@ export namespace Prisma {
     mst_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -82577,6 +83299,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osriv?: OSRIVUpdateOneRequiredWithoutOsriv_itemsNestedInput
     item_transaction?: ItemTransactionUpdateOneWithoutOsriv_itemNestedInput
@@ -82587,6 +83311,8 @@ export namespace Prisma {
     osriv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutOsriv_itemNestedInput
   }
@@ -82596,6 +83322,8 @@ export namespace Prisma {
     osriv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -82603,6 +83331,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     seriv?: SERIVUpdateOneRequiredWithoutSeriv_itemsNestedInput
     item_transaction?: ItemTransactionUpdateOneWithoutSeriv_itemNestedInput
@@ -82613,6 +83343,8 @@ export namespace Prisma {
     seriv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutSeriv_itemNestedInput
   }
@@ -82622,6 +83354,8 @@ export namespace Prisma {
     seriv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -82629,6 +83363,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv?: MRVUpdateOneRequiredWithoutMrv_itemsNestedInput
     item_transaction?: ItemTransactionUpdateOneWithoutMrv_itemNestedInput
@@ -82639,6 +83375,8 @@ export namespace Prisma {
     mrv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMrv_itemNestedInput
   }
@@ -82648,6 +83386,8 @@ export namespace Prisma {
     mrv_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -82655,6 +83395,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mcrt?: MCRTUpdateOneRequiredWithoutMcrt_itemsNestedInput
     item_transaction?: ItemTransactionUpdateOneWithoutMcrt_itemNestedInput
@@ -82665,6 +83407,8 @@ export namespace Prisma {
     mcrt_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMcrt_itemNestedInput
   }
@@ -82674,6 +83418,8 @@ export namespace Prisma {
     mcrt_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -82681,6 +83427,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mst?: MSTUpdateOneRequiredWithoutMst_itemsNestedInput
   }
@@ -82690,6 +83438,8 @@ export namespace Prisma {
     mst_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -82698,6 +83448,8 @@ export namespace Prisma {
     mst_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83386,6 +84138,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83394,6 +84148,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83406,6 +84162,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83418,6 +84176,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83430,6 +84190,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83437,6 +84199,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutOsriv_itemsNestedInput
     item_transaction?: ItemTransactionUpdateOneWithoutOsriv_itemNestedInput
@@ -83447,6 +84211,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutOsriv_itemNestedInput
   }
@@ -83456,6 +84222,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83468,6 +84236,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83476,6 +84246,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83510,6 +84282,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83522,6 +84296,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83534,6 +84310,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83541,6 +84319,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutSeriv_itemsNestedInput
     item_transaction?: ItemTransactionUpdateOneWithoutSeriv_itemNestedInput
@@ -83551,6 +84331,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutSeriv_itemNestedInput
   }
@@ -83560,6 +84342,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83642,6 +84426,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83650,6 +84436,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83662,6 +84450,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83674,6 +84464,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83686,6 +84478,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83693,6 +84487,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutMrv_itemsNestedInput
     item_transaction?: ItemTransactionUpdateOneWithoutMrv_itemNestedInput
@@ -83703,6 +84499,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMrv_itemNestedInput
   }
@@ -83712,6 +84510,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83724,6 +84524,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83758,6 +84560,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83770,6 +84574,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83782,6 +84588,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83864,6 +84672,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83872,6 +84682,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83884,6 +84696,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83896,6 +84710,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83908,6 +84724,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83915,6 +84733,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutMcrt_itemsNestedInput
     item_transaction?: ItemTransactionUpdateOneWithoutMcrt_itemNestedInput
@@ -83925,6 +84745,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMcrt_itemNestedInput
   }
@@ -83934,6 +84756,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83946,6 +84770,8 @@ export namespace Prisma {
     label: string
     label_id: string
     order: number
+    updated_by?: string | null
+    updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83954,6 +84780,8 @@ export namespace Prisma {
     item_id: string
     quantity: number
     price?: number
+    created_by: string
+    created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83966,6 +84794,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83978,6 +84808,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83990,6 +84822,8 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -83997,6 +84831,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutMst_itemsNestedInput
   }
@@ -84006,6 +84842,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -84014,6 +84852,8 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 

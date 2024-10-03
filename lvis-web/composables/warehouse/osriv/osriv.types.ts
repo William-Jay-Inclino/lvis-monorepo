@@ -53,6 +53,18 @@ export interface MutationResponse {
 	data?: OSRIV
 }
 
+export interface ChangeApproverResponse {
+	success: boolean
+	msg: string
+	data?: OSRIVApprover
+}
+
+export interface UpdateItemsResponse {
+	success: boolean
+	msg: string
+	osriv_items: OSRIVItem[]
+}
+
 
 export interface CreateOsrivInput {
 	purpose: string 

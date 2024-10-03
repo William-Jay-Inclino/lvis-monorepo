@@ -29,7 +29,9 @@
                             type="number"
                             class="form-control form-control-sm"
                             :class="{'border-danger': i.qty_request <= 0 || i.qty_request > i.available_quantity}"
-                            v-model="i.qty_request"/>
+                            :value="i.qty_request"
+                            @keyup="updateItemQty(i, $event)"
+                            />
                     </td>
                     <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice * i.qty_request) }} </td>
                     <td class="text-center align-middle">
@@ -48,7 +50,7 @@
     import type { AddItem } from '~/composables/warehouse/item/item.type';
 
 
-    const emits = defineEmits(['removeItem']);
+    const emits = defineEmits(['removeItem', 'updateQty']);
         
     const props = defineProps({
         items: {
@@ -56,8 +58,14 @@
             default: () => [],
         },
     });
+
     function handleRemoveItem(item: AddItem) {
         emits('removeItem', {...item})
     } 
+
+    function updateItemQty(item: AddItem, event: Event) {
+        // @ts-ignore
+        emits('updateQty', item, Number(event.target.value))
+    }
 
 </script>

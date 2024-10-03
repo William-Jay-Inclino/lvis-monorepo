@@ -345,6 +345,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
 export async function fetchFormDataInUpdate(id: string): Promise<{
     employees: Employee[],
+    stations: Station[],
     items: Item[],
     osriv: OSRIV | undefined
 }> {
@@ -364,6 +365,10 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     firstname
                     middlename
                     lastname
+                }
+                item_from {
+                    id 
+                    name
                 }
                 osriv_approvers {
                     id
@@ -402,7 +407,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 }
 
             },
-            employees(page: 1, pageSize: 10) {
+            employees(page: 1, pageSize: 300) {
                 data {
                     id
                     firstname
@@ -429,6 +434,10 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     GWAPrice
                 }
             },
+            stations {
+                id 
+                name
+            },
         }
     `;
 
@@ -437,7 +446,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         console.log('response', response)
 
         let employees: Employee[] = []
-        let items = []
+        let stations: Station[] = []
+        let items: Item[] = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -459,10 +469,15 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             items = response.data.data.items.data
         }
 
+        if (data.stations && data.stations) {
+            stations = data.stations
+        }
+
         return {
             osriv,
             employees,
             items,
+            stations,
         }
 
     } catch (error) {
@@ -471,6 +486,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             osriv: undefined,
             employees: [],
             items: [],
+            stations: [],
         }
     }
 }
@@ -649,7 +665,6 @@ export async function fetchOsrivNumbers(payload: string): Promise<OSRIV[]> {
     }
 }
 
-
 export async function fetchOSRIVsByOsrivNumber(payload: string): Promise<OSRIV[]> {
     const query = `
         query {
@@ -676,3 +691,4 @@ export async function fetchOSRIVsByOsrivNumber(payload: string): Promise<OSRIV[]
         return []
     }
 }
+

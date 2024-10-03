@@ -1,7 +1,7 @@
 <template>
 
-    <div v-if="authUser" id="wrapper">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
+    <div id="wrapper">
+        <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
             <div class="container">
                 <nuxt-link class="navbar-brand" to="/home">
                     <img style="max-height: 60px;" src="~/assets/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
@@ -148,7 +148,7 @@
         <Footer />
 
 
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
+        <div v-if="authUser" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="offcanvas-header">

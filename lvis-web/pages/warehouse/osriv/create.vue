@@ -101,7 +101,7 @@
                                 </button>
                             </div>
 
-                            <WarehouseItems :items="osrivData.items" @remove-item="handleRemoveItem"/>
+                            <WarehouseItems :items="osrivData.items" @remove-item="handleRemoveItem"  @update-qty="handleUpdateItemQty"/>
     
                         </div>
                     </div> 
@@ -290,6 +290,20 @@
                 position: 'top',
             })
         }
+
+    }
+
+    function handleUpdateItemQty(item: AddItem, qty: number) {
+        console.log('handleUpdateItemQty', item, qty);
+
+        const osrivItem = osrivData.value.items.find(i => i.id === item.id) 
+
+        if(!osrivItem) {
+            console.error('Item not found', item.code);
+            return 
+        }
+
+        osrivItem.qty_request = qty
 
     }
 

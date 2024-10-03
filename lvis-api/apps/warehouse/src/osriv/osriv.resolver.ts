@@ -15,7 +15,6 @@ import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
-import { Department } from '../__department__ /entities/department.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => OSRIV)

@@ -34,15 +34,15 @@
                                 Select Employee <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="newApprover"></v-select>
+                                <v-select :options="employees" label="fullname" v-model="newApprover" :clearable="false"></v-select>
                             </client-only>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                        <button ref="closeChangeApproverModal" class="btn btn-secondary" data-bs-dismiss="modal">
                             <i class="fas fa-close"></i> Close
                         </button>
-                        <button @click="handleChangeApprover()" class="btn btn-primary" :disabled="!newApprover">
+                        <button @click="handleChangeApprover()" class="btn btn-primary" :disabled="!newApprover || isUpdating">
                             <i class="fas fa-edit"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
                         </button>
                     </div>
@@ -77,7 +77,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 
     const currentApprover = ref<Approver | null>(null)
     const newApprover = ref<Employee | null>(null)
-
+    const closeChangeApproverModal = ref<HTMLButtonElement>()
 
     function onClickChangeApprover(approver: Approver) {
         const employee = props.employees.find(i => i.id === approver.approver.id)
@@ -96,7 +96,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
         emits('change-approver', {
             currentApprover: {...currentApprover.value}, 
             newApprover: {...newApprover.value}
-        })
+        }, closeChangeApproverModal.value)
     }
 
 </script>
