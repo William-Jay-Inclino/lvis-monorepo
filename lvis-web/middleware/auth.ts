@@ -1,6 +1,7 @@
 import type { SystemPermissions, WarehousePermissions } from "~/composables/system/user/user.types"
 import { ROUTES } from "~/utils/constants"
 import { redirectTo401Page } from "~/utils/helpers"
+// import.meta.client
 
 const ROUTE_EXEMPTIONS = [
     ROUTES.CANVASS_UPDATE,
@@ -14,212 +15,210 @@ const ROUTE_EXEMPTIONS = [
 
 export default defineNuxtRouteMiddleware((to, from) => {
 
-    if (process.client) {
 
-        console.log('defineNuxtRouteMiddleware')
+    console.log('defineNuxtRouteMiddleware')
 
-        const authUser = getAuthUser()
+    const authUser = getAuthUser()
 
-        if (isAdmin(authUser)) return
+    if (isAdmin(authUser)) return
 
-        if (ROUTE_EXEMPTIONS.includes(to.name as ROUTES)) return
+    if (ROUTE_EXEMPTIONS.includes(to.name as ROUTES)) return
 
-        if (!authUser.user.permissions) return redirectTo401Page()
+    if (!authUser.user.permissions) return redirectTo401Page()
 
-        const isSystemService = to.name?.toString().includes(SERVICES.SYSTEM)
-        const isWarehouseService = to.name?.toString().includes(SERVICES.WAREHOUSE)
-
-
-        if (isSystemService) {
-
-            const permissions = authUser.user.permissions.system
-            if (!permissions) return redirectTo401Page()
-
-            // data management
-            const isEmployeeModule = to.name?.toString().includes(MODULES.EMPLOYEE)
-            const isAccountModule = to.name?.toString().includes(MODULES.ACCOUNT)
-            const isClassificationModule = to.name?.toString().includes(MODULES.CLASSIFICATION)
-            const isDepartmentModule = to.name?.toString().includes(MODULES.DEPARTMENT)
-            const isPositionModule = to.name?.toString().includes(MODULES.POSITION)
+    const isSystemService = to.name?.toString().includes(SERVICES.SYSTEM)
+    const isWarehouseService = to.name?.toString().includes(SERVICES.WAREHOUSE)
 
 
-            if (isEmployeeModule) {
-                if (!canAccessEmployee(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-            }
+    if (isSystemService) {
 
-            if (isAccountModule) {
-                if (!canAccessAccount(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
+        const permissions = authUser.user.permissions.system
+        if (!permissions) return redirectTo401Page()
 
-            }
+        // data management
+        const isEmployeeModule = to.name?.toString().includes(MODULES.EMPLOYEE)
+        const isAccountModule = to.name?.toString().includes(MODULES.ACCOUNT)
+        const isClassificationModule = to.name?.toString().includes(MODULES.CLASSIFICATION)
+        const isDepartmentModule = to.name?.toString().includes(MODULES.DEPARTMENT)
+        const isPositionModule = to.name?.toString().includes(MODULES.POSITION)
 
-            if (isClassificationModule) {
-                if (!canAccessClassification(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
 
-            }
+        if (isEmployeeModule) {
+            if (!canAccessEmployee(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+        }
 
-            if (isDepartmentModule) {
-                if (!canAccessDepartment(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isPositionModule) {
-                if (!canAccessPosition(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
+        if (isAccountModule) {
+            if (!canAccessAccount(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
 
         }
 
-
-        if (isWarehouseService) {
-
-            const permissions = authUser.user.permissions.warehouse
-            if (!permissions) return redirectTo401Page()
-
-            // purchasing
-            const isCanvassModule = to.name?.toString().includes(MODULES.CANVASS)
-            const isRVModule = to.name?.toString().includes(MODULES.RV)
-            const isSPRModule = to.name?.toString().includes(MODULES.SPR)
-            const isJOModule = to.name?.toString().includes(MODULES.JO)
-            const isMEQSModule = to.name?.toString().includes(MODULES.MEQS)
-            const isPOModule = to.name?.toString().includes(MODULES.PO)
-            const isRRModule = to.name?.toString().includes(MODULES.RR)
-
-            // warehousing
-            const isOSRIVModule = to.name?.toString().includes(MODULES.OSRIV)
-            const isSERIVModule = to.name?.toString().includes(MODULES.SERIV)
-            const isMRVModule = to.name?.toString().includes(MODULES.MRV)
-            const isMCTModule = to.name?.toString().includes(MODULES.MCT)
-            const isMCRTModule = to.name?.toString().includes(MODULES.MCRT)
-            const isMSTModule = to.name?.toString().includes(MODULES.MST)
-
-            // data management
-            const isSupplierModule = to.name?.toString().includes(MODULES.SUPPLIER)
-            const isUnitModule = to.name?.toString().includes(MODULES.UNIT)
-            const isVehicleModule = to.name?.toString().includes(MODULES.VEHICLE)
-
-            // stock inventory
-            const isItemModule = to.name?.toString().includes(MODULES.ITEM)
-            const isItemTypeModule = to.name?.toString().includes(MODULES.ITEM_TYPE)
-
-
-            if (isCanvassModule) {
-                if (!canAccessCanvass(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-            }
-
-            if (isRVModule) {
-                if (!canAccessRV(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-            }
-
-            if (isSPRModule) {
-                if (!canAccessSPR(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isJOModule) {
-                if (!canAccessJO(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isMEQSModule) {
-                if (!canAccessMEQS(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isPOModule) {
-                if (!canAccessPO(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isRRModule) {
-                if (!canAccessRR(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isOSRIVModule) {
-                if (!canAccessOSRIV(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isSERIVModule) {
-                if (!canAccessSERIV(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isMRVModule) {
-                if (!canAccessMRV(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isMCTModule) {
-                if (!canAccessMCT(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isMCRTModule) {
-                if (!canAccessMCRT(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isMSTModule) {
-                if (!canAccessMST(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isSupplierModule) {
-                if (!canAccessSupplier(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isUnitModule) {
-                if (!canAccessUnit(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isVehicleModule) {
-                if (!canAccessVehicle(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isItemModule) {
-                if (!canAccessItem(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-
-            }
-
-            if (isItemTypeModule) {
-                if (!canAccessItemType(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-            }
-
-
-
+        if (isClassificationModule) {
+            if (!canAccessClassification(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
 
         }
 
-        return redirectTo401Page()
+        if (isDepartmentModule) {
+            if (!canAccessDepartment(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isPositionModule) {
+            if (!canAccessPosition(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
 
     }
+
+
+    if (isWarehouseService) {
+
+        const permissions = authUser.user.permissions.warehouse
+        if (!permissions) return redirectTo401Page()
+
+        // purchasing
+        const isCanvassModule = to.name?.toString().includes(MODULES.CANVASS)
+        const isRVModule = to.name?.toString().includes(MODULES.RV)
+        const isSPRModule = to.name?.toString().includes(MODULES.SPR)
+        const isJOModule = to.name?.toString().includes(MODULES.JO)
+        const isMEQSModule = to.name?.toString().includes(MODULES.MEQS)
+        const isPOModule = to.name?.toString().includes(MODULES.PO)
+        const isRRModule = to.name?.toString().includes(MODULES.RR)
+
+        // warehousing
+        const isOSRIVModule = to.name?.toString().includes(MODULES.OSRIV)
+        const isSERIVModule = to.name?.toString().includes(MODULES.SERIV)
+        const isMRVModule = to.name?.toString().includes(MODULES.MRV)
+        const isMCTModule = to.name?.toString().includes(MODULES.MCT)
+        const isMCRTModule = to.name?.toString().includes(MODULES.MCRT)
+        const isMSTModule = to.name?.toString().includes(MODULES.MST)
+
+        // data management
+        const isSupplierModule = to.name?.toString().includes(MODULES.SUPPLIER)
+        const isUnitModule = to.name?.toString().includes(MODULES.UNIT)
+        const isVehicleModule = to.name?.toString().includes(MODULES.VEHICLE)
+
+        // stock inventory
+        const isItemModule = to.name?.toString().includes(MODULES.ITEM)
+        const isItemTypeModule = to.name?.toString().includes(MODULES.ITEM_TYPE)
+
+
+        if (isCanvassModule) {
+            if (!canAccessCanvass(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+        }
+
+        if (isRVModule) {
+            if (!canAccessRV(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+        }
+
+        if (isSPRModule) {
+            if (!canAccessSPR(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isJOModule) {
+            if (!canAccessJO(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isMEQSModule) {
+            if (!canAccessMEQS(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isPOModule) {
+            if (!canAccessPO(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isRRModule) {
+            if (!canAccessRR(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isOSRIVModule) {
+            if (!canAccessOSRIV(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isSERIVModule) {
+            if (!canAccessSERIV(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isMRVModule) {
+            if (!canAccessMRV(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isMCTModule) {
+            if (!canAccessMCT(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isMCRTModule) {
+            if (!canAccessMCRT(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isMSTModule) {
+            if (!canAccessMST(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isSupplierModule) {
+            if (!canAccessSupplier(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isUnitModule) {
+            if (!canAccessUnit(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isVehicleModule) {
+            if (!canAccessVehicle(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isItemModule) {
+            if (!canAccessItem(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+
+        }
+
+        if (isItemTypeModule) {
+            if (!canAccessItemType(to.name as ROUTES, permissions)) return redirectTo401Page()
+            return
+        }
+
+
+
+
+    }
+
+    return redirectTo401Page()
+
 })
 
 
