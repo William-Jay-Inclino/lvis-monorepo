@@ -94,85 +94,6 @@ export class SerivService {
         return result;
     }
 
-    // async create2(input: CreateSerivInput) {
-
-    //     console.log('seriv create', input);
-
-    //     if (!(await this.canCreate(input))) {
-    //         throw new Error('Failed to create SERIV. Please try again')
-    //     }
-
-    //     const serivNumber = await this.getLatestSerivNumber()
-    //     const expDate = await this.commonService.getExpDate(SETTINGS.SERIV_EXP_PERIOD_IN_DAYS)
-
-    //     const data: Prisma.SERIVCreateInput = {
-    //         created_by: this.authUser.user.username,
-    //         seriv_number: serivNumber,
-    //         date_requested: new Date(),
-    //         exp_date: expDate,
-    //         request_type: input.request_type,
-    //         or_number: input.or_number,
-    //         mwo_number: input.mwo_number,
-    //         cwo_number: input.cwo_number,
-    //         jo_number: input.jo_number,
-    //         consumer_name: input.consumer_name,
-    //         location: input.location,
-    //         purpose: input.purpose,
-    //         requested_by_id: input.requested_by_id,
-    //         withdrawn_by_id: input.withdrawn_by_id,
-    //         item_from: {
-    //             connect: {
-    //                 id: input.item_from_id
-    //             }
-    //         },
-    //         seriv_approvers: {
-    //             create: input.approvers.map(i => {
-    //                 return {
-    //                     approver_id: i.approver_id,
-    //                     label: i.label,
-    //                     label_id: i.label_id,
-    //                     order: i.order,
-    //                     notes: '',
-    //                     status: APPROVAL_STATUS.PENDING,
-    //                 }
-    //             })
-    //         },
-    //         seriv_items: {
-    //             create: input.items.map(i => {
-    //                 return {
-    //                     item: {connect: {id: i.item_id}},
-    //                     quantity: i.quantity,
-    //                     price: i.price,
-    //                 }
-    //             })
-    //         }
-    //     }
-
-    //     const queries: Prisma.PrismaPromise<any>[] = []
-
-    //     // create SERIV
-    //     const createSerivQuery = this.prisma.sERIV.create({ data })
-    //     queries.push(createSerivQuery)
-
-    //     // create pending
-    //     const createPendingQuery = this.getCreatePendingQuery(input.approvers, serivNumber)
-    //     queries.push(createPendingQuery)
-
-    //     // update item quantity_on_queue on each item
-    //     const updateItemQueries = this.generateUpdateItemQueries(input.items); 
-
-    //     const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
-
-    //     const result = await this.prisma.$transaction(allQueries)
-
-    //     console.log('SERIV created successfully');
-    //     console.log('Increment quantity_on_queue on each item')
-    //     console.log('Pending with associated approver created successfully');
-
-    //     return result[0]
-
-    // }
-
     private generateUpdateItemQueries(items: CreateSerivItemSubInput[]) {
         return items.map(item => {
             return this.prisma.item.update({
@@ -330,7 +251,8 @@ export class SerivService {
                         item: {
                             include: {
                                 unit: true,
-                                item_transactions: true
+                                item_transactions: true,
+                                item_type: true,
                             }
                         }
                     }

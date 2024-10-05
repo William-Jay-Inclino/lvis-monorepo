@@ -66,6 +66,18 @@ export interface SERIV {
     msg: string
     data?: SERIV
   }
+
+  export interface ChangeApproverResponse {
+    success: boolean
+    msg: string
+    data?: SERIVApprover
+  }
+  
+  export interface UpdateItemsResponse {
+    success: boolean
+    msg: string
+    seriv_items: SERIVItem[]
+  }
   
   
   export interface CreateSerivInput {
@@ -74,7 +86,7 @@ export interface SERIV {
     or_number: string | null
     mwo_number: string | null 
     cwo_number: string | null 
-    jo_number: string 
+    jo_number: string | null
     consumer_name: string 
     location: string 
     requested_by: Employee | null 
@@ -84,11 +96,17 @@ export interface SERIV {
     items: AddItem[]
   }
   
-  // export interface UpdateOsrivInput {
-  //   purpose: string 
-  //   requested_by: Employee | null 
-  //   item_from: Item | null 
-  //   supervisor: Employee | null 
-  //   warehouse_custodian: Employee | null 
-  // }
+  export interface UpdateSerivInput {
+    purpose: string 
+    request_type: WarehouseRequestType | null 
+    requested_by: Employee | null 
+    withdrawn_by: Employee | null 
+    item_from: Station | null 
+    or_number: string | null
+    mwo_number: string | null 
+    cwo_number: string | null 
+    jo_number: string | null
+    consumer_name: string 
+    location: string 
+  }
   

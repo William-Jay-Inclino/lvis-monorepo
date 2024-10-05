@@ -45,8 +45,6 @@
                                 </label>
                                 <input v-model="serivData.or_number" class="form-control"
                                     rows="3" />
-                                <small class="text-danger fst-italic" v-show="serivDataErrors.or_number"> {{ errorMsg }}
-                                </small>
                             </div>
     
                             <div v-if="showMwoNumber" class="mb-3">
@@ -55,8 +53,6 @@
                                 </label>
                                 <input v-model="serivData.mwo_number" class="form-control"
                                     rows="3" />
-                                <small class="text-danger fst-italic" v-show="serivDataErrors.mwo_number"> {{ errorMsg }}
-                                </small>
                             </div>
     
                             <div v-if="showCwoNumber" class="mb-3">
@@ -65,8 +61,6 @@
                                 </label>
                                 <input v-model="serivData.cwo_number" class="form-control"
                                     rows="3" />
-                                <small class="text-danger fst-italic" v-show="serivDataErrors.cwo_number"> {{ errorMsg }}
-                                </small>
                             </div>
     
                             <div class="mb-3">
@@ -75,8 +69,6 @@
                                 </label>
                                 <input v-model="serivData.jo_number" class="form-control"
                                     rows="3" />
-                                <small class="text-danger fst-italic" v-show="serivDataErrors.jo_number"> {{ errorMsg }}
-                                </small>
                             </div>
     
                             <div class="mb-3">
@@ -180,7 +172,10 @@
                                 </button>
                             </div>
     
-                            <WarehouseItems :items="serivData.items" @remove-item="handleRemoveItem"/>
+                            <WarehouseItems
+                              :items="serivData.items"
+                              @remove-item="handleRemoveItem"
+                              @update-qty="handleUpdateItemQty" />
     
                         </div>
                     </div> 
@@ -260,10 +255,6 @@ import { useToast } from 'vue-toastification';
     const _serivDataErrorsInitial = {
         request_type: false,
         purpose: false,
-        or_number: false,
-        mwo_number: false,
-        cwo_number: false,
-        jo_number: false,
         consumer_name: false,
         location: false,
         requested_by: false,
@@ -408,6 +399,20 @@ import { useToast } from 'vue-toastification';
                 position: 'top',
             })
         }
+
+    }
+
+    function handleUpdateItemQty(item: AddItem, qty: number) {
+        console.log('handleUpdateItemQty', item, qty);
+
+        const serivItem = serivData.value.items.find(i => i.id === item.id) 
+
+        if(!serivItem) {
+            console.error('Item not found', item.code);
+            return 
+        }
+
+        serivItem.qty_request = qty
 
     }
 
