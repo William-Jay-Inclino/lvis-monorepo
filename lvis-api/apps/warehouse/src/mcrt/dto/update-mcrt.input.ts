@@ -12,11 +12,6 @@ export class UpdateMcrtInput {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
-  item_from_id?: string;
-
-  @Field(() => String, { nullable: true })
-  @IsOptional()
-  @IsString()
   wo_number?: string;
 
   @Field(() => String, { nullable: true })

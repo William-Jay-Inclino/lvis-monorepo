@@ -61,6 +61,18 @@ export interface MCRT {
     msg: string
     data?: MCRT
   }
+
+  export interface ChangeApproverResponse {
+    success: boolean
+    msg: string
+    data?: MCRTApprover
+  }
+  
+  export interface UpdateItemsResponse {
+    success: boolean
+    msg: string
+    mcrt_items: MCRTItem[]
+  }
   
   
   export interface CreateMcrtInput {
@@ -73,6 +85,14 @@ export interface MCRT {
     note: string 
     approvers: CreateMCRTApprover[]
     items: AddMCRTItem[]
+  }
+
+  export interface UpdateMcrtInput {
+    returned_by: Employee | null
+    wo_number: string | null
+    mo_number: string | null
+    jo_number: string | null
+    note: string 
   }
 
   export interface AddMCRTItem {

@@ -425,7 +425,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
                 data{
                     id
                     code
@@ -508,6 +508,7 @@ export async function create(input: CreateSerivInput): Promise<MutationResponse>
     const or_number = input.or_number?.trim() === '' ? null : `"${input.or_number}"`
     const mwo_number = input.mwo_number?.trim() === '' ? null : `"${input.mwo_number}"`
     const cwo_number = input.cwo_number?.trim() === '' ? null : `"${input.cwo_number}"`
+    const jo_number = input.jo_number?.trim() === '' ? null : `"${input.jo_number}"`
 
     const approvers = input.approvers.map(i => {
         return `
@@ -537,7 +538,7 @@ export async function create(input: CreateSerivInput): Promise<MutationResponse>
                     or_number: ${or_number}
                     mwo_number: ${mwo_number}
                     cwo_number: ${cwo_number}
-                    jo_number: "${input.jo_number}"
+                    jo_number: ${jo_number}
                     consumer_name: "${input.consumer_name}"
                     location: "${input.location}"
                     requested_by_id: "${input.requested_by?.id}"
@@ -577,9 +578,10 @@ export async function create(input: CreateSerivInput): Promise<MutationResponse>
 
 export async function update(id: string, input: UpdateSerivInput): Promise<MutationResponse> {
 
-    const or_number = input.or_number?.trim() === '' ? null : `"${input.or_number}"`
-    const mwo_number = input.mwo_number?.trim() === '' ? null : `"${input.mwo_number}"`
-    const cwo_number = input.cwo_number?.trim() === '' ? null : `"${input.cwo_number}"`
+    const or_number = input.or_number?.trim() === '' || !input.or_number ? null : `"${input.or_number}"`
+    const mwo_number = input.mwo_number?.trim() === '' || !input.mwo_number ? null : `"${input.mwo_number}"`
+    const cwo_number = input.cwo_number?.trim() === '' || !input.cwo_number ? null : `"${input.cwo_number}"`
+    const jo_number = input.jo_number?.trim() === '' || !input.jo_number ? null : `"${input.jo_number}"`
 
     const mutation = `
         mutation {
@@ -594,7 +596,7 @@ export async function update(id: string, input: UpdateSerivInput): Promise<Mutat
                     or_number: ${or_number}
                     mwo_number: ${mwo_number}
                     cwo_number: ${cwo_number}
-                    jo_number: "${input.jo_number}"
+                    jo_number: ${jo_number}
                     consumer_name: "${input.consumer_name}"
                     location: "${input.location}"
                 }

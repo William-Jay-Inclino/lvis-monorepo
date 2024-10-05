@@ -55,6 +55,17 @@ export interface MST {
     data?: MST
   }
   
+  export interface ChangeApproverResponse {
+    success: boolean
+    msg: string
+    data?: MSTApprover
+  }
+  
+  export interface UpdateItemsResponse {
+    success: boolean
+    msg: string
+    mst_items: MSTItem[]
+  }
   
   export interface CreateMstInput {
     returned_by: Employee | null
@@ -64,6 +75,14 @@ export interface MST {
     remarks: string 
     approvers: CreateMSTApprover[]
     items: AddMSTItem[]
+  }
+
+  export interface UpdateMstInput {
+    returned_by: Employee | null
+    cwo_number: string | null
+    mwo_number: string | null 
+    jo_number: string | null 
+    remarks: string 
   }
 
   export interface AddMSTItem {

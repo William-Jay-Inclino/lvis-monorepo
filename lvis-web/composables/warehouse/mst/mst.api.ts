@@ -1,4 +1,4 @@
-import type { CreateMstInput, FindAllResponse, MutationResponse, MST } from "./mst.types";
+import type { CreateMstInput, FindAllResponse, MutationResponse, MST, UpdateMstInput } from "./mst.types";
 import { sendRequest } from "~/utils/api"
 import type { Employee } from "~/composables/system/employee/employee.types";
 import type { Item } from "../item/item.type";
@@ -369,6 +369,187 @@ export async function create(input: CreateMstInput): Promise<MutationResponse> {
             success: false,
             msg: 'Failed to create MST. Please contact system administrator'
         };
+    }
+}
+
+export async function update(id: string, input: UpdateMstInput): Promise<MutationResponse> {
+
+    const cwo_number = input.cwo_number?.trim() === '' || !input.cwo_number ? null : `"${input.cwo_number}"`
+    const mwo_number = input.mwo_number?.trim() === '' || !input.mwo_number ? null : `"${input.mwo_number}"`
+    const jo_number = input.jo_number?.trim() === '' || !input.jo_number ? null : `"${input.jo_number}"`
+
+    const mutation = `
+        mutation {
+            updateMst(
+                id: "${id}",
+                input: {
+                    remarks: "${input.remarks}"
+                    returned_by_id: "${input.returned_by?.id}"
+                    cwo_number: ${cwo_number}
+                    mwo_number: ${mwo_number}
+                    jo_number: ${jo_number}
+                }
+            ) {
+                id
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateMst) {
+            return {
+                success: true,
+                msg: 'MST updated successfully!',
+                data: response.data.data.updateMst
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update MST. Please contact system administrator'
+        };
+    }
+}
+
+export async function fetchFormDataInUpdate(id: string): Promise<{
+    employees: Employee[],
+    items: Item[],
+    mst: MST | undefined
+}> {
+    const query = `
+        query {
+            mst(id: "${id}") {
+                id
+                mst_number
+                mst_date
+                status
+                created_by
+                can_update
+                returned_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                cwo_number
+                mwo_number
+                jo_number
+                remarks
+                cancelled_at
+                mst_approvers {
+                    id
+                    approver {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    date_approval 
+                    notes
+                    status
+                    label
+                    order
+                }
+                mst_items {
+                    id
+                    quantity
+                    price
+                    item {
+                        id
+                        code
+                        description
+                        item_type {
+                            id 
+                            name
+                        }
+                        unit {
+                            id 
+                            name
+                        }
+                        total_quantity
+                        quantity_on_queue
+                        GWAPrice
+                    }
+                }
+
+            },
+            employees(page: 1, pageSize: 500) {
+                data {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
+                data{
+                    id
+                    code
+                    description
+                    item_type {
+                        id 
+                        code 
+                        name
+                    }
+                    unit {
+                        id 
+                        name
+                    }
+                    total_quantity
+                    quantity_on_queue
+                    GWAPrice
+                }
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees: Employee[] = []
+        let items: Item[] = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (!data.mst) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const mst = data.mst
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        if (data.items && data.items.data) {
+            items = response.data.data.items.data
+        }
+
+        return {
+            mst,
+            employees,
+            items,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            mst: undefined,
+            employees: [],
+            items: [],
+        }
     }
 }
 

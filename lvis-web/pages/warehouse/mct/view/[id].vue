@@ -144,10 +144,10 @@
                                             @click="onCancelMCT()">
                                             <i class="fas fa-times-circle"></i> Cancel MCT
                                         </button>
-                                        <button disabled v-if="!!item.can_update" class="btn btn-success me-2"
+                                        <!-- <button disabled v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
                                             <i class="fas fa-edit"></i> Edit Form
-                                        </button>
+                                        </button> -->
                                         <button v-if="canCreate(authUser, 'canManageMCT')" class="btn btn-primary me-2"
                                             @click="onClickAdd">
                                             <i class="fas fa-plus"></i> Add New MCT

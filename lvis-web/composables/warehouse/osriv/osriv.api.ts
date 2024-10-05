@@ -407,7 +407,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 }
 
             },
-            employees(page: 1, pageSize: 300) {
+            employees(page: 1, pageSize: 500) {
                 data {
                     id
                     firstname
@@ -415,7 +415,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.OFFICE_SUPPLY}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.OFFICE_SUPPLY}") {
                 data{
                     id
                     code

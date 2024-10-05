@@ -1,4 +1,4 @@
-import type { CreateMcrtInput, FindAllResponse, MutationResponse, MCRT } from "./mcrt.types";
+import type { CreateMcrtInput, FindAllResponse, MutationResponse, MCRT, UpdateMcrtInput } from "./mcrt.types";
 import { sendRequest } from "~/utils/api"
 import type { Employee } from "~/composables/system/employee/employee.types";
 import type { Station } from "../station/station";
@@ -350,88 +350,156 @@ export async function fetchFormDataInCreate(): Promise<{
 
 }
 
-// export async function fetchFormDataInUpdate(id: string): Promise<{
-//     employees: Employee[],
-//     mcrt: MCRT | undefined
-// }> {
-//     const query = `
-//         query {
-//             mcrt(id: "${id}") {
-//                 id
-//                 mcrt_number
-//                 status
-//                 created_by
-//                 can_update
-//                 date_requested
-//                 purpose
-//                 request_type
-//                 mwo_number
-//                 jo_number
-//                 consumer_name
-//                 location
-//                 cancelled_at
-//                 mcrt_approvers {
-//                     id
-//                     approver {
-//                         id
-//                         firstname
-//                         middlename
-//                         lastname
-//                     }
-//                     date_approval 
-//                     notes
-//                     status
-//                     label
-//                     order
-//                 }
+export async function fetchFormDataInUpdate(id: string): Promise<{
+    employees: Employee[],
+    stations: Station[],
+    items: Item[],
+    mcrt: MCRT | undefined
+}> {
+    const query = `
+        query {
+            mcrt(id: "${id}") {
+                id
+                mct_id
+                mct_number
+                seriv_id
+                seriv_number
+                mcrt_number
+                mcrt_date
+                status
+                created_by
+                can_update
+                returned_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                wo_number
+                mo_number
+                jo_number
+                note
+                cancelled_at
+                mcrt_approvers {
+                    id
+                    approver {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    date_approval 
+                    notes
+                    status
+                    label
+                    order
+                }
+                mcrt_items {
+                    id
+                    quantity
+                    price
+                    item {
+                        id
+                        code
+                        description
+                        item_type {
+                            id 
+                            name
+                        }
+                        unit {
+                            id 
+                            name
+                        }
+                        total_quantity
+                        quantity_on_queue
+                        GWAPrice
+                    }
+                }
 
-//             },
-//             employees(page: 1, pageSize: 10) {
-//                 data {
-//                     id
-//                     firstname
-//                     middlename
-//                     lastname
-//                 }
-//             },
-//         }
-//     `;
+            },
+            employees(page: 1, pageSize: 500) {
+                data {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
+                data{
+                    id
+                    code
+                    description
+                    item_type {
+                        id 
+                        code 
+                        name
+                    }
+                    unit {
+                        id 
+                        name
+                    }
+                    total_quantity
+                    quantity_on_queue
+                    GWAPrice
+                }
+            },
+            stations {
+                id 
+                name
+            },
+        }
+    `;
 
-//     try {
-//         const response = await sendRequest(query);
-//         console.log('response', response)
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
 
-//         let employees: Employee[] = []
+        let employees: Employee[] = []
+        let stations: Station[] = []
+        let items: Item[] = []
 
-//         if (!response.data || !response.data.data) {
-//             throw new Error(JSON.stringify(response.data.errors));
-//         }
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
 
-//         const data = response.data.data
+        const data = response.data.data
 
-//         if (!data.mcrt) {
-//             throw new Error(JSON.stringify(response.data.errors));
-//         }
+        if (!data.mcrt) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
 
-//         const mcrt = data.mcrt
+        const mcrt = data.mcrt
 
-//         if (data.employees && data.employees.data) {
-//             employees = response.data.data.employees.data
-//         }
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
 
-//         return {
-//             mcrt,
-//             employees,
-//         }
+        if (data.items && data.items.data) {
+            items = response.data.data.items.data
+        }
 
-//     } catch (error) {
-//         console.error(error);
-//         return {
-//             mcrt: undefined,
-//             employees: [],
-//         }
-//     }
-// }
+        if (data.stations && data.stations) {
+            stations = data.stations
+        }
+
+        return {
+            mcrt,
+            employees,
+            stations,
+            items,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            mcrt: undefined,
+            employees: [],
+            stations: [],
+            items: [],
+        }
+    }
+}
 
 export async function create(input: CreateMcrtInput): Promise<MutationResponse> {
 
@@ -502,6 +570,52 @@ export async function create(input: CreateMcrtInput): Promise<MutationResponse> 
         return {
             success: false,
             msg: 'Failed to create MCRT. Please contact system administrator'
+        };
+    }
+}
+
+export async function update(id: string, input: UpdateMcrtInput): Promise<MutationResponse> {
+
+    const wo_number = input.wo_number?.trim() === '' || !input.wo_number ? null : `"${input.wo_number}"`
+    const mo_number = input.wo_number?.trim() === '' || !input.mo_number ? null : `"${input.mo_number}"`
+    const jo_number = input.jo_number?.trim() === '' || !input.jo_number ? null : `"${input.jo_number}"`
+
+    const mutation = `
+        mutation {
+            updateMcrt(
+                id: "${id}",
+                input: {
+                    note: "${input.note}"
+                    returned_by_id: "${input.returned_by?.id}"
+                    wo_number: ${wo_number}
+                    mo_number: ${mo_number}
+                    jo_number: ${jo_number}
+                }
+            ) {
+                id
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateMcrt) {
+            return {
+                success: true,
+                msg: 'MCRT updated successfully!',
+                data: response.data.data.updateMcrt
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update MCRT. Please contact system administrator'
         };
     }
 }
