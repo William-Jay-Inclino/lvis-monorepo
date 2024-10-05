@@ -1,35 +1,26 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { MstItemService } from './mst-item.service';
 import { MSTItem } from './entities/mst-item.entity';
-import { CreateMstItemInput } from './dto/create-mst-item.input';
-import { UpdateMstItemInput } from './dto/update-mst-item.input';
+import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
+import { AuthUser } from '../__common__/auth-user.entity';
+import { CreateMstItemSubInput } from '../mst/dto/create-mst-item.sub.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => MSTItem)
 export class MstItemResolver {
-  constructor(private readonly mstItemService: MstItemService) {}
 
-  @Mutation(() => MSTItem)
-  createMstItem(@Args('createMstItemInput') createMstItemInput: CreateMstItemInput) {
-    return this.mstItemService.create(createMstItemInput);
-  }
+    constructor(private readonly mstItemService: MstItemService) {}
 
-  @Query(() => [MSTItem], { name: 'mstItem' })
-  findAll() {
-    return this.mstItemService.findAll();
-  }
-
-  @Query(() => MSTItem, { name: 'mstItem' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.mstItemService.findOne(id);
-  }
-
-  @Mutation(() => MSTItem)
-  updateMstItem(@Args('updateMstItemInput') updateMstItemInput: UpdateMstItemInput) {
-    return this.mstItemService.update(updateMstItemInput.id, updateMstItemInput);
-  }
-
-  @Mutation(() => MSTItem)
-  removeMstItem(@Args('id', { type: () => Int }) id: number) {
-    return this.mstItemService.remove(id);
-  }
+    @Mutation(() => [MSTItem])
+    async updateMstItems(
+        @Args('mst_id') mst_id: string,
+        @Args({ name: 'items', type: () => [CreateMstItemSubInput] }) items: CreateMstItemSubInput[],
+        @CurrentAuthUser() authUser: AuthUser
+    ) {
+        this.mstItemService.setAuthUser(authUser)
+        return await this.mstItemService.updateMstItems(mst_id, items);
+    }
+  
 }

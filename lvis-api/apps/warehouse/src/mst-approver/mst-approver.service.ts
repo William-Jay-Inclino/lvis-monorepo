@@ -1,34 +1,81 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateMstApproverInput } from './dto/create-mst-approver.input';
-import { UpdateMstApproverInput } from './dto/update-mst-approver.input';
-import { MSTApprover } from 'apps/warehouse/prisma/generated/client';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
+import { MSTApprover } from 'apps/warehouse/prisma/generated/client';
+import { AuthUser } from '../__common__/auth-user.entity';
+import { ChangeMstApproverInput } from './dto/change-mst-approver.input';
+import { DB_ENTITY } from '../__common__/constants';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @Injectable()
 export class MstApproverService {
+
+    private authUser: AuthUser
 
     constructor(
         private readonly prisma: PrismaService,
     ) { }
 
-    create(createMcrtApproverInput: CreateMstApproverInput) {
-        return 'This action adds a new mcrtApprover';
+    setAuthUser(authUser: AuthUser) {
+        this.authUser = authUser
     }
 
-    findAll() {
-        return `This action returns all mcrtApprover`;
-    }
+    async changeApprover(id: string, input: ChangeMstApproverInput) {
+        return this.prisma.$transaction(async (prisma) => {
+            const item = await prisma.mSTApprover.findUnique({
+                where: { id },
+                include: {
+                    mst: {
+                        select: {
+                            mst_number: true,
+                        },
+                    },
+                },
+            });
+    
+            if (!item) {
+                throw new NotFoundException('mst approver not found with id of ' + id);
+            }
 
-    findOne(id: number) {
-        return `This action returns a #${id} mcrtApprover`;
-    }
-
-    update(id: number, updateMcrtApproverInput: UpdateMstApproverInput) {
-        return `This action updates a #${id} mcrtApprover`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} mcrtApprover`;
+            if(item.status !== APPROVAL_STATUS.PENDING) {
+                throw new BadRequestException('Can only change approver if status is pending')
+            }
+    
+            const updateMstApprover = await prisma.mSTApprover.update({
+                where: { id },
+                data: {
+                    approver_id: input.new_approver_id,
+                },
+            });
+    
+            const pending = await prisma.pending.findUnique({
+                where: {
+                    approver_id_reference_number_reference_table: {
+                        approver_id: item.approver_id,
+                        reference_number: item.mst.mst_number,
+                        reference_table: DB_ENTITY.MST,
+                    },
+                },
+            });
+    
+            if (pending) {
+                // delete previous approver's pending
+                await prisma.pending.delete({
+                    where: { id: pending.id },
+                });
+    
+                // add pending for new approver
+                await prisma.pending.create({
+                    data: {
+                        approver_id: input.new_approver_id,
+                        reference_number: item.mst.mst_number,
+                        reference_table: DB_ENTITY.MST,
+                        description: `MST no. ${item.mst.mst_number}`,
+                    },
+                });
+            }
+    
+            return updateMstApprover;
+        });
     }
 
     async findByMstId(mstId: string): Promise<MSTApprover[]> {

@@ -1,35 +1,26 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { MrvItemService } from './mrv-item.service';
 import { MRVItem } from './entities/mrv-item.entity';
-import { CreateMrvItemInput } from './dto/create-mrv-item.input';
-import { UpdateMrvItemInput } from './dto/update-mrv-item.input';
+import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
+import { AuthUser } from '../__common__/auth-user.entity';
+import { CreateMrvItemSubInput } from '../mrv/dto/create-mrv-item.sub.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => MRVItem)
 export class MrvItemResolver {
-  constructor(private readonly mrvItemService: MrvItemService) {}
 
-  // @Mutation(() => MrvItem)
-  // createMrvItem(@Args('createMrvItemInput') createMrvItemInput: CreateMrvItemInput) {
-  //   return this.mrvItemService.create(createMrvItemInput);
-  // }
+    constructor(private readonly mrvItemService: MrvItemService) {}
 
-  // @Query(() => [MrvItem], { name: 'mrvItem' })
-  // findAll() {
-  //   return this.mrvItemService.findAll();
-  // }
-
-  // @Query(() => MrvItem, { name: 'mrvItem' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.mrvItemService.findOne(id);
-  // }
-
-  // @Mutation(() => MrvItem)
-  // updateMrvItem(@Args('updateMrvItemInput') updateMrvItemInput: UpdateMrvItemInput) {
-  //   return this.mrvItemService.update(updateMrvItemInput.id, updateMrvItemInput);
-  // }
-
-  // @Mutation(() => MrvItem)
-  // removeMrvItem(@Args('id', { type: () => Int }) id: number) {
-  //   return this.mrvItemService.remove(id);
-  // }
+    @Mutation(() => [MRVItem])
+    async updateMrvItems(
+        @Args('mrv_id') mrv_id: string,
+        @Args({ name: 'items', type: () => [CreateMrvItemSubInput] }) items: CreateMrvItemSubInput[],
+        @CurrentAuthUser() authUser: AuthUser
+    ) {
+        this.mrvItemService.setAuthUser(authUser)
+        return await this.mrvItemService.updateMrvItems(mrv_id, items);
+    }
+  
 }

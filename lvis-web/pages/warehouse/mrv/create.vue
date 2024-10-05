@@ -189,7 +189,10 @@
                                 </button>
                             </div>
     
-                            <WarehouseItems :items="mrvData.items" @remove-item="handleRemoveItem"/>
+                            <WarehouseItems
+                              :items="mrvData.items"
+                              @remove-item="handleRemoveItem"
+                              @update-qty="handleUpdateItemQty" />
     
                         </div>
                     </div> 
@@ -412,6 +415,20 @@
                 position: 'top',
             })
         }
+
+    }
+
+    function handleUpdateItemQty(item: AddItem, qty: number) {
+        console.log('handleUpdateItemQty', item, qty);
+
+        const mrvItem = mrvData.value.items.find(i => i.id === item.id) 
+
+        if(!mrvItem) {
+            console.error('Item not found', item.code);
+            return 
+        }
+
+        mrvItem.qty_request = qty
 
     }
 

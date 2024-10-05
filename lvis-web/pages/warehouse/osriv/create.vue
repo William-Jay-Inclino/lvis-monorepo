@@ -101,7 +101,10 @@
                                 </button>
                             </div>
 
-                            <WarehouseItems :items="osrivData.items" @remove-item="handleRemoveItem"  @update-qty="handleUpdateItemQty"/>
+                            <WarehouseItems
+                              :items="osrivData.items"
+                              @remove-item="handleRemoveItem"
+                              @update-qty="handleUpdateItemQty" />
     
                         </div>
                     </div> 
