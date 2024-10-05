@@ -566,20 +566,6 @@ export async function update(id: string, input: UpdateOsrivInput): Promise<Mutat
                 }
             ) {
                 id
-                osriv_approvers {
-                    id
-                    approver {
-                        id
-                        firstname
-                        middlename
-                        lastname
-                    }
-                    date_approval 
-                    notes
-                    status
-                    label
-                    order
-                }
             }
     }`;
 

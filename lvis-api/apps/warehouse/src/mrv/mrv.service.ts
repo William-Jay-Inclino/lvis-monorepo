@@ -156,10 +156,10 @@ export class MrvService {
             purpose: input.purpose ?? existingItem.purpose,
             request_type: input.request_type ?? existingItem.request_type,
 
-            or_number: input.or_number ?? existingItem.or_number,
-            mwo_number: input.mwo_number ?? existingItem.mwo_number,
-            cwo_number: input.cwo_number ?? existingItem.cwo_number,
-            jo_number: input.jo_number ?? existingItem.jo_number,
+            or_number: input.or_number ?? undefined,
+            mwo_number: input.mwo_number ?? undefined,
+            cwo_number: input.cwo_number ?? undefined,
+            jo_number: input.jo_number ?? undefined,
 
             consumer_name: input.consumer_name ?? existingItem.consumer_name,
             location: input.location ?? existingItem.location,
@@ -171,6 +171,7 @@ export class MrvService {
             updated_by: this.authUser.user.username,
         }
 
+        console.log('data', data);
 
         const result = await this.prisma.mRV.update({
             data,
@@ -258,7 +259,8 @@ export class MrvService {
                         item: {
                             include: {
                                 unit: true,
-                                item_transactions: true
+                                item_transactions: true,
+                                item_type: true,
                             }
                         }
                     }

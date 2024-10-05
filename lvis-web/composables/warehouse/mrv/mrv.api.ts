@@ -1,4 +1,4 @@
-import type { CreateMrvInput, FindAllResponse, MutationResponse, MRV } from "./mrv.types";
+import type { CreateMrvInput, FindAllResponse, MutationResponse, MRV, UpdateMrvInput } from "./mrv.types";
 import { sendRequest } from "~/utils/api"
 import type { Employee } from "~/composables/system/employee/employee.types";
 import type { Station } from "../station/station";
@@ -346,6 +346,9 @@ export async function fetchFormDataInCreate(): Promise<{
 
 export async function fetchFormDataInUpdate(id: string): Promise<{
     employees: Employee[],
+    stations: Station[],
+    items: Item[],
+    projects: Project[],
     mrv: MRV | undefined
 }> {
     const query = `
@@ -359,11 +362,29 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 date_requested
                 purpose
                 request_type
+                or_number
                 mwo_number
+                cwo_number
                 jo_number
                 consumer_name
                 location
                 cancelled_at
+                requested_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                withdrawn_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                item_from {
+                    id 
+                    name
+                }
                 project{
                     id
                     name
@@ -382,6 +403,27 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     label
                     order
                 }
+                mrv_items {
+                    id
+                    quantity
+                    price
+                    item {
+                        id
+                        code
+                        description
+                        item_type {
+                            id 
+                            name
+                        }
+                        unit {
+                            id 
+                            name
+                        }
+                        total_quantity
+                        quantity_on_queue
+                        GWAPrice
+                    }
+                }
             },
             employees(page: 1, pageSize: 10) {
                 data {
@@ -391,6 +433,33 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
+            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
+                data{
+                    id
+                    code
+                    description
+                    item_type {
+                        id 
+                        code 
+                        name
+                    }
+                    unit {
+                        id 
+                        name
+                    }
+                    total_quantity
+                    quantity_on_queue
+                    GWAPrice
+                }
+            },
+            stations {
+                id 
+                name
+            },
+            projects {
+                id 
+                name
+            },
         }
     `;
 
@@ -399,6 +468,9 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         console.log('response', response)
 
         let employees: Employee[] = []
+        let stations: Station[] = []
+        let items: Item[] = []
+        let projects: Project[] = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -416,9 +488,24 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             employees = response.data.data.employees.data
         }
 
+        if (data.items && data.items.data) {
+            items = response.data.data.items.data
+        }
+
+        if (data.stations && data.stations) {
+            stations = data.stations
+        }
+
+        if (data.projects && data.projects) {
+            projects = data.projects
+        }
+
         return {
             mrv,
             employees,
+            stations,
+            items,
+            projects,
         }
 
     } catch (error) {
@@ -426,6 +513,9 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         return {
             mrv: undefined,
             employees: [],
+            stations: [],
+            items: [],
+            projects: [],
         }
     }
 }
@@ -437,6 +527,7 @@ export async function create(input: CreateMrvInput): Promise<MutationResponse> {
     const or_number = input.or_number?.trim() === '' ? null : `"${input.or_number}"`
     const mwo_number = input.mwo_number?.trim() === '' ? null : `"${input.mwo_number}"`
     const cwo_number = input.cwo_number?.trim() === '' ? null : `"${input.cwo_number}"`
+    const jo_number = input.jo_number?.trim() === '' ? null : `"${input.jo_number}"`
 
     const approvers = input.approvers.map(i => {
         return `
@@ -467,7 +558,7 @@ export async function create(input: CreateMrvInput): Promise<MutationResponse> {
                     or_number: ${or_number}
                     mwo_number: ${mwo_number}
                     cwo_number: ${cwo_number}
-                    jo_number: "${input.jo_number}"
+                    jo_number: ${jo_number}
                     consumer_name: "${input.consumer_name}"
                     location: "${input.location}"
                     requested_by_id: "${input.requested_by?.id}"
@@ -501,6 +592,60 @@ export async function create(input: CreateMrvInput): Promise<MutationResponse> {
         return {
             success: false,
             msg: 'Failed to create MRV. Please contact system administrator'
+        };
+    }
+}
+
+export async function update(id: string, input: UpdateMrvInput): Promise<MutationResponse> {
+
+    const or_number = input.or_number?.trim() === '' || !input.or_number ? null : `"${input.or_number}"`
+    const mwo_number = input.mwo_number?.trim() === '' || !input.mwo_number ? null : `"${input.mwo_number}"`
+    const cwo_number = input.cwo_number?.trim() === '' || !input.cwo_number ? null : `"${input.cwo_number}"`
+    const jo_number = input.jo_number?.trim() === '' || !input.jo_number ? null : `"${input.jo_number}"`
+
+    const mutation = `
+        mutation {
+            updateMrv(
+                id: "${id}",
+                input: {
+                    project_id: "${input.project?.id}"
+                    purpose: "${input.purpose}"
+                    request_type: ${input.request_type?.id}
+                    requested_by_id: "${input.requested_by?.id}"
+                    withdrawn_by_id: "${input.withdrawn_by?.id}"
+                    item_from_id: "${input.item_from?.id}"
+                    or_number: ${or_number}
+                    mwo_number: ${mwo_number}
+                    cwo_number: ${cwo_number}
+                    jo_number: ${jo_number}
+                    consumer_name: "${input.consumer_name}"
+                    location: "${input.location}"
+                }
+            ) {
+                id
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateMrv) {
+            return {
+                success: true,
+                msg: 'MRV updated successfully!',
+                data: response.data.data.updateMrv
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update MRV. Please contact system administrator'
         };
     }
 }

@@ -405,13 +405,6 @@ async function updateOsrivInfo() {
             icon: 'success',
             position: 'top',
         })
-
-        osrivData.value.osriv_approvers = response.data.osriv_approvers.map(i => {
-            i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-            i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-            return i
-        })
-
     } else {
         Swal.fire({
             title: 'Error!',

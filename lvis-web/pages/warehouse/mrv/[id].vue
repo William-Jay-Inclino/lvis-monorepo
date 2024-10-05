@@ -3,9 +3,9 @@
     <div class="card">
         <div class="card-body">
 
-            <div v-if="!isLoadingPage && authUser && serivData && !serivData.cancelled_at" class="mb-3">
+            <div v-if="!isLoadingPage && authUser && mrvData && !mrvData.cancelled_at" class="mb-3">
 
-                <h2 class="text-warning">Update SERIV</h2>
+                <h2 class="text-warning">Update MRV</h2>
 
                 <hr>
 
@@ -14,7 +14,7 @@
                         <ul class="nav nav-tabs justify-content-center">
                             <li class="nav-item" @click="form = FORM.UPDATE_INFO">
                                 <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_INFO }" href="#">
-                                    <i class="fas fa-info-circle"></i> SERIV Info
+                                    <i class="fas fa-info-circle"></i> MRV Info
                                 </a>
                             </li>
                             <li class="nav-item" @click="form = FORM.UPDATE_APPROVERS">
@@ -42,23 +42,23 @@
                         
                         <div class="mb-3 d-flex align-items-center">
                             <label class="form-label me-2 mb-0">Status:</label>
-                            <div :class="{ [`badge bg-${serivStatus.color}`]: true }">
-                                {{ serivStatus.label }}
+                            <div :class="{ [`badge bg-${mrvStatus.color}`]: true }">
+                                {{ mrvStatus.label }}
                             </div>
                         </div>
         
                         <div class="mb-3">
                             <label class="form-label">
-                                SERIV Number
+                                MRV Number
                             </label>
-                            <input type="text" class="form-control" :value="serivData.seriv_number" disabled>
+                            <input type="text" class="form-control" :value="mrvData.mrv_number" disabled>
                         </div>
         
                         <div class="mb-3">
                             <label class="form-label">
                                 Date
                             </label>
-                            <input type="date" class="form-control" :value="serivData.date_requested" disabled>
+                            <input type="date" class="form-control" :value="mrvData.date_requested" disabled>
                         </div>
 
                         <div class="mb-3">
@@ -66,7 +66,7 @@
                                 Request Type <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="request_types" label="name" v-model="serivData.request_type" :clearable="false"></v-select>
+                                <v-select :options="request_types" label="name" v-model="mrvData.request_type_object" :clearable="false"></v-select>
                             </client-only>
                         </div>
 
@@ -74,7 +74,7 @@
                             <label class="form-label">
                                 OR Number
                             </label>
-                            <input v-model="serivData.or_number" class="form-control"
+                            <input v-model="mrvData.or_number" class="form-control"
                                 rows="3" />
                         </div>
 
@@ -82,7 +82,7 @@
                             <label class="form-label">
                                 MWO Number
                             </label>
-                            <input v-model="serivData.mwo_number" class="form-control"
+                            <input v-model="mrvData.mwo_number" class="form-control"
                                 rows="3" />
                         </div>
 
@@ -90,7 +90,7 @@
                             <label class="form-label">
                                 CWO Number
                             </label>
-                            <input v-model="serivData.cwo_number" class="form-control"
+                            <input v-model="mrvData.cwo_number" class="form-control"
                                 rows="3" />
                         </div>
 
@@ -98,7 +98,7 @@
                             <label class="form-label">
                                 JO Number
                             </label>
-                            <input v-model="serivData.jo_number" class="form-control"
+                            <input v-model="mrvData.jo_number" class="form-control"
                                 rows="3" />
                         </div>
 
@@ -107,17 +107,26 @@
                                 Item From <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="stations" label="name" v-model="serivData.item_from" :clearable="false"></v-select>
+                                <v-select :options="stations" label="name" v-model="mrvData.item_from" :clearable="false"></v-select>
                             </client-only>
                         </div>
+
+                        <div class="mb-3">
+                                <label class="form-label">
+                                    Project Name <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="projects" label="name" v-model="mrvData.project" :clearable="false"></v-select>
+                                </client-only>
+                            </div>
 
                         <div class="mb-3">
                             <label class="form-label">
                                 Consumer Name <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="serivData.consumer_name" class="form-control"
+                            <textarea v-model="mrvData.consumer_name" class="form-control"
                                 rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.consumer_name"> {{ errorMsg }}
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.consumer_name"> {{ errorMsg }}
                             </small>
                         </div>
 
@@ -125,9 +134,9 @@
                             <label class="form-label">
                                 Location <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="serivData.location" class="form-control"
+                            <textarea v-model="mrvData.location" class="form-control"
                                 rows="3"> </textarea>
-                            <small class="text-danger fst-italic" v-show="serivDataErrors.location"> {{ errorMsg }}
+                            <small class="text-danger fst-italic" v-show="mrvDataErrors.location"> {{ errorMsg }}
                             </small>
                         </div>
         
@@ -135,8 +144,8 @@
                             <label class="form-label">
                                 Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="serivData.purpose" class="form-control" rows="3"> </textarea>
-                            <small v-if="serivDataErrors.purpose" class="text-danger fst-italic"> {{ errorMsg }} </small>
+                            <textarea v-model="mrvData.purpose" class="form-control" rows="3"> </textarea>
+                            <small v-if="mrvDataErrors.purpose" class="text-danger fst-italic"> {{ errorMsg }} </small>
                         </div>
 
                         <div class="mb-3">
@@ -144,7 +153,7 @@
                                 Requested By <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="serivData.requested_by" :clearable="false"></v-select>
+                                <v-select :options="employees" label="fullname" v-model="mrvData.requested_by" :clearable="false"></v-select>
                             </client-only>
                         </div>
                         
@@ -153,7 +162,7 @@
                                 Withdrawn By
                             </label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="serivData.withdrawn_by"></v-select>
+                                <v-select :options="employees" label="fullname" v-model="mrvData.withdrawn_by"></v-select>
                             </client-only>
                         </div>
         
@@ -204,16 +213,16 @@
         
                         <div class="d-flex justify-content-between pt-3">
                             <div>
-                                <nuxt-link class="btn btn-secondary" :to="`/warehouse/seriv/view/${serivData.id}`">
+                                <nuxt-link class="btn btn-secondary" :to="`/warehouse/mrv/view/${mrvData.id}`">
                                     <i class="fas fa-chevron-left"></i> Go Back
                                 </nuxt-link>
                             </div>
                             <div>
-                                <button v-if="form === FORM.UPDATE_INFO" @click="updateSerivInfo()" type="button" class="btn btn-success"
+                                <button v-if="form === FORM.UPDATE_INFO" @click="updateMrvInfo()" type="button" class="btn btn-success"
                                     :disabled="isUpdating">
                                     <i class="fas fa-sync"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
                                 </button>
-                                <button v-if="form === FORM.UPDATE_ITEMS" @click="updateSerivItems()" type="button" class="btn btn-success"
+                                <button v-if="form === FORM.UPDATE_ITEMS" @click="updateMrvItems()" type="button" class="btn btn-success"
                                     :disabled="isUpdatingItems || isDisabledUpdateItemsBtn">
                                     <i class="fas fa-sync"></i> {{ isUpdatingItems ? 'Updating Items...' : 'Update Items' }}
                                 </button>
@@ -223,7 +232,7 @@
                     </div>
                 </div>
                 
-                <WarehouseAddItemModal @add-item="handleAddItem" :items="itemsInModal" :added-item-ids="serivItemIds"/>
+                <WarehouseAddItemModal @add-item="handleAddItem" :items="itemsInModal" :added-item-ids="mrvItemIds"/>
         
             </div>
         
@@ -243,10 +252,10 @@
 import Swal from 'sweetalert2'
 import { getFullname, formatToValidHtmlDate } from '~/utils/helpers'
 import { useToast } from "vue-toastification";
-import * as serivApi from '~/composables/warehouse/seriv/seriv.api'
-import * as serivApproverApi from '~/composables/warehouse/seriv/seriv-approver.api'
-import * as serivItemApi from '~/composables/warehouse/seriv/seriv-item.api'
-import { type SERIV, type UpdateSerivInput } from '~/composables/warehouse/seriv/seriv.types';
+import * as mrvApi from '~/composables/warehouse/mrv/mrv.api'
+import * as mrvApproverApi from '~/composables/warehouse/mrv/mrv-approver.api'
+import * as mrvItemApi from '~/composables/warehouse/mrv/mrv-item.api'
+import { type MRV, type UpdateMrvInput } from '~/composables/warehouse/mrv/mrv.types';
 import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
@@ -254,7 +263,7 @@ import type { Station } from '~/composables/warehouse/station/station';
 import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
 
 definePageMeta({
-    name: ROUTES.SERIV_UPDATE,
+    name: ROUTES.MRV_UPDATE,
     layout: "layout-warehouse",
     middleware: ['auth'],
 })
@@ -283,7 +292,7 @@ const isLoadingPage = ref(true)
 const isFetchingItems = ref(false)
 
 // INITIAL DATA
-const _serivDataErrorsInitial = {
+const _mrvDataErrorsInitial = {
     purpose: false,
     consumer_name: false,
     location: false,
@@ -295,11 +304,12 @@ const form = ref<FORM>(FORM.UPDATE_INFO)
 const employees = ref<Employee[]>([])
 const stations = ref<Station[]>([])
 const items = ref<Item[]>([])
+const projects = ref<Project[]>([])
 const request_types = ref<WarehouseRequestType[]>([])
 
 // FORM DATA
-const serivDataErrors = ref({ ..._serivDataErrorsInitial })
-const serivData = ref<SERIV>({} as SERIV)
+const mrvDataErrors = ref({ ..._mrvDataErrorsInitial })
+const mrvData = ref<MRV>({} as MRV)
 
 
 
@@ -308,19 +318,20 @@ const serivData = ref<SERIV>({} as SERIV)
 onMounted(async () => {
     authUser.value = getAuthUser()
 
-    let response = await serivApi.fetchFormDataInUpdate(route.params.id as string)
+    let response = await mrvApi.fetchFormDataInUpdate(route.params.id as string)
 
-    if (!response.seriv) {
+    if (!response.mrv) {
         return redirectTo401Page()
     }
 
-    if (!response.seriv.can_update) {
+    if (!response.mrv.can_update) {
         return redirectTo401Page()
     }
 
-    populateForm(response.seriv)
+    populateForm(response.mrv)
 
     stations.value = response.stations
+    projects.value = response.projects
     employees.value = addPropertyFullName(response.employees)
     items.value = response.items
     request_types.value = WAREHOUSE_REQUEST_TYPES.map(i => ({...i}))
@@ -333,11 +344,11 @@ onMounted(async () => {
 
 // ======================== COMPUTED ========================  
 
-const serivStatus = computed(() => {
+const mrvStatus = computed(() => {
 
-    const approvers = serivData.value.seriv_approvers
+    const approvers = mrvData.value.mrv_approvers
 
-    if (serivData.value.cancelled_at) {
+    if (mrvData.value.cancelled_at) {
 
         return approvalStatus[APPROVAL_STATUS.CANCELLED]
 
@@ -361,7 +372,7 @@ const serivStatus = computed(() => {
 
 const approvers = computed( (): Approver[] => {
 
-    return serivData.value.seriv_approvers.map(i => {
+    return mrvData.value.mrv_approvers.map(i => {
         return {
             id: i.id,
             approver: i.approver,
@@ -375,10 +386,10 @@ const approvers = computed( (): Approver[] => {
 
 })
 
-const serivItemIds = computed( () => serivData.value.seriv_items.map(i => i.item.id) )
+const mrvItemIds = computed( () => mrvData.value.mrv_items.map(i => i.item.id) )
 
 const itemsInTable = computed( (): AddItem[] => {
-    return serivData.value.seriv_items.map(i => {
+    return mrvData.value.mrv_items.map(i => {
             const x: AddItem = {
                 id: i.item.id,
                 code: i.item.code,
@@ -415,17 +426,17 @@ const itemsInModal = computed( (): AddItem[] => {
 
 const isDisabledUpdateItemsBtn = computed( () => {
 
-    const serivItems = serivData.value.seriv_items
+    const mrvItems = mrvData.value.mrv_items
 
-    if(serivItems.length === 0) {
+    if(mrvItems.length === 0) {
         return true
     }
 
-    for(let serivItem of serivItems) {
+    for(let mrvItem of mrvItems) {
 
-        const availableQty = serivItem.item.total_quantity - serivItem.item.quantity_on_queue
+        const availableQty = mrvItem.item.total_quantity - mrvItem.item.quantity_on_queue
 
-        if(serivItem.quantity <= 0 || serivItem.quantity > availableQty ) {
+        if(mrvItem.quantity <= 0 || mrvItem.quantity > availableQty ) {
             return true
         }
 
@@ -437,34 +448,39 @@ const isDisabledUpdateItemsBtn = computed( () => {
 
 const showOrNumber = computed( () => {
 
-    if(!serivData.value.request_type) return false 
+    if(!mrvData.value.request_type_object) return false 
 
-    return showORnumber(serivData.value.request_type)
+    return showORnumber(mrvData.value.request_type_object.id)
 
 })
 
 const showMwoNumber = computed( () => {
 
-    if(!serivData.value.request_type) return false 
+    if(!mrvData.value.request_type_object) return false 
 
-    return showMWOnumber(serivData.value.request_type)
+    return showMWOnumber(mrvData.value.request_type_object.id)
 
 
 })
 
 const showCwoNumber = computed( () => {
 
-    if(!serivData.value.request_type) return false 
+    if(!mrvData.value.request_type_object) return false 
 
-    return showCWOnumber(serivData.value.request_type)
+    return showCWOnumber(mrvData.value.request_type_object.id)
 
 })
 
 // ======================== FUNCTIONS ========================  
 
-function populateForm(data: SERIV) {
+function populateForm(data: MRV) {
 
     data.date_requested = formatToValidHtmlDate(data.date_requested)
+
+    data.request_type_object = {
+        id: data.request_type,
+        name: warehouseRequestTypeMapper[data.request_type],
+    }
 
     const requestedBy = data.requested_by
     requestedBy!['fullname'] = getFullname(requestedBy!.firstname, requestedBy!.middlename, requestedBy!.lastname)
@@ -474,46 +490,47 @@ function populateForm(data: SERIV) {
         withdrawnBy!['fullname'] = getFullname(withdrawnBy!.firstname, withdrawnBy!.middlename, withdrawnBy!.lastname)
     }
 
-    data.seriv_approvers.map(i => {
+    data.mrv_approvers.map(i => {
         i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
         i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
         return i
     })
 
-    serivData.value = data
-    console.log('serivData.value', serivData.value);
+    mrvData.value = data
+    console.log('mrvData.value', mrvData.value);
 }
 
-async function updateSerivInfo() {
+async function updateMrvInfo() {
 
     console.log('update')
 
-    if (!isValidSerivInfo()) {
+    if (!isValidMrvInfo()) {
         return
     }
 
     console.log('updating...')
 
-    const data: UpdateSerivInput = {
-        purpose: serivData.value.purpose,
+    const data: UpdateMrvInput = {
+        project: mrvData.value.project,
+        purpose: mrvData.value.purpose,
         request_type: {
-            id: serivData.value.request_type,
-            name: warehouseRequestTypeMapper[serivData.value.request_type]
+            id: mrvData.value.request_type_object.id,
+            name: warehouseRequestTypeMapper[mrvData.value.request_type_object.id]
         },
-        requested_by: serivData.value.requested_by,
-        withdrawn_by: serivData.value.withdrawn_by,
-        item_from: serivData.value.item_from,
-        or_number: serivData.value.or_number,
-        mwo_number: serivData.value.mwo_number,
-        cwo_number: serivData.value.cwo_number,
-        jo_number: serivData.value.jo_number,
-        consumer_name: serivData.value.consumer_name,
-        location: serivData.value.location,
+        requested_by: mrvData.value.requested_by,
+        withdrawn_by: mrvData.value.withdrawn_by,
+        item_from: mrvData.value.item_from,
+        or_number: mrvData.value.or_number,
+        mwo_number: mrvData.value.mwo_number,
+        cwo_number: mrvData.value.cwo_number,
+        jo_number: mrvData.value.jo_number,
+        consumer_name: mrvData.value.consumer_name,
+        location: mrvData.value.location,
 
     }
 
     isUpdating.value = true
-    const response = await serivApi.update(serivData.value.id, data)
+    const response = await mrvApi.update(mrvData.value.id, data)
     isUpdating.value = false
 
     if (response.success && response.data) {
@@ -535,10 +552,10 @@ async function updateSerivInfo() {
 
 }
 
-async function updateSerivItems() {
+async function updateMrvItems() {
     
     isUpdatingItems.value = true
-    const response = await serivItemApi.updateSerivItems(serivData.value.id, serivData.value.seriv_items)
+    const response = await mrvItemApi.updateMrvItems(mrvData.value.id, mrvData.value.mrv_items)
     isUpdatingItems.value = false
 
     if (response.success) {
@@ -549,7 +566,7 @@ async function updateSerivItems() {
             position: 'top',
         })
 
-        serivData.value.seriv_items = response.seriv_items
+        mrvData.value.mrv_items = response.mrv_items
 
         await fetchItems()
 
@@ -567,7 +584,7 @@ async function updateSerivItems() {
 async function fetchItems() {
 
     isFetchingItems.value = true
-    const response = await serivItemApi.fetchItems()
+    const response = await mrvItemApi.fetchItems()
     isFetchingItems.value = false
 
     items.value = response.items
@@ -582,7 +599,7 @@ async function handleChangeApprover(payload: {currentApprover: Approver, newAppr
     const { currentApprover, newApprover } = payload
 
     isChangingApprover.value = true
-    const response = await serivApproverApi.changeApprover(currentApprover.id, newApprover.id)
+    const response = await mrvApproverApi.changeApprover(currentApprover.id, newApprover.id)
     isChangingApprover.value = false
 
     if (response.success && response.data) {
@@ -593,14 +610,14 @@ async function handleChangeApprover(payload: {currentApprover: Approver, newAppr
             position: 'top',
         })
 
-        const approverIndx = serivData.value.seriv_approvers.findIndex(i => i.id === response.data?.id)
+        const approverIndx = mrvData.value.mrv_approvers.findIndex(i => i.id === response.data?.id)
 
         if(approverIndx === -1) {
-            console.error('Approver not found in seriv approvers with id of ' + response.data.id);
+            console.error('Approver not found in mrv approvers with id of ' + response.data.id);
             return 
         }
 
-        serivData.value.seriv_approvers[approverIndx] = {...response.data}
+        mrvData.value.mrv_approvers[approverIndx] = {...response.data}
 
     } else {
         Swal.fire({
@@ -620,28 +637,28 @@ async function handleChangeApprover(payload: {currentApprover: Approver, newAppr
 function handleUpdateItemQty(item: AddItem, qty: number) {
     console.log('handleUpdateItemQty', item, qty);
 
-    const serivItem = serivData.value.seriv_items.find(i => i.item.id === item.id) 
+    const mrvItem = mrvData.value.mrv_items.find(i => i.item.id === item.id) 
 
-    if(!serivItem) {
+    if(!mrvItem) {
         console.error('Item not found', item.code);
         return 
     }
 
-    serivItem.quantity = qty
+    mrvItem.quantity = qty
 
 }
 
 function handleRemoveItem(item: AddItem) {
     console.log('handleRemoveItem', item);
 
-    const indx = serivData.value.seriv_items.findIndex(i => i.item.id === item.id)
+    const indx = mrvData.value.mrv_items.findIndex(i => i.item.id === item.id)
 
     if(indx === -1) {
-        console.error('item not found in serivData.items with id of ', item.id);
+        console.error('item not found in mrvData.items with id of ', item.id);
         return 
     }
 
-    serivData.value.seriv_items.splice(indx, 1)
+    mrvData.value.mrv_items.splice(indx, 1)
 }
 
 
@@ -656,7 +673,7 @@ function handleAddItem(itemId: string) {
         return 
     }
 
-    const isExist = serivData.value.seriv_items.find(i => i.item.id === itemId) 
+    const isExist = mrvData.value.mrv_items.find(i => i.item.id === itemId) 
 
     if(isExist) {
         toast.error('Item exist!')
@@ -664,7 +681,7 @@ function handleAddItem(itemId: string) {
     }
 
 
-    const serivItem = {
+    const mrvItem = {
         id: '',
         item,
         price: item.GWAPrice,
@@ -672,29 +689,29 @@ function handleAddItem(itemId: string) {
     }
 
     // @ts-ignore
-    serivData.value.seriv_items.push(serivItem)
+    mrvData.value.mrv_items.push(mrvItem)
     toast.success('Item added!')
 }
 
 // ======================== UTILS ========================  
 
-function isValidSerivInfo(): boolean {
+function isValidMrvInfo(): boolean {
 
-    serivDataErrors.value = { ..._serivDataErrorsInitial }
+    mrvDataErrors.value = { ..._mrvDataErrorsInitial }
 
-    if(serivData.value.purpose.trim() === '') {
-        serivDataErrors.value.purpose = true
+    if(mrvData.value.purpose.trim() === '') {
+        mrvDataErrors.value.purpose = true
     }
 
-    // if (!serivData.value.requested_by) {
-    //     serivDataErrors.value.requested_by = true
+    // if (!mrvData.value.requested_by) {
+    //     mrvDataErrors.value.requested_by = true
     // }
 
-    // if (!serivData.value.item_from) {
-    //     serivDataErrors.value.item_from = true
+    // if (!mrvData.value.item_from) {
+    //     mrvDataErrors.value.item_from = true
     // }
 
-    const hasError = Object.values(serivDataErrors.value).includes(true);
+    const hasError = Object.values(mrvDataErrors.value).includes(true);
 
     if (hasError) {
         return false

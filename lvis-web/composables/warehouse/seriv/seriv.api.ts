@@ -425,7 +425,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.OFFICE_SUPPLY}") {
+            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
                 data{
                     id
                     code
@@ -600,20 +600,6 @@ export async function update(id: string, input: UpdateSerivInput): Promise<Mutat
                 }
             ) {
                 id
-                seriv_approvers {
-                    id
-                    approver {
-                        id
-                        firstname
-                        middlename
-                        lastname
-                    }
-                    date_approval 
-                    notes
-                    status
-                    label
-                    order
-                }
             }
     }`;
 

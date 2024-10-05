@@ -51,7 +51,10 @@ export interface MRV {
     mrv_items: MRVItem[]
     status: APPROVAL_STATUS
     can_update?: boolean;
-  
+    request_type_object: {
+      id: WAREHOUSE_REQUEST_TYPE,
+      name: string,
+    }
   }
 
 
@@ -68,7 +71,18 @@ export interface MRV {
     msg: string
     data?: MRV
   }
+
+  export interface UpdateItemsResponse {
+    success: boolean
+    msg: string
+    mrv_items: MRVItem[]
+  }
   
+  export interface ChangeApproverResponse {
+    success: boolean
+    msg: string
+    data?: MRVApprover
+  }
   
   export interface CreateMrvInput {
     request_type: WarehouseRequestType | null
@@ -87,3 +101,18 @@ export interface MRV {
     items: AddItem[]
   }
   
+
+  export interface UpdateMrvInput {
+    project: Project | null
+    purpose: string 
+    request_type: WarehouseRequestType | null
+    requested_by: Employee | null 
+    withdrawn_by: Employee | null 
+    item_from: Station | null 
+    or_number: string | null
+    mwo_number: string | null 
+    cwo_number: string | null 
+    jo_number: string | null
+    consumer_name: string 
+    location: string 
+  }
