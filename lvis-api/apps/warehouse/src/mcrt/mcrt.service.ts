@@ -162,6 +162,50 @@ export class McrtService {
 
     }
 
+    async update(id: string, input: UpdateMcrtInput) {
+
+        const existingItem = await this.prisma.mCRT.findUnique({
+            where: { id },
+            include: {
+                mcrt_approvers: true
+            }
+        })
+
+        if (!existingItem) {
+            throw new NotFoundException('MCRT not found')
+        }
+
+        if (!this.canAccess(existingItem)) {
+            throw new ForbiddenException('Only Admin and Owner can update this record!')
+        }
+
+        if (!(await this.canUpdate(input, existingItem))) {
+            throw new Error('Failed to update MCRT. Please try again')
+        }
+
+        const data: Prisma.MCRTUpdateInput = {
+
+            note: input.note ?? existingItem.note,
+
+            wo_number: input.wo_number ?? existingItem.wo_number,
+            mo_number: input.mo_number ?? existingItem.mo_number,
+            jo_number: input.jo_number ?? existingItem.jo_number,
+
+            returned_by_id: input.returned_by_id ?? existingItem.returned_by_id,
+
+            updated_by: this.authUser.user.username,
+        }
+
+
+        const result = await this.prisma.mCRT.update({
+            data,
+            where: { id }
+        })
+        console.log('Successfully updated MCRT');
+        return result
+
+    }
+
     async cancel(id: string): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.mCRT.findUnique({
@@ -345,10 +389,6 @@ export class McrtService {
 
         return APPROVAL_STATUS.APPROVED
 
-    }
-
-    async update(id: string, input: UpdateMcrtInput) {
-        console.log('TBA: update');
     }
 
     async canUpdateForm(mcrtId: string): Promise<Boolean> {

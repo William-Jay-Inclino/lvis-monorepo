@@ -203,6 +203,56 @@ export class SerivService {
 
     }
 
+    async update(id: string, input: UpdateSerivInput) {
+
+        const existingItem = await this.prisma.sERIV.findUnique({
+            where: { id },
+            include: {
+                seriv_approvers: true
+            }
+        })
+
+        if (!existingItem) {
+            throw new NotFoundException('SERIV not found')
+        }
+
+        if (!this.canAccess(existingItem)) {
+            throw new ForbiddenException('Only Admin and Owner can update this record!')
+        }
+
+        if (!(await this.canUpdate(input, existingItem))) {
+            throw new Error('Failed to update SERIV. Please try again')
+        }
+
+        const data: Prisma.SERIVUpdateInput = {
+            purpose: input.purpose ?? existingItem.purpose,
+            request_type: input.request_type ?? existingItem.request_type,
+
+            or_number: input.or_number ?? existingItem.or_number,
+            mwo_number: input.mwo_number ?? existingItem.mwo_number,
+            cwo_number: input.cwo_number ?? existingItem.cwo_number,
+            jo_number: input.jo_number ?? existingItem.jo_number,
+
+            consumer_name: input.consumer_name ?? existingItem.consumer_name,
+            location: input.location ?? existingItem.location,
+
+            requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
+            withdrawn_by_id: input.withdrawn_by_id ?? existingItem.withdrawn_by_id,
+            item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
+
+            updated_by: this.authUser.user.username,
+        }
+
+
+        const result = await this.prisma.sERIV.update({
+            data,
+            where: { id }
+        })
+        console.log('Successfully updated SERIV');
+        return result
+
+    }
+
     async cancel(id: string): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.sERIV.findUnique({
@@ -417,22 +467,6 @@ export class SerivService {
 
         return APPROVAL_STATUS.APPROVED
 
-    }
-
-    // async isReferenced(serivId: string): Promise<Boolean> {
-
-    //     const mcrt = await this.prisma.mCRT.findUnique({
-    //         where: { seriv_id: serivId }
-    //     })
-
-    //     if (mcrt) return true
-
-    //     return false
-
-    // }
-
-    async update(id: string, input: UpdateSerivInput) {
-        console.log('TBA: update');
     }
 
     async canUpdateForm(serivId: string): Promise<Boolean> {

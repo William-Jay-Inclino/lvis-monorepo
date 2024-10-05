@@ -23,12 +23,27 @@ export class UpdateSerivInput {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
+  withdrawn_by_id?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
   item_from_id?: string;
 
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
+  or_number?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
   mwo_number?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  cwo_number?: string;
 
   @Field(() => String, { nullable: true })
   @IsOptional()

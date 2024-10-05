@@ -1,8 +1,32 @@
-import { CreateMstInput } from './create-mst.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { IsString, IsOptional } from 'class-validator';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateMstInput extends PartialType(CreateMstInput) {
-  @Field(() => Int)
-  id: number;
+export class UpdateMstInput {
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  returned_by_id?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  cwo_number?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  mwo_number?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  jo_number?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  remarks?: string;
+
 }

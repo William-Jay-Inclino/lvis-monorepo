@@ -99,90 +99,6 @@ export class MrvService {
         return result;
     }
 
-    // async create2(input: CreateMrvInput) {
-
-    //     console.log('mrv create', input);
-
-    //     if (!(await this.canCreate(input))) {
-    //         throw new Error('Failed to create MRV. Please try again')
-    //     }
-
-    //     const mrvNumber = await this.getLatestMrvNumber()
-    //     const expDate = await this.commonService.getExpDate(SETTINGS.MRV_EXP_PERIOD_IN_DAYS)
-
-    //     const data: Prisma.MRVCreateInput = {
-    //         created_by: this.authUser.user.username,
-    //         mrv_number: mrvNumber,
-    //         date_requested: new Date(),
-    //         exp_date: expDate,
-    //         request_type: input.request_type,
-    //         or_number: input.or_number,
-    //         mwo_number: input.mwo_number,
-    //         cwo_number: input.cwo_number,
-    //         jo_number: input.jo_number,
-    //         consumer_name: input.consumer_name,
-    //         location: input.location,
-    //         purpose: input.purpose,
-    //         requested_by_id: input.requested_by_id,
-    //         withdrawn_by_id: input.withdrawn_by_id,
-    //         item_from: {
-    //             connect: {
-    //                 id: input.item_from_id
-    //             }
-    //         },
-    //         project: {
-    //             connect: {
-    //                 id: input.project_id
-    //             }
-    //         },
-    //         mrv_approvers: {
-    //             create: input.approvers.map(i => {
-    //                 return {
-    //                     approver_id: i.approver_id,
-    //                     label: i.label,
-    //                     label_id: i.label_id,
-    //                     order: i.order,
-    //                     notes: '',
-    //                     status: APPROVAL_STATUS.PENDING,
-    //                 }
-    //             })
-    //         },
-    //         mrv_items: {
-    //             create: input.items.map(i => {
-    //                 return {
-    //                     item: {connect: {id: i.item_id}},
-    //                     quantity: i.quantity,
-    //                     price: i.price,
-    //                 }
-    //             })
-    //         }
-    //     }
-
-    //     const queries: Prisma.PrismaPromise<any>[] = []
-
-    //     // create MRV
-    //     const createMrvQuery = this.prisma.mRV.create({ data })
-    //     queries.push(createMrvQuery)
-
-    //     // create pending
-    //     const createPendingQuery = this.getCreatePendingQuery(input.approvers, mrvNumber)
-    //     queries.push(createPendingQuery)
-
-    //     // update item quantity_on_queue on each item
-    //     const updateItemQueries = this.generateUpdateItemQueries(input.items); 
-
-    //     const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
-
-    //     const result = await this.prisma.$transaction(allQueries)
-
-    //     console.log('MRV created successfully');
-    //     console.log('Increment quantity_on_queue on each item')
-    //     console.log('Pending with associated approver created successfully');
-
-    //     return result[0]
-
-    // }
-
     private generateUpdateItemQueries(items: CreateMrvItemSubInput[]) {
         return items.map(item => {
             return this.prisma.item.update({
@@ -210,6 +126,58 @@ export class MrvService {
         }
 
         return this.prisma.pending.create({ data })
+
+    }
+
+    async update(id: string, input: UpdateMrvInput) {
+
+        const existingItem = await this.prisma.mRV.findUnique({
+            where: { id },
+            include: {
+                mrv_approvers: true
+            }
+        })
+
+        if (!existingItem) {
+            throw new NotFoundException('MRV not found')
+        }
+
+        if (!this.canAccess(existingItem)) {
+            throw new ForbiddenException('Only Admin and Owner can update this record!')
+        }
+
+        if (!(await this.canUpdate(input, existingItem))) {
+            throw new Error('Failed to update MRV. Please try again')
+        }
+
+        const data: Prisma.MRVUpdateInput = {
+            project: input.project_id ? {connect: {id: input.project_id}} : {connect: {id: existingItem.project_id}},
+
+            purpose: input.purpose ?? existingItem.purpose,
+            request_type: input.request_type ?? existingItem.request_type,
+
+            or_number: input.or_number ?? existingItem.or_number,
+            mwo_number: input.mwo_number ?? existingItem.mwo_number,
+            cwo_number: input.cwo_number ?? existingItem.cwo_number,
+            jo_number: input.jo_number ?? existingItem.jo_number,
+
+            consumer_name: input.consumer_name ?? existingItem.consumer_name,
+            location: input.location ?? existingItem.location,
+
+            requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
+            withdrawn_by_id: input.withdrawn_by_id ?? existingItem.withdrawn_by_id,
+            item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
+
+            updated_by: this.authUser.user.username,
+        }
+
+
+        const result = await this.prisma.mRV.update({
+            data,
+            where: { id }
+        })
+        console.log('Successfully updated MRV');
+        return result
 
     }
 
@@ -441,10 +409,6 @@ export class MrvService {
 
         return false
 
-    }
-
-    async update(id: string, input: UpdateMrvInput) {
-        console.log('TBA: update');
     }
 
     async canUpdateForm(mrvId: string): Promise<Boolean> {

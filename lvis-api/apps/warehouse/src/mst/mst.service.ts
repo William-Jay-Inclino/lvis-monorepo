@@ -126,6 +126,50 @@ export class MstService {
 
     }
 
+    async update(id: string, input: UpdateMstInput) {
+
+        const existingItem = await this.prisma.mST.findUnique({
+            where: { id },
+            include: {
+                mst_approvers: true
+            }
+        })
+
+        if (!existingItem) {
+            throw new NotFoundException('MST not found')
+        }
+
+        if (!this.canAccess(existingItem)) {
+            throw new ForbiddenException('Only Admin and Owner can update this record!')
+        }
+
+        if (!(await this.canUpdate(input, existingItem))) {
+            throw new Error('Failed to update MST. Please try again')
+        }
+
+        const data: Prisma.MSTUpdateInput = {
+
+            remarks: input.remarks ?? existingItem.remarks,
+
+            cwo_number: input.cwo_number ?? existingItem.cwo_number,
+            mwo_number: input.mwo_number ?? existingItem.mwo_number,
+            jo_number: input.jo_number ?? existingItem.jo_number,
+
+            returned_by_id: input.returned_by_id ?? existingItem.returned_by_id,
+
+            updated_by: this.authUser.user.username,
+        }
+
+
+        const result = await this.prisma.mST.update({
+            data,
+            where: { id }
+        })
+        console.log('Successfully updated MST');
+        return result
+
+    }
+
     async cancel(id: string): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.mST.findUnique({
@@ -305,10 +349,6 @@ export class MstService {
 
         return APPROVAL_STATUS.APPROVED
 
-    }
-
-    async update(id: string, input: UpdateMstInput) {
-        console.log('TBA: update');
     }
 
     async canUpdateForm(mstId: string): Promise<Boolean> {
