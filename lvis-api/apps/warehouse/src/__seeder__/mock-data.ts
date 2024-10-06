@@ -166,7 +166,7 @@ export const projects: Project[] = [
 export const units: Unit[] = [
     {
         id: faker.string.uuid(),
-        name: 'Pieces',
+        name: 'Pcs',
         created_by: 'admin'
     },
     {

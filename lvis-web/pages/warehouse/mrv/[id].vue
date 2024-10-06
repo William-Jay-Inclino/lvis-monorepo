@@ -19,7 +19,7 @@
                             </li>
                             <li class="nav-item" @click="form = FORM.UPDATE_APPROVERS">
                                 <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_APPROVERS }" href="#">
-                                    <i class="fas fa-users"></i> Approvers
+                                    <i class="fas fa-users"></i> Signatories
                                 </a>
                             </li>
                             <li class="nav-item" @click="form = FORM.UPDATE_ITEMS">

@@ -97,7 +97,7 @@
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
-                                        <i class="fas fa-users"></i> Approvers
+                                        <i class="fas fa-users"></i> Signatories
                                     </h5>
                                     <hr class="result">
                                 </div>
