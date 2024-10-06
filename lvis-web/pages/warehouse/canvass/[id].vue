@@ -182,8 +182,8 @@ onMounted(async () => {
 
     if (response.canvass) {
 
-        if (!canUpdate(authUser.value, response.canvass.created_by)) {
-            redirectTo401Page()
+        if (!response.canvass.can_update) {
+            return redirectTo401Page()
         }
 
         response.canvass.date_requested = formatToValidHtmlDate(response.canvass.date_requested)

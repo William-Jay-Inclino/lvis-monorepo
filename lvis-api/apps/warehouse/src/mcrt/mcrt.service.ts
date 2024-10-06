@@ -394,9 +394,9 @@ export class McrtService {
 
     async canUpdateForm(mcrtId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const mcrt = await this.prisma.mCRT.findUnique({
             where: {
@@ -408,7 +408,7 @@ export class McrtService {
             }
         })
 
-        const isOwner = mcrt.created_by === this.authUser.user.username
+        const isOwner = mcrt.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false

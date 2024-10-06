@@ -559,9 +559,9 @@ export class RvService {
 
     async canUpdateForm(rvId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const rv = await this.prisma.rV.findUnique({
             where: {
@@ -573,7 +573,7 @@ export class RvService {
             }
         })
 
-        const isOwner = rv.created_by === this.authUser.user.username
+        const isOwner = rv.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false

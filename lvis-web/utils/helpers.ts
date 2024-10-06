@@ -147,7 +147,9 @@ export function getGrossTotal(payload: { price: number, quantity: number }) {
 }
 
 export function redirectTo401Page() {
-    return window.location.href = '/error/401'
+    const router = useRouter()
+    router.push('/error/401')
+    // return window.location.href = '/error/401'
 }
 
 export function debounce<T extends (...args: any[]) => void>(func: T, wait: number): (...args: Parameters<T>) => void {

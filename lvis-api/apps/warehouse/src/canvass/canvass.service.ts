@@ -396,13 +396,13 @@ export class CanvassService {
 
     }
 
-    // cannot update if not owner
+    // cannot update if not owner or admin
     // can only update canvass if admin AND if either rvApprovers, sprApprovers, or rvApprovers all pending 
     async canUpdate(canvassId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const canvass = await this.prisma.canvass.findUnique({
             where: { id: canvassId },
@@ -430,7 +430,7 @@ export class CanvassService {
             throw new NotFoundException('Canvass not found with id of ' + canvassId)
         }
 
-        const isOwner = canvass.created_by === this.authUser.user.username
+        const isOwner = canvass.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false

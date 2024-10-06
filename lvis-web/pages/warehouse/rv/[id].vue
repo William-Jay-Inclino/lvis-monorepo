@@ -382,159 +382,159 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
 
 // ======================== CHILD EVENTS: <WarehouseApprover> ========================  
 
-async function addApprover(
-    data: CreateApproverInput,
-    modalCloseBtn: HTMLButtonElement
-) {
+// async function addApprover(
+//     data: CreateApproverInput,
+//     modalCloseBtn: HTMLButtonElement
+// ) {
 
-    console.log('data', data)
+//     console.log('data', data)
 
-    isAddingRvApprover.value = true
-    const response = await rvApproverApi.create(rvData.value.id, data)
-    isAddingRvApprover.value = false
+//     isAddingRvApprover.value = true
+//     const response = await rvApproverApi.create(rvData.value.id, data)
+//     isAddingRvApprover.value = false
 
-    if (response.success && response.data) {
-        toast.success(response.msg)
+//     if (response.success && response.data) {
+//         toast.success(response.msg)
 
-        const approver = response.data.approver
+//         const approver = response.data.approver
 
-        approver!.fullname = getFullname(approver!.firstname, approver!.middlename, approver!.lastname)
+//         approver!.fullname = getFullname(approver!.firstname, approver!.middlename, approver!.lastname)
 
-        response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
+//         response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
 
-        rvData.value.rv_approvers.push(response.data)
-        modalCloseBtn.click()
-    } else {
-        Swal.fire({
-            title: 'Error!',
-            text: response.msg,
-            icon: 'error',
-            position: 'top',
-        })
-    }
-}
+//         rvData.value.rv_approvers.push(response.data)
+//         modalCloseBtn.click()
+//     } else {
+//         Swal.fire({
+//             title: 'Error!',
+//             text: response.msg,
+//             icon: 'error',
+//             position: 'top',
+//         })
+//     }
+// }
 
-async function editApprover(
-    data: UpdateApproverInput,
-    modalCloseBtn: HTMLButtonElement
-) {
-    isEditingRvApprover.value = true
-    const response = await rvApproverApi.update(data)
-    isEditingRvApprover.value = false
+// async function editApprover(
+//     data: UpdateApproverInput,
+//     modalCloseBtn: HTMLButtonElement
+// ) {
+//     isEditingRvApprover.value = true
+//     const response = await rvApproverApi.update(data)
+//     isEditingRvApprover.value = false
 
-    if (response.success && response.data) {
-        toast.success(response.msg)
+//     if (response.success && response.data) {
+//         toast.success(response.msg)
 
-        const prevApproverItemIndx = rvData.value.rv_approvers.findIndex(i => i.id === data.id)
+//         const prevApproverItemIndx = rvData.value.rv_approvers.findIndex(i => i.id === data.id)
 
-        response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
+//         response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
 
-        const a = response.data.approver
+//         const a = response.data.approver
 
-        console.log('a', a);
+//         console.log('a', a);
 
-        response.data.approver!['fullname'] = getFullname(a!.firstname, a!.middlename, a!.lastname)
+//         response.data.approver!['fullname'] = getFullname(a!.firstname, a!.middlename, a!.lastname)
 
-        rvData.value.rv_approvers[prevApproverItemIndx] = { ...response.data }
+//         rvData.value.rv_approvers[prevApproverItemIndx] = { ...response.data }
 
-        rvData.value.supervisor = a!
-        rvData.value.supervisor_id = a!.id
+//         rvData.value.supervisor = a!
+//         rvData.value.supervisor_id = a!.id
 
-        modalCloseBtn.click()
+//         modalCloseBtn.click()
 
-    } else {
-        Swal.fire({
-            title: 'Error!',
-            text: response.msg,
-            icon: 'error',
-            position: 'top',
-        })
-    }
-}
+//     } else {
+//         Swal.fire({
+//             title: 'Error!',
+//             text: response.msg,
+//             icon: 'error',
+//             position: 'top',
+//         })
+//     }
+// }
 
-async function removeApprover(id: string) {
+// async function removeApprover(id: string) {
 
-    const indx = rvData.value.rv_approvers.findIndex(i => i.id === id)
+//     const indx = rvData.value.rv_approvers.findIndex(i => i.id === id)
 
-    const item = rvData.value.rv_approvers[indx]
+//     const item = rvData.value.rv_approvers[indx]
 
-    if (!item) {
-        console.error('approver not found with id of: ' + id)
-        return
-    }
+//     if (!item) {
+//         console.error('approver not found with id of: ' + id)
+//         return
+//     }
 
-    Swal.fire({
-        title: "Are you sure?",
-        text: `${item.approver?.fullname} will be removed!`,
-        position: "top",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#e74a3b",
-        cancelButtonColor: "#6c757d",
-        confirmButtonText: "Yes, delete it!",
-        reverseButtons: true,
-        showLoaderOnConfirm: true,
-        preConfirm: async (remove) => {
+//     Swal.fire({
+//         title: "Are you sure?",
+//         text: `${item.approver?.fullname} will be removed!`,
+//         position: "top",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: "#e74a3b",
+//         cancelButtonColor: "#6c757d",
+//         confirmButtonText: "Yes, delete it!",
+//         reverseButtons: true,
+//         showLoaderOnConfirm: true,
+//         preConfirm: async (remove) => {
 
-            if (remove) {
-                const response = await rvApproverApi.remove(item.id)
+//             if (remove) {
+//                 const response = await rvApproverApi.remove(item.id)
 
-                if (response.success) {
+//                 if (response.success) {
 
-                    toast.success(`${item.approver?.fullname} removed!`)
+//                     toast.success(`${item.approver?.fullname} removed!`)
 
-                    rvData.value.rv_approvers.splice(indx, 1)
+//                     rvData.value.rv_approvers.splice(indx, 1)
 
-                } else {
+//                 } else {
 
-                    Swal.fire({
-                        title: 'Error!',
-                        text: response.msg,
-                        icon: 'error',
-                        position: 'top',
-                    })
+//                     Swal.fire({
+//                         title: 'Error!',
+//                         text: response.msg,
+//                         icon: 'error',
+//                         position: 'top',
+//                     })
 
-                }
-            }
+//                 }
+//             }
 
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-    })
+//         },
+//         allowOutsideClick: () => !Swal.isLoading()
+//     })
 
-}
+// }
 
-async function changeApproverOrder(
-    data: { id: string, order: number }[],
-    modalCloseBtn: HTMLButtonElement
-) {
+// async function changeApproverOrder(
+//     data: { id: string, order: number }[],
+//     modalCloseBtn: HTMLButtonElement
+// ) {
 
-    console.log('data', data)
-    console.log('modalCloseBtn', modalCloseBtn)
+//     console.log('data', data)
+//     console.log('modalCloseBtn', modalCloseBtn)
 
-    isUpdatingApproverOrder.value = true
-    const response = await rvApproverApi.updateApproverOrder(data)
-    isUpdatingApproverOrder.value = false
+//     isUpdatingApproverOrder.value = true
+//     const response = await rvApproverApi.updateApproverOrder(data)
+//     isUpdatingApproverOrder.value = false
 
-    if (response.success && response.approvers) {
-        toast.success(response.msg)
+//     if (response.success && response.approvers) {
+//         toast.success(response.msg)
 
-        rvData.value.rv_approvers = response.approvers.map(i => {
-            i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-            i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-            return i
-        })
-        modalCloseBtn.click()
+//         rvData.value.rv_approvers = response.approvers.map(i => {
+//             i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
+//             i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
+//             return i
+//         })
+//         modalCloseBtn.click()
 
-    } else {
-        Swal.fire({
-            title: 'Error!',
-            text: response.msg,
-            icon: 'error',
-            position: 'top',
-        })
-    }
+//     } else {
+//         Swal.fire({
+//             title: 'Error!',
+//             text: response.msg,
+//             icon: 'error',
+//             position: 'top',
+//         })
+//     }
 
-}
+// }
 
 // ======================== UTILS ========================  
 

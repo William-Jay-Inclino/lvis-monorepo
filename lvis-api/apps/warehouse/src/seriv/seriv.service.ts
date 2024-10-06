@@ -393,9 +393,9 @@ export class SerivService {
 
     async canUpdateForm(serivId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const seriv = await this.prisma.sERIV.findUnique({
             where: {
@@ -407,7 +407,7 @@ export class SerivService {
             }
         })
 
-        const isOwner = seriv.created_by === this.authUser.user.username
+        const isOwner = seriv.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false

@@ -126,6 +126,7 @@ export async function findOne(id: string): Promise<Canvass | undefined> {
                 rv{
                     id
                     rv_number
+                    status
                     meqs {
                         id
                         meqs_number
@@ -144,6 +145,7 @@ export async function findOne(id: string): Promise<Canvass | undefined> {
                 jo{
                     id
                     jo_number
+                    status
                     meqs {
                         id
                         meqs_number
@@ -162,6 +164,7 @@ export async function findOne(id: string): Promise<Canvass | undefined> {
                 spr{
                     id
                     spr_number
+                    status
                     meqs {
                         id
                         meqs_number

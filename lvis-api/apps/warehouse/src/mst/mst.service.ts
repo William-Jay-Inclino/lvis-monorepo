@@ -354,9 +354,9 @@ export class MstService {
 
     async canUpdateForm(mstId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const mst = await this.prisma.mST.findUnique({
             where: {
@@ -368,7 +368,7 @@ export class MstService {
             }
         })
 
-        const isOwner = mst.created_by === this.authUser.user.username
+        const isOwner = mst.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false

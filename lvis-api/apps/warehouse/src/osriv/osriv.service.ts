@@ -357,9 +357,9 @@ export class OsrivService {
 
     async canUpdateForm(osrivId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const osriv = await this.prisma.oSRIV.findUnique({
             where: {
@@ -371,7 +371,7 @@ export class OsrivService {
             }
         })
 
-        const isOwner = osriv.created_by === this.authUser.user.username
+        const isOwner = osriv.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false

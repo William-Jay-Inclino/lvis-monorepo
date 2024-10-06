@@ -1,12 +1,19 @@
 <template>
-    <NuxtLayout>
-        <div class="container error-container">
-            <div class="error-heading">401</div>
-            <div class="error-message">Unauthorized Access</div>
-            <p class="lead mt-4">You don't have permission to access this page.</p>
-        </div>
-    </NuxtLayout>
+    <div class="container error-container">
+        <div class="error-heading">401</div>
+        <div class="error-message">Unauthorized Access</div>
+        <p class="lead mt-4">You don't have permission to access this page.</p>
+    </div>
 </template>
+
+
+<script setup lang="ts">
+
+    definePageMeta({
+        layout: "default",
+    })
+
+</script>
 
 <style scoped>
 .error-container {

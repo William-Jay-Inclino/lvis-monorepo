@@ -387,157 +387,157 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
 
 // ======================== CHILD EVENTS: <WarehouseApprover> ========================  
 
-async function addApprover(
-    data: CreateApproverInput,
-    modalCloseBtn: HTMLButtonElement
-) {
+// async function addApprover(
+//     data: CreateApproverInput,
+//     modalCloseBtn: HTMLButtonElement
+// ) {
 
-    console.log('data', data)
+//     console.log('data', data)
 
-    isAddingJoApprover.value = true
-    const response = await joApproverApi.create(joData.value.id, data)
-    isAddingJoApprover.value = false
+//     isAddingJoApprover.value = true
+//     const response = await joApproverApi.create(joData.value.id, data)
+//     isAddingJoApprover.value = false
 
-    if (response.success && response.data) {
-        toast.success(response.msg)
+//     if (response.success && response.data) {
+//         toast.success(response.msg)
 
-        const approver = response.data.approver
+//         const approver = response.data.approver
 
-        approver!.fullname = getFullname(approver!.firstname, approver!.middlename, approver!.lastname)
+//         approver!.fullname = getFullname(approver!.firstname, approver!.middlename, approver!.lastname)
 
-        response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
+//         response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
 
-        joData.value.jo_approvers.push(response.data)
-        modalCloseBtn.click()
-    } else {
-        Swal.fire({
-            title: 'Error!',
-            text: response.msg,
-            icon: 'error',
-            position: 'top',
-        })
-    }
-}
+//         joData.value.jo_approvers.push(response.data)
+//         modalCloseBtn.click()
+//     } else {
+//         Swal.fire({
+//             title: 'Error!',
+//             text: response.msg,
+//             icon: 'error',
+//             position: 'top',
+//         })
+//     }
+// }
 
-async function editApprover(
-    data: UpdateApproverInput,
-    modalCloseBtn: HTMLButtonElement
-) {
-    isEditingJoApprover.value = true
-    const response = await joApproverApi.update(data)
-    isEditingJoApprover.value = false
+// async function editApprover(
+//     data: UpdateApproverInput,
+//     modalCloseBtn: HTMLButtonElement
+// ) {
+//     isEditingJoApprover.value = true
+//     const response = await joApproverApi.update(data)
+//     isEditingJoApprover.value = false
 
-    if (response.success && response.data) {
-        toast.success(response.msg)
+//     if (response.success && response.data) {
+//         toast.success(response.msg)
 
-        const prevApproverItemIndx = joData.value.jo_approvers.findIndex(i => i.id === data.id)
+//         const prevApproverItemIndx = joData.value.jo_approvers.findIndex(i => i.id === data.id)
 
-        response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
+//         response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
 
-        const a = response.data.approver
+//         const a = response.data.approver
 
-        response.data.approver!['fullname'] = getFullname(a!.firstname, a!.middlename, a!.lastname)
+//         response.data.approver!['fullname'] = getFullname(a!.firstname, a!.middlename, a!.lastname)
 
-        joData.value.jo_approvers[prevApproverItemIndx] = { ...response.data }
+//         joData.value.jo_approvers[prevApproverItemIndx] = { ...response.data }
 
-        joData.value.supervisor = a!
-        joData.value.supervisor_id = a!.id
+//         joData.value.supervisor = a!
+//         joData.value.supervisor_id = a!.id
 
-        modalCloseBtn.click()
+//         modalCloseBtn.click()
 
-    } else {
-        Swal.fire({
-            title: 'Error!',
-            text: response.msg,
-            icon: 'error',
-            position: 'top',
-        })
-    }
-}
+//     } else {
+//         Swal.fire({
+//             title: 'Error!',
+//             text: response.msg,
+//             icon: 'error',
+//             position: 'top',
+//         })
+//     }
+// }
 
-async function removeApprover(id: string) {
+// async function removeApprover(id: string) {
 
-    const indx = joData.value.jo_approvers.findIndex(i => i.id === id)
+//     const indx = joData.value.jo_approvers.findIndex(i => i.id === id)
 
-    const item = joData.value.jo_approvers[indx]
+//     const item = joData.value.jo_approvers[indx]
 
-    if (!item) {
-        console.error('approver not found with id of: ' + id)
-        return
-    }
+//     if (!item) {
+//         console.error('approver not found with id of: ' + id)
+//         return
+//     }
 
-    Swal.fire({
-        title: "Are you sure?",
-        text: `${item.approver?.fullname} will be removed!`,
-        position: "top",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#e74a3b",
-        cancelButtonColor: "#6c757d",
-        confirmButtonText: "Yes, delete it!",
-        reverseButtons: true,
-        showLoaderOnConfirm: true,
-        preConfirm: async (remove) => {
+//     Swal.fire({
+//         title: "Are you sure?",
+//         text: `${item.approver?.fullname} will be removed!`,
+//         position: "top",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: "#e74a3b",
+//         cancelButtonColor: "#6c757d",
+//         confirmButtonText: "Yes, delete it!",
+//         reverseButtons: true,
+//         showLoaderOnConfirm: true,
+//         preConfirm: async (remove) => {
 
-            if (remove) {
-                const response = await joApproverApi.remove(item.id)
+//             if (remove) {
+//                 const response = await joApproverApi.remove(item.id)
 
-                if (response.success) {
+//                 if (response.success) {
 
-                    toast.success(`${item.approver?.fullname} removed!`)
+//                     toast.success(`${item.approver?.fullname} removed!`)
 
-                    joData.value.jo_approvers.splice(indx, 1)
+//                     joData.value.jo_approvers.splice(indx, 1)
 
-                } else {
+//                 } else {
 
-                    Swal.fire({
-                        title: 'Error!',
-                        text: response.msg,
-                        icon: 'error',
-                        position: 'top',
-                    })
+//                     Swal.fire({
+//                         title: 'Error!',
+//                         text: response.msg,
+//                         icon: 'error',
+//                         position: 'top',
+//                     })
 
-                }
-            }
+//                 }
+//             }
 
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-    })
+//         },
+//         allowOutsideClick: () => !Swal.isLoading()
+//     })
 
-}
+// }
 
-async function changeApproverOrder(
-    data: { id: string, order: number }[],
-    modalCloseBtn: HTMLButtonElement
-) {
+// async function changeApproverOrder(
+//     data: { id: string, order: number }[],
+//     modalCloseBtn: HTMLButtonElement
+// ) {
 
-    console.log('data', data)
-    console.log('modalCloseBtn', modalCloseBtn)
+//     console.log('data', data)
+//     console.log('modalCloseBtn', modalCloseBtn)
 
-    isUpdatingApproverOrder.value = true
-    const response = await joApproverApi.updateApproverOrder(data)
-    isUpdatingApproverOrder.value = false
+//     isUpdatingApproverOrder.value = true
+//     const response = await joApproverApi.updateApproverOrder(data)
+//     isUpdatingApproverOrder.value = false
 
-    if (response.success && response.approvers) {
-        toast.success(response.msg)
+//     if (response.success && response.approvers) {
+//         toast.success(response.msg)
 
-        joData.value.jo_approvers = response.approvers.map(i => {
-            i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-            i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-            return i
-        })
-        modalCloseBtn.click()
+//         joData.value.jo_approvers = response.approvers.map(i => {
+//             i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
+//             i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
+//             return i
+//         })
+//         modalCloseBtn.click()
 
-    } else {
-        Swal.fire({
-            title: 'Error!',
-            text: response.msg,
-            icon: 'error',
-            position: 'top',
-        })
-    }
+//     } else {
+//         Swal.fire({
+//             title: 'Error!',
+//             text: response.msg,
+//             icon: 'error',
+//             position: 'top',
+//         })
+//     }
 
-}
+// }
 
 // ======================== UTILS ========================  
 
