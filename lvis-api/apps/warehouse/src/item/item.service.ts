@@ -838,6 +838,40 @@ export class ItemService {
 
 
 
+	// ================== MRV EVENTS ================== 
+
+	@OnEvent('mrv-approver-status.updated')
+
+	async handleMrvApproverStatusUpdated(payload: McrtApproverStatusUpdated) {
+		this.logger.log('=== item-transaction.service.ts ===')
+
+		console.log('handleMrvApproverStatusUpdated()', payload)
+
+		const mrvApprover = await this.prisma.mRVApprover.findUnique({
+			where: { id: payload.id },
+			include: {
+				mrv: true
+			}
+		})
+
+		if(!mrvApprover) {
+			throw new NotFoundException('mrvApprover not found with id: ' + payload.id)
+		}
+
+		const result = await this.prisma.mRV.update({
+			where: { id: mrvApprover.mrv.id },
+			data: {
+				is_completed: true
+			}
+		})
+
+		console.log('mrv is_completed set to true', result);
+
+	}
+
+
+
+
 	// ================== MCT EVENTS ================== 
 
 	@OnEvent('mct-approver-status.updated')
@@ -891,7 +925,7 @@ export class ItemService {
 
 		// add seriv items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
 		// @ts-ignore
-		const response = await this.transactMrvItems(mctApprover.mct_id, mctApprover.mct.mrv.mrv_items, mctApprover.mct.mrv.id)
+		const response = await this.transactMrvItems(mctApprover.mct_id, mctApprover.mct.mrv.mrv_items)
 
 		console.log('response', response)
 
@@ -900,7 +934,7 @@ export class ItemService {
 	// add mct items to item_transaction
 	// update total_quantity and quantity_on_queue of item
 
-	private async transactMrvItems(mctId: string, mrvItems: MRVItem[], mrvId: string): Promise<{ success: boolean }> {
+	private async transactMrvItems(mctId: string, mrvItems: MRVItem[]): Promise<{ success: boolean }> {
 
 		const queries: Prisma.PrismaPromise<any>[] = []
 		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
@@ -937,18 +971,6 @@ export class ItemService {
 		})
 		queries.push(updateMCTQuery)
 
-		// set is_completed field in mrv table to true 
-		const updateMRVQuery = this.prisma.mRV.update({
-			where: {
-				id: mrvId
-			},
-			data: {
-				is_completed: true
-			}
-		})
-
-		queries.push(updateMRVQuery)
-
 		// update item total_quantity and quantity_on_queue on each item
 		const updateItemQueries = this.generateUpdateItemQueries(mrvItems, ITEM_TRANSACTION_TYPE.STOCK_OUT); 
 
@@ -965,36 +987,7 @@ export class ItemService {
 
 
 
-	// ================== MRV EVENTS ================== 
 
-	@OnEvent('mrv-approver-status.updated')
-
-	async handleMrvApproverStatusUpdated(payload: McrtApproverStatusUpdated) {
-		this.logger.log('=== item-transaction.service.ts ===')
-
-		console.log('handleMrvApproverStatusUpdated()', payload)
-
-		const mrvApprover = await this.prisma.mRVApprover.findUnique({
-			where: { id: payload.id },
-			include: {
-				mrv: true
-			}
-		})
-
-		if(!mrvApprover) {
-			throw new NotFoundException('mrvApprover not found with id: ' + payload.id)
-		}
-
-		const result = await this.prisma.mRV.update({
-			where: { id: mrvApprover.mrv.id },
-			data: {
-				is_completed: true
-			}
-		})
-
-		console.log('mrv is_completed set to true', result);
-
-	}
 
 
 	// ================== MCRT EVENTS ================== 
