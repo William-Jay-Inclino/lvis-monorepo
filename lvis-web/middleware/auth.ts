@@ -19,6 +19,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
         console.log('defineNuxtRouteMiddleware')
     
         const authUser = getAuthUser()
+
+        console.log('authUser', authUser);
     
         if (isAdmin(authUser)) return
     

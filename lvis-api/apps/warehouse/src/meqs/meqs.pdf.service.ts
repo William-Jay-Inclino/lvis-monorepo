@@ -12,6 +12,9 @@ import { MEQS } from './entities/meq.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CanvassItem } from '../canvass-item/entities/canvass-item.entity';
 import { UPLOADS_PATH } from '../__common__/config';
+import { MeqsSupplierItem } from '../meqs-supplier-item/entities/meqs-supplier-item.entity';
+import { Supplier } from '../supplier/entities/supplier.entity';
+import { MeqsSupplier } from '../meqs-supplier/entities/meqs-supplier.entity';
 
 @Injectable()
 export class MeqsPdfService {
@@ -67,6 +70,10 @@ export class MeqsPdfService {
         }));
 
         const requisitioner = await this.getEmployee(requested_by_id, this.authUser)
+
+        const awardedSuppliers = this.getAwardedSuppliers(meqs.meqs_suppliers, canvassItems)
+
+        // console.log('awardedSuppliers', awardedSuppliers);
 
         // Set content of the PDF
         const content = `
@@ -217,6 +224,16 @@ export class MeqsPdfService {
                     </tr>
                     <tr>
                         <td>
+                            ${awardedSuppliers.length > 1 ? 'Awarded Suppliers:' : 'Awarded Supplier:'}
+                            <ul>
+                                ${awardedSuppliers.map(i => {
+                                    return `<li> <b>${ i.supplier.name }</b> </li>`
+                                }).join('')}
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             Requisitioner: 
                             <b>
                             ${
@@ -309,6 +326,50 @@ export class MeqsPdfService {
 
         return pdfBuffer;
     }
+
+    private getAwardedSuppliers(meqs_suppliers: MeqsSupplier[], canvass_items: CanvassItem[]): MeqsSupplier[] {
+
+        const awardedMeqsSupplier: MeqsSupplier[] = []
+
+        for(let canvassItem of canvass_items) {
+
+            for(let meqsSupplier of meqs_suppliers) {
+
+                for(let meqsSupplierItem of meqsSupplier.meqs_supplier_items) {
+
+                    if(meqsSupplierItem.canvass_item_id === canvassItem.id && meqsSupplierItem.is_awarded) {
+                        awardedMeqsSupplier.push(meqsSupplier)
+                    }
+
+                }
+
+            }
+
+        }
+
+        console.log('awardedMeqsSupplier', awardedMeqsSupplier);
+
+        return awardedMeqsSupplier
+
+        // console.log('awardedMeqsSupplierItems', awardedMeqsSupplierItems);
+
+        // const awardedSuppliers: Supplier[] = []
+
+        // for(let item of awardedMeqsSupplierItems) {
+
+        //     const isInAwardedSuppliers = awardedSuppliers.find(i => i.id === item.meqs_supplier.supplier.id)
+
+        //     if(!isInAwardedSuppliers) {
+        //         awardedSuppliers.push(item.meqs_supplier.supplier)
+        //     }
+
+        // }
+
+        // console.log('awardedSuppliers', awardedSuppliers);
+
+        // return awardedSuppliers
+
+    }
     
     private async getEmployee(employeeId: string, authUser: AuthUser) {
 
@@ -329,7 +390,7 @@ export class MeqsPdfService {
             }
         `;
 
-        console.log('query', query)
+        // console.log('query', query)
 
         try {
             const { data } = await firstValueFrom(
@@ -349,8 +410,8 @@ export class MeqsPdfService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.employee', data.data.employee)
+            // console.log('data', data);
+            // console.log('data.data.employee', data.data.employee)
 
             if (!data || !data.data) {
                 console.log('No data returned');
@@ -426,6 +487,11 @@ export class MeqsPdfService {
                                 canvass_item: {
                                     include: {
                                         unit: true
+                                    }
+                                },
+                                meqs_supplier: {
+                                    include: {
+                                        supplier: true
                                     }
                                 }
                             }
