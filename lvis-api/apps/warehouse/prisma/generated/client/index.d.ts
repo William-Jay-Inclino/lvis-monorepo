@@ -44172,6 +44172,7 @@ export namespace Prisma {
     exp_date: Date | null
     purpose: string | null
     note: string | null
+    is_completed: boolean | null
     request_type: number | null
     or_number: string | null
     mwo_number: string | null
@@ -44198,6 +44199,7 @@ export namespace Prisma {
     exp_date: Date | null
     purpose: string | null
     note: string | null
+    is_completed: boolean | null
     request_type: number | null
     or_number: string | null
     mwo_number: string | null
@@ -44224,6 +44226,7 @@ export namespace Prisma {
     exp_date: number
     purpose: number
     note: number
+    is_completed: number
     request_type: number
     or_number: number
     mwo_number: number
@@ -44261,6 +44264,7 @@ export namespace Prisma {
     exp_date?: true
     purpose?: true
     note?: true
+    is_completed?: true
     request_type?: true
     or_number?: true
     mwo_number?: true
@@ -44287,6 +44291,7 @@ export namespace Prisma {
     exp_date?: true
     purpose?: true
     note?: true
+    is_completed?: true
     request_type?: true
     or_number?: true
     mwo_number?: true
@@ -44313,6 +44318,7 @@ export namespace Prisma {
     exp_date?: true
     purpose?: true
     note?: true
+    is_completed?: true
     request_type?: true
     or_number?: true
     mwo_number?: true
@@ -44427,6 +44433,7 @@ export namespace Prisma {
     exp_date: Date
     purpose: string
     note: string
+    is_completed: boolean
     request_type: number
     or_number: string | null
     mwo_number: string | null
@@ -44473,6 +44480,7 @@ export namespace Prisma {
     exp_date?: boolean
     purpose?: boolean
     note?: boolean
+    is_completed?: boolean
     request_type?: boolean
     or_number?: boolean
     mwo_number?: boolean
@@ -44506,6 +44514,7 @@ export namespace Prisma {
     exp_date?: boolean
     purpose?: boolean
     note?: boolean
+    is_completed?: boolean
     request_type?: boolean
     or_number?: boolean
     mwo_number?: boolean
@@ -44552,6 +44561,7 @@ export namespace Prisma {
       exp_date: Date
       purpose: string
       note: string
+      is_completed: boolean
       request_type: number
       or_number: string | null
       mwo_number: string | null
@@ -44979,6 +44989,7 @@ export namespace Prisma {
     readonly exp_date: FieldRef<"MRV", 'DateTime'>
     readonly purpose: FieldRef<"MRV", 'String'>
     readonly note: FieldRef<"MRV", 'String'>
+    readonly is_completed: FieldRef<"MRV", 'Boolean'>
     readonly request_type: FieldRef<"MRV", 'Int'>
     readonly or_number: FieldRef<"MRV", 'String'>
     readonly mwo_number: FieldRef<"MRV", 'String'>
@@ -56457,6 +56468,7 @@ export namespace Prisma {
     exp_date: 'exp_date',
     purpose: 'purpose',
     note: 'note',
+    is_completed: 'is_completed',
     request_type: 'request_type',
     or_number: 'or_number',
     mwo_number: 'mwo_number',
@@ -60067,6 +60079,7 @@ export namespace Prisma {
     exp_date?: DateTimeFilter<"MRV"> | Date | string
     purpose?: StringFilter<"MRV"> | string
     note?: StringFilter<"MRV"> | string
+    is_completed?: BoolFilter<"MRV"> | boolean
     request_type?: IntFilter<"MRV"> | number
     or_number?: StringNullableFilter<"MRV"> | string | null
     mwo_number?: StringNullableFilter<"MRV"> | string | null
@@ -60099,6 +60112,7 @@ export namespace Prisma {
     exp_date?: SortOrder
     purpose?: SortOrder
     note?: SortOrder
+    is_completed?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
@@ -60134,6 +60148,7 @@ export namespace Prisma {
     exp_date?: DateTimeFilter<"MRV"> | Date | string
     purpose?: StringFilter<"MRV"> | string
     note?: StringFilter<"MRV"> | string
+    is_completed?: BoolFilter<"MRV"> | boolean
     request_type?: IntFilter<"MRV"> | number
     or_number?: StringNullableFilter<"MRV"> | string | null
     mwo_number?: StringNullableFilter<"MRV"> | string | null
@@ -60166,6 +60181,7 @@ export namespace Prisma {
     exp_date?: SortOrder
     purpose?: SortOrder
     note?: SortOrder
+    is_completed?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
@@ -60201,6 +60217,7 @@ export namespace Prisma {
     exp_date?: DateTimeWithAggregatesFilter<"MRV"> | Date | string
     purpose?: StringWithAggregatesFilter<"MRV"> | string
     note?: StringWithAggregatesFilter<"MRV"> | string
+    is_completed?: BoolWithAggregatesFilter<"MRV"> | boolean
     request_type?: IntWithAggregatesFilter<"MRV"> | number
     or_number?: StringNullableWithAggregatesFilter<"MRV"> | string | null
     mwo_number?: StringNullableWithAggregatesFilter<"MRV"> | string | null
@@ -64811,6 +64828,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -64842,6 +64860,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -64871,6 +64890,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64902,6 +64922,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64932,6 +64953,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -64958,6 +64980,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64984,6 +65007,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68472,6 +68496,7 @@ export namespace Prisma {
     exp_date?: SortOrder
     purpose?: SortOrder
     note?: SortOrder
+    is_completed?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrder
     mwo_number?: SortOrder
@@ -68503,6 +68528,7 @@ export namespace Prisma {
     exp_date?: SortOrder
     purpose?: SortOrder
     note?: SortOrder
+    is_completed?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrder
     mwo_number?: SortOrder
@@ -68529,6 +68555,7 @@ export namespace Prisma {
     exp_date?: SortOrder
     purpose?: SortOrder
     note?: SortOrder
+    is_completed?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrder
     mwo_number?: SortOrder
@@ -73098,6 +73125,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -73128,6 +73156,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -73321,6 +73350,7 @@ export namespace Prisma {
     exp_date?: DateTimeFilter<"MRV"> | Date | string
     purpose?: StringFilter<"MRV"> | string
     note?: StringFilter<"MRV"> | string
+    is_completed?: BoolFilter<"MRV"> | boolean
     request_type?: IntFilter<"MRV"> | number
     or_number?: StringNullableFilter<"MRV"> | string | null
     mwo_number?: StringNullableFilter<"MRV"> | string | null
@@ -73393,6 +73423,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -73422,6 +73453,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -80329,6 +80361,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -80359,6 +80392,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -80403,6 +80437,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -80433,6 +80468,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -80461,6 +80497,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -80491,6 +80528,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -80630,6 +80668,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -80660,6 +80699,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -80795,6 +80835,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -80825,6 +80866,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -80965,6 +81007,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -80995,6 +81038,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82689,6 +82733,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -82829,6 +82874,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82859,6 +82905,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82888,6 +82935,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82997,6 +83045,7 @@ export namespace Prisma {
     exp_date: Date | string
     purpose: string
     note?: string
+    is_completed?: boolean
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -83023,6 +83072,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83052,6 +83102,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83081,6 +83132,7 @@ export namespace Prisma {
     exp_date?: DateTimeFieldUpdateOperationsInput | Date | string
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null

@@ -847,7 +847,8 @@ model MRV {
   exp_date    DateTime
   purpose             String
   note             String @default("")
-  
+  is_completed    Boolean  @default(false)
+
   request_type Int
   or_number String?
   mwo_number String?

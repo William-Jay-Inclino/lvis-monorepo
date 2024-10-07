@@ -615,6 +615,7 @@ exports.Prisma.MRVScalarFieldEnum = {
   exp_date: 'exp_date',
   purpose: 'purpose',
   note: 'note',
+  is_completed: 'is_completed',
   request_type: 'request_type',
   or_number: 'or_number',
   mwo_number: 'mwo_number',

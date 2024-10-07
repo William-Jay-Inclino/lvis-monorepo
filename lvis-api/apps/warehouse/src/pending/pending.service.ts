@@ -13,6 +13,7 @@ import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-appro
 import { MctApproverStatusUpdated } from '../mct-approver/events/mct-approver-status-updated.event';
 import { McrtApproverStatusUpdated } from '../mcrt-approver/events/mcrt-approver-status-updated.event';
 import e from 'express';
+import { MrvApproverStatusUpdated } from '../mrv-approver/events/mrv-approver-status-updated.event';
 
 @Injectable()
 export class PendingService {
@@ -253,6 +254,7 @@ export class PendingService {
                     [DB_ENTITY.RR]: { event: 'rr-approver-status.updated', eventClass: RrApproverStatusUpdated },
                     [DB_ENTITY.OSRIV]: { event: 'osriv-approver-status.updated', eventClass: OsrivApproverStatusUpdated },
                     [DB_ENTITY.SERIV]: { event: 'seriv-approver-status.updated', eventClass: SerivApproverStatusUpdated },
+                    [DB_ENTITY.MRV]: { event: 'mrv-approver-status.updated', eventClass: MrvApproverStatusUpdated },
                     [DB_ENTITY.MCT]: { event: 'mct-approver-status.updated', eventClass: MctApproverStatusUpdated },
                     [DB_ENTITY.MCRT]: { event: 'mcrt-approver-status.updated', eventClass: McrtApproverStatusUpdated },
                 };
@@ -264,19 +266,6 @@ export class PendingService {
                     this.eventEmitter.emit(event, new eventClass(approverModel.id));
                 }
             }
-
-            // if(status === APPROVAL_STATUS.APPROVED && module.model === MODULE_MAPPER[DB_ENTITY.RR].model) {
-            //     this.eventEmitter.emit('rr-approver-status.updated', new RrApproverStatusUpdated(approverModel.id))
-            // } 
-            // else if(status === APPROVAL_STATUS.APPROVED && module.model === MODULE_MAPPER[DB_ENTITY.OSRIV].model) {
-            //     this.eventEmitter.emit('osriv-approver-status.updated', new OsrivApproverStatusUpdated(approverModel.id))
-            // }
-            // else if(status === APPROVAL_STATUS.APPROVED && module.model === MODULE_MAPPER[DB_ENTITY.SERIV].model) {
-            //     this.eventEmitter.emit('seriv-approver-status.updated', new SerivApproverStatusUpdated(approverModel.id))
-            // }
-            // else if(status === APPROVAL_STATUS.APPROVED && module.model === MODULE_MAPPER[DB_ENTITY.MCT].model) {
-            //     this.eventEmitter.emit('mct-approver-status.updated', new MctApproverStatusUpdated(approverModel.id))
-            // }
 
             return {
                 success: true,

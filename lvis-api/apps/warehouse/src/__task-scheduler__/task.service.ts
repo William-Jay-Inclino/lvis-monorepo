@@ -45,6 +45,7 @@ constructor(private readonly prisma: PrismaService) { }
                     lte: todayEnd,   
                 },
                 cancelled_at: null,
+                is_completed: false,
             },
             include: {
                 [module.items]: true,
