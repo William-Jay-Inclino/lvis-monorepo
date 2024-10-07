@@ -582,7 +582,6 @@ function onSaveMeqs() {
         Swal.fire({
             title: 'The form contains errors',
             text: 'Each item must have an associated awarded supplier, and a price is mandatory. If a supplier does not offer a specific item, please set the price to -1',
-            // text: 'Each item must have an associated awarded supplier, and a price is mandatory. If a supplier does not offer a specific item, please set the price to -1',
             icon: 'error',
             position: 'top',
         })

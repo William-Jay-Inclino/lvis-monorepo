@@ -599,9 +599,9 @@ export class MeqsService {
 
     async canUpdateForm(meqsId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const meqs = await this.prisma.mEQS.findUnique({
             where: {
@@ -613,7 +613,7 @@ export class MeqsService {
             }
         })
 
-        const isOwner = meqs.created_by === this.authUser.user.username
+        const isOwner = meqs.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false

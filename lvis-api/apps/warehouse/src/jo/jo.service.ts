@@ -565,9 +565,9 @@ export class JoService {
 
     async canUpdateForm(joId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const jo = await this.prisma.jO.findUnique({
             where: {
@@ -579,7 +579,7 @@ export class JoService {
             }
         })
 
-        const isOwner = jo.created_by === this.authUser.user.username
+        const isOwner = jo.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false

@@ -510,9 +510,9 @@ export class RrService {
 
     async canUpdateForm(rrId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const rr = await this.prisma.rR.findUnique({
             where: {
@@ -524,7 +524,7 @@ export class RrService {
             }
         })
 
-        const isOwner = rr.created_by === this.authUser.user.username
+        const isOwner = rr.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false

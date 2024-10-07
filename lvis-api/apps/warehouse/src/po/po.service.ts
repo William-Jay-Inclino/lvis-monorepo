@@ -510,9 +510,9 @@ export class PoService {
 
     async canUpdateForm(poId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const po = await this.prisma.pO.findUnique({
             where: {
@@ -524,7 +524,7 @@ export class PoService {
             }
         })
 
-        const isOwner = po.created_by === this.authUser.user.username
+        const isOwner = po.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false

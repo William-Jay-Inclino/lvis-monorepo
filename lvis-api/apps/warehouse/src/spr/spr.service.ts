@@ -565,9 +565,9 @@ export class SprService {
 
     async canUpdateForm(sprId: string): Promise<Boolean> {
 
-        if (isAdmin(this.authUser)) {
-            return true
-        }
+        // if (isAdmin(this.authUser)) {
+        //     return true
+        // }
 
         const spr = await this.prisma.sPR.findUnique({
             where: {
@@ -579,7 +579,7 @@ export class SprService {
             }
         })
 
-        const isOwner = spr.created_by === this.authUser.user.username
+        const isOwner = spr.created_by === this.authUser.user.username || isAdmin(this.authUser)
 
         if (!isOwner) {
             return false
