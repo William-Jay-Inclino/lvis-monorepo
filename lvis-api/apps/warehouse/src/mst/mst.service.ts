@@ -65,6 +65,7 @@ export class MstService {
                         item: {connect: {id: i.item_id}},
                         quantity: i.quantity,
                         price: i.price,
+                        status: i.status,
                         created_by: this.authUser.user.username,
                     }
                 })
@@ -81,12 +82,7 @@ export class MstService {
         const createPendingQuery = this.getCreatePendingQuery(input.approvers, mstNumber)
         queries.push(createPendingQuery)
 
-        // update item quantity_on_queue on each item
-        const updateItemQueries = this.generateUpdateItemQueries(input.items); 
-
-        const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
-
-        const result = await this.prisma.$transaction(allQueries)
+        const result = await this.prisma.$transaction(queries)
 
         console.log('MST created successfully');
         console.log('Increment quantity_on_queue on each item')
@@ -94,19 +90,6 @@ export class MstService {
 
         return result[0]
 
-    }
-
-    private generateUpdateItemQueries(items: CreateMstItemSubInput[]) {
-        return items.map(item => {
-            return this.prisma.item.update({
-                where: { id: item.item_id },
-                data: {
-                    quantity_on_queue: {
-                        increment: item.quantity
-                    }
-                }
-            });
-        });
     }
 
     private getCreatePendingQuery(approvers: CreateMstApproverSubInput[], mstNumber: string) {

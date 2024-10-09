@@ -31,6 +31,10 @@ export class SerivService {
 
     async create(input: CreateSerivInput) {
 
+        if (!(await this.canCreate(input))) {
+            throw new Error('Failed to create SERIV. Please try again')
+        }
+
         await this.commonService.validateItems(input.items)
     
         const serivNumber = await this.getLatestSerivNumber();
@@ -504,6 +508,10 @@ export class SerivService {
 
         if(input.withdrawn_by_id) {
             employeeIds.push(input.withdrawn_by_id)
+        }
+
+        if(input.requested_by_id) {
+            employeeIds.push(input.requested_by_id)
         }
 
         const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)

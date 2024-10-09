@@ -11,6 +11,7 @@ export async function updateMstItems(mst_id: string, mstItems: MSTItem[]): Promi
           item_id: "${i.item.id}"
           quantity: ${i.quantity}
           price: ${i.price}
+          status: ${i.statusObject?.id}
         }`;
     }).join(', ');
 
@@ -23,6 +24,7 @@ export async function updateMstItems(mst_id: string, mstItems: MSTItem[]): Promi
                 id
                 quantity
                 price
+                status
                 item {
                     id
                     code

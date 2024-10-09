@@ -153,7 +153,11 @@
                                 </button>
                             </div>
     
-                            <WarehouseItems :items="itemsInTable" @remove-item="handleRemoveItem" @update-qty="handleUpdateItemQty"/>
+                            <WarehouseItems
+                              :items="itemsInTable"
+                              :should-validate-qty="false"
+                              @remove-item="handleRemoveItem"
+                              @update-qty="handleUpdateItemQty" />
                         </div>
 
                     </div>
@@ -380,15 +384,15 @@ const isDisabledUpdateItemsBtn = computed( () => {
         return true
     }
 
-    for(let mcrtItem of mcrtItems) {
+    // for(let mcrtItem of mcrtItems) {
 
-        const availableQty = mcrtItem.item.total_quantity - mcrtItem.item.quantity_on_queue
+    //     const availableQty = mcrtItem.item.total_quantity - mcrtItem.item.quantity_on_queue
 
-        if(mcrtItem.quantity <= 0 || mcrtItem.quantity > availableQty ) {
-            return true
-        }
+    //     if(mcrtItem.quantity <= 0 || mcrtItem.quantity > availableQty ) {
+    //         return true
+    //     }
 
-    }
+    // }
 
     return false
     

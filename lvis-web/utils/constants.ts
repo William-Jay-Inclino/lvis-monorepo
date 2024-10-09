@@ -209,8 +209,8 @@ export enum DB_ENTITY {
     SERIV = 'seriv',
     MRV = 'mrv',
     MCT = 'mct',
-    MCRT = 'MCRT',
-    MST = 'MST',
+    MCRT = 'mcrt',
+    MST = 'mst',
 }
 
 export const approvalStatus = {
@@ -338,22 +338,6 @@ export const enum ITEM_TYPE {
     SPARE_PARTS = 'SP',
 }
 
-// export const itemTypeMapper = {
-//     [ITEM_TYPE.OFFICE_SUPPLY]: 'Office Supply',
-//     [ITEM_TYPE.SPECIAL_EQUIPMENT]: 'Special Equipment',
-// }
-
-// export const ITEM_TYPES: ItemType[] = [
-//     {
-//         id: ITEM_TYPE.OFFICE_SUPPLY,
-//         name: itemTypeMapper[ITEM_TYPE.OFFICE_SUPPLY],
-//     },
-//     {
-//         id: ITEM_TYPE.SPECIAL_EQUIPMENT,
-//         name: itemTypeMapper[ITEM_TYPE.SPECIAL_EQUIPMENT],
-//     },
-// ]
-
 export const enum WAREHOUSE_REQUEST_TYPE {
     TURN_ON_ORDER = 1,
     CONSTRUCTION_WORK_ORDER = 2,
@@ -403,4 +387,26 @@ export const WAREHOUSE_REQUEST_TYPES: WarehouseRequestType[] = [
         id: WAREHOUSE_REQUEST_TYPE.HW_KIT_FABRICATED,
         name: warehouseRequestTypeMapper[WAREHOUSE_REQUEST_TYPE.HW_KIT_FABRICATED]
     },
+]
+
+
+export const enum ITEM_STATUS {
+    NOT_USABLE = 0,
+    USABLE = 1,
+}
+
+export const itemStatusMapper = {
+    [ITEM_STATUS.USABLE]: 'Usable',
+    [ITEM_STATUS.NOT_USABLE]: 'Not Usable',
+}
+
+export const itemStatusArray = [
+    {
+        id: ITEM_STATUS.USABLE,
+        name: itemStatusMapper[ITEM_STATUS.USABLE]
+    },
+    {
+        id: ITEM_STATUS.NOT_USABLE,
+        name: itemStatusMapper[ITEM_STATUS.NOT_USABLE]
+    }
 ]

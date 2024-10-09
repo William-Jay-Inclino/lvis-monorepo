@@ -18,5 +18,9 @@ export class CreateMstItemSubInput {
   @IsNotEmpty()
   @IsNumber()
   price: number;
-
+  
+  @Field(() => Int)
+  @IsNotEmpty()
+  @IsInt()
+  status: number;
 }

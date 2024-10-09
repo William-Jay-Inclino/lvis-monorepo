@@ -1,5 +1,6 @@
 import type { RrItem } from "../rr/rr-item.types";
 import type { ItemTransaction } from './item-transaction.type'
+import { ITEM_STATUS } from "~/utils/constants";
 
 export interface Item {
 	id: string;
@@ -75,4 +76,8 @@ export interface AddItem {
     qty_request: number
 	item_type: ItemType
 	label: string
+	statusObject?: {
+		id: ITEM_STATUS,
+		name: string,
+	}
 }

@@ -20,6 +20,9 @@ export class MSTItem {
   @Field(() => Float)
   price: number;
 
+  @Field(() => Int)
+  status: number;
+
   @Field({ nullable: true })
   metadata?: string
 

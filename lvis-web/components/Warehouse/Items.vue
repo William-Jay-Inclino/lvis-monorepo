@@ -15,6 +15,7 @@
                     <th class="text-muted">Avg. Price</th>
                     <th width="10%" class="text-muted">Quantity</th>
                     <th class="text-muted">Amount</th>
+                    <th v-if="hasFieldStatus" class="text-muted">Status</th>
                     <th class="text-muted">Remove</th>
                 </tr>
             </thead>
@@ -28,12 +29,17 @@
                         <input
                             type="number"
                             class="form-control form-control-sm"
-                            :class="{'border-danger': i.qty_request <= 0 || i.qty_request > i.available_quantity}"
+                            :class="{'border-danger': !isValidQty(i)}"
                             :value="i.qty_request"
                             @keyup="updateItemQty(i, $event)"
                             />
                     </td>
                     <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice * i.qty_request) }} </td>
+                    <td v-if="i.statusObject" class="text-muted align-middle">
+                        <select @change="handleStatusChange(i, $event)" class="form-select form-select-sm" :value="i.statusObject.id">
+                            <option :value="i.id" v-for="i in mstStatusArray"> {{ i.name }} </option>
+                        </select>
+                    </td>
                     <td class="text-center align-middle">
                         <button @click="handleRemoveItem(i)" class="btn btn-sm btn-light">
                             <i class="fas fa-trash text-danger"></i>
@@ -50,14 +56,24 @@
     import type { AddItem } from '~/composables/warehouse/item/item.type';
 
 
-    const emits = defineEmits(['removeItem', 'updateQty']);
+    const emits = defineEmits(['removeItem', 'updateQty', 'status-change']);
         
     const props = defineProps({
         items: {
             type: Array as () => AddItem[],
             default: () => [],
         },
+        hasFieldStatus: {
+            type: Boolean,
+            default: () => false
+        },
+        shouldValidateQty: {
+            type: Boolean,
+            default: () => true
+        }
     });
+
+    const mstStatusArray = ref([...itemStatusArray])
 
     function handleRemoveItem(item: AddItem) {
         emits('removeItem', {...item})
@@ -66,6 +82,25 @@
     function updateItemQty(item: AddItem, event: Event) {
         // @ts-ignore
         emits('updateQty', item, Number(event.target.value))
+    }
+
+    function handleStatusChange(item: AddItem, event: Event) {
+        // @ts-ignore
+        emits('status-change', {item, status: Number(event.target.value)});
+    }
+
+    function isValidQty(item: AddItem) {
+
+        if(!props.shouldValidateQty) {
+            return true 
+        }
+
+        if(item.qty_request <= 0 || item.qty_request > item.available_quantity) {
+            return false 
+        }
+
+        return true
+
     }
 
 </script>

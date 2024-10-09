@@ -35,7 +35,7 @@ export class CreateItemInput {
   @Field(() => Float)
   @IsNotEmpty()
   @IsNumber()
-  @Min(0.01, { message: 'Initial Average Price must be greater than 0' })
+  @Min(0, { message: 'Initial Average Price must be equal or greater than 0' })
   initial_average_price: number
 
 }

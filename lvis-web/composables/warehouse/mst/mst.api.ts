@@ -144,6 +144,7 @@ export async function findOne(id: string): Promise<MST | undefined> {
                     id 
                     quantity
                     price
+                    status
                     item {
                         id 
                         code
@@ -328,6 +329,7 @@ export async function create(input: CreateMstInput): Promise<MutationResponse> {
           item_id: "${i.itemId}"
           quantity: ${i.quantity}
           price: ${i.unitPrice}
+          status: ${i.status.id}
         }`;
     }).join(', ');
 
@@ -461,6 +463,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     id
                     quantity
                     price
+                    status
                     item {
                         id
                         code

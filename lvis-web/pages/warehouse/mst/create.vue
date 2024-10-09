@@ -111,6 +111,7 @@
                             
                             <WarehouseMSTItems
                               :items="mstData.items"
+                              @status-change="handleItemStatusChange"
                               @remove-item="handleRemoveItem"
                               @update-item="handleUpdateItem" />
     
@@ -158,6 +159,7 @@
     import Swal from 'sweetalert2';
     import { MST_DEFAULT_APPROVERS } from '~/composables/warehouse/mst/mst.constants';
     import { useToast, POSITION as TOAST_POSITION } from 'vue-toastification';
+    import { ITEM_STATUS } from '~/utils/constants';
 
     definePageMeta({
         name: ROUTES.MST_CREATE,
@@ -292,6 +294,10 @@
             unit: item.unit,
             unitPrice: item.GWAPrice,
             showQtyError: false,
+            status: {
+                id: ITEM_STATUS.NOT_USABLE,
+                name: itemStatusMapper[ITEM_STATUS.NOT_USABLE]
+            }
         }
 
         mstData.value.items.push(mstItem)
@@ -311,6 +317,23 @@
         mstData.value.items.splice(indx, 1)
 
         toast.success('Item removed!', {position: TOAST_POSITION.BOTTOM_RIGHT})
+    }
+
+    function handleItemStatusChange(payload: {item: AddMSTItem, status: ITEM_STATUS}) {
+        console.log('handleItemStatusChange', payload);
+
+        const indx = mstData.value.items.findIndex(i => i.itemId === payload.item.itemId)
+
+        if(indx === -1) {
+            console.error('item not found in mstData.items with id of ', payload.item.itemId);
+            return 
+        }
+
+        mstData.value.items[indx] = {
+            ...mstData.value.items[indx], 
+            status: { id: payload.status, name: itemStatusMapper[payload.status] }
+        }
+
     }
 
     function handleUpdateItem(mstItem: AddMSTItem, data: {qty: number}) {

@@ -780,6 +780,7 @@ exports.Prisma.MSTItemScalarFieldEnum = {
   item_id: 'item_id',
   quantity: 'quantity',
   price: 'price',
+  status: 'status',
   created_by: 'created_by',
   created_at: 'created_at',
   metadata: 'metadata'

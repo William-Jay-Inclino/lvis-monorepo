@@ -55,10 +55,10 @@ export class CreateMrvInput {
   @IsString()
   requested_by_id: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   @IsString()
-  @IsOptional()
-  withdrawn_by_id: string | null;
+  @IsNotEmpty()
+  withdrawn_by_id: string;
 
   @Field(() => String)
   @IsString()

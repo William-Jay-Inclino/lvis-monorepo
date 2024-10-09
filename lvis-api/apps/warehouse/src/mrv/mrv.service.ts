@@ -31,6 +31,10 @@ export class MrvService {
 
     async create(input: CreateMrvInput) {
 
+        if (!(await this.canCreate(input))) {
+            throw new Error('Failed to create MRV. Please try again')
+        }
+
         await this.commonService.validateItems(input.items)
     
         const mrvNumber = await this.getLatestMrvNumber();
@@ -526,6 +530,10 @@ export class MrvService {
 
         if(input.withdrawn_by_id) {
             employeeIds.push(input.withdrawn_by_id)
+        }
+
+        if(input.requested_by_id) {
+            employeeIds.push(input.requested_by_id)
         }
 
         const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)

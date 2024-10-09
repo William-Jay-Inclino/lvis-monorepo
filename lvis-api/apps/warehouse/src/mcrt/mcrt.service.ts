@@ -117,12 +117,7 @@ export class McrtService {
         const createPendingQuery = this.getCreatePendingQuery(input.approvers, mcrtNumber)
         queries.push(createPendingQuery)
 
-        // update item quantity_on_queue on each item
-        const updateItemQueries = this.generateUpdateItemQueries(input.items); 
-
-        const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
-
-        const result = await this.prisma.$transaction(allQueries)
+        const result = await this.prisma.$transaction(queries)
 
         console.log('MCRT created successfully');
         console.log('Increment quantity_on_queue on each item')
@@ -130,19 +125,6 @@ export class McrtService {
 
         return result[0]
 
-    }
-
-    private generateUpdateItemQueries(items: CreateMcrtItemSubInput[]) {
-        return items.map(item => {
-            return this.prisma.item.update({
-                where: { id: item.item_id },
-                data: {
-                    quantity_on_queue: {
-                        increment: item.quantity
-                    }
-                }
-            });
-        });
     }
 
     private getCreatePendingQuery(approvers: CreateMcrtApproverSubInput[], mcrtNumber: string) {

@@ -144,6 +144,7 @@
                                                 <th class="bg-secondary text-white"> Quantity </th>
                                                 <th class="bg-secondary text-white"> Unit Price </th>
                                                 <th class="bg-secondary text-white"> Amount </th>
+                                                <th class="bg-secondary text-white"> Status </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -154,6 +155,12 @@
                                                 <td> {{ i.quantity }} </td>
                                                 <td> {{ formatToPhpCurrency(i.price) }} </td>
                                                 <td> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
+                                                <td>
+                                                    <span
+                                                    :class="{'text-success': i.status === ITEM_STATUS.USABLE, 'text-danger': i.status === ITEM_STATUS.NOT_USABLE}">
+                                                        {{ itemStatusMapper[i.status] }}
+                                                    </span>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -200,7 +200,7 @@
                     </div>
     
                     <div class="row justify-content-center">
-                        <div class="col-lg-6">
+                        <div class="col-lg-8">
                             <div class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/mcrt">
                                     <i class="fas fa-search"></i> Search MCRT

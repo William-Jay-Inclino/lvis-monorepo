@@ -162,7 +162,7 @@
                                 Withdrawn By
                             </label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="mrvData.withdrawn_by"></v-select>
+                                <v-select :options="employees" label="fullname" v-model="mrvData.withdrawn_by" :clearable="false"></v-select>
                             </client-only>
                         </div>
         

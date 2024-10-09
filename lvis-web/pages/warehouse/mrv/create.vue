@@ -144,8 +144,9 @@
                                     Withdrawn By
                                 </label>
                                 <client-only>
-                                    <v-select :options="employees" label="fullname" v-model="mrvData.withdrawn_by"></v-select>
+                                    <v-select :options="employees" label="fullname" v-model="mrvData.withdrawn_by" :clearable="false"></v-select>
                                 </client-only>
+                                <small class="text-danger fst-italic" v-show="mrvDataErrors.withdrawn_by"> {{ errorMsg }} </small>
                             </div>
     
                             <div v-for="approver in mrvData.approvers" class="mb-3">
@@ -281,6 +282,7 @@
         consumer_name: false,
         location: false,
         requested_by: false,
+        withdrawn_by: false,
         item_from: false,
         items: false,
     }
@@ -519,6 +521,10 @@
 
         if (!mrvData.value.requested_by) {
             mrvDataErrors.value.requested_by = true
+        }
+
+        if (!mrvData.value.withdrawn_by) {
+            mrvDataErrors.value.withdrawn_by = true
         }
 
         if (!mrvData.value.item_from) {

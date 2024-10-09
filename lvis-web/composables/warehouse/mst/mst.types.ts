@@ -1,9 +1,8 @@
 import type { Employee } from "~/composables/system/employee/employee.types";
-import type { AddItem, Item } from "../item/item.type";
 import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateMSTApprover, MSTApprover } from "./mst-approver.types";
 import type { MSTItem } from "./mst-item.types";
-
+import { ITEM_STATUS } from "~/utils/constants";
 
 export interface MST {
     id: string;
@@ -93,4 +92,10 @@ export interface MST {
     unit: Unit 
     unitPrice: number 
     showQtyError: boolean
+    status: {
+      id: ITEM_STATUS,
+      name: string
+    }
   }
+
+

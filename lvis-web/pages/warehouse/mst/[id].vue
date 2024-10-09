@@ -133,7 +133,14 @@
                                 </button>
                             </div>
     
-                            <WarehouseItems :items="itemsInTable" @remove-item="handleRemoveItem" @update-qty="handleUpdateItemQty"/>
+                            <WarehouseItems
+                              :has-field-status="true"
+                              :items="itemsInTable"
+                              :should-validate-qty="false"
+                              @remove-item="handleRemoveItem"
+                              @update-qty="handleUpdateItemQty" 
+                              @status-change="handleItemStatusChange"
+                              />
                         </div>
 
                     </div>
@@ -191,8 +198,8 @@ import { type MST, type UpdateMstInput } from '~/composables/warehouse/mst/mst.t
 import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
-import type { Station } from '~/composables/warehouse/station/station';
 import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
+import { ITEM_STATUS } from '~/utils/constants';
 
 definePageMeta({
     name: ROUTES.MST_UPDATE,
@@ -324,6 +331,7 @@ const itemsInTable = computed( (): AddItem[] => {
                 qty_request: i.quantity,
                 GWAPrice: i.item.GWAPrice,
                 item_type: i.item.item_type,
+                statusObject: i.statusObject
             }
 
             return x
@@ -356,15 +364,15 @@ const isDisabledUpdateItemsBtn = computed( () => {
         return true
     }
 
-    for(let mstItem of mstItems) {
+    // for(let mstItem of mstItems) {
 
-        const availableQty = mstItem.item.total_quantity - mstItem.item.quantity_on_queue
+    //     const availableQty = mstItem.item.total_quantity - mstItem.item.quantity_on_queue
 
-        if(mstItem.quantity <= 0 || mstItem.quantity > availableQty ) {
-            return true
-        }
+    //     if(mstItem.quantity <= 0 || mstItem.quantity > availableQty ) {
+    //         return true
+    //     }
 
-    }
+    // }
 
     return false
     
@@ -384,6 +392,8 @@ function populateForm(data: MST) {
         i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
         return i
     })
+
+    data.mst_items = data.mst_items.map(i => ({...i, statusObject: { id: i.status, name: itemStatusMapper[i.status] }}))
 
     mstData.value = data
     console.log('mstData.value', mstData.value);
@@ -445,7 +455,7 @@ async function updateMstItems() {
             position: 'top',
         })
 
-        mstData.value.mst_items = response.mst_items
+        mstData.value.mst_items = response.mst_items.map(i => ({...i, statusObject: { id: i.status, name: itemStatusMapper[i.status] }}))
 
         await fetchItems()
 
@@ -539,6 +549,24 @@ function handleRemoveItem(item: AddItem) {
 
     mstData.value.mst_items.splice(indx, 1)
 }
+
+
+function handleItemStatusChange(payload: {item: AddItem, status: ITEM_STATUS}) {
+        console.log('handleItemStatusChange', payload);
+
+        const indx = mstData.value.mst_items.findIndex(i => i.item.id === payload.item.id)
+
+        if(indx === -1) {
+            console.error('item not found in mstData.items with id of ', payload.item.id);
+            return 
+        }
+
+        mstData.value.mst_items[indx] = {
+            ...mstData.value.mst_items[indx], 
+            statusObject: { id: payload.status, name: itemStatusMapper[payload.status] }
+        }
+
+    }
 
 
 // ======================== CHILD EVENTS: <WarehouseAddItemModal> ========================  

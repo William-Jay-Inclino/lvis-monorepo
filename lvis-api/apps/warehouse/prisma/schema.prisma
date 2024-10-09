@@ -774,7 +774,7 @@ model SERIV {
   location String
 
   requested_by_id String
-  withdrawn_by_id String?
+  withdrawn_by_id String
   item_from_id String
 
   cancelled_by String?
@@ -858,7 +858,7 @@ model MRV {
   location String
 
   requested_by_id String
-  withdrawn_by_id String?
+  withdrawn_by_id String
   item_from_id String
 
   cancelled_by String?
@@ -1109,6 +1109,7 @@ model MSTItem {
   item_id         String
   quantity     Int
   price      Float @default(0)
+  status        Int @default(0)
 
   created_by   String
   created_at   DateTime  @default(now())

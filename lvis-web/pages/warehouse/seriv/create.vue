@@ -126,8 +126,9 @@
                                     Withdrawn By
                                 </label>
                                 <client-only>
-                                    <v-select :options="employees" label="fullname" v-model="serivData.withdrawn_by"></v-select>
+                                    <v-select :options="employees" label="fullname" v-model="serivData.withdrawn_by" :clearable="false"></v-select>
                                 </client-only>
+                                <small class="text-danger fst-italic" v-show="serivDataErrors.withdrawn_by"> {{ errorMsg }} </small>
                             </div>
     
                             <div v-for="approver in serivData.approvers" class="mb-3">
@@ -258,6 +259,7 @@ import { useToast } from 'vue-toastification';
         consumer_name: false,
         location: false,
         requested_by: false,
+        withdrawn_by: false,
         item_from: false,
         items: false,
     }
@@ -499,6 +501,10 @@ import { useToast } from 'vue-toastification';
 
         if (!serivData.value.requested_by) {
             serivDataErrors.value.requested_by = true
+        }
+
+        if (!serivData.value.withdrawn_by) {
+            serivDataErrors.value.withdrawn_by = true
         }
 
         if (!serivData.value.item_from) {
