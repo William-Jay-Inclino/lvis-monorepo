@@ -34,7 +34,7 @@ export class ItemResolver {
   items(
     @Args('page') page: number,
     @Args('pageSize') pageSize: number,
-    @Args('name', { nullable: true }) name?: string,
+    @Args('description', { nullable: true }) description?: string,
     @Args('item_codes', { nullable: true }) item_codes?: string,
   ) {
     
@@ -44,7 +44,7 @@ export class ItemResolver {
       _item_codes = item_codes.split(',');
     }
 
-    return this.itemService.findAll(page, pageSize, name, _item_codes as ITEM_TYPE_CODE[]);
+    return this.itemService.findAll(page, pageSize, description, _item_codes as ITEM_TYPE_CODE[]);
   }
 
   @Query(() => Item)

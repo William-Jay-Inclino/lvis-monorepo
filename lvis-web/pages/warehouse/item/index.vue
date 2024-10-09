@@ -8,7 +8,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Item Code</label>
                             <client-only>
@@ -16,7 +16,13 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <input type="text" class="form-control" v-model="searchDesc">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Item Type</label>
                             <client-only>
@@ -183,7 +189,7 @@ const pagination = ref({ ..._paginationInitial })
 const itemOptions = ref<Item[]>([])
 const itemTypes = ref<ItemType[]>([])
 const searchItem = ref<Item | null>(null)
-const searchName = ref('')
+const searchDesc = ref('')
 const searchItemType = ref<ItemType | null>(null)
 // ----------------
 
@@ -217,7 +223,8 @@ async function changePage(page: number) {
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page,
         pageSize: pagination.value.pageSize,
-        name: searchName.value,
+        description: searchDesc.value,
+        itemTypeCode: searchItemType.value ? searchItemType.value.code : null
 
     })
 
@@ -254,8 +261,8 @@ async function search() {
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page: 1,
         pageSize: pagination.value.pageSize,
-        name: searchName.value,
-
+        description: searchDesc.value,
+        itemTypeCode: searchItemType.value ? searchItemType.value.code : null
     })
 
     isSearching.value = false
@@ -266,56 +273,56 @@ async function search() {
     pagination.value.totalPages = totalPages
 }
 
-async function onClickDelete(id: string) {
-    console.log('onClickDelete', id)
+// async function onClickDelete(id: string) {
+//     console.log('onClickDelete', id)
 
-    const indx = items.value.findIndex(i => i.id === id)
-    const item = items.value[indx]
-
-
-    if (!item) {
-        console.error('Item not found with id: ' + id)
-        return
-    }
-
-    Swal.fire({
-        title: "Are you sure?",
-        text: `${item.code} will be removed!`,
-        position: "top",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#e74a3b",
-        cancelButtonColor: "#6c757d",
-        confirmButtonText: "Yes, remove it!",
-        reverseButtons: true,
-        showLoaderOnConfirm: true,
-        preConfirm: async (remove) => {
-
-            if (remove) {
-                const response = await api.remove(item.id)
-
-                if (response.success) {
-
-                    items.value.splice(indx, 1)
-                    toast.success(response.msg)
+//     const indx = items.value.findIndex(i => i.id === id)
+//     const item = items.value[indx]
 
 
-                } else {
+//     if (!item) {
+//         console.error('Item not found with id: ' + id)
+//         return
+//     }
 
-                    Swal.fire({
-                        title: 'Error!',
-                        text: response.msg,
-                        icon: 'error',
-                        position: 'top',
-                    })
+//     Swal.fire({
+//         title: "Are you sure?",
+//         text: `${item.code} will be removed!`,
+//         position: "top",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: "#e74a3b",
+//         cancelButtonColor: "#6c757d",
+//         confirmButtonText: "Yes, remove it!",
+//         reverseButtons: true,
+//         showLoaderOnConfirm: true,
+//         preConfirm: async (remove) => {
 
-                }
-            }
+//             if (remove) {
+//                 const response = await api.remove(item.id)
 
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-    })
-}
+//                 if (response.success) {
+
+//                     items.value.splice(indx, 1)
+//                     toast.success(response.msg)
+
+
+//                 } else {
+
+//                     Swal.fire({
+//                         title: 'Error!',
+//                         text: response.msg,
+//                         icon: 'error',
+//                         position: 'top',
+//                     })
+
+//                 }
+//             }
+
+//         },
+//         allowOutsideClick: () => !Swal.isLoading()
+//     })
+// }
 
 
 // ======================== UTILS ======================== 

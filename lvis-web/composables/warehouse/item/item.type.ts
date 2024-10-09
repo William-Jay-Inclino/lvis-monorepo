@@ -1,6 +1,6 @@
 import type { RrItem } from "../rr/rr-item.types";
 import type { ItemTransaction } from './item-transaction.type'
-import { ITEM_STATUS } from "~/utils/constants";
+import { ITEM_STATUS, ITEM_TYPE } from "~/utils/constants";
 
 export interface Item {
 	id: string;
@@ -28,7 +28,7 @@ export interface Item {
 
 export interface ItemType {
 	id: number
-	code: string
+	code: ITEM_TYPE
 	name: string
 }
 

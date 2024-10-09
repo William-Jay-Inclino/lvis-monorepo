@@ -202,7 +202,7 @@ export class ItemService {
 		return generatedCode;
 	}
 
-	async findAll(page: number, pageSize: number, name?: string, item_codes?: ITEM_TYPE_CODE[]): Promise<ItemsResponse> {
+	async findAll(page: number, pageSize: number, description?: string, item_codes?: ITEM_TYPE_CODE[]): Promise<ItemsResponse> {
 
 		const skip = (page - 1) * pageSize;
 
@@ -210,9 +210,9 @@ export class ItemService {
 			deleted_at: null
 		};
 
-		if (name) {
+		if (description) {
 			whereCondition = {
-				name: { contains: name.trim(), mode: 'insensitive' },
+				description: { contains: description.trim(), mode: 'insensitive' },
 			};
 		}
 

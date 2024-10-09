@@ -1,3 +1,4 @@
+import type { ITEM_TYPE } from "#imports";
 import type { CreateItemInput, FindAllResponse, Item, ItemType, MutationResponse, UpdateItemInput } from "./item.type";
 
 
@@ -56,14 +57,19 @@ export async function fetchDataInSearchFilters(): Promise<{
     }
 }
 
-export async function findAll(payload: { page: number, pageSize: number, name: string | null }): Promise<FindAllResponse> {
+export async function findAll(payload: { page: number, pageSize: number, description: string, itemTypeCode: ITEM_TYPE | null }): Promise<FindAllResponse> {
 
-    const { page, pageSize, name } = payload;
+    const { page, pageSize, description, itemTypeCode } = payload;
 
-    let name2 = null
+    let description2 = null
+    let itemTypeCode2 = null
 
-    if (name) {
-        name2 = `"${name}"`
+    if (description.trim() !== '') {
+        description2 = `"${description}"`
+    }
+
+    if(itemTypeCode) {
+        itemTypeCode2 = `"${itemTypeCode}"`
     }
 
     const query = `
@@ -71,7 +77,8 @@ export async function findAll(payload: { page: number, pageSize: number, name: s
             items(
                 page: ${page},
                 pageSize: ${pageSize},
-                name: ${name2},
+                description: ${description2},
+                item_codes: ${itemTypeCode2}
             ) {
                 data {
                     id

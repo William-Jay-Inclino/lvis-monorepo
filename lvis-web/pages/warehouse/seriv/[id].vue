@@ -150,7 +150,7 @@
                         
                         <div class="mb-3">
                             <label class="form-label">
-                                Withdrawn By
+                                Withdrawn By <span class="text-danger">*</span>
                             </label>
                             <client-only>
                                 <v-select :options="employees" label="fullname" v-model="serivData.withdrawn_by" :clearable="false"></v-select>
