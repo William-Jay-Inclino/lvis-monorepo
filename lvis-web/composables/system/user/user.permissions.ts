@@ -90,7 +90,36 @@ export const warehousePermissions: WarehousePermissions = {
         viewDetails: false,
         print: false,
     },
-
+    canManageSERIV: {
+        create: false,
+        search: false,
+        viewDetails: false,
+        print: false,
+    },
+    canManageMRV: {
+        create: false,
+        search: false,
+        viewDetails: false,
+        print: false,
+    },
+    canManageMCT: {
+        create: false,
+        search: false,
+        viewDetails: false,
+        print: false,
+    },
+    canManageMCRT: {
+        create: false,
+        search: false,
+        viewDetails: false,
+        print: false,
+    },
+    canManageMST: {
+        create: false,
+        search: false,
+        viewDetails: false,
+        print: false,
+    },
 
     // ========= DATA MANAGEMENT ========= 
     canManageSupplier: {

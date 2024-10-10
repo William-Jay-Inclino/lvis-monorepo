@@ -416,6 +416,204 @@
                             </div>
                         </td>
                     </tr>
+                    <tr v-if="permissions.warehouse.canManageOSRIV">
+                        <td class="text-muted align-middle">OSRIV</td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageOSRIV.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageOSRIV.search">
+                                <label class="form-check-label">
+                                    Search
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageOSRIV.viewDetails">
+                                <label class="form-check-label">
+                                    View Details
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageOSRIV.print">
+                                <label class="form-check-label">
+                                    Print
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.warehouse.canManageSERIV">
+                        <td class="text-muted align-middle">SERIV</td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageSERIV.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageSERIV.search">
+                                <label class="form-check-label">
+                                    Search
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageSERIV.viewDetails">
+                                <label class="form-check-label">
+                                    View Details
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageSERIV.print">
+                                <label class="form-check-label">
+                                    Print
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.warehouse.canManageMRV">
+                        <td class="text-muted align-middle">MRV</td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMRV.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMRV.search">
+                                <label class="form-check-label">
+                                    Search
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMRV.viewDetails">
+                                <label class="form-check-label">
+                                    View Details
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMRV.print">
+                                <label class="form-check-label">
+                                    Print
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.warehouse.canManageMCT">
+                        <td class="text-muted align-middle">MCT</td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMCT.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMCT.search">
+                                <label class="form-check-label">
+                                    Search
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMCT.viewDetails">
+                                <label class="form-check-label">
+                                    View Details
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMCT.print">
+                                <label class="form-check-label">
+                                    Print
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.warehouse.canManageMCRT">
+                        <td class="text-muted align-middle">MCRT</td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMCRT.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMCRT.search">
+                                <label class="form-check-label">
+                                    Search
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMCRT.viewDetails">
+                                <label class="form-check-label">
+                                    View Details
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMCRT.print">
+                                <label class="form-check-label">
+                                    Print
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.warehouse.canManageMST">
+                        <td class="text-muted align-middle">MST</td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMST.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMST.search">
+                                <label class="form-check-label">
+                                    Search
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMST.viewDetails">
+                                <label class="form-check-label">
+                                    View Details
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMST.print">
+                                <label class="form-check-label">
+                                    Print
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
                     <tr v-if="permissions.warehouse.canManageItem">
                         <td class="text-muted align-middle">Item Mgmt</td>
                         <td class="text-muted">

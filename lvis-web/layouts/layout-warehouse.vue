@@ -58,22 +58,22 @@
                                 Warehouse
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><nuxt-link class="dropdown-item"
+                                <li v-if="canView('canManageOSRIV', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/osriv">OSRIV</nuxt-link>
                                 </li>
-                                <li><nuxt-link class="dropdown-item"
+                                <li v-if="canView('canManageSERIV', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/seriv">SERIV</nuxt-link>
                                 </li>
-                                <li><nuxt-link class="dropdown-item"
+                                <li v-if="canView('canManageMRV', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/mrv">MRV</nuxt-link>
                                 </li>
-                                <li><nuxt-link class="dropdown-item"
+                                <li v-if="canView('canManageMCT', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/mct">MCT</nuxt-link>
                                 </li>
-                                <li><nuxt-link class="dropdown-item"
+                                <li v-if="canView('canManageMCRT', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/mcrt">MCRT</nuxt-link>
                                 </li>
-                                <li><nuxt-link class="dropdown-item"
+                                <li v-if="canView('canManageMST', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/mst">MST</nuxt-link>
                                 </li>
                             </ul>
@@ -199,22 +199,22 @@
                             Warehouse
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageOSRIV', authUser)"><nuxt-link class="dropdown-item"
                                 to="/warehouse/osriv">OSRIV</nuxt-link>
                             </li>
-                            <li><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageSERIV', authUser)"><nuxt-link class="dropdown-item"
                                 to="/warehouse/seriv">SERIV</nuxt-link>
                             </li>
-                            <li><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageMRV', authUser)"><nuxt-link class="dropdown-item"
                                 to="/warehouse/mrv">MRV</nuxt-link>
                             </li>
-                            <li><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageMCT', authUser)"><nuxt-link class="dropdown-item"
                                 to="/warehouse/mct">MCT</nuxt-link>
                             </li>
-                            <li><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageMCRT', authUser)"><nuxt-link class="dropdown-item"
                                 to="/warehouse/mcrt">MCRT</nuxt-link>
                             </li>
-                            <li><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageMST', authUser)"><nuxt-link class="dropdown-item"
                                 to="/warehouse/mst">MST</nuxt-link>
                             </li>
                         </ul>
@@ -319,23 +319,24 @@ function canViewWarehousing(authUser: AuthUser) {
         (!!warehousePermissions.canManageSERIV && warehousePermissions.canManageSERIV.search) || 
         (!!warehousePermissions.canManageMRV && warehousePermissions.canManageMRV.search) || 
         (!!warehousePermissions.canManageMCT && warehousePermissions.canManageMCT.search) || 
-        (!!warehousePermissions.canManageMCRT && warehousePermissions.canManageMCRT.search)
+        (!!warehousePermissions.canManageMCRT && warehousePermissions.canManageMCRT.search) || 
+        (!!warehousePermissions.canManageMST && warehousePermissions.canManageMST.search)
     )
 }
 
-function canViewStockInventory(authUser: AuthUser) {
+// function canViewStockInventory(authUser: AuthUser) {
 
-    if (isAdmin(authUser)) return true
+//     if (isAdmin(authUser)) return true
 
-    if (!authUser.user.permissions) return false
+//     if (!authUser.user.permissions) return false
 
-    const warehousePermissions = authUser.user.permissions.warehouse
+//     const warehousePermissions = authUser.user.permissions.warehouse
 
-    return (
-        (!!warehousePermissions.canManageItem && warehousePermissions.canManageItem.search) ||
-        (!!warehousePermissions.canManageItemType && warehousePermissions.canManageItemType.read)
-    )
-}
+//     return (
+//         (!!warehousePermissions.canManageItem && warehousePermissions.canManageItem.search) ||
+//         (!!warehousePermissions.canManageItemType && warehousePermissions.canManageItemType.read)
+//     )
+// }
 
 function canViewDataManagement(authUser: AuthUser) {
 

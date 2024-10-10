@@ -48,6 +48,10 @@ export function canCreate(authUser: AuthUser, permission: string, service?: SERV
 
     const _service = (service || SERVICES.WAREHOUSE).toLowerCase()
 
+    console.log('_service', _service);
+    console.log('authUser.user.permissions', authUser.user.permissions);
+    console.log('permission', permission);
+
     // @ts-ignore
     return !!authUser.user.permissions[_service][permission].create
 
