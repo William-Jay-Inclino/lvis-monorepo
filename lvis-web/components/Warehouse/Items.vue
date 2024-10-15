@@ -31,7 +31,7 @@
                             class="form-control form-control-sm"
                             :class="{'border-danger': !isValidQty(i)}"
                             :value="i.qty_request"
-                            @keyup="updateItemQty(i, $event)"
+                            @input="updateItemQty(i, $event)"
                             />
                     </td>
                     <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice * i.qty_request) }} </td>
