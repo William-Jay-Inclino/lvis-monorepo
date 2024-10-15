@@ -15,8 +15,14 @@ export function getAuthUser(): AuthUser {
     return authUser
 }
 
-export function isAdmin(authUser: AuthUser): boolean {
+export function getAuthUserAsync(): Promise<AuthUser> {
+    return new Promise((resolve) => {
+        const user = getAuthUser();  
+        resolve(user);
+    });
+}
 
+export function isAdmin(authUser: AuthUser): boolean {
     return authUser.user.role === ROLE.ADMIN
 
 }

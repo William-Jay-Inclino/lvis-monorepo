@@ -78,6 +78,7 @@ export async function findOne(id: string): Promise<User | undefined> {
                             id 
                             name
                         }
+                        total_pending_approvals
                     }
                 }
             }

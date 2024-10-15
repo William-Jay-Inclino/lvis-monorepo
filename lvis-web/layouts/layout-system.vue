@@ -176,8 +176,16 @@ import { logout } from '~/utils/helpers';
 
 const authUser = ref()
 
-onMounted(() => {
-    authUser.value = getAuthUser()
+onMounted(async() => {
+    const _authUser = await getAuthUserAsync()
+
+    if(!isAdmin(_authUser)) {
+        await updateTotalPendingsInLocalStorage(_authUser)
+    }
+
+    authUser.value = await getAuthUserAsync()
+
+
 })
 
 const totalPendings = computed(() => {

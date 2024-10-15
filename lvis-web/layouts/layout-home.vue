@@ -100,12 +100,18 @@
 
 import { logout } from '~/utils/helpers';
 
-const authUser = ref<AuthUser>()
+const authUser = ref<AuthUser >()
 
 const isMobile = ref(false)
 
-onMounted(() => {
-    authUser.value = getAuthUser()
+onMounted(async() => {
+    const _authUser = await getAuthUserAsync()
+
+    if(!isAdmin(_authUser)) {
+        await updateTotalPendingsInLocalStorage(_authUser)
+    }
+
+    authUser.value = await getAuthUserAsync()
 
     isMobile.value = window.innerWidth < MOBILE_WIDTH
 
@@ -128,7 +134,6 @@ const isApprover = (authUser: AuthUser) => {
     }
 
 }
-
 
 
 function checkMobile() {

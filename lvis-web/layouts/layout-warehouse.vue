@@ -262,10 +262,15 @@ const authUser = ref<AuthUser>()
 
 const router = useRouter()
 
-onMounted(() => {
-    authUser.value = getAuthUser()
+onMounted( async() => {
+    const _authUser = await getAuthUserAsync()
 
-    console.log('authUser.value.user.permissions', authUser.value.user.permissions)
+    if(!isAdmin(_authUser)) {
+        await updateTotalPendingsInLocalStorage(_authUser)
+    }
+
+    authUser.value = await getAuthUserAsync()
+
 })
 
 const totalPendings = computed(() => {
@@ -284,6 +289,7 @@ const isApprover = (authUser: AuthUser) => {
     }
 
 }
+
 
 function canViewPurchasing(authUser: AuthUser) {
 
@@ -323,20 +329,6 @@ function canViewWarehousing(authUser: AuthUser) {
         (!!warehousePermissions.canManageMST && warehousePermissions.canManageMST.search)
     )
 }
-
-// function canViewStockInventory(authUser: AuthUser) {
-
-//     if (isAdmin(authUser)) return true
-
-//     if (!authUser.user.permissions) return false
-
-//     const warehousePermissions = authUser.user.permissions.warehouse
-
-//     return (
-//         (!!warehousePermissions.canManageItem && warehousePermissions.canManageItem.search) ||
-//         (!!warehousePermissions.canManageItemType && warehousePermissions.canManageItemType.read)
-//     )
-// }
 
 function canViewDataManagement(authUser: AuthUser) {
 
