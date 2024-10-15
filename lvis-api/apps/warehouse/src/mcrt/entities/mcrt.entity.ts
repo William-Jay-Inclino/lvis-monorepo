@@ -38,7 +38,7 @@ export class MCRT {
   mo_number: string | null;
 
   @Field(() => String, { nullable: true })
-  jo_number: string;
+  jo_number: string | null;
 
   @Field(() => String)
   note: string;

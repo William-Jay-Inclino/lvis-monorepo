@@ -32,8 +32,8 @@ export class SERIV {
   @Field(() => String, { nullable: true })
   cwo_number: string | null;
 
-  @Field(() => String)
-  jo_number: string;
+  @Field(() => String, { nullable: true })
+  jo_number: string | null;
 
   @Field(() => String)
   consumer_name: string;
@@ -44,7 +44,7 @@ export class SERIV {
   @Field(() => String)
   requested_by_id: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   withdrawn_by_id: string | null;
 
   @Field(() => String)
