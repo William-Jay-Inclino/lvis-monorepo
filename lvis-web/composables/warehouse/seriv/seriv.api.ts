@@ -695,7 +695,30 @@ export async function fetchSERIVsBySerivNumber(payload: string): Promise<SERIV[]
                 id
                 seriv_number
                 status
-                is_referenced
+                seriv_items {
+                    id
+                    quantity
+                    price
+                    qty_returned
+                    qty_on_queue
+                    item {
+                        id 
+                        unit {
+                            id 
+                            name
+                        }
+                        code 
+                        description
+                        total_quantity
+                        quantity_on_queue
+                        GWAPrice
+                    }
+                }
+                mcrts {
+                    id
+                    mcrt_number
+                    status
+                }
             },
         }
     `;

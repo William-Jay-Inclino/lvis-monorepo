@@ -355,7 +355,7 @@
         toast.success('Item added!')
     }
 
-    async function onClickNextStep1() {
+    function onClickNextStep1() {
 
         osrivDataErrors.value = { ..._osrivDataErrorsInitial }
 

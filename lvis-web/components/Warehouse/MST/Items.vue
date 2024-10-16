@@ -18,7 +18,7 @@
                     <td class="text-muted align-middle"> {{ count + 1 }} </td>
                     <td class="text-muted align-middle"> {{ i.code + ' - ' + i.description }} </td>
                     <td class="text-muted text-center align-middle">
-                        <input type="text" :class="{'border border-danger': i.showQtyError}" class="form-control form-control-sm" :value="i.quantity" @keyup="handleQtyUpdate(i, $event)">
+                        <input type="text" :class="{'border border-danger': i.showQtyError}" class="form-control form-control-sm" :value="i.quantity" @input="handleQtyUpdate(i, $event)">
                         <small v-show="i.showQtyError" class="fst-italic text-danger">Invalid Quantity</small>
                     </td>
                     <td class="text-muted align-middle"> {{ i.unit.name }} </td>

@@ -300,16 +300,24 @@ export class SerivService {
         if (requested_by_id) {
             whereCondition = { ...whereCondition, requested_by_id }
         }
-        
-        // whereCondition.cancelled_at = {
-        //     equals: null,
-        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.sERIV.findMany({
                 include: {
                     seriv_items: {
                         include: {
+                            seriv: {
+                                select: {
+                                    mcrts: {
+                                        select: {
+                                            id: true,
+                                            cancelled_at: true,
+                                            is_completed: true,
+                                            mcrt_items: true
+                                        }
+                                    }
+                                }
+                            },
                             item: {
                                 include: {
                                     unit: true,
@@ -317,7 +325,8 @@ export class SerivService {
                                 }
                             }
                         }
-                    }
+                    },
+                    mcrts: true,
                 },
                 where: whereCondition,
                 orderBy: {
@@ -348,7 +357,30 @@ export class SerivService {
             selectClause = { 
                 id: true,
                 seriv_number: true, 
-                item_from: true
+                item_from: true,
+                seriv_items: {
+                    include: {
+                        seriv: {
+                            select: {
+                                mcrts: {
+                                    select: {
+                                        id: true,
+                                        cancelled_at: true,
+                                        is_completed: true,
+                                        mcrt_items: true
+                                    }
+                                }
+                            }
+                        },
+                        item: {
+                            include: {
+                                unit: true,
+                                item_transactions: true,
+                            }
+                        }
+                    }
+                },
+                mcrts: true,
             }; 
         } else {
             selectClause = { seriv_number: true };

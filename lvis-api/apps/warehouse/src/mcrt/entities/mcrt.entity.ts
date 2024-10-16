@@ -43,6 +43,9 @@ export class MCRT {
   @Field(() => String)
   note: string;
 
+  @Field(() => Boolean)
+  is_completed: boolean;
+
   @Field({ nullable: true })
   metadata?: string
 

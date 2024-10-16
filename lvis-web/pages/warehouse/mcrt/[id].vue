@@ -136,30 +136,11 @@
 
                 <div v-show="form === FORM.UPDATE_ITEMS" class="row justify-content-center">
                     <div class="col-lg-10">
-
-                        <div class="text-center fst-italic text-muted" v-if="isFetchingItems">
-                            loading items...
-                        </div>
-
-                        <div v-else>
-                            <div class="text-end mb-3">
-                                <button
-                                    class="btn btn-success btn-sm"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#addItemModal">
-                                    <i
-                                    class="fas fa-plus"></i>
-                                    Add Item
-                                </button>
-                            </div>
-    
-                            <WarehouseItems
-                              :items="itemsInTable"
-                              :should-validate-qty="false"
-                              @remove-item="handleRemoveItem"
-                              @update-qty="handleUpdateItemQty" />
-                        </div>
-
+                        <WarehouseMCRTItems
+                            :items="mcrtItems"
+                            @remove-item="handleRemoveItem"
+                            @update-item="handleUpdateItem" 
+                        />
                     </div>
                 </div>
         
@@ -188,7 +169,6 @@
                     </div>
                 </div>
                 
-                <WarehouseAddItemModal @add-item="handleAddItem" :items="itemsInModal" :added-item-ids="mcrtItemIds"/>
         
             </div>
         
@@ -211,12 +191,12 @@ import { useToast } from "vue-toastification";
 import * as mcrtApi from '~/composables/warehouse/mcrt/mcrt.api'
 import * as mcrtApproverApi from '~/composables/warehouse/mcrt/mcrt-approver.api'
 import * as mcrtItemApi from '~/composables/warehouse/mcrt/mcrt-item.api'
-import { type MCRT, type UpdateMcrtInput } from '~/composables/warehouse/mcrt/mcrt.types';
+import { type AddMCRTItem, type MCRT, type UpdateMcrtInput } from '~/composables/warehouse/mcrt/mcrt.types';
 import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
-import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
+import type { Item } from '~/composables/warehouse/item/item.type';
 
 definePageMeta({
     name: ROUTES.MCRT_UPDATE,
@@ -338,44 +318,6 @@ const approvers = computed( (): Approver[] => {
 
 })
 
-const mcrtItemIds = computed( () => mcrtData.value.mcrt_items.map(i => i.item.id) )
-
-const itemsInTable = computed( (): AddItem[] => {
-    return mcrtData.value.mcrt_items.map(i => {
-            const x: AddItem = {
-                id: i.item.id,
-                code: i.item.code,
-                description: i.item.description,
-                label: i.item.code + ' - ' + i.item.description,
-                available_quantity: i.item.total_quantity - i.item.quantity_on_queue,
-                unit: i.item.unit,
-                qty_request: i.quantity,
-                GWAPrice: i.item.GWAPrice,
-                item_type: i.item.item_type,
-            }
-
-            return x
-        })
-})
-
-const itemsInModal = computed( (): AddItem[] => {
-    return items.value.map(i => {
-            const x: AddItem = {
-                id: i.id,
-                code: i.code,
-                description: i.description,
-                label: i.code + ' - ' + i.description,
-                available_quantity: i.total_quantity - i.quantity_on_queue,
-                unit: i.unit,
-                qty_request: 0,
-                GWAPrice: i.GWAPrice,
-                item_type: i.item_type,
-            }
-
-            return x
-        })
-})
-
 const isDisabledUpdateItemsBtn = computed( () => {
 
     const mcrtItems = mcrtData.value.mcrt_items
@@ -384,18 +326,25 @@ const isDisabledUpdateItemsBtn = computed( () => {
         return true
     }
 
-    // for(let mcrtItem of mcrtItems) {
-
-    //     const availableQty = mcrtItem.item.total_quantity - mcrtItem.item.quantity_on_queue
-
-    //     if(mcrtItem.quantity <= 0 || mcrtItem.quantity > availableQty ) {
-    //         return true
-    //     }
-
-    // }
-
     return false
     
+})
+
+const mcrtItems = computed( (): AddMCRTItem[] => {
+
+    return mcrtData.value.mcrt_items.map(i => {
+        return {
+            itemId: i.item.id,
+            code: i.item.code,
+            description: i.item.description,
+            referenceQty: 0,
+            mcrtQty: i.quantity,
+            unit: i.item.unit,
+            unitPrice: i.price,
+            showQtyError: false,
+        }
+    })
+
 })
 
 // ======================== FUNCTIONS ========================  
@@ -498,6 +447,8 @@ async function fetchItems() {
 
 }
 
+
+
 // ======================== CHILD EVENTS: <WarehouseUpdateApprovers> ========================  
 
 async function handleChangeApprover(payload: {currentApprover: Approver, newApprover: Employee}, closeBtnModal: HTMLButtonElement) {
@@ -539,66 +490,18 @@ async function handleChangeApprover(payload: {currentApprover: Approver, newAppr
 }
 
 
-// ======================== CHILD EVENTS: <WarehouseItems> ========================  
+// ======================== CHILD EVENTS: <WarehouseMCRTItems> ========================  
 
-function handleUpdateItemQty(item: AddItem, qty: number) {
-    console.log('handleUpdateItemQty', item, qty);
-
-    const mcrtItem = mcrtData.value.mcrt_items.find(i => i.item.id === item.id) 
-
-    if(!mcrtItem) {
-        console.error('Item not found', item.code);
-        return 
-    }
-
-    mcrtItem.quantity = qty
-
-}
-
-function handleRemoveItem(item: AddItem) {
+function handleRemoveItem(item: AddMCRTItem) {
     console.log('handleRemoveItem', item);
 
-    const indx = mcrtData.value.mcrt_items.findIndex(i => i.item.id === item.id)
+}
 
-    if(indx === -1) {
-        console.error('item not found in mcrtData.items with id of ', item.id);
-        return 
-    }
-
-    mcrtData.value.mcrt_items.splice(indx, 1)
+function handleUpdateItem(mcrtItem: AddMCRTItem, data: {qty: number}) {
+    console.log('handleUpdateItem', data);
 }
 
 
-// ======================== CHILD EVENTS: <WarehouseAddItemModal> ========================  
-
-function handleAddItem(itemId: string) {
-    console.log('handleAddItem', itemId);
-    const item = items.value.find(i => i.id === itemId)
-
-    if(!item) {
-        console.error('item not found');
-        return 
-    }
-
-    const isExist = mcrtData.value.mcrt_items.find(i => i.item.id === itemId) 
-
-    if(isExist) {
-        toast.error('Item exist!')
-        return 
-    }
-
-
-    const mcrtItem = {
-        id: '',
-        item,
-        price: item.GWAPrice,
-        quantity: 0,
-    }
-
-    // @ts-ignore
-    mcrtData.value.mcrt_items.push(mcrtItem)
-    toast.success('Item added!')
-}
 
 // ======================== UTILS ========================  
 

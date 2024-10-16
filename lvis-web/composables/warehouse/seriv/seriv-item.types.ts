@@ -12,5 +12,7 @@ export interface SERIVItem {
     // =============== derived / resolvers =============== 
     seriv: SERIV
     item: Item
+    qty_returned: number
+    qty_on_queue: number
 }
 

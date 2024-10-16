@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
 import { SerivItemService } from './seriv-item.service';
 import { SERIVItem } from './entities/seriv-item.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -11,7 +11,9 @@ import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 @Resolver(() => SERIVItem)
 export class SerivItemResolver {
 
-    constructor(private readonly serivItemService: SerivItemService) {}
+    constructor(
+        private readonly serivItemService: SerivItemService,
+    ) {}
 
     @Mutation(() => [SERIVItem])
     async updateSerivItems(
@@ -21,6 +23,17 @@ export class SerivItemResolver {
     ) {
         this.serivItemService.setAuthUser(authUser)
         return await this.serivItemService.updateSerivItems(seriv_id, items);
+    }
+
+    @ResolveField(() => Number)
+    qty_returned(@Parent() serivItem: SERIVItem): number {
+        return this.serivItemService.get_qty_returned(serivItem.seriv.mcrts, serivItem.item_id)
+    }
+
+    @ResolveField(() => Number)
+    async qty_on_queue(@Parent() serivItem: SERIVItem): Promise<number> {
+
+        return await this.serivItemService.get_qty_on_queue(serivItem.seriv.mcrts, serivItem.item_id)
     }
   
 }

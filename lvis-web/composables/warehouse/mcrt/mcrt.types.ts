@@ -84,7 +84,8 @@ export interface MCRT {
     jo_number: string 
     note: string 
     approvers: CreateMCRTApprover[]
-    items: AddMCRTItem[]
+    items: MCRTItem[]
+    // items: AddMCRTItem[]
   }
 
   export interface UpdateMcrtInput {
@@ -95,13 +96,13 @@ export interface MCRT {
     note: string 
   }
 
-  export interface AddMCRTItem {
-    itemId: string
-    code: string
-    description: string 
-    referenceQty: number 
-    mcrtQty: number 
-    unit: Unit 
-    unitPrice: number 
-    showQtyError: boolean
-  }
+  // export interface AddMCRTItem {
+  //   itemId: string
+  //   code: string
+  //   description: string 
+  //   referenceQty: number 
+  //   mcrtQty: number 
+  //   unit: Unit 
+  //   unitPrice: number 
+  //   showQtyError: boolean
+  // }

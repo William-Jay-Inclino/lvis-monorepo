@@ -270,6 +270,10 @@ export async function fetchFormDataInCreate(): Promise<{
                             }
                         }
                     }
+                    mcrts {
+                        id
+                        mcrt_number
+                    }
                 }
             },
             serivs(page: 1, pageSize: 10) {
@@ -281,6 +285,8 @@ export async function fetchFormDataInCreate(): Promise<{
                         id
                         quantity
                         price
+                        qty_returned
+                        qty_on_queue
                         item {
                             id 
                             unit {
@@ -293,6 +299,11 @@ export async function fetchFormDataInCreate(): Promise<{
                             quantity_on_queue
                             GWAPrice
                         }
+                    }
+                    mcrts {
+                        id
+                        mcrt_number
+                        status
                     }
                 }
             },
@@ -525,9 +536,9 @@ export async function create(input: CreateMcrtInput): Promise<MutationResponse> 
     const items = input.items.map(i => {
         return `
         {
-          item_id: "${i.itemId}"
-          quantity: ${i.mcrtQty}
-          price: ${i.unitPrice}
+          item_id: "${i.item.id}"
+          quantity: ${i.quantity}
+          price: ${i.price}
         }`;
     }).join(', ');
 

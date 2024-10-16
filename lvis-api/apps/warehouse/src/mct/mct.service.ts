@@ -219,6 +219,12 @@ export class MctService {
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mCT.findMany({
                 include: {
+                    mcrts: {
+                        select: {
+                            id: true,
+                            mcrt_number: true,
+                        }
+                    },
                     mrv: {
                         include: {
                             mrv_items: {

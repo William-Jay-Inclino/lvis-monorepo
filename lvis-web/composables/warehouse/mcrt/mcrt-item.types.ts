@@ -12,5 +12,9 @@ export interface MCRTItem {
     // =============== derived / resolvers =============== 
     mcrt: MCRT
     item: Item
+    showQtyError: boolean
+    reference_qty: number
+    qty_returned: number
+    qty_on_queue: number
 }
 

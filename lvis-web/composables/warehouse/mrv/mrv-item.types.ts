@@ -12,5 +12,7 @@ export interface MRVItem {
     // =============== derived / resolvers =============== 
     mrv: MRV
     item: Item
+    qty_returned: number
+    qty_on_queue: number
 }
 

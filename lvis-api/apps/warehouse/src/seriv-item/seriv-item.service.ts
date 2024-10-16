@@ -3,6 +3,9 @@ import { AuthUser } from '../__common__/auth-user.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateSerivItemSubInput } from '../seriv/dto/create-seriv-item.sub.input';
 import { CommonService } from '../__common__/classes';
+import { MCRT } from '../mcrt/entities/mcrt.entity';
+import { APPROVAL_STATUS } from '../__common__/types';
+import { McrtService } from '../mcrt/mcrt.service';
 
 @Injectable()
 export class SerivItemService {
@@ -12,6 +15,7 @@ export class SerivItemService {
 	constructor(
 		private readonly prisma: PrismaService,
         private readonly commonService: CommonService,
+        private readonly mcrtService: McrtService,
 	) { }
 
 	setAuthUser(authUser: AuthUser) {
@@ -90,5 +94,66 @@ export class SerivItemService {
 		});
 	}
 	
+	// MCRT that is approved
+	get_qty_returned(mcrts: MCRT[], item_id: string): number {
+
+		let qtyReturned = 0
+
+		for(let mcrt of mcrts) {
+
+			console.log('mcrt', mcrt);
+
+			if(!mcrt.is_completed) {
+				continue
+			}
+
+			const mcrtItem = mcrt.mcrt_items.find(i => i.item_id === item_id)
+
+			if(!mcrtItem) {
+				continue
+			}
+
+			qtyReturned += mcrtItem.quantity
+
+		}
+
+		return qtyReturned
+
+	}
+
+	// MCRT that is pending
+	async get_qty_on_queue(mcrts: MCRT[], item_id: string): Promise<number> {
+
+		console.log('get_qty_on_queue');
+
+		let qtyQueue = 0
+
+		for(let mcrt of mcrts) {
+
+			console.log('mcrt', mcrt);
+
+			if(mcrt.cancelled_at) {
+				continue
+			}
+
+			const status = await this.mcrtService.getStatus(mcrt.id)
+
+			if(status === APPROVAL_STATUS.PENDING) {
+
+				const mcrtItem = mcrt.mcrt_items.find(i => i.item_id === item_id)
+	
+				if(!mcrtItem) {
+					continue
+				}
+	
+				qtyQueue += mcrtItem.quantity
+
+			}
+
+		}
+
+		return qtyQueue
+
+	}
 
 }
