@@ -67,29 +67,37 @@ export async function updateMcrtItems(mcrt_id: string, mcrtItems: MCRTItem[]): P
     }
 }
 
-export async function fetchItems(): Promise<{
-    items: Item[],
+export async function fetchMcrtItems(id: string): Promise<{
+    items: MCRTItem[],
 }> {
     const query = `
         query {
-            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
-                data{
+            mcrt(id: "${id}") {
+                mcrt_items {
                     id
-                    code
-                    description
-                    item_type {
-                        id 
-                        code 
-                        name
+                    quantity
+                    price
+                    reference_qty
+                    qty_returned
+                    qty_on_queue
+                    item {
+                        id
+                        code
+                        description
+                        item_type {
+                            id 
+                            name
+                        }
+                        unit {
+                            id 
+                            name
+                        }
+                        total_quantity
+                        quantity_on_queue
+                        GWAPrice
                     }
-                    unit {
-                        id 
-                        name
-                    }
-                    total_quantity
-                    quantity_on_queue
-                    GWAPrice
                 }
+
             },
         }
     `;
@@ -98,7 +106,7 @@ export async function fetchItems(): Promise<{
         const response = await sendRequest(query);
         console.log('response', response)
 
-        let items: Item[] = []
+        let items: MCRTItem[] = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -106,8 +114,8 @@ export async function fetchItems(): Promise<{
 
         const data = response.data.data
 
-        if (data.items && data.items.data) {
-            items = response.data.data.items.data
+        if (data.mcrt && data.mcrt.mcrt_items) {
+            items = data.mcrt.mcrt_items
         }
 
         return {

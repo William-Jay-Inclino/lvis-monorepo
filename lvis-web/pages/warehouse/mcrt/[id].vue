@@ -135,11 +135,16 @@
                 </div>
 
                 <div v-show="form === FORM.UPDATE_ITEMS" class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <WarehouseMCRTItems
-                              :items="mcrtData.mcrt_items"
-                              @remove-item="handleRemoveItem"
-                              @update-item="handleUpdateItem" />
+                    <div class="col-lg-11">
+                        <div class="text-muted fst-italic text-center" v-show="isFetchingItems">
+                            loading items...
+                        </div>
+                        <div v-show="!isFetchingItems">
+                            <WarehouseMCRTItems
+                                  :items="mcrtData.mcrt_items"
+                                  @remove-item="handleRemoveItem"
+                                  @update-item="handleUpdateItem" />
+                        </div>
                     </div>
                 </div>
         
@@ -186,7 +191,6 @@
 
 import Swal from 'sweetalert2'
 import { getFullname, formatToValidHtmlDate } from '~/utils/helpers'
-import { useToast } from "vue-toastification";
 import * as mcrtApi from '~/composables/warehouse/mcrt/mcrt.api'
 import * as mcrtApproverApi from '~/composables/warehouse/mcrt/mcrt-approver.api'
 import * as mcrtItemApi from '~/composables/warehouse/mcrt/mcrt-item.api'
@@ -197,6 +201,7 @@ import { addPropertyFullName } from '~/composables/system/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
 import type { Item } from '~/composables/warehouse/item/item.type';
 import type { MCRTItem } from '~/composables/warehouse/mcrt/mcrt-item.types';
+import { useToast, POSITION as TOAST_POSITION } from 'vue-toastification';
 
 definePageMeta({
     name: ROUTES.MCRT_UPDATE,
@@ -407,7 +412,7 @@ async function updateMcrtItems() {
 
         mcrtData.value.mcrt_items = response.mcrt_items
 
-        await fetchItems()
+        await fetchItems(mcrtData.value.id)
 
     } else {
         Swal.fire({
@@ -420,13 +425,13 @@ async function updateMcrtItems() {
 
 }
 
-async function fetchItems() {
+async function fetchItems(id: string) {
 
     isFetchingItems.value = true
-    const response = await mcrtItemApi.fetchItems()
+    const response = await mcrtItemApi.fetchMcrtItems(id)
     isFetchingItems.value = false
 
-    items.value = response.items
+    mcrtData.value.mcrt_items = response.items.map(i => ({...i}))
 
 }
 
@@ -476,12 +481,35 @@ async function handleChangeApprover(payload: {currentApprover: Approver, newAppr
 // ======================== CHILD EVENTS: <WarehouseMCRTItems> ========================  
 
 function handleRemoveItem(item: MCRTItem) {
-    console.log('handleRemoveItem', item);
 
+    const indx = mcrtData.value.mcrt_items.findIndex(i => i.item.id === item.id)
+
+    if(indx === -1) {
+        console.error('item not found in mcrtData.mcrt_items with id of ', item.item.id);
+        return 
+    }
+
+    mcrtData.value.mcrt_items.splice(indx, 1)
+
+    toast.success('Item removed!', {position: TOAST_POSITION.BOTTOM_RIGHT})
 }
 
 function handleUpdateItem(mcrtItem: MCRTItem, data: {qty: number}) {
-    console.log('handleUpdateItem', data);
+    const item = mcrtData.value.mcrt_items.find(i => i.item.id === mcrtItem.item.id)
+
+    if(!item) {
+        console.error('item not found');
+        return 
+    }
+
+    if(data.qty <= 0 || data.qty > (mcrtItem.reference_qty - mcrtItem.qty_returned)) {
+        item.showQtyError = true 
+    } else {
+        item.showQtyError = false
+    }
+
+    item.quantity = data.qty
+
 }
 
 

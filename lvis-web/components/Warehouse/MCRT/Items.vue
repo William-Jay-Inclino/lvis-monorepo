@@ -9,7 +9,7 @@
                     <th class="bg-secondary text-white"> Reference Qty </th>
                     <th class="bg-secondary text-white"> Qty returned </th>
                     <th class="bg-secondary text-white"> Qty to return (pending) </th>
-                    <th class="bg-secondary text-white"> Qty </th>
+                    <th style="width: 10%;" class="bg-secondary text-white"> Qty </th>
                     <th class="bg-secondary text-white"> Unit Price </th>
                     <th class="bg-secondary text-white"> Amount </th>
                     <th class="bg-secondary text-white"> Remove </th>
