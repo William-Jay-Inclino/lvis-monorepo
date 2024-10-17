@@ -16,20 +16,14 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
     if(import.meta.client) {
 
-        console.log('defineNuxtRouteMiddleware')
-    
         const authUser = getAuthUser()
 
-        console.log('authUser', authUser);
-    
         if (isAdmin(authUser)) return
     
         if (ROUTE_EXEMPTIONS.includes(to.name as ROUTES)) return
     
         if (!authUser.user.permissions) return redirectTo401Page()
 
-        console.log('authUser.user.permissions', authUser.user.permissions);
-    
         const isSystemService = to.name?.toString().includes(SERVICES.SYSTEM)
         const isWarehouseService = to.name?.toString().includes(SERVICES.WAREHOUSE)
     

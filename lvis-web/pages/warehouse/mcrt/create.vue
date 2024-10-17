@@ -552,12 +552,12 @@
 
     // ======================== CHILD EVENTS: <WarehouseMCRTItems> ========================  
 
-    function handleRemoveItem(item: MCRTItem) {
+    function handleRemoveItem(mcrtItem: MCRTItem) {
 
-        const indx = mcrtData.value.items.findIndex(i => i.item.id === item.id)
+        const indx = mcrtData.value.items.findIndex(i => i.item.id === mcrtItem.item.id)
 
         if(indx === -1) {
-            console.error('item not found in mcrtData.items with id of ', item.item.id);
+            console.error('item not found in mcrtData.items with id of ', mcrtItem.item.id);
             return 
         }
 

@@ -133,14 +133,12 @@
                                 </button>
                             </div>
     
-                            <WarehouseItems
-                              :has-field-status="true"
-                              :items="itemsInTable"
-                              :should-validate-qty="false"
-                              @remove-item="handleRemoveItem"
-                              @update-qty="handleUpdateItemQty" 
+                            <WarehouseMSTItems
+                              :items="mstData.mst_items"
                               @status-change="handleItemStatusChange"
-                              />
+                              @remove-item="handleRemoveItem"
+                              @update-item="handleUpdateItem" />
+
                         </div>
 
                     </div>
@@ -200,6 +198,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
 import { ITEM_STATUS } from '~/utils/constants';
+import type { MSTItem } from '~/composables/warehouse/mst/mst-item.types';
 
 definePageMeta({
     name: ROUTES.MST_UPDATE,
@@ -319,24 +318,6 @@ const approvers = computed( (): Approver[] => {
 
 const mstItemIds = computed( () => mstData.value.mst_items.map(i => i.item.id) )
 
-const itemsInTable = computed( (): AddItem[] => {
-    return mstData.value.mst_items.map(i => {
-            const x: AddItem = {
-                id: i.item.id,
-                code: i.item.code,
-                description: i.item.description,
-                label: i.item.code + ' - ' + i.item.description,
-                available_quantity: i.item.total_quantity - i.item.quantity_on_queue,
-                unit: i.item.unit,
-                qty_request: i.quantity,
-                GWAPrice: i.item.GWAPrice,
-                item_type: i.item.item_type,
-                statusObject: i.statusObject
-            }
-
-            return x
-        })
-})
 
 const itemsInModal = computed( (): AddItem[] => {
     return items.value.map(i => {
@@ -364,15 +345,14 @@ const isDisabledUpdateItemsBtn = computed( () => {
         return true
     }
 
-    // for(let mstItem of mstItems) {
+    for(let mstItem of mstItems) {
 
-    //     const availableQty = mstItem.item.total_quantity - mstItem.item.quantity_on_queue
 
-    //     if(mstItem.quantity <= 0 || mstItem.quantity > availableQty ) {
-    //         return true
-    //     }
+        if(mstItem.quantity <= 0) {
+            return true
+        }
 
-    // }
+    }
 
     return false
     
@@ -457,8 +437,6 @@ async function updateMstItems() {
 
         mstData.value.mst_items = response.mst_items.map(i => ({...i, statusObject: { id: i.status, name: itemStatusMapper[i.status] }}))
 
-        await fetchItems()
-
     } else {
         Swal.fire({
             title: 'Error!',
@@ -469,17 +447,6 @@ async function updateMstItems() {
     }
 
 }
-
-async function fetchItems() {
-
-    isFetchingItems.value = true
-    const response = await mstItemApi.fetchItems()
-    isFetchingItems.value = false
-
-    items.value = response.items
-
-}
-
 // ======================== CHILD EVENTS: <WarehouseUpdateApprovers> ========================  
 
 async function handleChangeApprover(payload: {currentApprover: Approver, newApprover: Employee}, closeBtnModal: HTMLButtonElement) {
@@ -523,17 +490,22 @@ async function handleChangeApprover(payload: {currentApprover: Approver, newAppr
 
 // ======================== CHILD EVENTS: <WarehouseItems> ========================  
 
-function handleUpdateItemQty(item: AddItem, qty: number) {
-    console.log('handleUpdateItemQty', item, qty);
+function handleUpdateItem(mstItem: MSTItem, data: {qty: number}) {
 
-    const mstItem = mstData.value.mst_items.find(i => i.item.id === item.id) 
+    const item = mstData.value.mst_items.find(i => i.item.id === mstItem.item.id)
 
-    if(!mstItem) {
-        console.error('Item not found', item.code);
+    if(!item) {
+        console.error('item not found');
         return 
     }
 
-    mstItem.quantity = qty
+    if(data.qty <= 0) {
+        item.showQtyError = true 
+    } else {
+        item.showQtyError = false 
+    }
+
+    item.quantity = data.qty
 
 }
 
@@ -551,22 +523,22 @@ function handleRemoveItem(item: AddItem) {
 }
 
 
-function handleItemStatusChange(payload: {item: AddItem, status: ITEM_STATUS}) {
-        console.log('handleItemStatusChange', payload);
+function handleItemStatusChange(mstItem: MSTItem, data: {status: ITEM_STATUS}) {
 
-        const indx = mstData.value.mst_items.findIndex(i => i.item.id === payload.item.id)
+    const indx = mstData.value.mst_items.findIndex(i => i.item.id === mstItem.item.id)
 
-        if(indx === -1) {
-            console.error('item not found in mstData.items with id of ', payload.item.id);
-            return 
-        }
-
-        mstData.value.mst_items[indx] = {
-            ...mstData.value.mst_items[indx], 
-            statusObject: { id: payload.status, name: itemStatusMapper[payload.status] }
-        }
-
+    if(indx === -1) {
+        console.error('item not found in mstData.items with id of ', mstItem.item.id);
+        return 
     }
+
+    mstData.value.mst_items[indx] = {
+        ...mstData.value.mst_items[indx],
+        status: data.status,
+        statusObject: { id: data.status, name: itemStatusMapper[data.status] }
+    }
+
+}
 
 
 // ======================== CHILD EVENTS: <WarehouseAddItemModal> ========================  

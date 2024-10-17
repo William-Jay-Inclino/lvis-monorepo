@@ -73,7 +73,7 @@ export interface MST {
     jo_number: string 
     remarks: string 
     approvers: CreateMSTApprover[]
-    items: AddMSTItem[]
+    items: MSTItem[]
   }
 
   export interface UpdateMstInput {
@@ -84,18 +84,18 @@ export interface MST {
     remarks: string 
   }
 
-  export interface AddMSTItem {
-    itemId: string
-    quantity: number
-    code: string
-    description: string 
-    unit: Unit 
-    unitPrice: number 
-    showQtyError: boolean
-    status: {
-      id: ITEM_STATUS,
-      name: string
-    }
-  }
+  // export interface AddMSTItem {
+  //   itemId: string
+  //   quantity: number
+  //   code: string
+  //   description: string 
+  //   unit: Unit 
+  //   unitPrice: number 
+  //   showQtyError: boolean
+  //   status: {
+  //     id: ITEM_STATUS,
+  //     name: string
+  //   }
+  // }
 
 

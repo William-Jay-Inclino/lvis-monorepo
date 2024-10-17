@@ -81,14 +81,6 @@
             
                     <div v-show="currentStep === 2" class="row justify-content-center pt-5">
                         <div class="col-lg-10">
-                            <!-- <div class="mb-3">
-                                <small class="form-label fst-italic text-muted">
-                                    Input the name of the item in the search field below
-                                </small>
-                                <client-only>
-                                    <v-select :options="items" v-model="osrivData.items" label="label" multiple></v-select>
-                                </client-only>
-                            </div> -->
                             
                             <div class="text-end mb-3">
                                 <button

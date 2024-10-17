@@ -7,8 +7,18 @@
                 <div v-if="!isLoadingPage && authUser">
                     <h2 class="text-warning">Create MST</h2>
                     <hr>
+
+                    <div class="row pt-3">
+                        <div class="col">
+                            <span class="text-secondary">
+                                Step {{ currentStep }} of 2:
+                                <span v-if="currentStep === 1"> Fill up MST info </span>
+                                <span v-if="currentStep === 2"> Add MST items </span>
+                            </span>
+                        </div>
+                    </div>
             
-                    <div class="row justify-content-center pt-5 pb-3">
+                    <div v-show="currentStep === 1" class="row justify-content-center pt-5 pb-3">
             
                         <div class="col-lg-8 mb-4">
     
@@ -81,24 +91,13 @@
                             </div>
     
                         </div>
-    
-                        <div class="col-lg-8">
+            
+                    </div>
 
-                            <div v-if="mstDataErrors.items" class="alert alert-danger" role="alert">
-                                <small class="fst-italic">
-                                    Please add some items
-                                </small>
-                            </div>
-    
-                            <div class="h5wrapper mb-3">
-                                <hr class="result">
-                                <h5 class="text-warning fst-italic">
-                                    <i class="fas fa-shopping-cart"></i> Item list
-                                </h5>
-                                <hr class="result">
-                            </div>
-    
-                            <div class="text-end">
+                    <div v-show="currentStep === 2" class="row justify-content-center pt-5">
+                        <div class="col-lg-10">
+                            
+                            <div class="text-end mb-3">
                                 <button
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
@@ -108,7 +107,7 @@
                                     Add Item
                                 </button>
                             </div>
-                            
+
                             <WarehouseMSTItems
                               :items="mstData.items"
                               @status-change="handleItemStatusChange"
@@ -116,20 +115,31 @@
                               @update-item="handleUpdateItem" />
     
                         </div>
-            
-                    </div>
+                    </div> 
     
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6">
-                            <div class="d-flex justify-content-between">
+                    <div class="row justify-content-center pt-5">
+                        <div :class="{ 'col-lg-6': currentStep === 1, 'col-lg-10 col-md-10 col-sm-12': currentStep === 2 }">
+            
+                            <div v-if="currentStep === 1" class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/mst">
                                     <i class="fas fa-search"></i> Search MST
                                 </nuxt-link>
-                                <button @click="save()" :disabled="isSaving" type="button"
+                                <button @click="onClickNextStep1()" class="btn btn-primary">
+                                    <i class="fas fa-chevron-right"></i> Next
+                                </button>
+                            </div>
+            
+                            <div v-else class="d-flex justify-content-between">
+                                <button @click="currentStep--" type="button" class="btn btn-secondary">
+                                    <i class="fas fa-chevron-left"></i> Back
+                                </button>
+                                <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                     class="btn btn-primary">
                                     <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
+            
+            
                         </div>
                     </div>
             
@@ -142,7 +152,7 @@
             </div>
         </div>
 
-        <WarehouseAddItemModal @add-item="handleAddItem" :items="items" :added-item-ids="mstItemIds"/>
+        <WarehouseAddItemModal @add-item="handleAddItem" :items="itemsInModal" :added-item-ids="mstItemIds"/>
     </div>
 
 
@@ -152,14 +162,15 @@
 <script setup lang="ts">
 
     import * as mstApi from '~/composables/warehouse/mst/mst.api'
-    import type { AddMSTItem, CreateMstInput } from '~/composables/warehouse/mst/mst.types';
+    import type { CreateMstInput, MST } from '~/composables/warehouse/mst/mst.types';
     import type { Employee } from '~/composables/system/employee/employee.types';
     import { addPropertyFullName } from '~/composables/system/employee/employee';
-    import type { AddItem } from '~/composables/warehouse/item/item.type';
+    import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';
     import { MST_DEFAULT_APPROVERS } from '~/composables/warehouse/mst/mst.constants';
     import { useToast, POSITION as TOAST_POSITION } from 'vue-toastification';
     import { ITEM_STATUS } from '~/utils/constants';
+    import type { MSTItem } from '~/composables/warehouse/mst/mst-item.types';
 
     definePageMeta({
         name: ROUTES.MST_CREATE,
@@ -172,7 +183,7 @@
     // CONSTANTS
     const router = useRouter()
     const toast = useToast();
-// FLAGS
+    // FLAGS
     const isSaving = ref(false)
     const errorMsg = 'This field is required'
 
@@ -185,6 +196,8 @@
 
 
     // FORM DATA
+    const currentStep = ref(1)
+
     const mstData = ref<CreateMstInput>({
         returned_by: null,
         cwo_number: "",
@@ -198,7 +211,7 @@
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
-    const items = ref<AddItem[]>([])
+    const items = ref<Item[]>([])
 
     // ======================== LIFECYCLE HOOKS ========================  
     onMounted(async () => {
@@ -207,22 +220,7 @@
         const response = await mstApi.fetchFormDataInCreate()
 
         employees.value = addPropertyFullName(response.employees)
-
-        items.value = response.items.map(i => {
-            const x: AddItem = {
-                id: i.id,
-                code: i.code,
-                label: i.code + ' - ' + i.description,
-                description: i.description,
-                available_quantity: i.total_quantity - i.quantity_on_queue,
-                unit: i.unit,
-                qty_request: 0,
-                GWAPrice: i.GWAPrice,
-                item_type: i.item_type,
-            }
-
-            return x
-        })
+        items.value = response.items
 
         mstData.value.approvers = MST_DEFAULT_APPROVERS.map(i => ({...i}))
         isLoadingPage.value = false
@@ -231,9 +229,34 @@
 
     // ======================== COMPUTED ========================  
 
-    const mstItemIds = computed( () => mstData.value.items.map(i => i.itemId))
+    const mstItemIds = computed( () => mstData.value.items.map(i => i.item.id))
 
+    const isDisabledSave = computed((): boolean => {
+        if(hasErrorStep1() || hasErrorStep2()) {
+            return true 
+        }
+        return false
+    })
 
+    const itemsInModal = computed( (): AddItem[] => {
+        return items.value.map(i => {
+            return {
+                id: i.id,
+                code: i.code,
+                description: i.description,
+                available_quantity: i.total_quantity - i.quantity_on_queue,
+                unit: i.unit,
+                GWAPrice: i.GWAPrice,
+                qty_request: 0,
+                item_type: i.item_type,
+                label: i.code + ' - ' + i.description,
+                statusObject: {
+                    id: ITEM_STATUS.NOT_USABLE,
+                    name: itemStatusMapper[ITEM_STATUS.NOT_USABLE],
+                },
+            }
+        })
+    })
 
     // ======================== FUNCTIONS ========================  
 
@@ -241,8 +264,6 @@
     async function save() {
 
         console.log('save')
-
-        if(!isValid()) return 
 
         isSaving.value = true
         const response = await mstApi.create(mstData.value)
@@ -279,38 +300,40 @@
             return 
         }
 
-        const isExist = mstData.value.items.find(i => i.itemId === itemId) 
+        const isExist = mstData.value.items.find(i => i.item.id === itemId) 
 
         if(isExist) {
             toast.error('Item exist!')
             return 
         }
 
-        const mstItem: AddMSTItem = {
-            itemId: item.id,
-            code: item.code,
-            description: item.description,
-            quantity: 0,
-            unit: item.unit,
-            unitPrice: item.GWAPrice,
-            showQtyError: false,
-            status: {
+        const mstItem: MSTItem = {
+            id: '',
+            mst_id: '',
+            item_id: itemId,
+            quantity: 1,
+            price: item.GWAPrice,
+            status: ITEM_STATUS.NOT_USABLE,
+            mst: {} as MST,
+            item,
+            statusObject: {
                 id: ITEM_STATUS.NOT_USABLE,
                 name: itemStatusMapper[ITEM_STATUS.NOT_USABLE]
-            }
+            },
+            showQtyError: false,
         }
 
         mstData.value.items.push(mstItem)
         toast.success('Item added!')
     }
 
-    function handleRemoveItem(item: AddMSTItem) {
-        console.log('handleRemoveItem', item);
+    function handleRemoveItem(mstItem: MSTItem) {
+        console.log('handleRemoveItem', mstItem);
 
-        const indx = mstData.value.items.findIndex(i => i.itemId === item.itemId)
+        const indx = mstData.value.items.findIndex(i => i.item.id === mstItem.item.id)
 
         if(indx === -1) {
-            console.error('item not found in mstData.items with id of ', item.itemId);
+            console.error('item not found in mstData.items with id of ', mstItem.item.id);
             return 
         }
 
@@ -319,30 +342,37 @@
         toast.success('Item removed!', {position: TOAST_POSITION.BOTTOM_RIGHT})
     }
 
-    function handleItemStatusChange(payload: {item: AddMSTItem, status: ITEM_STATUS}) {
-        console.log('handleItemStatusChange', payload);
+    function handleItemStatusChange(mstItem: MSTItem, data: {status: ITEM_STATUS}) {
+        console.log('handleItemStatusChange');
 
-        const indx = mstData.value.items.findIndex(i => i.itemId === payload.item.itemId)
+        const indx = mstData.value.items.findIndex(i => i.item.id === mstItem.item.id)
 
         if(indx === -1) {
-            console.error('item not found in mstData.items with id of ', payload.item.itemId);
+            console.error('item not found in mstData.items with id of ', mstItem.item.id);
             return 
         }
 
         mstData.value.items[indx] = {
-            ...mstData.value.items[indx], 
-            status: { id: payload.status, name: itemStatusMapper[payload.status] }
+            ...mstData.value.items[indx],
+            status: data.status,
+            statusObject: { id: data.status, name: itemStatusMapper[data.status] }
         }
 
     }
 
-    function handleUpdateItem(mstItem: AddMSTItem, data: {qty: number}) {
+    function handleUpdateItem(mstItem: MSTItem, data: {qty: number}) {
         console.log('handleUpdateItem');
-        const item = mstData.value.items.find(i => i.itemId === mstItem.itemId)
+        const item = mstData.value.items.find(i => i.item.id === mstItem.item.id)
 
         if(!item) {
             console.error('item not found');
             return 
+        }
+
+        if(data.qty <= 0) {
+            item.showQtyError = true 
+        } else {
+            item.showQtyError = false 
         }
 
         item.quantity = data.qty
@@ -350,7 +380,7 @@
         console.log('mstData.value.items', mstData.value.items);
     }
 
-    function isValid() {
+    function onClickNextStep1() {
 
         mstDataErrors.value = { ..._mstDataErrorsInitial }
 
@@ -370,27 +400,35 @@
             }
         }
 
-        for(let i of mstData.value.items) {
-            if(i.quantity <= 0) {
-                i.showQtyError = true
-            } else {
-                i.showQtyError = false
-            }
+        if(!hasErrorStep1()) {
+            currentStep.value += 1
         }
-
-        if(mstData.value.items.length === 0) {
-            mstDataErrors.value.items = true 
-        }
-
-        const hasError = Object.values(mstDataErrors.value).includes(true);
-        const hasErrorApprovers = mstData.value.approvers.some(i => i.showRequiredMsg === true)
-        const hasErrorItem = mstData.value.items.some(i => i.showQtyError === true)
-        if (hasError || hasErrorApprovers || hasErrorItem) {
-            return false
-        }
-
-        return true
 
     }
+
+    function hasErrorStep1(): boolean {
+        const hasError = Object.values(mstDataErrors.value).includes(true);
+        const hasErrorApprovers = mstData.value.approvers.some(i => i.showRequiredMsg === true)
+        if (hasError || hasErrorApprovers) {
+            return true
+        }
+
+        return false 
+    }
+
+    function hasErrorStep2(): boolean {
+
+        if(mstData.value.items.length === 0) {
+            return true
+        }
+
+        const hasErrorItem = mstData.value.items.some(i => i.showQtyError === true)
+        if (hasErrorItem) {
+            return true
+        }
+
+        return false
+    }
+
 
 </script>

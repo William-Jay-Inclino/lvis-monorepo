@@ -17,5 +17,6 @@ export interface MSTItem {
         id: ITEM_STATUS,
         name: string
     }
+    showQtyError: boolean
 }
 

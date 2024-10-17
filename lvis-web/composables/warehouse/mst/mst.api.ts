@@ -326,10 +326,10 @@ export async function create(input: CreateMstInput): Promise<MutationResponse> {
     const items = input.items.map(i => {
         return `
         {
-          item_id: "${i.itemId}"
+          item_id: "${i.item.id}"
           quantity: ${i.quantity}
-          price: ${i.unitPrice}
-          status: ${i.status.id}
+          price: ${i.price}
+          status: ${i.status}
         }`;
     }).join(', ');
 

@@ -5,7 +5,7 @@
                 <tr>
                     <th class="bg-secondary text-white"> No. </th>
                     <th class="bg-secondary text-white"> Description </th>
-                    <th class="bg-secondary text-white"> Qty </th>
+                    <th style="width: 10%" class="bg-secondary text-white"> Qty </th>
                     <th class="bg-secondary text-white"> Unit </th>
                     <th class="bg-secondary text-white"> Unit Price </th>
                     <th class="bg-secondary text-white"> Amount </th>
@@ -16,16 +16,16 @@
             <tbody>
                 <tr v-for="i, count in items">
                     <td class="text-muted align-middle"> {{ count + 1 }} </td>
-                    <td class="text-muted align-middle"> {{ i.code + ' - ' + i.description }} </td>
+                    <td class="text-muted align-middle"> {{ i.item.code + ' - ' + i.item.description }} </td>
                     <td class="text-muted text-center align-middle">
-                        <input type="text" :class="{'border border-danger': i.showQtyError}" class="form-control form-control-sm" :value="i.quantity" @input="handleQtyUpdate(i, $event)">
+                        <input type="number" :class="{'border border-danger': i.showQtyError}" class="form-control form-control-sm" :value="i.quantity" @input="handleQtyUpdate(i, $event)">
                         <small v-show="i.showQtyError" class="fst-italic text-danger">Invalid Quantity</small>
                     </td>
-                    <td class="text-muted align-middle"> {{ i.unit.name }} </td>
-                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.unitPrice) }} </td>
-                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.quantity * i.unitPrice) }} </td>
+                    <td class="text-muted align-middle"> {{ i.item.unit.name }} </td>
+                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.price) }} </td>
+                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                     <td class="text-muted align-middle">
-                        <select @change="handleStatusChange(i, $event)" class="form-select form-select-sm" :value="i.status.id">
+                        <select @change="handleStatusChange(i, $event)" class="form-select form-select-sm" :value="i.status">
                             <option :value="i.id" v-for="i in mstStatusArray"> {{ i.name }} </option>
                         </select>
                     </td>
@@ -41,11 +41,12 @@
 </template>
 
 <script setup lang="ts">
-    import type { AddMSTItem } from '~/composables/warehouse/mst/mst.types';
+    import type { MSTItem } from '~/composables/warehouse/mst/mst-item.types';
+
 
     const props = defineProps({
         items: {
-            type: Array as () => AddMSTItem[],
+            type: Array as () => MSTItem[],
             default: () => [],
         }
     });
@@ -54,14 +55,14 @@
 
     const mstStatusArray = ref([...itemStatusArray])
 
-    function handleQtyUpdate(item: AddMSTItem, event: Event) {
+    function handleQtyUpdate(mstItem: MSTItem, event: Event) {
         // @ts-ignore
-        emits('update-item', item, {qty: Number(event.target.value)})
+        emits('update-item', mstItem, {qty: Number(event.target.value)})
     }
 
-    function handleStatusChange(item: AddMSTItem, event: Event) {
+    function handleStatusChange(mstItem: MSTItem, event: Event) {
         // @ts-ignore
-        emits('status-change', {item, status: Number(event.target.value)});
+        emits('status-change', mstItem, {status: Number(event.target.value)});
     }
 
 </script>
