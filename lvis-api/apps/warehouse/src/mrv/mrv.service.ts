@@ -309,25 +309,43 @@ export class MrvService {
         if (requested_by_id) {
             whereCondition = { ...whereCondition, requested_by_id }
         }
-        
-        // whereCondition.cancelled_at = {
-        //     equals: null,
-        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mRV.findMany({
                 include: {
                     item_from: true,
                     mrv_approvers: true,
+                    mct: {
+                        select: {
+                            mcrts: true
+                        }
+                    },
                     mrv_items: {
                         include: {
+                            mrv: {
+                                select: {
+                                    mct: {
+                                        select: {
+                                            mcrts: {
+                                                select: {
+                                                    id: true,
+                                                    cancelled_at: true,
+                                                    is_completed: true,
+                                                    mcrt_items: true
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                            },
                             item: {
                                 include: {
-                                    unit: true
+                                    unit: true,
+                                    item_transactions: true,
                                 }
                             }
                         }
-                    }
+                    },
                 },
                 where: whereCondition,
                 orderBy: {

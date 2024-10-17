@@ -250,6 +250,50 @@ export class McrtService {
                 seriv: true,
                 mcrt_items: {
                     include: {
+                        mcrt: {
+                            select: {
+                                seriv: {
+                                    select: {
+                                        seriv_items: {
+                                            select: {
+                                                item_id: true,
+                                                quantity: true,
+                                            }
+                                        },
+                                        mcrts: {
+                                            select: {
+                                                id: true,
+                                                cancelled_at: true,
+                                                is_completed: true,
+                                                mcrt_items: true
+                                            }
+                                        }
+                                    }
+                                },
+                                mct: {
+                                    select: {
+                                        mrv: {
+                                            select: {
+                                                mrv_items: {
+                                                    select: {
+                                                        item_id: true,
+                                                        quantity: true,
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        mcrts: {
+                                            select: {
+                                                id: true,
+                                                cancelled_at: true,
+                                                is_completed: true,
+                                                mcrt_items: true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         item: {
                             include: {
                                 unit: true,

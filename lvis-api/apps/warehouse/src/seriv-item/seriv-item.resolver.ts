@@ -27,6 +27,7 @@ export class SerivItemResolver {
 
     @ResolveField(() => Number)
     qty_returned(@Parent() serivItem: SERIVItem): number {
+        console.log('__serivItem', serivItem);
         return this.serivItemService.get_qty_returned(serivItem.seriv.mcrts, serivItem.item_id)
     }
 

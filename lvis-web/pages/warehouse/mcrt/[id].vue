@@ -137,10 +137,9 @@
                 <div v-show="form === FORM.UPDATE_ITEMS" class="row justify-content-center">
                     <div class="col-lg-10">
                         <WarehouseMCRTItems
-                            :items="mcrtItems"
-                            @remove-item="handleRemoveItem"
-                            @update-item="handleUpdateItem" 
-                        />
+                              :items="mcrtData.mcrt_items"
+                              @remove-item="handleRemoveItem"
+                              @update-item="handleUpdateItem" />
                     </div>
                 </div>
         
@@ -191,12 +190,13 @@ import { useToast } from "vue-toastification";
 import * as mcrtApi from '~/composables/warehouse/mcrt/mcrt.api'
 import * as mcrtApproverApi from '~/composables/warehouse/mcrt/mcrt-approver.api'
 import * as mcrtItemApi from '~/composables/warehouse/mcrt/mcrt-item.api'
-import { type AddMCRTItem, type MCRT, type UpdateMcrtInput } from '~/composables/warehouse/mcrt/mcrt.types';
+import { type MCRT, type UpdateMcrtInput } from '~/composables/warehouse/mcrt/mcrt.types';
 import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
 import type { Item } from '~/composables/warehouse/item/item.type';
+import type { MCRTItem } from '~/composables/warehouse/mcrt/mcrt-item.types';
 
 definePageMeta({
     name: ROUTES.MCRT_UPDATE,
@@ -328,23 +328,6 @@ const isDisabledUpdateItemsBtn = computed( () => {
 
     return false
     
-})
-
-const mcrtItems = computed( (): AddMCRTItem[] => {
-
-    return mcrtData.value.mcrt_items.map(i => {
-        return {
-            itemId: i.item.id,
-            code: i.item.code,
-            description: i.item.description,
-            referenceQty: 0,
-            mcrtQty: i.quantity,
-            unit: i.item.unit,
-            unitPrice: i.price,
-            showQtyError: false,
-        }
-    })
-
 })
 
 // ======================== FUNCTIONS ========================  
@@ -492,12 +475,12 @@ async function handleChangeApprover(payload: {currentApprover: Approver, newAppr
 
 // ======================== CHILD EVENTS: <WarehouseMCRTItems> ========================  
 
-function handleRemoveItem(item: AddMCRTItem) {
+function handleRemoveItem(item: MCRTItem) {
     console.log('handleRemoveItem', item);
 
 }
 
-function handleUpdateItem(mcrtItem: AddMCRTItem, data: {qty: number}) {
+function handleUpdateItem(mcrtItem: MCRTItem, data: {qty: number}) {
     console.log('handleUpdateItem', data);
 }
 

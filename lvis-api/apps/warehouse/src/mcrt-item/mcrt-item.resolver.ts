@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
 import { McrtItemService } from './mcrt-item.service';
 import { MCRTItem } from './entities/mcrt-item.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -21,6 +21,22 @@ export class McrtItemResolver {
     ) {
         this.mcrtItemService.setAuthUser(authUser)
         return await this.mcrtItemService.updateMcrtItems(mcrt_id, items);
+    }
+
+    @ResolveField(() => Number)
+    reference_qty(@Parent() mcrtItem: MCRTItem): number {
+        return this.mcrtItemService.get_reference_qty(mcrtItem.mcrt, mcrtItem.item_id)
+    }
+
+    @ResolveField(() => Number)
+    qty_returned(@Parent() mcrtItem: MCRTItem): number {
+        return this.mcrtItemService.get_qty_returned(mcrtItem.mcrt, mcrtItem.item_id)
+    }
+
+    @ResolveField(() => Number)
+    async qty_on_queue(@Parent() mcrtItem: MCRTItem): Promise<number> {
+
+        return await this.mcrtItemService.get_qty_on_queue(mcrtItem.mcrt, mcrtItem.item_id)
     }
   
 }

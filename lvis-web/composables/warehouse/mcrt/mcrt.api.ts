@@ -256,6 +256,8 @@ export async function fetchFormDataInCreate(): Promise<{
                             id
                             quantity
                             price
+                            qty_returned
+                            qty_on_queue
                             item {
                                 id 
                                 unit {
@@ -409,6 +411,9 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     id
                     quantity
                     price
+                    reference_qty
+                    qty_returned
+                    qty_on_queue
                     item {
                         id
                         code
