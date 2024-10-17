@@ -275,6 +275,7 @@ export async function fetchFormDataInCreate(): Promise<{
                     mcrts {
                         id
                         mcrt_number
+                        status
                     }
                 }
             },

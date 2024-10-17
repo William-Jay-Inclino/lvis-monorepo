@@ -229,6 +229,22 @@ export class MctService {
                         include: {
                             mrv_items: {
                                 include: {
+                                    mrv: {
+                                        select: {
+                                            mct: {
+                                                select: {
+                                                    mcrts: {
+                                                        select: {
+                                                            id: true,
+                                                            cancelled_at: true,
+                                                            is_completed: true,
+                                                            mcrt_items: true
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
                                     item: {
                                         include: {
                                             unit: true,

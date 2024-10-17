@@ -38,37 +38,60 @@
                                         </client-only>
                                     </div>
                                     <div class="col-8" v-if="referenceType === 'MCT'">
-                                        <client-only>
-                                            <v-select @search="handleSearchMctNumber" @option:selected="onMctNumberSelected" :options="mcts" label="mct_number"
-                                                v-model="mcrtData.mct">
-                                                <template v-slot:option="option">
-                                                    <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
-                                                        <div class="col">
-                                                            <span class="text-danger">{{ option.mct_number }}</span>
-                                                        </div>
-                                                        <div class="col text-end">
-                                                            <small class="text-muted fst-italic">
-                                                                {{
-            // @ts-ignore
-            approvalStatus[option.status].label
-        }}
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                    <div v-else class="row">
-                                                        <div class="col">
-                                                            <span>{{ option.mct_number }}</span>
-                                                        </div>
-                                                        <div class="col text-end">
-                                                            <small class="text-success fst-italic"> Available </small>
-                                                        </div>
-                                                    </div>
-                                                </template>
-                                            </v-select>
-                                        </client-only>
-                                        <nuxt-link v-if="mcrtData.mct" class="btn btn-sm btn-light text-primary"
-                                            :to="'/warehouse/mct/view/' + mcrtData.mct.id" target="_blank">View MCT
-                                            details</nuxt-link>
+                                        <div class="row">
+                                            <div class="col">
+                                                <client-only>
+                                                    <v-select @search="handleSearchMctNumber" @option:selected="onMctNumberSelected" :options="mcts" label="mct_number"
+                                                        v-model="mcrtData.mct">
+                                                        <template v-slot:option="option">
+                                                            <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
+                                                                <div class="col">
+                                                                    <span class="text-danger">{{ option.mct_number }}</span>
+                                                                </div>
+                                                                <div class="col text-end">
+                                                                    <small class="text-muted fst-italic">
+                                                                        {{
+                    // @ts-ignore
+                    approvalStatus[option.status].label
+                }}
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div v-else class="row">
+                                                                <div class="col">
+                                                                    <span>{{ option.mct_number }}</span>
+                                                                </div>
+                                                                <div class="col text-end">
+                                                                    <small class="text-success fst-italic"> Available </small>
+                                                                </div>
+                                                            </div>
+                                                        </template>
+                                                    </v-select>
+                                                </client-only>
+                                                <nuxt-link v-if="mcrtData.mct" class="btn btn-sm btn-light text-primary"
+                                                    :to="'/warehouse/mct/view/' + mcrtData.mct.id" target="_blank">View MCT
+                                                    details</nuxt-link>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div v-if="mcrtData.mct && mcrtData.mct.mcrts.length > 0">
+                                                    <small class="text-muted fst-italic"> Other assigned MCRT: </small>
+                                                    <ul>
+                                                        <li v-for="mcrt in mcrtData.mct.mcrts" :key="mcrt.id" class="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <nuxt-link :to="'/warehouse/mcrt/view/' + mcrt.id" target="_blank">
+                                                                    {{ mcrt.mcrt_number }}
+                                                                </nuxt-link>
+                                                            </div>
+                                                            <div :class="{ [`badge bg-${approvalStatus[mcrt.status].color}`]: true }">
+                                                                {{ approvalStatus[mcrt.status].label }}
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-8" v-else-if="referenceType === 'SERIV'">
                                         <div class="row">

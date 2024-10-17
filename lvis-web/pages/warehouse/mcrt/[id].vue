@@ -482,7 +482,7 @@ async function handleChangeApprover(payload: {currentApprover: Approver, newAppr
 
 function handleRemoveItem(item: MCRTItem) {
 
-    const indx = mcrtData.value.mcrt_items.findIndex(i => i.item.id === item.id)
+    const indx = mcrtData.value.mcrt_items.findIndex(i => i.item.id === item.item.id)
 
     if(indx === -1) {
         console.error('item not found in mcrtData.mcrt_items with id of ', item.item.id);

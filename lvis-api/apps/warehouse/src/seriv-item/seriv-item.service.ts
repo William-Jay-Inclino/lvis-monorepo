@@ -97,6 +97,8 @@ export class SerivItemService {
 	// MCRT that is approved
 	get_qty_returned(mcrts: MCRT[], item_id: string): number {
 
+		console.log('__mcrts', mcrts);
+
 		let qtyReturned = 0
 
 		for(let mcrt of mcrts) {
@@ -123,8 +125,6 @@ export class SerivItemService {
 
 	// MCRT that is pending
 	async get_qty_on_queue(mcrts: MCRT[], item_id: string): Promise<number> {
-
-		console.log('get_qty_on_queue');
 
 		let qtyQueue = 0
 

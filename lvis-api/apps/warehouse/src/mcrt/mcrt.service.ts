@@ -252,6 +252,7 @@ export class McrtService {
                     include: {
                         mcrt: {
                             select: {
+                                id: true,
                                 seriv: {
                                     select: {
                                         seriv_items: {

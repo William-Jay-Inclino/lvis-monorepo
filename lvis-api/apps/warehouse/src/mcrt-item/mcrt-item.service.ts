@@ -105,12 +105,24 @@ export class McrtItemService {
 
 	async get_qty_on_queue(mcrt: MCRT, item_id: string): Promise<number> {
 
+		console.log('----get_qty_on_queue', mcrt);
+
 		if(mcrt.seriv) {
-			return this.serivItemService.get_qty_on_queue(mcrt.seriv.mcrts, item_id)
+
+			// only pass mcrts not equal to this mcrt
+			const mcrts = mcrt.seriv.mcrts.filter(i => i.id !== mcrt.id)
+
+			return this.serivItemService.get_qty_on_queue(mcrts, item_id)
+
 		}
 
 		if(mcrt.mct) {
-			return this.serivItemService.get_qty_on_queue(mcrt.mct.mcrts, item_id)
+
+			// only pass mcrts not equal to this mcrt
+			const mcrts = mcrt.mct.mcrts.filter(i => i.id !== mcrt.id)
+
+			return this.serivItemService.get_qty_on_queue(mcrts, item_id)
+
 		}
 
 	}
