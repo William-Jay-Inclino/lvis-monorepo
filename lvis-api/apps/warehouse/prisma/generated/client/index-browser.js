@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.8.1
- * Query Engine version: 06fc58a368dc7be9fbbbe894adf8d445d208c284
+ * Query Engine version: bf0e5e8a04cada8225617067eaa03d041e2bba36
  */
 Prisma.prismaVersion = {
   client: "5.8.1",
-  engine: "06fc58a368dc7be9fbbbe894adf8d445d208c284"
+  engine: "bf0e5e8a04cada8225617067eaa03d041e2bba36"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -242,6 +242,7 @@ exports.Prisma.ItemTransactionScalarFieldEnum = {
   seriv_item_id: 'seriv_item_id',
   mrv_item_id: 'mrv_item_id',
   mcrt_item_id: 'mcrt_item_id',
+  mst_item_id: 'mst_item_id',
   type: 'type',
   quantity: 'quantity',
   price: 'price',
@@ -745,6 +746,7 @@ exports.Prisma.MSTScalarFieldEnum = {
   id: 'id',
   mst_number: 'mst_number',
   mst_date: 'mst_date',
+  is_completed: 'is_completed',
   returned_by_id: 'returned_by_id',
   cwo_number: 'cwo_number',
   mwo_number: 'mwo_number',

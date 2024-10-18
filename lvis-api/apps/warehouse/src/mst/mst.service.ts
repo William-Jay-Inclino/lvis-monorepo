@@ -85,7 +85,6 @@ export class MstService {
         const result = await this.prisma.$transaction(queries)
 
         console.log('MST created successfully');
-        console.log('Increment quantity_on_queue on each item')
         console.log('Pending with associated approver created successfully');
 
         return result[0]

@@ -913,7 +913,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.8.1
-   * Query Engine version: 06fc58a368dc7be9fbbbe894adf8d445d208c284
+   * Query Engine version: bf0e5e8a04cada8225617067eaa03d041e2bba36
    */
   export type PrismaVersion = {
     client: string
@@ -16963,6 +16963,7 @@ export namespace Prisma {
     seriv_item_id: string | null
     mrv_item_id: string | null
     mcrt_item_id: string | null
+    mst_item_id: string | null
     type: number | null
     quantity: number | null
     price: number | null
@@ -16980,6 +16981,7 @@ export namespace Prisma {
     seriv_item_id: string | null
     mrv_item_id: string | null
     mcrt_item_id: string | null
+    mst_item_id: string | null
     type: number | null
     quantity: number | null
     price: number | null
@@ -16997,6 +16999,7 @@ export namespace Prisma {
     seriv_item_id: number
     mrv_item_id: number
     mcrt_item_id: number
+    mst_item_id: number
     type: number
     quantity: number
     price: number
@@ -17031,6 +17034,7 @@ export namespace Prisma {
     seriv_item_id?: true
     mrv_item_id?: true
     mcrt_item_id?: true
+    mst_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -17048,6 +17052,7 @@ export namespace Prisma {
     seriv_item_id?: true
     mrv_item_id?: true
     mcrt_item_id?: true
+    mst_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -17065,6 +17070,7 @@ export namespace Prisma {
     seriv_item_id?: true
     mrv_item_id?: true
     mcrt_item_id?: true
+    mst_item_id?: true
     type?: true
     quantity?: true
     price?: true
@@ -17170,6 +17176,7 @@ export namespace Prisma {
     seriv_item_id: string | null
     mrv_item_id: string | null
     mcrt_item_id: string | null
+    mst_item_id: string | null
     type: number
     quantity: number
     price: number
@@ -17207,6 +17214,7 @@ export namespace Prisma {
     seriv_item_id?: boolean
     mrv_item_id?: boolean
     mcrt_item_id?: boolean
+    mst_item_id?: boolean
     type?: boolean
     quantity?: boolean
     price?: boolean
@@ -17221,6 +17229,7 @@ export namespace Prisma {
     seriv_item?: boolean | ItemTransaction$seriv_itemArgs<ExtArgs>
     mrv_item?: boolean | ItemTransaction$mrv_itemArgs<ExtArgs>
     mcrt_item?: boolean | ItemTransaction$mcrt_itemArgs<ExtArgs>
+    mst_item?: boolean | ItemTransaction$mst_itemArgs<ExtArgs>
   }, ExtArgs["result"]["itemTransaction"]>
 
   export type ItemTransactionSelectScalar = {
@@ -17231,6 +17240,7 @@ export namespace Prisma {
     seriv_item_id?: boolean
     mrv_item_id?: boolean
     mcrt_item_id?: boolean
+    mst_item_id?: boolean
     type?: boolean
     quantity?: boolean
     price?: boolean
@@ -17248,6 +17258,7 @@ export namespace Prisma {
     seriv_item?: boolean | ItemTransaction$seriv_itemArgs<ExtArgs>
     mrv_item?: boolean | ItemTransaction$mrv_itemArgs<ExtArgs>
     mcrt_item?: boolean | ItemTransaction$mcrt_itemArgs<ExtArgs>
+    mst_item?: boolean | ItemTransaction$mst_itemArgs<ExtArgs>
   }
 
 
@@ -17260,6 +17271,7 @@ export namespace Prisma {
       seriv_item: Prisma.$SERIVItemPayload<ExtArgs> | null
       mrv_item: Prisma.$MRVItemPayload<ExtArgs> | null
       mcrt_item: Prisma.$MCRTItemPayload<ExtArgs> | null
+      mst_item: Prisma.$MSTItemPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -17269,6 +17281,7 @@ export namespace Prisma {
       seriv_item_id: string | null
       mrv_item_id: string | null
       mcrt_item_id: string | null
+      mst_item_id: string | null
       type: number
       quantity: number
       price: number
@@ -17654,6 +17667,8 @@ export namespace Prisma {
 
     mcrt_item<T extends ItemTransaction$mcrt_itemArgs<ExtArgs> = {}>(args?: Subset<T, ItemTransaction$mcrt_itemArgs<ExtArgs>>): Prisma__MCRTItemClient<$Result.GetResult<Prisma.$MCRTItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    mst_item<T extends ItemTransaction$mst_itemArgs<ExtArgs> = {}>(args?: Subset<T, ItemTransaction$mst_itemArgs<ExtArgs>>): Prisma__MSTItemClient<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17689,6 +17704,7 @@ export namespace Prisma {
     readonly seriv_item_id: FieldRef<"ItemTransaction", 'String'>
     readonly mrv_item_id: FieldRef<"ItemTransaction", 'String'>
     readonly mcrt_item_id: FieldRef<"ItemTransaction", 'String'>
+    readonly mst_item_id: FieldRef<"ItemTransaction", 'String'>
     readonly type: FieldRef<"ItemTransaction", 'Int'>
     readonly quantity: FieldRef<"ItemTransaction", 'Int'>
     readonly price: FieldRef<"ItemTransaction", 'Float'>
@@ -18085,6 +18101,22 @@ export namespace Prisma {
      */
     include?: MCRTItemInclude<ExtArgs> | null
     where?: MCRTItemWhereInput
+  }
+
+
+  /**
+   * ItemTransaction.mst_item
+   */
+  export type ItemTransaction$mst_itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MSTItem
+     */
+    select?: MSTItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MSTItemInclude<ExtArgs> | null
+    where?: MSTItemWhereInput
   }
 
 
@@ -52757,6 +52789,7 @@ export namespace Prisma {
     id: string | null
     mst_number: string | null
     mst_date: Date | null
+    is_completed: boolean | null
     returned_by_id: string | null
     cwo_number: string | null
     mwo_number: string | null
@@ -52774,6 +52807,7 @@ export namespace Prisma {
     id: string | null
     mst_number: string | null
     mst_date: Date | null
+    is_completed: boolean | null
     returned_by_id: string | null
     cwo_number: string | null
     mwo_number: string | null
@@ -52791,6 +52825,7 @@ export namespace Prisma {
     id: number
     mst_number: number
     mst_date: number
+    is_completed: number
     returned_by_id: number
     cwo_number: number
     mwo_number: number
@@ -52811,6 +52846,7 @@ export namespace Prisma {
     id?: true
     mst_number?: true
     mst_date?: true
+    is_completed?: true
     returned_by_id?: true
     cwo_number?: true
     mwo_number?: true
@@ -52828,6 +52864,7 @@ export namespace Prisma {
     id?: true
     mst_number?: true
     mst_date?: true
+    is_completed?: true
     returned_by_id?: true
     cwo_number?: true
     mwo_number?: true
@@ -52845,6 +52882,7 @@ export namespace Prisma {
     id?: true
     mst_number?: true
     mst_date?: true
+    is_completed?: true
     returned_by_id?: true
     cwo_number?: true
     mwo_number?: true
@@ -52936,6 +52974,7 @@ export namespace Prisma {
     id: string
     mst_number: string
     mst_date: Date
+    is_completed: boolean
     returned_by_id: string
     cwo_number: string | null
     mwo_number: string | null
@@ -52971,6 +53010,7 @@ export namespace Prisma {
     id?: boolean
     mst_number?: boolean
     mst_date?: boolean
+    is_completed?: boolean
     returned_by_id?: boolean
     cwo_number?: boolean
     mwo_number?: boolean
@@ -52992,6 +53032,7 @@ export namespace Prisma {
     id?: boolean
     mst_number?: boolean
     mst_date?: boolean
+    is_completed?: boolean
     returned_by_id?: boolean
     cwo_number?: boolean
     mwo_number?: boolean
@@ -53023,6 +53064,7 @@ export namespace Prisma {
       id: string
       mst_number: string
       mst_date: Date
+      is_completed: boolean
       returned_by_id: string
       cwo_number: string | null
       mwo_number: string | null
@@ -53435,6 +53477,7 @@ export namespace Prisma {
     readonly id: FieldRef<"MST", 'String'>
     readonly mst_number: FieldRef<"MST", 'String'>
     readonly mst_date: FieldRef<"MST", 'DateTime'>
+    readonly is_completed: FieldRef<"MST", 'Boolean'>
     readonly returned_by_id: FieldRef<"MST", 'String'>
     readonly cwo_number: FieldRef<"MST", 'String'>
     readonly mwo_number: FieldRef<"MST", 'String'>
@@ -55081,6 +55124,7 @@ export namespace Prisma {
     metadata?: boolean
     mst?: boolean | MSTDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    item_transaction?: boolean | MSTItem$item_transactionArgs<ExtArgs>
   }, ExtArgs["result"]["mSTItem"]>
 
   export type MSTItemSelectScalar = {
@@ -55098,6 +55142,7 @@ export namespace Prisma {
   export type MSTItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mst?: boolean | MSTDefaultArgs<ExtArgs>
     item?: boolean | ItemDefaultArgs<ExtArgs>
+    item_transaction?: boolean | MSTItem$item_transactionArgs<ExtArgs>
   }
 
 
@@ -55106,6 +55151,7 @@ export namespace Prisma {
     objects: {
       mst: Prisma.$MSTPayload<ExtArgs>
       item: Prisma.$ItemPayload<ExtArgs>
+      item_transaction: Prisma.$ItemTransactionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -55486,6 +55532,8 @@ export namespace Prisma {
 
     item<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
+    item_transaction<T extends MSTItem$item_transactionArgs<ExtArgs> = {}>(args?: Subset<T, MSTItem$item_transactionArgs<ExtArgs>>): Prisma__ItemTransactionClient<$Result.GetResult<Prisma.$ItemTransactionPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -55835,6 +55883,22 @@ export namespace Prisma {
 
 
   /**
+   * MSTItem.item_transaction
+   */
+  export type MSTItem$item_transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemTransaction
+     */
+    select?: ItemTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemTransactionInclude<ExtArgs> | null
+    where?: ItemTransactionWhereInput
+  }
+
+
+  /**
    * MSTItem without action
    */
   export type MSTItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -56032,6 +56096,7 @@ export namespace Prisma {
     seriv_item_id: 'seriv_item_id',
     mrv_item_id: 'mrv_item_id',
     mcrt_item_id: 'mcrt_item_id',
+    mst_item_id: 'mst_item_id',
     type: 'type',
     quantity: 'quantity',
     price: 'price',
@@ -56637,6 +56702,7 @@ export namespace Prisma {
     id: 'id',
     mst_number: 'mst_number',
     mst_date: 'mst_date',
+    is_completed: 'is_completed',
     returned_by_id: 'returned_by_id',
     cwo_number: 'cwo_number',
     mwo_number: 'mwo_number',
@@ -57677,6 +57743,7 @@ export namespace Prisma {
     seriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     mrv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     mcrt_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
+    mst_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     type?: IntFilter<"ItemTransaction"> | number
     quantity?: IntFilter<"ItemTransaction"> | number
     price?: FloatFilter<"ItemTransaction"> | number
@@ -57691,6 +57758,7 @@ export namespace Prisma {
     seriv_item?: XOR<SERIVItemNullableRelationFilter, SERIVItemWhereInput> | null
     mrv_item?: XOR<MRVItemNullableRelationFilter, MRVItemWhereInput> | null
     mcrt_item?: XOR<MCRTItemNullableRelationFilter, MCRTItemWhereInput> | null
+    mst_item?: XOR<MSTItemNullableRelationFilter, MSTItemWhereInput> | null
   }
 
   export type ItemTransactionOrderByWithRelationInput = {
@@ -57701,6 +57769,7 @@ export namespace Prisma {
     seriv_item_id?: SortOrderInput | SortOrder
     mrv_item_id?: SortOrderInput | SortOrder
     mcrt_item_id?: SortOrderInput | SortOrder
+    mst_item_id?: SortOrderInput | SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -57715,6 +57784,7 @@ export namespace Prisma {
     seriv_item?: SERIVItemOrderByWithRelationInput
     mrv_item?: MRVItemOrderByWithRelationInput
     mcrt_item?: MCRTItemOrderByWithRelationInput
+    mst_item?: MSTItemOrderByWithRelationInput
   }
 
   export type ItemTransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -57724,6 +57794,7 @@ export namespace Prisma {
     seriv_item_id?: string
     mrv_item_id?: string
     mcrt_item_id?: string
+    mst_item_id?: string
     AND?: ItemTransactionWhereInput | ItemTransactionWhereInput[]
     OR?: ItemTransactionWhereInput[]
     NOT?: ItemTransactionWhereInput | ItemTransactionWhereInput[]
@@ -57742,7 +57813,8 @@ export namespace Prisma {
     seriv_item?: XOR<SERIVItemNullableRelationFilter, SERIVItemWhereInput> | null
     mrv_item?: XOR<MRVItemNullableRelationFilter, MRVItemWhereInput> | null
     mcrt_item?: XOR<MCRTItemNullableRelationFilter, MCRTItemWhereInput> | null
-  }, "id" | "rr_item_id" | "osriv_item_id" | "seriv_item_id" | "mrv_item_id" | "mcrt_item_id">
+    mst_item?: XOR<MSTItemNullableRelationFilter, MSTItemWhereInput> | null
+  }, "id" | "rr_item_id" | "osriv_item_id" | "seriv_item_id" | "mrv_item_id" | "mcrt_item_id" | "mst_item_id">
 
   export type ItemTransactionOrderByWithAggregationInput = {
     id?: SortOrder
@@ -57752,6 +57824,7 @@ export namespace Prisma {
     seriv_item_id?: SortOrderInput | SortOrder
     mrv_item_id?: SortOrderInput | SortOrder
     mcrt_item_id?: SortOrderInput | SortOrder
+    mst_item_id?: SortOrderInput | SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -57778,6 +57851,7 @@ export namespace Prisma {
     seriv_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
     mrv_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
     mcrt_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
+    mst_item_id?: StringNullableWithAggregatesFilter<"ItemTransaction"> | string | null
     type?: IntWithAggregatesFilter<"ItemTransaction"> | number
     quantity?: IntWithAggregatesFilter<"ItemTransaction"> | number
     price?: FloatWithAggregatesFilter<"ItemTransaction"> | number
@@ -60933,6 +61007,7 @@ export namespace Prisma {
     id?: StringFilter<"MST"> | string
     mst_number?: StringFilter<"MST"> | string
     mst_date?: DateTimeFilter<"MST"> | Date | string
+    is_completed?: BoolFilter<"MST"> | boolean
     returned_by_id?: StringFilter<"MST"> | string
     cwo_number?: StringNullableFilter<"MST"> | string | null
     mwo_number?: StringNullableFilter<"MST"> | string | null
@@ -60953,6 +61028,7 @@ export namespace Prisma {
     id?: SortOrder
     mst_number?: SortOrder
     mst_date?: SortOrder
+    is_completed?: SortOrder
     returned_by_id?: SortOrder
     cwo_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
@@ -60976,6 +61052,7 @@ export namespace Prisma {
     OR?: MSTWhereInput[]
     NOT?: MSTWhereInput | MSTWhereInput[]
     mst_date?: DateTimeFilter<"MST"> | Date | string
+    is_completed?: BoolFilter<"MST"> | boolean
     returned_by_id?: StringFilter<"MST"> | string
     cwo_number?: StringNullableFilter<"MST"> | string | null
     mwo_number?: StringNullableFilter<"MST"> | string | null
@@ -60996,6 +61073,7 @@ export namespace Prisma {
     id?: SortOrder
     mst_number?: SortOrder
     mst_date?: SortOrder
+    is_completed?: SortOrder
     returned_by_id?: SortOrder
     cwo_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
@@ -61020,6 +61098,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"MST"> | string
     mst_number?: StringWithAggregatesFilter<"MST"> | string
     mst_date?: DateTimeWithAggregatesFilter<"MST"> | Date | string
+    is_completed?: BoolWithAggregatesFilter<"MST"> | boolean
     returned_by_id?: StringWithAggregatesFilter<"MST"> | string
     cwo_number?: StringNullableWithAggregatesFilter<"MST"> | string | null
     mwo_number?: StringNullableWithAggregatesFilter<"MST"> | string | null
@@ -61141,6 +61220,7 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"MSTItem">
     mst?: XOR<MSTRelationFilter, MSTWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type MSTItemOrderByWithRelationInput = {
@@ -61155,6 +61235,7 @@ export namespace Prisma {
     metadata?: SortOrderInput | SortOrder
     mst?: MSTOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
+    item_transaction?: ItemTransactionOrderByWithRelationInput
   }
 
   export type MSTItemWhereUniqueInput = Prisma.AtLeast<{
@@ -61172,6 +61253,7 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"MSTItem">
     mst?: XOR<MSTRelationFilter, MSTWhereInput>
     item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type MSTItemOrderByWithAggregationInput = {
@@ -62175,6 +62257,7 @@ export namespace Prisma {
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
     mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
+    mst_item?: MSTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateInput = {
@@ -62185,6 +62268,7 @@ export namespace Prisma {
     seriv_item_id?: string | null
     mrv_item_id?: string | null
     mcrt_item_id?: string | null
+    mst_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -62210,6 +62294,7 @@ export namespace Prisma {
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
     mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
+    mst_item?: MSTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateInput = {
@@ -62220,6 +62305,7 @@ export namespace Prisma {
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -62238,6 +62324,7 @@ export namespace Prisma {
     seriv_item_id?: string | null
     mrv_item_id?: string | null
     mcrt_item_id?: string | null
+    mst_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -62267,6 +62354,7 @@ export namespace Prisma {
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -65808,6 +65896,7 @@ export namespace Prisma {
     id?: string
     mst_number: string
     mst_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -65828,6 +65917,7 @@ export namespace Prisma {
     id?: string
     mst_number: string
     mst_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -65848,6 +65938,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65868,6 +65959,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65888,6 +65980,7 @@ export namespace Prisma {
     id?: string
     mst_number: string
     mst_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -65906,6 +65999,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65924,6 +66018,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66052,6 +66147,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mst: MSTCreateNestedOneWithoutMst_itemsInput
     item: ItemCreateNestedOneWithoutMst_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutMst_itemInput
   }
 
   export type MSTItemUncheckedCreateInput = {
@@ -66064,6 +66160,7 @@ export namespace Prisma {
     created_by: string
     created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMst_itemInput
   }
 
   export type MSTItemUpdateInput = {
@@ -66076,6 +66173,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mst?: MSTUpdateOneRequiredWithoutMst_itemsNestedInput
     item?: ItemUpdateOneRequiredWithoutMst_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutMst_itemNestedInput
   }
 
   export type MSTItemUncheckedUpdateInput = {
@@ -66088,6 +66186,7 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMst_itemNestedInput
   }
 
   export type MSTItemCreateManyInput = {
@@ -66978,6 +67077,11 @@ export namespace Prisma {
     isNot?: MCRTItemWhereInput | null
   }
 
+  export type MSTItemNullableRelationFilter = {
+    is?: MSTItemWhereInput | null
+    isNot?: MSTItemWhereInput | null
+  }
+
   export type ItemTransactionCountOrderByAggregateInput = {
     id?: SortOrder
     item_id?: SortOrder
@@ -66986,6 +67090,7 @@ export namespace Prisma {
     seriv_item_id?: SortOrder
     mrv_item_id?: SortOrder
     mcrt_item_id?: SortOrder
+    mst_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -67011,6 +67116,7 @@ export namespace Prisma {
     seriv_item_id?: SortOrder
     mrv_item_id?: SortOrder
     mcrt_item_id?: SortOrder
+    mst_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -67028,6 +67134,7 @@ export namespace Prisma {
     seriv_item_id?: SortOrder
     mrv_item_id?: SortOrder
     mcrt_item_id?: SortOrder
+    mst_item_id?: SortOrder
     type?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
@@ -69024,6 +69131,7 @@ export namespace Prisma {
     id?: SortOrder
     mst_number?: SortOrder
     mst_date?: SortOrder
+    is_completed?: SortOrder
     returned_by_id?: SortOrder
     cwo_number?: SortOrder
     mwo_number?: SortOrder
@@ -69042,6 +69150,7 @@ export namespace Prisma {
     id?: SortOrder
     mst_number?: SortOrder
     mst_date?: SortOrder
+    is_completed?: SortOrder
     returned_by_id?: SortOrder
     cwo_number?: SortOrder
     mwo_number?: SortOrder
@@ -69059,6 +69168,7 @@ export namespace Prisma {
     id?: SortOrder
     mst_number?: SortOrder
     mst_date?: SortOrder
+    is_completed?: SortOrder
     returned_by_id?: SortOrder
     cwo_number?: SortOrder
     mwo_number?: SortOrder
@@ -70164,6 +70274,12 @@ export namespace Prisma {
     connect?: MCRTItemWhereUniqueInput
   }
 
+  export type MSTItemCreateNestedOneWithoutItem_transactionInput = {
+    create?: XOR<MSTItemCreateWithoutItem_transactionInput, MSTItemUncheckedCreateWithoutItem_transactionInput>
+    connectOrCreate?: MSTItemCreateOrConnectWithoutItem_transactionInput
+    connect?: MSTItemWhereUniqueInput
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -70228,6 +70344,16 @@ export namespace Prisma {
     delete?: MCRTItemWhereInput | boolean
     connect?: MCRTItemWhereUniqueInput
     update?: XOR<XOR<MCRTItemUpdateToOneWithWhereWithoutItem_transactionInput, MCRTItemUpdateWithoutItem_transactionInput>, MCRTItemUncheckedUpdateWithoutItem_transactionInput>
+  }
+
+  export type MSTItemUpdateOneWithoutItem_transactionNestedInput = {
+    create?: XOR<MSTItemCreateWithoutItem_transactionInput, MSTItemUncheckedCreateWithoutItem_transactionInput>
+    connectOrCreate?: MSTItemCreateOrConnectWithoutItem_transactionInput
+    upsert?: MSTItemUpsertWithoutItem_transactionInput
+    disconnect?: MSTItemWhereInput | boolean
+    delete?: MSTItemWhereInput | boolean
+    connect?: MSTItemWhereUniqueInput
+    update?: XOR<XOR<MSTItemUpdateToOneWithWhereWithoutItem_transactionInput, MSTItemUpdateWithoutItem_transactionInput>, MSTItemUncheckedUpdateWithoutItem_transactionInput>
   }
 
   export type CanvassItemCreateNestedManyWithoutCanvassInput = {
@@ -72462,6 +72588,18 @@ export namespace Prisma {
     connect?: ItemWhereUniqueInput
   }
 
+  export type ItemTransactionCreateNestedOneWithoutMst_itemInput = {
+    create?: XOR<ItemTransactionCreateWithoutMst_itemInput, ItemTransactionUncheckedCreateWithoutMst_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutMst_itemInput
+    connect?: ItemTransactionWhereUniqueInput
+  }
+
+  export type ItemTransactionUncheckedCreateNestedOneWithoutMst_itemInput = {
+    create?: XOR<ItemTransactionCreateWithoutMst_itemInput, ItemTransactionUncheckedCreateWithoutMst_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutMst_itemInput
+    connect?: ItemTransactionWhereUniqueInput
+  }
+
   export type MSTUpdateOneRequiredWithoutMst_itemsNestedInput = {
     create?: XOR<MSTCreateWithoutMst_itemsInput, MSTUncheckedCreateWithoutMst_itemsInput>
     connectOrCreate?: MSTCreateOrConnectWithoutMst_itemsInput
@@ -72476,6 +72614,26 @@ export namespace Prisma {
     upsert?: ItemUpsertWithoutMst_itemsInput
     connect?: ItemWhereUniqueInput
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutMst_itemsInput, ItemUpdateWithoutMst_itemsInput>, ItemUncheckedUpdateWithoutMst_itemsInput>
+  }
+
+  export type ItemTransactionUpdateOneWithoutMst_itemNestedInput = {
+    create?: XOR<ItemTransactionCreateWithoutMst_itemInput, ItemTransactionUncheckedCreateWithoutMst_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutMst_itemInput
+    upsert?: ItemTransactionUpsertWithoutMst_itemInput
+    disconnect?: ItemTransactionWhereInput | boolean
+    delete?: ItemTransactionWhereInput | boolean
+    connect?: ItemTransactionWhereUniqueInput
+    update?: XOR<XOR<ItemTransactionUpdateToOneWithWhereWithoutMst_itemInput, ItemTransactionUpdateWithoutMst_itemInput>, ItemTransactionUncheckedUpdateWithoutMst_itemInput>
+  }
+
+  export type ItemTransactionUncheckedUpdateOneWithoutMst_itemNestedInput = {
+    create?: XOR<ItemTransactionCreateWithoutMst_itemInput, ItemTransactionUncheckedCreateWithoutMst_itemInput>
+    connectOrCreate?: ItemTransactionCreateOrConnectWithoutMst_itemInput
+    upsert?: ItemTransactionUpsertWithoutMst_itemInput
+    disconnect?: ItemTransactionWhereInput | boolean
+    delete?: ItemTransactionWhereInput | boolean
+    connect?: ItemTransactionWhereUniqueInput
+    update?: XOR<XOR<ItemTransactionUpdateToOneWithWhereWithoutMst_itemInput, ItemTransactionUpdateWithoutMst_itemInput>, ItemTransactionUncheckedUpdateWithoutMst_itemInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -73565,6 +73723,7 @@ export namespace Prisma {
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
     mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
+    mst_item?: MSTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutItemInput = {
@@ -73574,6 +73733,7 @@ export namespace Prisma {
     seriv_item_id?: string | null
     mrv_item_id?: string | null
     mcrt_item_id?: string | null
+    mst_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -73824,6 +73984,7 @@ export namespace Prisma {
     created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mst: MSTCreateNestedOneWithoutMst_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutMst_itemInput
   }
 
   export type MSTItemUncheckedCreateWithoutItemInput = {
@@ -73835,6 +73996,7 @@ export namespace Prisma {
     created_by: string
     created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMst_itemInput
   }
 
   export type MSTItemCreateOrConnectWithoutItemInput = {
@@ -73896,6 +74058,7 @@ export namespace Prisma {
     seriv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     mrv_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     mcrt_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
+    mst_item_id?: StringNullableFilter<"ItemTransaction"> | string | null
     type?: IntFilter<"ItemTransaction"> | number
     quantity?: IntFilter<"ItemTransaction"> | number
     price?: FloatFilter<"ItemTransaction"> | number
@@ -74733,6 +74896,35 @@ export namespace Prisma {
     create: XOR<MCRTItemCreateWithoutItem_transactionInput, MCRTItemUncheckedCreateWithoutItem_transactionInput>
   }
 
+  export type MSTItemCreateWithoutItem_transactionInput = {
+    id?: string
+    quantity: number
+    price?: number
+    status?: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst: MSTCreateNestedOneWithoutMst_itemsInput
+    item: ItemCreateNestedOneWithoutMst_itemsInput
+  }
+
+  export type MSTItemUncheckedCreateWithoutItem_transactionInput = {
+    id?: string
+    mst_id: string
+    item_id: string
+    quantity: number
+    price?: number
+    status?: number
+    created_by: string
+    created_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemCreateOrConnectWithoutItem_transactionInput = {
+    where: MSTItemWhereUniqueInput
+    create: XOR<MSTItemCreateWithoutItem_transactionInput, MSTItemUncheckedCreateWithoutItem_transactionInput>
+  }
+
   export type ItemUpsertWithoutItem_transactionsInput = {
     update: XOR<ItemUpdateWithoutItem_transactionsInput, ItemUncheckedUpdateWithoutItem_transactionsInput>
     create: XOR<ItemCreateWithoutItem_transactionsInput, ItemUncheckedCreateWithoutItem_transactionsInput>
@@ -74950,6 +75142,41 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type MSTItemUpsertWithoutItem_transactionInput = {
+    update: XOR<MSTItemUpdateWithoutItem_transactionInput, MSTItemUncheckedUpdateWithoutItem_transactionInput>
+    create: XOR<MSTItemCreateWithoutItem_transactionInput, MSTItemUncheckedCreateWithoutItem_transactionInput>
+    where?: MSTItemWhereInput
+  }
+
+  export type MSTItemUpdateToOneWithWhereWithoutItem_transactionInput = {
+    where?: MSTItemWhereInput
+    data: XOR<MSTItemUpdateWithoutItem_transactionInput, MSTItemUncheckedUpdateWithoutItem_transactionInput>
+  }
+
+  export type MSTItemUpdateWithoutItem_transactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    mst?: MSTUpdateOneRequiredWithoutMst_itemsNestedInput
+    item?: ItemUpdateOneRequiredWithoutMst_itemsNestedInput
+  }
+
+  export type MSTItemUncheckedUpdateWithoutItem_transactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mst_id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    status?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -78499,6 +78726,7 @@ export namespace Prisma {
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
     mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
+    mst_item?: MSTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutRr_itemInput = {
@@ -78508,6 +78736,7 @@ export namespace Prisma {
     seriv_item_id?: string | null
     mrv_item_id?: string | null
     mcrt_item_id?: string | null
+    mst_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -78630,6 +78859,7 @@ export namespace Prisma {
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
     mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
+    mst_item?: MSTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutRr_itemInput = {
@@ -78639,6 +78869,7 @@ export namespace Prisma {
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -79094,6 +79325,7 @@ export namespace Prisma {
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
     mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
+    mst_item?: MSTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutOsriv_itemInput = {
@@ -79103,6 +79335,7 @@ export namespace Prisma {
     seriv_item_id?: string | null
     mrv_item_id?: string | null
     mcrt_item_id?: string | null
+    mst_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -79257,6 +79490,7 @@ export namespace Prisma {
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
     mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
+    mst_item?: MSTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutOsriv_itemInput = {
@@ -79266,6 +79500,7 @@ export namespace Prisma {
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -79842,6 +80077,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
     mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
+    mst_item?: MSTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutSeriv_itemInput = {
@@ -79851,6 +80087,7 @@ export namespace Prisma {
     osriv_item_id?: string | null
     mrv_item_id?: string | null
     mcrt_item_id?: string | null
+    mst_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -80023,6 +80260,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
     mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
+    mst_item?: MSTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutSeriv_itemInput = {
@@ -80032,6 +80270,7 @@ export namespace Prisma {
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -80662,6 +80901,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
     mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
+    mst_item?: MSTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutMrv_itemInput = {
@@ -80671,6 +80911,7 @@ export namespace Prisma {
     osriv_item_id?: string | null
     seriv_item_id?: string | null
     mcrt_item_id?: string | null
+    mst_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -80845,6 +81086,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
     mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
+    mst_item?: MSTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutMrv_itemInput = {
@@ -80854,6 +81096,7 @@ export namespace Prisma {
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -81802,6 +82045,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
     seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
     mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
+    mst_item?: MSTItemCreateNestedOneWithoutItem_transactionInput
   }
 
   export type ItemTransactionUncheckedCreateWithoutMcrt_itemInput = {
@@ -81811,6 +82055,7 @@ export namespace Prisma {
     osriv_item_id?: string | null
     seriv_item_id?: string | null
     mrv_item_id?: string | null
+    mst_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -81973,6 +82218,7 @@ export namespace Prisma {
     osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
+    mst_item?: MSTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutMcrt_itemInput = {
@@ -81982,6 +82228,7 @@ export namespace Prisma {
     osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -82039,6 +82286,7 @@ export namespace Prisma {
     created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item: ItemCreateNestedOneWithoutMst_itemsInput
+    item_transaction?: ItemTransactionCreateNestedOneWithoutMst_itemInput
   }
 
   export type MSTItemUncheckedCreateWithoutMstInput = {
@@ -82050,6 +82298,7 @@ export namespace Prisma {
     created_by: string
     created_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedCreateNestedOneWithoutMst_itemInput
   }
 
   export type MSTItemCreateOrConnectWithoutMstInput = {
@@ -82116,6 +82365,7 @@ export namespace Prisma {
     id?: string
     mst_number: string
     mst_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -82135,6 +82385,7 @@ export namespace Prisma {
     id?: string
     mst_number: string
     mst_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -82170,6 +82421,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82189,6 +82441,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82208,6 +82461,7 @@ export namespace Prisma {
     id?: string
     mst_number: string
     mst_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -82227,6 +82481,7 @@ export namespace Prisma {
     id?: string
     mst_number: string
     mst_date: Date | string
+    is_completed?: boolean
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -82304,6 +82559,46 @@ export namespace Prisma {
     create: XOR<ItemCreateWithoutMst_itemsInput, ItemUncheckedCreateWithoutMst_itemsInput>
   }
 
+  export type ItemTransactionCreateWithoutMst_itemInput = {
+    type: number
+    quantity: number
+    price: number
+    remarks?: string | null
+    is_initial?: boolean
+    created_at?: Date | string
+    created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item: ItemCreateNestedOneWithoutItem_transactionsInput
+    rr_item?: RRItemCreateNestedOneWithoutItem_transactionInput
+    osriv_item?: OSRIVItemCreateNestedOneWithoutItem_transactionInput
+    seriv_item?: SERIVItemCreateNestedOneWithoutItem_transactionInput
+    mrv_item?: MRVItemCreateNestedOneWithoutItem_transactionInput
+    mcrt_item?: MCRTItemCreateNestedOneWithoutItem_transactionInput
+  }
+
+  export type ItemTransactionUncheckedCreateWithoutMst_itemInput = {
+    id?: number
+    item_id: string
+    rr_item_id?: string | null
+    osriv_item_id?: string | null
+    seriv_item_id?: string | null
+    mrv_item_id?: string | null
+    mcrt_item_id?: string | null
+    type: number
+    quantity: number
+    price: number
+    remarks?: string | null
+    is_initial?: boolean
+    created_at?: Date | string
+    created_by?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ItemTransactionCreateOrConnectWithoutMst_itemInput = {
+    where: ItemTransactionWhereUniqueInput
+    create: XOR<ItemTransactionCreateWithoutMst_itemInput, ItemTransactionUncheckedCreateWithoutMst_itemInput>
+  }
+
   export type MSTUpsertWithoutMst_itemsInput = {
     update: XOR<MSTUpdateWithoutMst_itemsInput, MSTUncheckedUpdateWithoutMst_itemsInput>
     create: XOR<MSTCreateWithoutMst_itemsInput, MSTUncheckedCreateWithoutMst_itemsInput>
@@ -82319,6 +82614,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82338,6 +82634,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82414,6 +82711,52 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemTransactionUpsertWithoutMst_itemInput = {
+    update: XOR<ItemTransactionUpdateWithoutMst_itemInput, ItemTransactionUncheckedUpdateWithoutMst_itemInput>
+    create: XOR<ItemTransactionCreateWithoutMst_itemInput, ItemTransactionUncheckedCreateWithoutMst_itemInput>
+    where?: ItemTransactionWhereInput
+  }
+
+  export type ItemTransactionUpdateToOneWithWhereWithoutMst_itemInput = {
+    where?: ItemTransactionWhereInput
+    data: XOR<ItemTransactionUpdateWithoutMst_itemInput, ItemTransactionUncheckedUpdateWithoutMst_itemInput>
+  }
+
+  export type ItemTransactionUpdateWithoutMst_itemInput = {
+    type?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    is_initial?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    item?: ItemUpdateOneRequiredWithoutItem_transactionsNestedInput
+    rr_item?: RRItemUpdateOneWithoutItem_transactionNestedInput
+    osriv_item?: OSRIVItemUpdateOneWithoutItem_transactionNestedInput
+    seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
+    mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
+    mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
+  }
+
+  export type ItemTransactionUncheckedUpdateWithoutMst_itemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    item_id?: StringFieldUpdateOperationsInput | string
+    rr_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    osriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    is_initial?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ItemCreateManyItem_typeInput = {
@@ -83197,6 +83540,7 @@ export namespace Prisma {
     seriv_item_id?: string | null
     mrv_item_id?: string | null
     mcrt_item_id?: string | null
+    mst_item_id?: string | null
     type: number
     quantity: number
     price: number
@@ -83290,6 +83634,7 @@ export namespace Prisma {
     seriv_item?: SERIVItemUpdateOneWithoutItem_transactionNestedInput
     mrv_item?: MRVItemUpdateOneWithoutItem_transactionNestedInput
     mcrt_item?: MCRTItemUpdateOneWithoutItem_transactionNestedInput
+    mst_item?: MSTItemUpdateOneWithoutItem_transactionNestedInput
   }
 
   export type ItemTransactionUncheckedUpdateWithoutItemInput = {
@@ -83299,6 +83644,7 @@ export namespace Prisma {
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -83316,6 +83662,7 @@ export namespace Prisma {
     seriv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mrv_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     mcrt_item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_item_id?: NullableStringFieldUpdateOperationsInput | string | null
     type?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
@@ -83523,6 +83870,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mst?: MSTUpdateOneRequiredWithoutMst_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutMst_itemNestedInput
   }
 
   export type MSTItemUncheckedUpdateWithoutItemInput = {
@@ -83534,6 +83882,7 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMst_itemNestedInput
   }
 
   export type MSTItemUncheckedUpdateManyWithoutItemInput = {
@@ -84931,6 +85280,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item?: ItemUpdateOneRequiredWithoutMst_itemsNestedInput
+    item_transaction?: ItemTransactionUpdateOneWithoutMst_itemNestedInput
   }
 
   export type MSTItemUncheckedUpdateWithoutMstInput = {
@@ -84942,6 +85292,7 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    item_transaction?: ItemTransactionUncheckedUpdateOneWithoutMst_itemNestedInput
   }
 
   export type MSTItemUncheckedUpdateManyWithoutMstInput = {

@@ -84,18 +84,4 @@ export interface MST {
     remarks: string 
   }
 
-  // export interface AddMSTItem {
-  //   itemId: string
-  //   quantity: number
-  //   code: string
-  //   description: string 
-  //   unit: Unit 
-  //   unitPrice: number 
-  //   showQtyError: boolean
-  //   status: {
-  //     id: ITEM_STATUS,
-  //     name: string
-  //   }
-  // }
-
 

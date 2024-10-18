@@ -203,6 +203,12 @@ export async function findOne(id: string): Promise<Item | undefined> {
                             mcrt_number
                         }
                     }
+                    mst_item {
+                        mst {
+                            id 
+                            mst_number
+                        }
+                    }
                 }
             }
         }

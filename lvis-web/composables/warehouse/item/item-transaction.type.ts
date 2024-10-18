@@ -5,6 +5,7 @@ import type { OSRIVItem } from '../osriv/osriv-item.types';
 import type { SERIVItem } from '../seriv/seriv-item.types';
 import type { MRVItem } from '../mrv/mrv-item.types';
 import type { MCRTItem } from '../mcrt/mcrt-item.types';
+import type { MSTItem } from '../mst/mst-item.types';
 
 export interface ItemTransaction {
 	id: number;
@@ -14,6 +15,7 @@ export interface ItemTransaction {
 	seriv_item_id?: string | null;
 	mrv_item_id?: string | null;
 	mcrt_item_id?: string | null;
+	mst_item_id?: string | null;
 	type: ITEM_TRANSACTION_TYPE;
 	quantity: number;
 	price: number;
@@ -25,6 +27,7 @@ export interface ItemTransaction {
 	seriv_item?: SERIVItem;
 	mrv_item?: MRVItem;
 	mcrt_item?: MCRTItem;
+	mst_item?: MSTItem;
 
 	created_at: Date
 	created_by: String

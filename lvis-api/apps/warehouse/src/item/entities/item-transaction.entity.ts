@@ -5,6 +5,7 @@ import { MRVItem } from '../../mrv-item/entities/mrv-item.entity';
 import { SERIVItem } from '../../seriv-item/entities/seriv-item.entity';
 import { OSRIVItem } from '../../osriv-item/entities/osriv-item.entity';
 import { MCRTItem } from '../../mcrt-item/entities/mcrt-item.entity';
+import { MSTItem } from '../../mst-item/entities/mst-item.entity';
 
 @ObjectType()
 export class ItemTransaction {
@@ -29,6 +30,9 @@ export class ItemTransaction {
 
     @Field({ nullable: true })
     mcrt_item_id: string | null;
+
+    @Field({ nullable: true })
+    mst_item_id: string | null;
 
     @Field(() => Int)
     type: ITEM_TRANSACTION_TYPE;
@@ -69,5 +73,8 @@ export class ItemTransaction {
 
     @Field(() => MCRTItem, { nullable: true })
     mcrt_item: MCRTItem | null;
+
+    @Field(() => MSTItem, { nullable: true })
+    mst_item: MSTItem | null;
     
 }

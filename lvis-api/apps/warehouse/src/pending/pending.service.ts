@@ -14,6 +14,7 @@ import { MctApproverStatusUpdated } from '../mct-approver/events/mct-approver-st
 import { McrtApproverStatusUpdated } from '../mcrt-approver/events/mcrt-approver-status-updated.event';
 import e from 'express';
 import { MrvApproverStatusUpdated } from '../mrv-approver/events/mrv-approver-status-updated.event';
+import { MstApproverStatusUpdated } from '../mst/events/mst-approver-status-updated.event';
 
 @Injectable()
 export class PendingService {
@@ -257,6 +258,7 @@ export class PendingService {
                     [DB_ENTITY.MRV]: { event: 'mrv-approver-status.updated', eventClass: MrvApproverStatusUpdated },
                     [DB_ENTITY.MCT]: { event: 'mct-approver-status.updated', eventClass: MctApproverStatusUpdated },
                     [DB_ENTITY.MCRT]: { event: 'mcrt-approver-status.updated', eventClass: McrtApproverStatusUpdated },
+                    [DB_ENTITY.MST]: { event: 'mst-approver-status.updated', eventClass: MstApproverStatusUpdated },
                 };
             
                 const entity = Object.values(DB_ENTITY).find(key => module.model === MODULE_MAPPER[key].model);

@@ -2,7 +2,7 @@ import { ConflictException, Injectable, Logger, NotFoundException } from '@nestj
 import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Item, MCRTApprover, MCTApprover, MRVItem, OSRIVApprover, OSRIVItem, Prisma, RRApprover, SERIVApprover, SERIVItem } from 'apps/warehouse/prisma/generated/client';
+import { Item, MCRTApprover, MCTApprover, MRVItem, MSTApprover, OSRIVApprover, OSRIVItem, Prisma, RRApprover, SERIVApprover, SERIVItem } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE } from '../__common__/types';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { ItemsResponse } from './entities/items-response.entity';
@@ -16,6 +16,9 @@ import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-appro
 import { MctApproverStatusUpdated } from '../mct-approver/events/mct-approver-status-updated.event';
 import { McrtApproverStatusUpdated } from '../mcrt-approver/events/mcrt-approver-status-updated.event';
 import { ITEM_TYPE_CODE } from '../__common__/constants';
+import { MSTItem } from '../mst-item/entities/mst-item.entity';
+import { MST } from '../mst/entities/mst.entity';
+import { ITEM_STATUS } from './entities/item.types';
 
 @Injectable()
 export class ItemService {
@@ -34,71 +37,6 @@ export class ItemService {
 		this.authUser = authUser
 	}
 
-	// async create(input: CreateItemInput): Promise<Item> {
-
-	// 	this.logger.log('create()', input)
-
-	// 	// Check if the code already exists
-	// 	const existingItem = await this.prisma.item.findUnique({
-	// 		where: {
-	// 			code: input.code,
-	// 		},
-	// 	})
-
-	// 	if (existingItem) {
-	// 		throw new ConflictException('Item code must be unique. A different item with the same code already exists.');
-	// 	}
-
-	// 	const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
-	// 		type: ITEM_TRANSACTION_TYPE.STOCK_IN,
-	// 		quantity: input.initial_quantity,
-	// 		price: input.initial_average_price,
-	// 		remarks: 'Initial item transaction',
-	// 		created_at: new Date(),
-	// 		created_by: this.authUser.user.username
-	// 	}
-
-	// 	const createdBy = this.authUser.user.username
-	// 	const itemType = await this.prisma.itemType.findUnique({
-	// 		select: {
-	// 			code: true
-	// 		},
-	// 		where: { id: input.item_type_id }
-	// 	})
-
-	// 	if(!itemType) {
-	// 		throw new NotFoundException('Item type code not found')
-	// 	}
-
-	// 	const itemCode = await this.generateItemCode(itemType.code as ITEM_TYPE_CODE)
-
-	// 	const data: Prisma.ItemCreateInput = {
-	// 		item_type: {connect: { id: input.item_type_id  }},
-	// 		unit: {
-	// 			connect: { id: input.unit_id }
-	// 		},
-	// 		code: itemCode,
-	// 		description: input.description,
-	// 		initial_quantity: input.initial_quantity,
-	// 		total_quantity: input.initial_quantity,
-	// 		alert_level: input.alert_level,
-	// 		created_by: createdBy,
-	// 		item_transactions: {
-	// 			create: item_transaction
-	// 		}
-	// 	}
-
-	// 	const created = await this.prisma.item.create({
-	// 		data,
-	// 		include: this.includedFields
-	// 	})
-
-	// 	this.logger.log('Successfully created Item')
-
-	// 	return created
-
-	// }
-
 	async create(input: CreateItemInput): Promise<Item> {
 		this.logger.log('create()', input);
 	  
@@ -110,7 +48,7 @@ export class ItemService {
 			quantity: input.initial_quantity,
 			price: input.initial_average_price,
 			remarks: 'Initial item transaction',
-			created_at: new Date(),
+			// created_at: new Date(),
 			created_by: this.authUser.user.username,
 		  };
 	  
@@ -283,6 +221,11 @@ export class ItemService {
 						mcrt_item: {
 							include: {
 								mcrt: true
+							}
+						},
+						mst_item: {
+							include: {
+								mst: true
 							}
 						},
 					}
@@ -1102,9 +1045,168 @@ export class ItemService {
 
 
 
+	// ================== MST EVENTS ================== 
+
+	@OnEvent('mst-approver-status.updated')
+	async handleMstApproverStatusUpdated(payload: McrtApproverStatusUpdated) {
+
+		this.logger.log('=== item-transaction.service.ts ===')
+
+		console.log('handleMstApproverStatusUpdated()', payload)
+
+		const mstApprover = await this.prisma.mSTApprover.findUnique({
+			where: { id: payload.id },
+			include: {
+				mst: {
+					include: {
+						mst_items: {
+							include: {
+								item: {
+									include: {
+										item_type: true
+									}
+								}
+							}
+						},
+						mst_approvers: true
+					}
+				}
+			}
+		})
+
+		if (!mstApprover) {
+			throw new NotFoundException('mstApprover not found with id: ' + payload.id)
+		}
+
+		if (mstApprover.mst.is_completed) {
+			console.log('MST is already completed. End function')
+			return
+		}
+
+		const approvers = mstApprover.mst.mst_approvers
+
+		console.log('approvers', approvers)
+
+		const isApproved = this.isStatusApproved(approvers)
+
+		if (!isApproved) {
+			console.log('MST status is not approved. End function')
+			return
+		}
+
+		console.log('Transacting MST items...')
+
+		// @ts-ignore
+		const response = await this.transactMstItems(mstApprover.mst)
+
+	}
+
+	// If item is already Salvaged Usable just increment the qty. If dili pa sya Salvaged Usable then create new item
+
+	private async transactMstItems(mst: MST): Promise<{ success: boolean }> {
+
+		console.log('transactMstItems', mst);
+
+		const queries: Prisma.PrismaPromise<any>[] = []
+		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
+
+		const salvagedUsableItems = mst.mst_items.filter(i => i.item.code.includes("SU") && i.status === ITEM_STATUS.USABLE)
+		const notSalvagedUsableItems = mst.mst_items.filter(i => !i.item.code.includes("SU") && i.status === ITEM_STATUS.USABLE)
+
+		console.log('salvagedUsableItems', salvagedUsableItems);
+		console.log('notSalvagedUsableItems', notSalvagedUsableItems);
+
+		// record item transaction para sa pag increment
+		for(let SU_Item of salvagedUsableItems) {
+
+			const data: Prisma.ItemTransactionCreateManyInput = {
+				item_id: SU_Item.item_id,
+				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+				quantity: SU_Item.quantity,
+				price: SU_Item.price,
+				remarks: 'MST Request Item is usable',
+				mst_item_id: SU_Item.id,
+			}
+
+			itemTransactions.push(data)
+
+		}
+
+		if(itemTransactions.length > 0) {
+			const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
+				data: itemTransactions
+			})
+			queries.push(createItemTransactionsQuery)
+		}
+
+
+
+		// create new items
+		for(let NSU_Item of notSalvagedUsableItems) {
+
+			const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
+				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+				quantity: NSU_Item.quantity,
+				price: NSU_Item.price,
+				remarks: 'Auto created with MST number ' + mst.mst_number,
+				created_at: new Date(),
+				created_by: 'System-generated',
+			};
+
+			const itemTypeCode = NSU_Item.item.item_type.code as ITEM_TYPE_CODE
+			let itemCode = await this.generateItemCode(itemTypeCode, this.prisma);
+			itemCode = itemCode + '-SU-' + mst.mst_number
+
+			const data: Prisma.ItemCreateInput = {
+				item_type: { connect: { id: NSU_Item.item.item_type_id } },
+				unit: {
+				  connect: { id: NSU_Item.item.unit_id },
+				},
+				code: itemCode,
+				description: NSU_Item.item.description,
+				initial_quantity: NSU_Item.quantity,
+				total_quantity: NSU_Item.quantity,
+				alert_level: 20,
+				created_by: 'System-generated',
+				item_transactions: {
+				  create: item_transaction,
+				},
+			};
+
+			const createItemQuery = this.prisma.item.create({ data })
+			queries.push(createItemQuery)
+		}
+
+		// set is_completed field in mct table to true 
+		const updateMSTQuery = this.prisma.mST.update({
+			where: {
+				id: mst.id
+			},
+			data: {
+				is_completed: true
+			}
+		})
+		queries.push(updateMSTQuery)
+
+		// increment total quantity of each item that is Salvage Usable
+		const updateItemQueries = this.generateUpdateItemQueries(salvagedUsableItems, ITEM_TRANSACTION_TYPE.STOCK_IN); 
+
+		const allQueries = [...queries, ...updateItemQueries]; 
+
+		// EXECUTE QUERIES
+		await this.prisma.$transaction(allQueries)
+
+		return {
+			success: true
+		}
+
+	}
+	
+
+
 	// ================== REUSABLE FUNCTIONS ================== 
 
-	private isStatusApproved(approvers: OSRIVApprover[] | SERIVApprover[] | RRApprover[] | MCTApprover[] | MCRTApprover[]): boolean {
+	private isStatusApproved(approvers: OSRIVApprover[] | SERIVApprover[] | RRApprover[] | MCTApprover[] | MCRTApprover[] | MSTApprover[]): boolean {
 
 		for (let approver of approvers) {
 
@@ -1118,7 +1220,7 @@ export class ItemService {
 
 	}
 
-	private generateUpdateItemQueries(items: OSRIVItem[] | SERIVItem[] | MRVItem[], transaction: ITEM_TRANSACTION_TYPE) {
+	private generateUpdateItemQueries(items: OSRIVItem[] | SERIVItem[] | MRVItem[] | MSTItem[], transaction: ITEM_TRANSACTION_TYPE) {
 
 		// decrement total_quantity 
 		// decerement quantity_on_queue

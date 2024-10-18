@@ -39,7 +39,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Alert Level</td>
-                                                <td> {{ item.alert_level }}% ({{ item.total_quantity * (item.alert_level / 100)
+                                                <td> {{ item.alert_level }}% ({{ Math.round(item.total_quantity * (item.alert_level / 100))
                                                     }} Qty) </td>
                                             </tr>
                                             <tr>
@@ -142,6 +142,13 @@
                                                         <nuxt-link :to="'/warehouse/mcrt/view/' + i.mcrt_item.mcrt!.id"
                                                             target="_blank">
                                                             {{ `MCRT#${i.mcrt_item.mcrt?.mcrt_number}` }}
+                                                        </nuxt-link>
+        
+                                                    </div>
+                                                    <div v-else-if="i.mst_item">
+                                                        <nuxt-link :to="'/warehouse/mst/view/' + i.mst_item!.mst!.id"
+                                                            target="_blank">
+                                                            {{ `MST#${i.mst_item!.mst?.mst_number}` }}
                                                         </nuxt-link>
         
                                                     </div>

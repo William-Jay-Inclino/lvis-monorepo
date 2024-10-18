@@ -237,6 +237,7 @@ model ItemTransaction {
   seriv_item_id String? @unique
   mrv_item_id String? @unique
   mcrt_item_id String? @unique
+  mst_item_id String? @unique
   type       Int
   quantity   Int
   price      Float
@@ -249,6 +250,7 @@ model ItemTransaction {
   seriv_item SERIVItem? @relation(fields: [seriv_item_id], references: [id], onDelete: Cascade)
   mrv_item MRVItem? @relation(fields: [mrv_item_id], references: [id], onDelete: Cascade)
   mcrt_item MCRTItem? @relation(fields: [mcrt_item_id], references: [id], onDelete: Cascade)
+  mst_item MSTItem? @relation(fields: [mst_item_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   created_by String   @default("admin")
@@ -1055,6 +1057,7 @@ model MST {
   id                String    @id @default(uuid())
   mst_number         String    @unique
   mst_date    DateTime
+  is_completed    Boolean  @default(false)
 
   returned_by_id String
 
@@ -1116,6 +1119,7 @@ model MSTItem {
   
   mst MST @relation(fields: [mst_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
+  item_transaction   ItemTransaction?
 
   metadata Json?
 
