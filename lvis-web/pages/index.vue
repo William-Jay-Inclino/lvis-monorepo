@@ -1,38 +1,115 @@
 <template>
-  <div class="bg-container position-relative d-flex align-items-center">
-    <div class="bg-overlay position-absolute top-0 start-0 end-0 bottom-0"></div>
-    <div class="container">
-      <div class="row justify-content-start">
-        <div class="col-md-5 col">
-          <div class="card border-0 border-3 border-dark shadow p-4">
-            <div class="card-body">
-              <h3 class="card-title text-center">
-                <img src="~/assets/img/leyeco-logo2.png" alt="Logo" class="logo mb-4">
-              </h3>
-              <form @submit.prevent="login">
-                <div class="mb-3">
-                  <label for="email" class="form-label">Username</label>
-                  <input v-model="email" type="text" class="form-control">
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">Password</label>
-                  <input v-model="password" type="password" class="form-control">
-                </div>
-                <div style="margin-top: 10px;" v-if="error.show" class="alert alert-danger mb-3" role="alert">
-                    {{ error.msg }}
-                </div>
-                <div class="d-grid">
-                  <button :disabled="isLoggingIn" type="submit" class="btn btn-primary btn-block">
-                    {{ isLoggingIn ? 'Logging in...' : 'Login' }}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="login-page">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+              <div class="bg-white shadow rounded">
+                  <div class="row d-flex align-items-stretch"> <!-- Flex container to align both sides -->
+                      <!-- Left Form Section -->
+                      <div class="col-md-5 pe-0">
+                          <div class="form-left h-100 py-4 px-4">
+                              <form action="" class="row g-4" @submit.prevent="login">
+                                  <div class="col-12 text-center">
+                                      <img src="~/assets/img/leyeco-logo2.png" alt="Logo" class="logo"> <!-- Replace with your logo URL -->
+                                  </div>
+                                  <div class="col-12 text-center fs-3 fw-bold mt-2">
+                                      Welcome back!
+                                  </div>
+                                  <div class="col-12 text-center fw-bold mt-1">
+                                      Please enter your credentials to login
+                                  </div> 
+                                  <div class="col-12 mt-3">
+                                      <label>Username<span class="text-danger">*</span></label>
+                                      <div class="input-group">
+                                          <div class="input-group-text"><i class="fa fa-user"></i></div>
+                                          <input v-model="email" type="text" class="form-control form-control-sm">
+                                      </div>
+                                  </div>
+
+                                  <div class="col-12 mt-3">
+                                      <label>Password<span class="text-danger">*</span></label>
+                                      <div class="input-group">
+                                          <div class="input-group-text"><i class="fa fa-key"></i></div>
+                                          <input v-model="password" type="password" class="form-control form-control-sm">
+                                      </div>
+                                  </div>
+
+                                  <div v-if="error.show" class="col-12 mt-3">
+                                      <div class="alert alert-danger mb-3" role="alert">
+                                          {{ error.msg }}
+                                      </div>
+                                  </div>
+
+                                  <div class="col-sm-12 mt-3">
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                                          <label class="form-check-label" for="inlineFormCheck">Remember me</label>
+                                      </div>
+                                  </div>
+
+                                  <div class="col-12 mt-3">
+                                      <button :disabled="isLoggingIn" type="submit" class="btn btn-primary btn-sm px-4 float-end mt-4">
+                                          {{ isLoggingIn ? 'Logging in...' : 'Login' }}
+                                      </button>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+
+                      <!-- Right Form Section (with background image) -->
+                      <div class="col-md-7 d-none d-md-block column-right">
+                          <div class="form-right text-start p-5 bg-image m-3 rounded"> <!-- Added m-3 for margin, rounded, and inline border-radius -->
+                              <p class="fs-3 mb-0 fw-bold">LVUMS</p>
+                              <p class="fw-bold">Leyeco V Unified Management System</p>
+                              <p>LVUMS empowers LEYECO V mission and vision through the following suite of powerful management tools:</p>
+
+                              <!-- First Row -->
+                              <div class="row fs-8">
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                      <i class="fa fa-bolt me-1"></i> Powerserve
+                                  </div>
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                      <i class="fa fa-gear me-1"></i> System
+                                  </div>
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                      <i class="fa fa-clipboard me-1"></i> E-forms
+                                  </div>
+                              </div>
+
+                              <!-- Second Row -->
+                              <div class="row fs-8">
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                      <i class="fa fa-link me-1"></i> E-connect
+                                  </div>
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                      <i class="fa fa-file-invoice me-1"></i> Powerbill
+                                  </div>
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                      <i class="fa fa-money-bill-wave me-1"></i> LPS
+                                  </div>
+                              </div>
+
+                              <!-- Third Row -->
+                              <div class="row fs-8">
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                      <i class="fa fa-warehouse me-1"></i> Powerhouse
+                                  </div>
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                      <i class="fa fa-book me-1"></i> Accounting
+                                  </div>
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                      <i class="fa fa-users me-1"></i> Powerpay
+                                  </div>
+                              </div>
+                          </div>
+                      </div> <!-- End of Right Form Section -->
+                  </div> <!-- End of row -->
+              </div> <!-- End of shadow rounded -->
+          </div> <!-- End of col-lg-8 -->
+      </div> <!-- End of row -->
+  </div> <!-- End of container -->
+</div> <!-- End of login-page -->
+
 </template>
 
 
@@ -72,7 +149,7 @@
 
             const authUser = JSON.stringify(response.data)
 
-            localStorage.setItem('authUser', authUser);
+            localStorage.setItem('authUser', authUser); 
 
             router.push('/home');
 
@@ -111,38 +188,48 @@
 </script>
 
 <style scoped>
-.bg-container {
-  background-image: url('~/assets/img/loginbg9.png');
-  background-size: cover;
-  background-position: center;
+
+a {
+  text-decoration: none;
+}
+
+.form-right {
+height: 100%;
+}
+
+.column-right{
+padding-bottom: 30px;
+}
+
+.login-page {
+  width: 100%;
   height: 100vh;
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  background: rgb(142,207,255);
+  background: linear-gradient(141deg, rgba(142,207,255,1) 0%, rgba(255,255,255,1) 100%);
 }
 
-.bg-overlay {
-  background-color: rgba(0, 0, 0, 0.2); /* Adjust the opacity as needed */
+.bg-image{
+  background: rgb(142,207,255);
+background: linear-gradient(141deg, rgba(142,207,255,1) 0%, rgba(255,255,255,1) 100%);
+  border-radius: 0px 5px 5px 0px;
 }
-
-.card {
-  border-radius: 1rem;
-}
-
-.card-title {
-  font-weight: bold;
-}
-
-/* .btn-warning {
-  background-color: #ffeb3b;
-  border: none;
-  border-radius: 0.5rem;
-  transition: background-color 0.3s ease;
-}
-
-.btn-warning:hover {
-  background-color: #fdd835;
-} */
 
 .logo {
-  max-width: 250px; /* Adjust the logo size as needed */
-  height: auto;
+  max-width: 130px; /* Adjust logo size */
+  margin-bottom: 20px; /* Space below the logo */
+}
+
+.btn-bg-warning{
+  background-color: #ecff70;
+  border-color: #ecff70;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.fs-8{
+  font-size: 14px;
 }
 </style>
