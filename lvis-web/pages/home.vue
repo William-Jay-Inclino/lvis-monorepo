@@ -1,89 +1,201 @@
 <template>
 
-<div v-if="authUser" class="container" style="padding-top: 50px;">
-    <div class="row justify-content-center align-items-center">
+<div v-if="authUser">
+    <div class="row">
+        <div class="col">
+            <div class="card custom-cards">
+                <div class="card-body p-0">
+                    <div class="row m-0" >
 
-        <div class="col-12 col-sm-6 col-md-4 pb-5">
-            <div class="card shadow mx-auto" style="max-width: 13rem;">
-                <img src="~/assets/img/powerserve2.png" class="card-img-top img-fluid" alt="Powerserve Image" style="height: 180px; object-fit: cover;">
-                <div class="card-footer text-center">
-                    <button class="btn btn-primary"> POWERSERVE </button>
+                        <div class="col-lg-4 p-4">
+                            <div class="card custom-cards-navigation">
+                                <div class="card-body p-0">
+                                    <img src="~/assets/img/powerserve.png" class="img-fluid p-3" alt="Settings Image">
+                                </div>
+                                <div class="card-footer navigation-warning text-center">
+                                    <button class="btn btn-sm fw-bold"> POWERSERVE </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 p-4">
+                            <div class="card custom-cards-navigation">
+                                <div class="card-body p-0">
+                                    <img src="~/assets/img/settings.png" class="img-fluid p-3" alt="Settings Image">
+                                </div>
+                                <div class="card-footer navigation-warning text-center">
+                                    <button @click="goToSystem" class="btn btn-sm fw-bold"> SYSTEM </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 p-4">
+                            <div class="card custom-cards-navigation">
+                                <div class="card-body p-0">
+                                    <img src="~/assets/img/eforms.png" class="img-fluid p-3" alt="Settings Image">
+                                </div>
+                                <div class="card-footer navigation-warning text-center">
+                                    <button class="btn btn-sm fw-bold"> e-FORMS </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 p-4">
+                            <div class="card custom-cards-navigation">
+                                <div class="card-body p-0">
+                                    <img src="~/assets/img/econnect.png" class="img-fluid p-3" alt="Settings Image">
+                                </div>
+                                <div class="card-footer navigation-warning text-center">
+                                    <button class="btn btn-sm fw-bold"> e-CONNECT </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 p-4">
+                            <div class="card custom-cards-navigation">
+                                <div class="card-body p-0">
+                                    <img src="~/assets/img/powerbill.png" class="img-fluid p-3" alt="Settings Image">
+                                </div>
+                                <div class="card-footer navigation-warning text-center">
+                                    <button class="btn btn-sm fw-bold"> BILLING </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 p-4">
+                            <div class="card custom-cards-navigation">
+                                <div class="card-body p-0">
+                                    <img src="~/assets/img/lps.png" class="img-fluid p-3" alt="Settings Image">
+                                </div>
+                                <div class="card-footer navigation-warning text-center">
+                                    <button class="btn btn-sm fw-bold"> LPS </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 p-4">
+                            <div class="card custom-cards-navigation">
+                                <div class="card-body p-0">
+                                    <img src="~/assets/img/powerhouse.png" class="img-fluid p-3" alt="Settings Image">
+                                </div>
+                                <div class="card-footer navigation-warning text-center">
+                                    <button class="btn btn-sm fw-bold" @click="goToWarehouse"> WAREHOUSE </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 p-4">
+                            <div class="card custom-cards-navigation">
+                                <div class="card-body p-0">
+                                    <img src="~/assets/img/accounting.png" class="img-fluid p-3" alt="Settings Image">
+                                </div>
+                                <div class="card-footer navigation-warning text-center">
+                                    <button class="btn btn-sm fw-bold"> ACCOUNTING </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 p-4">
+                            <div class="card custom-cards-navigation">
+                                <div class="card-body p-0">
+                                    <img src="~/assets/img/powerpay.png" class="img-fluid p-3" alt="Settings Image">
+                                </div>
+                                <div class="card-footer navigation-warning text-center">
+                                    <button class="btn btn-sm fw-bold"> POWERPAY </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-12 col-sm-6 col-md-4 pb-5">
-            <div class="card shadow mx-auto" style="max-width: 13rem;">
-                <img src="~/assets/img/settings.png" class="card-img-top img-fluid" alt="Settings Image" style="height: 180px; object-fit: cover;">
-                <div class="card-footer text-center">
-                    <button @click="goToSystem" class="btn btn-primary"> SYSTEM </button>
+        <div class="col">
+            <div class="row">
+                <div class="col-lg-12 pb-4">
+                    <div class="card custom-cards">
+                        <div class="card-body">
+                            <div class="row" >
+                                <div class="col-lg-12 p-0">
+                                    <img src="~/assets/img/rate-chart.png" class="img-fluid" alt="Settings Image">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer fw-bold">
+                            POWER RATE
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-12 col-sm-6 col-md-4 pb-5">
-            <div class="card shadow mx-auto" style="max-width: 13rem;">
-                <img src="~/assets/img/eforms.png" class="card-img-top img-fluid" alt="e-Forms Image" style="height: 180px; object-fit: cover;">
-                <div class="card-footer text-center">
-                    <button class="btn btn-primary"> e-FORMS </button>
+                <div class="col-lg-6 pb-4">
+                    <div class="card custom-cards">
+                        <div class="card-body">
+                            <div class="row" >
+                                <div class="col-lg-4"><i class="fa fa-phone-volume fa-3x"></i></div>
+                                <div class="col-lg-8 text-center fs-2 fw-bold">61</div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row" >
+                                <div class="col-lg-10 fw-bold">COMPLAINTS</div>
+                                <div class="col-lg-2"><i class="fa fa-eye"></i></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-12 col-sm-6 col-md-4 pb-5">
-            <div class="card shadow mx-auto" style="max-width: 13rem;">
-                <img src="~/assets/img/econnect.png" class="card-img-top img-fluid" alt="e-Connect Image" style="height: 180px; object-fit: cover;">
-                <div class="card-footer text-center">
-                    <button class="btn btn-primary"> e-CONNECT </button>
+                <div class="col-lg-6 pb-4">
+                    <div class="card custom-cards">
+                        <div class="card-body">
+                            <div class="row" >
+                                <div class="col-lg-4"><i class="fa fa-users fa-3x"></i></div>
+                                <div class="col-lg-8 text-center fs-2 fw-bold">182</div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row" >
+                                <div class="col-lg-10 fw-bold">EMPLOYEES</div>
+                                <div class="col-lg-2"><i class="fa fa-eye"></i></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-12 col-sm-6 col-md-4 pb-5">
-            <div class="card shadow mx-auto" style="max-width: 13rem;">
-                <img src="~/assets/img/powerbill.png" class="card-img-top img-fluid" alt="Powerbill Image" style="height: 180px; object-fit: cover;">
-                <div class="card-footer text-center">
-                    <button class="btn btn-primary"> POWERBILL </button>
+                <!-- <div class="col-lg-6 pb-4">
+                    <div class="card custom-cards">
+                        <div class="card-body">
+                            <div class="row" >
+                                <div class="col-lg-4"><i class="fa fa-credit-card fa-3x"></i></div>
+                                <div class="col-lg-8 text-center fs-4 fw-bold">1,052,242.82</div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row" >
+                                <div class="col-lg-10 fw-bold">COLLECTION</div>
+                                <div class="col-lg-2"><i class="fa fa-eye"></i></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-12 col-sm-6 col-md-4 pb-5">
-            <div class="card shadow mx-auto" style="max-width: 13rem;">
-                <img src="~/assets/img/lps.png" class="card-img-top img-fluid" alt="LPS Image" style="height: 180px; object-fit: cover;">
-                <div class="card-footer text-center">
-                    <button class="btn btn-primary"> LPS </button>
-                </div>
+                <div class="col-lg-6 pb-4">
+                    <div class="card custom-cards">
+                        <div class="card-body">
+                            <div class="row" >
+                                <div class="col-lg-4"><i class="fa fa-users fa-3x"></i></div>
+                                <div class="col-lg-8 text-center fs-2 fw-bold">182</div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row" >
+                                <div class="col-lg-10 fw-bold">EMPLOYEES</div>
+                                <div class="col-lg-2"><i class="fa fa-eye"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
             </div>
+            
         </div>
-
-        <div class="col-12 col-sm-6 col-md-4 pb-5">
-            <div class="card shadow mx-auto" style="max-width: 13rem;">
-                <img src="~/assets/img/warehouse.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
-                <div class="card-footer text-center">
-                    <button @click="goToWarehouse" class="btn btn-primary"> WAREHOUSE </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-md-4 pb-5">
-            <div class="card shadow mx-auto" style="max-width: 13rem;">
-                <img src="~/assets/img/accounting2.png" class="card-img-top img-fluid" alt="Accounting Image" style="height: 180px; object-fit: cover;">
-                <div class="card-footer text-center">
-                    <button class="btn btn-primary"> ACCOUNTING </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-md-4 pb-5">
-            <div class="card shadow mx-auto" style="max-width: 13rem;">
-                <img src="~/assets/img/powerpay.png" class="card-img-top img-fluid" alt="Powerpay Image" style="height: 180px; object-fit: cover;">
-                <div class="card-footer text-center">
-                    <button class="btn btn-primary"> POWERPAY </button>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
 
@@ -154,8 +266,6 @@ const goToWarehouse =  () => {
 
 </script>
 
-
-
 <style scoped>
 
 .card {
@@ -166,12 +276,33 @@ const goToWarehouse =  () => {
     /* cursor: pointer; */
 }
 
-.card:hover {
-    transform: translateY(-20px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.custom-cards {
+    background-color: rgba(255, 255, 255, 0.6); /* White background with 20% opacity */
+    backdrop-filter: blur(10px); /* Apply a blur effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    border-radius: 10px; /* Optional: for rounded corners */
+    padding: 20px; /* Optional: for spacing inside the element */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: for a slight shadow */
+    /* background: rgb(142,207,255); */
+  /* background: linear-gradient(141deg, rgba(142,207,255,1) 0%, rgba(255,255,255,1) 100%); */
 }
 
-button {
-    width: 150px;
+.custom-cards-navigation {
+    background: rgb(142,207,255);
+    background: linear-gradient(141deg, rgba(142,207,255,1) 0%, rgba(255,255,255,1) 100%);
 }
+
+.navigation-warning{
+background-color: #ecff70;
+}
+
+
+/* .card:hover {
+    transform: translateY(-20px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+} */
+
+/* button {
+    width: 150px;
+} */
 </style>
