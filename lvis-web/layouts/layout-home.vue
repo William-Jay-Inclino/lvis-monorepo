@@ -8,7 +8,9 @@
                         <img style="max-height: 40px;" src="~/assets/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
                         <!-- Welcome, {{ authUser.user.username }}! -->
                         <!-- <i class="fas fa-smile"></i> -->
-                         Welcome to LVUMS <span class="fw-bold">{{ formatUsername(authUser.user.username) }}</span>
+                        <span :class="{'d-none': isMobile}">
+                            Welcome to LVUMS, <span class="fw-bold">{{ formatUsername(authUser.user.username) }}</span>
+                        </span>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
