@@ -45,6 +45,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/classes/tsconfig.lib.json"
       }
+    },
+    "motorpool": {
+      "type": "application",
+      "root": "apps/motorpool",
+      "entryFile": "main",
+      "sourceRoot": "apps/motorpool/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/motorpool/tsconfig.app.json"
+      }
     }
   }
 }
