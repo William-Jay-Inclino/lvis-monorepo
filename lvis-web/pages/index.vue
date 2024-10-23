@@ -174,16 +174,6 @@
 
     }
 
-    const addFocusClass = (event: any) => {
-        event.target.parentElement.classList.add('focused');
-    };
-
-    const removeFocusClass = (event: any) => {
-        if (event.target.value === '') {
-            event.target.parentElement.classList.remove('focused');
-        }
-    };
-
 
 </script>
 
