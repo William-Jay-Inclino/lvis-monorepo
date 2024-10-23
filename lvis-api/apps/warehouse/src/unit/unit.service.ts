@@ -4,8 +4,7 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, Unit } from 'apps/warehouse/prisma/generated/client';
 import { UpdateUnitInput } from './dto/update-unit.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
-import { UnitsResponse } from './entities/units-response.entity';
-import { AuthUser } from '../__common__/auth-user.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class UnitService {

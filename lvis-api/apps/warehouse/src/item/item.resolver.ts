@@ -4,15 +4,16 @@ import { Item } from './entities/item.entity';
 import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
 import { ItemsResponse } from './entities/items-response.entity';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
-import { MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { ITEM_TYPE_CODE } from '../__common__/constants';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Item)

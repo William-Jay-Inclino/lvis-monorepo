@@ -6,7 +6,7 @@ import { APPROVAL_STATUS } from '../__common__/types';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Pending)

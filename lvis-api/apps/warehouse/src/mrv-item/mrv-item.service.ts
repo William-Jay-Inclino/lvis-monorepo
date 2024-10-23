@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateMrvItemSubInput } from '../mrv/dto/create-mrv-item.sub.input';
 import { CommonService } from '../__common__/classes';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class MrvItemService {

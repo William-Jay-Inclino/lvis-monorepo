@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { FuelTypeModule } from './fuel-type/fuel-type.module';
 
 @Module({
-  imports: [],
+  imports: [FuelTypeModule],
   controllers: [],
   providers: [],
 })

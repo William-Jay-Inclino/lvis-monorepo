@@ -4,12 +4,12 @@ import { UpdateJoApproverInput } from './dto/update-jo-approver.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, JOApprover } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { isAdmin, isValidApprovalStatus } from '../__common__/helpers';
 import { UpdateJOOrderResponse } from './entities/update-jo-order-response.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class JoApproverService {

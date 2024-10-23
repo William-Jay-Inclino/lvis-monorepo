@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int, ResolveReference, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CanvassItemService } from './canvass-item.service';
 import { CanvassItem } from './entities/canvass-item.entity';
 import { CreateCanvassItemInput } from './dto/create-canvass-item.input';
@@ -6,8 +6,8 @@ import { UpdateCanvassItemInput } from './dto/update-canvass-item.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { WarehouseRemoveResponse } from '../__common__/classes';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => CanvassItem)

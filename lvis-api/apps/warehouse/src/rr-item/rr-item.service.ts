@@ -3,10 +3,10 @@ import { UpdateRrItemInput } from './dto/update-rr-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, RRApprover, RRItem } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS, Role } from '../__common__/types';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { UpdateRrItemsInput } from './dto/update-rr-items.input';
 import { UpdateRrItemsResponse } from './entities/update-rr-items-response';
 import { isAdmin, isNormalUser } from '../__common__/helpers';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class RrItemService {

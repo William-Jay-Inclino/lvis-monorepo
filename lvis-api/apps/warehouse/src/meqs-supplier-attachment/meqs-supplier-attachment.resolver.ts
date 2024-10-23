@@ -4,10 +4,10 @@ import { MeqsSupplierAttachment } from './entities/meqs-supplier-attachment.enti
 import { CreateMeqsSupplierAttachmentInput } from './dto/create-meqs-supplier-attachment.input';
 import { UpdateMeqsSupplierAttachmentInput } from './dto/update-meqs-supplier-attachment.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { WarehouseRemoveResponse } from '../__common__/classes';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MeqsSupplierAttachment)
@@ -23,10 +23,6 @@ export class MeqsSupplierAttachmentResolver {
     return this.meqsSupplierAttachmentService.create(createMeqsSupplierAttachmentInput);
   }
 
-  // @Query(() => [MeqsSupplierAttachment])
-  // meqsSupplierAttachments() {
-  //   return this.meqsSupplierAttachmentService.findAll();
-  // }
 
   @Query(() => MeqsSupplierAttachment)
   meqsSupplierAttachment(@Args('id') id: string) {

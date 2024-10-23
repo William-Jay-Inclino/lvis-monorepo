@@ -2,10 +2,10 @@ import { Resolver, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql'
 import { SerivItemService } from './seriv-item.service';
 import { SERIVItem } from './entities/seriv-item.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { CreateSerivItemSubInput } from '../seriv/dto/create-seriv-item.sub.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => SERIVItem)

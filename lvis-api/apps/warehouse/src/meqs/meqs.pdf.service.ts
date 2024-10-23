@@ -4,7 +4,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
 import { formatDate, formatToPhpCurrency, getImageAsBase64 } from '../__common__/helpers';
 import * as moment from 'moment';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { Employee } from '../__employee__/entities/employee.entity';
@@ -15,6 +14,7 @@ import { UPLOADS_PATH } from '../__common__/config';
 import { MeqsSupplierItem } from '../meqs-supplier-item/entities/meqs-supplier-item.entity';
 import { Supplier } from '../supplier/entities/supplier.entity';
 import { MeqsSupplier } from '../meqs-supplier/entities/meqs-supplier.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class MeqsPdfService {

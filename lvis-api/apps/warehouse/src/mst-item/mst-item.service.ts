@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateMstItemSubInput } from '../mst/dto/create-mst-item.sub.input';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class MstItemService {

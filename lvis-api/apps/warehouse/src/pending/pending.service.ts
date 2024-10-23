@@ -1,7 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Pending, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { DB_ENTITY, MODULE_MAPPER } from '../__common__/constants';
 import { catchError, firstValueFrom } from 'rxjs';
@@ -15,6 +14,7 @@ import { McrtApproverStatusUpdated } from '../mcrt-approver/events/mcrt-approver
 import e from 'express';
 import { MrvApproverStatusUpdated } from '../mrv-approver/events/mrv-approver-status-updated.event';
 import { MstApproverStatusUpdated } from '../mst/events/mst-approver-status-updated.event';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class PendingService {

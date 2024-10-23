@@ -5,8 +5,8 @@ import { UseGuards } from '@nestjs/common';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { ChangeMrvApproverInput } from './dto/change-mrv-approver.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { MrvApproverService } from './mrv-approver.service';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MRVApprover)

@@ -1,10 +1,12 @@
 import * as moment from 'moment';
-import { AuthUser } from "./auth-user.entity"
-import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE, MODULES, RESOLVERS, Role, VAT_TYPE } from "./types"
-import { User, UserPermissions } from "./user.entity"
+import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE, Role, VAT_TYPE } from "./types"
 import { VAT_RATE } from './config';
 import * as path from 'path';
 import { readFileSync } from 'fs';
+import { User } from 'apps/system/src/__common__/user.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 
 export const isValidApprovalStatus = (status: number): boolean => {
 

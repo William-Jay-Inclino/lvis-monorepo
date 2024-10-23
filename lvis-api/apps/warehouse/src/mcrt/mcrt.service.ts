@@ -1,7 +1,6 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMcrtInput } from './dto/create-mcrt.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { MCRT, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { CreateMcrtApproverSubInput } from './dto/create-mcrt-approver.sub.input';
@@ -12,7 +11,7 @@ import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MCRTsResponse } from './entities/mcrts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { CreateMcrtItemSubInput } from './dto/create-mcrt-item.sub.input';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class McrtService {

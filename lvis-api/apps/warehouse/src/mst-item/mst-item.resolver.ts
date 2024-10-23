@@ -2,10 +2,10 @@ import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { MstItemService } from './mst-item.service';
 import { MSTItem } from './entities/mst-item.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { CreateMstItemSubInput } from '../mst/dto/create-mst-item.sub.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MSTItem)

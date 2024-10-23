@@ -1,7 +1,6 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOsrivInput } from './dto/create-osriv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { Item, OSRIV, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { CreateOsrivApproverSubInput } from './dto/create-osriv-approver.sub.input';
@@ -13,6 +12,7 @@ import { OSRIVsResponse } from './entities/osrivs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { CreateOsrivItemSubInput } from './dto/create-osriv-item.sub.input';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class OsrivService {

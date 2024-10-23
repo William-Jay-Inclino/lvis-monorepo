@@ -6,12 +6,12 @@ import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UpdateProjectInput } from './dto/update-project.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
-
-import { AuthUser } from '../__common__/auth-user.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
-import { MODULES, RESOLVERS } from '../__common__/types';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Project)

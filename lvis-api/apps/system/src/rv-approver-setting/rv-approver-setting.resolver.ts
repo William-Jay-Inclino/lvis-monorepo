@@ -3,7 +3,7 @@ import { RvApproverSettingService } from './rv-approver-setting.service';
 import { RvApproverSetting } from './entities/rv-approver-setting.entity';
 import { CreateRvApproverSettingInput } from './dto/create-rv-approver-setting.input';
 import { UpdateRvApproverSettingInput } from './dto/update-rv-approver-setting.input';
-import { ApproverSettingRemoveResponse, SystemRemoveResponse } from '../__common__/classes';
+import { ApproverSettingRemoveResponse } from '../__common__/classes';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { AuthUser } from '../__common__/auth-user.entity';

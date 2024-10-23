@@ -5,16 +5,18 @@ import { MrvService } from './mrv.service';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { UpdateMrvInput } from './dto/update-mrv.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { MRVApprover } from '../mrv-approver/entities/mrv-approver.entity';
 import { MrvApproverService } from '../mrv-approver/mrv-approver.service';
 import { MRVsResponse } from './entities/mrvs-response.entity';
-import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MRV)

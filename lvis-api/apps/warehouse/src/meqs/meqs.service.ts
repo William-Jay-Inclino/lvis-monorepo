@@ -1,5 +1,4 @@
 import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { HttpService } from '@nestjs/axios';
 import { CreateMeqsInput } from './dto/create-meqs.input';
@@ -13,6 +12,7 @@ import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { CreateMeqsApproverSubInput } from './dto/create-meqs-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class MeqsService {

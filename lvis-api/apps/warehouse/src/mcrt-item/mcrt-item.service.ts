@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateMcrtItemSubInput } from '../mcrt/dto/create-mcrt-item.sub.input';
 import { MCRT } from '../mcrt/entities/mcrt.entity';
 import { SerivItemService } from '../seriv-item/seriv-item.service';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class McrtItemService {

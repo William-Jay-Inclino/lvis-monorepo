@@ -3,7 +3,7 @@ import { SprApproverSettingService } from './spr-approver-setting.service';
 import { SprApproverSetting } from './entities/spr-approver-setting.entity';
 import { CreateSprApproverSettingInput } from './dto/create-spr-approver-setting.input';
 import { UpdateSprApproverSettingInput } from './dto/update-spr-approver-setting.input';
-import { ApproverSettingRemoveResponse, SystemRemoveResponse } from '../__common__/classes';
+import { ApproverSettingRemoveResponse } from '../__common__/classes';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { AuthUser } from '../__common__/auth-user.entity';

@@ -3,14 +3,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
 import { formatDate, getImageAsBase64 } from '../__common__/helpers';
-import * as moment from 'moment';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { Employee } from '../__employee__/entities/employee.entity';
 import { SPR } from './entities/spr.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { UPLOADS_PATH } from '../__common__/config';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class SprPdfService {

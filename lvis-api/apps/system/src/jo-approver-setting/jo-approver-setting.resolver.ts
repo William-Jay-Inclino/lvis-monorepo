@@ -3,7 +3,7 @@ import { JoApproverSettingService } from './jo-approver-setting.service';
 import { JoApproverSetting } from './entities/jo-approver-setting.entity';
 import { CreateJoApproverSettingInput } from './dto/create-jo-approver-setting.input';
 import { UpdateJoApproverSettingInput } from './dto/update-jo-approver-setting.input';
-import { ApproverSettingRemoveResponse, SystemRemoveResponse } from '../__common__/classes';
+import { ApproverSettingRemoveResponse } from '../__common__/classes';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { AuthUser } from '../__common__/auth-user.entity';

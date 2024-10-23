@@ -4,10 +4,10 @@ import { MeqsSupplierItem } from './entities/meqs-supplier-item.entity';
 import { CreateMeqsSupplierItemInput } from './dto/create-meqs-supplier-item.input';
 import { UpdateMeqsSupplierItemInput } from './dto/update-meqs-supplier-item.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MeqsSupplierItem)

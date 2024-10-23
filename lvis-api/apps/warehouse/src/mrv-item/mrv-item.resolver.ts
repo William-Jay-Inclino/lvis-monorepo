@@ -2,11 +2,11 @@ import { Resolver, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql'
 import { MrvItemService } from './mrv-item.service';
 import { MRVItem } from './entities/mrv-item.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { CreateMrvItemSubInput } from '../mrv/dto/create-mrv-item.sub.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { SerivItemService } from '../seriv-item/seriv-item.service';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MRVItem)

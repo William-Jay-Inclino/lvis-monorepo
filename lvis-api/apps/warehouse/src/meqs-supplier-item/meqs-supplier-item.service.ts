@@ -4,8 +4,8 @@ import { UpdateMeqsSupplierItemInput } from './dto/update-meqs-supplier-item.inp
 import { PrismaService } from '../__prisma__/prisma.service';
 import { MEQSSupplierItem, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { WarehouseRemoveResponse } from '../__common__/classes';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { isAdmin } from '../__common__/helpers';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class MeqsSupplierItemService {

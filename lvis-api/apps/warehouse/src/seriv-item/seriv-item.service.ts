@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateSerivItemSubInput } from '../seriv/dto/create-seriv-item.sub.input';
 import { CommonService } from '../__common__/classes';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { McrtService } from '../mcrt/mcrt.service';
 import { MCRT } from '../mcrt/entities/mcrt.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class SerivItemService {

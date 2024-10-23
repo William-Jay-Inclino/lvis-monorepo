@@ -6,19 +6,21 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { Classification } from '../__classification__/entities/classification.entity';
 import { UpdateJoInput } from './dto/update-jo.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { JOApprover } from '../jo-approver/entities/jo-approver.entity';
 import { JoApproverService } from '../jo-approver/jo-approver.service';
 import { JoNumber } from './entities/jo-number.entity';
 import { JOsResponse } from './entities/jos-response.entity';
-import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { Department } from '../__department__ /entities/department.entity';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { UpdateJoByBudgetOfficerInput } from './dto/update-jo-by-budget-officer.input';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => JO)

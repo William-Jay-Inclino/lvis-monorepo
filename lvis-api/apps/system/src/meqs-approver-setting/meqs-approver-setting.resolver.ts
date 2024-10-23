@@ -3,7 +3,7 @@ import { MeqsApproverSettingService } from './meqs-approver-setting.service';
 import { MeqsApproverSetting } from './entities/meqs-approver-setting.entity';
 import { CreateMeqsApproverSettingInput } from './dto/create-meqs-approver-setting.input';
 import { UpdateMeqsApproverSettingInput } from './dto/update-meqs-approver-setting.input';
-import { ApproverSettingRemoveResponse, SystemRemoveResponse } from '../__common__/classes';
+import { ApproverSettingRemoveResponse } from '../__common__/classes';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { AuthUser } from '../__common__/auth-user.entity';

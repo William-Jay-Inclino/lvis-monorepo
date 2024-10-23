@@ -5,14 +5,11 @@ import { MeqsService } from './meqs.service';
 import { MEQS } from './entities/meq.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { CreateMeqsInput } from './dto/create-meqs.input';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { UpdateMeqsInput } from './dto/update-meqs.input';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { MEQSApprover } from '../meqs-approver/entities/meqs-approver.entity';
 import { MeqsApproverService } from '../meqs-approver/meqs-approver.service';
-import { MeqsNumber } from './entities/meqs-number.entity';
 import { MEQSsResponse } from './entities/meqs-response.entity';
-import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
@@ -22,6 +19,10 @@ import { JoService } from '../jo/jo.service';
 import { RV } from '../rv/entities/rv.entity';
 import { JO } from '../jo/entities/jo.entity';
 import { SPR } from '../spr/entities/spr.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MEQS)

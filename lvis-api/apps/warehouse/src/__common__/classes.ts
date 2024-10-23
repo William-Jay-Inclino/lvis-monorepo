@@ -1,7 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { SETTINGS } from "./constants";
 import { Item } from "../item/entities/item.entity";
 import { CreateMrvItemSubInput } from "../mrv/dto/create-mrv-item.sub.input";
 import { CreateOsrivItemSubInput } from "../osriv/dto/create-osriv-item.sub.input";

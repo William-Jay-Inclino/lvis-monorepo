@@ -2,7 +2,6 @@ import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nest
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateCanvassInput } from './dto/create-canvass.input';
 import { Canvass, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { UpdateCanvassInput } from './dto/update-canvass.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { catchError, firstValueFrom } from 'rxjs';
@@ -12,6 +11,7 @@ import { FindOneResponse } from './entities/types';
 import * as moment from 'moment';
 import { getDateRange, isAdmin } from '../__common__/helpers';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class CanvassService {

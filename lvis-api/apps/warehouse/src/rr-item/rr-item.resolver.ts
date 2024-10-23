@@ -2,12 +2,12 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { RrItemService } from './rr-item.service';
 import { RrItem } from './entities/rr-item.entity';
 import { UpdateRrItemInput } from './dto/update-rr-item.input';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { UpdateRrItemsInput } from './dto/update-rr-items.input';
 import { UpdateRrItemsResponse } from './entities/update-rr-items-response';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => RrItem)
 export class RrItemResolver {

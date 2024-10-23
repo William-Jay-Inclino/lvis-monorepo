@@ -6,7 +6,6 @@ import { Item, MCRTApprover, MCTApprover, MRVItem, MSTApprover, OSRIVApprover, O
 import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE } from '../__common__/types';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { ItemsResponse } from './entities/items-response.entity';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { ItemTransaction } from './entities/item-transaction.entity';
 import { RrApproverStatusUpdated } from '../rr-approver/events/rr-approver-status-updated.event';
 import { OnEvent } from '@nestjs/event-emitter';
@@ -19,6 +18,7 @@ import { ITEM_TYPE_CODE } from '../__common__/constants';
 import { MSTItem } from '../mst-item/entities/mst-item.entity';
 import { MST } from '../mst/entities/mst.entity';
 import { ITEM_STATUS } from './entities/item.types';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class ItemService {

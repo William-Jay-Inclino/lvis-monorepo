@@ -4,7 +4,7 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, Supplier } from 'apps/warehouse/prisma/generated/client';
 import { UpdateSupplierInput } from './dto/update-supplier.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
-import { AuthUser } from '../__common__/auth-user.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class SupplierService {

@@ -5,8 +5,8 @@ import { UseGuards } from '@nestjs/common';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { ChangeMstApproverInput } from './dto/change-mst-approver.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { MstApproverService } from './mst-approver.service';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MSTApprover)

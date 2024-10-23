@@ -6,8 +6,8 @@ import { UpdateCanvassItemInput } from './dto/update-canvass-item.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { VAT_TYPE } from '../__common__/types';
 import { MeqsSupplierItem } from '../meqs-supplier-item/entities/meqs-supplier-item.entity';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { isAdmin } from '../__common__/helpers';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class CanvassItemService {

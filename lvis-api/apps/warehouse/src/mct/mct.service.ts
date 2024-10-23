@@ -1,7 +1,6 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMctInput } from './dto/create-mct.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { MCT, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { CreateMctApproverSubInput } from './dto/create-mct-approver.sub.input';
@@ -12,6 +11,7 @@ import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MCTsResponse } from './entities/mcts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class MctService {

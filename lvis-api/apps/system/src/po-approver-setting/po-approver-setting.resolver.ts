@@ -1,9 +1,9 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { PoApproverSettingService } from './po-approver-setting.service';
 import { PoApproverSetting } from './entities/po-approver-setting.entity';
 import { CreatePoApproverSettingInput } from './dto/create-po-approver-setting.input';
 import { UpdatePoApproverSettingInput } from './dto/update-po-approver-setting.input';
-import { ApproverSettingRemoveResponse, SystemRemoveResponse } from '../__common__/classes';
+import { ApproverSettingRemoveResponse } from '../__common__/classes';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { AuthUser } from '../__common__/auth-user.entity';

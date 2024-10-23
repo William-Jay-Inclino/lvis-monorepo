@@ -4,7 +4,6 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, JO, JOApprover } from 'apps/warehouse/prisma/generated/client';
 import { CreateJoInput } from './dto/create-jo.input';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { UpdateJoInput } from './dto/update-jo.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -14,6 +13,7 @@ import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateJoByBudgetOfficerInput } from './dto/update-jo-by-budget-officer.input';
 import { CreateJoApproverSubInput } from './dto/create-jo-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class JoService {

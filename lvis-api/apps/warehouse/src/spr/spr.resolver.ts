@@ -6,18 +6,20 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { Classification } from '../__classification__/entities/classification.entity';
 import { UpdateSprInput } from './dto/update-spr.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { SPRApprover } from '../spr-approver/entities/spr-approver.entity';
 import { SprApproverService } from '../spr-approver/spr-approver.service';
 import { SprNumber } from './entities/spr-number.entity';
 import { SPRsResponse } from './entities/sprs-response.entity';
-import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { UpdateSprByBudgetOfficerInput } from './dto/update-spr-by-budget-officer.input';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => SPR)

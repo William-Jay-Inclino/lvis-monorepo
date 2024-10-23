@@ -4,12 +4,12 @@ import { UpdateMeqsApproverInput } from './dto/update-meqs-approver.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, MEQSApprover } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { isAdmin, isValidApprovalStatus } from '../__common__/helpers';
 import { UpdateMeqsOrderResponse } from './entities/update-meqs-order-response.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class MeqsApproverService {

@@ -1,7 +1,6 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMstInput } from './dto/create-mst.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { MST, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { CreateMstApproverSubInput } from './dto/create-mst-approver.sub.input';
@@ -12,7 +11,7 @@ import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MSTsResponse } from './entities/msts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { CreateMstItemSubInput } from './dto/create-mst-item.sub.input';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class MstService {

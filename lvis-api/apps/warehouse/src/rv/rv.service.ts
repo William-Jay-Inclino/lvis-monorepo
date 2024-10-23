@@ -4,7 +4,6 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, RV, RVApprover } from 'apps/warehouse/prisma/generated/client';
 import { CreateRvInput } from './dto/create-rv.input';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { UpdateRvInput } from './dto/update-rv.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -14,6 +13,7 @@ import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateRvByBudgetOfficerInput } from './dto/update-rv-by-budget-officer.input';
 import { CreateRvApproverSubInput } from './dto/create-rv-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class RvService {

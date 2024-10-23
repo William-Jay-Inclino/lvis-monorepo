@@ -4,7 +4,6 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, SPR, SPRApprover } from 'apps/warehouse/prisma/generated/client';
 import { CreateSprInput } from './dto/create-spr.input';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { UpdateSprInput } from './dto/update-spr.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -14,6 +13,7 @@ import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateSprByBudgetOfficerInput } from './dto/update-spr-by-budget-officer.input';
 import { CreateSprApproverSubInput } from './dto/create-spr-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class SprService {

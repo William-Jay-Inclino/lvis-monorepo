@@ -2,10 +2,10 @@ import { Resolver, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql'
 import { McrtItemService } from './mcrt-item.service';
 import { MCRTItem } from './entities/mcrt-item.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { CreateMcrtItemSubInput } from '../mcrt/dto/create-mcrt-item.sub.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MCRTItem)

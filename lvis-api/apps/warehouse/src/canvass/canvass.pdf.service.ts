@@ -4,12 +4,11 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
 import { formatDate, getImageAsBase64 } from '../__common__/helpers';
 import { Canvass } from './entities/canvass.entity';
-import * as moment from 'moment';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class CanvassPdfService {

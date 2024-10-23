@@ -4,7 +4,6 @@ import { CreatePoInput } from './dto/create-po.input';
 import { PO, POApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { UpdatePoInput } from './dto/update-po.input';
@@ -14,6 +13,7 @@ import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdatePoByFinanceManagerInput } from './dto/update-po-by-finance-manager.input';
 import { CreatePoApproverSubInput } from './dto/create-po-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class PoService {

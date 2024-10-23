@@ -1,8 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMrvInput } from './dto/create-mrv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { AuthUser } from '../__common__/auth-user.entity';
-import { Item, MRV, Prisma } from 'apps/warehouse/prisma/generated/client';
+import { MRV, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { CreateMrvApproverSubInput } from './dto/create-mrv-approver.sub.input';
 import { DB_ENTITY, SETTINGS } from '../__common__/constants';
@@ -13,6 +12,7 @@ import { MRVsResponse } from './entities/mrvs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { CreateMrvItemSubInput } from './dto/create-mrv-item.sub.input';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class MrvService {

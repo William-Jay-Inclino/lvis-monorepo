@@ -2,12 +2,13 @@ import { Controller, Get, Param, Res, UnauthorizedException, UseGuards } from '@
 import { RrPdfService } from './rr.pdf.service';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { RrService } from './rr.service';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { MODULES, RESOLVERS } from '../__common__/types';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 
 @UseGuards(JwtAuthGuard)
 @Controller('rr')

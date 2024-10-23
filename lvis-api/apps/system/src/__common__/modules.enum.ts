@@ -1,0 +1,74 @@
+export enum MODULES {
+
+    // ========= SYSTEM: DATA MANAGEMENT ========= 
+    ACCOUNT = 'ACCOUNT',
+    CLASSIFICATION = 'CLASSIFICATION',
+    DEPARTMENT = 'DEPARTMENT',
+    EMPLOYEE = 'EMPLOYEE',
+
+
+    // ========= PURCHASING ========= 
+    CANVASS = 'CANVASS',
+    CANVASS_ITEM = 'CANVASS_ITEM',
+
+    RV = 'RV',
+    RV_APPROVER = 'RV_APPROVER',
+
+    SPR = 'SPR',
+    SPR_APPROVER = 'SPR_APPROVER',
+
+    JO = 'JO',
+    JO_APPROVER = 'JO_APPROVER',
+
+    MEQS = 'MEQS',
+    MEQS_APPROVER = 'MEQS_APPROVER',
+    MEQS_SUPPLIER = 'MEQS_SUPPLIER',
+    MEQS_SUPPLIER_ITEM = 'MEQS_SUPPLIER_ITEM',
+    MEQS_SUPPLIER_ATTACHMENT = 'MEQS_SUPPLIER_ATTACHMENT',
+
+    PO = 'PO',
+    PO_APPROVER = 'PO_APPROVER',
+
+    RR = 'RR',
+    RR_APPROVER = 'RR_APPROVER',
+    RR_ITEM = 'RR_ITEM',
+
+
+    // ========= WAREHOUSING ========= 
+    OSRIV = 'OSRIV',
+    OSRIV_APPROVER = 'OSRIV_APPROVER',
+    OSRIV_ITEM = 'OSRIV_ITEM',
+
+    SERIV = 'SERIV',
+    SERIV_APPROVER = 'SERIV_APPROVER',
+    SERIV_ITEM = 'SERIV_ITEM',
+
+    MRV = 'MRV',
+    MRV_APPROVER = 'MRV_APPROVER',
+    MRV_ITEM = 'MRV_ITEM',
+
+    MCT = 'MCT',
+    MCT_APPROVER = 'MCT_APPROVER',
+    MCT_ITEM = 'MCT_ITEM',
+
+    MCRT = 'MCRT',
+    MCRT_APPROVER = 'MCRT_APPROVER',
+    MCRT_ITEM = 'MCRT_ITEM',
+
+    MST = 'MST',
+    MST_APPROVER = 'MST_APPROVER',
+    MST_ITEM = 'MST_ITEM',
+
+    // ========= DATA MANAGEMENT ========= 
+    SUPPLIER = 'SUPPLIER',
+    UNIT = 'UNIT',
+    PROJECT = 'PROJECT',
+    VEHICLE = 'VEHICLE',
+    STATION = 'STATION',
+
+
+    // ========= STOCK INVENTORY ========= 
+    ITEM = 'ITEM',
+    ITEM_TYPE = 'ITEM_TYPE',
+
+}

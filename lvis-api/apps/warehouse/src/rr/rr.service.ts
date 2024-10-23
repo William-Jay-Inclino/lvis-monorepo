@@ -1,7 +1,6 @@
 import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateRrInput } from './dto/create-rr.input';
 import { UpdateRrInput } from './dto/update-rr.input';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { HttpService } from '@nestjs/axios';
 import { Prisma, RR, RRApprover } from 'apps/warehouse/prisma/generated/client';
@@ -13,6 +12,7 @@ import * as moment from 'moment';
 import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { CreateRrApproverSubInput } from './dto/create-rr-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class RrService {

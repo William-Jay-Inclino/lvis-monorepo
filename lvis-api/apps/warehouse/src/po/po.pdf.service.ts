@@ -3,19 +3,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
 import { formatDate, formatToPhpCurrency, getImageAsBase64 } from '../__common__/helpers';
-import * as moment from 'moment';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { Employee } from '../__employee__/entities/employee.entity';
 import { PO } from './entities/po.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { VAT } from '../__common__/constants';
-import { Classification } from '../__classification__/entities/classification.entity';
-import { VAT_TYPE } from '../__common__/types';
 import { UPLOADS_PATH } from '../__common__/config';
 import { MeqsSupplierItem } from '../meqs-supplier-item/entities/meqs-supplier-item.entity';
 import { Supplier } from '../supplier/entities/supplier.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class PoPdfService {

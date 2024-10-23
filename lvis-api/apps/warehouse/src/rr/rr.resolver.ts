@@ -5,19 +5,21 @@ import { RrService } from './rr.service';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { UpdateRrInput } from './dto/update-rr.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { NotFoundException, UseGuards } from '@nestjs/common';
 import { RrApprover } from '../rr-approver/entities/rr-approver.entity';
 import { RrApproverService } from '../rr-approver/rr-approver.service';
 import { RrNumber } from './entities/rr-number.entity';
 import { RRsResponse } from './entities/rr-response.entity';
-import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { PoService } from '../po/po.service';
 import { PO } from '../po/entities/po.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => RR)

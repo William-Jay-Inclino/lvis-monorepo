@@ -4,11 +4,10 @@ import { UpdateMeqsSupplierInput } from './dto/update-meqs-supplier.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { MEQSSupplier, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { WarehouseRemoveResponse } from '../__common__/classes';
-import { AuthUser } from '../__common__/auth-user.entity';
-import { HttpService } from '@nestjs/axios';
 import { MeqsSupplierAttachment } from '../meqs-supplier-attachment/entities/meqs-supplier-attachment.entity';
 import axios from 'axios';
 import { isAdmin } from '../__common__/helpers';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class MeqsSupplierService {
@@ -18,7 +17,6 @@ export class MeqsSupplierService {
 
     constructor(
         private readonly prisma: PrismaService,
-        private readonly httpService: HttpService
     ) { }
 
     setAuthUser(authUser: AuthUser) {
@@ -41,16 +39,6 @@ export class MeqsSupplierService {
             meqs: { connect: { id: input.meqs_id } },
             supplier: { connect: { id: input.supplier_id } },
             payment_terms: input.payment_terms,
-            // attachments: {
-            //     create: input.attachments.map(attachment => {
-            //         const attachmentInput: Prisma.MEQSSupplierAttachmentCreateWithoutMeqs_supplierInput = {
-            //             src: attachment.src,
-            //             filename: attachment.filename,
-            //             created_by: createdBy
-            //         }
-            //         return attachmentInput
-            //     })
-            // },
             meqs_supplier_items: {
                 create: input.meqs_supplier_items.map(item => {
 

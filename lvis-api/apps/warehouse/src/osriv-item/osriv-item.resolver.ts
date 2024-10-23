@@ -2,10 +2,10 @@ import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { OsrivItemService } from './osriv-item.service';
 import { OSRIVItem } from './entities/osriv-item.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { CreateOsrivItemSubInput } from '../osriv/dto/create-osriv-item.sub.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => OSRIVItem)

@@ -2,12 +2,13 @@ import { Controller, Get, Param, Res, UnauthorizedException, UseGuards } from '@
 import { MeqsPdfService } from './meqs.pdf.service';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { MeqsService } from './meqs.service';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { MODULES, RESOLVERS } from '../__common__/types';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 
 @UseGuards(JwtAuthGuard)
 @Controller('meqs')

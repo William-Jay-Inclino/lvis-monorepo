@@ -5,13 +5,10 @@ import { PoService } from './po.service';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { UpdatePoInput } from './dto/update-po.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { NotFoundException, UseGuards } from '@nestjs/common';
 import { PoApproverService } from '../po-approver/po-approver.service';
-import { PoNumber } from './entities/po-number.entity';
 import { POsResponse } from './entities/pos-response.entity';
-import { APPROVAL_STATUS, MODULES, RESOLVERS } from '../__common__/types';
 import { POApprover } from '../po-approver/entities/po-approver.entity';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
@@ -20,6 +17,10 @@ import { Account } from '../__account__ /entities/account.entity';
 import { UpdatePoByFinanceManagerInput } from './dto/update-po-by-finance-manager.input';
 import { MeqsService } from '../meqs/meqs.service';
 import { MEQS } from '../meqs/entities/meq.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => PO)

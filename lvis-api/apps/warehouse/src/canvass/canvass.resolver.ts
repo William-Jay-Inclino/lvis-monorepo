@@ -6,14 +6,14 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { Logger, UseGuards } from '@nestjs/common';
-import { AuthUser } from '../__common__/auth-user.entity';
+import { UseGuards } from '@nestjs/common';
 import { UpdateCanvassInput } from './dto/update-canvass.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { CanvassesResponse } from './entities/canvasses-response.entity';
-import { RcNumber } from './entities/rc-number.entity'
-import { MODULES, RESOLVERS } from '../__common__/types';
 import { AccessGuard } from '../__auth__/guards/access.guard';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 
 @UseGuards(GqlAuthGuard)

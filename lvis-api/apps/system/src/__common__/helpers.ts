@@ -1,6 +1,7 @@
 import { Role } from "apps/system/prisma/generated/client"
-import { MODULES, RESOLVERS, User } from "./types"
-import { UserPermissions } from "./types"
+import { User } from "./user.entity"
+import { MODULES } from "./modules.enum"
+import { RESOLVERS } from "./resolvers.enum"
 
 
 export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boolean {
