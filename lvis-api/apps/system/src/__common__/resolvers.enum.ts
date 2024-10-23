@@ -209,4 +209,12 @@ export enum RESOLVERS {
     updateItemType = 'updateItemType',
     removeItemType = 'removeItemType',
 
+
+    // ========= FUEL TYPE ========= 
+    createFuelType = 'createFuelType',
+    fuel_types = 'fuel_types',
+    fuel_type = 'fuel_type',
+    updateFuelType = 'updateFuelType',
+    removeFuelType = 'removeFuelType',
+
 }

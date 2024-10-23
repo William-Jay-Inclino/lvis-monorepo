@@ -80,6 +80,10 @@ function handleAuth({ req }) {
               name: 'warehouse',
               url: process.env.WAREHOUSE_URL,
             },
+            {
+              name: 'motorpool',
+              url: process.env.MOTORPOOL_URL,
+            },
           ],
         }),
         buildService({ url }) {

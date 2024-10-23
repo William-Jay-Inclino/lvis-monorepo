@@ -7,8 +7,9 @@ export class User {
     role: Role
     password: string;
     permissions?: UserPermissions
+    created_by: string
 
-    user_employee: UserEmployee
+    user_employee?: UserEmployee
 }
 
 export interface UserEmployee {
@@ -22,8 +23,11 @@ export interface Employee {
     firstname: string
     middlename: string
     lastname: string
-    is_budget_officer: boolean
-    is_finance_manager: boolean
+    is_budget_officer?: boolean
+    is_finance_manager?: boolean
+    created_by: string
+    position_id: string;
+    department_id: string;
 }
 
 export interface SystemPermissions {
@@ -295,6 +299,16 @@ export interface WarehousePermissions {
         delete?: boolean,
     },
     canManageItemType?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+        update?: boolean,
+        delete?: boolean,
+    },
+
+    // ========= MOTORPOOL ========= 
+
+    canManageFuelType?: {
         create?: boolean,
         search?: boolean,
         viewDetails?: boolean

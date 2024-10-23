@@ -131,11 +131,11 @@ import { TasksService } from './__task-scheduler__/task.service';
   controllers: [],
   providers: [
     TasksService,
-    RvService, 
-    MeqsService, 
-    MeqsResolver, 
-    PoService, 
-    PoResolver, 
+    // RvService, 
+    // MeqsService, 
+    // MeqsResolver, 
+    // PoService, 
+    // PoResolver, 
     // PoApproverResolver
   ],
 })

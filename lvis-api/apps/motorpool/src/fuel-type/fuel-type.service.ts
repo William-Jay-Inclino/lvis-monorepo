@@ -4,7 +4,7 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, FuelType } from 'apps/motorpool/prisma/generated/client';
 import { UpdateFuelTypeInput } from './dto/update-fuel-type.input';
 import { MotorpoolRemoveResponse } from '../__common__/classes';
-import { AuthUser } from '../__common__/auth-user.entity';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class FuelTypeService {

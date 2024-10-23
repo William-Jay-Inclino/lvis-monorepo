@@ -3,8 +3,10 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-import { MODULES, RESOLVERS, User } from '../../__common__/types';
 import { canAccess } from '../../__common__/helpers';
+import { MODULES } from '../../__common__/modules.enum';
+import { RESOLVERS } from '../../__common__/resolvers.enum';
+import { User } from '../../__common__/user.entity';
 
 @Injectable()
 export class AccessGuard extends AuthGuard('jwt') implements CanActivate {

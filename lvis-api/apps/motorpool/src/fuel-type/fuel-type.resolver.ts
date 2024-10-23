@@ -1,35 +1,64 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { FuelTypeService } from './fuel-type.service';
 import { FuelType } from './entities/fuel-type.entity';
 import { CreateFuelTypeInput } from './dto/create-fuel-type.input';
 import { UpdateFuelTypeInput } from './dto/update-fuel-type.input';
+import { MotorpoolRemoveResponse } from '../__common__/classes';
+import { UseGuards } from '@nestjs/common';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { AccessGuard } from '../__auth__/guards/access.guard';
+import { CheckAccess } from '../__auth__/check-access.decorator';
+import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => FuelType)
 export class FuelTypeResolver {
-  constructor(private readonly fuelTypeService: FuelTypeService) {}
+  constructor(private readonly fuelTypeService: FuelTypeService) { }
 
   @Mutation(() => FuelType)
-  createFuelType(@Args('createFuelTypeInput') createFuelTypeInput: CreateFuelTypeInput) {
+  @UseGuards(AccessGuard)
+  @CheckAccess(MODULES.FUEL_TYPE, RESOLVERS.createFuelType)
+  createFuelType(
+    @Args('input') createFuelTypeInput: CreateFuelTypeInput,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.fuelTypeService.setAuthUser(authUser)
     return this.fuelTypeService.create(createFuelTypeInput);
   }
 
-  @Query(() => [FuelType], { name: 'fuelType' })
-  findAll() {
+  @Query(() => [FuelType])
+  fuel_types() {
     return this.fuelTypeService.findAll();
   }
 
-  @Query(() => FuelType, { name: 'fuelType' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => FuelType)
+  fuel_type(@Args('id') id: number) {
     return this.fuelTypeService.findOne(id);
   }
 
   @Mutation(() => FuelType)
-  updateFuelType(@Args('updateFuelTypeInput') updateFuelTypeInput: UpdateFuelTypeInput) {
-    return this.fuelTypeService.update(updateFuelTypeInput.id, updateFuelTypeInput);
+  @UseGuards(AccessGuard)
+  @CheckAccess(MODULES.FUEL_TYPE, RESOLVERS.updateFuelType)
+  updateFuelType(
+    @Args('id') id: number,
+    @Args('input') updateFuelTypeInput: UpdateFuelTypeInput,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.fuelTypeService.setAuthUser(authUser)
+    return this.fuelTypeService.update(id, updateFuelTypeInput);
   }
 
-  @Mutation(() => FuelType)
-  removeFuelType(@Args('id', { type: () => Int }) id: number) {
+  @Mutation(() => MotorpoolRemoveResponse)
+  @UseGuards(AccessGuard)
+  @CheckAccess(MODULES.FUEL_TYPE, RESOLVERS.removeFuelType)
+  removeFuelType(
+    @Args('id') id: number,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.fuelTypeService.setAuthUser(authUser)
     return this.fuelTypeService.remove(id);
   }
 }

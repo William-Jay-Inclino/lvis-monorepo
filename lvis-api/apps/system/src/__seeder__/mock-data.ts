@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
-import { Account, Classification, Department, DepartmentStatus, Employee, Feature, JOApproverSetting, MEQSApproverSetting, Module, POApproverSetting, Position, RRApproverSetting, RVApproverSetting, SPRApproverSetting, Service, SubModule, User, UserEmployee, UserStatus } from "../__common__/types";
+import { Account, Classification, Department, DepartmentStatus, JOApproverSetting, MEQSApproverSetting, POApproverSetting, Position, RRApproverSetting, RVApproverSetting, SPRApproverSetting, UserEmployee, UserStatus } from "../__common__/types";
 import { Role } from "apps/system/prisma/generated/client";
+import { Employee, User } from "../__common__/user.entity";
 
 
 export const accounts: Account[] = [

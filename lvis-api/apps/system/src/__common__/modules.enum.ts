@@ -63,12 +63,15 @@ export enum MODULES {
     SUPPLIER = 'SUPPLIER',
     UNIT = 'UNIT',
     PROJECT = 'PROJECT',
-    VEHICLE = 'VEHICLE',
     STATION = 'STATION',
-
-
+    
     // ========= STOCK INVENTORY ========= 
     ITEM = 'ITEM',
     ITEM_TYPE = 'ITEM_TYPE',
+    
+    
+    // ========= MOTORPOOL ========= 
+    VEHICLE = 'VEHICLE',
+    FUEL_TYPE = 'FUEL_TYPE',
 
 }

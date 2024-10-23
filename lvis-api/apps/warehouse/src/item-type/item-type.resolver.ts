@@ -53,7 +53,7 @@ export class ItemTypeResolver {
 
   @Mutation(() => WarehouseRemoveResponse)
   @UseGuards(AccessGuard)
-  @CheckAccess(MODULES.STATION, RESOLVERS.removeStation)
+  @CheckAccess(MODULES.ITEM_TYPE, RESOLVERS.removeItemType)
   removeItemType(
     @Args('id') id: number,
     @CurrentAuthUser() authUser: AuthUser

@@ -3,9 +3,10 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-import { MODULES, RESOLVERS } from '../../__common__/types';
+import { User } from 'apps/system/prisma/generated/client';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { canAccess } from '../../__common__/helpers';
-import { User } from '../../__common__/user.entity';
 
 @Injectable()
 export class AccessGuard extends AuthGuard('jwt') implements CanActivate {
@@ -20,9 +21,16 @@ export class AccessGuard extends AuthGuard('jwt') implements CanActivate {
             return true;
         }
 
-        const ctx = GqlExecutionContext.create(context);
-        const authUser: User = ctx.getContext().req.user;
-
+        let authUser: User;
+        if (context.getType().toString() === 'graphql') {
+            const ctx = GqlExecutionContext.create(context);
+            authUser = ctx.getContext().req.user;
+        } else {
+            const request = context.switchToHttp().getRequest();
+            authUser = request.user;
+        }
+        
+        // @ts-ignore
         if (!canAccess(authUser, access.module, access.resolver)) {
             throw new ForbiddenException('You do not have permission to perform this action');
         }
