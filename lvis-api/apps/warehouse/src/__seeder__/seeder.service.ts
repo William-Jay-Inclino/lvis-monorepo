@@ -19,7 +19,7 @@ export class SeederService {
                 this.seedItemType(),
                 this.seedItemCodeTracker(),
                 this.seedUnit(),
-                this.seedVehicle(),
+                // this.seedVehicle(),
                 this.seedSettingTable(),
             ]
 
@@ -66,14 +66,14 @@ export class SeederService {
         }
     }
 
-    seedVehicle() {
-        console.log('seeding vehicle table...')
-        try {
-            return this.prisma.vehicle.createMany({ data: data.vehicles })
-        } catch (error) {
-            console.error(error)
-        }
-    }
+    // seedVehicle() {
+    //     console.log('seeding vehicle table...')
+    //     try {
+    //         return this.prisma.vehicle.createMany({ data: data.vehicles })
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
 
     seedItemType() {
         console.log('seeding item_type table...')

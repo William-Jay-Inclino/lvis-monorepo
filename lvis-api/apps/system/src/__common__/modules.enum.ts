@@ -73,5 +73,6 @@ export enum MODULES {
     // ========= MOTORPOOL ========= 
     VEHICLE = 'VEHICLE',
     FUEL_TYPE = 'FUEL_TYPE',
+    GAS_STATION = 'GAS_STATION',
 
 }

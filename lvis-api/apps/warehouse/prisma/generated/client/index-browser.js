@@ -142,19 +142,6 @@ exports.Prisma.UnitScalarFieldEnum = {
   metadata: 'metadata'
 };
 
-exports.Prisma.VehicleScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  plate_number: 'plate_number',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
-  metadata: 'metadata'
-};
-
 exports.Prisma.StationScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -819,7 +806,6 @@ exports.Prisma.ModelName = {
   ItemType: 'ItemType',
   Supplier: 'Supplier',
   Unit: 'Unit',
-  Vehicle: 'Vehicle',
   Station: 'Station',
   Project: 'Project',
   Pending: 'Pending',

@@ -3,7 +3,7 @@ import { VehicleService } from './vehicle.service';
 import { Vehicle } from './entities/vehicle.entity';
 import { CreateVehicleInput } from './dto/create-vehicle.input';
 import { UpdateVehicleInput } from './dto/update-vehicle.input';
-import { WarehouseRemoveResponse } from '../__common__/classes';
+import { MotorpoolRemoveResponse } from '../__common__/classes';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
@@ -51,7 +51,7 @@ export class VehicleResolver {
     return this.vehicleService.update(id, updateVehicleInput);
   }
 
-  @Mutation(() => WarehouseRemoveResponse)
+  @Mutation(() => MotorpoolRemoveResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.VEHICLE, RESOLVERS.removeVehicle)
   removeVehicle(

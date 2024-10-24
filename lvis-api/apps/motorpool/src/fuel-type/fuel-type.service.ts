@@ -37,23 +37,23 @@ export class FuelTypeService {
 
 	async findOne(id: number): Promise<FuelType | null> {
 
-		const fuel = await this.prisma.fuelType.findUnique({
+		const item = await this.prisma.fuelType.findUnique({
 			where: { id }
 		})
 
-		if (!fuel) {
+		if (!item) {
 			throw new NotFoundException('Fuel Type not found')
 		}
 
-		return fuel
+		return item
 	}
 
 	async update(id: number, input: UpdateFuelTypeInput): Promise<FuelType> {
 
-		const existingFuel = await this.findOne(id)
+		const existingItem = await this.findOne(id)
 
 		const data: Prisma.FuelTypeUpdateInput = {
-			name: input.name ?? existingFuel.name,
+			name: input.name ?? existingItem.name,
 		}
 
 
@@ -70,7 +70,7 @@ export class FuelTypeService {
 
 	async remove(id: number): Promise<MotorpoolRemoveResponse> {
 
-		const existingFuel = await this.findOne(id)
+		const existingItem = await this.findOne(id)
 
 		await this.prisma.fuelType.delete({
 			where: { id }

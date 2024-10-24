@@ -29,11 +29,6 @@ export type Supplier = $Result.DefaultSelection<Prisma.$SupplierPayload>
  */
 export type Unit = $Result.DefaultSelection<Prisma.$UnitPayload>
 /**
- * Model Vehicle
- * 
- */
-export type Vehicle = $Result.DefaultSelection<Prisma.$VehiclePayload>
-/**
  * Model Station
  * 
  */
@@ -405,16 +400,6 @@ export class PrismaClient<
     * ```
     */
   get unit(): Prisma.UnitDelegate<ExtArgs>;
-
-  /**
-   * `prisma.vehicle`: Exposes CRUD operations for the **Vehicle** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Vehicles
-    * const vehicles = await prisma.vehicle.findMany()
-    * ```
-    */
-  get vehicle(): Prisma.VehicleDelegate<ExtArgs>;
 
   /**
    * `prisma.station`: Exposes CRUD operations for the **Station** model.
@@ -1328,7 +1313,6 @@ export namespace Prisma {
     ItemType: 'ItemType',
     Supplier: 'Supplier',
     Unit: 'Unit',
-    Vehicle: 'Vehicle',
     Station: 'Station',
     Project: 'Project',
     Pending: 'Pending',
@@ -1389,7 +1373,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'itemType' | 'supplier' | 'unit' | 'vehicle' | 'station' | 'project' | 'pending' | 'setting' | 'item' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'itemCodeTracker' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem'
+      modelProps: 'itemType' | 'supplier' | 'unit' | 'station' | 'project' | 'pending' | 'setting' | 'item' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'itemCodeTracker' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1588,72 +1572,6 @@ export namespace Prisma {
           count: {
             args: Prisma.UnitCountArgs<ExtArgs>,
             result: $Utils.Optional<UnitCountAggregateOutputType> | number
-          }
-        }
-      }
-      Vehicle: {
-        payload: Prisma.$VehiclePayload<ExtArgs>
-        fields: Prisma.VehicleFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.VehicleFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$VehiclePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.VehicleFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
-          }
-          findFirst: {
-            args: Prisma.VehicleFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$VehiclePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.VehicleFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
-          }
-          findMany: {
-            args: Prisma.VehicleFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>[]
-          }
-          create: {
-            args: Prisma.VehicleCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
-          }
-          createMany: {
-            args: Prisma.VehicleCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          delete: {
-            args: Prisma.VehicleDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
-          }
-          update: {
-            args: Prisma.VehicleUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
-          }
-          deleteMany: {
-            args: Prisma.VehicleDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          updateMany: {
-            args: Prisma.VehicleUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          upsert: {
-            args: Prisma.VehicleUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
-          }
-          aggregate: {
-            args: Prisma.VehicleAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateVehicle>
-          }
-          groupBy: {
-            args: Prisma.VehicleGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<VehicleGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.VehicleCountArgs<ExtArgs>,
-            result: $Utils.Optional<VehicleCountAggregateOutputType> | number
           }
         }
       }
@@ -4813,40 +4731,6 @@ export namespace Prisma {
    */
   export type UnitCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ItemWhereInput
-  }
-
-
-
-  /**
-   * Count Type VehicleCountOutputType
-   */
-
-  export type VehicleCountOutputType = {
-    sprs: number
-  }
-
-  export type VehicleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sprs?: boolean | VehicleCountOutputTypeCountSprsArgs
-  }
-
-  // Custom InputTypes
-
-  /**
-   * VehicleCountOutputType without action
-   */
-  export type VehicleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VehicleCountOutputType
-     */
-    select?: VehicleCountOutputTypeSelect<ExtArgs> | null
-  }
-
-
-  /**
-   * VehicleCountOutputType without action
-   */
-  export type VehicleCountOutputTypeCountSprsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SPRWhereInput
   }
 
 
@@ -8781,998 +8665,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: UnitInclude<ExtArgs> | null
-  }
-
-
-
-  /**
-   * Model Vehicle
-   */
-
-  export type AggregateVehicle = {
-    _count: VehicleCountAggregateOutputType | null
-    _min: VehicleMinAggregateOutputType | null
-    _max: VehicleMaxAggregateOutputType | null
-  }
-
-  export type VehicleMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-    plate_number: string | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
-  }
-
-  export type VehicleMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-    plate_number: string | null
-    created_by: string | null
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date | null
-    updated_at: Date | null
-    deleted_at: Date | null
-  }
-
-  export type VehicleCountAggregateOutputType = {
-    id: number
-    name: number
-    plate_number: number
-    created_by: number
-    updated_by: number
-    deleted_by: number
-    created_at: number
-    updated_at: number
-    deleted_at: number
-    metadata: number
-    _all: number
-  }
-
-
-  export type VehicleMinAggregateInputType = {
-    id?: true
-    name?: true
-    plate_number?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
-  }
-
-  export type VehicleMaxAggregateInputType = {
-    id?: true
-    name?: true
-    plate_number?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
-  }
-
-  export type VehicleCountAggregateInputType = {
-    id?: true
-    name?: true
-    plate_number?: true
-    created_by?: true
-    updated_by?: true
-    deleted_by?: true
-    created_at?: true
-    updated_at?: true
-    deleted_at?: true
-    metadata?: true
-    _all?: true
-  }
-
-  export type VehicleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Vehicle to aggregate.
-     */
-    where?: VehicleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Vehicles to fetch.
-     */
-    orderBy?: VehicleOrderByWithRelationInput | VehicleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: VehicleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Vehicles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Vehicles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Vehicles
-    **/
-    _count?: true | VehicleCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: VehicleMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: VehicleMaxAggregateInputType
-  }
-
-  export type GetVehicleAggregateType<T extends VehicleAggregateArgs> = {
-        [P in keyof T & keyof AggregateVehicle]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateVehicle[P]>
-      : GetScalarType<T[P], AggregateVehicle[P]>
-  }
-
-
-
-
-  export type VehicleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: VehicleWhereInput
-    orderBy?: VehicleOrderByWithAggregationInput | VehicleOrderByWithAggregationInput[]
-    by: VehicleScalarFieldEnum[] | VehicleScalarFieldEnum
-    having?: VehicleScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: VehicleCountAggregateInputType | true
-    _min?: VehicleMinAggregateInputType
-    _max?: VehicleMaxAggregateInputType
-  }
-
-  export type VehicleGroupByOutputType = {
-    id: string
-    name: string
-    plate_number: string
-    created_by: string
-    updated_by: string | null
-    deleted_by: string | null
-    created_at: Date
-    updated_at: Date
-    deleted_at: Date | null
-    metadata: JsonValue | null
-    _count: VehicleCountAggregateOutputType | null
-    _min: VehicleMinAggregateOutputType | null
-    _max: VehicleMaxAggregateOutputType | null
-  }
-
-  type GetVehicleGroupByPayload<T extends VehicleGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<VehicleGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof VehicleGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], VehicleGroupByOutputType[P]>
-            : GetScalarType<T[P], VehicleGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type VehicleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    plate_number?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
-    metadata?: boolean
-    sprs?: boolean | Vehicle$sprsArgs<ExtArgs>
-    _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["vehicle"]>
-
-  export type VehicleSelectScalar = {
-    id?: boolean
-    name?: boolean
-    plate_number?: boolean
-    created_by?: boolean
-    updated_by?: boolean
-    deleted_by?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    deleted_at?: boolean
-    metadata?: boolean
-  }
-
-  export type VehicleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sprs?: boolean | Vehicle$sprsArgs<ExtArgs>
-    _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-
-  export type $VehiclePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Vehicle"
-    objects: {
-      sprs: Prisma.$SPRPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-      plate_number: string
-      created_by: string
-      updated_by: string | null
-      deleted_by: string | null
-      created_at: Date
-      updated_at: Date
-      deleted_at: Date | null
-      metadata: Prisma.JsonValue | null
-    }, ExtArgs["result"]["vehicle"]>
-    composites: {}
-  }
-
-
-  type VehicleGetPayload<S extends boolean | null | undefined | VehicleDefaultArgs> = $Result.GetResult<Prisma.$VehiclePayload, S>
-
-  type VehicleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<VehicleFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: VehicleCountAggregateInputType | true
-    }
-
-  export interface VehicleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Vehicle'], meta: { name: 'Vehicle' } }
-    /**
-     * Find zero or one Vehicle that matches the filter.
-     * @param {VehicleFindUniqueArgs} args - Arguments to find a Vehicle
-     * @example
-     * // Get one Vehicle
-     * const vehicle = await prisma.vehicle.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends VehicleFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, VehicleFindUniqueArgs<ExtArgs>>
-    ): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
-
-    /**
-     * Find one Vehicle that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {VehicleFindUniqueOrThrowArgs} args - Arguments to find a Vehicle
-     * @example
-     * // Get one Vehicle
-     * const vehicle = await prisma.vehicle.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends VehicleFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, VehicleFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find the first Vehicle that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VehicleFindFirstArgs} args - Arguments to find a Vehicle
-     * @example
-     * // Get one Vehicle
-     * const vehicle = await prisma.vehicle.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends VehicleFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, VehicleFindFirstArgs<ExtArgs>>
-    ): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
-
-    /**
-     * Find the first Vehicle that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VehicleFindFirstOrThrowArgs} args - Arguments to find a Vehicle
-     * @example
-     * // Get one Vehicle
-     * const vehicle = await prisma.vehicle.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends VehicleFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, VehicleFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find zero or more Vehicles that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VehicleFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Vehicles
-     * const vehicles = await prisma.vehicle.findMany()
-     * 
-     * // Get first 10 Vehicles
-     * const vehicles = await prisma.vehicle.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const vehicleWithIdOnly = await prisma.vehicle.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends VehicleFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, VehicleFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findMany'>>
-
-    /**
-     * Create a Vehicle.
-     * @param {VehicleCreateArgs} args - Arguments to create a Vehicle.
-     * @example
-     * // Create one Vehicle
-     * const Vehicle = await prisma.vehicle.create({
-     *   data: {
-     *     // ... data to create a Vehicle
-     *   }
-     * })
-     * 
-    **/
-    create<T extends VehicleCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, VehicleCreateArgs<ExtArgs>>
-    ): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
-
-    /**
-     * Create many Vehicles.
-     *     @param {VehicleCreateManyArgs} args - Arguments to create many Vehicles.
-     *     @example
-     *     // Create many Vehicles
-     *     const vehicle = await prisma.vehicle.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends VehicleCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, VehicleCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Vehicle.
-     * @param {VehicleDeleteArgs} args - Arguments to delete one Vehicle.
-     * @example
-     * // Delete one Vehicle
-     * const Vehicle = await prisma.vehicle.delete({
-     *   where: {
-     *     // ... filter to delete one Vehicle
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends VehicleDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, VehicleDeleteArgs<ExtArgs>>
-    ): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
-
-    /**
-     * Update one Vehicle.
-     * @param {VehicleUpdateArgs} args - Arguments to update one Vehicle.
-     * @example
-     * // Update one Vehicle
-     * const vehicle = await prisma.vehicle.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends VehicleUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, VehicleUpdateArgs<ExtArgs>>
-    ): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
-
-    /**
-     * Delete zero or more Vehicles.
-     * @param {VehicleDeleteManyArgs} args - Arguments to filter Vehicles to delete.
-     * @example
-     * // Delete a few Vehicles
-     * const { count } = await prisma.vehicle.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends VehicleDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, VehicleDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Vehicles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VehicleUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Vehicles
-     * const vehicle = await prisma.vehicle.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends VehicleUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, VehicleUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Vehicle.
-     * @param {VehicleUpsertArgs} args - Arguments to update or create a Vehicle.
-     * @example
-     * // Update or create a Vehicle
-     * const vehicle = await prisma.vehicle.upsert({
-     *   create: {
-     *     // ... data to create a Vehicle
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Vehicle we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends VehicleUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, VehicleUpsertArgs<ExtArgs>>
-    ): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
-
-    /**
-     * Count the number of Vehicles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VehicleCountArgs} args - Arguments to filter Vehicles to count.
-     * @example
-     * // Count the number of Vehicles
-     * const count = await prisma.vehicle.count({
-     *   where: {
-     *     // ... the filter for the Vehicles we want to count
-     *   }
-     * })
-    **/
-    count<T extends VehicleCountArgs>(
-      args?: Subset<T, VehicleCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], VehicleCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Vehicle.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VehicleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends VehicleAggregateArgs>(args: Subset<T, VehicleAggregateArgs>): Prisma.PrismaPromise<GetVehicleAggregateType<T>>
-
-    /**
-     * Group by Vehicle.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VehicleGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends VehicleGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: VehicleGroupByArgs['orderBy'] }
-        : { orderBy?: VehicleGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, VehicleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVehicleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Vehicle model
-   */
-  readonly fields: VehicleFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Vehicle.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__VehicleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    sprs<T extends Vehicle$sprsArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$sprsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SPRPayload<ExtArgs>, T, 'findMany'> | Null>;
-
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
-  }
-
-
-
-  /**
-   * Fields of the Vehicle model
-   */ 
-  interface VehicleFieldRefs {
-    readonly id: FieldRef<"Vehicle", 'String'>
-    readonly name: FieldRef<"Vehicle", 'String'>
-    readonly plate_number: FieldRef<"Vehicle", 'String'>
-    readonly created_by: FieldRef<"Vehicle", 'String'>
-    readonly updated_by: FieldRef<"Vehicle", 'String'>
-    readonly deleted_by: FieldRef<"Vehicle", 'String'>
-    readonly created_at: FieldRef<"Vehicle", 'DateTime'>
-    readonly updated_at: FieldRef<"Vehicle", 'DateTime'>
-    readonly deleted_at: FieldRef<"Vehicle", 'DateTime'>
-    readonly metadata: FieldRef<"Vehicle", 'Json'>
-  }
-    
-
-  // Custom InputTypes
-
-  /**
-   * Vehicle findUnique
-   */
-  export type VehicleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehicle
-     */
-    select?: VehicleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: VehicleInclude<ExtArgs> | null
-    /**
-     * Filter, which Vehicle to fetch.
-     */
-    where: VehicleWhereUniqueInput
-  }
-
-
-  /**
-   * Vehicle findUniqueOrThrow
-   */
-  export type VehicleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehicle
-     */
-    select?: VehicleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: VehicleInclude<ExtArgs> | null
-    /**
-     * Filter, which Vehicle to fetch.
-     */
-    where: VehicleWhereUniqueInput
-  }
-
-
-  /**
-   * Vehicle findFirst
-   */
-  export type VehicleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehicle
-     */
-    select?: VehicleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: VehicleInclude<ExtArgs> | null
-    /**
-     * Filter, which Vehicle to fetch.
-     */
-    where?: VehicleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Vehicles to fetch.
-     */
-    orderBy?: VehicleOrderByWithRelationInput | VehicleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Vehicles.
-     */
-    cursor?: VehicleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Vehicles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Vehicles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Vehicles.
-     */
-    distinct?: VehicleScalarFieldEnum | VehicleScalarFieldEnum[]
-  }
-
-
-  /**
-   * Vehicle findFirstOrThrow
-   */
-  export type VehicleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehicle
-     */
-    select?: VehicleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: VehicleInclude<ExtArgs> | null
-    /**
-     * Filter, which Vehicle to fetch.
-     */
-    where?: VehicleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Vehicles to fetch.
-     */
-    orderBy?: VehicleOrderByWithRelationInput | VehicleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Vehicles.
-     */
-    cursor?: VehicleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Vehicles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Vehicles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Vehicles.
-     */
-    distinct?: VehicleScalarFieldEnum | VehicleScalarFieldEnum[]
-  }
-
-
-  /**
-   * Vehicle findMany
-   */
-  export type VehicleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehicle
-     */
-    select?: VehicleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: VehicleInclude<ExtArgs> | null
-    /**
-     * Filter, which Vehicles to fetch.
-     */
-    where?: VehicleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Vehicles to fetch.
-     */
-    orderBy?: VehicleOrderByWithRelationInput | VehicleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Vehicles.
-     */
-    cursor?: VehicleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Vehicles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Vehicles.
-     */
-    skip?: number
-    distinct?: VehicleScalarFieldEnum | VehicleScalarFieldEnum[]
-  }
-
-
-  /**
-   * Vehicle create
-   */
-  export type VehicleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehicle
-     */
-    select?: VehicleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: VehicleInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Vehicle.
-     */
-    data: XOR<VehicleCreateInput, VehicleUncheckedCreateInput>
-  }
-
-
-  /**
-   * Vehicle createMany
-   */
-  export type VehicleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Vehicles.
-     */
-    data: VehicleCreateManyInput | VehicleCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * Vehicle update
-   */
-  export type VehicleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehicle
-     */
-    select?: VehicleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: VehicleInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Vehicle.
-     */
-    data: XOR<VehicleUpdateInput, VehicleUncheckedUpdateInput>
-    /**
-     * Choose, which Vehicle to update.
-     */
-    where: VehicleWhereUniqueInput
-  }
-
-
-  /**
-   * Vehicle updateMany
-   */
-  export type VehicleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Vehicles.
-     */
-    data: XOR<VehicleUpdateManyMutationInput, VehicleUncheckedUpdateManyInput>
-    /**
-     * Filter which Vehicles to update
-     */
-    where?: VehicleWhereInput
-  }
-
-
-  /**
-   * Vehicle upsert
-   */
-  export type VehicleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehicle
-     */
-    select?: VehicleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: VehicleInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Vehicle to update in case it exists.
-     */
-    where: VehicleWhereUniqueInput
-    /**
-     * In case the Vehicle found by the `where` argument doesn't exist, create a new Vehicle with this data.
-     */
-    create: XOR<VehicleCreateInput, VehicleUncheckedCreateInput>
-    /**
-     * In case the Vehicle was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<VehicleUpdateInput, VehicleUncheckedUpdateInput>
-  }
-
-
-  /**
-   * Vehicle delete
-   */
-  export type VehicleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehicle
-     */
-    select?: VehicleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: VehicleInclude<ExtArgs> | null
-    /**
-     * Filter which Vehicle to delete.
-     */
-    where: VehicleWhereUniqueInput
-  }
-
-
-  /**
-   * Vehicle deleteMany
-   */
-  export type VehicleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Vehicles to delete
-     */
-    where?: VehicleWhereInput
-  }
-
-
-  /**
-   * Vehicle.sprs
-   */
-  export type Vehicle$sprsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SPR
-     */
-    select?: SPRSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SPRInclude<ExtArgs> | null
-    where?: SPRWhereInput
-    orderBy?: SPROrderByWithRelationInput | SPROrderByWithRelationInput[]
-    cursor?: SPRWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SPRScalarFieldEnum | SPRScalarFieldEnum[]
-  }
-
-
-  /**
-   * Vehicle without action
-   */
-  export type VehicleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehicle
-     */
-    select?: VehicleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: VehicleInclude<ExtArgs> | null
   }
 
 
@@ -25621,7 +24513,6 @@ export namespace Prisma {
     metadata?: boolean
     canvass?: boolean | SPR$canvassArgs<ExtArgs>
     meqs?: boolean | SPR$meqsArgs<ExtArgs>
-    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
     spr_approvers?: boolean | SPR$spr_approversArgs<ExtArgs>
     _count?: boolean | SPRCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sPR"]>
@@ -25647,7 +24538,6 @@ export namespace Prisma {
   export type SPRInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     canvass?: boolean | SPR$canvassArgs<ExtArgs>
     meqs?: boolean | SPR$meqsArgs<ExtArgs>
-    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
     spr_approvers?: boolean | SPR$spr_approversArgs<ExtArgs>
     _count?: boolean | SPRCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -25658,7 +24548,6 @@ export namespace Prisma {
     objects: {
       canvass: Prisma.$CanvassPayload<ExtArgs> | null
       meqs: Prisma.$MEQSPayload<ExtArgs> | null
-      vehicle: Prisma.$VehiclePayload<ExtArgs>
       spr_approvers: Prisma.$SPRApproverPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -26045,8 +24934,6 @@ export namespace Prisma {
     canvass<T extends SPR$canvassArgs<ExtArgs> = {}>(args?: Subset<T, SPR$canvassArgs<ExtArgs>>): Prisma__CanvassClient<$Result.GetResult<Prisma.$CanvassPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     meqs<T extends SPR$meqsArgs<ExtArgs> = {}>(args?: Subset<T, SPR$meqsArgs<ExtArgs>>): Prisma__MEQSClient<$Result.GetResult<Prisma.$MEQSPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
-
-    vehicle<T extends VehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VehicleDefaultArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     spr_approvers<T extends SPR$spr_approversArgs<ExtArgs> = {}>(args?: Subset<T, SPR$spr_approversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SPRApproverPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -55972,22 +54859,6 @@ export namespace Prisma {
   export type UnitScalarFieldEnum = (typeof UnitScalarFieldEnum)[keyof typeof UnitScalarFieldEnum]
 
 
-  export const VehicleScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    plate_number: 'plate_number',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at',
-    deleted_at: 'deleted_at',
-    metadata: 'metadata'
-  };
-
-  export type VehicleScalarFieldEnum = (typeof VehicleScalarFieldEnum)[keyof typeof VehicleScalarFieldEnum]
-
-
   export const StationScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -57097,86 +55968,6 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"Unit"> | Date | string
     deleted_at?: DateTimeNullableWithAggregatesFilter<"Unit"> | Date | string | null
     metadata?: JsonNullableWithAggregatesFilter<"Unit">
-  }
-
-  export type VehicleWhereInput = {
-    AND?: VehicleWhereInput | VehicleWhereInput[]
-    OR?: VehicleWhereInput[]
-    NOT?: VehicleWhereInput | VehicleWhereInput[]
-    id?: StringFilter<"Vehicle"> | string
-    name?: StringFilter<"Vehicle"> | string
-    plate_number?: StringFilter<"Vehicle"> | string
-    created_by?: StringFilter<"Vehicle"> | string
-    updated_by?: StringNullableFilter<"Vehicle"> | string | null
-    deleted_by?: StringNullableFilter<"Vehicle"> | string | null
-    created_at?: DateTimeFilter<"Vehicle"> | Date | string
-    updated_at?: DateTimeFilter<"Vehicle"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
-    metadata?: JsonNullableFilter<"Vehicle">
-    sprs?: SPRListRelationFilter
-  }
-
-  export type VehicleOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    plate_number?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
-    metadata?: SortOrderInput | SortOrder
-    sprs?: SPROrderByRelationAggregateInput
-  }
-
-  export type VehicleWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: VehicleWhereInput | VehicleWhereInput[]
-    OR?: VehicleWhereInput[]
-    NOT?: VehicleWhereInput | VehicleWhereInput[]
-    name?: StringFilter<"Vehicle"> | string
-    plate_number?: StringFilter<"Vehicle"> | string
-    created_by?: StringFilter<"Vehicle"> | string
-    updated_by?: StringNullableFilter<"Vehicle"> | string | null
-    deleted_by?: StringNullableFilter<"Vehicle"> | string | null
-    created_at?: DateTimeFilter<"Vehicle"> | Date | string
-    updated_at?: DateTimeFilter<"Vehicle"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
-    metadata?: JsonNullableFilter<"Vehicle">
-    sprs?: SPRListRelationFilter
-  }, "id">
-
-  export type VehicleOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    plate_number?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
-    metadata?: SortOrderInput | SortOrder
-    _count?: VehicleCountOrderByAggregateInput
-    _max?: VehicleMaxOrderByAggregateInput
-    _min?: VehicleMinOrderByAggregateInput
-  }
-
-  export type VehicleScalarWhereWithAggregatesInput = {
-    AND?: VehicleScalarWhereWithAggregatesInput | VehicleScalarWhereWithAggregatesInput[]
-    OR?: VehicleScalarWhereWithAggregatesInput[]
-    NOT?: VehicleScalarWhereWithAggregatesInput | VehicleScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Vehicle"> | string
-    name?: StringWithAggregatesFilter<"Vehicle"> | string
-    plate_number?: StringWithAggregatesFilter<"Vehicle"> | string
-    created_by?: StringWithAggregatesFilter<"Vehicle"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"Vehicle"> | Date | string | null
-    metadata?: JsonNullableWithAggregatesFilter<"Vehicle">
   }
 
   export type StationWhereInput = {
@@ -58508,7 +57299,6 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"SPR">
     canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
     meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
-    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
     spr_approvers?: SPRApproverListRelationFilter
   }
 
@@ -58530,7 +57320,6 @@ export namespace Prisma {
     metadata?: SortOrderInput | SortOrder
     canvass?: CanvassOrderByWithRelationInput
     meqs?: MEQSOrderByWithRelationInput
-    vehicle?: VehicleOrderByWithRelationInput
     spr_approvers?: SPRApproverOrderByRelationAggregateInput
   }
 
@@ -58555,7 +57344,6 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"SPR">
     canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
     meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
-    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
     spr_approvers?: SPRApproverListRelationFilter
   }, "id" | "spr_number" | "canvass_id">
 
@@ -61546,101 +60334,6 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type VehicleCreateInput = {
-    id?: string
-    name: string
-    plate_number: string
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    sprs?: SPRCreateNestedManyWithoutVehicleInput
-  }
-
-  export type VehicleUncheckedCreateInput = {
-    id?: string
-    name: string
-    plate_number: string
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
-  }
-
-  export type VehicleUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    plate_number?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    sprs?: SPRUpdateManyWithoutVehicleNestedInput
-  }
-
-  export type VehicleUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    plate_number?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
-  }
-
-  export type VehicleCreateManyInput = {
-    id?: string
-    name: string
-    plate_number: string
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type VehicleUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    plate_number?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type VehicleUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    plate_number?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
   export type StationCreateInput = {
     id?: string
     name: string
@@ -63074,6 +61767,7 @@ export namespace Prisma {
     id?: string
     spr_number: string
     date_requested: Date | string
+    vehicle_id: string
     classification_id?: string | null
     supervisor_id: string
     notes: string
@@ -63086,7 +61780,6 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutSprInput
     meqs?: MEQSCreateNestedOneWithoutSprInput
-    vehicle: VehicleCreateNestedOneWithoutSprsInput
     spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
   }
 
@@ -63114,6 +61807,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -63126,7 +61820,6 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutSprNestedInput
     meqs?: MEQSUpdateOneWithoutSprNestedInput
-    vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
     spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
   }
 
@@ -63172,6 +61865,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -66578,53 +65272,6 @@ export namespace Prisma {
     deleted_at?: SortOrder
   }
 
-  export type SPRListRelationFilter = {
-    every?: SPRWhereInput
-    some?: SPRWhereInput
-    none?: SPRWhereInput
-  }
-
-  export type SPROrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type VehicleCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    plate_number?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
-    metadata?: SortOrder
-  }
-
-  export type VehicleMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    plate_number?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
-  }
-
-  export type VehicleMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    plate_number?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
-    deleted_by?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-    deleted_at?: SortOrder
-  }
-
   export type ItemLocationListRelationFilter = {
     every?: ItemLocationWhereInput
     some?: ItemLocationWhereInput
@@ -67564,11 +66211,6 @@ export namespace Prisma {
   export type JOApproverSumOrderByAggregateInput = {
     status?: SortOrder
     order?: SortOrder
-  }
-
-  export type VehicleRelationFilter = {
-    is?: VehicleWhereInput
-    isNot?: VehicleWhereInput
   }
 
   export type SPRApproverListRelationFilter = {
@@ -69482,48 +68124,6 @@ export namespace Prisma {
     deleteMany?: ItemScalarWhereInput | ItemScalarWhereInput[]
   }
 
-  export type SPRCreateNestedManyWithoutVehicleInput = {
-    create?: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput> | SPRCreateWithoutVehicleInput[] | SPRUncheckedCreateWithoutVehicleInput[]
-    connectOrCreate?: SPRCreateOrConnectWithoutVehicleInput | SPRCreateOrConnectWithoutVehicleInput[]
-    createMany?: SPRCreateManyVehicleInputEnvelope
-    connect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
-  }
-
-  export type SPRUncheckedCreateNestedManyWithoutVehicleInput = {
-    create?: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput> | SPRCreateWithoutVehicleInput[] | SPRUncheckedCreateWithoutVehicleInput[]
-    connectOrCreate?: SPRCreateOrConnectWithoutVehicleInput | SPRCreateOrConnectWithoutVehicleInput[]
-    createMany?: SPRCreateManyVehicleInputEnvelope
-    connect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
-  }
-
-  export type SPRUpdateManyWithoutVehicleNestedInput = {
-    create?: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput> | SPRCreateWithoutVehicleInput[] | SPRUncheckedCreateWithoutVehicleInput[]
-    connectOrCreate?: SPRCreateOrConnectWithoutVehicleInput | SPRCreateOrConnectWithoutVehicleInput[]
-    upsert?: SPRUpsertWithWhereUniqueWithoutVehicleInput | SPRUpsertWithWhereUniqueWithoutVehicleInput[]
-    createMany?: SPRCreateManyVehicleInputEnvelope
-    set?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
-    disconnect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
-    delete?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
-    connect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
-    update?: SPRUpdateWithWhereUniqueWithoutVehicleInput | SPRUpdateWithWhereUniqueWithoutVehicleInput[]
-    updateMany?: SPRUpdateManyWithWhereWithoutVehicleInput | SPRUpdateManyWithWhereWithoutVehicleInput[]
-    deleteMany?: SPRScalarWhereInput | SPRScalarWhereInput[]
-  }
-
-  export type SPRUncheckedUpdateManyWithoutVehicleNestedInput = {
-    create?: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput> | SPRCreateWithoutVehicleInput[] | SPRUncheckedCreateWithoutVehicleInput[]
-    connectOrCreate?: SPRCreateOrConnectWithoutVehicleInput | SPRCreateOrConnectWithoutVehicleInput[]
-    upsert?: SPRUpsertWithWhereUniqueWithoutVehicleInput | SPRUpsertWithWhereUniqueWithoutVehicleInput[]
-    createMany?: SPRCreateManyVehicleInputEnvelope
-    set?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
-    disconnect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
-    delete?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
-    connect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
-    update?: SPRUpdateWithWhereUniqueWithoutVehicleInput | SPRUpdateWithWhereUniqueWithoutVehicleInput[]
-    updateMany?: SPRUpdateManyWithWhereWithoutVehicleInput | SPRUpdateManyWithWhereWithoutVehicleInput[]
-    deleteMany?: SPRScalarWhereInput | SPRScalarWhereInput[]
-  }
-
   export type ItemLocationCreateNestedManyWithoutStationInput = {
     create?: XOR<ItemLocationCreateWithoutStationInput, ItemLocationUncheckedCreateWithoutStationInput> | ItemLocationCreateWithoutStationInput[] | ItemLocationUncheckedCreateWithoutStationInput[]
     connectOrCreate?: ItemLocationCreateOrConnectWithoutStationInput | ItemLocationCreateOrConnectWithoutStationInput[]
@@ -70802,12 +69402,6 @@ export namespace Prisma {
     connect?: MEQSWhereUniqueInput
   }
 
-  export type VehicleCreateNestedOneWithoutSprsInput = {
-    create?: XOR<VehicleCreateWithoutSprsInput, VehicleUncheckedCreateWithoutSprsInput>
-    connectOrCreate?: VehicleCreateOrConnectWithoutSprsInput
-    connect?: VehicleWhereUniqueInput
-  }
-
   export type SPRApproverCreateNestedManyWithoutSprInput = {
     create?: XOR<SPRApproverCreateWithoutSprInput, SPRApproverUncheckedCreateWithoutSprInput> | SPRApproverCreateWithoutSprInput[] | SPRApproverUncheckedCreateWithoutSprInput[]
     connectOrCreate?: SPRApproverCreateOrConnectWithoutSprInput | SPRApproverCreateOrConnectWithoutSprInput[]
@@ -70846,14 +69440,6 @@ export namespace Prisma {
     delete?: MEQSWhereInput | boolean
     connect?: MEQSWhereUniqueInput
     update?: XOR<XOR<MEQSUpdateToOneWithWhereWithoutSprInput, MEQSUpdateWithoutSprInput>, MEQSUncheckedUpdateWithoutSprInput>
-  }
-
-  export type VehicleUpdateOneRequiredWithoutSprsNestedInput = {
-    create?: XOR<VehicleCreateWithoutSprsInput, VehicleUncheckedCreateWithoutSprsInput>
-    connectOrCreate?: VehicleCreateOrConnectWithoutSprsInput
-    upsert?: VehicleUpsertWithoutSprsInput
-    connect?: VehicleWhereUniqueInput
-    update?: XOR<XOR<VehicleUpdateToOneWithWhereWithoutSprsInput, VehicleUpdateWithoutSprsInput>, VehicleUncheckedUpdateWithoutSprsInput>
   }
 
   export type SPRApproverUpdateManyWithoutSprNestedInput = {
@@ -73142,91 +71728,6 @@ export namespace Prisma {
     data: XOR<ItemUpdateManyMutationInput, ItemUncheckedUpdateManyWithoutUnitInput>
   }
 
-  export type SPRCreateWithoutVehicleInput = {
-    id?: string
-    spr_number: string
-    date_requested: Date | string
-    classification_id?: string | null
-    supervisor_id: string
-    notes: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    canvass?: CanvassCreateNestedOneWithoutSprInput
-    meqs?: MEQSCreateNestedOneWithoutSprInput
-    spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
-  }
-
-  export type SPRUncheckedCreateWithoutVehicleInput = {
-    id?: string
-    spr_number: string
-    date_requested: Date | string
-    canvass_id?: string | null
-    classification_id?: string | null
-    supervisor_id: string
-    notes: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    meqs?: MEQSUncheckedCreateNestedOneWithoutSprInput
-    spr_approvers?: SPRApproverUncheckedCreateNestedManyWithoutSprInput
-  }
-
-  export type SPRCreateOrConnectWithoutVehicleInput = {
-    where: SPRWhereUniqueInput
-    create: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput>
-  }
-
-  export type SPRCreateManyVehicleInputEnvelope = {
-    data: SPRCreateManyVehicleInput | SPRCreateManyVehicleInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type SPRUpsertWithWhereUniqueWithoutVehicleInput = {
-    where: SPRWhereUniqueInput
-    update: XOR<SPRUpdateWithoutVehicleInput, SPRUncheckedUpdateWithoutVehicleInput>
-    create: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput>
-  }
-
-  export type SPRUpdateWithWhereUniqueWithoutVehicleInput = {
-    where: SPRWhereUniqueInput
-    data: XOR<SPRUpdateWithoutVehicleInput, SPRUncheckedUpdateWithoutVehicleInput>
-  }
-
-  export type SPRUpdateManyWithWhereWithoutVehicleInput = {
-    where: SPRScalarWhereInput
-    data: XOR<SPRUpdateManyMutationInput, SPRUncheckedUpdateManyWithoutVehicleInput>
-  }
-
-  export type SPRScalarWhereInput = {
-    AND?: SPRScalarWhereInput | SPRScalarWhereInput[]
-    OR?: SPRScalarWhereInput[]
-    NOT?: SPRScalarWhereInput | SPRScalarWhereInput[]
-    id?: StringFilter<"SPR"> | string
-    spr_number?: StringFilter<"SPR"> | string
-    date_requested?: DateTimeFilter<"SPR"> | Date | string
-    canvass_id?: StringNullableFilter<"SPR"> | string | null
-    vehicle_id?: StringFilter<"SPR"> | string
-    classification_id?: StringNullableFilter<"SPR"> | string | null
-    supervisor_id?: StringFilter<"SPR"> | string
-    notes?: StringFilter<"SPR"> | string
-    cancelled_by?: StringNullableFilter<"SPR"> | string | null
-    created_by?: StringFilter<"SPR"> | string
-    updated_by?: StringNullableFilter<"SPR"> | string | null
-    cancelled_at?: DateTimeNullableFilter<"SPR"> | Date | string | null
-    created_at?: DateTimeFilter<"SPR"> | Date | string
-    updated_at?: DateTimeFilter<"SPR"> | Date | string
-    metadata?: JsonNullableFilter<"SPR">
-  }
-
   export type ItemLocationCreateWithoutStationInput = {
     id?: string
     quantity_on_hand: number
@@ -75306,6 +73807,7 @@ export namespace Prisma {
     id?: string
     spr_number: string
     date_requested: Date | string
+    vehicle_id: string
     classification_id?: string | null
     supervisor_id: string
     notes: string
@@ -75317,7 +73819,6 @@ export namespace Prisma {
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSCreateNestedOneWithoutSprInput
-    vehicle: VehicleCreateNestedOneWithoutSprsInput
     spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
   }
 
@@ -75478,6 +73979,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -75489,7 +73991,6 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneWithoutSprNestedInput
-    vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
     spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
   }
 
@@ -76652,37 +75153,6 @@ export namespace Prisma {
     create: XOR<MEQSCreateWithoutSprInput, MEQSUncheckedCreateWithoutSprInput>
   }
 
-  export type VehicleCreateWithoutSprsInput = {
-    id?: string
-    name: string
-    plate_number: string
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type VehicleUncheckedCreateWithoutSprsInput = {
-    id?: string
-    name: string
-    plate_number: string
-    created_by: string
-    updated_by?: string | null
-    deleted_by?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    deleted_at?: Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type VehicleCreateOrConnectWithoutSprsInput = {
-    where: VehicleWhereUniqueInput
-    create: XOR<VehicleCreateWithoutSprsInput, VehicleUncheckedCreateWithoutSprsInput>
-  }
-
   export type SPRApproverCreateWithoutSprInput = {
     id?: string
     approver_id: string
@@ -76819,43 +75289,6 @@ export namespace Prisma {
     meqs_suppliers?: MEQSSupplierUncheckedUpdateManyWithoutMeqsNestedInput
   }
 
-  export type VehicleUpsertWithoutSprsInput = {
-    update: XOR<VehicleUpdateWithoutSprsInput, VehicleUncheckedUpdateWithoutSprsInput>
-    create: XOR<VehicleCreateWithoutSprsInput, VehicleUncheckedCreateWithoutSprsInput>
-    where?: VehicleWhereInput
-  }
-
-  export type VehicleUpdateToOneWithWhereWithoutSprsInput = {
-    where?: VehicleWhereInput
-    data: XOR<VehicleUpdateWithoutSprsInput, VehicleUncheckedUpdateWithoutSprsInput>
-  }
-
-  export type VehicleUpdateWithoutSprsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    plate_number?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type VehicleUncheckedUpdateWithoutSprsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    plate_number?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
   export type SPRApproverUpsertWithWhereUniqueWithoutSprInput = {
     where: SPRApproverWhereUniqueInput
     update: XOR<SPRApproverUpdateWithoutSprInput, SPRApproverUncheckedUpdateWithoutSprInput>
@@ -76892,6 +75325,7 @@ export namespace Prisma {
     id?: string
     spr_number: string
     date_requested: Date | string
+    vehicle_id: string
     classification_id?: string | null
     supervisor_id: string
     notes: string
@@ -76904,7 +75338,6 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutSprInput
     meqs?: MEQSCreateNestedOneWithoutSprInput
-    vehicle: VehicleCreateNestedOneWithoutSprsInput
   }
 
   export type SPRUncheckedCreateWithoutSpr_approversInput = {
@@ -76946,6 +75379,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -76958,7 +75392,6 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutSprNestedInput
     meqs?: MEQSUpdateOneWithoutSprNestedInput
-    vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
   }
 
   export type SPRUncheckedUpdateWithoutSpr_approversInput = {
@@ -77074,6 +75507,7 @@ export namespace Prisma {
     id?: string
     spr_number: string
     date_requested: Date | string
+    vehicle_id: string
     classification_id?: string | null
     supervisor_id: string
     notes: string
@@ -77085,7 +75519,6 @@ export namespace Prisma {
     updated_at?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutSprInput
-    vehicle: VehicleCreateNestedOneWithoutSprsInput
     spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
   }
 
@@ -77292,6 +75725,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -77303,7 +75737,6 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutSprNestedInput
-    vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
     spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
   }
 
@@ -83007,78 +81440,6 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type SPRCreateManyVehicleInput = {
-    id?: string
-    spr_number: string
-    date_requested: Date | string
-    canvass_id?: string | null
-    classification_id?: string | null
-    supervisor_id: string
-    notes: string
-    cancelled_by?: string | null
-    created_by: string
-    updated_by?: string | null
-    cancelled_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type SPRUpdateWithoutVehicleInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    spr_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    notes?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    canvass?: CanvassUpdateOneWithoutSprNestedInput
-    meqs?: MEQSUpdateOneWithoutSprNestedInput
-    spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
-  }
-
-  export type SPRUncheckedUpdateWithoutVehicleInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    spr_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
-    classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    notes?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    meqs?: MEQSUncheckedUpdateOneWithoutSprNestedInput
-    spr_approvers?: SPRApproverUncheckedUpdateManyWithoutSprNestedInput
-  }
-
-  export type SPRUncheckedUpdateManyWithoutVehicleInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    spr_number?: StringFieldUpdateOperationsInput | string
-    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
-    classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    notes?: StringFieldUpdateOperationsInput | string
-    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
   export type ItemLocationCreateManyStationInput = {
     id?: string
     item_id: string
@@ -85324,10 +83685,6 @@ export namespace Prisma {
      */
     export type UnitCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UnitCountOutputTypeDefaultArgs<ExtArgs>
     /**
-     * @deprecated Use VehicleCountOutputTypeDefaultArgs instead
-     */
-    export type VehicleCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleCountOutputTypeDefaultArgs<ExtArgs>
-    /**
      * @deprecated Use StationCountOutputTypeDefaultArgs instead
      */
     export type StationCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StationCountOutputTypeDefaultArgs<ExtArgs>
@@ -85419,10 +83776,6 @@ export namespace Prisma {
      * @deprecated Use UnitDefaultArgs instead
      */
     export type UnitArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UnitDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use VehicleDefaultArgs instead
-     */
-    export type VehicleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleDefaultArgs<ExtArgs>
     /**
      * @deprecated Use StationDefaultArgs instead
      */

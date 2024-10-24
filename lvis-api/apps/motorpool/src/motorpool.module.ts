@@ -5,6 +5,8 @@ import { ApolloFederationDriver, ApolloFederationDriverConfig } from '@nestjs/ap
 import { PrismaModule } from './__prisma__/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './__auth__/auth.module';
+import { GasStationModule } from './gas-station/gas-station.module';
+import { VehicleModule } from './vehicle/vehicle.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { AuthModule } from './__auth__/auth.module';
     PrismaModule,
     FuelTypeModule,
     AuthModule,
+    GasStationModule,
+    VehicleModule,
   ],
   controllers: [],
   providers: [],

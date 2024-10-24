@@ -1,6 +1,11 @@
 export enum RESOLVERS {
 
-    // ========= SYSTEM: ACCOUNT ========= 
+
+    
+    // ==================================== SYSTEM ==================================== 
+    
+
+    // ========= ACCOUNT ========= 
     createAccount = 'createAccount',
     accounts = 'accounts',
     account = 'account',
@@ -8,7 +13,7 @@ export enum RESOLVERS {
     removeAccount = 'removeAccount',
 
 
-    // ========= SYSTEM: CLASSIFICATION ========= 
+    // ========= CLASSIFICATION ========= 
     createClassification = 'createClassification',
     classifications = 'classifications',
     classification = 'classification',
@@ -16,7 +21,7 @@ export enum RESOLVERS {
     removeClassification = 'removeClassification',
 
 
-    // ========= SYSTEM: DEPARTMENT ========= 
+    // ========= DEPARTMENT ========= 
     createDepartment = 'createDepartment',
     departments = 'departments',
     department = 'department',
@@ -24,13 +29,18 @@ export enum RESOLVERS {
     removeDepartment = 'removeDepartment',
 
 
-    // ========= SYSTEM: EMPLOYEE ========= 
+    // ========= EMPLOYEE ========= 
     createEmployee = 'createEmployee',
     employees = 'employees',
     employeesByName = 'employeesByName',
     employee = 'employee',
     updateEmployee = 'updateEmployee',
     removeEmployee = 'removeEmployee',
+
+
+
+
+    // ==================================== WAREHOUSE ==================================== 
 
 
     // ========= CANVASS ========= 
@@ -172,20 +182,6 @@ export enum RESOLVERS {
     removeUnit = 'removeUnit',
 
 
-    // ========= VEHICLE ========= 
-    createVehicle = 'createVehicle',
-    vehicles = 'vehicles',
-    vehicle = 'vehicle',
-    updateVehicle = 'updateVehicle',
-    removeVehicle = 'removeVehicle',
-
-    // ========= STATION ========= 
-    createStation = 'createStation',
-    stations = 'stations',
-    station = 'station',
-    updateStation = 'updateStation',
-    removeStation = 'removeStation',
-
     // ========= PROJECT ========= 
     createProject = 'createProject',
     projects = 'projects',
@@ -210,11 +206,40 @@ export enum RESOLVERS {
     removeItemType = 'removeItemType',
 
 
+    // ========= STATION ========= 
+    createStation = 'createStation',
+    stations = 'stations',
+    station = 'station',
+    updateStation = 'updateStation',
+    removeStation = 'removeStation',
+
+
+
+
+    // ==================================== MOTORPOOL ==================================== 
+
+
+    // ========= VEHICLE ========= 
+    createVehicle = 'createVehicle',
+    vehicles = 'vehicles',
+    vehicle = 'vehicle',
+    updateVehicle = 'updateVehicle',
+    removeVehicle = 'removeVehicle',
+
+
     // ========= FUEL TYPE ========= 
     createFuelType = 'createFuelType',
     fuel_types = 'fuel_types',
     fuel_type = 'fuel_type',
     updateFuelType = 'updateFuelType',
     removeFuelType = 'removeFuelType',
+
+
+    // ========= GAS STATION ========= 
+    createGasStation = 'createGasStation',
+    gas_stations = 'gas_stations',
+    gas_station = 'gas_station',
+    updateGasStation = 'updateGasStation',
+    removeGasStation = 'removeGasStation',
 
 }

@@ -267,13 +267,7 @@ export interface WarehousePermissions {
         update?: boolean,
         delete?: boolean,
     },
-    canManageVehicle?: {
-        create?: boolean,
-        search?: boolean,
-        viewDetails?: boolean
-        update?: boolean,
-        delete?: boolean,
-    },
+
     canManageStation?: {
         create?: boolean,
         search?: boolean,
@@ -308,7 +302,23 @@ export interface WarehousePermissions {
 
     // ========= MOTORPOOL ========= 
 
+    canManageVehicle?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+        update?: boolean,
+        delete?: boolean,
+    },
+    
     canManageFuelType?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+        update?: boolean,
+        delete?: boolean,
+    },
+
+    canManageGasStation?: {
         create?: boolean,
         search?: boolean,
         viewDetails?: boolean

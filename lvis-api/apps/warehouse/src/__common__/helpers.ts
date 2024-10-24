@@ -127,51 +127,30 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
         [MODULES.CANVASS]: {
             [RESOLVERS.createCanvass]: warehousePermissions.canManageCanvass?.create ?? false,
             [RESOLVERS.printCanvass]: warehousePermissions.canManageCanvass?.print ?? false,
-            // [RESOLVERS.canvasses]: warehousePermissions.canManageCanvass?.search ?? false,
-            // [RESOLVERS.rc_numbers]: warehousePermissions.canManageCanvass?.search ?? false,
-            // [RESOLVERS.canvass]: warehousePermissions.canManageCanvass?.viewDetails ?? false,
         },
         [MODULES.RV]: {
             [RESOLVERS.createRv]: warehousePermissions.canManageRV?.create ?? false,
             [RESOLVERS.printRv]: warehousePermissions.canManageRV?.print ?? false,
-            // [RESOLVERS.rvs]: warehousePermissions.canManageRV?.search ?? false,
-            // [RESOLVERS.rv_numbers]: warehousePermissions.canManageRV?.search ?? false,
-            // [RESOLVERS.rv]: warehousePermissions.canManageRV?.viewDetails ?? false,
         },
         [MODULES.SPR]: {
             [RESOLVERS.createSpr]: warehousePermissions.canManageSPR?.create ?? false,
             [RESOLVERS.printSpr]: warehousePermissions.canManageSPR?.print ?? false,
-            // [RESOLVERS.sprs]: warehousePermissions.canManageSPR?.search ?? false,
-            // [RESOLVERS.spr_numbers]: warehousePermissions.canManageSPR?.search ?? false,
-            // [RESOLVERS.spr]: warehousePermissions.canManageSPR?.viewDetails ?? false,
         },
         [MODULES.JO]: {
             [RESOLVERS.createJo]: warehousePermissions.canManageJO?.create ?? false,
             [RESOLVERS.printJo]: warehousePermissions.canManageJO?.print ?? false,
-            // [RESOLVERS.jos]: warehousePermissions.canManageJO?.search ?? false,
-            // [RESOLVERS.jo_numbers]: warehousePermissions.canManageJO?.search ?? false,
-            // [RESOLVERS.jo]: warehousePermissions.canManageJO?.viewDetails ?? false,
         },
         [MODULES.MEQS]: {
             [RESOLVERS.createMeqs]: warehousePermissions.canManageMEQS?.create ?? false,
             [RESOLVERS.printMeqs]: warehousePermissions.canManageMEQS?.print ?? false,
-            // [RESOLVERS.meqs]: warehousePermissions.canManageMEQS?.search ?? false,
-            // [RESOLVERS.meqs_numbers]: warehousePermissions.canManageMEQS?.search ?? false,
-            // [RESOLVERS.meq]: warehousePermissions.canManageMEQS?.viewDetails ?? false,
         },
         [MODULES.PO]: {
             [RESOLVERS.createPo]: warehousePermissions.canManagePO?.create ?? false,
             [RESOLVERS.printPo]: warehousePermissions.canManagePO?.print ?? false,
-            // [RESOLVERS.pos]: warehousePermissions.canManagePO?.search ?? false,
-            // [RESOLVERS.po_numbers]: warehousePermissions.canManagePO?.search ?? false,
-            // [RESOLVERS.po]: warehousePermissions.canManagePO?.viewDetails ?? false,
         },
         [MODULES.RR]: {
             [RESOLVERS.createRr]: warehousePermissions.canManageRR?.create ?? false,
             [RESOLVERS.printRr]: warehousePermissions.canManageRR?.print ?? false,
-            // [RESOLVERS.rrs]: warehousePermissions.canManageRR?.search ?? false,
-            // [RESOLVERS.rr_numbers]: warehousePermissions.canManageRR?.search ?? false,
-            // [RESOLVERS.rr]: warehousePermissions.canManageRR?.viewDetails ?? false,
         },
         [MODULES.OSRIV]: {
             [RESOLVERS.createOsriv]: warehousePermissions.canManageOSRIV?.create ?? false,
@@ -199,22 +178,16 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
         },
         [MODULES.SUPPLIER]: {
             [RESOLVERS.createSupplier]: warehousePermissions.canManageSupplier?.create ?? false,
-            // [RESOLVERS.suppliers]: warehousePermissions.canManageSupplier?.search ?? false,
-            // [RESOLVERS.supplier]: warehousePermissions.canManageSupplier?.viewDetails ?? false,
             [RESOLVERS.updateSupplier]: warehousePermissions.canManageSupplier?.update ?? false,
             [RESOLVERS.removeSupplier]: warehousePermissions.canManageSupplier?.delete ?? false,
         },
         [MODULES.UNIT]: {
             [RESOLVERS.createUnit]: warehousePermissions.canManageUnit?.create ?? false,
-            // [RESOLVERS.units]: warehousePermissions.canManageUnit?.search ?? false,
-            // [RESOLVERS.unit]: warehousePermissions.canManageUnit?.viewDetails ?? false,
             [RESOLVERS.updateUnit]: warehousePermissions.canManageUnit?.update ?? false,
             [RESOLVERS.removeUnit]: warehousePermissions.canManageUnit?.delete ?? false,
         },
         [MODULES.VEHICLE]: {
             [RESOLVERS.createVehicle]: warehousePermissions.canManageVehicle?.create ?? false,
-            // [RESOLVERS.vehicles]: warehousePermissions.canManageVehicle?.search ?? false,
-            // [RESOLVERS.vehicle]: warehousePermissions.canManageVehicle?.viewDetails ?? false,
             [RESOLVERS.updateVehicle]: warehousePermissions.canManageVehicle?.update ?? false,
             [RESOLVERS.removeVehicle]: warehousePermissions.canManageVehicle?.delete ?? false,
         },
@@ -230,17 +203,23 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
         },
         [MODULES.ITEM]: {
             [RESOLVERS.createItem]: warehousePermissions.canManageItem?.create ?? false,
-            // [RESOLVERS.items]: warehousePermissions.canManageItem?.search ?? false,
-            // [RESOLVERS.item]: warehousePermissions.canManageItem?.viewDetails ?? false,
             [RESOLVERS.updateItem]: warehousePermissions.canManageItem?.update ?? false,
             [RESOLVERS.removeItem]: warehousePermissions.canManageItem?.delete ?? false,
         },
         [MODULES.ITEM_TYPE]: {
             [RESOLVERS.createItemType]: warehousePermissions.canManageItemType?.create ?? false,
-            // [RESOLVERS.item_types]: warehousePermissions.canManageItemType?.search ?? false,
-            // [RESOLVERS.item_type]: warehousePermissions.canManageItemType?.viewDetails ?? false,
             [RESOLVERS.updateItemType]: warehousePermissions.canManageItemType?.update ?? false,
             [RESOLVERS.removeItemType]: warehousePermissions.canManageItemType?.delete ?? false,
+        },
+        [MODULES.FUEL_TYPE]: {
+            [RESOLVERS.createFuelType]: warehousePermissions.canManageFuelType?.create ?? false,
+            [RESOLVERS.updateFuelType]: warehousePermissions.canManageFuelType?.update ?? false,
+            [RESOLVERS.removeFuelType]: warehousePermissions.canManageFuelType?.delete ?? false,
+        },
+        [MODULES.GAS_STATION]: {
+            [RESOLVERS.createGasStation]: warehousePermissions.canManageGasStation?.create ?? false,
+            [RESOLVERS.updateGasStation]: warehousePermissions.canManageGasStation?.update ?? false,
+            [RESOLVERS.removeGasStation]: warehousePermissions.canManageGasStation?.delete ?? false,
         },
     };
 

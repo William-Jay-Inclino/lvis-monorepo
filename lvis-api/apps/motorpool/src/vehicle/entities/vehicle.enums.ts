@@ -1,0 +1,17 @@
+
+export const enum VEHICLE_CLASSIFICATION {
+    COMPANY = 1,
+    GOVERNMENT = 2,
+    OUTSOURCE = 3,
+    PRIVATE = 4,
+    V_HIRE = 5,
+}
+
+export const enum VEHICLE_STATUS {
+    AVAILABLE_FOR_TRIP = 1,
+    IN_USE = 2,
+    UNDER_REPAIR = 3,
+    UNDER_MAINTENANCE = 4,
+    OUT_OF_SERVICE = 5,
+    DECOMMISSIONED = 6,
+}

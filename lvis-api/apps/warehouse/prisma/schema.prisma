@@ -65,26 +65,6 @@ model Unit {
   @@map("unit")
 }
 
-model Vehicle {
-  id           String @id @default(uuid())
-  name         String
-  plate_number String
-
-  created_by String
-  updated_by String?
-  deleted_by String?
-
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
-
-  sprs SPR[]
-
-  metadata Json?
-
-  @@map("vehicle")
-}
-
 model Station {
   id         String         @id @default(uuid())
   name       String
@@ -437,7 +417,6 @@ model SPR {
 
   canvass       Canvass?       @relation(fields: [canvass_id], references: [id], onDelete: Restrict)
   meqs          MEQS?
-  vehicle       Vehicle       @relation(fields: [vehicle_id], references: [id], onDelete: Restrict)
   spr_approvers SPRApprover[]
 
   metadata Json?

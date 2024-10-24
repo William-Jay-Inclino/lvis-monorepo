@@ -81,7 +81,7 @@ export class SprService {
             notes: input.notes ?? null,
             supervisor_id: input.supervisor_id,
             canvass: { connect: { id: input.canvass_id } },
-            vehicle: { connect: { id: input.vehicle_id } },
+            vehicle_id: input.vehicle_id,
             spr_approvers: {
                 create: input.approvers.map(i => {
                     return {
@@ -160,7 +160,7 @@ export class SprService {
 
         const data: Prisma.SPRUpdateInput = {
             updated_by: this.authUser.user.username,
-            vehicle: input.vehicle_id ? { connect: { id: input.vehicle_id } } : { connect: { id: existingItem.vehicle_id } },
+            vehicle_id: input.vehicle_id ?? existingItem.vehicle_id ,
             classification_id: input.classification_id ?? existingItem.classification_id,
             supervisor_id: input.supervisor_id ?? existingItem.supervisor_id,
             notes: input.notes ?? existingItem.notes,

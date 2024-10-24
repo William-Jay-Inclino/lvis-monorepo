@@ -27,7 +27,7 @@ import { SupplierModule } from './supplier/supplier.module';
 import { PoService } from './po/po.service';
 import { PoResolver } from './po/po.resolver';
 import { PoModule } from './po/po.module';
-import { VehicleModule } from './vehicle/vehicle.module';
+// import { VehicleModule } from './vehicle/vehicle.module';
 // import { PoApproverResolver } from './po-approver/po-approver.resolver';
 import { PoApproverModule } from './po-approver/po-approver.module';
 // import { ItemTypeModule } from './item-type/item-type.module';
@@ -95,7 +95,7 @@ import { TasksService } from './__task-scheduler__/task.service';
     SupplierModule,
     PoModule,
     PoApproverModule,
-    VehicleModule,
+    // VehicleModule,
     // ItemTypeModule,
     ItemModule,
     RrModule,
