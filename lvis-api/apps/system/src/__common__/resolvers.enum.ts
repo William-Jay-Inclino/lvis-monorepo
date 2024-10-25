@@ -250,4 +250,12 @@ export enum RESOLVERS {
     updateTripTicket = 'updateTripTicket',
     removeTripTicket = 'removeTripTicket',
 
+
+    // ========= GAS SLIP ========= 
+    createGasSlip = 'creategGasSlip',
+    gas_slips = 'gas_slips',
+    gas_slip = 'gas_slip',
+    updateGasSlip = 'updateGasSlip',
+    removeGasSlip = 'removeGasSlip',
+
 }

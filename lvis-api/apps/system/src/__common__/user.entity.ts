@@ -333,6 +333,14 @@ export interface WarehousePermissions {
         update?: boolean,
         delete?: boolean,
     },
+
+    canManageGasSlip?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+        update?: boolean,
+        delete?: boolean,
+    },
 }
 
 export interface UserPermissions {

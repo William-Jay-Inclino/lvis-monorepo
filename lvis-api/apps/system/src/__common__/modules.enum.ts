@@ -75,5 +75,6 @@ export enum MODULES {
     FUEL_TYPE = 'FUEL_TYPE',
     GAS_STATION = 'GAS_STATION',
     TRIP_TICKET = 'TRIP_TICKET',
+    GAS_SLIP = 'GAS_SLIP',
 
 }

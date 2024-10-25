@@ -5,6 +5,7 @@ import { Prisma } from 'apps/motorpool/prisma/generated/client';
 import { MotorpoolRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TRIP_TICKET_STATUS } from './entities/trip-ticket.enums';
+import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
 
 @Injectable()
 export class TripTicketService {
@@ -33,7 +34,18 @@ export class TripTicketService {
 			is_out_of_coverage: input.is_out_of_coverage,
 			prepared_by_id: input.prepared_by_id,
 			status: TRIP_TICKET_STATUS.PENDING,
-			created_by: this.authUser.user.username
+			created_by: this.authUser.user.username,
+			trip_ticket_approvers: {
+                create: input.approvers.map(i => {
+                    return {
+                        approver_id: i.approver_id,
+                        label: i.label,
+                        order: i.order,
+                        notes: '',
+                        status: APPROVAL_STATUS.PENDING,
+                    }
+                })
+            }
 		}
 
 		const created = await this.prisma.tripTicket.create({

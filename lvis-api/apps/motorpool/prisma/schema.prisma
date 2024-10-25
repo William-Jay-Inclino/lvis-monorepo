@@ -100,8 +100,8 @@ model GasSlip {
   
   with_container Boolean 
   liter_in_text String 
-  actual_liter Float  
-  price_per_liter Float  
+  actual_liter Float?
+  price_per_liter Float?  
   purpose String 
   is_posted Boolean @default(false)
   

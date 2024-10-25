@@ -5086,8 +5086,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter: number | null
+    price_per_liter: number | null
     purpose: string
     is_posted: boolean
     print_count: number
@@ -5196,8 +5196,8 @@ export namespace Prisma {
       requested_by_id: string
       with_container: boolean
       liter_in_text: string
-      actual_liter: number
-      price_per_liter: number
+      actual_liter: number | null
+      price_per_liter: number | null
       purpose: string
       is_posted: boolean
       print_count: number
@@ -9504,8 +9504,8 @@ export namespace Prisma {
     requested_by_id?: StringFilter<"GasSlip"> | string
     with_container?: BoolFilter<"GasSlip"> | boolean
     liter_in_text?: StringFilter<"GasSlip"> | string
-    actual_liter?: FloatFilter<"GasSlip"> | number
-    price_per_liter?: FloatFilter<"GasSlip"> | number
+    actual_liter?: FloatNullableFilter<"GasSlip"> | number | null
+    price_per_liter?: FloatNullableFilter<"GasSlip"> | number | null
     purpose?: StringFilter<"GasSlip"> | string
     is_posted?: BoolFilter<"GasSlip"> | boolean
     print_count?: IntFilter<"GasSlip"> | number
@@ -9531,8 +9531,8 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     with_container?: SortOrder
     liter_in_text?: SortOrder
-    actual_liter?: SortOrder
-    price_per_liter?: SortOrder
+    actual_liter?: SortOrderInput | SortOrder
+    price_per_liter?: SortOrderInput | SortOrder
     purpose?: SortOrder
     is_posted?: SortOrder
     print_count?: SortOrder
@@ -9561,8 +9561,8 @@ export namespace Prisma {
     requested_by_id?: StringFilter<"GasSlip"> | string
     with_container?: BoolFilter<"GasSlip"> | boolean
     liter_in_text?: StringFilter<"GasSlip"> | string
-    actual_liter?: FloatFilter<"GasSlip"> | number
-    price_per_liter?: FloatFilter<"GasSlip"> | number
+    actual_liter?: FloatNullableFilter<"GasSlip"> | number | null
+    price_per_liter?: FloatNullableFilter<"GasSlip"> | number | null
     purpose?: StringFilter<"GasSlip"> | string
     is_posted?: BoolFilter<"GasSlip"> | boolean
     print_count?: IntFilter<"GasSlip"> | number
@@ -9588,8 +9588,8 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     with_container?: SortOrder
     liter_in_text?: SortOrder
-    actual_liter?: SortOrder
-    price_per_liter?: SortOrder
+    actual_liter?: SortOrderInput | SortOrder
+    price_per_liter?: SortOrderInput | SortOrder
     purpose?: SortOrder
     is_posted?: SortOrder
     print_count?: SortOrder
@@ -9619,8 +9619,8 @@ export namespace Prisma {
     requested_by_id?: StringWithAggregatesFilter<"GasSlip"> | string
     with_container?: BoolWithAggregatesFilter<"GasSlip"> | boolean
     liter_in_text?: StringWithAggregatesFilter<"GasSlip"> | string
-    actual_liter?: FloatWithAggregatesFilter<"GasSlip"> | number
-    price_per_liter?: FloatWithAggregatesFilter<"GasSlip"> | number
+    actual_liter?: FloatNullableWithAggregatesFilter<"GasSlip"> | number | null
+    price_per_liter?: FloatNullableWithAggregatesFilter<"GasSlip"> | number | null
     purpose?: StringWithAggregatesFilter<"GasSlip"> | string
     is_posted?: BoolWithAggregatesFilter<"GasSlip"> | boolean
     print_count?: IntWithAggregatesFilter<"GasSlip"> | number
@@ -10216,8 +10216,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -10243,8 +10243,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -10264,8 +10264,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -10291,8 +10291,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -10315,8 +10315,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -10335,8 +10335,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -10358,8 +10358,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -10998,15 +10998,15 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type GasStationRelationFilter = {
@@ -11114,20 +11114,20 @@ export namespace Prisma {
     print_count?: SortOrder
   }
 
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type GasSlipRelationFilter = {
@@ -11456,8 +11456,8 @@ export namespace Prisma {
     connect?: GasSlipApproverWhereUniqueInput | GasSlipApproverWhereUniqueInput[]
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
@@ -11810,20 +11810,31 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type TripTicketCreateWithoutVehicleInput = {
@@ -11893,8 +11904,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -11918,8 +11929,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -12015,8 +12026,8 @@ export namespace Prisma {
     requested_by_id?: StringFilter<"GasSlip"> | string
     with_container?: BoolFilter<"GasSlip"> | boolean
     liter_in_text?: StringFilter<"GasSlip"> | string
-    actual_liter?: FloatFilter<"GasSlip"> | number
-    price_per_liter?: FloatFilter<"GasSlip"> | number
+    actual_liter?: FloatNullableFilter<"GasSlip"> | number | null
+    price_per_liter?: FloatNullableFilter<"GasSlip"> | number | null
     purpose?: StringFilter<"GasSlip"> | string
     is_posted?: BoolFilter<"GasSlip"> | boolean
     print_count?: IntFilter<"GasSlip"> | number
@@ -12533,8 +12544,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -12559,8 +12570,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -12595,8 +12606,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -12621,8 +12632,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -12641,8 +12652,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -12666,8 +12677,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -12713,8 +12724,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -12738,8 +12749,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -12811,8 +12822,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -12905,8 +12916,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -12930,8 +12941,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -12953,8 +12964,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -13079,8 +13090,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -13099,8 +13110,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -13124,8 +13135,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -13147,8 +13158,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -13169,8 +13180,8 @@ export namespace Prisma {
     requested_by_id: string
     with_container: boolean
     liter_in_text: string
-    actual_liter: number
-    price_per_liter: number
+    actual_liter?: number | null
+    price_per_liter?: number | null
     purpose: string
     is_posted?: boolean
     print_count?: number
@@ -13189,8 +13200,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -13214,8 +13225,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number
@@ -13237,8 +13248,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
-    actual_liter?: FloatFieldUpdateOperationsInput | number
-    price_per_liter?: FloatFieldUpdateOperationsInput | number
+    actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_per_liter?: NullableFloatFieldUpdateOperationsInput | number | null
     purpose?: StringFieldUpdateOperationsInput | string
     is_posted?: BoolFieldUpdateOperationsInput | boolean
     print_count?: IntFieldUpdateOperationsInput | number

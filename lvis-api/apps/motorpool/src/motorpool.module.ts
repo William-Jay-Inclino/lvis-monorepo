@@ -9,6 +9,8 @@ import { GasStationModule } from './gas-station/gas-station.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { TripTicketModule } from './trip-ticket/trip-ticket.module';
 import { TripTicketApproverModule } from './trip-ticket-approver/trip-ticket-approver.module';
+import { GasSlipModule } from './gas-slip/gas-slip.module';
+import { GasSlipApproverModule } from './gas-slip-approver/gas-slip-approver.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { TripTicketApproverModule } from './trip-ticket-approver/trip-ticket-app
     VehicleModule,
     TripTicketModule,
     TripTicketApproverModule,
+    GasSlipModule,
+    GasSlipApproverModule,
   ],
   controllers: [],
   providers: [],
