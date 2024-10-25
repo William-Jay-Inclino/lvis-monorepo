@@ -49,7 +49,7 @@ model TripTicket {
   is_personal Boolean   
   is_out_of_coverage Boolean   
   
-  prepared_by String 
+  prepared_by_id String 
   status Int
 
   cancelled_by String?

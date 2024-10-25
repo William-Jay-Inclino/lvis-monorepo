@@ -161,7 +161,7 @@ export class SprPdfService {
                 <table style="font-size: 10pt;">
                     <tr>
                         <td> Vehicle: </td>
-                        <td> <b>${ spr.vehicle.name }</b> </td>
+                        <td> <b></b> </td>
                     </tr>
                 </table>
         
@@ -389,7 +389,6 @@ export class SprPdfService {
     async findSpr(id: string) {
         const item = await this.prisma.sPR.findUnique({
             include: {
-                vehicle: true,
                 canvass: {
                     include: {
                         canvass_items: {

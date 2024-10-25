@@ -325,6 +325,14 @@ export interface WarehousePermissions {
         update?: boolean,
         delete?: boolean,
     },
+
+    canManageTripTicket?: {
+        create?: boolean,
+        search?: boolean,
+        viewDetails?: boolean
+        update?: boolean,
+        delete?: boolean,
+    },
 }
 
 export interface UserPermissions {

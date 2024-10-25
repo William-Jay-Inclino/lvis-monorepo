@@ -2655,7 +2655,7 @@ export namespace Prisma {
     is_stay_in: boolean | null
     is_personal: boolean | null
     is_out_of_coverage: boolean | null
-    prepared_by: string | null
+    prepared_by_id: string | null
     status: number | null
     cancelled_by: string | null
     created_by: string | null
@@ -2680,7 +2680,7 @@ export namespace Prisma {
     is_stay_in: boolean | null
     is_personal: boolean | null
     is_out_of_coverage: boolean | null
-    prepared_by: string | null
+    prepared_by_id: string | null
     status: number | null
     cancelled_by: string | null
     created_by: string | null
@@ -2705,7 +2705,7 @@ export namespace Prisma {
     is_stay_in: number
     is_personal: number
     is_out_of_coverage: number
-    prepared_by: number
+    prepared_by_id: number
     status: number
     cancelled_by: number
     created_by: number
@@ -2740,7 +2740,7 @@ export namespace Prisma {
     is_stay_in?: true
     is_personal?: true
     is_out_of_coverage?: true
-    prepared_by?: true
+    prepared_by_id?: true
     status?: true
     cancelled_by?: true
     created_by?: true
@@ -2765,7 +2765,7 @@ export namespace Prisma {
     is_stay_in?: true
     is_personal?: true
     is_out_of_coverage?: true
-    prepared_by?: true
+    prepared_by_id?: true
     status?: true
     cancelled_by?: true
     created_by?: true
@@ -2790,7 +2790,7 @@ export namespace Prisma {
     is_stay_in?: true
     is_personal?: true
     is_out_of_coverage?: true
-    prepared_by?: true
+    prepared_by_id?: true
     status?: true
     cancelled_by?: true
     created_by?: true
@@ -2902,7 +2902,7 @@ export namespace Prisma {
     is_stay_in: boolean
     is_personal: boolean
     is_out_of_coverage: boolean
-    prepared_by: string
+    prepared_by_id: string
     status: number
     cancelled_by: string | null
     created_by: string
@@ -2946,7 +2946,7 @@ export namespace Prisma {
     is_stay_in?: boolean
     is_personal?: boolean
     is_out_of_coverage?: boolean
-    prepared_by?: boolean
+    prepared_by_id?: boolean
     status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -2974,7 +2974,7 @@ export namespace Prisma {
     is_stay_in?: boolean
     is_personal?: boolean
     is_out_of_coverage?: boolean
-    prepared_by?: boolean
+    prepared_by_id?: boolean
     status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -3012,7 +3012,7 @@ export namespace Prisma {
       is_stay_in: boolean
       is_personal: boolean
       is_out_of_coverage: boolean
-      prepared_by: string
+      prepared_by_id: string
       status: number
       cancelled_by: string | null
       created_by: string
@@ -3431,7 +3431,7 @@ export namespace Prisma {
     readonly is_stay_in: FieldRef<"TripTicket", 'Boolean'>
     readonly is_personal: FieldRef<"TripTicket", 'Boolean'>
     readonly is_out_of_coverage: FieldRef<"TripTicket", 'Boolean'>
-    readonly prepared_by: FieldRef<"TripTicket", 'String'>
+    readonly prepared_by_id: FieldRef<"TripTicket", 'String'>
     readonly status: FieldRef<"TripTicket", 'Int'>
     readonly cancelled_by: FieldRef<"TripTicket", 'String'>
     readonly created_by: FieldRef<"TripTicket", 'String'>
@@ -8948,7 +8948,7 @@ export namespace Prisma {
     is_stay_in: 'is_stay_in',
     is_personal: 'is_personal',
     is_out_of_coverage: 'is_out_of_coverage',
-    prepared_by: 'prepared_by',
+    prepared_by_id: 'prepared_by_id',
     status: 'status',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
@@ -9276,7 +9276,7 @@ export namespace Prisma {
     is_stay_in?: BoolFilter<"TripTicket"> | boolean
     is_personal?: BoolFilter<"TripTicket"> | boolean
     is_out_of_coverage?: BoolFilter<"TripTicket"> | boolean
-    prepared_by?: StringFilter<"TripTicket"> | string
+    prepared_by_id?: StringFilter<"TripTicket"> | string
     status?: IntFilter<"TripTicket"> | number
     cancelled_by?: StringNullableFilter<"TripTicket"> | string | null
     created_by?: StringFilter<"TripTicket"> | string
@@ -9303,7 +9303,7 @@ export namespace Prisma {
     is_stay_in?: SortOrder
     is_personal?: SortOrder
     is_out_of_coverage?: SortOrder
-    prepared_by?: SortOrder
+    prepared_by_id?: SortOrder
     status?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -9333,7 +9333,7 @@ export namespace Prisma {
     is_stay_in?: BoolFilter<"TripTicket"> | boolean
     is_personal?: BoolFilter<"TripTicket"> | boolean
     is_out_of_coverage?: BoolFilter<"TripTicket"> | boolean
-    prepared_by?: StringFilter<"TripTicket"> | string
+    prepared_by_id?: StringFilter<"TripTicket"> | string
     status?: IntFilter<"TripTicket"> | number
     cancelled_by?: StringNullableFilter<"TripTicket"> | string | null
     created_by?: StringFilter<"TripTicket"> | string
@@ -9360,7 +9360,7 @@ export namespace Prisma {
     is_stay_in?: SortOrder
     is_personal?: SortOrder
     is_out_of_coverage?: SortOrder
-    prepared_by?: SortOrder
+    prepared_by_id?: SortOrder
     status?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -9393,7 +9393,7 @@ export namespace Prisma {
     is_stay_in?: BoolWithAggregatesFilter<"TripTicket"> | boolean
     is_personal?: BoolWithAggregatesFilter<"TripTicket"> | boolean
     is_out_of_coverage?: BoolWithAggregatesFilter<"TripTicket"> | boolean
-    prepared_by?: StringWithAggregatesFilter<"TripTicket"> | string
+    prepared_by_id?: StringWithAggregatesFilter<"TripTicket"> | string
     status?: IntWithAggregatesFilter<"TripTicket"> | number
     cancelled_by?: StringNullableWithAggregatesFilter<"TripTicket"> | string | null
     created_by?: StringWithAggregatesFilter<"TripTicket"> | string
@@ -9948,7 +9948,7 @@ export namespace Prisma {
     is_stay_in: boolean
     is_personal: boolean
     is_out_of_coverage: boolean
-    prepared_by: string
+    prepared_by_id: string
     status: number
     cancelled_by?: string | null
     created_by: string
@@ -9975,7 +9975,7 @@ export namespace Prisma {
     is_stay_in: boolean
     is_personal: boolean
     is_out_of_coverage: boolean
-    prepared_by: string
+    prepared_by_id: string
     status: number
     cancelled_by?: string | null
     created_by: string
@@ -10000,7 +10000,7 @@ export namespace Prisma {
     is_stay_in?: BoolFieldUpdateOperationsInput | boolean
     is_personal?: BoolFieldUpdateOperationsInput | boolean
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
-    prepared_by?: StringFieldUpdateOperationsInput | string
+    prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -10027,7 +10027,7 @@ export namespace Prisma {
     is_stay_in?: BoolFieldUpdateOperationsInput | boolean
     is_personal?: BoolFieldUpdateOperationsInput | boolean
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
-    prepared_by?: StringFieldUpdateOperationsInput | string
+    prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -10053,7 +10053,7 @@ export namespace Prisma {
     is_stay_in: boolean
     is_personal: boolean
     is_out_of_coverage: boolean
-    prepared_by: string
+    prepared_by_id: string
     status: number
     cancelled_by?: string | null
     created_by: string
@@ -10077,7 +10077,7 @@ export namespace Prisma {
     is_stay_in?: BoolFieldUpdateOperationsInput | boolean
     is_personal?: BoolFieldUpdateOperationsInput | boolean
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
-    prepared_by?: StringFieldUpdateOperationsInput | string
+    prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -10102,7 +10102,7 @@ export namespace Prisma {
     is_stay_in?: BoolFieldUpdateOperationsInput | boolean
     is_personal?: BoolFieldUpdateOperationsInput | boolean
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
-    prepared_by?: StringFieldUpdateOperationsInput | string
+    prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -10801,7 +10801,7 @@ export namespace Prisma {
     is_stay_in?: SortOrder
     is_personal?: SortOrder
     is_out_of_coverage?: SortOrder
-    prepared_by?: SortOrder
+    prepared_by_id?: SortOrder
     status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -10830,7 +10830,7 @@ export namespace Prisma {
     is_stay_in?: SortOrder
     is_personal?: SortOrder
     is_out_of_coverage?: SortOrder
-    prepared_by?: SortOrder
+    prepared_by_id?: SortOrder
     status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -10855,7 +10855,7 @@ export namespace Prisma {
     is_stay_in?: SortOrder
     is_personal?: SortOrder
     is_out_of_coverage?: SortOrder
-    prepared_by?: SortOrder
+    prepared_by_id?: SortOrder
     status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -11840,7 +11840,7 @@ export namespace Prisma {
     is_stay_in: boolean
     is_personal: boolean
     is_out_of_coverage: boolean
-    prepared_by: string
+    prepared_by_id: string
     status: number
     cancelled_by?: string | null
     created_by: string
@@ -11865,7 +11865,7 @@ export namespace Prisma {
     is_stay_in: boolean
     is_personal: boolean
     is_out_of_coverage: boolean
-    prepared_by: string
+    prepared_by_id: string
     status: number
     cancelled_by?: string | null
     created_by: string
@@ -11976,7 +11976,7 @@ export namespace Prisma {
     is_stay_in?: BoolFilter<"TripTicket"> | boolean
     is_personal?: BoolFilter<"TripTicket"> | boolean
     is_out_of_coverage?: BoolFilter<"TripTicket"> | boolean
-    prepared_by?: StringFilter<"TripTicket"> | string
+    prepared_by_id?: StringFilter<"TripTicket"> | string
     status?: IntFilter<"TripTicket"> | number
     cancelled_by?: StringNullableFilter<"TripTicket"> | string | null
     created_by?: StringFilter<"TripTicket"> | string
@@ -12195,7 +12195,7 @@ export namespace Prisma {
     is_stay_in: boolean
     is_personal: boolean
     is_out_of_coverage: boolean
-    prepared_by: string
+    prepared_by_id: string
     status: number
     cancelled_by?: string | null
     created_by: string
@@ -12221,7 +12221,7 @@ export namespace Prisma {
     is_stay_in: boolean
     is_personal: boolean
     is_out_of_coverage: boolean
-    prepared_by: string
+    prepared_by_id: string
     status: number
     cancelled_by?: string | null
     created_by: string
@@ -12261,7 +12261,7 @@ export namespace Prisma {
     is_stay_in?: BoolFieldUpdateOperationsInput | boolean
     is_personal?: BoolFieldUpdateOperationsInput | boolean
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
-    prepared_by?: StringFieldUpdateOperationsInput | string
+    prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -12287,7 +12287,7 @@ export namespace Prisma {
     is_stay_in?: BoolFieldUpdateOperationsInput | boolean
     is_personal?: BoolFieldUpdateOperationsInput | boolean
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
-    prepared_by?: StringFieldUpdateOperationsInput | string
+    prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -12792,7 +12792,7 @@ export namespace Prisma {
     is_stay_in: boolean
     is_personal: boolean
     is_out_of_coverage: boolean
-    prepared_by: string
+    prepared_by_id: string
     status: number
     cancelled_by?: string | null
     created_by: string
@@ -12838,7 +12838,7 @@ export namespace Prisma {
     is_stay_in?: BoolFieldUpdateOperationsInput | boolean
     is_personal?: BoolFieldUpdateOperationsInput | boolean
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
-    prepared_by?: StringFieldUpdateOperationsInput | string
+    prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -12863,7 +12863,7 @@ export namespace Prisma {
     is_stay_in?: BoolFieldUpdateOperationsInput | boolean
     is_personal?: BoolFieldUpdateOperationsInput | boolean
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
-    prepared_by?: StringFieldUpdateOperationsInput | string
+    prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -12888,7 +12888,7 @@ export namespace Prisma {
     is_stay_in?: BoolFieldUpdateOperationsInput | boolean
     is_personal?: BoolFieldUpdateOperationsInput | boolean
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
-    prepared_by?: StringFieldUpdateOperationsInput | string
+    prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string

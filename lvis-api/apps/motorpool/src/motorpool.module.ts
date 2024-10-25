@@ -7,6 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './__auth__/auth.module';
 import { GasStationModule } from './gas-station/gas-station.module';
 import { VehicleModule } from './vehicle/vehicle.module';
+import { TripTicketModule } from './trip-ticket/trip-ticket.module';
+import { TripTicketApproverModule } from './trip-ticket-approver/trip-ticket-approver.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { VehicleModule } from './vehicle/vehicle.module';
     AuthModule,
     GasStationModule,
     VehicleModule,
+    TripTicketModule,
+    TripTicketApproverModule,
   ],
   controllers: [],
   providers: [],

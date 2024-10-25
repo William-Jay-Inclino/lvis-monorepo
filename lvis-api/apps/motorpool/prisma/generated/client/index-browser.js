@@ -138,7 +138,7 @@ exports.Prisma.TripTicketScalarFieldEnum = {
   is_stay_in: 'is_stay_in',
   is_personal: 'is_personal',
   is_out_of_coverage: 'is_out_of_coverage',
-  prepared_by: 'prepared_by',
+  prepared_by_id: 'prepared_by_id',
   status: 'status',
   cancelled_by: 'cancelled_by',
   created_by: 'created_by',

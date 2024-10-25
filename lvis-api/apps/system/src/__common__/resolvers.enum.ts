@@ -242,4 +242,12 @@ export enum RESOLVERS {
     updateGasStation = 'updateGasStation',
     removeGasStation = 'removeGasStation',
 
+    
+    // ========= TRIP TICKET ========= 
+    createTripTicket = 'createTripTicket',
+    trip_tickets = 'trip_tickets',
+    trip_ticket = 'trip_ticket',
+    updateTripTicket = 'updateTripTicket',
+    removeTripTicket = 'removeTripTicket',
+
 }
