@@ -10,7 +10,6 @@ import { PrismaModule } from './__prisma__/prisma.module';
 import { CanvassModule } from './canvass/canvass.module';
 import { CanvassItemModule } from './canvass-item/canvass-item.module';
 import { EmployeeModule } from './__employee__/employee.module';
-import { RvService } from './rv/rv.service';
 import { RvModule } from './rv/rv.module';
 import { ClassificationModule } from './__classification__/classification.module';
 import { HttpModule } from '@nestjs/axios';
@@ -19,18 +18,11 @@ import { MeqsApproverModule } from './meqs-approver/meqs-approver.module';
 import { MeqsSupplierModule } from './meqs-supplier/meqs-supplier.module';
 import { MeqsSupplierItemModule } from './meqs-supplier-item/meqs-supplier-item.module';
 import { MeqsSupplierAttachmentModule } from './meqs-supplier-attachment/meqs-supplier-attachment.module';
-import { MeqsService } from './meqs/meqs.service';
-import { MeqsResolver } from './meqs/meqs.resolver';
 import { MeqsModule } from './meqs/meqs.module';
 import { UnitModule } from './unit/unit.module';
 import { SupplierModule } from './supplier/supplier.module';
-import { PoService } from './po/po.service';
-import { PoResolver } from './po/po.resolver';
 import { PoModule } from './po/po.module';
-// import { VehicleModule } from './vehicle/vehicle.module';
-// import { PoApproverResolver } from './po-approver/po-approver.resolver';
 import { PoApproverModule } from './po-approver/po-approver.module';
-// import { ItemTypeModule } from './item-type/item-type.module';
 import { ItemModule } from './item/item.module';
 import { RrModule } from './rr/rr.module';
 import { RrApproverModule } from './rr-approver/rr-approver.module';
@@ -40,7 +32,6 @@ import { JoModule } from './jo/jo.module';
 import { JoApproverModule } from './jo-approver/jo-approver.module';
 import { SprModule } from './spr/spr.module';
 import { SprApproverModule } from './spr-approver/spr-approver.module';
-// import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { PendingModule } from './pending/pending.module';
 import { OsrivModule } from './osriv/osriv.module';
 import { OsrivApproverModule } from './osriv-approver/osriv-approver.module';
@@ -64,10 +55,19 @@ import { MstItemModule } from './mst-item/mst-item.module';
 import { ItemTypeModule } from './item-type/item-type.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TasksService } from './__task-scheduler__/task.service';
+import { VehicleModule } from './vehicle/vehicle.module';
+import { FuelTypeModule } from './fuel-type/fuel-type.module';
+import { GasSlipModule } from './gas-slip/gas-slip.module';
+import { GasSlipApproverModule } from './gas-slip-approver/gas-slip-approver.module';
+import { TripTicketModule } from './trip-ticket/trip-ticket.module';
+import { TripTicketApproverModule } from './trip-ticket-approver/trip-ticket-approver.module';
 
 
 @Module({
   imports: [
+
+    // ============================= SHARED ============================= 
+
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       autoSchemaFile: {
@@ -80,32 +80,39 @@ import { TasksService } from './__task-scheduler__/task.service';
     AuthModule,
     SeederModule,
     PrismaModule,
+    PendingModule,
+    EmployeeModule,
+    ClassificationModule,
+    UnitModule,
+    SupplierModule,
+    ItemModule,
+    ItemTypeModule,
+
+
+
+    // ============================= PURCHASING ============================= 
     CanvassModule,
     CanvassItemModule,
-    EmployeeModule,
     RvModule,
-    ClassificationModule,
     RvApproverModule,
+    JoModule,
+    JoApproverModule,
+    SprModule,
+    SprApproverModule,
     MeqsApproverModule,
     MeqsSupplierModule,
     MeqsSupplierItemModule,
     MeqsSupplierAttachmentModule,
     MeqsModule,
-    UnitModule,
-    SupplierModule,
     PoModule,
     PoApproverModule,
-    // VehicleModule,
-    // ItemTypeModule,
-    ItemModule,
     RrModule,
     RrApproverModule,
     RrItemModule,
-    JoModule,
-    JoApproverModule,
-    SprModule,
-    SprApproverModule,
-    PendingModule,
+
+
+
+    // ============================= WAREHOUSING ============================= 
     OsrivModule,
     OsrivApproverModule,
     OsrivItemModule,
@@ -125,18 +132,19 @@ import { TasksService } from './__task-scheduler__/task.service';
     MstModule,
     MstApproverModule,
     MstItemModule,
-    ItemTypeModule,
-    // PrometheusModule.register()
+
+
+    // ============================= MOTORPOOL ============================= 
+    VehicleModule,
+    FuelTypeModule,
+    GasSlipModule,
+    GasSlipApproverModule,
+    TripTicketModule,
+    TripTicketApproverModule,
   ],
   controllers: [],
   providers: [
     TasksService,
-    // RvService, 
-    // MeqsService, 
-    // MeqsResolver, 
-    // PoService, 
-    // PoResolver, 
-    // PoApproverResolver
   ],
 })
 export class WarehouseModule { }

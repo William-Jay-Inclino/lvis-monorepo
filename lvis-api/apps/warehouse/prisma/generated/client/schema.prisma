@@ -1105,3 +1105,165 @@ model MSTItem {
   @@index([mst_id, item_id])
   @@map("mst_item")
 }
+
+
+
+// ========================= MOTORPOOL ========================= 
+
+model Vehicle {
+  id            String     @id @default(uuid())
+  vehicle_number String @unique
+  plate_number String @unique
+  rf_id String @unique
+  classification_id Int 
+  assignee_id String 
+  name String 
+  date_acquired DateTime
+  status Int 
+
+  created_by String
+  updated_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+
+  trip_tickets TripTicket[]
+  gas_slips GasSlip[]
+
+  @@index([assignee_id, classification_id, status]) 
+  @@map("vehicle")
+}
+
+model TripTicket {
+  id            String     @id @default(uuid())
+  vehicle_id String
+  driver_id String
+  passengers String 
+  destination String 
+  purpose String 
+  start_time DateTime
+  end_time DateTime
+  actual_start_time DateTime?  
+  actual_end_time DateTime?
+
+  is_operation Boolean   
+  is_stay_in Boolean   
+  is_personal Boolean   
+  is_out_of_coverage Boolean   
+  
+  prepared_by_id String 
+  status Int
+
+  cancelled_by String?
+  created_by String
+  updated_by String?
+
+  cancelled_at DateTime?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+
+  vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Restrict)
+  trip_ticket_approvers TripTicketApprover[]
+
+  @@index([start_time, end_time, actual_start_time, actual_end_time, status])
+  @@map("trip_ticket")
+}
+
+model TripTicketApprover {
+  id            String    @id @default(uuid())
+  trip_ticket_id         String
+  approver_id   String
+  date_approval DateTime?
+  notes         String
+  status        Int
+  label         String
+  order         Int
+
+  updated_by   String?
+  updated_at   DateTime  @updatedAt
+
+  trip_ticket TripTicket @relation(fields: [trip_ticket_id], references: [id], onDelete: Cascade)
+
+  metadata Json?
+
+  @@unique([trip_ticket_id, order])
+  @@index([trip_ticket_id])
+  @@map("trip_ticket_approver")
+}
+
+model GasSlip {
+  id            String     @id @default(uuid())
+  gas_slip_number String @unique
+  vehicle_id String
+  driver_id String  
+  gas_station_id Int 
+  fuel_type_id Int 
+  requested_by_id String 
+  
+  with_container Boolean 
+  liter_in_text String 
+  actual_liter Float?
+  price_per_liter Float?  
+  purpose String 
+  is_posted Boolean @default(false)
+  
+  print_count Int @default(0)
+
+  cancelled_by String?
+  created_by String
+  updated_by String?
+
+  cancelled_at DateTime?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+
+  vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Restrict)
+  gas_station GasStation @relation(fields: [gas_station_id], references: [id], onDelete: Restrict)
+  fuel_type FuelType @relation(fields: [fuel_type_id], references: [id], onDelete: Restrict)
+  gas_slip_approvers GasSlipApprover[]
+
+  @@index([vehicle_id, driver_id, gas_station_id, requested_by_id]) 
+  @@map("gas_slip")
+}
+
+model GasSlipApprover {
+  id            String    @id @default(uuid())
+  gas_slip_id         String
+  approver_id   String
+  date_approval DateTime?
+  notes         String
+  status        Int
+  label         String
+  order         Int
+
+  updated_by   String?
+  updated_at   DateTime  @updatedAt
+
+  gas_slip GasSlip @relation(fields: [gas_slip_id], references: [id], onDelete: Cascade)
+
+  metadata Json?
+
+  @@unique([gas_slip_id, order])
+  @@index([gas_slip_id])
+  @@map("gas_slip_approver")
+}
+
+model GasStation {
+  id         Int     @id @default(autoincrement())
+  name String
+  location String
+  contact_number String
+
+  gas_slips GasSlip[]
+
+  @@map("gas_station")
+}
+
+model FuelType {
+  id         Int     @id @default(autoincrement())
+  name String
+
+  gas_slips GasSlip[]
+
+  @@map("fuel_type")
+}

@@ -5,13 +5,11 @@ NODE_ENV=development
 API_GATEWAY_PORT=4000
 SYSTEM_PORT=4001
 WAREHOUSE_PORT=4002
-MOTORPOOL_PORT=4003
 
 API_URL=http://localhost:4000/lvis/api
 API_GATEWAY_URL=http://localhost:4000/lvis/graphql
 SYSTEM_URL=http://localhost:4001/graphql
 WAREHOUSE_URL=http://localhost:4002/graphql
-MOTORPOOL_URL=http://localhost:4003/graphql
 
 
 # JWT
@@ -21,11 +19,9 @@ JWT_SECRET_KEY="1<3L3y3c0"
 # DATABASE
 SYSTEM_DATABASE_URL="postgresql://jay:jay123@localhost:5435/lvis_system_db?schema=public"
 WAREHOUSE_DATABASE_URL="postgresql://jay:jay123@localhost:5435/lvis_warehouse_db?schema=public"
-MOTORPOOL_DATABASE_URL="postgresql://jay:jay123@localhost:5435/lvis_motorpool_db?schema=public"
 DB_USER=jay
 DB_SYSTEM_NAME=lvis_system_db
 DB_WAREHOUSE_NAME=lvis_warehouse_db
-DB_MOTORPOOL_NAME=lvis_motorpool_db
 
 
 # BACKUP
@@ -34,5 +30,3 @@ BACKUP_SYSTEM_DIR=/home/jay/Documents/projects/leyeco/lvis/backup/system_db
 BACKUP_SYSTEM_LOG=/home/jay/Documents/projects/leyeco/lvis/backup/logs/system_db_backup.log
 BACKUP_WAREHOUSE_DIR=/home/jay/Documents/projects/leyeco/lvis/backup/warehouse_db
 BACKUP_WAREHOUSE_LOG=/home/jay/Documents/projects/leyeco/lvis/backup/logs/warehouse_db_backup.log
-BACKUP_MOTORPOOL_DIR=/home/jay/Documents/projects/leyeco/lvis/backup/motorpool_db
-BACKUP_MOTORPOOL_LOG=/home/jay/Documents/projects/leyeco/lvis/backup/logs/motorpool_db_backup.log

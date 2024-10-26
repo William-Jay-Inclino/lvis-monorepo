@@ -124,6 +124,8 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
     const warehousePermissions = permissions.warehouse;
 
     const accessMap = {
+
+        // ===================== PURCHASING ===================== 
         [MODULES.CANVASS]: {
             [RESOLVERS.createCanvass]: warehousePermissions.canManageCanvass?.create ?? false,
             [RESOLVERS.printCanvass]: warehousePermissions.canManageCanvass?.print ?? false,
@@ -152,6 +154,10 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.createRr]: warehousePermissions.canManageRR?.create ?? false,
             [RESOLVERS.printRr]: warehousePermissions.canManageRR?.print ?? false,
         },
+
+
+        // ===================== WAREHOUSING ===================== 
+
         [MODULES.OSRIV]: {
             [RESOLVERS.createOsriv]: warehousePermissions.canManageOSRIV?.create ?? false,
             [RESOLVERS.printOsriv]: warehousePermissions.canManageOSRIV?.print ?? false,
@@ -186,11 +192,6 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.updateUnit]: warehousePermissions.canManageUnit?.update ?? false,
             [RESOLVERS.removeUnit]: warehousePermissions.canManageUnit?.delete ?? false,
         },
-        [MODULES.VEHICLE]: {
-            [RESOLVERS.createVehicle]: warehousePermissions.canManageVehicle?.create ?? false,
-            [RESOLVERS.updateVehicle]: warehousePermissions.canManageVehicle?.update ?? false,
-            [RESOLVERS.removeVehicle]: warehousePermissions.canManageVehicle?.delete ?? false,
-        },
         [MODULES.STATION]: {
             [RESOLVERS.createStation]: warehousePermissions.canManageStation?.create ?? false,
             [RESOLVERS.updateStation]: warehousePermissions.canManageStation?.update ?? false,
@@ -211,15 +212,29 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.updateItemType]: warehousePermissions.canManageItemType?.update ?? false,
             [RESOLVERS.removeItemType]: warehousePermissions.canManageItemType?.delete ?? false,
         },
+
+
+        // ===================== MOTORPOOL ===================== 
+
+        [MODULES.GAS_STATION]: {
+            [RESOLVERS.createGasStation]: warehousePermissions.canManageGasStation?.create ?? false,
+            [RESOLVERS.updateGasStation]: warehousePermissions.canManageGasStation?.update ?? false,
+            [RESOLVERS.removeGasStation]: warehousePermissions.canManageGasStation?.delete ?? false,
+        },
+        [MODULES.VEHICLE]: {
+            [RESOLVERS.createVehicle]: warehousePermissions.canManageVehicle?.create ?? false,
+            [RESOLVERS.updateVehicle]: warehousePermissions.canManageVehicle?.update ?? false,
+            [RESOLVERS.removeVehicle]: warehousePermissions.canManageVehicle?.delete ?? false,
+        },
         [MODULES.FUEL_TYPE]: {
             [RESOLVERS.createFuelType]: warehousePermissions.canManageFuelType?.create ?? false,
             [RESOLVERS.updateFuelType]: warehousePermissions.canManageFuelType?.update ?? false,
             [RESOLVERS.removeFuelType]: warehousePermissions.canManageFuelType?.delete ?? false,
         },
-        [MODULES.GAS_STATION]: {
-            [RESOLVERS.createGasStation]: warehousePermissions.canManageGasStation?.create ?? false,
-            [RESOLVERS.updateGasStation]: warehousePermissions.canManageGasStation?.update ?? false,
-            [RESOLVERS.removeGasStation]: warehousePermissions.canManageGasStation?.delete ?? false,
+        [MODULES.TRIP_TICKET]: {
+            [RESOLVERS.createTripTicket]: warehousePermissions.canManageTripTicket?.create ?? false,
+            [RESOLVERS.updateTripTicket]: warehousePermissions.canManageTripTicket?.update ?? false,
+            [RESOLVERS.removeTripTicket]: warehousePermissions.canManageTripTicket?.delete ?? false,
         },
     };
 
