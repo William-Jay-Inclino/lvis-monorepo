@@ -56670,6 +56670,7 @@ export namespace Prisma {
 
   export type TripTicketMinAggregateOutputType = {
     id: string | null
+    trip_number: string | null
     vehicle_id: string | null
     driver_id: string | null
     passengers: string | null
@@ -56695,6 +56696,7 @@ export namespace Prisma {
 
   export type TripTicketMaxAggregateOutputType = {
     id: string | null
+    trip_number: string | null
     vehicle_id: string | null
     driver_id: string | null
     passengers: string | null
@@ -56720,6 +56722,7 @@ export namespace Prisma {
 
   export type TripTicketCountAggregateOutputType = {
     id: number
+    trip_number: number
     vehicle_id: number
     driver_id: number
     passengers: number
@@ -56755,6 +56758,7 @@ export namespace Prisma {
 
   export type TripTicketMinAggregateInputType = {
     id?: true
+    trip_number?: true
     vehicle_id?: true
     driver_id?: true
     passengers?: true
@@ -56780,6 +56784,7 @@ export namespace Prisma {
 
   export type TripTicketMaxAggregateInputType = {
     id?: true
+    trip_number?: true
     vehicle_id?: true
     driver_id?: true
     passengers?: true
@@ -56805,6 +56810,7 @@ export namespace Prisma {
 
   export type TripTicketCountAggregateInputType = {
     id?: true
+    trip_number?: true
     vehicle_id?: true
     driver_id?: true
     passengers?: true
@@ -56917,6 +56923,7 @@ export namespace Prisma {
 
   export type TripTicketGroupByOutputType = {
     id: string
+    trip_number: string
     vehicle_id: string
     driver_id: string
     passengers: string
@@ -56961,6 +56968,7 @@ export namespace Prisma {
 
   export type TripTicketSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    trip_number?: boolean
     vehicle_id?: boolean
     driver_id?: boolean
     passengers?: boolean
@@ -56989,6 +56997,7 @@ export namespace Prisma {
 
   export type TripTicketSelectScalar = {
     id?: boolean
+    trip_number?: boolean
     vehicle_id?: boolean
     driver_id?: boolean
     passengers?: boolean
@@ -57027,6 +57036,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      trip_number: string
       vehicle_id: string
       driver_id: string
       passengers: string
@@ -57446,6 +57456,7 @@ export namespace Prisma {
    */ 
   interface TripTicketFieldRefs {
     readonly id: FieldRef<"TripTicket", 'String'>
+    readonly trip_number: FieldRef<"TripTicket", 'String'>
     readonly vehicle_id: FieldRef<"TripTicket", 'String'>
     readonly driver_id: FieldRef<"TripTicket", 'String'>
     readonly passengers: FieldRef<"TripTicket", 'String'>
@@ -63772,6 +63783,7 @@ export namespace Prisma {
 
   export const TripTicketScalarFieldEnum: {
     id: 'id',
+    trip_number: 'trip_number',
     vehicle_id: 'vehicle_id',
     driver_id: 'driver_id',
     passengers: 'passengers',
@@ -68433,6 +68445,7 @@ export namespace Prisma {
     OR?: TripTicketWhereInput[]
     NOT?: TripTicketWhereInput | TripTicketWhereInput[]
     id?: StringFilter<"TripTicket"> | string
+    trip_number?: StringFilter<"TripTicket"> | string
     vehicle_id?: StringFilter<"TripTicket"> | string
     driver_id?: StringFilter<"TripTicket"> | string
     passengers?: StringFilter<"TripTicket"> | string
@@ -68460,6 +68473,7 @@ export namespace Prisma {
 
   export type TripTicketOrderByWithRelationInput = {
     id?: SortOrder
+    trip_number?: SortOrder
     vehicle_id?: SortOrder
     driver_id?: SortOrder
     passengers?: SortOrder
@@ -68487,6 +68501,7 @@ export namespace Prisma {
 
   export type TripTicketWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    trip_number?: string
     AND?: TripTicketWhereInput | TripTicketWhereInput[]
     OR?: TripTicketWhereInput[]
     NOT?: TripTicketWhereInput | TripTicketWhereInput[]
@@ -68513,10 +68528,11 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"TripTicket"> | Date | string
     vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
     trip_ticket_approvers?: TripTicketApproverListRelationFilter
-  }, "id">
+  }, "id" | "trip_number">
 
   export type TripTicketOrderByWithAggregationInput = {
     id?: SortOrder
+    trip_number?: SortOrder
     vehicle_id?: SortOrder
     driver_id?: SortOrder
     passengers?: SortOrder
@@ -68550,6 +68566,7 @@ export namespace Prisma {
     OR?: TripTicketScalarWhereWithAggregatesInput[]
     NOT?: TripTicketScalarWhereWithAggregatesInput | TripTicketScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"TripTicket"> | string
+    trip_number?: StringWithAggregatesFilter<"TripTicket"> | string
     vehicle_id?: StringWithAggregatesFilter<"TripTicket"> | string
     driver_id?: StringWithAggregatesFilter<"TripTicket"> | string
     passengers?: StringWithAggregatesFilter<"TripTicket"> | string
@@ -73947,6 +73964,7 @@ export namespace Prisma {
 
   export type TripTicketCreateInput = {
     id?: string
+    trip_number: string
     driver_id: string
     passengers: string
     destination: string
@@ -73973,6 +73991,7 @@ export namespace Prisma {
 
   export type TripTicketUncheckedCreateInput = {
     id?: string
+    trip_number: string
     vehicle_id: string
     driver_id: string
     passengers: string
@@ -73999,6 +74018,7 @@ export namespace Prisma {
 
   export type TripTicketUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     passengers?: StringFieldUpdateOperationsInput | string
     destination?: StringFieldUpdateOperationsInput | string
@@ -74025,6 +74045,7 @@ export namespace Prisma {
 
   export type TripTicketUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    trip_number?: StringFieldUpdateOperationsInput | string
     vehicle_id?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     passengers?: StringFieldUpdateOperationsInput | string
@@ -74051,6 +74072,7 @@ export namespace Prisma {
 
   export type TripTicketCreateManyInput = {
     id?: string
+    trip_number: string
     vehicle_id: string
     driver_id: string
     passengers: string
@@ -74076,6 +74098,7 @@ export namespace Prisma {
 
   export type TripTicketUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     passengers?: StringFieldUpdateOperationsInput | string
     destination?: StringFieldUpdateOperationsInput | string
@@ -74100,6 +74123,7 @@ export namespace Prisma {
 
   export type TripTicketUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    trip_number?: StringFieldUpdateOperationsInput | string
     vehicle_id?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     passengers?: StringFieldUpdateOperationsInput | string
@@ -77671,6 +77695,7 @@ export namespace Prisma {
 
   export type TripTicketCountOrderByAggregateInput = {
     id?: SortOrder
+    trip_number?: SortOrder
     vehicle_id?: SortOrder
     driver_id?: SortOrder
     passengers?: SortOrder
@@ -77700,6 +77725,7 @@ export namespace Prisma {
 
   export type TripTicketMaxOrderByAggregateInput = {
     id?: SortOrder
+    trip_number?: SortOrder
     vehicle_id?: SortOrder
     driver_id?: SortOrder
     passengers?: SortOrder
@@ -77725,6 +77751,7 @@ export namespace Prisma {
 
   export type TripTicketMinOrderByAggregateInput = {
     id?: SortOrder
+    trip_number?: SortOrder
     vehicle_id?: SortOrder
     driver_id?: SortOrder
     passengers?: SortOrder
@@ -91693,6 +91720,7 @@ export namespace Prisma {
 
   export type TripTicketCreateWithoutVehicleInput = {
     id?: string
+    trip_number: string
     driver_id: string
     passengers: string
     destination: string
@@ -91718,6 +91746,7 @@ export namespace Prisma {
 
   export type TripTicketUncheckedCreateWithoutVehicleInput = {
     id?: string
+    trip_number: string
     driver_id: string
     passengers: string
     destination: string
@@ -91828,6 +91857,7 @@ export namespace Prisma {
     OR?: TripTicketScalarWhereInput[]
     NOT?: TripTicketScalarWhereInput | TripTicketScalarWhereInput[]
     id?: StringFilter<"TripTicket"> | string
+    trip_number?: StringFilter<"TripTicket"> | string
     vehicle_id?: StringFilter<"TripTicket"> | string
     driver_id?: StringFilter<"TripTicket"> | string
     passengers?: StringFilter<"TripTicket"> | string
@@ -92048,6 +92078,7 @@ export namespace Prisma {
 
   export type TripTicketCreateWithoutTrip_ticket_approversInput = {
     id?: string
+    trip_number: string
     driver_id: string
     passengers: string
     destination: string
@@ -92073,6 +92104,7 @@ export namespace Prisma {
 
   export type TripTicketUncheckedCreateWithoutTrip_ticket_approversInput = {
     id?: string
+    trip_number: string
     vehicle_id: string
     driver_id: string
     passengers: string
@@ -92114,6 +92146,7 @@ export namespace Prisma {
 
   export type TripTicketUpdateWithoutTrip_ticket_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
+    trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     passengers?: StringFieldUpdateOperationsInput | string
     destination?: StringFieldUpdateOperationsInput | string
@@ -92139,6 +92172,7 @@ export namespace Prisma {
 
   export type TripTicketUncheckedUpdateWithoutTrip_ticket_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
+    trip_number?: StringFieldUpdateOperationsInput | string
     vehicle_id?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     passengers?: StringFieldUpdateOperationsInput | string
@@ -95120,6 +95154,7 @@ export namespace Prisma {
 
   export type TripTicketCreateManyVehicleInput = {
     id?: string
+    trip_number: string
     driver_id: string
     passengers: string
     destination: string
@@ -95166,6 +95201,7 @@ export namespace Prisma {
 
   export type TripTicketUpdateWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     passengers?: StringFieldUpdateOperationsInput | string
     destination?: StringFieldUpdateOperationsInput | string
@@ -95191,6 +95227,7 @@ export namespace Prisma {
 
   export type TripTicketUncheckedUpdateWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     passengers?: StringFieldUpdateOperationsInput | string
     destination?: StringFieldUpdateOperationsInput | string
@@ -95216,6 +95253,7 @@ export namespace Prisma {
 
   export type TripTicketUncheckedUpdateManyWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     passengers?: StringFieldUpdateOperationsInput | string
     destination?: StringFieldUpdateOperationsInput | string

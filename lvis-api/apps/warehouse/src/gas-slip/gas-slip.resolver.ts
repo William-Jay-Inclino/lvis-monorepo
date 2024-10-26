@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
 import { GasSlipService } from './gas-slip.service';
 import { GasSlip } from './entities/gas-slip.entity';
 import { CreateGasSlipInput } from './dto/create-gas-slip.input';
@@ -15,7 +15,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => GasSlip)
 export class GasSlipResolver {
-  constructor(private readonly tripTicketService: GasSlipService) { }
+  constructor(private readonly gasSlipService: GasSlipService) { }
 
   @Mutation(() => GasSlip)
   @UseGuards(AccessGuard)
@@ -24,18 +24,18 @@ export class GasSlipResolver {
     @Args('input') createGasSlipInput: CreateGasSlipInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.tripTicketService.setAuthUser(authUser)
-    return this.tripTicketService.create(createGasSlipInput);
+    this.gasSlipService.setAuthUser(authUser)
+    return this.gasSlipService.create(createGasSlipInput);
   }
 
   @Query(() => [GasSlip])
   gas_slips() {
-    return this.tripTicketService.findAll();
+    return this.gasSlipService.findAll();
   }
 
   @Query(() => GasSlip)
   gas_slip(@Args('id') id: string) {
-    return this.tripTicketService.findOne(id);
+    return this.gasSlipService.findOne(id);
   }
 
   @Mutation(() => WarehouseRemoveResponse)
@@ -45,7 +45,13 @@ export class GasSlipResolver {
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.tripTicketService.setAuthUser(authUser)
-    return this.tripTicketService.remove(id);
+    this.gasSlipService.setAuthUser(authUser)
+    return this.gasSlipService.remove(id);
   }
+
+  @ResolveField(() => Number)
+  async total_unposted_gas_slip(@Parent() gasSlip: GasSlip) {
+    return await this.gasSlipService.get_total_unposted_gas_slips(gasSlip.requested_by_id)
+  }
+  
 }

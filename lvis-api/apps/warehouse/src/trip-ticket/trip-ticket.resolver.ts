@@ -48,4 +48,18 @@ export class TripTicketResolver {
     this.tripTicketService.setAuthUser(authUser)
     return this.tripTicketService.remove(id);
   }
+
+  @Query(() => [TripTicket])
+  async scheduled_trips(
+    @Args('startDate', { type: () => String }) startDate: string,
+    @Args('endDate', { type: () => String }) endDate: string,
+  ) {
+    
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    return await this.tripTicketService.getScheduledTrips({ start, end } )
+
+  }
+
 }

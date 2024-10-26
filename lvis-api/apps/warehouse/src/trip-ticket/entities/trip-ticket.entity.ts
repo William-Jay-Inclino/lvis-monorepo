@@ -10,6 +10,9 @@ export class TripTicket {
   id: string;
 
   @Field()
+  trip_number: string;
+
+  @Field()
   vehicle_id: string;
 
   @Field()

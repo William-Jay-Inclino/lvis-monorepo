@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
 import { VehicleService } from './vehicle.service';
 import { Vehicle } from './entities/vehicle.entity';
 import { CreateVehicleInput } from './dto/create-vehicle.input';
@@ -12,6 +12,7 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { TripTicket } from '../trip-ticket/entities/trip-ticket.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Vehicle)
@@ -61,4 +62,5 @@ export class VehicleResolver {
     this.vehicleService.setAuthUser(authUser)
     return this.vehicleService.remove(id);
   }
+
 }

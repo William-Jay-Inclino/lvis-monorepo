@@ -793,6 +793,7 @@ exports.Prisma.VehicleScalarFieldEnum = {
 
 exports.Prisma.TripTicketScalarFieldEnum = {
   id: 'id',
+  trip_number: 'trip_number',
   vehicle_id: 'vehicle_id',
   driver_id: 'driver_id',
   passengers: 'passengers',

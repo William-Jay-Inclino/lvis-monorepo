@@ -1136,6 +1136,7 @@ model Vehicle {
 
 model TripTicket {
   id            String     @id @default(uuid())
+  trip_number String @unique
   vehicle_id String
   driver_id String
   passengers String 

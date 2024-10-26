@@ -39,17 +39,9 @@ export enum DB_ENTITY {
     MCT = 'mct',
     MCRT = 'mcrt',
     MST = 'mst',
+    TRIP_TICKET = 'trip_ticket',
+    GAS_SLIP = 'gas_slip',
 }
-
-// export const enum ITEM_TYPE {
-//     OFFICE_SUPPLY = 1,
-//     SPECIAL_EQUIPMENT = 2,
-// }
-
-// export const itemTypeMapper = {
-//     [ITEM_TYPE.OFFICE_SUPPLY]: 'Office Supply',
-//     [ITEM_TYPE.SPECIAL_EQUIPMENT]: 'Special Equipment',
-// }
 
 export const enum WAREHOUSE_REQUEST_TYPE {
     TURN_ON_ORDER = 1,
@@ -176,6 +168,22 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'mSTApprover',
         approvers: 'mst_approvers',
         items: 'mst_items',
+    },
+    [DB_ENTITY.TRIP_TICKET]: {
+        model: 'tripTicket',
+        rcNumber: 'trip_number',
+        id: 'trip_ticket_id',
+        approverModel: 'tripTicketApprover',
+        approvers: 'trip_ticket_approvers',
+        items: '',
+    },
+    [DB_ENTITY.GAS_SLIP]: {
+        model: 'gasSlip',
+        rcNumber: 'gas_slip_number',
+        id: 'gas_slip_id',
+        approverModel: 'gasSlipApprover',
+        approvers: 'gas_slip_approvers',
+        items: '',
     },
 }
 
