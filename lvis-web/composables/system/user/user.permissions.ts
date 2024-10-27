@@ -134,12 +134,7 @@ export const warehousePermissions: WarehousePermissions = {
         update: false,
         delete: false,
     },
-    canManageVehicle: {
-        create: false,
-        read: false,
-        update: false,
-        delete: false,
-    },
+
 
 
     // ========= STOCK INVENTORY ========= 
@@ -156,6 +151,40 @@ export const warehousePermissions: WarehousePermissions = {
         update: false,
         delete: false,
     },
+
+
+    // ========= MOTORPOOL ========= 
+    canManageVehicle: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+    canManageFuelType: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+    canManageGasStation: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+    canManageTripTicket: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+    canManageGasSlip: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+
 }
 
 export const permissions: UserPermissions = {

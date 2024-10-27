@@ -98,13 +98,20 @@ export default defineNuxtRouteMiddleware((to, from) => {
             // data management
             const isSupplierModule = to.name?.toString().includes(MODULES.SUPPLIER)
             const isUnitModule = to.name?.toString().includes(MODULES.UNIT)
-            const isVehicleModule = to.name?.toString().includes(MODULES.VEHICLE)
-    
+            
             // stock inventory
             const isItemModule = to.name?.toString().includes(MODULES.ITEM)
             const isItemTypeModule = to.name?.toString().includes(MODULES.ITEM_TYPE)
-    
-    
+            
+            // motorpool
+            const isVehicleModule = to.name?.toString().includes(MODULES.VEHICLE)
+            const isFuelTypeModule = to.name?.toString().includes(MODULES.FUEL_TYPE)
+            const isGasStationModule = to.name?.toString().includes(MODULES.GAS_STATION)
+            const isTripTicketModule = to.name?.toString().includes(MODULES.TRIP_TICKET)
+            const isGasSlipModule = to.name?.toString().includes(MODULES.GAS_SLIP)
+
+
+            // =========================== PURCHASING =========================== 
             if (isCanvassModule) {
                 if (!canAccessCanvass(to.name as ROUTES, permissions)) return redirectTo401Page()
                 return
@@ -144,7 +151,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
                 return
     
             }
-    
+            
+            // =========================== WAREHOUSING =========================== 
             if (isOSRIVModule) {
                 if (!canAccessOSRIV(to.name as ROUTES, permissions)) return redirectTo401Page()
                 return
@@ -193,12 +201,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
     
             }
     
-            if (isVehicleModule) {
-                if (!canAccessVehicle(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-    
-            }
-    
             if (isItemModule) {
                 if (!canAccessItem(to.name as ROUTES, permissions)) return redirectTo401Page()
                 return
@@ -210,7 +212,33 @@ export default defineNuxtRouteMiddleware((to, from) => {
                 return
             }
     
-    
+
+            // =========================== MOTORPOOL =========================== 
+            if (isVehicleModule) {
+                if (!canAccessVehicle(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+            }
+
+            if (isFuelTypeModule) {
+                if (!canAccessFuelType(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+            }
+
+            if (isGasStationModule) {
+                if (!canAccessGasStation(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+            }
+
+            if (isTripTicketModule) {
+                if (!canAccessTripTicket(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+            }
+
+            if (isGasSlipModule) {
+                if (!canAccessGasSlip(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+            }
+
     
     
         }
@@ -588,21 +616,6 @@ function canAccessUnit(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessVehicle(route: ROUTES, permissions: WarehousePermissions) {
-
-    console.log('canAccessVehicle', route, permissions)
-
-    if (!permissions.canManageVehicle) return false
-
-    if (route === ROUTES.VEHICLE_INDEX) return !!permissions.canManageVehicle.read
-    if (route === ROUTES.VEHICLE_CREATE) return !!permissions.canManageVehicle.create
-    if (route === ROUTES.VEHICLE_UPDATE) return !!permissions.canManageVehicle.update
-
-
-    return true
-
-}
-
 function canAccessItem(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessItem', route, permissions)
@@ -628,6 +641,84 @@ function canAccessItemType(route: ROUTES, permissions: WarehousePermissions) {
     if (route === ROUTES.ITEM_TYPE_INDEX) return !!permissions.canManageItemType.read
     if (route === ROUTES.ITEM_TYPE_CREATE) return !!permissions.canManageItemType.create
     if (route === ROUTES.ITEM_TYPE_UPDATE) return !!permissions.canManageItemType.update
+
+
+    return true
+
+}
+
+
+// ============================================== MOTORPOOL ============================================== 
+
+function canAccessVehicle(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessVehicle', route, permissions)
+
+    if (!permissions.canManageVehicle) return false
+
+    if (route === ROUTES.VEHICLE_INDEX) return !!permissions.canManageVehicle.read
+    if (route === ROUTES.VEHICLE_CREATE) return !!permissions.canManageVehicle.create
+    if (route === ROUTES.VEHICLE_UPDATE) return !!permissions.canManageVehicle.update
+
+
+    return true
+
+}
+
+function canAccessFuelType(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessFuelType', route, permissions)
+
+    if (!permissions.canManageFuelType) return false
+
+    if (route === ROUTES.FUEL_TYPE_INDEX) return !!permissions.canManageFuelType.read
+    if (route === ROUTES.FUEL_TYPE_CREATE) return !!permissions.canManageFuelType.create
+    if (route === ROUTES.FUEL_TYPE_UPDATE) return !!permissions.canManageFuelType.update
+
+
+    return true
+
+}
+
+function canAccessGasStation(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessGasStation', route, permissions)
+
+    if (!permissions.canManageGasStation) return false
+
+    if (route === ROUTES.GAS_STATION_INDEX) return !!permissions.canManageGasStation.read
+    if (route === ROUTES.GAS_STATION_CREATE) return !!permissions.canManageGasStation.create
+    if (route === ROUTES.GAS_STATION_UPDATE) return !!permissions.canManageGasStation.update
+
+
+    return true
+
+}
+
+function canAccessTripTicket(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessTripTicket', route, permissions)
+
+    if (!permissions.canManageTripTicket) return false
+
+    if (route === ROUTES.TRIP_TICKET_INDEX) return !!permissions.canManageTripTicket.read
+    if (route === ROUTES.TRIP_TICKET_CREATE) return !!permissions.canManageTripTicket.create
+    if (route === ROUTES.TRIP_TICKET_UPDATE) return !!permissions.canManageTripTicket.update
+
+
+    return true
+
+}
+
+function canAccessGasSlip(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessGasSlip', route, permissions)
+
+    if (!permissions.canManageGasSlip) return false
+
+    if (route === ROUTES.GAS_SLIP_INDEX) return !!permissions.canManageGasSlip.read
+    if (route === ROUTES.GAS_SLIP_CREATE) return !!permissions.canManageGasSlip.create
+    if (route === ROUTES.GAS_SLIP_UPDATE) return !!permissions.canManageGasSlip.update
 
 
     return true

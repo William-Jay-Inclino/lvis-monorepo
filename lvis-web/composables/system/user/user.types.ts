@@ -217,12 +217,6 @@ export interface WarehousePermissions {
         update?: boolean,
         delete?: boolean,
     },
-    canManageVehicle?: {
-        create?: boolean,
-        read?: boolean,
-        update?: boolean,
-        delete?: boolean,
-    },
 
 
     // ========= STOCK INVENTORY ========= 
@@ -234,6 +228,39 @@ export interface WarehousePermissions {
         delete?: boolean,
     },
     canManageItemType?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+
+
+    // ========= MOTORPOOL ========= 
+    canManageVehicle?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+    canManageFuelType?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+    canManageGasStation?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+    canManageTripTicket?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+    canManageGasSlip?: {
         create?: boolean,
         read?: boolean,
         update?: boolean,

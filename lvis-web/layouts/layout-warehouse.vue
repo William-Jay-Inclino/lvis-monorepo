@@ -78,6 +78,23 @@
                                 </li>
                             </ul>
                         </li>
+                        <li v-if="canViewMotorpool(authUser)" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Motorpool
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li v-if="canView('canManageTripTicket', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/warehouse/trip-ticket">Trip Ticket</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageGasSlip', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/warehouse/gas-slip">Gas Slip</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageVehicle', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/warehouse/vehicle">Vehicle</nuxt-link>
+                                </li>
+                            </ul>
+                        </li>
                         <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -88,13 +105,15 @@
                                     to="/warehouse/item">Item</nuxt-link></li>
                                 <li v-if="canView('canManageUnit', authUser)"><nuxt-link class="dropdown-item"
                                         to="/warehouse/unit">Unit</nuxt-link></li>
-                                <li v-if="canView('canManageVehicle', authUser)">
-                                    <nuxt-link class="dropdown-item"
-                                        to="/warehouse/vehicle">Vehicle</nuxt-link>
-                                </li>
                                 <li v-if="canView('canManageSupplier', authUser)">
                                     <nuxt-link class="dropdown-item"
                                         to="/warehouse/supplier">Supplier</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageFuelType', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/warehouse/fuel-type">Fuel Type</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageGasStation', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/warehouse/gas-station">Gas Station</nuxt-link>
                                 </li>
                             </ul>
                         </li>
@@ -330,6 +349,22 @@ function canViewWarehousing(authUser: AuthUser) {
     )
 }
 
+function canViewMotorpool(authUser: AuthUser) {
+
+    if (isAdmin(authUser)) return true
+
+    if (!authUser.user.permissions) return false
+
+    const warehousePermissions = authUser.user.permissions.warehouse
+
+
+    return (
+        (!!warehousePermissions.canManageVehicle && warehousePermissions.canManageVehicle.read) || 
+        (!!warehousePermissions.canManageTripTicket && warehousePermissions.canManageTripTicket.read) || 
+        (!!warehousePermissions.canManageGasSlip && warehousePermissions.canManageGasSlip.read)
+    )
+}
+
 function canViewDataManagement(authUser: AuthUser) {
 
     if (isAdmin(authUser)) return true
@@ -340,8 +375,9 @@ function canViewDataManagement(authUser: AuthUser) {
 
     return (
         (!!warehousePermissions.canManageUnit && warehousePermissions.canManageUnit.read) ||
-        (!!warehousePermissions.canManageVehicle && warehousePermissions.canManageVehicle.read) ||
-        (!!warehousePermissions.canManageSupplier && warehousePermissions.canManageSupplier.read)
+        (!!warehousePermissions.canManageSupplier && warehousePermissions.canManageSupplier.read) ||  
+        (!!warehousePermissions.canManageFuelType && warehousePermissions.canManageFuelType.read) || 
+        (!!warehousePermissions.canManageGasStation && warehousePermissions.canManageGasStation.read)
     )
 }
 
