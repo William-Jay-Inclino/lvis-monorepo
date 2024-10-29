@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { TripTicketService } from './trip-ticket.service';
 import { TripTicket } from './entities/trip-ticket.entity';
 import { CreateTripTicketInput } from './dto/create-trip-ticket.input';
@@ -11,6 +11,8 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
+import { Employee } from '../__employee__/entities/employee.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => TripTicket)
@@ -28,9 +30,16 @@ export class TripTicketResolver {
     return this.tripTicketService.create(createTripTicketInput);
   }
 
-  @Query(() => [TripTicket])
-  trip_tickets() {
-    return this.tripTicketService.findAll();
+  @Query(() => TripTicketsResponse)
+  async trip_tickets(
+    @Args('page', { type: () => Int, defaultValue: 1 }) page: number,
+    @Args('pageSize', { type: () => Int, defaultValue: 10 }) pageSize: number,
+    @Args('vehicle_id', { type: () => String, nullable: true }) vehicle_id?: string,
+    @Args('driver_id', { type: () => String, nullable: true }) driver_id?: string,
+    @Args('date_prepared', { type: () => String, nullable: true }) date_prepared?: string,
+    @Args('estimated_departure', { type: () => String, nullable: true }) estimated_departure?: string,
+  ): Promise<TripTicketsResponse> {
+    return this.tripTicketService.findAll(page, pageSize, vehicle_id, driver_id, date_prepared, estimated_departure);
   }
 
   @Query(() => TripTicket)
@@ -60,6 +69,11 @@ export class TripTicketResolver {
     
     return await this.tripTicketService.getScheduledTrips({ start, end } )
 
+  }
+
+  @ResolveField(() => Employee)
+  driver(@Parent() tripTicket: TripTicket): any {
+      return { __typename: 'Employee', id: tripTicket.driver_id }
   }
 
 }

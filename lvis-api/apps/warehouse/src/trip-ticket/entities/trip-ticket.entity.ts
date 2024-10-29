@@ -57,10 +57,40 @@ export class TripTicket {
   @Field(() => Int)
   status: TRIP_TICKET_STATUS;
 
+
+
+
+  // =============== audit fields ===============
+
+  @Field({ nullable: true })
+  cancelled_by: string | null;
+
+  @Field()
+  created_by: string;
+
+  @Field({ nullable: true })
+  updated_by: string | null;
+
+  @Field({ nullable: true })
+  cancelled_at: string | null;
+
+  @Field(() => Date)
+  created_at: Date;
+
+  @Field(() => Date)
+  updated_at: Date;
+
+
+
+  
+
+  // =============== derived / resolvers ===============
+
   @Field(() => Vehicle)
   vehicle: Vehicle;
 
   @Field(() => [TripTicketApprover])
   trip_ticket_approvers: TripTicketApprover[]
+
 
 }

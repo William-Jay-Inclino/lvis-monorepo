@@ -101,8 +101,9 @@ export interface Department {
 
 export interface Vehicle {
     id: string
-    name: string
+    vehicle_number: string
     plate_number: string
+    name: string
 }
 
 export interface Project {

@@ -8,6 +8,7 @@ import { TRIP_TICKET_STATUS } from './entities/trip-ticket.enums';
 import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
 import { CreateTripTicketApproverSubInput } from './dto/create-trip-ticket-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
+import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
 
 @Injectable()
 export class TripTicketService {
@@ -114,9 +115,45 @@ export class TripTicketService {
 
     }
 
-	async findAll() {
-		return await this.prisma.tripTicket.findMany()
-	}
+	async findAll(
+		page: number,
+		pageSize: number,
+		vehicle_id?: string,
+		driver_id?: string,
+		date_prepared?: string,
+		estimated_departure?: string,
+	  ): Promise<TripTicketsResponse> {
+		const skip = (page - 1) * pageSize;
+		const take = pageSize;
+	  
+		const filters: any = {};
+		if (vehicle_id) filters.vehicle_id = vehicle_id;
+		if (driver_id) filters.driver_id = driver_id;
+		if (date_prepared) filters.created_at = { gte: new Date(date_prepared) };
+		if (estimated_departure) filters.start_time = { gte: new Date(estimated_departure) };
+	  
+		const [totalItems, tripTickets] = await this.prisma.$transaction([
+		  this.prisma.tripTicket.count({ where: filters }),
+		  this.prisma.tripTicket.findMany({
+			include: {
+				vehicle: true,
+			},
+			where: filters,
+			skip,
+			take,
+			orderBy: { created_at: 'desc' },
+		  }),
+		]);
+	  
+		const totalPages = Math.ceil(totalItems / pageSize);
+	  
+		return {
+		  data: tripTickets,
+		  totalItems,
+		  currentPage: page,
+		  totalPages,
+		};
+	  }
 
 	async findOne(id: string) {
 
