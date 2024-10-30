@@ -103,7 +103,39 @@ export interface Vehicle {
     id: string
     vehicle_number: string
     plate_number: string
+    classification_id: VEHICLE_CLASSIFICATION 
+    assignee_id: string 
     name: string
+    date_acquired: Date 
+    status: VEHICLE_STATUS,
+
+    // derived / resolvers 
+    assignee: Employee
+}
+
+export const enum VEHICLE_STATUS {
+    AVAILABLE_FOR_TRIP = 1,
+    IN_USE = 2,
+    UNDER_REPAIR = 3,
+    UNDER_MAINTENANCE = 4,
+    OUT_OF_SERVICE = 5,
+    DECOMMISSIONED = 6,
+}
+
+export const enum VEHICLE_CLASSIFICATION {
+    COMPANY = 1,
+    GOVERNMENT = 2,
+    OUTSOURCE = 3,
+    PRIVATE = 4,
+    V_HIRE = 5,
+}
+
+export const VehicleClassificationMapper = {
+    [VEHICLE_CLASSIFICATION.COMPANY]: 'Company',
+    [VEHICLE_CLASSIFICATION.GOVERNMENT]: 'Government',
+    [VEHICLE_CLASSIFICATION.OUTSOURCE]: 'Outsource',
+    [VEHICLE_CLASSIFICATION.PRIVATE]: 'Private',
+    [VEHICLE_CLASSIFICATION.V_HIRE]: 'V-Hire',
 }
 
 export interface Project {

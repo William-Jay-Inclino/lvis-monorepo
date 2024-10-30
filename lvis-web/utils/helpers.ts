@@ -32,18 +32,17 @@ export function formatDate(d: any, withTime: boolean = false) {
     return withTime ? moment(date).format('DD MMM YYYY, h:mm A') : moment(date).format('DD MMM YYYY');
 }
 
-// export function formatToValidHtmlDate(d: any): string {
+export function formatTimeTo12Hour(date: Date): string {
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
 
-//     console.log('d', d)
+    hours = hours % 12;
+    hours = hours ? hours : 12; // The hour '0' should be '12'
+    const minutesStr = minutes < 10 ? '0' + minutes : minutes;
 
-//     let date = d;
-//     if (!isNaN(d)) {
-//         date = Number(d) < 10000000000 ? Number(d) * 1000 : Number(d);
-//     }
-
-//     return moment(date).format('YYYY-MM-DD')
-
-// }
+    return `${hours}:${minutesStr} ${ampm}`;
+}
 
 export function formatToValidHtmlDate(d: any, hasTime: boolean = false): string {
 

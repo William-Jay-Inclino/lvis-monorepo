@@ -38,8 +38,8 @@ export interface CreateTripTicket {
     passengers: string 
     destination: string 
     purpose: string 
-    start_time: Date 
-    end_time: Date 
+    start_time: string 
+    end_time: string 
     is_operation: boolean 
     is_stay_in: boolean 
     is_personal: boolean 

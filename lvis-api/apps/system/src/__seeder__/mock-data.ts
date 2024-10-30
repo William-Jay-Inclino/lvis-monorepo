@@ -31,6 +31,7 @@ export const accounts: Account[] = [
 export const empId1 = faker.string.uuid()
 
 export const departments: Department[] = [
+    // 0
     {
         id: faker.string.uuid(),
         code: 'IAD',
@@ -38,6 +39,7 @@ export const departments: Department[] = [
         status: DepartmentStatus.ACTIVE,
         created_by: 'admin'
     },
+    // 1
     {
         id: faker.string.uuid(),
         code: 'ITCS',
@@ -45,6 +47,7 @@ export const departments: Department[] = [
         status: 1,
         created_by: 'admin'
     },
+    // 2
     {
         id: faker.string.uuid(),
         code: 'HR',
@@ -52,6 +55,7 @@ export const departments: Department[] = [
         status: DepartmentStatus.ACTIVE,
         created_by: 'admin'
     },
+    // 3
     {
         id: faker.string.uuid(),
         code: 'Accounting',
@@ -59,6 +63,7 @@ export const departments: Department[] = [
         status: DepartmentStatus.ACTIVE,
         created_by: 'admin'
     },
+    // 4
     {
         id: faker.string.uuid(),
         code: 'OGM',
@@ -66,10 +71,19 @@ export const departments: Department[] = [
         status: DepartmentStatus.ACTIVE,
         created_by: 'admin'
     },
+    // 5
     {
         id: faker.string.uuid(),
         code: 'Warehouse',
         name: 'Warehouse',
+        status: DepartmentStatus.ACTIVE,
+        created_by: 'admin'
+    },
+    // 6
+    {
+        id: faker.string.uuid(),
+        code: 'Motorpool',
+        name: 'Motorpool',
         status: DepartmentStatus.ACTIVE,
         created_by: 'admin'
     },
@@ -126,235 +140,15 @@ export const positions: Position[] = [
     },
     {
         id: faker.string.uuid(), // 6
+        name: 'Motorpool',
+        created_by: 'admin'
+    },
+    {
+        id: faker.string.uuid(), // 7
         name: 'TBA',
         created_by: 'admin'
     },
 ]
-
-// export const services: Service[] = [
-//     {
-//         id: faker.string.uuid(),
-//         name: 'System',
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Warehouse',
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Powerserve',
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'PMS & Housewiring',
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Powerbill',
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Payment',
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Accounting',
-//         created_by: 'admin'
-//     },
-// ]
-
-// export const features: Feature[] = [
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Data Management',
-//         service_id: services[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Purchasing',
-//         service_id: services[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Warehousing',
-//         service_id: services[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Motorpool',
-//         service_id: services[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Project',
-//         service_id: services[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Reports',
-//         service_id: services[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Security',
-//         service_id: services[0].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Data Management',
-//         service_id: services[0].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Settings',
-//         service_id: services[0].id,
-//         created_by: 'admin'
-//     }
-// ]
-
-// export const modules: Module[] = [
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Canvass',
-//         feature_id: features[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'JO',
-//         feature_id: features[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'SPR',
-//         feature_id: features[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'RV',
-//         feature_id: features[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'MEQS',
-//         feature_id: features[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'PO',
-//         feature_id: features[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'RR',
-//         feature_id: features[1].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Supplier',
-//         feature_id: features[0].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Vehicle',
-//         feature_id: features[0].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Unit',
-//         feature_id: features[0].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'UAC',
-//         feature_id: features[6].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Activity log',
-//         feature_id: features[6].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Employee',
-//         feature_id: features[7].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Department',
-//         feature_id: features[7].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Division',
-//         feature_id: features[7].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Classification',
-//         feature_id: features[7].id,
-//         created_by: 'admin'
-//     },
-//     {
-//         id: faker.string.uuid(),
-//         name: 'Purchasing',
-//         feature_id: features[8].id,
-//         created_by: 'admin'
-//     }
-// ]
-
-// const subModules: SubModule[] = []
-
-// const crud = ['create', 'read', 'update', 'delete']
-
-// for (let module of modules) {
-
-//     for (let i of crud) {
-
-//         const x: SubModule = {
-//             id: faker.string.uuid(),
-//             name: i,
-//             module_id: module.id,
-//             created_by: 'admin'
-//         }
-
-//         subModules.push(x)
-
-//     }
-
-// }
-
-// export {
-//     subModules
-// }
 
 
 export const employees: Employee[] = [
@@ -557,6 +351,16 @@ export const employees: Employee[] = [
         created_by: 'admin',
         position_id: positions[4].id,
         department_id: departments[5].id,
+    },
+    // 20
+    {
+        id: faker.string.uuid(),
+        firstname: 'Monroe',
+        middlename: 'Coquilla',
+        lastname: 'Magdadaro',
+        created_by: 'admin',
+        position_id: positions[6].id,
+        department_id: departments[6].id,
     }
 ]
 
@@ -722,6 +526,15 @@ export const users: User[] = [
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
+    },
+    // 18
+    {
+        id: faker.string.uuid(),
+        username: 'monroe.magdadaro',
+        password: 'monroe.magdadaro123',
+        status: UserStatus.ACTIVE,
+        role: Role.USER,
+        created_by: 'admin'
     }
 ]
 
@@ -832,6 +645,12 @@ export const userEmployees: UserEmployee[] = [
         id: faker.string.uuid(),
         employee_id: employees[19].id,
         user_id: users[17].id,
+        created_by: 'admin'
+    },
+    {
+        id: faker.string.uuid(),
+        employee_id: employees[20].id,
+        user_id: users[18].id,
         created_by: 'admin'
     }
 ]

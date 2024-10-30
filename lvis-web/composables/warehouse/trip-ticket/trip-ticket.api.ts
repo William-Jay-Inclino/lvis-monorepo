@@ -286,7 +286,131 @@ export async function findAll(payload: {
       throw error;
     }
 }
-  
+
+export async function fetchFormDataInCreate(): Promise<{
+    vehicles: Vehicle[],
+    employees: Employee[],
+    scheduledTripsToday: TripTicket[],
+    fmsd_chief: Employee | null,
+    general_manager: Employee | null,
+}> {
+
+    const today = new Date();
+
+    const startDateString = today.toLocaleDateString('en-US')
+    const endDateString = today.toLocaleDateString('en-US')
+
+    const query = `
+        query {
+            employees(page: 1, pageSize: 500) {
+                data{
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+            vehicles {
+                id
+                vehicle_number
+                plate_number
+                name
+                classification_id
+                date_acquired
+                assignee {
+                    id 
+                    firstname 
+                    middlename 
+                    lastname
+                }
+            }
+            scheduled_trips(
+                startDate: "${startDateString}",
+                endDate: "${endDateString}",
+            ) {   
+                id 
+                trip_number
+                driver {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                start_time 
+                end_time
+            }   
+            fmsd_chief {
+                id 
+                firstname
+                middlename
+                lastname
+            }
+            general_manager {
+                id 
+                firstname
+                middlename
+                lastname
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees = []
+        let vehicles = []
+        let scheduledTripsToday = []
+        let fmsd_chief: Employee | null = null
+        let general_manager: Employee | null = null
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        if (data.vehicles) {
+            vehicles = data.vehicles
+        }
+
+        if (data.scheduled_trips) {
+            scheduledTripsToday = data.scheduled_trips
+        }
+
+        if (data.fmsd_chief) {
+            fmsd_chief = data.fmsd_chief
+        }
+
+        if (data.general_manager) {
+            general_manager = data.general_manager
+        }
+
+        return {
+            employees,
+            vehicles,
+            scheduledTripsToday,
+            fmsd_chief,
+            general_manager,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            employees: [],
+            vehicles: [],
+            scheduledTripsToday: [],
+            fmsd_chief: null,
+            general_manager: null
+        }
+    }
+
+
+}
 
 export async function fetchTripNumbers(payload: string): Promise<TripTicket[]> {
     const query = `

@@ -13,6 +13,7 @@ import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TripTicket } from '../trip-ticket/entities/trip-ticket.entity';
+import { Employee } from '../__employee__/entities/employee.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Vehicle)
@@ -61,6 +62,12 @@ export class VehicleResolver {
   ) {
     this.vehicleService.setAuthUser(authUser)
     return this.vehicleService.remove(id);
+  }
+
+  @ResolveField(() => Employee)
+  assignee(@Parent() vehicle: Vehicle): any {
+    console.log('assignee', vehicle);
+    return { __typename: 'Employee', id: vehicle.assignee_id }
   }
 
 }

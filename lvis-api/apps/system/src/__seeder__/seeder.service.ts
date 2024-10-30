@@ -228,6 +228,10 @@ export class SeederService {
                         key: SETTINGS.WAREHOUSE_CUSTODIAN,
                         value: data.employees[19].id
                     },
+                    {
+                        key: SETTINGS.FMSD_CHIEF,
+                        value: data.employees[20].id
+                    },
                 ]
             });
         } catch (error) {

@@ -36,6 +36,7 @@ export class SettingService {
         return employee
 
     }
+
     async findWarehouseCustodian() {
 
         console.log('findWarehouseCustodian()');
@@ -56,6 +57,32 @@ export class SettingService {
                 position: true,
                 department: true,
             }
+        })
+
+        if(!employee) {
+            throw new NotFoundException('Employee not found with id of ' + item.value)
+        }
+
+        return employee
+
+    }
+
+    async findFMSDChief() {
+
+        console.log('findFMSDChief()');
+        
+        const item = await this.prisma.setting.findUnique({
+        where: {
+            key: SETTINGS.FMSD_CHIEF
+        }
+        })
+
+        if(!item) {
+            throw new NotFoundException(`key ${SETTINGS.FMSD_CHIEF} in setting table not found`)
+        }
+
+        const employee = await this.prisma.employee.findUnique({
+            where: { id: item.value },
         })
 
         if(!employee) {

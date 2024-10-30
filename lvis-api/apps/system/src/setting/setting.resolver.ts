@@ -18,4 +18,9 @@ export class SettingResolver {
     return this.settingService.findWarehouseCustodian();
   }
 
+  @Query(() => Employee)
+  fmsd_chief() {
+    return this.settingService.findFMSDChief();
+  }
+
 }
