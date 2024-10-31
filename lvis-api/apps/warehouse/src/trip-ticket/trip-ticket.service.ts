@@ -23,10 +23,15 @@ export class TripTicketService {
 
 	async create(input: CreateTripTicketInput) {
 
-		const start_time = new Date(input.start_time);
-		const end_time = new Date(input.end_time);
+		const startTime = new Date(input.start_time);
+		const endTime = new Date(input.end_time);
 
-		await this.validateTripScheduleConflict(input.vehicle_id, start_time, end_time);
+		await this.validateTripScheduleConflict({
+			vehicleId: input.vehicle_id,
+			driverId: input.driver_id,
+			startTime,
+			endTime
+		});
 
 		const tripNumber = await this.getLatestTripNumber()
 
@@ -37,8 +42,8 @@ export class TripTicketService {
 			passengers: input.passengers,
 			destination: input.destination,
 			purpose: input.purpose,
-			start_time,
-			end_time,
+			start_time: startTime,
+			end_time: endTime,
 			is_operation: input.is_operation,
 			is_stay_in: input.is_stay_in,
 			is_personal: input.is_personal,
@@ -80,20 +85,33 @@ export class TripTicketService {
 
 	}
 
-	private async validateTripScheduleConflict(vehicleId: string, startTime: Date, endTime: Date) {
+	private async validateTripScheduleConflict(payload: {
+		vehicleId: string,
+		driverId: string,
+		startTime: Date,
+		endTime: Date,
+	}) {
+		const { vehicleId, driverId, startTime, endTime } = payload
+
 		const conflictingTrip = await this.prisma.tripTicket.findFirst({
-		  where: {
-			vehicle_id: vehicleId,
-			AND: [
-			  { start_time: { lt: endTime } },
-			  { end_time: { gt: startTime } },
-			],
-		  },
+			where: {
+				status: { in: [TRIP_TICKET_STATUS.PENDING, TRIP_TICKET_STATUS.APPROVED, TRIP_TICKET_STATUS.IN_PROGRESS] },
+				OR: [
+					{
+						vehicle_id: vehicleId,
+						AND: [{ start_time: { lt: endTime } }, { end_time: { gt: startTime } }],
+					},
+					{
+						driver_id: driverId,
+						AND: [{ start_time: { lt: endTime } }, { end_time: { gt: startTime } }],
+					},
+				],
+			},
 		});
-	
+	  
 		if (conflictingTrip) {
 		  throw new BadRequestException(
-			'There is a scheduling conflict with another trip for this vehicle in the selected time range.'
+			'There is a scheduling conflict with another trip for this vehicle or driver in the selected time range.'
 		  );
 		}
 	}
