@@ -456,9 +456,15 @@ export async function create(input: CreateTripTicket): Promise<MutationResponse>
                 msg: 'Trip Ticket created successfully!',
                 data: response.data.data.createTripTicket
             };
-        }
+        } else {
 
-        throw new Error(JSON.stringify(response.data.errors));
+            console.error(JSON.stringify(response.data.errors))
+
+            return {
+                success: false,
+                msg: response.data.errors?.[0]?.message || 'Failed to create Trip Ticket. Please contact the system administrator',
+            }
+        }
 
     } catch (error) {
         console.error(error);

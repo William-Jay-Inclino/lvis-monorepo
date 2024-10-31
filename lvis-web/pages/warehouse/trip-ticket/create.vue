@@ -361,7 +361,7 @@ async function save() {
             position: 'top',
         })
 
-        router.push(`/warehouse/trip-ticket/view/${response.data.id}`);
+        // router.push(`/warehouse/trip-ticket/view/${response.data.id}`);
     } else {
         Swal.fire({
             title: 'Error!',
