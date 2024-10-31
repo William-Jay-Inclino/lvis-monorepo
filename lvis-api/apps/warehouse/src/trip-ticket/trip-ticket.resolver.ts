@@ -13,11 +13,16 @@ import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
 import { Employee } from '../__employee__/entities/employee.entity';
+import { TripTicketApprover } from '../trip-ticket-approver/entities/trip-ticket-approver.entity';
+import { TripTicketApproverService } from '../trip-ticket-approver/trip-ticket-approver.service';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => TripTicket)
 export class TripTicketResolver {
-  constructor(private readonly tripTicketService: TripTicketService) { }
+  constructor(
+    private readonly tripTicketService: TripTicketService,
+    private readonly tripTicketApproverService: TripTicketApproverService,
+  ) { }
 
   @Mutation(() => TripTicket)
   @UseGuards(AccessGuard)
@@ -74,6 +79,16 @@ export class TripTicketResolver {
   @ResolveField(() => Employee)
   driver(@Parent() tripTicket: TripTicket): any {
       return { __typename: 'Employee', id: tripTicket.driver_id }
+  }
+
+  @ResolveField(() => Employee)
+  prepared_by(@Parent() tripTicket: TripTicket): any {
+      return { __typename: 'Employee', id: tripTicket.prepared_by_id }
+  }
+
+  @ResolveField(() => [TripTicketApprover])
+  trip_ticket_approvers(@Parent() tripTicket: TripTicket): any {
+      return this.tripTicketApproverService.findByTripTicketId(tripTicket.id)
   }
 
 }

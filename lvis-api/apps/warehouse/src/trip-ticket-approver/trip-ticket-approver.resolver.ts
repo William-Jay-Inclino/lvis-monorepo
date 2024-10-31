@@ -1,8 +1,9 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { TripTicketApproverService } from './trip-ticket-approver.service';
 import { TripTicketApprover } from './entities/trip-ticket-approver.entity';
 import { CreateTripTicketApproverInput } from './dto/create-trip-ticket-approver.input';
 import { UpdateTripTicketApproverInput } from './dto/update-trip-ticket-approver.input';
+import { Employee } from '../__employee__/entities/employee.entity';
 
 @Resolver(() => TripTicketApprover)
 export class TripTicketApproverResolver {
@@ -31,5 +32,11 @@ export class TripTicketApproverResolver {
   @Mutation(() => TripTicketApprover)
   removeTripTicketApprover(@Args('id', { type: () => Int }) id: number) {
     return this.tripTicketApproverService.remove(id);
+  }
+
+  @ResolveField(() => Employee)
+  approver(@Parent() tripTicketApprover: TripTicketApprover): any {
+    console.log('tripTicketApprover', tripTicketApprover);
+    return { __typename: 'Employee', id: tripTicketApprover.approver_id }
   }
 }

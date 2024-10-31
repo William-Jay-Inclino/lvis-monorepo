@@ -22,20 +22,32 @@ export interface TripTicket {
     prepared_by_id: string;
     status: TRIP_TICKET_STATUS;
 
+
+
+    // =============== audit fields =============== 
+
+    cancelled_by: string
+    created_by: string
+    updated_by: string
+    cancelled_at: Date
     created_at: Date
+    updated_at: Date
+
+    
 
     // derived / resolvers
     vehicle: Vehicle;
     driver: Employee;
     prepared_by: Employee;
     trip_ticket_approvers: TripTicketApprover[]
+    can_update?: boolean;
 }
 
 
 export interface CreateTripTicket {
     vehicle: Vehicle | null 
     driver: Employee | null 
-    passengers: string 
+    passengers: string[]
     destination: string 
     purpose: string 
     start_time: string 

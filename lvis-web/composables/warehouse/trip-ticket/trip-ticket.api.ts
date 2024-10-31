@@ -290,15 +290,9 @@ export async function findAll(payload: {
 export async function fetchFormDataInCreate(): Promise<{
     vehicles: Vehicle[],
     employees: Employee[],
-    scheduledTripsToday: TripTicket[],
     fmsd_chief: Employee | null,
     general_manager: Employee | null,
 }> {
-
-    const today = new Date();
-
-    const startDateString = today.toLocaleDateString('en-US')
-    const endDateString = today.toLocaleDateString('en-US')
 
     const query = `
         query {
@@ -324,21 +318,6 @@ export async function fetchFormDataInCreate(): Promise<{
                     lastname
                 }
             }
-            scheduled_trips(
-                startDate: "${startDateString}",
-                endDate: "${endDateString}",
-            ) {   
-                id 
-                trip_number
-                driver {
-                    id
-                    firstname
-                    middlename
-                    lastname
-                }
-                start_time 
-                end_time
-            }   
             fmsd_chief {
                 id 
                 firstname
@@ -360,7 +339,6 @@ export async function fetchFormDataInCreate(): Promise<{
 
         let employees = []
         let vehicles = []
-        let scheduledTripsToday = []
         let fmsd_chief: Employee | null = null
         let general_manager: Employee | null = null
 
@@ -378,10 +356,6 @@ export async function fetchFormDataInCreate(): Promise<{
             vehicles = data.vehicles
         }
 
-        if (data.scheduled_trips) {
-            scheduledTripsToday = data.scheduled_trips
-        }
-
         if (data.fmsd_chief) {
             fmsd_chief = data.fmsd_chief
         }
@@ -393,7 +367,6 @@ export async function fetchFormDataInCreate(): Promise<{
         return {
             employees,
             vehicles,
-            scheduledTripsToday,
             fmsd_chief,
             general_manager,
         }
@@ -403,7 +376,6 @@ export async function fetchFormDataInCreate(): Promise<{
         return {
             employees: [],
             vehicles: [],
-            scheduledTripsToday: [],
             fmsd_chief: null,
             general_manager: null
         }
@@ -433,5 +405,101 @@ export async function fetchTripNumbers(payload: string): Promise<TripTicket[]> {
     } catch (error) {
         console.error(error);
         return []
+    }
+}
+
+export async function create(input: CreateTripTicket): Promise<MutationResponse> {
+
+    console.log('create', input);
+
+    const passengers = input.passengers.join(", ");
+
+    const approvers = input.approvers.map(i => {
+        return `
+        {
+          approver_id: "${i.approver?.id}"
+          label: "${i.label}"
+          order: ${i.order}
+        }`;
+    }).join(', ');
+
+    const mutation = `
+        mutation {
+            createTripTicket(
+                input: {
+                    vehicle_id: "${input.vehicle?.id}"
+                    driver_id: "${input.driver?.id}"
+                    passengers: "${passengers}"
+                    destination: "${input.destination}"
+                    purpose: "${input.purpose}"
+                    start_time: "${input.start_time}"
+                    end_time: "${input.end_time}"
+                    is_operation: ${input.is_operation}
+                    is_stay_in: ${input.is_stay_in}
+                    is_personal: ${input.is_personal}
+                    is_out_of_coverage: ${input.is_out_of_coverage}
+                    prepared_by_id: "${input.prepared_by?.id}"
+                    approvers: [${approvers}]
+                }
+            ) {
+                id
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.createTripTicket) {
+            return {
+                success: true,
+                msg: 'Trip Ticket created successfully!',
+                data: response.data.data.createTripTicket
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to create Trip Ticket. Please contact system administrator'
+        };
+    }
+}
+
+export async function cancel(id: string): Promise<CancelResponse> {
+
+    const mutation = `
+        mutation {
+            cancelTripTicket(
+                id: "${id}"
+            ) {
+                msg
+                success
+                cancelled_at
+                cancelled_by
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.cancelTripTicket) {
+            return response.data.data.cancelTripTicket
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to cancel Trip Ticket. Please contact system administrator'
+        };
     }
 }

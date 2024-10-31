@@ -1,6 +1,7 @@
 import moment from "moment";
 import { VAT_TYPE } from "#imports";
 import { APPROVAL_STATUS } from "#imports";
+import type { TRIP_TICKET_STATUS } from "~/composables/warehouse/trip-ticket/trip-ticket.enums";
 
 
 export function getFullname(firstname: string, middlename: string | null, lastname: string) {
@@ -32,7 +33,14 @@ export function formatDate(d: any, withTime: boolean = false) {
     return withTime ? moment(date).format('DD MMM YYYY, h:mm A') : moment(date).format('DD MMM YYYY');
 }
 
-export function formatTimeTo12Hour(date: Date): string {
+export function formatTimeTo12Hour(date: Date | string): string {
+    // Convert to Date object if `date` is a string
+    if (typeof date === 'string') {
+        date = new Date(date);
+    }
+
+    console.log('date', date);
+
     let hours = date.getHours();
     const minutes = date.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
@@ -162,7 +170,7 @@ export function debounce<T extends (...args: any[]) => void>(func: T, wait: numb
 
 // status should be blank if nay nag una nga approver nga ni disapproved. Meaning wala na abot sa ilaha ang document
 
-export function isBlankStatus(itemStatus: APPROVAL_STATUS, approverStatus: APPROVAL_STATUS) {
+export function isBlankStatus(itemStatus: APPROVAL_STATUS | TRIP_TICKET_STATUS, approverStatus: APPROVAL_STATUS) {
 
     if((itemStatus === APPROVAL_STATUS.DISAPPROVED || itemStatus === APPROVAL_STATUS.CANCELLED) && approverStatus === APPROVAL_STATUS.PENDING) {
         return true 

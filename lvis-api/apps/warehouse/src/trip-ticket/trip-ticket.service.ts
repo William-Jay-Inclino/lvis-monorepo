@@ -158,6 +158,9 @@ export class TripTicketService {
 	async findOne(id: string) {
 
 		const item = await this.prisma.tripTicket.findUnique({
+			include: {
+				vehicle: true,
+			},
 			where: { id }
 		})
 
@@ -203,6 +206,9 @@ export class TripTicketService {
     }
 
 	async getScheduledTrips(d: {start: Date, end: Date}) {
+
+		console.log('getScheduledTrips', d);
+		
 		return this.prisma.tripTicket.findMany({
 			where: {
 				start_time: {
