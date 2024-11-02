@@ -109,12 +109,12 @@
                                     <nuxt-link class="dropdown-item"
                                         to="/warehouse/supplier">Supplier</nuxt-link>
                                 </li>
-                                <li v-if="canView('canManageFuelType', authUser)"><nuxt-link class="dropdown-item"
+                                <!-- <li v-if="canView('canManageFuelType', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/fuel-type">Fuel Type</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageGasStation', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/gas-station">Gas Station</nuxt-link>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">

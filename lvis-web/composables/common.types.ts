@@ -143,6 +143,16 @@ export interface Project {
     name: string
 }
 
+
+export interface GasStation {
+    id: string
+    name: string
+}
+
+export interface FuelType {
+    id: string
+    name: string
+}
 export interface WarehouseRequestType {
 	id: number
 	name: string

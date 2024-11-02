@@ -106,7 +106,9 @@
                                                 <td class="text-muted align-middle"> {{ formatDate(i.start_time) }}
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                    {{ i.status }}
+                                                    <div :class="{ [`badge bg-${tripTicketStatus[i.status].color}`]: true }">
+                                                        {{ tripTicketStatus[i.status].label }}
+                                                    </div>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageTripTicket') }"
@@ -175,6 +177,7 @@ import { ROUTES, approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
+import { tripTicketStatus } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
 
 definePageMeta({
     name: ROUTES.TRIP_TICKET_INDEX,
