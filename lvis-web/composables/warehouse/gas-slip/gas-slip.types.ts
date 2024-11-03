@@ -30,7 +30,7 @@ export interface GasSlip {
     updated_at: Date
 
     // derived / resolvers
-
+    status: APPROVAL_STATUS
     vehicle: Vehicle 
     driver: Employee
     gas_station: GasStation

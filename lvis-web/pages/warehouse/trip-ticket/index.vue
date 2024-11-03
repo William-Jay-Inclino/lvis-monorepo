@@ -173,7 +173,7 @@ import { type TripTicket } from '~/composables/warehouse/trip-ticket/trip-ticket
 import * as tripTicketApi from '~/composables/warehouse/trip-ticket/trip-ticket.api'
 import { getFullname, formatDate } from '~/utils/helpers'
 import { PAGINATION_SIZE } from '~/utils/config'
-import { ROUTES, approvalStatus } from '~/utils/constants';
+import { ROUTES } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';

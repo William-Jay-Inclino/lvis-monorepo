@@ -171,7 +171,7 @@ export class TripTicketService {
 		  currentPage: page,
 		  totalPages,
 		};
-	  }
+	}
 
 	async findOne(id: string) {
 

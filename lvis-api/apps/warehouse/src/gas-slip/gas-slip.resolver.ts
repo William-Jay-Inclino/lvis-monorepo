@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ResolveField, Parent, Int } from '@nestjs/graphql';
 import { GasSlipService } from './gas-slip.service';
 import { GasSlip } from './entities/gas-slip.entity';
 import { CreateGasSlipInput } from './dto/create-gas-slip.input';
@@ -11,6 +11,8 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { GasSlipsResponse } from './entities/gas-slips-response.entity';
+import { Employee } from '../__employee__/entities/employee.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => GasSlip)
@@ -28,14 +30,28 @@ export class GasSlipResolver {
     return this.gasSlipService.create(createGasSlipInput);
   }
 
-  @Query(() => [GasSlip])
-  gas_slips() {
-    return this.gasSlipService.findAll();
+  @Query(() => GasSlipsResponse)
+  async gas_slips(
+    @Args('page', { type: () => Int, defaultValue: 1 }) page: number,
+    @Args('pageSize', { type: () => Int, defaultValue: 10 }) pageSize: number,
+    @Args('vehicle_id', { type: () => String, nullable: true }) vehicle_id?: string,
+  ): Promise<GasSlipsResponse> {
+    return this.gasSlipService.findAll(page, pageSize, vehicle_id);
   }
 
   @Query(() => GasSlip)
   gas_slip(@Args('id') id: string) {
     return this.gasSlipService.findOne(id);
+  }
+
+  @ResolveField(() => Employee)
+  driver(@Parent() gasSlip: GasSlip): any {
+      return { __typename: 'Employee', id: gasSlip.driver_id }
+  }
+
+  @ResolveField(() => Employee)
+  requested_by(@Parent() gasSlip: GasSlip): any {
+      return { __typename: 'Employee', id: gasSlip.requested_by_id }
   }
 
   @Mutation(() => WarehouseRemoveResponse)

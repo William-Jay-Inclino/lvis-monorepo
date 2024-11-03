@@ -7,6 +7,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
 import { CreateGasSlipApproverSubInput } from './dto/create-gas-slip-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
+import { GasSlipsResponse } from './entities/gas-slips-response.entity';
 
 @Injectable()
 export class GasSlipService {
@@ -90,8 +91,40 @@ export class GasSlipService {
 
     }
 
-	async findAll() {
-		return await this.prisma.gasSlip.findMany()
+	async findAll(
+		page: number,
+		pageSize: number,
+		vehicle_id?: string,
+	  ): Promise<GasSlipsResponse> {
+		const skip = (page - 1) * pageSize;
+		const take = pageSize;
+	  
+		const filters: any = {};
+		if (vehicle_id) filters.vehicle_id = vehicle_id;
+	  
+		const [totalItems, gasSlips] = await this.prisma.$transaction([
+		  this.prisma.gasSlip.count({ where: filters }),
+		  this.prisma.gasSlip.findMany({
+			include: {
+				vehicle: true,
+				gas_station: true,
+				fuel_type: true,
+			},
+			where: filters,
+			skip,
+			take,
+			orderBy: { created_at: 'desc' },
+		  }),
+		]);
+	  
+		const totalPages = Math.ceil(totalItems / pageSize);
+	  
+		return {
+		  data: gasSlips,
+		  totalItems,
+		  currentPage: page,
+		  totalPages,
+		};
 	}
 
 	async findOne(id: string) {
