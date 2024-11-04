@@ -244,6 +244,8 @@ export enum DB_ENTITY {
     MCT = 'mct',
     MCRT = 'mcrt',
     MST = 'mst',
+    TRIP_TICKET = 'trip_ticket',
+    GAS_SLIP = 'gas_slip',
 }
 
 export const approvalStatus = {
@@ -349,6 +351,7 @@ export const NOTE_OPTIONS = [
     'Proven and Tested'
 ]
 
+// map to url format
 export const MODULE_MAPPER = {
     [DB_ENTITY.RV]: 'rv',
     [DB_ENTITY.SPR]: 'spr',
@@ -362,6 +365,8 @@ export const MODULE_MAPPER = {
     [DB_ENTITY.MCT]: 'mct',
     [DB_ENTITY.MCRT]: 'mcrt',
     [DB_ENTITY.MST]: 'mst',
+    [DB_ENTITY.TRIP_TICKET]: 'trip-ticket',
+    [DB_ENTITY.GAS_SLIP]: 'gas-slip',
 }
 
 export const enum ITEM_TYPE {

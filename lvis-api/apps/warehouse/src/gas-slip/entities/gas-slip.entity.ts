@@ -43,8 +43,8 @@ export class GasSlip {
   @Field()
   purpose: string;
 
-  @Field(() => Boolean)
-  is_posted: boolean;
+  @Field(() => Boolean, { nullable: true })
+  is_posted: boolean | null;
 
 
 

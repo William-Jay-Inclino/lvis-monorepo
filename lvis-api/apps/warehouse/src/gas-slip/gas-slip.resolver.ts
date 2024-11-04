@@ -76,20 +76,33 @@ export class GasSlipResolver {
       return this.gasSlipApproverService.findByGasSlipId(gasSlip.id)
   }
 
-  @ResolveField(() => Number)
-  async total_unposted_gas_slip(@Parent() gasSlip: GasSlip) {
-    return await this.gasSlipService.get_total_unposted_gas_slips(gasSlip.requested_by_id)
-  }
-
   @ResolveField(() => Int)
   async status(@Parent() gasSlip: GasSlip) {
 
-      if (gasSlip.cancelled_at) {
-          return APPROVAL_STATUS.CANCELLED
-      }
+    if (gasSlip.cancelled_at) {
+        return APPROVAL_STATUS.CANCELLED
+    }
 
-      return await this.gasSlipService.getStatus(gasSlip.id)
+    return await this.gasSlipService.getStatus(gasSlip.id)
 
+  }
+
+  @ResolveField(() => Boolean)
+  can_update(
+    @Parent() gasSlip: GasSlip,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.gasSlipService.setAuthUser(authUser)
+    return this.gasSlipService.canUpdateForm(gasSlip.id)
+  }
+
+  @ResolveField(() => Boolean)
+  can_post(
+    @Parent() gasSlip: GasSlip,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.gasSlipService.setAuthUser(authUser)
+    return this.gasSlipService.canPostGasSlip(gasSlip.id)
   }
   
 }

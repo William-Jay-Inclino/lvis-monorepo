@@ -48,6 +48,10 @@
                                                 <td>Assignee</td>
                                                 <td> {{ getFullname(gsData.vehicle.assignee.firstname, gsData.vehicle.assignee.middlename, gsData.vehicle.assignee.lastname) }} </td>
                                             </tr>
+                                            <tr class="table-danger">
+                                                <td class="text-danger fw-bold">Unposted Gas Slips</td>
+                                                <td class="text-danger fw-bold"> {{ gsData.vehicle.total_unposted_gas_slips }} </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -152,7 +156,7 @@
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/gas-slip">
                                     <i class="fas fa-search"></i> Search Gas Slip
                                 </nuxt-link>
-                                <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
+                                <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaveDisabled">
                                     <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
@@ -251,6 +255,15 @@ onMounted(async () => {
 
 // ======================== COMPUTED ========================  
 
+const isSaveDisabled = computed( () => {
+
+    if(isSaving.value) return true 
+
+    if(gsData.value.vehicle && gsData.value.vehicle.total_unposted_gas_slips >= 5) return true 
+
+    return false
+
+})
 
 // ======================== FUNCTIONS ========================  
 
@@ -283,7 +296,7 @@ async function save() {
             position: 'top',
         })
 
-        // router.push(`/warehouse/trip-ticket/view/${response.data.id}`);
+        router.push(`/warehouse/gas-slip/view/${response.data.id}`);
     } else {
         Swal.fire({
             title: 'Error!',

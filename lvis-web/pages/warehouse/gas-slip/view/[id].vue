@@ -24,18 +24,20 @@
                                         <tr>
                                             <td class="text-muted">Status</td>
                                             <td>
-                                                <div :class="{ [`badge bg-${approvalStatus[item.status].color}`]: true }">
+                                                <div v-if="item.is_posted === null" :class="{ [`badge bg-${approvalStatus[item.status].color}`]: true }">
                                                     {{ approvalStatus[item.status].label }}
+                                                </div>
+                                                <div v-else-if="item.is_posted === true" class="badge bg-info">
+                                                    Posted
+                                                </div>
+                                                <div v-else class="badge bg-secondary">
+                                                    Unposted
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Gas Slip Number</td>
                                             <td> {{ item.gas_slip_number }} </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-muted">Vehicle</td>
-                                            <td> {{ item.vehicle.vehicle_number + " " + item.vehicle.name }} </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Driver</td>
@@ -84,7 +86,51 @@
         
                         </div>
         
-        
+                        
+                        <div class="row pt-3">
+
+                            <div class="h5wrapper mb-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <i class="fas fa-car"></i> Vehicle Info
+                                </h5>
+                                <hr class="result">
+                            </div>
+
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-muted align-middle">Unposted Gas Slip</td>
+                                        <td class="fw-bold fs-4 table-danger text-center text-danger"> {{ item.vehicle.total_unposted_gas_slips }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted">Vehicle Number</td>
+                                        <td> {{ item.vehicle.vehicle_number }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted">Plate Number</td>
+                                        <td> {{ item.vehicle.plate_number }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted">Name</td>
+                                        <td> {{ item.vehicle.name }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted">Classification</td>
+                                        <td> {{ VehicleClassificationMapper[item.vehicle.classification_id] }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted">Date Acquired</td>
+                                        <td> {{ formatDate(item.vehicle.date_acquired) }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted">Assignee</td>
+                                        <td> {{ getFullname(item.vehicle.assignee.firstname, item.vehicle.assignee.middlename, item.vehicle.assignee.lastname) }} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
         
         
                         <div class="row pt-3">
@@ -164,6 +210,13 @@
                                             @click="onClickUpdate(item.id)">
                                             <i class="fas fa-edit"></i> Edit Form
                                         </button>
+                                        <button v-if="!!item.can_post" class="btn btn-info me-2"
+                                            @click="onClickPostGasSlip(item.id)">
+                                            <i class="fas fa-edit"></i> Post Gas Slip
+                                        </button>
+                                        <button ref="postGasSlipBtn" v-show="false" data-bs-toggle="modal"
+                                            data-bs-target="#post_gas_slip_modal">post</button>
+
                                         <button v-if="canCreate(authUser, 'canManageGasSlip')" class="btn btn-primary me-2"
                                             @click="onClickAdd">
                                             <i class="fas fa-plus"></i> Add New Gas Slip
@@ -176,6 +229,9 @@
                     </div>
         
                 </div>
+
+                
+
             </div>
         
             <div v-else>
@@ -183,7 +239,8 @@
             </div>
         
             <WarehousePdfModal :is-loading-pdf="isLoadingPdf" :pdf-url="pdfUrl" />
-            
+            <WarehouseGasSlipPostGasSlip @post-gas-slip="handlePostGasSlip"/>
+
         </div>
     </div>
 
@@ -223,6 +280,7 @@ const isLoadingPdf = ref(false)
 
 // DATA
 const printBtn = ref<HTMLButtonElement>()
+const postGasSlipBtn = ref<HTMLButtonElement>()
 const item = ref<GasSlip | undefined>()
 const pdfUrl = ref('')
 
@@ -288,6 +346,18 @@ async function cancelGasSlip() {
     }
 
 
+}
+
+function onClickPostGasSlip(id: string) {
+    console.log('post gas slip', id);
+
+    postGasSlipBtn.value?.click()
+
+}
+
+function handlePostGasSlip(payload: {actual_liters: number, cost_per_liter: number}, closeBtn: HTMLButtonElement) {
+    console.log('handlePostGasSlip', payload);
+    console.log('closeBtn', closeBtn);
 }
 
 async function onClickPrint() {

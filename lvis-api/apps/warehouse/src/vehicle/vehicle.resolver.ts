@@ -14,11 +14,15 @@ import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TripTicket } from '../trip-ticket/entities/trip-ticket.entity';
 import { Employee } from '../__employee__/entities/employee.entity';
+import { GasSlipService } from '../gas-slip/gas-slip.service';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Vehicle)
 export class VehicleResolver {
-  constructor(private readonly vehicleService: VehicleService) { }
+  constructor(
+    private readonly vehicleService: VehicleService,
+    private readonly gasSlipService: GasSlipService,
+  ) { }
 
   @Mutation(() => Vehicle)
   @UseGuards(AccessGuard)
@@ -68,6 +72,11 @@ export class VehicleResolver {
   assignee(@Parent() vehicle: Vehicle): any {
     console.log('assignee', vehicle);
     return { __typename: 'Employee', id: vehicle.assignee_id }
+  }
+
+  @ResolveField(() => Number)
+  async total_unposted_gas_slips(@Parent() vehicle: Vehicle) {
+    return await this.gasSlipService.get_total_unposted_gas_slips(vehicle.id)
   }
 
 }

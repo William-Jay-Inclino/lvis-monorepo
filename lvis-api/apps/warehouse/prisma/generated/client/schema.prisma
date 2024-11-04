@@ -1206,7 +1206,7 @@ model GasSlip {
   actual_liter Float?
   price_per_liter Float?  
   purpose String 
-  is_posted Boolean @default(false)
+  is_posted Boolean?
   
   print_count Int @default(0)
 

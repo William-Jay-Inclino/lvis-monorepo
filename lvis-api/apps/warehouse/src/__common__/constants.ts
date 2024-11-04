@@ -70,6 +70,7 @@ export interface ModuleMapping {
     approverModel: string;
     approvers: string;
     items: string;
+    description: string
 }
 
 export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
@@ -80,6 +81,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'rVApprover',
         approvers: 'rv_approvers',
         items: 'rv_items',
+        description: 'RV',
     },
     [DB_ENTITY.SPR]: {
         model: 'sPR',
@@ -88,6 +90,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'sPRApprover',
         approvers: 'spr_approvers',
         items: 'spr_items',
+        description: 'SPR',
     },
     [DB_ENTITY.JO]: {
         model: 'jO',
@@ -96,6 +99,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'jOApprover',
         approvers: 'jo_approvers',
         items: 'jo_items',
+        description: 'JO',
     },
     [DB_ENTITY.MEQS]: {
         model: 'mEQS',
@@ -104,6 +108,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'mEQSApprover',
         approvers: 'meqs_approvers',
         items: 'meqs_items',
+        description: 'MEQS',
     },
     [DB_ENTITY.PO]: {
         model: 'pO',
@@ -112,6 +117,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'pOApprover',
         approvers: 'po_approvers',
         items: 'po_items',
+        description: 'PO',
     },
     [DB_ENTITY.RR]: {
         model: 'rR',
@@ -120,6 +126,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'rRApprover',
         approvers: 'rr_approvers',
         items: 'rr_items',
+        description: 'RR',
     },
     [DB_ENTITY.OSRIV]: {
         model: 'oSRIV',
@@ -128,6 +135,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'oSRIVApprover',
         approvers: 'osriv_approvers',
         items: 'osriv_items',
+        description: 'OSRIV',
     },
     [DB_ENTITY.SERIV]: {
         model: 'sERIV',
@@ -136,6 +144,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'sERIVApprover',
         approvers: 'seriv_approvers',
         items: 'seriv_items',
+        description: 'SERIV',
     },
     [DB_ENTITY.MRV]: {
         model: 'mRV',
@@ -144,6 +153,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'mRVApprover',
         approvers: 'mrv_approvers',
         items: 'mrv_items',
+        description: 'MRV',
     },
     [DB_ENTITY.MCT]: {
         model: 'mCT',
@@ -152,6 +162,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'mCTApprover',
         approvers: 'mct_approvers',
         items: 'mct_items',
+        description: 'MCT',
     },
     [DB_ENTITY.MCRT]: {
         model: 'mCRT',
@@ -160,6 +171,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'mCRTApprover',
         approvers: 'mcrt_approvers',
         items: 'mcrt_items',
+        description: 'MCRT',
     },
     [DB_ENTITY.MST]: {
         model: 'mST',
@@ -168,6 +180,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'mSTApprover',
         approvers: 'mst_approvers',
         items: 'mst_items',
+        description: 'MST',
     },
     [DB_ENTITY.TRIP_TICKET]: {
         model: 'tripTicket',
@@ -176,6 +189,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'tripTicketApprover',
         approvers: 'trip_ticket_approvers',
         items: '',
+        description: 'Trip Ticket',
     },
     [DB_ENTITY.GAS_SLIP]: {
         model: 'gasSlip',
@@ -184,6 +198,7 @@ export const MODULE_MAPPER: Record<DB_ENTITY, ModuleMapping> = {
         approverModel: 'gasSlipApprover',
         approvers: 'gas_slip_approvers',
         items: '',
+        description: 'Gas Slip',
     },
 }
 

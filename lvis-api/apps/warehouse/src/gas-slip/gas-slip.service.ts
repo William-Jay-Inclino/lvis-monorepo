@@ -1,13 +1,16 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateGasSlipInput } from './dto/create-gas-slip.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Prisma } from 'apps/warehouse/prisma/generated/client';
+import { GasSlipApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
 import { CreateGasSlipApproverSubInput } from './dto/create-gas-slip-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { GasSlipsResponse } from './entities/gas-slips-response.entity';
+import { OnEvent } from '@nestjs/event-emitter';
+import { GasSlipApproverStatusUpdated } from '../gas-slip-approver/events/gas-slip-approver-status-updated.event';
+import { getModule, isAdmin } from '../__common__/helpers';
 
 @Injectable()
 export class GasSlipService {
@@ -22,7 +25,7 @@ export class GasSlipService {
 
 	async create(input: CreateGasSlipInput) {
 
-		const total_unposted_gaslips = await this.get_total_unposted_gas_slips(input.requested_by_id)
+		const total_unposted_gaslips = await this.get_total_unposted_gas_slips(input.vehicle_id)
 
 		if(total_unposted_gaslips >= 5) {
 			throw new BadRequestException("Total unposted gas slips should not exceed by 5")
@@ -74,7 +77,9 @@ export class GasSlipService {
 
 	}
 
-	private getCreatePendingQuery(approvers: CreateGasSlipApproverSubInput[], tripNumber: string) {
+	private getCreatePendingQuery(approvers: CreateGasSlipApproverSubInput[], gasSlipNumber: string) {
+		
+		const module = getModule(DB_ENTITY.GAS_SLIP)
 
         const firstApprover = approvers.reduce((min, obj) => {
             return obj.order < min.order ? obj : min;
@@ -82,9 +87,9 @@ export class GasSlipService {
 
         const data = {
             approver_id: firstApprover.approver_id,
-            reference_number: tripNumber,
-            reference_table: DB_ENTITY.TRIP_TICKET,
-            description: `Trip no. ${tripNumber}`
+            reference_number: gasSlipNumber,
+            reference_table: DB_ENTITY.GAS_SLIP,
+            description: `${ module.description } no. ${gasSlipNumber}`
         }
 
         return this.prisma.pending.create({ data })
@@ -160,16 +165,71 @@ export class GasSlipService {
 
 	}
 
-	async get_total_unposted_gas_slips(requested_by_id: string) {
+	async get_total_unposted_gas_slips(vehicle_id: string) {
 		const unpostedGasSlipsCount = await this.prisma.gasSlip.count({
 			where: {
-			  requested_by_id,
-			  is_posted: false,
+				vehicle_id,
+			  	is_posted: false,
 			},
 		  });
 	  
 		  return unpostedGasSlipsCount;
 	}
+
+	async canUpdateForm(gas_slip_id: string): Promise<Boolean> {
+
+        const gasSlip = await this.prisma.gasSlip.findUnique({
+            where: {
+                id: gas_slip_id
+            },
+            select: {
+                created_by: true,
+                gas_slip_approvers: true
+            }
+        })
+
+        const isOwner = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser)
+
+        if (!isOwner) {
+            return false
+        }
+
+        const hasApproval = gasSlip.gas_slip_approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)
+
+        if (hasApproval) {
+            return false
+        }
+
+        return true
+
+    }
+
+	async canPostGasSlip(gas_slip_id: string): Promise<Boolean> {
+
+        const gasSlip = await this.prisma.gasSlip.findUnique({
+            where: {
+                id: gas_slip_id
+            },
+            select: {
+                created_by: true,
+				is_posted: true,
+                gas_slip_approvers: true
+            }
+        })
+
+        const isOwner = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser)
+
+        if (!isOwner) {
+            return false
+        }
+
+        if(gasSlip.is_posted !== null && gasSlip.is_posted === false) {
+			return true 
+		}
+
+        return false 
+
+    }
 
 	private async getLatestGasSlipNumber(): Promise<string> {
         const currentYear = new Date().getFullYear().toString().slice(-2);
@@ -215,5 +275,65 @@ export class GasSlipService {
         return APPROVAL_STATUS.APPROVED
 
     }
+
+	@OnEvent('gas-slip-approver-status.updated')
+	async handle_gas_slip_approver_status_updated(payload: GasSlipApproverStatusUpdated) {
+
+		console.log('handle_gas_slip_approver_status_updated', payload);
+		
+		const gasSlipApprover = await this.prisma.gasSlipApprover.findUnique({
+			where: { id: payload.id },
+			include: {
+				gas_slip: {
+					include: {
+						gas_slip_approvers: true
+					}
+				}
+			}
+		})
+
+		if (!gasSlipApprover) {
+			throw new NotFoundException('gasSlipApprover not found with id: ' + payload.id)
+		}
+
+		if (gasSlipApprover.gas_slip.is_posted) {
+			console.log('Gas Slip is already posted. End function')
+			return
+		}
+
+		const approvers = gasSlipApprover.gas_slip.gas_slip_approvers
+		console.log('approvers', approvers)
+
+		const isApproved = this.isStatusApproved(approvers)
+
+		if (!isApproved) {
+			console.log('Gas Slip status is not approved. End function')
+			return
+		}
+
+		// if gas slip is approved then set is_posted to false 
+
+		const result = await this.prisma.gasSlip.update({
+			where: {
+				id: gasSlipApprover.gas_slip_id
+			},
+			data: {
+				is_posted: false 
+			}
+		})
+
+	}
+
+	private isStatusApproved(approvers: GasSlipApprover[]) {
+		for (let approver of approvers) {
+
+			if (approver.status !== APPROVAL_STATUS.APPROVED) {
+				return false
+			}
+
+		}
+
+		return true
+	}
 
 }

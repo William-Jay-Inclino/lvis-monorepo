@@ -111,6 +111,7 @@ export interface Vehicle {
 
     // derived / resolvers 
     assignee: Employee
+    total_unposted_gas_slips: number
 }
 
 export const enum VEHICLE_STATUS {

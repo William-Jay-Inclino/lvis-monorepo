@@ -64,10 +64,10 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white">Gas Slip Number</th>
-                                                <th class="bg-secondary text-white">Vehicle</th>
-                                                <th class="bg-secondary text-white">Requisitioner</th>
-                                                <th class="bg-secondary text-white">Status</th>
+                                                <th class="bg-secondary text-white">Gas Slip No.</th>
+                                                <th class="bg-secondary text-white">Vehicle No.</th>
+                                                <th class="bg-secondary text-white">Date</th>
+                                                <th class="bg-secondary text-white text-center">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <i class="fas fa-cogs"></i>
                                                 </th>
@@ -76,14 +76,21 @@
                                         <tbody>
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.gas_slip_number }} </td>
-                                                <td class="text-muted align-middle"> {{ i.vehicle.vehicle_number + ' ' + i.vehicle.name }} </td>
-                                                <td class="text-muted align-middle">
-                                                    {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
-                                                </td>
+                                                <td class="text-muted align-middle"> {{ i.vehicle.vehicle_number }} </td>
+                                                <td class="text-muted align-middle"> {{ formatDate(i.created_at) }} </td>
                                                 <td class="text-center align-middle">
-                                                    <div :class="{ [`badge bg-${tripTicketStatus[i.status].color}`]: true }">
-                                                        {{ tripTicketStatus[i.status].label }}
+
+                                                    <div v-if="i.is_posted === null" :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
+                                                            {{ approvalStatus[i.status].label }}
                                                     </div>
+                                                    <div v-else-if="i.is_posted === true" class="badge bg-info">
+                                                        Posted
+                                                    </div>
+                                                    <div v-else class="badge bg-secondary">
+                                                        Unposted
+                                                    </div>
+
+
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageGasSlip') }"

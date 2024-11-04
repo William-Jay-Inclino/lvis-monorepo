@@ -77,6 +77,7 @@ export async function findByGasSlipNumber(gasSlipNumber: string): Promise<GasSli
             gas_slip(gas_slip_number: "${gasSlipNumber}") {
                 id
                 gas_slip_number
+                is_posted
                 vehicle {
                     id 
                     vehicle_number
@@ -133,6 +134,8 @@ export async function findOne(id: string): Promise<GasSlip | undefined> {
                 id
                 gas_slip_number
                 vehicle {
+                    id
+                    total_unposted_gas_slips
                     vehicle_number
                     plate_number
                     name
@@ -173,6 +176,8 @@ export async function findOne(id: string): Promise<GasSlip | undefined> {
                 is_posted
                 status
                 cancelled_at
+                can_update
+                can_post
                 gas_slip_approvers{
                     approver {
                         id
@@ -223,6 +228,8 @@ export async function findAll(payload: {
             id
             gas_slip_number
             status
+            created_at
+            is_posted
             vehicle {
                 id 
                 vehicle_number
@@ -282,6 +289,7 @@ export async function fetchFormDataInCreate(): Promise<{
                 name
                 classification_id
                 date_acquired
+                total_unposted_gas_slips
                 assignee {
                     id 
                     firstname 

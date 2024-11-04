@@ -15,6 +15,8 @@ import e from 'express';
 import { MrvApproverStatusUpdated } from '../mrv-approver/events/mrv-approver-status-updated.event';
 import { MstApproverStatusUpdated } from '../mst/events/mst-approver-status-updated.event';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { GasSlipApproverStatusUpdated } from '../gas-slip-approver/events/gas-slip-approver-status-updated.event';
+import { getModule } from '../__common__/helpers';
 
 @Injectable()
 export class PendingService {
@@ -94,7 +96,7 @@ export class PendingService {
 
         // =================== UPDATE APPROVER STATUS, REMARKS/NOTES, & DATE APPROVAL =================== 
 
-        const module = this.getModule(item.reference_table as DB_ENTITY)
+        const module = getModule(item.reference_table as DB_ENTITY)
         
         // model can be: rv/spr/jo/meqs/po/rr
         // @ts-ignore
@@ -189,7 +191,7 @@ export class PendingService {
                 approver_id: newPending.approver_id,
                 reference_number: item.reference_number,
                 reference_table: item.reference_table,
-                description: `${module.model.toUpperCase()} no. ${item.reference_number}`
+                description: `${module.description} no. ${item.reference_number}`
             }
             })
         
@@ -259,6 +261,9 @@ export class PendingService {
                     [DB_ENTITY.MCT]: { event: 'mct-approver-status.updated', eventClass: MctApproverStatusUpdated },
                     [DB_ENTITY.MCRT]: { event: 'mcrt-approver-status.updated', eventClass: McrtApproverStatusUpdated },
                     [DB_ENTITY.MST]: { event: 'mst-approver-status.updated', eventClass: MstApproverStatusUpdated },
+
+                    // handler function is in gas-slip.service.ts
+                    [DB_ENTITY.GAS_SLIP]: { event: 'gas-slip-approver-status.updated', eventClass: GasSlipApproverStatusUpdated },
                 };
             
                 const entity = Object.values(DB_ENTITY).find(key => module.model === MODULE_MAPPER[key].model);
@@ -282,13 +287,13 @@ export class PendingService {
         }
     }
 
-    private getModule(entity: DB_ENTITY) {
-        const module = MODULE_MAPPER[entity]
-        if(!module) {
-            throw new NotFoundException(`module not found`)
-        }
-        return module
-    }
+    // private getModule(entity: DB_ENTITY) {
+    //     const module = MODULE_MAPPER[entity]
+    //     if(!module) {
+    //         throw new NotFoundException(`module not found`)
+    //     }
+    //     return module
+    // }
 
     private async printLogsInConsole(logs: string[]) {
         for(let log of logs) {

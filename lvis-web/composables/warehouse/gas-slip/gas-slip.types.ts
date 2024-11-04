@@ -16,7 +16,7 @@ export interface GasSlip {
     actual_liter: number 
     price_per_liter: number 
     purpose: string 
-    is_posted: boolean 
+    is_posted: boolean | null
 
 
 
@@ -38,6 +38,7 @@ export interface GasSlip {
     fuel_type: FuelType
     requested_by: Employee
     can_update: boolean
+    can_post: boolean
 }
 
 

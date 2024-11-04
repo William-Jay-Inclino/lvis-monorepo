@@ -7,6 +7,8 @@ import { User } from 'apps/system/src/__common__/user.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { DB_ENTITY, MODULE_MAPPER } from './constants';
+import { NotFoundException } from '@nestjs/common';
 
 export const isValidApprovalStatus = (status: number): boolean => {
 
@@ -283,10 +285,17 @@ export function getVatAmount(price: number, vat_type: VAT_TYPE) {
 
 }
 
-
 export function getImageAsBase64(filename: string): string {
     const imagePath = path.resolve('assets', filename);
     const imageBuffer = readFileSync(imagePath);
     const base64Image = imageBuffer.toString('base64');
     return base64Image;
+}
+
+export function getModule(entity: DB_ENTITY) {
+    const module = MODULE_MAPPER[entity]
+    if(!module) {
+        throw new NotFoundException(`module not found`)
+    }
+    return module
 }
