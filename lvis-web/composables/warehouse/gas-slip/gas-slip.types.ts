@@ -30,12 +30,14 @@ export interface GasSlip {
     updated_at: Date
 
     // derived / resolvers
+    gas_slip_approvers: GasSlipApprover[]
     status: APPROVAL_STATUS
     vehicle: Vehicle 
     driver: Employee
     gas_station: GasStation
     fuel_type: FuelType
     requested_by: Employee
+    can_update: boolean
 }
 
 

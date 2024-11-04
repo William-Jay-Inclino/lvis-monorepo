@@ -1,8 +1,9 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { GasSlipApproverService } from './gas-slip-approver.service';
 import { GasSlipApprover } from './entities/gas-slip-approver.entity';
 import { CreateGasSlipApproverInput } from './dto/create-gas-slip-approver.input';
 import { UpdateGasSlipApproverInput } from './dto/update-gas-slip-approver.input';
+import { Employee } from '../__employee__/entities/employee.entity';
 
 @Resolver(() => GasSlipApprover)
 export class GasSlipApproverResolver {
@@ -32,4 +33,10 @@ export class GasSlipApproverResolver {
   removeGasSlipApprover(@Args('id', { type: () => Int }) id: number) {
     return this.gasSlipApproverService.remove(id);
   }
+
+  @ResolveField(() => Employee)
+  approver(@Parent() gasSlipApprover: GasSlipApprover): any {
+    return { __typename: 'Employee', id: gasSlipApprover.approver_id }
+  }
+  
 }

@@ -130,6 +130,11 @@ export class GasSlipService {
 	async findOne(id: string) {
 
 		const item = await this.prisma.gasSlip.findUnique({
+			include: {
+				vehicle: true,
+				gas_station: true,
+				fuel_type: true,
+			},
 			where: { id }
 		})
 

@@ -14,11 +14,16 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { GasSlipsResponse } from './entities/gas-slips-response.entity';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { GasSlipApproverService } from '../gas-slip-approver/gas-slip-approver.service';
+import { GasSlipApprover } from '../gas-slip-approver/entities/gas-slip-approver.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => GasSlip)
 export class GasSlipResolver {
-  constructor(private readonly gasSlipService: GasSlipService) { }
+  constructor(
+    private readonly gasSlipService: GasSlipService,
+    private readonly gasSlipApproverService: GasSlipApproverService,
+  ) { }
 
   @Mutation(() => GasSlip)
   @UseGuards(AccessGuard)
@@ -64,6 +69,11 @@ export class GasSlipResolver {
   ) {
     this.gasSlipService.setAuthUser(authUser)
     return this.gasSlipService.remove(id);
+  }
+
+  @ResolveField(() => [GasSlipApprover])
+    gas_slip_approvers(@Parent() gasSlip: GasSlip): any {
+      return this.gasSlipApproverService.findByGasSlipId(gasSlip.id)
   }
 
   @ResolveField(() => Number)
