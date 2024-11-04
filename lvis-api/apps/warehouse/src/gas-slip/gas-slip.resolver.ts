@@ -13,6 +13,7 @@ import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { GasSlipsResponse } from './entities/gas-slips-response.entity';
 import { Employee } from '../__employee__/entities/employee.entity';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => GasSlip)
@@ -68,6 +69,17 @@ export class GasSlipResolver {
   @ResolveField(() => Number)
   async total_unposted_gas_slip(@Parent() gasSlip: GasSlip) {
     return await this.gasSlipService.get_total_unposted_gas_slips(gasSlip.requested_by_id)
+  }
+
+  @ResolveField(() => Int)
+  async status(@Parent() gasSlip: GasSlip) {
+
+      if (gasSlip.cancelled_at) {
+          return APPROVAL_STATUS.CANCELLED
+      }
+
+      return await this.gasSlipService.getStatus(gasSlip.id)
+
   }
   
 }

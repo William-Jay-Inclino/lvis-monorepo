@@ -40,7 +40,6 @@ export interface GasSlip {
 
 
 export interface CreateGasSlip {
-
     vehicle: Vehicle | null 
     driver: Employee | null
     gas_station: GasStation | null
@@ -50,7 +49,6 @@ export interface CreateGasSlip {
     liter_in_text: string 
     purpose: string 
     approvers: CreateGasSlipApprover[]
-
 }
 
 

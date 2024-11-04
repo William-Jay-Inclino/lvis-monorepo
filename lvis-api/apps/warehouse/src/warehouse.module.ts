@@ -61,6 +61,7 @@ import { GasSlipModule } from './gas-slip/gas-slip.module';
 import { GasSlipApproverModule } from './gas-slip-approver/gas-slip-approver.module';
 import { TripTicketModule } from './trip-ticket/trip-ticket.module';
 import { TripTicketApproverModule } from './trip-ticket-approver/trip-ticket-approver.module';
+import { GasStationModule } from './gas-station/gas-station.module';
 
 
 @Module({
@@ -138,6 +139,7 @@ import { TripTicketApproverModule } from './trip-ticket-approver/trip-ticket-app
     VehicleModule,
     FuelTypeModule,
     GasSlipModule,
+    GasStationModule,
     GasSlipApproverModule,
     TripTicketModule,
     TripTicketApproverModule,

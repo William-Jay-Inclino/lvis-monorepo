@@ -222,6 +222,7 @@ export async function findAll(payload: {
           data {
             id
             gas_slip_number
+            status
             vehicle {
                 id 
                 vehicle_number
@@ -394,8 +395,8 @@ export async function create(input: CreateGasSlip): Promise<MutationResponse> {
                 input: {
                     vehicle_id: "${input.vehicle?.id}"
                     driver_id: "${input.driver?.id}"
-                    gas_station_id: "${input.gas_station?.id}"
-                    fuel_type_id: "${input.fuel_type?.id}"
+                    gas_station_id: ${input.gas_station?.id}
+                    fuel_type_id: ${input.fuel_type?.id}
                     requested_by_id: "${input.requested_by?.id}"
                     with_container: ${input.with_container}
                     liter_in_text: "${input.liter_in_text}"

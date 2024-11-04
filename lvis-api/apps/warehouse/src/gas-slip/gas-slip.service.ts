@@ -185,4 +185,30 @@ export class GasSlipService {
         }
     }
 
+	async getStatus(id: string): Promise<APPROVAL_STATUS> {
+
+        const approvers = await this.prisma.gasSlipApprover.findMany({
+            where: {
+                gas_slip_id: id,
+            }
+        })
+
+		console.log('approvers', approvers);
+
+        const hasDisapproved = approvers.find(i => i.status === APPROVAL_STATUS.DISAPPROVED)
+
+        if (hasDisapproved) {
+            return APPROVAL_STATUS.DISAPPROVED
+        }
+
+        const hasPending = approvers.find(i => i.status === APPROVAL_STATUS.PENDING)
+
+        if (hasPending) {
+            return APPROVAL_STATUS.PENDING
+        }
+
+        return APPROVAL_STATUS.APPROVED
+
+    }
+
 }

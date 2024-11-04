@@ -325,8 +325,8 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
 
 // ======================== UTILS ======================== 
 
-const onClickViewDetails = (id: string) => router.push('/warehouse/trip-ticket/view/' + id)
-const onClickAdd = () => router.push('/warehouse/trip-ticket/create')
+const onClickViewDetails = (id: string) => router.push('/warehouse/gas-slip/view/' + id)
+const onClickAdd = () => router.push('/warehouse/gas-slip/create')
 
 const debouncedSearchGasSlipNumbers = debounce((input: string, loading: (status: boolean) => void) => {
   searchGasSlipNumbers(input, loading);

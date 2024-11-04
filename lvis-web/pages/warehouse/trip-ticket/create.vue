@@ -10,198 +10,193 @@
             
                     <div class="row justify-content-center pt-5 pb-3">
                         <div class="col-lg-6">
-                            <div class="row justify-content-center pt-3">
-            
-                                <div class="col-lg-10">
     
-                                    <div class="mb-3">
-                                        <label class="form-label">
-                                            Vehicle <span class="text-danger">*</span>
-                                        </label>
-                                        <client-only>
-                                            <v-select @option:selected="handleVehicleSelected" :options="vehicles" label="name" v-model="tripData.vehicle" :clearable="false"></v-select>
-                                        </client-only>
-                                        <small class="text-danger fst-italic" v-if="tripDataErrors.vehicle"> {{ errorMsg }}
-                                        </small>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Vehicle <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select @option:selected="handleVehicleSelected" :options="vehicles" label="name" v-model="tripData.vehicle" :clearable="false"></v-select>
+                                </client-only>
+                                <small class="text-danger fst-italic" v-if="tripDataErrors.vehicle"> {{ errorMsg }}
+                                </small>
 
-                                        <div v-if="tripData.vehicle">
-                                            <table class="table table-primary table-sm small">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Vehicle Number</td>
-                                                        <td> {{ tripData.vehicle.vehicle_number }} </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Plate Number</td>
-                                                        <td> {{ tripData.vehicle.plate_number }} </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Classification</td>
-                                                        <td> {{ VehicleClassificationMapper[tripData.vehicle.classification_id] }} </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Date Acquired</td>
-                                                        <td> {{ formatDate(tripData.vehicle.date_acquired) }} </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Assignee</td>
-                                                        <td> {{ getFullname(tripData.vehicle.assignee.firstname, tripData.vehicle.assignee.middlename, tripData.vehicle.assignee.lastname) }} </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                    </div>
-    
-                                    <div class="mb-3">
-                                        <label class="form-label">
-                                            Driver <span class="text-danger">*</span>
-                                        </label>
-                                        <client-only>
-                                            <v-select :options="employees" label="fullname" v-model="tripData.driver"></v-select>
-                                        </client-only>
-                                        <small class="text-danger fst-italic" v-if="tripDataErrors.vehicle"> {{ errorMsg }}
-                                        </small>
-                                    </div>
-    
-                                    <div class="mb-3">
-                                        <label class="form-label">
-                                            Passengers <span class="text-danger">*</span>
-                                        </label>
-                                        <client-only>
-                                            <v-select :options="passengers" v-model="tripData.passengers" multiple taggable></v-select>
-                                        </client-only>
-                                        <!-- <textarea v-model="tripData.passengers" class="form-control" rows="3"> </textarea> -->
-                                        <small class="text-danger fst-italic" v-if="tripDataErrors.passengers"> {{ errorMsg }}
-                                        </small>
-                                    </div>
-    
-                                    <div class="mb-3">
-                                        <label class="form-label">
-                                            Destination <span class="text-danger">*</span>
-                                        </label>
-                                        <textarea v-model="tripData.destination" class="form-control" rows="3"> </textarea>
-                                        <small class="text-danger fst-italic" v-if="tripDataErrors.destination"> {{ errorMsg }}
-                                        </small>
-                                    </div>
-    
-                                    <div class="mb-3">
-                                        <label class="form-label">
-                                            Purpose <span class="text-danger">*</span>
-                                        </label>
-                                        <textarea v-model="tripData.purpose" class="form-control" rows="3"> </textarea>
-                                        <small class="text-danger fst-italic" v-if="tripDataErrors.purpose"> {{ errorMsg }}
-                                        </small>
-                                    </div>
-    
-                                    <div class="mb-3">
-
-                                        <div class="alert" :class="{'alert-info': !tripDataErrors.tripType, 'alert-danger': tripDataErrors.tripType}" role="alert">
-                                            <small class="fst-italic"> Please check atleast 1 </small>
-                                        </div>
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" v-model="tripData.is_operation" @change="handleOperationToggle">
-                                            <label class="form-check-label">
-                                                Operation
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" v-model="tripData.is_stay_in">
-                                            <label class="form-check-label">
-                                                Stay In
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"  v-model="tripData.is_personal">
-                                            <label class="form-check-label">
-                                                Personal
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"  v-model="tripData.is_out_of_coverage">
-                                            <label class="form-check-label">
-                                                Out of Coverage
-                                            </label>
-                                        </div>
-                                    </div>
-    
-                                    <div class="mb-4">
-                                        <label class="form-label">
-                                            Prepared By <span class="text-danger">*</span>
-                                        </label>
-                                        <client-only>
-                                            <v-select :options="employees" label="fullname" v-model="tripData.prepared_by"></v-select>
-                                        </client-only>
-                                        <small class="text-danger fst-italic" v-if="tripDataErrors.prepared_by"> {{ errorMsg }}
-                                        </small>
-                                    </div>
-    
-                                    <div class="h5wrapper mb-3">
-                                        <hr class="result">
-                                        <h5 class="text-warning fst-italic">
-                                            <i class="fas fa-users"></i> Signatories
-                                        </h5>
-                                        <hr class="result">
-                                    </div>
-
-                                    <div class="alert alert-info" role="alert">
-                                        <small class="fst-italic"> If Operation is checked, no GM/OIC approval is needed </small>
-                                    </div>
-    
-                                    <div v-for="approver in tripData.approvers" class="mb-4">
-
-                                        <label class="form-label">
-                                            {{ approver.label }} <span class="text-danger">*</span>
-                                        </label>
-                                        <client-only>
-                                            <v-select
-                                                :options="employees"
-                                                label="fullname"
-                                                v-model="approver.approver"
-                                                :clearable="false"
-                                                :disabled="approver.order === 1 || approver.order === 4 || approver.order == 3"
-                                            ></v-select>
-                                        </client-only>
-                                        <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
-                                    </div>
-    
-                                    <div class="h5wrapper mb-3">
-                                        <hr class="result">
-                                        <h5 class="text-warning fst-italic">
-                                            <i class="fas fa-calendar-alt"></i> Trip Schedule
-                                        </h5>
-                                        <hr class="result">
-                                    </div>
-    
-                                    <div class="mb-3">
-                                        <label class="form-label">
-                                            Estimated Departure <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="datetime-local" class="form-control" v-model="tripData.start_time">
-                                        <small class="text-danger fst-italic" v-show="tripDataErrors.start_time"> {{ errorMsg }} </small>
-                                    </div>
-    
-                                    <div class="mb-5">
-                                        <label class="form-label">
-                                            Estimated Arrival <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="datetime-local" class="form-control" v-model="tripData.end_time">
-                                        <small class="text-danger fst-italic" v-show="tripDataErrors.end_time"> {{ errorMsg }} </small>
-                                    </div>
-            
-                                    <div class="d-flex justify-content-between">
-                                        <nuxt-link class="btn btn-secondary" to="/warehouse/trip-ticket">
-                                            <i class="fas fa-search"></i> Search Trip Ticket
-                                        </nuxt-link>
-                                        <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
-                                            <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
-                                        </button>
-                                    </div>
-            
+                                <div v-if="tripData.vehicle">
+                                    <table class="table table-primary table-sm small">
+                                        <tbody>
+                                            <tr>
+                                                <td>Vehicle Number</td>
+                                                <td> {{ tripData.vehicle.vehicle_number }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Plate Number</td>
+                                                <td> {{ tripData.vehicle.plate_number }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Classification</td>
+                                                <td> {{ VehicleClassificationMapper[tripData.vehicle.classification_id] }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Date Acquired</td>
+                                                <td> {{ formatDate(tripData.vehicle.date_acquired) }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Assignee</td>
+                                                <td> {{ getFullname(tripData.vehicle.assignee.firstname, tripData.vehicle.assignee.middlename, tripData.vehicle.assignee.lastname) }} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-            
+
                             </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Driver <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="employees" label="fullname" v-model="tripData.driver"></v-select>
+                                </client-only>
+                                <small class="text-danger fst-italic" v-if="tripDataErrors.vehicle"> {{ errorMsg }}
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Passengers <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="passengers" v-model="tripData.passengers" multiple taggable></v-select>
+                                </client-only>
+                                <!-- <textarea v-model="tripData.passengers" class="form-control" rows="3"> </textarea> -->
+                                <small class="text-danger fst-italic" v-if="tripDataErrors.passengers"> {{ errorMsg }}
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Destination <span class="text-danger">*</span>
+                                </label>
+                                <textarea v-model="tripData.destination" class="form-control" rows="3"> </textarea>
+                                <small class="text-danger fst-italic" v-if="tripDataErrors.destination"> {{ errorMsg }}
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Purpose <span class="text-danger">*</span>
+                                </label>
+                                <textarea v-model="tripData.purpose" class="form-control" rows="3"> </textarea>
+                                <small class="text-danger fst-italic" v-if="tripDataErrors.purpose"> {{ errorMsg }}
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+
+                                <div class="alert" :class="{'alert-info': !tripDataErrors.tripType, 'alert-danger': tripDataErrors.tripType}" role="alert">
+                                    <small class="fst-italic"> Please check atleast 1 </small>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" v-model="tripData.is_operation" @change="handleOperationToggle">
+                                    <label class="form-check-label">
+                                        Operation
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" v-model="tripData.is_stay_in">
+                                    <label class="form-check-label">
+                                        Stay In
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"  v-model="tripData.is_personal">
+                                    <label class="form-check-label">
+                                        Personal
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"  v-model="tripData.is_out_of_coverage">
+                                    <label class="form-check-label">
+                                        Out of Coverage
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">
+                                    Prepared By <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="employees" label="fullname" v-model="tripData.prepared_by"></v-select>
+                                </client-only>
+                                <small class="text-danger fst-italic" v-if="tripDataErrors.prepared_by"> {{ errorMsg }}
+                                </small>
+                            </div>
+
+                            <div class="h5wrapper mb-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <i class="fas fa-users"></i> Signatories
+                                </h5>
+                                <hr class="result">
+                            </div>
+
+                            <div class="alert alert-info" role="alert">
+                                <small class="fst-italic"> If Operation is checked, no GM/OIC approval is needed </small>
+                            </div>
+
+                            <div v-for="approver in tripData.approvers" class="mb-4">
+
+                                <label class="form-label">
+                                    {{ approver.label }} <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select
+                                        :options="employees"
+                                        label="fullname"
+                                        v-model="approver.approver"
+                                        :clearable="false"
+                                        :disabled="approver.order === 1 || approver.order === 4 || approver.order == 3"
+                                    ></v-select>
+                                </client-only>
+                                <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
+                            </div>
+
+                            <div class="h5wrapper mb-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <i class="fas fa-calendar-alt"></i> Trip Schedule
+                                </h5>
+                                <hr class="result">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Estimated Departure <span class="text-danger">*</span>
+                                </label>
+                                <input type="datetime-local" class="form-control" v-model="tripData.start_time">
+                                <small class="text-danger fst-italic" v-show="tripDataErrors.start_time"> {{ errorMsg }} </small>
+                            </div>
+
+                            <div class="mb-5">
+                                <label class="form-label">
+                                    Estimated Arrival <span class="text-danger">*</span>
+                                </label>
+                                <input type="datetime-local" class="form-control" v-model="tripData.end_time">
+                                <small class="text-danger fst-italic" v-show="tripDataErrors.end_time"> {{ errorMsg }} </small>
+                            </div>
+    
+                            <div class="d-flex justify-content-between">
+                                <nuxt-link class="btn btn-secondary" to="/warehouse/trip-ticket">
+                                    <i class="fas fa-search"></i> Search Trip Ticket
+                                </nuxt-link>
+                                <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
+                                    <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                </button>
+                            </div>
+            
+            
                         </div>
                     </div>
                     
@@ -361,7 +356,7 @@ async function save() {
             position: 'top',
         })
 
-        // router.push(`/warehouse/trip-ticket/view/${response.data.id}`);
+        router.push(`/warehouse/trip-ticket/view/${response.data.id}`);
     } else {
         Swal.fire({
             title: 'Error!',
