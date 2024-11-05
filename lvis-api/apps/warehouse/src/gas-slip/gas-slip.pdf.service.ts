@@ -199,9 +199,9 @@ export class GasSlipPdfService {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td style="border: 1px solid; text-align: center;">${gasSlip.fuel_type.name}</td>
-                                    <td style="border: 1px solid; text-align: center;">${gasSlip.liter_in_text}</td>
-                                    <td style="border: 1px solid; text-align: center;">${gasSlip.actual_liter}</td>
+                                    <td style="border: 1px solid; text-align: center; padding: 10px 0;">${gasSlip.fuel_type.name}</td>
+                                    <td style="border: 1px solid; text-align: center; padding: 10px 0;">${gasSlip.liter_in_text}</td>
+                                    <td style="border: 1px solid; text-align: center; padding: 10px 0;"> </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -329,12 +329,26 @@ export class GasSlipPdfService {
                                 </div>
                                 
                             </div>
-                        
+
+                            <div style="font-size: 8pt;">
+                                <div>
+                                    ${ indx === 0 ? 'Original Copy' : 'Duplicate Copy' }
+                                </div>
+                                <div>
+                                    Reprinted: ${ gasSlip.print_count }
+                                </div>
+                                <div>
+                                    ${ this.authUser.user.username }
+                                </div>
+                            </div>
+
                         </div>
+
     
                     </div>
                     
                 `).join('') }
+
 
 
             </div>
@@ -352,7 +366,7 @@ export class GasSlipPdfService {
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
                 <div style="position: absolute; left: 5px; top: 5px;">
-                    Note: System generated report | Created by: <b>${ 'test' }</b> | Printed by: <b>${ 'test2' }</b> | 
+                    Note: System generated report | Created by: <b>${ gasSlip.created_by }</b> | Printed by: <b>${ this.authUser.user.username }</b> | 
                     Date & Time: <b><span class="date"></span></b>
                 </div>
                 <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
@@ -406,6 +420,7 @@ export class GasSlipPdfService {
                     division {
                         name
                     }
+                    signature_src
                 }
             }
         `;

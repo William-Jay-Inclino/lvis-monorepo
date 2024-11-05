@@ -46,6 +46,8 @@ export class GasSlip {
   @Field(() => Boolean, { nullable: true })
   is_posted: boolean | null;
 
+  @Field(() => Int)
+  print_count: number;
 
 
   // =============== audit fields ===============
