@@ -55587,6 +55587,7 @@ export namespace Prisma {
     name: string | null
     date_acquired: Date | null
     status: number | null
+    is_private: boolean | null
     created_by: string | null
     updated_by: string | null
     created_at: Date | null
@@ -55603,6 +55604,7 @@ export namespace Prisma {
     name: string | null
     date_acquired: Date | null
     status: number | null
+    is_private: boolean | null
     created_by: string | null
     updated_by: string | null
     created_at: Date | null
@@ -55619,6 +55621,7 @@ export namespace Prisma {
     name: number
     date_acquired: number
     status: number
+    is_private: number
     created_by: number
     updated_by: number
     created_at: number
@@ -55647,6 +55650,7 @@ export namespace Prisma {
     name?: true
     date_acquired?: true
     status?: true
+    is_private?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -55663,6 +55667,7 @@ export namespace Prisma {
     name?: true
     date_acquired?: true
     status?: true
+    is_private?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -55679,6 +55684,7 @@ export namespace Prisma {
     name?: true
     date_acquired?: true
     status?: true
+    is_private?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -55782,6 +55788,7 @@ export namespace Prisma {
     name: string
     date_acquired: Date
     status: number
+    is_private: boolean
     created_by: string
     updated_by: string | null
     created_at: Date
@@ -55817,6 +55824,7 @@ export namespace Prisma {
     name?: boolean
     date_acquired?: boolean
     status?: boolean
+    is_private?: boolean
     created_by?: boolean
     updated_by?: boolean
     created_at?: boolean
@@ -55836,6 +55844,7 @@ export namespace Prisma {
     name?: boolean
     date_acquired?: boolean
     status?: boolean
+    is_private?: boolean
     created_by?: boolean
     updated_by?: boolean
     created_at?: boolean
@@ -55865,6 +55874,7 @@ export namespace Prisma {
       name: string
       date_acquired: Date
       status: number
+      is_private: boolean
       created_by: string
       updated_by: string | null
       created_at: Date
@@ -56275,6 +56285,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Vehicle", 'String'>
     readonly date_acquired: FieldRef<"Vehicle", 'DateTime'>
     readonly status: FieldRef<"Vehicle", 'Int'>
+    readonly is_private: FieldRef<"Vehicle", 'Boolean'>
     readonly created_by: FieldRef<"Vehicle", 'String'>
     readonly updated_by: FieldRef<"Vehicle", 'String'>
     readonly created_at: FieldRef<"Vehicle", 'DateTime'>
@@ -63772,6 +63783,7 @@ export namespace Prisma {
     name: 'name',
     date_acquired: 'date_acquired',
     status: 'status',
+    is_private: 'is_private',
     created_by: 'created_by',
     updated_by: 'updated_by',
     created_at: 'created_at',
@@ -68353,6 +68365,7 @@ export namespace Prisma {
     name?: StringFilter<"Vehicle"> | string
     date_acquired?: DateTimeFilter<"Vehicle"> | Date | string
     status?: IntFilter<"Vehicle"> | number
+    is_private?: BoolFilter<"Vehicle"> | boolean
     created_by?: StringFilter<"Vehicle"> | string
     updated_by?: StringNullableFilter<"Vehicle"> | string | null
     created_at?: DateTimeFilter<"Vehicle"> | Date | string
@@ -68371,6 +68384,7 @@ export namespace Prisma {
     name?: SortOrder
     date_acquired?: SortOrder
     status?: SortOrder
+    is_private?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -68392,6 +68406,7 @@ export namespace Prisma {
     name?: StringFilter<"Vehicle"> | string
     date_acquired?: DateTimeFilter<"Vehicle"> | Date | string
     status?: IntFilter<"Vehicle"> | number
+    is_private?: BoolFilter<"Vehicle"> | boolean
     created_by?: StringFilter<"Vehicle"> | string
     updated_by?: StringNullableFilter<"Vehicle"> | string | null
     created_at?: DateTimeFilter<"Vehicle"> | Date | string
@@ -68410,6 +68425,7 @@ export namespace Prisma {
     name?: SortOrder
     date_acquired?: SortOrder
     status?: SortOrder
+    is_private?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -68434,6 +68450,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Vehicle"> | string
     date_acquired?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
     status?: IntWithAggregatesFilter<"Vehicle"> | number
+    is_private?: BoolWithAggregatesFilter<"Vehicle"> | boolean
     created_by?: StringWithAggregatesFilter<"Vehicle"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
@@ -73852,6 +73869,7 @@ export namespace Prisma {
     name: string
     date_acquired: Date | string
     status: number
+    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -73870,6 +73888,7 @@ export namespace Prisma {
     name: string
     date_acquired: Date | string
     status: number
+    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -73888,6 +73907,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
+    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73906,6 +73926,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
+    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73924,6 +73945,7 @@ export namespace Prisma {
     name: string
     date_acquired: Date | string
     status: number
+    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -73940,6 +73962,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
+    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73956,6 +73979,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
+    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -77630,6 +77654,7 @@ export namespace Prisma {
     name?: SortOrder
     date_acquired?: SortOrder
     status?: SortOrder
+    is_private?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
@@ -77651,6 +77676,7 @@ export namespace Prisma {
     name?: SortOrder
     date_acquired?: SortOrder
     status?: SortOrder
+    is_private?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
@@ -77667,6 +77693,7 @@ export namespace Prisma {
     name?: SortOrder
     date_acquired?: SortOrder
     status?: SortOrder
+    is_private?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
@@ -91963,6 +91990,7 @@ export namespace Prisma {
     name: string
     date_acquired: Date | string
     status: number
+    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -91980,6 +92008,7 @@ export namespace Prisma {
     name: string
     date_acquired: Date | string
     status: number
+    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -92049,6 +92078,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
+    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -92066,6 +92096,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
+    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -92236,6 +92267,7 @@ export namespace Prisma {
     name: string
     date_acquired: Date | string
     status: number
+    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -92253,6 +92285,7 @@ export namespace Prisma {
     name: string
     date_acquired: Date | string
     status: number
+    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -92354,6 +92387,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
+    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -92371,6 +92405,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
+    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

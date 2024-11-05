@@ -12,6 +12,7 @@ import { OnEvent } from '@nestjs/event-emitter';
 import { GasSlipApproverStatusUpdated } from '../gas-slip-approver/events/gas-slip-approver-status-updated.event';
 import { getModule, isAdmin } from '../__common__/helpers';
 import { PostGasSlipInput } from './dto/post-gas-slip.input';
+import { MAX_UNPOSTED_GAS_SLIPS } from '../__common__/config';
 
 @Injectable()
 export class GasSlipService {
@@ -26,11 +27,27 @@ export class GasSlipService {
 
 	async create(input: CreateGasSlipInput) {
 
-		const total_unposted_gaslips = await this.get_total_unposted_gas_slips(input.vehicle_id)
+		const vehicle = await this.prisma.vehicle.findUnique({
+			where: { id: input.vehicle_id },
+			select: {
+				id: true,
+				is_private: true
+			}
+		})
 
-		if(total_unposted_gaslips >= 5) {
-			throw new BadRequestException("Total unposted gas slips should not exceed by 5")
+		if(!vehicle) {
+			throw new NotFoundException("Vehicle not found with id " + input.vehicle_id)
 		}
+
+		// only validate total unposted gas slips if not private vehicle
+		if(!vehicle.is_private) {
+			const total_unposted_gaslips = await this.get_total_unposted_gas_slips(input.vehicle_id)
+	
+			if(total_unposted_gaslips >= MAX_UNPOSTED_GAS_SLIPS) {
+				throw new BadRequestException("Total unposted gas slips should not exceed by " + MAX_UNPOSTED_GAS_SLIPS)
+			}
+		}
+
 
 		const gasSlipNumber = await this.getLatestGasSlipNumber()
 

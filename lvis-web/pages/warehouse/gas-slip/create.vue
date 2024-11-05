@@ -12,7 +12,7 @@
                         <div class="col-lg-6">
 
                             <div class="alert alert-info" role="alert">
-                                <small class="fst-italic"> Make sure the number of unposted gas slip is less than 5 to continue </small>
+                                <small class="fst-italic"> Make sure the number of unposted gas slip is less than 5 to continue <span class="fw-bold">(except private vehicle)</span></small>
                             </div>
 
                             <div class="mb-3">
@@ -182,7 +182,7 @@
 import Swal from 'sweetalert2'
 import { getFullname } from '~/utils/helpers'
 import * as gsApi from '~/composables/warehouse/gas-slip/gas-slip.api'
-import type { GasSlip, CreateGasSlip } from '~/composables/warehouse/gas-slip/gas-slip.types';
+import type { CreateGasSlip } from '~/composables/warehouse/gas-slip/gas-slip.types';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { GAS_SLIP_DEFAULT_APPROVERS } from '~/composables/warehouse/gas-slip/gas-slips.constants';
@@ -259,7 +259,7 @@ const isSaveDisabled = computed( () => {
 
     if(isSaving.value) return true 
 
-    if(gsData.value.vehicle && gsData.value.vehicle.total_unposted_gas_slips >= 5) return true 
+    if(gsData.value.vehicle && gsData.value.vehicle.total_unposted_gas_slips >= 5 && !gsData.value.vehicle.is_private) return true 
 
     return false
 

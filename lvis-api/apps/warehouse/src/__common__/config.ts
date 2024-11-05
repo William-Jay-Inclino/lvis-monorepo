@@ -8,3 +8,5 @@ export const MEQS_UPLOAD_PATH = 'warehouse/meqs'
 export const EMPLOYEE_UPLOAD_PATH = 'system/employee'
 
 export const VAT_RATE = 0.12
+
+export const MAX_UNPOSTED_GAS_SLIPS = 5

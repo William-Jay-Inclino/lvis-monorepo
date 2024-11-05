@@ -1120,6 +1120,7 @@ model Vehicle {
   name String 
   date_acquired DateTime
   status Int 
+  is_private Boolean @default(false)
 
   created_by String
   updated_by String?
