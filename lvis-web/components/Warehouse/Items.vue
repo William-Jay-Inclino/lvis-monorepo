@@ -9,33 +9,33 @@
         <table class="table table-bordered table-hovered table-sm small">
             <thead>
                 <tr>
-                    <th class="text-muted">Description</th>
-                    <th class="text-muted">Unit</th>
-                    <th class="text-muted">Available Qty</th>
-                    <th class="text-muted">Avg. Price</th>
-                    <th width="10%" class="text-muted">Quantity</th>
-                    <th class="text-muted">Amount</th>
-                    <th v-if="hasFieldStatus" class="text-muted">Status</th>
-                    <th class="text-muted">Remove</th>
+                    <th class="text-muted text-center">Description</th>
+                    <th class="text-muted text-center">Unit</th>
+                    <th class="text-muted text-center">Available Quantity</th>
+                    <th class="text-muted text-center">Average Price</th>
+                    <th width="10%" class="text-muted text-center">Quantity</th>
+                    <th class="text-muted text-center">Amount</th>
+                    <th v-if="hasFieldStatus" class="text-muted text-center">Status</th>
+                    <th class="text-muted text-center">Remove</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="i, indx in items">
                     <td class="text-muted align-middle"> {{ i.label }} </td>
-                    <td class="text-muted align-middle"> {{ i.unit.name }} </td>
-                    <td class="text-muted align-middle"> {{ i.available_quantity }} </td>
-                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice) }} </td>
-                    <td class="text-muted align-middle">
+                    <td class="text-muted align-middle text-center"> {{ i.unit.name }} </td>
+                    <td class="text-muted align-middle text-center"> {{ i.available_quantity }} </td>
+                    <td class="text-muted align-middle text-center"> {{ formatToPhpCurrency(i.GWAPrice) }} </td>
+                    <td class="text-muted align-middle text-center">
                         <input
                             type="number"
-                            class="form-control form-control-sm"
+                            class="form-control form-control-sm text-center"
                             :class="{'border-danger': !isValidQty(i)}"
                             :value="i.qty_request"
                             @input="updateItemQty(i, $event)"
                             />
                     </td>
-                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice * i.qty_request) }} </td>
-                    <td v-if="i.statusObject" class="text-muted align-middle">
+                    <td class="text-muted align-middle text-center"> {{ formatToPhpCurrency(i.GWAPrice * i.qty_request) }} </td>
+                    <td v-if="i.statusObject" class="text-muted align-middle text-center">
                         <select @change="handleStatusChange(i, $event)" class="form-select form-select-sm" :value="i.statusObject.id">
                             <option :value="i.id" v-for="i in mstStatusArray"> {{ i.name }} </option>
                         </select>

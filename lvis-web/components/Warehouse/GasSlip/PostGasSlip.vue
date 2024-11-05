@@ -12,8 +12,8 @@
                         <label class="form-label">
                             Actual No. of Liters <span class="text-danger">*</span>
                         </label>
-                        <input type="number" class="form-control" v-model="actual_liters">
-                        <small class="text-danger fst-italic" v-if="errors.actual_liters"> {{ errorMsg }}
+                        <input type="number" class="form-control" v-model="actual_liter">
+                        <small class="text-danger fst-italic" v-if="errors.actual_liter"> {{ errorMsg }}
                         </small>
                     </div>
 
@@ -23,19 +23,19 @@
                         </label>
                         <div class="input-group">
                             <span class="input-group-text">₱</span>
-                            <input type="number" class="form-control" v-model="cost_per_liter" placeholder="Enter cost">
+                            <input type="number" class="form-control" v-model="price_per_liter" placeholder="Enter cost">
                         </div>
-                        <small class="text-danger fst-italic" v-if="errors.cost_per_liter"> {{ errorMsg }} </small>
+                        <small class="text-danger fst-italic" v-if="errors.price_per_liter"> {{ errorMsg }} </small>
                     </div>
 
                 </div>
 
                 <div class="modal-footer">
-                    <button ref="close_post_gas_slip_btn" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <button @click="onClickCloseBtn" ref="close_post_gas_slip_btn" class="btn btn-secondary" data-bs-dismiss="modal">
                         <i class="fas fa-close"></i> Close
                     </button>
-                    <button @click="handlePost" class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i> Post
+                    <button @click="handlePost" class="btn btn-primary" :disabled="isPosting">
+                        <i class="fas fa-paper-plane"></i> {{ isPosting ? 'Posting...' : 'Post' }}
                     </button>
                 </div>
 
@@ -49,13 +49,20 @@
 
     const emits = defineEmits(['post-gas-slip'])
 
-    const actual_liters = ref(0)
-    const cost_per_liter = ref(0)
+    const props = defineProps({
+        isPosting: {
+            type: Boolean,
+            required: true
+        },
+    })
+
+    const actual_liter = ref(0)
+    const price_per_liter = ref(0)
     const close_post_gas_slip_btn = ref<HTMLButtonElement>()
 
     const _errorsInitial = {
-        actual_liters: false,
-        cost_per_liter: false,
+        actual_liter: false,
+        price_per_liter: false,
     }
 
     const errors = ref({..._errorsInitial})
@@ -66,8 +73,8 @@
         if(!isValid()) return 
 
         emits('post-gas-slip', {
-            actual_liters: actual_liters.value,
-            cost_per_liter: cost_per_liter.value,
+            actual_liter: actual_liter.value,
+            price_per_liter: price_per_liter.value,
         }, close_post_gas_slip_btn.value)
 
     }
@@ -76,12 +83,12 @@
 
         errors.value = { ..._errorsInitial }
 
-        if(actual_liters.value <= 0) {
-            errors.value.actual_liters = true 
+        if(actual_liter.value <= 0) {
+            errors.value.actual_liter = true 
         }
 
-        if(cost_per_liter.value <= 0) {
-            errors.value.cost_per_liter = true 
+        if(price_per_liter.value <= 0) {
+            errors.value.price_per_liter = true 
         }
 
         const hasError = Object.values(errors.value).includes(true);
@@ -92,6 +99,11 @@
 
         return true 
 
+    }
+
+    function onClickCloseBtn() {
+        actual_liter.value = 0
+        price_per_liter.value = 0
     }
 
 </script>

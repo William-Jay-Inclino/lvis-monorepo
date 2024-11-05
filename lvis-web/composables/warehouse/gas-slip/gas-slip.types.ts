@@ -54,6 +54,11 @@ export interface CreateGasSlip {
     approvers: CreateGasSlipApprover[]
 }
 
+export interface PostGasSlip {
+    actual_liter: number 
+    price_per_liter: number
+}
+
 
 export interface FindAllResponse {
 	data: GasSlip[]

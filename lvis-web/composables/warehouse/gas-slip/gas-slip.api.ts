@@ -1,4 +1,4 @@
-import type { CreateGasSlip, FindAllResponse, MutationResponse, GasSlip } from "./gas-slip.types";
+import type { CreateGasSlip, FindAllResponse, MutationResponse, GasSlip, PostGasSlip } from "./gas-slip.types";
 import { sendRequest } from "~/utils/api"
 import type { Employee } from "~/composables/system/employee/employee.types";
 import type { FuelType, GasStation } from "~/composables/common.types";
@@ -24,7 +24,9 @@ export async function fetchDataInSearchFilters(): Promise<{
                 }
             },
             vehicles {
+                id
                 vehicle_number
+                name
             }
         }
     `;
@@ -476,6 +478,47 @@ export async function cancel(id: string): Promise<CancelResponse> {
         return {
             success: false,
             msg: 'Failed to cancel Gas Slip. Please contact system administrator'
+        };
+    }
+}
+
+export async function postGasSlip(id: string, input: PostGasSlip): Promise<MutationResponse> {
+
+    const mutation = `
+        mutation {
+            postGasSlip(
+                id: "${id}",
+                input: {
+                    actual_liter: ${input.actual_liter}
+                    price_per_liter: ${input.price_per_liter}
+                }
+            ) {
+                is_posted
+                actual_liter
+                price_per_liter
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.postGasSlip) {
+            return {
+                success: true,
+                msg: 'Gas Slip posted successfully!',
+                data: response.data.data.postGasSlip
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to post Gas Slip. Please contact system administrator'
         };
     }
 }

@@ -11,6 +11,7 @@ import { GasSlipsResponse } from './entities/gas-slips-response.entity';
 import { OnEvent } from '@nestjs/event-emitter';
 import { GasSlipApproverStatusUpdated } from '../gas-slip-approver/events/gas-slip-approver-status-updated.event';
 import { getModule, isAdmin } from '../__common__/helpers';
+import { PostGasSlipInput } from './dto/post-gas-slip.input';
 
 @Injectable()
 export class GasSlipService {
@@ -132,27 +133,28 @@ export class GasSlipService {
 		};
 	}
 
-	async findOne(id: string) {
-
+	async findOne(payload: { id?: string; gas_slip_number?: string }) {
+		const { id, gas_slip_number } = payload;
+	
 		const item = await this.prisma.gasSlip.findUnique({
 			include: {
 				vehicle: true,
 				gas_station: true,
 				fuel_type: true,
 			},
-			where: { id }
-		})
-
+			where: id ? { id } : { gas_slip_number }
+		});
+	
 		if (!item) {
-			throw new NotFoundException('Gas Slip not found')
+			throw new NotFoundException('Gas Slip not found');
 		}
-
-		return item
+	
+		return item;
 	}
 
 	async remove(id: string): Promise<WarehouseRemoveResponse> {
 
-		const existingItem = await this.findOne(id)
+		const existingItem = await this.findOne({ id })
 
 		await this.prisma.gasSlip.delete({
 			where: { id },
@@ -174,6 +176,37 @@ export class GasSlipService {
 		  });
 	  
 		  return unpostedGasSlipsCount;
+	}
+
+	async post_gas_slip(id: string, input: PostGasSlipInput) {
+
+		const existingGasSlip = await this.prisma.gasSlip.findUnique({
+			where: { id }
+		})
+
+		if(!existingGasSlip) {
+			throw new NotFoundException("Gas Slip not found with id of " + id)
+		}
+
+		if(existingGasSlip.is_posted === null) {
+			throw new BadRequestException("Cannot post gas slip. Field is_posted is null")
+		}
+
+		if(existingGasSlip.is_posted === true) {
+			throw new BadRequestException("Cannot post gas slip. Field is_posted is already set to true")
+		}
+
+		const updated = await this.prisma.gasSlip.update({
+			where: { id },
+			data: {
+				actual_liter: input.actual_liter,
+				price_per_liter: input.price_per_liter,
+				is_posted: true,
+			}
+		})
+
+		return updated
+
 	}
 
 	async canUpdateForm(gas_slip_id: string): Promise<Boolean> {

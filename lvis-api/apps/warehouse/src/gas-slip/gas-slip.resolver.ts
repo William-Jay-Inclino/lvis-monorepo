@@ -16,6 +16,7 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { GasSlipApproverService } from '../gas-slip-approver/gas-slip-approver.service';
 import { GasSlipApprover } from '../gas-slip-approver/entities/gas-slip-approver.entity';
+import { PostGasSlipInput } from './dto/post-gas-slip.input';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => GasSlip)
@@ -36,6 +37,17 @@ export class GasSlipResolver {
     return this.gasSlipService.create(createGasSlipInput);
   }
 
+  @Mutation(() => GasSlip)
+  @UseGuards(AccessGuard)
+  postGasSlip(
+    @Args('id') id: string,
+    @Args('input') input: PostGasSlipInput,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.gasSlipService.setAuthUser(authUser)
+    return this.gasSlipService.post_gas_slip(id, input);
+  }
+
   @Query(() => GasSlipsResponse)
   async gas_slips(
     @Args('page', { type: () => Int, defaultValue: 1 }) page: number,
@@ -46,8 +58,14 @@ export class GasSlipResolver {
   }
 
   @Query(() => GasSlip)
-  gas_slip(@Args('id') id: string) {
-    return this.gasSlipService.findOne(id);
+  async gas_slip(
+      @Args('id', { nullable: true }) id?: string,
+      @Args('gas_slip_number', { nullable: true }) gas_slip_number?: string,
+  ) {
+    if (!id && !gas_slip_number) {
+        throw new Error('Either id or gas_slip_number must be provided');
+    }
+    return this.gasSlipService.findOne({ id, gas_slip_number });
   }
 
   @ResolveField(() => Employee)

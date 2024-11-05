@@ -21,7 +21,7 @@
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
-                                <v-select :options="vehicles" label="vehicle_number" v-model="vehicle"></v-select>
+                                <v-select :options="vehicles" label="label" v-model="vehicle"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -209,7 +209,7 @@ onMounted(async () => {
 
     const response = await gasSlipApi.fetchDataInSearchFilters()
 
-    vehicles.value = response.vehicles
+    vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
     gas_slips.value = response.gas_slips
     employees.value = addPropertyFullName(response.employees)
 

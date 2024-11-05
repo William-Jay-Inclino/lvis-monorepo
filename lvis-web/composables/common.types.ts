@@ -110,6 +110,7 @@ export interface Vehicle {
     status: VEHICLE_STATUS,
 
     // derived / resolvers 
+    label?: string
     assignee: Employee
     total_unposted_gas_slips: number
 }

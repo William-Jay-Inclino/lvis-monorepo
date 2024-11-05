@@ -22,7 +22,7 @@
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
-                                            <td class="text-muted">Status</td>
+                                            <td class="text-muted" width="50%">Status</td>
                                             <td>
                                                 <div v-if="item.is_posted === null" :class="{ [`badge bg-${approvalStatus[item.status].color}`]: true }">
                                                     {{ approvalStatus[item.status].label }}
@@ -72,10 +72,6 @@
                                             <td> {{ item.price_per_liter || 'N/A' }} </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-muted">Is Posted</td>
-                                            <td> {{ item.is_posted ? 'Yes' : 'No' }} </td>
-                                        </tr>
-                                        <tr>
                                             <td class="text-muted">Purpose</td>
                                             <td> {{ item.purpose }} </td>
                                         </tr>
@@ -100,7 +96,7 @@
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
-                                        <td class="text-muted align-middle">Unposted Gas Slip</td>
+                                        <td width="50%" class="text-muted align-middle">Unposted Gas Slip</td>
                                         <td class="fw-bold fs-4 table-danger text-center text-danger"> {{ item.vehicle.total_unposted_gas_slips }} </td>
                                     </tr>
                                     <tr>
@@ -239,7 +235,7 @@
             </div>
         
             <WarehousePdfModal :is-loading-pdf="isLoadingPdf" :pdf-url="pdfUrl" />
-            <WarehouseGasSlipPostGasSlip @post-gas-slip="handlePostGasSlip"/>
+            <WarehouseGasSlipPostGasSlip @post-gas-slip="handlePostGasSlip" :is-posting="isPostingGasSlip"/>
 
         </div>
     </div>
@@ -276,6 +272,7 @@ const toast = useToast();
 
 // FLAGS
 const isLoadingPage = ref(true)
+const isPostingGasSlip = ref(false)
 const isLoadingPdf = ref(false)
 
 // DATA
@@ -355,9 +352,36 @@ function onClickPostGasSlip(id: string) {
 
 }
 
-function handlePostGasSlip(payload: {actual_liters: number, cost_per_liter: number}, closeBtn: HTMLButtonElement) {
+async function handlePostGasSlip(payload: {actual_liter: number, price_per_liter: number}, closeBtn: HTMLButtonElement) {
     console.log('handlePostGasSlip', payload);
     console.log('closeBtn', closeBtn);
+
+    if(!item.value) return 
+
+    isPostingGasSlip.value = true 
+    const response = await api.postGasSlip(item.value.id, payload)
+    isPostingGasSlip.value = false 
+    
+    if (response.success && response.data) {
+        toast.success(response.msg)
+        
+        item.value.is_posted = response.data.is_posted
+        item.value.actual_liter = response.data.actual_liter
+        item.value.price_per_liter = response.data.price_per_liter
+        item.value.vehicle.total_unposted_gas_slips--
+
+        // close modal
+        closeBtn.click()
+
+    } else {
+        Swal.fire({
+            title: 'Error!',
+            text: response.msg,
+            icon: 'error',
+            position: 'top',
+        })
+    }
+    
 }
 
 async function onClickPrint() {
