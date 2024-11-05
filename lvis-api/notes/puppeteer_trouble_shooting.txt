@@ -1,0 +1,29 @@
+
+
+The options args: ['--no-sandbox', '--disable-setuid-sandbox'] are launch arguments for Chromium (the browser Puppeteer controls). They modify how the browser runs, particularly in environments like servers or containers where security settings can interfere with the normal sandboxing features Chromium uses. Here’s a breakdown:
+
+--no-sandbox:
+
+Disables Chromium's sandbox security feature, which is designed to isolate processes and reduce security risks by containing them.
+Using --no-sandbox is common when running Puppeteer in restricted environments (e.g., Docker, CI/CD pipelines) because those environments might not support the sandbox or have the necessary permissions enabled.
+Note: Disabling the sandbox can reduce security, so it’s best to use this flag only if necessary (e.g., in development, testing, or restricted environments).
+--disable-setuid-sandbox:
+
+Disables a specific part of Chromium’s sandbox that requires certain Linux permissions.
+This option prevents Chromium from trying to elevate privileges, which is required on some Linux distributions if the user namespace sandbox is not available.
+This flag is generally used together with --no-sandbox in cases where the sandbox won’t work properly, especially in environments where security settings prevent setuid binaries from being used.
+Together, these flags allow Puppeteer to run Chromium without relying on the OS’s sandboxing features, which can help you avoid compatibility issues on servers or in Docker containers. However, since you mentioned that you upgraded your Ubuntu version, the upgrade might have changed the environment or security settings, which is why adding these flags is often needed post-upgrade.
+
+
+
+
+
+
+
+
+
+// const browser = await puppeteer.launch();
+
+const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+});

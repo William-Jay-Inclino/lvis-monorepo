@@ -257,5 +257,6 @@ export enum RESOLVERS {
     gas_slip = 'gas_slip',
     updateGasSlip = 'updateGasSlip',
     removeGasSlip = 'removeGasSlip',
+    printGasSlip = 'printGasSlip',
 
 }

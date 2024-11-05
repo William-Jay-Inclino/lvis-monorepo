@@ -25,7 +25,11 @@ export class RvPdfService {
     }
 
     async generatePdf(rv: RV) {
-        const browser = await puppeteer.launch();
+        // const browser = await puppeteer.launch();
+
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        });
         const page = await browser.newPage();
 
         const watermark = getImageAsBase64('lvis-watermark-v2.png')

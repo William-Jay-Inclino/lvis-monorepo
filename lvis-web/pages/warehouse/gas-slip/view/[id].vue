@@ -191,7 +191,7 @@
                                             to="/warehouse/gas-slip">
                                             <i class="fas fa-search"></i> Search Gas Slip
                                         </nuxt-link>
-                                        <button disabled v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageGasSlip')" @click="onClickPrint" class="btn btn-danger">
+                                        <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageGasSlip')" @click="onClickPrint" class="btn btn-danger">
                                             <i class="fas fa-print"></i> Print Gas Slip
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
