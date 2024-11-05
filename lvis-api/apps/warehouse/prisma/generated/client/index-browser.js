@@ -785,7 +785,6 @@ exports.Prisma.VehicleScalarFieldEnum = {
   name: 'name',
   date_acquired: 'date_acquired',
   status: 'status',
-  is_private: 'is_private',
   created_by: 'created_by',
   updated_by: 'updated_by',
   created_at: 'created_at',

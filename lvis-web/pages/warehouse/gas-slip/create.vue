@@ -5,7 +5,7 @@
             <div v-if="!isLoadingPage && authUser" class="card">
                 <div class="card-body">
     
-                    <h2 class="text-warning mb-4">Create Trip Ticket</h2>
+                    <h2 class="text-warning mb-4">Create Gas Slip</h2>
                     <hr>
             
                     <div class="row justify-content-center pt-5 pb-3">
@@ -186,6 +186,7 @@ import type { CreateGasSlip } from '~/composables/warehouse/gas-slip/gas-slip.ty
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { GAS_SLIP_DEFAULT_APPROVERS } from '~/composables/warehouse/gas-slip/gas-slips.constants';
+import { VEHICLE_CLASSIFICATION, VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 
 definePageMeta({
     name: ROUTES.GAS_SLIP_CREATE,
@@ -259,7 +260,10 @@ const isSaveDisabled = computed( () => {
 
     if(isSaving.value) return true 
 
-    if(gsData.value.vehicle && gsData.value.vehicle.total_unposted_gas_slips >= 5 && !gsData.value.vehicle.is_private) return true 
+    // should only validate total unposted gaslips greater than 5 if non private vehicle
+    if(gsData.value.vehicle && gsData.value.vehicle.total_unposted_gas_slips >= 5 && gsData.value.vehicle.classification_id !== VEHICLE_CLASSIFICATION.PRIVATE) {
+        return true 
+    }
 
     return false
 

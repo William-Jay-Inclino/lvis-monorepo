@@ -1,5 +1,6 @@
 import { sendRequest } from "~/utils/api"
-import type { Vehicle, CreateVehicleInput, MutationResponse } from "./vehicle";
+import type { Vehicle, CreateVehicleInput, MutationResponse, UpdateVehicleInput } from "./vehicle.types";
+import type { Employee } from "~/composables/system/employee/employee.types";
 
 
 
@@ -9,8 +10,18 @@ export async function findAll(): Promise<Vehicle[]> {
         query {
             vehicles {
                 id
-                name
+                vehicle_number
                 plate_number
+                classification_id
+                assignee {
+                    id 
+                    firstname
+                    middlename
+                    lastname
+                }
+                name
+                date_acquired
+                status
             }
         }
     `;
@@ -30,8 +41,19 @@ export async function findOne(id: string): Promise<Vehicle | undefined> {
         query {
             vehicle(id: "${id}") {
                 id
-                name
+                vehicle_number
                 plate_number
+                classification_id
+                total_unposted_gas_slips
+                assignee {
+                    id 
+                    firstname
+                    middlename
+                    lastname
+                }
+                name
+                date_acquired
+                status
             }
         }
     `;
@@ -54,16 +76,19 @@ export async function findOne(id: string): Promise<Vehicle | undefined> {
 
 export async function create(input: CreateVehicleInput): Promise<MutationResponse> {
 
-    const inputFields = Object.keys(input)
-        .map(field => `${field}: "${input[field as keyof CreateVehicleInput]}"`)
-        .join(', ');
-
     const mutation = `
         mutation {
-            createVehicle(input: { ${inputFields} }) {
-                id 
-                name
-                plate_number
+            createVehicle(
+                input: {
+                    vehicle_number: "${input.vehicle_number}",
+                    plate_number: "${input.plate_number}",
+                    name: "${input.name}",
+                    classification_id: ${input.classification?.id},
+                    assignee_id: "${input.assignee?.id}",
+                    date_acquired: "${input.date_acquired}",
+                }
+            ) {
+                id
             }
         }`;
 
@@ -93,20 +118,24 @@ export async function create(input: CreateVehicleInput): Promise<MutationRespons
     }
 }
 
-export async function update(id: string, input: CreateVehicleInput): Promise<MutationResponse> {
-
-    const inputFields = Object.keys(input)
-        .map(field => `${field}: "${input[field as keyof CreateVehicleInput]}"`)
-        .join(', ');
+export async function update(id: string, input: UpdateVehicleInput): Promise<MutationResponse> {
 
     const mutation = `
         mutation {
-            updateVehicle(id: "${id}", input: { ${inputFields} }) {
-                id 
-                name
-                plate_number
+            updateVehicle(
+                id: "${id}",
+                input: {
+                    vehicle_number: "${input.vehicle_number}",
+                    plate_number: "${input.plate_number}",
+                    name: "${input.name}",
+                    classification_id: ${input.classification?.id},
+                    assignee_id: "${input.assignee?.id}",
+                    date_acquired: "${input.date_acquired}",
+                }
+            ) {
+                id
             }
-        }`;
+    }`;
 
     try {
         const response = await sendRequest(mutation);
@@ -160,4 +189,122 @@ export async function remove(id: string): Promise<{ success: boolean, msg: strin
             msg: 'Failed to remove Vehicle. Please contact system administrator'
         }
     }
+}
+
+export async function fetchFormDataInCreate(): Promise<{
+    employees: Employee[],
+}> {
+
+    const query = `
+        query {
+            employees(page: 1, pageSize: 500) {
+                data{
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        return {
+            employees,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            employees: [],
+        }
+    }
+
+
+}
+
+export async function fetchFormDataInUpdate(id: string): Promise<{
+    vehicle: Vehicle | undefined,
+    employees: Employee[],
+}> {
+
+    const query = `
+        query {
+            vehicle(id: "${id}") {
+                id
+                vehicle_number
+                plate_number
+                name
+                classification_id
+                date_acquired
+                total_unposted_gas_slips
+                assignee {
+                    id 
+                    firstname 
+                    middlename 
+                    lastname
+                }
+            }
+            employees(page: 1, pageSize: 500) {
+                data{
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees: Employee[] = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (!data.vehicle) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const vehicle = data.vehicle
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        return {
+            vehicle,
+            employees,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            vehicle: undefined,
+            employees: [],
+        }
+    }
+
+
 }

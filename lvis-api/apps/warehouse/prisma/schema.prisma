@@ -1114,13 +1114,12 @@ model Vehicle {
   id            String     @id @default(uuid())
   vehicle_number String @unique
   plate_number String @unique
-  rf_id String @unique
+  rf_id String? @unique
   classification_id Int 
   assignee_id String 
   name String 
   date_acquired DateTime
   status Int 
-  is_private Boolean @default(false)
 
   created_by String
   updated_by String?

@@ -13,8 +13,8 @@ export class Vehicle {
   @Field()
   plate_number: string;
 
-  @Field()
-  rf_id: string;
+  @Field({ nullable: true })
+  rf_id: string | null;
 
   @Field(() => Int)
   classification_id: VEHICLE_CLASSIFICATION;
@@ -30,9 +30,6 @@ export class Vehicle {
 
   @Field(() => Int)
   status: VEHICLE_STATUS;
-
-  @Field(() => Boolean, { nullable: true })
-  is_private: boolean | null;
 
   @Field()
   created_by: string;

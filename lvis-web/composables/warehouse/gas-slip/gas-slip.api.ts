@@ -292,7 +292,6 @@ export async function fetchFormDataInCreate(): Promise<{
                 classification_id
                 date_acquired
                 total_unposted_gas_slips
-                is_private
                 assignee {
                     id 
                     firstname 

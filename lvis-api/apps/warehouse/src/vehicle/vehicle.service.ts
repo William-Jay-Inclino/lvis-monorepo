@@ -5,6 +5,7 @@ import { Prisma, Vehicle } from 'apps/warehouse/prisma/generated/client';
 import { UpdateVehicleInput } from './dto/update-vehicle.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { VEHICLE_STATUS } from './entities/vehicle.enums';
 
 @Injectable()
 export class VehicleService {
@@ -23,12 +24,12 @@ export class VehicleService {
 		const data: Prisma.VehicleCreateInput = {
 			vehicle_number: input.vehicle_number,
 			plate_number: input.plate_number,
-			rf_id: input.rf_id,
+			rf_id: input.rf_id ?? null,
 			classification_id: input.classification_id,
 			assignee_id: input.assignee_id,
 			name: input.name,
 			date_acquired: new Date(input.date_acquired),
-			status: input.status,
+			status: VEHICLE_STATUS.AVAILABLE_FOR_TRIP,
 			created_by: this.authUser.user.username
 		}
 
@@ -73,7 +74,7 @@ export class VehicleService {
 			assignee_id: input.assignee_id ?? existingItem.assignee_id,
 			name: input.name ?? existingItem.name,
 			date_acquired: input.date_acquired ? new Date(input.date_acquired) : existingItem.date_acquired,
-			status: input.status ?? existingItem.status,
+			// status: input.status ?? existingItem.status,
 			updated_by: this.authUser.user.username
 		}
 

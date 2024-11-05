@@ -252,7 +252,7 @@ import { useToast } from "vue-toastification";
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import { canPrint } from '~/utils/permissions';
-import { APPROVAL_STATUS, isBlankStatus } from '#imports';
+import { VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 
 definePageMeta({
     name: ROUTES.GAS_SLIP_VIEW,

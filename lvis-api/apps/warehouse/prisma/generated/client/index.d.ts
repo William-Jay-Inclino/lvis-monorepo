@@ -55587,7 +55587,6 @@ export namespace Prisma {
     name: string | null
     date_acquired: Date | null
     status: number | null
-    is_private: boolean | null
     created_by: string | null
     updated_by: string | null
     created_at: Date | null
@@ -55604,7 +55603,6 @@ export namespace Prisma {
     name: string | null
     date_acquired: Date | null
     status: number | null
-    is_private: boolean | null
     created_by: string | null
     updated_by: string | null
     created_at: Date | null
@@ -55621,7 +55619,6 @@ export namespace Prisma {
     name: number
     date_acquired: number
     status: number
-    is_private: number
     created_by: number
     updated_by: number
     created_at: number
@@ -55650,7 +55647,6 @@ export namespace Prisma {
     name?: true
     date_acquired?: true
     status?: true
-    is_private?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -55667,7 +55663,6 @@ export namespace Prisma {
     name?: true
     date_acquired?: true
     status?: true
-    is_private?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -55684,7 +55679,6 @@ export namespace Prisma {
     name?: true
     date_acquired?: true
     status?: true
-    is_private?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -55782,13 +55776,12 @@ export namespace Prisma {
     id: string
     vehicle_number: string
     plate_number: string
-    rf_id: string
+    rf_id: string | null
     classification_id: number
     assignee_id: string
     name: string
     date_acquired: Date
     status: number
-    is_private: boolean
     created_by: string
     updated_by: string | null
     created_at: Date
@@ -55824,7 +55817,6 @@ export namespace Prisma {
     name?: boolean
     date_acquired?: boolean
     status?: boolean
-    is_private?: boolean
     created_by?: boolean
     updated_by?: boolean
     created_at?: boolean
@@ -55844,7 +55836,6 @@ export namespace Prisma {
     name?: boolean
     date_acquired?: boolean
     status?: boolean
-    is_private?: boolean
     created_by?: boolean
     updated_by?: boolean
     created_at?: boolean
@@ -55868,13 +55859,12 @@ export namespace Prisma {
       id: string
       vehicle_number: string
       plate_number: string
-      rf_id: string
+      rf_id: string | null
       classification_id: number
       assignee_id: string
       name: string
       date_acquired: Date
       status: number
-      is_private: boolean
       created_by: string
       updated_by: string | null
       created_at: Date
@@ -56285,7 +56275,6 @@ export namespace Prisma {
     readonly name: FieldRef<"Vehicle", 'String'>
     readonly date_acquired: FieldRef<"Vehicle", 'DateTime'>
     readonly status: FieldRef<"Vehicle", 'Int'>
-    readonly is_private: FieldRef<"Vehicle", 'Boolean'>
     readonly created_by: FieldRef<"Vehicle", 'String'>
     readonly updated_by: FieldRef<"Vehicle", 'String'>
     readonly created_at: FieldRef<"Vehicle", 'DateTime'>
@@ -63783,7 +63772,6 @@ export namespace Prisma {
     name: 'name',
     date_acquired: 'date_acquired',
     status: 'status',
-    is_private: 'is_private',
     created_by: 'created_by',
     updated_by: 'updated_by',
     created_at: 'created_at',
@@ -68359,13 +68347,12 @@ export namespace Prisma {
     id?: StringFilter<"Vehicle"> | string
     vehicle_number?: StringFilter<"Vehicle"> | string
     plate_number?: StringFilter<"Vehicle"> | string
-    rf_id?: StringFilter<"Vehicle"> | string
+    rf_id?: StringNullableFilter<"Vehicle"> | string | null
     classification_id?: IntFilter<"Vehicle"> | number
     assignee_id?: StringFilter<"Vehicle"> | string
     name?: StringFilter<"Vehicle"> | string
     date_acquired?: DateTimeFilter<"Vehicle"> | Date | string
     status?: IntFilter<"Vehicle"> | number
-    is_private?: BoolFilter<"Vehicle"> | boolean
     created_by?: StringFilter<"Vehicle"> | string
     updated_by?: StringNullableFilter<"Vehicle"> | string | null
     created_at?: DateTimeFilter<"Vehicle"> | Date | string
@@ -68378,13 +68365,12 @@ export namespace Prisma {
     id?: SortOrder
     vehicle_number?: SortOrder
     plate_number?: SortOrder
-    rf_id?: SortOrder
+    rf_id?: SortOrderInput | SortOrder
     classification_id?: SortOrder
     assignee_id?: SortOrder
     name?: SortOrder
     date_acquired?: SortOrder
     status?: SortOrder
-    is_private?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -68406,7 +68392,6 @@ export namespace Prisma {
     name?: StringFilter<"Vehicle"> | string
     date_acquired?: DateTimeFilter<"Vehicle"> | Date | string
     status?: IntFilter<"Vehicle"> | number
-    is_private?: BoolFilter<"Vehicle"> | boolean
     created_by?: StringFilter<"Vehicle"> | string
     updated_by?: StringNullableFilter<"Vehicle"> | string | null
     created_at?: DateTimeFilter<"Vehicle"> | Date | string
@@ -68419,13 +68404,12 @@ export namespace Prisma {
     id?: SortOrder
     vehicle_number?: SortOrder
     plate_number?: SortOrder
-    rf_id?: SortOrder
+    rf_id?: SortOrderInput | SortOrder
     classification_id?: SortOrder
     assignee_id?: SortOrder
     name?: SortOrder
     date_acquired?: SortOrder
     status?: SortOrder
-    is_private?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -68444,13 +68428,12 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Vehicle"> | string
     vehicle_number?: StringWithAggregatesFilter<"Vehicle"> | string
     plate_number?: StringWithAggregatesFilter<"Vehicle"> | string
-    rf_id?: StringWithAggregatesFilter<"Vehicle"> | string
+    rf_id?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
     classification_id?: IntWithAggregatesFilter<"Vehicle"> | number
     assignee_id?: StringWithAggregatesFilter<"Vehicle"> | string
     name?: StringWithAggregatesFilter<"Vehicle"> | string
     date_acquired?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
     status?: IntWithAggregatesFilter<"Vehicle"> | number
-    is_private?: BoolWithAggregatesFilter<"Vehicle"> | boolean
     created_by?: StringWithAggregatesFilter<"Vehicle"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
@@ -73863,13 +73846,12 @@ export namespace Prisma {
     id?: string
     vehicle_number: string
     plate_number: string
-    rf_id: string
+    rf_id?: string | null
     classification_id: number
     assignee_id: string
     name: string
     date_acquired: Date | string
     status: number
-    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -73882,13 +73864,12 @@ export namespace Prisma {
     id?: string
     vehicle_number: string
     plate_number: string
-    rf_id: string
+    rf_id?: string | null
     classification_id: number
     assignee_id: string
     name: string
     date_acquired: Date | string
     status: number
-    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -73901,13 +73882,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     vehicle_number?: StringFieldUpdateOperationsInput | string
     plate_number?: StringFieldUpdateOperationsInput | string
-    rf_id?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: IntFieldUpdateOperationsInput | number
     assignee_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
-    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73920,13 +73900,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     vehicle_number?: StringFieldUpdateOperationsInput | string
     plate_number?: StringFieldUpdateOperationsInput | string
-    rf_id?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: IntFieldUpdateOperationsInput | number
     assignee_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
-    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73939,13 +73918,12 @@ export namespace Prisma {
     id?: string
     vehicle_number: string
     plate_number: string
-    rf_id: string
+    rf_id?: string | null
     classification_id: number
     assignee_id: string
     name: string
     date_acquired: Date | string
     status: number
-    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -73956,13 +73934,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     vehicle_number?: StringFieldUpdateOperationsInput | string
     plate_number?: StringFieldUpdateOperationsInput | string
-    rf_id?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: IntFieldUpdateOperationsInput | number
     assignee_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
-    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73973,13 +73950,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     vehicle_number?: StringFieldUpdateOperationsInput | string
     plate_number?: StringFieldUpdateOperationsInput | string
-    rf_id?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: IntFieldUpdateOperationsInput | number
     assignee_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
-    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -77654,7 +77630,6 @@ export namespace Prisma {
     name?: SortOrder
     date_acquired?: SortOrder
     status?: SortOrder
-    is_private?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
@@ -77676,7 +77651,6 @@ export namespace Prisma {
     name?: SortOrder
     date_acquired?: SortOrder
     status?: SortOrder
-    is_private?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
@@ -77693,7 +77667,6 @@ export namespace Prisma {
     name?: SortOrder
     date_acquired?: SortOrder
     status?: SortOrder
-    is_private?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
@@ -91984,13 +91957,12 @@ export namespace Prisma {
     id?: string
     vehicle_number: string
     plate_number: string
-    rf_id: string
+    rf_id?: string | null
     classification_id: number
     assignee_id: string
     name: string
     date_acquired: Date | string
     status: number
-    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -92002,13 +91974,12 @@ export namespace Prisma {
     id?: string
     vehicle_number: string
     plate_number: string
-    rf_id: string
+    rf_id?: string | null
     classification_id: number
     assignee_id: string
     name: string
     date_acquired: Date | string
     status: number
-    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -92072,13 +92043,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     vehicle_number?: StringFieldUpdateOperationsInput | string
     plate_number?: StringFieldUpdateOperationsInput | string
-    rf_id?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: IntFieldUpdateOperationsInput | number
     assignee_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
-    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -92090,13 +92060,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     vehicle_number?: StringFieldUpdateOperationsInput | string
     plate_number?: StringFieldUpdateOperationsInput | string
-    rf_id?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: IntFieldUpdateOperationsInput | number
     assignee_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
-    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -92261,13 +92230,12 @@ export namespace Prisma {
     id?: string
     vehicle_number: string
     plate_number: string
-    rf_id: string
+    rf_id?: string | null
     classification_id: number
     assignee_id: string
     name: string
     date_acquired: Date | string
     status: number
-    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -92279,13 +92247,12 @@ export namespace Prisma {
     id?: string
     vehicle_number: string
     plate_number: string
-    rf_id: string
+    rf_id?: string | null
     classification_id: number
     assignee_id: string
     name: string
     date_acquired: Date | string
     status: number
-    is_private?: boolean
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -92381,13 +92348,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     vehicle_number?: StringFieldUpdateOperationsInput | string
     plate_number?: StringFieldUpdateOperationsInput | string
-    rf_id?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: IntFieldUpdateOperationsInput | number
     assignee_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
-    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -92399,13 +92365,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     vehicle_number?: StringFieldUpdateOperationsInput | string
     plate_number?: StringFieldUpdateOperationsInput | string
-    rf_id?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: IntFieldUpdateOperationsInput | number
     assignee_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: IntFieldUpdateOperationsInput | number
-    is_private?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

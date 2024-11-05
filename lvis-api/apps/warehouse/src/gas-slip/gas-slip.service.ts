@@ -13,6 +13,7 @@ import { GasSlipApproverStatusUpdated } from '../gas-slip-approver/events/gas-sl
 import { getModule, isAdmin } from '../__common__/helpers';
 import { PostGasSlipInput } from './dto/post-gas-slip.input';
 import { MAX_UNPOSTED_GAS_SLIPS } from '../__common__/config';
+import { VEHICLE_CLASSIFICATION } from '../vehicle/entities/vehicle.enums';
 
 @Injectable()
 export class GasSlipService {
@@ -31,7 +32,7 @@ export class GasSlipService {
 			where: { id: input.vehicle_id },
 			select: {
 				id: true,
-				is_private: true
+				classification_id: true,
 			}
 		})
 
@@ -40,7 +41,7 @@ export class GasSlipService {
 		}
 
 		// only validate total unposted gas slips if not private vehicle
-		if(!vehicle.is_private) {
+		if(vehicle.classification_id !== VEHICLE_CLASSIFICATION.PRIVATE) {
 			const total_unposted_gaslips = await this.get_total_unposted_gas_slips(input.vehicle_id)
 	
 			if(total_unposted_gaslips >= MAX_UNPOSTED_GAS_SLIPS) {

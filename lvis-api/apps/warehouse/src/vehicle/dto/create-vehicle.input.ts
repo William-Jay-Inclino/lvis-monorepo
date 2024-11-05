@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsDateString, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsDateString, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 @InputType()
 export class CreateVehicleInput {
@@ -14,10 +14,10 @@ export class CreateVehicleInput {
   @IsString()
   plate_number: string;
 
-  @Field()
-  @IsNotEmpty()
+  @Field({ nullable: true })
+  @IsOptional()
   @IsString()
-  rf_id: string;
+  rf_id: string | null;
 
   @Field()
   @IsNotEmpty()
@@ -38,10 +38,5 @@ export class CreateVehicleInput {
   @IsNotEmpty()
   @IsDateString()
   date_acquired: Date;
-
-  @Field()
-  @IsNotEmpty()
-  @IsInt()
-  status: number;
 
 }

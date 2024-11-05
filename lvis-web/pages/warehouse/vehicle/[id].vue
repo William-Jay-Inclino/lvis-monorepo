@@ -21,9 +21,37 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
+                                    Vehicle Number <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" v-model="item.vehicle_number" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
                                     Plate Number <span class="text-danger">*</span>
                                 </label>
                                 <input type="text" class="form-control" v-model="item.plate_number" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Classification <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="VEHICLE_CLASSIFICATIONS" label="name" v-model="item.classification"></v-select>
+                                </client-only>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Assignee <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="employees" label="fullname" v-model="item.assignee"></v-select>
+                                </client-only>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Date Acquired <span class="text-danger">*</span>
+                                </label>
+                                <input type="date" class="form-control" v-model="item.date_acquired">
                             </div>
         
                         </div>
@@ -61,8 +89,12 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/warehouse/vehicle/vehicle.api'
-import type { CreateVehicleInput } from '~/composables/warehouse/vehicle/vehicle'
 import Swal from 'sweetalert2'
+import type { UpdateVehicleInput } from '~/composables/warehouse/vehicle/vehicle.types';
+import { VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
+import { VEHICLE_CLASSIFICATIONS } from '~/composables/warehouse/vehicle/vehicle.constants';
+import type { Employee } from '~/composables/system/employee/employee.types';
+import { addPropertyFullName } from '~/composables/system/employee/employee';
 
 definePageMeta({
     name: ROUTES.VEHICLE_UPDATE,
@@ -75,18 +107,35 @@ const route = useRoute()
 const router = useRouter()
 const isSaving = ref(false)
 
-const item = ref<Vehicle>()
+const vehicleId = ref('')
+const item = ref<UpdateVehicleInput>()
+
+const employees = ref<Employee[]>([])
 
 onMounted(async () => {
 
-    const response = await api.findOne(route.params.id as string)
+    const response = await api.fetchFormDataInUpdate(route.params.id as string)
 
-    if (!response) {
-        console.error('Vehicle not found')
-        return
+    if (!response.vehicle) {
+        return redirectTo401Page()
     }
 
-    item.value = response
+    employees.value = addPropertyFullName(response.employees)
+
+    vehicleId.value = response.vehicle.id
+    response.vehicle.assignee['fullname'] = getFullname(response.vehicle.assignee.firstname, response.vehicle.assignee.middlename, response.vehicle.assignee.lastname)
+
+    item.value = {
+        name: response.vehicle.name,
+        vehicle_number: response.vehicle.vehicle_number,
+        plate_number: response.vehicle.plate_number,
+        classification: {
+            id: response.vehicle.classification_id,
+            name: VehicleClassificationMapper[response.vehicle.classification_id]
+        },
+        assignee: response.vehicle.assignee,
+        date_acquired: formatToValidHtmlDate(response.vehicle.date_acquired)
+    }
 
     isLoadingPage.value = false
 })
@@ -98,13 +147,8 @@ async function onSubmit() {
 
     console.log('saving...')
 
-    const data: CreateVehicleInput = {
-        name: item.value.name,
-        plate_number: item.value.plate_number,
-    }
-
     isSaving.value = true
-    const response = await api.update(item.value.id, data)
+    const response = await api.update(vehicleId.value, item.value)
     isSaving.value = false
 
     if (response.success && response.data) {

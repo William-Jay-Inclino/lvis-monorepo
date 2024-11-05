@@ -171,20 +171,37 @@
                                 <hr class="result">
                             </div>
 
+                            <div class="alert alert-info" role="alert">
+                                <small class="fst-italic">
+                                    <div>
+                                        - Departure should be greater than the current date.
+                                    </div>
+                                    <div>
+                                        - Arrival should be greater than the Estimated Departure.
+                                    </div>
+                                </small>
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Estimated Departure <span class="text-danger">*</span>
+                                    Departure <span class="text-danger">*</span>
                                 </label>
                                 <input type="datetime-local" class="form-control" v-model="tripData.start_time">
-                                <small class="text-danger fst-italic" v-show="tripDataErrors.start_time"> {{ errorMsg }} </small>
+                                <small class="text-danger fst-italic" v-if="tripDataErrors.start_time"> {{ errorMsg }} </small>
+                                <small class="text-danger fst-italic" v-else-if="tripDataErrors.start_time2">
+                                    Departure must be later than the current time
+                                </small>
                             </div>
 
                             <div class="mb-5">
                                 <label class="form-label">
-                                    Estimated Arrival <span class="text-danger">*</span>
+                                    Arrival <span class="text-danger">*</span>
                                 </label>
                                 <input type="datetime-local" class="form-control" v-model="tripData.end_time">
-                                <small class="text-danger fst-italic" v-show="tripDataErrors.end_time"> {{ errorMsg }} </small>
+                                <small class="text-danger fst-italic" v-if="tripDataErrors.end_time"> {{ errorMsg }} </small>
+                                <small class="text-danger fst-italic" v-else-if="tripDataErrors.end_time2">
+                                    Arrival must be later than departure
+                                </small>
                             </div>
     
                             <div class="d-flex justify-content-between">
@@ -223,6 +240,7 @@ import type { TripTicket, CreateTripTicket } from '~/composables/warehouse/trip-
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { TRIP_TICKET_DEFAULT_APPROVERS } from '~/composables/warehouse/trip-ticket/trip-ticket.constants';
+import { VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 
 definePageMeta({
     name: ROUTES.TRIP_TICKET_CREATE,
@@ -247,7 +265,9 @@ const _tripDataErrorsInitial = {
     destination: false,
     purpose: false,
     start_time: false,
+    start_time2: false,
     end_time: false,
+    end_time2: false,
 
     // "is" fields (operation, stay_in, personal, out_of_coverage) should have atleast 1 check
     tripType: false,
@@ -461,6 +481,17 @@ function isValid(): boolean {
 
     if(hasNoTripType) {
         tripDataErrors.value.tripType = true 
+    }
+
+    const isValidStartTime = new Date(tripData.value.start_time) > new Date()
+    const isValidEndTime = new Date(tripData.value.end_time) > new Date(tripData.value.start_time)
+
+    if(!isValidStartTime) {
+        tripDataErrors.value.start_time2 = true
+    }
+
+    if(!isValidEndTime) {
+        tripDataErrors.value.end_time2 = true
     }
 
     for(let i of tripData.value.approvers) {

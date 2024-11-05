@@ -22,12 +22,40 @@
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
+                                            <td class="text-muted">Vehicle Number</td>
+                                            <td> {{ item.vehicle_number }} </td>
+                                        </tr>
+                                        <tr>
                                             <td class="text-muted">Name</td>
                                             <td> {{ item.name }} </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Plate Number</td>
                                             <td> {{ item.plate_number }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Classification</td>
+                                            <td> {{ VehicleClassificationMapper[item.classification_id] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Assignee</td>
+                                            <td> {{ getFullname(item.assignee.firstname, item.assignee.middlename, item.assignee.lastname) }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Date Acquired</td>
+                                            <td> {{ formatDate(item.date_acquired) }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Status</td>
+                                            <td>
+                                                <div :class="{ [`badge bg-${VehicleStatusMapper[item.status].color}`]: true }">
+                                                    {{ VehicleStatusMapper[item.status].label }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Total Unposted Gaslips</td>
+                                            <td class="text-danger fw-bold"> {{ item.total_unposted_gas_slips }} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -73,7 +101,8 @@
 
 <script setup lang="ts">
 import * as api from '~/composables/warehouse/vehicle/vehicle.api'
-import type { Vehicle } from '~/composables/warehouse/vehicle/vehicle';
+import type { Vehicle } from '~/composables/warehouse/vehicle/vehicle.types';
+import { VehicleStatusMapper, VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 
 definePageMeta({
     name: ROUTES.VEHICLE_VIEW,

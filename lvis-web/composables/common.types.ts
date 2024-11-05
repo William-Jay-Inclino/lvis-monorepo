@@ -1,5 +1,6 @@
 import type { Employee } from "./system/employee/employee.types"
 import type { User } from "./system/user/user.types"
+import type { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from "./warehouse/vehicle/vehicle.enums"
 
 export enum USER_STATUS {
     ACTIVE = 1,
@@ -108,7 +109,6 @@ export interface Vehicle {
     name: string
     date_acquired: Date 
     status: VEHICLE_STATUS,
-    is_private: boolean
 
     // derived / resolvers 
     label?: string
@@ -116,30 +116,7 @@ export interface Vehicle {
     total_unposted_gas_slips: number
 }
 
-export const enum VEHICLE_STATUS {
-    AVAILABLE_FOR_TRIP = 1,
-    IN_USE = 2,
-    UNDER_REPAIR = 3,
-    UNDER_MAINTENANCE = 4,
-    OUT_OF_SERVICE = 5,
-    DECOMMISSIONED = 6,
-}
 
-export const enum VEHICLE_CLASSIFICATION {
-    COMPANY = 1,
-    GOVERNMENT = 2,
-    OUTSOURCE = 3,
-    PRIVATE = 4,
-    V_HIRE = 5,
-}
-
-export const VehicleClassificationMapper = {
-    [VEHICLE_CLASSIFICATION.COMPANY]: 'Company',
-    [VEHICLE_CLASSIFICATION.GOVERNMENT]: 'Government',
-    [VEHICLE_CLASSIFICATION.OUTSOURCE]: 'Outsource',
-    [VEHICLE_CLASSIFICATION.PRIVATE]: 'Private',
-    [VEHICLE_CLASSIFICATION.V_HIRE]: 'V-Hire',
-}
 
 export interface Project {
     id: string
