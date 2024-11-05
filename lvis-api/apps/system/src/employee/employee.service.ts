@@ -108,6 +108,7 @@ export class EmployeeService {
 			include: {
 				position: true,
 				department: true,
+				division: true,
 			}
 		})
 

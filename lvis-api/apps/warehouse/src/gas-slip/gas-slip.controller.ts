@@ -32,6 +32,7 @@ export class GasSlipController {
         this.gasSlipPdfService.setAuthUser(authUser)
 
         const gasSlip = await this.gasSlipPdfService.findGasSlip(id)
+        // @ts-ignore
         const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip)
 
         // Set response headers

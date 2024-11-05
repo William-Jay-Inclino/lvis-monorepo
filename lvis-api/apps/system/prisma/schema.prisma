@@ -29,6 +29,8 @@ model Division {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
+  Employee Employee[]
+
   @@map("division")
 }
 
@@ -72,6 +74,7 @@ model Account {
 model Employee {
   id         String  @id @default(uuid())
   department_id String
+  division_id String?
   firstname  String 
   middlename String?
   lastname   String
@@ -91,6 +94,7 @@ model Employee {
   rr_approver_setting   RRApproverSetting?   @relation("RRApproverSetting")
 
   department Department @relation(fields: [department_id], references: [id], onDelete: Restrict)
+  division Division? @relation(fields: [division_id], references: [id], onDelete: Restrict)
 
   created_by String
   updated_by String?

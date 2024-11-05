@@ -15,3 +15,11 @@ export const enum VEHICLE_STATUS {
     OUT_OF_SERVICE = 5,
     DECOMMISSIONED = 6,
 }
+
+export const VehicleClassificationMapper = {
+    [VEHICLE_CLASSIFICATION.COMPANY]: 'Company',
+    [VEHICLE_CLASSIFICATION.GOVERNMENT]: 'Government',
+    [VEHICLE_CLASSIFICATION.OUTSOURCE]: 'Outsource',
+    [VEHICLE_CLASSIFICATION.PRIVATE]: 'Private',
+    [VEHICLE_CLASSIFICATION.V_HIRE]: 'V-Hire',
+}
