@@ -311,6 +311,7 @@ export async function fetchFormDataInCreate(): Promise<{
                 name
                 classification_id
                 date_acquired
+                status
                 assignee {
                     id 
                     firstname 

@@ -30,6 +30,18 @@ export class TripTicketService {
 		const startTime = new Date(input.start_time);
 		const endTime = new Date(input.end_time);
 
+		const vehicle = await this.prisma.vehicle.findUnique({
+			where: { id: input.vehicle_id }
+		})
+
+		if(!vehicle) {
+			throw new NotFoundException('Vehicle not found with id of ' + input.vehicle_id)
+		}
+
+		if(vehicle.status !== VEHICLE_STATUS.AVAILABLE_FOR_TRIP) {
+			throw new BadRequestException("Vehicle not available for trip")
+		}
+
 		await this.validateTripScheduleConflict({
 			vehicleId: input.vehicle_id,
 			driverId: input.driver_id,

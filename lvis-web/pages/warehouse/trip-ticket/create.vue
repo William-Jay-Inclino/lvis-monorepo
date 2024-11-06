@@ -16,7 +16,7 @@
                                     Vehicle <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select @option:selected="handleVehicleSelected" :options="vehicles" label="name" v-model="tripData.vehicle" :clearable="false"></v-select>
+                                    <v-select @option:selected="handleVehicleSelected" :options="available_vehicles" label="name" v-model="tripData.vehicle" :clearable="false"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-if="tripDataErrors.vehicle"> {{ errorMsg }}
                                 </small>
@@ -240,7 +240,7 @@ import type { TripTicket, CreateTripTicket } from '~/composables/warehouse/trip-
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { TRIP_TICKET_DEFAULT_APPROVERS } from '~/composables/warehouse/trip-ticket/trip-ticket.constants';
-import { VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
+import { VEHICLE_STATUS, VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 
 definePageMeta({
     name: ROUTES.TRIP_TICKET_CREATE,
@@ -342,6 +342,10 @@ onMounted(async () => {
 
 const passengers = computed( () => {
     return employees.value.map(i => i.firstname + " " + i.lastname)
+})
+
+const available_vehicles = computed( () => {
+    return vehicles.value.filter(i => i.status === VEHICLE_STATUS.AVAILABLE_FOR_TRIP)
 })
 
 
