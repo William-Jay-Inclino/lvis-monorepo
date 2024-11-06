@@ -3,29 +3,29 @@
     <div class="page-wrapper">
 
         <div class="container my-5">
-            <h1 class="text-center mb-4">RFID Trip Tracker</h1>
+            <h1 class="text-center mb-4">Trip Ticket Tracker</h1>
         
             <!-- RFID Scan Section -->
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
-                    <h5 class="card-title text-center text-warning fw-bold">Enter RFID Information</h5>
+                    <h5 class="card-title text-center text-warning fw-bold">Enter RFID</h5>
                     <div class="form-group">
                         <input 
                             autofocus
                             type="text" 
                             class="form-control" 
-                            placeholder="Enter RFID here" 
                             v-model="rfid" 
+                            @keyup.enter="handle_rfid_scan"
                         />
                     </div>
-                    <div v-if="rfid" class="alert alert-info mt-3">
-                        Scanned RFID: {{ rfid }}
+                    <div v-if="is_scanning_rfid" class="alert alert-info mt-3">
+                        Scanning RFID please wait...
                     </div>
                 </div>
             </div>
         
             <!-- Trip Information Section -->
-            <div class="card shadow-sm" v-if="trip">
+            <div class="card shadow-sm" v-if="trip_ticket">
 
                 <div class="card-header bg-dark text-white">
                     Trip Information
@@ -38,36 +38,36 @@
                             <tbody>
                                 <tr>
                                     <td width="50%"> Trip No. </td>
-                                    <td>  </td>
+                                    <td> {{ trip_ticket.trip_number }} </td>
                                 </tr>
                                 <tr>
                                     <td> Vehicle No. </td>
-                                    <td>  </td>
+                                    <td> {{ trip_ticket.vehicle.vehicle_number + ' ' +  trip_ticket.vehicle.name }} </td>
                                 </tr>
                                 <tr>
                                     <td> Vehicle Plate No. </td>
-                                    <td>  </td>
+                                    <td> {{ trip_ticket.vehicle.plate_number }} </td>
                                 </tr>
                                 <tr>
                                     <td> Driver </td>
-                                    <td>  </td>
+                                    <td> {{ getFullname(trip_ticket.driver.firstname, trip_ticket.driver.middlename, trip_ticket.driver.lastname) }} </td>
                                 </tr>
                                 <tr>
                                     <td class="align-middle"> Passengers </td>
                                     <td>
-                                        <textarea class="form-control form-control-sm" rows="3" readonly> </textarea>
+                                        <textarea :value="trip_ticket.passengers" class="form-control form-control-sm" rows="3" readonly> </textarea>
                                     </td> 
                                 </tr>
                                 <tr>
                                     <td class="align-middle"> Destination </td>
                                     <td>
-                                        <textarea class="form-control form-control-sm" rows="3" readonly> </textarea>
+                                        <textarea :value="trip_ticket.destination" class="form-control form-control-sm" rows="3" readonly> </textarea>
                                     </td> 
                                 </tr>
                                 <tr>
                                     <td class="align-middle"> Purpose </td>
                                     <td>
-                                        <textarea class="form-control form-control-sm" rows="3" readonly> </textarea>
+                                        <textarea :value="trip_ticket.purpose" class="form-control form-control-sm" rows="3" readonly> </textarea>
                                     </td> 
                                 </tr>
                             </tbody>
@@ -87,19 +87,19 @@
                             <tbody>
                                 <tr>
                                     <td width="50%"> Departure Time </td>
-                                    <td>  </td>
+                                    <td> {{ formatDate(trip_ticket.start_time, true) }} </td>
                                 </tr>
                                 <tr>
                                     <td> Arrival Time </td>
-                                    <td>  </td>
+                                    <td> {{ formatDate(trip_ticket.end_time, true) }} </td>
                                 </tr>
                                 <tr>
                                     <td> Actual Departure Time </td>
-                                    <td>  </td>
+                                    <td> {{ formatDate(trip_ticket.actual_start_time, true) }} </td>
                                 </tr>
                                 <tr>
                                     <td> Actual Arrival Time </td>
-                                    <td>  </td>
+                                    <td> {{ formatDate(trip_ticket.actual_end_time, true) }} </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -112,18 +112,67 @@
     </div>
   </template>
   
-  <script setup lang="ts">
+
+<script setup lang="ts">
+
     import { ref } from 'vue'
     import type { TripTicket } from '~/composables/warehouse/trip-ticket/trip-ticket.types';
-  
+    import { updateActualTime } from '~/composables/warehouse/trip-ticket/trip-ticket.api'
+    import { useToast } from "vue-toastification";
+    import Swal from 'sweetalert2'
+
+    const toast = useToast();
+
     const rfid = ref('')
-    const trip = ref<TripTicket | null>(null)
+    const trip_ticket = ref<TripTicket | null>(null)
+    const is_scanning_rfid = ref(false)
 
-  </script>
+
+    async function handle_rfid_scan() {
+        console.log('handle_rfid_scan', rfid.value);
+
+        if(!rfid.value) {
+            toast.error("Please enter RFID")
+            return
+        }
+
+        is_scanning_rfid.value = true 
+        const response = await updateActualTime(rfid.value)
+        is_scanning_rfid.value = false  
+
+        if(response.success === true && response.data) {
+            
+            Swal.fire({
+                title: 'Success!',
+                text: response.msg,
+                icon: 'success',
+                position: 'top',
+            })
+
+            rfid.value = ''
+            trip_ticket.value = response.data
+
+        } else {
+
+            Swal.fire({
+                title: 'Error!',
+                text: response.msg,
+                icon: 'error',
+                position: 'top',
+            })
+
+        }
+
+
+
+
+    } 
+
+</script>
   
 
 
-  <style scoped>
+<style scoped>
     .container {
         max-width: 600px;
     }
@@ -145,5 +194,5 @@
         background: linear-gradient(141deg, rgba(142,207,255,1) 0%, rgba(255,255,255,1) 100%);
     }
 
-  </style>
+</style>
   

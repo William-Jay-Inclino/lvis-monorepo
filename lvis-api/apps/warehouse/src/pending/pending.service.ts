@@ -17,6 +17,7 @@ import { MstApproverStatusUpdated } from '../mst/events/mst-approver-status-upda
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { GasSlipApproverStatusUpdated } from '../gas-slip-approver/events/gas-slip-approver-status-updated.event';
 import { getModule } from '../__common__/helpers';
+import { TripTicketApproverStatusUpdated } from '../trip-ticket-approver/events/trip-ticket-approver-status-updated.event';
 
 @Injectable()
 export class PendingService {
@@ -248,7 +249,7 @@ export class PendingService {
             const result = await this.prisma.$transaction(queries)
             
             this.printLogsInConsole(logs)
-
+            
             // emit event so that item will be transacted and stock qty will be added/deducted on the item inventory
             // handler functions are located at item.service.ts
 
@@ -264,6 +265,8 @@ export class PendingService {
 
                     // handler function is in gas-slip.service.ts
                     [DB_ENTITY.GAS_SLIP]: { event: 'gas-slip-approver-status.updated', eventClass: GasSlipApproverStatusUpdated },
+                    // handler function is in trip-ticket.service.ts
+                    [DB_ENTITY.TRIP_TICKET]: { event: 'trip-ticket-approver-status.updated', eventClass: TripTicketApproverStatusUpdated },
                 };
             
                 const entity = Object.values(DB_ENTITY).find(key => module.model === MODULE_MAPPER[key].model);

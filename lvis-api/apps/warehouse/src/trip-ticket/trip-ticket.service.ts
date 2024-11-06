@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTripTicketInput } from './dto/create-trip-ticket.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Prisma, TripTicket } from 'apps/warehouse/prisma/generated/client';
+import { Prisma, TripTicket, TripTicketApprover } from 'apps/warehouse/prisma/generated/client';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TRIP_TICKET_STATUS } from './entities/trip-ticket.enums';
@@ -11,6 +11,8 @@ import { DB_ENTITY } from '../__common__/constants';
 import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
 import { VEHICLE_STATUS } from '../vehicle/entities/vehicle.enums';
 import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
+import { OnEvent } from '@nestjs/event-emitter';
+import { TripTicketApproverStatusUpdated } from '../trip-ticket-approver/events/trip-ticket-approver-status-updated.event';
 
 @Injectable()
 export class TripTicketService {
@@ -179,83 +181,111 @@ export class TripTicketService {
 
 	async update_actual_time(rf_id: string): Promise<UpdateActualTimeResponse> {
 		
+		// get vehicle by RFID
 		const vehicle = await this.prisma.vehicle.findUnique({
 		  	where: { rf_id },
 		});
 	
 		if (!vehicle) {
+
 			return {
 				success: false,
-				msg: `Vehicle not found with rf_id of ${rf_id}`
+				msg: `No vehicle found with the corresponding RFID.`
 			}
+
 		}
 	
 		const currentDateTime = new Date();
-		const tripTicket = await this.prisma.tripTicket.findFirst({
-		  where: {
-			vehicle_id: vehicle.id,
-			start_time: { lte: currentDateTime },
-			end_time: { gte: currentDateTime },
-		  },
-		});
-	
-		if (!tripTicket) {
-		  	return {
-				success: false,
-				msg: `No active trip ticket found for this vehicle`
+
+		const inProgressTrip = await this.prisma.tripTicket.findFirst({
+			where: {
+				vehicle_id: vehicle.id,
+				status: TRIP_TICKET_STATUS.IN_PROGRESS,
+				actual_start_time: { not: null },
+				actual_end_time: null
 			}
-		}
-	
-		const updateData: any = {};
-		let vehicleStatus: VEHICLE_STATUS;
-		let tripTicketStatus: TRIP_TICKET_STATUS;
-	
-		if (!tripTicket.actual_start_time) {
+		})
 
-			updateData.actual_start_time = currentDateTime;
-			vehicleStatus = VEHICLE_STATUS.IN_USE;
-			tripTicketStatus = TRIP_TICKET_STATUS.IN_PROGRESS;
+		if(inProgressTrip) {
 
-		} else if (!tripTicket.actual_end_time) {
+			await this.prisma.$transaction(async (prisma) => {
+				await prisma.tripTicket.update({
+					where: { id: inProgressTrip.id },
+					data: {
+						actual_end_time: currentDateTime,
+						status: TRIP_TICKET_STATUS.COMPLETED
+					},
+				});
+		  
+				await prisma.vehicle.update({
+				  where: { id: vehicle.id },
+				  data: {
+					status: VEHICLE_STATUS.AVAILABLE_FOR_TRIP,
+				  },
+				});
+			});
 
-			updateData.actual_end_time = currentDateTime;
-			vehicleStatus = VEHICLE_STATUS.AVAILABLE_FOR_TRIP;
-			tripTicketStatus = TRIP_TICKET_STATUS.COMPLETED;
-
-		} else {
+			const updatedTripTicket = await this.findOne(inProgressTrip.id);
 
 			return {
-				success: false,
-				msg: `Both actual_start_time and actual_end_time are already set`
+				success: true,
+				msg: 'Actual arrival time recorded successfully',
+				data: updatedTripTicket,
 			}
 
 		}
-	
-		await this.prisma.$transaction(async (prisma) => {
-		  await prisma.tripTicket.update({
-			where: { id: tripTicket.id },
-			data: {
-			  ...updateData,
-			  status: tripTicketStatus,
+
+		// get trip to depart 
+		const toDepartTrip = await this.prisma.tripTicket.findFirst({
+			where: {
+				vehicle_id: vehicle.id,
+				start_time: { lte: currentDateTime },
+				end_time: { gte: currentDateTime },
+				status: TRIP_TICKET_STATUS.APPROVED,
+				actual_start_time: null,
 			},
-		  });
-	
-		  await prisma.vehicle.update({
-			where: { id: vehicle.id },
-			data: {
-			  status: vehicleStatus,
-			},
-		  });
 		});
-	
-		// Retrieve the updated TripTicket
-		const updatedTripTicket = await this.findOne(tripTicket.id);
-	
+
+
+		// update actual_start_time 
+		if(toDepartTrip) {
+
+			await this.prisma.$transaction(async (prisma) => {
+				await prisma.tripTicket.update({
+					where: { id: toDepartTrip.id },
+					data: {
+						actual_start_time: currentDateTime,
+						status: TRIP_TICKET_STATUS.IN_PROGRESS
+					},
+				});
+			
+				await prisma.vehicle.update({
+					where: { id: vehicle.id },
+					data: {
+						status: VEHICLE_STATUS.IN_USE,
+					},
+				});
+			});
+
+			const updatedTripTicket = await this.findOne(toDepartTrip.id);
+
+			return {
+				success: true,
+				msg: 'Actual Departure time recorded successfully',
+				data: updatedTripTicket,
+			}
+
+		}
+
+
+
 		return {
-		  success: true,
-		  msg: 'Trip ticket actual time and statuses updated successfully',
-		  data: updatedTripTicket,
-		};
+			success: false,
+			msg: `No active trip ticket found for this vehicle at this time.`
+		}
+
+		
+		
 	}
 
 	private async getLatestTripNumber(): Promise<string> {
@@ -325,6 +355,66 @@ export class TripTicketService {
 
     }
 
+	@OnEvent('trip-ticket-approver-status.updated')
+	async handle_trip_ticket_approver_status_updated(payload: TripTicketApproverStatusUpdated) {
 
+		console.log('handle_trip_ticket_approver_status_updated', payload);
+		
+		const tripApprover = await this.prisma.tripTicketApprover.findUnique({
+			where: { id: payload.id },
+			include: {
+				trip_ticket: {
+					include: {
+						trip_ticket_approvers: true
+					}
+				}
+			}
+		})
+
+		if (!tripApprover) {
+			throw new NotFoundException('tripApprover not found with id: ' + payload.id)
+		}
+
+		if (tripApprover.trip_ticket.status === TRIP_TICKET_STATUS.COMPLETED) {
+			console.log('Trip Ticket is already completed. End function')
+			return
+		}
+
+		const approvers = tripApprover.trip_ticket.trip_ticket_approvers
+		console.log('approvers', approvers)
+
+		const isApproved = this.isStatusApproved(approvers)
+
+		if (!isApproved) {
+			console.log('Trip Ticket status is not approved. End function')
+			return
+		}
+
+		// if trip ticket approvers are all approved then set trip ticket status to approve
+
+		const result = await this.prisma.tripTicket.update({
+			where: {
+				id: tripApprover.trip_ticket_id
+			},
+			data: {
+				status: APPROVAL_STATUS.APPROVED
+			}
+		})
+
+		console.log('Trip ticket status set to approve successfully');
+
+	}
+
+	private isStatusApproved(approvers: TripTicketApprover[]) {
+		for (let approver of approvers) {
+
+			if (approver.status !== APPROVAL_STATUS.APPROVED) {
+				return false
+			}
+
+		}
+
+		return true
+	}
 
 }

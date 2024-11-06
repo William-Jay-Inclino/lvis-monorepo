@@ -341,7 +341,7 @@ onMounted(async () => {
 
 
 const passengers = computed( () => {
-    return employees.value.map(i => i.fullname)
+    return employees.value.map(i => i.firstname + " " + i.lastname)
 })
 
 
