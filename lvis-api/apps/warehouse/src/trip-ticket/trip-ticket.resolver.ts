@@ -15,6 +15,8 @@ import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { TripTicketApprover } from '../trip-ticket-approver/entities/trip-ticket-approver.entity';
 import { TripTicketApproverService } from '../trip-ticket-approver/trip-ticket-approver.service';
+import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
+import { UpdateActualTimeInput } from './dto/update-actual-time.input';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => TripTicket)
@@ -61,6 +63,15 @@ export class TripTicketResolver {
   ) {
     this.tripTicketService.setAuthUser(authUser)
     return this.tripTicketService.remove(id);
+  }
+
+  @Mutation(() => UpdateActualTimeResponse)
+  async updateActualTime(
+    @Args('input') input: UpdateActualTimeInput,
+  ): Promise<UpdateActualTimeResponse> {
+
+    return await this.tripTicketService.update_actual_time(input.rf_id);
+
   }
 
   @Query(() => [TripTicket])

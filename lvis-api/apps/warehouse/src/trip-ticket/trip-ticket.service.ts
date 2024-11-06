@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTripTicketInput } from './dto/create-trip-ticket.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Prisma } from 'apps/warehouse/prisma/generated/client';
+import { Prisma, TripTicket } from 'apps/warehouse/prisma/generated/client';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TRIP_TICKET_STATUS } from './entities/trip-ticket.enums';
@@ -9,6 +9,8 @@ import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
 import { CreateTripTicketApproverSubInput } from './dto/create-trip-ticket-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
+import { VEHICLE_STATUS } from '../vehicle/entities/vehicle.enums';
+import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
 
 @Injectable()
 export class TripTicketService {
@@ -85,54 +87,6 @@ export class TripTicketService {
 
 	}
 
-	private async validateTripScheduleConflict(payload: {
-		vehicleId: string,
-		driverId: string,
-		startTime: Date,
-		endTime: Date,
-	}) {
-		const { vehicleId, driverId, startTime, endTime } = payload
-
-		const conflictingTrip = await this.prisma.tripTicket.findFirst({
-			where: {
-				status: { in: [TRIP_TICKET_STATUS.PENDING, TRIP_TICKET_STATUS.APPROVED, TRIP_TICKET_STATUS.IN_PROGRESS] },
-				OR: [
-					{
-						vehicle_id: vehicleId,
-						AND: [{ start_time: { lt: endTime } }, { end_time: { gt: startTime } }],
-					},
-					{
-						driver_id: driverId,
-						AND: [{ start_time: { lt: endTime } }, { end_time: { gt: startTime } }],
-					},
-				],
-			},
-		});
-	  
-		if (conflictingTrip) {
-		  throw new BadRequestException(
-			'There is a scheduling conflict with another trip for this vehicle or driver in the selected time range.'
-		  );
-		}
-	}
-
-	private getCreatePendingQuery(approvers: CreateTripTicketApproverSubInput[], tripNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: tripNumber,
-            reference_table: DB_ENTITY.TRIP_TICKET,
-            description: `Trip no. ${tripNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
-
-    }
-
 	async findAll(
 		page: number,
 		pageSize: number,
@@ -204,6 +158,97 @@ export class TripTicketService {
 
 	}
 
+	async getScheduledTrips(d: {start: Date, end: Date}) {
+
+		console.log('getScheduledTrips', d);
+		
+		return this.prisma.tripTicket.findMany({
+			where: {
+				start_time: {
+					gte: d.start,
+				},
+				end_time: {
+					lte: d.end,
+				},
+			},
+			orderBy: {
+			  	start_time: 'asc',
+			},
+		});
+	}
+
+	async update_actual_time(rf_id: string): Promise<UpdateActualTimeResponse> {
+		
+		const vehicle = await this.prisma.vehicle.findUnique({
+		  where: { rf_id },
+		});
+	
+		if (!vehicle) {
+		  throw new NotFoundException('Vehicle not found with rf_id of ' + rf_id);
+		}
+	
+		const currentDateTime = new Date();
+		const tripTicket = await this.prisma.tripTicket.findFirst({
+		  where: {
+			vehicle_id: vehicle.id,
+			start_time: { lte: currentDateTime },
+			end_time: { gte: currentDateTime },
+		  },
+		});
+	
+		if (!tripTicket) {
+		  throw new NotFoundException('No active trip ticket found for this vehicle');
+		}
+	
+		const updateData: any = {};
+		let vehicleStatus: VEHICLE_STATUS;
+		let tripTicketStatus: TRIP_TICKET_STATUS;
+	
+		if (!tripTicket.actual_start_time) {
+
+		  updateData.actual_start_time = currentDateTime;
+		  vehicleStatus = VEHICLE_STATUS.IN_USE;
+		  tripTicketStatus = TRIP_TICKET_STATUS.IN_PROGRESS;
+
+		} else if (!tripTicket.actual_end_time) {
+
+		  updateData.actual_end_time = currentDateTime;
+		  vehicleStatus = VEHICLE_STATUS.AVAILABLE_FOR_TRIP;
+		  tripTicketStatus = TRIP_TICKET_STATUS.COMPLETED;
+
+		} else {
+
+		  throw new BadRequestException('Both actual_start_time and actual_end_time are already set');
+
+		}
+	
+		await this.prisma.$transaction(async (prisma) => {
+		  await prisma.tripTicket.update({
+			where: { id: tripTicket.id },
+			data: {
+			  ...updateData,
+			  status: tripTicketStatus,
+			},
+		  });
+	
+		  await prisma.vehicle.update({
+			where: { id: vehicle.id },
+			data: {
+			  status: vehicleStatus,
+			},
+		  });
+		});
+	
+		// Retrieve the updated TripTicket
+		const updatedTripTicket = await this.findOne(tripTicket.id);
+	
+		return {
+		  success: true,
+		  msg: 'Trip ticket actual time and statuses updated successfully',
+		  data: updatedTripTicket,
+		};
+	}
+
 	private async getLatestTripNumber(): Promise<string> {
         const currentYear = new Date().getFullYear().toString().slice(-2);
 
@@ -223,23 +268,54 @@ export class TripTicketService {
         }
     }
 
-	async getScheduledTrips(d: {start: Date, end: Date}) {
+	private async validateTripScheduleConflict(payload: {
+		vehicleId: string,
+		driverId: string,
+		startTime: Date,
+		endTime: Date,
+	}) {
+		const { vehicleId, driverId, startTime, endTime } = payload
 
-		console.log('getScheduledTrips', d);
-		
-		return this.prisma.tripTicket.findMany({
+		const conflictingTrip = await this.prisma.tripTicket.findFirst({
 			where: {
-				start_time: {
-					gte: d.start,
-				},
-				end_time: {
-					lte: d.end,
-				},
-			},
-			orderBy: {
-			  	start_time: 'asc',
+				status: { in: [TRIP_TICKET_STATUS.PENDING, TRIP_TICKET_STATUS.APPROVED, TRIP_TICKET_STATUS.IN_PROGRESS] },
+				OR: [
+					{
+						vehicle_id: vehicleId,
+						AND: [{ start_time: { lt: endTime } }, { end_time: { gt: startTime } }],
+					},
+					{
+						driver_id: driverId,
+						AND: [{ start_time: { lt: endTime } }, { end_time: { gt: startTime } }],
+					},
+				],
 			},
 		});
+	  
+		if (conflictingTrip) {
+		  throw new BadRequestException(
+			'There is a scheduling conflict with another trip for this vehicle or driver in the selected time range.'
+		  );
+		}
 	}
+
+	private getCreatePendingQuery(approvers: CreateTripTicketApproverSubInput[], tripNumber: string) {
+
+        const firstApprover = approvers.reduce((min, obj) => {
+            return obj.order < min.order ? obj : min;
+        }, approvers[0]);
+
+        const data = {
+            approver_id: firstApprover.approver_id,
+            reference_number: tripNumber,
+            reference_table: DB_ENTITY.TRIP_TICKET,
+            description: `Trip no. ${tripNumber}`
+        }
+
+        return this.prisma.pending.create({ data })
+
+    }
+
+
 
 }
