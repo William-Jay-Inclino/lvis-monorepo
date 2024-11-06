@@ -180,11 +180,14 @@ export class TripTicketService {
 	async update_actual_time(rf_id: string): Promise<UpdateActualTimeResponse> {
 		
 		const vehicle = await this.prisma.vehicle.findUnique({
-		  where: { rf_id },
+		  	where: { rf_id },
 		});
 	
 		if (!vehicle) {
-		  throw new NotFoundException('Vehicle not found with rf_id of ' + rf_id);
+			return {
+				success: false,
+				msg: `Vehicle not found with rf_id of ${rf_id}`
+			}
 		}
 	
 		const currentDateTime = new Date();
@@ -197,7 +200,10 @@ export class TripTicketService {
 		});
 	
 		if (!tripTicket) {
-		  throw new NotFoundException('No active trip ticket found for this vehicle');
+		  	return {
+				success: false,
+				msg: `No active trip ticket found for this vehicle`
+			}
 		}
 	
 		const updateData: any = {};
@@ -206,19 +212,22 @@ export class TripTicketService {
 	
 		if (!tripTicket.actual_start_time) {
 
-		  updateData.actual_start_time = currentDateTime;
-		  vehicleStatus = VEHICLE_STATUS.IN_USE;
-		  tripTicketStatus = TRIP_TICKET_STATUS.IN_PROGRESS;
+			updateData.actual_start_time = currentDateTime;
+			vehicleStatus = VEHICLE_STATUS.IN_USE;
+			tripTicketStatus = TRIP_TICKET_STATUS.IN_PROGRESS;
 
 		} else if (!tripTicket.actual_end_time) {
 
-		  updateData.actual_end_time = currentDateTime;
-		  vehicleStatus = VEHICLE_STATUS.AVAILABLE_FOR_TRIP;
-		  tripTicketStatus = TRIP_TICKET_STATUS.COMPLETED;
+			updateData.actual_end_time = currentDateTime;
+			vehicleStatus = VEHICLE_STATUS.AVAILABLE_FOR_TRIP;
+			tripTicketStatus = TRIP_TICKET_STATUS.COMPLETED;
 
 		} else {
 
-		  throw new BadRequestException('Both actual_start_time and actual_end_time are already set');
+			return {
+				success: false,
+				msg: `Both actual_start_time and actual_end_time are already set`
+			}
 
 		}
 	

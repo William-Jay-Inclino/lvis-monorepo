@@ -509,3 +509,100 @@ export async function cancel(id: string): Promise<CancelResponse> {
         };
     }
 }
+
+export async function updateActualTime(rf_id: string): Promise<MutationResponse> {
+
+    const mutation = `
+        mutation {
+            updateActualTime(
+                input: {
+                    rf_id: "${ rf_id }"
+                }
+            ) {
+                success
+                msg
+                data {
+                    id
+                    trip_number
+                    vehicle {
+                        vehicle_number
+                        plate_number
+                        name
+                        classification_id
+                        date_acquired
+                        assignee {
+                            id 
+                            firstname 
+                            middlename 
+                            lastname
+                        }
+                    }
+                    driver {
+                        id 
+                        firstname 
+                        middlename 
+                        lastname
+                    } 
+                    passengers 
+                    destination
+                    purpose 
+                    start_time 
+                    end_time 
+                    actual_start_time 
+                    actual_end_time 
+                    is_operation
+                    is_stay_in 
+                    is_personal 
+                    is_out_of_coverage
+                    prepared_by {
+                        id 
+                        firstname 
+                        middlename 
+                        lastname
+                    }
+                    status
+                    cancelled_at
+                    trip_ticket_approvers{
+                        approver {
+                            id
+                            firstname
+                            middlename
+                            lastname
+                        }
+                        status
+                        label
+                        order
+                        notes
+                        date_approval
+                    }
+                }
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateActualTime) {
+
+            return response.data.data.updateActualTime
+
+        } else {
+
+            console.error(JSON.stringify(response.data.errors))
+
+            return {
+                success: false,
+                msg: response.data.errors?.[0]?.message || 'Failed to update actual time. Please contact the system administrator',
+            }
+        }
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update actual time. Please contact system administrator'
+        };
+    }
+}

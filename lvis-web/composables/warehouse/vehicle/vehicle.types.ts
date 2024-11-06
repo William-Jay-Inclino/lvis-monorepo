@@ -11,6 +11,7 @@ export interface Vehicle {
     date_acquired: Date 
     status: VEHICLE_STATUS,
     is_private: boolean
+    rf_id: string | null
 
     // derived / resolvers 
     label?: string

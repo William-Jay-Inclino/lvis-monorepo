@@ -45,6 +45,7 @@ export async function findOne(id: string): Promise<Vehicle | undefined> {
                 plate_number
                 classification_id
                 total_unposted_gas_slips
+                rf_id
                 assignee {
                     id 
                     firstname
@@ -307,4 +308,44 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
     }
 
 
+}
+
+export async function assignRFID(vehicleId: string, rfID: string): Promise<MutationResponse> {
+
+    const mutation = `
+        mutation {
+            updateVehicle(
+                id: "${vehicleId}",
+                input: {
+                    rf_id: "${rfID}",
+                }
+            ) {
+                id
+                rf_id
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateVehicle) {
+            return {
+                success: true,
+                msg: 'Vehicle assigned RFID successfully!',
+                data: response.data.data.updateVehicle
+            }
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to assign RFID to Vehicle. Please contact system administrator'
+        }
+
+    }
 }

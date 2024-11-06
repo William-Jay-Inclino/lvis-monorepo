@@ -19,6 +19,17 @@
         
                         <div class="row pt-3">
                             <div class="col">
+
+                                <div v-if="!item.rf_id" class="alert alert-danger d-flex justify-content-between align-items-center" role="alert">
+                                    <small class="fst-italic">
+                                        Vehicle has no assigned RFID
+                                    </small>
+                                    <button @click="onClickAssignRFID(item)" class="btn btn-danger btn-sm">
+                                        Assign RFID
+                                    </button>
+                                </div>
+
+
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
@@ -56,6 +67,15 @@
                                         <tr>
                                             <td class="text-muted">Total Unposted Gaslips</td>
                                             <td class="text-danger fw-bold"> {{ item.total_unposted_gas_slips }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">RFID</td>
+                                            <td>
+                                                <div v-if="!item.rf_id"> N/A </div>
+                                                <div v-else>
+                                                    <button @click="onClickAssignRFID(item, true)" class="btn btn-sm btn-danger"> Update RFID </button>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -103,6 +123,7 @@
 import * as api from '~/composables/warehouse/vehicle/vehicle.api'
 import type { Vehicle } from '~/composables/warehouse/vehicle/vehicle.types';
 import { VehicleStatusMapper, VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
+import Swal from 'sweetalert2'
 
 definePageMeta({
     name: ROUTES.VEHICLE_VIEW,
@@ -120,9 +141,65 @@ onMounted(async () => {
     authUser.value = getAuthUser()
     item.value = await api.findOne(route.params.id as string)
     isLoadingPage.value = false
-
 })
 
+
+function onClickAssignRFID(vehicle: Vehicle, isUpdate: boolean = false) {
+    console.log('assignRFID', vehicle);
+
+    const action = isUpdate ? "Update" : "Assign"
+
+    Swal.fire({
+        title: `${action} RFID`,
+        text: `Please input RFID to vehicle ${vehicle.vehicle_number} ${vehicle.name}`,
+        input: 'text',
+        inputPlaceholder: 'Enter RFID here',
+        position: "top",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: action,
+        reverseButtons: true,
+        showLoaderOnConfirm: true,
+        inputValidator: (value) => {
+            if (!value) {
+                return 'You need to enter RFID!';
+            }
+        },
+        preConfirm: async (confirm) => {
+
+            const inputValue = Swal.getInput()?.value;
+
+            const response = await api.assignRFID(vehicle.id, inputValue!)
+
+            if (response.success && response.data) {
+
+                Swal.fire({
+                    text: response.msg,
+                    icon: 'success',
+                    position: 'top',
+                });
+
+
+                item.value!.rf_id = response.data.rf_id
+
+            } else {
+
+                Swal.fire({
+                    title: 'Error!',
+                    text: response.msg,
+                    icon: 'error',
+                    position: 'top',
+                })
+
+            }
+
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    })
+
+}
 
 const onClickGoToList = () => router.push(`/warehouse/vehicle`);
 const onClickAddNew = () => router.push(`/warehouse/vehicle/create`);

@@ -10,6 +10,6 @@ export class UpdateActualTimeResponse {
   @Field()
   msg: string;
 
-  @Field(() => TripTicket)
-  data: T;
+  @Field(() => TripTicket, { nullable: true })
+  data?: T;
 }
