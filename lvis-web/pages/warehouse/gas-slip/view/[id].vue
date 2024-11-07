@@ -368,6 +368,7 @@ async function handlePostGasSlip(payload: {actual_liter: number, price_per_liter
         item.value.is_posted = response.data.is_posted
         item.value.actual_liter = response.data.actual_liter
         item.value.price_per_liter = response.data.price_per_liter
+        item.value.can_post = response.data.can_post
         item.value.vehicle.total_unposted_gas_slips--
 
         // close modal
