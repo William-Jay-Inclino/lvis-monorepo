@@ -35,7 +35,7 @@
                                 <label class="form-label">
                                     TIN <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" v-model="item.tin_no" required>
+                                <input type="text" class="form-control" v-model="item.tin" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
@@ -160,7 +160,7 @@ async function onSubmit() {
         name: item.value.name,
         contact: item.value.contact,
         address: item.value.address,
-        tin_no: item.value.tin_no,
+        tin: item.value.tin,
         is_vat_registered: item.value.is_vat_registered,
         vat_type: item.value.vat_type
     }

@@ -5,7 +5,7 @@ export interface Supplier {
     name: string;
     contact: string;
     address: string;
-    tin_no: string;
+    tin: string;
     is_vat_registered: boolean;
     vat_type: VAT_TYPE;
 
@@ -19,7 +19,7 @@ export interface CreateSupplierInput {
     name: string;
     contact: string;
     address: string;
-    tin_no: string;
+    tin: string;
     is_vat_registered: boolean;
     vat_type: VAT_TYPE;
 }

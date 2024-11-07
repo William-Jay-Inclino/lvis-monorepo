@@ -51,7 +51,7 @@
                                                 <td class="text-muted"> {{ i.name }} </td>
                                                 <td class="text-muted"> {{ i.contact }} </td>
                                                 <td class="text-muted"> {{ i.address }} </td>
-                                                <td class="text-muted"> {{ i.tin_no }} </td>
+                                                <td class="text-muted"> {{ i.tin }} </td>
                                                 <td class="text-muted"> {{ VAT[i.vat_type].label }} </td>
                                                 <td class="text-center">
                                                     <button :disabled="!canDelete(authUser, 'canManageSupplier')"
