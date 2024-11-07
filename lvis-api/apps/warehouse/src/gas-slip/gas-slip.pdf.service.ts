@@ -360,18 +360,18 @@ export class GasSlipPdfService {
         const pdfBuffer = await page.pdf({
             printBackground: true,
             format: 'A4',
-            displayHeaderFooter: true,
+            // displayHeaderFooter: true,
             headerTemplate: ``,
-            footerTemplate: `
-            <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
-                padding: 5px 5px 0; color: #bbb; position: relative;">
-                <div style="position: absolute; left: 5px; top: 5px;">
-                    Note: System generated report | Created by: <b>${ gasSlip.created_by }</b> | Printed by: <b>${ this.authUser.user.username }</b> | 
-                    Date & Time: <b><span class="date"></span></b>
-                </div>
-                <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
-            </div>
-          `,
+        //     footerTemplate: `
+        //     <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
+        //         padding: 5px 5px 0; color: #bbb; position: relative;">
+        //         <div style="position: absolute; left: 5px; top: 5px;">
+        //             Note: System generated report | Created by: <b>${ gasSlip.created_by }</b> | Printed by: <b>${ this.authUser.user.username }</b> | 
+        //             Date & Time: <b><span class="date"></span></b>
+        //         </div>
+        //         <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
+        //     </div>
+        //   `,
             // this is needed to prevent content from being placed over the footer
             margin: { bottom: '70px' },
           });

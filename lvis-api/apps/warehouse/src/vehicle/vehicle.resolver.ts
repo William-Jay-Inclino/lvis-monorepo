@@ -15,6 +15,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TripTicket } from '../trip-ticket/entities/trip-ticket.entity';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { GasSlipService } from '../gas-slip/gas-slip.service';
+import { UpdateVehicleResponse } from './entities/update-vehicle-response.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Vehicle)
@@ -45,7 +46,7 @@ export class VehicleResolver {
     return this.vehicleService.findOne(id);
   }
 
-  @Mutation(() => Vehicle)
+  @Mutation(() => UpdateVehicleResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.VEHICLE, RESOLVERS.updateVehicle)
   updateVehicle(

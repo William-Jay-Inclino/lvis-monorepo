@@ -176,7 +176,8 @@ function onClickAssignRFID(vehicle: Vehicle, isUpdate: boolean = false) {
             if (response.success && response.data) {
 
                 Swal.fire({
-                    text: response.msg,
+                    title: 'Success!',
+                    text: "RFID assigned successfully",
                     icon: 'success',
                     position: 'top',
                 });

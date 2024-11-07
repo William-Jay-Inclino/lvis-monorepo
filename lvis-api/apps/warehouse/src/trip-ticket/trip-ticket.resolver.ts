@@ -18,7 +18,7 @@ import { TripTicketApproverService } from '../trip-ticket-approver/trip-ticket-a
 import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
 import { UpdateActualTimeInput } from './dto/update-actual-time.input';
 
-@UseGuards(GqlAuthGuard)
+// @UseGuards(GqlAuthGuard)
 @Resolver(() => TripTicket)
 export class TripTicketResolver {
   constructor(
@@ -27,7 +27,7 @@ export class TripTicketResolver {
   ) { }
 
   @Mutation(() => TripTicket)
-  @UseGuards(AccessGuard)
+  @UseGuards(GqlAuthGuard, AccessGuard)
   @CheckAccess(MODULES.TRIP_TICKET, RESOLVERS.createTripTicket)
   createTripTicket(
     @Args('input') createTripTicketInput: CreateTripTicketInput,
@@ -38,6 +38,7 @@ export class TripTicketResolver {
   }
 
   @Query(() => TripTicketsResponse)
+  @UseGuards(GqlAuthGuard)
   async trip_tickets(
     @Args('page', { type: () => Int, defaultValue: 1 }) page: number,
     @Args('pageSize', { type: () => Int, defaultValue: 10 }) pageSize: number,
@@ -50,12 +51,13 @@ export class TripTicketResolver {
   }
 
   @Query(() => TripTicket)
+  @UseGuards(GqlAuthGuard)
   trip_ticket(@Args('id') id: string) {
     return this.tripTicketService.findOne(id);
   }
 
   @Mutation(() => WarehouseRemoveResponse)
-  @UseGuards(AccessGuard)
+  @UseGuards(GqlAuthGuard, AccessGuard)
   @CheckAccess(MODULES.TRIP_TICKET, RESOLVERS.removeTripTicket)
   removeTripTicket(
     @Args('id') id: string,
@@ -75,6 +77,7 @@ export class TripTicketResolver {
   }
 
   @Query(() => [TripTicket])
+  @UseGuards(GqlAuthGuard)
   async scheduled_trips(
     @Args('startDate', { type: () => String }) startDate: string,
     @Args('endDate', { type: () => String }) endDate: string,
@@ -88,16 +91,19 @@ export class TripTicketResolver {
   }
 
   @ResolveField(() => Employee)
+  @UseGuards(GqlAuthGuard)
   driver(@Parent() tripTicket: TripTicket): any {
       return { __typename: 'Employee', id: tripTicket.driver_id }
   }
 
   @ResolveField(() => Employee)
+  @UseGuards(GqlAuthGuard)
   prepared_by(@Parent() tripTicket: TripTicket): any {
       return { __typename: 'Employee', id: tripTicket.prepared_by_id }
   }
 
   @ResolveField(() => [TripTicketApprover])
+  @UseGuards(GqlAuthGuard)
   trip_ticket_approvers(@Parent() tripTicket: TripTicket): any {
       return this.tripTicketApproverService.findByTripTicketId(tripTicket.id)
   }

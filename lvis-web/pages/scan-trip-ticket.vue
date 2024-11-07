@@ -11,6 +11,8 @@
                     <h5 class="card-title text-center text-warning fw-bold">Enter RFID</h5>
                     <div class="form-group">
                         <input 
+                            ref="rfidInput"
+                            :disabled="is_scanning_rfid"
                             autofocus
                             type="text" 
                             class="form-control" 
@@ -124,6 +126,7 @@
     const toast = useToast();
 
     const rfid = ref('')
+    const rfidInput = ref<HTMLInputElement | null>(null)
     const trip_ticket = ref<TripTicket | null>(null)
     const is_scanning_rfid = ref(false)
 
@@ -131,42 +134,54 @@
     async function handle_rfid_scan() {
         console.log('handle_rfid_scan', rfid.value);
 
+        if(is_scanning_rfid.value) return
+
         if(!rfid.value) {
             toast.error("Please enter RFID")
+            focusRFIDInput()
             return
         }
 
         is_scanning_rfid.value = true 
-        const response = await updateActualTime(rfid.value)
-        is_scanning_rfid.value = false  
 
-        if(response.success === true && response.data) {
-            
-            Swal.fire({
-                title: 'Success!',
-                text: response.msg,
-                icon: 'success',
-                position: 'top',
-            })
+        try {
+            const response = await updateActualTime(rfid.value);
+            rfid.value = '';
 
-            rfid.value = ''
-            trip_ticket.value = response.data
+            if (response.success === true && response.data) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: response.msg,
+                    icon: 'success',
+                    position: 'top',
+                    timer: 3000,
+                });
 
-        } else {
-
-            Swal.fire({
-                title: 'Error!',
-                text: response.msg,
-                icon: 'error',
-                position: 'top',
-            })
-
+                trip_ticket.value = response.data;
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: response.msg,
+                    icon: 'error',
+                    position: 'top',
+                    timer: 3000,
+                });
+            }
+        } catch (error) {
+            console.error("Error during RFID scan:", error);
+            toast.error("An error occurred while scanning RFID");
+        } finally {
+            console.log('finally');
+            is_scanning_rfid.value = false; 
+            await focusRFIDInput();
         }
 
-
-
-
     } 
+
+    const focusRFIDInput = async() => {
+        await nextTick()
+        rfidInput.value?.focus()
+    }
 
 </script>
   

@@ -6,6 +6,7 @@ import { UpdateVehicleInput } from './dto/update-vehicle.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { VEHICLE_STATUS } from './entities/vehicle.enums';
+import { UpdateVehicleResponse } from './entities/update-vehicle-response.entity';
 
 @Injectable()
 export class VehicleService {
@@ -62,10 +63,49 @@ export class VehicleService {
 		return item
 	}
 
-	async update(id: string, input: UpdateVehicleInput): Promise<Vehicle> {
+	async update(id: string, input: UpdateVehicleInput): Promise<UpdateVehicleResponse> {
 
-		const existingItem = await this.findOne(id)
-
+		const existingItem = await this.findOne(id);
+	
+		// Check for vehicle_number uniqueness
+		if (input.vehicle_number && input.vehicle_number !== existingItem.vehicle_number) {
+			const vehicleNumberExists = await this.prisma.vehicle.findUnique({
+				where: { vehicle_number: input.vehicle_number },
+			});
+			if (vehicleNumberExists) {
+				return {
+					success: false,
+					msg: "Vehicle number already exists",
+				};
+			}
+		}
+	
+		// Check for plate_number uniqueness
+		if (input.plate_number && input.plate_number !== existingItem.plate_number) {
+			const plateNumberExists = await this.prisma.vehicle.findUnique({
+				where: { plate_number: input.plate_number },
+			});
+			if (plateNumberExists) {
+				return {
+					success: false,
+					msg: "Plate number already exists",
+				};
+			}
+		}
+	
+		// Check for rf_id uniqueness
+		if (input.rf_id && input.rf_id !== existingItem.rf_id) {
+			const rfIdExists = await this.prisma.vehicle.findUnique({
+				where: { rf_id: input.rf_id },
+			});
+			if (rfIdExists) {
+				return {
+					success: false,
+					msg: "RFID already exists",
+				};
+			}
+		}
+	
 		const data: Prisma.VehicleUpdateInput = {
 			vehicle_number: input.vehicle_number ?? existingItem.vehicle_number,
 			plate_number: input.plate_number ?? existingItem.plate_number,
@@ -74,23 +114,23 @@ export class VehicleService {
 			assignee_id: input.assignee_id ?? existingItem.assignee_id,
 			name: input.name ?? existingItem.name,
 			date_acquired: input.date_acquired ? new Date(input.date_acquired) : existingItem.date_acquired,
-			// status: input.status ?? existingItem.status,
 			updated_by: this.authUser.user.username
-		}
-
-
+		};
+	
 		const updated = await this.prisma.vehicle.update({
 			data,
-			where: {
-				id
-			}
-		})
-
-		this.logger.log('Successfully updated Vehicle')
-
-		return updated
-
+			where: { id },
+		});
+	
+		this.logger.log('Successfully updated Vehicle');
+	
+		return {
+			success: true,
+			msg: "Successfully updated Vehicle",
+			data: updated,
+		};
 	}
+	
 
 	async remove(id: string): Promise<WarehouseRemoveResponse> {
 
