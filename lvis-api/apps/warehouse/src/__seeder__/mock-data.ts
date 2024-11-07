@@ -1,5 +1,7 @@
 import { faker } from "@faker-js/faker"
 import { ItemCodeTracker, ItemType, Project, Station, Supplier, Unit, VAT_TYPE, Vehicle } from "../__common__/types"
+import { GasStation } from "../gas-station/entities/gas-station.entity"
+import { FuelType } from "../fuel-type/entities/fuel-type.entity"
 
 export const suppliers: Supplier[] = [
     {
@@ -199,5 +201,42 @@ export const vehicles: Vehicle[] = [
         name: 'Vehicle 3',
         plate_number: 'ABC-789',
         created_by: 'admin'
+    }
+]
+
+export const gasStations: GasStation[] = [
+    {
+        id: 1,
+        name: "Leyeco Gas Station",
+        location: "Brgy San Pablo, Ormoc City",
+        contact_number: "",
+    },
+    {
+        id: 2,
+        name: "Shell Cogon Ormoc City",
+        location: "Ormoc City",
+        contact_number: "",
+    },
+    {
+        id: 3,
+        name: "Petron Libertad Ormoc City",
+        location: "Ormoc City",
+        contact_number: "",
+    },
+]
+
+
+export const fuelTypes: FuelType[] = [
+    {
+        id: 1,
+        name: 'Diesel',
+    },
+    {
+        id: 2,
+        name: 'Unleaded Regular',
+    },
+    {
+        id: 3,
+        name: 'Unleaded Premium',
     }
 ]

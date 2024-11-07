@@ -3,7 +3,7 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 @ObjectType()
 export class FuelType {
   @Field(() => Int)
-  id: string;
+  id: number;
 
   @Field(() => String)
   name: string;
