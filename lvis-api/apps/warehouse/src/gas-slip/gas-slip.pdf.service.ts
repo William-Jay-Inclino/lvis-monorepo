@@ -400,6 +400,17 @@ export class GasSlipPdfService {
         return gasSlip
     }
 
+    async increment_print_count(gas_slip_id: string) {
+        await this.prisma.gasSlip.update({
+            where: { id: gas_slip_id },
+            data: {
+                print_count: {
+                    increment: 1
+                }
+            }
+        })
+    }
+
     private async getEmployee(employeeId: string, authUser: AuthUser): Promise<Employee | undefined> {
 
 

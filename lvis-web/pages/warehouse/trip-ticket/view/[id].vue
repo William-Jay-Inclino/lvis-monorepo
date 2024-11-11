@@ -67,11 +67,39 @@
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Actual Departure</td>
-                                            <td> {{ item.actual_start_time ? formatDate(item.actual_start_time, true) : 'N/A' }} </td>
+                                            <td>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        {{ item.actual_start_time ? formatDate(item.actual_start_time, true) : 'N/A' }}
+                                                    </div>
+                                                    <div v-if="isAdmin(authUser)">
+                                                        <button @click="onRemoveActualDepartureTime" v-if="!item.actual_end_time && !!item.actual_start_time" class="btn btn-light btn-sm me-3">
+                                                            <i class="fas fa-trash text-danger"></i>
+                                                        </button>
+                                                        <button @click="onClickEditActualDepartureTime" class="btn btn-light btn-sm">
+                                                            <i class="fas fa-edit text-primary"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Actual Arrival</td>
-                                            <td> {{ item.actual_end_time ? formatDate(item.actual_end_time, true) : 'N/A' }} </td>
+                                            <td>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        {{ item.actual_end_time ? formatDate(item.actual_end_time, true) : 'N/A' }}
+                                                    </div>
+                                                    <div v-if="isAdmin(authUser)">
+                                                        <button v-if="!!item.actual_end_time" @click="onRemoveActualArrivalTime" class="btn btn-light btn-sm me-3">
+                                                            <i class="fas fa-trash text-danger"></i>
+                                                        </button>
+                                                        <button @click="onClickEditActualArrivalTime" class="btn btn-light btn-sm">
+                                                            <i class="fas fa-edit text-primary"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Is Operation</td>
@@ -302,6 +330,203 @@ async function cancelTripTicket() {
     }
 
 
+}
+
+async function onRemoveActualDepartureTime() {
+
+    Swal.fire({
+        title: "Are you sure?",
+        text: `Actual Departure Time will be removed!`,
+        position: "top",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e74a3b",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: "Yes, remove it!",
+        reverseButtons: true,
+        showLoaderOnConfirm: true,
+        preConfirm: async (remove) => {
+
+            if (remove) {
+                Swal.showLoading();
+                await removeActualDepartureTime()
+                Swal.hideLoading()
+            }
+
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    })
+
+}
+
+async function removeActualDepartureTime() {
+
+    if (!item.value) return
+
+    const response = await api.remove_actual_start_time(item.value.id)
+
+    if (response.data && response.success) {
+        toast.success(response.msg)
+        item.value.status = response.data.status
+        item.value.actual_start_time = response.data.actual_start_time
+
+    } else {
+        Swal.fire({
+            title: 'Error!',
+            text: response.msg,
+            icon: 'error',
+            position: 'top',
+        })
+    }
+
+
+}
+
+async function onRemoveActualArrivalTime() {
+
+    Swal.fire({
+        title: "Are you sure?",
+        text: `Actual Arrival Time will be removed!`,
+        position: "top",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e74a3b",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: "Yes, remove it!",
+        reverseButtons: true,
+        showLoaderOnConfirm: true,
+        preConfirm: async (remove) => {
+
+            if (remove) {
+                Swal.showLoading();
+                await removeActualArrivalTime()
+                Swal.hideLoading();
+            }
+
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    })
+
+}
+
+async function removeActualArrivalTime() {
+
+    if (!item.value) return
+
+    const response = await api.remove_actual_end_time(item.value.id)
+
+    if (response.data && response.success) {
+        toast.success(response.msg)
+        item.value.status = response.data.status
+        item.value.actual_end_time = response.data.actual_end_time
+
+    } else {
+        Swal.fire({
+            title: 'Error!',
+            text: response.msg,
+            icon: 'error',
+            position: 'top',
+        })
+    }
+
+
+}
+
+async function onClickEditActualDepartureTime() {
+
+    if(!item.value) return 
+
+    Swal.fire({
+        title: "Update Actual Departure Time",
+        html: `
+            <input type="date" id="departure-date" class="swal2-input" placeholder="Select date">
+            <input type="time" id="departure-time" class="swal2-input" placeholder="Select time">
+        `,
+        focusConfirm: false,
+        preConfirm: async () => {
+
+            if(!item.value) return
+
+            
+            const dateInput = (document.getElementById("departure-date") as HTMLInputElement).value;
+            const timeInput = (document.getElementById("departure-time") as HTMLInputElement).value;
+            
+            if (!dateInput || !timeInput) {
+                Swal.showValidationMessage("Please select both date and time.");
+                return;
+            }
+            
+            const dateTime = `${dateInput}T${timeInput}:00`;
+            
+            Swal.showLoading()
+            const response = await api.update_actual_start_time(item.value.id, dateTime);
+            Swal.hideLoading()
+            
+            if (response.data && response.success) {
+                toast.success(response.msg)
+                item.value.status = response.data.status
+                item.value.actual_start_time = response.data.actual_start_time
+
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: response.msg,
+                    icon: 'error',
+                    position: 'top',
+                })
+            }
+
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    });
+}
+
+async function onClickEditActualArrivalTime() {
+
+    if(!item.value) return 
+
+    Swal.fire({
+        title: "Update Actual Arrival Time",
+        html: `
+            <input type="date" id="departure-date" class="swal2-input" placeholder="Select date">
+            <input type="time" id="departure-time" class="swal2-input" placeholder="Select time">
+        `,
+        focusConfirm: false,
+        preConfirm: async () => {
+
+            if(!item.value) return
+
+            const dateInput = (document.getElementById("departure-date") as HTMLInputElement).value;
+            const timeInput = (document.getElementById("departure-time") as HTMLInputElement).value;
+
+            if (!dateInput || !timeInput) {
+                Swal.showValidationMessage("Please select both date and time.");
+                return;
+            }
+            
+            const dateTime = `${dateInput}T${timeInput}:00`;
+
+            Swal.showLoading()
+            const response = await api.update_actual_end_time(item.value.id, dateTime);
+            Swal.hideLoading()
+
+            if (response.data && response.success) {
+                toast.success(response.msg)
+                item.value.status = response.data.status
+                item.value.actual_end_time = response.data.actual_end_time
+
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: response.msg,
+                    icon: 'error',
+                    position: 'top',
+                })
+            }
+
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    });
 }
 
 async function onClickPrint() {

@@ -17,6 +17,8 @@ import { TripTicketApprover } from '../trip-ticket-approver/entities/trip-ticket
 import { TripTicketApproverService } from '../trip-ticket-approver/trip-ticket-approver.service';
 import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
 import { UpdateActualTimeInput } from './dto/update-actual-time.input';
+import { UpdateActualStartTimeInput } from './dto/update-actual-start-time.input';
+import { UpdateActualEndTimeInput } from './dto/update-actual-end-time.input';
 
 // @UseGuards(GqlAuthGuard)
 @Resolver(() => TripTicket)
@@ -74,6 +76,46 @@ export class TripTicketResolver {
 
     return await this.tripTicketService.update_actual_time(input.rf_id);
 
+  }
+
+  @Mutation(() => UpdateActualTimeResponse)
+  @UseGuards(GqlAuthGuard, AccessGuard)
+  removeActualStartTime(
+    @Args('id') id: string,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.tripTicketService.setAuthUser(authUser)
+    return this.tripTicketService.remove_actual_start_time(id);
+  }
+
+  @Mutation(() => UpdateActualTimeResponse)
+  @UseGuards(GqlAuthGuard, AccessGuard)
+  removeActualEndTime(
+    @Args('id') id: string,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.tripTicketService.setAuthUser(authUser)
+    return this.tripTicketService.remove_actual_end_time(id);
+  }
+
+  @Mutation(() => UpdateActualTimeResponse)
+  @UseGuards(GqlAuthGuard, AccessGuard)
+  updateActualStartTime(
+    @Args('input') input: UpdateActualStartTimeInput,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.tripTicketService.setAuthUser(authUser)
+    return this.tripTicketService.update_actual_start_time(input.trip_ticket_id, input.actual_start_time);
+  }
+
+  @Mutation(() => UpdateActualTimeResponse)
+  @UseGuards(GqlAuthGuard, AccessGuard)
+  updateActualEndTime(
+    @Args('input') input: UpdateActualEndTimeInput,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.tripTicketService.setAuthUser(authUser)
+    return this.tripTicketService.update_actual_end_time(input.trip_ticket_id, input.actual_end_time);
   }
 
   @Query(() => [TripTicket])

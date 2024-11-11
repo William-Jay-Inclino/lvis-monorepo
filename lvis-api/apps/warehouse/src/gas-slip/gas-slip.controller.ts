@@ -31,6 +31,8 @@ export class GasSlipController {
 
         this.gasSlipPdfService.setAuthUser(authUser)
 
+        await this.gasSlipPdfService.increment_print_count(id)
+
         const gasSlip = await this.gasSlipPdfService.findGasSlip(id)
         // @ts-ignore
         const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip)

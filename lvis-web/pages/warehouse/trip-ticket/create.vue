@@ -16,7 +16,7 @@
                                     Vehicle <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select @option:selected="handleVehicleSelected" :options="available_vehicles" label="name" v-model="tripData.vehicle" :clearable="false"></v-select>
+                                    <v-select @option:selected="handleVehicleSelected" :options="available_vehicles" label="label" v-model="tripData.vehicle" :clearable="false"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-if="tripDataErrors.vehicle"> {{ errorMsg }}
                                 </small>
@@ -306,7 +306,7 @@ onMounted(async () => {
     const response = await tripApi.fetchFormDataInCreate()
 
     employees.value = addPropertyFullName(response.employees)
-    vehicles.value = response.vehicles
+    vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
 
     isLoadingPage.value = false
 

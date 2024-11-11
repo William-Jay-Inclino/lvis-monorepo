@@ -20,7 +20,7 @@
                                     Vehicle <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="vehicles" label="name" v-model="gsData.vehicle" :clearable="false"></v-select>
+                                    <v-select :options="vehicles" label="label" v-model="gsData.vehicle" :clearable="false"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.vehicle"> {{ errorMsg }}
                                 </small>
@@ -244,7 +244,7 @@ onMounted(async () => {
 
     employees.value = addPropertyFullName(response.employees)
     department_heads.value = addPropertyFullName(response.department_heads)
-    vehicles.value = response.vehicles
+    vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
     fuel_types.value = response.fuel_types
     gas_stations.value = response.gas_stations
 

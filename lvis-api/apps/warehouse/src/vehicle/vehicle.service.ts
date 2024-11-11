@@ -45,7 +45,11 @@ export class VehicleService {
 	}
 
 	async findAll(): Promise<Vehicle[]> {
-		return await this.prisma.vehicle.findMany()
+		return await this.prisma.vehicle.findMany({
+			orderBy: {
+				vehicle_number: 'asc'
+			}
+		})
 	}
 
 	async findOne(id: string): Promise<Vehicle | null> {

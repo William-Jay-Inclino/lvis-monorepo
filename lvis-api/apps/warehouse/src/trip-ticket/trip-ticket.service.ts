@@ -300,6 +300,216 @@ export class TripTicketService {
 		
 	}
 
+	async remove_actual_start_time(id: string): Promise<UpdateActualTimeResponse> {
+		console.log('remove_actual_start_time');
+
+		return await this.prisma.$transaction(async (prisma) => {
+			const existing_trip_ticket = await prisma.tripTicket.findUnique({
+				where: {
+					id,
+				},
+			});
+
+			if(!existing_trip_ticket) {
+				throw new NotFoundException("Trip ticket not found with id: " + id)
+			}
+		
+			if (existing_trip_ticket.actual_end_time) {
+				return {
+					success: false,
+					msg: 'Can only remove actual departure time if actual arrival time is null',
+				};
+			}
+
+			if(!existing_trip_ticket.actual_start_time) {
+				return {
+					success: false,
+					msg: 'Actual departure time is already null',
+				};
+			}
+		
+			const trip_ticket = await prisma.tripTicket.update({
+				where: {
+					id,
+				},
+				data: {
+					actual_start_time: null,
+					status: TRIP_TICKET_STATUS.APPROVED,
+				},
+			});
+		
+			await prisma.vehicle.update({
+				where: {
+					id: trip_ticket.vehicle_id,
+				},
+				data: {
+					status: VEHICLE_STATUS.AVAILABLE_FOR_TRIP,
+				},
+			});
+		
+			return {
+				success: true,
+				msg: 'Actual departure time removed',
+				data: trip_ticket
+			};
+		});
+	}
+
+	async remove_actual_end_time(id: string): Promise<UpdateActualTimeResponse> {
+		return await this.prisma.$transaction(async (prisma) => {
+
+			const existing_trip_ticket = await prisma.tripTicket.findUnique({
+				where: {
+					id,
+				},
+			});
+
+			if(!existing_trip_ticket) {
+				throw new NotFoundException("Trip ticket not found with id: " + id)
+			}
+
+			if (!existing_trip_ticket.actual_end_time) {
+				return {
+					success: false,
+					msg: 'Actual arrival time is already null',
+				};
+			}
+		
+			const trip_ticket = await prisma.tripTicket.update({
+				where: {
+					id,
+				},
+				data: {
+					actual_end_time: null,
+					status: TRIP_TICKET_STATUS.IN_PROGRESS,
+				},
+			});
+		
+			await prisma.vehicle.update({
+				where: {
+					id: trip_ticket.vehicle_id,
+				},
+				data: {
+					status: VEHICLE_STATUS.IN_USE,
+				},
+			});
+		
+			return {
+				success: true,
+				msg: 'Actual arrival time removed',
+				data: trip_ticket
+			};
+		});
+	}
+
+	async update_actual_start_time(id: string, start_time: string): Promise<UpdateActualTimeResponse> {
+		return await this.prisma.$transaction(async (prisma) => {
+
+			const existing_trip_ticket = await prisma.tripTicket.findUnique({
+				where: {
+					id,
+				},
+			});
+
+			if (!existing_trip_ticket) {
+				throw new NotFoundException('Trip ticket not found with id: ' + id);
+			}
+
+			if (!!existing_trip_ticket.actual_start_time) {
+
+				const trip_ticket = await prisma.tripTicket.update({
+					where: { id },
+					data: {
+					actual_start_time: new Date(start_time),
+				},
+				});
+
+				return {
+					success: true,
+					msg: 'Actual departure time updated',
+					data: trip_ticket,
+				};
+
+			} else {
+				
+				const trip_ticket = await prisma.tripTicket.update({
+					where: { id },
+					data: {
+						actual_start_time: new Date(start_time),
+						status: TRIP_TICKET_STATUS.IN_PROGRESS,
+					},
+				});
+
+				await prisma.vehicle.update({
+					where: {
+						id: trip_ticket.vehicle_id,
+					},
+					data: {
+						status: VEHICLE_STATUS.IN_USE,
+					},
+				});
+
+				return {
+					success: true,
+					msg: 'Actual departure time updated',
+					data: trip_ticket,
+				};
+			}
+		});
+	}
+
+	async update_actual_end_time(id: string, end_time: string): Promise<UpdateActualTimeResponse> {
+		return await this.prisma.$transaction(async (prisma) => {
+			const existing_trip_ticket = await prisma.tripTicket.findUnique({
+				where: {
+					id,
+				},
+			});
+
+			if (!existing_trip_ticket) {
+				throw new NotFoundException('Trip ticket not found with id: ' + id);
+			}
+
+			if (existing_trip_ticket.actual_end_time) {
+				const trip_ticket = await prisma.tripTicket.update({
+					where: { id },
+					data: {
+						actual_end_time: new Date(end_time),
+					},
+				});
+
+				return {
+					success: true,
+					msg: 'Actual arrival time updated',
+					data: trip_ticket,
+				};
+			} else {
+				const trip_ticket = await prisma.tripTicket.update({
+					where: { id },
+					data: {
+						actual_end_time: new Date(end_time),
+						status: TRIP_TICKET_STATUS.COMPLETED,
+					},
+				});
+
+				await prisma.vehicle.update({
+					where: {
+						id: trip_ticket.vehicle_id,
+					},
+					data: {
+						status: VEHICLE_STATUS.AVAILABLE_FOR_TRIP,
+					},
+				});
+
+				return {
+					success: true,
+					msg: 'Actual arrival time updated',
+					data: trip_ticket,
+				};
+			}
+		});
+	}
+
 	private async getLatestTripNumber(): Promise<string> {
         const currentYear = new Date().getFullYear().toString().slice(-2);
 

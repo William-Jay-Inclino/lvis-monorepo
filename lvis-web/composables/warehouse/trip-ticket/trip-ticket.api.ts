@@ -511,6 +511,188 @@ export async function cancel(id: string): Promise<CancelResponse> {
     }
 }
 
+export async function remove_actual_start_time(id: string): Promise<MutationResponse> {
+
+    const mutation = `
+        mutation {
+            removeActualStartTime(
+                id: "${id}"
+            ) {
+                success
+                msg 
+                data {
+                    actual_start_time
+                    status
+                }
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.removeActualStartTime) {
+
+            return response.data.data.removeActualStartTime
+
+        } else {
+
+            console.error(JSON.stringify(response.data.errors))
+
+            return {
+                success: false,
+                msg: response.data.errors?.[0]?.message || 'Failed to remove actual start time. Please contact the system administrator',
+            }
+        }
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update remove start time. Please contact system administrator'
+        };
+    }
+}
+
+export async function remove_actual_end_time(id: string): Promise<MutationResponse> {
+
+    const mutation = `
+        mutation {
+            removeActualEndTime(
+                id: "${id}"
+            ) {
+                success
+                msg 
+                data {
+                    actual_end_time
+                    status
+                }
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.removeActualEndTime) {
+
+            return response.data.data.removeActualEndTime
+
+        } else {
+
+            console.error(JSON.stringify(response.data.errors))
+
+            return {
+                success: false,
+                msg: response.data.errors?.[0]?.message || 'Failed to remove actual end time. Please contact the system administrator',
+            }
+        }
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to remove actual end time. Please contact system administrator'
+        };
+    }
+}
+
+export async function update_actual_start_time(id: string, start_time: string): Promise<MutationResponse> {
+
+    const mutation = `
+        mutation {
+            updateActualStartTime(
+                input: {
+                    trip_ticket_id: "${id}",
+                    actual_start_time: "${ start_time }"
+                }
+            ) {
+                success
+                msg 
+                data {
+                    actual_start_time
+                    status
+                }
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateActualStartTime) {
+
+            return response.data.data.updateActualStartTime
+
+        } else {
+
+            console.error(JSON.stringify(response.data.errors))
+
+            return {
+                success: false,
+                msg: response.data.errors?.[0]?.message || 'Failed to update actual start time. Please contact the system administrator',
+            }
+        }
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update actual start time. Please contact system administrator'
+        };
+    }
+}
+
+export async function update_actual_end_time(id: string, end_time: string): Promise<MutationResponse> {
+
+    const mutation = `
+        mutation {
+            updateActualEndTime(
+                input: {
+                    trip_ticket_id: "${id}",
+                    actual_end_time: "${ end_time }"
+                }
+            ) {
+                success
+                msg 
+                data {
+                    actual_end_time
+                    status
+                }
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateActualEndTime) {
+
+            return response.data.data.updateActualEndTime
+
+        } else {
+
+            console.error(JSON.stringify(response.data.errors))
+
+            return {
+                success: false,
+                msg: response.data.errors?.[0]?.message || 'Failed to update actual end time. Please contact the system administrator',
+            }
+        }
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update actual end time. Please contact system administrator'
+        };
+    }
+}
+
 export async function updateActualTime(rf_id: string): Promise<MutationResponse> {
 
     const mutation = `
