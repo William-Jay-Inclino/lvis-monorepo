@@ -418,6 +418,7 @@ model SPR {
   canvass       Canvass?       @relation(fields: [canvass_id], references: [id], onDelete: Restrict)
   meqs          MEQS?
   spr_approvers SPRApprover[]
+  vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Cascade)
 
   metadata Json?
 
@@ -1129,6 +1130,7 @@ model Vehicle {
 
   trip_tickets TripTicket[]
   gas_slips GasSlip[]
+  sprs SPR[]
 
   @@index([assignee_id, classification_id, status]) 
   @@map("vehicle")

@@ -1003,7 +1003,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.8.1
-   * Query Engine version: bf0e5e8a04cada8225617067eaa03d041e2bba36
+   * Query Engine version: 605197351a3c8bdd595af2d2a9bc3025bca48ea2
    */
   export type PrismaVersion = {
     client: string
@@ -6216,11 +6216,13 @@ export namespace Prisma {
   export type VehicleCountOutputType = {
     trip_tickets: number
     gas_slips: number
+    sprs: number
   }
 
   export type VehicleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trip_tickets?: boolean | VehicleCountOutputTypeCountTrip_ticketsArgs
     gas_slips?: boolean | VehicleCountOutputTypeCountGas_slipsArgs
+    sprs?: boolean | VehicleCountOutputTypeCountSprsArgs
   }
 
   // Custom InputTypes
@@ -6249,6 +6251,14 @@ export namespace Prisma {
    */
   export type VehicleCountOutputTypeCountGas_slipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GasSlipWhereInput
+  }
+
+
+  /**
+   * VehicleCountOutputType without action
+   */
+  export type VehicleCountOutputTypeCountSprsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SPRWhereInput
   }
 
 
@@ -25268,6 +25278,7 @@ export namespace Prisma {
     canvass?: boolean | SPR$canvassArgs<ExtArgs>
     meqs?: boolean | SPR$meqsArgs<ExtArgs>
     spr_approvers?: boolean | SPR$spr_approversArgs<ExtArgs>
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
     _count?: boolean | SPRCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sPR"]>
 
@@ -25293,6 +25304,7 @@ export namespace Prisma {
     canvass?: boolean | SPR$canvassArgs<ExtArgs>
     meqs?: boolean | SPR$meqsArgs<ExtArgs>
     spr_approvers?: boolean | SPR$spr_approversArgs<ExtArgs>
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
     _count?: boolean | SPRCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -25303,6 +25315,7 @@ export namespace Prisma {
       canvass: Prisma.$CanvassPayload<ExtArgs> | null
       meqs: Prisma.$MEQSPayload<ExtArgs> | null
       spr_approvers: Prisma.$SPRApproverPayload<ExtArgs>[]
+      vehicle: Prisma.$VehiclePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -25690,6 +25703,8 @@ export namespace Prisma {
     meqs<T extends SPR$meqsArgs<ExtArgs> = {}>(args?: Subset<T, SPR$meqsArgs<ExtArgs>>): Prisma__MEQSClient<$Result.GetResult<Prisma.$MEQSPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     spr_approvers<T extends SPR$spr_approversArgs<ExtArgs> = {}>(args?: Subset<T, SPR$spr_approversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SPRApproverPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    vehicle<T extends VehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VehicleDefaultArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -55823,6 +55838,7 @@ export namespace Prisma {
     updated_at?: boolean
     trip_tickets?: boolean | Vehicle$trip_ticketsArgs<ExtArgs>
     gas_slips?: boolean | Vehicle$gas_slipsArgs<ExtArgs>
+    sprs?: boolean | Vehicle$sprsArgs<ExtArgs>
     _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vehicle"]>
 
@@ -55845,6 +55861,7 @@ export namespace Prisma {
   export type VehicleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trip_tickets?: boolean | Vehicle$trip_ticketsArgs<ExtArgs>
     gas_slips?: boolean | Vehicle$gas_slipsArgs<ExtArgs>
+    sprs?: boolean | Vehicle$sprsArgs<ExtArgs>
     _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -55854,6 +55871,7 @@ export namespace Prisma {
     objects: {
       trip_tickets: Prisma.$TripTicketPayload<ExtArgs>[]
       gas_slips: Prisma.$GasSlipPayload<ExtArgs>[]
+      sprs: Prisma.$SPRPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -56237,6 +56255,8 @@ export namespace Prisma {
     trip_tickets<T extends Vehicle$trip_ticketsArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$trip_ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripTicketPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     gas_slips<T extends Vehicle$gas_slipsArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$gas_slipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GasSlipPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    sprs<T extends Vehicle$sprsArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$sprsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SPRPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -56629,6 +56649,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GasSlipScalarFieldEnum | GasSlipScalarFieldEnum[]
+  }
+
+
+  /**
+   * Vehicle.sprs
+   */
+  export type Vehicle$sprsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SPR
+     */
+    select?: SPRSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SPRInclude<ExtArgs> | null
+    where?: SPRWhereInput
+    orderBy?: SPROrderByWithRelationInput | SPROrderByWithRelationInput[]
+    cursor?: SPRWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SPRScalarFieldEnum | SPRScalarFieldEnum[]
   }
 
 
@@ -65564,6 +65605,7 @@ export namespace Prisma {
     canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
     meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     spr_approvers?: SPRApproverListRelationFilter
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
   }
 
   export type SPROrderByWithRelationInput = {
@@ -65585,6 +65627,7 @@ export namespace Prisma {
     canvass?: CanvassOrderByWithRelationInput
     meqs?: MEQSOrderByWithRelationInput
     spr_approvers?: SPRApproverOrderByRelationAggregateInput
+    vehicle?: VehicleOrderByWithRelationInput
   }
 
   export type SPRWhereUniqueInput = Prisma.AtLeast<{
@@ -65609,6 +65652,7 @@ export namespace Prisma {
     canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
     meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     spr_approvers?: SPRApproverListRelationFilter
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
   }, "id" | "spr_number" | "canvass_id">
 
   export type SPROrderByWithAggregationInput = {
@@ -68359,6 +68403,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Vehicle"> | Date | string
     trip_tickets?: TripTicketListRelationFilter
     gas_slips?: GasSlipListRelationFilter
+    sprs?: SPRListRelationFilter
   }
 
   export type VehicleOrderByWithRelationInput = {
@@ -68377,6 +68422,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     trip_tickets?: TripTicketOrderByRelationAggregateInput
     gas_slips?: GasSlipOrderByRelationAggregateInput
+    sprs?: SPROrderByRelationAggregateInput
   }
 
   export type VehicleWhereUniqueInput = Prisma.AtLeast<{
@@ -68398,6 +68444,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Vehicle"> | Date | string
     trip_tickets?: TripTicketListRelationFilter
     gas_slips?: GasSlipListRelationFilter
+    sprs?: SPRListRelationFilter
   }, "id" | "vehicle_number" | "plate_number" | "rf_id">
 
   export type VehicleOrderByWithAggregationInput = {
@@ -70692,7 +70739,6 @@ export namespace Prisma {
     id?: string
     spr_number: string
     date_requested: Date | string
-    vehicle_id: string
     classification_id?: string | null
     supervisor_id: string
     notes: string
@@ -70706,6 +70752,7 @@ export namespace Prisma {
     canvass?: CanvassCreateNestedOneWithoutSprInput
     meqs?: MEQSCreateNestedOneWithoutSprInput
     spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
+    vehicle: VehicleCreateNestedOneWithoutSprsInput
   }
 
   export type SPRUncheckedCreateInput = {
@@ -70732,7 +70779,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -70746,6 +70792,7 @@ export namespace Prisma {
     canvass?: CanvassUpdateOneWithoutSprNestedInput
     meqs?: MEQSUpdateOneWithoutSprNestedInput
     spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
   }
 
   export type SPRUncheckedUpdateInput = {
@@ -70790,7 +70837,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -73858,6 +73904,7 @@ export namespace Prisma {
     updated_at?: Date | string
     trip_tickets?: TripTicketCreateNestedManyWithoutVehicleInput
     gas_slips?: GasSlipCreateNestedManyWithoutVehicleInput
+    sprs?: SPRCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUncheckedCreateInput = {
@@ -73876,6 +73923,7 @@ export namespace Prisma {
     updated_at?: Date | string
     trip_tickets?: TripTicketUncheckedCreateNestedManyWithoutVehicleInput
     gas_slips?: GasSlipUncheckedCreateNestedManyWithoutVehicleInput
+    sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUpdateInput = {
@@ -73894,6 +73942,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     trip_tickets?: TripTicketUpdateManyWithoutVehicleNestedInput
     gas_slips?: GasSlipUpdateManyWithoutVehicleNestedInput
+    sprs?: SPRUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateInput = {
@@ -73912,6 +73961,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     trip_tickets?: TripTicketUncheckedUpdateManyWithoutVehicleNestedInput
     gas_slips?: GasSlipUncheckedUpdateManyWithoutVehicleNestedInput
+    sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleCreateManyInput = {
@@ -75891,6 +75941,11 @@ export namespace Prisma {
     none?: SPRApproverWhereInput
   }
 
+  export type VehicleRelationFilter = {
+    is?: VehicleWhereInput
+    isNot?: VehicleWhereInput
+  }
+
   export type SPRApproverOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -77612,11 +77667,21 @@ export namespace Prisma {
     none?: GasSlipWhereInput
   }
 
+  export type SPRListRelationFilter = {
+    every?: SPRWhereInput
+    some?: SPRWhereInput
+    none?: SPRWhereInput
+  }
+
   export type TripTicketOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type GasSlipOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SPROrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -77676,11 +77741,6 @@ export namespace Prisma {
   export type VehicleSumOrderByAggregateInput = {
     classification_id?: SortOrder
     status?: SortOrder
-  }
-
-  export type VehicleRelationFilter = {
-    is?: VehicleWhereInput
-    isNot?: VehicleWhereInput
   }
 
   export type TripTicketApproverListRelationFilter = {
@@ -79577,6 +79637,12 @@ export namespace Prisma {
     connect?: SPRApproverWhereUniqueInput | SPRApproverWhereUniqueInput[]
   }
 
+  export type VehicleCreateNestedOneWithoutSprsInput = {
+    create?: XOR<VehicleCreateWithoutSprsInput, VehicleUncheckedCreateWithoutSprsInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutSprsInput
+    connect?: VehicleWhereUniqueInput
+  }
+
   export type MEQSUncheckedCreateNestedOneWithoutSprInput = {
     create?: XOR<MEQSCreateWithoutSprInput, MEQSUncheckedCreateWithoutSprInput>
     connectOrCreate?: MEQSCreateOrConnectWithoutSprInput
@@ -79622,6 +79688,14 @@ export namespace Prisma {
     update?: SPRApproverUpdateWithWhereUniqueWithoutSprInput | SPRApproverUpdateWithWhereUniqueWithoutSprInput[]
     updateMany?: SPRApproverUpdateManyWithWhereWithoutSprInput | SPRApproverUpdateManyWithWhereWithoutSprInput[]
     deleteMany?: SPRApproverScalarWhereInput | SPRApproverScalarWhereInput[]
+  }
+
+  export type VehicleUpdateOneRequiredWithoutSprsNestedInput = {
+    create?: XOR<VehicleCreateWithoutSprsInput, VehicleUncheckedCreateWithoutSprsInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutSprsInput
+    upsert?: VehicleUpsertWithoutSprsInput
+    connect?: VehicleWhereUniqueInput
+    update?: XOR<XOR<VehicleUpdateToOneWithWhereWithoutSprsInput, VehicleUpdateWithoutSprsInput>, VehicleUncheckedUpdateWithoutSprsInput>
   }
 
   export type MEQSUncheckedUpdateOneWithoutSprNestedInput = {
@@ -81404,6 +81478,13 @@ export namespace Prisma {
     connect?: GasSlipWhereUniqueInput | GasSlipWhereUniqueInput[]
   }
 
+  export type SPRCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput> | SPRCreateWithoutVehicleInput[] | SPRUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: SPRCreateOrConnectWithoutVehicleInput | SPRCreateOrConnectWithoutVehicleInput[]
+    createMany?: SPRCreateManyVehicleInputEnvelope
+    connect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
+  }
+
   export type TripTicketUncheckedCreateNestedManyWithoutVehicleInput = {
     create?: XOR<TripTicketCreateWithoutVehicleInput, TripTicketUncheckedCreateWithoutVehicleInput> | TripTicketCreateWithoutVehicleInput[] | TripTicketUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: TripTicketCreateOrConnectWithoutVehicleInput | TripTicketCreateOrConnectWithoutVehicleInput[]
@@ -81416,6 +81497,13 @@ export namespace Prisma {
     connectOrCreate?: GasSlipCreateOrConnectWithoutVehicleInput | GasSlipCreateOrConnectWithoutVehicleInput[]
     createMany?: GasSlipCreateManyVehicleInputEnvelope
     connect?: GasSlipWhereUniqueInput | GasSlipWhereUniqueInput[]
+  }
+
+  export type SPRUncheckedCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput> | SPRCreateWithoutVehicleInput[] | SPRUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: SPRCreateOrConnectWithoutVehicleInput | SPRCreateOrConnectWithoutVehicleInput[]
+    createMany?: SPRCreateManyVehicleInputEnvelope
+    connect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
   }
 
   export type TripTicketUpdateManyWithoutVehicleNestedInput = {
@@ -81446,6 +81534,20 @@ export namespace Prisma {
     deleteMany?: GasSlipScalarWhereInput | GasSlipScalarWhereInput[]
   }
 
+  export type SPRUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput> | SPRCreateWithoutVehicleInput[] | SPRUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: SPRCreateOrConnectWithoutVehicleInput | SPRCreateOrConnectWithoutVehicleInput[]
+    upsert?: SPRUpsertWithWhereUniqueWithoutVehicleInput | SPRUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: SPRCreateManyVehicleInputEnvelope
+    set?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
+    disconnect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
+    delete?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
+    connect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
+    update?: SPRUpdateWithWhereUniqueWithoutVehicleInput | SPRUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: SPRUpdateManyWithWhereWithoutVehicleInput | SPRUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: SPRScalarWhereInput | SPRScalarWhereInput[]
+  }
+
   export type TripTicketUncheckedUpdateManyWithoutVehicleNestedInput = {
     create?: XOR<TripTicketCreateWithoutVehicleInput, TripTicketUncheckedCreateWithoutVehicleInput> | TripTicketCreateWithoutVehicleInput[] | TripTicketUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: TripTicketCreateOrConnectWithoutVehicleInput | TripTicketCreateOrConnectWithoutVehicleInput[]
@@ -81472,6 +81574,20 @@ export namespace Prisma {
     update?: GasSlipUpdateWithWhereUniqueWithoutVehicleInput | GasSlipUpdateWithWhereUniqueWithoutVehicleInput[]
     updateMany?: GasSlipUpdateManyWithWhereWithoutVehicleInput | GasSlipUpdateManyWithWhereWithoutVehicleInput[]
     deleteMany?: GasSlipScalarWhereInput | GasSlipScalarWhereInput[]
+  }
+
+  export type SPRUncheckedUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput> | SPRCreateWithoutVehicleInput[] | SPRUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: SPRCreateOrConnectWithoutVehicleInput | SPRCreateOrConnectWithoutVehicleInput[]
+    upsert?: SPRUpsertWithWhereUniqueWithoutVehicleInput | SPRUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: SPRCreateManyVehicleInputEnvelope
+    set?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
+    disconnect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
+    delete?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
+    connect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
+    update?: SPRUpdateWithWhereUniqueWithoutVehicleInput | SPRUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: SPRUpdateManyWithWhereWithoutVehicleInput | SPRUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: SPRScalarWhereInput | SPRScalarWhereInput[]
   }
 
   export type VehicleCreateNestedOneWithoutTrip_ticketsInput = {
@@ -84363,7 +84479,6 @@ export namespace Prisma {
     id?: string
     spr_number: string
     date_requested: Date | string
-    vehicle_id: string
     classification_id?: string | null
     supervisor_id: string
     notes: string
@@ -84376,6 +84491,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSCreateNestedOneWithoutSprInput
     spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
+    vehicle: VehicleCreateNestedOneWithoutSprsInput
   }
 
   export type SPRUncheckedCreateWithoutCanvassInput = {
@@ -84535,7 +84651,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -84548,6 +84663,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     meqs?: MEQSUpdateOneWithoutSprNestedInput
     spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
   }
 
   export type SPRUncheckedUpdateWithoutCanvassInput = {
@@ -85743,6 +85859,47 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type VehicleCreateWithoutSprsInput = {
+    id?: string
+    vehicle_number: string
+    plate_number: string
+    rf_id?: string | null
+    classification_id: number
+    assignee_id: string
+    name: string
+    date_acquired: Date | string
+    status: number
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    trip_tickets?: TripTicketCreateNestedManyWithoutVehicleInput
+    gas_slips?: GasSlipCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleUncheckedCreateWithoutSprsInput = {
+    id?: string
+    vehicle_number: string
+    plate_number: string
+    rf_id?: string | null
+    classification_id: number
+    assignee_id: string
+    name: string
+    date_acquired: Date | string
+    status: number
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    trip_tickets?: TripTicketUncheckedCreateNestedManyWithoutVehicleInput
+    gas_slips?: GasSlipUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleCreateOrConnectWithoutSprsInput = {
+    where: VehicleWhereUniqueInput
+    create: XOR<VehicleCreateWithoutSprsInput, VehicleUncheckedCreateWithoutSprsInput>
+  }
+
   export type CanvassUpsertWithoutSprInput = {
     update: XOR<CanvassUpdateWithoutSprInput, CanvassUncheckedUpdateWithoutSprInput>
     create: XOR<CanvassCreateWithoutSprInput, CanvassUncheckedCreateWithoutSprInput>
@@ -85877,11 +86034,57 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"SPRApprover">
   }
 
+  export type VehicleUpsertWithoutSprsInput = {
+    update: XOR<VehicleUpdateWithoutSprsInput, VehicleUncheckedUpdateWithoutSprsInput>
+    create: XOR<VehicleCreateWithoutSprsInput, VehicleUncheckedCreateWithoutSprsInput>
+    where?: VehicleWhereInput
+  }
+
+  export type VehicleUpdateToOneWithWhereWithoutSprsInput = {
+    where?: VehicleWhereInput
+    data: XOR<VehicleUpdateWithoutSprsInput, VehicleUncheckedUpdateWithoutSprsInput>
+  }
+
+  export type VehicleUpdateWithoutSprsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vehicle_number?: StringFieldUpdateOperationsInput | string
+    plate_number?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
+    classification_id?: IntFieldUpdateOperationsInput | number
+    assignee_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    trip_tickets?: TripTicketUpdateManyWithoutVehicleNestedInput
+    gas_slips?: GasSlipUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleUncheckedUpdateWithoutSprsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vehicle_number?: StringFieldUpdateOperationsInput | string
+    plate_number?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
+    classification_id?: IntFieldUpdateOperationsInput | number
+    assignee_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    trip_tickets?: TripTicketUncheckedUpdateManyWithoutVehicleNestedInput
+    gas_slips?: GasSlipUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
   export type SPRCreateWithoutSpr_approversInput = {
     id?: string
     spr_number: string
     date_requested: Date | string
-    vehicle_id: string
     classification_id?: string | null
     supervisor_id: string
     notes: string
@@ -85894,6 +86097,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutSprInput
     meqs?: MEQSCreateNestedOneWithoutSprInput
+    vehicle: VehicleCreateNestedOneWithoutSprsInput
   }
 
   export type SPRUncheckedCreateWithoutSpr_approversInput = {
@@ -85935,7 +86139,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -85948,6 +86151,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutSprNestedInput
     meqs?: MEQSUpdateOneWithoutSprNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
   }
 
   export type SPRUncheckedUpdateWithoutSpr_approversInput = {
@@ -86063,7 +86267,6 @@ export namespace Prisma {
     id?: string
     spr_number: string
     date_requested: Date | string
-    vehicle_id: string
     classification_id?: string | null
     supervisor_id: string
     notes: string
@@ -86076,6 +86279,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassCreateNestedOneWithoutSprInput
     spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
+    vehicle: VehicleCreateNestedOneWithoutSprsInput
   }
 
   export type SPRUncheckedCreateWithoutMeqsInput = {
@@ -86281,7 +86485,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
-    vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
@@ -86294,6 +86497,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass?: CanvassUpdateOneWithoutSprNestedInput
     spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutSprsNestedInput
   }
 
   export type SPRUncheckedUpdateWithoutMeqsInput = {
@@ -91866,6 +92070,54 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SPRCreateWithoutVehicleInput = {
+    id?: string
+    spr_number: string
+    date_requested: Date | string
+    classification_id?: string | null
+    supervisor_id: string
+    notes: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    canvass?: CanvassCreateNestedOneWithoutSprInput
+    meqs?: MEQSCreateNestedOneWithoutSprInput
+    spr_approvers?: SPRApproverCreateNestedManyWithoutSprInput
+  }
+
+  export type SPRUncheckedCreateWithoutVehicleInput = {
+    id?: string
+    spr_number: string
+    date_requested: Date | string
+    canvass_id?: string | null
+    classification_id?: string | null
+    supervisor_id: string
+    notes: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    meqs?: MEQSUncheckedCreateNestedOneWithoutSprInput
+    spr_approvers?: SPRApproverUncheckedCreateNestedManyWithoutSprInput
+  }
+
+  export type SPRCreateOrConnectWithoutVehicleInput = {
+    where: SPRWhereUniqueInput
+    create: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type SPRCreateManyVehicleInputEnvelope = {
+    data: SPRCreateManyVehicleInput | SPRCreateManyVehicleInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TripTicketUpsertWithWhereUniqueWithoutVehicleInput = {
     where: TripTicketWhereUniqueInput
     update: XOR<TripTicketUpdateWithoutVehicleInput, TripTicketUncheckedUpdateWithoutVehicleInput>
@@ -91953,6 +92205,43 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"GasSlip"> | Date | string
   }
 
+  export type SPRUpsertWithWhereUniqueWithoutVehicleInput = {
+    where: SPRWhereUniqueInput
+    update: XOR<SPRUpdateWithoutVehicleInput, SPRUncheckedUpdateWithoutVehicleInput>
+    create: XOR<SPRCreateWithoutVehicleInput, SPRUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type SPRUpdateWithWhereUniqueWithoutVehicleInput = {
+    where: SPRWhereUniqueInput
+    data: XOR<SPRUpdateWithoutVehicleInput, SPRUncheckedUpdateWithoutVehicleInput>
+  }
+
+  export type SPRUpdateManyWithWhereWithoutVehicleInput = {
+    where: SPRScalarWhereInput
+    data: XOR<SPRUpdateManyMutationInput, SPRUncheckedUpdateManyWithoutVehicleInput>
+  }
+
+  export type SPRScalarWhereInput = {
+    AND?: SPRScalarWhereInput | SPRScalarWhereInput[]
+    OR?: SPRScalarWhereInput[]
+    NOT?: SPRScalarWhereInput | SPRScalarWhereInput[]
+    id?: StringFilter<"SPR"> | string
+    spr_number?: StringFilter<"SPR"> | string
+    date_requested?: DateTimeFilter<"SPR"> | Date | string
+    canvass_id?: StringNullableFilter<"SPR"> | string | null
+    vehicle_id?: StringFilter<"SPR"> | string
+    classification_id?: StringNullableFilter<"SPR"> | string | null
+    supervisor_id?: StringFilter<"SPR"> | string
+    notes?: StringFilter<"SPR"> | string
+    cancelled_by?: StringNullableFilter<"SPR"> | string | null
+    created_by?: StringFilter<"SPR"> | string
+    updated_by?: StringNullableFilter<"SPR"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"SPR"> | Date | string | null
+    created_at?: DateTimeFilter<"SPR"> | Date | string
+    updated_at?: DateTimeFilter<"SPR"> | Date | string
+    metadata?: JsonNullableFilter<"SPR">
+  }
+
   export type VehicleCreateWithoutTrip_ticketsInput = {
     id?: string
     vehicle_number: string
@@ -91968,6 +92257,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     gas_slips?: GasSlipCreateNestedManyWithoutVehicleInput
+    sprs?: SPRCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUncheckedCreateWithoutTrip_ticketsInput = {
@@ -91985,6 +92275,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     gas_slips?: GasSlipUncheckedCreateNestedManyWithoutVehicleInput
+    sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleCreateOrConnectWithoutTrip_ticketsInput = {
@@ -92054,6 +92345,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     gas_slips?: GasSlipUpdateManyWithoutVehicleNestedInput
+    sprs?: SPRUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateWithoutTrip_ticketsInput = {
@@ -92071,6 +92363,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     gas_slips?: GasSlipUncheckedUpdateManyWithoutVehicleNestedInput
+    sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type TripTicketApproverUpsertWithWhereUniqueWithoutTrip_ticketInput = {
@@ -92241,6 +92534,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     trip_tickets?: TripTicketCreateNestedManyWithoutVehicleInput
+    sprs?: SPRCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUncheckedCreateWithoutGas_slipsInput = {
@@ -92258,6 +92552,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     trip_tickets?: TripTicketUncheckedCreateNestedManyWithoutVehicleInput
+    sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleCreateOrConnectWithoutGas_slipsInput = {
@@ -92359,6 +92654,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     trip_tickets?: TripTicketUpdateManyWithoutVehicleNestedInput
+    sprs?: SPRUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateWithoutGas_slipsInput = {
@@ -92376,6 +92672,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     trip_tickets?: TripTicketUncheckedUpdateManyWithoutVehicleNestedInput
+    sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type GasStationUpsertWithoutGas_slipsInput = {
@@ -95229,6 +95526,23 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type SPRCreateManyVehicleInput = {
+    id?: string
+    spr_number: string
+    date_requested: Date | string
+    canvass_id?: string | null
+    classification_id?: string | null
+    supervisor_id: string
+    notes: string
+    cancelled_by?: string | null
+    created_by: string
+    updated_by?: string | null
+    cancelled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type TripTicketUpdateWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
     trip_number?: StringFieldUpdateOperationsInput | string
@@ -95372,6 +95686,61 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SPRUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    spr_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    classification_id?: NullableStringFieldUpdateOperationsInput | string | null
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    notes?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    canvass?: CanvassUpdateOneWithoutSprNestedInput
+    meqs?: MEQSUpdateOneWithoutSprNestedInput
+    spr_approvers?: SPRApproverUpdateManyWithoutSprNestedInput
+  }
+
+  export type SPRUncheckedUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    spr_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
+    classification_id?: NullableStringFieldUpdateOperationsInput | string | null
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    notes?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    meqs?: MEQSUncheckedUpdateOneWithoutSprNestedInput
+    spr_approvers?: SPRApproverUncheckedUpdateManyWithoutSprNestedInput
+  }
+
+  export type SPRUncheckedUpdateManyWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    spr_number?: StringFieldUpdateOperationsInput | string
+    date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
+    canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
+    classification_id?: NullableStringFieldUpdateOperationsInput | string | null
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    notes?: StringFieldUpdateOperationsInput | string
+    cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type TripTicketApproverCreateManyTrip_ticketInput = {
