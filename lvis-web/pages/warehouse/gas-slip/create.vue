@@ -143,7 +143,7 @@
                                 </label>
                                 <client-only>
                                     <v-select
-                                        :options="employees"
+                                        :options="approver.order === 2 ? department_heads : employees"
                                         label="fullname"
                                         v-model="approver.approver"
                                         :clearable="false"
@@ -230,6 +230,7 @@ const gsDataErrors = ref({ ..._gsDataErrorsInitial })
 
 // DROPDOWNS
 const employees = ref<Employee[]>([])
+const department_heads = ref<Employee[]>([])
 const vehicles = ref<Vehicle[]>([])
 const gas_stations = ref<GasStation[]>([])
 const fuel_types = ref<FuelType[]>([])
@@ -242,6 +243,7 @@ onMounted(async () => {
     const response = await gsApi.fetchFormDataInCreate()
 
     employees.value = addPropertyFullName(response.employees)
+    department_heads.value = addPropertyFullName(response.department_heads)
     vehicles.value = response.vehicles
     fuel_types.value = response.fuel_types
     gas_stations.value = response.gas_stations

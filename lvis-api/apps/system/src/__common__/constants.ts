@@ -4,3 +4,7 @@ export const enum SETTINGS {
     WAREHOUSE_CUSTODIAN = 'warehouse_custodian',
     FMSD_CHIEF = 'fmsd_chief',
 }
+
+export const enum USER_GROUP {
+    DEPARTMENT_HEAD = 1
+}

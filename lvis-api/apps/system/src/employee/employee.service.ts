@@ -7,6 +7,7 @@ import { SystemRemoveResponse } from '../__common__/classes';
 import { EmployeesResponse } from './entities/employees-response.entity';
 import { AuthUser } from '../__common__/auth-user.entity';
 import axios from 'axios';
+import { USER_GROUP } from '../__common__/constants';
 
 @Injectable()
 export class EmployeeService {
@@ -121,6 +122,34 @@ export class EmployeeService {
 		item.position.permissions = !!item.position.permissions ? JSON.stringify(item.position.permissions) : null
 
 		return item
+	}
+
+	async find_employees_by_user_group(user_group_id: USER_GROUP): Promise<Employee[]> {
+
+		const user_group_members = await this.prisma.userGroupMembers.findMany({
+			where: {
+				user_group_id
+			},
+			include: {
+				user: {
+					include: {
+						user_employee: {
+							include: {
+								employee: true
+							}
+						}
+					}
+				}
+			}
+		})
+
+		const employees = user_group_members
+			.flatMap(member => member.user.user_employee)
+			.map(userEmployee => userEmployee.employee)
+			.filter(employee => employee !== null); // Filter to ensure only non-null employees are included
+
+		return employees;
+
 	}
 
 	async update(id: string, input: UpdateEmployeeInput): Promise<Employee> {

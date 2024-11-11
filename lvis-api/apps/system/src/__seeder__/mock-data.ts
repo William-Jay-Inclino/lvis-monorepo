@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Account, Classification, Department, DepartmentStatus, JOApproverSetting, MEQSApproverSetting, POApproverSetting, Position, RRApproverSetting, RVApproverSetting, SPRApproverSetting, UserEmployee, UserStatus } from "../__common__/types";
+import { Account, Classification, Department, DepartmentStatus, JOApproverSetting, MEQSApproverSetting, POApproverSetting, Position, RRApproverSetting, RVApproverSetting, SPRApproverSetting, UserEmployee, UserGroup, UserGroupMember, UserStatus } from "../__common__/types";
 import { Role } from "apps/system/prisma/generated/client";
 import { Employee, User } from "../__common__/user.entity";
 
@@ -361,8 +361,11 @@ export const employees: Employee[] = [
         created_by: 'admin',
         position_id: positions[6].id,
         department_id: departments[6].id,
-    }
+    },
 ]
+
+const audit_manager_uuid = faker.string.uuid()
+const accounting_manager_uuid = faker.string.uuid()
 
 export const users: User[] = [
     // 0
@@ -385,7 +388,7 @@ export const users: User[] = [
     },
     // 2
     {
-        id: faker.string.uuid(),
+        id: audit_manager_uuid,
         username: 'marlon.sanico',
         password: 'marlon.sanico123',
         status: UserStatus.ACTIVE,
@@ -439,7 +442,7 @@ export const users: User[] = [
     },
     // 8
     {
-        id: faker.string.uuid(),
+        id: accounting_manager_uuid,
         username: 'francespaula.lumacang',
         password: 'francespaula.lumacang123',
         status: UserStatus.ACTIVE,
@@ -655,6 +658,23 @@ export const userEmployees: UserEmployee[] = [
     }
 ]
 
+export const userGroups : UserGroup[] = [
+    {
+        id: 1,
+        name: 'Department Head',
+    }
+]
+
+export const userGroupMember: UserGroupMember[] = [
+    {
+        user_id: audit_manager_uuid,
+        user_group_id: 1,
+    },
+    {
+        user_id: accounting_manager_uuid,
+        user_group_id: 1,
+    }
+]
 
 export const jo_default_approvers: JOApproverSetting[] = [
     {

@@ -270,6 +270,7 @@ export async function findAll(payload: {
 export async function fetchFormDataInCreate(): Promise<{
     vehicles: Vehicle[],
     employees: Employee[],
+    department_heads: Employee[],
     gas_stations: GasStation[],
     fuel_types: FuelType[]
 }> {
@@ -307,6 +308,12 @@ export async function fetchFormDataInCreate(): Promise<{
                 id 
                 name
             }
+            department_heads {
+                id 
+                firstname
+                middlename
+                lastname
+            }
         }
     `;
 
@@ -315,6 +322,7 @@ export async function fetchFormDataInCreate(): Promise<{
         console.log('response', response)
 
         let employees = []
+        let department_heads = []
         let vehicles = []
         let gas_stations = []
         let fuel_types = []
@@ -333,6 +341,10 @@ export async function fetchFormDataInCreate(): Promise<{
             vehicles = data.vehicles
         }
 
+        if (data.department_heads) {
+            department_heads = data.department_heads
+        }
+
         if (data.gas_stations) {
             gas_stations = data.gas_stations
         }
@@ -344,6 +356,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
         return {
             employees,
+            department_heads,
             vehicles,
             gas_stations,
             fuel_types
@@ -353,6 +366,7 @@ export async function fetchFormDataInCreate(): Promise<{
         console.error(error);
         return {
             employees: [],
+            department_heads: [],
             vehicles: [],
             gas_stations: [],
             fuel_types: []

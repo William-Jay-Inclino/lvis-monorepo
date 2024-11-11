@@ -107,6 +107,16 @@ export interface RRApproverSetting {
     created_by: string
 }
 
+export interface UserGroupMember {
+    user_id: string 
+    user_group_id: number 
+}
+
+export interface UserGroup {
+    id: number
+    name: string 
+}
+
 // export enum MODULES {
 
 

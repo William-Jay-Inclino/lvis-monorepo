@@ -25,6 +25,8 @@ export class SeederService {
                 this.seedPOApproverSetting(),
                 this.seedRRApproverSetting(),
                 this.seedUserTable(),
+                this.seedUserGroupTable(),
+                this.seedUserGroupMembersTable(),
                 this.seedUserEmployeeTable(),
                 this.seedSettingTable(),
             ]
@@ -194,6 +196,32 @@ export class SeederService {
             return this.prisma.user.createMany({
                 // @ts-ignore
                 data: data.users,
+            })
+        } catch (error) {
+            console.error(error)
+        }
+
+    }
+
+    seedUserGroupTable() {
+        console.log('seeding user_group table...')
+
+        try {
+            return this.prisma.userGroup.createMany({
+                data: data.userGroups,
+            })
+        } catch (error) {
+            console.error(error)
+        }
+
+    }
+
+    seedUserGroupMembersTable() {
+        console.log('seeding user_group_member table...')
+
+        try {
+            return this.prisma.userGroupMembers.createMany({
+                data: data.userGroupMember,
             })
         } catch (error) {
             console.error(error)

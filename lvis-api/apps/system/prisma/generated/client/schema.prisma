@@ -166,8 +166,29 @@ model User {
 
   // user_permissions UserPermission[]
   user_employee UserEmployee?
+  groups      UserGroupMembers[]  
 
   @@map("user")
+}
+
+model UserGroup {
+  id          Int          @id @default(autoincrement())  
+  name        String                                     
+  members     UserGroupMembers[]   
+
+  @@map("user_group")
+}
+
+model UserGroupMembers {
+  user_id     String         
+  user_group_id    Int         
+
+  user       User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_group      UserGroup   @relation(fields: [user_group_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, user_group_id])
+
+  @@map("user_group_member")
 }
 
 model UserEmployee {

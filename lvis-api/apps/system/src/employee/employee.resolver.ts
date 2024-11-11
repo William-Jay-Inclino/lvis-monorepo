@@ -13,6 +13,7 @@ import { AccessGuard } from '../__auth__/guards/access.guard';
 import { MODULES } from '../__common__/modules.enum';
 import { RESOLVERS } from '../__common__/resolvers.enum';
 import { CheckAccess } from '../__auth__/check-access.decorator';
+import { USER_GROUP } from '../__common__/constants';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Employee)
@@ -47,6 +48,11 @@ export class EmployeeResolver {
   @Query(() => [Employee])
   finance_managers() {
     return this.employeeService.findAllFinanceManagers();
+  }
+
+  @Query(() => [Employee])
+  department_heads() {
+    return this.employeeService.find_employees_by_user_group(USER_GROUP.DEPARTMENT_HEAD);
   }
 
   @Query(() => [Employee])

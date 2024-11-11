@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.8.1
- * Query Engine version: bf0e5e8a04cada8225617067eaa03d041e2bba36
+ * Query Engine version: 605197351a3c8bdd595af2d2a9bc3025bca48ea2
  */
 Prisma.prismaVersion = {
   client: "5.8.1",
-  engine: "bf0e5e8a04cada8225617067eaa03d041e2bba36"
+  engine: "605197351a3c8bdd595af2d2a9bc3025bca48ea2"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -207,6 +207,16 @@ exports.Prisma.UserScalarFieldEnum = {
   deleted_at: 'deleted_at'
 };
 
+exports.Prisma.UserGroupScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.UserGroupMembersScalarFieldEnum = {
+  user_id: 'user_id',
+  user_group_id: 'user_group_id'
+};
+
 exports.Prisma.UserEmployeeScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -327,6 +337,8 @@ exports.Prisma.ModelName = {
   Classification: 'Classification',
   Position: 'Position',
   User: 'User',
+  UserGroup: 'UserGroup',
+  UserGroupMembers: 'UserGroupMembers',
   UserEmployee: 'UserEmployee',
   JOApproverSetting: 'JOApproverSetting',
   RVApproverSetting: 'RVApproverSetting',
