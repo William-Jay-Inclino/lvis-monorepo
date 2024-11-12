@@ -141,13 +141,14 @@ export class TripTicketService {
 		};
 	}
 
-	async findOne(id: string) {
+	async findOne(payload: { id?: string; trip_number?: string }) {
+		const { id, trip_number } = payload;
 
 		const item = await this.prisma.tripTicket.findUnique({
 			include: {
 				vehicle: true,
 			},
-			where: { id }
+			where: id ? { id } : { trip_number }
 		})
 
 		if (!item) {
@@ -159,7 +160,7 @@ export class TripTicketService {
 
 	async remove(id: string): Promise<WarehouseRemoveResponse> {
 
-		const existingItem = await this.findOne(id)
+		const existingItem = await this.findOne({ id })
 
 		await this.prisma.tripTicket.delete({
 			where: { id },
@@ -237,7 +238,7 @@ export class TripTicketService {
 				});
 			});
 
-			const updatedTripTicket = await this.findOne(inProgressTrip.id);
+			const updatedTripTicket = await this.findOne({ id: inProgressTrip.id });
 
 			return {
 				success: true,
@@ -279,7 +280,7 @@ export class TripTicketService {
 				});
 			});
 
-			const updatedTripTicket = await this.findOne(toDepartTrip.id);
+			const updatedTripTicket = await this.findOne({ id: toDepartTrip.id });
 
 			return {
 				success: true,

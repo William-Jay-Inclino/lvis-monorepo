@@ -75,17 +75,21 @@ export async function findByTripNumber(tripNumber: string): Promise<TripTicket |
         query {
             trip_ticket(trip_number: "${tripNumber}") {
                 id
-                vehicle_number
+                trip_number
+                vehicle {
+                    id
+                    vehicle_number
+                }
                 driver {
                     id 
-                    firstname 
-                    middlename 
+                    firstname
+                    middlename
                     lastname
                 }
-                created_at
                 start_time
                 status
                 cancelled_at
+                created_at
             }
         }
     `;

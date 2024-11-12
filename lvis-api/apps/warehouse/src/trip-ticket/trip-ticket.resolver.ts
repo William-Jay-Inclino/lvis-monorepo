@@ -54,8 +54,14 @@ export class TripTicketResolver {
 
   @Query(() => TripTicket)
   @UseGuards(GqlAuthGuard)
-  trip_ticket(@Args('id') id: string) {
-    return this.tripTicketService.findOne(id);
+  trip_ticket(
+    @Args('id', { nullable: true }) id?: string,
+    @Args('trip_number', { nullable: true }) trip_number?: string,
+  ) {
+    if (!id && !trip_number) {
+      throw new Error('Either id or trip_number must be provided');
+  }
+    return this.tripTicketService.findOne({ id, trip_number });
   }
 
   @Mutation(() => WarehouseRemoveResponse)
