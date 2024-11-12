@@ -47,8 +47,8 @@ export class GasSlipPdfService {
         const vehicle_assignee = await this.getEmployee(gasSlip.vehicle.assignee_id, this.authUser)
         const requested_by = await this.getEmployee(gasSlip.requested_by_id, this.authUser)
 
-        const immediate_superior = approvers[0]
-        const department_head = approvers[1]
+        const immediate_superior = approvers.find(i => i.order === 1)
+        const department_head = approvers.find(i => i.order === 2)
 
         const columns = [1, 2]
 
@@ -389,7 +389,11 @@ export class GasSlipPdfService {
                 gas_station: true,
                 vehicle: true,
                 fuel_type: true,
-                gas_slip_approvers: true,
+                gas_slip_approvers: {
+                    orderBy: {
+                        order: 'asc'
+                    }
+                },
             }
         }) 
 
