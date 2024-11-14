@@ -180,6 +180,7 @@ export async function findOne(id: string): Promise<GasSlip | undefined> {
                 cancelled_at
                 can_update
                 can_post
+                can_print
                 gas_slip_approvers{
                     approver {
                         id

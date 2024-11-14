@@ -235,8 +235,9 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
         },
         [MODULES.TRIP_TICKET]: {
             [RESOLVERS.createTripTicket]: warehousePermissions.canManageTripTicket?.create ?? false,
-            [RESOLVERS.updateTripTicket]: warehousePermissions.canManageTripTicket?.update ?? false,
-            [RESOLVERS.removeTripTicket]: warehousePermissions.canManageTripTicket?.delete ?? false,
+        },
+        [MODULES.GAS_SLIP]: {
+            [RESOLVERS.createGasSlip]: warehousePermissions.canManageGasSlip?.create ?? false,
         },
     };
 

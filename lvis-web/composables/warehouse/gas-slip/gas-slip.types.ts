@@ -39,6 +39,7 @@ export interface GasSlip {
     requested_by: Employee
     can_update: boolean
     can_post: boolean
+    can_print: boolean
 }
 
 

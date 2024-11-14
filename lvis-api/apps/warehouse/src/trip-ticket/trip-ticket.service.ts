@@ -13,6 +13,7 @@ import { VEHICLE_STATUS } from '../vehicle/entities/vehicle.enums';
 import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
 import { OnEvent } from '@nestjs/event-emitter';
 import { TripTicketApproverStatusUpdated } from '../trip-ticket-approver/events/trip-ticket-approver-status-updated.event';
+import { isAdmin } from '../__common__/helpers';
 
 @Injectable()
 export class TripTicketService {
@@ -510,6 +511,34 @@ export class TripTicketService {
 			}
 		});
 	}
+
+	async canUpdateForm(trip_ticket_id: string): Promise<Boolean> {
+
+        const trip_ticket = await this.prisma.tripTicket.findUnique({
+            where: {
+                id: trip_ticket_id
+            },
+            select: {
+                created_by: true,
+                trip_ticket_approvers: true
+            }
+        })
+
+        const isOwner = trip_ticket.created_by === this.authUser.user.username || isAdmin(this.authUser)
+
+        if (!isOwner) {
+            return false
+        }
+
+        const hasApproval = trip_ticket.trip_ticket_approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)
+
+        if (hasApproval) {
+            return false
+        }
+
+        return true
+
+    }
 
 	private async getLatestTripNumber(): Promise<string> {
         const currentYear = new Date().getFullYear().toString().slice(-2);

@@ -174,15 +174,13 @@ export const warehousePermissions: WarehousePermissions = {
     },
     canManageTripTicket: {
         create: false,
-        read: false,
-        update: false,
-        delete: false,
+        search: false,
+        viewDetails: false,
     },
     canManageGasSlip: {
         create: false,
-        read: false,
-        update: false,
-        delete: false,
+        search: false,
+        viewDetails: false,
     },
 
 }

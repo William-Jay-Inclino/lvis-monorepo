@@ -701,9 +701,13 @@ function canAccessTripTicket(route: ROUTES, permissions: WarehousePermissions) {
 
     if (!permissions.canManageTripTicket) return false
 
-    if (route === ROUTES.TRIP_TICKET_INDEX) return !!permissions.canManageTripTicket.read
+    const authUser = getAuthUser()
+
+    if (route === ROUTES.TRIP_TICKET_INDEX) return !!permissions.canManageTripTicket.search
     if (route === ROUTES.TRIP_TICKET_CREATE) return !!permissions.canManageTripTicket.create
-    if (route === ROUTES.TRIP_TICKET_UPDATE) return !!permissions.canManageTripTicket.update
+    if (route === ROUTES.TRIP_TICKET_VIEW) {
+        return !!permissions.canManageTripTicket.viewDetails || isApprover(authUser)
+    }
 
 
     return true
@@ -716,10 +720,13 @@ function canAccessGasSlip(route: ROUTES, permissions: WarehousePermissions) {
 
     if (!permissions.canManageGasSlip) return false
 
-    if (route === ROUTES.GAS_SLIP_INDEX) return !!permissions.canManageGasSlip.read
-    if (route === ROUTES.GAS_SLIP_CREATE) return !!permissions.canManageGasSlip.create
-    if (route === ROUTES.GAS_SLIP_UPDATE) return !!permissions.canManageGasSlip.update
+    const authUser = getAuthUser()
 
+    if (route === ROUTES.GAS_SLIP_INDEX) return !!permissions.canManageGasSlip.search
+    if (route === ROUTES.GAS_SLIP_CREATE) return !!permissions.canManageGasSlip.create
+    if (route === ROUTES.GAS_SLIP_VIEW) {
+        return !!permissions.canManageGasSlip.viewDetails || isApprover(authUser)
+    }
 
     return true
 

@@ -654,7 +654,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr v-if="permissions.warehouse.canManageItemType">
+                    <!-- <tr v-if="permissions.warehouse.canManageItemType">
                         <td class="text-muted align-middle">Item Type Mgmt</td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
@@ -686,8 +686,8 @@
                                 </label>
                             </div>
                         </td>
-                    </tr>
-                    <tr v-if="permissions.warehouse.canManageUnit">
+                    </tr> -->
+                    <!-- <tr v-if="permissions.warehouse.canManageUnit">
                         <td class="text-muted align-middle">Unit Mgmt</td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
@@ -719,6 +719,96 @@
                                 </label>
                             </div>
                         </td>
+                    </tr> -->
+                    <tr v-if="permissions.warehouse.canManageSupplier">
+                        <td class="text-muted align-middle">Supplier Mgmt</td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                v-model="permissions.warehouse.canManageSupplier.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageSupplier.read">
+                                <label class="form-check-label">
+                                    Read
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageSupplier.update">
+                                <label class="form-check-label">
+                                    Update
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageSupplier.delete">
+                                <label class="form-check-label">
+                                    Delete
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="fst-italic text-warning">
+                            <h5> MOTORPOOL </h5>
+                        </th>
+                    </tr>
+                    <tr v-if="permissions.warehouse.canManageTripTicket">
+                        <td class="text-muted align-middle">Trip Ticket</td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageTripTicket.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageTripTicket.search">
+                                <label class="form-check-label">
+                                    Search
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageTripTicket.viewDetails">
+                                <label class="form-check-label">
+                                    View Details
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.warehouse.canManageGasSlip">
+                        <td class="text-muted align-middle">Gas Slip</td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageGasSlip.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageGasSlip.search">
+                                <label class="form-check-label">
+                                    Search
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageGasSlip.viewDetails">
+                                <label class="form-check-label">
+                                    View Details
+                                </label>
+                            </div>
+                        </td>
                     </tr>
                     <tr v-if="permissions.warehouse.canManageVehicle">
                         <td class="text-muted align-middle">Vehicle Mgmt</td>
@@ -747,39 +837,6 @@
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
                                     v-model="permissions.warehouse.canManageVehicle.delete">
-                                <label class="form-check-label">
-                                    Delete
-                                </label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr v-if="permissions.warehouse.canManageSupplier">
-                        <td class="text-muted align-middle">Supplier Mgmt</td>
-                        <td class="text-muted">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageSupplier.create">
-                                <label class="form-check-label">
-                                    Create
-                                </label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageSupplier.read">
-                                <label class="form-check-label">
-                                    Read
-                                </label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageSupplier.update">
-                                <label class="form-check-label">
-                                    Update
-                                </label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageSupplier.delete">
                                 <label class="form-check-label">
                                     Delete
                                 </label>

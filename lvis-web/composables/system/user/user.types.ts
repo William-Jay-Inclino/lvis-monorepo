@@ -256,15 +256,13 @@ export interface WarehousePermissions {
     },
     canManageTripTicket?: {
         create?: boolean,
-        read?: boolean,
-        update?: boolean,
-        delete?: boolean,
+        search?: boolean,
+        viewDetails?: boolean,
     },
     canManageGasSlip?: {
         create?: boolean,
-        read?: boolean,
-        update?: boolean,
-        delete?: boolean,
+        search?: boolean,
+        viewDetails?: boolean,
     },
 }
 

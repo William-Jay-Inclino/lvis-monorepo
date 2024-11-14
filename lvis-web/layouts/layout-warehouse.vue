@@ -360,8 +360,8 @@ function canViewMotorpool(authUser: AuthUser) {
 
     return (
         (!!warehousePermissions.canManageVehicle && warehousePermissions.canManageVehicle.read) || 
-        (!!warehousePermissions.canManageTripTicket && warehousePermissions.canManageTripTicket.read) || 
-        (!!warehousePermissions.canManageGasSlip && warehousePermissions.canManageGasSlip.read)
+        (!!warehousePermissions.canManageTripTicket && warehousePermissions.canManageTripTicket.search) || 
+        (!!warehousePermissions.canManageGasSlip && warehousePermissions.canManageGasSlip.search)
     )
 }
 

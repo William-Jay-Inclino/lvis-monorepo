@@ -162,6 +162,7 @@ export async function findOne(id: string): Promise<TripTicket | undefined> {
                     lastname
                 }
                 status
+                can_update
                 cancelled_at
                 trip_ticket_approvers{
                     approver {

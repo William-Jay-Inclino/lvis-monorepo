@@ -252,7 +252,7 @@ export enum RESOLVERS {
 
 
     // ========= GAS SLIP ========= 
-    createGasSlip = 'creategGasSlip',
+    createGasSlip = 'createGasSlip',
     gas_slips = 'gas_slips',
     gas_slip = 'gas_slip',
     updateGasSlip = 'updateGasSlip',

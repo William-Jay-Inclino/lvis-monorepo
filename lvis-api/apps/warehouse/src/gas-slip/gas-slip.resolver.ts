@@ -115,6 +115,15 @@ export class GasSlipResolver {
   }
 
   @ResolveField(() => Boolean)
+  can_print(
+    @Parent() gasSlip: GasSlip,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.gasSlipService.setAuthUser(authUser)
+    return this.gasSlipService.canPrint(gasSlip.id)
+  }
+
+  @ResolveField(() => Boolean)
   can_post(
     @Parent() gasSlip: GasSlip,
     @CurrentAuthUser() authUser: AuthUser

@@ -255,6 +255,33 @@ export class GasSlipService {
 
     }
 
+	async canPrint(gas_slip_id: string): Promise<Boolean> {
+
+        const gasSlip = await this.prisma.gasSlip.findUnique({
+            where: {
+                id: gas_slip_id
+            },
+            select: {
+                created_by: true,
+            }
+        })
+
+        const isOwner = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser)
+
+        if (!isOwner) {
+            return false
+        }
+
+        const status = await this.getStatus(gas_slip_id)
+
+		if(status === APPROVAL_STATUS.APPROVED) {
+			return true
+		} else {
+			return false
+		}
+
+    }
+
 	async canPostGasSlip(gas_slip_id: string): Promise<Boolean> {
 
         const gasSlip = await this.prisma.gasSlip.findUnique({

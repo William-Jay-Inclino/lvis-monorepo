@@ -156,4 +156,13 @@ export class TripTicketResolver {
       return this.tripTicketApproverService.findByTripTicketId(tripTicket.id)
   }
 
+  @ResolveField(() => Boolean)
+  can_update(
+      @Parent() trip_ticket: TripTicket,
+      @CurrentAuthUser() authUser: AuthUser
+  ) {
+      this.tripTicketService.setAuthUser(authUser)
+      return this.tripTicketService.canUpdateForm(trip_ticket.id)
+  }
+
 }
