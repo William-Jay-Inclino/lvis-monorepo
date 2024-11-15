@@ -143,7 +143,7 @@
 
                     <div class="mb-3 text-center" v-if="formData.employee">
                         <label class="label text-muted fst-italic">
-                            Position: <span class="text-primary">{{ formData.employee.position.name }} </span>
+                            Division: <span class="text-primary">{{ !!formData.employee.division ? formData.employee.division.code : 'N/A' }} </span>
                         </label>
                     </div>
     
@@ -221,12 +221,23 @@ onMounted(async () => {
     employees.value = response.employees.map((i) => {
         i.fullname = getFullname(i.firstname, i.middlename, i.lastname)
 
-        if(!i.position.permissions) {
-            i.position.permissions = JSON.parse(JSON.stringify(permissions))
-        } else {
-            // @ts-ignore
-            i.position.permissions = JSON.parse(i.position.permissions)
+        if(i.division) {
+            
+            if(i.division.permissions) {
+                // @ts-ignore
+                i.division.permissions = JSON.parse(i.division.permissions)
+            } else {
+                i.division.permissions = JSON.parse(JSON.stringify(permissions))
+            }
+
         }
+
+        // if(!i.division) {
+        //     i.division.permissions = JSON.parse(JSON.stringify(permissions))
+        // } else {
+        //     // @ts-ignore
+        //     i.position.permissions = JSON.parse(i.position.permissions)
+        // }
 
         return i
     })
@@ -318,8 +329,15 @@ function onChangeEmployee() {
     formData.value.firstname = formData.value.employee.firstname
     formData.value.middlename = formData.value.employee.middlename
     formData.value.lastname = formData.value.employee.lastname
-    console.log('formData.value.employee.position.permissions', formData.value.employee.position.permissions);
-    formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), formData.value.employee.position.permissions)
+    // console.log('formData.value.employee.position.permissions', formData.value.employee.position.permissions);
+
+    if(formData.value.employee.division) {
+        formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), formData.value.employee.division.permissions)
+    } else {
+        formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), JSON.parse(JSON.stringify(permissions)))
+    }
+
+    // formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), formData.value.employee.position.permissions)
 }
 
 function onEmployeeSelected(payload: Employee) {

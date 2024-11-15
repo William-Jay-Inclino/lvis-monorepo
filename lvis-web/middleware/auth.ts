@@ -38,7 +38,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
             const isAccountModule = to.name?.toString().includes(MODULES.ACCOUNT)
             const isClassificationModule = to.name?.toString().includes(MODULES.CLASSIFICATION)
             const isDepartmentModule = to.name?.toString().includes(MODULES.DEPARTMENT)
-            const isPositionModule = to.name?.toString().includes(MODULES.POSITION)
+            const isDivisionModule = to.name?.toString().includes(MODULES.DIVISION)
     
     
             if (isEmployeeModule) {
@@ -64,8 +64,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
     
             }
     
-            if (isPositionModule) {
-                if (!canAccessPosition(to.name as ROUTES, permissions)) return redirectTo401Page()
+            if (isDivisionModule) {
+                if (!canAccessDivision(to.name as ROUTES, permissions)) return redirectTo401Page()
                 return
     
             }
@@ -321,15 +321,15 @@ function canAccessDepartment(route: ROUTES, permissions: SystemPermissions) {
 
 }
 
-function canAccessPosition(route: ROUTES, permissions: SystemPermissions) {
+function canAccessDivision(route: ROUTES, permissions: SystemPermissions) {
 
-    console.log('canAccessPosition', route, permissions)
+    console.log('canAccessDivision', route, permissions)
 
-    if (!permissions.canManagePosition) return false
+    if (!permissions.canManageDivision) return false
 
-    if (route === ROUTES.POSITION_INDEX) return !!permissions.canManagePosition.read
-    if (route === ROUTES.POSITION_CREATE) return !!permissions.canManagePosition.create
-    if (route === ROUTES.POSITION_UPDATE) return !!permissions.canManagePosition.update
+    if (route === ROUTES.DIVISION_INDEX) return !!permissions.canManageDivision.read
+    if (route === ROUTES.DIVISION_CREATE) return !!permissions.canManageDivision.create
+    if (route === ROUTES.DIVISION_UPDATE) return !!permissions.canManageDivision.update
 
 
     return true

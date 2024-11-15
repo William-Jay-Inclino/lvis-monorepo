@@ -106,7 +106,7 @@ export interface SystemPermissions {
         update?: boolean,
         delete?: boolean,
     },
-    canManagePosition?: {
+    canManageDivision?: {
         create?: boolean,
         read?: boolean,
         update?: boolean,

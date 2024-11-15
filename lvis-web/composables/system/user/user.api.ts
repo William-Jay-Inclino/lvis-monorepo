@@ -74,8 +74,10 @@ export async function findOne(id: string): Promise<User | undefined> {
                         firstname
                         middlename
                         lastname
-                        position {
+                        position
+                        division {
                             id 
+                            code 
                             name
                         }
                         total_pending_approvals
@@ -320,8 +322,10 @@ export async function fetchFormDataInCreate(): Promise<{
                     firstname
                     middlename
                     lastname
-                    position {
+                    position
+                    division {
                         id 
+                        code
                         name 
                         permissions
                     }

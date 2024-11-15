@@ -28,7 +28,7 @@ export const systemPermissions: SystemPermissions = {
         update: false,
         delete: false,
     },
-    canManagePosition: {
+    canManageDivision: {
         create: false,
         read: false,
         update: false,

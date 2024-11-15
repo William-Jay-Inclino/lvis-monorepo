@@ -12,7 +12,7 @@
                         <div class="h5wrapper mb-3">
                             <hr class="result">
                             <h5 class="text-warning fst-italic">
-                                <i class="fas fa-info-circle"></i> Position Info
+                                <i class="fas fa-info-circle"></i> Division Info
                             </h5>
                             <hr class="result">
                         </div>
@@ -22,8 +22,16 @@
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
+                                            <td class="text-muted">Code</td>
+                                            <td> {{ item.name }} </td>
+                                        </tr>
+                                        <tr>
                                             <td class="text-muted">Name</td>
                                             <td> {{ item.name }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Department</td>
+                                            <td> {{ item.department.name }} </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -40,15 +48,15 @@
                             <div class="col">
                                 <div class="d-flex justify-content-end gap-2">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <button v-if="canRead(authUser, 'canManagePosition')" class="btn btn-secondary"
+                                        <button v-if="canRead(authUser, 'canManageDivision')" class="btn btn-secondary"
                                             @click="onClickGoToList">
                                             <i class="fas fa-list"></i> Go to List
                                         </button>
-                                        <button v-if="canEdit(authUser, 'canManagePosition')" class="btn btn-success"
+                                        <button v-if="canEdit(authUser, 'canManageDivision')" class="btn btn-success"
                                             @click="onClickUpdate">
                                             <i class="fas fa-sync"></i> Update
                                         </button>
-                                        <button v-if="canCreate(authUser, 'canManagePosition')" class="btn btn-primary"
+                                        <button v-if="canCreate(authUser, 'canManageDivision')" class="btn btn-primary"
                                             @click="onClickAddNew">
                                             <i class="fas fa-plus"></i> Add New
                                         </button>
@@ -77,12 +85,12 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/position/position.api'
-import type { Position } from '~/composables/system/position/position';
+import * as api from '~/composables/system/division/division.api'
+import type { Division } from '~/composables/system/division/division.ts';
 
 
 definePageMeta({
-    name: ROUTES.POSITION_VIEW,
+    name: ROUTES.DIVISION_VIEW,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -92,7 +100,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 
 const router = useRouter()
 const route = useRoute()
-const item = ref<Position | undefined>()
+const item = ref<Division | undefined>()
 
 onMounted(async () => {
     authUser.value = getAuthUser()
@@ -103,9 +111,9 @@ onMounted(async () => {
 })
 
 
-const onClickGoToList = () => router.push(`/system/data-management/position`);
-const onClickAddNew = () => router.push(`/system/data-management/position/create`);
-const onClickUpdate = () => router.push(`/system/data-management/position/${item.value?.id}`);
+const onClickGoToList = () => router.push(`/system/data-management/division`);
+const onClickAddNew = () => router.push(`/system/data-management/division/create`);
+const onClickUpdate = () => router.push(`/system/data-management/division/${item.value?.id}`);
 
 
 </script>

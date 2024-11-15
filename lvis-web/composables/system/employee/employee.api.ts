@@ -1,7 +1,6 @@
 import { sendRequest } from "~/utils/api"
 import type { Employee, CreateEmployeeInput, MutationResponse, FindAllResponse } from "./employee.types";
 import axios from "axios";
-import type { Position } from "../position/position";
 
 
 export async function findAll(payload: { page: number, pageSize: number, searchValue: string | null }): Promise<FindAllResponse> {
@@ -269,7 +268,6 @@ export async function uploadSingleAttachment(attachment: any, apiUrl: string): P
     }
 
 }
-
 
 export async function fetchFormDataInCreate(): Promise<{ departments: Department[] }> {
 

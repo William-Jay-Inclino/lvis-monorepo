@@ -732,6 +732,18 @@ export const userEmployees: UserEmployee[] = [
         user_id: u_monroe,
         created_by: 'admin'
     },
+    {
+        id: faker.string.uuid(),
+        employee_id: ricardo,
+        user_id: u_ricardo,
+        created_by: 'admin'
+    },
+    {
+        id: faker.string.uuid(),
+        employee_id: michael,
+        user_id: u_michael,
+        created_by: 'admin'
+    },
 ]
 
 export const userGroups : UserGroup[] = [

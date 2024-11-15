@@ -118,7 +118,7 @@ definePageMeta({
 })
 
 import * as api from '~/composables/system/user/user.api'
-import type { User, UserPermissions } from '~/composables/system/user/user.types';
+import type { User } from '~/composables/system/user/user.types';
 
 const router = useRouter()
 const route = useRoute()

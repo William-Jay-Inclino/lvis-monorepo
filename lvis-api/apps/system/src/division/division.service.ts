@@ -57,7 +57,10 @@ export class DivisionService {
 
 	async findOne(id: string): Promise<Division | null> {
 		const item = await this.prisma.division.findUnique({
-			where: { id }
+			where: { id },
+			include: {
+				department: true
+			}
 		})
 
 		if (!item) {

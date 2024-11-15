@@ -4,7 +4,7 @@
         <div class="card-body">
             <div v-if="!isLoadingPage">
         
-                <h2 class="text-warning">Update Position</h2>
+                <h2 class="text-warning">Update Division</h2>
         
                 <hr>
         
@@ -12,6 +12,12 @@
         
                     <div class="row justify-content-center pt-3">
                         <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Code <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" v-model="item.code" required>
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label">
                                     Name <span class="text-danger">*</span>
@@ -55,12 +61,12 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/position/position.api'
-import type { CreatePositionInput, Position } from '~/composables/system/position/position'
+import * as api from '~/composables/system/division/division.api'
+import type { CreateDivisionInput, Division } from '~/composables/system/division/division.ts'
 import Swal from 'sweetalert2'
 
 definePageMeta({
-    name: ROUTES.POSITION_UPDATE,
+    name: ROUTES.DIVISION_UPDATE,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -71,14 +77,14 @@ const route = useRoute()
 const router = useRouter()
 const isSaving = ref(false)
 
-const item = ref<Position>()
+const item = ref<Division>()
 
 onMounted(async () => {
 
     const response = await api.findOne(route.params.id as string)
 
     if (!response) {
-        console.error('Position not found')
+        console.error('Division not found')
         return
     }
 
@@ -94,7 +100,8 @@ async function onSubmit() {
 
     console.log('saving...')
 
-    const data: CreatePositionInput = {
+    const data: CreateDivisionInput = {
+        code: item.value.code,
         name: item.value.name,
         permissions: item.value.permissions
     }
@@ -109,10 +116,10 @@ async function onSubmit() {
             title: 'Success!',
             text: response.msg,
             icon: 'success',
-            position: 'top',
+            division: 'top',
         })
 
-        router.push(`/system/data-management/position/view/${response.data.id}`);
+        router.push(`/system/data-management/division/view/${response.data.id}`);
 
     } else {
 
@@ -120,7 +127,7 @@ async function onSubmit() {
             title: 'Error!',
             text: response.msg,
             icon: 'error',
-            position: 'top',
+            division: 'top',
         })
 
     }
@@ -129,6 +136,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/data-management/position')
+const onClickGoToList = () => router.push('/system/data-management/division')
 
 </script>
