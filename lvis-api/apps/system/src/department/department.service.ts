@@ -5,6 +5,7 @@ import { Prisma, Department } from 'apps/system/prisma/generated/client';
 import { UpdateDepartmentInput } from './dto/update-department.input';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { AuthUser } from '../__common__/auth-user.entity';
+import { divisions } from '../__seeder__/mock-data';
 
 @Injectable()
 export class DepartmentService {
@@ -40,6 +41,9 @@ export class DepartmentService {
     return await this.prisma.department.findMany({
       where: {
         deleted_at: null
+      },
+      include: {
+        divisions: true
       }
     })
   }

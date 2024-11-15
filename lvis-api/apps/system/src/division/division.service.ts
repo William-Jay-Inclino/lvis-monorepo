@@ -1,15 +1,14 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { CreatePositionInput } from './dto/create-position.input';
+import { CreateDivisionInput } from './dto/create-division.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Position, Prisma } from 'apps/system/prisma/generated/client';
-import { UpdatePositionInput } from './dto/update-position.input';
+import { Division, Prisma } from 'apps/system/prisma/generated/client';
+import { UpdateDivisionInput } from './dto/update-division.input';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { AuthUser } from '../__common__/auth-user.entity';
 
 @Injectable()
-export class PositionService {
+export class DivisionService {
 
-	private readonly logger = new Logger(PositionService.name);
 	private authUser: AuthUser
 
 	constructor(private readonly prisma: PrismaService) { }
@@ -18,21 +17,21 @@ export class PositionService {
 		this.authUser = authUser
 	}
 
-	async create(input: CreatePositionInput): Promise<Position> {
+	async create(input: CreateDivisionInput): Promise<Division> {
 
-		const data: Prisma.PositionCreateInput = {
+		const data: Prisma.DivisionCreateInput = {
 			name: input.name,
+			code: input.code,
+			department: { connect: { id: input.department_id } },
 			created_by: this.authUser.user.username
 		}
 
-    if (input.permissions) {
-      data.permissions = JSON.parse(input.permissions)
-    }
+		if (input.permissions) {
+		data.permissions = JSON.parse(input.permissions)
+		}
 
-		const created = await this.prisma.position.create({ data })
+		const created = await this.prisma.division.create({ data })
 
-		this.logger.log('Successfully created Position')
-		
 		if(created.permissions) {
 			created.permissions = JSON.stringify(created.permissions)
 		}
@@ -40,8 +39,8 @@ export class PositionService {
 		return created
 	}
 
-	async findAll(): Promise<Position[]> {
-		const items = await this.prisma.position.findMany({
+	async findAll(): Promise<Division[]> {
+		const items = await this.prisma.division.findMany({
 			where: {
 				deleted_at: null
 			},
@@ -56,13 +55,13 @@ export class PositionService {
 		})
 	}
 
-	async findOne(id: string): Promise<Position | null> {
-		const item = await this.prisma.position.findUnique({
+	async findOne(id: string): Promise<Division | null> {
+		const item = await this.prisma.division.findUnique({
 			where: { id }
 		})
 
 		if (!item) {
-			throw new NotFoundException('Position not found')
+			throw new NotFoundException('Division not found')
 		}
 
 		if(item.permissions) {
@@ -72,27 +71,27 @@ export class PositionService {
 		return item
 	}
 
-	async update(id: string, input: UpdatePositionInput): Promise<Position> {
+	async update(id: string, input: UpdateDivisionInput): Promise<Division> {
 
 		const existingItem = await this.findOne(id)
 
-		const data: Prisma.PositionUpdateInput = {
+		const data: Prisma.DivisionUpdateInput = {
+			code: input.code ?? existingItem.code,
+			department: input.department_id ? { connect: { id: input.department_id } } : { connect: { id: existingItem.department_id } },
 			name: input.name ?? existingItem.name,
 			updated_by: this.authUser.user.username
 		}
 
-    if (input.permissions) {
-      data.permissions = JSON.parse(input.permissions)
-    }
+		if (input.permissions) {
+		data.permissions = JSON.parse(input.permissions)
+		}
 
-		const updated = await this.prisma.position.update({
+		const updated = await this.prisma.division.update({
 			data,
 			where: {
 				id
 			}
 		})
-
-		this.logger.log('Successfully updated Position')
 
 		if(updated.permissions) {
 			updated.permissions = JSON.stringify(updated.permissions)
@@ -105,7 +104,7 @@ export class PositionService {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.position.update({
+		await this.prisma.division.update({
 			where: { id },
 			data: {
 				deleted_at: new Date(),
@@ -115,7 +114,7 @@ export class PositionService {
 
 		return {
 			success: true,
-			msg: "Position successfully deleted"
+			msg: "Division successfully deleted"
 		}
 
 	}

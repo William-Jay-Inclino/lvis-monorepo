@@ -9,12 +9,16 @@ export const enum DepartmentStatus {
     INACTIVE = 2
 }
 
+export const enum DivisionStatus {
+    ACTIVE = 1,
+    INACTIVE = 2
+}
+
 export interface Division {
     id: string
     department_id: string
     code: string
     name: string
-    status: number
     created_by: string
 }
 

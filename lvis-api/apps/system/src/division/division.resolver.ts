@@ -1,0 +1,60 @@
+import { Resolver, Query, Mutation, Args, ResolveReference } from '@nestjs/graphql';
+import { Division } from './entities/division.entity';
+import { CreateDivisionInput } from './dto/create-division.input';
+import { UpdateDivisionInput } from './dto/update-division.input';
+import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { UseGuards } from '@nestjs/common';
+import { AuthUser } from '../__common__/auth-user.entity';
+import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
+import { SystemRemoveResponse } from '../__common__/classes';
+import { DivisionService } from './division.service';
+
+@UseGuards(GqlAuthGuard)
+@Resolver(() => Division)
+export class DivisionResolver {
+  constructor(private readonly divisionService: DivisionService) { }
+
+  @Mutation(() => Division)
+  createDivision(
+    @Args('input') createDivisionInput: CreateDivisionInput,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.divisionService.setAuthUser(authUser)
+    return this.divisionService.create(createDivisionInput);
+  }
+
+  @Query(() => [Division])
+  divisions() {
+    return this.divisionService.findAll();
+  }
+
+  @Query(() => Division)
+  division(@Args('id') id: string) {
+    return this.divisionService.findOne(id);
+  }
+
+  @Mutation(() => Division)
+  updateDivision(
+    @Args('id') id: string,
+    @Args('input') updateDivisionInput: UpdateDivisionInput,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.divisionService.setAuthUser(authUser)
+    return this.divisionService.update(id, updateDivisionInput);
+  }
+
+  @Mutation(() => SystemRemoveResponse)
+  removeDivision(
+    @Args('id') id: string,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.divisionService.setAuthUser(authUser)
+    return this.divisionService.remove(id);
+  }
+
+  @ResolveReference()
+  async resolveReference(reference: { __typename: string, id: string }) {
+    return await this.divisionService.findOne(reference.id)
+  }
+
+}

@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int, ID, Directive } from '@nestjs/graphql';
 import { DepartmentStatus } from '../../__common__/types';
+import { Division } from '../../division/entities/division.entity';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -16,8 +17,6 @@ export class Department {
 
   @Field(() => Int)
   status: DepartmentStatus;
-
-
 
   // audit fields
 
@@ -38,4 +37,11 @@ export class Department {
 
   @Field(() => Date, { nullable: true })
   deleted_at: Date | null;
+
+
+  // derived / resolvers
+
+  @Field(() => [Division])
+  divisions: Division[];
+
 }

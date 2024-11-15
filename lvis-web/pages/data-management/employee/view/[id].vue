@@ -34,11 +34,15 @@
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Position</td>
-                                            <td> {{ item.position.name }} </td>
+                                            <td> {{ item.position }} </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Department</td>
                                             <td> {{ item.department.name }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Division</td>
+                                            <td> {{ item.division ? item.division.name : 'N/A' }} </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Signature</td>

@@ -24,7 +24,7 @@ export class SettingService {
         const employee = await this.prisma.employee.findUnique({
             where: { id: item.value },
             include: {
-                position: true,
+                division: true,
                 department: true,
             }
         })
@@ -54,7 +54,7 @@ export class SettingService {
         const employee = await this.prisma.employee.findUnique({
             where: { id: item.value },
             include: {
-                position: true,
+                division: true,
                 department: true,
             }
         })

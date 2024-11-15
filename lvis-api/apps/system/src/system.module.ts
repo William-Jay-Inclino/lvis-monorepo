@@ -20,7 +20,7 @@ import { JoApproverSettingModule } from './jo-approver-setting/jo-approver-setti
 import { SprApproverSettingModule } from './spr-approver-setting/spr-approver-setting.module';
 import { AccountModule } from './account/account.module';
 import { SettingModule } from './setting/setting.module';
-import { PositionModule } from './position/position.module';
+import { DivisionModule } from './division/division.module';
 // import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 
@@ -50,7 +50,7 @@ import { PositionModule } from './position/position.module';
     SprApproverSettingModule,
     AccountModule,
     SettingModule,
-    PositionModule,
+    DivisionModule,
     // PrometheusModule.register()
   ],
   controllers: [],

@@ -32,27 +32,10 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Position
-                                </label>
-                                <client-only>
-                                    <v-select :options="positions" label="name" v-model="item.position">
-                                        <template #search="{attributes, events}">
-                                            <input
-                                            class="vs__search"
-                                            :required="!item.position"
-                                            v-bind="attributes"
-                                            v-on="events"
-                                            />
-                                        </template>
-                                    </v-select>
-                                </client-only>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">
                                     Department
                                 </label>
                                 <client-only>
-                                    <v-select :options="departments" label="name" v-model="item.department">
+                                    <v-select @option:selected="onChangeDepartment" :options="departments" label="name" v-model="item.department" :clearable="false">
                                         <template #search="{attributes, events}">
                                             <input
                                             class="vs__search"
@@ -63,6 +46,28 @@
                                         </template>
                                     </v-select>
                                 </client-only>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Division / Section
+                                </label>
+                                <client-only>
+                                    <v-select :options="divisions_by_department" label="name" v-model="item.division">
+                                        <template #search="{attributes, events}">
+                                            <input
+                                            class="vs__search"
+                                            v-bind="attributes"
+                                            v-on="events"
+                                            />
+                                        </template>
+                                    </v-select>
+                                </client-only>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Position <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" v-model="item.position" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
@@ -104,9 +109,8 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/system/employee/employee.api'
-import type { CreateEmployeeInput, Employee } from '~/composables/system/employee/employee.types'
+import type { Employee, UpdateEmployeeInput } from '~/composables/system/employee/employee.types'
 import Swal from 'sweetalert2'
-import type { Position } from '~/composables/system/position/position';
 
 definePageMeta({
     name: ROUTES.EMPLOYEE_UPDATE,
@@ -123,9 +127,9 @@ const isSaving = ref(false)
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 
-const item = ref<Employee>()
-const positions = ref<Position[]>([])
+const item = ref<UpdateEmployeeInput>()
 const departments = ref<Department[]>([])
+const employee = ref<Employee>()
 
 const signatureFile = ref<File>()
 
@@ -134,32 +138,48 @@ onMounted(async () => {
 
     const response = await api.fetchFormDataInUpdate(route.params.id as string)
 
-    if (!response) {
+    if (!response || !response.employee) {
         console.error('Employee not found')
         return
     }
 
-    item.value = response.employee
-    positions.value = response.positions
+    employee.value = {...response.employee}
+
+    item.value = {
+        firstname: response.employee.firstname,
+        middlename: response.employee.middlename,
+        lastname: response.employee.lastname,
+        position: response.employee.position,
+        division: response.employee.division,
+        department: response.employee.department,
+    }
     departments.value = response.departments
 
     isLoadingPage.value = false
 })
 
+const divisions_by_department = computed( () => {
+
+    if(!item.value) return []
+
+    if(!item.value.department) return []
+
+    const department = departments.value.find(i => i.id === item.value?.department?.id)
+
+    if(!department) {
+        console.error('department not found in departments with id of ', item.value.department.id);
+        return 
+    }
+
+    return department?.divisions
+
+})
 
 async function onSubmit() {
 
-    if (!item.value) return
+    if (!item.value || !employee.value) return
 
     console.log('saving...')
-
-    const data: CreateEmployeeInput = {
-        firstname: item.value.firstname,
-        middlename: item.value.middlename,
-        lastname: item.value.lastname,
-        position: item.value.position,
-        department: item.value.department,
-    }
 
     isSaving.value = true
 
@@ -169,10 +189,10 @@ async function onSubmit() {
     if(!!signatureFile.value) {
         const fileSrc = await api.uploadSingleAttachment(signatureFile.value, API_URL)
         console.log('fileSrc', fileSrc);
-        data['signature_src'] = fileSrc
+        item.value['signature_src'] = fileSrc
     }
 
-    const response = await api.update(item.value.id, data)
+    const response = await api.update(employee.value.id, item.value)
     isSaving.value = false
 
     if (response.success && response.data) {
@@ -197,6 +217,13 @@ async function onSubmit() {
 
     }
 
+}
+
+function onChangeDepartment() {
+
+    if(!item.value) return 
+
+    item.value.division = null 
 }
 
 function handleFileUpload(event: any) {

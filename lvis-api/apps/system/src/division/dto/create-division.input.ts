@@ -2,7 +2,17 @@ import { InputType, Field } from '@nestjs/graphql';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 @InputType()
-export class CreatePositionInput {
+export class CreateDivisionInput {
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  department_id: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  code: string;
   
   @Field()
   @IsNotEmpty()

@@ -28,10 +28,7 @@ export async function findAll(payload: { page: number, pageSize: number, searchV
                     middlename
                     lastname
                     signature_src
-                    position {
-                        id 
-                        name
-                    }
+                    position 
                 }
                 totalItems
                 currentPage
@@ -59,7 +56,8 @@ export async function findOne(id: string): Promise<Employee | undefined> {
                 middlename
                 lastname
                 signature_src
-                position {
+                position
+                division {
                     id 
                     name
                 }
@@ -93,6 +91,8 @@ export async function create(input: CreateEmployeeInput): Promise<MutationRespon
 
     let signature_src = (input.signature_src && input.signature_src.trim() !== '') ? `"${input.signature_src}"` : null
 
+    let division_id = input.division ? `"${input.division.id}"` : null
+
     const mutation = `
         mutation {
             createEmployee(input: {
@@ -100,14 +100,16 @@ export async function create(input: CreateEmployeeInput): Promise<MutationRespon
                 middlename: "${input.middlename}",
                 lastname: "${input.lastname}",
                 signature_src: ${signature_src},
-                position_id: "${input.position?.id}",
+                position: "${input.position}",
                 department_id: "${input.department?.id}",
+                division_id: ${division_id},
             }) {
                 id
                 firstname
                 middlename
                 lastname
-                position {
+                position
+                division {
                     id 
                     name
                 }
@@ -149,6 +151,7 @@ export async function update(id: string, input: CreateEmployeeInput): Promise<Mu
     console.log('input', input);
 
     let signature_src = (input.signature_src && input.signature_src.trim() !== '') ? `"${input.signature_src}"` : null
+    let division_id = input.division ? `"${input.division.id}"` : null
 
     const mutation = `
         mutation {
@@ -157,14 +160,16 @@ export async function update(id: string, input: CreateEmployeeInput): Promise<Mu
                 middlename: "${input.middlename}",
                 lastname: "${input.lastname}",
                 signature_src: ${signature_src},
-                position_id: "${input.position?.id}",
+                position: "${input.position}",
                 department_id: "${input.department?.id}",
+                division_id: ${division_id},
             }) {
                 id
                 firstname
                 middlename
                 lastname
-                position {
+                position
+                division {
                     id 
                     name
                 }
@@ -266,17 +271,19 @@ export async function uploadSingleAttachment(attachment: any, apiUrl: string): P
 }
 
 
-export async function fetchFormDataInCreate(): Promise<{ positions: Position[], departments: Department[] }> {
+export async function fetchFormDataInCreate(): Promise<{ departments: Department[] }> {
 
     const query = `
         query {
-            positions {
-                id 
-                name 
-            }
             departments {
                 id 
+                code
                 name 
+                divisions {
+                    id 
+                    code 
+                    name
+                }
             }
         }
     `;
@@ -285,7 +292,6 @@ export async function fetchFormDataInCreate(): Promise<{ positions: Position[], 
         const response = await sendRequest(query);
         console.log('response', response)
 
-        let positions = []
         let departments = []
 
         if (!response.data || !response.data.data) {
@@ -294,26 +300,17 @@ export async function fetchFormDataInCreate(): Promise<{ positions: Position[], 
 
         const data = response.data.data
 
-        if (data.positions) {
-            positions = data.positions.map((i: Position) => {
-                i.permissions = i.permissions ? JSON.parse(JSON.stringify(i.permissions)) : null
-                return i
-            })
-        }
-
         if(data.departments) {
             departments = data.departments
         }
 
         return {
-            positions,
             departments,
         }
 
     } catch (error) {
         console.error(error);
         return {
-            positions: [],
             departments: [],
         }
     }
@@ -322,7 +319,6 @@ export async function fetchFormDataInCreate(): Promise<{ positions: Position[], 
 
 export async function fetchFormDataInUpdate(id: string): 
     Promise<{ 
-        positions: Position[], 
         departments: Department[], 
         employee: Employee | undefined, 
     }> {
@@ -335,22 +331,29 @@ export async function fetchFormDataInUpdate(id: string):
                 middlename
                 lastname
                 signature_src
-                position {
+                position
+                division {
                     id 
                     name
                 }
                 department {
                     id 
                     name
+                    divisions {
+                        id 
+                        code 
+                        name
+                    }
                 }
-            }
-            positions {
-                id 
-                name 
             }
             departments {
                 id 
                 name 
+                divisions {
+                    id
+                    code 
+                    name
+                }
             }
         }
     `;
@@ -359,7 +362,6 @@ export async function fetchFormDataInUpdate(id: string):
         const response = await sendRequest(query);
         console.log('response', response)
 
-        let positions = []
         let departments = []
         let employee
 
@@ -375,19 +377,11 @@ export async function fetchFormDataInUpdate(id: string):
 
         employee = data.employee
 
-        if (data.positions) {
-            positions = data.positions.map((i: Position) => {
-                i.permissions = i.permissions ? JSON.parse(JSON.stringify(i.permissions)) : null
-                return i
-            })
-        }
-
         if(data.departments) {
             departments = data.departments
         }
 
         return {
-            positions,
             departments,
             employee,
         }
@@ -395,7 +389,6 @@ export async function fetchFormDataInUpdate(id: string):
     } catch (error) {
         console.error(error);
         return {
-            positions: [],
             departments: [],
             employee: undefined,
         }

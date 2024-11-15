@@ -113,6 +113,7 @@ exports.Prisma.DivisionScalarFieldEnum = {
   code: 'code',
   name: 'name',
   status: 'status',
+  permissions: 'permissions',
   created_by: 'created_by',
   updated_by: 'updated_by',
   deleted_by: 'deleted_by',
@@ -155,7 +156,7 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   middlename: 'middlename',
   lastname: 'lastname',
   signature_src: 'signature_src',
-  position_id: 'position_id',
+  position: 'position',
   is_budget_officer: 'is_budget_officer',
   is_finance_manager: 'is_finance_manager',
   created_by: 'created_by',
@@ -169,18 +170,6 @@ exports.Prisma.EmployeeScalarFieldEnum = {
 exports.Prisma.ClassificationScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
-};
-
-exports.Prisma.PositionScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  permissions: 'permissions',
   created_by: 'created_by',
   updated_by: 'updated_by',
   deleted_by: 'deleted_by',
@@ -314,15 +303,15 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
@@ -335,7 +324,6 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Employee: 'Employee',
   Classification: 'Classification',
-  Position: 'Position',
   User: 'User',
   UserGroup: 'UserGroup',
   UserGroupMembers: 'UserGroupMembers',

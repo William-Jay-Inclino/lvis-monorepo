@@ -2,268 +2,307 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import * as data from './mock-data';
 import { SETTINGS } from '../__common__/constants';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class SeederService {
 
     constructor(private readonly prisma: PrismaService) { }
 
+    // async seedData() {
+    //     console.log('Seeding data...');
+
+    //     try {
+    //         await this.prisma.$transaction([
+                // // this.seedClassification(),
+                // // this.seedAccount(),
+                // this.seedDepartment(),
+                // this.seedDivision(),
+                // this.seedEmployee(),
+                // this.seedUserTable(),
+                // this.seedUserEmployeeTable(),
+                // // this.seedJOApproverSetting(),
+                // // this.seedRVApproverSetting(),
+                // // this.seedSPRApproverSetting(),
+                // // this.seedMEQSApproverSetting(),
+                // // this.seedPOApproverSetting(),
+                // // this.seedRRApproverSetting(),
+                // // this.seedUserGroupTable(),
+                // // this.seedUserGroupMembersTable(),
+                // // this.seedSettingTable(),
+    //         ]
+    //         );
+
+    //         console.log('Seeding done')
+    //     } catch (error) {
+    //         console.error('Transaction failed. Rolling back...', error);
+    //     }
+    // }
+
     async seedData() {
-        console.log('Seeding data...');
+        console.log('Starting database seeding transaction...');
 
         try {
-            await this.prisma.$transaction([
-                this.seedDepartment(),
-                this.seedClassification(),
-                this.seedAccount(),
-                this.seedPosition(),
-                this.seedEmployee(),
-                this.seedJOApproverSetting(),
-                this.seedRVApproverSetting(),
-                this.seedSPRApproverSetting(),
-                this.seedMEQSApproverSetting(),
-                this.seedPOApproverSetting(),
-                this.seedRRApproverSetting(),
-                this.seedUserTable(),
-                this.seedUserGroupTable(),
-                this.seedUserGroupMembersTable(),
-                this.seedUserEmployeeTable(),
-                this.seedSettingTable(),
-            ]
-            );
+            await this.prisma.$transaction(async (prisma) => {
 
-            console.log('Seeding done')
+                // data mgmt
+                await this.seedClassification(prisma)
+                await this.seedAccount(prisma)
+                await this.seedDepartment(prisma)
+                await this.seedDivision(prisma)
+
+                // users and employees
+                await this.seedEmployee(prisma)
+                await this.seedUserTable(prisma)
+                await this.seedUserEmployeeTable(prisma);
+                await this.seedUserGroupTable(prisma);
+                await this.seedUserGroupMembersTable(prisma);
+
+                // settings
+                await this.seedSettingTable(prisma);
+                await this.seedJOApproverSetting(prisma);
+                await this.seedRVApproverSetting(prisma);
+                await this.seedSPRApproverSetting(prisma);
+                await this.seedMEQSApproverSetting(prisma);
+                await this.seedPOApproverSetting(prisma);
+                await this.seedRRApproverSetting(prisma);
+            });
+            console.log('Database seeding transaction completed successfully.');
         } catch (error) {
-            console.error('Transaction failed. Rolling back...', error);
+            console.error('Error during database seeding transaction:', error);
         }
     }
 
-    seedDepartment() {
+    async seedDepartment(prisma: PrismaClient) {
         console.log('seeding department table...')
 
         try {
-            return this.prisma.department.createMany({
+            await prisma.department.createMany({
                 data: data.departments
             })
         } catch (error) {
-            console.error(error)
+            throw error; 
         }
 
     }
 
-    seedClassification() {
+    async seedDivision(prisma: PrismaClient) {
+        console.log('seeding division table...')
+
+        try {
+            await prisma.division.createMany({
+                data: data.divisions
+            })
+        } catch (error) {
+            throw error; 
+        }
+
+    }
+
+    async seedClassification(prisma: PrismaClient) {
         console.log('seeding classification table...')
 
         try {
-            return this.prisma.classification.createMany({
+            await prisma.classification.createMany({
                 data: data.classifications
             })
         } catch (error) {
-            console.error(error)
+            throw error
         }
 
 
     }
 
-    seedPosition() {
-        console.log('seeding position table...')
-
-        try {
-            return this.prisma.position.createMany({
-                data: data.positions
-            })
-        } catch (error) {
-            console.error(error)
-        }
-
-
-    }
-
-    seedAccount() {
+    async seedAccount(prisma: PrismaClient) {
         console.log('seeding account table...')
 
         try {
-            return this.prisma.account.createMany({
+            await prisma.account.createMany({
                 data: data.accounts
             })
         } catch (error) {
-            console.error(error)
+            throw error
         }
 
 
     }
 
-    seedEmployee() {
+    async seedEmployee(prisma: PrismaClient) {
         console.log('seeding employee table...')
 
         try {
-            return this.prisma.employee.createMany({
+            await prisma.employee.createMany({
                 data: data.employees
             })
         } catch (error) {
-            console.error(error)
+            throw error; 
         }
 
 
     }
 
-    seedJOApproverSetting() {
+    async seedJOApproverSetting(prisma: PrismaClient) {
         console.log('seeding jo_approver_setting table...')
 
         try {
-            return this.prisma.jOApproverSetting.createMany({
+            await prisma.jOApproverSetting.createMany({
                 data: data.jo_default_approvers,
             })
         } catch (error) {
-            console.error(error)
+            throw error
         }
 
 
     }
 
-    seedRVApproverSetting() {
+    async seedRVApproverSetting(prisma: PrismaClient) {
         console.log('seeding rv_approver_setting table...')
 
         try {
-            return this.prisma.rVApproverSetting.createMany({
+
+            await prisma.rVApproverSetting.createMany({
                 data: data.rv_default_approvers,
             })
         } catch (error) {
-            console.error(error)
+            throw error
         }
 
 
     }
 
-    seedSPRApproverSetting() {
+    async seedSPRApproverSetting(prisma: PrismaClient) {
+
         console.log('seeding spr_approver_setting table...')
 
         try {
-            return this.prisma.sPRApproverSetting.createMany({
+
+            return prisma.sPRApproverSetting.createMany({
                 data: data.spr_default_approvers,
             })
         } catch (error) {
-            console.error(error)
+            throw error
         }
 
 
     }
 
-    seedMEQSApproverSetting() {
+    async seedMEQSApproverSetting(prisma: PrismaClient) {
         console.log('seeding meqs_approver_setting table...')
 
         try {
-            return this.prisma.mEQSApproverSetting.createMany({
+            await prisma.mEQSApproverSetting.createMany({
                 data: data.meqs_default_approvers,
             })
         } catch (error) {
-            console.error(error)
+            throw error
         }
 
 
     }
 
-    seedPOApproverSetting() {
+    async seedPOApproverSetting(prisma: PrismaClient) {
         console.log('seeding po_approver_setting table...')
 
         try {
-            return this.prisma.pOApproverSetting.createMany({
+            await prisma.pOApproverSetting.createMany({
                 data: data.po_default_approvers,
             })
         } catch (error) {
-            console.error(error)
+            throw error
         }
 
     }
 
-    seedRRApproverSetting() {
+    async seedRRApproverSetting(prisma: PrismaClient) {
         console.log('seeding rr_approver_setting table...')
 
         try {
-            return this.prisma.rRApproverSetting.createMany({
+            await prisma.rRApproverSetting.createMany({
                 data: data.rr_default_approvers,
             })
         } catch (error) {
-            console.error(error)
+            throw error
         }
 
     }
 
-    seedUserTable() {
+    async seedUserTable(prisma: PrismaClient) {
         console.log('seeding user table...')
 
         try {
-            return this.prisma.user.createMany({
+            await prisma.user.createMany({
                 // @ts-ignore
                 data: data.users,
             })
         } catch (error) {
-            console.error(error)
+            throw error; 
         }
 
     }
 
-    seedUserGroupTable() {
+    async seedUserGroupTable(prisma: PrismaClient) {
         console.log('seeding user_group table...')
 
         try {
-            return this.prisma.userGroup.createMany({
+            await prisma.userGroup.createMany({
                 data: data.userGroups,
             })
         } catch (error) {
-            console.error(error)
+            throw error
         }
 
     }
 
-    seedUserGroupMembersTable() {
+    async seedUserGroupMembersTable(prisma: PrismaClient) {
         console.log('seeding user_group_member table...')
 
         try {
-            return this.prisma.userGroupMembers.createMany({
+            await prisma.userGroupMembers.createMany({
                 data: data.userGroupMember,
             })
         } catch (error) {
-            console.error(error)
+            throw error
         }
 
     }
 
-    seedUserEmployeeTable() {
-        console.log('seeding user_employee table....')
+    async seedUserEmployeeTable(prisma: PrismaClient) {
+        console.log('Seeding user_employee table...');
 
         try {
-            return this.prisma.userEmployee.createMany({
-                data: data.userEmployees,
-            })
+            for (const userEmployee of data.userEmployees) {
+                await prisma.userEmployee.create({
+                    data: userEmployee,
+                });
+            }
+            console.log('Seeding user_employee table completed successfully.');
         } catch (error) {
-            console.error(error)
+            throw error; 
         }
-
     }
 
-    seedSettingTable() {
+    async seedSettingTable(prisma: PrismaClient) {
         console.log('seeding setting table....');
     
         try {
-            return this.prisma.setting.createMany({
+            await prisma.setting.createMany({
                 data: [
                     {
                         key: SETTINGS.GENERAL_MANAGER,
-                        value: data.employees[3].id
+                        value: data.jannie
                     },
                     {
                         key: SETTINGS.WAREHOUSE_CUSTODIAN,
-                        value: data.employees[19].id
+                        value: data.gene
                     },
                     {
                         key: SETTINGS.FMSD_CHIEF,
-                        value: data.employees[20].id
+                        value: data.monroe
                     },
                 ]
             });
         } catch (error) {
-            console.error(error);
+            throw error
         }
     }
 

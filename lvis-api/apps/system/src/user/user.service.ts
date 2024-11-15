@@ -18,7 +18,7 @@ export class UserService {
       include: {
         employee: {
           include: {
-            position: true
+            division: true
           }
         }
       }

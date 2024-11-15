@@ -23,12 +23,17 @@ export class UpdateEmployeeInput extends PartialType(CreateEmployeeInput) {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
-  position_id?: string;
+  position?: string;
 
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
   department_id?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  division_id?: string;
 
   @Field(() => Boolean, { nullable: true })
   @IsOptional()

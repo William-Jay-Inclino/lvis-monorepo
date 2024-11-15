@@ -22,12 +22,17 @@ export class CreateEmployeeInput {
   @Field(() => String)
   @IsNotEmpty()
   @IsString()
-  position_id?: string;
+  position: string;
 
   @Field(() => String)
   @IsNotEmpty()
   @IsString()
   department_id: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  division_id?: string | null;
 
   @Field(() => String, {nullable: true})
   @IsOptional()

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Account, Classification, Department, DepartmentStatus, JOApproverSetting, MEQSApproverSetting, POApproverSetting, Position, RRApproverSetting, RVApproverSetting, SPRApproverSetting, UserEmployee, UserGroup, UserGroupMember, UserStatus } from "../__common__/types";
+import { Account, Classification, Department, DepartmentStatus, Division, JOApproverSetting, MEQSApproverSetting, POApproverSetting, Position, RRApproverSetting, RVApproverSetting, SPRApproverSetting, UserEmployee, UserGroup, UserGroupMember, UserStatus } from "../__common__/types";
 import { Role } from "apps/system/prisma/generated/client";
 import { Employee, User } from "../__common__/user.entity";
 
@@ -28,64 +28,198 @@ export const accounts: Account[] = [
     },
 ]
 
-export const empId1 = faker.string.uuid()
+
+// =========================== DEPARTMENTS =========================== 
+
+export const ogm_id = faker.string.uuid()
+export const fsd_id = faker.string.uuid()
+export const isd_id = faker.string.uuid()
+export const tsd_id = faker.string.uuid()
+export const cpetd_id = faker.string.uuid()
+export const iad_id = faker.string.uuid()
 
 export const departments: Department[] = [
-    // 0
     {
-        id: faker.string.uuid(),
-        code: 'IAD',
-        name: 'Internal Audit Department',
-        status: DepartmentStatus.ACTIVE,
-        created_by: 'admin'
-    },
-    // 1
-    {
-        id: faker.string.uuid(),
-        code: 'ITCS',
-        name: 'Information Technology / Computer Science',
-        status: 1,
-        created_by: 'admin'
-    },
-    // 2
-    {
-        id: faker.string.uuid(),
-        code: 'HR',
-        name: 'Human Resource',
-        status: DepartmentStatus.ACTIVE,
-        created_by: 'admin'
-    },
-    // 3
-    {
-        id: faker.string.uuid(),
-        code: 'Accounting',
-        name: 'Accounting',
-        status: DepartmentStatus.ACTIVE,
-        created_by: 'admin'
-    },
-    // 4
-    {
-        id: faker.string.uuid(),
+        id: ogm_id,
         code: 'OGM',
         name: 'Office of the General Manager',
         status: DepartmentStatus.ACTIVE,
         created_by: 'admin'
     },
-    // 5
     {
-        id: faker.string.uuid(),
-        code: 'Warehouse',
-        name: 'Warehouse',
+        id: iad_id,
+        code: 'IAD',
+        name: 'Internal Audit Department',
         status: DepartmentStatus.ACTIVE,
         created_by: 'admin'
     },
-    // 6
     {
-        id: faker.string.uuid(),
-        code: 'Motorpool',
-        name: 'Motorpool',
+        id: fsd_id,
+        code: 'FSD',
+        name: 'Finance Services Department',
         status: DepartmentStatus.ACTIVE,
         created_by: 'admin'
+    },
+    {
+        id: isd_id,
+        code: 'ISD',
+        name: 'Institutional Services Department',
+        status: DepartmentStatus.ACTIVE,
+        created_by: 'admin'
+    },
+    {
+        id: tsd_id,
+        code: 'TSD',
+        name: 'Technical Services Department',
+        status: DepartmentStatus.ACTIVE,
+        created_by: 'admin'
+    },
+    {
+        id: cpetd_id,
+        code: 'CPETD',
+        name: 'Corporate Planning And Energy Trading Department',
+        status: DepartmentStatus.ACTIVE,
+        created_by: 'admin'
+    },
+]
+
+// =========================== DIVISIONS =========================== 
+
+const itcs_id = faker.string.uuid()
+
+const meter_reading_and_billing_id = faker.string.uuid()
+const collection_division_id = faker.string.uuid()
+const general_accounting_division = faker.string.uuid()
+const consumer_accounts_id = faker.string.uuid()
+const cashiering_id = faker.string.uuid()
+
+
+const membership_services_id = faker.string.uuid()
+const fleet_mgmt = faker.string.uuid()
+const hrd_id = faker.string.uuid()
+const property_id = faker.string.uuid()
+const materials_id = faker.string.uuid()
+
+
+const line_services_id = faker.string.uuid()
+const line_construction_id = faker.string.uuid()
+const engineering_services_id = faker.string.uuid()
+
+const power_supply = faker.string.uuid()
+const strategic_planning = faker.string.uuid()
+
+export const divisions: Division[] = [
+    {
+        id: itcs_id,
+        department_id: ogm_id,
+        code: 'ITCS',
+        name: 'Information Technology and Communication Services Division',
+        created_by: 'admin',
+    },
+    {
+        id: meter_reading_and_billing_id,
+        department_id: fsd_id,
+        code: 'MRBD',
+        name: 'Meter Reading and Billing Division',
+        created_by: 'admin',
+    },
+    {
+        id: collection_division_id,
+        department_id: fsd_id,
+        code: 'Collection',
+        name: 'Collection Division',
+        created_by: 'admin',
+    },
+    {
+        id: general_accounting_division,
+        department_id: fsd_id,
+        code: 'Accounting',
+        name: 'General Accounting Division',
+        created_by: 'admin',
+    },
+    {
+        id: consumer_accounts_id,
+        department_id: fsd_id,
+        code: 'Consumer Accounts',
+        name: 'Consumer Accounts Section',
+        created_by: 'admin',
+    },
+    {
+        id: cashiering_id,
+        department_id: fsd_id,
+        code: 'CRDS',
+        name: 'Cashiering, Receipts, & Disbursements Section',
+        created_by: 'admin',
+    },
+    {
+        id: membership_services_id,
+        department_id: isd_id,
+        code: 'Membership',
+        name: 'Membership Services Division',
+        created_by: 'admin',
+    },
+    {
+        id: fleet_mgmt,
+        department_id: isd_id,
+        code: 'Fleet',
+        name: 'Fleet Management Services',
+        created_by: 'admin',
+    },
+    {
+        id: hrd_id,
+        department_id: isd_id,
+        code: 'HRD',
+        name: 'Human Resource Division',
+        created_by: 'admin',
+    },
+    {
+        id: property_id,
+        department_id: isd_id,
+        code: 'PDMS',
+        name: 'Property Development & Maintenance Section',
+        created_by: 'admin',
+    },
+    {
+        id: materials_id,
+        department_id: isd_id,
+        code: 'Materials',
+        name: 'Materials Management Section',
+        created_by: 'admin',
+    },
+    {
+        id: line_services_id,
+        department_id: tsd_id,
+        code: 'Line Services',
+        name: 'Line Services Division',
+        created_by: 'admin',
+    },
+    {
+        id: line_construction_id,
+        department_id: tsd_id,
+        code: 'Line Construction',
+        name: 'Line Construction Division',
+        created_by: 'admin',
+    },
+    {
+        id: engineering_services_id,
+        department_id: tsd_id,
+        code: 'Engineering Services',
+        name: 'Engineering Services Division',
+        created_by: 'admin',
+    },
+    {
+        id: power_supply,
+        department_id: cpetd_id,
+        code: 'PSETS',
+        name: 'Power Supply and Energy Trading Section',
+        created_by: 'admin',
+    },
+    {
+        id: strategic_planning,
+        department_id: cpetd_id,
+        code: 'SPRCS',
+        name: 'Strategic Planning & Regulatory Compliance Section',
+        created_by: 'admin',
     },
 ]
 
@@ -107,434 +241,382 @@ export const classifications: Classification[] = [
     }
 ]
 
-export const positions: Position[] = [
-    {
-        id: faker.string.uuid(), // 0
-        name: 'General Manager',
-        created_by: 'admin'
-    },
-    {
-        id: faker.string.uuid(), // 1
-        name: 'IT',
-        created_by: 'admin'
-    },
-    {
-        id: faker.string.uuid(), // 2
-        name: 'Audit',
-        created_by: 'admin'
-    },
-    {
-        id: faker.string.uuid(), // 3
-        name: 'Accounting',
-        created_by: 'admin'
-    },
-    {
-        id: faker.string.uuid(), // 4
-        name: 'Warehouse',
-        created_by: 'admin'
-    },
-    {
-        id: faker.string.uuid(), // 5
-        name: 'HR',
-        created_by: 'admin'
-    },
-    {
-        id: faker.string.uuid(), // 6
-        name: 'Motorpool',
-        created_by: 'admin'
-    },
-    {
-        id: faker.string.uuid(), // 7
-        name: 'TBA',
-        created_by: 'admin'
-    },
-]
 
+// =========================== EMPLOYEES =========================== 
+
+const analou = faker.string.uuid()
+const ricaflor = faker.string.uuid()
+const marlon = faker.string.uuid()
+export const jannie = faker.string.uuid()
+const jhunrey = faker.string.uuid()
+const gretchen = faker.string.uuid()
+const dionic = faker.string.uuid()
+const anthony = faker.string.uuid()
+const paula = faker.string.uuid()
+const joshua = faker.string.uuid()
+const jessa_pelones = faker.string.uuid()
+const joseph_ken = faker.string.uuid()
+const hannah_grace = faker.string.uuid()
+const jessa_valida = faker.string.uuid()
+const adam = faker.string.uuid()
+const sam = faker.string.uuid()
+export const gene = faker.string.uuid()
+export const monroe = faker.string.uuid()
+const ricardo = faker.string.uuid()
+const michael = faker.string.uuid()
 
 export const employees: Employee[] = [
-    // Imd. Sup. = 0
     {
-        id: faker.string.uuid(),
-        firstname: 'Ana Maria',
-        middlename: 'Lourdes',
+        id: analou,
+        firstname: 'Ana Maria Lourdes',
+        middlename: 'M',
         lastname: 'Pastor',
+        department_id: isd_id,
         created_by: 'admin',
-        position_id: positions[6].id,
-        department_id: departments[3].id,
     },
-    // Budget Officer = 1
     {
-        id: faker.string.uuid(),
+        id: ricaflor,
         firstname: 'Ricaflor',
-        middlename: null,
+        middlename: 'S',
         lastname: 'Suan',
         created_by: 'admin',
-        position_id: positions[3].id,
-        department_id: departments[3].id,
+        department_id: fsd_id,
     },
-    // AUDIT = 2
     {
-        id: faker.string.uuid(),
+        id: marlon,
         firstname: 'Marlon',
-        middlename: null,
+        middlename: 'H',
         lastname: 'Sanico',
         created_by: 'admin',
-        position_id: positions[2].id,
-        department_id: departments[0].id,
+        department_id: iad_id,
     },
-    // GM / OIC = 3
     {
-        id: faker.string.uuid(),
+        id: jannie,
         firstname: 'Jannie Ann',
-        middlename: null,
+        middlename: 'J',
         lastname: 'Dayandayan',
         created_by: 'admin',
-        position_id: positions[0].id,
-        department_id: departments[4].id,
+        department_id: ogm_id,
     },
-    // 1st CPC Member = 4
     {
-        id: faker.string.uuid(),
+        id: jhunrey,
         firstname: 'Jhun Rey',
-        middlename: null,
+        middlename: 'B',
         lastname: 'Nahine',
-        position_id: positions[6].id,
         created_by: 'admin',
-        department_id: departments[2].id,
+        department_id: ogm_id,
     },
-    // 2nd CPC Member = 5
     {
-        id: faker.string.uuid(),
+        id: gretchen,
         firstname: 'Gretchen',
-        middlename: null,
+        middlename: 'D',
         lastname: 'Tagalog',
-        position_id: positions[6].id,
         created_by: 'admin',
-        department_id: departments[3].id,
+        department_id: fsd_id,
+        division_id: general_accounting_division,
     },
-    // Witness = 6
     {
-        id: faker.string.uuid(),
+        id: dionic,
         firstname: 'Dionic',
-        middlename: null,
-        lastname: 'De La Pena',
-        position_id: positions[6].id,
+        middlename: 'L',
+        lastname: 'De La Peña',
         created_by: 'admin',
-        department_id: departments[0].id,
+        department_id: iad_id,
     },
-    // CPC Chairman = 7
     {
-        id: faker.string.uuid(),
+        id: anthony,
         firstname: 'Anthony',
-        middlename: null,
+        middlename: 'S',
         lastname: 'Cecilio',
-        position_id: positions[6].id,
         created_by: 'admin',
-        department_id: departments[4].id,
+        department_id: tsd_id,
+        division_id: line_services_id,
     },
-    // Finance Manager = 8
     {
-        id: faker.string.uuid(),
+        id: paula,
         firstname: 'Frances Paula',
-        middlename: null,
+        middlename: 'M',
         lastname: 'Lumacang',
         created_by: 'admin',
-        position_id: positions[3].id,
-        department_id: departments[3].id,
+        department_id: fsd_id,
     },
-    // 9
     {
-        id: faker.string.uuid(),
-        firstname: 'William Jay',
-        middlename: 'Intales',
-        lastname: 'Inclino',
-        created_by: 'admin',
-        position_id: positions[1].id,
-        department_id: departments[1].id,
-    },
-    // 10
-    {
-        id: faker.string.uuid(),
+        id: joshua,
         firstname: 'Joshua',
-        middlename: 'X',
+        middlename: 'J',
         lastname: 'Tayag',
         created_by: 'admin',
-        position_id: positions[1].id,
-        department_id: departments[1].id,
+        department_id: ogm_id,
+        division_id: itcs_id,
     },
-    // 11
     {
-        id: faker.string.uuid(),
+        id: jessa_pelones,
         firstname: 'Jessa',
-        middlename: 'X',
         lastname: 'Pelones',
         created_by: 'admin',
-        position_id: positions[1].id,
-        department_id: departments[1].id,
+        department_id: ogm_id,
+        division_id: itcs_id,
     },
-    // 12
     {
-        id: faker.string.uuid(),
+        id: joseph_ken,
         firstname: 'Joseph Ken',
         middlename: 'X',
         lastname: 'Estrera',
         created_by: 'admin',
-        position_id: positions[5].id,
-        department_id: departments[2].id,
+        department_id: fsd_id,
+        division_id: meter_reading_and_billing_id,
     },
-    // 13
     {
-        id: faker.string.uuid(),
-        firstname: 'Jared',
-        middlename: 'X',
-        lastname: 'Singcol',
-        position_id: positions[6].id,
-        created_by: 'admin',
-        department_id: departments[4].id,
-    },
-    // 14
-    {
-        id: faker.string.uuid(),
+        id: hannah_grace,
         firstname: 'Hannah Grace',
         middlename: 'Bioco',
         lastname: 'Tudio',
         created_by: 'admin',
-        position_id: positions[2].id,
-        department_id: departments[0].id,
+        department_id: iad_id,
     },
-    // 15
     {
-        id: faker.string.uuid(),
+        id: jessa_valida,
         firstname: 'Jessa',
         middlename: '',
         lastname: 'Valida',
         created_by: 'admin',
-        position_id: positions[2].id,
-        department_id: departments[0].id,
+        department_id: fsd_id,
+        division_id: general_accounting_division,
     },
-    // 16
     {
-        id: faker.string.uuid(),
-        firstname: 'Roger',
-        middlename: '',
-        lastname: 'Laurente',
-        position_id: positions[6].id,
-        created_by: 'admin',
-        department_id: departments[1].id,
-    },
-    // 17
-    {
-        id: faker.string.uuid(),
+        id: adam,
         firstname: 'Adam',
-        middlename: '',
+        middlename: 'C',
         lastname: 'Estremos',
         created_by: 'admin',
-        position_id: positions[4].id,
-        department_id: departments[5].id,
+        department_id: isd_id,
     },
-    // 18
     {
-        id: faker.string.uuid(),
-        firstname: 'John',
-        middlename: '',
-        lastname: 'Mendoza',
+        id: sam,
+        firstname: 'Samantha',
+        middlename: 'O',
+        lastname: 'Ablen',
         created_by: 'admin',
-        position_id: positions[4].id,
-        department_id: departments[5].id,
+        department_id: isd_id,
+        division_id: materials_id,
     },
-    // 19
     {
-        id: faker.string.uuid(),
+        id: gene,
         firstname: 'Genevieve',
-        middlename: '',
+        middlename: 'J',
         lastname: 'Salgarino',
         created_by: 'admin',
-        position_id: positions[4].id,
-        department_id: departments[5].id,
+        department_id: isd_id,
+        division_id: materials_id,
     },
-    // 20
     {
-        id: faker.string.uuid(),
+        id: monroe,
         firstname: 'Monroe',
         middlename: 'Coquilla',
         lastname: 'Magdadaro',
         created_by: 'admin',
-        position_id: positions[6].id,
-        department_id: departments[6].id,
+        department_id: isd_id,
+        division_id: fleet_mgmt,
+    },
+    {
+        id: ricardo,
+        firstname: 'Ricardo',
+        middlename: 'R',
+        lastname: 'Lequin',
+        created_by: 'admin',
+        department_id: tsd_id,
+    },
+    {
+        id: michael,
+        firstname: 'Michael',
+        middlename: 'R',
+        lastname: 'Guiñarez',
+        created_by: 'admin',
+        department_id: cpetd_id,
     },
 ]
 
-const audit_manager_uuid = faker.string.uuid()
-const accounting_manager_uuid = faker.string.uuid()
+
+// =========================== USERS =========================== 
+
+const u_analou = faker.string.uuid()
+const u_ricaflor = faker.string.uuid()
+const u_marlon = faker.string.uuid()
+const u_jannie = faker.string.uuid()
+const u_jhunrey = faker.string.uuid()
+const u_gretchen = faker.string.uuid()
+const u_dionic = faker.string.uuid()
+const u_anthony = faker.string.uuid()
+const u_paula = faker.string.uuid()
+const u_joshua = faker.string.uuid()
+const u_jessa_pelones = faker.string.uuid()
+const u_joseph_ken = faker.string.uuid()
+const u_hannah_grace = faker.string.uuid()
+const u_jessa_valida = faker.string.uuid()
+const u_adam = faker.string.uuid()
+const u_sam = faker.string.uuid()
+const u_gene = faker.string.uuid()
+const u_monroe = faker.string.uuid()
+const u_ricardo = faker.string.uuid()
+const u_michael = faker.string.uuid()
 
 export const users: User[] = [
-    // 0
     {
-        id: faker.string.uuid(),
-        username: 'anamaria.pastor',
-        password: 'anamaria.pastor123',
+        id: u_analou,
+        username: 'anamarialourdes.pastor',
+        password: 'anamarialourdes.pastor',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 1
     {
-        id: faker.string.uuid(),
-        username: 'suan.ricaflor',
-        password: 'suan.ricaflor123',
+        id: u_ricaflor,
+        username: 'ricaflor.suan',
+        password: 'ricaflor.suan',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 2
     {
-        id: audit_manager_uuid,
+        id: u_marlon,
         username: 'marlon.sanico',
-        password: 'marlon.sanico123',
+        password: 'marlon.sanico',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 3
     {
-        id: faker.string.uuid(),
+        id: u_jannie,
         username: 'jannieann.dayandayan',
-        password: 'jannieann.dayandayan123',
+        password: 'jannieann.dayandayan',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 4
     {
-        id: faker.string.uuid(),
+        id: u_jhunrey,
         username: 'jhunrey.nahine',
-        password: 'jhunrey.nahine123',
+        password: 'jhunrey.nahine',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 5
     {
-        id: faker.string.uuid(),
+        id: u_gretchen,
         username: 'gretchen.tagalog',
-        password: 'gretchen.tagalog123',
+        password: 'gretchen.tagalog',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 6
     {
-        id: faker.string.uuid(),
+        id: u_dionic,
         username: 'dionic.delapena',
-        password: 'dionic.delapena123',
+        password: 'dionic.delapena',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 7
     {
-        id: faker.string.uuid(),
+        id: u_anthony,
         username: 'anthony.cecilio',
-        password: 'anthony.cecilio123',
+        password: 'anthony.cecilio',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 8
     {
-        id: accounting_manager_uuid,
+        id: u_paula,
         username: 'francespaula.lumacang',
-        password: 'francespaula.lumacang123',
+        password: 'francespaula.lumacang',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 9
     {
-        id: faker.string.uuid(),
-        username: 'williamjay.inclino',
-        password: 'williamjay.inclino123',
-        status: UserStatus.ACTIVE,
-        role: Role.ADMIN,
-        created_by: 'admin'
-    },
-    // 10
-    {
-        id: faker.string.uuid(),
+        id: u_joshua,
         username: 'joshua.tayag',
-        password: 'joshua.tayag123',
+        password: 'joshua.tayag',
         status: UserStatus.ACTIVE,
         role: Role.ADMIN,
         created_by: 'admin'
     },
-    // 11
     {
-        id: faker.string.uuid(),
+        id: u_jessa_pelones,
         username: 'jessa.pelones',
-        password: 'jessa.pelones123',
+        password: 'jessa.pelones',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 12
     {
-        id: faker.string.uuid(),
+        id: u_joseph_ken,
         username: 'josephken.estrera',
-        password: 'josephken.estrera123',
+        password: 'josephken.estrera',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 13
     {
-        id: faker.string.uuid(),
-        username: 'jared.singkol',
-        password: 'jared.singkol123',
-        status: UserStatus.ACTIVE,
-        role: Role.USER,
-        created_by: 'admin'
-    },
-    // 14
-    {
-        id: faker.string.uuid(),
+        id: u_hannah_grace,
         username: 'hannahgrace.tudio',
-        password: 'hannahgrace.tudio123',
+        password: 'hannahgrace.tudio',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 15
     {
-        id: faker.string.uuid(),
+        id: u_jessa_valida,
         username: 'jessa.valida',
-        password: 'jessa.valida123',
+        password: 'jessa.valida',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 16
     {
-        id: faker.string.uuid(),
-        username: 'roger.laurente',
-        password: 'roger.laurente123',
+        id: u_adam,
+        username: 'adam.estremos',
+        password: 'adam.estremos',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 17
     {
-        id: faker.string.uuid(),
+        id: u_sam,
+        username: 'samantha.ablen',
+        password: 'samantha.ablen',
+        status: UserStatus.ACTIVE,
+        role: Role.USER,
+        created_by: 'admin'
+    },
+    {
+        id: u_gene,
         username: 'genevieve.salgarino',
-        password: 'genevieve.salgarino123',
+        password: 'genevieve.salgarino',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
-    // 18
     {
-        id: faker.string.uuid(),
+        id: u_monroe,
         username: 'monroe.magdadaro',
-        password: 'monroe.magdadaro123',
+        password: 'monroe.magdadaro',
+        status: UserStatus.ACTIVE,
+        role: Role.USER,
+        created_by: 'admin'
+    },
+    {
+        id: u_ricardo,
+        username: 'ricardo.lequin',
+        password: 'ricardo.lequin',
+        status: UserStatus.ACTIVE,
+        role: Role.USER,
+        created_by: 'admin'
+    },
+    {
+        id: u_michael,
+        username: 'michael.guinarez',
+        password: 'michael.guinarez',
         status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
@@ -544,118 +626,112 @@ export const users: User[] = [
 export const userEmployees: UserEmployee[] = [
     {
         id: faker.string.uuid(),
-        employee_id: employees[0].id,
-        user_id: users[0].id,
+        employee_id: analou,
+        user_id: u_analou,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[1].id,
-        user_id: users[1].id,
+        employee_id: ricaflor,
+        user_id: u_ricaflor,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[2].id,
-        user_id: users[2].id,
+        employee_id: marlon,
+        user_id: u_marlon,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[3].id,
-        user_id: users[3].id,
+        employee_id: jannie,
+        user_id: u_jannie,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[4].id,
-        user_id: users[4].id,
+        employee_id: jhunrey,
+        user_id: u_jhunrey,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[5].id,
-        user_id: users[5].id,
+        employee_id: gretchen,
+        user_id: u_gretchen,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[6].id,
-        user_id: users[6].id,
+        employee_id: dionic,
+        user_id: u_dionic,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[7].id,
-        user_id: users[7].id,
+        employee_id: anthony,
+        user_id: u_anthony,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[8].id,
-        user_id: users[8].id,
+        employee_id: paula,
+        user_id: u_paula,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[9].id,
-        user_id: users[9].id,
+        employee_id: joshua,
+        user_id: u_joshua,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[10].id,
-        user_id: users[10].id,
+        employee_id: jessa_pelones,
+        user_id: u_jessa_pelones,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[11].id,
-        user_id: users[11].id,
+        employee_id: joseph_ken,
+        user_id: u_joseph_ken,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[12].id,
-        user_id: users[12].id,
+        employee_id: hannah_grace,
+        user_id: u_hannah_grace,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[13].id,
-        user_id: users[13].id,
+        employee_id: jessa_valida,
+        user_id: u_jessa_valida,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[14].id,
-        user_id: users[14].id,
+        employee_id: adam,
+        user_id: u_adam,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[15].id,
-        user_id: users[15].id,
+        employee_id: sam,
+        user_id: u_sam,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[16].id,
-        user_id: users[16].id,
+        employee_id: gene,
+        user_id: u_gene,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        employee_id: employees[19].id,
-        user_id: users[17].id,
+        employee_id: monroe,
+        user_id: u_monroe,
         created_by: 'admin'
     },
-    {
-        id: faker.string.uuid(),
-        employee_id: employees[20].id,
-        user_id: users[18].id,
-        created_by: 'admin'
-    }
 ]
 
 export const userGroups : UserGroup[] = [
@@ -667,11 +743,27 @@ export const userGroups : UserGroup[] = [
 
 export const userGroupMember: UserGroupMember[] = [
     {
-        user_id: audit_manager_uuid,
+        user_id: u_jannie,
         user_group_id: 1,
     },
     {
-        user_id: accounting_manager_uuid,
+        user_id: u_paula,
+        user_group_id: 1,
+    },
+    {
+        user_id: u_analou,
+        user_group_id: 1,
+    },
+    {
+        user_id: u_ricardo,
+        user_group_id: 1,
+    },
+    {
+        user_id: u_michael,
+        user_group_id: 1,
+    },
+    {
+        user_id: u_marlon,
         user_group_id: 1,
     }
 ]
@@ -679,21 +771,21 @@ export const userGroupMember: UserGroupMember[] = [
 export const jo_default_approvers: JOApproverSetting[] = [
     {
         id: faker.string.uuid(),
-        approver_id: employees[1].id,
+        approver_id: ricaflor,
         label: 'Budget By:',
         order: 2,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[2].id,
+        approver_id: marlon,
         label: 'Pre-Audited By:',
         order: 3,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[3].id,
+        approver_id: jannie,
         label: 'Approved By:',
         order: 4,
         created_by: 'admin'
@@ -703,21 +795,21 @@ export const jo_default_approvers: JOApproverSetting[] = [
 export const rv_default_approvers: RVApproverSetting[] = [
     {
         id: faker.string.uuid(),
-        approver_id: employees[1].id,
+        approver_id: ricaflor,
         label: 'Budget By:',
         order: 2,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[2].id,
+        approver_id: marlon,
         label: 'Pre-Audited By:',
         order: 3,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[3].id,
+        approver_id: jannie,
         label: 'Approved By:',
         order: 4,
         created_by: 'admin'
@@ -727,21 +819,21 @@ export const rv_default_approvers: RVApproverSetting[] = [
 export const spr_default_approvers: SPRApproverSetting[] = [
     {
         id: faker.string.uuid(),
-        approver_id: employees[1].id,
+        approver_id: ricaflor,
         label: 'Budget By:',
         order: 2,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[2].id,
+        approver_id: marlon,
         label: 'Pre-Audited By:',
         order: 3,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[3].id,
+        approver_id: jannie,
         label: 'Approved By:',
         order: 4,
         created_by: 'admin'
@@ -751,35 +843,35 @@ export const spr_default_approvers: SPRApproverSetting[] = [
 export const meqs_default_approvers: MEQSApproverSetting[] = [
     {
         id: faker.string.uuid(),
-        approver_id: employees[4].id,
+        approver_id: jhunrey,
         label: '1st CPC Member',
         order: 1,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[5].id,
+        approver_id: gretchen,
         label: '2nd CPC Member',
         order: 2,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[6].id,
+        approver_id: dionic,
         label: 'Witness',
         order: 3,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[7].id,
+        approver_id: anthony,
         label: 'CPC Chairman',
         order: 4,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[3].id,
+        approver_id: jannie,
         label: 'GM / OIC',
         order: 5,
         created_by: 'admin'
@@ -789,28 +881,28 @@ export const meqs_default_approvers: MEQSApproverSetting[] = [
 export const po_default_approvers: POApproverSetting[] = [
     {
         id: faker.string.uuid(),
-        approver_id: employees[1].id,
+        approver_id: ricaflor,
         label: 'Budget By:',
         order: 1,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[8].id,
+        approver_id: paula,
         label: 'Finance By:',
         order: 2,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[2].id,
+        approver_id: marlon,
         label: 'Audited By:',
         order: 3,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[3].id,
+        approver_id: jannie,
         label: 'Approved By:',
         order: 4,
         created_by: 'admin'
@@ -820,14 +912,14 @@ export const po_default_approvers: POApproverSetting[] = [
 export const rr_default_approvers: RRApproverSetting[] = [
     {
         id: faker.string.uuid(),
-        approver_id: employees[2].id,
+        approver_id: marlon,
         label: 'Audited By:',
         order: 3,
         created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
-        approver_id: employees[3].id,
+        approver_id: jannie,
         label: 'Approved By:',
         order: 4,
         created_by: 'admin'

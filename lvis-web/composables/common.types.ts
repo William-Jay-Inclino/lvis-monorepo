@@ -1,5 +1,5 @@
 import type { Employee } from "./system/employee/employee.types"
-import type { User } from "./system/user/user.types"
+import type { User, UserPermissions } from "./system/user/user.types"
 import type { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from "./warehouse/vehicle/vehicle.enums"
 
 export enum USER_STATUS {
@@ -98,6 +98,20 @@ export interface Department {
     code: string
     name: string
     status: number
+
+    divisions: Division[]
+}
+
+export interface Division {
+    id: string
+    department_id: string
+    code: string
+    name: string
+    status: number
+    permissions: UserPermissions;
+
+    // resolvers 
+    department: Department
 }
 
 export interface Vehicle {

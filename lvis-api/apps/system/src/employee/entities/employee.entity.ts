@@ -1,6 +1,5 @@
 import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
 import { UserEmployee } from '../../user/entities/user-employee.entity';
-import { Position } from '../../position/entities/position.entity';
 import { Department } from '../../department/entities/department.entity';
 import { Division } from '../../division/entities/division.entity';
 
@@ -20,8 +19,8 @@ export class Employee {
   @Field(() => String)
   lastname: string;
 
-  @Field(() => String)
-  position_id: string;
+  @Field(() => String, { nullable: true })
+  position: string;
 
   @Field(() => String)
   department_id: string;
@@ -65,8 +64,8 @@ export class Employee {
   @Field(() => UserEmployee, { nullable: true })
   user_employee?: UserEmployee;
 
-  @Field(() => Position)
-  position: Position;
+  // @Field(() => Position)
+  // position: Position;
 
   @Field(() => Department)
   department: Department;

@@ -28,22 +28,25 @@ export class EmployeeService {
 			firstname: input.firstname,
 			middlename: input.middlename,
 			lastname: input.lastname,
-			position: { connect: { id: input.position_id } },
+			position: input.position,
 			department: { connect: { id: input.department_id } },
+			division: input.division_id ? { connect: { id: input.division_id } } : undefined,
 			signature_src: input.signature_src,
 		}
 
 		const created = await this.prisma.employee.create({
 			data,
 			include: {
-				position: true,
+				division: true,
 				department: true,
 			}
 		})
 
 		this.logger.log('Successfully created Employee')
 
-		created.position.permissions = !!created.position.permissions ? JSON.stringify(created.position.permissions) : null
+		if(created.division) {
+			created.division.permissions = !!created.division.permissions ? JSON.stringify(created.division.permissions) : null
+		}
 
 		return created
 
@@ -74,7 +77,7 @@ export class EmployeeService {
 		const items = await this.prisma.employee.findMany({
 			include: {
 				user_employee: true,
-				position: true,
+				division: true,
 				department: true,
 			},
 			orderBy: [{ lastname: 'asc' }, { firstname: 'asc' }],
@@ -88,9 +91,13 @@ export class EmployeeService {
 		});
 
 		const employees = items.map(i => {
-			i.position.permissions = !!i.position.permissions ? JSON.stringify(i.position.permissions) : null
-			return i
-		})
+			if (i.division) {
+				i.division.permissions = i.division.permissions 
+					? JSON.stringify(i.division.permissions) 
+					: null;
+			}
+			return i;
+		});
 
 		return {
 			data: employees,
@@ -107,8 +114,11 @@ export class EmployeeService {
 		const item = await this.prisma.employee.findUnique({
 			where: { id },
 			include: {
-				position: true,
-				department: true,
+				department: {
+					include: {
+						divisions: true
+					}
+				},
 				division: true,
 			}
 		})
@@ -119,7 +129,9 @@ export class EmployeeService {
 			throw new NotFoundException('Employee not found')
 		}
 
-		item.position.permissions = !!item.position.permissions ? JSON.stringify(item.position.permissions) : null
+		if(item.division) {
+			item.division.permissions = !!item.division.permissions ? JSON.stringify(item.division.permissions) : null
+		}
 
 		return item
 	}
@@ -161,8 +173,13 @@ export class EmployeeService {
 			firstname: input.firstname ?? existingItem.firstname,
 			middlename: input.middlename ?? existingItem.middlename,
 			lastname: input.lastname ?? existingItem.lastname,
-			position: input.position_id ? { connect: { id: input.position_id } } : { connect: { id: existingItem.position_id } },
+			position: input.position ?? existingItem.position,
 			department: input.department_id ? { connect: { id: input.department_id } } : { connect: { id: existingItem.department_id } },
+			division: input.division_id
+				? { connect: { id: input.division_id } }
+				: existingItem.division_id
+				? { disconnect: true }
+				: undefined,
 			signature_src: input.signature_src ?? existingItem.signature_src,
 			is_budget_officer: input.is_budget_officer ?? existingItem.is_budget_officer,
 			is_finance_manager: input.is_finance_manager ?? existingItem.is_finance_manager,
@@ -175,7 +192,7 @@ export class EmployeeService {
 				id
 			},
 			include: {
-				position: true,
+				division: true,
 				department: true,
 			}
 		})
@@ -187,7 +204,10 @@ export class EmployeeService {
 
 		this.logger.log('Successfully updated Employee')
 
-		updated.position.permissions = !!updated.position.permissions ? JSON.stringify(updated.position.permissions) : null
+		
+		if(updated.division) {
+			updated.division.permissions = !!updated.division.permissions ? JSON.stringify(updated.division.permissions) : null
+		}
 
 		return updated
 

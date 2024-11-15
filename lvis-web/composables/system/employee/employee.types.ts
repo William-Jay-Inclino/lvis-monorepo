@@ -1,15 +1,17 @@
 import type { Pending } from "~/composables/e-forms/pendings/pendings.types"
 import type { Position } from "../position/position"
 import type { UserEmployee } from "../user/user.types"
+import type { Division } from "~/composables/common.types"
 
 
 export interface Employee {
     id: string
     department_id: string
+    division_id?: string | null
     firstname: string
     middlename: string
     lastname: string
-    position: Position
+    position: string
     signature_src: string
 
     // derived / resolvers 
@@ -24,6 +26,7 @@ export interface Employee {
     fullname?: string
     user_employee?: UserEmployee
     department: Department
+    division: Division | null
 }
 
 export interface FindAllResponse {
@@ -37,7 +40,18 @@ export interface CreateEmployeeInput {
     firstname: string
     middlename: string
     lastname: string
-    position: Position | null
+    position: string
+    division: Division | null
+    department: Department | null
+    signature_src?: string | null
+}
+
+export interface UpdateEmployeeInput {
+    firstname: string
+    middlename: string
+    lastname: string
+    position: string
+    division: Division | null
     department: Department | null
     signature_src?: string | null
 }
@@ -47,21 +61,3 @@ export interface MutationResponse {
     msg: string
     data?: Employee
 }
-
-// export enum PENDING_APPROVAL_TYPE {
-//     RV = 'RV',
-//     SPR = 'SPR',
-//     JO = 'JO',
-//     MEQS = 'MEQS',
-//     PO = 'PO',
-//     RR = 'RR'
-// }
-
-// export interface PendingApproval {
-//     id: string
-//     type: PENDING_APPROVAL_TYPE
-//     description: string
-//     reference_id: string
-//     transaction_date: Date
-
-// }

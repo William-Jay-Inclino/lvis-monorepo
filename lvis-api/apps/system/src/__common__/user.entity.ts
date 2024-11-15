@@ -21,13 +21,13 @@ export interface UserEmployee {
 export interface Employee {
     id: string
     firstname: string
-    middlename: string
+    middlename?: string
     lastname: string
     is_budget_officer?: boolean
     is_finance_manager?: boolean
     created_by: string
-    position_id: string;
     department_id: string;
+    division_id?: string;
 }
 
 export interface SystemPermissions {
