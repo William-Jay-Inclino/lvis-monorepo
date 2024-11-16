@@ -1,5 +1,6 @@
 import type { DIVISION_STATUS } from "~/composables/common.types";
 import type { UserPermissions } from "../user/user.types";
+import type { Department } from "#imports";
 
 
 export interface Division {

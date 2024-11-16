@@ -23,6 +23,10 @@
                             </label>
                             <input type="text" class="form-control" v-model="formData.name" required>
                         </div>
+
+                        <div class="mb-3">
+                            <SystemUserPermissions :permissions="formData.permissions" />
+                        </div>
     
                     </div>
                 </div>
@@ -55,6 +59,7 @@
 import * as api from '~/composables/system/department/department.api'
 import type { CreateDepartmentInput } from '~/composables/system/department/department'
 import Swal from 'sweetalert2'
+import { permissions } from '~/composables/system/user/user.permissions'
 
 definePageMeta({
     name: ROUTES.DEPARTMENT_CREATE,
@@ -68,6 +73,7 @@ const isSaving = ref(false)
 const _initialFormData: CreateDepartmentInput = {
     code: '',
     name: '',
+    permissions: JSON.parse(JSON.stringify(permissions)),
 }
 
 const formData = ref({ ..._initialFormData })

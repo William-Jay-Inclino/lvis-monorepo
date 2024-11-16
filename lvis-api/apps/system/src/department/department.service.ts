@@ -27,9 +27,17 @@ export class DepartmentService {
       created_by: this.authUser.user.username
     }
 
+    if (input.permissions) {
+      data.permissions = JSON.parse(input.permissions)
+    }
+
     const created = await this.prisma.department.create({
       data
     })
+
+    if(created.permissions) {
+			created.permissions = JSON.stringify(created.permissions)
+		}
 
     this.logger.log('Successfully created Department')
 
@@ -38,7 +46,7 @@ export class DepartmentService {
   }
 
   async findAll(): Promise<Department[]> {
-    return await this.prisma.department.findMany({
+    const items = await this.prisma.department.findMany({
       where: {
         deleted_at: null
       },
@@ -46,6 +54,12 @@ export class DepartmentService {
         divisions: true
       }
     })
+
+    return items.map(i => {
+			i.permissions = !!i.permissions ? JSON.stringify(i.permissions) : null
+			return i
+		})
+
   }
 
   async findOne(id: string): Promise<Department | null> {
@@ -62,6 +76,10 @@ export class DepartmentService {
       throw new NotFoundException('Department not found')
     }
 
+    if(item.permissions) {
+			item.permissions = JSON.stringify(item.permissions)
+		}
+
     return item
   }
 
@@ -75,6 +93,9 @@ export class DepartmentService {
       updated_by: this.authUser.user.username
     }
 
+    if (input.permissions) {
+			data.permissions = JSON.parse(input.permissions)
+		}
 
     const updated = await this.prisma.department.update({
       data,
@@ -82,6 +103,10 @@ export class DepartmentService {
         id
       }
     })
+
+    if(updated.permissions) {
+			updated.permissions = JSON.stringify(updated.permissions)
+		}
 
     this.logger.log('Successfully updated Department')
 

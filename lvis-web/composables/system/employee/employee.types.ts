@@ -1,6 +1,7 @@
 import type { Pending } from "~/composables/e-forms/pendings/pendings.types"
 import type { UserEmployee } from "../user/user.types"
 import type { Division } from "~/composables/common.types"
+import type { Department } from "../department/department"
 
 
 export interface Employee {

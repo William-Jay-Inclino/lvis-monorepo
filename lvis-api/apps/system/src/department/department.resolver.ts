@@ -64,7 +64,7 @@ export class DepartmentResolver {
 
 
   @ResolveReference()
-  async resolveReference(reference: { __typename: string, id: string }): Promise<Department> {
+  async resolveReference(reference: { __typename: string, id: string }) {
     return await this.departmentService.findOne(reference.id)
   }
 

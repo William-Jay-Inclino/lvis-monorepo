@@ -18,6 +18,9 @@ export class Department {
   @Field(() => Int)
   status: DepartmentStatus;
 
+  @Field({ nullable: true })
+  permissions?: string | null
+
   // audit fields
 
   @Field()

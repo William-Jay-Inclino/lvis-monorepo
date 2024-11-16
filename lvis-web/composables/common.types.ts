@@ -1,3 +1,4 @@
+import type { Department } from "./system/department/department"
 import type { Employee } from "./system/employee/employee.types"
 import type { User, UserPermissions } from "./system/user/user.types"
 import type { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from "./warehouse/vehicle/vehicle.enums"
@@ -98,14 +99,15 @@ export interface CancelResponse {
     cancelled_by?: string
 }
 
-export interface Department {
-    id: string
-    code: string
-    name: string
-    status: number
+// export interface Department {
+//     id: string
+//     code: string
+//     name: string
+//     status: number
+//     permissions: UserPermissions;
 
-    divisions: Division[]
-}
+//     divisions: Division[]
+// }
 
 export interface Division {
     id: string

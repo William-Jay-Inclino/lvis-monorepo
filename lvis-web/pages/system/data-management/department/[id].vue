@@ -25,6 +25,9 @@
                                 </label>
                                 <input type="text" class="form-control" v-model="item.name" required>
                             </div>
+                            <div class="mb-3">
+                                <SystemUserPermissions :permissions="item.permissions" />
+                            </div>
                         </div>
                     </div>
         
@@ -101,7 +104,8 @@ async function onSubmit() {
     const data: CreateDepartmentInput = {
         code: item.value.code,
         name: item.value.name,
-    }
+        permissions: JSON.parse(JSON.stringify(item.value.permissions)),
+}
 
     isSaving.value = true
     const response = await api.update(item.value.id, data)

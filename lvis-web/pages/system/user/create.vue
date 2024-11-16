@@ -141,10 +141,23 @@
     
                 <div class="col-lg-6">
 
-                    <div class="mb-3 text-center" v-if="formData.employee">
-                        <label class="label text-muted fst-italic">
-                            Division: <span class="text-primary">{{ !!formData.employee.division ? formData.employee.division.code : 'N/A' }} </span>
-                        </label>
+                    <div class="alert alert-info" role="alert">
+                        <small class="fst-italic"> 
+                            Default permissions are based on the employee's division. If the employee has no division, the department will be used instead. 
+                        </small>
+                    </div>
+
+                    <div class="mb-3" v-if="formData.employee">
+                        <div>
+                            <small class="label text-muted fst-italic">
+                                Department: <span class="text-primary">{{ formData.employee.department.code }} </span>
+                            </small>
+                        </div>
+                        <div>
+                            <small class="label text-muted fst-italic">
+                                Division: <span class="text-primary">{{ !!formData.employee.division ? formData.employee.division.code : 'N/A' }} </span>
+                            </small>
+                        </div>
                     </div>
     
                     <SystemUserPermissions :permissions="formData.permissions" />
@@ -232,12 +245,12 @@ onMounted(async () => {
 
         }
 
-        // if(!i.division) {
-        //     i.division.permissions = JSON.parse(JSON.stringify(permissions))
-        // } else {
-        //     // @ts-ignore
-        //     i.position.permissions = JSON.parse(i.position.permissions)
-        // }
+        if(i.department.permissions) {
+            // @ts-ignore
+            i.department.permissions = JSON.parse(i.department.permissions)
+        } else {
+            i.department.permissions = JSON.parse(JSON.stringify(permissions))
+        }
 
         return i
     })
@@ -332,9 +345,11 @@ function onChangeEmployee() {
     // console.log('formData.value.employee.position.permissions', formData.value.employee.position.permissions);
 
     if(formData.value.employee.division) {
+        console.log('1');
         formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), formData.value.employee.division.permissions)
     } else {
-        formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), JSON.parse(JSON.stringify(permissions)))
+        console.log('2', formData.value.employee.department.permissions);
+        formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), formData.value.employee.department.permissions)
     }
 
     // formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), formData.value.employee.position.permissions)

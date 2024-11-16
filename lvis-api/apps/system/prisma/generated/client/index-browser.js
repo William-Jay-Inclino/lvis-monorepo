@@ -127,6 +127,7 @@ exports.Prisma.DepartmentScalarFieldEnum = {
   code: 'code',
   name: 'name',
   status: 'status',
+  permissions: 'permissions',
   created_by: 'created_by',
   updated_by: 'updated_by',
   deleted_by: 'deleted_by',

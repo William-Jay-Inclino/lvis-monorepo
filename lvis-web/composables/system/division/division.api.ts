@@ -1,6 +1,7 @@
 import { sendRequest } from "~/utils/api"
 import type { Division, CreateDivisionInput, MutationResponse } from "./division.ts";
 import { permissions } from '~/composables/system/user/user.permissions'
+import type { Department } from "#imports";
 
 
 export async function findAll(): Promise<Division[]> {
@@ -123,6 +124,7 @@ export async function update(id: string, input: CreateDivisionInput): Promise<Mu
             updateDivision(id: "${id}", input: {
                 code: "${input.code}",
                 name: "${input.name}",
+                department_id: "${input.department?.id}",
                 permissions: ${input.permissions != null ? `"${escapeQuotes(JSON.stringify(input.permissions))}"` : null}
             }) {
                 id
@@ -221,6 +223,77 @@ export async function fetchFormDataInCreate(): Promise<{ departments: Department
     } catch (error) {
         console.error(error);
         return {
+            departments: [],
+        }
+    }
+
+}
+
+export async function fetchFormDataInUpdate(id: string): Promise<{
+    departments: Department[],
+    division: Division | undefined
+}> {
+
+    const query = `
+        query {
+            division(id: "${id}") {
+                id
+                code
+                name
+                status
+                permissions
+                department {
+                    id 
+                    code 
+                    name
+                }
+            }
+            departments {
+                id 
+                code
+                name 
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let departments = []
+
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if(!data.division) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const division = data.division
+
+        if(!division.permissions) {
+            division.permissions = JSON.parse(JSON.stringify(permissions))
+        } else {
+            division.permissions = JSON.parse(division.permissions)
+        }
+
+        if(data.departments) {
+            departments = data.departments
+        }
+
+        return {
+            departments,
+            division,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            division: undefined,
             departments: [],
         }
     }

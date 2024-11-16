@@ -12,4 +12,9 @@ export class UpdateDepartmentInput extends PartialType(CreateDepartmentInput) {
   @Field({ nullable: true })
   @IsOptional()
   name?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  permissions?: string;
+  
 }

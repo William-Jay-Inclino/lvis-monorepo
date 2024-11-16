@@ -3352,6 +3352,7 @@ export namespace Prisma {
     code: number
     name: number
     status: number
+    permissions: number
     created_by: number
     updated_by: number
     deleted_by: number
@@ -3401,6 +3402,7 @@ export namespace Prisma {
     code?: true
     name?: true
     status?: true
+    permissions?: true
     created_by?: true
     updated_by?: true
     deleted_by?: true
@@ -3501,6 +3503,7 @@ export namespace Prisma {
     code: string
     name: string
     status: number
+    permissions: JsonValue | null
     created_by: string
     updated_by: string | null
     deleted_by: string | null
@@ -3533,6 +3536,7 @@ export namespace Prisma {
     code?: boolean
     name?: boolean
     status?: boolean
+    permissions?: boolean
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
@@ -3549,6 +3553,7 @@ export namespace Prisma {
     code?: boolean
     name?: boolean
     status?: boolean
+    permissions?: boolean
     created_by?: boolean
     updated_by?: boolean
     deleted_by?: boolean
@@ -3575,6 +3580,7 @@ export namespace Prisma {
       code: string
       name: string
       status: number
+      permissions: Prisma.JsonValue | null
       created_by: string
       updated_by: string | null
       deleted_by: string | null
@@ -3982,6 +3988,7 @@ export namespace Prisma {
     readonly code: FieldRef<"Department", 'String'>
     readonly name: FieldRef<"Department", 'String'>
     readonly status: FieldRef<"Department", 'Int'>
+    readonly permissions: FieldRef<"Department", 'Json'>
     readonly created_by: FieldRef<"Department", 'String'>
     readonly updated_by: FieldRef<"Department", 'String'>
     readonly deleted_by: FieldRef<"Department", 'String'>
@@ -18134,6 +18141,7 @@ export namespace Prisma {
     code: 'code',
     name: 'name',
     status: 'status',
+    permissions: 'permissions',
     created_by: 'created_by',
     updated_by: 'updated_by',
     deleted_by: 'deleted_by',
@@ -18576,6 +18584,7 @@ export namespace Prisma {
     code?: StringFilter<"Department"> | string
     name?: StringFilter<"Department"> | string
     status?: IntFilter<"Department"> | number
+    permissions?: JsonNullableFilter<"Department">
     created_by?: StringFilter<"Department"> | string
     updated_by?: StringNullableFilter<"Department"> | string | null
     deleted_by?: StringNullableFilter<"Department"> | string | null
@@ -18591,6 +18600,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    permissions?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     deleted_by?: SortOrderInput | SortOrder
@@ -18609,6 +18619,7 @@ export namespace Prisma {
     NOT?: DepartmentWhereInput | DepartmentWhereInput[]
     name?: StringFilter<"Department"> | string
     status?: IntFilter<"Department"> | number
+    permissions?: JsonNullableFilter<"Department">
     created_by?: StringFilter<"Department"> | string
     updated_by?: StringNullableFilter<"Department"> | string | null
     deleted_by?: StringNullableFilter<"Department"> | string | null
@@ -18624,6 +18635,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    permissions?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     deleted_by?: SortOrderInput | SortOrder
@@ -18645,6 +18657,7 @@ export namespace Prisma {
     code?: StringWithAggregatesFilter<"Department"> | string
     name?: StringWithAggregatesFilter<"Department"> | string
     status?: IntWithAggregatesFilter<"Department"> | number
+    permissions?: JsonNullableWithAggregatesFilter<"Department">
     created_by?: StringWithAggregatesFilter<"Department"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Department"> | string | null
     deleted_by?: StringNullableWithAggregatesFilter<"Department"> | string | null
@@ -19786,6 +19799,7 @@ export namespace Prisma {
     code: string
     name: string
     status?: number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -19801,6 +19815,7 @@ export namespace Prisma {
     code: string
     name: string
     status?: number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -19816,6 +19831,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19831,6 +19847,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19846,6 +19863,7 @@ export namespace Prisma {
     code: string
     name: string
     status?: number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -19859,6 +19877,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19872,6 +19891,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21250,6 +21270,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    permissions?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     deleted_by?: SortOrder
@@ -22829,6 +22850,7 @@ export namespace Prisma {
     code: string
     name: string
     status?: number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -22843,6 +22865,7 @@ export namespace Prisma {
     code: string
     name: string
     status?: number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -22933,6 +22956,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22947,6 +22971,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23299,6 +23324,7 @@ export namespace Prisma {
     code: string
     name: string
     status?: number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -23313,6 +23339,7 @@ export namespace Prisma {
     code: string
     name: string
     status?: number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
     updated_by?: string | null
     deleted_by?: string | null
@@ -23587,6 +23614,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23601,6 +23629,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     deleted_by?: NullableStringFieldUpdateOperationsInput | string | null

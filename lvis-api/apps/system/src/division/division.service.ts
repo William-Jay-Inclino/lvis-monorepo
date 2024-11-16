@@ -86,7 +86,7 @@ export class DivisionService {
 		}
 
 		if (input.permissions) {
-		data.permissions = JSON.parse(input.permissions)
+			data.permissions = JSON.parse(input.permissions)
 		}
 
 		const updated = await this.prisma.division.update({

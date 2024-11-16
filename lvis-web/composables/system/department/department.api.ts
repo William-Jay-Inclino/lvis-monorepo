@@ -1,5 +1,6 @@
 import { sendRequest } from "~/utils/api"
 import type { Department, CreateDepartmentInput, MutationResponse } from "./department";
+import { permissions } from "../user/user.permissions";
 
 
 
@@ -34,6 +35,7 @@ export async function findOne(id: string): Promise<Department | undefined> {
                 code
                 name
                 status
+                permissions
             }
         }
     `;
@@ -43,7 +45,16 @@ export async function findOne(id: string): Promise<Department | undefined> {
         console.log('response', response)
 
         if (response.data && response.data.data && response.data.data.department) {
-            return response.data.data.department
+
+            const department = response.data.data.department
+
+            if(!department.permissions) {
+                department.permissions = JSON.parse(JSON.stringify(permissions))
+            } else {
+                department.permissions = JSON.parse(department.permissions)
+            }
+
+            return department
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -56,17 +67,15 @@ export async function findOne(id: string): Promise<Department | undefined> {
 
 export async function create(input: CreateDepartmentInput): Promise<MutationResponse> {
 
-    const inputFields = Object.keys(input)
-        .map(field => {
-            const value = input[field as keyof CreateDepartmentInput];
-            const formattedValue = typeof value === 'number' ? value : `"${value}"`;
-            return `${field}: ${formattedValue}`;
-        })
-        .join(', ');
+    const escapeQuotes = (jsonString: string) => jsonString.replace(/"/g, '\\"')
 
     const mutation = `
         mutation {
-            createDepartment(input: { ${inputFields} }) {
+            createDepartment(input: {
+                code: "${input.code}",
+                name: "${input.name}",
+                permissions: ${input.permissions != null ? `"${escapeQuotes(JSON.stringify(input.permissions))}"` : null}
+            }) {
                 id
                 code
                 name
@@ -102,17 +111,15 @@ export async function create(input: CreateDepartmentInput): Promise<MutationResp
 
 export async function update(id: string, input: CreateDepartmentInput): Promise<MutationResponse> {
 
-    const inputFields = Object.keys(input)
-        .map(field => {
-            const value = input[field as keyof CreateDepartmentInput];
-            const formattedValue = typeof value === 'number' ? value : `"${value}"`;
-            return `${field}: ${formattedValue}`;
-        })
-        .join(', ');
+    const escapeQuotes = (jsonString: string) => jsonString.replace(/"/g, '\\"')
 
     const mutation = `
         mutation {
-            updateDepartment(id: "${id}", input: { ${inputFields} }) {
+            updateDepartment(id: "${id}", input: { 
+                code: "${input.code}",
+                name: "${input.name}",
+                permissions: ${input.permissions != null ? `"${escapeQuotes(JSON.stringify(input.permissions))}"` : null}
+            }) {
                 id
                 code
                 name

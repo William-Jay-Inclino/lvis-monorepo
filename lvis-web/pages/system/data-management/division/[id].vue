@@ -25,6 +25,23 @@
                                 <input type="text" class="form-control" v-model="item.name" required>
                             </div>
                             <div class="mb-3">
+                                <label class="form-label">
+                                    Department <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="departments" label="code" v-model="item.department">
+                                        <template #search="{attributes, events}">
+                                            <input
+                                            class="vs__search"
+                                            :required="!item.department"
+                                            v-bind="attributes"
+                                            v-on="events"
+                                            />
+                                        </template>
+                                    </v-select>
+                                </client-only>
+                            </div>
+                            <div class="mb-3">
                                 <SystemUserPermissions :permissions="item.permissions" />
                             </div>
                         </div>
@@ -64,6 +81,7 @@
 import * as api from '~/composables/system/division/division.api'
 import type { CreateDivisionInput, Division } from '~/composables/system/division/division.ts'
 import Swal from 'sweetalert2'
+import type { Department } from '#imports';
 
 definePageMeta({
     name: ROUTES.DIVISION_UPDATE,
@@ -78,17 +96,19 @@ const router = useRouter()
 const isSaving = ref(false)
 
 const item = ref<Division>()
+const departments = ref<Department[]>([])
 
 onMounted(async () => {
 
-    const response = await api.findOne(route.params.id as string)
+    const response = await api.fetchFormDataInUpdate(route.params.id as string)
 
-    if (!response) {
+    if (!response.division) {
         console.error('Division not found')
         return
     }
 
-    item.value = response
+    item.value = response.division
+    departments.value = response.departments
 
     isLoadingPage.value = false
 })
@@ -103,6 +123,7 @@ async function onSubmit() {
     const data: CreateDivisionInput = {
         code: item.value.code,
         name: item.value.name,
+        department: item.value.department,
         permissions: item.value.permissions
     }
 
@@ -116,7 +137,7 @@ async function onSubmit() {
             title: 'Success!',
             text: response.msg,
             icon: 'success',
-            division: 'top',
+            position: 'top',
         })
 
         router.push(`/system/data-management/division/view/${response.data.id}`);
@@ -127,7 +148,7 @@ async function onSubmit() {
             title: 'Error!',
             text: response.msg,
             icon: 'error',
-            division: 'top',
+            position: 'top',
         })
 
     }

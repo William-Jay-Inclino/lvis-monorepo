@@ -41,6 +41,7 @@ model Department {
   code   String @unique
   name   String
   status Int    @default(1)
+  permissions Json?
 
   created_by String
   updated_by String?

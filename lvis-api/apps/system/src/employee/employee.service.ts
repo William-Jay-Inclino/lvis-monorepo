@@ -96,6 +96,9 @@ export class EmployeeService {
 					? JSON.stringify(i.division.permissions) 
 					: null;
 			}
+			i.department.permissions = i.department.permissions 
+					? JSON.stringify(i.department.permissions) 
+					: null;
 			return i;
 		});
 
@@ -132,6 +135,8 @@ export class EmployeeService {
 		if(item.division) {
 			item.division.permissions = !!item.division.permissions ? JSON.stringify(item.division.permissions) : null
 		}
+
+		item.department.permissions = !!item.department.permissions ? JSON.stringify(item.department.permissions) : null
 
 		return item
 	}
@@ -208,6 +213,9 @@ export class EmployeeService {
 		if(updated.division) {
 			updated.division.permissions = !!updated.division.permissions ? JSON.stringify(updated.division.permissions) : null
 		}
+
+		updated.department.permissions = !!updated.department.permissions ? JSON.stringify(updated.department.permissions) : null
+
 
 		return updated
 
