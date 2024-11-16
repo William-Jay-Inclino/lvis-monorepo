@@ -1,7 +1,7 @@
 
 import { findOne } from '~/composables/system/user/user.api'
 
-export async function updateTotalPendingsInLocalStorage(authUser: AuthUser) {
+export async function updateUserInLocalStorage(authUser: AuthUser) {
     try {
         const user = await findOne(authUser.user.id);
 
@@ -12,7 +12,14 @@ export async function updateTotalPendingsInLocalStorage(authUser: AuthUser) {
 
         // Check if user_employee and employee exist before updating
         if (authUser.user.user_employee?.employee && user.user_employee?.employee) {
+
+            // update total pendings
             authUser.user.user_employee.employee.total_pending_approvals = user.user_employee.employee.total_pending_approvals;
+
+            // update other props
+            authUser.user.user_employee.employee.is_budget_officer = user.user_employee.employee.is_budget_officer
+            authUser.user.user_employee.employee.is_finance_manager = user.user_employee.employee.is_finance_manager
+
         } else {
             console.warn('Employee data is missing in either authUser or user');
         }

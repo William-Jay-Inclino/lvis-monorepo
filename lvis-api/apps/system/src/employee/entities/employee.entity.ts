@@ -28,11 +28,11 @@ export class Employee {
   @Field(() => String, { nullable: true })
   division_id: string | null;
 
-  @Field(() => Boolean)
-  is_budget_officer: boolean;
+  // @Field(() => Boolean)
+  // is_budget_officer: boolean;
 
-  @Field(() => Boolean)
-  is_finance_manager: boolean;
+  // @Field(() => Boolean)
+  // is_finance_manager: boolean;
 
   @Field(() => String, { nullable: true })
   signature_src?: string | null;

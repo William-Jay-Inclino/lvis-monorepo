@@ -117,6 +117,11 @@ export class EmployeeService {
 		const item = await this.prisma.employee.findUnique({
 			where: { id },
 			include: {
+				user_employee: {
+					include: {
+						user: true
+					}
+				},
 				department: {
 					include: {
 						divisions: true
@@ -186,8 +191,6 @@ export class EmployeeService {
 				? { disconnect: true }
 				: undefined,
 			signature_src: input.signature_src ?? existingItem.signature_src,
-			is_budget_officer: input.is_budget_officer ?? existingItem.is_budget_officer,
-			is_finance_manager: input.is_finance_manager ?? existingItem.is_finance_manager,
 		}
 
 
@@ -257,7 +260,6 @@ export class EmployeeService {
 		return existingIds.length === uniqueIds.length;
 	}
 	
-
 	async findByIds(ids: string[]): Promise<Employee[]> {
 
 		this.logger.log('findByIds', ids)
@@ -300,28 +302,120 @@ export class EmployeeService {
 
 	async findAllBudgetOfficers(): Promise<Employee[]> {
 
-		const budgetOfficers = await this.prisma.employee.findMany({
+		const user_group_members = await this.prisma.userGroupMembers.findMany({
 			where: {
-				deleted_at: null,
-				is_budget_officer: true
+				user_group_id: USER_GROUP.BUDGET_OFFICER,
+			},
+			include: {
+				user: {
+					include: {
+						user_employee: {
+							include: {
+								employee: true
+							}
+						}
+					}
+				}
 			}
 		})
 
-		return budgetOfficers
+		if(user_group_members.length === 0) {
+			return []
+		}
+
+		const employees = user_group_members
+			.flatMap(member => member.user.user_employee)
+			.map(userEmployee => userEmployee.employee)
+			.filter(employee => employee !== null); // Filter to ensure only non-null employees are included
+
+		console.log('');
+
+		return employees;
 
 	}
 
 	async findAllFinanceManagers(): Promise<Employee[]> {
 
-		const budgetOfficers = await this.prisma.employee.findMany({
+		const user_group_members = await this.prisma.userGroupMembers.findMany({
 			where: {
-				deleted_at: null,
-				is_finance_manager: true
+				user_group_id: USER_GROUP.FINANCE_MANAGER,
+			},
+			include: {
+				user: {
+					include: {
+						user_employee: {
+							include: {
+								employee: true
+							}
+						}
+					}
+				}
 			}
 		})
 
-		return budgetOfficers
+		if(user_group_members.length === 0) {
+			return []
+		}
 
+		const employees = user_group_members
+			.flatMap(member => member.user.user_employee)
+			.map(userEmployee => userEmployee.employee)
+			.filter(employee => employee !== null); // Filter to ensure only non-null employees are included
+
+		return employees;
+
+	}
+
+	async is_finance_manager(employee_id: string): Promise<boolean> {
+		const isFinanceManager = await this.prisma.userGroupMembers.findFirst({
+		  where: {
+			user: {
+				user_employee: {
+					employee: {
+					  id: employee_id,
+					},
+				}
+			},
+			user_group_id: USER_GROUP.FINANCE_MANAGER,
+		  },
+		  select: {
+			user_id: true, 
+		  },
+		});
+	  
+		if (isFinanceManager) {
+		  console.log('finance manager');
+		  return true;
+		}
+	  
+		console.log('not finance manager');
+		return false;
+	}
+
+	async is_budget_officer(employee_id: string): Promise<boolean> {
+		const isBudgetOfficer = await this.prisma.userGroupMembers.findFirst({
+		  where: {
+			user: {
+				user_employee: {
+					employee: {
+					  id: employee_id,
+					},
+				}
+			},
+			user_group_id: USER_GROUP.BUDGET_OFFICER,
+		  },
+		  select: {
+			user_id: true, 
+		  },
+		});
+	  
+		if (isBudgetOfficer) {
+		  console.log('budget officer');
+		  return true;
+		}
+	  
+		console.log('not budget officer');
+		return false;
 	}
 
     private async deleteFiles(filePaths: string[]) {

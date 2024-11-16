@@ -143,7 +143,7 @@
 
                     <div class="alert alert-info" role="alert">
                         <small class="fst-italic"> 
-                            Default permissions are based on the employee's division. If the employee has no division, the department will be used instead. 
+                            Default permissions are based on the employee's division/section. If the employee has no division/section, the department will be used instead. 
                         </small>
                     </div>
 
@@ -155,7 +155,10 @@
                         </div>
                         <div>
                             <small class="label text-muted fst-italic">
-                                Division: <span class="text-primary">{{ !!formData.employee.division ? formData.employee.division.code : 'N/A' }} </span>
+                                Division / Section: 
+                                <span :class="{'text-primary': !!formData.employee.division, 'text-danger': !formData.employee.division}">
+                                    {{ !!formData.employee.division ? formData.employee.division.code : 'N/A' }} 
+                                </span>
                             </small>
                         </div>
                     </div>

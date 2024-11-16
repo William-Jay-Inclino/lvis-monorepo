@@ -750,6 +750,14 @@ export const userGroups : UserGroup[] = [
     {
         id: 1,
         name: 'Department Head',
+    },
+    {
+        id: 2,
+        name: 'Finance Manager',
+    },
+    {
+        id: 3,
+        name: 'Budget Officer',
     }
 ]
 
@@ -777,6 +785,14 @@ export const userGroupMember: UserGroupMember[] = [
     {
         user_id: u_marlon,
         user_group_id: 1,
+    },
+    {
+        user_id: u_paula,
+        user_group_id: 2,
+    },
+    {
+        user_id: u_ricaflor,
+        user_group_id: 3,
     }
 ]
 

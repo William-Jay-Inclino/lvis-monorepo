@@ -56,18 +56,16 @@
                                         to="/system/data-management/classification">Classification</nuxt-link></li>
                             </ul>
                         </li>
-                        <li v-if="isAdmin(authUser)" class="nav-item dropdown">
+                        <!-- <li v-if="isAdmin(authUser)" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Settings
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><nuxt-link class="dropdown-item" to="/system/settings/system-variables">System
-                                        Variables</nuxt-link></li>
                                 <li><nuxt-link class="dropdown-item"
                                         to="/system/settings/warehouse">Warehouse</nuxt-link></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li v-if="authUser" class="nav-item dropdown">
                             <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -145,18 +143,16 @@
                                     to="/system/data-management/account">Account</nuxt-link></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Settings
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><nuxt-link class="dropdown-item" to="/system/settings/system-variables">System
-                                    Variables</nuxt-link></li>
                             <li><nuxt-link class="dropdown-item"
                                     to="/system/settings/warehouse">Warehouse</nuxt-link></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
                 <div class="mt-auto d-grid">
                     <nuxt-link @click="logout" class="btn btn-outline-danger btn-block" to="/">Logout</nuxt-link>
@@ -179,7 +175,7 @@ onMounted(async() => {
     const _authUser = await getAuthUserAsync()
 
     if(!isAdmin(_authUser)) {
-        await updateTotalPendingsInLocalStorage(_authUser)
+        await updateUserInLocalStorage(_authUser)
     }
 
     authUser.value = await getAuthUserAsync()

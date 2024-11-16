@@ -6,5 +6,7 @@ export const enum SETTINGS {
 }
 
 export const enum USER_GROUP {
-    DEPARTMENT_HEAD = 1
+    DEPARTMENT_HEAD = 1,
+    FINANCE_MANAGER = 2,
+    BUDGET_OFFICER = 3,
 }

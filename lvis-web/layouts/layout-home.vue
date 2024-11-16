@@ -108,7 +108,7 @@ onMounted(async() => {
     const _authUser = await getAuthUserAsync()
 
     if(!isAdmin(_authUser)) {
-        await updateTotalPendingsInLocalStorage(_authUser)
+        await updateUserInLocalStorage(_authUser)
     }
 
     authUser.value = await getAuthUserAsync()

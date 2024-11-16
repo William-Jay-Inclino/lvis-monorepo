@@ -85,8 +85,8 @@ model Employee {
   position String @default("TBA")
   // position_id  String
 
-  is_budget_officer  Boolean @default(false)
-  is_finance_manager Boolean @default(false)
+  // is_budget_officer  Boolean @default(false)
+  // is_finance_manager Boolean @default(false)
 
   // position    Position  @relation(fields: [position_id], references: [id], onDelete: Restrict)
 
