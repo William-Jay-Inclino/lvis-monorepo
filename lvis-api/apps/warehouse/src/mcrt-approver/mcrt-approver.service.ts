@@ -5,6 +5,7 @@ import { ChangeMcrtApproverInput } from './dto/change-mcrt-approver.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { getModule } from '../__common__/helpers';
 
 @Injectable()
 export class McrtApproverService {
@@ -62,6 +63,8 @@ export class McrtApproverService {
                 await prisma.pending.delete({
                     where: { id: pending.id },
                 });
+
+                const module = getModule(DB_ENTITY.MCRT)
     
                 // add pending for new approver
                 await prisma.pending.create({
@@ -69,7 +72,7 @@ export class McrtApproverService {
                         approver_id: input.new_approver_id,
                         reference_number: item.mcrt.mcrt_number,
                         reference_table: DB_ENTITY.MCRT,
-                        description: `MCRT no. ${item.mcrt.mcrt_number}`,
+                        description: `${ module.description } no. ${item.mcrt.mcrt_number}`,
                     },
                 });
             }

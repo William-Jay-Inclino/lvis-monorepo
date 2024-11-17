@@ -1,4 +1,4 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
 import { IsArray, IsBoolean, IsInt, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { CreateGasSlipApproverSubInput } from './create-gas-slip-approver.sub.input';
 import { Type } from 'class-transformer';
@@ -16,12 +16,12 @@ export class CreateGasSlipInput {
   @IsNotEmpty()
   driver_id: string;
 
-  @Field()
+  @Field(() => Int)
   @IsInt()
   @IsNotEmpty()
   gas_station_id: number;
 
-  @Field()
+  @Field(() => Int)
   @IsInt()
   @IsNotEmpty()
   fuel_type_id: number;

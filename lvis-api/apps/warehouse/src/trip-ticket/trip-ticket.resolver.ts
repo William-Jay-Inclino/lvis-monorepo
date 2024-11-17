@@ -41,6 +41,7 @@ export class TripTicketResolver {
   }
 
   @Mutation(() => TripTicket)
+  @UseGuards(GqlAuthGuard, AccessGuard)
   async updateTripTicket(
       @Args('id') id: string,
       @Args('input') input: UpdateTripTicketInput,

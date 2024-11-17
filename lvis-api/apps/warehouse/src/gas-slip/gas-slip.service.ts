@@ -1,7 +1,7 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateGasSlipInput } from './dto/create-gas-slip.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { GasSlipApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
+import { GasSlip, GasSlipApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
@@ -10,23 +10,33 @@ import { DB_ENTITY } from '../__common__/constants';
 import { GasSlipsResponse } from './entities/gas-slips-response.entity';
 import { OnEvent } from '@nestjs/event-emitter';
 import { GasSlipApproverStatusUpdated } from '../gas-slip-approver/events/gas-slip-approver-status-updated.event';
-import { getModule, isAdmin } from '../__common__/helpers';
+import { getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { PostGasSlipInput } from './dto/post-gas-slip.input';
 import { MAX_UNPOSTED_GAS_SLIPS } from '../__common__/config';
 import { VEHICLE_CLASSIFICATION } from '../vehicle/entities/vehicle.enums';
+import { catchError, firstValueFrom } from 'rxjs';
+import { HttpService } from '@nestjs/axios';
+import { UpdateGasSlipInput } from './dto/update-gas-slip.input';
 
 @Injectable()
 export class GasSlipService {
 
 	private authUser: AuthUser
 
-	constructor(private readonly prisma: PrismaService) { }
+	constructor(
+		private readonly prisma: PrismaService,
+        private readonly httpService: HttpService,
+	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
 	async create(input: CreateGasSlipInput) {
+
+		if (!(await this.canCreate(input))) {
+            throw new Error('Failed to create Gas Slip. Please try again')
+        }
 
 		const vehicle = await this.prisma.vehicle.findUnique({
 			where: { id: input.vehicle_id },
@@ -94,6 +104,56 @@ export class GasSlipService {
 
 		return result[0]
 
+	}
+
+	async update(id: string, input: UpdateGasSlipInput) {
+        const existingItem = await this.prisma.gasSlip.findUnique({
+            where: { id },
+            include: {
+                gas_slip_approvers: true
+            }
+        })
+
+        if (!existingItem) {
+            throw new NotFoundException('Gas Slip not found')
+        }
+
+		if (!this.canAccess(existingItem)) {
+            throw new ForbiddenException('Only Admin and Owner can update this record!')
+        }
+
+		if (!(await this.canUpdate(input, existingItem))) {
+            throw new Error('Failed to update Gas Slip. Please try again')
+        }
+
+		const data: Prisma.GasSlipUpdateInput = {
+            updated_by: this.authUser.user.username,
+			vehicle: input.vehicle_id ? 
+				{ connect: { id: input.vehicle_id } }
+				: 
+				{ connect: { id: existingItem.vehicle_id } },
+			driver_id: input.driver_id ?? existingItem.driver_id,
+			gas_station: input.gas_station_id ? 
+				{ connect: { id: input.gas_station_id } } 
+				:
+				{ connect: { id: existingItem.gas_station_id } },
+			fuel_type: input.fuel_type_id ? 
+				{ connect: { id: input.fuel_type_id } } 
+				:
+				{ connect: { id: existingItem.fuel_type_id } },
+			requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
+			with_container: input.with_container ?? existingItem.with_container,
+			liter_in_text: input.liter_in_text ?? existingItem.liter_in_text,
+			purpose: input.liter_in_text ?? existingItem.purpose,
+		}
+
+		const updated = await this.prisma.gasSlip.update({
+			where: { id },
+			data
+		})
+
+		return updated
+		
 	}
 
 	private getCreatePendingQuery(approvers: CreateGasSlipApproverSubInput[], gasSlipNumber: string) {
@@ -309,6 +369,96 @@ export class GasSlipService {
 
     }
 
+	private async canCreate(input: CreateGasSlipInput): Promise<boolean> {
+
+        const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
+
+		employeeIds.push(input.driver_id)
+		employeeIds.push(input.requested_by_id)
+
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+
+        if (!isValidEmployeeIds) {
+            throw new BadRequestException("One or more employee id is invalid")
+        }
+
+        return true
+
+    }
+
+	private async canUpdate(input: UpdateGasSlipInput, existingItem: GasSlip): Promise<boolean> {
+		
+        // validates if there is already an approver who take an action
+        if (isNormalUser(this.authUser)) {
+
+            console.log('is normal user')
+
+            const approvers = await this.prisma.gasSlipApprover.findMany({
+                where: {
+                    gas_slip_id: existingItem.id
+                }
+            })
+
+            // used to indicate whether there is at least one approver whose status is not pending.
+            const isAnyNonPendingApprover = this.isAnyNonPendingApprover(approvers)
+
+            if (isAnyNonPendingApprover) {
+                throw new BadRequestException(`Unable to update Gas Slip. Can only update if all approver's status is pending`)
+            }
+        }
+
+        const employeeIds = []
+
+        if (input.driver_id) {
+            employeeIds.push(input.driver_id)
+        }
+
+		if (input.requested_by_id) {
+            employeeIds.push(input.requested_by_id)
+        }
+
+        if (employeeIds.length > 0) {
+
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+
+            if (!isValidEmployeeIds) {
+                throw new NotFoundException('One or more employee IDs is not valid')
+            }
+
+        }
+
+        return true
+    }
+
+	private canAccess(item: GasSlip): boolean {
+
+        if (isAdmin(this.authUser)) return true
+
+        const isOwner = item.created_by === this.authUser.user.username
+
+        if (isOwner) return true
+
+        return false
+
+    }
+
+	// used to indicate whether there is at least one approver whose status is not pending.
+	private isAnyNonPendingApprover(approvers: GasSlipApprover[]): boolean {
+
+		for (let approver of approvers) {
+
+			if (approver.status !== APPROVAL_STATUS.PENDING) {
+
+				return true
+
+			}
+
+		}
+
+		return false
+
+	}
+
 	private async getLatestGasSlipNumber(): Promise<string> {
         const currentYear = new Date().getFullYear().toString().slice(-2);
 
@@ -352,6 +502,50 @@ export class GasSlipService {
 
         return APPROVAL_STATUS.APPROVED
 
+    }
+
+	private async areEmployeesExist(employeeIds: string[], authUser: AuthUser): Promise<boolean> {
+
+        const query = `
+            query {
+                validateEmployeeIds(ids: ${JSON.stringify(employeeIds)})
+            }
+        `;
+
+        console.log('query', query)
+
+        try {
+            const { data } = await firstValueFrom(
+                this.httpService.post(
+                    process.env.API_GATEWAY_URL,
+                    { query },
+                    {
+                        headers: {
+                            Authorization: authUser.authorization,
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                ).pipe(
+                    catchError((error) => {
+                        throw error;
+                    }),
+                ),
+            );
+
+            console.log('data', data);
+            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
+
+            if (!data || !data.data) {
+                console.log('No data returned');
+                return false;
+            }
+
+            return data.data.validateEmployeeIds;
+
+        } catch (error) {
+            console.error('Error querying employees:', error.message);
+            return false;
+        }
     }
 
 	@OnEvent('gas-slip-approver-status.updated')

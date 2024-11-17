@@ -17,6 +17,7 @@ import { APPROVAL_STATUS } from '../__common__/types';
 import { GasSlipApproverService } from '../gas-slip-approver/gas-slip-approver.service';
 import { GasSlipApprover } from '../gas-slip-approver/entities/gas-slip-approver.entity';
 import { PostGasSlipInput } from './dto/post-gas-slip.input';
+import { UpdateGasSlipInput } from './dto/update-gas-slip.input';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => GasSlip)
@@ -35,6 +36,17 @@ export class GasSlipResolver {
   ) {
     this.gasSlipService.setAuthUser(authUser)
     return this.gasSlipService.create(createGasSlipInput);
+  }
+
+  @Mutation(() => GasSlip)
+  @UseGuards(GqlAuthGuard, AccessGuard)
+  async updateGasSlip(
+      @Args('id') id: string,
+      @Args('input') input: UpdateGasSlipInput,
+      @CurrentAuthUser() authUser: AuthUser
+  ) {
+      this.gasSlipService.setAuthUser(authUser)
+      return await this.gasSlipService.update(id, input);
   }
 
   @Mutation(() => GasSlip)

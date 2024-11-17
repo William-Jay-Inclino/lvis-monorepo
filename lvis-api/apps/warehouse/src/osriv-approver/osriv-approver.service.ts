@@ -5,6 +5,7 @@ import { ChangeOsrivApproverInput } from './dto/change-osriv-approver.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { getModule } from '../__common__/helpers';
 
 @Injectable()
 export class OsrivApproverService {
@@ -62,6 +63,8 @@ export class OsrivApproverService {
                 await prisma.pending.delete({
                     where: { id: pending.id },
                 });
+
+                const module = getModule(DB_ENTITY.OSRIV)
     
                 // add pending for new approver
                 await prisma.pending.create({
@@ -69,7 +72,7 @@ export class OsrivApproverService {
                         approver_id: input.new_approver_id,
                         reference_number: item.osriv.osriv_number,
                         reference_table: DB_ENTITY.OSRIV,
-                        description: `OSRIV no. ${item.osriv.osriv_number}`,
+                        description: `${ module.description } no. ${item.osriv.osriv_number}`,
                     },
                 });
             }

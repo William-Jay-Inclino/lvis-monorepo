@@ -5,6 +5,7 @@ import { ChangeMrvApproverInput } from './dto/change-mrv-approver.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { getModule } from '../__common__/helpers';
 
 @Injectable()
 export class MrvApproverService {
@@ -62,6 +63,8 @@ export class MrvApproverService {
                 await prisma.pending.delete({
                     where: { id: pending.id },
                 });
+
+                const module = getModule(DB_ENTITY.MRV)
     
                 // add pending for new approver
                 await prisma.pending.create({
@@ -69,7 +72,7 @@ export class MrvApproverService {
                         approver_id: input.new_approver_id,
                         reference_number: item.mrv.mrv_number,
                         reference_table: DB_ENTITY.MRV,
-                        description: `MRV no. ${item.mrv.mrv_number}`,
+                        description: `${ module.description } no. ${item.mrv.mrv_number}`,
                     },
                 });
             }

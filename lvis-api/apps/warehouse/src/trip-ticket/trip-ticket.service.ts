@@ -34,6 +34,10 @@ export class TripTicketService {
 
 	async create(input: CreateTripTicketInput) {
 
+		if (!(await this.canCreate(input))) {
+            throw new Error('Failed to create TripTicket. Please try again')
+        }
+
 		const startTime = new Date(input.start_time);
 		const endTime = new Date(input.end_time);
 
@@ -682,6 +686,23 @@ export class TripTicketService {
         }
 
         return this.prisma.pending.create({ data })
+
+    }
+
+	private async canCreate(input: CreateTripTicketInput): Promise<boolean> {
+
+        const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
+
+		employeeIds.push(input.driver_id)
+		employeeIds.push(input.prepared_by_id)
+
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+
+        if (!isValidEmployeeIds) {
+            throw new BadRequestException("One or more employee id is invalid")
+        }
+
+        return true
 
     }
 

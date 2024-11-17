@@ -5,6 +5,7 @@ import { ChangeMstApproverInput } from './dto/change-mst-approver.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { getModule } from '../__common__/helpers';
 
 @Injectable()
 export class MstApproverService {
@@ -62,6 +63,8 @@ export class MstApproverService {
                 await prisma.pending.delete({
                     where: { id: pending.id },
                 });
+
+                const module = getModule(DB_ENTITY.MST)
     
                 // add pending for new approver
                 await prisma.pending.create({
@@ -69,7 +72,7 @@ export class MstApproverService {
                         approver_id: input.new_approver_id,
                         reference_number: item.mst.mst_number,
                         reference_table: DB_ENTITY.MST,
-                        description: `MST no. ${item.mst.mst_number}`,
+                        description: `${ module.description } no. ${item.mst.mst_number}`,
                     },
                 });
             }
