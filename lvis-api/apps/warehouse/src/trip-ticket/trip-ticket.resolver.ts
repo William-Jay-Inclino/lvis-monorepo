@@ -19,6 +19,7 @@ import { UpdateActualTimeResponse } from './entities/update-actual-time-response
 import { UpdateActualTimeInput } from './dto/update-actual-time.input';
 import { UpdateActualStartTimeInput } from './dto/update-actual-start-time.input';
 import { UpdateActualEndTimeInput } from './dto/update-actual-end-time.input';
+import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
 
 // @UseGuards(GqlAuthGuard)
 @Resolver(() => TripTicket)
@@ -37,6 +38,16 @@ export class TripTicketResolver {
   ) {
     this.tripTicketService.setAuthUser(authUser)
     return this.tripTicketService.create(createTripTicketInput);
+  }
+
+  @Mutation(() => TripTicket)
+  async updateTripTicket(
+      @Args('id') id: string,
+      @Args('input') input: UpdateTripTicketInput,
+      @CurrentAuthUser() authUser: AuthUser
+  ) {
+      this.tripTicketService.setAuthUser(authUser)
+      return await this.tripTicketService.update(id, input);
   }
 
   @Query(() => TripTicketsResponse)

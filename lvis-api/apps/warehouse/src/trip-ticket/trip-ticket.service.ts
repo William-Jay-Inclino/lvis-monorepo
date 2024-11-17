@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTripTicketInput } from './dto/create-trip-ticket.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, TripTicket, TripTicketApprover } from 'apps/warehouse/prisma/generated/client';
@@ -13,14 +13,20 @@ import { VEHICLE_STATUS } from '../vehicle/entities/vehicle.enums';
 import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
 import { OnEvent } from '@nestjs/event-emitter';
 import { TripTicketApproverStatusUpdated } from '../trip-ticket-approver/events/trip-ticket-approver-status-updated.event';
-import { isAdmin } from '../__common__/helpers';
+import { isAdmin, isNormalUser } from '../__common__/helpers';
+import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
+import { catchError, firstValueFrom } from 'rxjs';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class TripTicketService {
 
 	private authUser: AuthUser
 
-	constructor(private readonly prisma: PrismaService) { }
+	constructor(
+		private readonly prisma: PrismaService,
+        private readonly httpService: HttpService,
+	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
@@ -100,6 +106,74 @@ export class TripTicketService {
 
 		return result[0]
 
+	}
+
+	async update(id: string, input: UpdateTripTicketInput) {
+        const existingItem = await this.prisma.tripTicket.findUnique({
+            where: { id },
+            include: {
+                trip_ticket_approvers: true
+            }
+        })
+
+        if (!existingItem) {
+            throw new NotFoundException('Trip ticket not found')
+        }
+
+		if (!this.canAccess(existingItem)) {
+            throw new ForbiddenException('Only Admin and Owner can update this record!')
+        }
+
+		if (!(await this.canUpdate(input, existingItem))) {
+            throw new Error('Failed to update Trip Ticket. Please try again')
+        }
+
+		let startTime = null
+		let endTime = null
+
+		if ((input.start_time && !input.end_time) || (!input.start_time && input.end_time)) {
+			throw new BadRequestException('Start time and End time are both required');
+		}
+		  
+		if (input.start_time && input.end_time) {
+			startTime = new Date(input.start_time);
+			endTime = new Date(input.end_time);
+		  
+			await this.validateTripScheduleConflict({
+				vehicleId: input.vehicle_id,
+				driverId: input.driver_id,
+				startTime,
+				endTime
+			});
+		}
+
+
+		const data: Prisma.TripTicketUpdateInput = {
+            updated_by: this.authUser.user.username,
+			vehicle: input.vehicle_id ? 
+				{ connect: { id: input.vehicle_id } }
+				: 
+				{ connect: { id: existingItem.vehicle_id } },
+			driver_id: input.driver_id ?? existingItem.driver_id,
+			passengers: input.passengers ?? existingItem.passengers,
+			destination: input.destination ?? existingItem.destination,
+			purpose: input.purpose ?? existingItem.purpose,
+			start_time: startTime ?? existingItem.start_time,
+			end_time: endTime ?? existingItem.end_time,
+			is_operation: input.is_operation ?? existingItem.is_operation,
+			is_stay_in: input.is_stay_in ?? existingItem.is_stay_in,
+			is_personal: input.is_personal ?? existingItem.is_personal,
+			is_out_of_coverage: input.is_out_of_coverage ?? existingItem.is_out_of_coverage,
+			prepared_by_id: input.prepared_by_id ?? existingItem.prepared_by_id,
+		}
+
+		const updated = await this.prisma.tripTicket.update({
+			where: { id },
+			data
+		})
+
+		return updated
+		
 	}
 
 	async findAll(
@@ -567,6 +641,10 @@ export class TripTicketService {
 	}) {
 		const { vehicleId, driverId, startTime, endTime } = payload
 
+		if (startTime >= endTime) {
+			throw new BadRequestException('Start time must be earlier than End time');
+		}
+
 		const conflictingTrip = await this.prisma.tripTicket.findFirst({
 			where: {
 				status: { in: [TRIP_TICKET_STATUS.PENDING, TRIP_TICKET_STATUS.APPROVED, TRIP_TICKET_STATUS.IN_PROGRESS] },
@@ -605,6 +683,123 @@ export class TripTicketService {
 
         return this.prisma.pending.create({ data })
 
+    }
+
+	private async canUpdate(input: UpdateTripTicketInput, existingItem: TripTicket): Promise<boolean> {
+
+        // validates if there is already an approver who take an action
+        if (isNormalUser(this.authUser)) {
+
+            console.log('is normal user')
+
+            const approvers = await this.prisma.tripTicketApprover.findMany({
+                where: {
+                    trip_ticket_id: existingItem.id
+                }
+            })
+
+            // used to indicate whether there is at least one approver whose status is not pending.
+            const isAnyNonPendingApprover = this.isAnyNonPendingApprover(approvers)
+
+            if (isAnyNonPendingApprover) {
+                throw new BadRequestException(`Unable to update Trip Ticket. Can only update if all approver's status is pending`)
+            }
+        }
+
+        const employeeIds = []
+
+        if (input.driver_id) {
+            employeeIds.push(input.driver_id)
+        }
+
+		if (input.prepared_by_id) {
+            employeeIds.push(input.prepared_by_id)
+        }
+
+        if (employeeIds.length > 0) {
+
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+
+            if (!isValidEmployeeIds) {
+                throw new NotFoundException('One or more employee IDs is not valid')
+            }
+
+        }
+
+        return true
+    }
+
+	private canAccess(item: TripTicket): boolean {
+
+        if (isAdmin(this.authUser)) return true
+
+        const isOwner = item.created_by === this.authUser.user.username
+
+        if (isOwner) return true
+
+        return false
+
+    }
+
+	// used to indicate whether there is at least one approver whose status is not pending.
+	private isAnyNonPendingApprover(approvers: TripTicketApprover[]): boolean {
+
+		for (let approver of approvers) {
+
+			if (approver.status !== APPROVAL_STATUS.PENDING) {
+
+				return true
+
+			}
+
+		}
+
+		return false
+
+	}
+
+	private async areEmployeesExist(employeeIds: string[], authUser: AuthUser): Promise<boolean> {
+
+        const query = `
+            query {
+                validateEmployeeIds(ids: ${JSON.stringify(employeeIds)})
+            }
+        `;
+
+        console.log('query', query)
+
+        try {
+            const { data } = await firstValueFrom(
+                this.httpService.post(
+                    process.env.API_GATEWAY_URL,
+                    { query },
+                    {
+                        headers: {
+                            Authorization: authUser.authorization,
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                ).pipe(
+                    catchError((error) => {
+                        throw error;
+                    }),
+                ),
+            );
+
+            console.log('data', data);
+            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
+
+            if (!data || !data.data) {
+                console.log('No data returned');
+                return false;
+            }
+
+            return data.data.validateEmployeeIds;
+
+        } catch (error) {
+            console.error('Error querying employees:', error.message);
+            return false;
+        }
     }
 
 	@OnEvent('trip-ticket-approver-status.updated')
