@@ -13,35 +13,40 @@
         
                     <div class="row justify-content-center pt-3">
                         <div class="col-lg-6">
+
+                            <div class="alert alert-info" role="alert">
+                                <small class="fst-italic">
+                                    Fields with * are required
+                                </small>
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Code <span class="text-danger">*</span>
+                                    Code
                                 </label>
-                                <input type="text" class="form-control" v-model="item.code">
-                                <small v-if="formDataErrors.code" class="text-danger fst-italic"> This field is required
-                                </small>
+                                <input type="text" class="form-control" :value="item.code" disabled>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Description
+                                    Description <span class="text-danger">*</span>
                                 </label>
                                 <textarea rows="3" class="form-control" v-model="item.description"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Unit</label>
+                                <label class="form-label">Unit</label> <span class="text-danger">*</span>
                                 <client-only>
                                     <v-select :options="units" label="name" v-model="item.unit" :clearable="false"></v-select>
                                 </client-only>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Item Types</label>
+                                <label class="form-label">Item Types</label> <span class="text-danger">*</span>
                                 <client-only>
                                     <v-select :options="itemTypes" label="name" v-model="item.item_type"
                                         :clearable="false"></v-select>
                                 </client-only>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Alert level</label>
+                                <label class="form-label">Alert level</label> <span class="text-danger">*</span>
                                 <client-only>
                                     <v-select :options="alertLevels" v-model="item.alert_level" :clearable="false"></v-select>
                                 </client-only>
@@ -59,7 +64,7 @@
                                     <i class="fas fa-list"></i> Go to list
                                 </button>
                                 <button type="submit" class="btn btn-success" :disabled="isSaving">
-                                    <i class="fas fa-sync"></i> {{ isSaving ? 'Updating...' : 'Update' }}
+                                    <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
                         </div>
@@ -104,8 +109,7 @@ const units = ref<Unit[]>([])
 const alertLevels = ref<number[]>([])
 
 const _initialFormErrors = {
-    code: false,
-    name: false,
+    description: false,
 }
 
 const item = ref<Item>({} as Item)
@@ -139,7 +143,6 @@ async function onSubmit() {
     const data: UpdateItemInput = {
         item_type: item.value.item_type,
         unit: item.value.unit,
-        code: item.value.code,
         description: item.value.description,
         alert_level: item.value.alert_level,
     }
@@ -177,8 +180,8 @@ function isValid(): boolean {
 
     formDataErrors.value = { ..._initialFormErrors }
 
-    if (item.value.code.trim() === '') {
-        formDataErrors.value.code = true
+    if (item.value.description.trim() === '') {
+        formDataErrors.value.description = true
     }
 
     const hasError = Object.values(formDataErrors.value).includes(true);

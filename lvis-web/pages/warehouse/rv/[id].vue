@@ -26,7 +26,12 @@
         
                 <div v-show="isRVDetailForm" class="row justify-content-center">
                     <div class="col-lg-6">
-        
+                        
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic">
+                                Fields with * are required
+                            </small>
+                        </div>
         
                         <div class="mb-3 d-flex align-items-center">
                             <label class="form-label me-2 mb-0">Status:</label>

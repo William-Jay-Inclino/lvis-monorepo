@@ -26,7 +26,12 @@
         
                 <div v-show="isJODetailForm" class="row justify-content-center">
                     <div class="col-lg-6">
-        
+                        
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic">
+                                Fields with * are required
+                            </small>
+                        </div>
         
                         <div class="mb-3 d-flex align-items-center">
                             <label class="form-label me-2 mb-0">Status:</label>
@@ -185,12 +190,12 @@ import Swal from 'sweetalert2'
 import { getFullname, formatToValidHtmlDate, redirectTo401Page } from '~/utils/helpers'
 import { useToast } from "vue-toastification";
 import * as joApi from '~/composables/warehouse/jo/jo.api'
-import * as joApproverApi from '~/composables/warehouse/jo/jo-approver.api'
 import { type JO } from '~/composables/warehouse/jo/jo.types';
 import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Department } from '~/composables/system/department/department';
 
 definePageMeta({
     name: ROUTES.JO_UPDATE,

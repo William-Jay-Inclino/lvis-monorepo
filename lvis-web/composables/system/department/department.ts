@@ -9,6 +9,7 @@ export interface Department {
     status: DEPARTMENT_STATUS;
 
     permissions: UserPermissions;
+    divisions: Division[]
 }
 
 

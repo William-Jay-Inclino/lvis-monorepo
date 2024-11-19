@@ -12,6 +12,11 @@
         
                     <div class="row justify-content-center pt-3">
                         <div class="col-lg-6">
+
+                            <div class="alert alert-info fst-italic" role="alert">
+                                <small> Fields with * are required </small>
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label">
                                     Firstname <span class="text-danger">*</span>
@@ -32,7 +37,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Department
+                                    Department <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
                                     <v-select @option:selected="onChangeDepartment" :options="departments" label="name" v-model="item.department" :clearable="false">
@@ -111,6 +116,7 @@
 import * as api from '~/composables/system/employee/employee.api'
 import type { Employee, UpdateEmployeeInput } from '~/composables/system/employee/employee.types'
 import Swal from 'sweetalert2'
+import type { Department } from '~/composables/system/department/department';
 
 definePageMeta({
     name: ROUTES.EMPLOYEE_UPDATE,

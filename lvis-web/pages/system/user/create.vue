@@ -22,10 +22,16 @@
             <div v-show="currentStep === 1" class="row justify-content-center pt-3">
     
                 <div class="col-lg-6">
+
+                    <div class="alert alert-info" role="alert">
+                        <small class="fst-italic">
+                            Fields with * are required
+                        </small>
+                    </div>
     
                     <div class="mb-3">
                         <label class="form-label">
-                            Role
+                            Role <span class="text-danger">*</span>
                         </label>
                         <select class="form-select" v-model="formData.role">
                             <option :value="ROLE.ADMIN">Admin</option>
@@ -113,6 +119,12 @@
             <div v-show="currentStep === 2" class="row justify-content-center pt-3">
     
                 <div class="col-lg-6">
+
+                    <div class="alert alert-info" role="alert">
+                        <small class="fst-italic">
+                            Fields with * are required
+                        </small>
+                    </div>
     
                     <SystemUserLoginCredentials :username="formData.username" :password="formData.password"
                         :is-username-exist="isUsernameExist" :is-checking-un-availability="isCheckingUnAvailability"

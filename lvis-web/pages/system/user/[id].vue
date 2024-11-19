@@ -37,8 +37,8 @@
         
                         <form v-if="item" @submit.prevent="updateUserInfo">
         
-                            <div v-if="item.user_employee" class="alert alert-info" role="alert">
-                                User is Employee
+                            <div class="alert alert-info" role="alert">
+                                <small class="fst-italic"> Fields with * are required </small>
                             </div>
         
                             <div class="mb-3">
@@ -117,6 +117,10 @@
                 <div v-else-if="formType === FORM_TYPE.LOGIN_CREDENTIALS" class="row justify-content-center pt-5">
         
                     <div class="col-lg-6">
+
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic"> Fields with * are required </small>
+                        </div>
         
                         <SystemUserLoginCredentials :username="item.username" :password="item.password"
                             :can-update-username="false" @update-password="onUpdatePassword" />
@@ -140,11 +144,21 @@
                 <div v-else-if="formType === FORM_TYPE.USER_PERMISSIONS" class="row justify-content-center pt-5">
         
                     <div class="col-lg-6">
-
-                        <div class="mb-3 text-center">
-                            <label class="label text-muted fst-italic">
-                                Position: <span class="text-primary">{{ item.user_employee?.employee.position.name }} </span>
-                            </label>
+                        
+                        <div class="mb-3" v-if="item.user_employee">
+                            <div>
+                                <small class="label text-muted fst-italic">
+                                    Department: <span class="text-primary">{{ item.user_employee.employee.department.code }} </span>
+                                </small>
+                            </div>
+                            <div>
+                                <small class="label text-muted fst-italic">
+                                    Division / Section: 
+                                    <span :class="{'text-primary': !!item.user_employee.employee.division, 'text-danger': !item.user_employee.employee.division}">
+                                        {{ !!item.user_employee.employee.division ? item.user_employee.employee.division.code : 'N/A' }} 
+                                    </span>
+                                </small>
+                            </div>
                         </div>
         
                         <SystemUserPermissions :permissions="item.permissions" />

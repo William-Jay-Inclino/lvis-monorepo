@@ -35,7 +35,6 @@ export async function create(input: CreateCanvassItemInput): Promise<MutationRes
                 item {
                     id 
                     code 
-                    name 
                     description
                 }
                 quantity
@@ -103,7 +102,6 @@ export async function update(id: string, input: UpdateCanvassItemInput): Promise
                 item {
                     id 
                     code 
-                    name 
                     description
                 }
                 quantity

@@ -53,7 +53,6 @@ export interface CreateItemInput {
 export interface UpdateItemInput {
 	item_type: ItemType
 	unit: Unit
-	code: string
 	description: string
 	alert_level: number
 }

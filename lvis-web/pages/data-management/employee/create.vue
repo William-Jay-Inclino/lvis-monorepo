@@ -117,6 +117,7 @@
 import * as api from '~/composables/system/employee/employee.api'
 import type { CreateEmployeeInput } from '~/composables/system/employee/employee.types'
 import Swal from 'sweetalert2'
+import type { Department } from '~/composables/system/department/department';
 
 definePageMeta({
     name: ROUTES.EMPLOYEE_CREATE,

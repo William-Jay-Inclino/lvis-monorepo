@@ -15,11 +15,6 @@ export class UpdateItemInput extends PartialType(CreateItemInput) {
   @IsString()
   unit_id?: string
 
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  code?: string
-
   @Field(() => Int, { nullable: true })
   @IsOptional()
   @IsInt()

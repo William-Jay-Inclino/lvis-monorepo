@@ -75,6 +75,11 @@ export async function findOne(id: string): Promise<User | undefined> {
                         middlename
                         lastname
                         position
+                        department {
+                            id 
+                            code 
+                            name
+                        }
                         division {
                             id 
                             code 

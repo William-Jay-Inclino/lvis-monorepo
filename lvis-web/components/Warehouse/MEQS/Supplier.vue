@@ -105,6 +105,12 @@
                         <div class="row">
                             <div class="col">
 
+                                <div class="alert alert-info" role="alert">
+                                    <small class="fst-italic">
+                                        Fields with * are required
+                                    </small>
+                                </div>
+
                                 <div class="mb-3">
                                     <label class="form-label"> Supplier </label> <span class="text-danger"
                                         v-if="formIsAdd">*</span>

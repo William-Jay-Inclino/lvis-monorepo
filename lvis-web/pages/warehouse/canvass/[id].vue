@@ -28,6 +28,12 @@
         
                 <div v-show="isCanvassDetailForm" class="row justify-content-center pt-5">
                     <div class="col-lg-6">
+
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic">
+                                Fields with * are required
+                            </small>
+                        </div>
         
                         <div class="mb-3">
                             <label class="form-label">
@@ -146,6 +152,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 // CONSTANTS
 const toast = useToast();
 const route = useRoute()
+const router = useRouter()
 
 // FLAGS
 const isCanvassDetailForm = ref(true)
@@ -259,6 +266,9 @@ async function updateCanvassDetail() {
             icon: 'success',
             position: 'top',
         })
+
+        router.push(`/warehouse/canvass/view/${response.data.id}`);
+
     } else {
         Swal.fire({
             title: 'Error!',

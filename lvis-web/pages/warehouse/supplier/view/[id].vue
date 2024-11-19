@@ -35,7 +35,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-muted">TIN</td>
-                                            <td> {{ item.tin_no }} </td>
+                                            <td> {{ item.tin }} </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">VAT Status</td>

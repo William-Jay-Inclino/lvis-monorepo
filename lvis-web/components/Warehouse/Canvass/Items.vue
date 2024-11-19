@@ -74,6 +74,12 @@
                     </div>
                     <div class="modal-body">
 
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic">
+                                Fields with * are required
+                            </small>
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label">
                                 Item Class
@@ -110,10 +116,13 @@
 
                         <div class="mb-3">
                             <label class="form-label">
-                                Description
+                                Description <span class="text-danger">*</span>
                             </label>
                             <textarea v-model="canvassItem.description" class="form-control" rows="3"
                                 :disabled="itemIsStock"></textarea>
+                            <small class="text-danger fst-italic" v-if="canvassItemErrors.description">
+                                This field is required
+                            </small>
                         </div>
 
                         <div class="mb-3">

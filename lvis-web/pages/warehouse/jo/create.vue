@@ -12,6 +12,12 @@
                         <div class="row justify-content-center pt-3">
         
                             <div class="col-lg-6">
+
+                                <div class="alert alert-info" role="alert">
+                                    <small class="fst-italic">
+                                        Fields with * are required
+                                    </small>
+                                </div>
         
                                 <div class="mb-3">
                                     <label class="form-label">
@@ -165,6 +171,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchCanvassesByRcNumber } from '~/composables/warehouse/canvass/canvass.api';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Department } from '~/composables/system/department/department';
 
 definePageMeta({
     name: ROUTES.JO_CREATE,

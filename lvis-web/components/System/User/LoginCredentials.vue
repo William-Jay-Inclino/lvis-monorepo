@@ -3,7 +3,7 @@
 
         <div class="mb-3">
             <label class="form-label">
-                Username
+                Username <span class="text-danger">*</span>
             </label>
 
             <input v-if="!canUpdateUsername" type="text" class="form-control" :value="username" disabled>
@@ -25,7 +25,7 @@
 
         <div class="mb-3">
             <label class="form-label">
-                Password
+                Password <span class="text-danger">*</span>
             </label>
             <div class="input-group">
                 <input :type="showPassword ? 'text' : 'password'" class="form-control" :value="password"

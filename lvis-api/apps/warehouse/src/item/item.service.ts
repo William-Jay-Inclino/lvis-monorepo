@@ -301,19 +301,6 @@ export class ItemService {
 
 		const existingItem = await this.findOne(id)
 
-		// Check if the code is being updated and if it already exists for another item
-		if (input.code && input.code !== existingItem.code) {
-			const existingCodeItem = await this.prisma.item.findUnique({
-				where: {
-					code: input.code,
-				},
-			})
-
-			if (existingCodeItem) {
-				throw new ConflictException('Item code must be unique. A different item with the same code already exists.');
-			}
-		}
-
 		const updatedBy = this.authUser.user.username
 
 		const data: Prisma.ItemUpdateInput = {
@@ -322,7 +309,6 @@ export class ItemService {
 				{ connect: { id: input.unit_id } }
 				:
 				{ connect: { id: existingItem.unit_id } },
-			code: input.code ?? existingItem.code,
 			description: input.description ?? existingItem.description,
 			alert_level: input.alert_level ?? existingItem.alert_level,
 			updated_by: updatedBy

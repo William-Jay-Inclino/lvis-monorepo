@@ -30,11 +30,18 @@
                     <div class="col-lg-6">
                         
                         <div class="alert alert-info" role="alert">
-                            <small class="fst-italic">
-                                Fields with * are required
-                            </small>
+                            <div>
+                                <small class="fst-italic">
+                                    - Fields with * are required
+                                </small>
+                            </div>
+                            <div>
+                                <small class="fst-italic"> 
+                                    - Make sure the number of unposted gas slip is less than 5 to continue <span class="fw-bold">(except private vehicle)</span>
+                                </small>
+                            </div>
                         </div>
-                        
+                    
                         <div class="mb-3 d-flex align-items-center">
                             <label class="form-label me-2 mb-0">Status:</label>
                             <div :class="{ [`badge bg-${gsStatus.color}`]: true }">

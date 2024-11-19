@@ -103,8 +103,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li v-if="canView('canManageItem', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/item">Item</nuxt-link></li>
-                                <li v-if="canView('canManageUnit', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/unit">Unit</nuxt-link></li>
+                                <!-- <li v-if="canView('canManageUnit', authUser)"><nuxt-link class="dropdown-item"
+                                        to="/warehouse/unit">Unit</nuxt-link></li> -->
                                 <li v-if="canView('canManageSupplier', authUser)">
                                     <nuxt-link class="dropdown-item"
                                         to="/warehouse/supplier">Supplier</nuxt-link>
@@ -246,9 +246,9 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li v-if="canView('canManageItem', authUser)"><nuxt-link class="dropdown-item"
                                 to="/warehouse/item">Item</nuxt-link></li>
-                            <li v-if="canView('canManageUnit', authUser)"><nuxt-link class="dropdown-item"
+                            <!-- <li v-if="canView('canManageUnit', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/unit">Unit</nuxt-link>
-                            </li>
+                            </li> -->
                             <li v-if="canView('canManageVehicle', authUser)">
                                 <nuxt-link class="dropdown-item"
                                     to="/warehouse/vehicle">Vehicle</nuxt-link>

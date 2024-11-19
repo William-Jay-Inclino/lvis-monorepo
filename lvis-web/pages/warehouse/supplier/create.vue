@@ -11,6 +11,13 @@
     
                 <div class="row justify-content-center pt-3">
                     <div class="col-lg-6">
+
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic">
+                                Fields with * are required
+                            </small>
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label">
                                 Name <span class="text-danger">*</span>
@@ -33,7 +40,7 @@
                             <label class="form-label">
                                 TIN <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" v-model="formData.tin_no" required>
+                            <input type="text" class="form-control" v-model="formData.tin" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">
@@ -107,7 +114,7 @@ const isSaving = ref(false)
 const _initialFormData: CreateSupplierInput = {
     name: '',
     contact: '',
-    tin_no: '',
+    tin: '',
     address: '',
     is_vat_registered: false,
     vat_type: VAT_TYPE.NONE

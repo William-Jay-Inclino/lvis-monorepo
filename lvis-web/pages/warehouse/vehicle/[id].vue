@@ -13,6 +13,13 @@
         
                     <div class="row justify-content-center pt-3">
                         <div class="col-lg-6">
+
+                            <div class="alert alert-info" role="alert">
+                                <small class="fst-italic">
+                                    Fields with * are required
+                                </small>
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label">
                                     Name <span class="text-danger">*</span>

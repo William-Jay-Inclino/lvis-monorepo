@@ -13,11 +13,20 @@
         
                     <div class="row justify-content-center pt-3">
                         <div class="col-lg-6">
+
+                            <div class="alert alert-info" role="alert">
+                                <small class="fst-italic">
+                                    Fields with * are required
+                                </small>
+                            </div>
+                                
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Description
+                                    Description <span class="text-danger">*</span>
                                 </label>
                                 <textarea rows="3" class="form-control" v-model="formData.description"></textarea>
+                                <small v-if="formDataErrors.description" class="text-danger fst-italic"> This field is required
+                                </small>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
@@ -36,7 +45,7 @@
                                     greater than or equal to 0 </small>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Unit</label>
+                                <label class="form-label">Unit</label>  <span class="text-danger">*</span>
                                 <client-only>
                                     <v-select :options="units" label="name" v-model="formData.unit"
                                         :clearable="false"></v-select>
@@ -54,7 +63,7 @@
                                 </small>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Alert level</label>
+                                <label class="form-label">Alert level</label>  <span class="text-danger">*</span>
                                 <client-only>
                                     <v-select :options="alertLevels" v-model="formData.alert_level"
                                         :clearable="false"></v-select>
@@ -117,11 +126,11 @@ const units = ref<Unit[]>([])
 const alertLevels = ref<number[]>([])
 
 const _initialFormErrors = {
-    name: false,
+    description: false,
     initial_quantity: false,
     initial_average_price: false,
-    item_type: false,
     unit: false,
+    item_type: false,
 }
 
 const _initialFormData: CreateItemInput = {
@@ -185,6 +194,10 @@ async function onSubmit() {
 function isValid(): boolean {
 
     formDataErrors.value = { ..._initialFormErrors }
+
+    if(formData.value.description.trim() === '') {
+        formDataErrors.value.description = true
+    }
 
     if (formData.value.initial_quantity < 0) {
         formDataErrors.value.initial_quantity = true

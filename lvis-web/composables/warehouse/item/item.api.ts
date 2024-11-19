@@ -424,7 +424,6 @@ export async function update(id: string, input: UpdateItemInput): Promise<Mutati
             updateItem(id: "${id}", input: {
                 item_type_id: ${input.item_type.id},
                 unit_id: "${input.unit?.id}",
-                code: "${input.code}",
                 description: "${input.description}",
                 alert_level: ${input.alert_level},
             }) {

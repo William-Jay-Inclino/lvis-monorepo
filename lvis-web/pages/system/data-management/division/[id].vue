@@ -12,6 +12,11 @@
         
                     <div class="row justify-content-center pt-3">
                         <div class="col-lg-6">
+
+                            <div class="alert alert-info fst-italic" role="alert">
+                                <small> Fields with * are required </small>
+                            </div>
+                            
                             <div class="mb-3">
                                 <label class="form-label">
                                     Code <span class="text-danger">*</span>
@@ -81,7 +86,7 @@
 import * as api from '~/composables/system/division/division.api'
 import type { CreateDivisionInput, Division } from '~/composables/system/division/division.ts'
 import Swal from 'sweetalert2'
-import type { Department } from '#imports';
+import type { Department } from '~/composables/system/department/department';
 
 definePageMeta({
     name: ROUTES.DIVISION_UPDATE,
