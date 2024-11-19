@@ -55,6 +55,17 @@ export interface CreateGasSlip {
     approvers: CreateGasSlipApprover[]
 }
 
+export interface UpdateGasSlip {
+    vehicle: Vehicle | null 
+    driver: Employee | null
+    gas_station: GasStation | null
+    fuel_type: FuelType | null
+    requested_by: Employee | null
+    with_container: boolean 
+    liter_in_text: string 
+    purpose: string 
+}
+
 export interface PostGasSlip {
     actual_liter: number 
     price_per_liter: number

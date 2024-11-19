@@ -95,6 +95,8 @@
                             <client-only>
                                 <v-select :options="employees" label="fullname" v-model="tripData.driver" :clearable="false"></v-select>
                             </client-only>
+                            <small class="text-danger fst-italic" v-if="tripDataErrors.driver"> {{ errorMsg }}
+                            </small>
                         </div>
 
                         <div class="mb-3">
@@ -239,7 +241,7 @@
         
                         <div class="d-flex justify-content-between pt-3">
                             <div>
-                                <nuxt-link class="btn btn-secondary" :to="`/warehouse/osriv/view/${tripTicket.id}`">
+                                <nuxt-link class="btn btn-secondary" :to="`/warehouse/trip-ticket/view/${tripTicket.id}`">
                                     <i class="fas fa-chevron-left"></i> Go Back
                                 </nuxt-link>
                             </div>
@@ -511,25 +513,63 @@ async function handleChangeApprover(payload: {currentApprover: Approver, newAppr
 
 function isValidTripInfo(): boolean {
 
-    // osrivDataErrors.value = { ..._osrivDataErrorsInitial }
+    tripDataErrors.value = { ..._tripDataErrorsInitial }
 
-    // if(osrivData.value.purpose.trim() === '') {
-    //     osrivDataErrors.value.purpose = true
-    // }
+    if(!tripData.value.vehicle) {
+        tripDataErrors.value.vehicle = true
+    }
 
-    // if (!osrivData.value.requested_by) {
-    //     osrivDataErrors.value.requested_by = true
-    // }
+    if(!tripData.value.driver) {
+        tripDataErrors.value.driver = true
+    }
 
-    // if (!osrivData.value.item_from) {
-    //     osrivDataErrors.value.item_from = true
-    // }
+    if(tripData.value.passengers.length === 0) {
+        tripDataErrors.value.passengers = true
+    }
 
-    // const hasError = Object.values(osrivDataErrors.value).includes(true);
+    if(tripData.value.destination.trim() === '') {
+        tripDataErrors.value.destination = true
+    }
 
-    // if (hasError) {
-    //     return false
-    // }
+    if(tripData.value.purpose.trim() === '') {
+        tripDataErrors.value.purpose = true
+    }
+
+    if(!tripData.value.start_time || tripData.value.start_time.trim() === '') {
+        tripDataErrors.value.start_time = true
+    }
+
+    if(!tripData.value.end_time || tripData.value.end_time.trim() === '') {
+        tripDataErrors.value.end_time = true
+    }
+
+    if(!tripData.value.prepared_by) {
+        tripDataErrors.value.prepared_by = true
+    }
+
+    const hasNoTripType = !tripData.value.is_operation && !tripData.value.is_stay_in && !tripData.value.is_personal && !tripData.value.is_out_of_coverage
+
+    if(hasNoTripType) {
+        tripDataErrors.value.tripType = true 
+    }
+
+    const isValidStartTime = new Date(tripData.value.start_time) > new Date()
+    const isValidEndTime = new Date(tripData.value.end_time) > new Date(tripData.value.start_time)
+
+    if(!isValidStartTime) {
+        tripDataErrors.value.start_time2 = true
+    }
+
+    if(!isValidEndTime) {
+        tripDataErrors.value.end_time2 = true
+    }
+
+
+    const hasError = Object.values(tripDataErrors.value).includes(true);
+
+    if (hasError) {
+        return false
+    }
 
     return true
 

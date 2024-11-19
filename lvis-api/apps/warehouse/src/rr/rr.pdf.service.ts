@@ -331,7 +331,7 @@ export class RrPdfService {
                                                 <td style="text-align: center;  white-space: nowrap;">
                                                     ${
                                                         // @ts-ignore 
-                                                        item.approver.position.name
+                                                        item.approver.position
                                                     }
                                                 </td>
                                                 <td></td>
@@ -380,7 +380,7 @@ export class RrPdfService {
                                 <td style="text-align: center">
                                     ${
                                         // @ts-ignore 
-                                        item.approver.position.name
+                                        item.approver.position
                                     }
                                 </td>
                             </tr>
@@ -441,10 +441,7 @@ export class RrPdfService {
                     firstname 
                     middlename 
                     lastname
-                    position {
-                        id 
-                        name
-                    }
+                    position
                     is_budget_officer
                     is_finance_manager
                     signature_src

@@ -197,7 +197,7 @@ export class JoPdfService {
                                 <td style="text-align: center">
                                 ${
                                     // @ts-ignore
-                                    requisitioner.position.name
+                                    requisitioner.position
                                 } 
                                 </td>
                             </tr>
@@ -232,7 +232,7 @@ export class JoPdfService {
                                     <td style="text-align: center">
                                         ${
                                             // @ts-ignore
-                                            item.approver.position.name
+                                            item.approver.position
                                         }
                                     </td>
                                 </tr>
@@ -292,10 +292,7 @@ export class JoPdfService {
                     firstname 
                     middlename 
                     lastname
-                    position {
-                        id 
-                        name
-                    }
+                    position
                     signature_src
                     is_budget_officer
                 }

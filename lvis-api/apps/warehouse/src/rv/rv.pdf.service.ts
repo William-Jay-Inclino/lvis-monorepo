@@ -181,7 +181,7 @@ export class RvPdfService {
                             <tr>
                                 <td style="text-align: center">
                                 ${
-                                    requisitioner.position.name
+                                    requisitioner.position
                                 } 
                                 </td>
                             </tr>
@@ -216,7 +216,7 @@ export class RvPdfService {
                                     <td style="text-align: center">
                                         ${
                                             // @ts-ignore
-                                            item.approver.position ? item.approver.position.name : ''
+                                            item.approver.position ? item.approver.position : ''
                                         }
                                     </td>
                                 </tr>
@@ -277,10 +277,7 @@ export class RvPdfService {
                     firstname 
                     middlename 
                     lastname
-                    position {
-                        id 
-                        name
-                    }
+                    position
                     signature_src
                     is_budget_officer
                 }

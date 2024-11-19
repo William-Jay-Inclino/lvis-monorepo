@@ -193,7 +193,7 @@ export class SprPdfService {
                                 <td style="text-align: center">
                                 ${
                                     // @ts-ignore
-                                    requisitioner.position.name
+                                    requisitioner.position
                                 } 
                                 </td>
                             </tr>
@@ -228,7 +228,7 @@ export class SprPdfService {
                                     <td style="text-align: center">
                                         ${
                                             // @ts-ignore
-                                            item.approver.position.name
+                                            item.approver.position
                                         }
                                     </td>
                                 </tr>
@@ -285,10 +285,7 @@ export class SprPdfService {
                     firstname 
                     middlename 
                     lastname
-                    position {
-                        id 
-                        name
-                    }
+                    position
                     signature_src
                     is_budget_officer
                 }

@@ -385,10 +385,7 @@ export class MeqsPdfService {
                     firstname 
                     middlename 
                     lastname
-                    position {
-                        id
-                        name
-                    }
+                    position
                     signature_src
                 }
             }

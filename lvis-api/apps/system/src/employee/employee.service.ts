@@ -148,6 +148,8 @@ export class EmployeeService {
 
 	async find_employees_by_user_group(user_group_id: USER_GROUP): Promise<Employee[]> {
 
+		console.log('find_employees_by_user_group', user_group_id);
+
 		const user_group_members = await this.prisma.userGroupMembers.findMany({
 			where: {
 				user_group_id
@@ -164,6 +166,8 @@ export class EmployeeService {
 				}
 			}
 		})
+
+		console.log('user_group_members', user_group_members);
 
 		const employees = user_group_members
 			.flatMap(member => member.user.user_employee)

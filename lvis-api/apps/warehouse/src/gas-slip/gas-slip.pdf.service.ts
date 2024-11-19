@@ -425,10 +425,7 @@ export class GasSlipPdfService {
                     firstname 
                     middlename 
                     lastname
-                    position {
-                        id 
-                        name
-                    }
+                    position 
                     department {
                         name
                     }

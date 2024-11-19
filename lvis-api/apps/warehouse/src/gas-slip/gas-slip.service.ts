@@ -144,7 +144,7 @@ export class GasSlipService {
 			requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
 			with_container: input.with_container ?? existingItem.with_container,
 			liter_in_text: input.liter_in_text ?? existingItem.liter_in_text,
-			purpose: input.liter_in_text ?? existingItem.purpose,
+			purpose: input.purpose ?? existingItem.purpose,
 		}
 
 		const updated = await this.prisma.gasSlip.update({

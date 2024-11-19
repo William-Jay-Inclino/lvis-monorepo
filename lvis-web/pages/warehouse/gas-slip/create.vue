@@ -156,7 +156,7 @@
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/gas-slip">
                                     <i class="fas fa-search"></i> Search Gas Slip
                                 </nuxt-link>
-                                <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaveDisabled">
+                                <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaveDisabled || isSaving">
                                     <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>

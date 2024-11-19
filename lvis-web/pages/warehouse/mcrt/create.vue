@@ -188,7 +188,7 @@
                                 <small class="text-danger fst-italic" v-show="mcrtDataErrors.note"> {{ errorMsg }}
                                 </small>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-4">
                                 <label class="form-label">
                                     Returned By <span class="text-danger">*</span>
                                 </label>
@@ -202,6 +202,15 @@
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="mcrtDataErrors.returned_by"> {{ errorMsg }} </small>
                             </div>
+
+                            <div class="h5wrapper mb-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <i class="fas fa-users"></i> Signatories
+                                </h5>
+                                <hr class="result">
+                            </div>
+
                             <div v-for="approver in mcrtData.approvers" class="mb-3">
                                 <label class="form-label">
                                     {{ approver.label }} <span class="text-danger">*</span>

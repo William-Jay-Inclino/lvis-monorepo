@@ -139,7 +139,7 @@
                                 <small class="text-danger fst-italic" v-show="mrvDataErrors.requested_by"> {{ errorMsg }} </small>
                             </div>
     
-                            <div class="mb-3">
+                            <div class="mb-4">
                                 <label class="form-label">
                                     Withdrawn By <span class="text-danger">*</span>
                                 </label>
@@ -147,6 +147,14 @@
                                     <v-select :options="employees" label="fullname" v-model="mrvData.withdrawn_by" :clearable="false"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="mrvDataErrors.withdrawn_by"> {{ errorMsg }} </small>
+                            </div>
+
+                            <div class="h5wrapper mb-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <i class="fas fa-users"></i> Signatories
+                                </h5>
+                                <hr class="result">
                             </div>
     
                             <div v-for="approver in mrvData.approvers" class="mb-3">

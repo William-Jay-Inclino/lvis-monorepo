@@ -1,4 +1,4 @@
-import type { CreateGasSlip, FindAllResponse, MutationResponse, GasSlip, PostGasSlip } from "./gas-slip.types";
+import type { CreateGasSlip, FindAllResponse, MutationResponse, GasSlip, PostGasSlip, UpdateGasSlip } from "./gas-slip.types";
 import { sendRequest } from "~/utils/api"
 import type { Employee } from "~/composables/system/employee/employee.types";
 import type { FuelType, GasStation } from "~/composables/common.types";
@@ -377,6 +377,182 @@ export async function fetchFormDataInCreate(): Promise<{
 
 }
 
+export async function fetchFormDataInUpdate(id: string): Promise<{
+    gas_slip: GasSlip | undefined,
+    vehicles: Vehicle[],
+    employees: Employee[],
+    department_heads: Employee[],
+    gas_stations: GasStation[],
+    fuel_types: FuelType[]
+}> {
+
+    const query = `
+        query {
+            gas_slip(id: "${ id }") {
+                id
+                gas_slip_number
+                vehicle {
+                    id
+                    total_unposted_gas_slips
+                    vehicle_number
+                    plate_number
+                    name
+                    classification_id
+                    date_acquired
+                    assignee {
+                        id 
+                        firstname 
+                        middlename 
+                        lastname
+                    }
+                }
+                driver {
+                    id 
+                    firstname 
+                    middlename 
+                    lastname
+                } 
+                gas_station {
+                    id 
+                    name
+                }
+                fuel_type {
+                    id 
+                    name
+                    }
+                requested_by {
+                    id 
+                    firstname 
+                    middlename 
+                    lastname
+                }
+                with_container
+                liter_in_text
+                purpose 
+                status
+                cancelled_at
+                can_update
+                gas_slip_approvers{
+                    id
+                    approver {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    status
+                    label
+                    order
+                    notes
+                    date_approval
+                }
+            }
+            employees(page: 1, pageSize: 500) {
+                data{
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+            vehicles {
+                id
+                vehicle_number
+                plate_number
+                name
+                classification_id
+                date_acquired
+                total_unposted_gas_slips
+                assignee {
+                    id 
+                    firstname 
+                    middlename 
+                    lastname
+                }
+            }
+            gas_stations {
+                id 
+                name
+            }
+            fuel_types {
+                id 
+                name
+            }
+            department_heads {
+                id 
+                firstname
+                middlename
+                lastname
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees = []
+        let department_heads = []
+        let vehicles = []
+        let gas_stations = []
+        let fuel_types = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (!data.gas_slip) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const gas_slip = data.gas_slip
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        if (data.vehicles) {
+            vehicles = data.vehicles
+        }
+
+        if (data.department_heads) {
+            department_heads = data.department_heads
+        }
+
+        if (data.gas_stations) {
+            gas_stations = data.gas_stations
+        }
+
+        if (data.fuel_types) {
+            fuel_types = data.fuel_types
+        }
+
+
+        return {
+            gas_slip,
+            employees,
+            department_heads,
+            vehicles,
+            gas_stations,
+            fuel_types
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            gas_slip: undefined,
+            employees: [],
+            department_heads: [],
+            vehicles: [],
+            gas_stations: [],
+            fuel_types: []
+        }
+    }
+
+}
+
 export async function fetchGasSlipNumbers(payload: string): Promise<GasSlip[]> {
     const query = `
         query {
@@ -459,6 +635,51 @@ export async function create(input: CreateGasSlip): Promise<MutationResponse> {
         return {
             success: false,
             msg: 'Failed to create Gas Slip. Please contact system administrator'
+        };
+    }
+}
+
+export async function update(id: string, input: UpdateGasSlip): Promise<MutationResponse> {
+
+    const mutation = `
+        mutation {
+            updateGasSlip(
+                id: "${id}",
+                input: {
+                    vehicle_id: "${input.vehicle?.id}"
+                    driver_id: "${input.driver?.id}"
+                    gas_station_id: ${input.gas_station?.id}
+                    fuel_type_id: ${input.fuel_type?.id}
+                    requested_by_id: "${input.requested_by?.id}"
+                    with_container: ${input.with_container}
+                    liter_in_text: "${input.liter_in_text}"
+                    purpose: "${input.purpose}"
+                }
+            ) {
+                id
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateGasSlip) {
+            return {
+                success: true,
+                msg: 'Gas Slip updated successfully!',
+                data: response.data.data.updateGasSlip
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update Gas Slip. Please contact system administrator'
         };
     }
 }

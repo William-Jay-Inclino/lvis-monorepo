@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Controller, Get, InternalServerErrorException, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { GasSlipPdfService } from './gas-slip.pdf.service';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -37,21 +37,43 @@ export class GasSlipController {
 
         this.gasSlipPdfService.setAuthUser(authUser)
 
-        await this.gasSlipPdfService.increment_print_count(id)
+        try {
 
-        const gasSlip = await this.gasSlipPdfService.findGasSlip(id)
-        // @ts-ignore
-        const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip)
+            const gasSlip = await this.gasSlipPdfService.findGasSlip(id);
+            // @ts-ignore
+            const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip);
+        
+            // Increment the print count only after successful PDF generation
+            await this.gasSlipPdfService.increment_print_count(id);
+        
+            // @ts-ignore
+            res.setHeader('Content-Type', 'application/pdf');
+            // @ts-ignore
+            res.setHeader('Content-Disposition', 'inline; filename="example.pdf"');
+        
+            // @ts-ignore
+            res.send(pdfBuffer);
+            
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+            throw new InternalServerErrorException("Failed to generate PDF");
+        }
 
-        // Set response headers
-        // @ts-ignore
-        res.setHeader('Content-Type', 'application/pdf');
-        // @ts-ignore
-        res.setHeader('Content-Disposition', 'inline; filename="example.pdf"');
+        // const gasSlip = await this.gasSlipPdfService.findGasSlip(id)
+        // // @ts-ignore
+        // const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip)
 
-        // Send PDF buffer to client
-        // @ts-ignore
-        res.send(pdfBuffer);
+        // await this.gasSlipPdfService.increment_print_count(id)
+
+        // // Set response headers
+        // // @ts-ignore
+        // res.setHeader('Content-Type', 'application/pdf');
+        // // @ts-ignore
+        // res.setHeader('Content-Disposition', 'inline; filename="example.pdf"');
+
+        // // Send PDF buffer to client
+        // // @ts-ignore
+        // res.send(pdfBuffer);
 
     }
 
