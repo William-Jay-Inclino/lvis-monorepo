@@ -44,16 +44,16 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li v-if="canView('canManageEmployee', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/data-management/employee">Employee</nuxt-link></li>
+                                        to="/system/employee">Employee</nuxt-link></li>
                                 <li v-if="canView('canManageDepartment', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/system/data-management/department">Department</nuxt-link></li>
+                                        to="/system/department">Department</nuxt-link></li>
                                 <li v-if="canView('canManageDivision', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/system/data-management/division">Division</nuxt-link></li>
+                                    to="/system/division">Division</nuxt-link></li>
                                 <li v-if="canView('canManageAccount', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/system/data-management/account">Account</nuxt-link></li>
+                                        to="/system/account">Account</nuxt-link></li>
                                 <li v-if="canView('canManageClassification', authUser)"><nuxt-link
                                         class="dropdown-item"
-                                        to="/system/data-management/classification">Classification</nuxt-link></li>
+                                        to="/system/classification">Classification</nuxt-link></li>
                             </ul>
                         </li>
                         <!-- <li v-if="isAdmin(authUser)" class="nav-item dropdown">
@@ -131,16 +131,16 @@
                             Data Management
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><nuxt-link class="dropdown-item" to="/data-management/employee">Employee</nuxt-link>
+                            <li><nuxt-link class="dropdown-item" to="/system/employee">Employee</nuxt-link>
                             </li>
                             <li><nuxt-link class="dropdown-item"
-                                    to="/system/data-management/department">Department</nuxt-link></li>
+                                    to="/system/department">Department</nuxt-link></li>
                             <li><nuxt-link class="dropdown-item"
-                                to="/system/data-management/division">Division</nuxt-link></li>
+                                to="/system/division">Division</nuxt-link></li>
                             <li><nuxt-link class="dropdown-item"
-                                    to="/system/data-management/classification">Classification</nuxt-link></li>
+                                    to="/system/classification">Classification</nuxt-link></li>
                             <li><nuxt-link class="dropdown-item"
-                                    to="/system/data-management/account">Account</nuxt-link></li>
+                                    to="/system/account">Account</nuxt-link></li>
                         </ul>
                     </li>
                     <!-- <li class="nav-item dropdown">

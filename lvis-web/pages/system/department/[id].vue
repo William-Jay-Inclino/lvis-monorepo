@@ -1,15 +1,15 @@
 <template>
-    <div class="card">
 
+    <div class="card">
         <div class="card-body">
 
             <div v-if="!isLoadingPage">
-
-                <h2 class="text-warning">Create Division</h2>
+        
+                <h2 class="text-warning">Update Department</h2>
         
                 <hr>
         
-                <form @submit.prevent="onSubmit">
+                <form v-if="item" @submit.prevent="onSubmit">
         
                     <div class="row justify-content-center pt-3">
                         <div class="col-lg-6">
@@ -17,43 +17,22 @@
                             <div class="alert alert-info fst-italic" role="alert">
                                 <small> Fields with * are required </small>
                             </div>
-    
+
                             <div class="mb-3">
                                 <label class="form-label">
                                     Code <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" v-model="formData.code" required>
+                                <input type="text" class="form-control" v-model="item.code" required>
                             </div>
-    
                             <div class="mb-3">
                                 <label class="form-label">
                                     Name <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" v-model="formData.name" required>
+                                <input type="text" class="form-control" v-model="item.name" required>
                             </div>
-
                             <div class="mb-3">
-                                <label class="form-label">
-                                    Department <span class="text-danger">*</span>
-                                </label>
-                                <client-only>
-                                    <v-select :options="departments" label="code" v-model="formData.department">
-                                        <template #search="{attributes, events}">
-                                            <input
-                                            class="vs__search"
-                                            :required="!formData.department"
-                                            v-bind="attributes"
-                                            v-on="events"
-                                            />
-                                        </template>
-                                    </v-select>
-                                </client-only>
+                                <SystemUserPermissions :permissions="item.permissions" />
                             </div>
-    
-                            <div class="mb-3">
-                                <SystemUserPermissions :permissions="formData.permissions" />
-                            </div>
-    
                         </div>
                     </div>
         
@@ -64,76 +43,77 @@
                                 <button type="button" @click="onClickGoToList" class="btn btn-secondary">
                                     <i class="fas fa-list"></i> Go to list
                                 </button>
-                                <button type="submit" class="btn btn-primary" :disabled="isSaving">
-                                    <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                <button type="submit" class="btn btn-success" :disabled="isSaving">
+                                    <i class="fas fa-sync"></i> {{ isSaving ? 'Updating...' : 'Update' }}
                                 </button>
                             </div>
                         </div>
                     </div>
         
                 </form>
-
+        
             </div>
-
+        
             <div v-else>
-
                 <LoaderSpinner />
-
             </div>
             
         </div>
-
-
     </div>
+
 
 </template>
 
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/division/division.api'
-import type { CreateDivisionInput } from '~/composables/system/division/division.ts'
+import * as api from '~/composables/system/department/department.api'
+import type { CreateDepartmentInput, Department } from '~/composables/system/department/department'
 import Swal from 'sweetalert2'
-import { permissions } from '~/composables/system/user/user.permissions'
-import type { Department } from '#imports';
 
 definePageMeta({
-    name: ROUTES.DIVISION_CREATE,
+    name: ROUTES.DEPARTMENT_UPDATE,
     layout: "layout-system",
     middleware: ['auth'],
 })
 
 const isLoadingPage = ref(true)
 
+const route = useRoute()
 const router = useRouter()
 const isSaving = ref(false)
 
-const _initialFormData: CreateDivisionInput = {
-    code: '',
-    name: '',
-    department: null,
-    permissions: JSON.parse(JSON.stringify(permissions)),
-}
+const item = ref<Department>()
 
-const formData = ref({ ..._initialFormData })
+onMounted(async () => {
 
-const departments = ref<Department[]>([])
+    const response = await api.findOne(route.params.id as string)
 
+    if (!response) {
+        console.error('Department not found')
+        return
+    }
 
-onMounted( async () => {
+    item.value = response
 
-    const response = await api.fetchFormDataInCreate()
-    departments.value = response.departments
     isLoadingPage.value = false
-
 })
+
 
 async function onSubmit() {
 
+    if (!item.value) return
+
     console.log('saving...')
 
+    const data: CreateDepartmentInput = {
+        code: item.value.code,
+        name: item.value.name,
+        permissions: JSON.parse(JSON.stringify(item.value.permissions)),
+}
+
     isSaving.value = true
-    const response = await api.create(formData.value)
+    const response = await api.update(item.value.id, data)
     isSaving.value = false
 
     if (response.success && response.data) {
@@ -145,7 +125,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/system/data-management/division/view/${response.data.id}`);
+        router.push(`/system/department/view/${response.data.id}`);
 
     } else {
 
@@ -162,6 +142,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/data-management/division')
+const onClickGoToList = () => router.push('/system/department')
 
 </script>

@@ -12,7 +12,7 @@
                         <div class="h5wrapper mb-3">
                             <hr class="result">
                             <h5 class="text-warning fst-italic">
-                                <i class="fas fa-info-circle"></i> Account Info
+                                <i class="fas fa-info-circle"></i> Division Info
                             </h5>
                             <hr class="result">
                         </div>
@@ -23,18 +23,24 @@
                                     <tbody>
                                         <tr>
                                             <td class="text-muted">Code</td>
-                                            <td> {{ item.code }} </td>
+                                            <td> {{ item.name }} </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Name</td>
                                             <td> {{ item.name }} </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-muted">Description</td>
-                                            <td> {{ item.description }} </td>
+                                            <td class="text-muted">Department</td>
+                                            <td> {{ item.department.name }} </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+
+                        <div class="row pt-3">
+                            <div class="col">
+                                <SystemUserPermissions :permissions="item.permissions" :is-view-only="true" />
                             </div>
                         </div>
         
@@ -42,15 +48,15 @@
                             <div class="col">
                                 <div class="d-flex justify-content-end gap-2">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <button v-if="canRead(authUser, 'canManageAccount')" class="btn btn-secondary"
+                                        <button v-if="canRead(authUser, 'canManageDivision')" class="btn btn-secondary"
                                             @click="onClickGoToList">
                                             <i class="fas fa-list"></i> Go to List
                                         </button>
-                                        <button v-if="canEdit(authUser, 'canManageAccount')" class="btn btn-success"
+                                        <button v-if="canEdit(authUser, 'canManageDivision')" class="btn btn-success"
                                             @click="onClickUpdate">
                                             <i class="fas fa-sync"></i> Update
                                         </button>
-                                        <button v-if="canCreate(authUser, 'canManageAccount')" class="btn btn-primary"
+                                        <button v-if="canCreate(authUser, 'canManageDivision')" class="btn btn-primary"
                                             @click="onClickAddNew">
                                             <i class="fas fa-plus"></i> Add New
                                         </button>
@@ -68,8 +74,10 @@
                 <LoaderSpinner />
             </div>
 
+
         </div>
     </div>
+
 
 
 </template>
@@ -77,11 +85,12 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/account/account.api'
-import type { Account } from '~/composables/system/account/account';
+import * as api from '~/composables/system/division/division.api'
+import type { Division } from '~/composables/system/division/division.ts';
+
 
 definePageMeta({
-    name: ROUTES.ACCOUNT_UPDATE,
+    name: ROUTES.DIVISION_VIEW,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -91,19 +100,20 @@ const authUser = ref<AuthUser>({} as AuthUser)
 
 const router = useRouter()
 const route = useRoute()
-const item = ref<Account | undefined>()
+const item = ref<Division | undefined>()
 
 onMounted(async () => {
     authUser.value = getAuthUser()
     item.value = await api.findOne(route.params.id as string)
+    console.log('item.value', item.value);
     isLoadingPage.value = false
 
 })
 
 
-const onClickGoToList = () => router.push(`/system/data-management/account`);
-const onClickAddNew = () => router.push(`/system/data-management/account/create`);
-const onClickUpdate = () => router.push(`/system/data-management/account/${item.value?.id}`);
+const onClickGoToList = () => router.push(`/system/division`);
+const onClickAddNew = () => router.push(`/system/division/create`);
+const onClickUpdate = () => router.push(`/system/division/${item.value?.id}`);
 
 
 </script>

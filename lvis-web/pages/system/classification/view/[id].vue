@@ -95,9 +95,9 @@ onMounted(async () => {
 })
 
 
-const onClickGoToList = () => router.push(`/system/data-management/classification`);
-const onClickAddNew = () => router.push(`/system/data-management/classification/create`);
-const onClickUpdate = () => router.push(`/system/data-management/classification/${item.value?.id}`);
+const onClickGoToList = () => router.push(`/system/classification`);
+const onClickAddNew = () => router.push(`/system/classification/create`);
+const onClickUpdate = () => router.push(`/system/classification/${item.value?.id}`);
 
 
 </script>

@@ -2,6 +2,7 @@
 
     <div class="card">
         <div class="card-body">
+
             <div v-if="!isLoadingPage && authUser" class="row justify-content-center pt-3">
         
                 <div class="col-lg-6">
@@ -11,7 +12,7 @@
                         <div class="h5wrapper mb-3">
                             <hr class="result">
                             <h5 class="text-warning fst-italic">
-                                <i class="fas fa-info-circle"></i> Department Info
+                                <i class="fas fa-info-circle"></i> Account Info
                             </h5>
                             <hr class="result">
                         </div>
@@ -29,21 +30,11 @@
                                             <td> {{ item.name }} </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-muted">Status</td>
-                                            <td>
-                                                <div :class="{ [`badge bg-${departmentStatus[item.status].color}`]: true }">
-                                                    {{ departmentStatus[item.status].label }}
-                                                </div>
-                                            </td>
+                                            <td class="text-muted">Description</td>
+                                            <td> {{ item.description }} </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-
-                        <div class="row pt-3">
-                            <div class="col">
-                                <SystemUserPermissions :permissions="item.permissions" :is-view-only="true" />
                             </div>
                         </div>
         
@@ -51,15 +42,15 @@
                             <div class="col">
                                 <div class="d-flex justify-content-end gap-2">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <button v-if="canRead(authUser, 'canManageDepartment')" class="btn btn-secondary"
+                                        <button v-if="canRead(authUser, 'canManageAccount')" class="btn btn-secondary"
                                             @click="onClickGoToList">
                                             <i class="fas fa-list"></i> Go to List
                                         </button>
-                                        <button v-if="canEdit(authUser, 'canManageDepartment')" class="btn btn-success"
+                                        <button v-if="canEdit(authUser, 'canManageAccount')" class="btn btn-success"
                                             @click="onClickUpdate">
                                             <i class="fas fa-sync"></i> Update
                                         </button>
-                                        <button v-if="canCreate(authUser, 'canManageDepartment')" class="btn btn-primary"
+                                        <button v-if="canCreate(authUser, 'canManageAccount')" class="btn btn-primary"
                                             @click="onClickAddNew">
                                             <i class="fas fa-plus"></i> Add New
                                         </button>
@@ -76,6 +67,7 @@
             <div v-else>
                 <LoaderSpinner />
             </div>
+
         </div>
     </div>
 
@@ -85,12 +77,11 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/department/department.api'
-import type { Department } from '~/composables/system/department/department';
-import { departmentStatus } from '~/utils/constants'
+import * as api from '~/composables/system/account/account.api'
+import type { Account } from '~/composables/system/account/account';
 
 definePageMeta({
-    name: ROUTES.DEPARTMENT_VIEW,
+    name: ROUTES.ACCOUNT_UPDATE,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -100,7 +91,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 
 const router = useRouter()
 const route = useRoute()
-const item = ref<Department | undefined>()
+const item = ref<Account | undefined>()
 
 onMounted(async () => {
     authUser.value = getAuthUser()
@@ -110,9 +101,9 @@ onMounted(async () => {
 })
 
 
-const onClickGoToList = () => router.push(`/system/data-management/department`);
-const onClickAddNew = () => router.push(`/system/data-management/department/create`);
-const onClickUpdate = () => router.push(`/system/data-management/department/${item.value?.id}`);
+const onClickGoToList = () => router.push(`/system/account`);
+const onClickAddNew = () => router.push(`/system/account/create`);
+const onClickUpdate = () => router.push(`/system/account/${item.value?.id}`);
 
 
 </script>

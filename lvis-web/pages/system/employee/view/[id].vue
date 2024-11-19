@@ -134,9 +134,9 @@ function getUploadsPath(src: string) {
 
 }
 
-const onClickGoToList = () => router.push(`/data-management/employee`);
-const onClickAddNew = () => router.push(`/data-management/employee/create`);
-const onClickUpdate = () => router.push(`/data-management/employee/${item.value?.id}`);
+const onClickGoToList = () => router.push(`/system/employee`);
+const onClickAddNew = () => router.push(`/system/employee/create`);
+const onClickUpdate = () => router.push(`/system/employee/${item.value?.id}`);
 
 
 </script>

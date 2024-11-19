@@ -127,7 +127,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/system/data-management/account/view/${response.data.id}`);
+        router.push(`/system/account/view/${response.data.id}`);
 
     } else {
 
@@ -144,6 +144,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/data-management/account')
+const onClickGoToList = () => router.push('/system/account')
 
 </script>

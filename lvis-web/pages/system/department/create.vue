@@ -1,8 +1,9 @@
 <template>
     <div class="card">
-        <div class="card-body">
 
-            <h2 class="text-warning">Create Account</h2>
+        <div class="card-body">
+    
+            <h2 class="text-warning">Create Department</h2>
     
             <hr>
     
@@ -14,7 +15,7 @@
                         <div class="alert alert-info fst-italic" role="alert">
                             <small> Fields with * are required </small>
                         </div>
-
+                        
                         <div class="mb-3">
                             <label class="form-label">
                                 Code <span class="text-danger">*</span>
@@ -27,11 +28,9 @@
                             </label>
                             <input type="text" class="form-control" v-model="formData.name" required>
                         </div>
+
                         <div class="mb-3">
-                            <label class="form-label">
-                                Description <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" v-model="formData.description" required>
+                            <SystemUserPermissions :permissions="formData.permissions" />
                         </div>
     
                     </div>
@@ -52,8 +51,9 @@
                 </div>
     
             </form>
-            
+
         </div>
+
     </div>
 
 </template>
@@ -61,12 +61,13 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/account/account.api'
-import type { CreateAccountInput } from '~/composables/system/account/account'
+import * as api from '~/composables/system/department/department.api'
+import type { CreateDepartmentInput } from '~/composables/system/department/department'
 import Swal from 'sweetalert2'
+import { permissions } from '~/composables/system/user/user.permissions'
 
 definePageMeta({
-    name: ROUTES.ACCOUNT_CREATE,
+    name: ROUTES.DEPARTMENT_CREATE,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -74,10 +75,10 @@ definePageMeta({
 const router = useRouter()
 const isSaving = ref(false)
 
-const _initialFormData: CreateAccountInput = {
+const _initialFormData: CreateDepartmentInput = {
     code: '',
     name: '',
-    description: '',
+    permissions: JSON.parse(JSON.stringify(permissions)),
 }
 
 const formData = ref({ ..._initialFormData })
@@ -100,7 +101,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/system/data-management/account/view/${response.data.id}`);
+        router.push(`/system/department/view/${response.data.id}`);
 
     } else {
 
@@ -117,6 +118,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/data-management/account')
+const onClickGoToList = () => router.push('/system/department')
 
 </script>

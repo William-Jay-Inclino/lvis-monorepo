@@ -172,7 +172,7 @@ async function onClickDelete(id: string) {
     })
 }
 
-const onClickCreate = () => router.push('/system/data-management/division/create')
-const onClickEdit = (id: string) => router.push('/system/data-management/division/' + id)
+const onClickCreate = () => router.push('/system/division/create')
+const onClickEdit = (id: string) => router.push('/system/division/' + id)
 
 </script>

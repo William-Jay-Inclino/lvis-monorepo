@@ -2,8 +2,8 @@
     <div class="card">
 
         <div class="card-body">
-    
-            <h2 class="text-warning">Create Department</h2>
+
+            <h2 class="text-warning">Create Classification</h2>
     
             <hr>
     
@@ -15,24 +15,13 @@
                         <div class="alert alert-info fst-italic" role="alert">
                             <small> Fields with * are required </small>
                         </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Code <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" v-model="formData.code" required>
-                        </div>
+
                         <div class="mb-3">
                             <label class="form-label">
                                 Name <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control" v-model="formData.name" required>
                         </div>
-
-                        <div class="mb-3">
-                            <SystemUserPermissions :permissions="formData.permissions" />
-                        </div>
-    
                     </div>
                 </div>
     
@@ -51,8 +40,9 @@
                 </div>
     
             </form>
-
+            
         </div>
+
 
     </div>
 
@@ -61,13 +51,12 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/department/department.api'
-import type { CreateDepartmentInput } from '~/composables/system/department/department'
+import * as api from '~/composables/system/classification/classification.api'
+import type { CreateClassificationInput } from '~/composables/system/classification/classification'
 import Swal from 'sweetalert2'
-import { permissions } from '~/composables/system/user/user.permissions'
 
 definePageMeta({
-    name: ROUTES.DEPARTMENT_CREATE,
+    name: ROUTES.CLASSIFICATION_CREATE,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -75,10 +64,8 @@ definePageMeta({
 const router = useRouter()
 const isSaving = ref(false)
 
-const _initialFormData: CreateDepartmentInput = {
-    code: '',
+const _initialFormData: CreateClassificationInput = {
     name: '',
-    permissions: JSON.parse(JSON.stringify(permissions)),
 }
 
 const formData = ref({ ..._initialFormData })
@@ -101,7 +88,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/system/data-management/department/view/${response.data.id}`);
+        router.push(`/system/classification/view/${response.data.id}`);
 
     } else {
 
@@ -118,6 +105,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/data-management/department')
+const onClickGoToList = () => router.push('/system/classification')
 
 </script>

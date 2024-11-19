@@ -2,16 +2,15 @@
 
     <div class="card">
         <div class="card-body">
-        
             <div v-if="!isLoadingPage">
         
-                <h2 class="text-warning">Classification</h2>
+                <h2 class="text-warning">Account</h2>
         
                 <hr>
         
                 <div class="row">
                     <div class="col">
-                        <button v-if="canCreate(authUser, 'canManageClassification')" @click="onClickCreate"
+                        <button v-if="canCreate(authUser, 'canManageAccount')" @click="onClickCreate"
                             class="btn btn-primary float-end">
                             <i class="fas fa-plus"></i> Create
                         </button>
@@ -19,16 +18,16 @@
                 </div>
         
                 <div class="row justify-content-center pt-5">
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="search for name..." v-model="searchValue">
+                            <input type="text" class="form-control" placeholder="search for code..." v-model="searchValue">
                         </div>
                     </div>
                 </div>
         
                 <div class="row justify-content-center pt-3">
         
-                    <div v-show="items.length > 0" class="col-lg-6">
+                    <div v-show="items.length > 0" class="col-lg-8">
         
                         <div class="row">
                             <div class="col">
@@ -36,7 +35,9 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
+                                                <th class="bg-secondary text-white">Code</th>
                                                 <th class="bg-secondary text-white">Name</th>
+                                                <th class="bg-secondary text-white">Description</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <i class="fas fa-cog"></i>
                                                 </th>
@@ -44,17 +45,19 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in filteredItems">
+                                                <td class="text-muted"> {{ i.code }} </td>
                                                 <td class="text-muted"> {{ i.name }} </td>
+                                                <td class="text-muted"> {{ i.description }} </td>
                                                 <td class="text-center">
-                                                    <button :disabled="!canDelete(authUser, 'canManageClassification')"
+                                                    <button :disabled="!canDelete(authUser, 'canManageAccount')"
                                                         @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
                                                         <i class="fas fa-trash"
-                                                            :class="{ 'text-danger': canDelete(authUser, 'canManageClassification') }"></i>
+                                                            :class="{ 'text-danger': canDelete(authUser, 'canManageAccount') }"></i>
                                                     </button>
-                                                    <button :disabled="!canEdit(authUser, 'canManageClassification')"
+                                                    <button :disabled="!canEdit(authUser, 'canManageAccount')"
                                                         @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
                                                         <i class="fas fa-edit"
-                                                            :class="{ 'text-primary': canEdit(authUser, 'canManageClassification') }"></i>
+                                                            :class="{ 'text-primary': canEdit(authUser, 'canManageAccount') }"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -74,22 +77,22 @@
             <div v-else>
                 <LoaderSpinner />
             </div>
-
         </div>
     </div>
+
 
 </template>
 
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/classification/classification.api'
-import type { Classification } from '~/composables/system/classification/classification'
+import * as api from '~/composables/system/account/account.api'
+import type { Account } from '~/composables/system/account/account'
 import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
 
 definePageMeta({
-    name: ROUTES.CLASSIFICATION_INDEX,
+    name: ROUTES.ACCOUNT_INDEX,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -100,9 +103,8 @@ const authUser = ref<AuthUser>({} as AuthUser)
 const toast = useToast();
 const router = useRouter()
 
-const items = ref<Classification[]>([])
+const items = ref<Account[]>([])
 const searchValue = ref('')
-
 
 onMounted(async () => {
     authUser.value = getAuthUser()
@@ -115,7 +117,7 @@ const filteredItems = computed(() => {
 
     if (searchValue.value.trim() === '') return items.value
 
-    return items.value.filter(i => i.name.toLowerCase().includes(searchValue.value.toLowerCase()))
+    return items.value.filter(i => i.code.toLowerCase().includes(searchValue.value.toLowerCase()))
 
 })
 
@@ -170,7 +172,7 @@ async function onClickDelete(id: string) {
     })
 }
 
-const onClickCreate = () => router.push('/system/data-management/classification/create')
-const onClickEdit = (id: string) => router.push('/system/data-management/classification/' + id)
+const onClickCreate = () => router.push('/system/account/create')
+const onClickEdit = (id: string) => router.push('/system/account/' + id)
 
 </script>

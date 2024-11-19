@@ -58,7 +58,7 @@
                                                 <td class="text-muted"> {{ i.firstname }} </td>
                                                 <td class="text-muted"> {{ i.middlename }} </td>
                                                 <td class="text-muted"> {{ i.lastname }} </td>
-                                                <td class="text-muted"> {{ i.position ? i.position.name : 'N/A' }} </td>
+                                                <td class="text-muted"> {{ i.position ? i.position : 'N/A' }} </td>
                                                 <td class="text-muted">
                                                     <div v-if="i.signature_src">
                                                         <img :src="getUploadsPath(i.signature_src)" style="max-width: 100px; height: auto;">
@@ -277,7 +277,7 @@ function getUploadsPath(src: string) {
 
 }
 
-const onClickCreate = () => router.push('/data-management/employee/create')
-const onClickEdit = (id: string) => router.push('/data-management/employee/' + id)
+const onClickCreate = () => router.push('/system/employee/create')
+const onClickEdit = (id: string) => router.push('/system/employee/' + id)
 
 </script>

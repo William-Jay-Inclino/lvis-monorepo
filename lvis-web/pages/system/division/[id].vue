@@ -2,10 +2,9 @@
 
     <div class="card">
         <div class="card-body">
-
             <div v-if="!isLoadingPage">
         
-                <h2 class="text-warning">Update Department</h2>
+                <h2 class="text-warning">Update Division</h2>
         
                 <hr>
         
@@ -17,7 +16,7 @@
                             <div class="alert alert-info fst-italic" role="alert">
                                 <small> Fields with * are required </small>
                             </div>
-
+                            
                             <div class="mb-3">
                                 <label class="form-label">
                                     Code <span class="text-danger">*</span>
@@ -29,6 +28,23 @@
                                     Name <span class="text-danger">*</span>
                                 </label>
                                 <input type="text" class="form-control" v-model="item.name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Department <span class="text-danger">*</span>
+                                </label>
+                                <client-only>
+                                    <v-select :options="departments" label="code" v-model="item.department">
+                                        <template #search="{attributes, events}">
+                                            <input
+                                            class="vs__search"
+                                            :required="!item.department"
+                                            v-bind="attributes"
+                                            v-on="events"
+                                            />
+                                        </template>
+                                    </v-select>
+                                </client-only>
                             </div>
                             <div class="mb-3">
                                 <SystemUserPermissions :permissions="item.permissions" />
@@ -57,9 +73,9 @@
             <div v-else>
                 <LoaderSpinner />
             </div>
-            
         </div>
     </div>
+
 
 
 </template>
@@ -67,12 +83,13 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/department/department.api'
-import type { CreateDepartmentInput, Department } from '~/composables/system/department/department'
+import * as api from '~/composables/system/division/division.api'
+import type { CreateDivisionInput, Division } from '~/composables/system/division/division.ts'
 import Swal from 'sweetalert2'
+import type { Department } from '~/composables/system/department/department';
 
 definePageMeta({
-    name: ROUTES.DEPARTMENT_UPDATE,
+    name: ROUTES.DIVISION_UPDATE,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -83,18 +100,20 @@ const route = useRoute()
 const router = useRouter()
 const isSaving = ref(false)
 
-const item = ref<Department>()
+const item = ref<Division>()
+const departments = ref<Department[]>([])
 
 onMounted(async () => {
 
-    const response = await api.findOne(route.params.id as string)
+    const response = await api.fetchFormDataInUpdate(route.params.id as string)
 
-    if (!response) {
-        console.error('Department not found')
+    if (!response.division) {
+        console.error('Division not found')
         return
     }
 
-    item.value = response
+    item.value = response.division
+    departments.value = response.departments
 
     isLoadingPage.value = false
 })
@@ -106,11 +125,12 @@ async function onSubmit() {
 
     console.log('saving...')
 
-    const data: CreateDepartmentInput = {
+    const data: CreateDivisionInput = {
         code: item.value.code,
         name: item.value.name,
-        permissions: JSON.parse(JSON.stringify(item.value.permissions)),
-}
+        department: item.value.department,
+        permissions: item.value.permissions
+    }
 
     isSaving.value = true
     const response = await api.update(item.value.id, data)
@@ -125,7 +145,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/system/data-management/department/view/${response.data.id}`);
+        router.push(`/system/division/view/${response.data.id}`);
 
     } else {
 
@@ -142,6 +162,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/data-management/department')
+const onClickGoToList = () => router.push('/system/division')
 
 </script>

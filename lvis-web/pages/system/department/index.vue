@@ -2,15 +2,16 @@
 
     <div class="card">
         <div class="card-body">
+
             <div v-if="!isLoadingPage">
         
-                <h2 class="text-warning">Account</h2>
+                <h2 class="text-warning">Department</h2>
         
                 <hr>
         
                 <div class="row">
                     <div class="col">
-                        <button v-if="canCreate(authUser, 'canManageAccount')" @click="onClickCreate"
+                        <button v-if="canCreate(authUser, 'canManageDepartment')" @click="onClickCreate"
                             class="btn btn-primary float-end">
                             <i class="fas fa-plus"></i> Create
                         </button>
@@ -37,7 +38,7 @@
                                             <tr>
                                                 <th class="bg-secondary text-white">Code</th>
                                                 <th class="bg-secondary text-white">Name</th>
-                                                <th class="bg-secondary text-white">Description</th>
+                                                <th class="bg-secondary text-white">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <i class="fas fa-cog"></i>
                                                 </th>
@@ -47,17 +48,21 @@
                                             <tr v-for="i in filteredItems">
                                                 <td class="text-muted"> {{ i.code }} </td>
                                                 <td class="text-muted"> {{ i.name }} </td>
-                                                <td class="text-muted"> {{ i.description }} </td>
+                                                <td class="text-muted">
+                                                    <div :class="{ [`badge bg-${departmentStatus[i.status].color}`]: true }">
+                                                        {{ departmentStatus[i.status].label }}
+                                                    </div>
+                                                </td>
                                                 <td class="text-center">
-                                                    <button :disabled="!canDelete(authUser, 'canManageAccount')"
+                                                    <button :disabled="!canDelete(authUser, 'canManageDepartment')"
                                                         @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
                                                         <i class="fas fa-trash"
-                                                            :class="{ 'text-danger': canDelete(authUser, 'canManageAccount') }"></i>
+                                                            :class="{ 'text-danger': canDelete(authUser, 'canManageDepartment') }"></i>
                                                     </button>
-                                                    <button :disabled="!canEdit(authUser, 'canManageAccount')"
+                                                    <button :disabled="!canEdit(authUser, 'canManageDepartment')"
                                                         @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
                                                         <i class="fas fa-edit"
-                                                            :class="{ 'text-primary': canEdit(authUser, 'canManageAccount') }"></i>
+                                                            :class="{ 'text-primary': canEdit(authUser, 'canManageDepartment') }"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -77,6 +82,7 @@
             <div v-else>
                 <LoaderSpinner />
             </div>
+
         </div>
     </div>
 
@@ -86,13 +92,14 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/account/account.api'
-import type { Account } from '~/composables/system/account/account'
+import * as api from '~/composables/system/department/department.api'
+import type { Department } from '~/composables/system/department/department'
 import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
+import { departmentStatus } from '~/utils/constants'
 
 definePageMeta({
-    name: ROUTES.ACCOUNT_INDEX,
+    name: ROUTES.DEPARTMENT_INDEX,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -103,8 +110,9 @@ const authUser = ref<AuthUser>({} as AuthUser)
 const toast = useToast();
 const router = useRouter()
 
-const items = ref<Account[]>([])
+const items = ref<Department[]>([])
 const searchValue = ref('')
+
 
 onMounted(async () => {
     authUser.value = getAuthUser()
@@ -172,7 +180,7 @@ async function onClickDelete(id: string) {
     })
 }
 
-const onClickCreate = () => router.push('/system/data-management/account/create')
-const onClickEdit = (id: string) => router.push('/system/data-management/account/' + id)
+const onClickCreate = () => router.push('/system/department/create')
+const onClickEdit = (id: string) => router.push('/system/department/' + id)
 
 </script>

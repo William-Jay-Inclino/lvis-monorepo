@@ -113,7 +113,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/system/data-management/classification/view/${response.data.id}`);
+        router.push(`/system/classification/view/${response.data.id}`);
 
     } else {
 
@@ -130,6 +130,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/data-management/classification')
+const onClickGoToList = () => router.push('/system/classification')
 
 </script>

@@ -1,9 +1,8 @@
 <template>
     <div class="card">
-
         <div class="card-body">
 
-            <h2 class="text-warning">Create Classification</h2>
+            <h2 class="text-warning">Create Account</h2>
     
             <hr>
     
@@ -18,10 +17,23 @@
 
                         <div class="mb-3">
                             <label class="form-label">
+                                Code <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" v-model="formData.code" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
                                 Name <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control" v-model="formData.name" required>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Description <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" v-model="formData.description" required>
+                        </div>
+    
                     </div>
                 </div>
     
@@ -42,8 +54,6 @@
             </form>
             
         </div>
-
-
     </div>
 
 </template>
@@ -51,12 +61,12 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/classification/classification.api'
-import type { CreateClassificationInput } from '~/composables/system/classification/classification'
+import * as api from '~/composables/system/account/account.api'
+import type { CreateAccountInput } from '~/composables/system/account/account'
 import Swal from 'sweetalert2'
 
 definePageMeta({
-    name: ROUTES.CLASSIFICATION_CREATE,
+    name: ROUTES.ACCOUNT_CREATE,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -64,8 +74,10 @@ definePageMeta({
 const router = useRouter()
 const isSaving = ref(false)
 
-const _initialFormData: CreateClassificationInput = {
+const _initialFormData: CreateAccountInput = {
+    code: '',
     name: '',
+    description: '',
 }
 
 const formData = ref({ ..._initialFormData })
@@ -88,7 +100,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/system/data-management/classification/view/${response.data.id}`);
+        router.push(`/system/account/view/${response.data.id}`);
 
     } else {
 
@@ -105,6 +117,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/data-management/classification')
+const onClickGoToList = () => router.push('/system/account')
 
 </script>

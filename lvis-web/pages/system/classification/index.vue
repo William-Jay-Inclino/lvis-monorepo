@@ -2,16 +2,16 @@
 
     <div class="card">
         <div class="card-body">
-
+        
             <div v-if="!isLoadingPage">
         
-                <h2 class="text-warning">Department</h2>
+                <h2 class="text-warning">Classification</h2>
         
                 <hr>
         
                 <div class="row">
                     <div class="col">
-                        <button v-if="canCreate(authUser, 'canManageDepartment')" @click="onClickCreate"
+                        <button v-if="canCreate(authUser, 'canManageClassification')" @click="onClickCreate"
                             class="btn btn-primary float-end">
                             <i class="fas fa-plus"></i> Create
                         </button>
@@ -19,16 +19,16 @@
                 </div>
         
                 <div class="row justify-content-center pt-5">
-                    <div class="col-lg-8">
+                    <div class="col-lg-6">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="search for code..." v-model="searchValue">
+                            <input type="text" class="form-control" placeholder="search for name..." v-model="searchValue">
                         </div>
                     </div>
                 </div>
         
                 <div class="row justify-content-center pt-3">
         
-                    <div v-show="items.length > 0" class="col-lg-8">
+                    <div v-show="items.length > 0" class="col-lg-6">
         
                         <div class="row">
                             <div class="col">
@@ -36,9 +36,7 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white">Code</th>
                                                 <th class="bg-secondary text-white">Name</th>
-                                                <th class="bg-secondary text-white">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <i class="fas fa-cog"></i>
                                                 </th>
@@ -46,23 +44,17 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in filteredItems">
-                                                <td class="text-muted"> {{ i.code }} </td>
                                                 <td class="text-muted"> {{ i.name }} </td>
-                                                <td class="text-muted">
-                                                    <div :class="{ [`badge bg-${departmentStatus[i.status].color}`]: true }">
-                                                        {{ departmentStatus[i.status].label }}
-                                                    </div>
-                                                </td>
                                                 <td class="text-center">
-                                                    <button :disabled="!canDelete(authUser, 'canManageDepartment')"
+                                                    <button :disabled="!canDelete(authUser, 'canManageClassification')"
                                                         @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
                                                         <i class="fas fa-trash"
-                                                            :class="{ 'text-danger': canDelete(authUser, 'canManageDepartment') }"></i>
+                                                            :class="{ 'text-danger': canDelete(authUser, 'canManageClassification') }"></i>
                                                     </button>
-                                                    <button :disabled="!canEdit(authUser, 'canManageDepartment')"
+                                                    <button :disabled="!canEdit(authUser, 'canManageClassification')"
                                                         @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
                                                         <i class="fas fa-edit"
-                                                            :class="{ 'text-primary': canEdit(authUser, 'canManageDepartment') }"></i>
+                                                            :class="{ 'text-primary': canEdit(authUser, 'canManageClassification') }"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -86,20 +78,18 @@
         </div>
     </div>
 
-
 </template>
 
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/department/department.api'
-import type { Department } from '~/composables/system/department/department'
+import * as api from '~/composables/system/classification/classification.api'
+import type { Classification } from '~/composables/system/classification/classification'
 import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
-import { departmentStatus } from '~/utils/constants'
 
 definePageMeta({
-    name: ROUTES.DEPARTMENT_INDEX,
+    name: ROUTES.CLASSIFICATION_INDEX,
     layout: "layout-system",
     middleware: ['auth'],
 })
@@ -110,7 +100,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 const toast = useToast();
 const router = useRouter()
 
-const items = ref<Department[]>([])
+const items = ref<Classification[]>([])
 const searchValue = ref('')
 
 
@@ -125,7 +115,7 @@ const filteredItems = computed(() => {
 
     if (searchValue.value.trim() === '') return items.value
 
-    return items.value.filter(i => i.code.toLowerCase().includes(searchValue.value.toLowerCase()))
+    return items.value.filter(i => i.name.toLowerCase().includes(searchValue.value.toLowerCase()))
 
 })
 
@@ -180,7 +170,7 @@ async function onClickDelete(id: string) {
     })
 }
 
-const onClickCreate = () => router.push('/system/data-management/department/create')
-const onClickEdit = (id: string) => router.push('/system/data-management/department/' + id)
+const onClickCreate = () => router.push('/system/classification/create')
+const onClickEdit = (id: string) => router.push('/system/classification/' + id)
 
 </script>

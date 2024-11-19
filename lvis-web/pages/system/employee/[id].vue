@@ -210,7 +210,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/data-management/employee/view/${response.data.id}`);
+        router.push(`/system/employee/view/${response.data.id}`);
 
     } else {
 
@@ -236,6 +236,6 @@ function handleFileUpload(event: any) {
     signatureFile.value = event.target.files[0];
 }
 
-const onClickGoToList = () => router.push('/data-management/employee')
+const onClickGoToList = () => router.push('/system/employee')
 
 </script>
