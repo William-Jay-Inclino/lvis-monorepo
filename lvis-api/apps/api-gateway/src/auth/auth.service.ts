@@ -43,9 +43,19 @@ export class AuthService {
     async login(user: User, ip_address: string, device_info: object): Promise<{ user: User, access_token: string }> {
 
         const payload = { username: user.username, sub: user.id };
-        
+
+        await this.audit_log(user, ip_address, device_info)
+
+        return {
+            user,
+            access_token: this.jwtService.sign(payload),
+        };
+
+    }
+
+    async audit_log(user: User, ip_address: string, device_info: object) {
         try {
-            await axios.post(`${ process.env.SYSTEM_API_URL }/user-audit-log`, {
+            const res = await axios.post(`${ process.env.SYSTEM_API_URL }/user-audit-log`, {
                 user_id: user.id,
                 ip_address: ip_address,
                 device_info: device_info,
@@ -53,19 +63,13 @@ export class AuthService {
             });
             console.log('User audit log successfully created - LOGIN');
 
+            return res
+
         } catch (error) {
 
             console.error('Error creating user audit log:', error);
 
-        } finally {
-            
-            return {
-                user,
-                access_token: this.jwtService.sign(payload),
-            };
-
         }
-
     }
 
     private async findByUserName(username: string): Promise<User> {

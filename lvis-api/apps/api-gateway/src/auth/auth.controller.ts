@@ -33,21 +33,7 @@ export class AuthController {
         const ip_address = req.socket.remoteAddress || req.ip;
         const deviceInfo = this.getDeviceInfo(req);
 
-        try {
-            await axios.post(`${ process.env.SYSTEM_API_URL }/user-audit-log`, {
-                user_id: user.id,
-                ip_address: ip_address,
-                device_info: deviceInfo,
-                event_type: 'LOGOUT',  
-            });
-
-            console.log('User audit log successfully created - LOGOUT');
-
-        } catch (error) {
-
-            console.error('Error creating user audit log:', error);
-
-        }
+        return await this.authService.audit_log(user, ip_address, deviceInfo)
     }
 
     private getDeviceInfo(req: Request) {
