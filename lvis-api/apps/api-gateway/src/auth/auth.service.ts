@@ -51,7 +51,7 @@ export class AuthService {
                 device_info: device_info,
                 event_type: 'LOGIN',  
             });
-            console.log('User audit log successfully created');
+            console.log('User audit log successfully created - LOGIN');
 
         } catch (error) {
 
