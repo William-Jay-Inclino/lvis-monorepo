@@ -153,28 +153,31 @@
     
                 <div class="col-lg-6">
 
-                    <div class="alert alert-info" role="alert">
-                        <small class="fst-italic"> 
-                            Default permissions are based on the employee's division/section. If the employee has no division/section, the department will be used instead. 
-                        </small>
+                    <div v-if="formData.employee">
+                        <div class="alert alert-info" role="alert">
+                            <small class="fst-italic"> 
+                                Default permissions are based on the employee's division/section. If the employee has no division/section, the department will be used instead. 
+                            </small>
+                        </div>
+    
+                        <div class="mb-3">
+                            <div>
+                                <small class="label text-muted fst-italic">
+                                    Department: <span class="text-primary">{{ formData.employee.department.code }} </span>
+                                </small>
+                            </div>
+                            <div>
+                                <small class="label text-muted fst-italic">
+                                    Division / Section: 
+                                    <span :class="{'text-primary': !!formData.employee.division, 'text-danger': !formData.employee.division}">
+                                        {{ !!formData.employee.division ? formData.employee.division.code : 'N/A' }} 
+                                    </span>
+                                </small>
+                            </div>
+                        </div>
+        
                     </div>
 
-                    <div class="mb-3" v-if="formData.employee">
-                        <div>
-                            <small class="label text-muted fst-italic">
-                                Department: <span class="text-primary">{{ formData.employee.department.code }} </span>
-                            </small>
-                        </div>
-                        <div>
-                            <small class="label text-muted fst-italic">
-                                Division / Section: 
-                                <span :class="{'text-primary': !!formData.employee.division, 'text-danger': !formData.employee.division}">
-                                    {{ !!formData.employee.division ? formData.employee.division.code : 'N/A' }} 
-                                </span>
-                            </small>
-                        </div>
-                    </div>
-    
                     <SystemUserPermissions :permissions="formData.permissions" />
     
                     <div class="d-flex justify-content-between pt-3">

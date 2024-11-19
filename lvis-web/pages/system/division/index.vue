@@ -136,7 +136,7 @@ async function onClickDelete(id: string) {
     Swal.fire({
         title: "Are you sure?",
         text: `${item.name} will be removed!`,
-        division: "top",
+        position: "top",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#e74a3b",
@@ -161,7 +161,7 @@ async function onClickDelete(id: string) {
                         title: 'Error!',
                         text: response.msg,
                         icon: 'error',
-                        division: 'top',
+                        position: 'top',
                     })
 
                 }

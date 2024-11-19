@@ -110,6 +110,41 @@
                             </div>
                         </td>
                     </tr>
+                    <tr v-if="permissions.system.canManageDivision">
+                        <td class="text-muted align-middle">Division Mgmt.</td>
+                        <td class="text-muted">
+                            <div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.system.canManageDivision.create">
+                                    <label class="form-check-label">
+                                        Create
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.system.canManageDivision.read">
+                                    <label class="form-check-label">
+                                        Read
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.system.canManageDivision.update">
+                                    <label class="form-check-label">
+                                        Update
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.system.canManageDivision.delete">
+                                    <label class="form-check-label">
+                                        Delete
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                     <tr v-if="permissions.system.canManageAccount">
                         <td class="text-muted align-middle">Account Mgmt.</td>
                         <td class="text-muted">

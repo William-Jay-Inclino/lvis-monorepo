@@ -213,6 +213,7 @@ function canViewDataManagement(authUser: AuthUser) {
         (!!systemPermissions.canManageAccount && systemPermissions.canManageAccount.read) ||
         (!!systemPermissions.canManageEmployee && systemPermissions.canManageEmployee.read) ||
         (!!systemPermissions.canManageDepartment && systemPermissions.canManageDepartment.read) ||
+        (!!systemPermissions.canManageDivision && systemPermissions.canManageDivision.read) ||
         (!!systemPermissions.canManageClassification && systemPermissions.canManageClassification.read)
     )
 }

@@ -95,7 +95,7 @@ import * as api from '~/composables/system/division/division.api'
 import type { CreateDivisionInput } from '~/composables/system/division/division.ts'
 import Swal from 'sweetalert2'
 import { permissions } from '~/composables/system/user/user.permissions'
-import type { Department } from '#imports';
+import type { Department } from '~/composables/system/department/department';
 
 definePageMeta({
     name: ROUTES.DIVISION_CREATE,
