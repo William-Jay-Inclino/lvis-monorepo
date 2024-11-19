@@ -13,7 +13,7 @@
                     data-bs-target="#changeApproverModal"
                     class="btn btn-primary"
                     type="button"
-                    :disabled="approver.status !== APPROVAL_STATUS.PENDING">
+                    :disabled="approver.status !== APPROVAL_STATUS.PENDING || disabled_orders.includes(approver.order)">
                     <i
                     class="fas fa-user-edit"></i>
                         Change Approver
@@ -59,6 +59,10 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 
 
     const props = defineProps({ 
+        disabled_orders: {
+            type: Array as () => number[],
+            default: () => [],
+        },
         approvers: {
             type: Array as () => Approver[],
             default: () => [],

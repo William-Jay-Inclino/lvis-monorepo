@@ -17,6 +17,7 @@ import { isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
+import { Employee } from '../__employee__/entities/employee.entity';
 
 @Injectable()
 export class TripTicketService {
@@ -85,7 +86,7 @@ export class TripTicketService {
                         label: i.label,
                         order: i.order,
                         notes: '',
-                        status: APPROVAL_STATUS.PENDING,
+						status: TRIP_TICKET_STATUS.PENDING,
                     }
                 })
             }
@@ -144,6 +145,7 @@ export class TripTicketService {
 			endTime = new Date(input.end_time);
 		  
 			await this.validateTripScheduleConflict({
+				tripId: id,
 				vehicleId: input.vehicle_id,
 				driverId: input.driver_id,
 				startTime,
@@ -151,6 +153,7 @@ export class TripTicketService {
 			});
 		}
 
+		const queries = []
 
 		const data: Prisma.TripTicketUpdateInput = {
             updated_by: this.authUser.user.username,
@@ -171,13 +174,89 @@ export class TripTicketService {
 			prepared_by_id: input.prepared_by_id ?? existingItem.prepared_by_id,
 		}
 
-		const updated = await this.prisma.tripTicket.update({
+		const updateTripQ = this.prisma.tripTicket.update({
 			where: { id },
 			data
 		})
 
-		return updated
+		queries.push(updateTripQ)
 		
+		// change vehicle so change also the 1st approver or the vehicle assignee
+		if(input.vehicle_id && input.vehicle_id !== existingItem.vehicle_id) {
+
+			const existingAssignee = existingItem.trip_ticket_approvers.find(i => i.order === 1)
+
+			if(!existingAssignee) {
+				throw new NotFoundException(`Trip ticket approver not found with trip number of ${existingItem.trip_number} and order is 1`)
+			}
+
+			const vehicle = await this.prisma.vehicle.findUnique({
+				where: {
+					id: input.vehicle_id
+				},
+				select: {
+					id: true,
+					assignee_id: true,
+				}
+			})
+
+			const updateAssigneeQ = this.prisma.tripTicketApprover.update({
+				where: {
+					id: existingAssignee.id
+				},
+				data: {
+					approver_id: vehicle.assignee_id
+				}
+			})
+
+			queries.push(updateAssigneeQ)
+		}
+
+		// is_operation is truthy and needs to change the approver GM
+		if(input.is_operation !== undefined && input.is_operation !== existingItem.is_operation) {
+
+			const existingGM = existingItem.trip_ticket_approvers.find(i => i.order === 4)
+
+			// remove
+			if(existingGM) {
+				const removeGmQ = this.prisma.tripTicketApprover.delete({
+					where: {
+						id: existingGM.id
+					}
+				})
+				queries.push(removeGmQ)
+			}
+
+			// add gm as approver
+			if(input.is_operation === false) {
+
+				const general_manager = await this.get_general_manager(this.authUser)
+
+				if(!general_manager) {
+					throw new NotFoundException("General manager is not found or undefined")
+				}
+
+				const updateGmQ = this.prisma.tripTicketApprover.create({
+					data: {
+						trip_ticket_id: id,
+						approver_id: general_manager.id,
+						label: 'GM / OIC',
+						order: 4,
+						notes: '',
+						status: TRIP_TICKET_STATUS.PENDING,
+					}
+				})
+
+				queries.push(updateGmQ)
+				
+			}
+
+		}
+
+		const result = await this.prisma.$transaction(queries)
+
+		return result[0]
+
 	}
 
 	async findAll(
@@ -638,12 +717,13 @@ export class TripTicketService {
     }
 
 	private async validateTripScheduleConflict(payload: {
+		tripId?: string,
 		vehicleId: string,
 		driverId: string,
 		startTime: Date,
 		endTime: Date,
 	}) {
-		const { vehicleId, driverId, startTime, endTime } = payload
+		const { tripId, vehicleId, driverId, startTime, endTime } = payload
 
 		if (startTime >= endTime) {
 			throw new BadRequestException('Start time must be earlier than End time');
@@ -662,6 +742,7 @@ export class TripTicketService {
 						AND: [{ start_time: { lt: endTime } }, { end_time: { gt: startTime } }],
 					},
 				],
+				...(tripId && { id: { not: tripId } }), // Exclude current trip if tripId is provided
 			},
 		});
 	  
@@ -820,6 +901,51 @@ export class TripTicketService {
         } catch (error) {
             console.error('Error querying employees:', error.message);
             return false;
+        }
+    }
+
+	private async get_general_manager(authUser: AuthUser): Promise<Employee | null> {
+
+        const query = `
+            query {
+                general_manager {
+					id 
+				}
+            }
+        `;
+
+        console.log('query', query)
+
+        try {
+            const { data } = await firstValueFrom(
+                this.httpService.post(
+                    process.env.API_GATEWAY_URL,
+                    { query },
+                    {
+                        headers: {
+                            Authorization: authUser.authorization,
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                ).pipe(
+                    catchError((error) => {
+                        throw error;
+                    }),
+                ),
+            );
+
+            console.log('data', data);
+
+            if (!data || !data.data) {
+                console.log('No data returned');
+                return null;
+            }
+
+            return data.data.general_manager;
+
+        } catch (error) {
+            console.error('Error getting general_manager:', error.message);
+            return null;
         }
     }
 

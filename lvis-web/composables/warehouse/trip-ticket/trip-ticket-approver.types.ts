@@ -19,3 +19,10 @@ export interface TripTicketApprover {
     order: number
     showRequiredMsg: boolean
   }
+
+
+  export interface ChangeApproverResponse {
+    success: boolean
+    msg: string
+    data?: TripTicketApprover
+  }

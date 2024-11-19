@@ -179,6 +179,9 @@
                                     <div>
                                         - Arrival should be greater than the Estimated Departure.
                                     </div>
+                                    <div>
+                                        - Trip schedule depends on vehicle and driver availability.
+                                    </div>
                                 </small>
                             </div>
 

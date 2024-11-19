@@ -60,6 +60,21 @@ export interface CreateTripTicket {
     approvers: CreateTripTicketApprover[]
 }
 
+export interface UpdateTripTicket {
+    vehicle: Vehicle | null 
+    driver: Employee | null 
+    passengers: string[]
+    destination: string 
+    purpose: string 
+    start_time: string 
+    end_time: string 
+    is_operation: boolean 
+    is_stay_in: boolean 
+    is_personal: boolean 
+    is_out_of_coverage: boolean 
+    prepared_by: Employee | null 
+}
+
 
 export interface FindAllResponse {
 	data: TripTicket[]

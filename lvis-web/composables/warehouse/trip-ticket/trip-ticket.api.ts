@@ -1,4 +1,4 @@
-import type { CreateTripTicket, FindAllResponse, MutationResponse, TripTicket } from "./trip-ticket.types";
+import type { CreateTripTicket, FindAllResponse, MutationResponse, TripTicket, UpdateTripTicket } from "./trip-ticket.types";
 import { sendRequest } from "~/utils/api"
 import type { Employee } from "~/composables/system/employee/employee.types";
 
@@ -390,6 +390,140 @@ export async function fetchFormDataInCreate(): Promise<{
 
 }
 
+export async function fetchFormDataInUpdate(id: string): Promise<{
+    employees: Employee[],
+    vehicles: Vehicle[],
+    trip_ticket: TripTicket | undefined
+}> {
+    const query = `
+        query {
+            trip_ticket(id: "${id}") {
+                id
+                trip_number
+                vehicle {
+                    id
+                    vehicle_number
+                    plate_number
+                    name
+                    classification_id
+                    date_acquired
+                    status
+                    assignee {
+                        id 
+                        firstname 
+                        middlename 
+                        lastname
+                    }
+                }
+                driver {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                prepared_by {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                passengers
+                destination
+                purpose 
+                start_time
+                end_time
+                is_operation
+                is_stay_in
+                is_personal
+                is_out_of_coverage
+                cancelled_at
+                can_update
+                status
+                trip_ticket_approvers {
+                    id
+                    approver {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    date_approval 
+                    notes
+                    status
+                    label
+                    order
+                }
+
+            },
+            employees(page: 1, pageSize: 500) {
+                data {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            },
+            vehicles {
+                id
+                vehicle_number
+                plate_number
+                name
+                classification_id
+                date_acquired
+                status
+                assignee {
+                    id 
+                    firstname 
+                    middlename 
+                    lastname
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let employees: Employee[] = []
+        let vehicles: Vehicle[] = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (!data.trip_ticket) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const trip_ticket = data.trip_ticket
+
+        if (data.employees && data.employees.data) {
+            employees = response.data.data.employees.data
+        }
+
+        if (data.vehicles && data.vehicles) {
+            vehicles = data.vehicles
+        }
+
+        return {
+            trip_ticket,
+            employees,
+            vehicles,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            trip_ticket: undefined,
+            employees: [],
+            vehicles: [],
+        }
+    }
+}
+
 export async function fetchTripNumbers(payload: string): Promise<TripTicket[]> {
     const query = `
         query {
@@ -450,7 +584,7 @@ export async function create(input: CreateTripTicket): Promise<MutationResponse>
             ) {
                 id
             }
-        }`;
+    }`;
 
     try {
         const response = await sendRequest(mutation);
@@ -478,6 +612,57 @@ export async function create(input: CreateTripTicket): Promise<MutationResponse>
         return {
             success: false,
             msg: 'Failed to create Trip Ticket. Please contact system administrator'
+        };
+    }
+}
+
+export async function update(id: string, input: UpdateTripTicket): Promise<MutationResponse> {
+
+    const passengers = input.passengers.join(", ");
+
+    const mutation = `
+        mutation {
+            updateTripTicket(
+                id: "${id}",
+                input: {
+                    vehicle_id: "${input.vehicle?.id}"
+                    driver_id: "${input.driver?.id}"
+                    passengers: "${passengers}"
+                    destination: "${input.destination}"
+                    purpose: "${input.purpose}"
+                    start_time: "${input.start_time}"
+                    end_time: "${input.end_time}"
+                    is_operation: ${input.is_operation}
+                    is_stay_in: ${input.is_stay_in}
+                    is_personal: ${input.is_personal}
+                    is_out_of_coverage: ${input.is_out_of_coverage}
+                    prepared_by_id: "${input.prepared_by?.id}"
+                }
+            ) {
+                id
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateTripTicket) {
+            return {
+                success: true,
+                msg: 'Trip Ticket updated successfully!',
+                data: response.data.data.updateTripTicket
+            };
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update Trip Ticket. Please contact system administrator'
         };
     }
 }
