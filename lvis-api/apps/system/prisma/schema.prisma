@@ -13,6 +13,11 @@ enum Role {
   ADMIN
 }
 
+enum UserLogEventType {
+  LOGIN
+  LOGOUT
+}
+
 model Division {
   id            String     @id @default(uuid())
   department_id String
@@ -173,6 +178,7 @@ model User {
   groups      UserGroupMembers[]  
 
   @@map("user")
+  user_audit_logs UserAuditLog[]
 }
 
 model UserGroup {
@@ -209,6 +215,20 @@ model UserEmployee {
   updated_at DateTime @updatedAt
 
   @@map("user_employee")
+}
+
+model UserAuditLog {
+  id             Int      @id @default(autoincrement())
+  user_id         String
+  event_type      UserLogEventType
+  event_timestamp DateTime @default(now())
+  ip_address      String
+  device_info     Json?
+
+  user           User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("user_audit_log")
+  @@index([user_id])
 }
 
 model JOApproverSetting {

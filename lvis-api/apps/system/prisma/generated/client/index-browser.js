@@ -215,6 +215,15 @@ exports.Prisma.UserEmployeeScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.UserAuditLogScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  event_type: 'event_type',
+  event_timestamp: 'event_timestamp',
+  ip_address: 'ip_address',
+  device_info: 'device_info'
+};
+
 exports.Prisma.JOApproverSettingScalarFieldEnum = {
   id: 'id',
   label: 'label',
@@ -317,6 +326,11 @@ exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN'
 };
 
+exports.UserLogEventType = exports.$Enums.UserLogEventType = {
+  LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT'
+};
+
 exports.Prisma.ModelName = {
   Division: 'Division',
   Department: 'Department',
@@ -327,6 +341,7 @@ exports.Prisma.ModelName = {
   UserGroup: 'UserGroup',
   UserGroupMembers: 'UserGroupMembers',
   UserEmployee: 'UserEmployee',
+  UserAuditLog: 'UserAuditLog',
   JOApproverSetting: 'JOApproverSetting',
   RVApproverSetting: 'RVApproverSetting',
   SPRApproverSetting: 'SPRApproverSetting',

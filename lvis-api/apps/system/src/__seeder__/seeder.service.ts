@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import * as data from './mock-data';
 import { SETTINGS } from '../__common__/constants';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'apps/system/prisma/generated/client';
 
 @Injectable()
 export class SeederService {
@@ -46,26 +46,26 @@ export class SeederService {
             await this.prisma.$transaction(async (prisma) => {
 
                 // data mgmt
-                await this.seedClassification(prisma)
-                await this.seedAccount(prisma)
-                await this.seedDepartment(prisma)
-                await this.seedDivision(prisma)
+                await this.seedClassification(prisma as PrismaClient)
+                await this.seedAccount(prisma as PrismaClient)
+                await this.seedDepartment(prisma as PrismaClient)
+                await this.seedDivision(prisma as PrismaClient)
 
                 // users and employees
-                await this.seedEmployee(prisma)
-                await this.seedUserTable(prisma)
-                await this.seedUserEmployeeTable(prisma);
-                await this.seedUserGroupTable(prisma);
-                await this.seedUserGroupMembersTable(prisma);
+                await this.seedEmployee(prisma as PrismaClient)
+                await this.seedUserTable(prisma as PrismaClient)
+                await this.seedUserEmployeeTable(prisma as PrismaClient);
+                await this.seedUserGroupTable(prisma as PrismaClient);
+                await this.seedUserGroupMembersTable(prisma as PrismaClient);
 
                 // settings
-                await this.seedSettingTable(prisma);
-                await this.seedJOApproverSetting(prisma);
-                await this.seedRVApproverSetting(prisma);
-                await this.seedSPRApproverSetting(prisma);
-                await this.seedMEQSApproverSetting(prisma);
-                await this.seedPOApproverSetting(prisma);
-                await this.seedRRApproverSetting(prisma);
+                await this.seedSettingTable(prisma as PrismaClient);
+                await this.seedJOApproverSetting(prisma as PrismaClient);
+                await this.seedRVApproverSetting(prisma as PrismaClient);
+                await this.seedSPRApproverSetting(prisma as PrismaClient);
+                await this.seedMEQSApproverSetting(prisma as PrismaClient);
+                await this.seedPOApproverSetting(prisma as PrismaClient);
+                await this.seedRRApproverSetting(prisma as PrismaClient);
             });
             console.log('Database seeding transaction completed successfully.');
         } catch (error) {

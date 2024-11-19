@@ -59,6 +59,11 @@ export type UserGroupMembers = $Result.DefaultSelection<Prisma.$UserGroupMembers
  */
 export type UserEmployee = $Result.DefaultSelection<Prisma.$UserEmployeePayload>
 /**
+ * Model UserAuditLog
+ * 
+ */
+export type UserAuditLog = $Result.DefaultSelection<Prisma.$UserAuditLogPayload>
+/**
  * Model JOApproverSetting
  * 
  */
@@ -105,11 +110,23 @@ export namespace $Enums {
 
 export type Role = (typeof Role)[keyof typeof Role]
 
+
+export const UserLogEventType: {
+  LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT'
+};
+
+export type UserLogEventType = (typeof UserLogEventType)[keyof typeof UserLogEventType]
+
 }
 
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type UserLogEventType = $Enums.UserLogEventType
+
+export const UserLogEventType: typeof $Enums.UserLogEventType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -322,6 +339,16 @@ export class PrismaClient<
     * ```
     */
   get userEmployee(): Prisma.UserEmployeeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.userAuditLog`: Exposes CRUD operations for the **UserAuditLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserAuditLogs
+    * const userAuditLogs = await prisma.userAuditLog.findMany()
+    * ```
+    */
+  get userAuditLog(): Prisma.UserAuditLogDelegate<ExtArgs>;
 
   /**
    * `prisma.jOApproverSetting`: Exposes CRUD operations for the **JOApproverSetting** model.
@@ -871,6 +898,7 @@ export namespace Prisma {
     UserGroup: 'UserGroup',
     UserGroupMembers: 'UserGroupMembers',
     UserEmployee: 'UserEmployee',
+    UserAuditLog: 'UserAuditLog',
     JOApproverSetting: 'JOApproverSetting',
     RVApproverSetting: 'RVApproverSetting',
     SPRApproverSetting: 'SPRApproverSetting',
@@ -894,7 +922,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'division' | 'department' | 'account' | 'employee' | 'classification' | 'user' | 'userGroup' | 'userGroupMembers' | 'userEmployee' | 'jOApproverSetting' | 'rVApproverSetting' | 'sPRApproverSetting' | 'mEQSApproverSetting' | 'pOApproverSetting' | 'rRApproverSetting' | 'setting'
+      modelProps: 'division' | 'department' | 'account' | 'employee' | 'classification' | 'user' | 'userGroup' | 'userGroupMembers' | 'userEmployee' | 'userAuditLog' | 'jOApproverSetting' | 'rVApproverSetting' | 'sPRApproverSetting' | 'mEQSApproverSetting' | 'pOApproverSetting' | 'rRApproverSetting' | 'setting'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1489,6 +1517,72 @@ export namespace Prisma {
           count: {
             args: Prisma.UserEmployeeCountArgs<ExtArgs>,
             result: $Utils.Optional<UserEmployeeCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserAuditLog: {
+        payload: Prisma.$UserAuditLogPayload<ExtArgs>
+        fields: Prisma.UserAuditLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserAuditLogFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserAuditLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserAuditLogFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserAuditLogPayload>
+          }
+          findFirst: {
+            args: Prisma.UserAuditLogFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserAuditLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserAuditLogFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserAuditLogPayload>
+          }
+          findMany: {
+            args: Prisma.UserAuditLogFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserAuditLogPayload>[]
+          }
+          create: {
+            args: Prisma.UserAuditLogCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserAuditLogPayload>
+          }
+          createMany: {
+            args: Prisma.UserAuditLogCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.UserAuditLogDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserAuditLogPayload>
+          }
+          update: {
+            args: Prisma.UserAuditLogUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserAuditLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserAuditLogDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserAuditLogUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserAuditLogUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserAuditLogPayload>
+          }
+          aggregate: {
+            args: Prisma.UserAuditLogAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateUserAuditLog>
+          }
+          groupBy: {
+            args: Prisma.UserAuditLogGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<UserAuditLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserAuditLogCountArgs<ExtArgs>,
+            result: $Utils.Optional<UserAuditLogCountAggregateOutputType> | number
           }
         }
       }
@@ -2182,10 +2276,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     groups: number
+    user_audit_logs: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     groups?: boolean | UserCountOutputTypeCountGroupsArgs
+    user_audit_logs?: boolean | UserCountOutputTypeCountUser_audit_logsArgs
   }
 
   // Custom InputTypes
@@ -2206,6 +2302,14 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserGroupMembersWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUser_audit_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserAuditLogWhereInput
   }
 
 
@@ -7653,6 +7757,7 @@ export namespace Prisma {
     deleted_at?: boolean
     user_employee?: boolean | User$user_employeeArgs<ExtArgs>
     groups?: boolean | User$groupsArgs<ExtArgs>
+    user_audit_logs?: boolean | User$user_audit_logsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -7677,6 +7782,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user_employee?: boolean | User$user_employeeArgs<ExtArgs>
     groups?: boolean | User$groupsArgs<ExtArgs>
+    user_audit_logs?: boolean | User$user_audit_logsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -7686,6 +7792,7 @@ export namespace Prisma {
     objects: {
       user_employee: Prisma.$UserEmployeePayload<ExtArgs> | null
       groups: Prisma.$UserGroupMembersPayload<ExtArgs>[]
+      user_audit_logs: Prisma.$UserAuditLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8071,6 +8178,8 @@ export namespace Prisma {
     user_employee<T extends User$user_employeeArgs<ExtArgs> = {}>(args?: Subset<T, User$user_employeeArgs<ExtArgs>>): Prisma__UserEmployeeClient<$Result.GetResult<Prisma.$UserEmployeePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     groups<T extends User$groupsArgs<ExtArgs> = {}>(args?: Subset<T, User$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserGroupMembersPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    user_audit_logs<T extends User$user_audit_logsArgs<ExtArgs> = {}>(args?: Subset<T, User$user_audit_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserAuditLogPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8460,6 +8569,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserGroupMembersScalarFieldEnum | UserGroupMembersScalarFieldEnum[]
+  }
+
+
+  /**
+   * User.user_audit_logs
+   */
+  export type User$user_audit_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
+    where?: UserAuditLogWhereInput
+    orderBy?: UserAuditLogOrderByWithRelationInput | UserAuditLogOrderByWithRelationInput[]
+    cursor?: UserAuditLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserAuditLogScalarFieldEnum | UserAuditLogScalarFieldEnum[]
   }
 
 
@@ -11286,6 +11416,965 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: UserEmployeeInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model UserAuditLog
+   */
+
+  export type AggregateUserAuditLog = {
+    _count: UserAuditLogCountAggregateOutputType | null
+    _avg: UserAuditLogAvgAggregateOutputType | null
+    _sum: UserAuditLogSumAggregateOutputType | null
+    _min: UserAuditLogMinAggregateOutputType | null
+    _max: UserAuditLogMaxAggregateOutputType | null
+  }
+
+  export type UserAuditLogAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type UserAuditLogSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type UserAuditLogMinAggregateOutputType = {
+    id: number | null
+    user_id: string | null
+    event_type: $Enums.UserLogEventType | null
+    event_timestamp: Date | null
+    ip_address: string | null
+  }
+
+  export type UserAuditLogMaxAggregateOutputType = {
+    id: number | null
+    user_id: string | null
+    event_type: $Enums.UserLogEventType | null
+    event_timestamp: Date | null
+    ip_address: string | null
+  }
+
+  export type UserAuditLogCountAggregateOutputType = {
+    id: number
+    user_id: number
+    event_type: number
+    event_timestamp: number
+    ip_address: number
+    device_info: number
+    _all: number
+  }
+
+
+  export type UserAuditLogAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type UserAuditLogSumAggregateInputType = {
+    id?: true
+  }
+
+  export type UserAuditLogMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    event_type?: true
+    event_timestamp?: true
+    ip_address?: true
+  }
+
+  export type UserAuditLogMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    event_type?: true
+    event_timestamp?: true
+    ip_address?: true
+  }
+
+  export type UserAuditLogCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    event_type?: true
+    event_timestamp?: true
+    ip_address?: true
+    device_info?: true
+    _all?: true
+  }
+
+  export type UserAuditLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserAuditLog to aggregate.
+     */
+    where?: UserAuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserAuditLogs to fetch.
+     */
+    orderBy?: UserAuditLogOrderByWithRelationInput | UserAuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserAuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserAuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserAuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserAuditLogs
+    **/
+    _count?: true | UserAuditLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserAuditLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserAuditLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserAuditLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserAuditLogMaxAggregateInputType
+  }
+
+  export type GetUserAuditLogAggregateType<T extends UserAuditLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserAuditLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserAuditLog[P]>
+      : GetScalarType<T[P], AggregateUserAuditLog[P]>
+  }
+
+
+
+
+  export type UserAuditLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserAuditLogWhereInput
+    orderBy?: UserAuditLogOrderByWithAggregationInput | UserAuditLogOrderByWithAggregationInput[]
+    by: UserAuditLogScalarFieldEnum[] | UserAuditLogScalarFieldEnum
+    having?: UserAuditLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserAuditLogCountAggregateInputType | true
+    _avg?: UserAuditLogAvgAggregateInputType
+    _sum?: UserAuditLogSumAggregateInputType
+    _min?: UserAuditLogMinAggregateInputType
+    _max?: UserAuditLogMaxAggregateInputType
+  }
+
+  export type UserAuditLogGroupByOutputType = {
+    id: number
+    user_id: string
+    event_type: $Enums.UserLogEventType
+    event_timestamp: Date
+    ip_address: string
+    device_info: JsonValue | null
+    _count: UserAuditLogCountAggregateOutputType | null
+    _avg: UserAuditLogAvgAggregateOutputType | null
+    _sum: UserAuditLogSumAggregateOutputType | null
+    _min: UserAuditLogMinAggregateOutputType | null
+    _max: UserAuditLogMaxAggregateOutputType | null
+  }
+
+  type GetUserAuditLogGroupByPayload<T extends UserAuditLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserAuditLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserAuditLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserAuditLogGroupByOutputType[P]>
+            : GetScalarType<T[P], UserAuditLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserAuditLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    event_type?: boolean
+    event_timestamp?: boolean
+    ip_address?: boolean
+    device_info?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userAuditLog"]>
+
+  export type UserAuditLogSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    event_type?: boolean
+    event_timestamp?: boolean
+    ip_address?: boolean
+    device_info?: boolean
+  }
+
+  export type UserAuditLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+
+  export type $UserAuditLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserAuditLog"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      user_id: string
+      event_type: $Enums.UserLogEventType
+      event_timestamp: Date
+      ip_address: string
+      device_info: Prisma.JsonValue | null
+    }, ExtArgs["result"]["userAuditLog"]>
+    composites: {}
+  }
+
+
+  type UserAuditLogGetPayload<S extends boolean | null | undefined | UserAuditLogDefaultArgs> = $Result.GetResult<Prisma.$UserAuditLogPayload, S>
+
+  type UserAuditLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<UserAuditLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: UserAuditLogCountAggregateInputType | true
+    }
+
+  export interface UserAuditLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserAuditLog'], meta: { name: 'UserAuditLog' } }
+    /**
+     * Find zero or one UserAuditLog that matches the filter.
+     * @param {UserAuditLogFindUniqueArgs} args - Arguments to find a UserAuditLog
+     * @example
+     * // Get one UserAuditLog
+     * const userAuditLog = await prisma.userAuditLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends UserAuditLogFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, UserAuditLogFindUniqueArgs<ExtArgs>>
+    ): Prisma__UserAuditLogClient<$Result.GetResult<Prisma.$UserAuditLogPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one UserAuditLog that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {UserAuditLogFindUniqueOrThrowArgs} args - Arguments to find a UserAuditLog
+     * @example
+     * // Get one UserAuditLog
+     * const userAuditLog = await prisma.userAuditLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends UserAuditLogFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserAuditLogFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__UserAuditLogClient<$Result.GetResult<Prisma.$UserAuditLogPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first UserAuditLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAuditLogFindFirstArgs} args - Arguments to find a UserAuditLog
+     * @example
+     * // Get one UserAuditLog
+     * const userAuditLog = await prisma.userAuditLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends UserAuditLogFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserAuditLogFindFirstArgs<ExtArgs>>
+    ): Prisma__UserAuditLogClient<$Result.GetResult<Prisma.$UserAuditLogPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first UserAuditLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAuditLogFindFirstOrThrowArgs} args - Arguments to find a UserAuditLog
+     * @example
+     * // Get one UserAuditLog
+     * const userAuditLog = await prisma.userAuditLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends UserAuditLogFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserAuditLogFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__UserAuditLogClient<$Result.GetResult<Prisma.$UserAuditLogPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more UserAuditLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAuditLogFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserAuditLogs
+     * const userAuditLogs = await prisma.userAuditLog.findMany()
+     * 
+     * // Get first 10 UserAuditLogs
+     * const userAuditLogs = await prisma.userAuditLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userAuditLogWithIdOnly = await prisma.userAuditLog.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends UserAuditLogFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserAuditLogFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserAuditLogPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a UserAuditLog.
+     * @param {UserAuditLogCreateArgs} args - Arguments to create a UserAuditLog.
+     * @example
+     * // Create one UserAuditLog
+     * const UserAuditLog = await prisma.userAuditLog.create({
+     *   data: {
+     *     // ... data to create a UserAuditLog
+     *   }
+     * })
+     * 
+    **/
+    create<T extends UserAuditLogCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, UserAuditLogCreateArgs<ExtArgs>>
+    ): Prisma__UserAuditLogClient<$Result.GetResult<Prisma.$UserAuditLogPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many UserAuditLogs.
+     *     @param {UserAuditLogCreateManyArgs} args - Arguments to create many UserAuditLogs.
+     *     @example
+     *     // Create many UserAuditLogs
+     *     const userAuditLog = await prisma.userAuditLog.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends UserAuditLogCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserAuditLogCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a UserAuditLog.
+     * @param {UserAuditLogDeleteArgs} args - Arguments to delete one UserAuditLog.
+     * @example
+     * // Delete one UserAuditLog
+     * const UserAuditLog = await prisma.userAuditLog.delete({
+     *   where: {
+     *     // ... filter to delete one UserAuditLog
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends UserAuditLogDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, UserAuditLogDeleteArgs<ExtArgs>>
+    ): Prisma__UserAuditLogClient<$Result.GetResult<Prisma.$UserAuditLogPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one UserAuditLog.
+     * @param {UserAuditLogUpdateArgs} args - Arguments to update one UserAuditLog.
+     * @example
+     * // Update one UserAuditLog
+     * const userAuditLog = await prisma.userAuditLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends UserAuditLogUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, UserAuditLogUpdateArgs<ExtArgs>>
+    ): Prisma__UserAuditLogClient<$Result.GetResult<Prisma.$UserAuditLogPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more UserAuditLogs.
+     * @param {UserAuditLogDeleteManyArgs} args - Arguments to filter UserAuditLogs to delete.
+     * @example
+     * // Delete a few UserAuditLogs
+     * const { count } = await prisma.userAuditLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends UserAuditLogDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserAuditLogDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserAuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAuditLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserAuditLogs
+     * const userAuditLog = await prisma.userAuditLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends UserAuditLogUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, UserAuditLogUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one UserAuditLog.
+     * @param {UserAuditLogUpsertArgs} args - Arguments to update or create a UserAuditLog.
+     * @example
+     * // Update or create a UserAuditLog
+     * const userAuditLog = await prisma.userAuditLog.upsert({
+     *   create: {
+     *     // ... data to create a UserAuditLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserAuditLog we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends UserAuditLogUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, UserAuditLogUpsertArgs<ExtArgs>>
+    ): Prisma__UserAuditLogClient<$Result.GetResult<Prisma.$UserAuditLogPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of UserAuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAuditLogCountArgs} args - Arguments to filter UserAuditLogs to count.
+     * @example
+     * // Count the number of UserAuditLogs
+     * const count = await prisma.userAuditLog.count({
+     *   where: {
+     *     // ... the filter for the UserAuditLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserAuditLogCountArgs>(
+      args?: Subset<T, UserAuditLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserAuditLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserAuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAuditLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserAuditLogAggregateArgs>(args: Subset<T, UserAuditLogAggregateArgs>): Prisma.PrismaPromise<GetUserAuditLogAggregateType<T>>
+
+    /**
+     * Group by UserAuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAuditLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserAuditLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserAuditLogGroupByArgs['orderBy'] }
+        : { orderBy?: UserAuditLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserAuditLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserAuditLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserAuditLog model
+   */
+  readonly fields: UserAuditLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserAuditLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserAuditLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the UserAuditLog model
+   */ 
+  interface UserAuditLogFieldRefs {
+    readonly id: FieldRef<"UserAuditLog", 'Int'>
+    readonly user_id: FieldRef<"UserAuditLog", 'String'>
+    readonly event_type: FieldRef<"UserAuditLog", 'UserLogEventType'>
+    readonly event_timestamp: FieldRef<"UserAuditLog", 'DateTime'>
+    readonly ip_address: FieldRef<"UserAuditLog", 'String'>
+    readonly device_info: FieldRef<"UserAuditLog", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * UserAuditLog findUnique
+   */
+  export type UserAuditLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
+    /**
+     * Filter, which UserAuditLog to fetch.
+     */
+    where: UserAuditLogWhereUniqueInput
+  }
+
+
+  /**
+   * UserAuditLog findUniqueOrThrow
+   */
+  export type UserAuditLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
+    /**
+     * Filter, which UserAuditLog to fetch.
+     */
+    where: UserAuditLogWhereUniqueInput
+  }
+
+
+  /**
+   * UserAuditLog findFirst
+   */
+  export type UserAuditLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
+    /**
+     * Filter, which UserAuditLog to fetch.
+     */
+    where?: UserAuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserAuditLogs to fetch.
+     */
+    orderBy?: UserAuditLogOrderByWithRelationInput | UserAuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserAuditLogs.
+     */
+    cursor?: UserAuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserAuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserAuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserAuditLogs.
+     */
+    distinct?: UserAuditLogScalarFieldEnum | UserAuditLogScalarFieldEnum[]
+  }
+
+
+  /**
+   * UserAuditLog findFirstOrThrow
+   */
+  export type UserAuditLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
+    /**
+     * Filter, which UserAuditLog to fetch.
+     */
+    where?: UserAuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserAuditLogs to fetch.
+     */
+    orderBy?: UserAuditLogOrderByWithRelationInput | UserAuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserAuditLogs.
+     */
+    cursor?: UserAuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserAuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserAuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserAuditLogs.
+     */
+    distinct?: UserAuditLogScalarFieldEnum | UserAuditLogScalarFieldEnum[]
+  }
+
+
+  /**
+   * UserAuditLog findMany
+   */
+  export type UserAuditLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
+    /**
+     * Filter, which UserAuditLogs to fetch.
+     */
+    where?: UserAuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserAuditLogs to fetch.
+     */
+    orderBy?: UserAuditLogOrderByWithRelationInput | UserAuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserAuditLogs.
+     */
+    cursor?: UserAuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserAuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserAuditLogs.
+     */
+    skip?: number
+    distinct?: UserAuditLogScalarFieldEnum | UserAuditLogScalarFieldEnum[]
+  }
+
+
+  /**
+   * UserAuditLog create
+   */
+  export type UserAuditLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserAuditLog.
+     */
+    data: XOR<UserAuditLogCreateInput, UserAuditLogUncheckedCreateInput>
+  }
+
+
+  /**
+   * UserAuditLog createMany
+   */
+  export type UserAuditLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserAuditLogs.
+     */
+    data: UserAuditLogCreateManyInput | UserAuditLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * UserAuditLog update
+   */
+  export type UserAuditLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserAuditLog.
+     */
+    data: XOR<UserAuditLogUpdateInput, UserAuditLogUncheckedUpdateInput>
+    /**
+     * Choose, which UserAuditLog to update.
+     */
+    where: UserAuditLogWhereUniqueInput
+  }
+
+
+  /**
+   * UserAuditLog updateMany
+   */
+  export type UserAuditLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserAuditLogs.
+     */
+    data: XOR<UserAuditLogUpdateManyMutationInput, UserAuditLogUncheckedUpdateManyInput>
+    /**
+     * Filter which UserAuditLogs to update
+     */
+    where?: UserAuditLogWhereInput
+  }
+
+
+  /**
+   * UserAuditLog upsert
+   */
+  export type UserAuditLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserAuditLog to update in case it exists.
+     */
+    where: UserAuditLogWhereUniqueInput
+    /**
+     * In case the UserAuditLog found by the `where` argument doesn't exist, create a new UserAuditLog with this data.
+     */
+    create: XOR<UserAuditLogCreateInput, UserAuditLogUncheckedCreateInput>
+    /**
+     * In case the UserAuditLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserAuditLogUpdateInput, UserAuditLogUncheckedUpdateInput>
+  }
+
+
+  /**
+   * UserAuditLog delete
+   */
+  export type UserAuditLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
+    /**
+     * Filter which UserAuditLog to delete.
+     */
+    where: UserAuditLogWhereUniqueInput
+  }
+
+
+  /**
+   * UserAuditLog deleteMany
+   */
+  export type UserAuditLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserAuditLogs to delete
+     */
+    where?: UserAuditLogWhereInput
+  }
+
+
+  /**
+   * UserAuditLog without action
+   */
+  export type UserAuditLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserAuditLog
+     */
+    select?: UserAuditLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserAuditLogInclude<ExtArgs> | null
   }
 
 
@@ -18231,6 +19320,18 @@ export namespace Prisma {
   export type UserEmployeeScalarFieldEnum = (typeof UserEmployeeScalarFieldEnum)[keyof typeof UserEmployeeScalarFieldEnum]
 
 
+  export const UserAuditLogScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    event_type: 'event_type',
+    event_timestamp: 'event_timestamp',
+    ip_address: 'ip_address',
+    device_info: 'device_info'
+  };
+
+  export type UserAuditLogScalarFieldEnum = (typeof UserAuditLogScalarFieldEnum)[keyof typeof UserAuditLogScalarFieldEnum]
+
+
   export const JOApproverSettingScalarFieldEnum: {
     id: 'id',
     label: 'label',
@@ -18430,6 +19531,20 @@ export namespace Prisma {
    * Reference to a field of type 'Role[]'
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserLogEventType'
+   */
+  export type EnumUserLogEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserLogEventType'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserLogEventType[]'
+   */
+  export type ListEnumUserLogEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserLogEventType[]'>
     
 
 
@@ -18924,6 +20039,7 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"User"> | Date | string | null
     user_employee?: XOR<UserEmployeeNullableRelationFilter, UserEmployeeWhereInput> | null
     groups?: UserGroupMembersListRelationFilter
+    user_audit_logs?: UserAuditLogListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -18944,6 +20060,7 @@ export namespace Prisma {
     deleted_at?: SortOrderInput | SortOrder
     user_employee?: UserEmployeeOrderByWithRelationInput
     groups?: UserGroupMembersOrderByRelationAggregateInput
+    user_audit_logs?: UserAuditLogOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -18967,6 +20084,7 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"User"> | Date | string | null
     user_employee?: XOR<UserEmployeeNullableRelationFilter, UserEmployeeWhereInput> | null
     groups?: UserGroupMembersListRelationFilter
+    user_audit_logs?: UserAuditLogListRelationFilter
   }, "id" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -19167,6 +20285,68 @@ export namespace Prisma {
     updated_by?: StringNullableWithAggregatesFilter<"UserEmployee"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"UserEmployee"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"UserEmployee"> | Date | string
+  }
+
+  export type UserAuditLogWhereInput = {
+    AND?: UserAuditLogWhereInput | UserAuditLogWhereInput[]
+    OR?: UserAuditLogWhereInput[]
+    NOT?: UserAuditLogWhereInput | UserAuditLogWhereInput[]
+    id?: IntFilter<"UserAuditLog"> | number
+    user_id?: StringFilter<"UserAuditLog"> | string
+    event_type?: EnumUserLogEventTypeFilter<"UserAuditLog"> | $Enums.UserLogEventType
+    event_timestamp?: DateTimeFilter<"UserAuditLog"> | Date | string
+    ip_address?: StringFilter<"UserAuditLog"> | string
+    device_info?: JsonNullableFilter<"UserAuditLog">
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type UserAuditLogOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_type?: SortOrder
+    event_timestamp?: SortOrder
+    ip_address?: SortOrder
+    device_info?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserAuditLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: UserAuditLogWhereInput | UserAuditLogWhereInput[]
+    OR?: UserAuditLogWhereInput[]
+    NOT?: UserAuditLogWhereInput | UserAuditLogWhereInput[]
+    user_id?: StringFilter<"UserAuditLog"> | string
+    event_type?: EnumUserLogEventTypeFilter<"UserAuditLog"> | $Enums.UserLogEventType
+    event_timestamp?: DateTimeFilter<"UserAuditLog"> | Date | string
+    ip_address?: StringFilter<"UserAuditLog"> | string
+    device_info?: JsonNullableFilter<"UserAuditLog">
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type UserAuditLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_type?: SortOrder
+    event_timestamp?: SortOrder
+    ip_address?: SortOrder
+    device_info?: SortOrderInput | SortOrder
+    _count?: UserAuditLogCountOrderByAggregateInput
+    _avg?: UserAuditLogAvgOrderByAggregateInput
+    _max?: UserAuditLogMaxOrderByAggregateInput
+    _min?: UserAuditLogMinOrderByAggregateInput
+    _sum?: UserAuditLogSumOrderByAggregateInput
+  }
+
+  export type UserAuditLogScalarWhereWithAggregatesInput = {
+    AND?: UserAuditLogScalarWhereWithAggregatesInput | UserAuditLogScalarWhereWithAggregatesInput[]
+    OR?: UserAuditLogScalarWhereWithAggregatesInput[]
+    NOT?: UserAuditLogScalarWhereWithAggregatesInput | UserAuditLogScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"UserAuditLog"> | number
+    user_id?: StringWithAggregatesFilter<"UserAuditLog"> | string
+    event_type?: EnumUserLogEventTypeWithAggregatesFilter<"UserAuditLog"> | $Enums.UserLogEventType
+    event_timestamp?: DateTimeWithAggregatesFilter<"UserAuditLog"> | Date | string
+    ip_address?: StringWithAggregatesFilter<"UserAuditLog"> | string
+    device_info?: JsonNullableWithAggregatesFilter<"UserAuditLog">
   }
 
   export type JOApproverSettingWhereInput = {
@@ -20190,6 +21370,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     user_employee?: UserEmployeeCreateNestedOneWithoutUserInput
     groups?: UserGroupMembersCreateNestedManyWithoutUserInput
+    user_audit_logs?: UserAuditLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -20210,6 +21391,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     user_employee?: UserEmployeeUncheckedCreateNestedOneWithoutUserInput
     groups?: UserGroupMembersUncheckedCreateNestedManyWithoutUserInput
+    user_audit_logs?: UserAuditLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -20230,6 +21412,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user_employee?: UserEmployeeUpdateOneWithoutUserNestedInput
     groups?: UserGroupMembersUpdateManyWithoutUserNestedInput
+    user_audit_logs?: UserAuditLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -20250,6 +21433,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user_employee?: UserEmployeeUncheckedUpdateOneWithoutUserNestedInput
     groups?: UserGroupMembersUncheckedUpdateManyWithoutUserNestedInput
+    user_audit_logs?: UserAuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -20442,6 +21626,65 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserAuditLogCreateInput = {
+    event_type: $Enums.UserLogEventType
+    event_timestamp?: Date | string
+    ip_address: string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    user: UserCreateNestedOneWithoutUser_audit_logsInput
+  }
+
+  export type UserAuditLogUncheckedCreateInput = {
+    id?: number
+    user_id: string
+    event_type: $Enums.UserLogEventType
+    event_timestamp?: Date | string
+    ip_address: string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserAuditLogUpdateInput = {
+    event_type?: EnumUserLogEventTypeFieldUpdateOperationsInput | $Enums.UserLogEventType
+    event_timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    ip_address?: StringFieldUpdateOperationsInput | string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    user?: UserUpdateOneRequiredWithoutUser_audit_logsNestedInput
+  }
+
+  export type UserAuditLogUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumUserLogEventTypeFieldUpdateOperationsInput | $Enums.UserLogEventType
+    event_timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    ip_address?: StringFieldUpdateOperationsInput | string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserAuditLogCreateManyInput = {
+    id?: number
+    user_id: string
+    event_type: $Enums.UserLogEventType
+    event_timestamp?: Date | string
+    ip_address: string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserAuditLogUpdateManyMutationInput = {
+    event_type?: EnumUserLogEventTypeFieldUpdateOperationsInput | $Enums.UserLogEventType
+    event_timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    ip_address?: StringFieldUpdateOperationsInput | string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserAuditLogUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumUserLogEventTypeFieldUpdateOperationsInput | $Enums.UserLogEventType
+    event_timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    ip_address?: StringFieldUpdateOperationsInput | string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type JOApproverSettingCreateInput = {
@@ -21434,7 +22677,17 @@ export namespace Prisma {
     none?: UserGroupMembersWhereInput
   }
 
+  export type UserAuditLogListRelationFilter = {
+    every?: UserAuditLogWhereInput
+    some?: UserAuditLogWhereInput
+    none?: UserAuditLogWhereInput
+  }
+
   export type UserGroupMembersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserAuditLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21602,6 +22855,56 @@ export namespace Prisma {
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type EnumUserLogEventTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserLogEventType | EnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.UserLogEventType[] | ListEnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserLogEventType[] | ListEnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserLogEventTypeFilter<$PrismaModel> | $Enums.UserLogEventType
+  }
+
+  export type UserAuditLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_type?: SortOrder
+    event_timestamp?: SortOrder
+    ip_address?: SortOrder
+    device_info?: SortOrder
+  }
+
+  export type UserAuditLogAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type UserAuditLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_type?: SortOrder
+    event_timestamp?: SortOrder
+    ip_address?: SortOrder
+  }
+
+  export type UserAuditLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_type?: SortOrder
+    event_timestamp?: SortOrder
+    ip_address?: SortOrder
+  }
+
+  export type UserAuditLogSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type EnumUserLogEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserLogEventType | EnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.UserLogEventType[] | ListEnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserLogEventType[] | ListEnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserLogEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.UserLogEventType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserLogEventTypeFilter<$PrismaModel>
+    _max?: NestedEnumUserLogEventTypeFilter<$PrismaModel>
   }
 
   export type JOApproverSettingCountOrderByAggregateInput = {
@@ -22307,6 +23610,13 @@ export namespace Prisma {
     connect?: UserGroupMembersWhereUniqueInput | UserGroupMembersWhereUniqueInput[]
   }
 
+  export type UserAuditLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserAuditLogCreateWithoutUserInput, UserAuditLogUncheckedCreateWithoutUserInput> | UserAuditLogCreateWithoutUserInput[] | UserAuditLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserAuditLogCreateOrConnectWithoutUserInput | UserAuditLogCreateOrConnectWithoutUserInput[]
+    createMany?: UserAuditLogCreateManyUserInputEnvelope
+    connect?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
+  }
+
   export type UserEmployeeUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<UserEmployeeCreateWithoutUserInput, UserEmployeeUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserEmployeeCreateOrConnectWithoutUserInput
@@ -22318,6 +23628,13 @@ export namespace Prisma {
     connectOrCreate?: UserGroupMembersCreateOrConnectWithoutUserInput | UserGroupMembersCreateOrConnectWithoutUserInput[]
     createMany?: UserGroupMembersCreateManyUserInputEnvelope
     connect?: UserGroupMembersWhereUniqueInput | UserGroupMembersWhereUniqueInput[]
+  }
+
+  export type UserAuditLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserAuditLogCreateWithoutUserInput, UserAuditLogUncheckedCreateWithoutUserInput> | UserAuditLogCreateWithoutUserInput[] | UserAuditLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserAuditLogCreateOrConnectWithoutUserInput | UserAuditLogCreateOrConnectWithoutUserInput[]
+    createMany?: UserAuditLogCreateManyUserInputEnvelope
+    connect?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
@@ -22348,6 +23665,20 @@ export namespace Prisma {
     deleteMany?: UserGroupMembersScalarWhereInput | UserGroupMembersScalarWhereInput[]
   }
 
+  export type UserAuditLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserAuditLogCreateWithoutUserInput, UserAuditLogUncheckedCreateWithoutUserInput> | UserAuditLogCreateWithoutUserInput[] | UserAuditLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserAuditLogCreateOrConnectWithoutUserInput | UserAuditLogCreateOrConnectWithoutUserInput[]
+    upsert?: UserAuditLogUpsertWithWhereUniqueWithoutUserInput | UserAuditLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserAuditLogCreateManyUserInputEnvelope
+    set?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
+    disconnect?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
+    delete?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
+    connect?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
+    update?: UserAuditLogUpdateWithWhereUniqueWithoutUserInput | UserAuditLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserAuditLogUpdateManyWithWhereWithoutUserInput | UserAuditLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserAuditLogScalarWhereInput | UserAuditLogScalarWhereInput[]
+  }
+
   export type UserEmployeeUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<UserEmployeeCreateWithoutUserInput, UserEmployeeUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserEmployeeCreateOrConnectWithoutUserInput
@@ -22370,6 +23701,20 @@ export namespace Prisma {
     update?: UserGroupMembersUpdateWithWhereUniqueWithoutUserInput | UserGroupMembersUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserGroupMembersUpdateManyWithWhereWithoutUserInput | UserGroupMembersUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserGroupMembersScalarWhereInput | UserGroupMembersScalarWhereInput[]
+  }
+
+  export type UserAuditLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserAuditLogCreateWithoutUserInput, UserAuditLogUncheckedCreateWithoutUserInput> | UserAuditLogCreateWithoutUserInput[] | UserAuditLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserAuditLogCreateOrConnectWithoutUserInput | UserAuditLogCreateOrConnectWithoutUserInput[]
+    upsert?: UserAuditLogUpsertWithWhereUniqueWithoutUserInput | UserAuditLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserAuditLogCreateManyUserInputEnvelope
+    set?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
+    disconnect?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
+    delete?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
+    connect?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
+    update?: UserAuditLogUpdateWithWhereUniqueWithoutUserInput | UserAuditLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserAuditLogUpdateManyWithWhereWithoutUserInput | UserAuditLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserAuditLogScalarWhereInput | UserAuditLogScalarWhereInput[]
   }
 
   export type UserGroupMembersCreateNestedManyWithoutUser_groupInput = {
@@ -22468,6 +23813,24 @@ export namespace Prisma {
     upsert?: EmployeeUpsertWithoutUser_employeeInput
     connect?: EmployeeWhereUniqueInput
     update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutUser_employeeInput, EmployeeUpdateWithoutUser_employeeInput>, EmployeeUncheckedUpdateWithoutUser_employeeInput>
+  }
+
+  export type UserCreateNestedOneWithoutUser_audit_logsInput = {
+    create?: XOR<UserCreateWithoutUser_audit_logsInput, UserUncheckedCreateWithoutUser_audit_logsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUser_audit_logsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumUserLogEventTypeFieldUpdateOperationsInput = {
+    set?: $Enums.UserLogEventType
+  }
+
+  export type UserUpdateOneRequiredWithoutUser_audit_logsNestedInput = {
+    create?: XOR<UserCreateWithoutUser_audit_logsInput, UserUncheckedCreateWithoutUser_audit_logsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUser_audit_logsInput
+    upsert?: UserUpsertWithoutUser_audit_logsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUser_audit_logsInput, UserUpdateWithoutUser_audit_logsInput>, UserUncheckedUpdateWithoutUser_audit_logsInput>
   }
 
   export type EmployeeCreateNestedOneWithoutJo_approver_settingInput = {
@@ -22752,6 +24115,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserLogEventTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserLogEventType | EnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.UserLogEventType[] | ListEnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserLogEventType[] | ListEnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserLogEventTypeFilter<$PrismaModel> | $Enums.UserLogEventType
+  }
+
+  export type NestedEnumUserLogEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserLogEventType | EnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.UserLogEventType[] | ListEnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserLogEventType[] | ListEnumUserLogEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserLogEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.UserLogEventType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserLogEventTypeFilter<$PrismaModel>
+    _max?: NestedEnumUserLogEventTypeFilter<$PrismaModel>
   }
 
   export type DepartmentCreateWithoutDivisionsInput = {
@@ -23649,6 +25029,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserAuditLogCreateWithoutUserInput = {
+    event_type: $Enums.UserLogEventType
+    event_timestamp?: Date | string
+    ip_address: string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserAuditLogUncheckedCreateWithoutUserInput = {
+    id?: number
+    event_type: $Enums.UserLogEventType
+    event_timestamp?: Date | string
+    ip_address: string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserAuditLogCreateOrConnectWithoutUserInput = {
+    where: UserAuditLogWhereUniqueInput
+    create: XOR<UserAuditLogCreateWithoutUserInput, UserAuditLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserAuditLogCreateManyUserInputEnvelope = {
+    data: UserAuditLogCreateManyUserInput | UserAuditLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserEmployeeUpsertWithoutUserInput = {
     update: XOR<UserEmployeeUpdateWithoutUserInput, UserEmployeeUncheckedUpdateWithoutUserInput>
     create: XOR<UserEmployeeCreateWithoutUserInput, UserEmployeeUncheckedCreateWithoutUserInput>
@@ -23702,6 +25107,34 @@ export namespace Prisma {
     user_group_id?: IntFilter<"UserGroupMembers"> | number
   }
 
+  export type UserAuditLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserAuditLogWhereUniqueInput
+    update: XOR<UserAuditLogUpdateWithoutUserInput, UserAuditLogUncheckedUpdateWithoutUserInput>
+    create: XOR<UserAuditLogCreateWithoutUserInput, UserAuditLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserAuditLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserAuditLogWhereUniqueInput
+    data: XOR<UserAuditLogUpdateWithoutUserInput, UserAuditLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserAuditLogUpdateManyWithWhereWithoutUserInput = {
+    where: UserAuditLogScalarWhereInput
+    data: XOR<UserAuditLogUpdateManyMutationInput, UserAuditLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserAuditLogScalarWhereInput = {
+    AND?: UserAuditLogScalarWhereInput | UserAuditLogScalarWhereInput[]
+    OR?: UserAuditLogScalarWhereInput[]
+    NOT?: UserAuditLogScalarWhereInput | UserAuditLogScalarWhereInput[]
+    id?: IntFilter<"UserAuditLog"> | number
+    user_id?: StringFilter<"UserAuditLog"> | string
+    event_type?: EnumUserLogEventTypeFilter<"UserAuditLog"> | $Enums.UserLogEventType
+    event_timestamp?: DateTimeFilter<"UserAuditLog"> | Date | string
+    ip_address?: StringFilter<"UserAuditLog"> | string
+    device_info?: JsonNullableFilter<"UserAuditLog">
+  }
+
   export type UserGroupMembersCreateWithoutUser_groupInput = {
     user: UserCreateNestedOneWithoutGroupsInput
   }
@@ -23753,6 +25186,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     user_employee?: UserEmployeeCreateNestedOneWithoutUserInput
+    user_audit_logs?: UserAuditLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGroupsInput = {
@@ -23772,6 +25206,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     user_employee?: UserEmployeeUncheckedCreateNestedOneWithoutUserInput
+    user_audit_logs?: UserAuditLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGroupsInput = {
@@ -23821,6 +25256,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user_employee?: UserEmployeeUpdateOneWithoutUserNestedInput
+    user_audit_logs?: UserAuditLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGroupsInput = {
@@ -23840,6 +25276,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user_employee?: UserEmployeeUncheckedUpdateOneWithoutUserNestedInput
+    user_audit_logs?: UserAuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserGroupUpsertWithoutMembersInput = {
@@ -23879,6 +25316,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     groups?: UserGroupMembersCreateNestedManyWithoutUserInput
+    user_audit_logs?: UserAuditLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUser_employeeInput = {
@@ -23898,6 +25336,7 @@ export namespace Prisma {
     updated_at?: Date | string
     deleted_at?: Date | string | null
     groups?: UserGroupMembersUncheckedCreateNestedManyWithoutUserInput
+    user_audit_logs?: UserAuditLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUser_employeeInput = {
@@ -23984,6 +25423,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     groups?: UserGroupMembersUpdateManyWithoutUserNestedInput
+    user_audit_logs?: UserAuditLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUser_employeeInput = {
@@ -24003,6 +25443,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     groups?: UserGroupMembersUncheckedUpdateManyWithoutUserNestedInput
+    user_audit_logs?: UserAuditLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EmployeeUpsertWithoutUser_employeeInput = {
@@ -24060,6 +25501,102 @@ export namespace Prisma {
     rv_approver_setting?: RVApproverSettingUncheckedUpdateOneWithoutApproverNestedInput
     spr_approver_setting?: SPRApproverSettingUncheckedUpdateOneWithoutApproverNestedInput
     rr_approver_setting?: RRApproverSettingUncheckedUpdateOneWithoutApproverNestedInput
+  }
+
+  export type UserCreateWithoutUser_audit_logsInput = {
+    id?: string
+    username: string
+    password: string
+    firstname?: string
+    middlename?: string | null
+    lastname?: string
+    status?: number
+    role?: $Enums.Role
+    permissions?: NullableJsonNullValueInput | InputJsonValue
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    user_employee?: UserEmployeeCreateNestedOneWithoutUserInput
+    groups?: UserGroupMembersCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUser_audit_logsInput = {
+    id?: string
+    username: string
+    password: string
+    firstname?: string
+    middlename?: string | null
+    lastname?: string
+    status?: number
+    role?: $Enums.Role
+    permissions?: NullableJsonNullValueInput | InputJsonValue
+    created_by: string
+    updated_by?: string | null
+    deleted_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    user_employee?: UserEmployeeUncheckedCreateNestedOneWithoutUserInput
+    groups?: UserGroupMembersUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUser_audit_logsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUser_audit_logsInput, UserUncheckedCreateWithoutUser_audit_logsInput>
+  }
+
+  export type UserUpsertWithoutUser_audit_logsInput = {
+    update: XOR<UserUpdateWithoutUser_audit_logsInput, UserUncheckedUpdateWithoutUser_audit_logsInput>
+    create: XOR<UserCreateWithoutUser_audit_logsInput, UserUncheckedCreateWithoutUser_audit_logsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUser_audit_logsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUser_audit_logsInput, UserUncheckedUpdateWithoutUser_audit_logsInput>
+  }
+
+  export type UserUpdateWithoutUser_audit_logsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstname?: StringFieldUpdateOperationsInput | string
+    middlename?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    permissions?: NullableJsonNullValueInput | InputJsonValue
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_employee?: UserEmployeeUpdateOneWithoutUserNestedInput
+    groups?: UserGroupMembersUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUser_audit_logsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstname?: StringFieldUpdateOperationsInput | string
+    middlename?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    permissions?: NullableJsonNullValueInput | InputJsonValue
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_employee?: UserEmployeeUncheckedUpdateOneWithoutUserNestedInput
+    groups?: UserGroupMembersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EmployeeCreateWithoutJo_approver_settingInput = {
@@ -24928,6 +26465,14 @@ export namespace Prisma {
     user_group_id: number
   }
 
+  export type UserAuditLogCreateManyUserInput = {
+    id?: number
+    event_type: $Enums.UserLogEventType
+    event_timestamp?: Date | string
+    ip_address: string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type UserGroupMembersUpdateWithoutUserInput = {
     user_group?: UserGroupUpdateOneRequiredWithoutMembersNestedInput
   }
@@ -24938,6 +26483,29 @@ export namespace Prisma {
 
   export type UserGroupMembersUncheckedUpdateManyWithoutUserInput = {
     user_group_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserAuditLogUpdateWithoutUserInput = {
+    event_type?: EnumUserLogEventTypeFieldUpdateOperationsInput | $Enums.UserLogEventType
+    event_timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    ip_address?: StringFieldUpdateOperationsInput | string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserAuditLogUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    event_type?: EnumUserLogEventTypeFieldUpdateOperationsInput | $Enums.UserLogEventType
+    event_timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    ip_address?: StringFieldUpdateOperationsInput | string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserAuditLogUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    event_type?: EnumUserLogEventTypeFieldUpdateOperationsInput | $Enums.UserLogEventType
+    event_timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    ip_address?: StringFieldUpdateOperationsInput | string
+    device_info?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserGroupMembersCreateManyUser_groupInput = {
@@ -25013,6 +26581,10 @@ export namespace Prisma {
      * @deprecated Use UserEmployeeDefaultArgs instead
      */
     export type UserEmployeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserEmployeeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use UserAuditLogDefaultArgs instead
+     */
+    export type UserAuditLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserAuditLogDefaultArgs<ExtArgs>
     /**
      * @deprecated Use JOApproverSettingDefaultArgs instead
      */

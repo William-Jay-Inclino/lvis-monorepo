@@ -22,6 +22,7 @@ import { AccountModule } from './account/account.module';
 import { SettingModule } from './setting/setting.module';
 import { DivisionModule } from './division/division.module';
 // import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { UserAuditLogModule } from './user-audit-log/user-audit-log.module';
 
 
 @Module({
@@ -51,6 +52,7 @@ import { DivisionModule } from './division/division.module';
     AccountModule,
     SettingModule,
     DivisionModule,
+    UserAuditLogModule,
     // PrometheusModule.register()
   ],
   controllers: [],

@@ -4,6 +4,7 @@ import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { USER_STATUS } from '../__common__/types';
+import axios from 'axios';
 
 @Injectable()
 export class AuthService {
@@ -39,13 +40,32 @@ export class AuthService {
 
     }
 
-    async login(user: User): Promise<{ user: User, access_token: string }> {
+    async login(user: User, ip_address: string, device_info: object): Promise<{ user: User, access_token: string }> {
+
         const payload = { username: user.username, sub: user.id };
-        console.log('login user', user)
-        return {
-            user,
-            access_token: this.jwtService.sign(payload),
-        };
+        
+        try {
+            await axios.post(`${ process.env.SYSTEM_API_URL }/user-audit-log`, {
+                user_id: user.id,
+                ip_address: ip_address,
+                device_info: device_info,
+                event_type: 'LOGIN',  
+            });
+            console.log('User audit log successfully created');
+
+        } catch (error) {
+
+            console.error('Error creating user audit log:', error);
+
+        } finally {
+            
+            return {
+                user,
+                access_token: this.jwtService.sign(payload),
+            };
+
+        }
+
     }
 
     private async findByUserName(username: string): Promise<User> {
@@ -92,6 +112,5 @@ export class AuthService {
         return data.data.getUserByUserName
 
     }
-
 
 }
