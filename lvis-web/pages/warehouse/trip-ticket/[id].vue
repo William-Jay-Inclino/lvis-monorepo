@@ -54,7 +54,7 @@
                                 Vehicle <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="available_vehicles" label="label" v-model="tripData.vehicle" :clearable="false"></v-select>
+                                <v-select :options="vehicles" label="label" v-model="tripData.vehicle" :clearable="false"></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-if="tripDataErrors.vehicle"> {{ errorMsg }}
                             </small>
@@ -428,10 +428,6 @@ const approvers = computed( (): Approver[] => {
 
 const passengers = computed( () => {
     return employees.value.map(i => i.firstname + " " + i.lastname)
-})
-
-const available_vehicles = computed( () => {
-    return vehicles.value.filter(i => i.status === VEHICLE_STATUS.AVAILABLE_FOR_TRIP)
 })
 
 
