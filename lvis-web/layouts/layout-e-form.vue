@@ -34,7 +34,9 @@
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
                                 <!-- <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><a class="dropdown-item" href="#">Activity log</a></li> -->
-                                <li><nuxt-link @click="logout" class="dropdown-item" to="/">Logout</nuxt-link></li>
+                                <li>
+                                    <a @click="handleLogOut" class="dropdown-item"> Logout </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -70,7 +72,7 @@
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">
-                    <nuxt-link @click="logout" class="btn btn-outline-danger btn-block" to="/">Logout</nuxt-link>
+                    <a @click="handleLogOut" class="btn btn-outline-danger btn-block"> Logout </a>
                 </div>
             </div>
         </div>
@@ -84,9 +86,15 @@
 
 <script setup lang="ts">
 
+import Swal from 'sweetalert2';
 import { logout } from '~/utils/helpers';
-
 const authUser = ref()
+const config = useRuntimeConfig()
+const API_URL = config.public.apiUrl
+const router = useRouter()
+
+const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
+
 
 onMounted(async() => {
     const _authUser = await getAuthUserAsync()
@@ -98,6 +106,51 @@ onMounted(async() => {
     authUser.value = await getAuthUserAsync()
 
 })
+
+
+watch(isInactive, async (val) => {
+    if (val) {
+        console.log('isInactive', val);
+        handleUserInactivity(handleLogOut)
+    }
+});
+
+async function handleLogOut() {
+
+    console.log('handleLogOut', authUser.value);
+
+    if(!authUser.value) {
+        console.error('authUser is not define in local storage');
+        return 
+    }
+
+    Swal.fire({
+        title: 'Logging out...',
+        text: 'Please wait while we log you out.',
+        allowOutsideClick: false, 
+        didOpen: () => {
+            Swal.showLoading(); 
+        },
+        willClose: () => {
+            Swal.hideLoading(); 
+        }
+    });
+
+    try {
+        await logout({...authUser.value}, API_URL);
+        router.push('/');
+    } catch (error) {
+        console.error('Error during logout:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Logout Failed',
+            text: 'An error occurred while logging you out. Please contact system administrator.'
+        });
+    } finally {
+        Swal.close();
+    }
+
+}
 
 
 </script>

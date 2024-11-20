@@ -26,7 +26,7 @@ export async function updateUserInLocalStorage(authUser: AuthUser) {
 
         // Update the local storage with the new authUser
         const newAuthUser = JSON.stringify(authUser);
-        localStorage.setItem('authUser', newAuthUser);
+        localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
     } catch (error) {
         console.error('Error updating total pendings in local storage:', error);
     }

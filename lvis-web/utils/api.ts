@@ -14,7 +14,7 @@ export const sendRequest = async (
     console.log('=== variables ===', JSON.stringify(variables));
   
     // Try to retrieve authUser from localStorage
-    const authUserJson = localStorage.getItem('authUser');
+    const authUserJson = localStorage.getItem(LOCAL_STORAGE_AUTH_USER_KEY);
     const authUser = authUserJson ? JSON.parse(authUserJson) as AuthUser : null;
   
     // Prepare headers conditionally, adding Authorization only if authUser is found

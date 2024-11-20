@@ -335,7 +335,7 @@ async function handleLogOut() {
     });
 
     try {
-        await logout(authUser.value, API_URL);
+        await logout({...authUser.value}, API_URL);
         router.push('/');
     } catch (error) {
         console.error('Error during logout:', error);

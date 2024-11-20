@@ -5,6 +5,7 @@ import type { TRIP_TICKET_STATUS } from "~/composables/warehouse/trip-ticket/tri
 import axios from "axios";
 import Swal from "sweetalert2";
 
+
 export function getFullname(firstname: string, middlename: string | null, lastname: string) {
     if (middlename) {
         return lastname + ', ' + firstname + ' ' + convertMiddleNameToInitial(middlename)
@@ -182,6 +183,9 @@ export function isBlankStatus(itemStatus: APPROVAL_STATUS | TRIP_TICKET_STATUS, 
 }
 
 export async function logout(authUser: AuthUser, apiUrl: string) {
+
+    console.log('logout', authUser);
+
     try {
 
         const user_id = authUser.user.id
@@ -198,6 +202,7 @@ export async function logout(authUser: AuthUser, apiUrl: string) {
         );
 
         console.log('Logged out successfully:', response.data);
+
     } catch (error) {
         console.error('Error during logout:', error);
     } finally {

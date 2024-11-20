@@ -29,7 +29,7 @@
                     <button @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <i class="fas fa-search"></i> {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageMcrt')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button v-if="canCreate(authUser, 'canManageMCRT')" @click="onClickAdd" class="btn btn-primary float-end">
                         <i class="fas fa-plus"></i> Create MCRT
                     </button>
                 </div>

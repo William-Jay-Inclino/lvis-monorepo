@@ -118,6 +118,7 @@
     import { ref } from 'vue'
     import axios from 'axios'
     import { AxiosError } from 'axios'
+    import { LOCAL_STORAGE_AUTH_USER_KEY } from '~/utils/config';
 
     const config = useRuntimeConfig()
     const API_URL = config.public.apiUrl
@@ -149,7 +150,7 @@
 
             const authUser = JSON.stringify(response.data)
 
-            localStorage.setItem('authUser', authUser); 
+            localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, authUser); 
 
             router.push('/home');
 

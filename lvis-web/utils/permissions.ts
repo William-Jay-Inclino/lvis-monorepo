@@ -1,9 +1,10 @@
 import { SERVICES } from "#imports";
+import { LOCAL_STORAGE_AUTH_USER_KEY } from "./config";
 
 
 
 export function getAuthUser(): AuthUser {
-    const authUserJson = localStorage.getItem('authUser')
+    const authUserJson = localStorage.getItem(LOCAL_STORAGE_AUTH_USER_KEY)
 
     if (!authUserJson) {
         // @ts-ignore

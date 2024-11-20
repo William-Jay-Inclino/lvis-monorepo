@@ -8,3 +8,5 @@ export const VAT_RATE = 0.12
 
 // use for automatic log out if no user activity
 export const USER_INACTIVITY_MAX_MINS = 1
+
+export const LOCAL_STORAGE_AUTH_USER_KEY = 'lvis-auth-user'
