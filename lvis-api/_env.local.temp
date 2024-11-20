@@ -7,8 +7,17 @@ SYSTEM_PORT=4001
 WAREHOUSE_PORT=4002
 
 API_URL=http://localhost:4000/lvis/api
+
 API_GATEWAY_URL=http://localhost:4000/lvis/graphql
+
+# rest
+SYSTEM_API_URL=http://localhost:4001/lvis/system-api
+# graphql
 SYSTEM_URL=http://localhost:4001/graphql
+
+#rest
+WAREHOUSE_API_URL=http://localhost:4002/lvis/warehouse-api
+# graphql
 WAREHOUSE_URL=http://localhost:4002/graphql
 
 
