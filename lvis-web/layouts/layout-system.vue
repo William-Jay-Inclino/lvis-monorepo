@@ -81,7 +81,7 @@
                                 <!-- <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><a class="dropdown-item" href="#">Activity log</a></li> -->
                                 <li>
-                                    <a @click="onClickLogOut" class="dropdown-item"> {{ isLoggingOut ? 'Logging out...' : 'Logout' }} </a>
+                                    <a @click="handleLogOut" class="dropdown-item"> Logout </a>
                                 </li>
                             </ul>
                         </li>
@@ -157,7 +157,7 @@
                     </li> -->
                 </ul>
                 <div class="mt-auto d-grid">
-                    <a @click="onClickLogOut" class="btn btn-outline-danger btn-block"> {{ isLoggingOut ? 'Logging out...' : 'Logout' }} </a>
+                    <a @click="handleLogOut" class="btn btn-outline-danger btn-block"> Logout </a>
                 </div>
             </div>
         </div>
@@ -169,13 +169,15 @@
 
 <script setup lang="ts">
 
+import Swal from 'sweetalert2';
 import { logout } from '~/utils/helpers';
 
 const authUser = ref()
-const isLoggingOut = ref(false)
 const router = useRouter()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
+
+const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
 onMounted(async() => {
     const _authUser = await getAuthUserAsync()
@@ -189,25 +191,6 @@ onMounted(async() => {
 
 })
 
-async function onClickLogOut() {
-
-    console.log('onClickLogOut', authUser.value);
-
-    if(isLoggingOut.value) return
-
-    if(!authUser.value) {
-        console.error('authUser is not define in local storage');
-        return 
-    }
-
-    isLoggingOut.value = true 
-    await logout(authUser.value, API_URL)
-    isLoggingOut.value = false 
-
-    router.push('/');
-
-}
-
 const totalPendings = computed(() => {
     if (!authUser.value) return
     if (authUser.value.user.user_employee?.employee.total_pending_approvals) {
@@ -215,6 +198,51 @@ const totalPendings = computed(() => {
     }
     return 0
 })
+
+
+watch(isInactive, async (val) => {
+    if (val) {
+        console.log('isInactive', val);
+        handleUserInactivity(handleLogOut)
+    }
+});
+
+async function handleLogOut() {
+
+    console.log('handleLogOut', authUser.value);
+
+    if(!authUser.value) {
+        console.error('authUser is not define in local storage');
+        return 
+    }
+
+    Swal.fire({
+        title: 'Logging out...',
+        text: 'Please wait while we log you out.',
+        allowOutsideClick: false, 
+        didOpen: () => {
+            Swal.showLoading(); 
+        },
+        willClose: () => {
+            Swal.hideLoading(); 
+        }
+    });
+
+    try {
+        await logout(authUser.value, API_URL);
+        router.push('/');
+    } catch (error) {
+        console.error('Error during logout:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Logout Failed',
+            text: 'An error occurred while logging you out. Please contact system administrator.'
+        });
+    } finally {
+        Swal.close();
+    }
+
+}
 
 const isApprover = (authUser: AuthUser) => {
 

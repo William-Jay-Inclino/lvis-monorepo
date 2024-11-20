@@ -3,6 +3,7 @@ import { VAT_TYPE } from "#imports";
 import { APPROVAL_STATUS } from "#imports";
 import type { TRIP_TICKET_STATUS } from "~/composables/warehouse/trip-ticket/trip-ticket.enums";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export function getFullname(firstname: string, middlename: string | null, lastname: string) {
     if (middlename) {
@@ -237,4 +238,42 @@ export function showCWOnumber(request_type_id: number): boolean {
     ]
 
     return x.includes(request_type_id)
+}
+
+export function handleUserInactivity(handleLogOut: () => Promise<void>) {
+    console.log('handleUserInactivity');
+    
+    let timerInterval: NodeJS.Timeout;
+
+    Swal.fire({
+        icon: 'warning',
+        title: "No Activity Detected!",
+        html: "Automatic logout in <b></b> seconds.",
+        timer: 11000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading();
+
+            const timerElement = Swal.getPopup()?.querySelector("b");
+
+            if (timerElement) {
+                // Update the timer text every second
+                timerInterval = setInterval(() => {
+                    const timeLeft = Swal.getTimerLeft();
+                    
+                    // Ensure timeLeft is defined and convert to seconds
+                    if (timeLeft !== undefined) {
+                        timerElement.textContent = `${Math.ceil(timeLeft / 1000)}`;
+                    }
+                }, 1000); // Update every second
+            }
+        },
+        willClose: () => {
+            clearInterval(timerInterval); // Clear interval when modal closes
+        },
+    }).then(async (result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+            await handleLogOut(); // Log out the user after the timer expires
+        }
+    });
 }

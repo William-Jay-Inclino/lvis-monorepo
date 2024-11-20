@@ -48,7 +48,7 @@
                                     <!-- <li><a class="dropdown-item" href="#">Settings</a></li>
                                     <li><a class="dropdown-item" href="#">Activity log</a></li> -->
                                     <li>
-                                        <a @click="onClickLogOut" class="dropdown-item"> {{ isLoggingOut ? 'Logging out...' : 'Logout' }} </a>
+                                        <a @click="handleLogOut" class="dropdown-item"> Logout </a>
                                     </li>
                                 </ul>
                             </li>
@@ -86,7 +86,7 @@
                         </li>
                     </ul>
                     <div class="mt-auto d-grid">
-                        <a @click="onClickLogOut" class="btn btn-outline-danger btn-block"> {{ isLoggingOut ? 'Logging out...' : 'Logout' }} </a>
+                        <a @click="handleLogOut" class="btn btn-outline-danger btn-block"> Logout </a>
                     </div>
                 </div>
             </div>
@@ -101,13 +101,16 @@
 <script setup lang="ts">
 
 import { logout } from '~/utils/helpers';
+import { useUserInactivity } from '~/composables/user-inactivity';
+import Swal from 'sweetalert2';
 
 const authUser = ref<AuthUser >()
 const router = useRouter()
-const isLoggingOut = ref(false)
 const isMobile = ref(false)
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
+
+const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
 onMounted(async() => {
     const _authUser = await getAuthUserAsync()
@@ -131,6 +134,15 @@ const totalPendings = computed(() => {
     return 0
 })
 
+
+watch(isInactive, async (val) => {
+    if (val) {
+        console.log('isInactive', val);
+        handleUserInactivity(handleLogOut)
+    }
+});
+
+
 const isApprover = (authUser: AuthUser) => {
 
     const total_pendings = authUser.user.user_employee?.employee.total_pending_approvals
@@ -140,25 +152,42 @@ const isApprover = (authUser: AuthUser) => {
 
 }
 
-async function onClickLogOut() {
+async function handleLogOut() {
 
-    console.log('onClickLogOut', authUser.value);
-
-    if(isLoggingOut.value) return
+    console.log('handleLogOut', authUser.value);
 
     if(!authUser.value) {
         console.error('authUser is not define in local storage');
         return 
     }
 
-    isLoggingOut.value = true 
-    await logout(authUser.value, API_URL)
-    isLoggingOut.value = false 
+    Swal.fire({
+        title: 'Logging out...',
+        text: 'Please wait while we log you out.',
+        allowOutsideClick: false, 
+        didOpen: () => {
+            Swal.showLoading(); 
+        },
+        willClose: () => {
+            Swal.hideLoading(); 
+        }
+    });
 
-    router.push('/');
+    try {
+        await logout(authUser.value, API_URL);
+        router.push('/');
+    } catch (error) {
+        console.error('Error during logout:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Logout Failed',
+            text: 'An error occurred while logging you out. Please contact system administrator.'
+        });
+    } finally {
+        Swal.close();
+    }
 
 }
-
 
 function checkMobile() {
     isMobile.value = window.innerWidth < MOBILE_WIDTH
