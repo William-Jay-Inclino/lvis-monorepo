@@ -134,7 +134,11 @@ export async function update(id: string, input: UpdateVehicleInput): Promise<Mut
                     date_acquired: "${input.date_acquired}",
                 }
             ) {
-                id
+                success
+                msg 
+                data {
+                    id
+                }
             }
     }`;
 
@@ -143,11 +147,7 @@ export async function update(id: string, input: UpdateVehicleInput): Promise<Mut
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.updateVehicle) {
-            return {
-                success: true,
-                msg: 'Vehicle updated successfully!',
-                data: response.data.data.updateVehicle
-            }
+            return response.data.data.updateVehicle
         }
 
         throw new Error(JSON.stringify(response.data.errors));
