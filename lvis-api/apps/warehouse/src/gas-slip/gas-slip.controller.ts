@@ -39,12 +39,12 @@ export class GasSlipController {
 
         try {
 
+            // Increment the print count only after successful PDF generation
+            await this.gasSlipPdfService.increment_print_count(id);
+
             const gasSlip = await this.gasSlipPdfService.findGasSlip(id);
             // @ts-ignore
             const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip);
-        
-            // Increment the print count only after successful PDF generation
-            await this.gasSlipPdfService.increment_print_count(id);
         
             // @ts-ignore
             res.setHeader('Content-Type', 'application/pdf');
@@ -56,6 +56,9 @@ export class GasSlipController {
             
         } catch (error) {
             console.error("Error generating PDF:", error);
+
+            await this.gasSlipPdfService.decrement_print_count(id);
+
             throw new InternalServerErrorException("Failed to generate PDF");
         }
 

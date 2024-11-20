@@ -19,7 +19,7 @@
                                 </div>
                                 <div>
                                     <small class="fst-italic"> 
-                                        - Make sure the number of unposted gas slip is less than 5 to continue <span class="fw-bold">(except private vehicle)</span>
+                                        - Make sure the number of unposted gas slip of vehicle is less than 5 to continue <span class="fw-bold">(except private vehicle)</span>
                                     </small>
                                 </div>
                             </div>

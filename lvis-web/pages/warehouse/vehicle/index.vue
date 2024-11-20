@@ -58,8 +58,8 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageVehicle') }"
-                                                        :disabled="!canViewDetails(authUser, 'canManageVehicle')">
+                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canRead(authUser, 'canManageVehicle') }"
+                                                        :disabled="!canRead(authUser, 'canManageVehicle')">
                                                         <i class="fas fa-info-circle"
                                                             ></i>
                                                         View details
