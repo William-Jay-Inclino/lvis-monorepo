@@ -1,10 +1,10 @@
-import { Controller, UseGuards, Post, Req, Get } from '@nestjs/common';
+import { Controller, UseGuards, Post, Req, Get, Body } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { User } from './entities/user.entity';
 import * as DeviceDetector from 'device-detector-js';
-import axios from 'axios';
+import { UserLogEventType } from 'apps/system/prisma/generated/client';
 
 @Controller('auth')
 export class AuthController {
@@ -24,16 +24,15 @@ export class AuthController {
         return this.authService.login(req.user as User, ip_address, deviceInfo);
     }
 
-    @UseGuards(LocalAuthGuard)
     @Post('logout')
-    async logout(@Req() req: Request) {
+    async logout(@Req() req: Request, @Body('user_id') user_id: string) {
         console.log('logging out')
 
         const user = req.user as User
         const ip_address = req.socket.remoteAddress || req.ip;
         const deviceInfo = this.getDeviceInfo(req);
 
-        return await this.authService.audit_log(user, ip_address, deviceInfo)
+        return await this.authService.audit_log(user_id, ip_address, deviceInfo, UserLogEventType.LOGOUT)
     }
 
     private getDeviceInfo(req: Request) {

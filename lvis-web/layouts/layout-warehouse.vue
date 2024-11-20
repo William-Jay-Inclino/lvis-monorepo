@@ -140,7 +140,9 @@
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
                                 <!-- <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><a class="dropdown-item" href="#">Activity log</a></li> -->
-                                <li><nuxt-link @click="logout" class="dropdown-item" to="/">Logout</nuxt-link></li>
+                                <li>
+                                    <a @click="onClickLogOut" class="dropdown-item"> {{ isLoggingOut ? 'Logging out...' : 'Logout' }} </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -261,7 +263,7 @@
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">
-                    <nuxt-link @click="logout" class="btn btn-outline-danger btn-block" to="/">Logout</nuxt-link>
+                    <a @click="onClickLogOut" class="btn btn-outline-danger btn-block"> {{ isLoggingOut ? 'Logging out...' : 'Logout' }} </a>
                 </div>
             </div>
         </div>
@@ -278,8 +280,10 @@
 import { logout } from '~/utils/helpers';
 
 const authUser = ref<AuthUser>()
-
 const router = useRouter()
+const isLoggingOut = ref(false)
+const config = useRuntimeConfig()
+const API_URL = config.public.apiUrl
 
 onMounted( async() => {
     const _authUser = await getAuthUserAsync()
@@ -309,6 +313,24 @@ const isApprover = (authUser: AuthUser) => {
 
 }
 
+async function onClickLogOut() {
+
+    console.log('onClickLogOut', authUser.value);
+
+    if(isLoggingOut.value) return
+
+    if(!authUser.value) {
+        console.error('authUser is not define in local storage');
+        return 
+    }
+
+    isLoggingOut.value = true 
+    await logout(authUser.value, API_URL)
+    isLoggingOut.value = false 
+
+    router.push('/');
+
+}
 
 function canViewPurchasing(authUser: AuthUser) {
 

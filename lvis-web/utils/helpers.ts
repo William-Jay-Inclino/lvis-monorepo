@@ -2,7 +2,7 @@ import moment from "moment";
 import { VAT_TYPE } from "#imports";
 import { APPROVAL_STATUS } from "#imports";
 import type { TRIP_TICKET_STATUS } from "~/composables/warehouse/trip-ticket/trip-ticket.enums";
-
+import axios from "axios";
 
 export function getFullname(firstname: string, middlename: string | null, lastname: string) {
     if (middlename) {
@@ -180,8 +180,28 @@ export function isBlankStatus(itemStatus: APPROVAL_STATUS | TRIP_TICKET_STATUS, 
 
 }
 
-export function logout() {
-    localStorage.removeItem('authUser');
+export async function logout(authUser: AuthUser, apiUrl: string) {
+    try {
+
+        const user_id = authUser.user.id
+        const access_token = authUser.access_token
+
+        const response = await axios.post(
+            apiUrl + '/auth/logout/', 
+            { user_id }, 
+            {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            }
+        );
+
+        console.log('Logged out successfully:', response.data);
+    } catch (error) {
+        console.error('Error during logout:', error);
+    } finally {
+        localStorage.removeItem('authUser');
+    }
 }
 
 export function isValidRcNumber(input: string) {

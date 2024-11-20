@@ -5,6 +5,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { USER_STATUS } from '../__common__/types';
 import axios from 'axios';
+import { UserLogEventType } from 'apps/system/prisma/generated/client';
 
 @Injectable()
 export class AuthService {
@@ -44,7 +45,7 @@ export class AuthService {
 
         const payload = { username: user.username, sub: user.id };
 
-        await this.audit_log(user, ip_address, device_info)
+        await this.audit_log(user.id, ip_address, device_info, UserLogEventType.LOGIN)
 
         return {
             user,
@@ -53,17 +54,15 @@ export class AuthService {
 
     }
 
-    async audit_log(user: User, ip_address: string, device_info: object) {
+    async audit_log(user_id: string, ip_address: string, device_info: object, event_type: UserLogEventType) {
         try {
             const res = await axios.post(`${ process.env.SYSTEM_API_URL }/user-audit-log`, {
-                user_id: user.id,
-                ip_address: ip_address,
-                device_info: device_info,
-                event_type: 'LOGIN',  
+                user_id,
+                ip_address,
+                device_info,
+                event_type,  
             });
-            console.log('User audit log successfully created - LOGIN');
-
-            return res
+            console.log('User audit log successfully created', event_type);
 
         } catch (error) {
 

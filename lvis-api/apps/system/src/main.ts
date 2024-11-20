@@ -17,6 +17,8 @@ async function bootstrap() {
 
   app.setGlobalPrefix('/lvis/system-api');
 
+  app.enableCors();
+
   const port = process.env.SYSTEM_PORT || 3000;
 
   await app.listen(port, async () => {
