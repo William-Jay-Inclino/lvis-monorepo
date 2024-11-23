@@ -174,7 +174,7 @@
                     <div class="col-lg-6">
                         <div class="alert alert-info" role="alert">
                             <small class="fst-italic">
-                                Only pending status can be change
+                                A signatory with a pending status can only be changed.
                             </small>
                         </div>
 
