@@ -21,16 +21,24 @@
                                   <div class="col-12 mt-3">
                                       <label>Username<span class="text-danger">*</span></label>
                                       <div class="input-group">
-                                          <div class="input-group-text"><i class="fa fa-user"></i></div>
-                                          <input v-model="email" type="text" class="form-control form-control-sm">
+                                            <div class="input-group-text">
+                                                <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'user']" />
+                                                </client-only>
+                                            </div>
+                                          <input v-model="username" type="text" class="form-control form-control-sm" autocomplete="current-password">
                                       </div>
                                   </div>
 
                                   <div class="col-12 mt-3">
                                       <label>Password<span class="text-danger">*</span></label>
                                       <div class="input-group">
-                                          <div class="input-group-text"><i class="fa fa-key"></i></div>
-                                          <input v-model="password" type="password" class="form-control form-control-sm">
+                                            <div class="input-group-text">
+                                                <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'key']" />
+                                                </client-only>
+                                            </div>
+                                          <input v-model="password" type="password" class="form-control form-control-sm" autocomplete="current-password">
                                       </div>
                                   </div>
 
@@ -124,7 +132,7 @@
     const API_URL = config.public.apiUrl
 
     const router = useRouter();
-    const email = ref('');
+    const username = ref('');
     const password = ref('');
     const error = ref({
         show: false,
@@ -140,7 +148,7 @@
         
         try {
             const response = await axios.post(API_URL + '/auth/login', {
-                username: email.value,
+                username: username.value,
                 password: password.value
             });
             

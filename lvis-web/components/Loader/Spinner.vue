@@ -6,7 +6,9 @@
         <p class="loading-text text-muted fst-italic">
             <!-- How about a quick smile while waiting? -->
             Loading... please wait
-            <i class="fas fa-smile"></i>
+            <client-only>
+                <font-awesome-icon :icon="['fas', 'smile']"/>
+            </client-only>
         </p>
     </div>
 </template>
