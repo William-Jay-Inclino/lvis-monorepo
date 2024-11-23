@@ -311,7 +311,6 @@ exports.Prisma.JOScalarFieldEnum = {
   equipment: 'equipment',
   classification_id: 'classification_id',
   department_id: 'department_id',
-  supervisor_id: 'supervisor_id',
   notes: 'notes',
   cancelled_by: 'cancelled_by',
   created_by: 'created_by',
@@ -331,7 +330,6 @@ exports.Prisma.JOApproverScalarFieldEnum = {
   status: 'status',
   label: 'label',
   order: 'order',
-  is_supervisor: 'is_supervisor',
   metadata: 'metadata'
 };
 
@@ -342,7 +340,6 @@ exports.Prisma.SPRScalarFieldEnum = {
   canvass_id: 'canvass_id',
   vehicle_id: 'vehicle_id',
   classification_id: 'classification_id',
-  supervisor_id: 'supervisor_id',
   notes: 'notes',
   cancelled_by: 'cancelled_by',
   created_by: 'created_by',
@@ -362,7 +359,6 @@ exports.Prisma.SPRApproverScalarFieldEnum = {
   status: 'status',
   label: 'label',
   order: 'order',
-  is_supervisor: 'is_supervisor',
   metadata: 'metadata'
 };
 
@@ -522,7 +518,6 @@ exports.Prisma.OSRIVApproverScalarFieldEnum = {
   notes: 'notes',
   status: 'status',
   label: 'label',
-  label_id: 'label_id',
   order: 'order',
   updated_by: 'updated_by',
   updated_at: 'updated_at',
@@ -575,7 +570,6 @@ exports.Prisma.SERIVApproverScalarFieldEnum = {
   notes: 'notes',
   status: 'status',
   label: 'label',
-  label_id: 'label_id',
   order: 'order',
   updated_by: 'updated_by',
   updated_at: 'updated_at',
@@ -629,7 +623,6 @@ exports.Prisma.MRVApproverScalarFieldEnum = {
   notes: 'notes',
   status: 'status',
   label: 'label',
-  label_id: 'label_id',
   order: 'order',
   updated_by: 'updated_by',
   updated_at: 'updated_at',
@@ -671,7 +664,6 @@ exports.Prisma.MCTApproverScalarFieldEnum = {
   notes: 'notes',
   status: 'status',
   label: 'label',
-  label_id: 'label_id',
   order: 'order',
   updated_by: 'updated_by',
   updated_at: 'updated_at',
@@ -709,7 +701,6 @@ exports.Prisma.MCRTApproverScalarFieldEnum = {
   notes: 'notes',
   status: 'status',
   label: 'label',
-  label_id: 'label_id',
   order: 'order',
   updated_by: 'updated_by',
   updated_at: 'updated_at',
@@ -754,7 +745,6 @@ exports.Prisma.MSTApproverScalarFieldEnum = {
   notes: 'notes',
   status: 'status',
   label: 'label',
-  label_id: 'label_id',
   order: 'order',
   updated_by: 'updated_by',
   updated_at: 'updated_at',

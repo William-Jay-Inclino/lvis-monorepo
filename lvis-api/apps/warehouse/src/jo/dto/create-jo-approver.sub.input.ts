@@ -18,10 +18,5 @@ export class CreateJoApproverSubInput {
     @IsNotEmpty()
     @IsInt()
     order: number;
-
-    @Field(() => Boolean)
-    @IsNotEmpty()
-    @IsBoolean()
-    is_supervisor: boolean;
     
 }

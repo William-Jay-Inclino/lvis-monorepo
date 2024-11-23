@@ -101,7 +101,7 @@
                                 Vehicle <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="vehicles" label="name" v-model="sprData.vehicle"
+                                <v-select :options="vehicles" label="label" v-model="sprData.vehicle"
                                     :clearable="false"></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-if="sprDataErrors.vehicle"> This field is required
@@ -179,9 +179,7 @@
 
 import Swal from 'sweetalert2'
 import { getFullname, formatToValidHtmlDate } from '~/utils/helpers'
-import { useToast } from "vue-toastification";
 import * as sprApi from '~/composables/warehouse/spr/spr.api'
-import * as sprApproverApi from '~/composables/warehouse/spr/spr-approver.api'
 import { type SPR } from '~/composables/warehouse/spr/spr.types';
 import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
@@ -201,14 +199,11 @@ const authUser = ref<AuthUser>({} as AuthUser)
 
 // DEPENDENCIES
 const route = useRoute()
-const toast = useToast();
+const router = useRouter();
 
 // FLAGS
 const isSPRDetailForm = ref(true)
 const isUpdating = ref(false)
-const isUpdatingApproverOrder = ref(false)
-const isAddingSprApprover = ref(false)
-const isEditingSprApprover = ref(false)
 
 // INITIAL DATA
 const _sprDataErrorsInitial = {
@@ -248,7 +243,7 @@ onMounted(async () => {
     employees.value = addPropertyFullName(response.employees)
 
     classifications.value = response.classifications
-    vehicles.value = response.vehicles
+    vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
 
     isLoadingPage.value = false
 
@@ -294,6 +289,8 @@ function populateForm(data: SPR) {
 
     data.date_requested = formatToValidHtmlDate(data.date_requested)
 
+    data.vehicle['label'] = data.vehicle.vehicle_number + ' ' + data.vehicle.name
+
     const requestedBy = data.canvass.requested_by
     requestedBy!['fullname'] = getFullname(requestedBy!.firstname, requestedBy!.middlename, requestedBy!.lastname)
 
@@ -332,11 +329,13 @@ async function updateSprInfo() {
             position: 'top',
         })
 
-        sprData.value.spr_approvers = response.data.spr_approvers.map(i => {
-            i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-            i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-            return i
-        })
+        router.push(`/warehouse/spr/view/${response.data.id}`);
+
+        // sprData.value.spr_approvers = response.data.spr_approvers.map(i => {
+        //     i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
+        //     i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
+        //     return i
+        // })
 
     } else {
         Swal.fire({
@@ -360,10 +359,6 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 
 }
 
-// handle searched employees from child component (Approver) 
-async function handleSearchedEmployees(searchedEmployees: Employee[]) {
-    employees.value = addPropertyFullName(searchedEmployees)
-}
 
 async function searchEmployees(input: string, loading: (status: boolean) => void) {
     console.log('searchEmployees');
@@ -381,189 +376,6 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
         loading(false);
     }
 }
-
-
-
-// ======================== CHILD EVENTS: <WarehouseApprover> ========================  
-
-// async function addApprover(
-//     data: CreateApproverInput,
-//     modalCloseBtn: HTMLButtonElement
-// ) {
-
-//     console.log('data', data)
-
-//     isAddingSprApprover.value = true
-//     const response = await sprApproverApi.create(sprData.value.id, data)
-//     isAddingSprApprover.value = false
-
-//     if (response.success && response.data) {
-//         toast.success(response.msg)
-
-//         const approver = response.data.approver
-
-//         approver!.fullname = getFullname(approver!.firstname, approver!.middlename, approver!.lastname)
-
-//         response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
-
-//         sprData.value.spr_approvers.push(response.data)
-//         modalCloseBtn.click()
-//     } else {
-//         Swal.fire({
-//             title: 'Error!',
-//             text: response.msg,
-//             icon: 'error',
-//             position: 'top',
-//         })
-//     }
-// }
-
-// async function editApprover(
-//     data: UpdateApproverInput,
-//     modalCloseBtn: HTMLButtonElement
-// ) {
-//     isEditingSprApprover.value = true
-//     const response = await sprApproverApi.update(data)
-//     isEditingSprApprover.value = false
-
-//     if (response.success && response.data) {
-//         toast.success(response.msg)
-
-//         const prevApproverItemIndx = sprData.value.spr_approvers.findIndex(i => i.id === data.id)
-
-//         response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
-
-//         const a = response.data.approver
-
-//         response.data.approver!['fullname'] = getFullname(a!.firstname, a!.middlename, a!.lastname)
-
-//         sprData.value.spr_approvers[prevApproverItemIndx] = { ...response.data }
-
-//         sprData.value.supervisor = a!
-//         sprData.value.supervisor_id = a!.id
-
-//         modalCloseBtn.click()
-
-//     } else {
-//         Swal.fire({
-//             title: 'Error!',
-//             text: response.msg,
-//             icon: 'error',
-//             position: 'top',
-//         })
-//     }
-// }
-
-// async function removeApprover(id: string) {
-
-//     const indx = sprData.value.spr_approvers.findIndex(i => i.id === id)
-
-//     const item = sprData.value.spr_approvers[indx]
-
-//     if (!item) {
-//         console.error('approver not found with id of: ' + id)
-//         return
-//     }
-
-//     Swal.fire({
-//         title: "Are you sure?",
-//         text: `${item.approver?.fullname} will be removed!`,
-//         position: "top",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#e74a3b",
-//         cancelButtonColor: "#6c757d",
-//         confirmButtonText: "Yes, delete it!",
-//         reverseButtons: true,
-//         showLoaderOnConfirm: true,
-//         preConfirm: async (remove) => {
-
-//             if (remove) {
-//                 const response = await sprApproverApi.remove(item.id)
-
-//                 if (response.success) {
-
-//                     toast.success(`${item.approver?.fullname} removed!`)
-
-//                     sprData.value.spr_approvers.splice(indx, 1)
-
-//                 } else {
-
-//                     Swal.fire({
-//                         title: 'Error!',
-//                         text: response.msg,
-//                         icon: 'error',
-//                         position: 'top',
-//                     })
-
-//                 }
-//             }
-
-//         },
-//         allowOutsideClick: () => !Swal.isLoading()
-//     })
-
-// }
-
-// async function changeApproverOrder(
-//     data: { id: string, order: number }[],
-//     modalCloseBtn: HTMLButtonElement
-// ) {
-
-//     console.log('data', data)
-//     console.log('modalCloseBtn', modalCloseBtn)
-
-//     isUpdatingApproverOrder.value = true
-//     const response = await sprApproverApi.updateApproverOrder(data)
-//     isUpdatingApproverOrder.value = false
-
-//     if (response.success && response.approvers) {
-//         toast.success(response.msg)
-
-//         sprData.value.spr_approvers = response.approvers.map(i => {
-//             i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-//             i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-//             return i
-//         })
-//         modalCloseBtn.click()
-
-//     } else {
-//         Swal.fire({
-//             title: 'Error!',
-//             text: response.msg,
-//             icon: 'error',
-//             position: 'top',
-//         })
-//     }
-
-// }
-
-// ======================== UTILS ========================  
-
-// async function onCancelSpr() {
-
-//     Swal.fire({
-//         title: "Are you sure?",
-//         text: `This SPR will be cancelled!`,
-//         position: "top",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#e74a3b",
-//         cancelButtonColor: "#6c757d",
-//         confirmButtonText: "Yes, cancel it!",
-//         reverseButtons: true,
-//         showLoaderOnConfirm: true,
-//         preConfirm: async (remove) => {
-
-//             if (remove) {
-//                 await cancelSpr()
-//             }
-
-//         },
-//         allowOutsideClick: () => !Swal.isLoading()
-//     })
-
-// }
 
 function isValidSprInfo(): boolean {
 

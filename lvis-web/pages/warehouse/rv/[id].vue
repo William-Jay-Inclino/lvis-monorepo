@@ -183,9 +183,7 @@
 
 import Swal from 'sweetalert2'
 import { getFullname, formatToValidHtmlDate } from '~/utils/helpers'
-import { useToast } from "vue-toastification";
 import * as rvApi from '~/composables/warehouse/rv/rv.api'
-import * as rvApproverApi from '~/composables/warehouse/rv/rv-approver.api'
 import { type RV } from '~/composables/warehouse/rv/rv.types';
 import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
@@ -204,14 +202,10 @@ const authUser = ref<AuthUser>({} as AuthUser)
 // DEPENDENCIES
 const route = useRoute()
 const router = useRouter();
-const toast = useToast();
 
 // FLAGS
 const isRVDetailForm = ref(true)
 const isUpdating = ref(false)
-const isUpdatingApproverOrder = ref(false)
-const isAddingRvApprover = ref(false)
-const isEditingRvApprover = ref(false)
 
 // INITIAL DATA
 const _rvDataErrorsInitial = {

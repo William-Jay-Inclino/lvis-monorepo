@@ -107,8 +107,11 @@ export class JoResolver {
     }
 
     @ResolveField(() => Employee)
-    supervisor(@Parent() jo: JO): any {
-        return { __typename: 'Employee', id: jo.supervisor_id }
+    async supervisor(@Parent() jo: JO) {
+
+        const supervisor_id = await this.joService.get_supervisor_id(jo.id)
+
+        return { __typename: 'Employee', id: supervisor_id }
     }
 
     @ResolveField(() => Classification, { nullable: true })

@@ -10,7 +10,6 @@ import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { SPRApprover } from '../spr-approver/entities/spr-approver.entity';
 import { SprApproverService } from '../spr-approver/spr-approver.service';
-import { SprNumber } from './entities/spr-number.entity';
 import { SPRsResponse } from './entities/sprs-response.entity';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
@@ -106,8 +105,11 @@ export class SprResolver {
     }
 
     @ResolveField(() => Employee)
-    supervisor(@Parent() spr: SPR): any {
-        return { __typename: 'Employee', id: spr.supervisor_id }
+    async supervisor(@Parent() spr: SPR) {
+
+        const supervisor_id = await this.sprService.get_supervisor_id(spr.id)
+
+        return { __typename: 'Employee', id: supervisor_id }
     }
 
     @ResolveField(() => Classification, { nullable: true })

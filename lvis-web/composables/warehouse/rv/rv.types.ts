@@ -9,7 +9,6 @@ export interface RV {
   rv_number: string;
   canvass_id?: string | null;
   classification_id: string | null;
-  supervisor_id: string;
   date_requested: string;
   work_order_no: string;
   work_order_date: string;

@@ -356,7 +356,6 @@ model JO {
   equipment         String @default("")
   classification_id String?
   department_id     String
-  supervisor_id     String
   notes             String
 
   cancelled_by String?
@@ -386,12 +385,12 @@ model JOApprover {
   status        Int
   label         String
   order         Int
-  is_supervisor Boolean @default(false)
 
   jo JO @relation(fields: [jo_id], references: [id], onDelete: Cascade)
 
   metadata Json?
 
+  @@unique([jo_id, order]) // para pag update sa specific approver
   @@index([jo_id])
   @@map("jo_approver")
 }
@@ -403,7 +402,6 @@ model SPR {
   canvass_id        String?   @unique
   vehicle_id        String
   classification_id String?
-  supervisor_id     String
   notes             String
 
   cancelled_by String?
@@ -434,12 +432,12 @@ model SPRApprover {
   status        Int
   label         String
   order         Int
-  is_supervisor Boolean @default(false)
 
   spr SPR @relation(fields: [spr_id], references: [id], onDelete: Cascade)
 
   metadata Json?
 
+  @@unique([spr_id, order]) // para pag update sa specific approver
   @@index([spr_id])
   @@map("spr_approver")
 }
@@ -702,7 +700,6 @@ model OSRIVApprover {
   notes         String
   status        Int
   label         String
-  label_id         String
   order         Int
 
   updated_by   String?
@@ -712,7 +709,7 @@ model OSRIVApprover {
 
   metadata Json?
 
-  @@unique([osriv_id, label_id]) // para pag update sa specific approver
+  @@unique([osriv_id, order]) // para pag update sa specific approver
   @@index([osriv_id])
   @@map("osriv_approver")
 }
@@ -785,7 +782,6 @@ model SERIVApprover {
   notes         String
   status        Int
   label         String
-  label_id         String
   order         Int
 
   updated_by   String?
@@ -795,7 +791,7 @@ model SERIVApprover {
 
   metadata Json?
 
-  @@unique([seriv_id, label_id]) // para pag update sa specific approver
+  @@unique([seriv_id, order]) // para pag update sa specific approver
   @@index([seriv_id])
   @@map("seriv_approver")
 }
@@ -870,7 +866,6 @@ model MRVApprover {
   notes         String
   status        Int
   label         String
-  label_id         String
   order         Int
 
   updated_by   String?
@@ -880,7 +875,7 @@ model MRVApprover {
 
   metadata Json?
 
-  @@unique([mrv_id, label_id]) // para pag update sa specific approver
+  @@unique([mrv_id, order]) // para pag update sa specific approver
   @@index([mrv_id])
   @@map("mrv_approver")
 }
@@ -939,7 +934,6 @@ model MCTApprover {
   notes         String
   status        Int
   label         String
-  label_id         String
   order         Int
 
   updated_by   String?
@@ -949,6 +943,7 @@ model MCTApprover {
 
   metadata Json?
 
+  @@unique([mct_id, order]) // para pag update sa specific approver
   @@index([mct_id])
   @@map("mct_approver")
 }
@@ -998,7 +993,6 @@ model MCRTApprover {
   notes         String
   status        Int
   label         String
-  label_id         String
   order         Int
 
   updated_by   String?
@@ -1008,6 +1002,7 @@ model MCRTApprover {
 
   metadata Json?
 
+  @@unique([mcrt_id, order]) // para pag update sa specific approver
   @@index([mcrt_id])
   @@map("mcrt_approver")
 }
@@ -1071,7 +1066,6 @@ model MSTApprover {
   notes         String
   status        Int
   label         String
-  label_id         String
   order         Int
 
   updated_by   String?
@@ -1081,6 +1075,7 @@ model MSTApprover {
 
   metadata Json?
 
+  @@unique([mst_id, order]) // para pag update sa specific approver
   @@index([mst_id])
   @@map("mst_approver")
 }

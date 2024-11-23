@@ -51,7 +51,6 @@ export class MstService {
                     return {
                         approver_id: i.approver_id,
                         label: i.label,
-                        label_id: i.label_id,
                         order: i.order,
                         notes: '',
                         status: APPROVAL_STATUS.PENDING,

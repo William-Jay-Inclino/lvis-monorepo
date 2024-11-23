@@ -1,8 +1,9 @@
-import type { APPROVAL_STATUS, Department } from "~/composables/common.types";
+import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { Canvass } from "../canvass/canvass.types";
 import type { MEQS } from "../meqs/meqs.types";
 import type { JOApprover, JoApproverSettings } from "./jo-approver.types";
 import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Department } from "~/composables/system/department/department";
 
 export interface JO {
   id: string;
@@ -12,7 +13,6 @@ export interface JO {
   equipment: string;
   classification_id: string | null;
   department_id: string | null;
-  supervisor_id: string;
   notes: string;
 
 

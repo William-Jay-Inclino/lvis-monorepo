@@ -92,7 +92,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Vehicle</td>
-                                                <td> {{ item.vehicle.name }} </td>
+                                                <td> {{ item.vehicle.vehicle_number + ' ' + item.vehicle.name }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Classification</td>

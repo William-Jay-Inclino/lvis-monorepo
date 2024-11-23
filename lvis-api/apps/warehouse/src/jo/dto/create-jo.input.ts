@@ -27,11 +27,6 @@ export class CreateJoInput {
   classification_id: string;
 
   @Field(() => String)
-  @IsNotEmpty()
-  @IsString()
-  supervisor_id: string;
-
-  @Field(() => String)
   @IsString()
   notes: string;
 

@@ -9,7 +9,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { SPRsResponse } from './entities/sprs-response.entity';
-import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateSprByBudgetOfficerInput } from './dto/update-spr-by-budget-officer.input';
 import { CreateSprApproverSubInput } from './dto/create-spr-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
@@ -79,7 +79,6 @@ export class SprService {
             date_requested: new Date(),
             classification_id: input.classification_id ?? null,
             notes: input.notes ?? null,
-            supervisor_id: input.supervisor_id,
             canvass: { connect: { id: input.canvass_id } },
             vehicle: { connect: { id: input.vehicle_id } },
             spr_approvers: {
@@ -90,7 +89,6 @@ export class SprService {
                         order: i.order,
                         notes: '',
                         status: APPROVAL_STATUS.PENDING,
-                        is_supervisor: i.is_supervisor,
                     }
                 })
             }
@@ -162,7 +160,6 @@ export class SprService {
             updated_by: this.authUser.user.username,
             vehicle: input.vehicle_id ? { connect: { id: input.vehicle_id } } : { connect: { id: existingItem.vehicle_id } },
             classification_id: input.classification_id ?? existingItem.classification_id,
-            supervisor_id: input.supervisor_id ?? existingItem.supervisor_id,
             notes: input.notes ?? existingItem.notes,
         }
 
@@ -179,66 +176,86 @@ export class SprService {
         // if supervisor is updated
         if(input.supervisor_id) {
 
-            const isNewSupervisor = input.supervisor_id !== existingItem.supervisor_id
+            console.log('input.supervisor_id is defined');
 
-            // update supervisor in rv approver as well
-            if(isNewSupervisor) {
+            const existing_supervisor_id = await this.get_supervisor_id(id)
 
-                const existingSupervisor = existingItem.spr_approvers.find(i => i.approver_id === existingItem.supervisor_id && !!i.is_supervisor)
-    
-                if(!existingSupervisor) {
-                    throw new NotFoundException('Existing supervisor not found with id of ' + existingItem.supervisor_id)
-                }
+            console.log('existing_supervisor_id', existing_supervisor_id);
 
-                console.log('Updating SPR Approver supervisor');
+            if(existing_supervisor_id !== input.supervisor_id) {
 
-                if(existingSupervisor.status !== APPROVAL_STATUS.PENDING) {
-                    throw new BadRequestException(`Existing supervisor's status is not pending. Cannot update supervisor`)
-                }
+                console.log('set new supervisor', input.supervisor_id);
 
-                const updateSprApproverQuery = this.prisma.sPRApprover.update({
+                // update supervisor in rv approver
+
+                const update_spr_approver_query = this.prisma.sPRApprover.update({
                     where: {
-                        id: existingSupervisor.id
+                        spr_id_order: {
+                            spr_id: id,
+                            order: 1,
+                        },
                     },
                     data: {
-                        approver_id: input.supervisor_id
+                        approver_id: input.supervisor_id,
                     }
                 })
 
-                queries.push(updateSprApproverQuery)
+                queries.push(update_spr_approver_query)
 
-                // ======= add new supervisor in pendings if existing supervisor exists in pendings ======= 
-                const prevSupervisorInPendings = await this.prisma.pending.findUnique({
+
+                // ================ UPDATE PENDINGS ================
+    
+                // check first if existing supervisor is in pendings table
+                const pending_existing_supervisor = await this.prisma.pending.findUnique({
                     where: {
                         approver_id_reference_number_reference_table: {
-                            approver_id: existingSupervisor.approver_id,
+                            approver_id: existing_supervisor_id,
                             reference_number: existingItem.spr_number,
-                            reference_table: DB_ENTITY.SPR
+                            reference_table: DB_ENTITY.SPR,
                         }
                     }
                 })
 
-                // if previous supervisor exists in pending table then remove it and add the new supervisor in pendings
-                if(prevSupervisorInPendings) {
-                    const deletePendingQuery = this.prisma.pending.delete({
-                        where: {id: prevSupervisorInPendings.id}
+                // remove pending approval of previous supervisor
+                if(pending_existing_supervisor) {
+                    const removePendingQuery = this.prisma.pending.delete({
+                        where: { id: pending_existing_supervisor.id }
                     })
-                    queries.push(deletePendingQuery)
 
+                    queries.push(removePendingQuery)
+                }
+
+                
+                // check first if new supervisor is in pendings table
+                const pending_new_supervisor = await this.prisma.pending.findUnique({
+                    where: {
+                        approver_id_reference_number_reference_table: {
+                            approver_id: input.supervisor_id,
+                            reference_number: existingItem.spr_number,
+                            reference_table: DB_ENTITY.SPR,
+                        }
+                    }
+                })
+
+                // create pending approval of new supervisor
+                if(!pending_new_supervisor) {
+                    const module = getModule(DB_ENTITY.SPR)
                     const createPendingQuery = this.prisma.pending.create({
                         data: {
                             approver_id: input.supervisor_id,
                             reference_number: existingItem.spr_number,
                             reference_table: DB_ENTITY.SPR,
-                            description: `SPR no. ${existingItem.spr_number}`
+                            description: `${ module.description } no. ${existingItem.spr_number}`
                         }
                     })
-
+        
                     queries.push(createPendingQuery)
 
                 }
 
+
             }
+
 
         }
 
@@ -247,17 +264,6 @@ export class SprService {
         this.logger.log('Successfully updated SPR');
 
         return result[0]
-
-
-        // const updated = await this.prisma.sPR.update({
-        //     data,
-        //     where: { id },
-        //     include: this.includedFields
-        // })
-
-        // this.logger.log('Successfully updated SPR')
-
-        // return updated
 
     }
 
@@ -593,6 +599,23 @@ export class SprService {
 
         return true
 
+    }
+
+    async get_supervisor_id(spr_id: string): Promise<string> {
+        const supervisor = await this.prisma.sPRApprover.findUnique({
+            where: {
+                spr_id_order: {
+                    spr_id,
+                    order: 1
+                }
+            }
+        })
+
+        if(!supervisor) {
+            throw new NotFoundException("Supervisor not found with spr_id of " + spr_id + " and order of 1")
+        }
+
+        return supervisor.approver_id
     }
 
     private async getLatestSprNumber(): Promise<string> {

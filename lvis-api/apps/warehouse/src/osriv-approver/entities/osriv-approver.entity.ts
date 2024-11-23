@@ -28,9 +28,6 @@ export class OSRIVApprover {
     @Field(() => String)
     label: string
 
-    @Field(() => String)
-    label_id: string
-
     @Field(() => Int)
     order: number
 

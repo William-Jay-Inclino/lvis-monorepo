@@ -19,9 +19,4 @@ export class CreateSprApproverSubInput {
   @IsInt()
   order: number;
 
-  @Field(() => Boolean)
-  @IsNotEmpty()
-  @IsBoolean()
-  is_supervisor: boolean;
-
 }

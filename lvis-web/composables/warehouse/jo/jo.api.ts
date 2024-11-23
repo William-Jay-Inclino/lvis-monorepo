@@ -4,6 +4,7 @@ import type { CreateJoInput, FindAllResponse, MutationResponse, JO, UpdateJoInpu
 import { sendRequest } from "~/utils/api"
 import type { JoApproverSettings } from "./jo-approver.types";
 import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Department } from "~/composables/system/department/department";
 
 export async function fetchDataInSearchFilters(): Promise<{
     canvasses: Canvass[],
@@ -575,7 +576,6 @@ export async function create(input: CreateJoInput): Promise<MutationResponse> {
         approver: input.supervisor,
         label: APPROVER_SUPERVISOR_LABEL,
         order: 1,
-        is_supervisor: true
 
     })
 
@@ -585,7 +585,6 @@ export async function create(input: CreateJoInput): Promise<MutationResponse> {
           approver_id: "${item.approver?.id}"
           label: "${item.label}"
           order: ${item.order}
-          is_supervisor: ${ !!item.is_supervisor ? item.is_supervisor : false }
         }`;
     }).join(', ');
 
@@ -594,7 +593,6 @@ export async function create(input: CreateJoInput): Promise<MutationResponse> {
             createJo(
                 input: {
                     canvass_id: "${input.canvass?.id}"
-                    supervisor_id: "${input.supervisor?.id}"
                     department_id: "${input.department?.id}"
                     equipment: "${input.equipment}"
                     classification_id: ${classification_id}
@@ -651,20 +649,6 @@ export async function update(id: string, input: UpdateJoInput): Promise<Mutation
                 }
             ) {
                 id
-                jo_approvers {
-                    id
-                    approver {
-                        id
-                        firstname
-                        middlename
-                        lastname
-                    }
-                    date_approval 
-                    notes
-                    status
-                    label
-                    order
-                }
             }
     }`;
 

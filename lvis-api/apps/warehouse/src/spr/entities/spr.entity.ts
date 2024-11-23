@@ -2,6 +2,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Canvass } from '../../canvass/entities/canvass.entity';
 import { MEQS } from '../../meqs/entities/meq.entity';
 import { SPRApprover } from '../../spr-approver/entities/spr-approver.entity';
+import { Vehicle } from '../../vehicle/entities/vehicle.entity';
 
 @ObjectType()
 export class SPR {
@@ -23,9 +24,6 @@ export class SPR {
 
   @Field(() => String, { nullable: true })
   classification_id: string | null;
-
-  @Field(() => String)
-  supervisor_id: string;
 
   @Field(() => String)
   notes: string;
@@ -62,6 +60,9 @@ export class SPR {
 
   @Field(() => MEQS, { nullable: true })
   meqs?: MEQS;
+
+  @Field(() => Vehicle)
+  vehicle: Vehicle;
 
   @Field(() => [SPRApprover])
   spr_approvers: SPRApprover[]

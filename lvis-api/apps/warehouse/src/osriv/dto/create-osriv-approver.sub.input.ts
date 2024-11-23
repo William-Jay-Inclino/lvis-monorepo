@@ -14,11 +14,6 @@ export class CreateOsrivApproverSubInput {
   @IsString()
   label: string;
 
-  @Field()
-  @IsNotEmpty()
-  @IsString()
-  label_id: string;
-
   @Field(() => Int)
   @IsNotEmpty()
   @IsInt()

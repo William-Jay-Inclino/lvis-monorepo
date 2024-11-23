@@ -28,9 +28,6 @@ export class JO {
   department_id: string;
 
   @Field(() => String)
-  supervisor_id: string;
-
-  @Field(() => String)
   notes: string;
 
 

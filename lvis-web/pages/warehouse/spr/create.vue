@@ -101,7 +101,7 @@
                                         Vehicle <span class="text-danger">*</span>
                                     </label>
                                     <client-only>
-                                        <v-select :options="vehicles" label="name" v-model="sprData.vehicle"></v-select>
+                                        <v-select :options="vehicles" label="label" v-model="sprData.vehicle"></v-select>
                                     </client-only>
                                     <small class="text-danger fst-italic" v-if="sprDataErrors.vehicle"> This field is required
                                     </small>
@@ -220,7 +220,7 @@ onMounted(async () => {
 
     sprData.value.approvers = response.approvers
     classifications.value = response.classifications
-    vehicles.value = response.vehicles
+    vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
 
     isLoadingPage.value = false
 

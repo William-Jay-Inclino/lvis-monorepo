@@ -175,7 +175,7 @@ export async function findOne(id: string): Promise<SPR | undefined> {
                 vehicle {
                     id 
                     name 
-                    plate_number
+                    vehicle_number
                 }
                 created_by
                 notes
@@ -365,7 +365,7 @@ export async function fetchFormDataInCreate(): Promise<{
             vehicles{
                 id
                 name
-                plate_number
+                vehicle_number
             }
         }
     `;
@@ -461,7 +461,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 vehicle {
                     id 
                     name 
-                    plate_number
+                    vehicle_number
                 }
                 supervisor {
                     id
@@ -503,7 +503,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             vehicles{
                 id
                 name
-                plate_number
+                vehicle_number
             }
         }
     `;
@@ -573,7 +573,6 @@ export async function create(input: CreateSprInput): Promise<MutationResponse> {
         approver: input.supervisor,
         label: APPROVER_SUPERVISOR_LABEL,
         order: 1,
-        is_supervisor: true
     })
 
     const approvers = input.approvers.map(item => {
@@ -582,7 +581,6 @@ export async function create(input: CreateSprInput): Promise<MutationResponse> {
           approver_id: "${item.approver?.id}"
           label: "${item.label}"
           order: ${item.order}
-          is_supervisor: ${ !!item.is_supervisor ? item.is_supervisor : false }
         }`;
     }).join(', ');
 
@@ -591,7 +589,6 @@ export async function create(input: CreateSprInput): Promise<MutationResponse> {
             createSpr(
                 input: {
                     canvass_id: "${input.canvass?.id}"
-                    supervisor_id: "${input.supervisor?.id}"
                     vehicle_id: "${input.vehicle?.id}"
                     classification_id: ${classification_id}
                     notes: "${input.notes}"

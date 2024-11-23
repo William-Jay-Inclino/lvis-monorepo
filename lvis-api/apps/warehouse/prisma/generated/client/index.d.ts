@@ -22924,7 +22924,6 @@ export namespace Prisma {
     equipment: string | null
     classification_id: string | null
     department_id: string | null
-    supervisor_id: string | null
     notes: string | null
     cancelled_by: string | null
     created_by: string | null
@@ -22942,7 +22941,6 @@ export namespace Prisma {
     equipment: string | null
     classification_id: string | null
     department_id: string | null
-    supervisor_id: string | null
     notes: string | null
     cancelled_by: string | null
     created_by: string | null
@@ -22960,7 +22958,6 @@ export namespace Prisma {
     equipment: number
     classification_id: number
     department_id: number
-    supervisor_id: number
     notes: number
     cancelled_by: number
     created_by: number
@@ -22981,7 +22978,6 @@ export namespace Prisma {
     equipment?: true
     classification_id?: true
     department_id?: true
-    supervisor_id?: true
     notes?: true
     cancelled_by?: true
     created_by?: true
@@ -22999,7 +22995,6 @@ export namespace Prisma {
     equipment?: true
     classification_id?: true
     department_id?: true
-    supervisor_id?: true
     notes?: true
     cancelled_by?: true
     created_by?: true
@@ -23017,7 +23012,6 @@ export namespace Prisma {
     equipment?: true
     classification_id?: true
     department_id?: true
-    supervisor_id?: true
     notes?: true
     cancelled_by?: true
     created_by?: true
@@ -23109,7 +23103,6 @@ export namespace Prisma {
     equipment: string
     classification_id: string | null
     department_id: string
-    supervisor_id: string
     notes: string
     cancelled_by: string | null
     created_by: string
@@ -23145,7 +23138,6 @@ export namespace Prisma {
     equipment?: boolean
     classification_id?: boolean
     department_id?: boolean
-    supervisor_id?: boolean
     notes?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -23168,7 +23160,6 @@ export namespace Prisma {
     equipment?: boolean
     classification_id?: boolean
     department_id?: boolean
-    supervisor_id?: boolean
     notes?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -23202,7 +23193,6 @@ export namespace Prisma {
       equipment: string
       classification_id: string | null
       department_id: string
-      supervisor_id: string
       notes: string
       cancelled_by: string | null
       created_by: string
@@ -23617,7 +23607,6 @@ export namespace Prisma {
     readonly equipment: FieldRef<"JO", 'String'>
     readonly classification_id: FieldRef<"JO", 'String'>
     readonly department_id: FieldRef<"JO", 'String'>
-    readonly supervisor_id: FieldRef<"JO", 'String'>
     readonly notes: FieldRef<"JO", 'String'>
     readonly cancelled_by: FieldRef<"JO", 'String'>
     readonly created_by: FieldRef<"JO", 'String'>
@@ -24037,7 +24026,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    is_supervisor: boolean | null
   }
 
   export type JOApproverMaxAggregateOutputType = {
@@ -24049,7 +24037,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    is_supervisor: boolean | null
   }
 
   export type JOApproverCountAggregateOutputType = {
@@ -24061,7 +24048,6 @@ export namespace Prisma {
     status: number
     label: number
     order: number
-    is_supervisor: number
     metadata: number
     _all: number
   }
@@ -24086,7 +24072,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    is_supervisor?: true
   }
 
   export type JOApproverMaxAggregateInputType = {
@@ -24098,7 +24083,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    is_supervisor?: true
   }
 
   export type JOApproverCountAggregateInputType = {
@@ -24110,7 +24094,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    is_supervisor?: true
     metadata?: true
     _all?: true
   }
@@ -24210,7 +24193,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor: boolean
     metadata: JsonValue | null
     _count: JOApproverCountAggregateOutputType | null
     _avg: JOApproverAvgAggregateOutputType | null
@@ -24242,7 +24224,6 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    is_supervisor?: boolean
     metadata?: boolean
     jo?: boolean | JODefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jOApprover"]>
@@ -24256,7 +24237,6 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    is_supervisor?: boolean
     metadata?: boolean
   }
 
@@ -24279,7 +24259,6 @@ export namespace Prisma {
       status: number
       label: string
       order: number
-      is_supervisor: boolean
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["jOApprover"]>
     composites: {}
@@ -24684,7 +24663,6 @@ export namespace Prisma {
     readonly status: FieldRef<"JOApprover", 'Int'>
     readonly label: FieldRef<"JOApprover", 'String'>
     readonly order: FieldRef<"JOApprover", 'Int'>
-    readonly is_supervisor: FieldRef<"JOApprover", 'Boolean'>
     readonly metadata: FieldRef<"JOApprover", 'Json'>
   }
     
@@ -25030,7 +25008,6 @@ export namespace Prisma {
     canvass_id: string | null
     vehicle_id: string | null
     classification_id: string | null
-    supervisor_id: string | null
     notes: string | null
     cancelled_by: string | null
     created_by: string | null
@@ -25047,7 +25024,6 @@ export namespace Prisma {
     canvass_id: string | null
     vehicle_id: string | null
     classification_id: string | null
-    supervisor_id: string | null
     notes: string | null
     cancelled_by: string | null
     created_by: string | null
@@ -25064,7 +25040,6 @@ export namespace Prisma {
     canvass_id: number
     vehicle_id: number
     classification_id: number
-    supervisor_id: number
     notes: number
     cancelled_by: number
     created_by: number
@@ -25084,7 +25059,6 @@ export namespace Prisma {
     canvass_id?: true
     vehicle_id?: true
     classification_id?: true
-    supervisor_id?: true
     notes?: true
     cancelled_by?: true
     created_by?: true
@@ -25101,7 +25075,6 @@ export namespace Prisma {
     canvass_id?: true
     vehicle_id?: true
     classification_id?: true
-    supervisor_id?: true
     notes?: true
     cancelled_by?: true
     created_by?: true
@@ -25118,7 +25091,6 @@ export namespace Prisma {
     canvass_id?: true
     vehicle_id?: true
     classification_id?: true
-    supervisor_id?: true
     notes?: true
     cancelled_by?: true
     created_by?: true
@@ -25209,7 +25181,6 @@ export namespace Prisma {
     canvass_id: string | null
     vehicle_id: string
     classification_id: string | null
-    supervisor_id: string
     notes: string
     cancelled_by: string | null
     created_by: string
@@ -25244,7 +25215,6 @@ export namespace Prisma {
     canvass_id?: boolean
     vehicle_id?: boolean
     classification_id?: boolean
-    supervisor_id?: boolean
     notes?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -25267,7 +25237,6 @@ export namespace Prisma {
     canvass_id?: boolean
     vehicle_id?: boolean
     classification_id?: boolean
-    supervisor_id?: boolean
     notes?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -25302,7 +25271,6 @@ export namespace Prisma {
       canvass_id: string | null
       vehicle_id: string
       classification_id: string | null
-      supervisor_id: string
       notes: string
       cancelled_by: string | null
       created_by: string
@@ -25718,7 +25686,6 @@ export namespace Prisma {
     readonly canvass_id: FieldRef<"SPR", 'String'>
     readonly vehicle_id: FieldRef<"SPR", 'String'>
     readonly classification_id: FieldRef<"SPR", 'String'>
-    readonly supervisor_id: FieldRef<"SPR", 'String'>
     readonly notes: FieldRef<"SPR", 'String'>
     readonly cancelled_by: FieldRef<"SPR", 'String'>
     readonly created_by: FieldRef<"SPR", 'String'>
@@ -26138,7 +26105,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    is_supervisor: boolean | null
   }
 
   export type SPRApproverMaxAggregateOutputType = {
@@ -26150,7 +26116,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    is_supervisor: boolean | null
   }
 
   export type SPRApproverCountAggregateOutputType = {
@@ -26162,7 +26127,6 @@ export namespace Prisma {
     status: number
     label: number
     order: number
-    is_supervisor: number
     metadata: number
     _all: number
   }
@@ -26187,7 +26151,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    is_supervisor?: true
   }
 
   export type SPRApproverMaxAggregateInputType = {
@@ -26199,7 +26162,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    is_supervisor?: true
   }
 
   export type SPRApproverCountAggregateInputType = {
@@ -26211,7 +26173,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    is_supervisor?: true
     metadata?: true
     _all?: true
   }
@@ -26311,7 +26272,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor: boolean
     metadata: JsonValue | null
     _count: SPRApproverCountAggregateOutputType | null
     _avg: SPRApproverAvgAggregateOutputType | null
@@ -26343,7 +26303,6 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    is_supervisor?: boolean
     metadata?: boolean
     spr?: boolean | SPRDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sPRApprover"]>
@@ -26357,7 +26316,6 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    is_supervisor?: boolean
     metadata?: boolean
   }
 
@@ -26380,7 +26338,6 @@ export namespace Prisma {
       status: number
       label: string
       order: number
-      is_supervisor: boolean
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["sPRApprover"]>
     composites: {}
@@ -26785,7 +26742,6 @@ export namespace Prisma {
     readonly status: FieldRef<"SPRApprover", 'Int'>
     readonly label: FieldRef<"SPRApprover", 'String'>
     readonly order: FieldRef<"SPRApprover", 'Int'>
-    readonly is_supervisor: FieldRef<"SPRApprover", 'Boolean'>
     readonly metadata: FieldRef<"SPRApprover", 'Json'>
   }
     
@@ -38523,7 +38479,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -38537,7 +38492,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -38551,7 +38505,6 @@ export namespace Prisma {
     notes: number
     status: number
     label: number
-    label_id: number
     order: number
     updated_by: number
     updated_at: number
@@ -38578,7 +38531,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -38592,7 +38544,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -38606,7 +38557,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -38708,7 +38658,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by: string | null
     updated_at: Date
@@ -38742,7 +38691,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -38758,7 +38706,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -38783,7 +38730,6 @@ export namespace Prisma {
       notes: string
       status: number
       label: string
-      label_id: string
       order: number
       updated_by: string | null
       updated_at: Date
@@ -39190,7 +39136,6 @@ export namespace Prisma {
     readonly notes: FieldRef<"OSRIVApprover", 'String'>
     readonly status: FieldRef<"OSRIVApprover", 'Int'>
     readonly label: FieldRef<"OSRIVApprover", 'String'>
-    readonly label_id: FieldRef<"OSRIVApprover", 'String'>
     readonly order: FieldRef<"OSRIVApprover", 'Int'>
     readonly updated_by: FieldRef<"OSRIVApprover", 'String'>
     readonly updated_at: FieldRef<"OSRIVApprover", 'DateTime'>
@@ -41800,7 +41745,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -41814,7 +41758,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -41828,7 +41771,6 @@ export namespace Prisma {
     notes: number
     status: number
     label: number
-    label_id: number
     order: number
     updated_by: number
     updated_at: number
@@ -41855,7 +41797,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -41869,7 +41810,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -41883,7 +41823,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -41985,7 +41924,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by: string | null
     updated_at: Date
@@ -42019,7 +41957,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -42035,7 +41972,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -42060,7 +41996,6 @@ export namespace Prisma {
       notes: string
       status: number
       label: string
-      label_id: string
       order: number
       updated_by: string | null
       updated_at: Date
@@ -42467,7 +42402,6 @@ export namespace Prisma {
     readonly notes: FieldRef<"SERIVApprover", 'String'>
     readonly status: FieldRef<"SERIVApprover", 'Int'>
     readonly label: FieldRef<"SERIVApprover", 'String'>
-    readonly label_id: FieldRef<"SERIVApprover", 'String'>
     readonly order: FieldRef<"SERIVApprover", 'Int'>
     readonly updated_by: FieldRef<"SERIVApprover", 'String'>
     readonly updated_at: FieldRef<"SERIVApprover", 'DateTime'>
@@ -45088,7 +45022,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -45102,7 +45035,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -45116,7 +45048,6 @@ export namespace Prisma {
     notes: number
     status: number
     label: number
-    label_id: number
     order: number
     updated_by: number
     updated_at: number
@@ -45143,7 +45074,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -45157,7 +45087,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -45171,7 +45100,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -45273,7 +45201,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by: string | null
     updated_at: Date
@@ -45307,7 +45234,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -45323,7 +45249,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -45348,7 +45273,6 @@ export namespace Prisma {
       notes: string
       status: number
       label: string
-      label_id: string
       order: number
       updated_by: string | null
       updated_at: Date
@@ -45755,7 +45679,6 @@ export namespace Prisma {
     readonly notes: FieldRef<"MRVApprover", 'String'>
     readonly status: FieldRef<"MRVApprover", 'Int'>
     readonly label: FieldRef<"MRVApprover", 'String'>
-    readonly label_id: FieldRef<"MRVApprover", 'String'>
     readonly order: FieldRef<"MRVApprover", 'Int'>
     readonly updated_by: FieldRef<"MRVApprover", 'String'>
     readonly updated_at: FieldRef<"MRVApprover", 'DateTime'>
@@ -48200,7 +48123,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -48214,7 +48136,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -48228,7 +48149,6 @@ export namespace Prisma {
     notes: number
     status: number
     label: number
-    label_id: number
     order: number
     updated_by: number
     updated_at: number
@@ -48255,7 +48175,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -48269,7 +48188,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -48283,7 +48201,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -48385,7 +48302,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by: string | null
     updated_at: Date
@@ -48419,7 +48335,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -48435,7 +48350,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -48460,7 +48374,6 @@ export namespace Prisma {
       notes: string
       status: number
       label: string
-      label_id: string
       order: number
       updated_by: string | null
       updated_at: Date
@@ -48867,7 +48780,6 @@ export namespace Prisma {
     readonly notes: FieldRef<"MCTApprover", 'String'>
     readonly status: FieldRef<"MCTApprover", 'Int'>
     readonly label: FieldRef<"MCTApprover", 'String'>
-    readonly label_id: FieldRef<"MCTApprover", 'String'>
     readonly order: FieldRef<"MCTApprover", 'Int'>
     readonly updated_by: FieldRef<"MCTApprover", 'String'>
     readonly updated_at: FieldRef<"MCTApprover", 'DateTime'>
@@ -50399,7 +50311,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -50413,7 +50324,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -50427,7 +50337,6 @@ export namespace Prisma {
     notes: number
     status: number
     label: number
-    label_id: number
     order: number
     updated_by: number
     updated_at: number
@@ -50454,7 +50363,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -50468,7 +50376,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -50482,7 +50389,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -50584,7 +50490,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by: string | null
     updated_at: Date
@@ -50618,7 +50523,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -50634,7 +50538,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -50659,7 +50562,6 @@ export namespace Prisma {
       notes: string
       status: number
       label: string
-      label_id: string
       order: number
       updated_by: string | null
       updated_at: Date
@@ -51066,7 +50968,6 @@ export namespace Prisma {
     readonly notes: FieldRef<"MCRTApprover", 'String'>
     readonly status: FieldRef<"MCRTApprover", 'Int'>
     readonly label: FieldRef<"MCRTApprover", 'String'>
-    readonly label_id: FieldRef<"MCRTApprover", 'String'>
     readonly order: FieldRef<"MCRTApprover", 'Int'>
     readonly updated_by: FieldRef<"MCRTApprover", 'String'>
     readonly updated_at: FieldRef<"MCRTApprover", 'DateTime'>
@@ -53523,7 +53424,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -53537,7 +53437,6 @@ export namespace Prisma {
     notes: string | null
     status: number | null
     label: string | null
-    label_id: string | null
     order: number | null
     updated_by: string | null
     updated_at: Date | null
@@ -53551,7 +53450,6 @@ export namespace Prisma {
     notes: number
     status: number
     label: number
-    label_id: number
     order: number
     updated_by: number
     updated_at: number
@@ -53578,7 +53476,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -53592,7 +53489,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -53606,7 +53502,6 @@ export namespace Prisma {
     notes?: true
     status?: true
     label?: true
-    label_id?: true
     order?: true
     updated_by?: true
     updated_at?: true
@@ -53708,7 +53603,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by: string | null
     updated_at: Date
@@ -53742,7 +53636,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -53758,7 +53651,6 @@ export namespace Prisma {
     notes?: boolean
     status?: boolean
     label?: boolean
-    label_id?: boolean
     order?: boolean
     updated_by?: boolean
     updated_at?: boolean
@@ -53783,7 +53675,6 @@ export namespace Prisma {
       notes: string
       status: number
       label: string
-      label_id: string
       order: number
       updated_by: string | null
       updated_at: Date
@@ -54190,7 +54081,6 @@ export namespace Prisma {
     readonly notes: FieldRef<"MSTApprover", 'String'>
     readonly status: FieldRef<"MSTApprover", 'Int'>
     readonly label: FieldRef<"MSTApprover", 'String'>
-    readonly label_id: FieldRef<"MSTApprover", 'String'>
     readonly order: FieldRef<"MSTApprover", 'Int'>
     readonly updated_by: FieldRef<"MSTApprover", 'String'>
     readonly updated_at: FieldRef<"MSTApprover", 'DateTime'>
@@ -63224,7 +63114,6 @@ export namespace Prisma {
     equipment: 'equipment',
     classification_id: 'classification_id',
     department_id: 'department_id',
-    supervisor_id: 'supervisor_id',
     notes: 'notes',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
@@ -63247,7 +63136,6 @@ export namespace Prisma {
     status: 'status',
     label: 'label',
     order: 'order',
-    is_supervisor: 'is_supervisor',
     metadata: 'metadata'
   };
 
@@ -63261,7 +63149,6 @@ export namespace Prisma {
     canvass_id: 'canvass_id',
     vehicle_id: 'vehicle_id',
     classification_id: 'classification_id',
-    supervisor_id: 'supervisor_id',
     notes: 'notes',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
@@ -63284,7 +63171,6 @@ export namespace Prisma {
     status: 'status',
     label: 'label',
     order: 'order',
-    is_supervisor: 'is_supervisor',
     metadata: 'metadata'
   };
 
@@ -63480,7 +63366,6 @@ export namespace Prisma {
     notes: 'notes',
     status: 'status',
     label: 'label',
-    label_id: 'label_id',
     order: 'order',
     updated_by: 'updated_by',
     updated_at: 'updated_at',
@@ -63542,7 +63427,6 @@ export namespace Prisma {
     notes: 'notes',
     status: 'status',
     label: 'label',
-    label_id: 'label_id',
     order: 'order',
     updated_by: 'updated_by',
     updated_at: 'updated_at',
@@ -63605,7 +63489,6 @@ export namespace Prisma {
     notes: 'notes',
     status: 'status',
     label: 'label',
-    label_id: 'label_id',
     order: 'order',
     updated_by: 'updated_by',
     updated_at: 'updated_at',
@@ -63656,7 +63539,6 @@ export namespace Prisma {
     notes: 'notes',
     status: 'status',
     label: 'label',
-    label_id: 'label_id',
     order: 'order',
     updated_by: 'updated_by',
     updated_at: 'updated_at',
@@ -63700,7 +63582,6 @@ export namespace Prisma {
     notes: 'notes',
     status: 'status',
     label: 'label',
-    label_id: 'label_id',
     order: 'order',
     updated_by: 'updated_by',
     updated_at: 'updated_at',
@@ -63754,7 +63635,6 @@ export namespace Prisma {
     notes: 'notes',
     status: 'status',
     label: 'label',
-    label_id: 'label_id',
     order: 'order',
     updated_by: 'updated_by',
     updated_at: 'updated_at',
@@ -65363,7 +65243,6 @@ export namespace Prisma {
     equipment?: StringFilter<"JO"> | string
     classification_id?: StringNullableFilter<"JO"> | string | null
     department_id?: StringFilter<"JO"> | string
-    supervisor_id?: StringFilter<"JO"> | string
     notes?: StringFilter<"JO"> | string
     cancelled_by?: StringNullableFilter<"JO"> | string | null
     created_by?: StringFilter<"JO"> | string
@@ -65385,7 +65264,6 @@ export namespace Prisma {
     equipment?: SortOrder
     classification_id?: SortOrderInput | SortOrder
     department_id?: SortOrder
-    supervisor_id?: SortOrder
     notes?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -65410,7 +65288,6 @@ export namespace Prisma {
     equipment?: StringFilter<"JO"> | string
     classification_id?: StringNullableFilter<"JO"> | string | null
     department_id?: StringFilter<"JO"> | string
-    supervisor_id?: StringFilter<"JO"> | string
     notes?: StringFilter<"JO"> | string
     cancelled_by?: StringNullableFilter<"JO"> | string | null
     created_by?: StringFilter<"JO"> | string
@@ -65432,7 +65309,6 @@ export namespace Prisma {
     equipment?: SortOrder
     classification_id?: SortOrderInput | SortOrder
     department_id?: SortOrder
-    supervisor_id?: SortOrder
     notes?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -65457,7 +65333,6 @@ export namespace Prisma {
     equipment?: StringWithAggregatesFilter<"JO"> | string
     classification_id?: StringNullableWithAggregatesFilter<"JO"> | string | null
     department_id?: StringWithAggregatesFilter<"JO"> | string
-    supervisor_id?: StringWithAggregatesFilter<"JO"> | string
     notes?: StringWithAggregatesFilter<"JO"> | string
     cancelled_by?: StringNullableWithAggregatesFilter<"JO"> | string | null
     created_by?: StringWithAggregatesFilter<"JO"> | string
@@ -65480,7 +65355,6 @@ export namespace Prisma {
     status?: IntFilter<"JOApprover"> | number
     label?: StringFilter<"JOApprover"> | string
     order?: IntFilter<"JOApprover"> | number
-    is_supervisor?: BoolFilter<"JOApprover"> | boolean
     metadata?: JsonNullableFilter<"JOApprover">
     jo?: XOR<JORelationFilter, JOWhereInput>
   }
@@ -65494,13 +65368,13 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
     metadata?: SortOrderInput | SortOrder
     jo?: JOOrderByWithRelationInput
   }
 
   export type JOApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    jo_id_order?: JOApproverJo_idOrderCompoundUniqueInput
     AND?: JOApproverWhereInput | JOApproverWhereInput[]
     OR?: JOApproverWhereInput[]
     NOT?: JOApproverWhereInput | JOApproverWhereInput[]
@@ -65511,10 +65385,9 @@ export namespace Prisma {
     status?: IntFilter<"JOApprover"> | number
     label?: StringFilter<"JOApprover"> | string
     order?: IntFilter<"JOApprover"> | number
-    is_supervisor?: BoolFilter<"JOApprover"> | boolean
     metadata?: JsonNullableFilter<"JOApprover">
     jo?: XOR<JORelationFilter, JOWhereInput>
-  }, "id">
+  }, "id" | "jo_id_order">
 
   export type JOApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -65525,7 +65398,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: JOApproverCountOrderByAggregateInput
     _avg?: JOApproverAvgOrderByAggregateInput
@@ -65546,7 +65418,6 @@ export namespace Prisma {
     status?: IntWithAggregatesFilter<"JOApprover"> | number
     label?: StringWithAggregatesFilter<"JOApprover"> | string
     order?: IntWithAggregatesFilter<"JOApprover"> | number
-    is_supervisor?: BoolWithAggregatesFilter<"JOApprover"> | boolean
     metadata?: JsonNullableWithAggregatesFilter<"JOApprover">
   }
 
@@ -65560,7 +65431,6 @@ export namespace Prisma {
     canvass_id?: StringNullableFilter<"SPR"> | string | null
     vehicle_id?: StringFilter<"SPR"> | string
     classification_id?: StringNullableFilter<"SPR"> | string | null
-    supervisor_id?: StringFilter<"SPR"> | string
     notes?: StringFilter<"SPR"> | string
     cancelled_by?: StringNullableFilter<"SPR"> | string | null
     created_by?: StringFilter<"SPR"> | string
@@ -65582,7 +65452,6 @@ export namespace Prisma {
     canvass_id?: SortOrderInput | SortOrder
     vehicle_id?: SortOrder
     classification_id?: SortOrderInput | SortOrder
-    supervisor_id?: SortOrder
     notes?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -65607,7 +65476,6 @@ export namespace Prisma {
     date_requested?: DateTimeFilter<"SPR"> | Date | string
     vehicle_id?: StringFilter<"SPR"> | string
     classification_id?: StringNullableFilter<"SPR"> | string | null
-    supervisor_id?: StringFilter<"SPR"> | string
     notes?: StringFilter<"SPR"> | string
     cancelled_by?: StringNullableFilter<"SPR"> | string | null
     created_by?: StringFilter<"SPR"> | string
@@ -65629,7 +65497,6 @@ export namespace Prisma {
     canvass_id?: SortOrderInput | SortOrder
     vehicle_id?: SortOrder
     classification_id?: SortOrderInput | SortOrder
-    supervisor_id?: SortOrder
     notes?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -65653,7 +65520,6 @@ export namespace Prisma {
     canvass_id?: StringNullableWithAggregatesFilter<"SPR"> | string | null
     vehicle_id?: StringWithAggregatesFilter<"SPR"> | string
     classification_id?: StringNullableWithAggregatesFilter<"SPR"> | string | null
-    supervisor_id?: StringWithAggregatesFilter<"SPR"> | string
     notes?: StringWithAggregatesFilter<"SPR"> | string
     cancelled_by?: StringNullableWithAggregatesFilter<"SPR"> | string | null
     created_by?: StringWithAggregatesFilter<"SPR"> | string
@@ -65676,7 +65542,6 @@ export namespace Prisma {
     status?: IntFilter<"SPRApprover"> | number
     label?: StringFilter<"SPRApprover"> | string
     order?: IntFilter<"SPRApprover"> | number
-    is_supervisor?: BoolFilter<"SPRApprover"> | boolean
     metadata?: JsonNullableFilter<"SPRApprover">
     spr?: XOR<SPRRelationFilter, SPRWhereInput>
   }
@@ -65690,13 +65555,13 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
     metadata?: SortOrderInput | SortOrder
     spr?: SPROrderByWithRelationInput
   }
 
   export type SPRApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    spr_id_order?: SPRApproverSpr_idOrderCompoundUniqueInput
     AND?: SPRApproverWhereInput | SPRApproverWhereInput[]
     OR?: SPRApproverWhereInput[]
     NOT?: SPRApproverWhereInput | SPRApproverWhereInput[]
@@ -65707,10 +65572,9 @@ export namespace Prisma {
     status?: IntFilter<"SPRApprover"> | number
     label?: StringFilter<"SPRApprover"> | string
     order?: IntFilter<"SPRApprover"> | number
-    is_supervisor?: BoolFilter<"SPRApprover"> | boolean
     metadata?: JsonNullableFilter<"SPRApprover">
     spr?: XOR<SPRRelationFilter, SPRWhereInput>
-  }, "id">
+  }, "id" | "spr_id_order">
 
   export type SPRApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -65721,7 +65585,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: SPRApproverCountOrderByAggregateInput
     _avg?: SPRApproverAvgOrderByAggregateInput
@@ -65742,7 +65605,6 @@ export namespace Prisma {
     status?: IntWithAggregatesFilter<"SPRApprover"> | number
     label?: StringWithAggregatesFilter<"SPRApprover"> | string
     order?: IntWithAggregatesFilter<"SPRApprover"> | number
-    is_supervisor?: BoolWithAggregatesFilter<"SPRApprover"> | boolean
     metadata?: JsonNullableWithAggregatesFilter<"SPRApprover">
   }
 
@@ -66729,7 +66591,6 @@ export namespace Prisma {
     notes?: StringFilter<"OSRIVApprover"> | string
     status?: IntFilter<"OSRIVApprover"> | number
     label?: StringFilter<"OSRIVApprover"> | string
-    label_id?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
     updated_by?: StringNullableFilter<"OSRIVApprover"> | string | null
     updated_at?: DateTimeFilter<"OSRIVApprover"> | Date | string
@@ -66745,7 +66606,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -66755,7 +66615,7 @@ export namespace Prisma {
 
   export type OSRIVApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    osriv_id_label_id?: OSRIVApproverOsriv_idLabel_idCompoundUniqueInput
+    osriv_id_order?: OSRIVApproverOsriv_idOrderCompoundUniqueInput
     AND?: OSRIVApproverWhereInput | OSRIVApproverWhereInput[]
     OR?: OSRIVApproverWhereInput[]
     NOT?: OSRIVApproverWhereInput | OSRIVApproverWhereInput[]
@@ -66765,13 +66625,12 @@ export namespace Prisma {
     notes?: StringFilter<"OSRIVApprover"> | string
     status?: IntFilter<"OSRIVApprover"> | number
     label?: StringFilter<"OSRIVApprover"> | string
-    label_id?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
     updated_by?: StringNullableFilter<"OSRIVApprover"> | string | null
     updated_at?: DateTimeFilter<"OSRIVApprover"> | Date | string
     metadata?: JsonNullableFilter<"OSRIVApprover">
     osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
-  }, "id" | "osriv_id_label_id">
+  }, "id" | "osriv_id_order">
 
   export type OSRIVApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -66781,7 +66640,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -66804,7 +66662,6 @@ export namespace Prisma {
     notes?: StringWithAggregatesFilter<"OSRIVApprover"> | string
     status?: IntWithAggregatesFilter<"OSRIVApprover"> | number
     label?: StringWithAggregatesFilter<"OSRIVApprover"> | string
-    label_id?: StringWithAggregatesFilter<"OSRIVApprover"> | string
     order?: IntWithAggregatesFilter<"OSRIVApprover"> | number
     updated_by?: StringNullableWithAggregatesFilter<"OSRIVApprover"> | string | null
     updated_at?: DateTimeWithAggregatesFilter<"OSRIVApprover"> | Date | string
@@ -67061,7 +66918,6 @@ export namespace Prisma {
     notes?: StringFilter<"SERIVApprover"> | string
     status?: IntFilter<"SERIVApprover"> | number
     label?: StringFilter<"SERIVApprover"> | string
-    label_id?: StringFilter<"SERIVApprover"> | string
     order?: IntFilter<"SERIVApprover"> | number
     updated_by?: StringNullableFilter<"SERIVApprover"> | string | null
     updated_at?: DateTimeFilter<"SERIVApprover"> | Date | string
@@ -67077,7 +66933,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -67087,7 +66942,7 @@ export namespace Prisma {
 
   export type SERIVApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    seriv_id_label_id?: SERIVApproverSeriv_idLabel_idCompoundUniqueInput
+    seriv_id_order?: SERIVApproverSeriv_idOrderCompoundUniqueInput
     AND?: SERIVApproverWhereInput | SERIVApproverWhereInput[]
     OR?: SERIVApproverWhereInput[]
     NOT?: SERIVApproverWhereInput | SERIVApproverWhereInput[]
@@ -67097,13 +66952,12 @@ export namespace Prisma {
     notes?: StringFilter<"SERIVApprover"> | string
     status?: IntFilter<"SERIVApprover"> | number
     label?: StringFilter<"SERIVApprover"> | string
-    label_id?: StringFilter<"SERIVApprover"> | string
     order?: IntFilter<"SERIVApprover"> | number
     updated_by?: StringNullableFilter<"SERIVApprover"> | string | null
     updated_at?: DateTimeFilter<"SERIVApprover"> | Date | string
     metadata?: JsonNullableFilter<"SERIVApprover">
     seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
-  }, "id" | "seriv_id_label_id">
+  }, "id" | "seriv_id_order">
 
   export type SERIVApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -67113,7 +66967,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -67136,7 +66989,6 @@ export namespace Prisma {
     notes?: StringWithAggregatesFilter<"SERIVApprover"> | string
     status?: IntWithAggregatesFilter<"SERIVApprover"> | number
     label?: StringWithAggregatesFilter<"SERIVApprover"> | string
-    label_id?: StringWithAggregatesFilter<"SERIVApprover"> | string
     order?: IntWithAggregatesFilter<"SERIVApprover"> | number
     updated_by?: StringNullableWithAggregatesFilter<"SERIVApprover"> | string | null
     updated_at?: DateTimeWithAggregatesFilter<"SERIVApprover"> | Date | string
@@ -67401,7 +67253,6 @@ export namespace Prisma {
     notes?: StringFilter<"MRVApprover"> | string
     status?: IntFilter<"MRVApprover"> | number
     label?: StringFilter<"MRVApprover"> | string
-    label_id?: StringFilter<"MRVApprover"> | string
     order?: IntFilter<"MRVApprover"> | number
     updated_by?: StringNullableFilter<"MRVApprover"> | string | null
     updated_at?: DateTimeFilter<"MRVApprover"> | Date | string
@@ -67417,7 +67268,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -67427,7 +67277,7 @@ export namespace Prisma {
 
   export type MRVApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    mrv_id_label_id?: MRVApproverMrv_idLabel_idCompoundUniqueInput
+    mrv_id_order?: MRVApproverMrv_idOrderCompoundUniqueInput
     AND?: MRVApproverWhereInput | MRVApproverWhereInput[]
     OR?: MRVApproverWhereInput[]
     NOT?: MRVApproverWhereInput | MRVApproverWhereInput[]
@@ -67437,13 +67287,12 @@ export namespace Prisma {
     notes?: StringFilter<"MRVApprover"> | string
     status?: IntFilter<"MRVApprover"> | number
     label?: StringFilter<"MRVApprover"> | string
-    label_id?: StringFilter<"MRVApprover"> | string
     order?: IntFilter<"MRVApprover"> | number
     updated_by?: StringNullableFilter<"MRVApprover"> | string | null
     updated_at?: DateTimeFilter<"MRVApprover"> | Date | string
     metadata?: JsonNullableFilter<"MRVApprover">
     mrv?: XOR<MRVRelationFilter, MRVWhereInput>
-  }, "id" | "mrv_id_label_id">
+  }, "id" | "mrv_id_order">
 
   export type MRVApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -67453,7 +67302,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -67476,7 +67324,6 @@ export namespace Prisma {
     notes?: StringWithAggregatesFilter<"MRVApprover"> | string
     status?: IntWithAggregatesFilter<"MRVApprover"> | number
     label?: StringWithAggregatesFilter<"MRVApprover"> | string
-    label_id?: StringWithAggregatesFilter<"MRVApprover"> | string
     order?: IntWithAggregatesFilter<"MRVApprover"> | number
     updated_by?: StringNullableWithAggregatesFilter<"MRVApprover"> | string | null
     updated_at?: DateTimeWithAggregatesFilter<"MRVApprover"> | Date | string
@@ -67673,7 +67520,6 @@ export namespace Prisma {
     notes?: StringFilter<"MCTApprover"> | string
     status?: IntFilter<"MCTApprover"> | number
     label?: StringFilter<"MCTApprover"> | string
-    label_id?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
     updated_by?: StringNullableFilter<"MCTApprover"> | string | null
     updated_at?: DateTimeFilter<"MCTApprover"> | Date | string
@@ -67689,7 +67535,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -67699,6 +67544,7 @@ export namespace Prisma {
 
   export type MCTApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    mct_id_order?: MCTApproverMct_idOrderCompoundUniqueInput
     AND?: MCTApproverWhereInput | MCTApproverWhereInput[]
     OR?: MCTApproverWhereInput[]
     NOT?: MCTApproverWhereInput | MCTApproverWhereInput[]
@@ -67708,13 +67554,12 @@ export namespace Prisma {
     notes?: StringFilter<"MCTApprover"> | string
     status?: IntFilter<"MCTApprover"> | number
     label?: StringFilter<"MCTApprover"> | string
-    label_id?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
     updated_by?: StringNullableFilter<"MCTApprover"> | string | null
     updated_at?: DateTimeFilter<"MCTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MCTApprover">
     mct?: XOR<MCTRelationFilter, MCTWhereInput>
-  }, "id">
+  }, "id" | "mct_id_order">
 
   export type MCTApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -67724,7 +67569,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -67747,7 +67591,6 @@ export namespace Prisma {
     notes?: StringWithAggregatesFilter<"MCTApprover"> | string
     status?: IntWithAggregatesFilter<"MCTApprover"> | number
     label?: StringWithAggregatesFilter<"MCTApprover"> | string
-    label_id?: StringWithAggregatesFilter<"MCTApprover"> | string
     order?: IntWithAggregatesFilter<"MCTApprover"> | number
     updated_by?: StringNullableWithAggregatesFilter<"MCTApprover"> | string | null
     updated_at?: DateTimeWithAggregatesFilter<"MCTApprover"> | Date | string
@@ -67904,7 +67747,6 @@ export namespace Prisma {
     notes?: StringFilter<"MCRTApprover"> | string
     status?: IntFilter<"MCRTApprover"> | number
     label?: StringFilter<"MCRTApprover"> | string
-    label_id?: StringFilter<"MCRTApprover"> | string
     order?: IntFilter<"MCRTApprover"> | number
     updated_by?: StringNullableFilter<"MCRTApprover"> | string | null
     updated_at?: DateTimeFilter<"MCRTApprover"> | Date | string
@@ -67920,7 +67762,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -67930,6 +67771,7 @@ export namespace Prisma {
 
   export type MCRTApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    mcrt_id_order?: MCRTApproverMcrt_idOrderCompoundUniqueInput
     AND?: MCRTApproverWhereInput | MCRTApproverWhereInput[]
     OR?: MCRTApproverWhereInput[]
     NOT?: MCRTApproverWhereInput | MCRTApproverWhereInput[]
@@ -67939,13 +67781,12 @@ export namespace Prisma {
     notes?: StringFilter<"MCRTApprover"> | string
     status?: IntFilter<"MCRTApprover"> | number
     label?: StringFilter<"MCRTApprover"> | string
-    label_id?: StringFilter<"MCRTApprover"> | string
     order?: IntFilter<"MCRTApprover"> | number
     updated_by?: StringNullableFilter<"MCRTApprover"> | string | null
     updated_at?: DateTimeFilter<"MCRTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MCRTApprover">
     mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
-  }, "id">
+  }, "id" | "mcrt_id_order">
 
   export type MCRTApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -67955,7 +67796,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -67978,7 +67818,6 @@ export namespace Prisma {
     notes?: StringWithAggregatesFilter<"MCRTApprover"> | string
     status?: IntWithAggregatesFilter<"MCRTApprover"> | number
     label?: StringWithAggregatesFilter<"MCRTApprover"> | string
-    label_id?: StringWithAggregatesFilter<"MCRTApprover"> | string
     order?: IntWithAggregatesFilter<"MCRTApprover"> | number
     updated_by?: StringNullableWithAggregatesFilter<"MCRTApprover"> | string | null
     updated_at?: DateTimeWithAggregatesFilter<"MCRTApprover"> | Date | string
@@ -68187,7 +68026,6 @@ export namespace Prisma {
     notes?: StringFilter<"MSTApprover"> | string
     status?: IntFilter<"MSTApprover"> | number
     label?: StringFilter<"MSTApprover"> | string
-    label_id?: StringFilter<"MSTApprover"> | string
     order?: IntFilter<"MSTApprover"> | number
     updated_by?: StringNullableFilter<"MSTApprover"> | string | null
     updated_at?: DateTimeFilter<"MSTApprover"> | Date | string
@@ -68203,7 +68041,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -68213,6 +68050,7 @@ export namespace Prisma {
 
   export type MSTApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    mst_id_order?: MSTApproverMst_idOrderCompoundUniqueInput
     AND?: MSTApproverWhereInput | MSTApproverWhereInput[]
     OR?: MSTApproverWhereInput[]
     NOT?: MSTApproverWhereInput | MSTApproverWhereInput[]
@@ -68222,13 +68060,12 @@ export namespace Prisma {
     notes?: StringFilter<"MSTApprover"> | string
     status?: IntFilter<"MSTApprover"> | number
     label?: StringFilter<"MSTApprover"> | string
-    label_id?: StringFilter<"MSTApprover"> | string
     order?: IntFilter<"MSTApprover"> | number
     updated_by?: StringNullableFilter<"MSTApprover"> | string | null
     updated_at?: DateTimeFilter<"MSTApprover"> | Date | string
     metadata?: JsonNullableFilter<"MSTApprover">
     mst?: XOR<MSTRelationFilter, MSTWhereInput>
-  }, "id">
+  }, "id" | "mst_id_order">
 
   export type MSTApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -68238,7 +68075,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -68261,7 +68097,6 @@ export namespace Prisma {
     notes?: StringWithAggregatesFilter<"MSTApprover"> | string
     status?: IntWithAggregatesFilter<"MSTApprover"> | number
     label?: StringWithAggregatesFilter<"MSTApprover"> | string
-    label_id?: StringWithAggregatesFilter<"MSTApprover"> | string
     order?: IntWithAggregatesFilter<"MSTApprover"> | number
     updated_by?: StringNullableWithAggregatesFilter<"MSTApprover"> | string | null
     updated_at?: DateTimeWithAggregatesFilter<"MSTApprover"> | Date | string
@@ -70465,7 +70300,6 @@ export namespace Prisma {
     equipment?: string
     classification_id?: string | null
     department_id: string
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -70487,7 +70321,6 @@ export namespace Prisma {
     equipment?: string
     classification_id?: string | null
     department_id: string
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -70507,7 +70340,6 @@ export namespace Prisma {
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70529,7 +70361,6 @@ export namespace Prisma {
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70550,7 +70381,6 @@ export namespace Prisma {
     equipment?: string
     classification_id?: string | null
     department_id: string
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -70568,7 +70398,6 @@ export namespace Prisma {
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70587,7 +70416,6 @@ export namespace Prisma {
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70606,7 +70434,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
     jo: JOCreateNestedOneWithoutJo_approversInput
   }
@@ -70620,7 +70447,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70632,7 +70458,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUpdateOneRequiredWithoutJo_approversNestedInput
   }
@@ -70646,7 +70471,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70659,7 +70483,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70671,7 +70494,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70684,7 +70506,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70693,7 +70514,6 @@ export namespace Prisma {
     spr_number: string
     date_requested: Date | string
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -70715,7 +70535,6 @@ export namespace Prisma {
     canvass_id?: string | null
     vehicle_id: string
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -70733,7 +70552,6 @@ export namespace Prisma {
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70755,7 +70573,6 @@ export namespace Prisma {
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70775,7 +70592,6 @@ export namespace Prisma {
     canvass_id?: string | null
     vehicle_id: string
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -70791,7 +70607,6 @@ export namespace Prisma {
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70809,7 +70624,6 @@ export namespace Prisma {
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -70828,7 +70642,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
     spr: SPRCreateNestedOneWithoutSpr_approversInput
   }
@@ -70842,7 +70655,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70854,7 +70666,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
     spr?: SPRUpdateOneRequiredWithoutSpr_approversNestedInput
   }
@@ -70868,7 +70679,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70881,7 +70691,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70893,7 +70702,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70906,7 +70714,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -71989,7 +71796,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -72005,7 +71811,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -72019,7 +71824,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72035,7 +71839,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72050,7 +71853,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -72064,7 +71866,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72079,7 +71880,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72372,7 +72172,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -72388,7 +72187,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -72402,7 +72200,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72418,7 +72215,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72433,7 +72229,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -72447,7 +72242,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72462,7 +72256,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72761,7 +72554,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -72777,7 +72569,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -72791,7 +72582,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72807,7 +72597,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72822,7 +72611,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -72836,7 +72624,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -72851,7 +72638,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73063,7 +72849,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -73079,7 +72864,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -73093,7 +72877,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73109,7 +72892,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73124,7 +72906,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -73138,7 +72919,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73153,7 +72933,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73334,7 +73113,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -73350,7 +73128,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -73364,7 +73141,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73380,7 +73156,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73395,7 +73170,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -73409,7 +73183,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73424,7 +73197,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73658,7 +73430,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -73674,7 +73445,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -73688,7 +73458,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73704,7 +73473,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73719,7 +73487,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -73733,7 +73500,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73748,7 +73514,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -75788,7 +75553,6 @@ export namespace Prisma {
     equipment?: SortOrder
     classification_id?: SortOrder
     department_id?: SortOrder
-    supervisor_id?: SortOrder
     notes?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -75807,7 +75571,6 @@ export namespace Prisma {
     equipment?: SortOrder
     classification_id?: SortOrder
     department_id?: SortOrder
-    supervisor_id?: SortOrder
     notes?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -75825,7 +75588,6 @@ export namespace Prisma {
     equipment?: SortOrder
     classification_id?: SortOrder
     department_id?: SortOrder
-    supervisor_id?: SortOrder
     notes?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -75840,6 +75602,11 @@ export namespace Prisma {
     isNot?: JOWhereInput
   }
 
+  export type JOApproverJo_idOrderCompoundUniqueInput = {
+    jo_id: string
+    order: number
+  }
+
   export type JOApproverCountOrderByAggregateInput = {
     id?: SortOrder
     jo_id?: SortOrder
@@ -75849,7 +75616,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
     metadata?: SortOrder
   }
 
@@ -75867,7 +75633,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
   }
 
   export type JOApproverMinOrderByAggregateInput = {
@@ -75879,7 +75644,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
   }
 
   export type JOApproverSumOrderByAggregateInput = {
@@ -75909,7 +75673,6 @@ export namespace Prisma {
     canvass_id?: SortOrder
     vehicle_id?: SortOrder
     classification_id?: SortOrder
-    supervisor_id?: SortOrder
     notes?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -75927,7 +75690,6 @@ export namespace Prisma {
     canvass_id?: SortOrder
     vehicle_id?: SortOrder
     classification_id?: SortOrder
-    supervisor_id?: SortOrder
     notes?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -75944,7 +75706,6 @@ export namespace Prisma {
     canvass_id?: SortOrder
     vehicle_id?: SortOrder
     classification_id?: SortOrder
-    supervisor_id?: SortOrder
     notes?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -75959,6 +75720,11 @@ export namespace Prisma {
     isNot?: SPRWhereInput
   }
 
+  export type SPRApproverSpr_idOrderCompoundUniqueInput = {
+    spr_id: string
+    order: number
+  }
+
   export type SPRApproverCountOrderByAggregateInput = {
     id?: SortOrder
     spr_id?: SortOrder
@@ -75968,7 +75734,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
     metadata?: SortOrder
   }
 
@@ -75986,7 +75751,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
   }
 
   export type SPRApproverMinOrderByAggregateInput = {
@@ -75998,7 +75762,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
   }
 
   export type SPRApproverSumOrderByAggregateInput = {
@@ -76614,9 +76377,9 @@ export namespace Prisma {
     isNot?: OSRIVWhereInput
   }
 
-  export type OSRIVApproverOsriv_idLabel_idCompoundUniqueInput = {
+  export type OSRIVApproverOsriv_idOrderCompoundUniqueInput = {
     osriv_id: string
-    label_id: string
+    order: number
   }
 
   export type OSRIVApproverCountOrderByAggregateInput = {
@@ -76627,7 +76390,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -76647,7 +76409,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -76661,7 +76422,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -76825,9 +76585,9 @@ export namespace Prisma {
     isNot?: SERIVWhereInput
   }
 
-  export type SERIVApproverSeriv_idLabel_idCompoundUniqueInput = {
+  export type SERIVApproverSeriv_idOrderCompoundUniqueInput = {
     seriv_id: string
-    label_id: string
+    order: number
   }
 
   export type SERIVApproverCountOrderByAggregateInput = {
@@ -76838,7 +76598,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -76858,7 +76617,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -76872,7 +76630,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77039,9 +76796,9 @@ export namespace Prisma {
     isNot?: MRVWhereInput
   }
 
-  export type MRVApproverMrv_idLabel_idCompoundUniqueInput = {
+  export type MRVApproverMrv_idOrderCompoundUniqueInput = {
     mrv_id: string
-    label_id: string
+    order: number
   }
 
   export type MRVApproverCountOrderByAggregateInput = {
@@ -77052,7 +76809,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77072,7 +76828,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77086,7 +76841,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77204,6 +76958,11 @@ export namespace Prisma {
     isNot?: MCTWhereInput
   }
 
+  export type MCTApproverMct_idOrderCompoundUniqueInput = {
+    mct_id: string
+    order: number
+  }
+
   export type MCTApproverCountOrderByAggregateInput = {
     id?: SortOrder
     mct_id?: SortOrder
@@ -77212,7 +76971,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77232,7 +76990,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77246,7 +77003,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77344,6 +77100,11 @@ export namespace Prisma {
     isNot?: MCRTWhereInput
   }
 
+  export type MCRTApproverMcrt_idOrderCompoundUniqueInput = {
+    mcrt_id: string
+    order: number
+  }
+
   export type MCRTApproverCountOrderByAggregateInput = {
     id?: SortOrder
     mcrt_id?: SortOrder
@@ -77352,7 +77113,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77372,7 +77132,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77386,7 +77145,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77508,6 +77266,11 @@ export namespace Prisma {
     isNot?: MSTWhereInput
   }
 
+  export type MSTApproverMst_idOrderCompoundUniqueInput = {
+    mst_id: string
+    order: number
+  }
+
   export type MSTApproverCountOrderByAggregateInput = {
     id?: SortOrder
     mst_id?: SortOrder
@@ -77516,7 +77279,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77536,7 +77298,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -77550,7 +77311,6 @@ export namespace Prisma {
     notes?: SortOrder
     status?: SortOrder
     label?: SortOrder
-    label_id?: SortOrder
     order?: SortOrder
     updated_by?: SortOrder
     updated_at?: SortOrder
@@ -84344,7 +84104,6 @@ export namespace Prisma {
     equipment?: string
     classification_id?: string | null
     department_id: string
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -84364,7 +84123,6 @@ export namespace Prisma {
     equipment?: string
     classification_id?: string | null
     department_id: string
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -84430,7 +84188,6 @@ export namespace Prisma {
     spr_number: string
     date_requested: Date | string
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -84450,7 +84207,6 @@ export namespace Prisma {
     date_requested: Date | string
     vehicle_id: string
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -84502,7 +84258,6 @@ export namespace Prisma {
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -84522,7 +84277,6 @@ export namespace Prisma {
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -84600,7 +84354,6 @@ export namespace Prisma {
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -84620,7 +84373,6 @@ export namespace Prisma {
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -85420,7 +85172,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -85432,7 +85183,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -85576,7 +85326,6 @@ export namespace Prisma {
     status?: IntFilter<"JOApprover"> | number
     label?: StringFilter<"JOApprover"> | string
     order?: IntFilter<"JOApprover"> | number
-    is_supervisor?: BoolFilter<"JOApprover"> | boolean
     metadata?: JsonNullableFilter<"JOApprover">
   }
 
@@ -85587,7 +85336,6 @@ export namespace Prisma {
     equipment?: string
     classification_id?: string | null
     department_id: string
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -85608,7 +85356,6 @@ export namespace Prisma {
     equipment?: string
     classification_id?: string | null
     department_id: string
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -85643,7 +85390,6 @@ export namespace Prisma {
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -85664,7 +85410,6 @@ export namespace Prisma {
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -85774,7 +85519,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -85786,7 +85530,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -85971,7 +85714,6 @@ export namespace Prisma {
     status?: IntFilter<"SPRApprover"> | number
     label?: StringFilter<"SPRApprover"> | string
     order?: IntFilter<"SPRApprover"> | number
-    is_supervisor?: BoolFilter<"SPRApprover"> | boolean
     metadata?: JsonNullableFilter<"SPRApprover">
   }
 
@@ -86027,7 +85769,6 @@ export namespace Prisma {
     spr_number: string
     date_requested: Date | string
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -86048,7 +85789,6 @@ export namespace Prisma {
     canvass_id?: string | null
     vehicle_id: string
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -86081,7 +85821,6 @@ export namespace Prisma {
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -86102,7 +85841,6 @@ export namespace Prisma {
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -86121,7 +85859,6 @@ export namespace Prisma {
     equipment?: string
     classification_id?: string | null
     department_id: string
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -86142,7 +85879,6 @@ export namespace Prisma {
     equipment?: string
     classification_id?: string | null
     department_id: string
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -86207,7 +85943,6 @@ export namespace Prisma {
     spr_number: string
     date_requested: Date | string
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -86228,7 +85963,6 @@ export namespace Prisma {
     canvass_id?: string | null
     vehicle_id: string
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -86325,7 +86059,6 @@ export namespace Prisma {
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -86346,7 +86079,6 @@ export namespace Prisma {
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -86423,7 +86155,6 @@ export namespace Prisma {
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -86444,7 +86175,6 @@ export namespace Prisma {
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -88087,7 +87817,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -88101,7 +87830,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -88220,7 +87948,6 @@ export namespace Prisma {
     notes?: StringFilter<"OSRIVApprover"> | string
     status?: IntFilter<"OSRIVApprover"> | number
     label?: StringFilter<"OSRIVApprover"> | string
-    label_id?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
     updated_by?: StringNullableFilter<"OSRIVApprover"> | string | null
     updated_at?: DateTimeFilter<"OSRIVApprover"> | Date | string
@@ -88685,7 +88412,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -88699,7 +88425,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -88876,7 +88601,6 @@ export namespace Prisma {
     notes?: StringFilter<"SERIVApprover"> | string
     status?: IntFilter<"SERIVApprover"> | number
     label?: StringFilter<"SERIVApprover"> | string
-    label_id?: StringFilter<"SERIVApprover"> | string
     order?: IntFilter<"SERIVApprover"> | number
     updated_by?: StringNullableFilter<"SERIVApprover"> | string | null
     updated_at?: DateTimeFilter<"SERIVApprover"> | Date | string
@@ -89455,7 +89179,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -89469,7 +89192,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -89656,7 +89378,6 @@ export namespace Prisma {
     notes?: StringFilter<"MRVApprover"> | string
     status?: IntFilter<"MRVApprover"> | number
     label?: StringFilter<"MRVApprover"> | string
-    label_id?: StringFilter<"MRVApprover"> | string
     order?: IntFilter<"MRVApprover"> | number
     updated_by?: StringNullableFilter<"MRVApprover"> | string | null
     updated_at?: DateTimeFilter<"MRVApprover"> | Date | string
@@ -90309,7 +90030,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -90323,7 +90043,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -90496,7 +90215,6 @@ export namespace Prisma {
     notes?: StringFilter<"MCTApprover"> | string
     status?: IntFilter<"MCTApprover"> | number
     label?: StringFilter<"MCTApprover"> | string
-    label_id?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
     updated_by?: StringNullableFilter<"MCTApprover"> | string | null
     updated_at?: DateTimeFilter<"MCTApprover"> | Date | string
@@ -90712,7 +90430,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -90726,7 +90443,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -90916,7 +90632,6 @@ export namespace Prisma {
     notes?: StringFilter<"MCRTApprover"> | string
     status?: IntFilter<"MCRTApprover"> | number
     label?: StringFilter<"MCRTApprover"> | string
-    label_id?: StringFilter<"MCRTApprover"> | string
     order?: IntFilter<"MCRTApprover"> | number
     updated_by?: StringNullableFilter<"MCRTApprover"> | string | null
     updated_at?: DateTimeFilter<"MCRTApprover"> | Date | string
@@ -91376,7 +91091,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -91390,7 +91104,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -91468,7 +91181,6 @@ export namespace Prisma {
     notes?: StringFilter<"MSTApprover"> | string
     status?: IntFilter<"MSTApprover"> | number
     label?: StringFilter<"MSTApprover"> | string
-    label_id?: StringFilter<"MSTApprover"> | string
     order?: IntFilter<"MSTApprover"> | number
     updated_by?: StringNullableFilter<"MSTApprover"> | string | null
     updated_at?: DateTimeFilter<"MSTApprover"> | Date | string
@@ -92012,7 +91724,6 @@ export namespace Prisma {
     spr_number: string
     date_requested: Date | string
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -92032,7 +91743,6 @@ export namespace Prisma {
     date_requested: Date | string
     canvass_id?: string | null
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -92168,7 +91878,6 @@ export namespace Prisma {
     canvass_id?: StringNullableFilter<"SPR"> | string | null
     vehicle_id?: StringFilter<"SPR"> | string
     classification_id?: StringNullableFilter<"SPR"> | string | null
-    supervisor_id?: StringFilter<"SPR"> | string
     notes?: StringFilter<"SPR"> | string
     cancelled_by?: StringNullableFilter<"SPR"> | string | null
     created_by?: StringFilter<"SPR"> | string
@@ -94210,7 +93919,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94222,7 +93930,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94234,7 +93941,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94246,7 +93952,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94258,7 +93963,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94270,7 +93974,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94282,7 +93985,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94294,7 +93996,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94685,7 +94386,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -94709,7 +94409,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94723,7 +94422,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94737,7 +94435,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94783,7 +94480,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -94829,7 +94525,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94843,7 +94538,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94857,7 +94551,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94973,7 +94666,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -94997,7 +94689,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95011,7 +94702,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95025,7 +94715,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95071,7 +94760,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -95107,7 +94795,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95121,7 +94808,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95135,7 +94821,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95219,7 +94904,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -95243,7 +94927,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95257,7 +94940,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95271,7 +94953,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95317,7 +94998,6 @@ export namespace Prisma {
     notes: string
     status: number
     label: string
-    label_id: string
     order: number
     updated_by?: string | null
     updated_at?: Date | string
@@ -95342,7 +95022,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95356,7 +95035,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95370,7 +95048,6 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
-    label_id?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95465,7 +95142,6 @@ export namespace Prisma {
     date_requested: Date | string
     canvass_id?: string | null
     classification_id?: string | null
-    supervisor_id: string
     notes: string
     cancelled_by?: string | null
     created_by: string
@@ -95626,7 +95302,6 @@ export namespace Prisma {
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -95646,7 +95321,6 @@ export namespace Prisma {
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -95665,7 +95339,6 @@ export namespace Prisma {
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
