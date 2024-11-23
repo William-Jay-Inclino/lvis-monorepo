@@ -13,12 +13,16 @@
                         <ul class="nav nav-tabs justify-content-center">
                             <li class="nav-item" @click="isCanvassDetailForm = true">
                                 <a class="nav-link" :class="{ 'active': isCanvassDetailForm }" href="#">
-                                    <i class="fas fa-info-circle"></i> Canvass Info
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> Canvass Info
                                 </a>
                             </li>
                             <li class="nav-item" @click="isCanvassDetailForm = false">
                                 <a class="nav-link" :class="{ 'active': !isCanvassDetailForm }" href="#">
-                                    <i class="fas fa-shopping-cart"></i> Canvass Items
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                            </client-only> Canvass Items
                                 </a>
                             </li>
                         </ul>
@@ -57,7 +61,7 @@
                                 Requisitioner <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="canvass.requested_by"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="canvass.requested_by" :clearable="false"></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-if="canvassErrors.requisitioner"> This field is required
                             </small>
@@ -99,12 +103,16 @@
                         <div class="d-flex justify-content-between pt-3">
                             <div>
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/canvass">
-                                    <i class="fas fa-chevron-left"></i> Back to Search
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Back to Search
                                 </nuxt-link>
                             </div>
                             <div v-if="isCanvassDetailForm">
                                 <button @click="updateCanvassDetail()" class="btn btn-success" :disabled="isUpdating">
-                                    <i class="fas fa-sync"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                            </client-only> {{ isUpdating ? 'Updating...' : 'Update' }}
                                 </button>
                             </div>
                         </div>

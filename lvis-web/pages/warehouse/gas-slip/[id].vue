@@ -14,12 +14,16 @@
                         <ul class="nav nav-tabs justify-content-center">
                             <li class="nav-item" @click="form = FORM.UPDATE_INFO">
                                 <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_INFO }" href="#">
-                                    <i class="fas fa-info-circle"></i> Gas Slip Info
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> Gas Slip Info
                                 </a>
                             </li>
                             <li class="nav-item" @click="form = FORM.UPDATE_APPROVERS">
                                 <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_APPROVERS }" href="#">
-                                    <i class="fas fa-users"></i> Signatories
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Signatories
                                 </a>
                             </li>
                         </ul>
@@ -196,13 +200,17 @@
                         <div class="d-flex justify-content-between pt-3">
                             <div>
                                 <nuxt-link class="btn btn-secondary" :to="`/warehouse/gas-slip/view/${gasSlip.id}`">
-                                    <i class="fas fa-chevron-left"></i> Go Back
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Go Back
                                 </nuxt-link>
                             </div>
                             <div>
                                 <button v-if="form === FORM.UPDATE_INFO" @click="updateGsInfo()" type="button" class="btn btn-success"
                                     :disabled="isUpdating || isSaveDisabled">
-                                    <i class="fas fa-sync"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                            </client-only> {{ isUpdating ? 'Updating...' : 'Update' }}
                                 </button>
                             </div>
                         </div>

@@ -22,7 +22,6 @@ export interface MSTApprover {
 export interface CreateMSTApprover {
   approver: Employee | null
   label: string
-  label_id: string
   order: number
   showRequiredMsg: boolean
 }

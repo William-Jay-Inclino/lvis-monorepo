@@ -9,36 +9,6 @@ export class SeederService {
 
     constructor(private readonly prisma: PrismaService) { }
 
-    // async seedData() {
-    //     console.log('Seeding data...');
-
-    //     try {
-    //         await this.prisma.$transaction([
-                // // this.seedClassification(),
-                // // this.seedAccount(),
-                // this.seedDepartment(),
-                // this.seedDivision(),
-                // this.seedEmployee(),
-                // this.seedUserTable(),
-                // this.seedUserEmployeeTable(),
-                // // this.seedJOApproverSetting(),
-                // // this.seedRVApproverSetting(),
-                // // this.seedSPRApproverSetting(),
-                // // this.seedMEQSApproverSetting(),
-                // // this.seedPOApproverSetting(),
-                // // this.seedRRApproverSetting(),
-                // // this.seedUserGroupTable(),
-                // // this.seedUserGroupMembersTable(),
-                // // this.seedSettingTable(),
-    //         ]
-    //         );
-
-    //         console.log('Seeding done')
-    //     } catch (error) {
-    //         console.error('Transaction failed. Rolling back...', error);
-    //     }
-    // }
-
     async seedData() {
         console.log('Starting database seeding transaction...');
 

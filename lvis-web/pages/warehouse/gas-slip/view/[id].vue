@@ -14,7 +14,9 @@
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
-                                        <i class="fas fa-info-circle"></i> Gas Slip Info
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> Gas Slip Info
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -136,7 +138,9 @@
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
-                                        <i class="fas fa-users"></i> Signatories
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Signatories
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -189,10 +193,15 @@
                                     <div class="me-2">
                                         <nuxt-link v-if="canSearch(authUser, 'canManageGasSlip')" class="btn btn-secondary me-2"
                                             to="/warehouse/gas-slip">
-                                            <i class="fas fa-search"></i> Search Gas Slip
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search Search Gas Slip
                                         </nuxt-link>
                                         <button v-if="!!item.can_print" @click="onClickPrint" class="btn btn-danger">
-                                            <i class="fas fa-print"></i> Print Gas Slip
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'print']"/>
+                            </client-only> Print Gas Slip
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
@@ -200,22 +209,30 @@
                                     <div v-if="!item.cancelled_at">
                                         <button v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
                                             @click="onCancelGasSlip()">
-                                            <i class="fas fa-times-circle"></i> Cancel Gas Slip
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                            </client-only> Cancel Gas Slip
                                         </button>
                                         <button v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
-                                            <i class="fas fa-edit"></i> Edit Form
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                            </client-only> Edit Form
                                         </button>
                                         <button v-if="!!item.can_post" class="btn btn-info me-2"
                                             @click="onClickPostGasSlip(item.id)">
-                                            <i class="fas fa-edit"></i> Post Gas Slip
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                            </client-only> Post Gas Slip
                                         </button>
                                         <button ref="postGasSlipBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#post_gas_slip_modal">post</button>
 
                                         <button v-if="canCreate(authUser, 'canManageGasSlip')" class="btn btn-primary me-2"
                                             @click="onClickAdd">
-                                            <i class="fas fa-plus"></i> Add New Gas Slip
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'plus']"/>
+                         </client-only> Add New Gas Slip
                                         </button>
                                     </div>
                                 </div>

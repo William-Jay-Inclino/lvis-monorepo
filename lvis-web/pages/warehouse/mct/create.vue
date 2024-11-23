@@ -71,7 +71,9 @@
                             <div class="h5wrapper mb-3">
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
-                                    <i class="fas fa-info-circle"></i> MRV Info
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> MRV Info
                                 </h5>
                                 <hr class="result">
                             </div>
@@ -124,7 +126,9 @@
                             <div class="h5wrapper mb-3">
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
-                                    <i class="fas fa-shopping-cart"></i> MRV Items
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                            </client-only> MRV Items
                                 </h5>
                                 <hr class="result">
                             </div>
@@ -180,11 +184,16 @@
                     <div class="col-lg-6">
                         <div class="d-flex justify-content-between">
                             <nuxt-link class="btn btn-secondary" to="/warehouse/mct">
-                                <i class="fas fa-search"></i> Search MCT 
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search Search MCT 
                             </nuxt-link>
                             <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                 class="btn btn-primary">
-                                <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'save']"/>
+                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                             </button>
                         </div>
         
@@ -212,7 +221,7 @@
     import type { Employee } from '~/composables/system/employee/employee.types';
     import { addPropertyFullName } from '~/composables/system/employee/employee';
     import Swal from 'sweetalert2';
-    import { MCT_APPROVER, MCT_DEFAULT_APPROVERS } from '~/composables/warehouse/mct/mct.constants';
+    import { MCT_DEFAULT_APPROVERS } from '~/composables/warehouse/mct/mct.constants';
     import type { MRV } from '~/composables/warehouse/mrv/mrv.types';
 import { fetchMRVsByMrvNumber } from '~/composables/warehouse/mrv/mrv.api';
 
@@ -260,7 +269,7 @@ import { fetchMRVsByMrvNumber } from '~/composables/warehouse/mrv/mrv.api';
 
         // set default ISSUED BY / WAREHOUSE CUSTODIAN
         if(response.warehouse_custodian) {
-            const wc = mctData.value.approvers.find(i => i.label_id === MCT_APPROVER.ISSUED_BY)
+            const wc = mctData.value.approvers.find(i => i.order === 1)
             if(wc) {
                 wc.approver = response.warehouse_custodian
                 wc.approver['fullname'] = getFullname(wc.approver.firstname, wc.approver.middlename, wc.approver.lastname)

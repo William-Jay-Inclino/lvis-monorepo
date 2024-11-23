@@ -166,20 +166,29 @@
         
                             <div>
                                 <nuxt-link v-show="currentStep === 1" class="btn btn-secondary" to="/warehouse/rr">
-                                    <i class="fas fa-search"></i> Search RR
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search Search RR
                                 </nuxt-link>
         
                                 <button v-show="currentStep === 2" @click="goToStep1" class="btn btn-secondary">
-                                    <i class="fas fa-chevron-left"></i> Back
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Back
                                 </button>
         
                             </div>
         
                             <button v-show="currentStep === 1" @click="goToStep2" class="btn btn-primary">
-                                <i class="fas fa-chevron-right"></i> Next
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                            </client-only> Next
                             </button>
                             <button @click="save()" v-show="currentStep === 2" class="btn btn-primary" :disabled="isSaving">
-                                <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'save']"/>
+                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                             </button>
                         </div>
                     </div>

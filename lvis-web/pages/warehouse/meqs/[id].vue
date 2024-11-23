@@ -12,7 +12,9 @@
                         <ul class="nav nav-tabs justify-content-center">
                             <li class="nav-item" @click="onClickTab(FORM_TYPE.MEQS_INFO)">
                                 <a class="nav-link" :class="{ 'active': form === FORM_TYPE.MEQS_INFO }" href="#">
-                                    <i class="fas fa-info-circle"></i> MEQS Info
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> MEQS Info
                                 </a>
                             </li>
                             <li class="nav-item" @click="onClickTab(FORM_TYPE.SUPPLIER)">
@@ -27,7 +29,9 @@
                             </li>
                             <!-- <li v-if="isAdmin(authUser)" class="nav-item" @click="onClickTab(FORM_TYPE.APPROVER)">
                                 <a class="nav-link" :class="{ 'active': form === FORM_TYPE.APPROVER }" href="#">
-                                    <i class="fas fa-users"></i> Approvers
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Approvers
                                 </a>
                             </li> -->
                         </ul>
@@ -149,13 +153,17 @@
                         <div class="d-flex justify-content-between pt-3">
                             <div>
                                 <nuxt-link class="btn btn-secondary" :to="`/warehouse/meqs/view/${meqsData.id}`">
-                                    <i class="fas fa-chevron-left"></i> Go Back
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Go Back
                                 </nuxt-link>
                             </div>
                             <div>
                                 <button v-if="form === FORM_TYPE.MEQS_INFO" @click="updateMeqsInfo()" type="button"
                                     class="btn btn-success" :disabled="isUpdating">
-                                    <i class="fas fa-sync"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                            </client-only> {{ isUpdating ? 'Updating...' : 'Update' }}
                                 </button>
                             </div>
                         </div>

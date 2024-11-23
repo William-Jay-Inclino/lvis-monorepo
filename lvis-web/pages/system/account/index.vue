@@ -12,7 +12,10 @@
                     <div class="col">
                         <button v-if="canCreate(authUser, 'canManageAccount')" @click="onClickCreate"
                             class="btn btn-primary float-end">
-                            <i class="fas fa-plus"></i> Create
+                            <client-only>
+                            <font-awesome-icon :icon="['fas', 'plus']"/>
+                        </client-only> 
+                        Create
                         </button>
                     </div>
                 </div>
@@ -39,7 +42,9 @@
                                                 <th class="bg-secondary text-white">Name</th>
                                                 <th class="bg-secondary text-white">Description</th>
                                                 <th class="text-center bg-secondary text-white">
-                                                    <i class="fas fa-cog"></i>
+                                                    <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'cog']" />
+                                                </client-only>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -51,13 +56,15 @@
                                                 <td class="text-center">
                                                     <button :disabled="!canDelete(authUser, 'canManageAccount')"
                                                         @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
-                                                        <i class="fas fa-trash"
-                                                            :class="{ 'text-danger': canDelete(authUser, 'canManageAccount') }"></i>
+                                                        <client-only>
+                                                            <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageAccount', SERVICES.SYSTEM) }"/>
+                                                        </client-only>
                                                     </button>
                                                     <button :disabled="!canEdit(authUser, 'canManageAccount')"
                                                         @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
-                                                        <i class="fas fa-edit"
-                                                            :class="{ 'text-primary': canEdit(authUser, 'canManageAccount') }"></i>
+                                                        <client-only>
+                                                            <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageAccount', SERVICES.SYSTEM) }" />
+                                                        </client-only>
                                                     </button>
                                                 </td>
                                             </tr>

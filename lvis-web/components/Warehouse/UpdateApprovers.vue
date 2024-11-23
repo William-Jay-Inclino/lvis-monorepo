@@ -43,7 +43,9 @@
                             <i class="fas fa-close"></i> Close
                         </button>
                         <button @click="handleChangeApprover()" class="btn btn-primary" :disabled="!newApprover || isUpdating">
-                            <i class="fas fa-edit"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                            </client-only> {{ isUpdating ? 'Updating...' : 'Update' }}
                         </button>
                     </div>
                 </div>

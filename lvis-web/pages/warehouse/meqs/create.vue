@@ -204,11 +204,16 @@
         
                                 <div class="d-flex justify-content-between">
                                     <nuxt-link class="btn btn-secondary" to="/warehouse/meqs">
-                                        <i class="fas fa-search"></i> Search MEQS
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search Search MEQS
                                     </nuxt-link>
                                     <button @click="goToStep2()" type="button" class="btn btn-primary"
                                         :disabled="!canProceedStep2">
-                                        <i class="fas fa-chevron-right"></i> Next
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                            </client-only> Next
                                     </button>
                                 </div>
                             </div>
@@ -227,11 +232,15 @@
                                 <div class="d-flex justify-content-between">
                                     <button @click="goToStep1()" type="button" class="btn btn-secondary"
                                         :disabled="!hasReference">
-                                        <i class="fas fa-chevron-left"></i> Back
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Back
                                     </button>
                                     <button @click="goToStep3()" type="button" class="btn btn-primary"
                                         :disabled="!canProceedStep3">
-                                        <i class="fas fa-chevron-right"></i> Next
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                            </client-only> Next
                                     </button>
                                 </div>
         
@@ -250,11 +259,15 @@
                                 <div class="d-flex justify-content-between mt-3">
                                     <button @click="goToStep2()" type="button" class="btn btn-secondary"
                                         :disabled="!hasReference">
-                                        <i class="fas fa-chevron-left"></i> Back
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Back
                                     </button>
                                     <button @click="onSaveMeqs()" type="button" class="btn btn-primary"
                                         :disabled="isSavingMeqs">
-                                        <i class="fas fa-save"></i> {{ isSavingMeqs ? 'Saving MEQS...' : 'Save MEQS' }}
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'save']"/>
+                            </client-only> {{ isSavingMeqs ? 'Saving MEQS...' : 'Save MEQS' }}
                                     </button>
                                 </div>
         

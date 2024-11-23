@@ -9,7 +9,10 @@
             <div class="row">
                 <div class="col">
                     <button @click="onClickCreate" class="btn btn-primary float-end">
-                        <i class="fas fa-plus"></i> Create
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'plus']"/>
+                        </client-only> 
+                        Create
                     </button>
                 </div>
             </div>
@@ -20,7 +23,10 @@
                         <input @keyup.enter="search()" type="text" class="form-control" placeholder="Enter username..."
                             v-model="searchValue">
                         <button class="btn btn-primary" @click="search()">
-                            <i class="fas fa-search"></i> Search
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search
                         </button>
                     </div>
                 </div>
@@ -45,7 +51,9 @@
                                             <th class="bg-secondary text-white text-center">Status</th>
                                             <th class="bg-secondary text-white">Role</th>
                                             <th class="text-center bg-secondary text-white">
-                                                <i class="fas fa-cog"></i>
+                                                <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'cog']" />
+                                                </client-only> 
                                             </th>
                                         </tr>
                                     </thead>
@@ -67,10 +75,14 @@
                                             <td class="text-muted"> {{ i.role }} </td>
                                             <td class="text-center">
                                                 <button @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
-                                                    <i class="fas fa-trash text-danger"></i>
+                                                    <client-only>
+                                                        <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                                                    </client-only>
                                                 </button>
                                                 <button @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
-                                                    <i class="fas fa-edit text-primary"></i>
+                                                    <client-only>
+                                                        <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
+                                                    </client-only>
                                                 </button>
                                             </td>
                                         </tr>

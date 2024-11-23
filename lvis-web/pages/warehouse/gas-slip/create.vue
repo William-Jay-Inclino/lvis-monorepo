@@ -141,7 +141,9 @@
                             <div class="h5wrapper mb-3">
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
-                                    <i class="fas fa-users"></i> Signatories
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Signatories
                                 </h5>
                                 <hr class="result">
                             </div>
@@ -163,10 +165,15 @@
 
                             <div class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/gas-slip">
-                                    <i class="fas fa-search"></i> Search Gas Slip
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search Search Gas Slip
                                 </nuxt-link>
                                 <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaveDisabled || isSaving">
-                                    <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'save']"/>
+                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
                         </div>

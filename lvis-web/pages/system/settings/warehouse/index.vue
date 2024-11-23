@@ -11,7 +11,9 @@
                     <ul class="nav nav-tabs justify-content-center">
                         <li class="nav-item" @click="rootTab = ROOT_TABS.PURCHASING">
                             <a class="nav-link" :class="{ 'active': rootTab === ROOT_TABS.PURCHASING }" href="#">
-                                <i class="fas fa-shopping-cart"></i>
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                            </client-only>
                                 Purchasing
                             </a>
                         </li>
@@ -43,7 +45,9 @@
                 <div class="h5wrapper mb-3 pt-5">
                     <hr class="result">
                     <h5 class="text-warning fst-italic">
-                        <i class="fas fa-users"></i> Default {{ purchasingTab }} Approvers
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Default {{ purchasingTab }} Approvers
                     </h5>
                     <hr class="result">
                 </div>

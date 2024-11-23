@@ -53,7 +53,9 @@
                         <i class="fas fa-close"></i> Close
                     </button>
                     <button @click="save" class="btn btn-primary" :disabled="!canSave || isSavingMeqs">
-                        <i class="fas fa-save"></i> {{ isSavingMeqs ? 'Saving...' : 'Save' }}
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'save']"/>
+                            </client-only> {{ isSavingMeqs ? 'Saving...' : 'Save' }}
                     </button>
                 </div>
                 </div>

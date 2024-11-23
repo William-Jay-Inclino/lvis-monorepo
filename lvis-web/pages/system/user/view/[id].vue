@@ -11,7 +11,10 @@
                         <div class="h5wrapper mb-3">
                             <hr class="result">
                             <h5 class="text-warning fst-italic">
-                                <i class="fas fa-info-circle"></i> User Info
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                </client-only>  
+                                User Info
                             </h5>
                             <hr class="result">
                         </div>
@@ -63,7 +66,10 @@
                         <div class="h5wrapper mb-3 pt-3">
                             <hr class="result">
                             <h5 class="text-warning fst-italic">
-                                <i class="fas fa-info-circle"></i> User Permissions
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'key']"/>
+                                </client-only>  
+                                User Permissions
                             </h5>
                             <hr class="result">
                         </div>
@@ -83,13 +89,22 @@
                                 <div class="d-flex justify-content-end gap-2">
                                     <div class="d-flex justify-content-end gap-2">
                                         <button class="btn btn-secondary" @click="onClickGoToList">
-                                            <i class="fas fa-list"></i> Go to List
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'list']"/>
+                                            </client-only> 
+                                            Go to List
                                         </button>
                                         <button class="btn btn-success" @click="onClickUpdate">
-                                            <i class="fas fa-sync"></i> Update
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                                            </client-only> 
+                                            Update
                                         </button>
                                         <button class="btn btn-primary" @click="onClickAddNew">
-                                            <i class="fas fa-plus"></i> Add New
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'plus']"/>
+                                            </client-only> 
+                                            Add New
                                         </button>
                                     </div>
                                 </div>

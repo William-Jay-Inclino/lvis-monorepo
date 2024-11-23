@@ -42,7 +42,9 @@
                                                 <i class="fas fa-check-circle"></i> Approve
                                             </button>
                                             <button @click="handleCommonDisapprove(i)" class="btn btn-light w-50 text-danger">
-                                                <i class="fas fa-times-circle"></i> Disapprove
+                                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                            </client-only> Disapprove
                                             </button>
                                         </td>
                                         <td v-else class="text-center align-middle">
@@ -50,7 +52,9 @@
                                                 <i class="fas fa-check-circle"></i> Approve
                                             </button>
                                             <button @click="handleCommonDisapprove(i)" class="btn btn-light w-50 text-danger">
-                                                <i class="fas fa-times-circle"></i> Disapprove
+                                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                            </client-only> Disapprove
                                             </button>
                                         </td>
                                     </tr>

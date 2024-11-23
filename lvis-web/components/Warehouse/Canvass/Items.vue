@@ -21,7 +21,9 @@
                         <th class="bg-secondary text-white">Unit</th>
                         <th class="bg-secondary text-white">Quantity </th>
                         <th class="bg-secondary text-white text-center">
-                            <i class="fas fa-cog"></i>
+                            <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'cog']" />
+                                                </client-only>
                         </th>
                     </tr>
                 </thead>
@@ -36,11 +38,15 @@
                         <td class="text-muted text-center">
                             <button v-if="!canvassIsReferenceInRR" @click="removeItem(i)"
                                 class="btn btn-sm btn-light w-50">
-                                <i class="fas fa-trash text-danger"></i>
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                                </client-only>
                             </button>
                             <button @click="onClickEdit(i)" class="btn btn-sm btn-light w-50" data-bs-toggle="modal"
                                 data-bs-target="#canvassItemModal">
-                                <i class="fas fa-edit text-primary"></i>
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
+                                </client-only>
                             </button>
                         </td>
                     </tr>
@@ -51,7 +57,9 @@
                         <td colspan="7" class="text-center">
                             <button @click="onCLickAdd()" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#canvassItemModal">
-                                <i class="fas fa-plus-circle"></i> Add Item
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'plus-circle']" />
+                                </client-only> Add Item
                             </button>
                         </td>
                     </tr>
@@ -156,10 +164,14 @@
                             <i class="fas fa-close"></i> Close
                         </button>
                         <button v-if="formIsAdd" @click="addItem" class="btn btn-primary" :disabled="isAdding">
-                            <i class="fas fa-plus-circle"></i> {{ isAdding ? 'Adding...' : 'Add' }} Item
+                            <client-only>
+                                    <font-awesome-icon :icon="['fas', 'plus-circle']"/>
+                                </client-only> {{ isAdding ? 'Adding...' : 'Add' }} Item
                         </button>
                         <button v-else @click="editItem" class="btn btn-primary" :disabled="isEditing">
-                            <i class="fas fa-edit"></i> {{ isEditing ? 'Editing...' : 'Edit' }} Item
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                            </client-only> {{ isEditing ? 'Editing...' : 'Edit' }} Item
                         </button>
                     </div>
                 </div>

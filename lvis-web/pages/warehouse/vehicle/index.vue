@@ -13,7 +13,10 @@
                     <div class="col">
                         <button v-if="canCreate(authUser, 'canManageVehicle')" @click="onClickCreate"
                             class="btn btn-primary float-end">
-                            <i class="fas fa-plus"></i> Create
+                            <client-only>
+                            <font-awesome-icon :icon="['fas', 'plus']"/>
+                        </client-only> 
+                        Create
                         </button>
                     </div>
                 </div>
@@ -41,7 +44,9 @@
                                                 <th class="bg-secondary text-white">Assignee</th>
                                                 <th class="bg-secondary text-white text-center">Status</th>
                                                 <th class="text-center bg-secondary text-white">
-                                                    <i class="fas fa-cog"></i>
+                                                    <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'cog']" />
+                                                </client-only>
                                                 </th>
                                             </tr>
                                         </thead>

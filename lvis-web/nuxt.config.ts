@@ -33,6 +33,7 @@ export default defineNuxtConfig({
   },
 
   plugins: [
+      { src: '~/plugins/fontawesome.ts', mode: 'client' },
       { src: '~/plugins/bootstrap.client.ts', mode: 'client' },
       { src: '~/plugins/vue-toastification.ts', mode: 'client' },
       { src: '~/plugins/vue-select.ts', mode: 'client' },

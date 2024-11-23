@@ -123,11 +123,15 @@
         
                                 <div class="d-flex justify-content-between">
                                     <nuxt-link class="btn btn-secondary" to="/warehouse/po">
-                                        <i class="fas fa-chevron-left"></i> Back to Search
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Back to Search
                                     </nuxt-link>
                                     <button @click="save()" type="button" class="btn btn-primary"
                                         :disabled="isSaving || !canSave">
-                                        <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'save']"/>
+                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                     </button>
                                 </div>
         
@@ -140,7 +144,9 @@
                 <div v-if="selectedMeqs && poData.meqs_supplier" class="h5wrapper mb-3 pt-5">
                     <hr class="result">
                     <h5 class="text-warning fst-italic">
-                        <i class="fas fa-shopping-cart"></i> Items
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                            </client-only> Items
                     </h5>
                     <hr class="result">
                 </div>

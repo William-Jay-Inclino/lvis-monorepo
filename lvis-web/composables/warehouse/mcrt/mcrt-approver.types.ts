@@ -22,7 +22,6 @@ export interface MCRTApprover {
 export interface CreateMCRTApprover {
   approver: Employee | null
   label: string
-  label_id: string
   order: number
   showRequiredMsg: boolean
 }

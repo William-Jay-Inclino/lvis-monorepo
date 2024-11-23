@@ -13,17 +13,26 @@
                         <ul class="nav nav-tabs justify-content-center">
                             <li class="nav-item" @click="formType = FORM_TYPE.USER_INFO">
                                 <a class="nav-link" :class="{ 'active': formType === FORM_TYPE.USER_INFO }" href="#">
-                                    <i class="fas fa-info-circle"></i> User Info
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                    </client-only> 
+                                    User Info
                                 </a>
                             </li>
                             <li class="nav-item" @click="formType = FORM_TYPE.LOGIN_CREDENTIALS">
                                 <a class="nav-link" :class="{ 'active': formType === FORM_TYPE.LOGIN_CREDENTIALS }" href="#">
-                                    <i class="fas fa-lock"></i> Login Credentials
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'fa-lock']"/>
+                                    </client-only>  
+                                    Login Credentials
                                 </a>
                             </li>
                             <li class="nav-item" @click="formType = FORM_TYPE.USER_PERMISSIONS">
                                 <a class="nav-link" :class="{ 'active': formType === FORM_TYPE.USER_PERMISSIONS }" href="#">
-                                    <i class="fas fa-key"></i> User Permissions
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'key']"/>
+                                    </client-only>  
+                                    User Permissions
                                 </a>
                             </li>
                         </ul>
@@ -100,10 +109,16 @@
         
                             <div class="d-flex justify-content-between pt-3">
                                 <button type="button" @click="onClickGoToList" class="btn btn-secondary">
-                                    <i class="fas fa-list"></i> Go to list
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'list']"/>
+                                    </client-only> 
+                                    Go to list
                                 </button>
                                 <button type="submit" class="btn btn-success" :disabled="isUpdatingUserInfo">
-                                    <i class="fas fa-sync"></i> {{ isUpdatingUserInfo ? 'Updating...' : 'Update' }}
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'sync']"/>
+                                    </client-only> 
+                                    {{ isUpdatingUserInfo ? 'Updating...' : 'Update' }}
                                 </button>
                             </div>
         
@@ -128,11 +143,17 @@
         
                         <div class="d-flex justify-content-between pt-3">
                             <button type="button" @click="onClickGoToList" class="btn btn-secondary">
-                                <i class="fas fa-list"></i> Go to list
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'list']"/>
+                                </client-only> 
+                                Go to list
                             </button>
                             <button type="button" @click="updatePassword" class="btn btn-success"
                                 :disabled="isUpdatingPassword">
-                                <i class="fas fa-sync"></i> {{ isUpdatingPassword ? 'Updating...' : 'Update' }}
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'sync']"/>
+                                </client-only> 
+                                {{ isUpdatingPassword ? 'Updating...' : 'Update' }}
                             </button>
                         </div>
         
@@ -166,11 +187,17 @@
         
                         <div class="d-flex justify-content-between pt-3">
                             <button type="button" @click="onClickGoToList" class="btn btn-secondary">
-                                <i class="fas fa-list"></i> Go to list
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'list']"/>
+                                </client-only> 
+                                Go to list
                             </button>
                             <button type="button" @click="updatePermissions" class="btn btn-success"
                                 :disabled="isUpdatingPermissions">
-                                <i class="fas fa-sync"></i> {{ isUpdatingPermissions ? 'Updating...' : 'Update' }}
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'sync']"/>
+                                </client-only>  
+                                {{ isUpdatingPermissions ? 'Updating...' : 'Update' }}
                             </button>
                         </div>
         

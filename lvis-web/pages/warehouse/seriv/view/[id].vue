@@ -14,7 +14,9 @@
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
-                                        <i class="fas fa-info-circle"></i> SERIV Info
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> SERIV Info
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -115,7 +117,9 @@
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
-                                        <i class="fas fa-users"></i> Signatories
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Signatories
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -172,7 +176,9 @@
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
-                                        <i class="fas fa-shopping-cart"></i> Items
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                            </client-only> Items
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -215,12 +221,17 @@
                                     <div class="me-2">
                                         <nuxt-link v-if="canSearch(authUser, 'canManageSERIV')"
                                             class="btn btn-secondary me-2" to="/warehouse/SERIV">
-                                            <i class="fas fa-search"></i> Search SERIV
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search Search SERIV
                                         </nuxt-link>
                                         <button disabled
                                             v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')"
                                             @click="onClickPrint" class="btn btn-danger">
-                                            <i class="fas fa-print"></i> Print SERIV
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'print']"/>
+                            </client-only> Print SERIV
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
@@ -228,15 +239,21 @@
                                     <div v-if="!item.cancelled_at">
                                         <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING"
                                             class="btn btn-warning me-2" @click="onCancelSERIV()">
-                                            <i class="fas fa-times-circle"></i> Cancel SERIV
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                            </client-only> Cancel SERIV
                                         </button>
                                         <button v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
-                                            <i class="fas fa-edit"></i> Edit Form
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                            </client-only> Edit Form
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageSERIV')"
                                             class="btn btn-primary me-2" @click="onClickAdd">
-                                            <i class="fas fa-plus"></i> Add New SERIV
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'plus']"/>
+                         </client-only> Add New SERIV
                                         </button>
                                     </div>
                                 </div>

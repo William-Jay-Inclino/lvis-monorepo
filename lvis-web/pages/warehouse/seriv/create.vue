@@ -134,7 +134,9 @@
                             <div class="h5wrapper mb-3">
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
-                                    <i class="fas fa-users"></i> Signatories
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Signatories
                                 </h5>
                                 <hr class="result">
                             </div>
@@ -149,7 +151,7 @@
                                         label="fullname"
                                         v-model="approver.approver"
                                         :clearable="false"
-                                        :disabled="approver.label_id === SERIV_APPROVER.WAREHOUSE_CUSTODIAN"
+                                        :disabled="approver.order === 5"
                                       ></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
@@ -194,20 +196,29 @@
             
                             <div v-if="currentStep === 1" class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/seriv">
-                                    <i class="fas fa-search"></i> Search SERIV
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search Search SERIV
                                 </nuxt-link>
                                 <button @click="onClickNextStep1()" class="btn btn-primary">
-                                    <i class="fas fa-chevron-right"></i> Next
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                            </client-only> Next
                                 </button>
                             </div>
             
                             <div v-else class="d-flex justify-content-between">
                                 <button @click="currentStep--" type="button" class="btn btn-secondary">
-                                    <i class="fas fa-chevron-left"></i> Back
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Back
                                 </button>
                                 <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                     class="btn btn-primary">
-                                    <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'save']"/>
+                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
             
@@ -241,7 +252,7 @@
     import type { Station } from '~/composables/warehouse/station/station';
     import type { AddItem } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';
-    import { SERIV_APPROVER, SERIV_DEFAULT_APPROVERS } from '~/composables/warehouse/seriv/seriv.constants';
+    import { SERIV_DEFAULT_APPROVERS } from '~/composables/warehouse/seriv/seriv.constants';
     import { showCWOnumber, showMWOnumber, showORnumber } from '~/utils/helpers';
 import { useToast } from 'vue-toastification';
 
@@ -330,7 +341,7 @@ import { useToast } from 'vue-toastification';
 
         // set default warehouse_custodian
         if(response.warehouse_custodian) {
-            const wc = serivData.value.approvers.find(i => i.label_id === SERIV_APPROVER.WAREHOUSE_CUSTODIAN)
+            const wc = serivData.value.approvers.find(i => i.order === 5)
             if(wc) {
                 wc.approver = response.warehouse_custodian
                 wc.approver['fullname'] = getFullname(wc.approver.firstname, wc.approver.middlename, wc.approver.lastname)

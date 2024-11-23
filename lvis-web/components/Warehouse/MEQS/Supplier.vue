@@ -23,7 +23,9 @@
                         <th width="25%" class="bg-secondary text-white"> Payment Terms </th>
                         <th class="bg-secondary text-white"> Attachments </th>
                         <th width="15%" class="bg-secondary text-white text-center">
-                            <i class="fas fa-cog"></i>
+                            <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'cog']" />
+                                                </client-only>
                         </th>
                     </tr>
                 </thead>
@@ -80,7 +82,9 @@
                         <td colspan="5" class="text-center">
                             <button @click="onClickAdd()" type="button" class="btn btn-primary btn-sm"
                                 data-bs-toggle="modal" data-bs-target="#addSupplierModal">
-                                <i class="fas fa-plus-circle"></i> Add Supplier
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'plus-circle']"/>
+                                </client-only> Add Supplier
                             </button>
                         </td>
                     </tr>
@@ -142,7 +146,9 @@
                         <div class="h5wrapper mb-3 mt-3" v-show="formData.supplier">
                             <hr class="result">
                             <h6 class="text-warning fst-italic">
-                                <i class="fas fa-shopping-cart"></i> Items
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                            </client-only> Items
                             </h6>
                             <hr class="result">
                         </div>
@@ -205,11 +211,15 @@
                         </button>
                         <button v-if="formIsAdd" @click="addSupplier()" type="button" class="btn btn-primary"
                             :disabled="!canAddSupplier || isAddingSupplier">
-                            <i class="fas fa-plus-circle"></i> {{ isAddingSupplier ? 'Adding' : 'Add' }} Supplier
+                            <client-only>
+                                    <font-awesome-icon :icon="['fas', 'plus-circle']"/>
+                                </client-only> {{ isAddingSupplier ? 'Adding' : 'Add' }} Supplier
                         </button>
                         <button v-else @click="editSupplier()" type="button" class="btn btn-primary"
                             :disabled="!canAddSupplier || isEditingSupplier">
-                            <i class="fas fa-edit"></i> {{ isEditingSupplier ? 'Editing' : 'Edit' }} Supplier
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                            </client-only> {{ isEditingSupplier ? 'Editing' : 'Edit' }} Supplier
                         </button>
                     </div>
                 </div>
@@ -249,7 +259,9 @@
                         </button>
                         <button @click="addAttachment" class="btn btn-primary"
                             :disabled="!formAttachment.file || isAddingAttachment">
-                            <i class="fas fa-plus-circle"></i> {{ isAddingAttachment ? 'Adding...' : 'Add' }}
+                            <client-only>
+                                    <font-awesome-icon :icon="['fas', 'plus-circle']"/>
+                                </client-only> {{ isAddingAttachment ? 'Adding...' : 'Add' }}
                         </button>
                     </div>
                 </div>

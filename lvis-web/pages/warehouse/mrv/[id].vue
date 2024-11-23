@@ -14,17 +14,23 @@
                         <ul class="nav nav-tabs justify-content-center">
                             <li class="nav-item" @click="form = FORM.UPDATE_INFO">
                                 <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_INFO }" href="#">
-                                    <i class="fas fa-info-circle"></i> MRV Info
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> MRV Info
                                 </a>
                             </li>
                             <li class="nav-item" @click="form = FORM.UPDATE_APPROVERS">
                                 <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_APPROVERS }" href="#">
-                                    <i class="fas fa-users"></i> Signatories
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Signatories
                                 </a>
                             </li>
                             <li class="nav-item" @click="form = FORM.UPDATE_ITEMS">
                                 <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_ITEMS }" href="#">
-                                    <i class="fas fa-shopping-cart"></i> Items
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                            </client-only> Items
                                 </a>
                             </li>
                         </ul>
@@ -214,17 +220,23 @@
                         <div class="d-flex justify-content-between pt-3">
                             <div>
                                 <nuxt-link class="btn btn-secondary" :to="`/warehouse/mrv/view/${mrvData.id}`">
-                                    <i class="fas fa-chevron-left"></i> Go Back
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Go Back
                                 </nuxt-link>
                             </div>
                             <div>
                                 <button v-if="form === FORM.UPDATE_INFO" @click="updateMrvInfo()" type="button" class="btn btn-success"
                                     :disabled="isUpdating">
-                                    <i class="fas fa-sync"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                            </client-only> {{ isUpdating ? 'Updating...' : 'Update' }}
                                 </button>
                                 <button v-if="form === FORM.UPDATE_ITEMS" @click="updateMrvItems()" type="button" class="btn btn-success"
                                     :disabled="isUpdatingItems || isDisabledUpdateItemsBtn">
-                                    <i class="fas fa-sync"></i> {{ isUpdatingItems ? 'Updating Items...' : 'Update Items' }}
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                            </client-only> {{ isUpdatingItems ? 'Updating Items...' : 'Update Items' }}
                                 </button>
                             </div>
                         </div>

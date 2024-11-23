@@ -26,10 +26,14 @@
                     <div class="col-lg-6">
                         <div class="d-flex justify-content-between">
                             <button type="button" @click="onClickGoToList" class="btn btn-secondary">
-                                <i class="fas fa-list"></i> Go to list
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'list']"/>
+                            </client-only> Go to list
                             </button>
                             <button type="submit" class="btn btn-primary" :disabled="isSaving">
-                                <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'save']"/>
+                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                             </button>
                         </div>
                     </div>

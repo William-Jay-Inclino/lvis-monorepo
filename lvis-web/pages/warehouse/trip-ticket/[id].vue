@@ -14,12 +14,16 @@
                         <ul class="nav nav-tabs justify-content-center">
                             <li class="nav-item" @click="form = FORM.UPDATE_INFO">
                                 <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_INFO }" href="#">
-                                    <i class="fas fa-info-circle"></i> Trip Ticket Info
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> Trip Ticket Info
                                 </a>
                             </li>
                             <li class="nav-item" @click="form = FORM.UPDATE_APPROVERS">
                                 <a class="nav-link" :class="{ 'active': form === FORM.UPDATE_APPROVERS }" href="#">
-                                    <i class="fas fa-users"></i> Signatories
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Signatories
                                 </a>
                             </li>
                         </ul>
@@ -242,13 +246,17 @@
                         <div class="d-flex justify-content-between pt-3">
                             <div>
                                 <nuxt-link class="btn btn-secondary" :to="`/warehouse/trip-ticket/view/${tripTicket.id}`">
-                                    <i class="fas fa-chevron-left"></i> Go Back
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Go Back
                                 </nuxt-link>
                             </div>
                             <div>
                                 <button v-if="form === FORM.UPDATE_INFO" @click="updateTripInfo()" type="button" class="btn btn-success"
                                     :disabled="isUpdating">
-                                    <i class="fas fa-sync"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                            </client-only> {{ isUpdating ? 'Updating...' : 'Update' }}
                                 </button>
                             </div>
                         </div>

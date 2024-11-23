@@ -14,7 +14,9 @@
                             <th class="bg-secondary text-white text-center">Status</th>
                             <th class="bg-secondary text-white">Notes</th>
                             <th class="bg-secondary text-white text-center">
-                                <i class="fas fa-cog"></i>
+                                <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'cog']" />
+                                                </client-only>
                             </th>
                         </tr>
                     </thead>
@@ -55,7 +57,9 @@
                             <td colspan="7">
                                 <div class="text-center">
                                     <button @click="onClickAddApprover" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addApproverModal">
-                                        <i class="fas fa-plus-circle"></i> Add Approver
+                                        <client-only>
+                                    <font-awesome-icon :icon="['fas', 'plus-circle']"/>
+                                </client-only> Add Approver
                                     </button>
                                     <button @click="onClickChangeApprover" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#changeApproverOrderModal">
                                         <i class="fas fa-sort"></i> Change Order
@@ -128,7 +132,9 @@
                         <i class="fas fa-close"></i> Close
                     </button>
                     <button @click="updateApproverOrder" type="button" class="btn btn-primary" :disabled="isUpdatingApproverOrder">
-                        <i class="fas fa-save"></i> {{ isUpdatingApproverOrder ? 'Saving...' : 'Save' }}
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'save']"/>
+                            </client-only> {{ isUpdatingApproverOrder ? 'Saving...' : 'Save' }}
                     </button>
                 </div>
                 </div>
@@ -254,7 +260,9 @@
                         <i class="fas fa-close"></i> Close
                     </button>
                     <button @click="editApprover" class="btn btn-primary" :disabled="isEditingApprover">
-                        <i class="fas fa-edit"></i> {{ isEditingApprover ? 'Editing...' : 'Edit' }}
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                            </client-only> {{ isEditingApprover ? 'Editing...' : 'Edit' }}
                     </button>
                 </div>
                 </div>

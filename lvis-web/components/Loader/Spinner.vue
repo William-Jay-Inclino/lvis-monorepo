@@ -4,11 +4,7 @@
             <div class="spinner-inner"></div>
         </div>
         <p class="loading-text text-muted fst-italic">
-            <!-- How about a quick smile while waiting? -->
             Loading... please wait
-            <client-only>
-                <font-awesome-icon :icon="['fas', 'smile']"/>
-            </client-only>
         </p>
     </div>
 </template>

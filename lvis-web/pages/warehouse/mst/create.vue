@@ -79,7 +79,9 @@
                             <div class="h5wrapper mb-3">
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
-                                    <i class="fas fa-users"></i> Signatories
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Signatories
                                 </h5>
                                 <hr class="result">
                             </div>
@@ -131,20 +133,29 @@
             
                             <div v-if="currentStep === 1" class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/mst">
-                                    <i class="fas fa-search"></i> Search MST
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search Search MST
                                 </nuxt-link>
                                 <button @click="onClickNextStep1()" class="btn btn-primary">
-                                    <i class="fas fa-chevron-right"></i> Next
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                            </client-only> Next
                                 </button>
                             </div>
             
                             <div v-else class="d-flex justify-content-between">
                                 <button @click="currentStep--" type="button" class="btn btn-secondary">
-                                    <i class="fas fa-chevron-left"></i> Back
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Back
                                 </button>
                                 <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                     class="btn btn-primary">
-                                    <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'save']"/>
+                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
             

@@ -12,7 +12,10 @@
                     <div class="col">
                         <button v-if="canCreate(authUser, 'canManageEmployee', SERVICES.SYSTEM)" @click="onClickCreate"
                             class="btn btn-primary float-end">
-                            <i class="fas fa-plus"></i> Create
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'plus']"/>
+                            </client-only> 
+                            Create
                         </button>
                     </div>
                 </div>
@@ -23,7 +26,10 @@
                             <input @keyup.enter="search()" type="text" class="form-control" placeholder="Enter name..."
                                 v-model="searchValue">
                             <button class="btn btn-primary" @click="search()">
-                                <i class="fas fa-search"></i> Search
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search Search
                             </button>
                         </div>
                     </div>
@@ -49,7 +55,9 @@
                                                 <th class="bg-secondary text-white">Position</th>
                                                 <th class="bg-secondary text-white">Signature</th>
                                                 <th class="text-center bg-secondary text-white">
-                                                    <i class="fas fa-cog"></i>
+                                                    <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'cog']" />
+                                                </client-only>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -71,13 +79,15 @@
                                                     <button
                                                         :disabled="!canDelete(authUser, 'canManageEmployee', SERVICES.SYSTEM)"
                                                         @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
-                                                        <i class="fas fa-trash"
-                                                            :class="{ 'text-danger': canDelete(authUser, 'canManageEmployee', SERVICES.SYSTEM) }"></i>
+                                                        <client-only>
+                                                            <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageEmployee', SERVICES.SYSTEM) }"/>
+                                                        </client-only>
                                                     </button>
                                                     <button :disabled="!canEdit(authUser, 'canManageEmployee', SERVICES.SYSTEM)"
                                                         @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
-                                                        <i class="fas fa-edit"
-                                                            :class="{ 'text-primary': canEdit(authUser, 'canManageEmployee', SERVICES.SYSTEM) }"></i>
+                                                        <client-only>
+                                                            <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageEmployee', SERVICES.SYSTEM) }" />
+                                                        </client-only>
                                                     </button>
                                                 </td>
                                             </tr>

@@ -500,7 +500,6 @@ export async function create(input: CreateOsrivInput): Promise<MutationResponse>
         {
           approver_id: "${i.approver?.id}"
           label: "${i.label}"
-          label_id: "${i.label_id}"
           order: ${i.order}
         }`;
     }).join(', ');

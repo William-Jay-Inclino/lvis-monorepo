@@ -22,7 +22,6 @@ export interface MCTApprover {
 export interface CreateMCTApprover {
   approver: Employee | null
   label: string
-  label_id: string
   order: number
   showRequiredMsg: boolean
 }

@@ -12,12 +12,16 @@
                         <ul class="nav nav-tabs justify-content-center">
                             <li class="nav-item" @click="isJODetailForm = true">
                                 <a class="nav-link" :class="{ 'active': isJODetailForm }" href="#">
-                                    <i class="fas fa-info-circle"></i> JO Info
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> JO Info
                                 </a>
                             </li>
                             <li class="nav-item" @click="isJODetailForm = false">
                                 <a class="nav-link" :class="{ 'active': !isJODetailForm }" href="#">
-                                    <i class="fas fa-users"></i> Approvers
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']"/>
+                            </client-only> Approvers
                                 </a>
                             </li>
                         </ul>
@@ -156,13 +160,17 @@
                         <div class="d-flex justify-content-between pt-3">
                             <div>
                                 <nuxt-link class="btn btn-secondary" :to="`/warehouse/jo/view/${joData.id}`">
-                                    <i class="fas fa-chevron-left"></i> Go Back
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> Go Back
                                 </nuxt-link>
                             </div>
                             <div>
                                 <button v-if="isJODetailForm" @click="updateJoInfo()" type="button" class="btn btn-success"
                                     :disabled="isUpdating">
-                                    <i class="fas fa-sync"></i> {{ isUpdating ? 'Updating...' : 'Update' }}
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                            </client-only> {{ isUpdating ? 'Updating...' : 'Update' }}
                                 </button>
                             </div>
                         </div>

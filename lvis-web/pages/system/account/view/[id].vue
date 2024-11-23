@@ -12,7 +12,9 @@
                         <div class="h5wrapper mb-3">
                             <hr class="result">
                             <h5 class="text-warning fst-italic">
-                                <i class="fas fa-info-circle"></i> Account Info
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> Account Info
                             </h5>
                             <hr class="result">
                         </div>
@@ -44,15 +46,21 @@
                                     <div class="d-flex justify-content-end gap-2">
                                         <button v-if="canRead(authUser, 'canManageAccount')" class="btn btn-secondary"
                                             @click="onClickGoToList">
-                                            <i class="fas fa-list"></i> Go to List
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'list']"/>
+                            </client-only> Go to List
                                         </button>
                                         <button v-if="canEdit(authUser, 'canManageAccount')" class="btn btn-success"
                                             @click="onClickUpdate">
-                                            <i class="fas fa-sync"></i> Update
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                            </client-only> Update
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageAccount')" class="btn btn-primary"
                                             @click="onClickAddNew">
-                                            <i class="fas fa-plus"></i> Add New
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'plus']"/>
+                         </client-only> Add New
                                         </button>
                                     </div>
                                 </div>
@@ -81,7 +89,7 @@ import * as api from '~/composables/system/account/account.api'
 import type { Account } from '~/composables/system/account/account';
 
 definePageMeta({
-    name: ROUTES.ACCOUNT_UPDATE,
+    name: ROUTES.ACCOUNT_VIEW,
     layout: "layout-system",
     middleware: ['auth'],
 })

@@ -22,7 +22,6 @@ export interface MRVApprover {
 export interface CreateMRVApprover {
   approver: Employee | null
   label: string
-  label_id: string
   order: number
   showRequiredMsg: boolean
 }

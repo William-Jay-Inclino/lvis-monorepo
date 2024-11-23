@@ -34,11 +34,17 @@
         
                 <div class="d-flex justify-content-end gap-2">
                     <button @click="search()" class="btn btn-primary" :disabled="isSearching">
-                        <i class="fas fa-search"></i> {{ isSearching ? 'Searching...' : 'Search' }}
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
                     <button v-if="canCreate(authUser, 'canManageCanvass')" @click="onClickAdd"
                         class="btn btn-primary float-end">
-                        <i class="fas fa-plus"></i> Create Canvass
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'plus']"/>
+                        </client-only> 
+                        Create Canvass
                     </button>
                 </div>
         
@@ -75,7 +81,9 @@
                                                 <th class="bg-secondary text-white">Requisitioner</th>
                                                 <th class="bg-secondary text-white">Date</th>
                                                 <th class="bg-secondary text-center text-white">
-                                                    <i class="fas fa-cogs"></i>
+                                                    <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'cog']" />
+                                                </client-only>
                                                 </th>
                                             </tr>
                                         </thead>

@@ -14,7 +14,9 @@
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
-                                        <i class="fas fa-info-circle"></i> Canvass Info
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> Canvass Info
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -191,7 +193,9 @@
                                     <div class="h5wrapper mb-3">
                                         <hr class="result">
                                         <h5 class="text-warning fst-italic">
-                                            <i class="fas fa-shopping-cart"></i> Canvass Items
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                            </client-only> Canvass Items
                                         </h5>
                                         <hr class="result">
                                     </div>
@@ -231,21 +235,30 @@
                                     <div class="me-2">
                                         <nuxt-link v-if="canSearch(authUser, 'canManageCanvass')" class="btn btn-secondary me-2"
                                             to="/warehouse/canvass">
-                                            <i class="fas fa-search"></i> Search Canvass
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                            Search Search Canvass
                                         </nuxt-link>
                                         <button v-if="canPrint(authUser, 'canManageCanvass')" @click="onClickPrint" class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">
-                                            <i class="fas fa-print"></i> Print Canvass
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'print']"/>
+                            </client-only> Print Canvass
                                         </button>
                                     </div>
                                     <div v-if="!item.deleted_at">
                                         <nuxt-link v-if="!!item.can_update" class="btn btn-success me-2"
                                             :to="`/warehouse/canvass/${item.id}`">
-                                            <i class="fas fa-sync"></i> Update Canvass
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                            </client-only> Update Canvass
                                         </nuxt-link>
                                         <nuxt-link v-if="canCreate(authUser, 'canManageCanvass')" class="btn btn-primary"
                                             to="/warehouse/canvass/create">
-                                            <i class="fas fa-plus"></i> Add New Canvass
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'plus']"/>
+                         </client-only> Add New Canvass
                                         </nuxt-link>
                                     </div>
                                 </div>

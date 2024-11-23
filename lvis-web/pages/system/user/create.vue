@@ -104,10 +104,16 @@
     
                     <div class="d-flex justify-content-between pt-3">
                         <button @click="onClickGoToList" type="button" class="btn btn-secondary">
-                            <i class="fas fa-list"></i> Go to list
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'list']"/>
+                            </client-only> 
+                            Go to list
                         </button>
                         <button @click="goToStep2()" type="button" class="btn btn-primary" :disabled="!canProceedStep2">
-                            <i class="fas fa-chevron-right"></i> Next
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                            </client-only> 
+                            Next
                         </button>
                     </div>
     
@@ -133,14 +139,23 @@
     
                     <div class="d-flex justify-content-between pt-3">
                         <button @click="goToStep1()" type="button" class="btn btn-secondary">
-                            <i class="fas fa-chevron-left"></i> Back
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> 
+                            Back
                         </button>
                         <button v-if="formData.role === ROLE.USER" @click="goToStep3()" type="button"
                             class="btn btn-primary" :disabled="!canProceedStep3 || isCheckingUnAvailability">
-                            <i class="fas fa-chevron-right"></i> Next
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                            </client-only> 
+                            Next
                         </button>
                         <button v-else @click="save" type="button" class="btn btn-primary" :disabled="isSaving">
-                            <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'fa-save']"/>
+                            </client-only> 
+                            {{ isSaving ? 'Saving...' : 'Save' }}
                         </button>
                     </div>
     
@@ -182,10 +197,16 @@
     
                     <div class="d-flex justify-content-between pt-3">
                         <button @click="goToStep2()" type="button" class="btn btn-secondary">
-                            <i class="fas fa-chevron-left"></i> Back
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                            </client-only> 
+                            Back
                         </button>
                         <button @click="save" type="button" class="btn btn-primary" :disabled="isSaving">
-                            <i class="fas fa-save"></i> {{ isSaving ? 'Saving...' : 'Save' }}
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'fa-save']"/>
+                            </client-only> 
+                            {{ isSaving ? 'Saving...' : 'Save' }}
                         </button>
                     </div>
     

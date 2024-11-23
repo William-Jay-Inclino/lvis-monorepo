@@ -127,7 +127,6 @@ export async function findOne(id: string): Promise<MCRT | undefined> {
                     }
                     status
                     label
-                    label_id
                     order
                     notes
                     date_approval
@@ -534,7 +533,6 @@ export async function create(input: CreateMcrtInput): Promise<MutationResponse> 
         {
           approver_id: "${i.approver?.id}"
           label: "${i.label}"
-          label_id: "${i.label_id}"
           order: ${i.order}
         }`;
     }).join(', ');

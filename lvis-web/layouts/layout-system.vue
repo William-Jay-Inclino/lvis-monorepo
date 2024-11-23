@@ -69,7 +69,9 @@
                         <li v-if="authUser" class="nav-item dropdown">
                             <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user-circle"></i>
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'user-circle']"/>
+                            </client-only>
                                 <span class="fw-bold fst-italic ms-1">
 
                                     {{ authUser.user.username }}
