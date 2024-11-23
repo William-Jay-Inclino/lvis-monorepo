@@ -306,7 +306,6 @@ model RV {
   rv_number         String    @unique
   canvass_id        String?    @unique
   classification_id String?
-  supervisor_id     String
   date_requested    DateTime
   work_order_no     String?
   work_order_date   DateTime?
@@ -339,12 +338,12 @@ model RVApprover {
   status        Int
   label         String
   order         Int
-  is_supervisor Boolean @default(false)
 
   rv RV @relation(fields: [rv_id], references: [id], onDelete: Cascade)
 
   metadata Json?
 
+  @@unique([rv_id, order]) // para pag update sa specific approver
   @@index([rv_id])
   @@map("rv_approver")
 }

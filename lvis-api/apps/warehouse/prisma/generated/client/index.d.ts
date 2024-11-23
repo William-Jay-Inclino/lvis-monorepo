@@ -20836,7 +20836,6 @@ export namespace Prisma {
     rv_number: string | null
     canvass_id: string | null
     classification_id: string | null
-    supervisor_id: string | null
     date_requested: Date | null
     work_order_no: string | null
     work_order_date: Date | null
@@ -20854,7 +20853,6 @@ export namespace Prisma {
     rv_number: string | null
     canvass_id: string | null
     classification_id: string | null
-    supervisor_id: string | null
     date_requested: Date | null
     work_order_no: string | null
     work_order_date: Date | null
@@ -20872,7 +20870,6 @@ export namespace Prisma {
     rv_number: number
     canvass_id: number
     classification_id: number
-    supervisor_id: number
     date_requested: number
     work_order_no: number
     work_order_date: number
@@ -20893,7 +20890,6 @@ export namespace Prisma {
     rv_number?: true
     canvass_id?: true
     classification_id?: true
-    supervisor_id?: true
     date_requested?: true
     work_order_no?: true
     work_order_date?: true
@@ -20911,7 +20907,6 @@ export namespace Prisma {
     rv_number?: true
     canvass_id?: true
     classification_id?: true
-    supervisor_id?: true
     date_requested?: true
     work_order_no?: true
     work_order_date?: true
@@ -20929,7 +20924,6 @@ export namespace Prisma {
     rv_number?: true
     canvass_id?: true
     classification_id?: true
-    supervisor_id?: true
     date_requested?: true
     work_order_no?: true
     work_order_date?: true
@@ -21021,7 +21015,6 @@ export namespace Prisma {
     rv_number: string
     canvass_id: string | null
     classification_id: string | null
-    supervisor_id: string
     date_requested: Date
     work_order_no: string | null
     work_order_date: Date | null
@@ -21057,7 +21050,6 @@ export namespace Prisma {
     rv_number?: boolean
     canvass_id?: boolean
     classification_id?: boolean
-    supervisor_id?: boolean
     date_requested?: boolean
     work_order_no?: boolean
     work_order_date?: boolean
@@ -21080,7 +21072,6 @@ export namespace Prisma {
     rv_number?: boolean
     canvass_id?: boolean
     classification_id?: boolean
-    supervisor_id?: boolean
     date_requested?: boolean
     work_order_no?: boolean
     work_order_date?: boolean
@@ -21114,7 +21105,6 @@ export namespace Prisma {
       rv_number: string
       canvass_id: string | null
       classification_id: string | null
-      supervisor_id: string
       date_requested: Date
       work_order_no: string | null
       work_order_date: Date | null
@@ -21529,7 +21519,6 @@ export namespace Prisma {
     readonly rv_number: FieldRef<"RV", 'String'>
     readonly canvass_id: FieldRef<"RV", 'String'>
     readonly classification_id: FieldRef<"RV", 'String'>
-    readonly supervisor_id: FieldRef<"RV", 'String'>
     readonly date_requested: FieldRef<"RV", 'DateTime'>
     readonly work_order_no: FieldRef<"RV", 'String'>
     readonly work_order_date: FieldRef<"RV", 'DateTime'>
@@ -21952,7 +21941,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    is_supervisor: boolean | null
   }
 
   export type RVApproverMaxAggregateOutputType = {
@@ -21964,7 +21952,6 @@ export namespace Prisma {
     status: number | null
     label: string | null
     order: number | null
-    is_supervisor: boolean | null
   }
 
   export type RVApproverCountAggregateOutputType = {
@@ -21976,7 +21963,6 @@ export namespace Prisma {
     status: number
     label: number
     order: number
-    is_supervisor: number
     metadata: number
     _all: number
   }
@@ -22001,7 +21987,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    is_supervisor?: true
   }
 
   export type RVApproverMaxAggregateInputType = {
@@ -22013,7 +21998,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    is_supervisor?: true
   }
 
   export type RVApproverCountAggregateInputType = {
@@ -22025,7 +22009,6 @@ export namespace Prisma {
     status?: true
     label?: true
     order?: true
-    is_supervisor?: true
     metadata?: true
     _all?: true
   }
@@ -22125,7 +22108,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor: boolean
     metadata: JsonValue | null
     _count: RVApproverCountAggregateOutputType | null
     _avg: RVApproverAvgAggregateOutputType | null
@@ -22157,7 +22139,6 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    is_supervisor?: boolean
     metadata?: boolean
     rv?: boolean | RVDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rVApprover"]>
@@ -22171,7 +22152,6 @@ export namespace Prisma {
     status?: boolean
     label?: boolean
     order?: boolean
-    is_supervisor?: boolean
     metadata?: boolean
   }
 
@@ -22194,7 +22174,6 @@ export namespace Prisma {
       status: number
       label: string
       order: number
-      is_supervisor: boolean
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["rVApprover"]>
     composites: {}
@@ -22599,7 +22578,6 @@ export namespace Prisma {
     readonly status: FieldRef<"RVApprover", 'Int'>
     readonly label: FieldRef<"RVApprover", 'String'>
     readonly order: FieldRef<"RVApprover", 'Int'>
-    readonly is_supervisor: FieldRef<"RVApprover", 'Boolean'>
     readonly metadata: FieldRef<"RVApprover", 'Json'>
   }
     
@@ -63207,7 +63185,6 @@ export namespace Prisma {
     rv_number: 'rv_number',
     canvass_id: 'canvass_id',
     classification_id: 'classification_id',
-    supervisor_id: 'supervisor_id',
     date_requested: 'date_requested',
     work_order_no: 'work_order_no',
     work_order_date: 'work_order_date',
@@ -63233,7 +63210,6 @@ export namespace Prisma {
     status: 'status',
     label: 'label',
     order: 'order',
-    is_supervisor: 'is_supervisor',
     metadata: 'metadata'
   };
 
@@ -65195,7 +65171,6 @@ export namespace Prisma {
     rv_number?: StringFilter<"RV"> | string
     canvass_id?: StringNullableFilter<"RV"> | string | null
     classification_id?: StringNullableFilter<"RV"> | string | null
-    supervisor_id?: StringFilter<"RV"> | string
     date_requested?: DateTimeFilter<"RV"> | Date | string
     work_order_no?: StringNullableFilter<"RV"> | string | null
     work_order_date?: DateTimeNullableFilter<"RV"> | Date | string | null
@@ -65217,7 +65192,6 @@ export namespace Prisma {
     rv_number?: SortOrder
     canvass_id?: SortOrderInput | SortOrder
     classification_id?: SortOrderInput | SortOrder
-    supervisor_id?: SortOrder
     date_requested?: SortOrder
     work_order_no?: SortOrderInput | SortOrder
     work_order_date?: SortOrderInput | SortOrder
@@ -65242,7 +65216,6 @@ export namespace Prisma {
     OR?: RVWhereInput[]
     NOT?: RVWhereInput | RVWhereInput[]
     classification_id?: StringNullableFilter<"RV"> | string | null
-    supervisor_id?: StringFilter<"RV"> | string
     date_requested?: DateTimeFilter<"RV"> | Date | string
     work_order_no?: StringNullableFilter<"RV"> | string | null
     work_order_date?: DateTimeNullableFilter<"RV"> | Date | string | null
@@ -65264,7 +65237,6 @@ export namespace Prisma {
     rv_number?: SortOrder
     canvass_id?: SortOrderInput | SortOrder
     classification_id?: SortOrderInput | SortOrder
-    supervisor_id?: SortOrder
     date_requested?: SortOrder
     work_order_no?: SortOrderInput | SortOrder
     work_order_date?: SortOrderInput | SortOrder
@@ -65289,7 +65261,6 @@ export namespace Prisma {
     rv_number?: StringWithAggregatesFilter<"RV"> | string
     canvass_id?: StringNullableWithAggregatesFilter<"RV"> | string | null
     classification_id?: StringNullableWithAggregatesFilter<"RV"> | string | null
-    supervisor_id?: StringWithAggregatesFilter<"RV"> | string
     date_requested?: DateTimeWithAggregatesFilter<"RV"> | Date | string
     work_order_no?: StringNullableWithAggregatesFilter<"RV"> | string | null
     work_order_date?: DateTimeNullableWithAggregatesFilter<"RV"> | Date | string | null
@@ -65315,7 +65286,6 @@ export namespace Prisma {
     status?: IntFilter<"RVApprover"> | number
     label?: StringFilter<"RVApprover"> | string
     order?: IntFilter<"RVApprover"> | number
-    is_supervisor?: BoolFilter<"RVApprover"> | boolean
     metadata?: JsonNullableFilter<"RVApprover">
     rv?: XOR<RVRelationFilter, RVWhereInput>
   }
@@ -65329,13 +65299,13 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
     metadata?: SortOrderInput | SortOrder
     rv?: RVOrderByWithRelationInput
   }
 
   export type RVApproverWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    rv_id_order?: RVApproverRv_idOrderCompoundUniqueInput
     AND?: RVApproverWhereInput | RVApproverWhereInput[]
     OR?: RVApproverWhereInput[]
     NOT?: RVApproverWhereInput | RVApproverWhereInput[]
@@ -65346,10 +65316,9 @@ export namespace Prisma {
     status?: IntFilter<"RVApprover"> | number
     label?: StringFilter<"RVApprover"> | string
     order?: IntFilter<"RVApprover"> | number
-    is_supervisor?: BoolFilter<"RVApprover"> | boolean
     metadata?: JsonNullableFilter<"RVApprover">
     rv?: XOR<RVRelationFilter, RVWhereInput>
-  }, "id">
+  }, "id" | "rv_id_order">
 
   export type RVApproverOrderByWithAggregationInput = {
     id?: SortOrder
@@ -65360,7 +65329,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: RVApproverCountOrderByAggregateInput
     _avg?: RVApproverAvgOrderByAggregateInput
@@ -65381,7 +65349,6 @@ export namespace Prisma {
     status?: IntWithAggregatesFilter<"RVApprover"> | number
     label?: StringWithAggregatesFilter<"RVApprover"> | string
     order?: IntWithAggregatesFilter<"RVApprover"> | number
-    is_supervisor?: BoolWithAggregatesFilter<"RVApprover"> | boolean
     metadata?: JsonNullableWithAggregatesFilter<"RVApprover">
   }
 
@@ -70279,7 +70246,6 @@ export namespace Prisma {
     id?: string
     rv_number: string
     classification_id?: string | null
-    supervisor_id: string
     date_requested: Date | string
     work_order_no?: string | null
     work_order_date?: Date | string | null
@@ -70301,7 +70267,6 @@ export namespace Prisma {
     rv_number: string
     canvass_id?: string | null
     classification_id?: string | null
-    supervisor_id: string
     date_requested: Date | string
     work_order_no?: string | null
     work_order_date?: Date | string | null
@@ -70321,7 +70286,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
     work_order_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70343,7 +70307,6 @@ export namespace Prisma {
     rv_number?: StringFieldUpdateOperationsInput | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
     work_order_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70364,7 +70327,6 @@ export namespace Prisma {
     rv_number: string
     canvass_id?: string | null
     classification_id?: string | null
-    supervisor_id: string
     date_requested: Date | string
     work_order_no?: string | null
     work_order_date?: Date | string | null
@@ -70382,7 +70344,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
     work_order_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70401,7 +70362,6 @@ export namespace Prisma {
     rv_number?: StringFieldUpdateOperationsInput | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
     work_order_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70423,7 +70383,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
     rv: RVCreateNestedOneWithoutRv_approversInput
   }
@@ -70437,7 +70396,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70449,7 +70407,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
     rv?: RVUpdateOneRequiredWithoutRv_approversNestedInput
   }
@@ -70463,7 +70420,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70476,7 +70432,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70488,7 +70443,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70501,7 +70455,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -75716,7 +75669,6 @@ export namespace Prisma {
     rv_number?: SortOrder
     canvass_id?: SortOrder
     classification_id?: SortOrder
-    supervisor_id?: SortOrder
     date_requested?: SortOrder
     work_order_no?: SortOrder
     work_order_date?: SortOrder
@@ -75735,7 +75687,6 @@ export namespace Prisma {
     rv_number?: SortOrder
     canvass_id?: SortOrder
     classification_id?: SortOrder
-    supervisor_id?: SortOrder
     date_requested?: SortOrder
     work_order_no?: SortOrder
     work_order_date?: SortOrder
@@ -75753,7 +75704,6 @@ export namespace Prisma {
     rv_number?: SortOrder
     canvass_id?: SortOrder
     classification_id?: SortOrder
-    supervisor_id?: SortOrder
     date_requested?: SortOrder
     work_order_no?: SortOrder
     work_order_date?: SortOrder
@@ -75771,6 +75721,11 @@ export namespace Prisma {
     isNot?: RVWhereInput
   }
 
+  export type RVApproverRv_idOrderCompoundUniqueInput = {
+    rv_id: string
+    order: number
+  }
+
   export type RVApproverCountOrderByAggregateInput = {
     id?: SortOrder
     rv_id?: SortOrder
@@ -75780,7 +75735,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
     metadata?: SortOrder
   }
 
@@ -75798,7 +75752,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
   }
 
   export type RVApproverMinOrderByAggregateInput = {
@@ -75810,7 +75763,6 @@ export namespace Prisma {
     status?: SortOrder
     label?: SortOrder
     order?: SortOrder
-    is_supervisor?: SortOrder
   }
 
   export type RVApproverSumOrderByAggregateInput = {
@@ -84434,7 +84386,6 @@ export namespace Prisma {
     id?: string
     rv_number: string
     classification_id?: string | null
-    supervisor_id: string
     date_requested: Date | string
     work_order_no?: string | null
     work_order_date?: Date | string | null
@@ -84454,7 +84405,6 @@ export namespace Prisma {
     id?: string
     rv_number: string
     classification_id?: string | null
-    supervisor_id: string
     date_requested: Date | string
     work_order_no?: string | null
     work_order_date?: Date | string | null
@@ -84600,7 +84550,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
     work_order_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -84620,7 +84569,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
     work_order_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -85125,7 +85073,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -85137,7 +85084,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -85281,7 +85227,6 @@ export namespace Prisma {
     status?: IntFilter<"RVApprover"> | number
     label?: StringFilter<"RVApprover"> | string
     order?: IntFilter<"RVApprover"> | number
-    is_supervisor?: BoolFilter<"RVApprover"> | boolean
     metadata?: JsonNullableFilter<"RVApprover">
   }
 
@@ -85289,7 +85234,6 @@ export namespace Prisma {
     id?: string
     rv_number: string
     classification_id?: string | null
-    supervisor_id: string
     date_requested: Date | string
     work_order_no?: string | null
     work_order_date?: Date | string | null
@@ -85310,7 +85254,6 @@ export namespace Prisma {
     rv_number: string
     canvass_id?: string | null
     classification_id?: string | null
-    supervisor_id: string
     date_requested: Date | string
     work_order_no?: string | null
     work_order_date?: Date | string | null
@@ -85345,7 +85288,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
     work_order_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -85366,7 +85308,6 @@ export namespace Prisma {
     rv_number?: StringFieldUpdateOperationsInput | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
     work_order_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -86222,7 +86163,6 @@ export namespace Prisma {
     id?: string
     rv_number: string
     classification_id?: string | null
-    supervisor_id: string
     date_requested: Date | string
     work_order_no?: string | null
     work_order_date?: Date | string | null
@@ -86243,7 +86183,6 @@ export namespace Prisma {
     rv_number: string
     canvass_id?: string | null
     classification_id?: string | null
-    supervisor_id: string
     date_requested: Date | string
     work_order_no?: string | null
     work_order_date?: Date | string | null
@@ -86434,7 +86373,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
     work_order_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -86455,7 +86393,6 @@ export namespace Prisma {
     rv_number?: StringFieldUpdateOperationsInput | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
-    supervisor_id?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
     work_order_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -94229,7 +94166,6 @@ export namespace Prisma {
     status: number
     label: string
     order: number
-    is_supervisor?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94241,7 +94177,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94253,7 +94188,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -94265,7 +94199,6 @@ export namespace Prisma {
     status?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    is_supervisor?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 

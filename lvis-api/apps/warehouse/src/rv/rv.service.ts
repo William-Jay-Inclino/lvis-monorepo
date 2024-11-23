@@ -9,7 +9,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { RVsResponse } from './entities/rvs-response.entity';
-import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateRvByBudgetOfficerInput } from './dto/update-rv-by-budget-officer.input';
 import { CreateRvApproverSubInput } from './dto/create-rv-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
@@ -80,7 +80,6 @@ export class RvService {
             work_order_no: input.work_order_no ?? null,
             notes: input.notes ?? null,
             work_order_date: input.work_order_date ? new Date(input.work_order_date) : null,
-            supervisor_id: input.supervisor_id,
             canvass: { connect: { id: input.canvass_id } },
             rv_approvers: {
                 create: input.approvers.map(i => {
@@ -90,7 +89,6 @@ export class RvService {
                         order: i.order,
                         notes: '',
                         status: APPROVAL_STATUS.PENDING,
-                        is_supervisor: i.is_supervisor,
                     }
                 })
             }
@@ -135,8 +133,7 @@ export class RvService {
 
     }
 
-    // RV supervisor and RV approver (is_supervisor) should always be in sync
-    // if supervisor is updated make sure to update the pendings: remove the prev supervisor and add the new supervisor in the pendings
+
     async update(id: string, input: UpdateRvInput): Promise<RV> {
 
         this.logger.log('update()')
@@ -162,7 +159,6 @@ export class RvService {
 
         const data: Prisma.RVUpdateInput = {
             updated_by: this.authUser.user.username,
-            supervisor_id: input.supervisor_id ?? existingItem.supervisor_id,
             classification_id: input.classification_id ?? existingItem.classification_id,
             work_order_no: input.work_order_no ?? existingItem.work_order_no,
             notes: input.notes ?? existingItem.notes,
@@ -174,7 +170,9 @@ export class RvService {
         const updateRvQuery = this.prisma.rV.update({
             data,
             where: { id },
-            include: this.includedFields
+            select: {
+                id: true
+            }
         })
 
         queries.push(updateRvQuery)
@@ -182,66 +180,86 @@ export class RvService {
         // if supervisor is updated
         if(input.supervisor_id) {
 
-            const isNewSupervisor = input.supervisor_id !== existingItem.supervisor_id
+            console.log('input.supervisor_id is defined');
 
-            // update supervisor in rv approver as well
-            if(isNewSupervisor) {
+            const existing_supervisor_id = await this.get_supervisor_id(id)
 
-                const existingSupervisor = existingItem.rv_approvers.find(i => i.approver_id === existingItem.supervisor_id && !!i.is_supervisor)
-    
-                if(!existingSupervisor) {
-                    throw new NotFoundException('Existing supervisor not found with id of ' + existingItem.supervisor_id)
-                }
+            console.log('existing_supervisor_id', existing_supervisor_id);
 
-                console.log('Updating RV Approver supervisor');
+            if(existing_supervisor_id !== input.supervisor_id) {
 
-                if(existingSupervisor.status !== APPROVAL_STATUS.PENDING) {
-                    throw new BadRequestException(`Existing supervisor's status is not pending. Cannot update supervisor`)
-                }
+                console.log('set new supervisor', input.supervisor_id);
 
-                const updateRvApproverQuery = this.prisma.rVApprover.update({
+                // update supervisor in rv approver
+
+                const update_rv_approver_query = this.prisma.rVApprover.update({
                     where: {
-                        id: existingSupervisor.id
+                        rv_id_order: {
+                            rv_id: id,
+                            order: 1,
+                        },
                     },
                     data: {
-                        approver_id: input.supervisor_id
+                        approver_id: input.supervisor_id,
                     }
                 })
 
-                queries.push(updateRvApproverQuery)
+                queries.push(update_rv_approver_query)
 
-                // ======= add new supervisor in pendings if existing supervisor exists in pendings ======= 
-                const prevSupervisorInPendings = await this.prisma.pending.findUnique({
+
+                // ================ UPDATE PENDINGS ================
+    
+                // check first if existing supervisor is in pendings table
+                const pending_existing_supervisor = await this.prisma.pending.findUnique({
                     where: {
                         approver_id_reference_number_reference_table: {
-                            approver_id: existingSupervisor.approver_id,
+                            approver_id: existing_supervisor_id,
                             reference_number: existingItem.rv_number,
-                            reference_table: DB_ENTITY.RV
+                            reference_table: DB_ENTITY.RV,
                         }
                     }
                 })
 
-                // if previous supervisor exists in pending table then remove it and add the new supervisor in pendings
-                if(prevSupervisorInPendings) {
-                    const deletePendingQuery = this.prisma.pending.delete({
-                        where: {id: prevSupervisorInPendings.id}
+                // remove pending approval of previous supervisor
+                if(pending_existing_supervisor) {
+                    const removePendingQuery = this.prisma.pending.delete({
+                        where: { id: pending_existing_supervisor.id }
                     })
-                    queries.push(deletePendingQuery)
 
+                    queries.push(removePendingQuery)
+                }
+
+                
+                // check first if new supervisor is in pendings table
+                const pending_new_supervisor = await this.prisma.pending.findUnique({
+                    where: {
+                        approver_id_reference_number_reference_table: {
+                            approver_id: input.supervisor_id,
+                            reference_number: existingItem.rv_number,
+                            reference_table: DB_ENTITY.RV,
+                        }
+                    }
+                })
+
+                // create pending approval of new supervisor
+                if(!pending_new_supervisor) {
+                    const module = getModule(DB_ENTITY.RV)
                     const createPendingQuery = this.prisma.pending.create({
                         data: {
                             approver_id: input.supervisor_id,
                             reference_number: existingItem.rv_number,
                             reference_table: DB_ENTITY.RV,
-                            description: `RV no. ${existingItem.rv_number}`
+                            description: `${ module.description } no. ${existingItem.rv_number}`
                         }
                     })
-
+        
                     queries.push(createPendingQuery)
 
                 }
 
+
             }
+
 
         }
 
@@ -587,6 +605,23 @@ export class RvService {
 
         return true
 
+    }
+
+    async get_supervisor_id(rv_id: string): Promise<string> {
+        const supervisor = await this.prisma.rVApprover.findUnique({
+            where: {
+                rv_id_order: {
+                    rv_id,
+                    order: 1
+                }
+            }
+        })
+
+        if(!supervisor) {
+            throw new NotFoundException("Supervisor not found with rv_id of " + rv_id + " and order of 1")
+        }
+
+        return supervisor.approver_id
     }
 
     private async getLatestRvNumber(): Promise<string> {

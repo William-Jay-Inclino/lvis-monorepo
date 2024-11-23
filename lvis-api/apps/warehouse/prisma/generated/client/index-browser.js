@@ -278,7 +278,6 @@ exports.Prisma.RVScalarFieldEnum = {
   rv_number: 'rv_number',
   canvass_id: 'canvass_id',
   classification_id: 'classification_id',
-  supervisor_id: 'supervisor_id',
   date_requested: 'date_requested',
   work_order_no: 'work_order_no',
   work_order_date: 'work_order_date',
@@ -301,7 +300,6 @@ exports.Prisma.RVApproverScalarFieldEnum = {
   status: 'status',
   label: 'label',
   order: 'order',
-  is_supervisor: 'is_supervisor',
   metadata: 'metadata'
 };
 

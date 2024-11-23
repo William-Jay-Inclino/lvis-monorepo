@@ -552,7 +552,6 @@ export async function create(input: CreateRvInput): Promise<MutationResponse> {
         approver: input.supervisor,
         label: APPROVER_SUPERVISOR_LABEL,
         order: 1,
-        is_supervisor: true
     })
 
 
@@ -562,7 +561,6 @@ export async function create(input: CreateRvInput): Promise<MutationResponse> {
           approver_id: "${item.approver?.id}"
           label: "${item.label}"
           order: ${item.order}
-          is_supervisor: ${ !!item.is_supervisor ? item.is_supervisor : false }
         }`;
     }).join(', ');
 
@@ -571,7 +569,6 @@ export async function create(input: CreateRvInput): Promise<MutationResponse> {
             createRv(
                 input: {
                     canvass_id: "${input.canvass?.id}"
-                    supervisor_id: "${input.supervisor?.id}"
                     work_order_no: ${work_order_no}
                     work_order_date: ${work_order_date}
                     classification_id: ${classification_id}
@@ -638,20 +635,6 @@ export async function update(id: string, input: UpdateRvInput): Promise<Mutation
                 }
             ) {
                 id
-                rv_approvers {
-                    id
-                    approver {
-                        id
-                        firstname
-                        middlename
-                        lastname
-                    }
-                    date_approval 
-                    notes
-                    status
-                    label
-                    order
-                }
             }
     }`;
 

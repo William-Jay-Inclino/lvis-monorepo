@@ -19,9 +19,6 @@ export class RV {
   classification_id: string | null;
 
   @Field(() => String)
-  supervisor_id: string;
-
-  @Field(() => String)
   date_requested: string;
 
   @Field(() => String, { nullable: true })

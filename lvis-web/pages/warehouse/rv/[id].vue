@@ -203,6 +203,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 
 // DEPENDENCIES
 const route = useRoute()
+const router = useRouter();
 const toast = useToast();
 
 // FLAGS
@@ -335,11 +336,13 @@ async function updateRvInfo() {
             position: 'top',
         })
 
-        rvData.value.rv_approvers = response.data.rv_approvers.map(i => {
-            i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-            i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-            return i
-        })
+        router.push(`/warehouse/rv/view/${response.data.id}`);
+
+        // rvData.value.rv_approvers = response.data.rv_approvers.map(i => {
+        //     i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
+        //     i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
+        //     return i
+        // })
 
     } else {
         Swal.fire({

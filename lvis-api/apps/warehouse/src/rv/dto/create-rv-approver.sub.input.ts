@@ -1,5 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsBoolean, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateRvApproverSubInput {
@@ -18,9 +18,4 @@ export class CreateRvApproverSubInput {
   @IsNotEmpty()
   @IsInt()
   order: number;
-
-  @Field(() => Boolean)
-  @IsNotEmpty()
-  @IsBoolean()
-  is_supervisor: boolean;
 }

@@ -31,9 +31,6 @@ export class RVApprover {
     @Field(() => Int)
     order: number
 
-    @Field(() => Boolean)
-    is_supervisor: boolean
-
 
 
     // =============== derived / resolvers =============== 

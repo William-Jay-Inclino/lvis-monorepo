@@ -105,8 +105,11 @@ export class RvResolver {
     }
 
     @ResolveField(() => Employee)
-    supervisor(@Parent() rv: RV): any {
-        return { __typename: 'Employee', id: rv.supervisor_id }
+    async supervisor(@Parent() rv: RV) {
+
+        const supervisor_id = await this.rvService.get_supervisor_id(rv.id)
+
+        return { __typename: 'Employee', id: supervisor_id }
     }
 
     @ResolveField(() => Classification, { nullable: true })
