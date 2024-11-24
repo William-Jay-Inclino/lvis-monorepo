@@ -6,9 +6,12 @@ import { JwtService } from '@nestjs/jwt';
 import { USER_STATUS } from '../__common__/types';
 import axios from 'axios';
 import { UserLogEventType } from 'apps/system/prisma/generated/client';
+import { decrypt_password } from '../__common__/helpers';
 
 @Injectable()
 export class AuthService {
+
+    private readonly secretKey = process.env.CRYPTO_SECRET_KEY;
 
     constructor(
         private readonly jwtService: JwtService,
@@ -16,29 +19,26 @@ export class AuthService {
     ) { }
 
     async validateUser(username: string, password: string): Promise<User> {
+    
+        const user = await this.findByUserName(username);
+    
+        if (user) {
+            const decryptedPassword = decrypt_password(user.password, this.secretKey);
 
-        console.log('AuthService: validateUser()', username, password)
-
-        const user = await this.findByUserName(username)
-
-        console.log('user', user)
-
-        if (user && user.password === password) {
-
-            if (user.status === USER_STATUS.INACTIVE) {
-                throw new UnauthorizedException('User is Inactive')
+            if (decryptedPassword === password) {
+                if (user.status === USER_STATUS.INACTIVE) {
+                    throw new UnauthorizedException('User is Inactive');
+                }
+    
+                if (user.deleted_at) {
+                    throw new NotFoundException('User not found');
+                }
+    
+                return user;
             }
-
-            if (user.deleted_at) {
-                console.log('User is deleted at: ', user.deleted_at)
-                throw new NotFoundException('User not found')
-            }
-
-            return user
         }
-
+    
         throw new UnauthorizedException('Invalid credentials');
-
     }
 
     async login(user: User, ip_address: string, device_info: object): Promise<{ user: User, access_token: string }> {
@@ -93,8 +93,6 @@ export class AuthService {
             }
         `;
 
-        console.log('query', query)
-
         const { data } = await firstValueFrom(
             this.httpService.post(process.env.API_GATEWAY_URL, { query }).pipe(
                 catchError((error) => {
@@ -103,13 +101,9 @@ export class AuthService {
             ),
         );
 
-        console.log('data', data)
-
         if (!data || !data.data || !data.data.getUserByUserName) {
             throw new UnauthorizedException("Unauthorized User")
         }
-
-        console.log('data.data.getUserByUserName', data.data.getUserByUserName)
 
         return data.data.getUserByUserName
 

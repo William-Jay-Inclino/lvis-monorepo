@@ -3,9 +3,12 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import * as data from './mock-data';
 import { SETTINGS } from '../__common__/constants';
 import { Prisma, PrismaClient } from 'apps/system/prisma/generated/client';
+import { encrypt_password } from '../__common__/helpers';
 
 @Injectable()
 export class SeederService {
+
+    private readonly secretKey = process.env.CRYPTO_SECRET_KEY;
 
     constructor(private readonly prisma: PrismaService) { }
 
@@ -199,10 +202,12 @@ export class SeederService {
     async seedUserTable(prisma: Prisma.TransactionClient) {
         console.log('seeding user table...')
 
+        const users = data.users.map(i => ({...i, password: encrypt_password(i.password, this.secretKey)}))
+
         try {
             await prisma.user.createMany({
                 // @ts-ignore
-                data: data.users,
+                data: users,
             })
         } catch (error) {
             throw error; 

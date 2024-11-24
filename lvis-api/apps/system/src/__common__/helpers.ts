@@ -2,7 +2,7 @@ import { Role } from "apps/system/prisma/generated/client"
 import { User } from "./user.entity"
 import { MODULES } from "./modules.enum"
 import { RESOLVERS } from "./resolvers.enum"
-
+import * as crypto from 'crypto';
 
 export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boolean {
 
@@ -72,3 +72,18 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
 
     return accessMap[module]?.[resolver] ?? false;
 }
+
+
+
+export function encrypt_password(password: string, secretKey: string): string {
+    const iv = crypto.randomBytes(16); 
+    const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(secretKey, 'hex'), iv);
+    
+    let encrypted = cipher.update(password, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    
+    
+    return iv.toString('hex') + ':' + encrypted;
+  }
+
+  

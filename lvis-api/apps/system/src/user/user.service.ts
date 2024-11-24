@@ -6,12 +6,14 @@ import { Prisma, Role, User } from 'apps/system/prisma/generated/client';
 import { AuthUser } from '../__common__/auth-user.entity';
 import { UsersResponse } from './entities/users-response.entity';
 import { SystemRemoveResponse } from '../__common__/classes';
+import { encrypt_password } from '../__common__/helpers';
 
 @Injectable()
 export class UserService {
 
   private readonly logger = new Logger(UserService.name);
   private authUser: AuthUser
+  private readonly secretKey = process.env.CRYPTO_SECRET_KEY;
 
   private includedFields = {
     user_employee: {
@@ -35,10 +37,11 @@ export class UserService {
   async create(input: CreateUserInput): Promise<User> {
 
     const created_by = this.authUser ? this.authUser.user.username : 'Initial'
+    const encrypted_password = encrypt_password(input.password, this.secretKey)
 
     const data: Prisma.UserCreateInput = {
       username: input.username,
-      password: input.password,
+      password: encrypted_password,
       firstname: input.firstname,
       middlename: input.middlename,
       lastname: input.lastname,
@@ -262,5 +265,6 @@ export class UserService {
     return false
 
   }
+
 
 }
