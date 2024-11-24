@@ -7,7 +7,7 @@ import { User } from 'apps/system/src/__common__/user.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
-import { DB_ENTITY, MODULE_MAPPER } from './constants';
+import { DB_ENTITY, MODULE_MAPPER, ModuleMapping } from './constants';
 import { NotFoundException } from '@nestjs/common';
 
 export const isValidApprovalStatus = (status: number): boolean => {
@@ -293,7 +293,7 @@ export function getImageAsBase64(filename: string): string {
     return base64Image;
 }
 
-export function getModule(entity: DB_ENTITY) {
+export function getModule(entity: DB_ENTITY): ModuleMapping {
     const module = MODULE_MAPPER[entity]
     if(!module) {
         throw new NotFoundException(`module not found`)

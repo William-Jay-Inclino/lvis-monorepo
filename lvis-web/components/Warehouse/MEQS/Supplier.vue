@@ -46,7 +46,9 @@
                                     </span>
                                     <button @click="onClickRemoveAttachment(i, j)"
                                         class="btn btn-sm btn-light text-danger">
-                                        <i class="fas fa-times"></i>
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'times']" />
+                            </client-only>
                                     </button>
                                 </div>
                             </div>
@@ -58,19 +60,25 @@
                             <div class="row">
                                 <div class="col">
                                     <button @click="removeSupplier(i)" class="btn btn-sm btn-light w-100">
-                                        <i class="fas fa-trash text-danger"></i>
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                            </client-only>
                                     </button>
                                 </div>
                                 <div class="col">
                                     <button @click="onClickEdit(i)" class="btn btn-sm btn-light w-100"
                                         data-bs-toggle="modal" data-bs-target="#addSupplierModal">
-                                        <i class="fas fa-edit text-primary"></i>
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
+                            </client-only>
                                     </button>
                                 </div>
                                 <div class="col">
                                     <button @click="onClickAddAttachment(i)" class="btn btn-sm btn-light w-100"
                                         data-bs-toggle="modal" data-bs-target="#addAttachmentModal">
-                                        <i class="fas fa-paperclip text-primary"></i>
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'paperclip']" class="text-primary"/>
+                            </client-only>
                                     </button>
                                 </div>
                             </div>
@@ -207,7 +215,9 @@
                     <div class="modal-footer">
                         <button @click="onCloseModal()" ref="closeSupplierModal" type="button" class="btn btn-secondary"
                             data-bs-dismiss="modal">
-                            <i class="fas fa-close"></i> Close
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                         </button>
                         <button v-if="formIsAdd" @click="addSupplier()" type="button" class="btn btn-primary"
                             :disabled="!canAddSupplier || isAddingSupplier">
@@ -255,7 +265,9 @@
                     <div class="modal-footer">
                         <button @click="onCloseAttachmentModal" ref="closeAttachmentModal" class="btn btn-secondary"
                             data-bs-dismiss="modal">
-                            <i class="fas fa-close"></i> Close
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                         </button>
                         <button @click="addAttachment" class="btn btn-primary"
                             :disabled="!formAttachment.file || isAddingAttachment">

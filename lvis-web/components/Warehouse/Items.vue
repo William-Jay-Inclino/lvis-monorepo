@@ -42,7 +42,9 @@
                     </td>
                     <td class="text-center align-middle">
                         <button @click="handleRemoveItem(i)" class="btn btn-sm btn-light">
-                            <i class="fas fa-trash text-danger"></i>
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger" />
+                            </client-only>
                         </button>
                     </td>
                 </tr>

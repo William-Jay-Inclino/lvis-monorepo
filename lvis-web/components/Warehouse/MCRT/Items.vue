@@ -31,7 +31,9 @@
                     <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                     <td class="align-middle text-center">
                         <button @click="emits('remove-item', i)" class="btn btn-light btn-sm">
-                            <i class="fas fa-trash text-danger"></i>
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                            </client-only>
                         </button>
                     </td>
                 </tr>

@@ -40,7 +40,9 @@
                     </div>
                     <div class="modal-footer">
                         <button ref="closeChangeApproverModal" class="btn btn-secondary" data-bs-dismiss="modal">
-                            <i class="fas fa-close"></i> Close
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                         </button>
                         <button @click="handleChangeApprover()" class="btn btn-primary" :disabled="!newApprover || isUpdating">
                             <client-only>

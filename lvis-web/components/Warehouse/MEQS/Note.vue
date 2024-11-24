@@ -13,10 +13,14 @@
                 </div>
                 <div class="modal-footer">
                     <button ref="closeAddApproverModal" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="fas fa-close"></i> Close
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                     </button>
                     <button @click="attachNote" class="btn btn-primary">
-                        <i class="fas fa-paperclip"></i> Attach
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'paperclip']" />
+                            </client-only> Attach
                     </button>
                 </div>
             </div>

@@ -98,7 +98,7 @@ export class ItemService {
 		return result;
 	  }
 	  
-	private async generateItemCode(itemTypeCode: ITEM_TYPE_CODE, prisma: Prisma.TransactionClient): Promise<string> {
+	async generateItemCode(itemTypeCode: ITEM_TYPE_CODE, prisma: Prisma.TransactionClient): Promise<string> {
 		const currentYear = new Date().getFullYear() % 100; // Get the last two digits of the current year
 	  
 		// Check if there's already an entry for this item type and year

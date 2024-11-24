@@ -53,13 +53,23 @@
                                                 <td class="text-center">
                                                     <button :disabled="!canDelete(authUser, 'canManageUnit')"
                                                         @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
-                                                        <i class="fas fa-trash"
-                                                            :class="{ 'text-danger': canDelete(authUser, 'canManageUnit') }"></i>
+
+                                                        <client-only>
+                                                            <font-awesome-icon 
+                                                            :icon="['fas', 'trash']" 
+                                                            :class="{ 'text-danger': canDelete(authUser, 'canManageUnit') }" 
+                                                            />
+
+                                                        </client-only>
                                                     </button>
                                                     <button :disabled="!canEdit(authUser, 'canManageUnit')"
                                                         @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
-                                                        <i class="fas fa-edit"
-                                                            :class="{ 'text-primary': canEdit(authUser, 'canManageUnit') }"></i>
+                                                        <client-only>
+                                                            <font-awesome-icon 
+                                                            :icon="['fas', 'edit']" 
+                                                            :class="{ 'text-primary': canEdit(authUser, 'canManageUnit') }" 
+                                                            />
+                                                        </client-only>
                                                     </button>
                                                 </td>
                                             </tr>

@@ -32,8 +32,9 @@
                     @input="onUpdatePassword">
                 <span class="input-group-text">
                     <button @click="showPassword = !showPassword" class="btn btn-sm btn-light">
-                        <i class="fas text-primary"
-                            :class="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"></i>
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', showPassword ? 'eye' : 'eye-slash']" class="text-primary" />
+                        </client-only>
                     </button>
                 </span>
             </div>

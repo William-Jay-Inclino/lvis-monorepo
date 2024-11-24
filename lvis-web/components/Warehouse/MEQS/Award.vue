@@ -40,9 +40,16 @@
                                     <input type="text"
                                         :value="(supplierItem.price === -1) ? 'N/A' : formatToPhpCurrency(supplierItem.price)"
                                         class="form-control me-2" style="width: 100px" disabled>
-                                    <i class="fas fa-star clickable-icon fs-5"
+                                    <!-- <i class="fas fa-star clickable-icon fs-5"
                                         @click="onAward(meqsSupplier, item.id, supplierItem, indx)"
-                                        :class="{ 'text-warning': supplierItem.is_awarded }"></i>
+                                        :class="{ 'text-warning': supplierItem.is_awarded }"></i> -->
+
+                                        <font-awesome-icon 
+                                            :icon="['fas', 'star']" 
+                                            class="clickable-icon fs-5" 
+                                            @click="onAward(meqsSupplier, item.id, supplierItem, indx)" 
+                                            :class="{ 'text-warning': supplierItem.is_awarded }" 
+                                        />
                                 </div>
                             </div>
 
@@ -51,7 +58,12 @@
                     <td class="align-middle text-center">
                         <button ref="attachRemarkBtns" @click="onClickAttachNote(item.id)" class="btn btn-light btn-sm"
                             data-bs-toggle="modal" data-bs-target="#attachNoteModal">
-                            <i class="fas fa-sticky-note fs-2" :class="{'text-warning': hasRemarks(item.id, meqs_suppliers)}"></i>
+                            <!-- <i class="fas fa-sticky-note fs-2" :class="{'text-warning': hasRemarks(item.id, meqs_suppliers)}"></i> -->
+                            <font-awesome-icon 
+                                :icon="['fas', 'sticky-note']" 
+                                class="fs-2" 
+                                :class="{ 'text-warning': hasRemarks(item.id, meqs_suppliers) }" 
+                            />
                         </button>
                     </td>
                 </tr>
@@ -76,10 +88,14 @@
                     <div class="modal-footer">
                         <button @click="onCloseAttachModal" ref="closeattachNoteModal" class="btn btn-secondary"
                             data-bs-dismiss="modal">
-                            <i class="fas fa-close"></i> Close
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                         </button>
                         <button @click="attachNote" class="btn btn-primary" :disabled="isAttachingRemark">
-                            <i class="fas fa-paperclip"></i> {{ isAttachingRemark ? 'Attaching...' : 'Attach' }}
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'paperclip']" />
+                            </client-only> {{ isAttachingRemark ? 'Attaching...' : 'Attach' }}
                         </button>
                     </div>
                 </div>

@@ -32,10 +32,14 @@
 
                 <div class="modal-footer">
                     <button @click="onClickCloseBtn" ref="close_post_gas_slip_btn" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="fas fa-close"></i> Close
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                     </button>
                     <button @click="handlePost" class="btn btn-primary" :disabled="isPosting">
-                        <i class="fas fa-paper-plane"></i> {{ isPosting ? 'Posting...' : 'Post' }}
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'paper-plane']"/>
+                            </client-only> {{ isPosting ? 'Posting...' : 'Post' }}
                     </button>
                 </div>
 

@@ -30,11 +30,15 @@
                         </td>
                         <td class="text-center align-middle">
                             <button @click="removeApprover(item.id)" class="btn btn-sm btn-light w-50">
-                                <i class="fas fa-trash text-danger"></i>
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                            </client-only>
                             </button>
                             <button @click="onClickEditApprover(i)" class="btn btn-sm btn-light w-50"
                                 data-bs-toggle="modal" data-bs-target="#editApproverModal">
-                                <i class="fas fa-edit text-primary"></i>
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
+                            </client-only>
                             </button>
                         </td>
                     </tr>
@@ -114,7 +118,9 @@
                     <div class="modal-footer">
                         <button @click="onCloseChangeOrderModal" ref="closeChangeOrderModal" type="button"
                             class="btn btn-secondary" data-bs-dismiss="modal">
-                            <i class="fas fa-close"></i> Close
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                         </button>
                         <button @click="updateApproverOrder" type="button" class="btn btn-primary"
                             :disabled="isUpdatingApproverOrder">
@@ -176,7 +182,9 @@
                     <div class="modal-footer">
                         <button @click="onCloseAddApproverModal" ref="closeAddApproverModal" class="btn btn-secondary"
                             data-bs-dismiss="modal">
-                            <i class="fas fa-close"></i> Close
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                         </button>
                         <button @click="addApprover" class="btn btn-primary" :disabled="isAddingApprover">
                             <i class="fas fa-user-plus"></i> {{ isAddingApprover ? 'Adding...' : 'Add' }}
@@ -225,7 +233,9 @@
                     <div class="modal-footer">
                         <button @click="onCloseEditApproverModal" ref="closeEditApproverModal" class="btn btn-secondary"
                             data-bs-dismiss="modal">
-                            <i class="fas fa-close"></i> Close
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                         </button>
                         <button @click="editApprover" class="btn btn-primary" :disabled="isEditingApprover">
                             <client-only>

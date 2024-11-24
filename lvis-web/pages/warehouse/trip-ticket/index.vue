@@ -121,8 +121,9 @@
                                                 <td class="align-middle text-center">
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageTripTicket') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageTripTicket')">
-                                                        <i class="fas fa-info-circle"
-                                                            ></i>
+                                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']" />
+                            </client-only>
                                                         View details
                                                     </button>
                                                 </td>

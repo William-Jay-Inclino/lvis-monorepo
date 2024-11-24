@@ -167,7 +167,9 @@
                             <div class="h5wrapper mb-3">
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
-                                    <i class="fas fa-truck"></i> Suppliers
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'truck']" />
+                            </client-only> Suppliers
                                 </h5>
                                 <hr class="result">
                             </div>
@@ -255,15 +257,24 @@
                                                     <span v-if="supplierItem.canvass_item.id === canvassItem.id">
                                                         {{ supplierItem.price === -1 ? 'N/A' :
                 formatToPhpCurrency(supplierItem.price) }}
-                                                        <i class="fas fa-star fs-5"
-                                                            :class="{ 'text-warning': supplierItem.is_awarded }"></i>
+                                                       
+                                                            <client-only>
+                                                                <font-awesome-icon 
+                                                                :icon="['fas', 'star']" 
+                                                                class="fs-5" 
+                                                                :class="{ 'text-warning': supplierItem.is_awarded }" 
+                                                                />
+
+                                                            </client-only>
                                                     </span>
                                                 </template>
                                             </td>
                                             <td class="text-center">
                                                 <button @click="onClickNote(canvassItem.id)" class="btn btn-secondary btn-sm"
                                                     data-bs-toggle="modal" data-bs-target="#myModal">
-                                                    <i class="fas fa-book"></i>
+                                                    <client-only>
+                                                        <font-awesome-icon :icon="['fas', 'book']" />
+                                                    </client-only>
                                                     View
                                                 </button>
                                             </td>

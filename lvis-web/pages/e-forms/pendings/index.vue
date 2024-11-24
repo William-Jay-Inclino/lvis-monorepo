@@ -39,7 +39,9 @@
                                         <td v-if="!isDefaultApproval(item)" class="text-center align-middle">
                                             <button @click="onClickApprove(i)" class="btn btn-light w-50 text-success" data-bs-toggle="modal"
                                                 data-bs-target="#pendingModal">
-                                                <i class="fas fa-check-circle"></i> Approve
+                                                <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'check-circle']" />
+                                                </client-only> Approve
                                             </button>
                                             <button @click="handleCommonDisapprove(i)" class="btn btn-light w-50 text-danger">
                                                 <client-only>
@@ -49,7 +51,9 @@
                                         </td>
                                         <td v-else class="text-center align-middle">
                                             <button @click="handleCommonApprove(i)" class="btn btn-light w-50 text-success">
-                                                <i class="fas fa-check-circle"></i> Approve
+                                                <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'check-circle']" />
+                                                </client-only> Approve
                                             </button>
                                             <button @click="handleCommonDisapprove(i)" class="btn btn-light w-50 text-danger">
                                                 <client-only>

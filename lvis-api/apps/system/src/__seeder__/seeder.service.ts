@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import * as data from './mock-data';
 import { SETTINGS } from '../__common__/constants';
-import { PrismaClient } from 'apps/system/prisma/generated/client';
+import { Prisma, PrismaClient } from 'apps/system/prisma/generated/client';
 
 @Injectable()
 export class SeederService {
@@ -16,26 +16,26 @@ export class SeederService {
             await this.prisma.$transaction(async (prisma) => {
 
                 // data mgmt
-                await this.seedClassification(prisma as PrismaClient)
-                await this.seedAccount(prisma as PrismaClient)
-                await this.seedDepartment(prisma as PrismaClient)
-                await this.seedDivision(prisma as PrismaClient)
+                await this.seedClassification(prisma)
+                await this.seedAccount(prisma)
+                await this.seedDepartment(prisma)
+                await this.seedDivision(prisma)
 
                 // users and employees
-                await this.seedEmployee(prisma as PrismaClient)
-                await this.seedUserTable(prisma as PrismaClient)
-                await this.seedUserEmployeeTable(prisma as PrismaClient);
-                await this.seedUserGroupTable(prisma as PrismaClient);
-                await this.seedUserGroupMembersTable(prisma as PrismaClient);
+                await this.seedEmployee(prisma)
+                await this.seedUserTable(prisma)
+                await this.seedUserEmployeeTable(prisma);
+                await this.seedUserGroupTable(prisma);
+                await this.seedUserGroupMembersTable(prisma);
 
                 // settings
-                await this.seedSettingTable(prisma as PrismaClient);
-                await this.seedJOApproverSetting(prisma as PrismaClient);
-                await this.seedRVApproverSetting(prisma as PrismaClient);
-                await this.seedSPRApproverSetting(prisma as PrismaClient);
-                await this.seedMEQSApproverSetting(prisma as PrismaClient);
-                await this.seedPOApproverSetting(prisma as PrismaClient);
-                await this.seedRRApproverSetting(prisma as PrismaClient);
+                await this.seedSettingTable(prisma);
+                await this.seedJOApproverSetting(prisma);
+                await this.seedRVApproverSetting(prisma);
+                await this.seedSPRApproverSetting(prisma);
+                await this.seedMEQSApproverSetting(prisma);
+                await this.seedPOApproverSetting(prisma);
+                await this.seedRRApproverSetting(prisma);
             });
             console.log('Database seeding transaction completed successfully.');
         } catch (error) {
@@ -43,7 +43,7 @@ export class SeederService {
         }
     }
 
-    async seedDepartment(prisma: PrismaClient) {
+    async seedDepartment(prisma: Prisma.TransactionClient) {
         console.log('seeding department table...')
 
         try {
@@ -56,7 +56,7 @@ export class SeederService {
 
     }
 
-    async seedDivision(prisma: PrismaClient) {
+    async seedDivision(prisma: Prisma.TransactionClient) {
         console.log('seeding division table...')
 
         try {
@@ -69,7 +69,7 @@ export class SeederService {
 
     }
 
-    async seedClassification(prisma: PrismaClient) {
+    async seedClassification(prisma: Prisma.TransactionClient) {
         console.log('seeding classification table...')
 
         try {
@@ -83,7 +83,7 @@ export class SeederService {
 
     }
 
-    async seedAccount(prisma: PrismaClient) {
+    async seedAccount(prisma: Prisma.TransactionClient) {
         console.log('seeding account table...')
 
         try {
@@ -97,7 +97,7 @@ export class SeederService {
 
     }
 
-    async seedEmployee(prisma: PrismaClient) {
+    async seedEmployee(prisma: Prisma.TransactionClient) {
         console.log('seeding employee table...')
 
         try {
@@ -111,7 +111,7 @@ export class SeederService {
 
     }
 
-    async seedJOApproverSetting(prisma: PrismaClient) {
+    async seedJOApproverSetting(prisma: Prisma.TransactionClient) {
         console.log('seeding jo_approver_setting table...')
 
         try {
@@ -125,7 +125,7 @@ export class SeederService {
 
     }
 
-    async seedRVApproverSetting(prisma: PrismaClient) {
+    async seedRVApproverSetting(prisma: Prisma.TransactionClient) {
         console.log('seeding rv_approver_setting table...')
 
         try {
@@ -140,7 +140,7 @@ export class SeederService {
 
     }
 
-    async seedSPRApproverSetting(prisma: PrismaClient) {
+    async seedSPRApproverSetting(prisma: Prisma.TransactionClient) {
 
         console.log('seeding spr_approver_setting table...')
 
@@ -156,7 +156,7 @@ export class SeederService {
 
     }
 
-    async seedMEQSApproverSetting(prisma: PrismaClient) {
+    async seedMEQSApproverSetting(prisma: Prisma.TransactionClient) {
         console.log('seeding meqs_approver_setting table...')
 
         try {
@@ -170,7 +170,7 @@ export class SeederService {
 
     }
 
-    async seedPOApproverSetting(prisma: PrismaClient) {
+    async seedPOApproverSetting(prisma: Prisma.TransactionClient) {
         console.log('seeding po_approver_setting table...')
 
         try {
@@ -183,7 +183,7 @@ export class SeederService {
 
     }
 
-    async seedRRApproverSetting(prisma: PrismaClient) {
+    async seedRRApproverSetting(prisma: Prisma.TransactionClient) {
         console.log('seeding rr_approver_setting table...')
 
         try {
@@ -196,7 +196,7 @@ export class SeederService {
 
     }
 
-    async seedUserTable(prisma: PrismaClient) {
+    async seedUserTable(prisma: Prisma.TransactionClient) {
         console.log('seeding user table...')
 
         try {
@@ -210,7 +210,7 @@ export class SeederService {
 
     }
 
-    async seedUserGroupTable(prisma: PrismaClient) {
+    async seedUserGroupTable(prisma: Prisma.TransactionClient) {
         console.log('seeding user_group table...')
 
         try {
@@ -223,7 +223,7 @@ export class SeederService {
 
     }
 
-    async seedUserGroupMembersTable(prisma: PrismaClient) {
+    async seedUserGroupMembersTable(prisma: Prisma.TransactionClient) {
         console.log('seeding user_group_member table...')
 
         try {
@@ -236,7 +236,7 @@ export class SeederService {
 
     }
 
-    async seedUserEmployeeTable(prisma: PrismaClient) {
+    async seedUserEmployeeTable(prisma: Prisma.TransactionClient) {
         console.log('Seeding user_employee table...');
 
         try {
@@ -251,7 +251,7 @@ export class SeederService {
         }
     }
 
-    async seedSettingTable(prisma: PrismaClient) {
+    async seedSettingTable(prisma: Prisma.TransactionClient) {
         console.log('seeding setting table....');
     
         try {

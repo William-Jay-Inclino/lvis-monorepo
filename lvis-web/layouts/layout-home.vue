@@ -7,7 +7,9 @@
                     <a class="navbar-brand" href="#">
                         <img style="max-height: 60px;" src="~/assets/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
                         Welcome, {{ authUser.user.username }}! <span v-if="!isMobile"> Have a productive day </span> 
-                        <i class="fas fa-smile"></i>
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'smile']" />
+                            </client-only>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -16,7 +18,9 @@
                     <!-- Notification icon for small screen -->
                     <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-3 position-relative">
                         <nuxt-link class="text-white position-relative" to="/e-forms/pendings">
-                            <i class="fas fa-bell"></i>
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'bell']" />
+                            </client-only>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 {{ totalPendings }}
                             </span>
@@ -26,7 +30,9 @@
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li v-if="isApprover(authUser)" class="nav-item">
                                 <nuxt-link class="nav-link me-3 text-white position-relative" to="/e-forms/pendings">
-                                    <i class="fas fa-bell"></i>
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'bell']" />
+                                    </client-only>
                                     <span
                                         class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
                                         {{ totalPendings }}

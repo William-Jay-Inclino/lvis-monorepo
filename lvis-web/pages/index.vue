@@ -74,39 +74,58 @@
                               <!-- First Row -->
                               <div class="row fs-8">
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                      <i class="fa fa-bolt me-1"></i> Powerserve
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'bolt']" class="me-1"/>
+                                    </client-only>
+                                        Powerserve
                                   </div>
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                      <i class="fa fa-gear me-1"></i> System
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'gear']"  class="me-1"/>
+                                    </client-only> System
                                   </div>
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                      <i class="fa fa-clipboard me-1"></i> E-forms
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'clipboard']"  class="me-1"/>
+                                    </client-only> E-forms
                                   </div>
                               </div>
 
                               <!-- Second Row -->
                               <div class="row fs-8">
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                      <i class="fa fa-link me-1"></i> E-connect
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'link']"  class="me-1"/>
+                                    </client-only> E-connect
                                   </div>
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                      <i class="fa fa-file-invoice me-1"></i> Powerbill
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'file-invoice']"  class="me-1"/>
+                                    </client-only> Powerbill
                                   </div>
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                      <i class="fa fa-money-bill-wave me-1"></i> LPS
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'money-bill-wave']"  class="me-1"/>
+                                    </client-only> LPS
                                   </div>
                               </div>
 
                               <!-- Third Row -->
                               <div class="row fs-8">
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                      <i class="fa fa-warehouse me-1"></i> Powerhouse
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'warehouse']"  class="me-1"/>
+                                    </client-only> Powerhouse
                                   </div>
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                      <i class="fa fa-book me-1"></i> Accounting
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'book']"  class="me-1"/>
+                                    </client-only> Accounting
                                   </div>
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                      <i class="fa fa-users me-1"></i> Powerpay
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'users']"  class="me-1"/>
+                                    </client-only> Powerpay
                                   </div>
                               </div>
                           </div>

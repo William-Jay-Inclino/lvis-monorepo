@@ -161,7 +161,9 @@
                     <div class="modal-footer">
                         <button ref="closeBtnModal" @click="closeModal" class="btn btn-secondary"
                             data-bs-dismiss="modal">
-                            <i class="fas fa-close"></i> Close
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                         </button>
                         <button v-if="formIsAdd" @click="addItem" class="btn btn-primary" :disabled="isAdding">
                             <client-only>

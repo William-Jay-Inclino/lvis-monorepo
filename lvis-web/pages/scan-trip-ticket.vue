@@ -79,7 +79,9 @@
                     <div class="h5wrapper mb-3">
                         <hr class="result">
                         <h5 class="text-warning fst-italic">
-                            <i class="fas fa-calendar-alt"></i> Trip Schedule
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'calendar-alt']" />
+                            </client-only> Trip Schedule
                         </h5>
                         <hr class="result">
                     </div>

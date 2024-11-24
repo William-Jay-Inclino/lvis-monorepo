@@ -14,7 +14,9 @@
                 <!-- Notification icon for small screen -->
                 <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-3 position-relative">
                     <nuxt-link class="text-white position-relative" to="/e-forms/pendings">
-                        <i class="fas fa-bell"></i>
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'bell']" />
+                        </client-only>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             {{ totalPendings }}
                         </span>
@@ -27,7 +29,9 @@
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">
-                                <i class="fas fa-bell"></i>
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'bell']" />
+                                </client-only>
                                 <span
                                     class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
                                     {{ totalPendings }}

@@ -113,14 +113,11 @@
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
                                                     :class="{ 'text-primary': (canViewDetails(authUser, 'canManageRR') && !isTransactionFailed(i) ), 'text-danger': isTransactionFailed(i) }"
                                                         :disabled="!canViewDetails(authUser, 'canManageRR')">
-                                                        <i class="fas fa-info-circle"
-                                                            ></i>
+                                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']" />
+                            </client-only>
                                                         View details
                                                     </button>
-                                                    <!-- <button :disabled="!i.can_update || i.status === APPROVAL_STATUS.CANCELLED" @click="onClickEdit(i.id)"
-                                                        class="btn btn-light w-50">
-                                                        <i class="fas fa-edit" :class="{ 'text-primary': !!i.can_update && i.status !== APPROVAL_STATUS.CANCELLED}"></i>
-                                                    </button> -->
                                                 </td>
                                             </tr>
                                         </tbody>

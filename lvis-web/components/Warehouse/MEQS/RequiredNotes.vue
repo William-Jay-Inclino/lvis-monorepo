@@ -50,7 +50,9 @@
                 </div>
                 <div class="modal-footer">
                     <button ref="closeRequiredNotesBtn" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="fas fa-close"></i> Close
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'close']"/>
+                            </client-only> Close
                     </button>
                     <button @click="save" class="btn btn-primary" :disabled="!canSave || isSavingMeqs">
                         <client-only>

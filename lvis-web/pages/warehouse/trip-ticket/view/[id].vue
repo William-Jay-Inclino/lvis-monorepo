@@ -76,10 +76,14 @@
                                                     </div>
                                                     <div v-if="isAdmin(authUser)">
                                                         <button @click="onRemoveActualDepartureTime" v-if="!item.actual_end_time && !!item.actual_start_time" class="btn btn-light btn-sm me-3">
-                                                            <i class="fas fa-trash text-danger"></i>
+                                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                            </client-only>
                                                         </button>
                                                         <button @click="onClickEditActualDepartureTime" class="btn btn-light btn-sm">
-                                                            <i class="fas fa-edit text-primary"></i>
+                                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
+                            </client-only>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -94,10 +98,14 @@
                                                     </div>
                                                     <div v-if="isAdmin(authUser)">
                                                         <button v-if="!!item.actual_end_time" @click="onRemoveActualArrivalTime" class="btn btn-light btn-sm me-3">
-                                                            <i class="fas fa-trash text-danger"></i>
+                                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                            </client-only>
                                                         </button>
                                                         <button @click="onClickEditActualArrivalTime" class="btn btn-light btn-sm">
-                                                            <i class="fas fa-edit text-primary"></i>
+                                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
+                            </client-only>
                                                         </button>
                                                     </div>
                                                 </div>

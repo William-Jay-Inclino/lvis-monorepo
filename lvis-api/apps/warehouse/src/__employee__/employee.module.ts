@@ -13,6 +13,7 @@ import { EmployeeService } from './employee.service';
 // import { SprApproverService } from '../spr-approver/spr-approver.service';
 import { JoApproverService } from '../jo-approver/jo-approver.service';
 import { PendingService } from '../pending/pending.service';
+import { ItemService } from '../item/item.service';
 // import { JoService } from '../jo/jo.service';
 
 @Module({
@@ -31,7 +32,8 @@ import { PendingService } from '../pending/pending.service';
     MeqsApproverService,
     PoApproverService,
     RrApproverService,
-    PendingService
+    PendingService,
+    ItemService,
   ],
 })
 export class EmployeeModule { }

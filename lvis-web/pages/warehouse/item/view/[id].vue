@@ -91,7 +91,9 @@
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
-                                        <i class="fas fa-history"></i> Item Transactions
+                                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'history']" />
+                            </client-only> Item Transactions
                                     </h5>
                                     <hr class="result">
                                 </div>

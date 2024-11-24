@@ -19,21 +19,18 @@
                             </li>
                             <li class="nav-item" @click="onClickTab(FORM_TYPE.SUPPLIER)">
                                 <a class="nav-link" :class="{ 'active': form === FORM_TYPE.SUPPLIER }" href="#">
-                                    <i class="fas fa-truck"></i> Manage Suppliers
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'truck']" />
+                            </client-only> Manage Suppliers
                                 </a>
                             </li>
                             <li class="nav-item" @click="onClickTab(FORM_TYPE.AWARD)">
                                 <a class="nav-link" :class="{ 'active': form === FORM_TYPE.AWARD }" href="#">
-                                    <i class="fas fa-medal"></i> Awarding
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'medal']" />
+                            </client-only> Awarding
                                 </a>
                             </li>
-                            <!-- <li v-if="isAdmin(authUser)" class="nav-item" @click="onClickTab(FORM_TYPE.APPROVER)">
-                                <a class="nav-link" :class="{ 'active': form === FORM_TYPE.APPROVER }" href="#">
-                                    <client-only>
-                                <font-awesome-icon :icon="['fas', 'users']"/>
-                            </client-only> Approvers
-                                </a>
-                            </li> -->
                         </ul>
                     </div>
                 </div>

@@ -97,13 +97,11 @@
                                                 <td class="align-middle text-center">
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageCanvass') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageCanvass')">
-                                                        <i class="fas fa-info-circle"> </i>
+                                                        <client-only>
+                                                            <font-awesome-icon :icon="['fas', 'info-circle']" />
+                                                        </client-only>
                                                             View details
                                                     </button>
-                                                    <!-- <button :disabled="!i.can_update" @click="onClickEdit(i.id)"
-                                                        class="btn btn-light w-50">
-                                                        <i class="fas fa-edit" :class="{ 'text-primary': !!i.can_update }"></i>
-                                                    </button> -->
                                                 </td>
                                             </tr>
                                         </tbody>

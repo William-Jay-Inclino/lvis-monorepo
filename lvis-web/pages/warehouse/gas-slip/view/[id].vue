@@ -90,7 +90,9 @@
                             <div class="h5wrapper mb-3">
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
-                                    <i class="fas fa-car"></i> Vehicle Info
+                                    <client-only>
+                                <font-awesome-icon :icon="['fas', 'car']" />
+                            </client-only> Vehicle Info
                                 </h5>
                                 <hr class="result">
                             </div>
