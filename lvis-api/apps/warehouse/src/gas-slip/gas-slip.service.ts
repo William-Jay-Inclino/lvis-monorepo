@@ -8,8 +8,6 @@ import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
 import { CreateGasSlipApproverSubInput } from './dto/create-gas-slip-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { GasSlipsResponse } from './entities/gas-slips-response.entity';
-import { OnEvent } from '@nestjs/event-emitter';
-import { GasSlipApproverStatusUpdated } from '../gas-slip-approver/events/gas-slip-approver-status-updated.event';
 import { getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { PostGasSlipInput } from './dto/post-gas-slip.input';
 import { MAX_UNPOSTED_GAS_SLIPS } from '../__common__/config';
@@ -548,64 +546,64 @@ export class GasSlipService {
         }
     }
 
-	@OnEvent('gas-slip-approver-status.updated')
-	async handle_gas_slip_approver_status_updated(payload: GasSlipApproverStatusUpdated) {
+	// @OnEvent('gas-slip-approver-status.updated')
+	// async handle_gas_slip_approver_status_updated(payload: GasSlipApproverStatusUpdated) {
 
-		console.log('handle_gas_slip_approver_status_updated', payload);
+	// 	console.log('handle_gas_slip_approver_status_updated', payload);
 		
-		const gasSlipApprover = await this.prisma.gasSlipApprover.findUnique({
-			where: { id: payload.id },
-			include: {
-				gas_slip: {
-					include: {
-						gas_slip_approvers: true
-					}
-				}
-			}
-		})
+	// 	const gasSlipApprover = await this.prisma.gasSlipApprover.findUnique({
+	// 		where: { id: payload.id },
+	// 		include: {
+	// 			gas_slip: {
+	// 				include: {
+	// 					gas_slip_approvers: true
+	// 				}
+	// 			}
+	// 		}
+	// 	})
 
-		if (!gasSlipApprover) {
-			throw new NotFoundException('gasSlipApprover not found with id: ' + payload.id)
-		}
+	// 	if (!gasSlipApprover) {
+	// 		throw new NotFoundException('gasSlipApprover not found with id: ' + payload.id)
+	// 	}
 
-		if (gasSlipApprover.gas_slip.is_posted) {
-			console.log('Gas Slip is already posted. End function')
-			return
-		}
+	// 	if (gasSlipApprover.gas_slip.is_posted) {
+	// 		console.log('Gas Slip is already posted. End function')
+	// 		return
+	// 	}
 
-		const approvers = gasSlipApprover.gas_slip.gas_slip_approvers
-		console.log('approvers', approvers)
+	// 	const approvers = gasSlipApprover.gas_slip.gas_slip_approvers
+	// 	console.log('approvers', approvers)
 
-		const isApproved = this.isStatusApproved(approvers)
+	// 	const isApproved = this.isStatusApproved(approvers)
 
-		if (!isApproved) {
-			console.log('Gas Slip status is not approved. End function')
-			return
-		}
+	// 	if (!isApproved) {
+	// 		console.log('Gas Slip status is not approved. End function')
+	// 		return
+	// 	}
 
-		// if gas slip is approved then set is_posted to false 
+	// 	// if gas slip is approved then set is_posted to false 
 
-		const result = await this.prisma.gasSlip.update({
-			where: {
-				id: gasSlipApprover.gas_slip_id
-			},
-			data: {
-				is_posted: false 
-			}
-		})
+	// 	const result = await this.prisma.gasSlip.update({
+	// 		where: {
+	// 			id: gasSlipApprover.gas_slip_id
+	// 		},
+	// 		data: {
+	// 			is_posted: false 
+	// 		}
+	// 	})
 
-	}
+	// }
 
-	private isStatusApproved(approvers: GasSlipApprover[]) {
-		for (let approver of approvers) {
+	// private isStatusApproved(approvers: GasSlipApprover[]) {
+	// 	for (let approver of approvers) {
 
-			if (approver.status !== APPROVAL_STATUS.APPROVED) {
-				return false
-			}
+	// 		if (approver.status !== APPROVAL_STATUS.APPROVED) {
+	// 			return false
+	// 		}
 
-		}
+	// 	}
 
-		return true
-	}
+	// 	return true
+	// }
 
 }

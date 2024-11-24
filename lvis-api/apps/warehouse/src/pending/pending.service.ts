@@ -526,11 +526,11 @@ export class PendingService {
         return approverModel
     }
 
-    private async printLogsInConsole(logs: string[]) {
-        for(let log of logs) {
-            console.log(log);
-        }
-    }
+    // private async printLogsInConsole(logs: string[]) {
+    //     for(let log of logs) {
+    //         console.log(log);
+    //     }
+    // }
 
     private async isClassificationExist(classification_id: string, authUser: AuthUser): Promise<boolean> {
 

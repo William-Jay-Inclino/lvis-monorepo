@@ -11,8 +11,6 @@ import { DB_ENTITY } from '../__common__/constants';
 import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
 import { VEHICLE_STATUS } from '../vehicle/entities/vehicle.enums';
 import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
-import { OnEvent } from '@nestjs/event-emitter';
-import { TripTicketApproverStatusUpdated } from '../trip-ticket-approver/events/trip-ticket-approver-status-updated.event';
 import { isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
 import { catchError, firstValueFrom } from 'rxjs';
@@ -949,66 +947,66 @@ export class TripTicketService {
         }
     }
 
-	@OnEvent('trip-ticket-approver-status.updated')
-	async handle_trip_ticket_approver_status_updated(payload: TripTicketApproverStatusUpdated) {
+	// @OnEvent('trip-ticket-approver-status.updated')
+	// async handle_trip_ticket_approver_status_updated(payload: TripTicketApproverStatusUpdated) {
 
-		console.log('handle_trip_ticket_approver_status_updated', payload);
+	// 	console.log('handle_trip_ticket_approver_status_updated', payload);
 		
-		const tripApprover = await this.prisma.tripTicketApprover.findUnique({
-			where: { id: payload.id },
-			include: {
-				trip_ticket: {
-					include: {
-						trip_ticket_approvers: true
-					}
-				}
-			}
-		})
+	// 	const tripApprover = await this.prisma.tripTicketApprover.findUnique({
+	// 		where: { id: payload.id },
+	// 		include: {
+	// 			trip_ticket: {
+	// 				include: {
+	// 					trip_ticket_approvers: true
+	// 				}
+	// 			}
+	// 		}
+	// 	})
 
-		if (!tripApprover) {
-			throw new NotFoundException('tripApprover not found with id: ' + payload.id)
-		}
+	// 	if (!tripApprover) {
+	// 		throw new NotFoundException('tripApprover not found with id: ' + payload.id)
+	// 	}
 
-		if (tripApprover.trip_ticket.status === TRIP_TICKET_STATUS.COMPLETED) {
-			console.log('Trip Ticket is already completed. End function')
-			return
-		}
+	// 	if (tripApprover.trip_ticket.status === TRIP_TICKET_STATUS.COMPLETED) {
+	// 		console.log('Trip Ticket is already completed. End function')
+	// 		return
+	// 	}
 
-		const approvers = tripApprover.trip_ticket.trip_ticket_approvers
-		console.log('approvers', approvers)
+	// 	const approvers = tripApprover.trip_ticket.trip_ticket_approvers
+	// 	console.log('approvers', approvers)
 
-		const isApproved = this.isStatusApproved(approvers)
+	// 	const isApproved = this.isStatusApproved(approvers)
 
-		if (!isApproved) {
-			console.log('Trip Ticket status is not approved. End function')
-			return
-		}
+	// 	if (!isApproved) {
+	// 		console.log('Trip Ticket status is not approved. End function')
+	// 		return
+	// 	}
 
-		// if trip ticket approvers are all approved then set trip ticket status to approve
+	// 	// if trip ticket approvers are all approved then set trip ticket status to approve
 
-		const result = await this.prisma.tripTicket.update({
-			where: {
-				id: tripApprover.trip_ticket_id
-			},
-			data: {
-				status: APPROVAL_STATUS.APPROVED
-			}
-		})
+	// 	const result = await this.prisma.tripTicket.update({
+	// 		where: {
+	// 			id: tripApprover.trip_ticket_id
+	// 		},
+	// 		data: {
+	// 			status: APPROVAL_STATUS.APPROVED
+	// 		}
+	// 	})
 
-		console.log('Trip ticket status set to approve successfully');
+	// 	console.log('Trip ticket status set to approve successfully');
 
-	}
+	// }
 
-	private isStatusApproved(approvers: TripTicketApprover[]) {
-		for (let approver of approvers) {
+	// private isStatusApproved(approvers: TripTicketApprover[]) {
+	// 	for (let approver of approvers) {
 
-			if (approver.status !== APPROVAL_STATUS.APPROVED) {
-				return false
-			}
+	// 		if (approver.status !== APPROVAL_STATUS.APPROVED) {
+	// 			return false
+	// 		}
 
-		}
+	// 	}
 
-		return true
-	}
+	// 	return true
+	// }
 
 }

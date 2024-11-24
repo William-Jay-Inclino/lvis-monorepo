@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
@@ -7,13 +7,7 @@ import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE } from '../__common__/types';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { ItemsResponse } from './entities/items-response.entity';
 import { ItemTransaction } from './entities/item-transaction.entity';
-import { RrApproverStatusUpdated } from '../rr-approver/events/rr-approver-status-updated.event';
 import { OnEvent } from '@nestjs/event-emitter';
-import { RrItem } from '../rr-item/entities/rr-item.entity';
-import { OsrivApproverStatusUpdated } from '../osriv-approver/events/osriv-approver-status-updated.event';
-import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-approver-status-updated.event';
-import { MctApproverStatusUpdated } from '../mct-approver/events/mct-approver-status-updated.event';
-import { McrtApproverStatusUpdated } from '../mcrt-approver/events/mcrt-approver-status-updated.event';
 import { ITEM_TYPE_CODE } from '../__common__/constants';
 import { MSTItem } from '../mst-item/entities/mst-item.entity';
 import { MST } from '../mst/entities/mst.entity';
@@ -400,519 +394,519 @@ export class ItemService {
 
 	// ================== RR EVENTS ================== 
 
-	@OnEvent('rr-approver-status.updated')
-	async handleRrApproverStatusUpdated(payload: RrApproverStatusUpdated) {
+	// @OnEvent('rr-approver-status.updated')
+	// async handleRrApproverStatusUpdated(payload: RrApproverStatusUpdated) {
 
-		this.logger.log('=== item-transaction.service.ts ===')
+	// 	this.logger.log('=== item-transaction.service.ts ===')
 
-		console.log('handleRrApproverStatusUpdated()', payload)
+	// 	console.log('handleRrApproverStatusUpdated()', payload)
 
-		const rrApprover = await this.prisma.rRApprover.findUnique({
-			where: { id: payload.id },
-			include: {
-				rr: {
-					include: {
-						rr_items: {
-							include: {
-								meqs_supplier_item: {
-									include: {
-										canvass_item: {
-											include: {
-												item: true
-											}
-										}
-									}
-								}
-							}
-						},
-						rr_approvers: true
-					}
-				}
-			}
-		})
+	// 	const rrApprover = await this.prisma.rRApprover.findUnique({
+	// 		where: { id: payload.id },
+	// 		include: {
+	// 			rr: {
+	// 				include: {
+	// 					rr_items: {
+	// 						include: {
+	// 							meqs_supplier_item: {
+	// 								include: {
+	// 									canvass_item: {
+	// 										include: {
+	// 											item: true
+	// 										}
+	// 									}
+	// 								}
+	// 							}
+	// 						}
+	// 					},
+	// 					rr_approvers: true
+	// 				}
+	// 			}
+	// 		}
+	// 	})
 
-		if (!rrApprover) {
-			throw new NotFoundException('rrApprover not found with id: ' + payload.id)
-		}
+	// 	if (!rrApprover) {
+	// 		throw new NotFoundException('rrApprover not found with id: ' + payload.id)
+	// 	}
 
-		if (rrApprover.rr.is_completed) {
-			console.log('RR is already completed. End function')
-			return
-		}
+	// 	if (rrApprover.rr.is_completed) {
+	// 		console.log('RR is already completed. End function')
+	// 		return
+	// 	}
 
-		const approvers = rrApprover.rr.rr_approvers
+	// 	const approvers = rrApprover.rr.rr_approvers
 
-		console.log('approvers', approvers)
+	// 	console.log('approvers', approvers)
 
-		const isApproved = this.isStatusApproved(approvers)
+	// 	const isApproved = this.isStatusApproved(approvers)
 
-		if (!isApproved) {
-			console.log('RR status is not approved. End function')
-			return
-		}
+	// 	if (!isApproved) {
+	// 		console.log('RR status is not approved. End function')
+	// 		return
+	// 	}
 
-		console.log('Transacting RR items...')
+	// 	console.log('Transacting RR items...')
 
-		// add rr items to item_transaction table and update total quantity of item in the item table
-		// @ts-ignore
-		const response = await this.transactRrItems(rrApprover.rr_id, rrApprover.rr.rr_items)
+	// 	// add rr items to item_transaction table and update total quantity of item in the item table
+	// 	// @ts-ignore
+	// 	const response = await this.transactRrItems(rrApprover.rr_id, rrApprover.rr.rr_items)
 
-		console.log('response', response)
+	// 	console.log('response', response)
 
-	}
+	// }
 
-	private async transactRrItems(rrId: string, rrItems: RrItem[]): Promise<{ success: boolean }> {
+	// private async transactRrItems(rrId: string, rrItems: RrItem[]): Promise<{ success: boolean }> {
 
-		console.log('transactRrItems', rrItems)
+	// 	console.log('transactRrItems', rrItems)
 
-		const queries = []
+	// 	const queries = []
 
-		// prepare query for item transaction
-		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
-
-
-		for (let rrItem of rrItems) {
-
-			if (!rrItem.meqs_supplier_item.canvass_item.item) {
-				continue
-			}
-
-			const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: rrItem.meqs_supplier_item.canvass_item.item.id,
-				rr_item_id: rrItem.id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
-				quantity: rrItem.quantity_accepted,
-				price: rrItem.meqs_supplier_item.price,
-				remarks: 'From RR'
-			}
-
-			itemTransactions.push(data)
-
-		}
-
-		const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
-			data: itemTransactions
-		})
-
-		queries.push(createItemTransactionsQuery)
-
-		// prepare queries for updating item quantity based on item_transactions
-		for (let transaction of itemTransactions) {
-
-			const item = await this.prisma.item.findUnique({ where: { id: transaction.item_id } });
-			if (!item) {
-				throw new NotFoundException(`Item not found with item_id: ${transaction.item_id}`);
-			}
-
-			// const totalQuantity = item.total_quantity + transaction.quantity;
-
-			const updateItemQtyQuery = this.prisma.item.update({
-				where: { id: item.id },
-				data: {
-					total_quantity: {
-						increment: transaction.quantity
-					}
-				},
-			});
-
-			queries.push(updateItemQtyQuery)
-
-		}
+	// 	// prepare query for item transaction
+	// 	const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
 
 
-		// set is_completed field in rr table to true 
-		const updateRRQuery = this.prisma.rR.update({
-			where: {
-				id: rrId
-			},
-			data: {
-				is_completed: true
-			}
-		})
-		queries.push(updateRRQuery)
+	// 	for (let rrItem of rrItems) {
 
-		console.log('queries', queries)
+	// 		if (!rrItem.meqs_supplier_item.canvass_item.item) {
+	// 			continue
+	// 		}
+
+	// 		const data: Prisma.ItemTransactionCreateManyInput = {
+	// 			item_id: rrItem.meqs_supplier_item.canvass_item.item.id,
+	// 			rr_item_id: rrItem.id,
+	// 			type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+	// 			quantity: rrItem.quantity_accepted,
+	// 			price: rrItem.meqs_supplier_item.price,
+	// 			remarks: 'From RR'
+	// 		}
+
+	// 		itemTransactions.push(data)
+
+	// 	}
+
+	// 	const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
+	// 		data: itemTransactions
+	// 	})
+
+	// 	queries.push(createItemTransactionsQuery)
+
+	// 	// prepare queries for updating item quantity based on item_transactions
+	// 	for (let transaction of itemTransactions) {
+
+	// 		const item = await this.prisma.item.findUnique({ where: { id: transaction.item_id } });
+	// 		if (!item) {
+	// 			throw new NotFoundException(`Item not found with item_id: ${transaction.item_id}`);
+	// 		}
+
+	// 		// const totalQuantity = item.total_quantity + transaction.quantity;
+
+	// 		const updateItemQtyQuery = this.prisma.item.update({
+	// 			where: { id: item.id },
+	// 			data: {
+	// 				total_quantity: {
+	// 					increment: transaction.quantity
+	// 				}
+	// 			},
+	// 		});
+
+	// 		queries.push(updateItemQtyQuery)
+
+	// 	}
 
 
-		// EXECUTE QUERIES
-		await this.prisma.$transaction(queries)
+	// 	// set is_completed field in rr table to true 
+	// 	const updateRRQuery = this.prisma.rR.update({
+	// 		where: {
+	// 			id: rrId
+	// 		},
+	// 		data: {
+	// 			is_completed: true
+	// 		}
+	// 	})
+	// 	queries.push(updateRRQuery)
 
-		return {
-			success: true
-		}
+	// 	console.log('queries', queries)
 
-	}
+
+	// 	// EXECUTE QUERIES
+	// 	await this.prisma.$transaction(queries)
+
+	// 	return {
+	// 		success: true
+	// 	}
+
+	// }
 
 
 
 	// ================== OSRIV EVENTS ================== 
 
-	@OnEvent('osriv-approver-status.updated')
-	async handleOsrivApproverStatusUpdated(payload: OsrivApproverStatusUpdated) {
+	// @OnEvent('osriv-approver-status.updated')
+	// async handleOsrivApproverStatusUpdated(payload: OsrivApproverStatusUpdated) {
 
-		this.logger.log('=== item-transaction.service.ts ===')
+	// 	this.logger.log('=== item-transaction.service.ts ===')
 
-		console.log('handleOsrivApproverStatusUpdated()', payload)
+	// 	console.log('handleOsrivApproverStatusUpdated()', payload)
 
-		const osrivApprover = await this.prisma.oSRIVApprover.findUnique({
-			where: { id: payload.id },
-			include: {
-				osriv: {
-					include: {
-						osriv_items: {
-							include: {
-								item: true
-							}
-						},
-						osriv_approvers: true
-					}
-				}
-			}
-		})
+	// 	const osrivApprover = await this.prisma.oSRIVApprover.findUnique({
+	// 		where: { id: payload.id },
+	// 		include: {
+	// 			osriv: {
+	// 				include: {
+	// 					osriv_items: {
+	// 						include: {
+	// 							item: true
+	// 						}
+	// 					},
+	// 					osriv_approvers: true
+	// 				}
+	// 			}
+	// 		}
+	// 	})
 
-		if (!osrivApprover) {
-			throw new NotFoundException('osrivApprover not found with id: ' + payload.id)
-		}
+	// 	if (!osrivApprover) {
+	// 		throw new NotFoundException('osrivApprover not found with id: ' + payload.id)
+	// 	}
 
-		if (osrivApprover.osriv.is_completed) {
-			console.log('OSRIV is already completed. End function')
-			return
-		}
+	// 	if (osrivApprover.osriv.is_completed) {
+	// 		console.log('OSRIV is already completed. End function')
+	// 		return
+	// 	}
 
-		const approvers = osrivApprover.osriv.osriv_approvers
+	// 	const approvers = osrivApprover.osriv.osriv_approvers
 
-		console.log('approvers', approvers)
+	// 	console.log('approvers', approvers)
 
-		const isApproved = this.isStatusApproved(approvers)
+	// 	const isApproved = this.isStatusApproved(approvers)
 
-		if (!isApproved) {
-			console.log('OSRIV status is not approved. End function')
-			return
-		}
+	// 	if (!isApproved) {
+	// 		console.log('OSRIV status is not approved. End function')
+	// 		return
+	// 	}
 
-		console.log('Transacting OSRIV items...')
+	// 	console.log('Transacting OSRIV items...')
 
-		// add osriv items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
-		// @ts-ignore
-		const response = await this.transactOsrivItems(osrivApprover.osriv_id, osrivApprover.osriv.osriv_items)
+	// 	// add osriv items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
+	// 	// @ts-ignore
+	// 	const response = await this.transactOsrivItems(osrivApprover.osriv_id, osrivApprover.osriv.osriv_items)
 
-		console.log('response', response)
+	// 	console.log('response', response)
 
-	}
+	// }
 
 	// add osriv items to item_transaction
 	// update total_quantity and quantity_on_queue of item
 
-	private async transactOsrivItems(osrivId: string, osrivItems: OSRIVItem[]): Promise<{ success: boolean }> {
+	// private async transactOsrivItems(osrivId: string, osrivItems: OSRIVItem[]): Promise<{ success: boolean }> {
 
-		const queries: Prisma.PrismaPromise<any>[] = []
-		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
+	// 	const queries: Prisma.PrismaPromise<any>[] = []
+	// 	const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
 
-		for(let osrivItem of osrivItems) {
+	// 	for(let osrivItem of osrivItems) {
 			
-			const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: osrivItem.item_id,
-				osriv_item_id: osrivItem.id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
-				quantity: osrivItem.quantity,
-				price: osrivItem.price,
-				remarks: 'OSRIV Request'
-			}
+	// 		const data: Prisma.ItemTransactionCreateManyInput = {
+	// 			item_id: osrivItem.item_id,
+	// 			osriv_item_id: osrivItem.id,
+	// 			type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
+	// 			quantity: osrivItem.quantity,
+	// 			price: osrivItem.price,
+	// 			remarks: 'OSRIV Request'
+	// 		}
 
-			itemTransactions.push(data)
+	// 		itemTransactions.push(data)
 
-		}
+	// 	}
 
-		const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
-			data: itemTransactions
-		})
+	// 	const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
+	// 		data: itemTransactions
+	// 	})
 
-		queries.push(createItemTransactionsQuery)
+	// 	queries.push(createItemTransactionsQuery)
 
-		// set is_completed field in osriv table to true 
-		const updateOSRIVQuery = this.prisma.oSRIV.update({
-			where: {
-				id: osrivId
-			},
-			data: {
-				is_completed: true
-			}
-		})
-		queries.push(updateOSRIVQuery)
+	// 	// set is_completed field in osriv table to true 
+	// 	const updateOSRIVQuery = this.prisma.oSRIV.update({
+	// 		where: {
+	// 			id: osrivId
+	// 		},
+	// 		data: {
+	// 			is_completed: true
+	// 		}
+	// 	})
+	// 	queries.push(updateOSRIVQuery)
 
-		// update item total_quantity and quantity_on_queue on each item
-        const updateItemQueries = this.generateUpdateItemQueries(osrivItems, ITEM_TRANSACTION_TYPE.STOCK_OUT); 
+	// 	// update item total_quantity and quantity_on_queue on each item
+    //     const updateItemQueries = this.generateUpdateItemQueries(osrivItems, ITEM_TRANSACTION_TYPE.STOCK_OUT); 
 
-		const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
+	// 	const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
 
-		// EXECUTE QUERIES
-		await this.prisma.$transaction(allQueries)
+	// 	// EXECUTE QUERIES
+	// 	await this.prisma.$transaction(allQueries)
 
-		return {
-			success: true
-		}
+	// 	return {
+	// 		success: true
+	// 	}
 
-	}
+	// }
 
 
 
 	// ================== SERIV EVENTS ================== 
 
-	@OnEvent('seriv-approver-status.updated')
-	async handleSerivApproverStatusUpdated(payload: SerivApproverStatusUpdated) {
+	// @OnEvent('seriv-approver-status.updated')
+	// async handleSerivApproverStatusUpdated(payload: SerivApproverStatusUpdated) {
 
-		this.logger.log('=== item-transaction.service.ts ===')
+	// 	this.logger.log('=== item-transaction.service.ts ===')
 
-		console.log('handleSerivApproverStatusUpdated()', payload)
+	// 	console.log('handleSerivApproverStatusUpdated()', payload)
 
-		const serivApprover = await this.prisma.sERIVApprover.findUnique({
-			where: { id: payload.id },
-			include: {
-				seriv: {
-					include: {
-						seriv_items: {
-							include: {
-								item: true
-							}
-						},
-						seriv_approvers: true
-					}
-				}
-			}
-		})
+	// 	const serivApprover = await this.prisma.sERIVApprover.findUnique({
+	// 		where: { id: payload.id },
+	// 		include: {
+	// 			seriv: {
+	// 				include: {
+	// 					seriv_items: {
+	// 						include: {
+	// 							item: true
+	// 						}
+	// 					},
+	// 					seriv_approvers: true
+	// 				}
+	// 			}
+	// 		}
+	// 	})
 
-		if (!serivApprover) {
-			throw new NotFoundException('serivApprover not found with id: ' + payload.id)
-		}
+	// 	if (!serivApprover) {
+	// 		throw new NotFoundException('serivApprover not found with id: ' + payload.id)
+	// 	}
 
-		if (serivApprover.seriv.is_completed) {
-			console.log('SERIV is already completed. End function')
-			return
-		}
+	// 	if (serivApprover.seriv.is_completed) {
+	// 		console.log('SERIV is already completed. End function')
+	// 		return
+	// 	}
 
-		const approvers = serivApprover.seriv.seriv_approvers
+	// 	const approvers = serivApprover.seriv.seriv_approvers
 
-		console.log('approvers', approvers)
+	// 	console.log('approvers', approvers)
 
-		const isApproved = this.isStatusApproved(approvers)
+	// 	const isApproved = this.isStatusApproved(approvers)
 
-		if (!isApproved) {
-			console.log('SERIV status is not approved. End function')
-			return
-		}
+	// 	if (!isApproved) {
+	// 		console.log('SERIV status is not approved. End function')
+	// 		return
+	// 	}
 
-		console.log('Transacting SERIV items...')
+	// 	console.log('Transacting SERIV items...')
 
-		// add seriv items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
-		// @ts-ignore
-		const response = await this.transactSerivItems(serivApprover.seriv_id, serivApprover.seriv.seriv_items)
+	// 	// add seriv items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
+	// 	// @ts-ignore
+	// 	const response = await this.transactSerivItems(serivApprover.seriv_id, serivApprover.seriv.seriv_items)
 
-		console.log('response', response)
+	// 	console.log('response', response)
 
-	}
+	// }
 
 	// add seriv items to item_transaction
 	// update total_quantity and quantity_on_queue of item
 
-	private async transactSerivItems(serivId: string, serivItems: SERIVItem[]): Promise<{ success: boolean }> {
+	// private async transactSerivItems(serivId: string, serivItems: SERIVItem[]): Promise<{ success: boolean }> {
 
-		const queries: Prisma.PrismaPromise<any>[] = []
-		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
+	// 	const queries: Prisma.PrismaPromise<any>[] = []
+	// 	const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
 
-		for(let serivItem of serivItems) {
+	// 	for(let serivItem of serivItems) {
 			
-			const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: serivItem.item_id,
-				seriv_item_id: serivItem.id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
-				quantity: serivItem.quantity,
-				price: serivItem.price,
-				remarks: 'SERIV Request'
-			}
+	// 		const data: Prisma.ItemTransactionCreateManyInput = {
+	// 			item_id: serivItem.item_id,
+	// 			seriv_item_id: serivItem.id,
+	// 			type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
+	// 			quantity: serivItem.quantity,
+	// 			price: serivItem.price,
+	// 			remarks: 'SERIV Request'
+	// 		}
 
-			itemTransactions.push(data)
+	// 		itemTransactions.push(data)
 
-		}
+	// 	}
 
-		const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
-			data: itemTransactions
-		})
+	// 	const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
+	// 		data: itemTransactions
+	// 	})
 
-		queries.push(createItemTransactionsQuery)
+	// 	queries.push(createItemTransactionsQuery)
 
-		// set is_completed field in osriv table to true 
-		const updateSERIVQuery = this.prisma.sERIV.update({
-			where: {
-				id: serivId
-			},
-			data: {
-				is_completed: true
-			}
-		})
-		queries.push(updateSERIVQuery)
+	// 	// set is_completed field in osriv table to true 
+	// 	const updateSERIVQuery = this.prisma.sERIV.update({
+	// 		where: {
+	// 			id: serivId
+	// 		},
+	// 		data: {
+	// 			is_completed: true
+	// 		}
+	// 	})
+	// 	queries.push(updateSERIVQuery)
 
-		// update item total_quantity and quantity_on_queue on each item
-		const updateItemQueries = this.generateUpdateItemQueries(serivItems, ITEM_TRANSACTION_TYPE.STOCK_OUT); 
+	// 	// update item total_quantity and quantity_on_queue on each item
+	// 	const updateItemQueries = this.generateUpdateItemQueries(serivItems, ITEM_TRANSACTION_TYPE.STOCK_OUT); 
 
-		const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
+	// 	const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
 
-		// EXECUTE QUERIES
-		await this.prisma.$transaction(allQueries)
+	// 	// EXECUTE QUERIES
+	// 	await this.prisma.$transaction(allQueries)
 
-		return {
-			success: true
-		}
+	// 	return {
+	// 		success: true
+	// 	}
 
-	}
+	// }
 
 
 
 	// ================== MRV EVENTS ================== 
 
-	@OnEvent('mrv-approver-status.updated')
+	// @OnEvent('mrv-approver-status.updated')
 
-	async handleMrvApproverStatusUpdated(payload: McrtApproverStatusUpdated) {
-		this.logger.log('=== item-transaction.service.ts ===')
+	// async handleMrvApproverStatusUpdated(payload: McrtApproverStatusUpdated) {
+	// 	this.logger.log('=== item-transaction.service.ts ===')
 
-		console.log('handleMrvApproverStatusUpdated()', payload)
+	// 	console.log('handleMrvApproverStatusUpdated()', payload)
 
-		const mrvApprover = await this.prisma.mRVApprover.findUnique({
-			where: { id: payload.id },
-			include: {
-				mrv: true
-			}
-		})
+	// 	const mrvApprover = await this.prisma.mRVApprover.findUnique({
+	// 		where: { id: payload.id },
+	// 		include: {
+	// 			mrv: true
+	// 		}
+	// 	})
 
-		if(!mrvApprover) {
-			throw new NotFoundException('mrvApprover not found with id: ' + payload.id)
-		}
+	// 	if(!mrvApprover) {
+	// 		throw new NotFoundException('mrvApprover not found with id: ' + payload.id)
+	// 	}
 
-		const result = await this.prisma.mRV.update({
-			where: { id: mrvApprover.mrv.id },
-			data: {
-				is_completed: true
-			}
-		})
+	// 	const result = await this.prisma.mRV.update({
+	// 		where: { id: mrvApprover.mrv.id },
+	// 		data: {
+	// 			is_completed: true
+	// 		}
+	// 	})
 
-		console.log('mrv is_completed set to true', result);
+	// 	console.log('mrv is_completed set to true', result);
 
-	}
+	// }
 
 
 
 
 	// ================== MCT EVENTS ================== 
 
-	@OnEvent('mct-approver-status.updated')
-	async handleMctApproverStatusUpdated(payload: MctApproverStatusUpdated) {
+	// @OnEvent('mct-approver-status.updated')
+	// async handleMctApproverStatusUpdated(payload: MctApproverStatusUpdated) {
 
-		this.logger.log('=== item-transaction.service.ts ===')
+	// 	this.logger.log('=== item-transaction.service.ts ===')
 
-		console.log('handleMctApproverStatusUpdated()', payload)
+	// 	console.log('handleMctApproverStatusUpdated()', payload)
 
-		const mctApprover = await this.prisma.mCTApprover.findUnique({
-			where: { id: payload.id },
-			include: {
-				mct: {
-					include: {
-						mrv: {
-							include: {
-								mrv_items: {
-									include: {
-										item: true
-									}
-								},
-							}
-						},
-						mct_approvers: true
-					}
-				}
-			}
-		})
+	// 	const mctApprover = await this.prisma.mCTApprover.findUnique({
+	// 		where: { id: payload.id },
+	// 		include: {
+	// 			mct: {
+	// 				include: {
+	// 					mrv: {
+	// 						include: {
+	// 							mrv_items: {
+	// 								include: {
+	// 									item: true
+	// 								}
+	// 							},
+	// 						}
+	// 					},
+	// 					mct_approvers: true
+	// 				}
+	// 			}
+	// 		}
+	// 	})
 
-		if (!mctApprover) {
-			throw new NotFoundException('mctApprover not found with id: ' + payload.id)
-		}
+	// 	if (!mctApprover) {
+	// 		throw new NotFoundException('mctApprover not found with id: ' + payload.id)
+	// 	}
 
-		if (mctApprover.mct.is_completed) {
-			console.log('MCRT is already completed. End function')
-			return
-		}
+	// 	if (mctApprover.mct.is_completed) {
+	// 		console.log('MCRT is already completed. End function')
+	// 		return
+	// 	}
 
-		const approvers = mctApprover.mct.mct_approvers
+	// 	const approvers = mctApprover.mct.mct_approvers
 
-		console.log('approvers', approvers)
+	// 	console.log('approvers', approvers)
 
-		const isApproved = this.isStatusApproved(approvers)
+	// 	const isApproved = this.isStatusApproved(approvers)
 
-		if (!isApproved) {
-			console.log('MCT status is not approved. End function')
-			return
-		}
+	// 	if (!isApproved) {
+	// 		console.log('MCT status is not approved. End function')
+	// 		return
+	// 	}
 
-		console.log('Transacting MCT items...')
+	// 	console.log('Transacting MCT items...')
 
-		// add seriv items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
-		// @ts-ignore
-		const response = await this.transactMrvItems(mctApprover.mct_id, mctApprover.mct.mrv.mrv_items)
+	// 	// add seriv items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
+	// 	// @ts-ignore
+	// 	const response = await this.transactMrvItems(mctApprover.mct_id, mctApprover.mct.mrv.mrv_items)
 
-		console.log('response', response)
+	// 	console.log('response', response)
 
-	}
+	// }
 
 	// add mct items to item_transaction
 	// update total_quantity and quantity_on_queue of item
 
-	private async transactMrvItems(mctId: string, mrvItems: MRVItem[]): Promise<{ success: boolean }> {
+	// private async transactMrvItems(mctId: string, mrvItems: MRVItem[]): Promise<{ success: boolean }> {
 
-		const queries: Prisma.PrismaPromise<any>[] = []
-		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
+	// 	const queries: Prisma.PrismaPromise<any>[] = []
+	// 	const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
 
-		for(let mrvItem of mrvItems) {
+	// 	for(let mrvItem of mrvItems) {
 			
-			const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: mrvItem.item_id,
-				mrv_item_id: mrvItem.id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
-				quantity: mrvItem.quantity,
-				price: mrvItem.price,
-				remarks: 'MCT Request'
-			}
+	// 		const data: Prisma.ItemTransactionCreateManyInput = {
+	// 			item_id: mrvItem.item_id,
+	// 			mrv_item_id: mrvItem.id,
+	// 			type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
+	// 			quantity: mrvItem.quantity,
+	// 			price: mrvItem.price,
+	// 			remarks: 'MCT Request'
+	// 		}
 
-			itemTransactions.push(data)
+	// 		itemTransactions.push(data)
 
-		}
+	// 	}
 
-		const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
-			data: itemTransactions
-		})
+	// 	const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
+	// 		data: itemTransactions
+	// 	})
 
-		queries.push(createItemTransactionsQuery)
+	// 	queries.push(createItemTransactionsQuery)
 
-		// set is_completed field in mct table to true 
-		const updateMCTQuery = this.prisma.mCT.update({
-			where: {
-				id: mctId
-			},
-			data: {
-				is_completed: true
-			}
-		})
-		queries.push(updateMCTQuery)
+	// 	// set is_completed field in mct table to true 
+	// 	const updateMCTQuery = this.prisma.mCT.update({
+	// 		where: {
+	// 			id: mctId
+	// 		},
+	// 		data: {
+	// 			is_completed: true
+	// 		}
+	// 	})
+	// 	queries.push(updateMCTQuery)
 
-		// update item total_quantity and quantity_on_queue on each item
-		const updateItemQueries = this.generateUpdateItemQueries(mrvItems, ITEM_TRANSACTION_TYPE.STOCK_OUT); 
+	// 	// update item total_quantity and quantity_on_queue on each item
+	// 	const updateItemQueries = this.generateUpdateItemQueries(mrvItems, ITEM_TRANSACTION_TYPE.STOCK_OUT); 
 
-		const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
+	// 	const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
 
-		// EXECUTE QUERIES
-		await this.prisma.$transaction(allQueries)
+	// 	// EXECUTE QUERIES
+	// 	await this.prisma.$transaction(allQueries)
 
-		return {
-			success: true
-		}
+	// 	return {
+	// 		success: true
+	// 	}
 
-	}
+	// }
 
 
 
@@ -921,325 +915,325 @@ export class ItemService {
 
 	// ================== MCRT EVENTS ================== 
 
-	@OnEvent('mcrt-approver-status.updated')
-	async handleMcrtApproverStatusUpdated(payload: McrtApproverStatusUpdated) {
+	// @OnEvent('mcrt-approver-status.updated')
+	// async handleMcrtApproverStatusUpdated(payload: McrtApproverStatusUpdated) {
 
-		this.logger.log('=== item-transaction.service.ts ===')
+	// 	this.logger.log('=== item-transaction.service.ts ===')
 
-		console.log('handleMcrtApproverStatusUpdated()', payload)
+	// 	console.log('handleMcrtApproverStatusUpdated()', payload)
 
-		const mcrtApprover = await this.prisma.mCRTApprover.findUnique({
-			where: { id: payload.id },
-			include: {
-				mcrt: {
-					include: {
-						mcrt_items: {
-							include: {
-								item: true
-							}
-						},
-						mcrt_approvers: true
-					}
-				}
-			}
-		})
+	// 	const mcrtApprover = await this.prisma.mCRTApprover.findUnique({
+	// 		where: { id: payload.id },
+	// 		include: {
+	// 			mcrt: {
+	// 				include: {
+	// 					mcrt_items: {
+	// 						include: {
+	// 							item: true
+	// 						}
+	// 					},
+	// 					mcrt_approvers: true
+	// 				}
+	// 			}
+	// 		}
+	// 	})
 
-		if (!mcrtApprover) {
-			throw new NotFoundException('mcrtApprover not found with id: ' + payload.id)
-		}
+	// 	if (!mcrtApprover) {
+	// 		throw new NotFoundException('mcrtApprover not found with id: ' + payload.id)
+	// 	}
 
-		if (mcrtApprover.mcrt.is_completed) {
-			console.log('MCRT is already completed. End function')
-			return
-		}
+	// 	if (mcrtApprover.mcrt.is_completed) {
+	// 		console.log('MCRT is already completed. End function')
+	// 		return
+	// 	}
 
-		const approvers = mcrtApprover.mcrt.mcrt_approvers
+	// 	const approvers = mcrtApprover.mcrt.mcrt_approvers
 
-		console.log('approvers', approvers)
+	// 	console.log('approvers', approvers)
 
-		const isApproved = this.isStatusApproved(approvers)
+	// 	const isApproved = this.isStatusApproved(approvers)
 
-		if (!isApproved) {
-			console.log('MCRT status is not approved. End function')
-			return
-		}
+	// 	if (!isApproved) {
+	// 		console.log('MCRT status is not approved. End function')
+	// 		return
+	// 	}
 
-		console.log('Transacting MCRT items...')
+	// 	console.log('Transacting MCRT items...')
 
-		// add mcrt items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
-		// @ts-ignore
-		const response = await this.transactMcrtItems(mcrtApprover.mcrt_id, mcrtApprover.mcrt.mcrt_items)
+	// 	// add mcrt items to item_transaction table and update total_quantity and quantity_on_queue of item in the item table
+	// 	// @ts-ignore
+	// 	const response = await this.transactMcrtItems(mcrtApprover.mcrt_id, mcrtApprover.mcrt.mcrt_items)
 
-		console.log('response', response)
+	// 	console.log('response', response)
 
-	}
+	// }
 
 	// add mct items to item_transaction
 	// update total_quantity and quantity_on_queue of item
 
-	private async transactMcrtItems(mcrtId: string, mcrtItems: MRVItem[]): Promise<{ success: boolean }> {
+	// private async transactMcrtItems(mcrtId: string, mcrtItems: MRVItem[]): Promise<{ success: boolean }> {
 
-		const queries: Prisma.PrismaPromise<any>[] = []
-		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
+	// 	const queries: Prisma.PrismaPromise<any>[] = []
+	// 	const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
 
-		for(let mcrtItem of mcrtItems) {
+	// 	for(let mcrtItem of mcrtItems) {
 			
-			const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: mcrtItem.item_id,
-				mcrt_item_id: mcrtItem.id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
-				quantity: mcrtItem.quantity,
-				price: mcrtItem.price,
-				remarks: 'MCRT Request'
-			}
+	// 		const data: Prisma.ItemTransactionCreateManyInput = {
+	// 			item_id: mcrtItem.item_id,
+	// 			mcrt_item_id: mcrtItem.id,
+	// 			type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+	// 			quantity: mcrtItem.quantity,
+	// 			price: mcrtItem.price,
+	// 			remarks: 'MCRT Request'
+	// 		}
 
-			itemTransactions.push(data)
+	// 		itemTransactions.push(data)
 
-		}
+	// 	}
 
-		const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
-			data: itemTransactions
-		})
+	// 	const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
+	// 		data: itemTransactions
+	// 	})
 
-		queries.push(createItemTransactionsQuery)
+	// 	queries.push(createItemTransactionsQuery)
 
-		// set is_completed field in mct table to true 
-		const updateMCTQuery = this.prisma.mCRT.update({
-			where: {
-				id: mcrtId
-			},
-			data: {
-				is_completed: true
-			}
-		})
-		queries.push(updateMCTQuery)
+	// 	// set is_completed field in mct table to true 
+	// 	const updateMCTQuery = this.prisma.mCRT.update({
+	// 		where: {
+	// 			id: mcrtId
+	// 		},
+	// 		data: {
+	// 			is_completed: true
+	// 		}
+	// 	})
+	// 	queries.push(updateMCTQuery)
 
-		// update item total_quantity and quantity_on_queue on each item
-		const updateItemQueries = this.generateUpdateItemQueries(mcrtItems, ITEM_TRANSACTION_TYPE.STOCK_IN); 
+	// 	// update item total_quantity and quantity_on_queue on each item
+	// 	const updateItemQueries = this.generateUpdateItemQueries(mcrtItems, ITEM_TRANSACTION_TYPE.STOCK_IN); 
 
-		const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
+	// 	const allQueries = [...queries, ...updateItemQueries]; // combine the Prisma promises
 
-		// EXECUTE QUERIES
-		await this.prisma.$transaction(allQueries)
+	// 	// EXECUTE QUERIES
+	// 	await this.prisma.$transaction(allQueries)
 
-		return {
-			success: true
-		}
+	// 	return {
+	// 		success: true
+	// 	}
 
-	}
+	// }
 
 
 
 
 	// ================== MST EVENTS ================== 
 
-	@OnEvent('mst-approver-status.updated')
-	async handleMstApproverStatusUpdated(payload: McrtApproverStatusUpdated) {
+	// @OnEvent('mst-approver-status.updated')
+	// async handleMstApproverStatusUpdated(payload: McrtApproverStatusUpdated) {
 
-		this.logger.log('=== item-transaction.service.ts ===')
+	// 	this.logger.log('=== item-transaction.service.ts ===')
 
-		console.log('handleMstApproverStatusUpdated()', payload)
+	// 	console.log('handleMstApproverStatusUpdated()', payload)
 
-		const mstApprover = await this.prisma.mSTApprover.findUnique({
-			where: { id: payload.id },
-			include: {
-				mst: {
-					include: {
-						mst_items: {
-							include: {
-								item: {
-									include: {
-										item_type: true
-									}
-								}
-							}
-						},
-						mst_approvers: true
-					}
-				}
-			}
-		})
+	// 	const mstApprover = await this.prisma.mSTApprover.findUnique({
+	// 		where: { id: payload.id },
+	// 		include: {
+	// 			mst: {
+	// 				include: {
+	// 					mst_items: {
+	// 						include: {
+	// 							item: {
+	// 								include: {
+	// 									item_type: true
+	// 								}
+	// 							}
+	// 						}
+	// 					},
+	// 					mst_approvers: true
+	// 				}
+	// 			}
+	// 		}
+	// 	})
 
-		if (!mstApprover) {
-			throw new NotFoundException('mstApprover not found with id: ' + payload.id)
-		}
+	// 	if (!mstApprover) {
+	// 		throw new NotFoundException('mstApprover not found with id: ' + payload.id)
+	// 	}
 
-		if (mstApprover.mst.is_completed) {
-			console.log('MST is already completed. End function')
-			return
-		}
+	// 	if (mstApprover.mst.is_completed) {
+	// 		console.log('MST is already completed. End function')
+	// 		return
+	// 	}
 
-		const approvers = mstApprover.mst.mst_approvers
+	// 	const approvers = mstApprover.mst.mst_approvers
 
-		console.log('approvers', approvers)
+	// 	console.log('approvers', approvers)
 
-		const isApproved = this.isStatusApproved(approvers)
+	// 	const isApproved = this.isStatusApproved(approvers)
 
-		if (!isApproved) {
-			console.log('MST status is not approved. End function')
-			return
-		}
+	// 	if (!isApproved) {
+	// 		console.log('MST status is not approved. End function')
+	// 		return
+	// 	}
 
-		console.log('Transacting MST items...')
+	// 	console.log('Transacting MST items...')
 
-		// @ts-ignore
-		const response = await this.transactMstItems(mstApprover.mst)
+	// 	// @ts-ignore
+	// 	const response = await this.transactMstItems(mstApprover.mst)
 
-	}
+	// }
 
 	// If item is already Salvaged Usable just increment the qty. If dili pa sya Salvaged Usable then create new item
 
-	private async transactMstItems(mst: MST): Promise<{ success: boolean }> {
+	// private async transactMstItems(mst: MST): Promise<{ success: boolean }> {
 
-		console.log('transactMstItems', mst);
+	// 	console.log('transactMstItems', mst);
 
-		const queries: Prisma.PrismaPromise<any>[] = []
-		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
+	// 	const queries: Prisma.PrismaPromise<any>[] = []
+	// 	const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
 
-		const salvagedUsableItems = mst.mst_items.filter(i => i.item.code.includes("SU") && i.status === ITEM_STATUS.USABLE)
-		const notSalvagedUsableItems = mst.mst_items.filter(i => !i.item.code.includes("SU") && i.status === ITEM_STATUS.USABLE)
+	// 	const salvagedUsableItems = mst.mst_items.filter(i => i.item.code.includes("SU") && i.status === ITEM_STATUS.USABLE)
+	// 	const notSalvagedUsableItems = mst.mst_items.filter(i => !i.item.code.includes("SU") && i.status === ITEM_STATUS.USABLE)
 
-		console.log('salvagedUsableItems', salvagedUsableItems);
-		console.log('notSalvagedUsableItems', notSalvagedUsableItems);
+	// 	console.log('salvagedUsableItems', salvagedUsableItems);
+	// 	console.log('notSalvagedUsableItems', notSalvagedUsableItems);
 
-		// record item transaction para sa pag increment
-		for(let SU_Item of salvagedUsableItems) {
+	// 	// record item transaction para sa pag increment
+	// 	for(let SU_Item of salvagedUsableItems) {
 
-			const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: SU_Item.item_id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
-				quantity: SU_Item.quantity,
-				price: SU_Item.price,
-				remarks: 'MST Request Item is usable',
-				mst_item_id: SU_Item.id,
-			}
+	// 		const data: Prisma.ItemTransactionCreateManyInput = {
+	// 			item_id: SU_Item.item_id,
+	// 			type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+	// 			quantity: SU_Item.quantity,
+	// 			price: SU_Item.price,
+	// 			remarks: 'MST Request Item is usable',
+	// 			mst_item_id: SU_Item.id,
+	// 		}
 
-			itemTransactions.push(data)
+	// 		itemTransactions.push(data)
 
-		}
+	// 	}
 
-		if(itemTransactions.length > 0) {
-			const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
-				data: itemTransactions
-			})
-			queries.push(createItemTransactionsQuery)
-		}
+	// 	if(itemTransactions.length > 0) {
+	// 		const createItemTransactionsQuery = this.prisma.itemTransaction.createMany({
+	// 			data: itemTransactions
+	// 		})
+	// 		queries.push(createItemTransactionsQuery)
+	// 	}
 
 
 
-		// create new items
-		for(let NSU_Item of notSalvagedUsableItems) {
+	// 	// create new items
+	// 	for(let NSU_Item of notSalvagedUsableItems) {
 
-			const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
-				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
-				quantity: NSU_Item.quantity,
-				price: NSU_Item.price,
-				remarks: 'Auto created with MST number ' + mst.mst_number,
-				created_at: new Date(),
-				created_by: 'System-generated',
-			};
+	// 		const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
+	// 			type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+	// 			quantity: NSU_Item.quantity,
+	// 			price: NSU_Item.price,
+	// 			remarks: 'Auto created with MST number ' + mst.mst_number,
+	// 			created_at: new Date(),
+	// 			created_by: 'System-generated',
+	// 		};
 
-			const itemTypeCode = NSU_Item.item.item_type.code as ITEM_TYPE_CODE
-			let itemCode = await this.generateItemCode(itemTypeCode, this.prisma);
-			itemCode = itemCode + '-SU-' + mst.mst_number
+	// 		const itemTypeCode = NSU_Item.item.item_type.code as ITEM_TYPE_CODE
+	// 		let itemCode = await this.generateItemCode(itemTypeCode, this.prisma);
+	// 		itemCode = itemCode + '-SU-' + mst.mst_number
 
-			const data: Prisma.ItemCreateInput = {
-				item_type: { connect: { id: NSU_Item.item.item_type_id } },
-				unit: {
-				  connect: { id: NSU_Item.item.unit_id },
-				},
-				code: itemCode,
-				description: NSU_Item.item.description,
-				initial_quantity: NSU_Item.quantity,
-				total_quantity: NSU_Item.quantity,
-				alert_level: 20,
-				created_by: 'System-generated',
-				item_transactions: {
-				  create: item_transaction,
-				},
-			};
+	// 		const data: Prisma.ItemCreateInput = {
+	// 			item_type: { connect: { id: NSU_Item.item.item_type_id } },
+	// 			unit: {
+	// 			  connect: { id: NSU_Item.item.unit_id },
+	// 			},
+	// 			code: itemCode,
+	// 			description: NSU_Item.item.description,
+	// 			initial_quantity: NSU_Item.quantity,
+	// 			total_quantity: NSU_Item.quantity,
+	// 			alert_level: 20,
+	// 			created_by: 'System-generated',
+	// 			item_transactions: {
+	// 			  create: item_transaction,
+	// 			},
+	// 		};
 
-			const createItemQuery = this.prisma.item.create({ data })
-			queries.push(createItemQuery)
-		}
+	// 		const createItemQuery = this.prisma.item.create({ data })
+	// 		queries.push(createItemQuery)
+	// 	}
 
-		// set is_completed field in mct table to true 
-		const updateMSTQuery = this.prisma.mST.update({
-			where: {
-				id: mst.id
-			},
-			data: {
-				is_completed: true
-			}
-		})
-		queries.push(updateMSTQuery)
+	// 	// set is_completed field in mct table to true 
+	// 	const updateMSTQuery = this.prisma.mST.update({
+	// 		where: {
+	// 			id: mst.id
+	// 		},
+	// 		data: {
+	// 			is_completed: true
+	// 		}
+	// 	})
+	// 	queries.push(updateMSTQuery)
 
-		// increment total quantity of each item that is Salvage Usable
-		const updateItemQueries = this.generateUpdateItemQueries(salvagedUsableItems, ITEM_TRANSACTION_TYPE.STOCK_IN); 
+	// 	// increment total quantity of each item that is Salvage Usable
+	// 	const updateItemQueries = this.generateUpdateItemQueries(salvagedUsableItems, ITEM_TRANSACTION_TYPE.STOCK_IN); 
 
-		const allQueries = [...queries, ...updateItemQueries]; 
+	// 	const allQueries = [...queries, ...updateItemQueries]; 
 
-		// EXECUTE QUERIES
-		await this.prisma.$transaction(allQueries)
+	// 	// EXECUTE QUERIES
+	// 	await this.prisma.$transaction(allQueries)
 
-		return {
-			success: true
-		}
+	// 	return {
+	// 		success: true
+	// 	}
 
-	}
+	// }
 	
 
 
 	// ================== REUSABLE FUNCTIONS ================== 
 
-	private isStatusApproved(approvers: OSRIVApprover[] | SERIVApprover[] | RRApprover[] | MCTApprover[] | MCRTApprover[] | MSTApprover[]): boolean {
+	// private isStatusApproved(approvers: OSRIVApprover[] | SERIVApprover[] | RRApprover[] | MCTApprover[] | MCRTApprover[] | MSTApprover[]): boolean {
 
-		for (let approver of approvers) {
+	// 	for (let approver of approvers) {
 
-			if (approver.status !== APPROVAL_STATUS.APPROVED) {
-				return false
-			}
+	// 		if (approver.status !== APPROVAL_STATUS.APPROVED) {
+	// 			return false
+	// 		}
 
-		}
+	// 	}
 
-		return true
+	// 	return true
 
-	}
+	// }
 
-	private generateUpdateItemQueries(items: OSRIVItem[] | SERIVItem[] | MRVItem[] | MSTItem[], transaction: ITEM_TRANSACTION_TYPE) {
+	// private generateUpdateItemQueries(items: OSRIVItem[] | SERIVItem[] | MRVItem[] | MSTItem[], transaction: ITEM_TRANSACTION_TYPE) {
 
-		// decrement total_quantity 
-		// decerement quantity_on_queue
-		if(transaction === ITEM_TRANSACTION_TYPE.STOCK_OUT) {
-			return items.map(item => {
-				return this.prisma.item.update({
-					where: { id: item.item_id },
-					data: {
-						quantity_on_queue: {
-							decrement: item.quantity
-						},
-						total_quantity: {
-							decrement: item.quantity
-						}
-					}
-				});
-			});
-		}
+	// 	// decrement total_quantity 
+	// 	// decerement quantity_on_queue
+	// 	if(transaction === ITEM_TRANSACTION_TYPE.STOCK_OUT) {
+	// 		return items.map(item => {
+	// 			return this.prisma.item.update({
+	// 				where: { id: item.item_id },
+	// 				data: {
+	// 					quantity_on_queue: {
+	// 						decrement: item.quantity
+	// 					},
+	// 					total_quantity: {
+	// 						decrement: item.quantity
+	// 					}
+	// 				}
+	// 			});
+	// 		});
+	// 	}
 
-		// increment total_quantity
-		if(transaction === ITEM_TRANSACTION_TYPE.STOCK_IN) {
-			return items.map(item => {
-				return this.prisma.item.update({
-					where: { id: item.item_id },
-					data: {
-						total_quantity: {
-							increment: item.quantity
-						}
-					}
-				});
-			});
-		}
+	// 	// increment total_quantity
+	// 	if(transaction === ITEM_TRANSACTION_TYPE.STOCK_IN) {
+	// 		return items.map(item => {
+	// 			return this.prisma.item.update({
+	// 				where: { id: item.item_id },
+	// 				data: {
+	// 					total_quantity: {
+	// 						increment: item.quantity
+	// 					}
+	// 				}
+	// 			});
+	// 		});
+	// 	}
 
-	}
+	// }
 
 }	
