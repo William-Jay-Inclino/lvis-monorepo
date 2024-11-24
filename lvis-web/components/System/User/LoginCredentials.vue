@@ -33,7 +33,7 @@
                 <span class="input-group-text">
                     <button @click="showPassword = !showPassword" class="btn btn-sm btn-light">
                         <client-only>
-                            <font-awesome-icon :icon="['fas', showPassword ? 'eye' : 'eye-slash']" class="text-primary" />
+                            <font-awesome-icon :icon="['fas', showPassword ? 'eye-slash' : 'eye']" class="text-primary" />
                         </client-only>
                     </button>
                 </span>

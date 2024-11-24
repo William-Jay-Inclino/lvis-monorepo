@@ -157,7 +157,6 @@ export async function create(input: CreateUserInput): Promise<MutationResponse> 
     }
 }
 
-
 export async function updateUserInfo(id: string, input: UpdateUserInput): Promise<MutationResponse> {
 
     let middlename = null
@@ -206,17 +205,16 @@ export async function updateUserInfo(id: string, input: UpdateUserInput): Promis
     }
 }
 
-export async function updatePassword(id: string, password: string): Promise<MutationResponse> {
+export async function changePassword(id: string, password: string): Promise<MutationResponse> {
 
     const mutation = `
         mutation {
-            updateUser(
-                id: "${id}",
-                input: {
-                    password: "${password}",
-                }
+            change_password(
+                user_id: "${id}",
+                password: "${password}",
             ) {
-                id
+                success
+                msg
             }
         }`;
 
@@ -224,12 +222,8 @@ export async function updatePassword(id: string, password: string): Promise<Muta
         const response = await sendRequest(mutation);
         console.log('response', response);
 
-        if (response.data && response.data.data && response.data.data.updateUser) {
-            return {
-                success: true,
-                msg: 'Password updated successfully!',
-                data: response.data.data.updateUser
-            }
+        if (response.data && response.data.data && response.data.data.change_password) {
+            return response.data.data.change_password
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -239,12 +233,11 @@ export async function updatePassword(id: string, password: string): Promise<Muta
 
         return {
             success: false,
-            msg: 'Failed to update Password. Please contact system administrator'
+            msg: 'Failed to change Password. Please contact system administrator'
         }
 
     }
 }
-
 
 export async function updatePermissions(id: string, permissions: UserPermissions): Promise<MutationResponse> {
 

@@ -19,14 +19,14 @@
                                     User Info
                                 </a>
                             </li>
-                            <li class="nav-item" @click="formType = FORM_TYPE.LOGIN_CREDENTIALS">
+                            <!-- <li class="nav-item" @click="formType = FORM_TYPE.LOGIN_CREDENTIALS">
                                 <a class="nav-link" :class="{ 'active': formType === FORM_TYPE.LOGIN_CREDENTIALS }" href="#">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'fa-lock']"/>
                                     </client-only>  
                                     Login Credentials
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item" @click="formType = FORM_TYPE.USER_PERMISSIONS">
                                 <a class="nav-link" :class="{ 'active': formType === FORM_TYPE.USER_PERMISSIONS }" href="#">
                                     <client-only>
@@ -129,7 +129,7 @@
                 </div>
         
         
-                <div v-else-if="formType === FORM_TYPE.LOGIN_CREDENTIALS" class="row justify-content-center pt-5">
+                <!-- <div v-else-if="formType === FORM_TYPE.LOGIN_CREDENTIALS" class="row justify-content-center pt-5">
         
                     <div class="col-lg-6">
 
@@ -159,7 +159,7 @@
         
                     </div>
         
-                </div>
+                </div> -->
         
         
                 <div v-else-if="formType === FORM_TYPE.USER_PERMISSIONS" class="row justify-content-center pt-5">
@@ -232,7 +232,7 @@ import Swal from 'sweetalert2'
 
 const enum FORM_TYPE {
     USER_INFO,
-    LOGIN_CREDENTIALS,
+    // LOGIN_CREDENTIALS,
     USER_PERMISSIONS
 }
 
@@ -316,32 +316,32 @@ async function updateUserInfo() {
 }
 
 
-async function updatePassword() {
-    isUpdatingPassword.value = true
-    const response = await api.updatePassword(item.value.id, item.value.password)
-    isUpdatingPassword.value = false
+// async function updatePassword() {
+//     isUpdatingPassword.value = true
+//     const response = await api.updatePassword(item.value.id, item.value.password)
+//     isUpdatingPassword.value = false
 
-    if (response.success && response.data) {
+//     if (response.success && response.data) {
 
-        Swal.fire({
-            title: 'Success!',
-            text: response.msg,
-            icon: 'success',
-            position: 'top',
-        })
+//         Swal.fire({
+//             title: 'Success!',
+//             text: response.msg,
+//             icon: 'success',
+//             position: 'top',
+//         })
 
-    } else {
+//     } else {
 
-        Swal.fire({
-            title: 'Error!',
-            text: response.msg,
-            icon: 'error',
-            position: 'top',
-        })
+//         Swal.fire({
+//             title: 'Error!',
+//             text: response.msg,
+//             icon: 'error',
+//             position: 'top',
+//         })
 
-    }
+//     }
 
-}
+// }
 
 async function updatePermissions() {
 

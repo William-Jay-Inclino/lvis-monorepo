@@ -9,6 +9,7 @@ import { AuthUser } from '../__common__/auth-user.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { UsersResponse } from './entities/users-response.entity';
 import { SystemRemoveResponse } from '../__common__/classes';
+import { ChangePwResponse } from './entities/change-pw-response.entity';
 
 
 @Resolver(() => User)
@@ -77,6 +78,28 @@ export class UserResolver {
   }
 
   @UseGuards(GqlAuthGuard)
+  @Mutation(() => ChangePwResponse)
+  change_password(
+    @Args('user_id') user_id: string,
+    @Args('password') password: string,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.userService.setAuthUser(authUser)
+    return this.userService.change_password(user_id, password);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => ChangePwResponse)
+  change_own_password(
+    @Args('current_pw') current_pw: string,
+    @Args('new_pw') new_pw: string,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    this.userService.setAuthUser(authUser)
+    return this.userService.change_own_password(new_pw, current_pw)
+  }
+
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => SystemRemoveResponse)
   removeUser(
     @Args('id') id: string,
@@ -92,7 +115,6 @@ export class UserResolver {
   ) {
     return this.userService.isUsernameExist(username);
   }
-
 
   @ResolveReference()
   async resolveReference(reference: { __typename: string, id?: string, username?: string }) {

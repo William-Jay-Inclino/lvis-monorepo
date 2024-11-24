@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { UpdateUserInput } from './dto/update-user.input';
@@ -6,7 +6,7 @@ import { Prisma, Role, User } from 'apps/system/prisma/generated/client';
 import { AuthUser } from '../__common__/auth-user.entity';
 import { UsersResponse } from './entities/users-response.entity';
 import { SystemRemoveResponse } from '../__common__/classes';
-import { encrypt_password } from '../__common__/helpers';
+import { decrypt_password, encrypt_password } from '../__common__/helpers';
 
 @Injectable()
 export class UserService {
@@ -165,7 +165,7 @@ export class UserService {
 
     const data: Prisma.UserUpdateInput = {
       updated_by: this.authUser.user.username,
-      password: input.password ?? existingUser.password,
+      password: input.password ? encrypt_password(input.password, this.secretKey) : existingUser.password,
       firstname: input.firstname ?? existingUser.firstname,
       middlename: input.middlename ?? existingUser.middlename,
       lastname: input.lastname ?? existingUser.lastname,
@@ -263,6 +263,69 @@ export class UserService {
     }
 
     return false
+
+  }
+
+  async change_password(user_id: string, new_password: string): Promise<{ success: boolean, msg: string}> {
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: user_id }
+    })
+
+    if(!user) {
+      throw new NotFoundException("User not found with id of " + user_id)
+    }
+
+    const encrypted_pw = encrypt_password(new_password, this.secretKey)
+
+    const updated_user = await this.prisma.user.update({
+      where: { id: user_id },
+      data: {
+        password: encrypted_pw,
+      }
+    })
+
+    return {
+      success: true,
+      msg: "Password changed successfully",
+    }
+
+  }
+
+  async change_own_password(new_pw: string, current_pw: string): Promise<{ success: boolean, msg: string}> {
+
+    const user_id = this.authUser.user.id 
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: this.authUser.user.id }
+    })
+
+    if(!user) {
+      throw new NotFoundException("User not found with id of " + user_id)
+    }
+
+    const decrypted_user_pass = decrypt_password(user.password, this.secretKey)
+
+    if(current_pw !== decrypted_user_pass) {
+      return {
+        success: false,
+        msg: "Current password is incorrect"
+      }
+    }
+
+    const encrypted_pw = encrypt_password(new_pw, this.secretKey)
+
+    const updated_user = await this.prisma.user.update({
+      where: { id: user_id },
+      data: {
+        password: encrypted_pw,
+      }
+    })
+
+    return {
+      success: true,
+      msg: "Password changed successfully",
+    }
 
   }
 

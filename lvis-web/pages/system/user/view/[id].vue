@@ -58,6 +58,12 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="text-muted">Password</td>
+                                            <td>
+                                                <button @click="onClickChangePassword" class="btn btn-sm btn-light text-primary"> Change Password</button>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -135,6 +141,7 @@ definePageMeta({
 import * as api from '~/composables/system/user/user.api'
 import type { User } from '~/composables/system/user/user.types';
 import { permissions } from '~/composables/system/user/user.permissions'
+import Swal from 'sweetalert2'
 
 const router = useRouter()
 const route = useRoute()
@@ -158,6 +165,63 @@ onMounted(async () => {
 
     isLoadingPage.value = false;
 });
+
+function onClickChangePassword() {
+
+    Swal.fire({
+        title: "Change Password",
+        text: `Are you sure you want to change the password of ${item.value?.username}?`,
+        input: 'password',
+        inputPlaceholder: 'Enter new password',
+        position: "top",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e63946",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: "Yes!",
+        reverseButtons: true,
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+            const inputValue = Swal.getInput()?.value;
+
+            if (!inputValue) {
+                Swal.showValidationMessage("Password cannot be empty");
+                return false; 
+            }
+
+            if(inputValue.trim() === "") {
+                Swal.showValidationMessage("Invalid password");
+                return false; 
+            }
+
+            console.log('inputValue', inputValue);
+
+            const response = await api.changePassword(item.value!.id, inputValue)
+
+            if (response.success) {
+
+                Swal.fire({
+                    title: 'Success!',
+                    text: response.msg,
+                    icon: 'success',
+                    position: 'top',
+                })
+
+            } else {
+
+                Swal.fire({
+                    title: 'Error!',
+                    text: response.msg,
+                    icon: 'error',
+                    position: 'top',
+                })
+
+            }
+
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    });
+}
 
 
 const onClickGoToList = () => router.push(`/system/user`);
