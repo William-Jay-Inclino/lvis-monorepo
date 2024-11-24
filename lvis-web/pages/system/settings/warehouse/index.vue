@@ -177,6 +177,7 @@ import type { ApproverSetting, CreateApproverSetting, UpdateApproverSetting } fr
 import * as warehouseApi from '~/composables/system/settings/warehouse.api'
 import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
+import type { Employee } from '~/composables/system/employee/employee.types';
 
 definePageMeta({
     layout: "layout-system"

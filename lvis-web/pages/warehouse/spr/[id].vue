@@ -7,27 +7,6 @@
                 <h2 class="text-warning">Update SPR</h2>
                 <hr>
         
-                <!-- <div v-if="isAdmin(authUser)" class="row pt-3 mb-5">
-                    <div class="col">
-                        <ul class="nav nav-tabs justify-content-center">
-                            <li class="nav-item" @click="isSPRDetailForm = true">
-                                <a class="nav-link" :class="{ 'active': isSPRDetailForm }" href="#">
-                                    <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                            </client-only> SPR Info
-                                </a>
-                            </li>
-                            <li class="nav-item" @click="isSPRDetailForm = false">
-                                <a class="nav-link" :class="{ 'active': !isSPRDetailForm }" href="#">
-                                    <client-only>
-                                <font-awesome-icon :icon="['fas', 'users']"/>
-                            </client-only> Approvers
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
-        
                 <div v-show="isSPRDetailForm" class="row justify-content-center">
                     <div class="col-lg-6">
                         

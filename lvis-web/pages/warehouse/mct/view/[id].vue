@@ -155,12 +155,6 @@
                                 <font-awesome-icon :icon="['fas', 'times-circle']" />
                             </client-only> Cancel MCT
                                         </button>
-                                        <!-- <button disabled v-if="!!item.can_update" class="btn btn-success me-2"
-                                            @click="onClickUpdate(item.id)">
-                                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']"/>
-                            </client-only> Edit Form
-                                        </button> -->
                                         <button v-if="canCreate(authUser, 'canManageMCT')" class="btn btn-primary me-2"
                                             @click="onClickAdd">
                                             <client-only>

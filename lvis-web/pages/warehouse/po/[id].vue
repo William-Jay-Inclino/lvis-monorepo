@@ -7,28 +7,6 @@
                 <h2 class="text-warning">Update PO</h2>
                 <hr>
 
-                <!-- <div v-if="isAdmin(authUser)" class="row pt-3 mb-5">
-                    <div class="col">
-                        <ul class="nav nav-tabs justify-content-center">
-                            <li class="nav-item" @click="isPODetailForm = true">
-                                <a class="nav-link" :class="{ 'active': isPODetailForm }" href="#">
-                                    <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                            </client-only> PO Info
-                                </a>
-                            </li>
-                            <li class="nav-item" @click="isPODetailForm = false">
-                                <a class="nav-link" :class="{ 'active': !isPODetailForm }" href="#">
-                                    <client-only>
-                                <font-awesome-icon :icon="['fas', 'users']"/>
-                            </client-only> Approvers
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
-
-
                 <div v-show="isPODetailForm" class="row justify-content-center">
 
                     <div class="col-lg-6">

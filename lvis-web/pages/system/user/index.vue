@@ -73,16 +73,12 @@
                                                 </div>
                                             </td>
                                             <td class="text-muted"> {{ i.role }} </td>
-                                            <td class="text-center">
-                                                <button @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
+                                            <td class="align-middle text-center">
+                                                <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm text-primary">
                                                     <client-only>
-                                                        <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                                                        <font-awesome-icon :icon="['fas', 'info-circle']" />
                                                     </client-only>
-                                                </button>
-                                                <button @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
-                                                    <client-only>
-                                                        <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
-                                                    </client-only>
+                                                    View details
                                                 </button>
                                             </td>
                                         </tr>
@@ -258,5 +254,6 @@ async function onClickDelete(id: string) {
 
 const onClickCreate = () => router.push('/system/user/create')
 const onClickEdit = (id: string) => router.push('/system/user/' + id)
+const onClickViewDetails = (id: string) => router.push('/system/user/view/' + id)
 
 </script>

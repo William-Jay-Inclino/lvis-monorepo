@@ -24,13 +24,6 @@
                             </client-only> Items
                                 </a>
                             </li>
-                            <!-- <li class="nav-item" @click="form = FORM_TYPE.APPROVER">
-                                <a class="nav-link" :class="{ 'active': form === FORM_TYPE.APPROVER }" href="#">
-                                    <client-only>
-                                <font-awesome-icon :icon="['fas', 'users']"/>
-                            </client-only> Approvers
-                                </a>
-                            </li> -->
                         </ul>
                     </div>
                 </div>

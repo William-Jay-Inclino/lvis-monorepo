@@ -134,6 +134,7 @@ definePageMeta({
 
 import * as api from '~/composables/system/user/user.api'
 import type { User } from '~/composables/system/user/user.types';
+import { permissions } from '~/composables/system/user/user.permissions'
 
 const router = useRouter()
 const route = useRoute()
@@ -141,7 +142,17 @@ const item = ref<User | undefined>()
 const isLoadingPage = ref(true)
 
 onMounted(async () => {
-    item.value = await api.findOne(route.params.id as string);
+    const res = await api.findOne(route.params.id as string);
+
+    if(!res) {
+        return redirectTo401Page()
+    }
+
+    if(!res.permissions) {
+        res.permissions = JSON.parse(JSON.stringify(permissions))
+    }
+
+    item.value = res
 
     console.log('item.value', item.value)
 

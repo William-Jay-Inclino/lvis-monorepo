@@ -10,7 +10,7 @@
                         <th class="bg-secondary text-white">Label</th>
                         <th class="bg-secondary text-white">Approver</th>
                         <th class="bg-secondary text-white text-center">
-                            client-only>
+                            <client-only>
                                                     <font-awesome-icon :icon="['fas', 'cog']" />
                                                 </client-only>
                         </th>
@@ -253,6 +253,7 @@
 
 
 <script setup lang="ts">
+import type { Employee } from '~/composables/system/employee/employee.types';
 import type { ApproverSetting, CreateApproverSetting, UpdateApproverSetting } from '~/composables/system/settings/warehouse.types';
 
 
