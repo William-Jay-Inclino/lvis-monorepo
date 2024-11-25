@@ -60,11 +60,7 @@ export class MrvService {
                     id: input.item_from_id
                 }
             },
-            project: {
-                connect: {
-                    id: input.project_id
-                }
-            },
+            project: input.project_id ? { connect: { id: input.project_id } } : undefined,
             mrv_approvers: {
                 create: input.approvers.map(i => {
                     return {
@@ -154,23 +150,24 @@ export class MrvService {
         }
 
         const data: Prisma.MRVUpdateInput = {
-            project: input.project_id ? {connect: {id: input.project_id}} : {connect: {id: existingItem.project_id}},
-
+            project: input.project_id
+            ? { connect: { id: input.project_id } } // Connect new project_id if provided
+            : input.project_id === null
+            ? { disconnect: true } // Disconnect if explicitly set to null
+            : existingItem.project_id
+            ? { connect: { id: existingItem.project_id } } // Keep the existing project_id if it exists
+            : undefined, // If no project_id exists, leave it undefined
             purpose: input.purpose ?? existingItem.purpose,
             request_type: input.request_type ?? existingItem.request_type,
-
             or_number: input.or_number ?? undefined,
             mwo_number: input.mwo_number ?? undefined,
             cwo_number: input.cwo_number ?? undefined,
             jo_number: input.jo_number ?? undefined,
-
             consumer_name: input.consumer_name ?? existingItem.consumer_name,
             location: input.location ?? existingItem.location,
-
             requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
             withdrawn_by_id: input.withdrawn_by_id ?? existingItem.withdrawn_by_id,
             item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
-
             updated_by: this.authUser.user.username,
         }
 

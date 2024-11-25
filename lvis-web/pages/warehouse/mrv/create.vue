@@ -91,12 +91,12 @@
     
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Project Name <span class="text-danger">*</span>
+                                    Project Name
                                 </label>
                                 <client-only>
                                     <v-select :options="projects" label="name" v-model="mrvData.project" :clearable="false"></v-select>
                                 </client-only>
-                                <small class="text-danger fst-italic" v-show="mrvDataErrors.project"> {{ errorMsg }} </small>
+                                <!-- <small class="text-danger fst-italic" v-show="mrvDataErrors.project"> {{ errorMsg }} </small> -->
                             </div>
     
                             <div class="mb-3">
@@ -292,7 +292,7 @@
     // INITIAL DATA
     const _mrvDataErrorsInitial = {
         request_type: false,
-        project: false,
+        // project: false,
         purpose: false,
         or_number: false,
         mwo_number: false,
@@ -516,10 +516,6 @@
 
         if(!mrvData.value.request_type) {
             mrvDataErrors.value.request_type = true
-        }
-
-        if(!mrvData.value.project) {
-            mrvDataErrors.value.project = true
         }
 
         if (mrvData.value.purpose.trim() === '') {

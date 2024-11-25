@@ -12,8 +12,8 @@ export class MRV {
   @Field(() => ID)
   id: string;
 
-  @Field(() => String)
-  project_id: string;
+  @Field(() => String, { nullable: true })
+  project_id: string | null;
 
   @Field(() => String)
   mrv_number: string;
@@ -89,8 +89,8 @@ export class MRV {
   @Field(() => Station)
   item_from: Station;
 
-  @Field(() => Project)
-  project: Project;
+  @Field(() => Project, { nullable: true })
+  project: Project | null;
 
   @Field(() => [MRVApprover])
   mrv_approvers: MRVApprover[]

@@ -143,6 +143,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 
 // DEPENDENCIES
 const route = useRoute()
+const router = useRouter();
 const toast = useToast();
 
 // FLAGS
@@ -248,6 +249,9 @@ async function updatePoInfo() {
             icon: 'success',
             position: 'top',
         })
+
+        router.push(`/warehouse/po/view/${response.data.id}`);
+
     } else {
         Swal.fire({
             title: 'Error!',

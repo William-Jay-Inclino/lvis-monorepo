@@ -818,7 +818,7 @@ model SERIVItem {
 
 model MRV {
   id                String    @id @default(uuid())
-  project_id                String
+  project_id                String?
   mrv_number         String    @unique
   date_requested    DateTime
   exp_date    DateTime
@@ -850,7 +850,7 @@ model MRV {
   mrv_approvers MRVApprover[]
   mrv_items MRVItem[]
   mct MCT?
-  project Project @relation(fields: [project_id], references: [id], onDelete: Restrict)
+  project Project? @relation(fields: [project_id], references: [id], onDelete: Restrict)
 
   metadata Json?
 

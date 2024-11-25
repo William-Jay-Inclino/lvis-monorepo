@@ -417,6 +417,9 @@ async function updateOsrivInfo() {
             icon: 'success',
             position: 'top',
         })
+
+        router.push(`/warehouse/osriv/view/${response.data.id}`);
+
     } else {
         Swal.fire({
             title: 'Error!',

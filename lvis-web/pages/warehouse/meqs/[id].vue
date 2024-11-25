@@ -217,6 +217,7 @@ const enum FORM_TYPE {
 
 // DEPENDENCIES
 const route = useRoute()
+const router = useRouter();
 const toast = useToast();
 const config = useRuntimeConfig()
 
@@ -354,6 +355,9 @@ async function updateMeqsInfo() {
             icon: 'success',
             position: 'top',
         })
+        
+        router.push(`/warehouse/meqs/view/${response.data.id}`);
+
     } else {
         Swal.fire({
             title: 'Error!',

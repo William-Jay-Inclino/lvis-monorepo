@@ -10,7 +10,7 @@ import type { MCT } from "../mct/mct.types";
 
 export interface MRV {
     id: string;
-    project_id: string;
+    project_id: string | null;
     mrv_number: string;
     date_requested: string;
     purpose: string;
@@ -46,7 +46,7 @@ export interface MRV {
     is_referenced: boolean;
     withdrawn_by: Employee | null;
     item_from: Station;
-    project: Project
+    project: Project | null
     mrv_approvers: MRVApprover[]
     mrv_items: MRVItem[]
     status: APPROVAL_STATUS

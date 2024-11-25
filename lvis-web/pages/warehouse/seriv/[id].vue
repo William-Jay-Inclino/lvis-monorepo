@@ -536,6 +536,8 @@ async function updateSerivInfo() {
             position: 'top',
         })
 
+        router.push(`/warehouse/seriv/view/${response.data.id}`);
+
     } else {
         Swal.fire({
             title: 'Error!',

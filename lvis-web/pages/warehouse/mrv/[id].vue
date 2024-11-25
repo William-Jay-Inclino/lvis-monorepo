@@ -122,7 +122,7 @@
                                     Project Name <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="projects" label="name" v-model="mrvData.project" :clearable="false"></v-select>
+                                    <v-select :options="projects" label="name" v-model="mrvData.project"></v-select>
                                 </client-only>
                             </div>
 
@@ -552,6 +552,8 @@ async function updateMrvInfo() {
             icon: 'success',
             position: 'top',
         })
+
+        router.push(`/warehouse/mrv/view/${response.data.id}`);
 
     } else {
         Swal.fire({

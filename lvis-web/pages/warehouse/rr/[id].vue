@@ -351,6 +351,9 @@ async function updateRrInfo() {
             icon: 'success',
             position: 'top',
         })
+
+        router.push(`/warehouse/rr/view/${response.data.id}`);
+
     } else {
         Swal.fire({
             title: 'Error!',
@@ -434,6 +437,8 @@ async function updateRrItems() {
             icon: 'success',
             position: 'top',
         })
+
+        router.push(`/warehouse/rr/view/${rrData.value.id}`);
 
     } else {
         Swal.fire({

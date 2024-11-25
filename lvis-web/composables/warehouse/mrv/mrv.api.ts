@@ -541,6 +541,7 @@ export async function create(input: CreateMrvInput): Promise<MutationResponse> {
     const mwo_number = input.mwo_number?.trim() === '' ? null : `"${input.mwo_number}"`
     const cwo_number = input.cwo_number?.trim() === '' ? null : `"${input.cwo_number}"`
     const jo_number = input.jo_number?.trim() === '' ? null : `"${input.jo_number}"`
+    const project_id = input.project ? `"${input.project.id}"` : null
 
     const approvers = input.approvers.map(i => {
         return `
@@ -564,7 +565,7 @@ export async function create(input: CreateMrvInput): Promise<MutationResponse> {
         mutation {
             createMrv(
                 input: {
-                    project_id: "${input.project?.id}"
+                    project_id: ${project_id}
                     request_type: ${input.request_type?.id}
                     purpose: "${input.purpose}"
                     or_number: ${or_number}
@@ -614,13 +615,14 @@ export async function update(id: string, input: UpdateMrvInput): Promise<Mutatio
     const mwo_number = input.mwo_number?.trim() === '' || !input.mwo_number ? null : `"${input.mwo_number}"`
     const cwo_number = input.cwo_number?.trim() === '' || !input.cwo_number ? null : `"${input.cwo_number}"`
     const jo_number = input.jo_number?.trim() === '' || !input.jo_number ? null : `"${input.jo_number}"`
+    const project_id = input.project ? `"${input.project.id}"` : null
 
     const mutation = `
         mutation {
             updateMrv(
                 id: "${id}",
                 input: {
-                    project_id: "${input.project?.id}"
+                    project_id: ${ project_id }
                     purpose: "${input.purpose}"
                     request_type: ${input.request_type?.id}
                     requested_by_id: "${input.requested_by?.id}"

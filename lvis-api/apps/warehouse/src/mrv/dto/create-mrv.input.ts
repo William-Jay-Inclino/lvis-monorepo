@@ -7,10 +7,10 @@ import { CreateMrvItemSubInput } from './create-mrv-item.sub.input';
 @InputType()
 export class CreateMrvInput {
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @IsString()
-  @IsNotEmpty()
-  project_id: string;
+  @IsOptional()
+  project_id?: string | null;
 
   @Field(() => Int)
   @IsString()

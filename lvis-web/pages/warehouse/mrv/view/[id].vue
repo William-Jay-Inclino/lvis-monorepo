@@ -76,7 +76,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Project Name</td>
-                                                <td> {{ item.project.name }} </td>
+                                                <td> {{ item.project ? item.project.name : 'N/A' }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Consumer Name</td>

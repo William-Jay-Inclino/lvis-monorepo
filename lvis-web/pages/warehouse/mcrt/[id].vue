@@ -397,6 +397,8 @@ async function updateMcrtInfo() {
             position: 'top',
         })
 
+        router.push(`/warehouse/mcrt/view/${response.data.id}`);
+
     } else {
         Swal.fire({
             title: 'Error!',
