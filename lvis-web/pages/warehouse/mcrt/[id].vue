@@ -136,7 +136,12 @@
                             </small>
                         </div>
 
-                        <WarehouseUpdateApprovers :is-updating="isChangingApprover" :approvers="approvers" :employees="employees" @change-approver="handleChangeApprover"/>
+                        <WarehouseUpdateApprovers
+                          :is-updating="isChangingApprover"
+                          :approvers="approvers"
+                          :employees="employees"
+                          :disabled_orders="[5]"
+                          @change-approver="handleChangeApprover" />
                     </div>
                 </div>
 

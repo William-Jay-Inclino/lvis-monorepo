@@ -223,6 +223,7 @@
                                         label="fullname"
                                         v-model="approver.approver"
                                         :clearable="false"
+                                        :disabled="approver.order === 5"
                                       ></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="approver.showRequiredMsg"> {{ errorMsg }} </small>
@@ -361,6 +362,7 @@
 
     let currentMct: MCT | null = null
     let currentSeriv: SERIV | null = null
+    const general_manager = ref<Employee>()
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
@@ -397,6 +399,18 @@
 
         mcrtData.value.approvers = MCRT_DEFAULT_APPROVERS.map(i => ({...i}))
         isLoadingPage.value = false
+
+        if(response.general_manager) {
+            response.general_manager['fullname'] = getFullname(response.general_manager.firstname, response.general_manager.middlename, response.general_manager.lastname)
+            general_manager.value = response.general_manager
+
+            const gm = mcrtData.value.approvers.find(i => i.order === 5)
+
+            if(gm) {
+                gm.approver = general_manager.value
+            }
+
+        }
 
     })
 

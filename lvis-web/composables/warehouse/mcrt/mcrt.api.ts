@@ -214,6 +214,7 @@ export async function fetchFormDataInCreate(): Promise<{
     items: Item[],
     mcts: MCT[],
     serivs: SERIV[],
+    general_manager: Employee | null,
 }> {
 
     const query = `
@@ -309,6 +310,12 @@ export async function fetchFormDataInCreate(): Promise<{
                     }
                 }
             },
+            general_manager {
+                id 
+                firstname
+                middlename
+                lastname
+            }
         }
     `;
 
@@ -320,6 +327,7 @@ export async function fetchFormDataInCreate(): Promise<{
         let items = []
         let mcts = []
         let serivs = []
+        let general_manager = null
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -343,11 +351,16 @@ export async function fetchFormDataInCreate(): Promise<{
             serivs = response.data.data.serivs.data
         }
 
+        if(data.general_manager) {
+            general_manager = data.general_manager
+        }
+
         return {
             employees,
             items,
             mcts,
             serivs,
+            general_manager,
         }
 
     } catch (error) {
@@ -357,6 +370,7 @@ export async function fetchFormDataInCreate(): Promise<{
             items: [],
             mcts: [],
             serivs: [],
+            general_manager: null,
         }
     }
 

@@ -14,4 +14,22 @@ export const MCRT_DEFAULT_APPROVERS: CreateMCRTApprover[] = [
         order: 2,
         showRequiredMsg: false
     },
+    {
+        approver: null,
+        label: 'Noted By',
+        order: 3,
+        showRequiredMsg: false
+    },
+    {
+        approver: null,
+        label: 'Audited By',
+        order: 4,
+        showRequiredMsg: false
+    },
+    {
+        approver: null,
+        label: 'Approved By',
+        order: 5,
+        showRequiredMsg: false
+    },
 ]
