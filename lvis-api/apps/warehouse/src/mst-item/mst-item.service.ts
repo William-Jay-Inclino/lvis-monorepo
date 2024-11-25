@@ -33,7 +33,6 @@ export class MstItemService {
 						quantity: item.quantity,
 						price: item.price,
 						status: item.status,
-						created_by: this.authUser.user.username,
 					},
 				});
 			}

@@ -210,20 +210,14 @@ export const gasStations: GasStation[] = [
     {
         id: 1,
         name: "Leyeco Gas Station",
-        location: "Brgy San Pablo, Ormoc City",
-        contact_number: "",
     },
     {
         id: 2,
         name: "Shell Cogon Ormoc City",
-        location: "Ormoc City",
-        contact_number: "",
     },
     {
         id: 3,
         name: "Petron Libertad Ormoc City",
-        location: "Ormoc City",
-        contact_number: "",
     },
 ]
 
@@ -235,10 +229,6 @@ export const fuelTypes: FuelType[] = [
     },
     {
         id: 2,
-        name: 'Unleaded Regular',
+        name: 'Unleaded',
     },
-    {
-        id: 3,
-        name: 'Unleaded Premium',
-    }
 ]
