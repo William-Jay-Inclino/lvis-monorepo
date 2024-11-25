@@ -83,9 +83,7 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <!-- <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Activity log</a></li> -->
+                                <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
                                 <li>
                                     <a @click="handleLogOut" class="dropdown-item"> Logout </a>
                                 </li>

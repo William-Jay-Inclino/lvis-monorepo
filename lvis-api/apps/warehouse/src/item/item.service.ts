@@ -209,7 +209,11 @@ export class ItemService {
 						},
 						mrv_item: {
 							include: {
-								mrv: true
+								mrv: {
+									include: {
+										mct: true
+									}
+								}
 							}
 						},
 						mcrt_item: {

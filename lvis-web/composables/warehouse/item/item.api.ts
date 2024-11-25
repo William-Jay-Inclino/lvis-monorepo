@@ -195,6 +195,10 @@ export async function findOne(id: string): Promise<Item | undefined> {
                         mrv {
                             id 
                             mrv_number
+                            mct {
+                                id 
+                                mct_number
+                            }
                         }
                     }
                     mcrt_item {

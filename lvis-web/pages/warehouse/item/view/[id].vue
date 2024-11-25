@@ -135,10 +135,10 @@
                                                         </nuxt-link>
         
                                                     </div>
-                                                    <div v-else-if="i.mrv_item">
-                                                        <nuxt-link :to="'/warehouse/mrv/view/' + i.mrv_item.mrv!.id"
+                                                    <div v-else-if="i.mrv_item && i.mrv_item.mrv.mct">
+                                                        <nuxt-link :to="'/warehouse/mct/view/' + i.mrv_item.mrv.mct.id"
                                                             target="_blank">
-                                                            {{ `MRV#${i.mrv_item.mrv?.mrv_number}` }}
+                                                            {{ `MCT#${i.mrv_item.mrv?.mct.mct_number}` }}
                                                         </nuxt-link>
         
                                                     </div>
