@@ -28,14 +28,8 @@ export class MRVApprover {
     @Field(() => String)
     label: string
 
-    @Field(() => String)
-    label_id: string
-
     @Field(() => Int)
     order: number
-
-    @Field({ nullable: true })
-    metadata?: string
 
 
     // =============== derived / resolvers =============== 

@@ -51,9 +51,6 @@ export class SERIV {
   @Field(() => String)
   item_from_id: string;
 
-  @Field({ nullable: true })
-  metadata?: string
-
 
   // =============== audit fields ===============
 

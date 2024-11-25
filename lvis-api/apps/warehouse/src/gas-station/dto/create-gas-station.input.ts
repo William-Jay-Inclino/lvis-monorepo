@@ -9,14 +9,4 @@ export class CreateGasStationInput {
   @Field(() => String)
   name: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @Field(() => String)
-  location: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @Field(() => String)
-  contact_number: string;
-
 }

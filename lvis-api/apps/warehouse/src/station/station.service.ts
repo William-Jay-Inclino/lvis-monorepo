@@ -22,8 +22,6 @@ export class StationService {
 
 		const data: Prisma.StationCreateInput = {
 			name: input.name,
-			location: input.location,
-			created_by: this.authUser.user.username
 		}
 
 		const created = await this.prisma.station.create({
@@ -57,8 +55,6 @@ export class StationService {
 
 		const data: Prisma.StationUpdateInput = {
 			name: input.name ?? existingItem.name,
-			location: input.location ?? existingItem.location,
-			updated_by: this.authUser.user.username
 		}
 
 

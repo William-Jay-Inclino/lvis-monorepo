@@ -22,7 +22,6 @@ export class UnitService {
 
 		const data: Prisma.UnitCreateInput = {
 			name: input.name,
-			created_by: this.authUser.user.username
 		}
 
 		const created = await this.prisma.unit.create({
@@ -60,7 +59,6 @@ export class UnitService {
 
 		const data: Prisma.UnitUpdateInput = {
 			name: input.name ?? existingItem.name,
-			updated_by: this.authUser.user.username
 		}
 
 

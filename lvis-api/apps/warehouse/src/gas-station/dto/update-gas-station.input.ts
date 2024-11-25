@@ -10,14 +10,4 @@ export class UpdateGasStationInput extends PartialType(CreateGasStationInput) {
   @Field(() => String, { nullable: true })
   name: string;
 
-  @IsOptional()
-  @IsString()
-  @Field(() => String, { nullable: true })
-  location: string;
-
-  @IsOptional()
-  @IsString()
-  @Field(() => String, { nullable: true })
-  contact_number: string;
-
 }

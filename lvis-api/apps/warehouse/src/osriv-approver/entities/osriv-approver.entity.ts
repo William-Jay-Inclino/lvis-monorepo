@@ -31,9 +31,6 @@ export class OSRIVApprover {
     @Field(() => Int)
     order: number
 
-    @Field({ nullable: true })
-    metadata?: string
-
 
     // =============== derived / resolvers =============== 
 

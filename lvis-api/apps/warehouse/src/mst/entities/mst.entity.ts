@@ -29,9 +29,6 @@ export class MST {
   @Field(() => String)
   remarks: string;
 
-  @Field({ nullable: true })
-  metadata?: string
-
 
   // =============== audit fields ===============
 

@@ -20,10 +20,6 @@ export class MRVItem {
   @Field(() => Float)
   price: number;
 
-  @Field({ nullable: true })
-  metadata?: string
-
-
 
   // =============== derived / resolvers ===============
 

@@ -21,7 +21,6 @@ export class ProjectService {
 
 		const data: Prisma.ProjectCreateInput = {
 			name: input.name,
-			created_by: this.authUser.user.username
 		}
 
 		const created = await this.prisma.project.create({
@@ -57,7 +56,6 @@ export class ProjectService {
 
 		const data: Prisma.ProjectUpdateInput = {
 			name: input.name ?? existingItem.name,
-			updated_by: this.authUser.user.username
 		}
 
 

@@ -20,9 +20,6 @@ export class MCRTItem {
   @Field(() => Float)
   price: number;
 
-  @Field({ nullable: true })
-  metadata?: string
-
 
 
   // =============== derived / resolvers ===============

@@ -20,10 +20,6 @@ export class OSRIVItem {
   @Field(() => Float)
   price: number;
 
-  @Field({ nullable: true })
-  metadata?: string
-
-
 
   // =============== derived / resolvers ===============
 

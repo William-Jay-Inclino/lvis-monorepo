@@ -8,10 +8,4 @@ export class GasStation {
   @Field(() => String)
   name: string;
 
-  @Field(() => String)
-  location: string;
-
-  @Field(() => String)
-  contact_number: string;
-
 }

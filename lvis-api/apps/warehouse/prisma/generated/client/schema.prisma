@@ -17,6 +17,8 @@ model ItemType {
 
   items Item[]
 
+  created_at DateTime  @default(now())
+
   @@map("item_type")
 }
 
@@ -37,7 +39,6 @@ model Supplier {
 
   MEQSSupplier MEQSSupplier[]
 
-  metadata Json?
 
   @@index([name])
   @@map("supplier")
@@ -47,16 +48,10 @@ model Unit {
   id   String @id @default(uuid())
   name String @unique
 
-  created_by String
-  updated_by String?
-
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-
   canvass_items CanvassItem[]
   items         Item[]
 
-  metadata Json?
+  created_at DateTime  @default(now())
 
   @@map("unit")
 }
@@ -64,22 +59,13 @@ model Unit {
 model Station {
   id         String         @id @default(uuid())
   name       String
-  location    String
-
-  created_by String
-  updated_by String?
-
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
 
   items      ItemLocation[]
-
-  metadata Json?
-
   osrivs OSRIV[]
   mrvs MRV[]
   serivs SERIV[]
 
+  created_at DateTime  @default(now())
 
   @@map("station")
 }
@@ -88,15 +74,10 @@ model Project {
   id   String @id @default(uuid())
   name String
 
-  created_by String
-  updated_by String?
-
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-
-  metadata Json?
   
   mrv MRV[]
+
+  created_at DateTime  @default(now())
 
   @@map("project")
 }
@@ -137,7 +118,6 @@ model Item {
   quantity_on_queue   Int @default(0)
   initial_quantity Int
   alert_level      Int     @default(20)
-  // item_type Int 
 
   created_by String
   updated_by String?
@@ -157,8 +137,6 @@ model Item {
   mcrt_items MCRTItem[]
   mst_items MSTItem[]
 
-  metadata Json?
-
   @@index([item_type_id, unit_id, created_by])
   @@map("item")
 }
@@ -169,7 +147,6 @@ model ItemLocation {
   station_id       String
   quantity_on_hand Int
 
-  created_by String
   created_at DateTime  @default(now())
 
   item                  Item           @relation(fields: [item_id], references: [id], onDelete: Cascade)
@@ -177,7 +154,6 @@ model ItemLocation {
   origin_movements      ItemMovement[] @relation("Origin")
   destination_movements ItemMovement[] @relation("Destination")
 
-  metadata Json?
 
   @@map("item_location")
 }
@@ -188,13 +164,11 @@ model ItemMovement {
   destination_id String
   quantity_moved Int
 
-  created_by String
   created_at DateTime  @default(now())
 
   origin      ItemLocation @relation("Origin", fields: [origin_id], references: [id], onDelete: Cascade)
   destination ItemLocation @relation("Destination", fields: [destination_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@map("item_movement")
 }
@@ -225,7 +199,6 @@ model ItemTransaction {
   created_at DateTime @default(now())
   created_by String   @default("admin")
 
-  metadata Json?
 
   @@index([item_id])
   @@map("item_transaction")
@@ -264,7 +237,6 @@ model Canvass {
   rv            RV?
   spr           SPR?
 
-  metadata Json?
   
   @@index([date_requested, requested_by_id])
   @@map("canvass")
@@ -283,7 +255,6 @@ model CanvassItem {
   unit                Unit?              @relation(fields: [unit_id], references: [id], onDelete: Restrict)
   item                Item?              @relation(fields: [item_id], references: [id], onDelete: Restrict)
 
-  metadata Json?
 
   @@index([canvass_id, unit_id, item_id])
   @@map("canvass_item")
@@ -311,7 +282,6 @@ model RV {
   meqs         MEQS?
   rv_approvers RVApprover[]
 
-  metadata Json?
 
   @@index([date_requested])
   @@map("request_voucher")
@@ -329,7 +299,6 @@ model RVApprover {
 
   rv RV @relation(fields: [rv_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@unique([rv_id, order]) // para pag update sa specific approver
   @@index([rv_id])
@@ -358,7 +327,6 @@ model JO {
   meqs         MEQS?
   jo_approvers JOApprover[]
 
-  metadata Json?
 
   @@index([date_requested])
   @@map("job_order")
@@ -376,7 +344,6 @@ model JOApprover {
 
   jo JO @relation(fields: [jo_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@unique([jo_id, order]) // para pag update sa specific approver
   @@index([jo_id])
@@ -405,7 +372,6 @@ model SPR {
   spr_approvers SPRApprover[]
   vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@index([date_requested])
   @@map("spare_parts_request")
@@ -423,7 +389,6 @@ model SPRApprover {
 
   spr SPR @relation(fields: [spr_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@unique([spr_id, order]) // para pag update sa specific approver
   @@index([spr_id])
@@ -456,7 +421,6 @@ model MEQS {
   meqs_approvers MEQSApprover[]
   meqs_suppliers MEQSSupplier[]
 
-  metadata Json?
 
   @@index([meqs_date])
   @@map("material_equipment_quotation_summary")
@@ -474,7 +438,6 @@ model MEQSSupplier {
   meqs_supplier_items MEQSSupplierItem[]
   po                  PO?
 
-  metadata Json?
 
   @@unique([meqs_id, supplier_id])
   @@index([meqs_id, supplier_id])
@@ -495,7 +458,6 @@ model MEQSSupplierItem {
 
   rr_items       RRItem[]  
 
-  metadata Json?
 
   @@index([meqs_supplier_id, canvass_item_id])
   @@map("meqs_supplier_item")
@@ -509,7 +471,6 @@ model MEQSSupplierAttachment {
 
   meqs_supplier MEQSSupplier @relation(fields: [meqs_supplier_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@index([meqs_supplier_id])
   @@map("meqs_supplier_attachment")
@@ -527,7 +488,6 @@ model MEQSApprover {
 
   meqs MEQS @relation(fields: [meqs_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@index([meqs_id])
   @@map("meqs_approver")
@@ -554,7 +514,6 @@ model PO {
   rrs           RR[]
   po_approvers  POApprover[]
 
-  metadata Json?
 
   @@index([po_date])
   @@map("purchase_order")
@@ -572,7 +531,6 @@ model POApprover {
 
   po PO @relation(fields: [po_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@index([po_id])
   @@map("po_approver")
@@ -603,7 +561,6 @@ model RR {
   rr_approvers RRApprover[]
   rr_items     RRItem[]
 
-  metadata Json?
 
   @@index([po_id, rr_date])
   @@map("receiving_report")
@@ -621,7 +578,6 @@ model RRApprover {
 
   rr RR @relation(fields: [rr_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@index([rr_id])
   @@map("rr_approver")
@@ -638,7 +594,6 @@ model RRItem {
 
   meqs_supplier_item MEQSSupplierItem @relation(fields: [meqs_supplier_item_id], references: [id], onDelete: Restrict)
 
-  metadata Json?
 
   @@index([rr_id, meqs_supplier_item_id])
   @@map("rr_item")
@@ -674,7 +629,6 @@ model OSRIV {
   osriv_approvers OSRIVApprover[]
   osriv_items OSRIVItem[]
 
-  metadata Json?
 
   @@index([date_requested])
   @@map("osriv")
@@ -690,12 +644,7 @@ model OSRIVApprover {
   label         String
   order         Int
 
-  updated_by   String?
-  updated_at   DateTime  @updatedAt
-
   osriv OSRIV @relation(fields: [osriv_id], references: [id], onDelete: Cascade)
-
-  metadata Json?
 
   @@unique([osriv_id, order]) // para pag update sa specific approver
   @@index([osriv_id])
@@ -709,14 +658,10 @@ model OSRIVItem {
   quantity     Int
   price      Float @default(0)
 
-  created_by   String
-  created_at   DateTime  @default(now())
-
   osriv OSRIV @relation(fields: [osriv_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
   item_transaction   ItemTransaction?
 
-  metadata Json?
 
   @@index([osriv_id, item_id])
   @@map("osriv_item")
@@ -756,7 +701,6 @@ model SERIV {
   seriv_items SERIVItem[]
   mcrts MCRT[]
 
-  metadata Json?
 
   @@index([date_requested])
   @@map("seriv")
@@ -772,12 +716,9 @@ model SERIVApprover {
   label         String
   order         Int
 
-  updated_by   String?
-  updated_at   DateTime  @updatedAt
 
   seriv SERIV @relation(fields: [seriv_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@unique([seriv_id, order]) // para pag update sa specific approver
   @@index([seriv_id])
@@ -791,14 +732,10 @@ model SERIVItem {
   quantity     Int
   price      Float @default(0)
 
-  created_by   String
-  created_at   DateTime  @default(now())
-
   seriv SERIV @relation(fields: [seriv_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
   item_transaction   ItemTransaction?
 
-  metadata Json?
 
   @@index([seriv_id, item_id])
   @@map("seriv_item")
@@ -840,7 +777,6 @@ model MRV {
   mct MCT?
   project Project? @relation(fields: [project_id], references: [id], onDelete: Restrict)
 
-  metadata Json?
 
   @@index([date_requested])
   @@map("mrv")
@@ -856,12 +792,9 @@ model MRVApprover {
   label         String
   order         Int
 
-  updated_by   String?
-  updated_at   DateTime  @updatedAt
 
   mrv MRV @relation(fields: [mrv_id], references: [id], onDelete: Cascade)
 
-  metadata Json?
 
   @@unique([mrv_id, order]) // para pag update sa specific approver
   @@index([mrv_id])
@@ -875,14 +808,10 @@ model MRVItem {
   quantity     Int
   price      Float @default(0)
 
-  created_by   String
-  created_at   DateTime  @default(now())
-
   mrv MRV @relation(fields: [mrv_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
   item_transaction   ItemTransaction?
 
-  metadata Json?
 
   @@index([mrv_id, item_id])
   @@map("mrv_item")
@@ -908,7 +837,6 @@ model MCT {
   mct_approvers MCTApprover[]
   mcrts MCRT[]
 
-  metadata Json?
 
   @@index([mrv_id, mct_date])
   @@map("mct")
@@ -924,12 +852,7 @@ model MCTApprover {
   label         String
   order         Int
 
-  updated_by   String?
-  updated_at   DateTime  @updatedAt
-
   mct MCT @relation(fields: [mct_id], references: [id], onDelete: Cascade)
-
-  metadata Json?
 
   @@unique([mct_id, order]) // para pag update sa specific approver
   @@index([mct_id])
@@ -967,7 +890,6 @@ model MCRT {
   mcrt_approvers MCRTApprover[]
   mcrt_items MCRTItem[]
 
-  metadata Json?
 
   @@index([mcrt_date])
   @@map("mcrt")
@@ -983,12 +905,7 @@ model MCRTApprover {
   label         String
   order         Int
 
-  updated_by   String?
-  updated_at   DateTime  @updatedAt
-
   mcrt MCRT @relation(fields: [mcrt_id], references: [id], onDelete: Cascade)
-
-  metadata Json?
 
   @@unique([mcrt_id, order]) // para pag update sa specific approver
   @@index([mcrt_id])
@@ -1002,14 +919,9 @@ model MCRTItem {
   quantity     Int
   price      Float @default(0)
 
-  created_by   String
-  created_at   DateTime  @default(now())
-
   mcrt MCRT @relation(fields: [mcrt_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
   item_transaction   ItemTransaction?
-
-  metadata Json?
 
   @@index([mcrt_id, item_id])
   @@map("mcrt_item")
@@ -1040,7 +952,6 @@ model MST {
   mst_approvers MSTApprover[]
   mst_items MSTItem[]
 
-  metadata Json?
 
   @@index([mst_date])
   @@map("mst")
@@ -1055,13 +966,8 @@ model MSTApprover {
   status        Int
   label         String
   order         Int
-
-  updated_by   String?
-  updated_at   DateTime  @updatedAt
   
   mst MST @relation(fields: [mst_id], references: [id], onDelete: Cascade)
-
-  metadata Json?
 
   @@unique([mst_id, order]) // para pag update sa specific approver
   @@index([mst_id])
@@ -1076,14 +982,9 @@ model MSTItem {
   price      Float @default(0)
   status        Int @default(0)
 
-  created_by   String
-  created_at   DateTime  @default(now())
-  
   mst MST @relation(fields: [mst_id], references: [id], onDelete: Cascade)
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
   item_transaction   ItemTransaction?
-
-  metadata Json?
 
   @@index([mst_id, item_id])
   @@map("mst_item")
@@ -1164,12 +1065,7 @@ model TripTicketApprover {
   label         String
   order         Int
 
-  updated_by   String?
-  updated_at   DateTime  @updatedAt
-
   trip_ticket TripTicket @relation(fields: [trip_ticket_id], references: [id], onDelete: Cascade)
-
-  metadata Json?
 
   @@unique([trip_ticket_id, order])
   @@index([trip_ticket_id])
@@ -1221,12 +1117,7 @@ model GasSlipApprover {
   label         String
   order         Int
 
-  updated_by   String?
-  updated_at   DateTime  @updatedAt
-
   gas_slip GasSlip @relation(fields: [gas_slip_id], references: [id], onDelete: Cascade)
-
-  metadata Json?
 
   @@unique([gas_slip_id, order])
   @@index([gas_slip_id])
@@ -1236,8 +1127,6 @@ model GasSlipApprover {
 model GasStation {
   id         Int     @id @default(autoincrement())
   name String
-  location String
-  contact_number String
 
   gas_slips GasSlip[]
 

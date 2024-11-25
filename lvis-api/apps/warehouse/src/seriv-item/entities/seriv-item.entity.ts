@@ -20,10 +20,6 @@ export class SERIVItem {
   @Field(() => Float)
   price: number;
 
-  @Field({ nullable: true })
-  metadata?: string
-
-
 
   // =============== derived / resolvers ===============
 

@@ -23,9 +23,6 @@ export class MSTItem {
   @Field(() => Int)
   status: number;
 
-  @Field({ nullable: true })
-  metadata?: string
-
 
 
   // =============== derived / resolvers ===============

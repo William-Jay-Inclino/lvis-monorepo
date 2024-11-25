@@ -21,8 +21,6 @@ export class GasStationService {
 
 		const data: Prisma.GasStationCreateInput = {
 			name: input.name,
-      location: input.location,
-      contact_number: input.contact_number,
 		}
 
 		const created = await this.prisma.gasStation.create({
@@ -56,8 +54,6 @@ export class GasStationService {
 
 		const data: Prisma.GasStationUpdateInput = {
 			name: input.name ?? existingItem.name,
-			location: input.location ?? existingItem.location,
-			contact_number: input.contact_number ?? existingItem.contact_number,
 		}
 
 

@@ -7,9 +7,4 @@ export class CreateStationInput {
   @IsString()
   @Field(() => String)
   name: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @Field(() => String)
-  location: string;
 }

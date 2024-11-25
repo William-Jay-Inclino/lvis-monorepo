@@ -9,8 +9,4 @@ export class UpdateStationInput extends PartialType(CreateStationInput) {
   @Field(() => String, {nullable: true})
   name?: string | null;
 
-  @IsOptional()
-  @IsString()
-  @Field(() => String, {nullable: true})
-  location?: string | null;
 }
