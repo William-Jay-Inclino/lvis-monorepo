@@ -24,7 +24,10 @@ export class EmployeeService {
 	async create(input: CreateEmployeeInput): Promise<Employee> {
 
 		const data: Prisma.EmployeeCreateInput = {
-			created_by: this.authUser.user.username,
+			employee_number: input.employee_number,
+			rank_number: input.rank_number,
+			name_prefix: input.name_prefix,
+			name_suffix: input.name_suffix,
 			firstname: input.firstname,
 			middlename: input.middlename,
 			lastname: input.lastname,
@@ -32,6 +35,7 @@ export class EmployeeService {
 			department: { connect: { id: input.department_id } },
 			division: input.division_id ? { connect: { id: input.division_id } } : undefined,
 			signature_src: input.signature_src,
+			created_by: this.authUser.user.username,
 		}
 
 		const created = await this.prisma.employee.create({
@@ -60,9 +64,7 @@ export class EmployeeService {
 
 		const skip = (page - 1) * pageSize;
 
-		let whereCondition: any = {
-			deleted_at: null
-		};
+		let whereCondition: any = {};
 
 		if (!!searchValue) {
 			whereCondition = {
@@ -184,6 +186,10 @@ export class EmployeeService {
 
 		const data: Prisma.EmployeeUpdateInput = {
 			updated_by: this.authUser.user.username,
+			employee_number: input.employee_number ?? existingItem.employee_number,
+			rank_number: input.rank_number ?? existingItem.rank_number,
+			name_prefix: input.name_prefix ?? existingItem.name_prefix,
+			name_suffix: input.name_suffix ?? existingItem.name_suffix,
 			firstname: input.firstname ?? existingItem.firstname,
 			middlename: input.middlename ?? existingItem.middlename,
 			lastname: input.lastname ?? existingItem.lastname,

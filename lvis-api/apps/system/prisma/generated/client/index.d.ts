@@ -103,7 +103,39 @@ export type Setting = $Result.DefaultSelection<Prisma.$SettingPayload>
  * Enums
  */
 export namespace $Enums {
-  export const Role: {
+  export const DivisionStatus: {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+export type DivisionStatus = (typeof DivisionStatus)[keyof typeof DivisionStatus]
+
+
+export const DepartmentStatus: {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+export type DepartmentStatus = (typeof DepartmentStatus)[keyof typeof DepartmentStatus]
+
+
+export const EmployeeStatus: {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+export type EmployeeStatus = (typeof EmployeeStatus)[keyof typeof EmployeeStatus]
+
+
+export const UserStatus: {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
+
+export const Role: {
   USER: 'USER',
   ADMIN: 'ADMIN'
 };
@@ -119,6 +151,22 @@ export const UserLogEventType: {
 export type UserLogEventType = (typeof UserLogEventType)[keyof typeof UserLogEventType]
 
 }
+
+export type DivisionStatus = $Enums.DivisionStatus
+
+export const DivisionStatus: typeof $Enums.DivisionStatus
+
+export type DepartmentStatus = $Enums.DepartmentStatus
+
+export const DepartmentStatus: typeof $Enums.DepartmentStatus
+
+export type EmployeeStatus = $Enums.EmployeeStatus
+
+export const EmployeeStatus: typeof $Enums.EmployeeStatus
+
+export type UserStatus = $Enums.UserStatus
+
+export const UserStatus: typeof $Enums.UserStatus
 
 export type Role = $Enums.Role
 
@@ -2358,18 +2406,8 @@ export namespace Prisma {
 
   export type AggregateDivision = {
     _count: DivisionCountAggregateOutputType | null
-    _avg: DivisionAvgAggregateOutputType | null
-    _sum: DivisionSumAggregateOutputType | null
     _min: DivisionMinAggregateOutputType | null
     _max: DivisionMaxAggregateOutputType | null
-  }
-
-  export type DivisionAvgAggregateOutputType = {
-    status: number | null
-  }
-
-  export type DivisionSumAggregateOutputType = {
-    status: number | null
   }
 
   export type DivisionMinAggregateOutputType = {
@@ -2377,7 +2415,7 @@ export namespace Prisma {
     department_id: string | null
     code: string | null
     name: string | null
-    status: number | null
+    status: $Enums.DivisionStatus | null
     created_at: Date | null
   }
 
@@ -2386,7 +2424,7 @@ export namespace Prisma {
     department_id: string | null
     code: string | null
     name: string | null
-    status: number | null
+    status: $Enums.DivisionStatus | null
     created_at: Date | null
   }
 
@@ -2401,14 +2439,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type DivisionAvgAggregateInputType = {
-    status?: true
-  }
-
-  export type DivisionSumAggregateInputType = {
-    status?: true
-  }
 
   export type DivisionMinAggregateInputType = {
     id?: true
@@ -2477,18 +2507,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: DivisionAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: DivisionSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: DivisionMinAggregateInputType
@@ -2519,8 +2537,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: DivisionCountAggregateInputType | true
-    _avg?: DivisionAvgAggregateInputType
-    _sum?: DivisionSumAggregateInputType
     _min?: DivisionMinAggregateInputType
     _max?: DivisionMaxAggregateInputType
   }
@@ -2530,12 +2546,10 @@ export namespace Prisma {
     department_id: string
     code: string
     name: string
-    status: number
+    status: $Enums.DivisionStatus
     permissions: JsonValue | null
     created_at: Date
     _count: DivisionCountAggregateOutputType | null
-    _avg: DivisionAvgAggregateOutputType | null
-    _sum: DivisionSumAggregateOutputType | null
     _min: DivisionMinAggregateOutputType | null
     _max: DivisionMaxAggregateOutputType | null
   }
@@ -2595,7 +2609,7 @@ export namespace Prisma {
       department_id: string
       code: string
       name: string
-      status: number
+      status: $Enums.DivisionStatus
       permissions: Prisma.JsonValue | null
       created_at: Date
     }, ExtArgs["result"]["division"]>
@@ -2999,7 +3013,7 @@ export namespace Prisma {
     readonly department_id: FieldRef<"Division", 'String'>
     readonly code: FieldRef<"Division", 'String'>
     readonly name: FieldRef<"Division", 'String'>
-    readonly status: FieldRef<"Division", 'Int'>
+    readonly status: FieldRef<"Division", 'DivisionStatus'>
     readonly permissions: FieldRef<"Division", 'Json'>
     readonly created_at: FieldRef<"Division", 'DateTime'>
   }
@@ -3356,25 +3370,15 @@ export namespace Prisma {
 
   export type AggregateDepartment = {
     _count: DepartmentCountAggregateOutputType | null
-    _avg: DepartmentAvgAggregateOutputType | null
-    _sum: DepartmentSumAggregateOutputType | null
     _min: DepartmentMinAggregateOutputType | null
     _max: DepartmentMaxAggregateOutputType | null
-  }
-
-  export type DepartmentAvgAggregateOutputType = {
-    status: number | null
-  }
-
-  export type DepartmentSumAggregateOutputType = {
-    status: number | null
   }
 
   export type DepartmentMinAggregateOutputType = {
     id: string | null
     code: string | null
     name: string | null
-    status: number | null
+    status: $Enums.DepartmentStatus | null
     created_at: Date | null
   }
 
@@ -3382,7 +3386,7 @@ export namespace Prisma {
     id: string | null
     code: string | null
     name: string | null
-    status: number | null
+    status: $Enums.DepartmentStatus | null
     created_at: Date | null
   }
 
@@ -3396,14 +3400,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type DepartmentAvgAggregateInputType = {
-    status?: true
-  }
-
-  export type DepartmentSumAggregateInputType = {
-    status?: true
-  }
 
   export type DepartmentMinAggregateInputType = {
     id?: true
@@ -3469,18 +3465,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: DepartmentAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: DepartmentSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: DepartmentMinAggregateInputType
@@ -3511,8 +3495,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: DepartmentCountAggregateInputType | true
-    _avg?: DepartmentAvgAggregateInputType
-    _sum?: DepartmentSumAggregateInputType
     _min?: DepartmentMinAggregateInputType
     _max?: DepartmentMaxAggregateInputType
   }
@@ -3521,12 +3503,10 @@ export namespace Prisma {
     id: string
     code: string
     name: string
-    status: number
+    status: $Enums.DepartmentStatus
     permissions: JsonValue | null
     created_at: Date
     _count: DepartmentCountAggregateOutputType | null
-    _avg: DepartmentAvgAggregateOutputType | null
-    _sum: DepartmentSumAggregateOutputType | null
     _min: DepartmentMinAggregateOutputType | null
     _max: DepartmentMaxAggregateOutputType | null
   }
@@ -3583,7 +3563,7 @@ export namespace Prisma {
       id: string
       code: string
       name: string
-      status: number
+      status: $Enums.DepartmentStatus
       permissions: Prisma.JsonValue | null
       created_at: Date
     }, ExtArgs["result"]["department"]>
@@ -3986,7 +3966,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Department", 'String'>
     readonly code: FieldRef<"Department", 'String'>
     readonly name: FieldRef<"Department", 'String'>
-    readonly status: FieldRef<"Department", 'Int'>
+    readonly status: FieldRef<"Department", 'DepartmentStatus'>
     readonly permissions: FieldRef<"Department", 'Json'>
     readonly created_at: FieldRef<"Department", 'DateTime'>
   }
@@ -5223,19 +5203,34 @@ export namespace Prisma {
 
   export type AggregateEmployee = {
     _count: EmployeeCountAggregateOutputType | null
+    _avg: EmployeeAvgAggregateOutputType | null
+    _sum: EmployeeSumAggregateOutputType | null
     _min: EmployeeMinAggregateOutputType | null
     _max: EmployeeMaxAggregateOutputType | null
   }
 
+  export type EmployeeAvgAggregateOutputType = {
+    rank_number: number | null
+  }
+
+  export type EmployeeSumAggregateOutputType = {
+    rank_number: number | null
+  }
+
   export type EmployeeMinAggregateOutputType = {
     id: string | null
+    employee_number: string | null
+    rank_number: number | null
     department_id: string | null
     division_id: string | null
     firstname: string | null
     middlename: string | null
     lastname: string | null
+    name_prefix: string | null
+    name_suffix: string | null
     signature_src: string | null
     position: string | null
+    status: $Enums.EmployeeStatus | null
     created_by: string | null
     updated_by: string | null
     created_at: Date | null
@@ -5244,13 +5239,18 @@ export namespace Prisma {
 
   export type EmployeeMaxAggregateOutputType = {
     id: string | null
+    employee_number: string | null
+    rank_number: number | null
     department_id: string | null
     division_id: string | null
     firstname: string | null
     middlename: string | null
     lastname: string | null
+    name_prefix: string | null
+    name_suffix: string | null
     signature_src: string | null
     position: string | null
+    status: $Enums.EmployeeStatus | null
     created_by: string | null
     updated_by: string | null
     created_at: Date | null
@@ -5259,13 +5259,18 @@ export namespace Prisma {
 
   export type EmployeeCountAggregateOutputType = {
     id: number
+    employee_number: number
+    rank_number: number
     department_id: number
     division_id: number
     firstname: number
     middlename: number
     lastname: number
+    name_prefix: number
+    name_suffix: number
     signature_src: number
     position: number
+    status: number
     created_by: number
     updated_by: number
     created_at: number
@@ -5274,15 +5279,28 @@ export namespace Prisma {
   }
 
 
+  export type EmployeeAvgAggregateInputType = {
+    rank_number?: true
+  }
+
+  export type EmployeeSumAggregateInputType = {
+    rank_number?: true
+  }
+
   export type EmployeeMinAggregateInputType = {
     id?: true
+    employee_number?: true
+    rank_number?: true
     department_id?: true
     division_id?: true
     firstname?: true
     middlename?: true
     lastname?: true
+    name_prefix?: true
+    name_suffix?: true
     signature_src?: true
     position?: true
+    status?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -5291,13 +5309,18 @@ export namespace Prisma {
 
   export type EmployeeMaxAggregateInputType = {
     id?: true
+    employee_number?: true
+    rank_number?: true
     department_id?: true
     division_id?: true
     firstname?: true
     middlename?: true
     lastname?: true
+    name_prefix?: true
+    name_suffix?: true
     signature_src?: true
     position?: true
+    status?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -5306,13 +5329,18 @@ export namespace Prisma {
 
   export type EmployeeCountAggregateInputType = {
     id?: true
+    employee_number?: true
+    rank_number?: true
     department_id?: true
     division_id?: true
     firstname?: true
     middlename?: true
     lastname?: true
+    name_prefix?: true
+    name_suffix?: true
     signature_src?: true
     position?: true
+    status?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -5358,6 +5386,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: EmployeeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EmployeeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: EmployeeMinAggregateInputType
@@ -5388,24 +5428,33 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: EmployeeCountAggregateInputType | true
+    _avg?: EmployeeAvgAggregateInputType
+    _sum?: EmployeeSumAggregateInputType
     _min?: EmployeeMinAggregateInputType
     _max?: EmployeeMaxAggregateInputType
   }
 
   export type EmployeeGroupByOutputType = {
     id: string
+    employee_number: string
+    rank_number: number | null
     department_id: string
     division_id: string | null
     firstname: string
     middlename: string | null
     lastname: string
+    name_prefix: string | null
+    name_suffix: string | null
     signature_src: string | null
     position: string
+    status: $Enums.EmployeeStatus
     created_by: string
     updated_by: string | null
     created_at: Date
     updated_at: Date
     _count: EmployeeCountAggregateOutputType | null
+    _avg: EmployeeAvgAggregateOutputType | null
+    _sum: EmployeeSumAggregateOutputType | null
     _min: EmployeeMinAggregateOutputType | null
     _max: EmployeeMaxAggregateOutputType | null
   }
@@ -5426,13 +5475,18 @@ export namespace Prisma {
 
   export type EmployeeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    employee_number?: boolean
+    rank_number?: boolean
     department_id?: boolean
     division_id?: boolean
     firstname?: boolean
     middlename?: boolean
     lastname?: boolean
+    name_prefix?: boolean
+    name_suffix?: boolean
     signature_src?: boolean
     position?: boolean
+    status?: boolean
     created_by?: boolean
     updated_by?: boolean
     created_at?: boolean
@@ -5450,13 +5504,18 @@ export namespace Prisma {
 
   export type EmployeeSelectScalar = {
     id?: boolean
+    employee_number?: boolean
+    rank_number?: boolean
     department_id?: boolean
     division_id?: boolean
     firstname?: boolean
     middlename?: boolean
     lastname?: boolean
+    name_prefix?: boolean
+    name_suffix?: boolean
     signature_src?: boolean
     position?: boolean
+    status?: boolean
     created_by?: boolean
     updated_by?: boolean
     created_at?: boolean
@@ -5491,13 +5550,18 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      employee_number: string
+      rank_number: number | null
       department_id: string
       division_id: string | null
       firstname: string
       middlename: string | null
       lastname: string
+      name_prefix: string | null
+      name_suffix: string | null
       signature_src: string | null
       position: string
+      status: $Enums.EmployeeStatus
       created_by: string
       updated_by: string | null
       created_at: Date
@@ -5914,13 +5978,18 @@ export namespace Prisma {
    */ 
   interface EmployeeFieldRefs {
     readonly id: FieldRef<"Employee", 'String'>
+    readonly employee_number: FieldRef<"Employee", 'String'>
+    readonly rank_number: FieldRef<"Employee", 'Int'>
     readonly department_id: FieldRef<"Employee", 'String'>
     readonly division_id: FieldRef<"Employee", 'String'>
     readonly firstname: FieldRef<"Employee", 'String'>
     readonly middlename: FieldRef<"Employee", 'String'>
     readonly lastname: FieldRef<"Employee", 'String'>
+    readonly name_prefix: FieldRef<"Employee", 'String'>
+    readonly name_suffix: FieldRef<"Employee", 'String'>
     readonly signature_src: FieldRef<"Employee", 'String'>
     readonly position: FieldRef<"Employee", 'String'>
+    readonly status: FieldRef<"Employee", 'EmployeeStatus'>
     readonly created_by: FieldRef<"Employee", 'String'>
     readonly updated_by: FieldRef<"Employee", 'String'>
     readonly created_at: FieldRef<"Employee", 'DateTime'>
@@ -7234,18 +7303,8 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
-  }
-
-  export type UserAvgAggregateOutputType = {
-    status: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    status: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -7255,7 +7314,7 @@ export namespace Prisma {
     firstname: string | null
     middlename: string | null
     lastname: string | null
-    status: number | null
+    status: $Enums.UserStatus | null
     role: $Enums.Role | null
     created_by: string | null
     updated_by: string | null
@@ -7270,7 +7329,7 @@ export namespace Prisma {
     firstname: string | null
     middlename: string | null
     lastname: string | null
-    status: number | null
+    status: $Enums.UserStatus | null
     role: $Enums.Role | null
     created_by: string | null
     updated_by: string | null
@@ -7295,14 +7354,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type UserAvgAggregateInputType = {
-    status?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    status?: true
-  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -7389,18 +7440,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -7431,8 +7470,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -7444,7 +7481,7 @@ export namespace Prisma {
     firstname: string
     middlename: string | null
     lastname: string
-    status: number
+    status: $Enums.UserStatus
     role: $Enums.Role
     permissions: JsonValue | null
     created_by: string
@@ -7452,8 +7489,6 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -7530,7 +7565,7 @@ export namespace Prisma {
       firstname: string
       middlename: string | null
       lastname: string
-      status: number
+      status: $Enums.UserStatus
       role: $Enums.Role
       permissions: Prisma.JsonValue | null
       created_by: string
@@ -7942,7 +7977,7 @@ export namespace Prisma {
     readonly firstname: FieldRef<"User", 'String'>
     readonly middlename: FieldRef<"User", 'String'>
     readonly lastname: FieldRef<"User", 'String'>
-    readonly status: FieldRef<"User", 'Int'>
+    readonly status: FieldRef<"User", 'UserStatus'>
     readonly role: FieldRef<"User", 'Role'>
     readonly permissions: FieldRef<"User", 'Json'>
     readonly created_by: FieldRef<"User", 'String'>
@@ -18727,13 +18762,18 @@ export namespace Prisma {
 
   export const EmployeeScalarFieldEnum: {
     id: 'id',
+    employee_number: 'employee_number',
+    rank_number: 'rank_number',
     department_id: 'department_id',
     division_id: 'division_id',
     firstname: 'firstname',
     middlename: 'middlename',
     lastname: 'lastname',
+    name_prefix: 'name_prefix',
+    name_suffix: 'name_suffix',
     signature_src: 'signature_src',
     position: 'position',
+    status: 'status',
     created_by: 'created_by',
     updated_by: 'updated_by',
     created_at: 'created_at',
@@ -18946,16 +18986,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'DivisionStatus'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type EnumDivisionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DivisionStatus'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'DivisionStatus[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListEnumDivisionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DivisionStatus[]'>
     
 
 
@@ -18977,6 +19017,62 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DepartmentStatus'
+   */
+  export type EnumDepartmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DepartmentStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'DepartmentStatus[]'
+   */
+  export type ListEnumDepartmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DepartmentStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'EmployeeStatus'
+   */
+  export type EnumEmployeeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmployeeStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'EmployeeStatus[]'
+   */
+  export type ListEnumEmployeeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmployeeStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserStatus'
+   */
+  export type EnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserStatus[]'
+   */
+  export type ListEnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserStatus[]'>
     
 
 
@@ -19033,7 +19129,7 @@ export namespace Prisma {
     department_id?: StringFilter<"Division"> | string
     code?: StringFilter<"Division"> | string
     name?: StringFilter<"Division"> | string
-    status?: IntFilter<"Division"> | number
+    status?: EnumDivisionStatusFilter<"Division"> | $Enums.DivisionStatus
     permissions?: JsonNullableFilter<"Division">
     created_at?: DateTimeFilter<"Division"> | Date | string
     department?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
@@ -19060,7 +19156,7 @@ export namespace Prisma {
     NOT?: DivisionWhereInput | DivisionWhereInput[]
     department_id?: StringFilter<"Division"> | string
     name?: StringFilter<"Division"> | string
-    status?: IntFilter<"Division"> | number
+    status?: EnumDivisionStatusFilter<"Division"> | $Enums.DivisionStatus
     permissions?: JsonNullableFilter<"Division">
     created_at?: DateTimeFilter<"Division"> | Date | string
     department?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
@@ -19076,10 +19172,8 @@ export namespace Prisma {
     permissions?: SortOrderInput | SortOrder
     created_at?: SortOrder
     _count?: DivisionCountOrderByAggregateInput
-    _avg?: DivisionAvgOrderByAggregateInput
     _max?: DivisionMaxOrderByAggregateInput
     _min?: DivisionMinOrderByAggregateInput
-    _sum?: DivisionSumOrderByAggregateInput
   }
 
   export type DivisionScalarWhereWithAggregatesInput = {
@@ -19090,7 +19184,7 @@ export namespace Prisma {
     department_id?: StringWithAggregatesFilter<"Division"> | string
     code?: StringWithAggregatesFilter<"Division"> | string
     name?: StringWithAggregatesFilter<"Division"> | string
-    status?: IntWithAggregatesFilter<"Division"> | number
+    status?: EnumDivisionStatusWithAggregatesFilter<"Division"> | $Enums.DivisionStatus
     permissions?: JsonNullableWithAggregatesFilter<"Division">
     created_at?: DateTimeWithAggregatesFilter<"Division"> | Date | string
   }
@@ -19102,7 +19196,7 @@ export namespace Prisma {
     id?: StringFilter<"Department"> | string
     code?: StringFilter<"Department"> | string
     name?: StringFilter<"Department"> | string
-    status?: IntFilter<"Department"> | number
+    status?: EnumDepartmentStatusFilter<"Department"> | $Enums.DepartmentStatus
     permissions?: JsonNullableFilter<"Department">
     created_at?: DateTimeFilter<"Department"> | Date | string
     divisions?: DivisionListRelationFilter
@@ -19127,7 +19221,7 @@ export namespace Prisma {
     OR?: DepartmentWhereInput[]
     NOT?: DepartmentWhereInput | DepartmentWhereInput[]
     name?: StringFilter<"Department"> | string
-    status?: IntFilter<"Department"> | number
+    status?: EnumDepartmentStatusFilter<"Department"> | $Enums.DepartmentStatus
     permissions?: JsonNullableFilter<"Department">
     created_at?: DateTimeFilter<"Department"> | Date | string
     divisions?: DivisionListRelationFilter
@@ -19142,10 +19236,8 @@ export namespace Prisma {
     permissions?: SortOrderInput | SortOrder
     created_at?: SortOrder
     _count?: DepartmentCountOrderByAggregateInput
-    _avg?: DepartmentAvgOrderByAggregateInput
     _max?: DepartmentMaxOrderByAggregateInput
     _min?: DepartmentMinOrderByAggregateInput
-    _sum?: DepartmentSumOrderByAggregateInput
   }
 
   export type DepartmentScalarWhereWithAggregatesInput = {
@@ -19155,7 +19247,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Department"> | string
     code?: StringWithAggregatesFilter<"Department"> | string
     name?: StringWithAggregatesFilter<"Department"> | string
-    status?: IntWithAggregatesFilter<"Department"> | number
+    status?: EnumDepartmentStatusWithAggregatesFilter<"Department"> | $Enums.DepartmentStatus
     permissions?: JsonNullableWithAggregatesFilter<"Department">
     created_at?: DateTimeWithAggregatesFilter<"Department"> | Date | string
   }
@@ -19212,13 +19304,18 @@ export namespace Prisma {
     OR?: EmployeeWhereInput[]
     NOT?: EmployeeWhereInput | EmployeeWhereInput[]
     id?: StringFilter<"Employee"> | string
+    employee_number?: StringFilter<"Employee"> | string
+    rank_number?: IntNullableFilter<"Employee"> | number | null
     department_id?: StringFilter<"Employee"> | string
     division_id?: StringNullableFilter<"Employee"> | string | null
     firstname?: StringFilter<"Employee"> | string
     middlename?: StringNullableFilter<"Employee"> | string | null
     lastname?: StringFilter<"Employee"> | string
+    name_prefix?: StringNullableFilter<"Employee"> | string | null
+    name_suffix?: StringNullableFilter<"Employee"> | string | null
     signature_src?: StringNullableFilter<"Employee"> | string | null
     position?: StringFilter<"Employee"> | string
+    status?: EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
     created_by?: StringFilter<"Employee"> | string
     updated_by?: StringNullableFilter<"Employee"> | string | null
     created_at?: DateTimeFilter<"Employee"> | Date | string
@@ -19236,13 +19333,18 @@ export namespace Prisma {
 
   export type EmployeeOrderByWithRelationInput = {
     id?: SortOrder
+    employee_number?: SortOrder
+    rank_number?: SortOrderInput | SortOrder
     department_id?: SortOrder
     division_id?: SortOrderInput | SortOrder
     firstname?: SortOrder
     middlename?: SortOrderInput | SortOrder
     lastname?: SortOrder
+    name_prefix?: SortOrderInput | SortOrder
+    name_suffix?: SortOrderInput | SortOrder
     signature_src?: SortOrderInput | SortOrder
     position?: SortOrder
+    status?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -19260,16 +19362,21 @@ export namespace Prisma {
 
   export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    employee_number?: string
     AND?: EmployeeWhereInput | EmployeeWhereInput[]
     OR?: EmployeeWhereInput[]
     NOT?: EmployeeWhereInput | EmployeeWhereInput[]
+    rank_number?: IntNullableFilter<"Employee"> | number | null
     department_id?: StringFilter<"Employee"> | string
     division_id?: StringNullableFilter<"Employee"> | string | null
     firstname?: StringFilter<"Employee"> | string
     middlename?: StringNullableFilter<"Employee"> | string | null
     lastname?: StringFilter<"Employee"> | string
+    name_prefix?: StringNullableFilter<"Employee"> | string | null
+    name_suffix?: StringNullableFilter<"Employee"> | string | null
     signature_src?: StringNullableFilter<"Employee"> | string | null
     position?: StringFilter<"Employee"> | string
+    status?: EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
     created_by?: StringFilter<"Employee"> | string
     updated_by?: StringNullableFilter<"Employee"> | string | null
     created_at?: DateTimeFilter<"Employee"> | Date | string
@@ -19283,24 +19390,31 @@ export namespace Prisma {
     department?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
     division?: XOR<DivisionNullableRelationFilter, DivisionWhereInput> | null
     user_employee?: XOR<UserEmployeeNullableRelationFilter, UserEmployeeWhereInput> | null
-  }, "id">
+  }, "id" | "employee_number">
 
   export type EmployeeOrderByWithAggregationInput = {
     id?: SortOrder
+    employee_number?: SortOrder
+    rank_number?: SortOrderInput | SortOrder
     department_id?: SortOrder
     division_id?: SortOrderInput | SortOrder
     firstname?: SortOrder
     middlename?: SortOrderInput | SortOrder
     lastname?: SortOrder
+    name_prefix?: SortOrderInput | SortOrder
+    name_suffix?: SortOrderInput | SortOrder
     signature_src?: SortOrderInput | SortOrder
     position?: SortOrder
+    status?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: EmployeeCountOrderByAggregateInput
+    _avg?: EmployeeAvgOrderByAggregateInput
     _max?: EmployeeMaxOrderByAggregateInput
     _min?: EmployeeMinOrderByAggregateInput
+    _sum?: EmployeeSumOrderByAggregateInput
   }
 
   export type EmployeeScalarWhereWithAggregatesInput = {
@@ -19308,13 +19422,18 @@ export namespace Prisma {
     OR?: EmployeeScalarWhereWithAggregatesInput[]
     NOT?: EmployeeScalarWhereWithAggregatesInput | EmployeeScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Employee"> | string
+    employee_number?: StringWithAggregatesFilter<"Employee"> | string
+    rank_number?: IntNullableWithAggregatesFilter<"Employee"> | number | null
     department_id?: StringWithAggregatesFilter<"Employee"> | string
     division_id?: StringNullableWithAggregatesFilter<"Employee"> | string | null
     firstname?: StringWithAggregatesFilter<"Employee"> | string
     middlename?: StringNullableWithAggregatesFilter<"Employee"> | string | null
     lastname?: StringWithAggregatesFilter<"Employee"> | string
+    name_prefix?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+    name_suffix?: StringNullableWithAggregatesFilter<"Employee"> | string | null
     signature_src?: StringNullableWithAggregatesFilter<"Employee"> | string | null
     position?: StringWithAggregatesFilter<"Employee"> | string
+    status?: EnumEmployeeStatusWithAggregatesFilter<"Employee"> | $Enums.EmployeeStatus
     created_by?: StringWithAggregatesFilter<"Employee"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Employee"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
@@ -19373,7 +19492,7 @@ export namespace Prisma {
     firstname?: StringFilter<"User"> | string
     middlename?: StringNullableFilter<"User"> | string | null
     lastname?: StringFilter<"User"> | string
-    status?: IntFilter<"User"> | number
+    status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
     role?: EnumRoleFilter<"User"> | $Enums.Role
     permissions?: JsonNullableFilter<"User">
     created_by?: StringFilter<"User"> | string
@@ -19414,7 +19533,7 @@ export namespace Prisma {
     firstname?: StringFilter<"User"> | string
     middlename?: StringNullableFilter<"User"> | string | null
     lastname?: StringFilter<"User"> | string
-    status?: IntFilter<"User"> | number
+    status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
     role?: EnumRoleFilter<"User"> | $Enums.Role
     permissions?: JsonNullableFilter<"User">
     created_by?: StringFilter<"User"> | string
@@ -19441,10 +19560,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -19457,7 +19574,7 @@ export namespace Prisma {
     firstname?: StringWithAggregatesFilter<"User"> | string
     middlename?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastname?: StringWithAggregatesFilter<"User"> | string
-    status?: IntWithAggregatesFilter<"User"> | number
+    status?: EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     permissions?: JsonNullableWithAggregatesFilter<"User">
     created_by?: StringWithAggregatesFilter<"User"> | string
@@ -20064,7 +20181,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     department: DepartmentCreateNestedOneWithoutDivisionsInput
@@ -20076,7 +20193,7 @@ export namespace Prisma {
     department_id: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDivisionInput
@@ -20086,7 +20203,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     department?: DepartmentUpdateOneRequiredWithoutDivisionsNestedInput
@@ -20098,7 +20215,7 @@ export namespace Prisma {
     department_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Employee?: EmployeeUncheckedUpdateManyWithoutDivisionNestedInput
@@ -20109,7 +20226,7 @@ export namespace Prisma {
     department_id: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
@@ -20118,7 +20235,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20128,7 +20245,7 @@ export namespace Prisma {
     department_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20137,7 +20254,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     divisions?: DivisionCreateNestedManyWithoutDepartmentInput
@@ -20148,7 +20265,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     divisions?: DivisionUncheckedCreateNestedManyWithoutDepartmentInput
@@ -20159,7 +20276,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     divisions?: DivisionUpdateManyWithoutDepartmentNestedInput
@@ -20170,7 +20287,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     divisions?: DivisionUncheckedUpdateManyWithoutDepartmentNestedInput
@@ -20181,7 +20298,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
@@ -20190,7 +20307,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20199,7 +20316,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20255,11 +20372,16 @@ export namespace Prisma {
 
   export type EmployeeCreateInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -20277,13 +20399,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -20299,11 +20426,16 @@ export namespace Prisma {
 
   export type EmployeeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20321,13 +20453,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20343,13 +20480,18 @@ export namespace Prisma {
 
   export type EmployeeCreateManyInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -20358,11 +20500,16 @@ export namespace Prisma {
 
   export type EmployeeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20371,13 +20518,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20433,7 +20585,7 @@ export namespace Prisma {
     firstname?: string
     middlename?: string | null
     lastname?: string
-    status?: number
+    status?: $Enums.UserStatus
     role?: $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
@@ -20452,7 +20604,7 @@ export namespace Prisma {
     firstname?: string
     middlename?: string | null
     lastname?: string
-    status?: number
+    status?: $Enums.UserStatus
     role?: $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
@@ -20471,7 +20623,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
@@ -20490,7 +20642,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
@@ -20509,7 +20661,7 @@ export namespace Prisma {
     firstname?: string
     middlename?: string | null
     lastname?: string
-    status?: number
+    status?: $Enums.UserStatus
     role?: $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
@@ -20525,7 +20677,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
@@ -20541,7 +20693,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
@@ -21117,15 +21269,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type EnumDivisionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DivisionStatus | EnumDivisionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DivisionStatus[] | ListEnumDivisionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DivisionStatus[] | ListEnumDivisionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDivisionStatusFilter<$PrismaModel> | $Enums.DivisionStatus
   }
   export type JsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -21191,10 +21339,6 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
-  export type DivisionAvgOrderByAggregateInput = {
-    status?: SortOrder
-  }
-
   export type DivisionMaxOrderByAggregateInput = {
     id?: SortOrder
     department_id?: SortOrder
@@ -21211,10 +21355,6 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
-  }
-
-  export type DivisionSumOrderByAggregateInput = {
-    status?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -21235,20 +21375,14 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+  export type EnumDivisionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DivisionStatus | EnumDivisionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DivisionStatus[] | ListEnumDivisionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DivisionStatus[] | ListEnumDivisionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDivisionStatusWithAggregatesFilter<$PrismaModel> | $Enums.DivisionStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDivisionStatusFilter<$PrismaModel>
+    _max?: NestedEnumDivisionStatusFilter<$PrismaModel>
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -21290,6 +21424,13 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumDepartmentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DepartmentStatus | EnumDepartmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DepartmentStatus[] | ListEnumDepartmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DepartmentStatus[] | ListEnumDepartmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDepartmentStatusFilter<$PrismaModel> | $Enums.DepartmentStatus
+  }
+
   export type DivisionListRelationFilter = {
     every?: DivisionWhereInput
     some?: DivisionWhereInput
@@ -21309,10 +21450,6 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
-  export type DepartmentAvgOrderByAggregateInput = {
-    status?: SortOrder
-  }
-
   export type DepartmentMaxOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
@@ -21329,8 +21466,14 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
-  export type DepartmentSumOrderByAggregateInput = {
-    status?: SortOrder
+  export type EnumDepartmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DepartmentStatus | EnumDepartmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DepartmentStatus[] | ListEnumDepartmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DepartmentStatus[] | ListEnumDepartmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDepartmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.DepartmentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDepartmentStatusFilter<$PrismaModel>
+    _max?: NestedEnumDepartmentStatusFilter<$PrismaModel>
   }
 
   export type AccountCountOrderByAggregateInput = {
@@ -21354,6 +21497,17 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -21367,6 +21521,13 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type EnumEmployeeStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmployeeStatus | EnumEmployeeStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EmployeeStatus[] | ListEnumEmployeeStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EmployeeStatus[] | ListEnumEmployeeStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEmployeeStatusFilter<$PrismaModel> | $Enums.EmployeeStatus
   }
 
   export type JOApproverSettingNullableRelationFilter = {
@@ -21411,28 +21572,42 @@ export namespace Prisma {
 
   export type EmployeeCountOrderByAggregateInput = {
     id?: SortOrder
+    employee_number?: SortOrder
+    rank_number?: SortOrder
     department_id?: SortOrder
     division_id?: SortOrder
     firstname?: SortOrder
     middlename?: SortOrder
     lastname?: SortOrder
+    name_prefix?: SortOrder
+    name_suffix?: SortOrder
     signature_src?: SortOrder
     position?: SortOrder
+    status?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
+  export type EmployeeAvgOrderByAggregateInput = {
+    rank_number?: SortOrder
+  }
+
   export type EmployeeMaxOrderByAggregateInput = {
     id?: SortOrder
+    employee_number?: SortOrder
+    rank_number?: SortOrder
     department_id?: SortOrder
     division_id?: SortOrder
     firstname?: SortOrder
     middlename?: SortOrder
     lastname?: SortOrder
+    name_prefix?: SortOrder
+    name_suffix?: SortOrder
     signature_src?: SortOrder
     position?: SortOrder
+    status?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
@@ -21441,17 +21616,42 @@ export namespace Prisma {
 
   export type EmployeeMinOrderByAggregateInput = {
     id?: SortOrder
+    employee_number?: SortOrder
+    rank_number?: SortOrder
     department_id?: SortOrder
     division_id?: SortOrder
     firstname?: SortOrder
     middlename?: SortOrder
     lastname?: SortOrder
+    name_prefix?: SortOrder
+    name_suffix?: SortOrder
     signature_src?: SortOrder
     position?: SortOrder
+    status?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type EmployeeSumOrderByAggregateInput = {
+    rank_number?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -21472,6 +21672,16 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type EnumEmployeeStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmployeeStatus | EnumEmployeeStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EmployeeStatus[] | ListEnumEmployeeStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EmployeeStatus[] | ListEnumEmployeeStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEmployeeStatusWithAggregatesFilter<$PrismaModel> | $Enums.EmployeeStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEmployeeStatusFilter<$PrismaModel>
+    _max?: NestedEnumEmployeeStatusFilter<$PrismaModel>
+  }
+
   export type ClassificationCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -21488,6 +21698,13 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+  }
+
+  export type EnumUserStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
   }
 
   export type EnumRoleFilter<$PrismaModel = never> = {
@@ -21533,10 +21750,6 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
-  export type UserAvgOrderByAggregateInput = {
-    status?: SortOrder
-  }
-
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
@@ -21567,8 +21780,14 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
-  export type UserSumOrderByAggregateInput = {
-    status?: SortOrder
+  export type EnumUserStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusWithAggregatesFilter<$PrismaModel> | $Enums.UserStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserStatusFilter<$PrismaModel>
+    _max?: NestedEnumUserStatusFilter<$PrismaModel>
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -21579,6 +21798,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type UserGroupCountOrderByAggregateInput = {
@@ -21602,6 +21832,22 @@ export namespace Prisma {
 
   export type UserGroupSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type UserRelationFilter = {
@@ -21963,12 +22209,8 @@ export namespace Prisma {
     set?: string
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type EnumDivisionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.DivisionStatus
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -22037,6 +22279,10 @@ export namespace Prisma {
     connectOrCreate?: EmployeeCreateOrConnectWithoutDepartmentInput | EmployeeCreateOrConnectWithoutDepartmentInput[]
     createMany?: EmployeeCreateManyDepartmentInputEnvelope
     connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  }
+
+  export type EnumDepartmentStatusFieldUpdateOperationsInput = {
+    set?: $Enums.DepartmentStatus
   }
 
   export type DivisionUpdateManyWithoutDepartmentNestedInput = {
@@ -22191,8 +22437,20 @@ export namespace Prisma {
     connect?: UserEmployeeWhereUniqueInput
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type EnumEmployeeStatusFieldUpdateOperationsInput = {
+    set?: $Enums.EmployeeStatus
   }
 
   export type JOApproverSettingUpdateOneWithoutApproverNestedInput = {
@@ -22393,6 +22651,10 @@ export namespace Prisma {
     connect?: UserAuditLogWhereUniqueInput | UserAuditLogWhereUniqueInput[]
   }
 
+  export type EnumUserStatusFieldUpdateOperationsInput = {
+    set?: $Enums.UserStatus
+  }
+
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
   }
@@ -22499,6 +22761,14 @@ export namespace Prisma {
     update?: UserGroupMembersUpdateWithWhereUniqueWithoutUser_groupInput | UserGroupMembersUpdateWithWhereUniqueWithoutUser_groupInput[]
     updateMany?: UserGroupMembersUpdateManyWithWhereWithoutUser_groupInput | UserGroupMembersUpdateManyWithWhereWithoutUser_groupInput[]
     deleteMany?: UserGroupMembersScalarWhereInput | UserGroupMembersScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type UserGroupMembersUncheckedUpdateManyWithoutUser_groupNestedInput = {
@@ -22687,15 +22957,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type NestedEnumDivisionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DivisionStatus | EnumDivisionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DivisionStatus[] | ListEnumDivisionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DivisionStatus[] | ListEnumDivisionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDivisionStatusFilter<$PrismaModel> | $Enums.DivisionStatus
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -22726,7 +22992,7 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -22734,23 +23000,17 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type NestedEnumDivisionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DivisionStatus | EnumDivisionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DivisionStatus[] | ListEnumDivisionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DivisionStatus[] | ListEnumDivisionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDivisionStatusWithAggregatesFilter<$PrismaModel> | $Enums.DivisionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDivisionStatusFilter<$PrismaModel>
+    _max?: NestedEnumDivisionStatusFilter<$PrismaModel>
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -22800,6 +23060,23 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumDepartmentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DepartmentStatus | EnumDepartmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DepartmentStatus[] | ListEnumDepartmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DepartmentStatus[] | ListEnumDepartmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDepartmentStatusFilter<$PrismaModel> | $Enums.DepartmentStatus
+  }
+
+  export type NestedEnumDepartmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DepartmentStatus | EnumDepartmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DepartmentStatus[] | ListEnumDepartmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DepartmentStatus[] | ListEnumDepartmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDepartmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.DepartmentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDepartmentStatusFilter<$PrismaModel>
+    _max?: NestedEnumDepartmentStatusFilter<$PrismaModel>
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -22812,6 +23089,40 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumEmployeeStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmployeeStatus | EnumEmployeeStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EmployeeStatus[] | ListEnumEmployeeStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EmployeeStatus[] | ListEnumEmployeeStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEmployeeStatusFilter<$PrismaModel> | $Enums.EmployeeStatus
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22831,11 +23142,38 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumEmployeeStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmployeeStatus | EnumEmployeeStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EmployeeStatus[] | ListEnumEmployeeStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EmployeeStatus[] | ListEnumEmployeeStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEmployeeStatusWithAggregatesFilter<$PrismaModel> | $Enums.EmployeeStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEmployeeStatusFilter<$PrismaModel>
+    _max?: NestedEnumEmployeeStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
+  }
+
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type NestedEnumUserStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusWithAggregatesFilter<$PrismaModel> | $Enums.UserStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserStatusFilter<$PrismaModel>
+    _max?: NestedEnumUserStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -22846,6 +23184,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedEnumUserLogEventTypeFilter<$PrismaModel = never> = {
@@ -22869,7 +23234,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     Employee?: EmployeeCreateNestedManyWithoutDepartmentInput
@@ -22879,7 +23244,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
@@ -22892,11 +23257,16 @@ export namespace Prisma {
 
   export type EmployeeCreateWithoutDivisionInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -22913,12 +23283,17 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutDivisionInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -22957,7 +23332,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Employee?: EmployeeUpdateManyWithoutDepartmentNestedInput
@@ -22967,7 +23342,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Employee?: EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
@@ -22994,13 +23369,18 @@ export namespace Prisma {
     OR?: EmployeeScalarWhereInput[]
     NOT?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
     id?: StringFilter<"Employee"> | string
+    employee_number?: StringFilter<"Employee"> | string
+    rank_number?: IntNullableFilter<"Employee"> | number | null
     department_id?: StringFilter<"Employee"> | string
     division_id?: StringNullableFilter<"Employee"> | string | null
     firstname?: StringFilter<"Employee"> | string
     middlename?: StringNullableFilter<"Employee"> | string | null
     lastname?: StringFilter<"Employee"> | string
+    name_prefix?: StringNullableFilter<"Employee"> | string | null
+    name_suffix?: StringNullableFilter<"Employee"> | string | null
     signature_src?: StringNullableFilter<"Employee"> | string | null
     position?: StringFilter<"Employee"> | string
+    status?: EnumEmployeeStatusFilter<"Employee"> | $Enums.EmployeeStatus
     created_by?: StringFilter<"Employee"> | string
     updated_by?: StringNullableFilter<"Employee"> | string | null
     created_at?: DateTimeFilter<"Employee"> | Date | string
@@ -23011,7 +23391,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     Employee?: EmployeeCreateNestedManyWithoutDivisionInput
@@ -23021,7 +23401,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDivisionInput
@@ -23039,11 +23419,16 @@ export namespace Prisma {
 
   export type EmployeeCreateWithoutDepartmentInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -23060,12 +23445,17 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutDepartmentInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -23113,7 +23503,7 @@ export namespace Prisma {
     department_id?: StringFilter<"Division"> | string
     code?: StringFilter<"Division"> | string
     name?: StringFilter<"Division"> | string
-    status?: IntFilter<"Division"> | number
+    status?: EnumDivisionStatusFilter<"Division"> | $Enums.DivisionStatus
     permissions?: JsonNullableFilter<"Division">
     created_at?: DateTimeFilter<"Division"> | Date | string
   }
@@ -23252,7 +23642,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     divisions?: DivisionCreateNestedManyWithoutDepartmentInput
@@ -23262,7 +23652,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     divisions?: DivisionUncheckedCreateNestedManyWithoutDepartmentInput
@@ -23277,7 +23667,7 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     department: DepartmentCreateNestedOneWithoutDivisionsInput
@@ -23288,7 +23678,7 @@ export namespace Prisma {
     department_id: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
@@ -23482,7 +23872,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     divisions?: DivisionUpdateManyWithoutDepartmentNestedInput
@@ -23492,7 +23882,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     divisions?: DivisionUncheckedUpdateManyWithoutDepartmentNestedInput
@@ -23513,7 +23903,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     department?: DepartmentUpdateOneRequiredWithoutDivisionsNestedInput
@@ -23524,7 +23914,7 @@ export namespace Prisma {
     department_id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23734,7 +24124,7 @@ export namespace Prisma {
     firstname?: string
     middlename?: string | null
     lastname?: string
-    status?: number
+    status?: $Enums.UserStatus
     role?: $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
@@ -23752,7 +24142,7 @@ export namespace Prisma {
     firstname?: string
     middlename?: string | null
     lastname?: string
-    status?: number
+    status?: $Enums.UserStatus
     role?: $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
@@ -23800,7 +24190,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
@@ -23818,7 +24208,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
@@ -23856,7 +24246,7 @@ export namespace Prisma {
     firstname?: string
     middlename?: string | null
     lastname?: string
-    status?: number
+    status?: $Enums.UserStatus
     role?: $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
@@ -23874,7 +24264,7 @@ export namespace Prisma {
     firstname?: string
     middlename?: string | null
     lastname?: string
-    status?: number
+    status?: $Enums.UserStatus
     role?: $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
@@ -23892,11 +24282,16 @@ export namespace Prisma {
 
   export type EmployeeCreateWithoutUser_employeeInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -23913,13 +24308,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutUser_employeeInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -23955,7 +24355,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
@@ -23973,7 +24373,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
@@ -23997,11 +24397,16 @@ export namespace Prisma {
 
   export type EmployeeUpdateWithoutUser_employeeInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24018,13 +24423,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutUser_employeeInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24044,7 +24454,7 @@ export namespace Prisma {
     firstname?: string
     middlename?: string | null
     lastname?: string
-    status?: number
+    status?: $Enums.UserStatus
     role?: $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
@@ -24062,7 +24472,7 @@ export namespace Prisma {
     firstname?: string
     middlename?: string | null
     lastname?: string
-    status?: number
+    status?: $Enums.UserStatus
     role?: $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by: string
@@ -24096,7 +24506,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
@@ -24114,7 +24524,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_by?: StringFieldUpdateOperationsInput | string
@@ -24127,11 +24537,16 @@ export namespace Prisma {
 
   export type EmployeeCreateWithoutJo_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24148,13 +24563,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutJo_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24185,11 +24605,16 @@ export namespace Prisma {
 
   export type EmployeeUpdateWithoutJo_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24206,13 +24631,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutJo_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24227,11 +24657,16 @@ export namespace Prisma {
 
   export type EmployeeCreateWithoutRv_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24248,13 +24683,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutRv_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24285,11 +24725,16 @@ export namespace Prisma {
 
   export type EmployeeUpdateWithoutRv_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24306,13 +24751,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutRv_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24327,11 +24777,16 @@ export namespace Prisma {
 
   export type EmployeeCreateWithoutSpr_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24348,13 +24803,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutSpr_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24385,11 +24845,16 @@ export namespace Prisma {
 
   export type EmployeeUpdateWithoutSpr_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24406,13 +24871,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutSpr_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24427,11 +24897,16 @@ export namespace Prisma {
 
   export type EmployeeCreateWithoutMeqs_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24448,13 +24923,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutMeqs_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24485,11 +24965,16 @@ export namespace Prisma {
 
   export type EmployeeUpdateWithoutMeqs_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24506,13 +24991,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutMeqs_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24527,11 +25017,16 @@ export namespace Prisma {
 
   export type EmployeeCreateWithoutPo_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24548,13 +25043,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutPo_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24585,11 +25085,16 @@ export namespace Prisma {
 
   export type EmployeeUpdateWithoutPo_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24606,13 +25111,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutPo_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24627,11 +25137,16 @@ export namespace Prisma {
 
   export type EmployeeCreateWithoutRr_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24648,13 +25163,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedCreateWithoutRr_approver_settingInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24685,11 +25205,16 @@ export namespace Prisma {
 
   export type EmployeeUpdateWithoutRr_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24706,13 +25231,18 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutRr_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24727,12 +25257,17 @@ export namespace Prisma {
 
   export type EmployeeCreateManyDivisionInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     department_id: string
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24741,11 +25276,16 @@ export namespace Prisma {
 
   export type EmployeeUpdateWithoutDivisionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24762,12 +25302,17 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutDivisionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24783,12 +25328,17 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateManyWithoutDivisionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     department_id?: StringFieldUpdateOperationsInput | string
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24799,19 +25349,24 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    status?: number
+    status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
   export type EmployeeCreateManyDepartmentInput = {
     id?: string
+    employee_number: string
+    rank_number?: number | null
     division_id?: string | null
     firstname: string
     middlename?: string | null
     lastname: string
+    name_prefix?: string | null
+    name_suffix?: string | null
     signature_src?: string | null
     position?: string
+    status?: $Enums.EmployeeStatus
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -24822,7 +25377,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Employee?: EmployeeUpdateManyWithoutDivisionNestedInput
@@ -24832,7 +25387,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Employee?: EmployeeUncheckedUpdateManyWithoutDivisionNestedInput
@@ -24842,18 +25397,23 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    status?: IntFieldUpdateOperationsInput | number
+    status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmployeeUpdateWithoutDepartmentInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24870,12 +25430,17 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24891,12 +25456,17 @@ export namespace Prisma {
 
   export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
     id?: StringFieldUpdateOperationsInput | string
+    employee_number?: StringFieldUpdateOperationsInput | string
+    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
+    name_prefix?: NullableStringFieldUpdateOperationsInput | string | null
+    name_suffix?: NullableStringFieldUpdateOperationsInput | string | null
     signature_src?: NullableStringFieldUpdateOperationsInput | string | null
     position?: StringFieldUpdateOperationsInput | string
+    status?: EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

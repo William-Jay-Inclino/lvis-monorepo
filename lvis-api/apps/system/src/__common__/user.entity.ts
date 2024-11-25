@@ -3,7 +3,6 @@ import { Role } from "apps/system/prisma/generated/client";
 export class User {
     id: string;
     username: string;
-    status: number;
     role: Role
     password: string;
     permissions?: UserPermissions
@@ -20,11 +19,15 @@ export interface UserEmployee {
 
 export interface Employee {
     id: string
+    employee_number: string 
+    is_budget_officer?: number
+    is_finance_manager?: number
+    rank_number?: number
+    name_prefix?: string 
+    name_suffix?: string 
     firstname: string
     middlename?: string
     lastname: string
-    is_budget_officer?: boolean
-    is_finance_manager?: boolean
     created_by: string
     department_id: string;
     division_id?: string;

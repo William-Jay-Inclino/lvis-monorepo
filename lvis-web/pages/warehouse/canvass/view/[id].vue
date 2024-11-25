@@ -247,7 +247,7 @@
                             </client-only> Print Canvass
                                         </button>
                                     </div>
-                                    <div v-if="!item.deleted_at">
+                                    <div>
                                         <nuxt-link v-if="!!item.can_update" class="btn btn-success me-2"
                                             :to="`/warehouse/canvass/${item.id}`">
                                             <client-only>

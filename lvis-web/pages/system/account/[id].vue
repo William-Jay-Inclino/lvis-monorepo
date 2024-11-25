@@ -30,12 +30,6 @@
                                 </label>
                                 <input type="text" class="form-control" v-model="item.name" required>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    Description <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" class="form-control" v-model="item.description" required>
-                            </div>
                         </div>
                     </div>
         
@@ -115,7 +109,6 @@ async function onSubmit() {
     const data: CreateAccountInput = {
         code: item.value.code,
         name: item.value.name,
-        description: item.value.description,
     }
 
     isSaving.value = true

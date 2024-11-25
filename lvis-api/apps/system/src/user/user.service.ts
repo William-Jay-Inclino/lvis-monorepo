@@ -80,7 +80,6 @@ export class UserService {
     const skip = (page - 1) * pageSize;
 
     let whereCondition: any = {
-      deleted_at: null,
       username: {
         not: 'admin'
       }

@@ -171,9 +171,7 @@ export class CanvassService {
 
         const skip = (page - 1) * pageSize;
 
-        let whereCondition: any = {
-            deleted_at: null,
-        };
+        let whereCondition: any = {};
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);

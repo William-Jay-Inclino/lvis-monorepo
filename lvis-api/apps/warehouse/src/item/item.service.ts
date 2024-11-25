@@ -138,9 +138,7 @@ export class ItemService {
 
 		const skip = (page - 1) * pageSize;
 
-		let whereCondition: any = {
-			deleted_at: null
-		};
+		let whereCondition: any = {};
 
 		if (description) {
 			whereCondition = {

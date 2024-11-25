@@ -102,50 +102,34 @@ export const stations: Station[] = [
     {
         id: main_office_id,
         name: 'Main Office',
-        location: 'Ormoc City',
-        created_by: 'admin',
     },
     {
         id: faker.string.uuid(),
         name: 'Talisayan Substation',
-        location: 'Talisayan kilid julies',
-        created_by: 'admin',
     },
     {
         id: faker.string.uuid(),
         name: 'Mahayag Substation',
-        location: 'Mahayag Eskina',
-        created_by: 'admin',
     },
     {
         id: faker.string.uuid(),
         name: 'Tabango Substation',
-        location: 'Tabango mo tanan',
-        created_by: 'admin',
     },
     {
         id: faker.string.uuid(),
         name: 'Sambulawan Substation',
-        location: 'Sambulawan Dimension',
-        created_by: 'admin',
     },
     {
         id: faker.string.uuid(),
         name: 'Libongao Substation',
-        location: 'Libongao States',
-        created_by: 'admin',
     },
     {
         id: faker.string.uuid(),
         name: 'Calibuan Substation',
-        location: 'Calibuan atbang sapa',
-        created_by: 'admin',
     },
     {
         id: faker.string.uuid(),
         name: 'Palompon Substation',
-        location: 'Palompon atbang kalanggaman',
-        created_by: 'admin',
     }
 ]
 
@@ -153,17 +137,14 @@ export const projects: Project[] = [
     {
         id: faker.string.uuid(),
         name: 'Project 1',
-        created_by: 'admin',
     },
     {
         id: faker.string.uuid(),
         name: 'Project 2',
-        created_by: 'admin',
     },
     {
         id: faker.string.uuid(),
         name: 'Project 3',
-        created_by: 'admin',
     },
 ]
 
@@ -171,17 +152,14 @@ export const units: Unit[] = [
     {
         id: faker.string.uuid(),
         name: 'Pcs',
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         name: 'Cartons',
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         name: 'Pallets',
-        created_by: 'admin'
     }
 ]
 

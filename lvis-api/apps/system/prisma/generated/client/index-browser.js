@@ -135,13 +135,18 @@ exports.Prisma.AccountScalarFieldEnum = {
 
 exports.Prisma.EmployeeScalarFieldEnum = {
   id: 'id',
+  employee_number: 'employee_number',
+  rank_number: 'rank_number',
   department_id: 'department_id',
   division_id: 'division_id',
   firstname: 'firstname',
   middlename: 'middlename',
   lastname: 'lastname',
+  name_prefix: 'name_prefix',
+  name_suffix: 'name_suffix',
   signature_src: 'signature_src',
   position: 'position',
+  status: 'status',
   created_by: 'created_by',
   updated_by: 'updated_by',
   created_at: 'created_at',
@@ -276,6 +281,26 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.DivisionStatus = exports.$Enums.DivisionStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+exports.DepartmentStatus = exports.$Enums.DepartmentStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+exports.EmployeeStatus = exports.$Enums.EmployeeStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
+exports.UserStatus = exports.$Enums.UserStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+};
+
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
   ADMIN: 'ADMIN'

@@ -19,19 +19,15 @@ export class AuthService {
     ) { }
 
     async validateUser(username: string, password: string): Promise<User> {
-    
+
         const user = await this.findByUserName(username);
-    
+
         if (user) {
             const decryptedPassword = decrypt_password(user.password, this.secretKey);
 
             if (decryptedPassword === password) {
                 if (user.status === USER_STATUS.INACTIVE) {
                     throw new UnauthorizedException('User is Inactive');
-                }
-    
-                if (user.deleted_at) {
-                    throw new NotFoundException('User not found');
                 }
     
                 return user;
@@ -80,7 +76,6 @@ export class AuthService {
                     status
                     role
                     permissions
-                    deleted_at
                     user_employee {
                         employee {
                             id

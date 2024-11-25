@@ -11,7 +11,6 @@ export async function findAll(): Promise<Account[]> {
                 id
                 code
                 name
-                description
             }
         }
     `;
@@ -33,7 +32,6 @@ export async function findOne(id: string): Promise<Account | undefined> {
                 id
                 code
                 name
-                description
             }
         }
     `;
@@ -70,7 +68,6 @@ export async function create(input: CreateAccountInput): Promise<MutationRespons
                 id
                 code
                 name
-                description
             }
         }`;
 
@@ -116,7 +113,6 @@ export async function update(id: string, input: CreateAccountInput): Promise<Mut
                 id
                 code
                 name
-                description
             }
         }`;
 

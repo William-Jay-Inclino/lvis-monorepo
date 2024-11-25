@@ -4,18 +4,18 @@ import type { User, UserPermissions } from "./system/user/user.types"
 import type { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from "./warehouse/vehicle/vehicle.enums"
 
 export enum USER_STATUS {
-    ACTIVE = 1,
-    INACTIVE = 2
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE'
 }
 
 export enum DEPARTMENT_STATUS {
-    ACTIVE = 1,
-    INACTIVE = 2
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE'
 }
 
 export enum DIVISION_STATUS {
-    ACTIVE = 1,
-    INACTIVE = 2
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE'
 }
 
 export enum ROLE {

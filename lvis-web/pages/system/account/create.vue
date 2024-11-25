@@ -27,12 +27,6 @@
                             </label>
                             <input type="text" class="form-control" v-model="formData.name" required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Description <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" v-model="formData.description" required>
-                        </div>
     
                     </div>
                 </div>
@@ -81,7 +75,6 @@ const isSaving = ref(false)
 const _initialFormData: CreateAccountInput = {
     code: '',
     name: '',
-    description: '',
 }
 
 const formData = ref({ ..._initialFormData })

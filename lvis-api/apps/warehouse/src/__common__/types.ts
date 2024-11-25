@@ -2,7 +2,6 @@
 export interface Unit {
     id: string
     name: string
-    created_by: string
 }
 
 export interface Vehicle {
@@ -26,14 +25,11 @@ export interface Supplier {
 export interface Station {
     id: string 
     name: string 
-    location: string
-    created_by: string
 }
 
 export interface Project {
     id: string 
     name: string 
-    created_by: string
 }
 
 export interface ItemType {

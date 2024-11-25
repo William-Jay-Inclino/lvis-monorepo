@@ -1,8 +1,12 @@
-import { IsJSON, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { CreateUserInput } from './create-user.input';
-import { InputType, Field, PartialType, Int } from '@nestjs/graphql';
-import { Role } from 'apps/system/prisma/generated/client';
-import { UserPermissionsInput } from './create-user-permissions.input';
+import { InputType, Field, PartialType, registerEnumType } from '@nestjs/graphql';
+import { Role, UserStatus } from 'apps/system/prisma/generated/client';
+
+registerEnumType(UserStatus, {
+  name: 'UserStatus',
+  description: 'UserStatus of the User default is ACTIVE',
+});
 
 @InputType()
 export class UpdateUserInput extends PartialType(CreateUserInput) {
@@ -31,9 +35,9 @@ export class UpdateUserInput extends PartialType(CreateUserInput) {
   @IsOptional()
   role?: Role | null
 
-  @Field(() => Int, { nullable: true })
+  @Field(() => UserStatus, { nullable: true })
   @IsOptional()
-  status?: number;
+  status?: UserStatus;
 
   @Field({ nullable: true })
   @IsOptional()

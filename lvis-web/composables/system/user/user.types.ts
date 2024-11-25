@@ -17,10 +17,8 @@ export interface User {
 
     created_by: string
     updated_by: string
-    deleted_by: string
     created_at: Date
     updated_at: Date
-    deleted_at: Date
 
 
 

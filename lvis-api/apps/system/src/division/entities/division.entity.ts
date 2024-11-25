@@ -1,6 +1,11 @@
-import { ObjectType, Field, ID, Directive, Int } from '@nestjs/graphql';
-import { DivisionStatus } from '../../__common__/types';
+import { ObjectType, Field, ID, Directive, Int, registerEnumType } from '@nestjs/graphql';
 import { Department } from '../../department/entities/department.entity';
+import { DivisionStatus } from 'apps/system/prisma/generated/client';
+
+registerEnumType(DivisionStatus, {
+  name: 'DivisionStatus',
+  description: 'DivisionStatus default is ACTIVE',
+});
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -18,7 +23,7 @@ export class Division {
   @Field()
   name: string;
 
-  @Field(() => Int)
+  @Field(() => DivisionStatus)
   status: DivisionStatus;
 
   @Field({ nullable: true })

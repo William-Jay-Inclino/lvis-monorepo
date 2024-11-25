@@ -40,7 +40,6 @@
                                             <tr>
                                                 <th class="bg-secondary text-white">Code</th>
                                                 <th class="bg-secondary text-white">Name</th>
-                                                <th class="bg-secondary text-white">Description</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
                                                     <font-awesome-icon :icon="['fas', 'cog']" />
@@ -52,7 +51,6 @@
                                             <tr v-for="i in filteredItems">
                                                 <td class="text-muted"> {{ i.code }} </td>
                                                 <td class="text-muted"> {{ i.name }} </td>
-                                                <td class="text-muted"> {{ i.description }} </td>
                                                 <td class="text-center">
                                                     <button :disabled="!canDelete(authUser, 'canManageAccount')"
                                                         @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">

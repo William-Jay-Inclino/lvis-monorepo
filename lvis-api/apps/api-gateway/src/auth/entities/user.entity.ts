@@ -15,11 +15,9 @@ export class User {
 
   created_at: Date;
   updated_at: Date;
-  deleted_at?: Date | null;
 
   created_by: string;
   updated_by?: string | null;
-  deleted_by?: string | null;
 
 
 }

@@ -13,6 +13,26 @@ enum Role {
   ADMIN
 }
 
+enum EmployeeStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum DivisionStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum DepartmentStatus {
+  ACTIVE
+  INACTIVE
+}
+
 enum UserLogEventType {
   LOGIN
   LOGOUT
@@ -24,7 +44,7 @@ model Division {
   department    Department @relation(fields: [department_id], references: [id], onDelete: Restrict)
   code          String     @unique
   name          String
-  status        Int        @default(1)
+  status        DivisionStatus        @default(ACTIVE)
   permissions Json?
 
   created_at DateTime  @default(now())
@@ -38,7 +58,7 @@ model Department {
   id     String @id @default(uuid())
   code   String @unique
   name   String
-  status Int    @default(1)
+  status DepartmentStatus    @default(ACTIVE)
   permissions Json?
 
   created_at DateTime  @default(now())
@@ -61,13 +81,18 @@ model Account {
 
 model Employee {
   id         String  @id @default(uuid())
+  employee_number String @unique
+  rank_number Int?
   department_id String
   division_id String?
   firstname  String 
   middlename String?
   lastname   String
+  name_prefix String?
+  name_suffix String?
   signature_src String?
   position String @default("TBA")
+  status EmployeeStatus @default(ACTIVE)
 
   jo_approver_setting   JOApproverSetting?   @relation("JOApproverSetting")
   meqs_approver_setting MEQSApproverSetting? @relation("MEQSApproverSetting")
@@ -109,7 +134,7 @@ model User {
   firstname   String  @default("")
   middlename  String?
   lastname    String  @default("")
-  status      Int     @default(1)
+  status      UserStatus     @default(ACTIVE)
   role        Role    @default(USER)
   permissions Json?
 

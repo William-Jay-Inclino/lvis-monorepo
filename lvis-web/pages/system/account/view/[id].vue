@@ -31,10 +31,6 @@
                                             <td class="text-muted">Name</td>
                                             <td> {{ item.name }} </td>
                                         </tr>
-                                        <tr>
-                                            <td class="text-muted">Description</td>
-                                            <td> {{ item.description }} </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

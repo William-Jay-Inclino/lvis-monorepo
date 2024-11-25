@@ -1,6 +1,7 @@
 import { sendRequest } from "~/utils/api"
 import type { Employee, CreateEmployeeInput, MutationResponse, FindAllResponse } from "./employee.types";
 import axios from "axios";
+import type { Department } from "../department/department";
 
 
 export async function findAll(payload: { page: number, pageSize: number, searchValue: string | null }): Promise<FindAllResponse> {

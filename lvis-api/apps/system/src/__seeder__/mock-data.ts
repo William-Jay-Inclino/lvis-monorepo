@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Account, Classification, Department, DepartmentStatus, Division, JOApproverSetting, MEQSApproverSetting, POApproverSetting, Position, RRApproverSetting, RVApproverSetting, SPRApproverSetting, UserEmployee, UserGroup, UserGroupMember, UserStatus } from "../__common__/types";
+import { Account, Classification, Department, Division, JOApproverSetting, MEQSApproverSetting, POApproverSetting, RRApproverSetting, RVApproverSetting, SPRApproverSetting, UserEmployee, UserGroup, UserGroupMember } from "../__common__/types";
 import { Role } from "apps/system/prisma/generated/client";
 import { Employee, User } from "../__common__/user.entity";
 
@@ -9,22 +9,16 @@ export const accounts: Account[] = [
         id: faker.string.uuid(),
         code: 'A1code',
         name: 'Account1',
-        description: 'This is a description for account1',
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         code: 'A2code',
         name: 'Account2',
-        description: 'This is a description for account2',
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         code: 'A3code',
         name: 'Account3',
-        description: 'This is a description for account3',
-        created_by: 'admin'
     },
 ]
 
@@ -43,43 +37,31 @@ export const departments: Department[] = [
         id: ogm_id,
         code: 'OGM',
         name: 'Office of the General Manager',
-        status: DepartmentStatus.ACTIVE,
-        created_by: 'admin'
     },
     {
         id: iad_id,
         code: 'IAD',
         name: 'Internal Audit Department',
-        status: DepartmentStatus.ACTIVE,
-        created_by: 'admin'
     },
     {
         id: fsd_id,
         code: 'FSD',
         name: 'Finance Services Department',
-        status: DepartmentStatus.ACTIVE,
-        created_by: 'admin'
     },
     {
         id: isd_id,
         code: 'ISD',
         name: 'Institutional Services Department',
-        status: DepartmentStatus.ACTIVE,
-        created_by: 'admin'
     },
     {
         id: tsd_id,
         code: 'TSD',
         name: 'Technical Services Department',
-        status: DepartmentStatus.ACTIVE,
-        created_by: 'admin'
     },
     {
         id: cpetd_id,
         code: 'CPETD',
         name: 'Corporate Planning And Energy Trading Department',
-        status: DepartmentStatus.ACTIVE,
-        created_by: 'admin'
     },
 ]
 
@@ -114,112 +96,96 @@ export const divisions: Division[] = [
         department_id: ogm_id,
         code: 'ITCS',
         name: 'Information Technology and Communication Services Division',
-        created_by: 'admin',
     },
     {
         id: meter_reading_and_billing_id,
         department_id: fsd_id,
         code: 'MRBD',
         name: 'Meter Reading and Billing Division',
-        created_by: 'admin',
     },
     {
         id: collection_division_id,
         department_id: fsd_id,
         code: 'Collection',
         name: 'Collection Division',
-        created_by: 'admin',
     },
     {
         id: general_accounting_division,
         department_id: fsd_id,
         code: 'Accounting',
         name: 'General Accounting Division',
-        created_by: 'admin',
     },
     {
         id: consumer_accounts_id,
         department_id: fsd_id,
         code: 'Consumer Accounts',
         name: 'Consumer Accounts Section',
-        created_by: 'admin',
     },
     {
         id: cashiering_id,
         department_id: fsd_id,
         code: 'CRDS',
         name: 'Cashiering, Receipts, & Disbursements Section',
-        created_by: 'admin',
     },
     {
         id: membership_services_id,
         department_id: isd_id,
         code: 'Membership',
         name: 'Membership Services Division',
-        created_by: 'admin',
     },
     {
         id: fleet_mgmt,
         department_id: isd_id,
         code: 'Fleet',
         name: 'Fleet Management Services',
-        created_by: 'admin',
     },
     {
         id: hrd_id,
         department_id: isd_id,
         code: 'HRD',
         name: 'Human Resource Division',
-        created_by: 'admin',
     },
     {
         id: property_id,
         department_id: isd_id,
         code: 'PDMS',
         name: 'Property Development & Maintenance Section',
-        created_by: 'admin',
     },
     {
         id: materials_id,
         department_id: isd_id,
         code: 'Materials',
         name: 'Materials Management Section',
-        created_by: 'admin',
     },
     {
         id: line_services_id,
         department_id: tsd_id,
         code: 'Line Services',
         name: 'Line Services Division',
-        created_by: 'admin',
     },
     {
         id: line_construction_id,
         department_id: tsd_id,
         code: 'Line Construction',
         name: 'Line Construction Division',
-        created_by: 'admin',
     },
     {
         id: engineering_services_id,
         department_id: tsd_id,
         code: 'Engineering Services',
         name: 'Engineering Services Division',
-        created_by: 'admin',
     },
     {
         id: power_supply,
         department_id: cpetd_id,
         code: 'PSETS',
         name: 'Power Supply and Energy Trading Section',
-        created_by: 'admin',
     },
     {
         id: strategic_planning,
         department_id: cpetd_id,
         code: 'SPRCS',
         name: 'Strategic Planning & Regulatory Compliance Section',
-        created_by: 'admin',
     },
 ]
 
@@ -227,17 +193,14 @@ export const classifications: Classification[] = [
     {
         id: faker.string.uuid(),
         name: 'Classification 1',
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         name: 'Classification 2',
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         name: 'Classification 3',
-        created_by: 'admin'
     }
 ]
 
@@ -272,6 +235,8 @@ export const employees: Employee[] = [
         middlename: 'M',
         lastname: 'Pastor',
         department_id: isd_id,
+        employee_number: '1',
+        rank_number: 16,
         created_by: 'admin',
     },
     {
@@ -281,6 +246,8 @@ export const employees: Employee[] = [
         lastname: 'Suan',
         created_by: 'admin',
         department_id: fsd_id,
+        employee_number: '2',
+        rank_number: 10,
     },
     {
         id: marlon,
@@ -289,6 +256,8 @@ export const employees: Employee[] = [
         lastname: 'Sanico',
         created_by: 'admin',
         department_id: iad_id,
+        employee_number: '3',
+        rank_number: 16,
     },
     {
         id: jannie,
@@ -297,6 +266,8 @@ export const employees: Employee[] = [
         lastname: 'Dayandayan',
         created_by: 'admin',
         department_id: ogm_id,
+        employee_number: '4',
+        rank_number: 20,
     },
     {
         id: jhunrey,
@@ -305,6 +276,8 @@ export const employees: Employee[] = [
         lastname: 'Nahine',
         created_by: 'admin',
         department_id: ogm_id,
+        employee_number: '5',
+        rank_number: 8,
     },
     {
         id: gretchen,
@@ -314,6 +287,8 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: fsd_id,
         division_id: general_accounting_division,
+        employee_number: '6',
+        rank_number: 15,
     },
     {
         id: dionic,
@@ -322,6 +297,8 @@ export const employees: Employee[] = [
         lastname: 'De La Peña',
         created_by: 'admin',
         department_id: iad_id,
+        employee_number: '7',
+        rank_number: 12,
     },
     {
         id: anthony,
@@ -331,6 +308,8 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: tsd_id,
         division_id: line_services_id,
+        employee_number: '8',
+        rank_number: 11,
     },
     {
         id: paula,
@@ -339,6 +318,8 @@ export const employees: Employee[] = [
         lastname: 'Lumacang',
         created_by: 'admin',
         department_id: fsd_id,
+        employee_number: '9',
+        rank_number: 18,
     },
     {
         id: joshua,
@@ -348,6 +329,8 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: ogm_id,
         division_id: itcs_id,
+        employee_number: '10',
+        rank_number: 12,
     },
     {
         id: jessa_pelones,
@@ -356,6 +339,8 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: ogm_id,
         division_id: itcs_id,
+        employee_number: '11',
+        rank_number: 4,
     },
     {
         id: joseph_ken,
@@ -365,6 +350,8 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: fsd_id,
         division_id: meter_reading_and_billing_id,
+        employee_number: '12',
+        rank_number: 2,
     },
     {
         id: hannah_grace,
@@ -373,6 +360,8 @@ export const employees: Employee[] = [
         lastname: 'Tudio',
         created_by: 'admin',
         department_id: iad_id,
+        employee_number: '13',
+        rank_number: 6,
     },
     {
         id: jessa_valida,
@@ -382,6 +371,8 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: fsd_id,
         division_id: general_accounting_division,
+        employee_number: '14',
+        rank_number: 6,
     },
     {
         id: adam,
@@ -390,6 +381,8 @@ export const employees: Employee[] = [
         lastname: 'Estremos',
         created_by: 'admin',
         department_id: isd_id,
+        employee_number: '15',
+        rank_number: 10,
     },
     {
         id: sam,
@@ -399,6 +392,8 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: isd_id,
         division_id: materials_id,
+        employee_number: '16',
+        rank_number: 6,
     },
     {
         id: gene,
@@ -408,6 +403,8 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: isd_id,
         division_id: materials_id,
+        employee_number: '17',
+        rank_number: 14,
     },
     {
         id: monroe,
@@ -417,6 +414,8 @@ export const employees: Employee[] = [
         created_by: 'admin',
         department_id: isd_id,
         division_id: fleet_mgmt,
+        employee_number: '18',
+        rank_number: 14,
     },
     {
         id: ricardo,
@@ -425,6 +424,8 @@ export const employees: Employee[] = [
         lastname: 'Lequin',
         created_by: 'admin',
         department_id: tsd_id,
+        employee_number: '19',
+        rank_number: 19,
     },
     {
         id: michael,
@@ -433,6 +434,8 @@ export const employees: Employee[] = [
         lastname: 'Guiñarez',
         created_by: 'admin',
         department_id: cpetd_id,
+        employee_number: '20',
+        rank_number: 19,
     },
 ]
 
@@ -465,7 +468,6 @@ export const users: User[] = [
         id: u_analou,
         username: 'anamarialourdes.pastor',
         password: 'anamarialourdes.pastor',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -473,7 +475,6 @@ export const users: User[] = [
         id: u_ricaflor,
         username: 'ricaflor.suan',
         password: 'ricaflor.suan',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -481,7 +482,6 @@ export const users: User[] = [
         id: u_marlon,
         username: 'marlon.sanico',
         password: 'marlon.sanico',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -489,7 +489,6 @@ export const users: User[] = [
         id: u_jannie,
         username: 'jannieann.dayandayan',
         password: 'jannieann.dayandayan',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -497,7 +496,6 @@ export const users: User[] = [
         id: u_jhunrey,
         username: 'jhunrey.nahine',
         password: 'jhunrey.nahine',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -505,7 +503,6 @@ export const users: User[] = [
         id: u_gretchen,
         username: 'gretchen.tagalog',
         password: 'gretchen.tagalog',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -513,7 +510,6 @@ export const users: User[] = [
         id: u_dionic,
         username: 'dionic.delapena',
         password: 'dionic.delapena',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -521,7 +517,6 @@ export const users: User[] = [
         id: u_anthony,
         username: 'anthony.cecilio',
         password: 'anthony.cecilio',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -529,7 +524,6 @@ export const users: User[] = [
         id: u_paula,
         username: 'francespaula.lumacang',
         password: 'francespaula.lumacang',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -537,7 +531,6 @@ export const users: User[] = [
         id: u_joshua,
         username: 'joshua.tayag',
         password: 'joshua.tayag',
-        status: UserStatus.ACTIVE,
         role: Role.ADMIN,
         created_by: 'admin'
     },
@@ -545,7 +538,6 @@ export const users: User[] = [
         id: u_jessa_pelones,
         username: 'jessa.pelones',
         password: 'jessa.pelones',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -553,7 +545,6 @@ export const users: User[] = [
         id: u_joseph_ken,
         username: 'josephken.estrera',
         password: 'josephken.estrera',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -561,7 +552,6 @@ export const users: User[] = [
         id: u_hannah_grace,
         username: 'hannahgrace.tudio',
         password: 'hannahgrace.tudio',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -569,7 +559,6 @@ export const users: User[] = [
         id: u_jessa_valida,
         username: 'jessa.valida',
         password: 'jessa.valida',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -577,7 +566,6 @@ export const users: User[] = [
         id: u_adam,
         username: 'adam.estremos',
         password: 'adam.estremos',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -585,7 +573,6 @@ export const users: User[] = [
         id: u_sam,
         username: 'samantha.ablen',
         password: 'samantha.ablen',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -593,7 +580,6 @@ export const users: User[] = [
         id: u_gene,
         username: 'genevieve.salgarino',
         password: 'genevieve.salgarino',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -601,7 +587,6 @@ export const users: User[] = [
         id: u_monroe,
         username: 'monroe.magdadaro',
         password: 'monroe.magdadaro',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -609,7 +594,6 @@ export const users: User[] = [
         id: u_ricardo,
         username: 'ricardo.lequin',
         password: 'ricardo.lequin',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     },
@@ -617,7 +601,6 @@ export const users: User[] = [
         id: u_michael,
         username: 'michael.guinarez',
         password: 'michael.guinarez',
-        status: UserStatus.ACTIVE,
         role: Role.USER,
         created_by: 'admin'
     }
@@ -822,21 +805,18 @@ export const jo_default_approvers: JOApproverSetting[] = [
         approver_id: ricaflor,
         label: 'Budget By:',
         order: 2,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: marlon,
         label: 'Pre-Audited By:',
         order: 3,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
         label: 'Approved By:',
         order: 4,
-        created_by: 'admin'
     },
 ]
 
@@ -846,21 +826,18 @@ export const rv_default_approvers: RVApproverSetting[] = [
         approver_id: ricaflor,
         label: 'Budget By:',
         order: 2,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: marlon,
         label: 'Pre-Audited By:',
         order: 3,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
         label: 'Approved By:',
         order: 4,
-        created_by: 'admin'
     },
 ]
 
@@ -870,21 +847,18 @@ export const spr_default_approvers: SPRApproverSetting[] = [
         approver_id: ricaflor,
         label: 'Budget By:',
         order: 2,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: marlon,
         label: 'Pre-Audited By:',
         order: 3,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
         label: 'Approved By:',
         order: 4,
-        created_by: 'admin'
     },
 ]
 
@@ -894,35 +868,30 @@ export const meqs_default_approvers: MEQSApproverSetting[] = [
         approver_id: jhunrey,
         label: '1st CPC Member',
         order: 1,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: gretchen,
         label: '2nd CPC Member',
         order: 2,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: dionic,
         label: 'Witness',
         order: 3,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: anthony,
         label: 'CPC Chairman',
         order: 4,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
         label: 'GM / OIC',
         order: 5,
-        created_by: 'admin'
     },
 ]
 
@@ -932,28 +901,24 @@ export const po_default_approvers: POApproverSetting[] = [
         approver_id: ricaflor,
         label: 'Budget By:',
         order: 1,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: paula,
         label: 'Finance By:',
         order: 2,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: marlon,
         label: 'Audited By:',
         order: 3,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
         label: 'Approved By:',
         order: 4,
-        created_by: 'admin'
     },
 ]
 
@@ -963,13 +928,11 @@ export const rr_default_approvers: RRApproverSetting[] = [
         approver_id: marlon,
         label: 'Audited By:',
         order: 3,
-        created_by: 'admin'
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
         label: 'Approved By:',
         order: 4,
-        created_by: 'admin'
     },
 ]

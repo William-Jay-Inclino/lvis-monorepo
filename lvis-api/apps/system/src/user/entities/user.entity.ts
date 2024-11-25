@@ -1,7 +1,11 @@
-import { ObjectType, Field, Int, Directive } from '@nestjs/graphql';
-import { Role } from 'apps/system/prisma/generated/client';
-import { UserStatus } from '../../__common__/types';
+import { ObjectType, Field, Directive, registerEnumType } from '@nestjs/graphql';
+import { Role, UserStatus } from 'apps/system/prisma/generated/client';
 import { UserEmployee } from './user-employee.entity';
+
+registerEnumType(UserStatus, {
+  name: 'UserStatus',
+  description: 'UserStatus default is ACTIVE',
+});
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -28,7 +32,7 @@ export class User {
   @Field()
   lastname: string;
 
-  @Field(() => Int)
+  @Field(() => UserStatus)
   status: UserStatus;
 
   @Field(() => Role)
