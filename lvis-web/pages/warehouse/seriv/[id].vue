@@ -113,7 +113,7 @@
                                 Item From <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="stations" label="name" v-model="serivData.item_from" :clearable="false"></v-select>
+                                <v-select :options="stations" label="name" v-model="serivData.item_from" :clearable="false" disabled></v-select>
                             </client-only>
                         </div>
 

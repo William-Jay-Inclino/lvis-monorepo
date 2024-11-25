@@ -246,6 +246,7 @@ export async function fetchFormDataInCreate(): Promise<{
     employees: Employee[],
     stations: Station[],
     items: Item[],
+    default_station: Station | null,
     warehouse_custodian: Employee | null,
 }> {
 
@@ -283,6 +284,11 @@ export async function fetchFormDataInCreate(): Promise<{
                 name
                 location
             },
+            default_station {
+                id 
+                name
+                location
+            },
             warehouse_custodian {
                 id 
                 firstname
@@ -300,6 +306,7 @@ export async function fetchFormDataInCreate(): Promise<{
         let stations = []
         let items = []
         let warehouse_custodian = undefined
+        let default_station = undefined
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -323,11 +330,16 @@ export async function fetchFormDataInCreate(): Promise<{
             warehouse_custodian = data.warehouse_custodian
         }
 
+        if(data.default_station) {
+            default_station = data.default_station
+        }
+
         return {
             employees,
             stations,
             items,
             warehouse_custodian,
+            default_station,
         }
 
     } catch (error) {
@@ -337,6 +349,7 @@ export async function fetchFormDataInCreate(): Promise<{
             stations: [],
             items: [],
             warehouse_custodian: null,
+            default_station: null,
         }
     }
 

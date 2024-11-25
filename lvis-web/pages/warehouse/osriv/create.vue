@@ -34,7 +34,7 @@
                                     Item From <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="stations" label="name" v-model="osrivData.item_from" :clearable="false"></v-select>
+                                    <v-select :options="stations" label="name" v-model="osrivData.item_from" :clearable="false" :disabled="!!default_station"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="osrivDataErrors.item_from"> {{ errorMsg }} </small>
                             </div>
@@ -201,6 +201,7 @@
     })
     const osrivDataErrors = ref({ ..._osrivDataErrorsInitial })
 
+    const default_station = ref<Station>()
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
@@ -244,6 +245,17 @@
             if(wc) {
                 wc.approver = response.warehouse_custodian
                 wc.approver['fullname'] = getFullname(wc.approver.firstname, wc.approver.middlename, wc.approver.lastname)
+            }
+        }
+
+        // set default station 
+        if(response.default_station) {
+
+            default_station.value = response.default_station
+
+            const station = stations.value.find(i => i.id === response.default_station?.id)
+            if(station) {
+                osrivData.value.item_from = station
             }
         }
 

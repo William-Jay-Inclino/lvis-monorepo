@@ -84,7 +84,7 @@
                                     Item From <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="stations" label="name" v-model="mrvData.item_from" :clearable="false"></v-select>
+                                    <v-select :options="stations" label="name" v-model="mrvData.item_from" :clearable="false" :disabled="!!default_station"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="mrvDataErrors.item_from"> {{ errorMsg }} </small>
                             </div>
@@ -327,6 +327,7 @@
     })
     const mrvDataErrors = ref({ ..._mrvDataErrorsInitial })
 
+    const default_station = ref<Station>()
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
@@ -364,6 +365,17 @@
         })
 
         mrvData.value.approvers = MRV_DEFAULT_APPROVERS.map(i => ({...i}))
+
+        // set default station 
+        if(response.default_station) {
+
+            default_station.value = response.default_station
+
+            const station = stations.value.find(i => i.id === response.default_station?.id)
+            if(station) {
+                mrvData.value.item_from = station
+            }
+        }
 
         isLoadingPage.value = false
 

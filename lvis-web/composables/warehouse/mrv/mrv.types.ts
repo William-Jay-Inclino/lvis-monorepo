@@ -96,7 +96,7 @@ export interface MRV {
     location: string 
     requested_by: Employee | null 
     withdrawn_by: Employee | null 
-    item_from: Item | null 
+    item_from: Station | null 
     approvers: CreateMRVApprover[]
     items: AddItem[]
   }

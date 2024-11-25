@@ -5,6 +5,7 @@ import { Prisma, Station } from 'apps/warehouse/prisma/generated/client';
 import { UpdateStationInput } from './dto/update-station.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { SETTINGS } from '../__common__/constants';
 
 @Injectable()
 export class StationService {
@@ -92,6 +93,30 @@ export class StationService {
 			success: true,
 			msg: "Station successfully deleted"
 		}
+
+	}
+
+	async get_default_station(): Promise<Station> {
+
+		const default_station = await this.prisma.setting.findUnique({
+			where: {
+				key: SETTINGS.DEFAULT_STATION
+			}
+		})
+
+		if(!default_station) {
+			throw new NotFoundException('No default station set')
+		}
+
+		const station = await this.prisma.station.findUnique({
+			where: { id: default_station.value }
+		})
+
+		if(!station) {
+			throw new NotFoundException('Station not found with id of ' + default_station.value)
+		}
+
+		return station
 
 	}
 

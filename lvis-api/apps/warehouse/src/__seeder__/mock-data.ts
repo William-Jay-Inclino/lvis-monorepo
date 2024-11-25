@@ -96,9 +96,11 @@ export const itemCodeTracker: ItemCodeTracker[] = [
     }
 ]
 
+export const main_office_id = faker.string.uuid()
+
 export const stations: Station[] = [
     {
-        id: faker.string.uuid(),
+        id: main_office_id,
         name: 'Main Office',
         location: 'Ormoc City',
         created_by: 'admin',

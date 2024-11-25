@@ -69,7 +69,7 @@ export interface UpdateItemsResponse {
 export interface CreateOsrivInput {
 	purpose: string 
 	requested_by: Employee | null 
-	item_from: Item | null 
+	item_from: Station | null 
 	approvers: CreateOSRIVApprover[]
 	items: AddItem[]
 }

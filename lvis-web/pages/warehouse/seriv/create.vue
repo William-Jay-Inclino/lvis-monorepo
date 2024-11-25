@@ -76,7 +76,7 @@
                                     Item From <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="stations" label="name" v-model="serivData.item_from" :clearable="false"></v-select>
+                                    <v-select :options="stations" label="name" v-model="serivData.item_from" :clearable="false" :disabled="!!default_station"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="serivDataErrors.item_from"> {{ errorMsg }} </small>
                             </div>
@@ -303,6 +303,7 @@ import { useToast } from 'vue-toastification';
     })
     const serivDataErrors = ref({ ..._serivDataErrorsInitial })
 
+    const default_station = ref<Station>()
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
@@ -345,6 +346,17 @@ import { useToast } from 'vue-toastification';
             if(wc) {
                 wc.approver = response.warehouse_custodian
                 wc.approver['fullname'] = getFullname(wc.approver.firstname, wc.approver.middlename, wc.approver.lastname)
+            }
+        }
+
+        // set default station 
+        if(response.default_station) {
+
+            default_station.value = response.default_station
+
+            const station = stations.value.find(i => i.id === response.default_station?.id)
+            if(station) {
+                serivData.value.item_from = station
             }
         }
 

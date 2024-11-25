@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, } from '@nestjs/graphql';
 import { StationService } from './station.service';
 import { Station } from './entities/station.entity';
 import { CreateStationInput } from './dto/create-station.input';
@@ -39,6 +39,11 @@ export class StationResolver {
     return this.stationService.findOne(id);
   }
 
+  @Query(() => Station)
+  default_station() {
+    return this.stationService.get_default_station();
+  }
+
   @Mutation(() => Station)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.STATION, RESOLVERS.updateStation)
@@ -61,4 +66,5 @@ export class StationResolver {
     this.stationService.setAuthUser(authUser)
     return this.stationService.remove(id);
   }
+
 }

@@ -5,6 +5,7 @@ export const enum SETTINGS {
     OSRIV_EXP_PERIOD_IN_DAYS = 'osriv_exp_period_in_days',
     SERIV_EXP_PERIOD_IN_DAYS = 'seriv_exp_period_in_days',
     MRV_EXP_PERIOD_IN_DAYS = 'mrv_exp_period_in_days',
+    DEFAULT_STATION = 'default_station',
 }
 
 export const VAT = {

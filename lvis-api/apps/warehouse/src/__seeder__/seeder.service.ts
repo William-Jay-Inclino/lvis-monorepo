@@ -130,6 +130,10 @@ export class SeederService {
                     {
                         key: SETTINGS.MRV_EXP_PERIOD_IN_DAYS,
                         value: '7',
+                    },
+                    {
+                        key: SETTINGS.DEFAULT_STATION,
+                        value: data.main_office_id,
                     }
                 ]
             });
