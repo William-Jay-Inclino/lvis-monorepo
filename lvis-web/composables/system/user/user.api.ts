@@ -239,6 +239,40 @@ export async function changePassword(id: string, password: string): Promise<Muta
     }
 }
 
+export async function changeOwnPassword(current_pw: string, new_pw: string): Promise<{success: boolean, msg: string}> {
+
+    const mutation = `
+        mutation {
+            change_own_password(
+                current_pw: "${current_pw}",
+                new_pw: "${new_pw}",
+            ) {
+                success
+                msg
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.change_own_password) {
+            return response.data.data.change_own_password
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to change Password. Please contact system administrator'
+        }
+
+    }
+}
+
 export async function updatePermissions(id: string, permissions: UserPermissions): Promise<MutationResponse> {
 
     const escapeQuotes = (jsonString: string) => jsonString.replace(/"/g, '\\"')
