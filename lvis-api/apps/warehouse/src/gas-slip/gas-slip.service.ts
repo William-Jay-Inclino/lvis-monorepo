@@ -317,10 +317,11 @@ export class GasSlipService {
 
         const gasSlip = await this.prisma.gasSlip.findUnique({
             where: {
-                id: gas_slip_id
+                id: gas_slip_id,
             },
             select: {
                 created_by: true,
+				is_posted: true, 
             }
         })
 
@@ -332,7 +333,7 @@ export class GasSlipService {
 
         const status = await this.getStatus(gas_slip_id)
 
-		if(status === APPROVAL_STATUS.APPROVED) {
+		if(status === APPROVAL_STATUS.APPROVED && gasSlip.is_posted === false) {
 			return true
 		} else {
 			return false

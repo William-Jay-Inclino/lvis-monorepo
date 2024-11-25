@@ -80,11 +80,11 @@
                                 <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
                             </client-only>
                                                         </button>
-                                                        <button @click="onClickEditActualDepartureTime" class="btn btn-light btn-sm">
+                                                        <!-- <button @click="onClickEditActualDepartureTime" class="btn btn-light btn-sm">
                                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
                             </client-only>
-                                                        </button>
+                                                        </button> -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -102,11 +102,11 @@
                                 <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
                             </client-only>
                                                         </button>
-                                                        <button @click="onClickEditActualArrivalTime" class="btn btn-light btn-sm">
+                                                        <!-- <button @click="onClickEditActualArrivalTime" class="btn btn-light btn-sm">
                                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
                             </client-only>
-                                                        </button>
+                                                        </button> -->
                                                     </div>
                                                 </div>
                                             </td>

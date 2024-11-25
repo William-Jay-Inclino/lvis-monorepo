@@ -733,6 +733,7 @@ export async function postGasSlip(id: string, input: PostGasSlip): Promise<Mutat
                 actual_liter
                 price_per_liter
                 can_post
+                can_print
             }
         }`;
 
