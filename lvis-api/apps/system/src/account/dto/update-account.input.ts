@@ -12,8 +12,4 @@ export class UpdateAccountInput extends PartialType(CreateAccountInput) {
   @Field({ nullable: true })
   @IsOptional()
   name?: string;
-
-  @Field({ nullable: true })
-  @IsOptional()
-  description?: string;
 }

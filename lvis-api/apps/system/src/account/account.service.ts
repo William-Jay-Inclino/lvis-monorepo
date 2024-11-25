@@ -23,8 +23,6 @@ export class AccountService {
     const data: Prisma.AccountCreateInput = {
       code: input.code,
       name: input.name,
-      description: input.description,
-      created_by: this.authUser.user.username
     }
 
     const created = await this.prisma.account.create({
@@ -63,8 +61,6 @@ export class AccountService {
     const data: Prisma.AccountUpdateInput = {
       code: input.code ?? existingItem.code,
       name: input.name ?? existingItem.name,
-      description: input.name ?? existingItem.description,
-      updated_by: this.authUser.user.username
     }
 
 

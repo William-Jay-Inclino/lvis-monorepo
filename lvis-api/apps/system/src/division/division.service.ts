@@ -23,7 +23,6 @@ export class DivisionService {
 			name: input.name,
 			code: input.code,
 			department: { connect: { id: input.department_id } },
-			created_by: this.authUser.user.username
 		}
 
 		if (input.permissions) {
@@ -79,7 +78,6 @@ export class DivisionService {
 			code: input.code ?? existingItem.code,
 			department: input.department_id ? { connect: { id: input.department_id } } : { connect: { id: existingItem.department_id } },
 			name: input.name ?? existingItem.name,
-			updated_by: this.authUser.user.username
 		}
 
 		if (input.permissions) {

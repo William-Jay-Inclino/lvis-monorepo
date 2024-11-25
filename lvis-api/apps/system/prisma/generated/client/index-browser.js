@@ -114,10 +114,7 @@ exports.Prisma.DivisionScalarFieldEnum = {
   name: 'name',
   status: 'status',
   permissions: 'permissions',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.DepartmentScalarFieldEnum = {
@@ -126,21 +123,14 @@ exports.Prisma.DepartmentScalarFieldEnum = {
   name: 'name',
   status: 'status',
   permissions: 'permissions',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
-  description: 'description',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.EmployeeScalarFieldEnum = {
@@ -161,10 +151,7 @@ exports.Prisma.EmployeeScalarFieldEnum = {
 exports.Prisma.ClassificationScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -198,9 +185,7 @@ exports.Prisma.UserEmployeeScalarFieldEnum = {
   user_id: 'user_id',
   employee_id: 'employee_id',
   created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.UserAuditLogScalarFieldEnum = {
@@ -217,10 +202,7 @@ exports.Prisma.JOApproverSettingScalarFieldEnum = {
   label: 'label',
   order: 'order',
   approver_id: 'approver_id',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.RVApproverSettingScalarFieldEnum = {
@@ -228,10 +210,7 @@ exports.Prisma.RVApproverSettingScalarFieldEnum = {
   label: 'label',
   order: 'order',
   approver_id: 'approver_id',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.SPRApproverSettingScalarFieldEnum = {
@@ -239,10 +218,7 @@ exports.Prisma.SPRApproverSettingScalarFieldEnum = {
   label: 'label',
   order: 'order',
   approver_id: 'approver_id',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.MEQSApproverSettingScalarFieldEnum = {
@@ -250,10 +226,7 @@ exports.Prisma.MEQSApproverSettingScalarFieldEnum = {
   label: 'label',
   order: 'order',
   approver_id: 'approver_id',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.POApproverSettingScalarFieldEnum = {
@@ -261,10 +234,7 @@ exports.Prisma.POApproverSettingScalarFieldEnum = {
   label: 'label',
   order: 'order',
   approver_id: 'approver_id',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.RRApproverSettingScalarFieldEnum = {
@@ -272,10 +242,7 @@ exports.Prisma.RRApproverSettingScalarFieldEnum = {
   label: 'label',
   order: 'order',
   approver_id: 'approver_id',
-  created_by: 'created_by',
-  updated_by: 'updated_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  created_at: 'created_at'
 };
 
 exports.Prisma.SettingScalarFieldEnum = {

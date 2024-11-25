@@ -29,7 +29,6 @@ export class MeqsApproverSettingService {
 			approver: { connect: { id: input.approver_id } },
 			label: input.label,
 			order,
-			created_by: this.authUser.user.username
 		}
 
 		const created = await this.prisma.mEQSApproverSetting.create({
@@ -78,7 +77,6 @@ export class MeqsApproverSettingService {
 			approver: input.approver_id ? { connect: { id: input.approver_id } } : { connect: { id: existingItem.approver_id } },
 			label: input.label ?? existingItem.label,
 			order: input.order ?? existingItem.order,
-			updated_by: this.authUser.user.username
 		}
 
 		const updated = await this.prisma.mEQSApproverSetting.update({

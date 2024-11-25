@@ -22,7 +22,6 @@ export class ClassificationService {
 
 		const data: Prisma.ClassificationCreateInput = {
 			name: input.name,
-			created_by: this.authUser.user.username
 		}
 
 		const created = await this.prisma.classification.create({ data })
@@ -58,7 +57,6 @@ export class ClassificationService {
 
 		const data: Prisma.ClassificationUpdateInput = {
 			name: input.name ?? existingItem.name,
-			updated_by: this.authUser.user.username
 		}
 
 		const updated = await this.prisma.classification.update({

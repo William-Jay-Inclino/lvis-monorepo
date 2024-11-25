@@ -27,12 +27,7 @@ model Division {
   status        Int        @default(1)
   permissions Json?
 
-
-  created_by String
-  updated_by String?
-
   created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
 
   Employee Employee[]
 
@@ -46,11 +41,7 @@ model Department {
   status Int    @default(1)
   permissions Json?
 
-  created_by String
-  updated_by String?
-
   created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
 
   divisions Division[]
 
@@ -62,13 +53,8 @@ model Account {
   id          String @id @default(uuid())
   code        String @unique
   name        String
-  description String
-
-  created_by String
-  updated_by String?
 
   created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
 
   @@map("account")
 }
@@ -111,11 +97,7 @@ model Classification {
   id   String @id @default(uuid())
   name String
 
-  created_by String
-  updated_by String?
-
   created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
 
   @@map("classification")
 }
@@ -173,10 +155,7 @@ model UserEmployee {
   employee    Employee @relation(fields: [employee_id], references: [id], onDelete: Cascade)
 
   created_by String
-  updated_by String?
-
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
 
   @@map("user_employee")
 }
@@ -201,11 +180,7 @@ model JOApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_by String
-  updated_by String?
-
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
 
   approver Employee @relation("JOApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 
@@ -218,11 +193,7 @@ model RVApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_by String
-  updated_by String?
-
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
 
   approver Employee @relation("RVApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 
@@ -235,11 +206,7 @@ model SPRApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_by String
-  updated_by String?
-
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
 
   approver Employee @relation("SPRApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 
@@ -252,11 +219,7 @@ model MEQSApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_by String
-  updated_by String?
-
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
 
   approver Employee @relation("MEQSApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 
@@ -269,11 +232,7 @@ model POApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_by String
-  updated_by String?
-
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
 
   approver Employee @relation("POApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 
@@ -286,11 +245,7 @@ model RRApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_by String
-  updated_by String?
-
   created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
 
   approver Employee @relation("RRApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 

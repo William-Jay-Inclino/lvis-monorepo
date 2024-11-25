@@ -12,7 +12,4 @@ export class CreateAccountInput {
   @IsNotEmpty()
   name: string;
 
-  @Field()
-  @IsNotEmpty()
-  description: string;
 }

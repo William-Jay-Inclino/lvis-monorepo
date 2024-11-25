@@ -24,7 +24,6 @@ export class DepartmentService {
     const data: Prisma.DepartmentCreateInput = {
       code: input.code,
       name: input.name,
-      created_by: this.authUser.user.username
     }
 
     if (input.permissions) {
@@ -87,7 +86,6 @@ export class DepartmentService {
     const data: Prisma.DepartmentUpdateInput = {
       code: input.code ?? existingItem.code,
       name: input.name ?? existingItem.name,
-      updated_by: this.authUser.user.username
     }
 
     if (input.permissions) {

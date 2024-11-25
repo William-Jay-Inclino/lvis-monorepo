@@ -2378,10 +2378,7 @@ export namespace Prisma {
     code: string | null
     name: string | null
     status: number | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type DivisionMaxAggregateOutputType = {
@@ -2390,10 +2387,7 @@ export namespace Prisma {
     code: string | null
     name: string | null
     status: number | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type DivisionCountAggregateOutputType = {
@@ -2403,10 +2397,7 @@ export namespace Prisma {
     name: number
     status: number
     permissions: number
-    created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -2425,10 +2416,7 @@ export namespace Prisma {
     code?: true
     name?: true
     status?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type DivisionMaxAggregateInputType = {
@@ -2437,10 +2425,7 @@ export namespace Prisma {
     code?: true
     name?: true
     status?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type DivisionCountAggregateInputType = {
@@ -2450,10 +2435,7 @@ export namespace Prisma {
     name?: true
     status?: true
     permissions?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -2550,10 +2532,7 @@ export namespace Prisma {
     name: string
     status: number
     permissions: JsonValue | null
-    created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: DivisionCountAggregateOutputType | null
     _avg: DivisionAvgAggregateOutputType | null
     _sum: DivisionSumAggregateOutputType | null
@@ -2582,10 +2561,7 @@ export namespace Prisma {
     name?: boolean
     status?: boolean
     permissions?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
     Employee?: boolean | Division$EmployeeArgs<ExtArgs>
     _count?: boolean | DivisionCountOutputTypeDefaultArgs<ExtArgs>
@@ -2598,10 +2574,7 @@ export namespace Prisma {
     name?: boolean
     status?: boolean
     permissions?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
   export type DivisionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2624,10 +2597,7 @@ export namespace Prisma {
       name: string
       status: number
       permissions: Prisma.JsonValue | null
-      created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["division"]>
     composites: {}
   }
@@ -3031,10 +3001,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Division", 'String'>
     readonly status: FieldRef<"Division", 'Int'>
     readonly permissions: FieldRef<"Division", 'Json'>
-    readonly created_by: FieldRef<"Division", 'String'>
-    readonly updated_by: FieldRef<"Division", 'String'>
     readonly created_at: FieldRef<"Division", 'DateTime'>
-    readonly updated_at: FieldRef<"Division", 'DateTime'>
   }
     
 
@@ -3408,10 +3375,7 @@ export namespace Prisma {
     code: string | null
     name: string | null
     status: number | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type DepartmentMaxAggregateOutputType = {
@@ -3419,10 +3383,7 @@ export namespace Prisma {
     code: string | null
     name: string | null
     status: number | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type DepartmentCountAggregateOutputType = {
@@ -3431,10 +3392,7 @@ export namespace Prisma {
     name: number
     status: number
     permissions: number
-    created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -3452,10 +3410,7 @@ export namespace Prisma {
     code?: true
     name?: true
     status?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type DepartmentMaxAggregateInputType = {
@@ -3463,10 +3418,7 @@ export namespace Prisma {
     code?: true
     name?: true
     status?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type DepartmentCountAggregateInputType = {
@@ -3475,10 +3427,7 @@ export namespace Prisma {
     name?: true
     status?: true
     permissions?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -3574,10 +3523,7 @@ export namespace Prisma {
     name: string
     status: number
     permissions: JsonValue | null
-    created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: DepartmentCountAggregateOutputType | null
     _avg: DepartmentAvgAggregateOutputType | null
     _sum: DepartmentSumAggregateOutputType | null
@@ -3605,10 +3551,7 @@ export namespace Prisma {
     name?: boolean
     status?: boolean
     permissions?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
     divisions?: boolean | Department$divisionsArgs<ExtArgs>
     Employee?: boolean | Department$EmployeeArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
@@ -3620,10 +3563,7 @@ export namespace Prisma {
     name?: boolean
     status?: boolean
     permissions?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
   export type DepartmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3645,10 +3585,7 @@ export namespace Prisma {
       name: string
       status: number
       permissions: Prisma.JsonValue | null
-      created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["department"]>
     composites: {}
   }
@@ -4051,10 +3988,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Department", 'String'>
     readonly status: FieldRef<"Department", 'Int'>
     readonly permissions: FieldRef<"Department", 'Json'>
-    readonly created_by: FieldRef<"Department", 'String'>
-    readonly updated_by: FieldRef<"Department", 'String'>
     readonly created_at: FieldRef<"Department", 'DateTime'>
-    readonly updated_at: FieldRef<"Department", 'DateTime'>
   }
     
 
@@ -4438,33 +4372,21 @@ export namespace Prisma {
     id: string | null
     code: string | null
     name: string | null
-    description: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type AccountMaxAggregateOutputType = {
     id: string | null
     code: string | null
     name: string | null
-    description: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type AccountCountAggregateOutputType = {
     id: number
     code: number
     name: number
-    description: number
-    created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -4473,33 +4395,21 @@ export namespace Prisma {
     id?: true
     code?: true
     name?: true
-    description?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type AccountMaxAggregateInputType = {
     id?: true
     code?: true
     name?: true
-    description?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type AccountCountAggregateInputType = {
     id?: true
     code?: true
     name?: true
-    description?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -4579,11 +4489,7 @@ export namespace Prisma {
     id: string
     code: string
     name: string
-    description: string
-    created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: AccountCountAggregateOutputType | null
     _min: AccountMinAggregateOutputType | null
     _max: AccountMaxAggregateOutputType | null
@@ -4607,22 +4513,14 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     name?: boolean
-    description?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }, ExtArgs["result"]["account"]>
 
   export type AccountSelectScalar = {
     id?: boolean
     code?: boolean
     name?: boolean
-    description?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
 
@@ -4633,11 +4531,7 @@ export namespace Prisma {
       id: string
       code: string
       name: string
-      description: string
-      created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["account"]>
     composites: {}
   }
@@ -5035,11 +4929,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Account", 'String'>
     readonly code: FieldRef<"Account", 'String'>
     readonly name: FieldRef<"Account", 'String'>
-    readonly description: FieldRef<"Account", 'String'>
-    readonly created_by: FieldRef<"Account", 'String'>
-    readonly updated_by: FieldRef<"Account", 'String'>
     readonly created_at: FieldRef<"Account", 'DateTime'>
-    readonly updated_at: FieldRef<"Account", 'DateTime'>
   }
     
 
@@ -6503,28 +6393,19 @@ export namespace Prisma {
   export type ClassificationMinAggregateOutputType = {
     id: string | null
     name: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type ClassificationMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type ClassificationCountAggregateOutputType = {
     id: number
     name: number
-    created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -6532,28 +6413,19 @@ export namespace Prisma {
   export type ClassificationMinAggregateInputType = {
     id?: true
     name?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type ClassificationMaxAggregateInputType = {
     id?: true
     name?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type ClassificationCountAggregateInputType = {
     id?: true
     name?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -6632,10 +6504,7 @@ export namespace Prisma {
   export type ClassificationGroupByOutputType = {
     id: string
     name: string
-    created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: ClassificationCountAggregateOutputType | null
     _min: ClassificationMinAggregateOutputType | null
     _max: ClassificationMaxAggregateOutputType | null
@@ -6658,19 +6527,13 @@ export namespace Prisma {
   export type ClassificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }, ExtArgs["result"]["classification"]>
 
   export type ClassificationSelectScalar = {
     id?: boolean
     name?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
 
@@ -6680,10 +6543,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["classification"]>
     composites: {}
   }
@@ -7080,10 +6940,7 @@ export namespace Prisma {
   interface ClassificationFieldRefs {
     readonly id: FieldRef<"Classification", 'String'>
     readonly name: FieldRef<"Classification", 'String'>
-    readonly created_by: FieldRef<"Classification", 'String'>
-    readonly updated_by: FieldRef<"Classification", 'String'>
     readonly created_at: FieldRef<"Classification", 'DateTime'>
-    readonly updated_at: FieldRef<"Classification", 'DateTime'>
   }
     
 
@@ -10358,9 +10215,7 @@ export namespace Prisma {
     user_id: string | null
     employee_id: string | null
     created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type UserEmployeeMaxAggregateOutputType = {
@@ -10368,9 +10223,7 @@ export namespace Prisma {
     user_id: string | null
     employee_id: string | null
     created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type UserEmployeeCountAggregateOutputType = {
@@ -10378,9 +10231,7 @@ export namespace Prisma {
     user_id: number
     employee_id: number
     created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -10390,9 +10241,7 @@ export namespace Prisma {
     user_id?: true
     employee_id?: true
     created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type UserEmployeeMaxAggregateInputType = {
@@ -10400,9 +10249,7 @@ export namespace Prisma {
     user_id?: true
     employee_id?: true
     created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type UserEmployeeCountAggregateInputType = {
@@ -10410,9 +10257,7 @@ export namespace Prisma {
     user_id?: true
     employee_id?: true
     created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -10493,9 +10338,7 @@ export namespace Prisma {
     user_id: string
     employee_id: string
     created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: UserEmployeeCountAggregateOutputType | null
     _min: UserEmployeeMinAggregateOutputType | null
     _max: UserEmployeeMaxAggregateOutputType | null
@@ -10520,9 +10363,7 @@ export namespace Prisma {
     user_id?: boolean
     employee_id?: boolean
     created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userEmployee"]>
@@ -10532,9 +10373,7 @@ export namespace Prisma {
     user_id?: boolean
     employee_id?: boolean
     created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
   export type UserEmployeeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10554,9 +10393,7 @@ export namespace Prisma {
       user_id: string
       employee_id: string
       created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["userEmployee"]>
     composites: {}
   }
@@ -10958,9 +10795,7 @@ export namespace Prisma {
     readonly user_id: FieldRef<"UserEmployee", 'String'>
     readonly employee_id: FieldRef<"UserEmployee", 'String'>
     readonly created_by: FieldRef<"UserEmployee", 'String'>
-    readonly updated_by: FieldRef<"UserEmployee", 'String'>
     readonly created_at: FieldRef<"UserEmployee", 'DateTime'>
-    readonly updated_at: FieldRef<"UserEmployee", 'DateTime'>
   }
     
 
@@ -12272,10 +12107,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type JOApproverSettingMaxAggregateOutputType = {
@@ -12283,10 +12115,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type JOApproverSettingCountAggregateOutputType = {
@@ -12294,10 +12123,7 @@ export namespace Prisma {
     label: number
     order: number
     approver_id: number
-    created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -12315,10 +12141,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type JOApproverSettingMaxAggregateInputType = {
@@ -12326,10 +12149,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type JOApproverSettingCountAggregateInputType = {
@@ -12337,10 +12157,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -12435,10 +12252,7 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: JOApproverSettingCountAggregateOutputType | null
     _avg: JOApproverSettingAvgAggregateOutputType | null
     _sum: JOApproverSettingSumAggregateOutputType | null
@@ -12465,10 +12279,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
     approver?: boolean | EmployeeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jOApproverSetting"]>
 
@@ -12477,10 +12288,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
   export type JOApproverSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12498,10 +12306,7 @@ export namespace Prisma {
       label: string
       order: number
       approver_id: string
-      created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["jOApproverSetting"]>
     composites: {}
   }
@@ -12901,10 +12706,7 @@ export namespace Prisma {
     readonly label: FieldRef<"JOApproverSetting", 'String'>
     readonly order: FieldRef<"JOApproverSetting", 'Int'>
     readonly approver_id: FieldRef<"JOApproverSetting", 'String'>
-    readonly created_by: FieldRef<"JOApproverSetting", 'String'>
-    readonly updated_by: FieldRef<"JOApproverSetting", 'String'>
     readonly created_at: FieldRef<"JOApproverSetting", 'DateTime'>
-    readonly updated_at: FieldRef<"JOApproverSetting", 'DateTime'>
   }
     
 
@@ -13257,10 +13059,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type RVApproverSettingMaxAggregateOutputType = {
@@ -13268,10 +13067,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type RVApproverSettingCountAggregateOutputType = {
@@ -13279,10 +13075,7 @@ export namespace Prisma {
     label: number
     order: number
     approver_id: number
-    created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -13300,10 +13093,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type RVApproverSettingMaxAggregateInputType = {
@@ -13311,10 +13101,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type RVApproverSettingCountAggregateInputType = {
@@ -13322,10 +13109,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -13420,10 +13204,7 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: RVApproverSettingCountAggregateOutputType | null
     _avg: RVApproverSettingAvgAggregateOutputType | null
     _sum: RVApproverSettingSumAggregateOutputType | null
@@ -13450,10 +13231,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
     approver?: boolean | EmployeeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rVApproverSetting"]>
 
@@ -13462,10 +13240,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
   export type RVApproverSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13483,10 +13258,7 @@ export namespace Prisma {
       label: string
       order: number
       approver_id: string
-      created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["rVApproverSetting"]>
     composites: {}
   }
@@ -13886,10 +13658,7 @@ export namespace Prisma {
     readonly label: FieldRef<"RVApproverSetting", 'String'>
     readonly order: FieldRef<"RVApproverSetting", 'Int'>
     readonly approver_id: FieldRef<"RVApproverSetting", 'String'>
-    readonly created_by: FieldRef<"RVApproverSetting", 'String'>
-    readonly updated_by: FieldRef<"RVApproverSetting", 'String'>
     readonly created_at: FieldRef<"RVApproverSetting", 'DateTime'>
-    readonly updated_at: FieldRef<"RVApproverSetting", 'DateTime'>
   }
     
 
@@ -14242,10 +14011,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type SPRApproverSettingMaxAggregateOutputType = {
@@ -14253,10 +14019,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type SPRApproverSettingCountAggregateOutputType = {
@@ -14264,10 +14027,7 @@ export namespace Prisma {
     label: number
     order: number
     approver_id: number
-    created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -14285,10 +14045,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type SPRApproverSettingMaxAggregateInputType = {
@@ -14296,10 +14053,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type SPRApproverSettingCountAggregateInputType = {
@@ -14307,10 +14061,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -14405,10 +14156,7 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: SPRApproverSettingCountAggregateOutputType | null
     _avg: SPRApproverSettingAvgAggregateOutputType | null
     _sum: SPRApproverSettingSumAggregateOutputType | null
@@ -14435,10 +14183,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
     approver?: boolean | EmployeeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sPRApproverSetting"]>
 
@@ -14447,10 +14192,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
   export type SPRApproverSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14468,10 +14210,7 @@ export namespace Prisma {
       label: string
       order: number
       approver_id: string
-      created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["sPRApproverSetting"]>
     composites: {}
   }
@@ -14871,10 +14610,7 @@ export namespace Prisma {
     readonly label: FieldRef<"SPRApproverSetting", 'String'>
     readonly order: FieldRef<"SPRApproverSetting", 'Int'>
     readonly approver_id: FieldRef<"SPRApproverSetting", 'String'>
-    readonly created_by: FieldRef<"SPRApproverSetting", 'String'>
-    readonly updated_by: FieldRef<"SPRApproverSetting", 'String'>
     readonly created_at: FieldRef<"SPRApproverSetting", 'DateTime'>
-    readonly updated_at: FieldRef<"SPRApproverSetting", 'DateTime'>
   }
     
 
@@ -15227,10 +14963,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type MEQSApproverSettingMaxAggregateOutputType = {
@@ -15238,10 +14971,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type MEQSApproverSettingCountAggregateOutputType = {
@@ -15249,10 +14979,7 @@ export namespace Prisma {
     label: number
     order: number
     approver_id: number
-    created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -15270,10 +14997,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type MEQSApproverSettingMaxAggregateInputType = {
@@ -15281,10 +15005,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type MEQSApproverSettingCountAggregateInputType = {
@@ -15292,10 +15013,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -15390,10 +15108,7 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: MEQSApproverSettingCountAggregateOutputType | null
     _avg: MEQSApproverSettingAvgAggregateOutputType | null
     _sum: MEQSApproverSettingSumAggregateOutputType | null
@@ -15420,10 +15135,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
     approver?: boolean | EmployeeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mEQSApproverSetting"]>
 
@@ -15432,10 +15144,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
   export type MEQSApproverSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15453,10 +15162,7 @@ export namespace Prisma {
       label: string
       order: number
       approver_id: string
-      created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["mEQSApproverSetting"]>
     composites: {}
   }
@@ -15856,10 +15562,7 @@ export namespace Prisma {
     readonly label: FieldRef<"MEQSApproverSetting", 'String'>
     readonly order: FieldRef<"MEQSApproverSetting", 'Int'>
     readonly approver_id: FieldRef<"MEQSApproverSetting", 'String'>
-    readonly created_by: FieldRef<"MEQSApproverSetting", 'String'>
-    readonly updated_by: FieldRef<"MEQSApproverSetting", 'String'>
     readonly created_at: FieldRef<"MEQSApproverSetting", 'DateTime'>
-    readonly updated_at: FieldRef<"MEQSApproverSetting", 'DateTime'>
   }
     
 
@@ -16212,10 +15915,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type POApproverSettingMaxAggregateOutputType = {
@@ -16223,10 +15923,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type POApproverSettingCountAggregateOutputType = {
@@ -16234,10 +15931,7 @@ export namespace Prisma {
     label: number
     order: number
     approver_id: number
-    created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -16255,10 +15949,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type POApproverSettingMaxAggregateInputType = {
@@ -16266,10 +15957,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type POApproverSettingCountAggregateInputType = {
@@ -16277,10 +15965,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -16375,10 +16060,7 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: POApproverSettingCountAggregateOutputType | null
     _avg: POApproverSettingAvgAggregateOutputType | null
     _sum: POApproverSettingSumAggregateOutputType | null
@@ -16405,10 +16087,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
     approver?: boolean | EmployeeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pOApproverSetting"]>
 
@@ -16417,10 +16096,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
   export type POApproverSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16438,10 +16114,7 @@ export namespace Prisma {
       label: string
       order: number
       approver_id: string
-      created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["pOApproverSetting"]>
     composites: {}
   }
@@ -16841,10 +16514,7 @@ export namespace Prisma {
     readonly label: FieldRef<"POApproverSetting", 'String'>
     readonly order: FieldRef<"POApproverSetting", 'Int'>
     readonly approver_id: FieldRef<"POApproverSetting", 'String'>
-    readonly created_by: FieldRef<"POApproverSetting", 'String'>
-    readonly updated_by: FieldRef<"POApproverSetting", 'String'>
     readonly created_at: FieldRef<"POApproverSetting", 'DateTime'>
-    readonly updated_at: FieldRef<"POApproverSetting", 'DateTime'>
   }
     
 
@@ -17197,10 +16867,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type RRApproverSettingMaxAggregateOutputType = {
@@ -17208,10 +16875,7 @@ export namespace Prisma {
     label: string | null
     order: number | null
     approver_id: string | null
-    created_by: string | null
-    updated_by: string | null
     created_at: Date | null
-    updated_at: Date | null
   }
 
   export type RRApproverSettingCountAggregateOutputType = {
@@ -17219,10 +16883,7 @@ export namespace Prisma {
     label: number
     order: number
     approver_id: number
-    created_by: number
-    updated_by: number
     created_at: number
-    updated_at: number
     _all: number
   }
 
@@ -17240,10 +16901,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type RRApproverSettingMaxAggregateInputType = {
@@ -17251,10 +16909,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
   }
 
   export type RRApproverSettingCountAggregateInputType = {
@@ -17262,10 +16917,7 @@ export namespace Prisma {
     label?: true
     order?: true
     approver_id?: true
-    created_by?: true
-    updated_by?: true
     created_at?: true
-    updated_at?: true
     _all?: true
   }
 
@@ -17360,10 +17012,7 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by: string | null
     created_at: Date
-    updated_at: Date
     _count: RRApproverSettingCountAggregateOutputType | null
     _avg: RRApproverSettingAvgAggregateOutputType | null
     _sum: RRApproverSettingSumAggregateOutputType | null
@@ -17390,10 +17039,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
     approver?: boolean | EmployeeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rRApproverSetting"]>
 
@@ -17402,10 +17048,7 @@ export namespace Prisma {
     label?: boolean
     order?: boolean
     approver_id?: boolean
-    created_by?: boolean
-    updated_by?: boolean
     created_at?: boolean
-    updated_at?: boolean
   }
 
   export type RRApproverSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17423,10 +17066,7 @@ export namespace Prisma {
       label: string
       order: number
       approver_id: string
-      created_by: string
-      updated_by: string | null
       created_at: Date
-      updated_at: Date
     }, ExtArgs["result"]["rRApproverSetting"]>
     composites: {}
   }
@@ -17826,10 +17466,7 @@ export namespace Prisma {
     readonly label: FieldRef<"RRApproverSetting", 'String'>
     readonly order: FieldRef<"RRApproverSetting", 'Int'>
     readonly approver_id: FieldRef<"RRApproverSetting", 'String'>
-    readonly created_by: FieldRef<"RRApproverSetting", 'String'>
-    readonly updated_by: FieldRef<"RRApproverSetting", 'String'>
     readonly created_at: FieldRef<"RRApproverSetting", 'DateTime'>
-    readonly updated_at: FieldRef<"RRApproverSetting", 'DateTime'>
   }
     
 
@@ -19060,10 +18697,7 @@ export namespace Prisma {
     name: 'name',
     status: 'status',
     permissions: 'permissions',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type DivisionScalarFieldEnum = (typeof DivisionScalarFieldEnum)[keyof typeof DivisionScalarFieldEnum]
@@ -19075,10 +18709,7 @@ export namespace Prisma {
     name: 'name',
     status: 'status',
     permissions: 'permissions',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
@@ -19088,11 +18719,7 @@ export namespace Prisma {
     id: 'id',
     code: 'code',
     name: 'name',
-    description: 'description',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -19119,10 +18746,7 @@ export namespace Prisma {
   export const ClassificationScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type ClassificationScalarFieldEnum = (typeof ClassificationScalarFieldEnum)[keyof typeof ClassificationScalarFieldEnum]
@@ -19168,9 +18792,7 @@ export namespace Prisma {
     user_id: 'user_id',
     employee_id: 'employee_id',
     created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type UserEmployeeScalarFieldEnum = (typeof UserEmployeeScalarFieldEnum)[keyof typeof UserEmployeeScalarFieldEnum]
@@ -19193,10 +18815,7 @@ export namespace Prisma {
     label: 'label',
     order: 'order',
     approver_id: 'approver_id',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type JOApproverSettingScalarFieldEnum = (typeof JOApproverSettingScalarFieldEnum)[keyof typeof JOApproverSettingScalarFieldEnum]
@@ -19207,10 +18826,7 @@ export namespace Prisma {
     label: 'label',
     order: 'order',
     approver_id: 'approver_id',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type RVApproverSettingScalarFieldEnum = (typeof RVApproverSettingScalarFieldEnum)[keyof typeof RVApproverSettingScalarFieldEnum]
@@ -19221,10 +18837,7 @@ export namespace Prisma {
     label: 'label',
     order: 'order',
     approver_id: 'approver_id',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type SPRApproverSettingScalarFieldEnum = (typeof SPRApproverSettingScalarFieldEnum)[keyof typeof SPRApproverSettingScalarFieldEnum]
@@ -19235,10 +18848,7 @@ export namespace Prisma {
     label: 'label',
     order: 'order',
     approver_id: 'approver_id',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type MEQSApproverSettingScalarFieldEnum = (typeof MEQSApproverSettingScalarFieldEnum)[keyof typeof MEQSApproverSettingScalarFieldEnum]
@@ -19249,10 +18859,7 @@ export namespace Prisma {
     label: 'label',
     order: 'order',
     approver_id: 'approver_id',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type POApproverSettingScalarFieldEnum = (typeof POApproverSettingScalarFieldEnum)[keyof typeof POApproverSettingScalarFieldEnum]
@@ -19263,10 +18870,7 @@ export namespace Prisma {
     label: 'label',
     order: 'order',
     approver_id: 'approver_id',
-    created_by: 'created_by',
-    updated_by: 'updated_by',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
+    created_at: 'created_at'
   };
 
   export type RRApproverSettingScalarFieldEnum = (typeof RRApproverSettingScalarFieldEnum)[keyof typeof RRApproverSettingScalarFieldEnum]
@@ -19431,10 +19035,7 @@ export namespace Prisma {
     name?: StringFilter<"Division"> | string
     status?: IntFilter<"Division"> | number
     permissions?: JsonNullableFilter<"Division">
-    created_by?: StringFilter<"Division"> | string
-    updated_by?: StringNullableFilter<"Division"> | string | null
     created_at?: DateTimeFilter<"Division"> | Date | string
-    updated_at?: DateTimeFilter<"Division"> | Date | string
     department?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
     Employee?: EmployeeListRelationFilter
   }
@@ -19446,10 +19047,7 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     permissions?: SortOrderInput | SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     department?: DepartmentOrderByWithRelationInput
     Employee?: EmployeeOrderByRelationAggregateInput
   }
@@ -19464,10 +19062,7 @@ export namespace Prisma {
     name?: StringFilter<"Division"> | string
     status?: IntFilter<"Division"> | number
     permissions?: JsonNullableFilter<"Division">
-    created_by?: StringFilter<"Division"> | string
-    updated_by?: StringNullableFilter<"Division"> | string | null
     created_at?: DateTimeFilter<"Division"> | Date | string
-    updated_at?: DateTimeFilter<"Division"> | Date | string
     department?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
     Employee?: EmployeeListRelationFilter
   }, "id" | "code">
@@ -19479,10 +19074,7 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     permissions?: SortOrderInput | SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: DivisionCountOrderByAggregateInput
     _avg?: DivisionAvgOrderByAggregateInput
     _max?: DivisionMaxOrderByAggregateInput
@@ -19500,10 +19092,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Division"> | string
     status?: IntWithAggregatesFilter<"Division"> | number
     permissions?: JsonNullableWithAggregatesFilter<"Division">
-    created_by?: StringWithAggregatesFilter<"Division"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"Division"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Division"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"Division"> | Date | string
   }
 
   export type DepartmentWhereInput = {
@@ -19515,10 +19104,7 @@ export namespace Prisma {
     name?: StringFilter<"Department"> | string
     status?: IntFilter<"Department"> | number
     permissions?: JsonNullableFilter<"Department">
-    created_by?: StringFilter<"Department"> | string
-    updated_by?: StringNullableFilter<"Department"> | string | null
     created_at?: DateTimeFilter<"Department"> | Date | string
-    updated_at?: DateTimeFilter<"Department"> | Date | string
     divisions?: DivisionListRelationFilter
     Employee?: EmployeeListRelationFilter
   }
@@ -19529,10 +19115,7 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     permissions?: SortOrderInput | SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     divisions?: DivisionOrderByRelationAggregateInput
     Employee?: EmployeeOrderByRelationAggregateInput
   }
@@ -19546,10 +19129,7 @@ export namespace Prisma {
     name?: StringFilter<"Department"> | string
     status?: IntFilter<"Department"> | number
     permissions?: JsonNullableFilter<"Department">
-    created_by?: StringFilter<"Department"> | string
-    updated_by?: StringNullableFilter<"Department"> | string | null
     created_at?: DateTimeFilter<"Department"> | Date | string
-    updated_at?: DateTimeFilter<"Department"> | Date | string
     divisions?: DivisionListRelationFilter
     Employee?: EmployeeListRelationFilter
   }, "id" | "code">
@@ -19560,10 +19140,7 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     permissions?: SortOrderInput | SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: DepartmentCountOrderByAggregateInput
     _avg?: DepartmentAvgOrderByAggregateInput
     _max?: DepartmentMaxOrderByAggregateInput
@@ -19580,10 +19157,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Department"> | string
     status?: IntWithAggregatesFilter<"Department"> | number
     permissions?: JsonNullableWithAggregatesFilter<"Department">
-    created_by?: StringWithAggregatesFilter<"Department"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"Department"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Department"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"Department"> | Date | string
   }
 
   export type AccountWhereInput = {
@@ -19593,22 +19167,14 @@ export namespace Prisma {
     id?: StringFilter<"Account"> | string
     code?: StringFilter<"Account"> | string
     name?: StringFilter<"Account"> | string
-    description?: StringFilter<"Account"> | string
-    created_by?: StringFilter<"Account"> | string
-    updated_by?: StringNullableFilter<"Account"> | string | null
     created_at?: DateTimeFilter<"Account"> | Date | string
-    updated_at?: DateTimeFilter<"Account"> | Date | string
   }
 
   export type AccountOrderByWithRelationInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
-    description?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -19618,22 +19184,14 @@ export namespace Prisma {
     OR?: AccountWhereInput[]
     NOT?: AccountWhereInput | AccountWhereInput[]
     name?: StringFilter<"Account"> | string
-    description?: StringFilter<"Account"> | string
-    created_by?: StringFilter<"Account"> | string
-    updated_by?: StringNullableFilter<"Account"> | string | null
     created_at?: DateTimeFilter<"Account"> | Date | string
-    updated_at?: DateTimeFilter<"Account"> | Date | string
   }, "id" | "code">
 
   export type AccountOrderByWithAggregationInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
-    description?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: AccountCountOrderByAggregateInput
     _max?: AccountMaxOrderByAggregateInput
     _min?: AccountMinOrderByAggregateInput
@@ -19646,11 +19204,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Account"> | string
     code?: StringWithAggregatesFilter<"Account"> | string
     name?: StringWithAggregatesFilter<"Account"> | string
-    description?: StringWithAggregatesFilter<"Account"> | string
-    created_by?: StringWithAggregatesFilter<"Account"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"Account"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Account"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"Account"> | Date | string
   }
 
   export type EmployeeWhereInput = {
@@ -19773,19 +19327,13 @@ export namespace Prisma {
     NOT?: ClassificationWhereInput | ClassificationWhereInput[]
     id?: StringFilter<"Classification"> | string
     name?: StringFilter<"Classification"> | string
-    created_by?: StringFilter<"Classification"> | string
-    updated_by?: StringNullableFilter<"Classification"> | string | null
     created_at?: DateTimeFilter<"Classification"> | Date | string
-    updated_at?: DateTimeFilter<"Classification"> | Date | string
   }
 
   export type ClassificationOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type ClassificationWhereUniqueInput = Prisma.AtLeast<{
@@ -19794,19 +19342,13 @@ export namespace Prisma {
     OR?: ClassificationWhereInput[]
     NOT?: ClassificationWhereInput | ClassificationWhereInput[]
     name?: StringFilter<"Classification"> | string
-    created_by?: StringFilter<"Classification"> | string
-    updated_by?: StringNullableFilter<"Classification"> | string | null
     created_at?: DateTimeFilter<"Classification"> | Date | string
-    updated_at?: DateTimeFilter<"Classification"> | Date | string
   }, "id">
 
   export type ClassificationOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: ClassificationCountOrderByAggregateInput
     _max?: ClassificationMaxOrderByAggregateInput
     _min?: ClassificationMinOrderByAggregateInput
@@ -19818,10 +19360,7 @@ export namespace Prisma {
     NOT?: ClassificationScalarWhereWithAggregatesInput | ClassificationScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Classification"> | string
     name?: StringWithAggregatesFilter<"Classification"> | string
-    created_by?: StringWithAggregatesFilter<"Classification"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"Classification"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Classification"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"Classification"> | Date | string
   }
 
   export type UserWhereInput = {
@@ -20023,9 +19562,7 @@ export namespace Prisma {
     user_id?: StringFilter<"UserEmployee"> | string
     employee_id?: StringFilter<"UserEmployee"> | string
     created_by?: StringFilter<"UserEmployee"> | string
-    updated_by?: StringNullableFilter<"UserEmployee"> | string | null
     created_at?: DateTimeFilter<"UserEmployee"> | Date | string
-    updated_at?: DateTimeFilter<"UserEmployee"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }
@@ -20035,9 +19572,7 @@ export namespace Prisma {
     user_id?: SortOrder
     employee_id?: SortOrder
     created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     user?: UserOrderByWithRelationInput
     employee?: EmployeeOrderByWithRelationInput
   }
@@ -20050,9 +19585,7 @@ export namespace Prisma {
     OR?: UserEmployeeWhereInput[]
     NOT?: UserEmployeeWhereInput | UserEmployeeWhereInput[]
     created_by?: StringFilter<"UserEmployee"> | string
-    updated_by?: StringNullableFilter<"UserEmployee"> | string | null
     created_at?: DateTimeFilter<"UserEmployee"> | Date | string
-    updated_at?: DateTimeFilter<"UserEmployee"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }, "id" | "user_id" | "employee_id">
@@ -20062,9 +19595,7 @@ export namespace Prisma {
     user_id?: SortOrder
     employee_id?: SortOrder
     created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: UserEmployeeCountOrderByAggregateInput
     _max?: UserEmployeeMaxOrderByAggregateInput
     _min?: UserEmployeeMinOrderByAggregateInput
@@ -20078,9 +19609,7 @@ export namespace Prisma {
     user_id?: StringWithAggregatesFilter<"UserEmployee"> | string
     employee_id?: StringWithAggregatesFilter<"UserEmployee"> | string
     created_by?: StringWithAggregatesFilter<"UserEmployee"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"UserEmployee"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"UserEmployee"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"UserEmployee"> | Date | string
   }
 
   export type UserAuditLogWhereInput = {
@@ -20153,10 +19682,7 @@ export namespace Prisma {
     label?: StringFilter<"JOApproverSetting"> | string
     order?: IntFilter<"JOApproverSetting"> | number
     approver_id?: StringFilter<"JOApproverSetting"> | string
-    created_by?: StringFilter<"JOApproverSetting"> | string
-    updated_by?: StringNullableFilter<"JOApproverSetting"> | string | null
     created_at?: DateTimeFilter<"JOApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"JOApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }
 
@@ -20165,10 +19691,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     approver?: EmployeeOrderByWithRelationInput
   }
 
@@ -20180,10 +19703,7 @@ export namespace Prisma {
     OR?: JOApproverSettingWhereInput[]
     NOT?: JOApproverSettingWhereInput | JOApproverSettingWhereInput[]
     label?: StringFilter<"JOApproverSetting"> | string
-    created_by?: StringFilter<"JOApproverSetting"> | string
-    updated_by?: StringNullableFilter<"JOApproverSetting"> | string | null
     created_at?: DateTimeFilter<"JOApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"JOApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
@@ -20192,10 +19712,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: JOApproverSettingCountOrderByAggregateInput
     _avg?: JOApproverSettingAvgOrderByAggregateInput
     _max?: JOApproverSettingMaxOrderByAggregateInput
@@ -20211,10 +19728,7 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"JOApproverSetting"> | string
     order?: IntWithAggregatesFilter<"JOApproverSetting"> | number
     approver_id?: StringWithAggregatesFilter<"JOApproverSetting"> | string
-    created_by?: StringWithAggregatesFilter<"JOApproverSetting"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"JOApproverSetting"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"JOApproverSetting"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"JOApproverSetting"> | Date | string
   }
 
   export type RVApproverSettingWhereInput = {
@@ -20225,10 +19739,7 @@ export namespace Prisma {
     label?: StringFilter<"RVApproverSetting"> | string
     order?: IntFilter<"RVApproverSetting"> | number
     approver_id?: StringFilter<"RVApproverSetting"> | string
-    created_by?: StringFilter<"RVApproverSetting"> | string
-    updated_by?: StringNullableFilter<"RVApproverSetting"> | string | null
     created_at?: DateTimeFilter<"RVApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"RVApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }
 
@@ -20237,10 +19748,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     approver?: EmployeeOrderByWithRelationInput
   }
 
@@ -20252,10 +19760,7 @@ export namespace Prisma {
     OR?: RVApproverSettingWhereInput[]
     NOT?: RVApproverSettingWhereInput | RVApproverSettingWhereInput[]
     label?: StringFilter<"RVApproverSetting"> | string
-    created_by?: StringFilter<"RVApproverSetting"> | string
-    updated_by?: StringNullableFilter<"RVApproverSetting"> | string | null
     created_at?: DateTimeFilter<"RVApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"RVApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
@@ -20264,10 +19769,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: RVApproverSettingCountOrderByAggregateInput
     _avg?: RVApproverSettingAvgOrderByAggregateInput
     _max?: RVApproverSettingMaxOrderByAggregateInput
@@ -20283,10 +19785,7 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"RVApproverSetting"> | string
     order?: IntWithAggregatesFilter<"RVApproverSetting"> | number
     approver_id?: StringWithAggregatesFilter<"RVApproverSetting"> | string
-    created_by?: StringWithAggregatesFilter<"RVApproverSetting"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"RVApproverSetting"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"RVApproverSetting"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"RVApproverSetting"> | Date | string
   }
 
   export type SPRApproverSettingWhereInput = {
@@ -20297,10 +19796,7 @@ export namespace Prisma {
     label?: StringFilter<"SPRApproverSetting"> | string
     order?: IntFilter<"SPRApproverSetting"> | number
     approver_id?: StringFilter<"SPRApproverSetting"> | string
-    created_by?: StringFilter<"SPRApproverSetting"> | string
-    updated_by?: StringNullableFilter<"SPRApproverSetting"> | string | null
     created_at?: DateTimeFilter<"SPRApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"SPRApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }
 
@@ -20309,10 +19805,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     approver?: EmployeeOrderByWithRelationInput
   }
 
@@ -20324,10 +19817,7 @@ export namespace Prisma {
     OR?: SPRApproverSettingWhereInput[]
     NOT?: SPRApproverSettingWhereInput | SPRApproverSettingWhereInput[]
     label?: StringFilter<"SPRApproverSetting"> | string
-    created_by?: StringFilter<"SPRApproverSetting"> | string
-    updated_by?: StringNullableFilter<"SPRApproverSetting"> | string | null
     created_at?: DateTimeFilter<"SPRApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"SPRApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
@@ -20336,10 +19826,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: SPRApproverSettingCountOrderByAggregateInput
     _avg?: SPRApproverSettingAvgOrderByAggregateInput
     _max?: SPRApproverSettingMaxOrderByAggregateInput
@@ -20355,10 +19842,7 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"SPRApproverSetting"> | string
     order?: IntWithAggregatesFilter<"SPRApproverSetting"> | number
     approver_id?: StringWithAggregatesFilter<"SPRApproverSetting"> | string
-    created_by?: StringWithAggregatesFilter<"SPRApproverSetting"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"SPRApproverSetting"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"SPRApproverSetting"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"SPRApproverSetting"> | Date | string
   }
 
   export type MEQSApproverSettingWhereInput = {
@@ -20369,10 +19853,7 @@ export namespace Prisma {
     label?: StringFilter<"MEQSApproverSetting"> | string
     order?: IntFilter<"MEQSApproverSetting"> | number
     approver_id?: StringFilter<"MEQSApproverSetting"> | string
-    created_by?: StringFilter<"MEQSApproverSetting"> | string
-    updated_by?: StringNullableFilter<"MEQSApproverSetting"> | string | null
     created_at?: DateTimeFilter<"MEQSApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }
 
@@ -20381,10 +19862,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     approver?: EmployeeOrderByWithRelationInput
   }
 
@@ -20396,10 +19874,7 @@ export namespace Prisma {
     OR?: MEQSApproverSettingWhereInput[]
     NOT?: MEQSApproverSettingWhereInput | MEQSApproverSettingWhereInput[]
     label?: StringFilter<"MEQSApproverSetting"> | string
-    created_by?: StringFilter<"MEQSApproverSetting"> | string
-    updated_by?: StringNullableFilter<"MEQSApproverSetting"> | string | null
     created_at?: DateTimeFilter<"MEQSApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"MEQSApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
@@ -20408,10 +19883,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: MEQSApproverSettingCountOrderByAggregateInput
     _avg?: MEQSApproverSettingAvgOrderByAggregateInput
     _max?: MEQSApproverSettingMaxOrderByAggregateInput
@@ -20427,10 +19899,7 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"MEQSApproverSetting"> | string
     order?: IntWithAggregatesFilter<"MEQSApproverSetting"> | number
     approver_id?: StringWithAggregatesFilter<"MEQSApproverSetting"> | string
-    created_by?: StringWithAggregatesFilter<"MEQSApproverSetting"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"MEQSApproverSetting"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"MEQSApproverSetting"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"MEQSApproverSetting"> | Date | string
   }
 
   export type POApproverSettingWhereInput = {
@@ -20441,10 +19910,7 @@ export namespace Prisma {
     label?: StringFilter<"POApproverSetting"> | string
     order?: IntFilter<"POApproverSetting"> | number
     approver_id?: StringFilter<"POApproverSetting"> | string
-    created_by?: StringFilter<"POApproverSetting"> | string
-    updated_by?: StringNullableFilter<"POApproverSetting"> | string | null
     created_at?: DateTimeFilter<"POApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"POApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }
 
@@ -20453,10 +19919,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     approver?: EmployeeOrderByWithRelationInput
   }
 
@@ -20468,10 +19931,7 @@ export namespace Prisma {
     OR?: POApproverSettingWhereInput[]
     NOT?: POApproverSettingWhereInput | POApproverSettingWhereInput[]
     label?: StringFilter<"POApproverSetting"> | string
-    created_by?: StringFilter<"POApproverSetting"> | string
-    updated_by?: StringNullableFilter<"POApproverSetting"> | string | null
     created_at?: DateTimeFilter<"POApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"POApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
@@ -20480,10 +19940,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: POApproverSettingCountOrderByAggregateInput
     _avg?: POApproverSettingAvgOrderByAggregateInput
     _max?: POApproverSettingMaxOrderByAggregateInput
@@ -20499,10 +19956,7 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"POApproverSetting"> | string
     order?: IntWithAggregatesFilter<"POApproverSetting"> | number
     approver_id?: StringWithAggregatesFilter<"POApproverSetting"> | string
-    created_by?: StringWithAggregatesFilter<"POApproverSetting"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"POApproverSetting"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"POApproverSetting"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"POApproverSetting"> | Date | string
   }
 
   export type RRApproverSettingWhereInput = {
@@ -20513,10 +19967,7 @@ export namespace Prisma {
     label?: StringFilter<"RRApproverSetting"> | string
     order?: IntFilter<"RRApproverSetting"> | number
     approver_id?: StringFilter<"RRApproverSetting"> | string
-    created_by?: StringFilter<"RRApproverSetting"> | string
-    updated_by?: StringNullableFilter<"RRApproverSetting"> | string | null
     created_at?: DateTimeFilter<"RRApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"RRApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }
 
@@ -20525,10 +19976,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     approver?: EmployeeOrderByWithRelationInput
   }
 
@@ -20540,10 +19988,7 @@ export namespace Prisma {
     OR?: RRApproverSettingWhereInput[]
     NOT?: RRApproverSettingWhereInput | RRApproverSettingWhereInput[]
     label?: StringFilter<"RRApproverSetting"> | string
-    created_by?: StringFilter<"RRApproverSetting"> | string
-    updated_by?: StringNullableFilter<"RRApproverSetting"> | string | null
     created_at?: DateTimeFilter<"RRApproverSetting"> | Date | string
-    updated_at?: DateTimeFilter<"RRApproverSetting"> | Date | string
     approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
@@ -20552,10 +19997,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
     _count?: RRApproverSettingCountOrderByAggregateInput
     _avg?: RRApproverSettingAvgOrderByAggregateInput
     _max?: RRApproverSettingMaxOrderByAggregateInput
@@ -20571,10 +20013,7 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"RRApproverSetting"> | string
     order?: IntWithAggregatesFilter<"RRApproverSetting"> | number
     approver_id?: StringWithAggregatesFilter<"RRApproverSetting"> | string
-    created_by?: StringWithAggregatesFilter<"RRApproverSetting"> | string
-    updated_by?: StringNullableWithAggregatesFilter<"RRApproverSetting"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"RRApproverSetting"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"RRApproverSetting"> | Date | string
   }
 
   export type SettingWhereInput = {
@@ -20627,10 +20066,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     department: DepartmentCreateNestedOneWithoutDivisionsInput
     Employee?: EmployeeCreateNestedManyWithoutDivisionInput
   }
@@ -20642,10 +20078,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDivisionInput
   }
 
@@ -20655,10 +20088,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     department?: DepartmentUpdateOneRequiredWithoutDivisionsNestedInput
     Employee?: EmployeeUpdateManyWithoutDivisionNestedInput
   }
@@ -20670,10 +20100,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Employee?: EmployeeUncheckedUpdateManyWithoutDivisionNestedInput
   }
 
@@ -20684,10 +20111,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type DivisionUpdateManyMutationInput = {
@@ -20696,10 +20120,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DivisionUncheckedUpdateManyInput = {
@@ -20709,10 +20130,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DepartmentCreateInput = {
@@ -20721,10 +20139,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     divisions?: DivisionCreateNestedManyWithoutDepartmentInput
     Employee?: EmployeeCreateNestedManyWithoutDepartmentInput
   }
@@ -20735,10 +20150,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     divisions?: DivisionUncheckedCreateNestedManyWithoutDepartmentInput
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   }
@@ -20749,10 +20161,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     divisions?: DivisionUpdateManyWithoutDepartmentNestedInput
     Employee?: EmployeeUpdateManyWithoutDepartmentNestedInput
   }
@@ -20763,10 +20172,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     divisions?: DivisionUncheckedUpdateManyWithoutDepartmentNestedInput
     Employee?: EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   }
@@ -20777,10 +20183,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type DepartmentUpdateManyMutationInput = {
@@ -20789,10 +20192,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DepartmentUncheckedUpdateManyInput = {
@@ -20801,87 +20201,56 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountCreateInput = {
     id?: string
     code: string
     name: string
-    description: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type AccountUncheckedCreateInput = {
     id?: string
     code: string
     name: string
-    description: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type AccountUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountCreateManyInput = {
     id?: string
     code: string
     name: string
-    description: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type AccountUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmployeeCreateInput = {
@@ -21018,64 +20387,43 @@ export namespace Prisma {
   export type ClassificationCreateInput = {
     id?: string
     name: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type ClassificationUncheckedCreateInput = {
     id?: string
     name: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type ClassificationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClassificationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClassificationCreateManyInput = {
     id?: string
     name: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type ClassificationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClassificationUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateInput = {
@@ -21275,9 +20623,7 @@ export namespace Prisma {
   export type UserEmployeeCreateInput = {
     id?: string
     created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     user: UserCreateNestedOneWithoutUser_employeeInput
     employee: EmployeeCreateNestedOneWithoutUser_employeeInput
   }
@@ -21287,17 +20633,13 @@ export namespace Prisma {
     user_id: string
     employee_id: string
     created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type UserEmployeeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUser_employeeNestedInput
     employee?: EmployeeUpdateOneRequiredWithoutUser_employeeNestedInput
   }
@@ -21307,9 +20649,7 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     employee_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserEmployeeCreateManyInput = {
@@ -21317,17 +20657,13 @@ export namespace Prisma {
     user_id: string
     employee_id: string
     created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type UserEmployeeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserEmployeeUncheckedUpdateManyInput = {
@@ -21335,9 +20671,7 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     employee_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserAuditLogCreateInput = {
@@ -21403,10 +20737,7 @@ export namespace Prisma {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     approver: EmployeeCreateNestedOneWithoutJo_approver_settingInput
   }
 
@@ -21415,20 +20746,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type JOApproverSettingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     approver?: EmployeeUpdateOneRequiredWithoutJo_approver_settingNestedInput
   }
 
@@ -21437,10 +20762,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type JOApproverSettingCreateManyInput = {
@@ -21448,20 +20770,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type JOApproverSettingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type JOApproverSettingUncheckedUpdateManyInput = {
@@ -21469,20 +20785,14 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RVApproverSettingCreateInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     approver: EmployeeCreateNestedOneWithoutRv_approver_settingInput
   }
 
@@ -21491,20 +20801,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type RVApproverSettingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     approver?: EmployeeUpdateOneRequiredWithoutRv_approver_settingNestedInput
   }
 
@@ -21513,10 +20817,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RVApproverSettingCreateManyInput = {
@@ -21524,20 +20825,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type RVApproverSettingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RVApproverSettingUncheckedUpdateManyInput = {
@@ -21545,20 +20840,14 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SPRApproverSettingCreateInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     approver: EmployeeCreateNestedOneWithoutSpr_approver_settingInput
   }
 
@@ -21567,20 +20856,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type SPRApproverSettingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     approver?: EmployeeUpdateOneRequiredWithoutSpr_approver_settingNestedInput
   }
 
@@ -21589,10 +20872,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SPRApproverSettingCreateManyInput = {
@@ -21600,20 +20880,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type SPRApproverSettingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SPRApproverSettingUncheckedUpdateManyInput = {
@@ -21621,20 +20895,14 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MEQSApproverSettingCreateInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     approver: EmployeeCreateNestedOneWithoutMeqs_approver_settingInput
   }
 
@@ -21643,20 +20911,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type MEQSApproverSettingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     approver?: EmployeeUpdateOneRequiredWithoutMeqs_approver_settingNestedInput
   }
 
@@ -21665,10 +20927,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MEQSApproverSettingCreateManyInput = {
@@ -21676,20 +20935,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type MEQSApproverSettingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MEQSApproverSettingUncheckedUpdateManyInput = {
@@ -21697,20 +20950,14 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type POApproverSettingCreateInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     approver: EmployeeCreateNestedOneWithoutPo_approver_settingInput
   }
 
@@ -21719,20 +20966,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type POApproverSettingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     approver?: EmployeeUpdateOneRequiredWithoutPo_approver_settingNestedInput
   }
 
@@ -21741,10 +20982,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type POApproverSettingCreateManyInput = {
@@ -21752,20 +20990,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type POApproverSettingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type POApproverSettingUncheckedUpdateManyInput = {
@@ -21773,20 +21005,14 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RRApproverSettingCreateInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     approver: EmployeeCreateNestedOneWithoutRr_approver_settingInput
   }
 
@@ -21795,20 +21021,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type RRApproverSettingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     approver?: EmployeeUpdateOneRequiredWithoutRr_approver_settingNestedInput
   }
 
@@ -21817,10 +21037,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RRApproverSettingCreateManyInput = {
@@ -21828,20 +21045,14 @@ export namespace Prisma {
     label: string
     order: number
     approver_id: string
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type RRApproverSettingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RRApproverSettingUncheckedUpdateManyInput = {
@@ -21849,10 +21060,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     approver_id?: StringFieldUpdateOperationsInput | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SettingCreateInput = {
@@ -21942,21 +21150,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -21995,10 +21188,7 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     permissions?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type DivisionAvgOrderByAggregateInput = {
@@ -22011,10 +21201,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     status?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type DivisionMinOrderByAggregateInput = {
@@ -22023,10 +21210,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     status?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type DivisionSumOrderByAggregateInput = {
@@ -22092,24 +21276,6 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -22140,10 +21306,7 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     permissions?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type DepartmentAvgOrderByAggregateInput = {
@@ -22155,10 +21318,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     status?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type DepartmentMinOrderByAggregateInput = {
@@ -22166,10 +21326,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     status?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type DepartmentSumOrderByAggregateInput = {
@@ -22180,33 +21337,36 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
-    description?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type AccountMaxOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
-    description?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type AccountMinOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
-    description?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type JOApproverSettingNullableRelationFilter = {
@@ -22294,31 +21454,40 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type ClassificationCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type ClassificationMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type ClassificationMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type EnumRoleFilter<$PrismaModel = never> = {
@@ -22483,9 +21652,7 @@ export namespace Prisma {
     user_id?: SortOrder
     employee_id?: SortOrder
     created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type UserEmployeeMaxOrderByAggregateInput = {
@@ -22493,9 +21660,7 @@ export namespace Prisma {
     user_id?: SortOrder
     employee_id?: SortOrder
     created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type UserEmployeeMinOrderByAggregateInput = {
@@ -22503,9 +21668,7 @@ export namespace Prisma {
     user_id?: SortOrder
     employee_id?: SortOrder
     created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type EnumUserLogEventTypeFilter<$PrismaModel = never> = {
@@ -22563,10 +21726,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type JOApproverSettingAvgOrderByAggregateInput = {
@@ -22578,10 +21738,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type JOApproverSettingMinOrderByAggregateInput = {
@@ -22589,10 +21746,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type JOApproverSettingSumOrderByAggregateInput = {
@@ -22604,10 +21758,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type RVApproverSettingAvgOrderByAggregateInput = {
@@ -22619,10 +21770,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type RVApproverSettingMinOrderByAggregateInput = {
@@ -22630,10 +21778,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type RVApproverSettingSumOrderByAggregateInput = {
@@ -22645,10 +21790,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type SPRApproverSettingAvgOrderByAggregateInput = {
@@ -22660,10 +21802,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type SPRApproverSettingMinOrderByAggregateInput = {
@@ -22671,10 +21810,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type SPRApproverSettingSumOrderByAggregateInput = {
@@ -22686,10 +21822,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type MEQSApproverSettingAvgOrderByAggregateInput = {
@@ -22701,10 +21834,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type MEQSApproverSettingMinOrderByAggregateInput = {
@@ -22712,10 +21842,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type MEQSApproverSettingSumOrderByAggregateInput = {
@@ -22727,10 +21854,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type POApproverSettingAvgOrderByAggregateInput = {
@@ -22742,10 +21866,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type POApproverSettingMinOrderByAggregateInput = {
@@ -22753,10 +21874,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type POApproverSettingSumOrderByAggregateInput = {
@@ -22768,10 +21886,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type RRApproverSettingAvgOrderByAggregateInput = {
@@ -22783,10 +21898,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type RRApproverSettingMinOrderByAggregateInput = {
@@ -22794,10 +21906,7 @@ export namespace Prisma {
     label?: SortOrder
     order?: SortOrder
     approver_id?: SortOrder
-    created_by?: SortOrder
-    updated_by?: SortOrder
     created_at?: SortOrder
-    updated_at?: SortOrder
   }
 
   export type RRApproverSettingSumOrderByAggregateInput = {
@@ -22860,10 +21969,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -23084,6 +22189,10 @@ export namespace Prisma {
     create?: XOR<UserEmployeeCreateWithoutEmployeeInput, UserEmployeeUncheckedCreateWithoutEmployeeInput>
     connectOrCreate?: UserEmployeeCreateOrConnectWithoutEmployeeInput
     connect?: UserEmployeeWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type JOApproverSettingUpdateOneWithoutApproverNestedInput = {
@@ -23589,20 +22698,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -23691,6 +22786,34 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -23706,20 +22829,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
@@ -23762,10 +22871,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     Employee?: EmployeeCreateNestedManyWithoutDepartmentInput
   }
 
@@ -23775,10 +22881,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
@@ -23856,10 +22959,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Employee?: EmployeeUpdateManyWithoutDepartmentNestedInput
   }
 
@@ -23869,10 +22969,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Employee?: EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
@@ -23916,10 +23013,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     Employee?: EmployeeCreateNestedManyWithoutDivisionInput
   }
 
@@ -23929,10 +23023,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDivisionInput
   }
 
@@ -24024,10 +23115,7 @@ export namespace Prisma {
     name?: StringFilter<"Division"> | string
     status?: IntFilter<"Division"> | number
     permissions?: JsonNullableFilter<"Division">
-    created_by?: StringFilter<"Division"> | string
-    updated_by?: StringNullableFilter<"Division"> | string | null
     created_at?: DateTimeFilter<"Division"> | Date | string
-    updated_at?: DateTimeFilter<"Division"> | Date | string
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -24050,20 +23138,14 @@ export namespace Prisma {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type JOApproverSettingUncheckedCreateWithoutApproverInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type JOApproverSettingCreateOrConnectWithoutApproverInput = {
@@ -24075,20 +23157,14 @@ export namespace Prisma {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type MEQSApproverSettingUncheckedCreateWithoutApproverInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type MEQSApproverSettingCreateOrConnectWithoutApproverInput = {
@@ -24100,20 +23176,14 @@ export namespace Prisma {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type POApproverSettingUncheckedCreateWithoutApproverInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type POApproverSettingCreateOrConnectWithoutApproverInput = {
@@ -24125,20 +23195,14 @@ export namespace Prisma {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type RVApproverSettingUncheckedCreateWithoutApproverInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type RVApproverSettingCreateOrConnectWithoutApproverInput = {
@@ -24150,20 +23214,14 @@ export namespace Prisma {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type SPRApproverSettingUncheckedCreateWithoutApproverInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type SPRApproverSettingCreateOrConnectWithoutApproverInput = {
@@ -24175,20 +23233,14 @@ export namespace Prisma {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type RRApproverSettingUncheckedCreateWithoutApproverInput = {
     id?: string
     label: string
     order: number
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type RRApproverSettingCreateOrConnectWithoutApproverInput = {
@@ -24202,10 +23254,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     divisions?: DivisionCreateNestedManyWithoutDepartmentInput
   }
 
@@ -24215,10 +23264,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     divisions?: DivisionUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
@@ -24233,10 +23279,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     department: DepartmentCreateNestedOneWithoutDivisionsInput
   }
 
@@ -24247,10 +23290,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type DivisionCreateOrConnectWithoutEmployeeInput = {
@@ -24261,9 +23301,7 @@ export namespace Prisma {
   export type UserEmployeeCreateWithoutEmployeeInput = {
     id?: string
     created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     user: UserCreateNestedOneWithoutUser_employeeInput
   }
 
@@ -24271,9 +23309,7 @@ export namespace Prisma {
     id?: string
     user_id: string
     created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type UserEmployeeCreateOrConnectWithoutEmployeeInput = {
@@ -24296,20 +23332,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type JOApproverSettingUncheckedUpdateWithoutApproverInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MEQSApproverSettingUpsertWithoutApproverInput = {
@@ -24327,20 +23357,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MEQSApproverSettingUncheckedUpdateWithoutApproverInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type POApproverSettingUpsertWithoutApproverInput = {
@@ -24358,20 +23382,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type POApproverSettingUncheckedUpdateWithoutApproverInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RVApproverSettingUpsertWithoutApproverInput = {
@@ -24389,20 +23407,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RVApproverSettingUncheckedUpdateWithoutApproverInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SPRApproverSettingUpsertWithoutApproverInput = {
@@ -24420,20 +23432,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SPRApproverSettingUncheckedUpdateWithoutApproverInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RRApproverSettingUpsertWithoutApproverInput = {
@@ -24451,20 +23457,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RRApproverSettingUncheckedUpdateWithoutApproverInput = {
     id?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DepartmentUpsertWithoutEmployeeInput = {
@@ -24484,10 +23484,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     divisions?: DivisionUpdateManyWithoutDepartmentNestedInput
   }
 
@@ -24497,10 +23494,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     divisions?: DivisionUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
@@ -24521,10 +23515,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     department?: DepartmentUpdateOneRequiredWithoutDivisionsNestedInput
   }
 
@@ -24535,10 +23526,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserEmployeeUpsertWithoutEmployeeInput = {
@@ -24555,9 +23543,7 @@ export namespace Prisma {
   export type UserEmployeeUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUser_employeeNestedInput
   }
 
@@ -24565,17 +23551,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserEmployeeCreateWithoutUserInput = {
     id?: string
     created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
     employee: EmployeeCreateNestedOneWithoutUser_employeeInput
   }
 
@@ -24583,9 +23565,7 @@ export namespace Prisma {
     id?: string
     employee_id: string
     created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type UserEmployeeCreateOrConnectWithoutUserInput = {
@@ -24650,9 +23630,7 @@ export namespace Prisma {
   export type UserEmployeeUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     employee?: EmployeeUpdateOneRequiredWithoutUser_employeeNestedInput
   }
 
@@ -24660,9 +23638,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     employee_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserGroupMembersUpsertWithWhereUniqueWithoutUserInput = {
@@ -25825,10 +24801,7 @@ export namespace Prisma {
     name: string
     status?: number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by: string
-    updated_by?: string | null
     created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type EmployeeCreateManyDepartmentInput = {
@@ -25851,10 +24824,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Employee?: EmployeeUpdateManyWithoutDivisionNestedInput
   }
 
@@ -25864,10 +24834,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Employee?: EmployeeUncheckedUpdateManyWithoutDivisionNestedInput
   }
 
@@ -25877,10 +24844,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
     permissions?: NullableJsonNullValueInput | InputJsonValue
-    created_by?: StringFieldUpdateOperationsInput | string
-    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmployeeUpdateWithoutDepartmentInput = {
