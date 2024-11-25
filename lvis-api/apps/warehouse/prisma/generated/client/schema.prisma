@@ -31,11 +31,9 @@ model Supplier {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   MEQSSupplier MEQSSupplier[]
 
@@ -51,11 +49,9 @@ model Unit {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   canvass_items CanvassItem[]
   items         Item[]
@@ -72,11 +68,9 @@ model Station {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   items      ItemLocation[]
 
@@ -96,11 +90,9 @@ model Project {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   metadata Json?
   
@@ -149,11 +141,9 @@ model Item {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   item_type         ItemType          @relation(fields: [item_type_id], references: [id], onDelete: Restrict)
   item_transactions ItemTransaction[]
@@ -265,11 +255,9 @@ model Canvass {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   canvass_items CanvassItem[]
   jo            JO?

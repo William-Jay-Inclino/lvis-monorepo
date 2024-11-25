@@ -35,11 +35,7 @@ export class StationService {
 	}
 
 	async findAll(): Promise<Station[]> {
-		return await this.prisma.station.findMany({
-			where: {
-				deleted_at: null
-			}
-		})
+		return await this.prisma.station.findMany()
 	}
 
 	async findOne(id: string): Promise<Station | null> {
@@ -81,12 +77,8 @@ export class StationService {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.station.update({
-			where: { id },
-			data: {
-				deleted_at: new Date(),
-				deleted_by: this.authUser.user.username
-			}
+		await this.prisma.station.delete({
+			where: { id }
 		})
 
 		return {

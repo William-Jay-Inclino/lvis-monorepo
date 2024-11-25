@@ -272,7 +272,6 @@ export class CanvassService {
                 rc_number: {
                     startsWith: trimmedRcNumber
                 },
-                deleted_at: null
             },
             orderBy: {
                 rc_number: 'desc'
@@ -306,7 +305,6 @@ export class CanvassService {
         return await this.prisma.canvass.findMany({
             where: {
                 requested_by_id: employeeId,
-                deleted_at: null
             }
         })
     }
@@ -319,12 +317,8 @@ export class CanvassService {
             throw new ForbiddenException('Only Admin and Owner can remove this record!')
         }
 
-        await this.prisma.canvass.update({
-            where: { id },
-            data: {
-                deleted_at: new Date(),
-                deleted_by: this.authUser.user.username
-            }
+        await this.prisma.canvass.delete({
+            where: { id }
         })
 
         return {

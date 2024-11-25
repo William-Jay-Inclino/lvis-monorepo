@@ -33,11 +33,7 @@ export class ProjectService {
 	}
 
 	async findAll(): Promise<Project[]> {
-		return await this.prisma.project.findMany({
-			where: {
-				deleted_at: null
-			}
-		})
+		return await this.prisma.project.findMany()
 	}
 
 	async findOne(id: string): Promise<Project | null> {
@@ -80,12 +76,8 @@ export class ProjectService {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.project.update({
-			where: { id },
-			data: {
-				deleted_at: new Date(),
-				deleted_by: this.authUser.user.username
-			}
+		await this.prisma.project.delete({
+			where: { id }
 		})
 
 		return {

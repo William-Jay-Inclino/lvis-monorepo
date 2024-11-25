@@ -116,10 +116,8 @@ exports.Prisma.DivisionScalarFieldEnum = {
   permissions: 'permissions',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.DepartmentScalarFieldEnum = {
@@ -130,10 +128,8 @@ exports.Prisma.DepartmentScalarFieldEnum = {
   permissions: 'permissions',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -143,10 +139,8 @@ exports.Prisma.AccountScalarFieldEnum = {
   description: 'description',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.EmployeeScalarFieldEnum = {
@@ -160,10 +154,8 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   position: 'position',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.ClassificationScalarFieldEnum = {
@@ -171,10 +163,8 @@ exports.Prisma.ClassificationScalarFieldEnum = {
   name: 'name',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -189,10 +179,8 @@ exports.Prisma.UserScalarFieldEnum = {
   permissions: 'permissions',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.UserGroupScalarFieldEnum = {

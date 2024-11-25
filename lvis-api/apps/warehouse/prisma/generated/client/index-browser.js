@@ -123,10 +123,8 @@ exports.Prisma.SupplierScalarFieldEnum = {
   is_vat_registered: 'is_vat_registered',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
   metadata: 'metadata'
 };
 
@@ -135,10 +133,8 @@ exports.Prisma.UnitScalarFieldEnum = {
   name: 'name',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
   metadata: 'metadata'
 };
 
@@ -148,10 +144,8 @@ exports.Prisma.StationScalarFieldEnum = {
   location: 'location',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
   metadata: 'metadata'
 };
 
@@ -160,10 +154,8 @@ exports.Prisma.ProjectScalarFieldEnum = {
   name: 'name',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
   metadata: 'metadata'
 };
 
@@ -194,10 +186,8 @@ exports.Prisma.ItemScalarFieldEnum = {
   alert_level: 'alert_level',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
   metadata: 'metadata'
 };
 
@@ -256,10 +246,8 @@ exports.Prisma.CanvassScalarFieldEnum = {
   requested_by_id: 'requested_by_id',
   created_by: 'created_by',
   updated_by: 'updated_by',
-  deleted_by: 'deleted_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at',
   metadata: 'metadata'
 };
 

@@ -30,11 +30,9 @@ model Division {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   Employee Employee[]
 
@@ -50,11 +48,9 @@ model Department {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   divisions Division[]
 
@@ -70,11 +66,9 @@ model Account {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   @@map("account")
 }
@@ -88,12 +82,6 @@ model Employee {
   lastname   String
   signature_src String?
   position String @default("TBA")
-  // position_id  String
-
-  // is_budget_officer  Boolean @default(false)
-  // is_finance_manager Boolean @default(false)
-
-  // position    Position  @relation(fields: [position_id], references: [id], onDelete: Restrict)
 
   jo_approver_setting   JOApproverSetting?   @relation("JOApproverSetting")
   meqs_approver_setting MEQSApproverSetting? @relation("MEQSApproverSetting")
@@ -107,11 +95,9 @@ model Employee {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   user_employee UserEmployee?
 
@@ -127,32 +113,12 @@ model Classification {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   @@map("classification")
 }
-
-// model Position {
-//   id   String @id @default(uuid())
-//   name String
-//   permissions Json?
-
-//   employees  Employee[]
-
-//   created_by String
-//   updated_by String?
-//   deleted_by String?
-
-//   created_at DateTime  @default(now())
-//   updated_at DateTime  @updatedAt
-//   deleted_at DateTime?
-
-//   @@map("position")
-// }
 
 model User {
   id          String  @id @default(uuid())
@@ -167,11 +133,9 @@ model User {
 
   created_by String
   updated_by String?
-  deleted_by String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  deleted_at DateTime?
 
   // user_permissions UserPermission[]
   user_employee UserEmployee?

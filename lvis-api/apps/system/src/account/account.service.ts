@@ -38,11 +38,7 @@ export class AccountService {
   }
 
   async findAll(): Promise<Account[]> {
-    return await this.prisma.account.findMany({
-      where: {
-        deleted_at: null
-      }
-    })
+    return await this.prisma.account.findMany()
   }
 
   async findOne(id: string): Promise<Account | null> {
@@ -89,12 +85,8 @@ export class AccountService {
 
     const existingItem = await this.findOne(id)
 
-    await this.prisma.account.update({
-      where: { id },
-      data: {
-        deleted_at: new Date(),
-        deleted_by: this.authUser.user.username
-      }
+    await this.prisma.account.delete({
+      where: { id }
     })
 
     return {

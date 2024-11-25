@@ -36,53 +36,8 @@ export class UnitService {
 	}
 
 	async findAll(): Promise<Unit[]> {
-		return await this.prisma.unit.findMany({
-			where: {
-				deleted_at: null
-			}
-		})
+		return await this.prisma.unit.findMany()
 	}
-
-	// async findAll(page: number, pageSize: number, searchField?: string, searchValue?: string): Promise<UnitsResponse> {
-
-	// 	const skip = (page - 1) * pageSize;
-
-	// 	let whereCondition: any = {
-	// 		deleted_at: null
-	// 	};
-
-	// 	if (searchField && searchValue !== undefined) {
-	// 		whereCondition = {
-	// 			[searchField]: {
-	// 				contains: searchValue,
-	// 				mode: 'insensitive',
-	// 			},
-	// 		};
-	// 	}
-
-	// 	console.log('whereCondition', whereCondition)
-
-	// 	const items = await this.prisma.unit.findMany({
-	// 		orderBy: {
-	// 			name: 'asc'
-	// 		},
-	// 		skip,
-	// 		take: pageSize,
-	// 		where: whereCondition
-	// 	})
-
-	// 	const totalItems = await this.prisma.unit.count({
-	// 		where: whereCondition
-	// 	})
-
-	// 	return {
-	// 		data: items,
-	// 		totalItems,
-	// 		currentPage: page,
-	// 		totalPages: Math.ceil(totalItems / pageSize)
-	// 	}
-
-	// }
 
 	async findOne(id: string): Promise<Unit | null> {
 
@@ -126,12 +81,8 @@ export class UnitService {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.unit.update({
-			where: { id },
-			data: {
-				deleted_at: new Date(),
-				deleted_by: this.authUser.user.username
-			}
+		await this.prisma.unit.delete({
+			where: { id }
 		})
 
 		return {

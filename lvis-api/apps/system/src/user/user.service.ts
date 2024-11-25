@@ -120,7 +120,7 @@ export class UserService {
   async findOne(id: string): Promise<User | null> {
 
     const user = await this.prisma.user.findUnique({
-      where: { id, deleted_at: null },
+      where: { id },
       include: this.includedFields
 
     })
@@ -205,12 +205,8 @@ export class UserService {
     // if user is not employee
     if (!user.user_employee) {
 
-      const result = await this.prisma.user.update({
-        where: { id },
-        data: {
-          deleted_at: new Date(),
-          deleted_by: this.authUser.user.username
-        }
+      const result = await this.prisma.user.delete({
+        where: { id }
       })
 
       console.log('result', result)
@@ -224,12 +220,8 @@ export class UserService {
 
     // if user is employee then delete record in user_employee table
 
-    const query1 = this.prisma.user.update({
-      where: { id },
-      data: {
-        deleted_at: new Date(),
-        deleted_by: this.authUser.user.username
-      }
+    const query1 = this.prisma.user.delete({
+      where: { id }
     })
 
     const query2 = this.prisma.userEmployee.delete({

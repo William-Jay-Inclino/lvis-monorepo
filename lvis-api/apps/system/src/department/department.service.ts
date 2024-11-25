@@ -47,9 +47,6 @@ export class DepartmentService {
 
   async findAll(): Promise<Department[]> {
     const items = await this.prisma.department.findMany({
-      where: {
-        deleted_at: null
-      },
       include: {
         divisions: true
       }
@@ -118,12 +115,8 @@ export class DepartmentService {
 
     const existingItem = await this.findOne(id)
 
-    await this.prisma.department.update({
-      where: { id },
-      data: {
-        deleted_at: new Date(),
-        deleted_by: this.authUser.user.username
-      }
+    await this.prisma.department.delete({
+      where: { id }
     })
 
     return {

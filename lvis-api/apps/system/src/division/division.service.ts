@@ -41,9 +41,6 @@ export class DivisionService {
 
 	async findAll(): Promise<Division[]> {
 		const items = await this.prisma.division.findMany({
-			where: {
-				deleted_at: null
-			},
 			orderBy: {
 				name: 'asc'
 			}
@@ -107,12 +104,8 @@ export class DivisionService {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.division.update({
-			where: { id },
-			data: {
-				deleted_at: new Date(),
-				deleted_by: this.authUser.user.username
-			}
+		await this.prisma.division.delete({
+			where: { id }
 		})
 
 		return {

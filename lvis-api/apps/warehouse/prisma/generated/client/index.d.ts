@@ -7386,10 +7386,8 @@ export namespace Prisma {
     is_vat_registered: boolean | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type SupplierMaxAggregateOutputType = {
@@ -7402,10 +7400,8 @@ export namespace Prisma {
     is_vat_registered: boolean | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type SupplierCountAggregateOutputType = {
@@ -7418,10 +7414,8 @@ export namespace Prisma {
     is_vat_registered: number
     created_by: number
     updated_by: number
-    deleted_by: number
     created_at: number
     updated_at: number
-    deleted_at: number
     metadata: number
     _all: number
   }
@@ -7445,10 +7439,8 @@ export namespace Prisma {
     is_vat_registered?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type SupplierMaxAggregateInputType = {
@@ -7461,10 +7453,8 @@ export namespace Prisma {
     is_vat_registered?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type SupplierCountAggregateInputType = {
@@ -7477,10 +7467,8 @@ export namespace Prisma {
     is_vat_registered?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
     metadata?: true
     _all?: true
   }
@@ -7581,10 +7569,8 @@ export namespace Prisma {
     is_vat_registered: boolean
     created_by: string
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date
     updated_at: Date
-    deleted_at: Date | null
     metadata: JsonValue | null
     _count: SupplierCountAggregateOutputType | null
     _avg: SupplierAvgAggregateOutputType | null
@@ -7617,10 +7603,8 @@ export namespace Prisma {
     is_vat_registered?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
     MEQSSupplier?: boolean | Supplier$MEQSSupplierArgs<ExtArgs>
     _count?: boolean | SupplierCountOutputTypeDefaultArgs<ExtArgs>
@@ -7636,10 +7620,8 @@ export namespace Prisma {
     is_vat_registered?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
   }
 
@@ -7664,10 +7646,8 @@ export namespace Prisma {
       is_vat_registered: boolean
       created_by: string
       updated_by: string | null
-      deleted_by: string | null
       created_at: Date
       updated_at: Date
-      deleted_at: Date | null
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["supplier"]>
     composites: {}
@@ -8073,10 +8053,8 @@ export namespace Prisma {
     readonly is_vat_registered: FieldRef<"Supplier", 'Boolean'>
     readonly created_by: FieldRef<"Supplier", 'String'>
     readonly updated_by: FieldRef<"Supplier", 'String'>
-    readonly deleted_by: FieldRef<"Supplier", 'String'>
     readonly created_at: FieldRef<"Supplier", 'DateTime'>
     readonly updated_at: FieldRef<"Supplier", 'DateTime'>
-    readonly deleted_at: FieldRef<"Supplier", 'DateTime'>
     readonly metadata: FieldRef<"Supplier", 'Json'>
   }
     
@@ -8441,10 +8419,8 @@ export namespace Prisma {
     name: string | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type UnitMaxAggregateOutputType = {
@@ -8452,10 +8428,8 @@ export namespace Prisma {
     name: string | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type UnitCountAggregateOutputType = {
@@ -8463,10 +8437,8 @@ export namespace Prisma {
     name: number
     created_by: number
     updated_by: number
-    deleted_by: number
     created_at: number
     updated_at: number
-    deleted_at: number
     metadata: number
     _all: number
   }
@@ -8477,10 +8449,8 @@ export namespace Prisma {
     name?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type UnitMaxAggregateInputType = {
@@ -8488,10 +8458,8 @@ export namespace Prisma {
     name?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type UnitCountAggregateInputType = {
@@ -8499,10 +8467,8 @@ export namespace Prisma {
     name?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
     metadata?: true
     _all?: true
   }
@@ -8584,10 +8550,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date
     updated_at: Date
-    deleted_at: Date | null
     metadata: JsonValue | null
     _count: UnitCountAggregateOutputType | null
     _min: UnitMinAggregateOutputType | null
@@ -8613,10 +8577,8 @@ export namespace Prisma {
     name?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
     canvass_items?: boolean | Unit$canvass_itemsArgs<ExtArgs>
     items?: boolean | Unit$itemsArgs<ExtArgs>
@@ -8628,10 +8590,8 @@ export namespace Prisma {
     name?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
   }
 
@@ -8653,10 +8613,8 @@ export namespace Prisma {
       name: string
       created_by: string
       updated_by: string | null
-      deleted_by: string | null
       created_at: Date
       updated_at: Date
-      deleted_at: Date | null
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["unit"]>
     composites: {}
@@ -9059,10 +9017,8 @@ export namespace Prisma {
     readonly name: FieldRef<"Unit", 'String'>
     readonly created_by: FieldRef<"Unit", 'String'>
     readonly updated_by: FieldRef<"Unit", 'String'>
-    readonly deleted_by: FieldRef<"Unit", 'String'>
     readonly created_at: FieldRef<"Unit", 'DateTime'>
     readonly updated_at: FieldRef<"Unit", 'DateTime'>
-    readonly deleted_at: FieldRef<"Unit", 'DateTime'>
     readonly metadata: FieldRef<"Unit", 'Json'>
   }
     
@@ -9449,10 +9405,8 @@ export namespace Prisma {
     location: string | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type StationMaxAggregateOutputType = {
@@ -9461,10 +9415,8 @@ export namespace Prisma {
     location: string | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type StationCountAggregateOutputType = {
@@ -9473,10 +9425,8 @@ export namespace Prisma {
     location: number
     created_by: number
     updated_by: number
-    deleted_by: number
     created_at: number
     updated_at: number
-    deleted_at: number
     metadata: number
     _all: number
   }
@@ -9488,10 +9438,8 @@ export namespace Prisma {
     location?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type StationMaxAggregateInputType = {
@@ -9500,10 +9448,8 @@ export namespace Prisma {
     location?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type StationCountAggregateInputType = {
@@ -9512,10 +9458,8 @@ export namespace Prisma {
     location?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
     metadata?: true
     _all?: true
   }
@@ -9598,10 +9542,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date
     updated_at: Date
-    deleted_at: Date | null
     metadata: JsonValue | null
     _count: StationCountAggregateOutputType | null
     _min: StationMinAggregateOutputType | null
@@ -9628,10 +9570,8 @@ export namespace Prisma {
     location?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
     items?: boolean | Station$itemsArgs<ExtArgs>
     osrivs?: boolean | Station$osrivsArgs<ExtArgs>
@@ -9646,10 +9586,8 @@ export namespace Prisma {
     location?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
   }
 
@@ -9676,10 +9614,8 @@ export namespace Prisma {
       location: string
       created_by: string
       updated_by: string | null
-      deleted_by: string | null
       created_at: Date
       updated_at: Date
-      deleted_at: Date | null
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["station"]>
     composites: {}
@@ -10087,10 +10023,8 @@ export namespace Prisma {
     readonly location: FieldRef<"Station", 'String'>
     readonly created_by: FieldRef<"Station", 'String'>
     readonly updated_by: FieldRef<"Station", 'String'>
-    readonly deleted_by: FieldRef<"Station", 'String'>
     readonly created_at: FieldRef<"Station", 'DateTime'>
     readonly updated_at: FieldRef<"Station", 'DateTime'>
-    readonly deleted_at: FieldRef<"Station", 'DateTime'>
     readonly metadata: FieldRef<"Station", 'Json'>
   }
     
@@ -10518,10 +10452,8 @@ export namespace Prisma {
     name: string | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type ProjectMaxAggregateOutputType = {
@@ -10529,10 +10461,8 @@ export namespace Prisma {
     name: string | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type ProjectCountAggregateOutputType = {
@@ -10540,10 +10470,8 @@ export namespace Prisma {
     name: number
     created_by: number
     updated_by: number
-    deleted_by: number
     created_at: number
     updated_at: number
-    deleted_at: number
     metadata: number
     _all: number
   }
@@ -10554,10 +10482,8 @@ export namespace Prisma {
     name?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type ProjectMaxAggregateInputType = {
@@ -10565,10 +10491,8 @@ export namespace Prisma {
     name?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type ProjectCountAggregateInputType = {
@@ -10576,10 +10500,8 @@ export namespace Prisma {
     name?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
     metadata?: true
     _all?: true
   }
@@ -10661,10 +10583,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date
     updated_at: Date
-    deleted_at: Date | null
     metadata: JsonValue | null
     _count: ProjectCountAggregateOutputType | null
     _min: ProjectMinAggregateOutputType | null
@@ -10690,10 +10610,8 @@ export namespace Prisma {
     name?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
     mrv?: boolean | Project$mrvArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
@@ -10704,10 +10622,8 @@ export namespace Prisma {
     name?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
   }
 
@@ -10727,10 +10643,8 @@ export namespace Prisma {
       name: string
       created_by: string
       updated_by: string | null
-      deleted_by: string | null
       created_at: Date
       updated_at: Date
-      deleted_at: Date | null
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["project"]>
     composites: {}
@@ -11131,10 +11045,8 @@ export namespace Prisma {
     readonly name: FieldRef<"Project", 'String'>
     readonly created_by: FieldRef<"Project", 'String'>
     readonly updated_by: FieldRef<"Project", 'String'>
-    readonly deleted_by: FieldRef<"Project", 'String'>
     readonly created_at: FieldRef<"Project", 'DateTime'>
     readonly updated_at: FieldRef<"Project", 'DateTime'>
-    readonly deleted_at: FieldRef<"Project", 'DateTime'>
     readonly metadata: FieldRef<"Project", 'Json'>
   }
     
@@ -13321,10 +13233,8 @@ export namespace Prisma {
     alert_level: number | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type ItemMaxAggregateOutputType = {
@@ -13339,10 +13249,8 @@ export namespace Prisma {
     alert_level: number | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type ItemCountAggregateOutputType = {
@@ -13357,10 +13265,8 @@ export namespace Prisma {
     alert_level: number
     created_by: number
     updated_by: number
-    deleted_by: number
     created_at: number
     updated_at: number
-    deleted_at: number
     metadata: number
     _all: number
   }
@@ -13394,10 +13300,8 @@ export namespace Prisma {
     alert_level?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type ItemMaxAggregateInputType = {
@@ -13412,10 +13316,8 @@ export namespace Prisma {
     alert_level?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type ItemCountAggregateInputType = {
@@ -13430,10 +13332,8 @@ export namespace Prisma {
     alert_level?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
     metadata?: true
     _all?: true
   }
@@ -13536,10 +13436,8 @@ export namespace Prisma {
     alert_level: number
     created_by: string
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date
     updated_at: Date
-    deleted_at: Date | null
     metadata: JsonValue | null
     _count: ItemCountAggregateOutputType | null
     _avg: ItemAvgAggregateOutputType | null
@@ -13574,10 +13472,8 @@ export namespace Prisma {
     alert_level?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
     item_type?: boolean | ItemTypeDefaultArgs<ExtArgs>
     item_transactions?: boolean | Item$item_transactionsArgs<ExtArgs>
@@ -13604,10 +13500,8 @@ export namespace Prisma {
     alert_level?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
   }
 
@@ -13652,10 +13546,8 @@ export namespace Prisma {
       alert_level: number
       created_by: string
       updated_by: string | null
-      deleted_by: string | null
       created_at: Date
       updated_at: Date
-      deleted_at: Date | null
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["item"]>
     composites: {}
@@ -14081,10 +13973,8 @@ export namespace Prisma {
     readonly alert_level: FieldRef<"Item", 'Int'>
     readonly created_by: FieldRef<"Item", 'String'>
     readonly updated_by: FieldRef<"Item", 'String'>
-    readonly deleted_by: FieldRef<"Item", 'String'>
     readonly created_at: FieldRef<"Item", 'DateTime'>
     readonly updated_at: FieldRef<"Item", 'DateTime'>
-    readonly deleted_at: FieldRef<"Item", 'DateTime'>
     readonly metadata: FieldRef<"Item", 'Json'>
   }
     
@@ -18712,10 +18602,8 @@ export namespace Prisma {
     requested_by_id: string | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type CanvassMaxAggregateOutputType = {
@@ -18727,10 +18615,8 @@ export namespace Prisma {
     requested_by_id: string | null
     created_by: string | null
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date | null
     updated_at: Date | null
-    deleted_at: Date | null
   }
 
   export type CanvassCountAggregateOutputType = {
@@ -18742,10 +18628,8 @@ export namespace Prisma {
     requested_by_id: number
     created_by: number
     updated_by: number
-    deleted_by: number
     created_at: number
     updated_at: number
-    deleted_at: number
     metadata: number
     _all: number
   }
@@ -18760,10 +18644,8 @@ export namespace Prisma {
     requested_by_id?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type CanvassMaxAggregateInputType = {
@@ -18775,10 +18657,8 @@ export namespace Prisma {
     requested_by_id?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
   }
 
   export type CanvassCountAggregateInputType = {
@@ -18790,10 +18670,8 @@ export namespace Prisma {
     requested_by_id?: true
     created_by?: true
     updated_by?: true
-    deleted_by?: true
     created_at?: true
     updated_at?: true
-    deleted_at?: true
     metadata?: true
     _all?: true
   }
@@ -18879,10 +18757,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by: string | null
-    deleted_by: string | null
     created_at: Date
     updated_at: Date
-    deleted_at: Date | null
     metadata: JsonValue | null
     _count: CanvassCountAggregateOutputType | null
     _min: CanvassMinAggregateOutputType | null
@@ -18912,10 +18788,8 @@ export namespace Prisma {
     requested_by_id?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
     canvass_items?: boolean | Canvass$canvass_itemsArgs<ExtArgs>
     jo?: boolean | Canvass$joArgs<ExtArgs>
@@ -18933,10 +18807,8 @@ export namespace Prisma {
     requested_by_id?: boolean
     created_by?: boolean
     updated_by?: boolean
-    deleted_by?: boolean
     created_at?: boolean
     updated_at?: boolean
-    deleted_at?: boolean
     metadata?: boolean
   }
 
@@ -18966,10 +18838,8 @@ export namespace Prisma {
       requested_by_id: string
       created_by: string
       updated_by: string | null
-      deleted_by: string | null
       created_at: Date
       updated_at: Date
-      deleted_at: Date | null
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["canvass"]>
     composites: {}
@@ -19380,10 +19250,8 @@ export namespace Prisma {
     readonly requested_by_id: FieldRef<"Canvass", 'String'>
     readonly created_by: FieldRef<"Canvass", 'String'>
     readonly updated_by: FieldRef<"Canvass", 'String'>
-    readonly deleted_by: FieldRef<"Canvass", 'String'>
     readonly created_at: FieldRef<"Canvass", 'DateTime'>
     readonly updated_at: FieldRef<"Canvass", 'DateTime'>
-    readonly deleted_at: FieldRef<"Canvass", 'DateTime'>
     readonly metadata: FieldRef<"Canvass", 'Json'>
   }
     
@@ -62897,10 +62765,8 @@ export namespace Prisma {
     is_vat_registered: 'is_vat_registered',
     created_by: 'created_by',
     updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at',
     metadata: 'metadata'
   };
 
@@ -62912,10 +62778,8 @@ export namespace Prisma {
     name: 'name',
     created_by: 'created_by',
     updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at',
     metadata: 'metadata'
   };
 
@@ -62928,10 +62792,8 @@ export namespace Prisma {
     location: 'location',
     created_by: 'created_by',
     updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at',
     metadata: 'metadata'
   };
 
@@ -62943,10 +62805,8 @@ export namespace Prisma {
     name: 'name',
     created_by: 'created_by',
     updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at',
     metadata: 'metadata'
   };
 
@@ -62986,10 +62846,8 @@ export namespace Prisma {
     alert_level: 'alert_level',
     created_by: 'created_by',
     updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at',
     metadata: 'metadata'
   };
 
@@ -63063,10 +62921,8 @@ export namespace Prisma {
     requested_by_id: 'requested_by_id',
     created_by: 'created_by',
     updated_by: 'updated_by',
-    deleted_by: 'deleted_by',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    deleted_at: 'deleted_at',
     metadata: 'metadata'
   };
 
@@ -63980,10 +63836,8 @@ export namespace Prisma {
     is_vat_registered?: BoolFilter<"Supplier"> | boolean
     created_by?: StringFilter<"Supplier"> | string
     updated_by?: StringNullableFilter<"Supplier"> | string | null
-    deleted_by?: StringNullableFilter<"Supplier"> | string | null
     created_at?: DateTimeFilter<"Supplier"> | Date | string
     updated_at?: DateTimeFilter<"Supplier"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Supplier"> | Date | string | null
     metadata?: JsonNullableFilter<"Supplier">
     MEQSSupplier?: MEQSSupplierListRelationFilter
   }
@@ -63998,10 +63852,8 @@ export namespace Prisma {
     is_vat_registered?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     MEQSSupplier?: MEQSSupplierOrderByRelationAggregateInput
   }
@@ -64019,10 +63871,8 @@ export namespace Prisma {
     is_vat_registered?: BoolFilter<"Supplier"> | boolean
     created_by?: StringFilter<"Supplier"> | string
     updated_by?: StringNullableFilter<"Supplier"> | string | null
-    deleted_by?: StringNullableFilter<"Supplier"> | string | null
     created_at?: DateTimeFilter<"Supplier"> | Date | string
     updated_at?: DateTimeFilter<"Supplier"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Supplier"> | Date | string | null
     metadata?: JsonNullableFilter<"Supplier">
     MEQSSupplier?: MEQSSupplierListRelationFilter
   }, "id">
@@ -64037,10 +63887,8 @@ export namespace Prisma {
     is_vat_registered?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: SupplierCountOrderByAggregateInput
     _avg?: SupplierAvgOrderByAggregateInput
@@ -64062,10 +63910,8 @@ export namespace Prisma {
     is_vat_registered?: BoolWithAggregatesFilter<"Supplier"> | boolean
     created_by?: StringWithAggregatesFilter<"Supplier"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"Supplier"> | Date | string | null
     metadata?: JsonNullableWithAggregatesFilter<"Supplier">
   }
 
@@ -64077,10 +63923,8 @@ export namespace Prisma {
     name?: StringFilter<"Unit"> | string
     created_by?: StringFilter<"Unit"> | string
     updated_by?: StringNullableFilter<"Unit"> | string | null
-    deleted_by?: StringNullableFilter<"Unit"> | string | null
     created_at?: DateTimeFilter<"Unit"> | Date | string
     updated_at?: DateTimeFilter<"Unit"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Unit"> | Date | string | null
     metadata?: JsonNullableFilter<"Unit">
     canvass_items?: CanvassItemListRelationFilter
     items?: ItemListRelationFilter
@@ -64091,10 +63935,8 @@ export namespace Prisma {
     name?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     canvass_items?: CanvassItemOrderByRelationAggregateInput
     items?: ItemOrderByRelationAggregateInput
@@ -64108,10 +63950,8 @@ export namespace Prisma {
     NOT?: UnitWhereInput | UnitWhereInput[]
     created_by?: StringFilter<"Unit"> | string
     updated_by?: StringNullableFilter<"Unit"> | string | null
-    deleted_by?: StringNullableFilter<"Unit"> | string | null
     created_at?: DateTimeFilter<"Unit"> | Date | string
     updated_at?: DateTimeFilter<"Unit"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Unit"> | Date | string | null
     metadata?: JsonNullableFilter<"Unit">
     canvass_items?: CanvassItemListRelationFilter
     items?: ItemListRelationFilter
@@ -64122,10 +63962,8 @@ export namespace Prisma {
     name?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: UnitCountOrderByAggregateInput
     _max?: UnitMaxOrderByAggregateInput
@@ -64140,10 +63978,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Unit"> | string
     created_by?: StringWithAggregatesFilter<"Unit"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Unit"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"Unit"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Unit"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Unit"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"Unit"> | Date | string | null
     metadata?: JsonNullableWithAggregatesFilter<"Unit">
   }
 
@@ -64156,10 +63992,8 @@ export namespace Prisma {
     location?: StringFilter<"Station"> | string
     created_by?: StringFilter<"Station"> | string
     updated_by?: StringNullableFilter<"Station"> | string | null
-    deleted_by?: StringNullableFilter<"Station"> | string | null
     created_at?: DateTimeFilter<"Station"> | Date | string
     updated_at?: DateTimeFilter<"Station"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Station"> | Date | string | null
     metadata?: JsonNullableFilter<"Station">
     items?: ItemLocationListRelationFilter
     osrivs?: OSRIVListRelationFilter
@@ -64173,10 +64007,8 @@ export namespace Prisma {
     location?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     items?: ItemLocationOrderByRelationAggregateInput
     osrivs?: OSRIVOrderByRelationAggregateInput
@@ -64193,10 +64025,8 @@ export namespace Prisma {
     location?: StringFilter<"Station"> | string
     created_by?: StringFilter<"Station"> | string
     updated_by?: StringNullableFilter<"Station"> | string | null
-    deleted_by?: StringNullableFilter<"Station"> | string | null
     created_at?: DateTimeFilter<"Station"> | Date | string
     updated_at?: DateTimeFilter<"Station"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Station"> | Date | string | null
     metadata?: JsonNullableFilter<"Station">
     items?: ItemLocationListRelationFilter
     osrivs?: OSRIVListRelationFilter
@@ -64210,10 +64040,8 @@ export namespace Prisma {
     location?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: StationCountOrderByAggregateInput
     _max?: StationMaxOrderByAggregateInput
@@ -64229,10 +64057,8 @@ export namespace Prisma {
     location?: StringWithAggregatesFilter<"Station"> | string
     created_by?: StringWithAggregatesFilter<"Station"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Station"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"Station"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Station"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Station"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"Station"> | Date | string | null
     metadata?: JsonNullableWithAggregatesFilter<"Station">
   }
 
@@ -64244,10 +64070,8 @@ export namespace Prisma {
     name?: StringFilter<"Project"> | string
     created_by?: StringFilter<"Project"> | string
     updated_by?: StringNullableFilter<"Project"> | string | null
-    deleted_by?: StringNullableFilter<"Project"> | string | null
     created_at?: DateTimeFilter<"Project"> | Date | string
     updated_at?: DateTimeFilter<"Project"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Project"> | Date | string | null
     metadata?: JsonNullableFilter<"Project">
     mrv?: MRVListRelationFilter
   }
@@ -64257,10 +64081,8 @@ export namespace Prisma {
     name?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     mrv?: MRVOrderByRelationAggregateInput
   }
@@ -64273,10 +64095,8 @@ export namespace Prisma {
     name?: StringFilter<"Project"> | string
     created_by?: StringFilter<"Project"> | string
     updated_by?: StringNullableFilter<"Project"> | string | null
-    deleted_by?: StringNullableFilter<"Project"> | string | null
     created_at?: DateTimeFilter<"Project"> | Date | string
     updated_at?: DateTimeFilter<"Project"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Project"> | Date | string | null
     metadata?: JsonNullableFilter<"Project">
     mrv?: MRVListRelationFilter
   }, "id">
@@ -64286,10 +64106,8 @@ export namespace Prisma {
     name?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: ProjectCountOrderByAggregateInput
     _max?: ProjectMaxOrderByAggregateInput
@@ -64304,10 +64122,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Project"> | string
     created_by?: StringWithAggregatesFilter<"Project"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Project"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"Project"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Project"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
     metadata?: JsonNullableWithAggregatesFilter<"Project">
   }
 
@@ -64430,10 +64246,8 @@ export namespace Prisma {
     alert_level?: IntFilter<"Item"> | number
     created_by?: StringFilter<"Item"> | string
     updated_by?: StringNullableFilter<"Item"> | string | null
-    deleted_by?: StringNullableFilter<"Item"> | string | null
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
     metadata?: JsonNullableFilter<"Item">
     item_type?: XOR<ItemTypeRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
@@ -64459,10 +64273,8 @@ export namespace Prisma {
     alert_level?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     item_type?: ItemTypeOrderByWithRelationInput
     item_transactions?: ItemTransactionOrderByRelationAggregateInput
@@ -64491,10 +64303,8 @@ export namespace Prisma {
     alert_level?: IntFilter<"Item"> | number
     created_by?: StringFilter<"Item"> | string
     updated_by?: StringNullableFilter<"Item"> | string | null
-    deleted_by?: StringNullableFilter<"Item"> | string | null
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
     metadata?: JsonNullableFilter<"Item">
     item_type?: XOR<ItemTypeRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
@@ -64520,10 +64330,8 @@ export namespace Prisma {
     alert_level?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: ItemCountOrderByAggregateInput
     _avg?: ItemAvgOrderByAggregateInput
@@ -64547,10 +64355,8 @@ export namespace Prisma {
     alert_level?: IntWithAggregatesFilter<"Item"> | number
     created_by?: StringWithAggregatesFilter<"Item"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Item"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"Item"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Item"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Item"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
     metadata?: JsonNullableWithAggregatesFilter<"Item">
   }
 
@@ -64891,10 +64697,8 @@ export namespace Prisma {
     requested_by_id?: StringFilter<"Canvass"> | string
     created_by?: StringFilter<"Canvass"> | string
     updated_by?: StringNullableFilter<"Canvass"> | string | null
-    deleted_by?: StringNullableFilter<"Canvass"> | string | null
     created_at?: DateTimeFilter<"Canvass"> | Date | string
     updated_at?: DateTimeFilter<"Canvass"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Canvass"> | Date | string | null
     metadata?: JsonNullableFilter<"Canvass">
     canvass_items?: CanvassItemListRelationFilter
     jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
@@ -64911,10 +64715,8 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     canvass_items?: CanvassItemOrderByRelationAggregateInput
     jo?: JOOrderByWithRelationInput
@@ -64934,10 +64736,8 @@ export namespace Prisma {
     requested_by_id?: StringFilter<"Canvass"> | string
     created_by?: StringFilter<"Canvass"> | string
     updated_by?: StringNullableFilter<"Canvass"> | string | null
-    deleted_by?: StringNullableFilter<"Canvass"> | string | null
     created_at?: DateTimeFilter<"Canvass"> | Date | string
     updated_at?: DateTimeFilter<"Canvass"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Canvass"> | Date | string | null
     metadata?: JsonNullableFilter<"Canvass">
     canvass_items?: CanvassItemListRelationFilter
     jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
@@ -64954,10 +64754,8 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
-    deleted_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: CanvassCountOrderByAggregateInput
     _max?: CanvassMaxOrderByAggregateInput
@@ -64976,10 +64774,8 @@ export namespace Prisma {
     requested_by_id?: StringWithAggregatesFilter<"Canvass"> | string
     created_by?: StringWithAggregatesFilter<"Canvass"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Canvass"> | string | null
-    deleted_by?: StringNullableWithAggregatesFilter<"Canvass"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Canvass"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Canvass"> | Date | string
-    deleted_at?: DateTimeNullableWithAggregatesFilter<"Canvass"> | Date | string | null
     metadata?: JsonNullableWithAggregatesFilter<"Canvass">
   }
 
@@ -68919,10 +68715,8 @@ export namespace Prisma {
     is_vat_registered?: boolean
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     MEQSSupplier?: MEQSSupplierCreateNestedManyWithoutSupplierInput
   }
@@ -68937,10 +68731,8 @@ export namespace Prisma {
     is_vat_registered?: boolean
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     MEQSSupplier?: MEQSSupplierUncheckedCreateNestedManyWithoutSupplierInput
   }
@@ -68955,10 +68747,8 @@ export namespace Prisma {
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     MEQSSupplier?: MEQSSupplierUpdateManyWithoutSupplierNestedInput
   }
@@ -68973,10 +68763,8 @@ export namespace Prisma {
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     MEQSSupplier?: MEQSSupplierUncheckedUpdateManyWithoutSupplierNestedInput
   }
@@ -68991,10 +68779,8 @@ export namespace Prisma {
     is_vat_registered?: boolean
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69008,10 +68794,8 @@ export namespace Prisma {
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69025,10 +68809,8 @@ export namespace Prisma {
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69037,10 +68819,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutUnitInput
     items?: ItemCreateNestedManyWithoutUnitInput
@@ -69051,10 +68831,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutUnitInput
     items?: ItemUncheckedCreateNestedManyWithoutUnitInput
@@ -69065,10 +68843,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutUnitNestedInput
     items?: ItemUpdateManyWithoutUnitNestedInput
@@ -69079,10 +68855,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutUnitNestedInput
     items?: ItemUncheckedUpdateManyWithoutUnitNestedInput
@@ -69093,10 +68867,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69105,10 +68877,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69117,10 +68887,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69130,10 +68898,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationCreateNestedManyWithoutStationInput
     osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
@@ -69147,10 +68913,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUncheckedCreateNestedManyWithoutStationInput
     osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
@@ -69164,10 +68928,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUpdateManyWithoutStationNestedInput
     osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
@@ -69181,10 +68943,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUncheckedUpdateManyWithoutStationNestedInput
     osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
@@ -69198,10 +68958,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69211,10 +68969,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69224,10 +68980,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69236,10 +68990,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv?: MRVCreateNestedManyWithoutProjectInput
   }
@@ -69249,10 +69001,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv?: MRVUncheckedCreateNestedManyWithoutProjectInput
   }
@@ -69262,10 +69012,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv?: MRVUpdateManyWithoutProjectNestedInput
   }
@@ -69275,10 +69023,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     mrv?: MRVUncheckedUpdateManyWithoutProjectNestedInput
   }
@@ -69288,10 +69034,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69300,10 +69044,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69312,10 +69054,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69428,10 +69168,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
@@ -69457,10 +69195,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
@@ -69482,10 +69218,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
@@ -69511,10 +69245,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
@@ -69538,10 +69270,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69555,10 +69285,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69574,10 +69302,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69903,10 +69629,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutCanvassInput
     jo?: JOCreateNestedOneWithoutCanvassInput
@@ -69923,10 +69647,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutCanvassInput
     jo?: JOUncheckedCreateNestedOneWithoutCanvassInput
@@ -69943,10 +69665,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutCanvassNestedInput
     jo?: JOUpdateOneWithoutCanvassNestedInput
@@ -69963,10 +69683,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutCanvassNestedInput
     jo?: JOUncheckedUpdateOneWithoutCanvassNestedInput
@@ -69983,10 +69701,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -69999,10 +69715,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -70015,10 +69729,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -74499,17 +74211,6 @@ export namespace Prisma {
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
   export type JsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -74558,10 +74259,8 @@ export namespace Prisma {
     is_vat_registered?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -74579,10 +74278,8 @@ export namespace Prisma {
     is_vat_registered?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type SupplierMinOrderByAggregateInput = {
@@ -74595,10 +74292,8 @@ export namespace Prisma {
     is_vat_registered?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type SupplierSumOrderByAggregateInput = {
@@ -74644,20 +74339,6 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
@@ -74699,10 +74380,8 @@ export namespace Prisma {
     name?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -74711,10 +74390,8 @@ export namespace Prisma {
     name?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type UnitMinOrderByAggregateInput = {
@@ -74722,10 +74399,8 @@ export namespace Prisma {
     name?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type ItemLocationListRelationFilter = {
@@ -74774,10 +74449,8 @@ export namespace Prisma {
     location?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -74787,10 +74460,8 @@ export namespace Prisma {
     location?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type StationMinOrderByAggregateInput = {
@@ -74799,10 +74470,8 @@ export namespace Prisma {
     location?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type ProjectCountOrderByAggregateInput = {
@@ -74810,10 +74479,8 @@ export namespace Prisma {
     name?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -74822,10 +74489,8 @@ export namespace Prisma {
     name?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type ProjectMinOrderByAggregateInput = {
@@ -74833,10 +74498,8 @@ export namespace Prisma {
     name?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type PendingApprover_idReference_numberReference_tableCompoundUniqueInput = {
@@ -74988,10 +74651,8 @@ export namespace Prisma {
     alert_level?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -75015,10 +74676,8 @@ export namespace Prisma {
     alert_level?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type ItemMinOrderByAggregateInput = {
@@ -75033,10 +74692,8 @@ export namespace Prisma {
     alert_level?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type ItemSumOrderByAggregateInput = {
@@ -75327,10 +74984,8 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
     metadata?: SortOrder
   }
 
@@ -75343,10 +74998,8 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type CanvassMinOrderByAggregateInput = {
@@ -75358,10 +75011,8 @@ export namespace Prisma {
     requested_by_id?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
-    deleted_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    deleted_at?: SortOrder
   }
 
   export type MEQSSupplierItemListRelationFilter = {
@@ -75423,6 +75074,17 @@ export namespace Prisma {
 
   export type CanvassItemSumOrderByAggregateInput = {
     quantity?: SortOrder
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type CanvassNullableRelationFilter = {
@@ -75495,6 +75157,20 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type RVRelationFilter = {
@@ -77964,10 +77640,6 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
   export type MEQSSupplierUpdateManyWithoutSupplierNestedInput = {
     create?: XOR<MEQSSupplierCreateWithoutSupplierInput, MEQSSupplierUncheckedCreateWithoutSupplierInput> | MEQSSupplierCreateWithoutSupplierInput[] | MEQSSupplierUncheckedCreateWithoutSupplierInput[]
     connectOrCreate?: MEQSSupplierCreateOrConnectWithoutSupplierInput | MEQSSupplierCreateOrConnectWithoutSupplierInput[]
@@ -79168,6 +78840,10 @@ export namespace Prisma {
     connectOrCreate?: RVApproverCreateOrConnectWithoutRvInput | RVApproverCreateOrConnectWithoutRvInput[]
     createMany?: RVApproverCreateManyRvInputEnvelope
     connect?: RVApproverWhereUniqueInput | RVApproverWhereUniqueInput[]
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type CanvassUpdateOneWithoutRvNestedInput = {
@@ -81683,17 +81359,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -81743,20 +81408,6 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
   export type NestedJsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -81794,6 +81445,31 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
@@ -81846,10 +81522,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
@@ -81873,10 +81547,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
@@ -81929,10 +81601,8 @@ export namespace Prisma {
     alert_level?: IntFilter<"Item"> | number
     created_by?: StringFilter<"Item"> | string
     updated_by?: StringNullableFilter<"Item"> | string | null
-    deleted_by?: StringNullableFilter<"Item"> | string | null
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
-    deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
     metadata?: JsonNullableFilter<"Item">
   }
 
@@ -82033,10 +81703,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
@@ -82060,10 +81728,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
@@ -82662,10 +82328,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutUnitInput
   }
@@ -82675,10 +82339,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutUnitInput
   }
@@ -82988,10 +82650,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutUnitNestedInput
   }
@@ -83001,10 +82661,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutUnitNestedInput
   }
@@ -83202,10 +82860,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
@@ -83230,10 +82886,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
@@ -83255,10 +82909,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
     mrvs?: MRVCreateNestedManyWithoutItem_fromInput
@@ -83271,10 +82923,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
     mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
@@ -83363,10 +83013,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
@@ -83391,10 +83039,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
@@ -83422,10 +83068,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
     mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
@@ -83438,10 +83082,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
     mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
@@ -83623,10 +83265,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     unit: UnitCreateNestedOneWithoutItemsInput
@@ -83651,10 +83291,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
@@ -83849,10 +83487,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
@@ -83877,10 +83513,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
@@ -84444,10 +84078,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOCreateNestedOneWithoutCanvassInput
     rv?: RVCreateNestedOneWithoutCanvassInput
@@ -84463,10 +84095,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUncheckedCreateNestedOneWithoutCanvassInput
     rv?: RVUncheckedCreateNestedOneWithoutCanvassInput
@@ -84483,10 +84113,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemCreateNestedManyWithoutUnitInput
   }
@@ -84496,10 +84124,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemUncheckedCreateNestedManyWithoutUnitInput
   }
@@ -84519,10 +84145,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
@@ -84547,10 +84171,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
@@ -84616,10 +84238,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUpdateOneWithoutCanvassNestedInput
     rv?: RVUpdateOneWithoutCanvassNestedInput
@@ -84635,10 +84255,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     jo?: JOUncheckedUpdateOneWithoutCanvassNestedInput
     rv?: RVUncheckedUpdateOneWithoutCanvassNestedInput
@@ -84661,10 +84279,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemUpdateManyWithoutUnitNestedInput
   }
@@ -84674,10 +84290,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemUncheckedUpdateManyWithoutUnitNestedInput
   }
@@ -84703,10 +84317,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
@@ -84731,10 +84343,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
@@ -84754,10 +84364,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutCanvassInput
     jo?: JOCreateNestedOneWithoutCanvassInput
@@ -84773,10 +84381,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutCanvassInput
     jo?: JOUncheckedCreateNestedOneWithoutCanvassInput
@@ -84887,10 +84493,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutCanvassNestedInput
     jo?: JOUpdateOneWithoutCanvassNestedInput
@@ -84906,10 +84510,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutCanvassNestedInput
     jo?: JOUncheckedUpdateOneWithoutCanvassNestedInput
@@ -85101,10 +84703,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutCanvassInput
     rv?: RVCreateNestedOneWithoutCanvassInput
@@ -85120,10 +84720,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutCanvassInput
     rv?: RVUncheckedCreateNestedOneWithoutCanvassInput
@@ -85234,10 +84832,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutCanvassNestedInput
     rv?: RVUpdateOneWithoutCanvassNestedInput
@@ -85253,10 +84849,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutCanvassNestedInput
     rv?: RVUncheckedUpdateOneWithoutCanvassNestedInput
@@ -85448,10 +85042,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemCreateNestedManyWithoutCanvassInput
     jo?: JOCreateNestedOneWithoutCanvassInput
@@ -85467,10 +85059,8 @@ export namespace Prisma {
     requested_by_id: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutCanvassInput
     jo?: JOUncheckedCreateNestedOneWithoutCanvassInput
@@ -85622,10 +85212,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUpdateManyWithoutCanvassNestedInput
     jo?: JOUpdateOneWithoutCanvassNestedInput
@@ -85641,10 +85229,8 @@ export namespace Prisma {
     requested_by_id?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutCanvassNestedInput
     jo?: JOUncheckedUpdateOneWithoutCanvassNestedInput
@@ -86308,10 +85894,8 @@ export namespace Prisma {
     is_vat_registered?: boolean
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -86325,10 +85909,8 @@ export namespace Prisma {
     is_vat_registered?: boolean
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -86508,10 +86090,8 @@ export namespace Prisma {
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -86525,10 +86105,8 @@ export namespace Prisma {
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -87797,10 +87375,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationCreateNestedManyWithoutStationInput
     mrvs?: MRVCreateNestedManyWithoutItem_fromInput
@@ -87813,10 +87389,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUncheckedCreateNestedManyWithoutStationInput
     mrvs?: MRVUncheckedCreateNestedManyWithoutItem_fromInput
@@ -87913,10 +87487,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUpdateManyWithoutStationNestedInput
     mrvs?: MRVUpdateManyWithoutItem_fromNestedInput
@@ -87929,10 +87501,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUncheckedUpdateManyWithoutStationNestedInput
     mrvs?: MRVUncheckedUpdateManyWithoutItem_fromNestedInput
@@ -88139,10 +87709,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
@@ -88167,10 +87735,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
@@ -88298,10 +87864,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
@@ -88326,10 +87890,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
@@ -88392,10 +87954,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationCreateNestedManyWithoutStationInput
     osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
@@ -88408,10 +87968,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUncheckedCreateNestedManyWithoutStationInput
     osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
@@ -88566,10 +88124,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUpdateManyWithoutStationNestedInput
     osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
@@ -88582,10 +88138,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUncheckedUpdateManyWithoutStationNestedInput
     osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
@@ -88888,10 +88442,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
@@ -88916,10 +88468,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
@@ -89065,10 +88615,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
@@ -89093,10 +88641,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
@@ -89159,10 +88705,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationCreateNestedManyWithoutStationInput
     osrivs?: OSRIVCreateNestedManyWithoutItem_fromInput
@@ -89175,10 +88719,8 @@ export namespace Prisma {
     location: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUncheckedCreateNestedManyWithoutStationInput
     osrivs?: OSRIVUncheckedCreateNestedManyWithoutItem_fromInput
@@ -89302,10 +88844,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -89314,10 +88854,8 @@ export namespace Prisma {
     name: string
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -89343,10 +88881,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUpdateManyWithoutStationNestedInput
     osrivs?: OSRIVUpdateManyWithoutItem_fromNestedInput
@@ -89359,10 +88895,8 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     items?: ItemLocationUncheckedUpdateManyWithoutStationNestedInput
     osrivs?: OSRIVUncheckedUpdateManyWithoutItem_fromNestedInput
@@ -89479,10 +89013,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -89491,10 +89023,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -89709,10 +89239,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
@@ -89737,10 +89265,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
@@ -89888,10 +89414,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
@@ -89916,10 +89440,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
@@ -90847,10 +90369,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
@@ -90875,10 +90395,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
@@ -91014,10 +90532,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
@@ -91042,10 +90558,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
@@ -91372,10 +90886,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
@@ -91400,10 +90912,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
@@ -91531,10 +91041,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
@@ -91559,10 +91067,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
@@ -92679,10 +92185,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -92696,10 +92200,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
@@ -92723,10 +92225,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
@@ -92749,10 +92249,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -92810,10 +92308,8 @@ export namespace Prisma {
     alert_level?: number
     created_by: string
     updated_by?: string | null
-    deleted_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    deleted_at?: Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -92856,10 +92352,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
@@ -92883,10 +92377,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
@@ -92909,10 +92401,8 @@ export namespace Prisma {
     alert_level?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 

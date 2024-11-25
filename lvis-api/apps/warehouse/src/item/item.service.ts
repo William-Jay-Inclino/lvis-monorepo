@@ -284,7 +284,6 @@ export class ItemService {
 				description: true,
 			},
 			where: {
-				deleted_at: null,
 				OR: [
 					{ code: { startsWith: input } },
 				],
@@ -329,12 +328,8 @@ export class ItemService {
 	async remove(id: string): Promise<WarehouseRemoveResponse> {
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.item.update({
-			where: { id },
-			data: {
-				deleted_at: new Date(),
-				deleted_by: this.authUser.user.username
-			}
+		await this.prisma.item.delete({
+			where: { id }
 		})
 
 		return {
