@@ -105,13 +105,13 @@
 
                         <div class="mb-3">
                             <label class="form-label">
-                                Passengers <span class="text-danger">*</span>
+                                Passengers
                             </label>
                             <client-only>
                                 <v-select :options="passengers" v-model="tripData.passengers" multiple taggable></v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-if="tripDataErrors.passengers"> {{ errorMsg }}
-                            </small>
+                            <!-- <small class="text-danger fst-italic" v-if="tripDataErrors.passengers"> {{ errorMsg }}
+                            </small> -->
                         </div>
 
                         <div class="mb-3">
@@ -322,7 +322,7 @@ const isLoadingPage = ref(true)
 const _tripDataErrorsInitial = {
     vehicle: false,
     driver: false,
-    passengers: false,
+    // passengers: false,
     destination: false,
     purpose: false,
     start_time: false,
@@ -374,7 +374,9 @@ onMounted(async () => {
     tripData.value = {
         vehicle: response.trip_ticket.vehicle,
         driver: response.trip_ticket.driver,
-        passengers: response.trip_ticket.passengers.split(","),
+        passengers: response.trip_ticket.passengers
+        ? response.trip_ticket.passengers.split(",").map(p => p.trim()).filter(p => p) // Split and sanitize
+        : [], // Default to an empty array if null or undefined
         destination: response.trip_ticket.destination,
         purpose: response.trip_ticket.purpose,
         start_time: formatToValidHtmlDate(response.trip_ticket.start_time, true),
@@ -529,9 +531,9 @@ function isValidTripInfo(): boolean {
         tripDataErrors.value.driver = true
     }
 
-    if(tripData.value.passengers.length === 0) {
-        tripDataErrors.value.passengers = true
-    }
+    // if(tripData.value.passengers.length === 0) {
+    //     tripDataErrors.value.passengers = true
+    // }
 
     if(tripData.value.destination.trim() === '') {
         tripDataErrors.value.destination = true

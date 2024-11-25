@@ -69,14 +69,12 @@
 
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Passengers <span class="text-danger">*</span>
+                                    Passengers
                                 </label>
                                 <client-only>
                                     <v-select :options="passengers" v-model="tripData.passengers" multiple taggable></v-select>
                                 </client-only>
-                                <!-- <textarea v-model="tripData.passengers" class="form-control" rows="3"> </textarea> -->
-                                <small class="text-danger fst-italic" v-if="tripDataErrors.passengers"> {{ errorMsg }}
-                                </small>
+                               
                             </div>
 
                             <div class="mb-3">
@@ -279,7 +277,7 @@ const errorMsg = 'This field is required'
 const _tripDataErrorsInitial = {
     vehicle: false,
     driver: false,
-    passengers: false,
+    // passengers: false,
     destination: false,
     purpose: false,
     start_time: false,
@@ -471,9 +469,9 @@ function isValid(): boolean {
         tripDataErrors.value.driver = true
     }
 
-    if(tripData.value.passengers.length === 0) {
-        tripDataErrors.value.passengers = true
-    }
+    // if(tripData.value.passengers.length === 0) {
+    //     tripDataErrors.value.passengers = true
+    // }
 
     if(tripData.value.destination.trim() === '') {
         tripDataErrors.value.destination = true

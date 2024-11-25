@@ -56851,7 +56851,7 @@ export namespace Prisma {
     trip_number: string
     vehicle_id: string
     driver_id: string
-    passengers: string
+    passengers: string | null
     destination: string
     purpose: string
     start_time: Date
@@ -56964,7 +56964,7 @@ export namespace Prisma {
       trip_number: string
       vehicle_id: string
       driver_id: string
-      passengers: string
+      passengers: string | null
       destination: string
       purpose: string
       start_time: Date
@@ -68313,7 +68313,7 @@ export namespace Prisma {
     trip_number?: StringFilter<"TripTicket"> | string
     vehicle_id?: StringFilter<"TripTicket"> | string
     driver_id?: StringFilter<"TripTicket"> | string
-    passengers?: StringFilter<"TripTicket"> | string
+    passengers?: StringNullableFilter<"TripTicket"> | string | null
     destination?: StringFilter<"TripTicket"> | string
     purpose?: StringFilter<"TripTicket"> | string
     start_time?: DateTimeFilter<"TripTicket"> | Date | string
@@ -68341,7 +68341,7 @@ export namespace Prisma {
     trip_number?: SortOrder
     vehicle_id?: SortOrder
     driver_id?: SortOrder
-    passengers?: SortOrder
+    passengers?: SortOrderInput | SortOrder
     destination?: SortOrder
     purpose?: SortOrder
     start_time?: SortOrder
@@ -68372,7 +68372,7 @@ export namespace Prisma {
     NOT?: TripTicketWhereInput | TripTicketWhereInput[]
     vehicle_id?: StringFilter<"TripTicket"> | string
     driver_id?: StringFilter<"TripTicket"> | string
-    passengers?: StringFilter<"TripTicket"> | string
+    passengers?: StringNullableFilter<"TripTicket"> | string | null
     destination?: StringFilter<"TripTicket"> | string
     purpose?: StringFilter<"TripTicket"> | string
     start_time?: DateTimeFilter<"TripTicket"> | Date | string
@@ -68400,7 +68400,7 @@ export namespace Prisma {
     trip_number?: SortOrder
     vehicle_id?: SortOrder
     driver_id?: SortOrder
-    passengers?: SortOrder
+    passengers?: SortOrderInput | SortOrder
     destination?: SortOrder
     purpose?: SortOrder
     start_time?: SortOrder
@@ -68434,7 +68434,7 @@ export namespace Prisma {
     trip_number?: StringWithAggregatesFilter<"TripTicket"> | string
     vehicle_id?: StringWithAggregatesFilter<"TripTicket"> | string
     driver_id?: StringWithAggregatesFilter<"TripTicket"> | string
-    passengers?: StringWithAggregatesFilter<"TripTicket"> | string
+    passengers?: StringNullableWithAggregatesFilter<"TripTicket"> | string | null
     destination?: StringWithAggregatesFilter<"TripTicket"> | string
     purpose?: StringWithAggregatesFilter<"TripTicket"> | string
     start_time?: DateTimeWithAggregatesFilter<"TripTicket"> | Date | string
@@ -73750,7 +73750,7 @@ export namespace Prisma {
     id?: string
     trip_number: string
     driver_id: string
-    passengers: string
+    passengers?: string | null
     destination: string
     purpose: string
     start_time: Date | string
@@ -73778,7 +73778,7 @@ export namespace Prisma {
     trip_number: string
     vehicle_id: string
     driver_id: string
-    passengers: string
+    passengers?: string | null
     destination: string
     purpose: string
     start_time: Date | string
@@ -73804,7 +73804,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
-    passengers?: StringFieldUpdateOperationsInput | string
+    passengers?: NullableStringFieldUpdateOperationsInput | string | null
     destination?: StringFieldUpdateOperationsInput | string
     purpose?: StringFieldUpdateOperationsInput | string
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73832,7 +73832,7 @@ export namespace Prisma {
     trip_number?: StringFieldUpdateOperationsInput | string
     vehicle_id?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
-    passengers?: StringFieldUpdateOperationsInput | string
+    passengers?: NullableStringFieldUpdateOperationsInput | string | null
     destination?: StringFieldUpdateOperationsInput | string
     purpose?: StringFieldUpdateOperationsInput | string
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73859,7 +73859,7 @@ export namespace Prisma {
     trip_number: string
     vehicle_id: string
     driver_id: string
-    passengers: string
+    passengers?: string | null
     destination: string
     purpose: string
     start_time: Date | string
@@ -73884,7 +73884,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
-    passengers?: StringFieldUpdateOperationsInput | string
+    passengers?: NullableStringFieldUpdateOperationsInput | string | null
     destination?: StringFieldUpdateOperationsInput | string
     purpose?: StringFieldUpdateOperationsInput | string
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73910,7 +73910,7 @@ export namespace Prisma {
     trip_number?: StringFieldUpdateOperationsInput | string
     vehicle_id?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
-    passengers?: StringFieldUpdateOperationsInput | string
+    passengers?: NullableStringFieldUpdateOperationsInput | string | null
     destination?: StringFieldUpdateOperationsInput | string
     purpose?: StringFieldUpdateOperationsInput | string
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -91623,7 +91623,7 @@ export namespace Prisma {
     id?: string
     trip_number: string
     driver_id: string
-    passengers: string
+    passengers?: string | null
     destination: string
     purpose: string
     start_time: Date | string
@@ -91649,7 +91649,7 @@ export namespace Prisma {
     id?: string
     trip_number: string
     driver_id: string
-    passengers: string
+    passengers?: string | null
     destination: string
     purpose: string
     start_time: Date | string
@@ -91807,7 +91807,7 @@ export namespace Prisma {
     trip_number?: StringFilter<"TripTicket"> | string
     vehicle_id?: StringFilter<"TripTicket"> | string
     driver_id?: StringFilter<"TripTicket"> | string
-    passengers?: StringFilter<"TripTicket"> | string
+    passengers?: StringNullableFilter<"TripTicket"> | string | null
     destination?: StringFilter<"TripTicket"> | string
     purpose?: StringFilter<"TripTicket"> | string
     start_time?: DateTimeFilter<"TripTicket"> | Date | string
@@ -92067,7 +92067,7 @@ export namespace Prisma {
     id?: string
     trip_number: string
     driver_id: string
-    passengers: string
+    passengers?: string | null
     destination: string
     purpose: string
     start_time: Date | string
@@ -92094,7 +92094,7 @@ export namespace Prisma {
     trip_number: string
     vehicle_id: string
     driver_id: string
-    passengers: string
+    passengers?: string | null
     destination: string
     purpose: string
     start_time: Date | string
@@ -92135,7 +92135,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
-    passengers?: StringFieldUpdateOperationsInput | string
+    passengers?: NullableStringFieldUpdateOperationsInput | string | null
     destination?: StringFieldUpdateOperationsInput | string
     purpose?: StringFieldUpdateOperationsInput | string
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -92162,7 +92162,7 @@ export namespace Prisma {
     trip_number?: StringFieldUpdateOperationsInput | string
     vehicle_id?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
-    passengers?: StringFieldUpdateOperationsInput | string
+    passengers?: NullableStringFieldUpdateOperationsInput | string | null
     destination?: StringFieldUpdateOperationsInput | string
     purpose?: StringFieldUpdateOperationsInput | string
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95111,7 +95111,7 @@ export namespace Prisma {
     id?: string
     trip_number: string
     driver_id: string
-    passengers: string
+    passengers?: string | null
     destination: string
     purpose: string
     start_time: Date | string
@@ -95174,7 +95174,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
-    passengers?: StringFieldUpdateOperationsInput | string
+    passengers?: NullableStringFieldUpdateOperationsInput | string | null
     destination?: StringFieldUpdateOperationsInput | string
     purpose?: StringFieldUpdateOperationsInput | string
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95200,7 +95200,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
-    passengers?: StringFieldUpdateOperationsInput | string
+    passengers?: NullableStringFieldUpdateOperationsInput | string | null
     destination?: StringFieldUpdateOperationsInput | string
     purpose?: StringFieldUpdateOperationsInput | string
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95226,7 +95226,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     trip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
-    passengers?: StringFieldUpdateOperationsInput | string
+    passengers?: NullableStringFieldUpdateOperationsInput | string | null
     destination?: StringFieldUpdateOperationsInput | string
     purpose?: StringFieldUpdateOperationsInput | string
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsArray, IsBoolean, IsDateString, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsBoolean, IsDateString, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { CreateTripTicketApproverSubInput } from './create-trip-ticket-approver.sub.input';
 import { Type } from 'class-transformer';
 
@@ -16,10 +16,10 @@ export class CreateTripTicketInput {
   @IsNotEmpty()
   driver_id: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsString()
-  @IsNotEmpty()
-  passengers: string;
+  @IsOptional()
+  passengers: string | null;
 
   @Field()
   @IsString()

@@ -18,8 +18,8 @@ export class TripTicket {
   @Field()
   driver_id: string;
 
-  @Field()
-  passengers: string;
+  @Field({ nullable: true })
+  passengers: string | null;
 
   @Field()
   destination: string;

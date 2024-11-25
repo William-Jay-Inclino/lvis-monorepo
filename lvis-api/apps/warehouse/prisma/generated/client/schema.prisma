@@ -1135,7 +1135,7 @@ model TripTicket {
   trip_number String @unique
   vehicle_id String
   driver_id String
-  passengers String 
+  passengers String?
   destination String 
   purpose String 
   start_time DateTime

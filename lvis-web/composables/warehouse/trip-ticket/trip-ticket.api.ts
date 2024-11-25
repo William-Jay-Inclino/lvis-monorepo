@@ -552,7 +552,12 @@ export async function create(input: CreateTripTicket): Promise<MutationResponse>
 
     console.log('create', input);
 
-    const passengers = input.passengers.join(", ");
+    let passengers = null 
+
+    if(input.passengers.length > 0) {
+        passengers = `"${input.passengers.join(", ")}"`
+    }
+
 
     const approvers = input.approvers.map(i => {
         return `
@@ -569,7 +574,7 @@ export async function create(input: CreateTripTicket): Promise<MutationResponse>
                 input: {
                     vehicle_id: "${input.vehicle?.id}"
                     driver_id: "${input.driver?.id}"
-                    passengers: "${passengers}"
+                    passengers: ${ passengers }
                     destination: "${input.destination}"
                     purpose: "${input.purpose}"
                     start_time: "${input.start_time}"
@@ -618,7 +623,11 @@ export async function create(input: CreateTripTicket): Promise<MutationResponse>
 
 export async function update(id: string, input: UpdateTripTicket): Promise<MutationResponse> {
 
-    const passengers = input.passengers.join(", ");
+    let passengers = null 
+
+    if(input.passengers.length > 0) {
+        passengers = `"${input.passengers.join(", ")}"`
+    }
 
     const mutation = `
         mutation {
@@ -627,7 +636,7 @@ export async function update(id: string, input: UpdateTripTicket): Promise<Mutat
                 input: {
                     vehicle_id: "${input.vehicle?.id}"
                     driver_id: "${input.driver?.id}"
-                    passengers: "${passengers}"
+                    passengers: ${passengers}
                     destination: "${input.destination}"
                     purpose: "${input.purpose}"
                     start_time: "${input.start_time}"
