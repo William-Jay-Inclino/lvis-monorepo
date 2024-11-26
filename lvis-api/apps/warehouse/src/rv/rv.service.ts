@@ -94,43 +94,31 @@ export class RvService {
             }
         }
 
-        const queries = []
+        const result = await this.prisma.$transaction(async (tx) => {
 
-        const createRvQuery = this.prisma.rV.create({
-            data,
-            include: this.includedFields
-        })
+            const rv_created = await tx.rV.create({ data })
 
-        queries.push(createRvQuery)
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
 
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, rvNumber)
+            const module = getModule(DB_ENTITY.RV)
+    
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: rvNumber,
+                reference_table: DB_ENTITY.RV,
+                description: `${ module.description } no. ${rvNumber}`
+            }
 
-        queries.push(createPendingQuery)
+            await tx.pending.create({ data: pendingData })
 
-        const result = await this.prisma.$transaction(queries)
 
-        console.log('RV created successfully');
-        console.log('Pending with associated approver created successfully');
-
-        return result[0]
+            return rv_created
+        });
+    
+        return result;
         
-    }
-
-    private getCreatePendingQuery(approvers: CreateRvApproverSubInput[], rvNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: rvNumber,
-            reference_table: DB_ENTITY.RV,
-            description: `RV no. ${rvNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
-
     }
 
 

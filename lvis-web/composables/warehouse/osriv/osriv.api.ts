@@ -277,17 +277,16 @@ export async function fetchFormDataInCreate(): Promise<{
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
             },
             stations {
                 id 
                 name
-                location
             },
             default_station {
                 id 
                 name
-                location
             },
             warehouse_custodian {
                 id 

@@ -94,43 +94,31 @@ export class JoService {
             }
         }
 
-        const queries = []
+        const result = await this.prisma.$transaction(async (tx) => {
 
-        const createJoQuery = this.prisma.jO.create({
-            data,
-            include: this.includedFields
-        })
+            const jo_created = await tx.jO.create({ data })
 
-        queries.push(createJoQuery)
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
 
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, joNumber)
+            const module = getModule(DB_ENTITY.JO)
+    
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: joNumber,
+                reference_table: DB_ENTITY.JO,
+                description: `${ module.description } no. ${joNumber}`
+            }
 
-        queries.push(createPendingQuery)
+            await tx.pending.create({ data: pendingData })
 
-        const result = await this.prisma.$transaction(queries)
 
-        console.log('JO created successfully');
-        console.log('Pending with associated approver created successfully');
-
-        return result[0]
+            return jo_created
+        });
+    
+        return result;
         
-    }
-
-    private getCreatePendingQuery(approvers: CreateJoApproverSubInput[], joNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: joNumber,
-            reference_table: DB_ENTITY.JO,
-            description: `JO no. ${joNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
-
     }
 
     async update(id: string, input: UpdateJoInput): Promise<JO> {

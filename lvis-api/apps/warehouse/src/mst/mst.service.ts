@@ -7,7 +7,7 @@ import { CreateMstApproverSubInput } from './dto/create-mst-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { UpdateMstInput } from './dto/update-mst.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MSTsResponse } from './entities/msts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -64,28 +64,35 @@ export class MstService {
                         quantity: i.quantity,
                         price: i.price,
                         status: i.status,
-                        created_by: this.authUser.user.username,
                     }
                 })
             }
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
+        const result = await this.prisma.$transaction(async (tx) => {
 
-        // create MST
-        const createMstQuery = this.prisma.mST.create({ data })
-        queries.push(createMstQuery)
+            const mst_created = await tx.mST.create({ data })
 
-        // create pending
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, mstNumber)
-        queries.push(createPendingQuery)
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
 
-        const result = await this.prisma.$transaction(queries)
+            const module = getModule(DB_ENTITY.MST)
+    
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: mstNumber,
+                reference_table: DB_ENTITY.MST,
+                description: `${ module.description } no. ${mst_created}`
+            }
 
-        console.log('MST created successfully');
-        console.log('Pending with associated approver created successfully');
+            await tx.pending.create({ data: pendingData })
 
-        return result[0]
+
+            return mst_created
+        });
+    
+        return result;
 
     }
 

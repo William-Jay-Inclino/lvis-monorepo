@@ -292,6 +292,7 @@ export class EmployeeService {
 				firstname: true,
 				middlename: true,
 				lastname: true,
+				rank_number: true,
 			},
 			where: {
 				OR: [

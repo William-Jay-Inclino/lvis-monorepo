@@ -336,12 +336,13 @@ export async function fetchFormDataInCreate(): Promise<{
                     is_referenced
                 }
             },
-            employees(page: 1, pageSize: 10) {
+            employees(page: 1, pageSize: 30) {
                 data{
                     id
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
             },
             rvApproverSettings{
@@ -351,6 +352,7 @@ export async function fetchFormDataInCreate(): Promise<{
                   firstname
                   middlename
                   lastname
+                  rank_number
                 }
                 label
                 order
@@ -447,6 +449,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
                 date_requested
                 work_order_no
@@ -460,6 +463,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                         firstname
                         middlename
                         lastname
+                        rank_number
                     }
                     date_approval 
                     notes
@@ -469,12 +473,13 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 }
 
             },
-            employees(page: 1, pageSize: 10) {
+            employees(page: 1, pageSize: 30) {
                 data {
                     id
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
             },
             classifications{

@@ -11,9 +11,16 @@
                     <div class="col-lg-6">
                         
                         <div class="alert alert-info" role="alert">
-                            <small class="fst-italic">
-                                Fields with * are required
-                            </small>
+                            <div>
+                                <small class="fst-italic">
+                                    - Fields with * are required
+                                </small>
+                            </div>
+                            <div>
+                                <small class="fst-italic">
+                                    - Only employees with a rank higher than {{ SUPERVISOR_MIN_RANK - 1 }} are included as options in the <b>Imd. Sup.</b> field.
+                                </small>
+                            </div>
                         </div>
         
                         <div class="mb-3 d-flex align-items-center">
@@ -74,7 +81,7 @@
                                 Imd. Sup. <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="joData.supervisor"
+                                <v-select @search="handleSearchEmployees" :options="supervisors" label="fullname" v-model="joData.supervisor"
                                     :clearable="false"></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-if="joDataErrors.supervisor"> This field is required
@@ -119,18 +126,6 @@
         
                     </div>
                 </div>
-        
-                <!-- <div v-show="!isJODetailForm" class="row justify-content-center pt-5">
-        
-                    <div class="col-12">
-                        <WarehouseApprover :approvers="joData.jo_approvers" :employees="employees"
-                            :isUpdatingApproverOrder="isUpdatingApproverOrder" :isAddingApprover="isAddingJoApprover"
-                            :isEditingApprover="isEditingJoApprover" @changeApproverOrder="changeApproverOrder"
-                            @addApprover="addApprover" @editApprover="editApprover" @removeApprover="removeApprover" @searched-employees="handleSearchedEmployees"/>
-                    </div>
-        
-        
-                </div> -->
         
         
                 <div class="row justify-content-center pt-3">
@@ -280,6 +275,10 @@ const joStatus = computed(() => {
 
 })
 
+
+const supervisors = computed(() => {
+    return employees.value.filter(i => i.rank_number >= SUPERVISOR_MIN_RANK)
+})
 
 
 // ======================== FUNCTIONS ========================  

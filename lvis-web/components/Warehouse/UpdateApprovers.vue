@@ -29,12 +29,12 @@
                         <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
+                        <div class="mb-3" v-if="approverSelected">
                             <label class="form-label">
                                 Select Employee <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="newApprover" :clearable="false"></v-select>
+                                <v-select :options="supervisor_orders.includes(approverSelected.order) ? supervisors : employees" label="fullname" v-model="newApprover" :clearable="false"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -67,11 +67,19 @@ import type { Employee } from '~/composables/system/employee/employee.types';
             type: Array as () => number[],
             default: () => [],
         },
+        supervisor_orders: {
+            type: Array as () => number[],
+            default: () => [],
+        },
         approvers: {
             type: Array as () => Approver[],
             default: () => [],
         },
         employees: {
+            type: Array as () => Employee[],
+            default: () => [],
+        },
+        supervisors: {
             type: Array as () => Employee[],
             default: () => [],
         },
@@ -86,8 +94,11 @@ import type { Employee } from '~/composables/system/employee/employee.types';
     const currentApprover = ref<Approver | null>(null)
     const newApprover = ref<Employee | null>(null)
     const closeChangeApproverModal = ref<HTMLButtonElement>()
+    const approverSelected = ref<Approver>()
 
     function onClickChangeApprover(approver: Approver) {
+        approverSelected.value = {...approver}
+
         const employee = props.employees.find(i => i.id === approver.approver.id)
 
         if(!employee) {

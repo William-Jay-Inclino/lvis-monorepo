@@ -9,7 +9,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { RRsResponse } from './entities/rr-response.entity';
 import * as moment from 'moment';
-import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { CreateRrApproverSubInput } from './dto/create-rr-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
@@ -161,39 +161,30 @@ export class RrService {
             }
         }
 
-        const queries = []
+        const result = await this.prisma.$transaction(async (tx) => {
 
-        const createRrQuery= this.prisma.rR.create({ data })
+            const rr_created = await tx.rR.create({ data })
 
-        queries.push(createRrQuery)
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
 
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, rrNumber)
+            const module = getModule(DB_ENTITY.RR)
+    
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: rrNumber,
+                reference_table: DB_ENTITY.RR,
+                description: `${ module.description } no. ${rrNumber}`
+            }
 
-        queries.push(createPendingQuery)
+            await tx.pending.create({ data: pendingData })
 
-        const result = await this.prisma.$transaction(queries)
 
-        console.log('RR created successfully');
-        console.log('Pending with associated approver created successfully');
-
-        return result[0]
-
-    }
-
-    private getCreatePendingQuery(approvers: CreateRrApproverSubInput[], rrNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: rrNumber,
-            reference_table: DB_ENTITY.RR,
-            description: `RR no. ${rrNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
+            return rr_created
+        });
+    
+        return result;
 
     }
 

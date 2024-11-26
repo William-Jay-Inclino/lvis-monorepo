@@ -20,10 +20,6 @@ export interface Item {
 	// set programmatically
 	label?: string
 	item_type: ItemType
-	// item_type_object: {
-	// 	id: ITEM_TYPE,
-	// 	name: string,
-	// }
 }
 
 export interface ItemType {

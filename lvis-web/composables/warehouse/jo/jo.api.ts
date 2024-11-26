@@ -341,12 +341,13 @@ export async function fetchFormDataInCreate(): Promise<{
                     is_referenced
                 }
             },
-            employees(page: 1, pageSize: 10) {
+            employees(page: 1, pageSize: 30) {
                 data{
                     id
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
             },
             joApproverSettings{
@@ -356,6 +357,7 @@ export async function fetchFormDataInCreate(): Promise<{
                   firstname
                   middlename
                   lastname
+                rank_number
                 }
                 label
                 order
@@ -470,6 +472,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
                 date_requested
                 equipment
@@ -482,6 +485,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                         firstname
                         middlename
                         lastname
+                        rank_number
                     }
                     date_approval 
                     notes
@@ -491,12 +495,13 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 }
 
             },
-            employees(page: 1, pageSize: 10) {
+            employees(page: 1, pageSize: 30) {
                 data {
                     id
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
             },
             classifications{

@@ -7,7 +7,7 @@ import { CreateSerivApproverSubInput } from './dto/create-seriv-approver.sub.inp
 import { DB_ENTITY, SETTINGS } from '../__common__/constants';
 import { UpdateSerivInput } from './dto/update-seriv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { SERIVsResponse } from './entities/serivs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -77,54 +77,47 @@ export class SerivService {
                         item: {connect: {id: i.item_id}},
                         quantity: i.quantity,
                         price: i.price,
-                        created_by: this.authUser.user.username,
                 }
                 })
             }
         }
-    
-        const result = await this.prisma.$transaction(async (prisma) => {
+        
+        const result = await this.prisma.$transaction(async (tx) => {
 
-            const createSeriv = prisma.sERIV.create({ data });
-            const updateItemQuantities = this.generateUpdateItemQueries(input.items)
-            const createPending = this.getCreatePendingQuery(input.approvers, serivNumber);
-            
-            await Promise.all([createSeriv, ...updateItemQuantities, createPending]);
+            const seriv_created = await tx.sERIV.create({ data })
+
+            for(let item of input.items) {
+
+                await tx.item.update({
+                    where: { id: item.item_id },
+                    data: {
+                        quantity_on_queue: {
+                            increment: item.quantity
+                        }
+                    }
+                })
+            }
+
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
+
+            const module = getModule(DB_ENTITY.SERIV)
     
-            return createSeriv; 
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: serivNumber,
+                reference_table: DB_ENTITY.SERIV,
+                description: `${ module.description } no. ${serivNumber}`
+            }
+
+            await tx.pending.create({ data: pendingData })
+
+
+            return seriv_created
         });
     
         return result;
-    }
-
-    private generateUpdateItemQueries(items: CreateSerivItemSubInput[]) {
-        return items.map(item => {
-            return this.prisma.item.update({
-                where: { id: item.item_id },
-                data: {
-                    quantity_on_queue: {
-                        increment: item.quantity
-                    }
-                }
-            });
-        });
-    }
-
-    private getCreatePendingQuery(approvers: CreateSerivApproverSubInput[], serivNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: serivNumber,
-            reference_table: DB_ENTITY.SERIV,
-            description: `SERIV no. ${serivNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
-
     }
 
     async update(id: string, input: UpdateSerivInput) {

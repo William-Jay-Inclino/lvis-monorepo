@@ -281,7 +281,6 @@ export async function fetchFormDataInCreate(): Promise<{
             stations {
                 id 
                 name
-                location
             },
             default_station {
                 id 

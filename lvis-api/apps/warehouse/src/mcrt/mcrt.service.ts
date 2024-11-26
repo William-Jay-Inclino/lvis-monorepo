@@ -7,7 +7,7 @@ import { CreateMcrtApproverSubInput } from './dto/create-mcrt-approver.sub.input
 import { DB_ENTITY } from '../__common__/constants';
 import { UpdateMcrtInput } from './dto/update-mcrt.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MCRTsResponse } from './entities/mcrts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -99,46 +99,35 @@ export class McrtService {
                         item: {connect: {id: i.item_id}},
                         quantity: i.quantity,
                         price: i.price,
-                        created_by: this.authUser.user.username,
                     }
                 })
             }
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
+        const result = await this.prisma.$transaction(async (tx) => {
 
-        // create MCRT
-        const createMcrtQuery = this.prisma.mCRT.create({ data })
-        queries.push(createMcrtQuery)
+            const mcrt_created = await tx.mCRT.create({ data })
 
-        // create pending
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, mcrtNumber)
-        queries.push(createPendingQuery)
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
 
-        const result = await this.prisma.$transaction(queries)
+            const module = getModule(DB_ENTITY.MCRT)
+    
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: mcrtNumber,
+                reference_table: DB_ENTITY.MCRT,
+                description: `${ module.description } no. ${mcrtNumber}`
+            }
 
-        console.log('MCRT created successfully');
-        console.log('Increment quantity_on_queue on each item')
-        console.log('Pending with associated approver created successfully');
+            await tx.pending.create({ data: pendingData })
 
-        return result[0]
 
-    }
-
-    private getCreatePendingQuery(approvers: CreateMcrtApproverSubInput[], mcrtNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: mcrtNumber,
-            reference_table: DB_ENTITY.MCRT,
-            description: `MCRT no. ${mcrtNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
+            return mcrt_created
+        });
+    
+        return result;
 
     }
 

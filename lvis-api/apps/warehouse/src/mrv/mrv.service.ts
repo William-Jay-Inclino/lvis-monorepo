@@ -7,7 +7,7 @@ import { CreateMrvApproverSubInput } from './dto/create-mrv-approver.sub.input';
 import { DB_ENTITY, SETTINGS } from '../__common__/constants';
 import { UpdateMrvInput } from './dto/update-mrv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MRVsResponse } from './entities/mrvs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -78,54 +78,47 @@ export class MrvService {
                         item: {connect: {id: i.item_id}},
                         quantity: i.quantity,
                         price: i.price,
-                        created_by: this.authUser.user.username,
                     }
                 })
             }
         }
     
-        const result = await this.prisma.$transaction(async (prisma) => {
+        const result = await this.prisma.$transaction(async (tx) => {
 
-            const createMrv = prisma.mRV.create({ data });
-            const updateItemQuantities = this.generateUpdateItemQueries(input.items)
-            const createPending = this.getCreatePendingQuery(input.approvers, mrvNumber);
+            const osriv_created = await tx.mRV.create({ data })
 
-            await Promise.all([createMrv, ...updateItemQuantities, createPending]);
+            for(let item of input.items) {
+
+                await tx.item.update({
+                    where: { id: item.item_id },
+                    data: {
+                        quantity_on_queue: {
+                            increment: item.quantity
+                        }
+                    }
+                })
+            }
+
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
+
+            const module = getModule(DB_ENTITY.MRV)
     
-            return createMrv; 
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: mrvNumber,
+                reference_table: DB_ENTITY.MRV,
+                description: `${ module.description } no. ${mrvNumber}`
+            }
+
+            await tx.pending.create({ data: pendingData })
+
+
+            return osriv_created
         });
     
         return result;
-    }
-
-    private generateUpdateItemQueries(items: CreateMrvItemSubInput[]) {
-        return items.map(item => {
-            return this.prisma.item.update({
-                where: { id: item.item_id },
-                data: {
-                    quantity_on_queue: {
-                        increment: item.quantity
-                    }
-                }
-            });
-        });
-    }
-
-    private getCreatePendingQuery(approvers: CreateMrvApproverSubInput[], mrvNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: mrvNumber,
-            reference_table: DB_ENTITY.MRV,
-            description: `MRV no. ${mrvNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
-
     }
 
     async update(id: string, input: UpdateMrvInput) {

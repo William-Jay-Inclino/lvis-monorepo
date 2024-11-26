@@ -7,7 +7,7 @@ import { CreateMctApproverSubInput } from './dto/create-mct-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { UpdateMctInput } from './dto/update-mct.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MCTsResponse } from './entities/mcts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -67,41 +67,33 @@ export class MctService {
             },
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
+        const result = await this.prisma.$transaction(async (tx) => {
 
-        // create MCt
-        const createMctQuery = this.prisma.mCT.create({ data })
-        queries.push(createMctQuery)
+            const mct_created = await tx.mCT.create({ data })
 
-        // create pending
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, mctNumber)
-        queries.push(createPendingQuery)
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
 
-        const result = await this.prisma.$transaction(queries)
+            const module = getModule(DB_ENTITY.MCT)
+    
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: mctNumber,
+                reference_table: DB_ENTITY.MCT,
+                description: `${ module.description } no. ${mctNumber}`
+            }
 
-        console.log('MCT created successfully');
-        console.log('Pending with associated approver created successfully');
+            await tx.pending.create({ data: pendingData })
 
-        return result[0]
 
-    }
-
-    private getCreatePendingQuery(approvers: CreateMctApproverSubInput[], mctNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: mctNumber,
-            reference_table: DB_ENTITY.MCT,
-            description: `MCT no. ${mctNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
+            return mct_created
+        });
+    
+        return result;
 
     }
+
 
     async cancel(id: string): Promise<WarehouseCancelResponse> {
 

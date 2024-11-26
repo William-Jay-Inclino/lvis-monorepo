@@ -8,7 +8,7 @@ import { UpdateMeqsInput } from './dto/update-meqs.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { MEQSsResponse } from './entities/meqs-response.entity';
 import * as moment from 'moment';
-import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { CreateMeqsApproverSubInput } from './dto/create-meqs-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
@@ -212,42 +212,30 @@ export class MeqsService {
             meqs_suppliers
         }
 
-        const queries = []
+        const result = await this.prisma.$transaction(async (tx) => {
 
-        const createMeqsQuery = this.prisma.mEQS.create({
-            data,
-            include: this.includedFields
-        })
+            const meqs_created = await tx.mEQS.create({ data })
 
-        queries.push(createMeqsQuery)
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
 
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, meqsNumber)
+            const module = getModule(DB_ENTITY.MEQS)
+    
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: meqsNumber,
+                reference_table: DB_ENTITY.MEQS,
+                description: `${ module.description } no. ${meqsNumber}`
+            }
 
-        queries.push(createPendingQuery)
+            await tx.pending.create({ data: pendingData })
 
-        const result = await this.prisma.$transaction(queries)
 
-        console.log('MEQS created successfully');
-        console.log('Pending with associated approver created successfully');
-
-        return result[0]
-
-    }
-
-    private getCreatePendingQuery(approvers: CreateMeqsApproverSubInput[], meqsNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: meqsNumber,
-            reference_table: DB_ENTITY.MEQS,
-            description: `MEQS no. ${meqsNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
+            return meqs_created
+        });
+    
+        return result;
 
     }
 

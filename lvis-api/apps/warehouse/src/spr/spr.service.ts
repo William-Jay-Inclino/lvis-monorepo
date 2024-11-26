@@ -14,6 +14,7 @@ import { UpdateSprByBudgetOfficerInput } from './dto/update-spr-by-budget-office
 import { CreateSprApproverSubInput } from './dto/create-spr-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { SprNumber } from './entities/spr-number.entity';
 
 @Injectable()
 export class SprService {
@@ -94,43 +95,31 @@ export class SprService {
             }
         }
 
-        const queries = []
+        const result = await this.prisma.$transaction(async (tx) => {
 
-        const createSprQuery = this.prisma.sPR.create({
-            data,
-            include: this.includedFields
-        })
+            const spr_created = await tx.sPR.create({ data })
 
-        queries.push(createSprQuery)
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
 
-        const createPendingQuery = this.getCreatePendingQuery(input.approvers, sprNumber)
+            const module = getModule(DB_ENTITY.SPR)
+    
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: sprNumber,
+                reference_table: DB_ENTITY.SPR,
+                description: `${ module.description } no. ${SprNumber}`
+            }
 
-        queries.push(createPendingQuery)
+            await tx.pending.create({ data: pendingData })
 
-        const result = await this.prisma.$transaction(queries)
 
-        console.log('SPR created successfully');
-        console.log('Pending with associated approver created successfully');
-
-        return result[0]
+            return spr_created
+        });
+    
+        return result;
         
-    }
-
-    private getCreatePendingQuery(approvers: CreateSprApproverSubInput[], sprNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: sprNumber,
-            reference_table: DB_ENTITY.SPR,
-            description: `SPR no. ${sprNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
-
     }
 
     async update(id: string, input: UpdateSprInput): Promise<SPR> {

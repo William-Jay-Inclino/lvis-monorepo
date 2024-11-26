@@ -14,9 +14,16 @@
                             <div class="col-lg-6">
 
                                 <div class="alert alert-info" role="alert">
-                                    <small class="fst-italic">
-                                        Fields with * are required
-                                    </small>
+                                    <div>
+                                        <small class="fst-italic">
+                                            - Fields with * are required
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <small class="fst-italic">
+                                            - Only employees with a rank higher than {{ SUPERVISOR_MIN_RANK - 1 }} are included as options in the <b>Imd. Sup.</b> field.
+                                        </small>
+                                    </div>
                                 </div>
         
                                 <div class="mb-3">
@@ -89,7 +96,7 @@
                                         Imd. Sup. <span class="text-danger">*</span>
                                     </label>
                                     <client-only>
-                                        <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="sprData.supervisor"></v-select>
+                                        <v-select @search="handleSearchEmployees" :options="supervisors" label="fullname" v-model="sprData.supervisor"></v-select>
                                     </client-only>
                                     <small class="text-danger fst-italic" v-if="sprDataErrors.supervisor"> This field is
                                         required
@@ -242,7 +249,9 @@ const canvassId = computed(() => {
     return null
 })
 
-
+const supervisors = computed(() => {
+    return employees.value.filter(i => i.rank_number >= SUPERVISOR_MIN_RANK)
+})
 
 // ======================== WATCHERS ========================  
 // set currentCanvass to null if rc number field is deselected

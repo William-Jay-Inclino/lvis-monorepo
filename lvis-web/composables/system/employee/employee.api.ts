@@ -401,6 +401,7 @@ export async function fetchEmployees(payload: string): Promise<Employee[]> {
                 firstname 
                 middlename 
                 lastname
+                rank_number
             },
         }
     `;
