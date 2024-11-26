@@ -307,6 +307,7 @@ export async function fetchFormDataInCreate(): Promise<{
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
             },
             vehicles {
@@ -461,6 +462,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
             },
             vehicles {

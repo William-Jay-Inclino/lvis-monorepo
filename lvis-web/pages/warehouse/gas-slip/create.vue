@@ -18,6 +18,11 @@
                                     </small>
                                 </div>
                                 <div>
+                                    <small class="fst-italic">
+                                        - Only employees with a rank higher than {{ SUPERVISOR_MIN_RANK - 1 }} are included as options in the <b>Imd. Sup.</b> field.
+                                    </small>
+                                </div>
+                                <div>
                                     <small class="fst-italic"> 
                                         - Make sure the number of unposted gas slip of vehicle is less than 5 to continue <span class="fw-bold">(except private vehicle)</span>
                                     </small>
@@ -154,7 +159,7 @@
                                 </label>
                                 <client-only>
                                     <v-select
-                                        :options="approver.order === 2 ? department_heads : employees"
+                                        :options="getApproverOptions(approver.order)"
                                         label="fullname"
                                         v-model="approver.approver"
                                         :clearable="false"
@@ -287,6 +292,10 @@ const isSaveDisabled = computed( () => {
 
 })
 
+const supervisors = computed(() => {
+    return employees.value.filter(i => i.rank_number >= SUPERVISOR_MIN_RANK)
+})
+
 // ======================== FUNCTIONS ========================  
 
 async function save() {
@@ -382,6 +391,16 @@ function isValid(): boolean {
 
     return true
 
+}
+
+function getApproverOptions(order: number) {
+    if(order === 1) {
+        return supervisors.value
+    }
+    if(order === 2) {
+        return department_heads.value
+    }
+    return employees.value
 }
 
 

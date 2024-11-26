@@ -71,6 +71,10 @@ import type { Employee } from '~/composables/system/employee/employee.types';
             type: Array as () => number[],
             default: () => [],
         },
+        department_head_orders: {
+            type: Array as () => number[],
+            default: () => [],
+        },
         approvers: {
             type: Array as () => Approver[],
             default: () => [],
@@ -80,6 +84,10 @@ import type { Employee } from '~/composables/system/employee/employee.types';
             default: () => [],
         },
         supervisors: {
+            type: Array as () => Employee[],
+            default: () => [],
+        },
+        department_heads: {
             type: Array as () => Employee[],
             default: () => [],
         },
@@ -134,6 +142,10 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 
         if(props.supervisor_orders.includes(approverSelected.value.order)) {
             return props.supervisors
+        }
+
+        if(props.department_head_orders.includes(approverSelected.value.order)) {
+            return props.department_heads
         }
 
         return props.employees

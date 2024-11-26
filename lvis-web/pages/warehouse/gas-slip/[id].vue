@@ -180,15 +180,26 @@
                 <div v-show="form === FORM.UPDATE_APPROVERS" class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="alert alert-info" role="alert">
-                            <small class="fst-italic">
-                                Only pending status can be change
-                            </small>
+                            <div>
+                                <small class="fst-italic">
+                                    - A signatory with a pending status can only be changed.
+                                </small>
+                            </div>
+                            <div>
+                                <small class="fst-italic">
+                                    - Only employees with a rank higher than {{ SUPERVISOR_MIN_RANK - 1 }} are included as options in the <b>Imd. Sup.</b> field.
+                                </small>
+                            </div>
                         </div>
 
                         <WarehouseUpdateApprovers
                           :is-updating="isChangingApprover"
                           :approvers="approvers"
+                          :supervisors="supervisors"
                           :employees="employees"
+                          :department_heads="department_heads"
+                          :supervisor_orders="[1]"
+                          :department_head_orders="[2]"
                           @change-approver="handleChangeApprover" />
                     </div>
                 </div>
@@ -396,6 +407,13 @@ const isSaveDisabled = computed( () => {
     return false
 
 })
+
+
+const supervisors = computed(() => {
+    return employees.value.filter(i => i.rank_number >= SUPERVISOR_MIN_RANK)
+})
+
+
 
 // ======================== FUNCTIONS ========================  
 

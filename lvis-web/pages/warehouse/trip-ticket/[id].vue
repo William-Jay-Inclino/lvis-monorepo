@@ -227,16 +227,25 @@
                 <div v-show="form === FORM.UPDATE_APPROVERS" class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="alert alert-info" role="alert">
-                            <small class="fst-italic">
-                                Only pending status can be change
-                            </small>
+                            <div>
+                                <small class="fst-italic">
+                                    - A signatory with a pending status can only be changed.
+                                </small>
+                            </div>
+                            <div>
+                                <small class="fst-italic">
+                                    - Only employees with a rank higher than {{ SUPERVISOR_MIN_RANK - 1 }} are included as options in the <b>Imd. Sup.</b> field.
+                                </small>
+                            </div>
                         </div>
 
                         <WarehouseUpdateApprovers
                           :is-updating="isChangingApprover"
                           :approvers="approvers"
+                          :supervisors="supervisors"
                           :employees="employees"
                           :disabled_orders="[1, 3, 4]"
+                          :supervisor_orders="[2]"
                           @change-approver="handleChangeApprover" />
                     </div>
                 </div>
@@ -290,7 +299,7 @@ import { type TripTicket, type UpdateTripTicket } from '~/composables/warehouse/
 import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
-import { VEHICLE_STATUS, VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
+import { VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 
 definePageMeta({
     name: ROUTES.TRIP_TICKET_UPDATE,
@@ -442,6 +451,9 @@ const passengers = computed( () => {
     return employees.value.map(i => i.firstname + " " + i.lastname)
 })
 
+const supervisors = computed(() => {
+    return employees.value.filter(i => i.rank_number >= SUPERVISOR_MIN_RANK)
+})
 
 // ======================== FUNCTIONS ========================  
 

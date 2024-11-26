@@ -12,9 +12,16 @@
                         <div class="col-lg-6">
 
                             <div class="alert alert-info" role="alert">
-                                <small class="fst-italic">
-                                    Fields with * are required
-                                </small>
+                                <div>
+                                    <small class="fst-italic">
+                                        - Fields with * are required
+                                    </small>
+                                </div>
+                                <div>
+                                    <small class="fst-italic">
+                                        - Only employees with a rank higher than {{ SUPERVISOR_MIN_RANK - 1 }} are included as options in the <b>Imd. Sup.</b> field.
+                                    </small>
+                                </div>
                             </div>
     
                             <div class="mb-3">
@@ -159,7 +166,7 @@
                                 </label>
                                 <client-only>
                                     <v-select
-                                        :options="employees"
+                                        :options="approver.order === 2 ? supervisors : employees"
                                         label="fullname"
                                         v-model="approver.approver"
                                         :clearable="false"
@@ -252,11 +259,11 @@
 import Swal from 'sweetalert2'
 import { getFullname } from '~/utils/helpers'
 import * as tripApi from '~/composables/warehouse/trip-ticket/trip-ticket.api'
-import type { TripTicket, CreateTripTicket } from '~/composables/warehouse/trip-ticket/trip-ticket.types';
+import type { CreateTripTicket } from '~/composables/warehouse/trip-ticket/trip-ticket.types';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { TRIP_TICKET_DEFAULT_APPROVERS } from '~/composables/warehouse/trip-ticket/trip-ticket.constants';
-import { VEHICLE_STATUS, VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
+import { VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 
 definePageMeta({
     name: ROUTES.TRIP_TICKET_CREATE,
@@ -360,6 +367,9 @@ const passengers = computed( () => {
     return employees.value.map(i => i.firstname + " " + i.lastname)
 })
 
+const supervisors = computed(() => {
+    return employees.value.filter(i => i.rank_number >= SUPERVISOR_MIN_RANK)
+})
 
 // ======================== FUNCTIONS ========================  
 
