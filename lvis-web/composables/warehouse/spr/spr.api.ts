@@ -169,6 +169,7 @@ export async function findOne(id: string): Promise<SPR | undefined> {
             spr(${args}) {
                 id
                 spr_number
+                canvass_number
                 status
                 date_requested 
                 can_update

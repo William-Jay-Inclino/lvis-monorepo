@@ -92,9 +92,17 @@ export async function findByRcNumber(rcNumber: string): Promise<Canvass | undefi
 }
 
 export async function findOne(id: string): Promise<Canvass | undefined> {
+
+    let args = ''
+    if(isValidRcNumber(id)){
+        args = `rc_number: "${id}"`
+    } else {
+        args = `id: "${id}"`
+    }
+
     const query = `
         query {
-            canvass(id: "${id}") {
+            canvass(${args}) {
                 id
                 rc_number
                 date_requested

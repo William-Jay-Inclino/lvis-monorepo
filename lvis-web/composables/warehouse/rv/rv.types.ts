@@ -7,6 +7,7 @@ import type { Employee } from "~/composables/system/employee/employee.types";
 export interface RV {
   id: string;
   rv_number: string;
+  canvass_number: string;
   canvass_id?: string | null;
   classification_id: string | null;
   date_requested: string;

@@ -70,11 +70,25 @@ export class RvService {
 
         const rvNumber = await this.getLatestRvNumber()
 
+        const canvass = await this.prisma.canvass.findUnique({
+            where: {
+                id: input.canvass_id
+            },
+            select: {
+                rc_number: true
+            }
+        })
+
+        if(!canvass) {
+            throw new NotFoundException(`Canvass not found with id of ${input.canvass_id}`)
+        }
+
         const createdBy = this.authUser.user.username
 
         const data: Prisma.RVCreateInput = {
             created_by: createdBy,
             rv_number: rvNumber,
+            canvass_number: canvass.rc_number,
             date_requested: new Date(),
             classification_id: input.classification_id ?? null,
             work_order_no: input.work_order_no ?? null,

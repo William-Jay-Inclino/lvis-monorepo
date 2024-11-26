@@ -170,6 +170,7 @@ export async function findOne(id: string): Promise<JO | undefined> {
             jo(${args}) {
                 id
                 jo_number
+                canvass_number
                 status
                 date_requested 
                 equipment

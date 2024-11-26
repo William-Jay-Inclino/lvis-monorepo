@@ -15,6 +15,9 @@ export class RV {
   @Field(() => String, { nullable: true })
   canvass_id?: string | null;
 
+  @Field(() => String)
+  canvass_number: string;
+
   @Field(() => String, { nullable: true })
   classification_id: string | null;
 

@@ -11,10 +11,8 @@ import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/
 import { SPRsResponse } from './entities/sprs-response.entity';
 import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateSprByBudgetOfficerInput } from './dto/update-spr-by-budget-officer.input';
-import { CreateSprApproverSubInput } from './dto/create-spr-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
-import { SprNumber } from './entities/spr-number.entity';
 
 @Injectable()
 export class SprService {
@@ -72,11 +70,25 @@ export class SprService {
 
         const sprNumber = await this.getLatestSprNumber()
 
+        const canvass = await this.prisma.canvass.findUnique({
+            where: {
+                id: input.canvass_id
+            },
+            select: {
+                rc_number: true
+            }
+        })
+
+        if(!canvass) {
+            throw new NotFoundException(`Canvass not found with id of ${input.canvass_id}`)
+        }
+
         const createdBy = this.authUser.user.username
 
         const data: Prisma.SPRCreateInput = {
             created_by: createdBy,
             spr_number: sprNumber,
+            canvass_number: canvass.rc_number,
             date_requested: new Date(),
             classification_id: input.classification_id ?? null,
             notes: input.notes ?? null,

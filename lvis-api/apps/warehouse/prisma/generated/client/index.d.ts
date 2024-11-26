@@ -20511,6 +20511,7 @@ export namespace Prisma {
   export type RVMinAggregateOutputType = {
     id: string | null
     rv_number: string | null
+    canvass_number: string | null
     canvass_id: string | null
     classification_id: string | null
     date_requested: Date | null
@@ -20528,6 +20529,7 @@ export namespace Prisma {
   export type RVMaxAggregateOutputType = {
     id: string | null
     rv_number: string | null
+    canvass_number: string | null
     canvass_id: string | null
     classification_id: string | null
     date_requested: Date | null
@@ -20545,6 +20547,7 @@ export namespace Prisma {
   export type RVCountAggregateOutputType = {
     id: number
     rv_number: number
+    canvass_number: number
     canvass_id: number
     classification_id: number
     date_requested: number
@@ -20564,6 +20567,7 @@ export namespace Prisma {
   export type RVMinAggregateInputType = {
     id?: true
     rv_number?: true
+    canvass_number?: true
     canvass_id?: true
     classification_id?: true
     date_requested?: true
@@ -20581,6 +20585,7 @@ export namespace Prisma {
   export type RVMaxAggregateInputType = {
     id?: true
     rv_number?: true
+    canvass_number?: true
     canvass_id?: true
     classification_id?: true
     date_requested?: true
@@ -20598,6 +20603,7 @@ export namespace Prisma {
   export type RVCountAggregateInputType = {
     id?: true
     rv_number?: true
+    canvass_number?: true
     canvass_id?: true
     classification_id?: true
     date_requested?: true
@@ -20688,6 +20694,7 @@ export namespace Prisma {
   export type RVGroupByOutputType = {
     id: string
     rv_number: string
+    canvass_number: string
     canvass_id: string | null
     classification_id: string | null
     date_requested: Date
@@ -20722,6 +20729,7 @@ export namespace Prisma {
   export type RVSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     rv_number?: boolean
+    canvass_number?: boolean
     canvass_id?: boolean
     classification_id?: boolean
     date_requested?: boolean
@@ -20743,6 +20751,7 @@ export namespace Prisma {
   export type RVSelectScalar = {
     id?: boolean
     rv_number?: boolean
+    canvass_number?: boolean
     canvass_id?: boolean
     classification_id?: boolean
     date_requested?: boolean
@@ -20775,6 +20784,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       rv_number: string
+      canvass_number: string
       canvass_id: string | null
       classification_id: string | null
       date_requested: Date
@@ -21188,6 +21198,7 @@ export namespace Prisma {
   interface RVFieldRefs {
     readonly id: FieldRef<"RV", 'String'>
     readonly rv_number: FieldRef<"RV", 'String'>
+    readonly canvass_number: FieldRef<"RV", 'String'>
     readonly canvass_id: FieldRef<"RV", 'String'>
     readonly classification_id: FieldRef<"RV", 'String'>
     readonly date_requested: FieldRef<"RV", 'DateTime'>
@@ -22582,6 +22593,7 @@ export namespace Prisma {
   export type JOMinAggregateOutputType = {
     id: string | null
     jo_number: string | null
+    canvass_number: string | null
     date_requested: Date | null
     canvass_id: string | null
     equipment: string | null
@@ -22599,6 +22611,7 @@ export namespace Prisma {
   export type JOMaxAggregateOutputType = {
     id: string | null
     jo_number: string | null
+    canvass_number: string | null
     date_requested: Date | null
     canvass_id: string | null
     equipment: string | null
@@ -22616,6 +22629,7 @@ export namespace Prisma {
   export type JOCountAggregateOutputType = {
     id: number
     jo_number: number
+    canvass_number: number
     date_requested: number
     canvass_id: number
     equipment: number
@@ -22635,6 +22649,7 @@ export namespace Prisma {
   export type JOMinAggregateInputType = {
     id?: true
     jo_number?: true
+    canvass_number?: true
     date_requested?: true
     canvass_id?: true
     equipment?: true
@@ -22652,6 +22667,7 @@ export namespace Prisma {
   export type JOMaxAggregateInputType = {
     id?: true
     jo_number?: true
+    canvass_number?: true
     date_requested?: true
     canvass_id?: true
     equipment?: true
@@ -22669,6 +22685,7 @@ export namespace Prisma {
   export type JOCountAggregateInputType = {
     id?: true
     jo_number?: true
+    canvass_number?: true
     date_requested?: true
     canvass_id?: true
     equipment?: true
@@ -22759,6 +22776,7 @@ export namespace Prisma {
   export type JOGroupByOutputType = {
     id: string
     jo_number: string
+    canvass_number: string
     date_requested: Date
     canvass_id: string | null
     equipment: string
@@ -22793,6 +22811,7 @@ export namespace Prisma {
   export type JOSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     jo_number?: boolean
+    canvass_number?: boolean
     date_requested?: boolean
     canvass_id?: boolean
     equipment?: boolean
@@ -22814,6 +22833,7 @@ export namespace Prisma {
   export type JOSelectScalar = {
     id?: boolean
     jo_number?: boolean
+    canvass_number?: boolean
     date_requested?: boolean
     canvass_id?: boolean
     equipment?: boolean
@@ -22846,6 +22866,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       jo_number: string
+      canvass_number: string
       date_requested: Date
       canvass_id: string | null
       equipment: string
@@ -23259,6 +23280,7 @@ export namespace Prisma {
   interface JOFieldRefs {
     readonly id: FieldRef<"JO", 'String'>
     readonly jo_number: FieldRef<"JO", 'String'>
+    readonly canvass_number: FieldRef<"JO", 'String'>
     readonly date_requested: FieldRef<"JO", 'DateTime'>
     readonly canvass_id: FieldRef<"JO", 'String'>
     readonly equipment: FieldRef<"JO", 'String'>
@@ -24652,6 +24674,7 @@ export namespace Prisma {
 
   export type SPRMinAggregateOutputType = {
     id: string | null
+    canvass_number: string | null
     spr_number: string | null
     date_requested: Date | null
     canvass_id: string | null
@@ -24668,6 +24691,7 @@ export namespace Prisma {
 
   export type SPRMaxAggregateOutputType = {
     id: string | null
+    canvass_number: string | null
     spr_number: string | null
     date_requested: Date | null
     canvass_id: string | null
@@ -24684,6 +24708,7 @@ export namespace Prisma {
 
   export type SPRCountAggregateOutputType = {
     id: number
+    canvass_number: number
     spr_number: number
     date_requested: number
     canvass_id: number
@@ -24702,6 +24727,7 @@ export namespace Prisma {
 
   export type SPRMinAggregateInputType = {
     id?: true
+    canvass_number?: true
     spr_number?: true
     date_requested?: true
     canvass_id?: true
@@ -24718,6 +24744,7 @@ export namespace Prisma {
 
   export type SPRMaxAggregateInputType = {
     id?: true
+    canvass_number?: true
     spr_number?: true
     date_requested?: true
     canvass_id?: true
@@ -24734,6 +24761,7 @@ export namespace Prisma {
 
   export type SPRCountAggregateInputType = {
     id?: true
+    canvass_number?: true
     spr_number?: true
     date_requested?: true
     canvass_id?: true
@@ -24823,6 +24851,7 @@ export namespace Prisma {
 
   export type SPRGroupByOutputType = {
     id: string
+    canvass_number: string
     spr_number: string
     date_requested: Date
     canvass_id: string | null
@@ -24856,6 +24885,7 @@ export namespace Prisma {
 
   export type SPRSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    canvass_number?: boolean
     spr_number?: boolean
     date_requested?: boolean
     canvass_id?: boolean
@@ -24877,6 +24907,7 @@ export namespace Prisma {
 
   export type SPRSelectScalar = {
     id?: boolean
+    canvass_number?: boolean
     spr_number?: boolean
     date_requested?: boolean
     canvass_id?: boolean
@@ -24910,6 +24941,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      canvass_number: string
       spr_number: string
       date_requested: Date
       canvass_id: string | null
@@ -25324,6 +25356,7 @@ export namespace Prisma {
    */ 
   interface SPRFieldRefs {
     readonly id: FieldRef<"SPR", 'String'>
+    readonly canvass_number: FieldRef<"SPR", 'String'>
     readonly spr_number: FieldRef<"SPR", 'String'>
     readonly date_requested: FieldRef<"SPR", 'DateTime'>
     readonly canvass_id: FieldRef<"SPR", 'String'>
@@ -62180,6 +62213,7 @@ export namespace Prisma {
   export const RVScalarFieldEnum: {
     id: 'id',
     rv_number: 'rv_number',
+    canvass_number: 'canvass_number',
     canvass_id: 'canvass_id',
     classification_id: 'classification_id',
     date_requested: 'date_requested',
@@ -62214,6 +62248,7 @@ export namespace Prisma {
   export const JOScalarFieldEnum: {
     id: 'id',
     jo_number: 'jo_number',
+    canvass_number: 'canvass_number',
     date_requested: 'date_requested',
     canvass_id: 'canvass_id',
     equipment: 'equipment',
@@ -62247,6 +62282,7 @@ export namespace Prisma {
 
   export const SPRScalarFieldEnum: {
     id: 'id',
+    canvass_number: 'canvass_number',
     spr_number: 'spr_number',
     date_requested: 'date_requested',
     canvass_id: 'canvass_id',
@@ -63904,6 +63940,7 @@ export namespace Prisma {
     NOT?: RVWhereInput | RVWhereInput[]
     id?: StringFilter<"RV"> | string
     rv_number?: StringFilter<"RV"> | string
+    canvass_number?: StringFilter<"RV"> | string
     canvass_id?: StringNullableFilter<"RV"> | string | null
     classification_id?: StringNullableFilter<"RV"> | string | null
     date_requested?: DateTimeFilter<"RV"> | Date | string
@@ -63924,6 +63961,7 @@ export namespace Prisma {
   export type RVOrderByWithRelationInput = {
     id?: SortOrder
     rv_number?: SortOrder
+    canvass_number?: SortOrder
     canvass_id?: SortOrderInput | SortOrder
     classification_id?: SortOrderInput | SortOrder
     date_requested?: SortOrder
@@ -63948,6 +63986,7 @@ export namespace Prisma {
     AND?: RVWhereInput | RVWhereInput[]
     OR?: RVWhereInput[]
     NOT?: RVWhereInput | RVWhereInput[]
+    canvass_number?: StringFilter<"RV"> | string
     classification_id?: StringNullableFilter<"RV"> | string | null
     date_requested?: DateTimeFilter<"RV"> | Date | string
     work_order_no?: StringNullableFilter<"RV"> | string | null
@@ -63967,6 +64006,7 @@ export namespace Prisma {
   export type RVOrderByWithAggregationInput = {
     id?: SortOrder
     rv_number?: SortOrder
+    canvass_number?: SortOrder
     canvass_id?: SortOrderInput | SortOrder
     classification_id?: SortOrderInput | SortOrder
     date_requested?: SortOrder
@@ -63990,6 +64030,7 @@ export namespace Prisma {
     NOT?: RVScalarWhereWithAggregatesInput | RVScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"RV"> | string
     rv_number?: StringWithAggregatesFilter<"RV"> | string
+    canvass_number?: StringWithAggregatesFilter<"RV"> | string
     canvass_id?: StringNullableWithAggregatesFilter<"RV"> | string | null
     classification_id?: StringNullableWithAggregatesFilter<"RV"> | string | null
     date_requested?: DateTimeWithAggregatesFilter<"RV"> | Date | string
@@ -64083,6 +64124,7 @@ export namespace Prisma {
     NOT?: JOWhereInput | JOWhereInput[]
     id?: StringFilter<"JO"> | string
     jo_number?: StringFilter<"JO"> | string
+    canvass_number?: StringFilter<"JO"> | string
     date_requested?: DateTimeFilter<"JO"> | Date | string
     canvass_id?: StringNullableFilter<"JO"> | string | null
     equipment?: StringFilter<"JO"> | string
@@ -64103,6 +64145,7 @@ export namespace Prisma {
   export type JOOrderByWithRelationInput = {
     id?: SortOrder
     jo_number?: SortOrder
+    canvass_number?: SortOrder
     date_requested?: SortOrder
     canvass_id?: SortOrderInput | SortOrder
     equipment?: SortOrder
@@ -64127,6 +64170,7 @@ export namespace Prisma {
     AND?: JOWhereInput | JOWhereInput[]
     OR?: JOWhereInput[]
     NOT?: JOWhereInput | JOWhereInput[]
+    canvass_number?: StringFilter<"JO"> | string
     date_requested?: DateTimeFilter<"JO"> | Date | string
     equipment?: StringFilter<"JO"> | string
     classification_id?: StringNullableFilter<"JO"> | string | null
@@ -64146,6 +64190,7 @@ export namespace Prisma {
   export type JOOrderByWithAggregationInput = {
     id?: SortOrder
     jo_number?: SortOrder
+    canvass_number?: SortOrder
     date_requested?: SortOrder
     canvass_id?: SortOrderInput | SortOrder
     equipment?: SortOrder
@@ -64169,6 +64214,7 @@ export namespace Prisma {
     NOT?: JOScalarWhereWithAggregatesInput | JOScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"JO"> | string
     jo_number?: StringWithAggregatesFilter<"JO"> | string
+    canvass_number?: StringWithAggregatesFilter<"JO"> | string
     date_requested?: DateTimeWithAggregatesFilter<"JO"> | Date | string
     canvass_id?: StringNullableWithAggregatesFilter<"JO"> | string | null
     equipment?: StringWithAggregatesFilter<"JO"> | string
@@ -64261,6 +64307,7 @@ export namespace Prisma {
     OR?: SPRWhereInput[]
     NOT?: SPRWhereInput | SPRWhereInput[]
     id?: StringFilter<"SPR"> | string
+    canvass_number?: StringFilter<"SPR"> | string
     spr_number?: StringFilter<"SPR"> | string
     date_requested?: DateTimeFilter<"SPR"> | Date | string
     canvass_id?: StringNullableFilter<"SPR"> | string | null
@@ -64281,6 +64328,7 @@ export namespace Prisma {
 
   export type SPROrderByWithRelationInput = {
     id?: SortOrder
+    canvass_number?: SortOrder
     spr_number?: SortOrder
     date_requested?: SortOrder
     canvass_id?: SortOrderInput | SortOrder
@@ -64306,6 +64354,7 @@ export namespace Prisma {
     AND?: SPRWhereInput | SPRWhereInput[]
     OR?: SPRWhereInput[]
     NOT?: SPRWhereInput | SPRWhereInput[]
+    canvass_number?: StringFilter<"SPR"> | string
     date_requested?: DateTimeFilter<"SPR"> | Date | string
     vehicle_id?: StringFilter<"SPR"> | string
     classification_id?: StringNullableFilter<"SPR"> | string | null
@@ -64324,6 +64373,7 @@ export namespace Prisma {
 
   export type SPROrderByWithAggregationInput = {
     id?: SortOrder
+    canvass_number?: SortOrder
     spr_number?: SortOrder
     date_requested?: SortOrder
     canvass_id?: SortOrderInput | SortOrder
@@ -64346,6 +64396,7 @@ export namespace Prisma {
     OR?: SPRScalarWhereWithAggregatesInput[]
     NOT?: SPRScalarWhereWithAggregatesInput | SPRScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"SPR"> | string
+    canvass_number?: StringWithAggregatesFilter<"SPR"> | string
     spr_number?: StringWithAggregatesFilter<"SPR"> | string
     date_requested?: DateTimeWithAggregatesFilter<"SPR"> | Date | string
     canvass_id?: StringNullableWithAggregatesFilter<"SPR"> | string | null
@@ -68389,6 +68440,7 @@ export namespace Prisma {
   export type RVCreateInput = {
     id?: string
     rv_number: string
+    canvass_number: string
     classification_id?: string | null
     date_requested: Date | string
     work_order_no?: string | null
@@ -68408,6 +68460,7 @@ export namespace Prisma {
   export type RVUncheckedCreateInput = {
     id?: string
     rv_number: string
+    canvass_number: string
     canvass_id?: string | null
     classification_id?: string | null
     date_requested: Date | string
@@ -68427,6 +68480,7 @@ export namespace Prisma {
   export type RVUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68446,6 +68500,7 @@ export namespace Prisma {
   export type RVUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -68465,6 +68520,7 @@ export namespace Prisma {
   export type RVCreateManyInput = {
     id?: string
     rv_number: string
+    canvass_number: string
     canvass_id?: string | null
     classification_id?: string | null
     date_requested: Date | string
@@ -68482,6 +68538,7 @@ export namespace Prisma {
   export type RVUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68498,6 +68555,7 @@ export namespace Prisma {
   export type RVUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -68591,6 +68649,7 @@ export namespace Prisma {
   export type JOCreateInput = {
     id?: string
     jo_number: string
+    canvass_number: string
     date_requested: Date | string
     equipment?: string
     classification_id?: string | null
@@ -68610,6 +68669,7 @@ export namespace Prisma {
   export type JOUncheckedCreateInput = {
     id?: string
     jo_number: string
+    canvass_number: string
     date_requested: Date | string
     canvass_id?: string | null
     equipment?: string
@@ -68629,6 +68689,7 @@ export namespace Prisma {
   export type JOUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68648,6 +68709,7 @@ export namespace Prisma {
   export type JOUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     equipment?: StringFieldUpdateOperationsInput | string
@@ -68667,6 +68729,7 @@ export namespace Prisma {
   export type JOCreateManyInput = {
     id?: string
     jo_number: string
+    canvass_number: string
     date_requested: Date | string
     canvass_id?: string | null
     equipment?: string
@@ -68684,6 +68747,7 @@ export namespace Prisma {
   export type JOUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68700,6 +68764,7 @@ export namespace Prisma {
   export type JOUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     equipment?: StringFieldUpdateOperationsInput | string
@@ -68792,6 +68857,7 @@ export namespace Prisma {
 
   export type SPRCreateInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     classification_id?: string | null
@@ -68810,6 +68876,7 @@ export namespace Prisma {
 
   export type SPRUncheckedCreateInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     canvass_id?: string | null
@@ -68828,6 +68895,7 @@ export namespace Prisma {
 
   export type SPRUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68846,6 +68914,7 @@ export namespace Prisma {
 
   export type SPRUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68864,6 +68933,7 @@ export namespace Prisma {
 
   export type SPRCreateManyInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     canvass_id?: string | null
@@ -68880,6 +68950,7 @@ export namespace Prisma {
 
   export type SPRUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68894,6 +68965,7 @@ export namespace Prisma {
 
   export type SPRUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73160,6 +73232,7 @@ export namespace Prisma {
   export type RVCountOrderByAggregateInput = {
     id?: SortOrder
     rv_number?: SortOrder
+    canvass_number?: SortOrder
     canvass_id?: SortOrder
     classification_id?: SortOrder
     date_requested?: SortOrder
@@ -73177,6 +73250,7 @@ export namespace Prisma {
   export type RVMaxOrderByAggregateInput = {
     id?: SortOrder
     rv_number?: SortOrder
+    canvass_number?: SortOrder
     canvass_id?: SortOrder
     classification_id?: SortOrder
     date_requested?: SortOrder
@@ -73194,6 +73268,7 @@ export namespace Prisma {
   export type RVMinOrderByAggregateInput = {
     id?: SortOrder
     rv_number?: SortOrder
+    canvass_number?: SortOrder
     canvass_id?: SortOrder
     classification_id?: SortOrder
     date_requested?: SortOrder
@@ -73288,6 +73363,7 @@ export namespace Prisma {
   export type JOCountOrderByAggregateInput = {
     id?: SortOrder
     jo_number?: SortOrder
+    canvass_number?: SortOrder
     date_requested?: SortOrder
     canvass_id?: SortOrder
     equipment?: SortOrder
@@ -73305,6 +73381,7 @@ export namespace Prisma {
   export type JOMaxOrderByAggregateInput = {
     id?: SortOrder
     jo_number?: SortOrder
+    canvass_number?: SortOrder
     date_requested?: SortOrder
     canvass_id?: SortOrder
     equipment?: SortOrder
@@ -73322,6 +73399,7 @@ export namespace Prisma {
   export type JOMinOrderByAggregateInput = {
     id?: SortOrder
     jo_number?: SortOrder
+    canvass_number?: SortOrder
     date_requested?: SortOrder
     canvass_id?: SortOrder
     equipment?: SortOrder
@@ -73406,6 +73484,7 @@ export namespace Prisma {
 
   export type SPRCountOrderByAggregateInput = {
     id?: SortOrder
+    canvass_number?: SortOrder
     spr_number?: SortOrder
     date_requested?: SortOrder
     canvass_id?: SortOrder
@@ -73422,6 +73501,7 @@ export namespace Prisma {
 
   export type SPRMaxOrderByAggregateInput = {
     id?: SortOrder
+    canvass_number?: SortOrder
     spr_number?: SortOrder
     date_requested?: SortOrder
     canvass_id?: SortOrder
@@ -73438,6 +73518,7 @@ export namespace Prisma {
 
   export type SPRMinOrderByAggregateInput = {
     id?: SortOrder
+    canvass_number?: SortOrder
     spr_number?: SortOrder
     date_requested?: SortOrder
     canvass_id?: SortOrder
@@ -81447,6 +81528,7 @@ export namespace Prisma {
   export type JOCreateWithoutCanvassInput = {
     id?: string
     jo_number: string
+    canvass_number: string
     date_requested: Date | string
     equipment?: string
     classification_id?: string | null
@@ -81465,6 +81547,7 @@ export namespace Prisma {
   export type JOUncheckedCreateWithoutCanvassInput = {
     id?: string
     jo_number: string
+    canvass_number: string
     date_requested: Date | string
     equipment?: string
     classification_id?: string | null
@@ -81488,6 +81571,7 @@ export namespace Prisma {
   export type RVCreateWithoutCanvassInput = {
     id?: string
     rv_number: string
+    canvass_number: string
     classification_id?: string | null
     date_requested: Date | string
     work_order_no?: string | null
@@ -81506,6 +81590,7 @@ export namespace Prisma {
   export type RVUncheckedCreateWithoutCanvassInput = {
     id?: string
     rv_number: string
+    canvass_number: string
     classification_id?: string | null
     date_requested: Date | string
     work_order_no?: string | null
@@ -81528,6 +81613,7 @@ export namespace Prisma {
 
   export type SPRCreateWithoutCanvassInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     classification_id?: string | null
@@ -81545,6 +81631,7 @@ export namespace Prisma {
 
   export type SPRUncheckedCreateWithoutCanvassInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     vehicle_id: string
@@ -81595,6 +81682,7 @@ export namespace Prisma {
   export type JOUpdateWithoutCanvassInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81613,6 +81701,7 @@ export namespace Prisma {
   export type JOUncheckedUpdateWithoutCanvassInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81642,6 +81731,7 @@ export namespace Prisma {
   export type RVUpdateWithoutCanvassInput = {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81660,6 +81750,7 @@ export namespace Prisma {
   export type RVUncheckedUpdateWithoutCanvassInput = {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81688,6 +81779,7 @@ export namespace Prisma {
 
   export type SPRUpdateWithoutCanvassInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81705,6 +81797,7 @@ export namespace Prisma {
 
   export type SPRUncheckedUpdateWithoutCanvassInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     vehicle_id?: StringFieldUpdateOperationsInput | string
@@ -82250,6 +82343,7 @@ export namespace Prisma {
   export type RVCreateWithoutRv_approversInput = {
     id?: string
     rv_number: string
+    canvass_number: string
     classification_id?: string | null
     date_requested: Date | string
     work_order_no?: string | null
@@ -82268,6 +82362,7 @@ export namespace Prisma {
   export type RVUncheckedCreateWithoutRv_approversInput = {
     id?: string
     rv_number: string
+    canvass_number: string
     canvass_id?: string | null
     classification_id?: string | null
     date_requested: Date | string
@@ -82302,6 +82397,7 @@ export namespace Prisma {
   export type RVUpdateWithoutRv_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82320,6 +82416,7 @@ export namespace Prisma {
   export type RVUncheckedUpdateWithoutRv_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -82574,6 +82671,7 @@ export namespace Prisma {
   export type JOCreateWithoutJo_approversInput = {
     id?: string
     jo_number: string
+    canvass_number: string
     date_requested: Date | string
     equipment?: string
     classification_id?: string | null
@@ -82592,6 +82690,7 @@ export namespace Prisma {
   export type JOUncheckedCreateWithoutJo_approversInput = {
     id?: string
     jo_number: string
+    canvass_number: string
     date_requested: Date | string
     canvass_id?: string | null
     equipment?: string
@@ -82626,6 +82725,7 @@ export namespace Prisma {
   export type JOUpdateWithoutJo_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82644,6 +82744,7 @@ export namespace Prisma {
   export type JOUncheckedUpdateWithoutJo_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     equipment?: StringFieldUpdateOperationsInput | string
@@ -82985,6 +83086,7 @@ export namespace Prisma {
 
   export type SPRCreateWithoutSpr_approversInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     classification_id?: string | null
@@ -83002,6 +83104,7 @@ export namespace Prisma {
 
   export type SPRUncheckedCreateWithoutSpr_approversInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     canvass_id?: string | null
@@ -83035,6 +83138,7 @@ export namespace Prisma {
 
   export type SPRUpdateWithoutSpr_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83052,6 +83156,7 @@ export namespace Prisma {
 
   export type SPRUncheckedUpdateWithoutSpr_approversInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83070,6 +83175,7 @@ export namespace Prisma {
   export type JOCreateWithoutMeqsInput = {
     id?: string
     jo_number: string
+    canvass_number: string
     date_requested: Date | string
     equipment?: string
     classification_id?: string | null
@@ -83088,6 +83194,7 @@ export namespace Prisma {
   export type JOUncheckedCreateWithoutMeqsInput = {
     id?: string
     jo_number: string
+    canvass_number: string
     date_requested: Date | string
     canvass_id?: string | null
     equipment?: string
@@ -83111,6 +83218,7 @@ export namespace Prisma {
   export type RVCreateWithoutMeqsInput = {
     id?: string
     rv_number: string
+    canvass_number: string
     classification_id?: string | null
     date_requested: Date | string
     work_order_no?: string | null
@@ -83129,6 +83237,7 @@ export namespace Prisma {
   export type RVUncheckedCreateWithoutMeqsInput = {
     id?: string
     rv_number: string
+    canvass_number: string
     canvass_id?: string | null
     classification_id?: string | null
     date_requested: Date | string
@@ -83151,6 +83260,7 @@ export namespace Prisma {
 
   export type SPRCreateWithoutMeqsInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     classification_id?: string | null
@@ -83168,6 +83278,7 @@ export namespace Prisma {
 
   export type SPRUncheckedCreateWithoutMeqsInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     canvass_id?: string | null
@@ -83260,6 +83371,7 @@ export namespace Prisma {
   export type JOUpdateWithoutMeqsInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     equipment?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83278,6 +83390,7 @@ export namespace Prisma {
   export type JOUncheckedUpdateWithoutMeqsInput = {
     id?: StringFieldUpdateOperationsInput | string
     jo_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     equipment?: StringFieldUpdateOperationsInput | string
@@ -83307,6 +83420,7 @@ export namespace Prisma {
   export type RVUpdateWithoutMeqsInput = {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     work_order_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83325,6 +83439,7 @@ export namespace Prisma {
   export type RVUncheckedUpdateWithoutMeqsInput = {
     id?: StringFieldUpdateOperationsInput | string
     rv_number?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -83353,6 +83468,7 @@ export namespace Prisma {
 
   export type SPRUpdateWithoutMeqsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83370,6 +83486,7 @@ export namespace Prisma {
 
   export type SPRUncheckedUpdateWithoutMeqsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88499,6 +88616,7 @@ export namespace Prisma {
 
   export type SPRCreateWithoutVehicleInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     classification_id?: string | null
@@ -88516,6 +88634,7 @@ export namespace Prisma {
 
   export type SPRUncheckedCreateWithoutVehicleInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     canvass_id?: string | null
@@ -88649,6 +88768,7 @@ export namespace Prisma {
     OR?: SPRScalarWhereInput[]
     NOT?: SPRScalarWhereInput | SPRScalarWhereInput[]
     id?: StringFilter<"SPR"> | string
+    canvass_number?: StringFilter<"SPR"> | string
     spr_number?: StringFilter<"SPR"> | string
     date_requested?: DateTimeFilter<"SPR"> | Date | string
     canvass_id?: StringNullableFilter<"SPR"> | string | null
@@ -91543,6 +91663,7 @@ export namespace Prisma {
 
   export type SPRCreateManyVehicleInput = {
     id?: string
+    canvass_number: string
     spr_number: string
     date_requested: Date | string
     canvass_id?: string | null
@@ -91703,6 +91824,7 @@ export namespace Prisma {
 
   export type SPRUpdateWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91720,6 +91842,7 @@ export namespace Prisma {
 
   export type SPRUncheckedUpdateWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91737,6 +91860,7 @@ export namespace Prisma {
 
   export type SPRUncheckedUpdateManyWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    canvass_number?: StringFieldUpdateOperationsInput | string
     spr_number?: StringFieldUpdateOperationsInput | string
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null

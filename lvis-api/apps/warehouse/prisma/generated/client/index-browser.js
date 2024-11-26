@@ -243,6 +243,7 @@ exports.Prisma.CanvassItemScalarFieldEnum = {
 exports.Prisma.RVScalarFieldEnum = {
   id: 'id',
   rv_number: 'rv_number',
+  canvass_number: 'canvass_number',
   canvass_id: 'canvass_id',
   classification_id: 'classification_id',
   date_requested: 'date_requested',
@@ -271,6 +272,7 @@ exports.Prisma.RVApproverScalarFieldEnum = {
 exports.Prisma.JOScalarFieldEnum = {
   id: 'id',
   jo_number: 'jo_number',
+  canvass_number: 'canvass_number',
   date_requested: 'date_requested',
   canvass_id: 'canvass_id',
   equipment: 'equipment',
@@ -298,6 +300,7 @@ exports.Prisma.JOApproverScalarFieldEnum = {
 
 exports.Prisma.SPRScalarFieldEnum = {
   id: 'id',
+  canvass_number: 'canvass_number',
   spr_number: 'spr_number',
   date_requested: 'date_requested',
   canvass_id: 'canvass_id',

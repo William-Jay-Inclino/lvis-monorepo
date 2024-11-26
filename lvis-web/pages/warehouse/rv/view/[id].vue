@@ -34,8 +34,7 @@
                                             <tr>
                                                 <td class="text-muted">RC Number</td>
                                                 <td>
-                                                    <nuxt-link v-if="item.canvass" :to="'/warehouse/canvass/view/' + item.canvass.id">{{
-                item.canvass.rc_number }}</nuxt-link>
+                                                    <nuxt-link v-if="item.canvass_number" :to="'/warehouse/canvass/view/' + item.canvass_number">{{ item.canvass_number }}</nuxt-link>
                                                     <div v-else> N/A </div>
                                                 </td>
                                             </tr>

@@ -20,6 +20,9 @@ export class SPR {
   canvass_id?: string | null;
 
   @Field(() => String)
+  canvass_number: string;
+  
+  @Field(() => String)
   vehicle_id: string;
 
   @Field(() => String, { nullable: true })

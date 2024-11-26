@@ -8,6 +8,7 @@ import type { Department } from "~/composables/system/department/department";
 export interface JO {
   id: string;
   jo_number: string;
+  canvass_number: string;
   date_requested: string;
   canvass_id?: string | null;
   equipment: string;

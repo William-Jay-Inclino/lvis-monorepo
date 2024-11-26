@@ -263,6 +263,7 @@ model CanvassItem {
 model RV {
   id                String    @id @default(uuid())
   rv_number         String    @unique
+  canvass_number String
   canvass_id        String?    @unique
   classification_id String?
   date_requested    DateTime
@@ -308,6 +309,7 @@ model RVApprover {
 model JO {
   id                String   @id @default(uuid())
   jo_number         String   @unique
+  canvass_number String
   date_requested    DateTime
   canvass_id        String?   @unique
   equipment         String @default("")
@@ -352,6 +354,7 @@ model JOApprover {
 
 model SPR {
   id                String   @id @default(uuid())
+  canvass_number String
   spr_number        String   @unique
   date_requested    DateTime
   canvass_id        String?   @unique
