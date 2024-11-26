@@ -2,7 +2,7 @@
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
-import { formatDate, getImageAsBase64 } from '../__common__/helpers';
+import { formatDate, getFullnameWithTitles, getImageAsBase64 } from '../__common__/helpers';
 import { Canvass } from './entities/canvass.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -183,9 +183,9 @@ export class CanvassPdfService {
 
                 <div style="display: flex; justify-content: space-between;">
                     <div style="flex: 1;">
-                        <table style="font-size: 10pt; width: 80%">
+                        <table style="font-size: 10pt; width: 100%">
                             <tr>
-                                <td>Prepared By:</td>
+                                <td width="30%">Prepared By:</td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -195,7 +195,8 @@ export class CanvassPdfService {
                                         <b> 
                                             ${
                                                 // @ts-ignore
-                                                requisitioner.firstname + ' ' + requisitioner.lastname
+                                                // requisitioner.firstname + ' ' + requisitioner.lastname
+                                                getFullnameWithTitles(requisitioner.firstname, requisitioner.lastname, requisitioner.middlename, requisitioner.name_prefix, requisitioner.name_suffix)
                                             } 
                                         </b>
                                     </div>
@@ -215,9 +216,9 @@ export class CanvassPdfService {
                         </table>
                     </div>
                     <div style="flex: 1;">
-                        <table style="font-size: 10pt; width: 80%">
+                        <table style="font-size: 10pt; width: 100%">
                             <tr>
-                                <td>Noted By:</td>
+                                <td width="30%">Noted By:</td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -227,7 +228,8 @@ export class CanvassPdfService {
                                     <b> 
                                     ${
                                         // @ts-ignore
-                                        notedBy.firstname + ' ' + notedBy.lastname
+                                        // notedBy.firstname + ' ' + notedBy.lastname
+                                        getFullnameWithTitles(notedBy.firstname, notedBy.lastname, notedBy.middlename, notedBy.name_prefix, notedBy.name_suffix)
                                     } 
                                 </b>
                                     </div>
@@ -371,6 +373,8 @@ export class CanvassPdfService {
                     middlename 
                     lastname
                     position
+                    name_prefix
+                    name_suffix
                 }
             }
         `;
@@ -422,6 +426,8 @@ export class CanvassPdfService {
                     middlename 
                     lastname
                     position
+                    name_prefix
+                    name_suffix
                 }
             }
         `;

@@ -2,7 +2,7 @@
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
-import { formatDate, formatToPhpCurrency, getImageAsBase64 } from '../__common__/helpers';
+import { formatDate, formatToPhpCurrency, getFullnameWithTitles, getImageAsBase64 } from '../__common__/helpers';
 import * as moment from 'moment';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -242,7 +242,9 @@ export class MeqsPdfService {
                             <b>
                             ${
                                 // @ts-ignore
-                                requisitioner.firstname + ' ' + requisitioner.lastname
+                                // requisitioner.firstname + ' ' + requisitioner.lastname
+                                getFullnameWithTitles(requisitioner.firstname, requisitioner.lastname, requisitioner.middlename, requisitioner.name_prefix, requisitioner.name_suffix)
+
                             } 
                             </b> 
                         </td>
@@ -262,20 +264,21 @@ export class MeqsPdfService {
                     ${approvers.map((item, index) => `
                         
                         <div style="padding: 10px; margin-right: 30px;">
-                            <table border="0" style="width: 100%">
+                            <table border="0" style="width: 100%; font-size: 10pt;">
                                 <tr>
-                                    <td style="font-size: 10pt;"> 
+                                    <td style="font-size: 9pt;"> 
                                         ${ item.date_approval ? formatDate(item.date_approval, true) : '&nbsp;' } 
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: center; position: relative;">
-                                        <u style="position: relative; z-index: 1; margin-bottom: 10px;">
+                                    <th style="text-align: center; position: relative; font-size: 10.5pt; border-bottom: 1px solid black;">
+                                        <span style="position: relative; z-index: 1; margin-bottom: 10px;">
                                             ${
                                                 // @ts-ignore
-                                                item.approver.firstname + ' ' + item.approver.lastname
+                                                // item.approver.firstname + ' ' + item.approver.lastname
+                                                getFullnameWithTitles(item.approver.firstname, item.approver.lastname, item.approver.middlename, item.approver.name_prefix, item.approver.name_suffix)
                                             }
-                                        </u>
+                                        </span>
                                         <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
                                             // @ts-ignore
                                             this.getUploadsPath(item.approver.signature_src)
@@ -354,25 +357,6 @@ export class MeqsPdfService {
         console.log('awardedMeqsSupplier', awardedMeqsSupplier);
 
         return awardedMeqsSupplier
-
-        // console.log('awardedMeqsSupplierItems', awardedMeqsSupplierItems);
-
-        // const awardedSuppliers: Supplier[] = []
-
-        // for(let item of awardedMeqsSupplierItems) {
-
-        //     const isInAwardedSuppliers = awardedSuppliers.find(i => i.id === item.meqs_supplier.supplier.id)
-
-        //     if(!isInAwardedSuppliers) {
-        //         awardedSuppliers.push(item.meqs_supplier.supplier)
-        //     }
-
-        // }
-
-        // console.log('awardedSuppliers', awardedSuppliers);
-
-        // return awardedSuppliers
-
     }
     
     private async getEmployee(employeeId: string, authUser: AuthUser) {
@@ -385,6 +369,8 @@ export class MeqsPdfService {
                     firstname 
                     middlename 
                     lastname
+                    name_prefix
+                    name_suffix
                     position
                     signature_src
                 }

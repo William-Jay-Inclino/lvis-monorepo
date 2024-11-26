@@ -244,8 +244,6 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
     return accessMap[module]?.[resolver] ?? false;
 }
 
-
-
 export function isAdmin(authUser: AuthUser): boolean {
     return (authUser.user.role === Role.ADMIN)
 }
@@ -299,4 +297,28 @@ export function getModule(entity: DB_ENTITY): ModuleMapping {
         throw new NotFoundException(`module not found`)
     }
     return module
+}
+
+export function getFullnameWithTitles(
+    firstname: string,
+    lastname: string,
+    middlename?: string | null,
+    namePrefix?: string | null,
+    nameSuffix?: string | null
+  ): string {
+    const middleInitial = middlename ? `${middlename[0].toUpperCase()}.` : "";
+  
+    const formattedLastName = nameSuffix ? `${lastname},` : lastname;
+  
+    const fullName = [
+      namePrefix,  
+      firstname,    
+      middleInitial, 
+      formattedLastName,
+      nameSuffix    
+    ]
+      .filter(Boolean) 
+      .join(" "); 
+  
+    return fullName;
 }

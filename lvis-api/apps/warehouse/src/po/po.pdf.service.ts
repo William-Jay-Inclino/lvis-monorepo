@@ -2,7 +2,7 @@
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
-import { formatDate, formatToPhpCurrency, getImageAsBase64 } from '../__common__/helpers';
+import { formatDate, formatToPhpCurrency, getFullnameWithTitles, getImageAsBase64 } from '../__common__/helpers';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { PO } from './entities/po.entity';
@@ -287,7 +287,7 @@ export class PoPdfService {
             </div>
 
 
-            <div style="padding-left: 25px; padding-right: 25px; font-size: 10pt; padding-top: 70px; min-height: 20vh;">
+            <div style="padding-left: 25px; padding-right: 25px; font-size: 10pt; padding-top: 60px; min-height: 20vh;">
 
                 <div style="display: flex; justify-content: center;">
 
@@ -304,13 +304,14 @@ export class PoPdfService {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: center; position: relative;">
-                                        <u style="position: relative; z-index: 1; margin-bottom: 10px;">
+                                    <th style="text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom;">
+                                        <span style="position: relative; z-index: 1; margin-bottom: 10px;">
                                             ${
                                                 // @ts-ignore
-                                                item.approver.firstname + ' ' + item.approver.lastname
+                                                // item.approver.firstname + ' ' + item.approver.lastname
+                                                getFullnameWithTitles(item.approver.firstname, item.approver.lastname, item.approver.middlename, item.approver.name_prefix, item.approver.name_suffix)
                                             }
-                                        </u>
+                                        </span>
                                         <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
                                             // @ts-ignore
                                             this.getUploadsPath(item.approver.signature_src)
@@ -362,7 +363,8 @@ export class PoPdfService {
                                     <b>
                                     ${
                                         // @ts-ignore
-                                        generalManager.approver.firstname + ' ' + generalManager.approver.lastname
+                                        // generalManager.approver.firstname + ' ' + generalManager.approver.lastname
+                                        getFullnameWithTitles(generalManager.approver.firstname, generalManager.approver.lastname, generalManager.approver.middlename, generalManager.approver.name_prefix, generalManager.approver.name_suffix)
                                     }
                                     </b>
                                 </u>
@@ -396,7 +398,7 @@ export class PoPdfService {
                     </tr>
                 </table>
 
-                <div style="font-size: 8pt; margin-top: 10px;"> 
+                <div style="font-size: 8pt; margin-top: 5px;"> 
                     RC No.: ${rc_number} &nbsp;&nbsp;&nbsp;&nbsp; 
                     MEQS No.: ${ po.meqs_supplier.meqs.meqs_number } 
                 </div>
@@ -443,6 +445,8 @@ export class PoPdfService {
                     firstname 
                     middlename 
                     lastname
+                    name_prefix
+                    name_suffix
                     position 
                     is_budget_officer
                     is_finance_manager

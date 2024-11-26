@@ -1,7 +1,7 @@
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
-import { formatDate, getImageAsBase64 } from '../__common__/helpers';
+import { formatDate, getImageAsBase64, getFullnameWithTitles } from '../__common__/helpers';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { RV } from './entities/rv.entity';
@@ -203,7 +203,7 @@ export class RvPdfService {
                                         <u style="position: relative; z-index: 1; margin-bottom: 10px;">
                                             ${
                                                 // @ts-ignore
-                                                item.approver.firstname + ' ' + item.approver.lastname
+                                                getFullnameWithTitles(item.approver.firstname, item.approver.lastname, item.approver.middlename, item.approver.name_prefix, item.approver.name_suffix)
                                             }
                                         </u>
                                         <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
@@ -277,6 +277,8 @@ export class RvPdfService {
                     firstname 
                     middlename 
                     lastname
+                    name_prefix
+                    name_suffix
                     position
                     signature_src
                     is_budget_officer

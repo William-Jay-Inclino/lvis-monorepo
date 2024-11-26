@@ -381,9 +381,9 @@ export class JoService {
             whereCondition = { ...whereCondition, canvass: { requested_by_id: requested_by_id } }
         }
         
-        whereCondition.cancelled_at = {
-            equals: null,
-        }
+        // whereCondition.cancelled_at = {
+        //     equals: null,
+        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.jO.findMany({

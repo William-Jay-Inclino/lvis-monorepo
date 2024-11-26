@@ -317,7 +317,6 @@ export async function fetchFormDataInCreate(): Promise<{
                 id
                 code
                 name
-                description
             }
         }
     `;
@@ -470,7 +469,6 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 id
                 code
                 name
-                description
             }
         }
     `;
@@ -848,7 +846,6 @@ export async function fetchPosByPoNumber(payload: string): Promise<PO[]> {
                             item {
                                 id 
                                 code 
-                                name 
                                 description
                             }
                         }

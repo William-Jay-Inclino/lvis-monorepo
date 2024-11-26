@@ -2,7 +2,7 @@
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
-import { formatDate, formatToPhpCurrency, getImageAsBase64, getVatAmount } from '../__common__/helpers';
+import { formatDate, formatToPhpCurrency, getFullnameWithTitles, getImageAsBase64, getVatAmount } from '../__common__/helpers';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { RR } from './entities/rr.entity';
@@ -313,13 +313,13 @@ export class RrPdfService {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th style="text-align: center; position: relative; white-space: nowrap;">
-                                                    <u style="position: relative; z-index: 1; margin-bottom: 10px;">
+                                                <th style="text-align: center; position: relative; white-space: nowrap; border-bottom: 1px solid black;">
+                                                    <span style="position: relative; z-index: 1; margin-bottom: 10px;">
                                                         ${
                                                             // @ts-ignore
-                                                            item.approver.firstname + ' ' + item.approver.lastname
+                                                            getFullnameWithTitles(item.approver.firstname, item.approver.lastname, item.approver.middlename, item.approver.name_prefix, item.approver.name_suffix)
                                                         }
-                                                    </u>
+                                                    </span>
                                                     <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
                                                         // @ts-ignore
                                                         this.getUploadsPath(item.approver.signature_src)
@@ -348,12 +348,11 @@ export class RrPdfService {
 
                 </div>
 
-                <div style="display: flex; justify-content: center;">
+                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 40px;">
                     
                      ${rrApprovers.map((item, index) => `
                     
-                     <div style="padding: 10px;">
-                        <table border="0" style="font-size: 11pt; width: 210px;">
+                        <table border="0" style="font-size: 11pt;">
                             <tr>
                                 <td style="font-size: 10pt; text-align: left;"> ${ item.label }: </td>
                             </tr>
@@ -363,13 +362,14 @@ export class RrPdfService {
                                 </td>
                             </tr>
                             <tr>
-                                <th style="text-align: center; position: relative;">
-                                    <u style="position: relative; z-index: 1; margin-bottom: 10px;">
+                                <th style="text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom;">
+                                    <span style="position: relative; z-index: 1;">
                                         ${
                                             // @ts-ignore
-                                            item.approver.firstname + ' ' + item.approver.lastname
+                                            // item.approver.firstname + ' ' + item.approver.lastname
+                                            getFullnameWithTitles(item.approver.firstname, item.approver.lastname, item.approver.middlename, item.approver.name_prefix, item.approver.name_suffix)
                                         }
-                                    </u>
+                                    </span>
                                     <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
                                         // @ts-ignore
                                         this.getUploadsPath(item.approver.signature_src)
@@ -386,13 +386,12 @@ export class RrPdfService {
                             </tr>
                         
                         </table>
-                    </div>
     
                     `).join('')}
 
                 </div>
 
-                <div style="font-size: 8pt; margin-top: 10px;"> 
+                <div style="font-size: 8pt; margin-top: 5px;"> 
                     <div> PO No.: ${ rr.po.po_number } &nbsp;&nbsp;&nbsp;&nbsp; MEQS No.: ${ rr.po.meqs_supplier.meqs.meqs_number }  </div>
                     <div> ${ refType } No.: ${ refNumber } &nbsp;&nbsp;&nbsp;&nbsp; RC No.: ${ rc_number }  </div>
                 </div>
@@ -441,6 +440,8 @@ export class RrPdfService {
                     firstname 
                     middlename 
                     lastname
+                    name_prefix
+                    name_suffix
                     position
                     is_budget_officer
                     is_finance_manager
@@ -700,88 +701,3 @@ export class RrPdfService {
 
 
 }
-
-
-
-
-// use for displaying budget officer and finance manager from po. For confirmation if needed to display
-
-// <div style="display: flex; justify-content: center;">
-// ${poApprovers.map((item, index) => `
-
-// ${
-//     // @ts-ignore
-//     !!item.approver.is_budget_officer ? `
-//     <div style="padding: 10px; margin-right: 30px;">
-//         <table font-size: 11pt;">
-//             <tr>
-//                 <td style="font-size: 10pt;"> ${ item.label }: </td>
-//             </tr>
-//             <tr>
-//                 <td style="font-size: 10pt;"> 
-//                     ${ item.date_approval ? formatDate(item.date_approval) : '&nbsp;' } 
-//                 </td>
-//             </tr>
-//             <tr>
-//                 <th style="text-align: center; padding-top: 20px;">
-//                     <u>
-//                     ${
-//                         // @ts-ignore
-//                         (item.approver.firstname + ' ' + item.approver.lastname)
-//                     }
-//                     </u>
-//                 </th>
-//             </tr>
-//             <tr>
-//                 <td style="text-align: center">
-//                     ${
-//                         // @ts-ignore 
-//                         item.approver.position
-//                     }
-//                 </td>
-//             </tr>
-        
-//         </table>
-//     </div>
-// ` : ''}
-
-
-// ${
-//     // @ts-ignore
-//     !!item.approver.is_finance_manager ? `
-//     <div style="padding: 10px; margin-right: 30px;">
-//         <table font-size: 11pt;">
-//             <tr>
-//                 <td style="font-size: 10pt;"> ${ item.label }: </td>
-//             </tr>
-//             <tr>
-//                 <td style="font-size: 10pt;"> 
-//                     ${ item.date_approval ? formatDate(item.date_approval) : '&nbsp;' } 
-//                 </td>
-//             </tr>
-//             <tr>
-//                 <th style="text-align: center; padding-top: 20px;">
-//                     <u>
-//                     ${
-//                         // @ts-ignore
-//                         (item.approver.firstname + ' ' + item.approver.lastname)
-//                     }
-//                     </u>
-//                 </th>
-//             </tr>
-//             <tr>
-//                 <td style="text-align: center">
-//                     ${
-//                         // @ts-ignore 
-//                         item.approver.position
-//                     }
-//                 </td>
-//             </tr>
-        
-//         </table>
-//     </div>
-// ` : ''}
-            
-
-// `).join('')}
-// </div>
