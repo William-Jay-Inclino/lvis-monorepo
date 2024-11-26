@@ -84,23 +84,30 @@ export class GasSlipService {
 			}
 		}
 
-		const queries = []
+        const result = await this.prisma.$transaction(async (tx) => {
 
-		const createGasSlipQuery = this.prisma.gasSlip.create({
-			data
-		})
+            const gas_slip_created = await tx.gasSlip.create({ data })
 
-		queries.push(createGasSlipQuery)
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
 
-		const createPendingQuery = this.getCreatePendingQuery(input.approvers, gasSlipNumber)
-		queries.push(createPendingQuery)
+            const module = getModule(DB_ENTITY.GAS_SLIP)
+    
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: gasSlipNumber,
+                reference_table: DB_ENTITY.GAS_SLIP,
+                description: `${ module.description } no. ${gasSlipNumber}`
+            }
 
-        const result = await this.prisma.$transaction(queries)
+            await tx.pending.create({ data: pendingData })
 
-		console.log('Successfully created Gas Slip')
-        console.log('Pending with associated approver created successfully');
 
-		return result[0]
+            return gas_slip_created
+        });
+    
+        return result;
 
 	}
 
@@ -153,25 +160,6 @@ export class GasSlipService {
 		return updated
 		
 	}
-
-	private getCreatePendingQuery(approvers: CreateGasSlipApproverSubInput[], gasSlipNumber: string) {
-		
-		const module = getModule(DB_ENTITY.GAS_SLIP)
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: gasSlipNumber,
-            reference_table: DB_ENTITY.GAS_SLIP,
-            description: `${ module.description } no. ${gasSlipNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
-
-    }
 
 	async findAll(
 		page: number,

@@ -11,7 +11,7 @@ import { DB_ENTITY } from '../__common__/constants';
 import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
 import { VEHICLE_STATUS } from '../vehicle/entities/vehicle.enums';
 import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
-import { isAdmin, isNormalUser } from '../__common__/helpers';
+import { getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -90,24 +90,30 @@ export class TripTicketService {
             }
 		}
 
-		const queries = []
+        const result = await this.prisma.$transaction(async (tx) => {
 
-		const createTripQuery = this.prisma.tripTicket.create({
-			data
-		})
+            const trip_created = await tx.tripTicket.create({ data })
 
-		queries.push(createTripQuery)
+            const firstApprover = input.approvers.reduce((min, obj) => {
+                return obj.order < min.order ? obj : min;
+            }, input.approvers[0]);
 
-		const createPendingQuery = this.getCreatePendingQuery(input.approvers, tripNumber)
+            const module = getModule(DB_ENTITY.TRIP_TICKET)
+    
+            const pendingData = {
+                approver_id: firstApprover.approver_id,
+                reference_number: tripNumber,
+                reference_table: DB_ENTITY.TRIP_TICKET,
+                description: `${ module.description } no. ${tripNumber}`
+            }
 
-		queries.push(createPendingQuery)
+            await tx.pending.create({ data: pendingData })
 
-        const result = await this.prisma.$transaction(queries)
 
-		console.log('Successfully created Trip Ticket')
-        console.log('Pending with associated approver created successfully');
-
-		return result[0]
+            return trip_created
+        });
+    
+        return result;
 
 	}
 
@@ -446,15 +452,50 @@ export class TripTicketService {
 
 		}
 
-
-
+		const vehicle_nearest_trip = await this.get_nearest_trip_of_vehicle(vehicle.id)
+		console.log('vehicle_nearest_trip', vehicle_nearest_trip);
+		
 		return {
 			success: false,
-			msg: `No active trip ticket found for this vehicle at this time.`
+			msg: `No active trip ticket found for this vehicle at this time.`,
+			data: vehicle_nearest_trip
 		}
 
 		
 		
+	}
+
+	async get_nearest_trip_of_vehicle(vehicle_id: string): Promise<TripTicket | null> {
+		const currentTime = new Date();
+	  
+		// Define start and end of the current day
+		const startOfDay = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 0, 0, 0);
+		const endOfDay = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 23, 59, 59);
+	  
+		// Query trips only within the current day, sorted by start_time
+		const trips = await this.prisma.tripTicket.findMany({
+			include: {
+				vehicle: true,
+			},
+			where: {
+				vehicle_id,
+				start_time: {
+				gte: startOfDay,
+				lte: endOfDay,
+				},
+			},
+		});
+	  
+		if (trips.length === 0) return null;
+	  
+		const nearestTrip = trips.reduce((closest, current) => {
+			const currentDiff = Math.abs(new Date(current.start_time).getTime() - currentTime.getTime());
+			const closestDiff = Math.abs(new Date(closest.start_time).getTime() - currentTime.getTime());
+		  
+			return currentDiff < closestDiff ? current : closest;
+		  }, trips[0]); 
+	  
+		return nearestTrip;
 	}
 
 	async remove_actual_start_time(id: string): Promise<UpdateActualTimeResponse> {
@@ -751,23 +792,6 @@ export class TripTicketService {
 		}
 	}
 
-	private getCreatePendingQuery(approvers: CreateTripTicketApproverSubInput[], tripNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: tripNumber,
-            reference_table: DB_ENTITY.TRIP_TICKET,
-            description: `Trip no. ${tripNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
-
-    }
-
 	private async canCreate(input: CreateTripTicketInput): Promise<boolean> {
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
@@ -947,66 +971,5 @@ export class TripTicketService {
         }
     }
 
-	// @OnEvent('trip-ticket-approver-status.updated')
-	// async handle_trip_ticket_approver_status_updated(payload: TripTicketApproverStatusUpdated) {
-
-	// 	console.log('handle_trip_ticket_approver_status_updated', payload);
-		
-	// 	const tripApprover = await this.prisma.tripTicketApprover.findUnique({
-	// 		where: { id: payload.id },
-	// 		include: {
-	// 			trip_ticket: {
-	// 				include: {
-	// 					trip_ticket_approvers: true
-	// 				}
-	// 			}
-	// 		}
-	// 	})
-
-	// 	if (!tripApprover) {
-	// 		throw new NotFoundException('tripApprover not found with id: ' + payload.id)
-	// 	}
-
-	// 	if (tripApprover.trip_ticket.status === TRIP_TICKET_STATUS.COMPLETED) {
-	// 		console.log('Trip Ticket is already completed. End function')
-	// 		return
-	// 	}
-
-	// 	const approvers = tripApprover.trip_ticket.trip_ticket_approvers
-	// 	console.log('approvers', approvers)
-
-	// 	const isApproved = this.isStatusApproved(approvers)
-
-	// 	if (!isApproved) {
-	// 		console.log('Trip Ticket status is not approved. End function')
-	// 		return
-	// 	}
-
-	// 	// if trip ticket approvers are all approved then set trip ticket status to approve
-
-	// 	const result = await this.prisma.tripTicket.update({
-	// 		where: {
-	// 			id: tripApprover.trip_ticket_id
-	// 		},
-	// 		data: {
-	// 			status: APPROVAL_STATUS.APPROVED
-	// 		}
-	// 	})
-
-	// 	console.log('Trip ticket status set to approve successfully');
-
-	// }
-
-	// private isStatusApproved(approvers: TripTicketApprover[]) {
-	// 	for (let approver of approvers) {
-
-	// 		if (approver.status !== APPROVAL_STATUS.APPROVED) {
-	// 			return false
-	// 		}
-
-	// 	}
-
-	// 	return true
-	// }
 
 }

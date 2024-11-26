@@ -39,7 +39,15 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td width="50%"> Trip No. </td>
+                                    <td width="50%"> Status </td>
+                                    <td>
+                                        <div :class="{ [`badge bg-${tripTicketStatus[trip_ticket.status].color}`]: true }">
+                                            {{ tripTicketStatus[trip_ticket.status].label }}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> Trip No. </td>
                                     <td> {{ trip_ticket.trip_number }} </td>
                                 </tr>
                                 <tr>
@@ -124,6 +132,7 @@
     import { updateActualTime } from '~/composables/warehouse/trip-ticket/trip-ticket.api'
     import { useToast } from "vue-toastification";
     import Swal from 'sweetalert2'
+    import { tripTicketStatus } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
 
     const toast = useToast();
 
@@ -168,6 +177,11 @@
                     position: 'top',
                     timer: 3000,
                 });
+
+                if(response.data) {
+                    trip_ticket.value = response.data
+                }
+
             }
         } catch (error) {
             console.error("Error during RFID scan:", error);

@@ -111,7 +111,7 @@
                                                     {{ getFullname(i.driver.firstname, i.driver.middlename, i.driver.lastname) }}
                                                 </td>
                                                 <td class="text-muted align-middle"> {{ formatDate(i.created_at) }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.start_time) }}
+                                                <td class="text-muted align-middle"> {{ formatDate(i.start_time, true) }}
                                                 </td>
                                                 <td class="text-center align-middle">
                                                     <div :class="{ [`badge bg-${tripTicketStatus[i.status].color}`]: true }">

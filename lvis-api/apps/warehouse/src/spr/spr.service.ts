@@ -109,7 +109,7 @@ export class SprService {
                 approver_id: firstApprover.approver_id,
                 reference_number: sprNumber,
                 reference_table: DB_ENTITY.SPR,
-                description: `${ module.description } no. ${SprNumber}`
+                description: `${ module.description } no. ${sprNumber}`
             }
 
             await tx.pending.create({ data: pendingData })

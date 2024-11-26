@@ -910,14 +910,6 @@ export async function updateActualTime(rf_id: string): Promise<MutationResponse>
                         vehicle_number
                         plate_number
                         name
-                        classification_id
-                        date_acquired
-                        assignee {
-                            id 
-                            firstname 
-                            middlename 
-                            lastname
-                        }
                     }
                     driver {
                         id 
@@ -932,31 +924,7 @@ export async function updateActualTime(rf_id: string): Promise<MutationResponse>
                     end_time 
                     actual_start_time 
                     actual_end_time 
-                    is_operation
-                    is_stay_in 
-                    is_personal 
-                    is_out_of_coverage
-                    prepared_by {
-                        id 
-                        firstname 
-                        middlename 
-                        lastname
-                    }
                     status
-                    cancelled_at
-                    trip_ticket_approvers{
-                        approver {
-                            id
-                            firstname
-                            middlename
-                            lastname
-                        }
-                        status
-                        label
-                        order
-                        notes
-                        date_approval
-                    }
                 }
             }
         }`;
