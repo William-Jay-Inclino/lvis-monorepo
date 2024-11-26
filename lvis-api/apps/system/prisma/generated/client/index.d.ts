@@ -5437,7 +5437,7 @@ export namespace Prisma {
   export type EmployeeGroupByOutputType = {
     id: string
     employee_number: string
-    rank_number: number | null
+    rank_number: number
     department_id: string
     division_id: string | null
     firstname: string
@@ -5551,7 +5551,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       employee_number: string
-      rank_number: number | null
+      rank_number: number
       department_id: string
       division_id: string | null
       firstname: string
@@ -19305,7 +19305,7 @@ export namespace Prisma {
     NOT?: EmployeeWhereInput | EmployeeWhereInput[]
     id?: StringFilter<"Employee"> | string
     employee_number?: StringFilter<"Employee"> | string
-    rank_number?: IntNullableFilter<"Employee"> | number | null
+    rank_number?: IntFilter<"Employee"> | number
     department_id?: StringFilter<"Employee"> | string
     division_id?: StringNullableFilter<"Employee"> | string | null
     firstname?: StringFilter<"Employee"> | string
@@ -19334,7 +19334,7 @@ export namespace Prisma {
   export type EmployeeOrderByWithRelationInput = {
     id?: SortOrder
     employee_number?: SortOrder
-    rank_number?: SortOrderInput | SortOrder
+    rank_number?: SortOrder
     department_id?: SortOrder
     division_id?: SortOrderInput | SortOrder
     firstname?: SortOrder
@@ -19366,7 +19366,7 @@ export namespace Prisma {
     AND?: EmployeeWhereInput | EmployeeWhereInput[]
     OR?: EmployeeWhereInput[]
     NOT?: EmployeeWhereInput | EmployeeWhereInput[]
-    rank_number?: IntNullableFilter<"Employee"> | number | null
+    rank_number?: IntFilter<"Employee"> | number
     department_id?: StringFilter<"Employee"> | string
     division_id?: StringNullableFilter<"Employee"> | string | null
     firstname?: StringFilter<"Employee"> | string
@@ -19395,7 +19395,7 @@ export namespace Prisma {
   export type EmployeeOrderByWithAggregationInput = {
     id?: SortOrder
     employee_number?: SortOrder
-    rank_number?: SortOrderInput | SortOrder
+    rank_number?: SortOrder
     department_id?: SortOrder
     division_id?: SortOrderInput | SortOrder
     firstname?: SortOrder
@@ -19423,7 +19423,7 @@ export namespace Prisma {
     NOT?: EmployeeScalarWhereWithAggregatesInput | EmployeeScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Employee"> | string
     employee_number?: StringWithAggregatesFilter<"Employee"> | string
-    rank_number?: IntNullableWithAggregatesFilter<"Employee"> | number | null
+    rank_number?: IntWithAggregatesFilter<"Employee"> | number
     department_id?: StringWithAggregatesFilter<"Employee"> | string
     division_id?: StringNullableWithAggregatesFilter<"Employee"> | string | null
     firstname?: StringWithAggregatesFilter<"Employee"> | string
@@ -20373,7 +20373,7 @@ export namespace Prisma {
   export type EmployeeCreateInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     firstname: string
     middlename?: string | null
     lastname: string
@@ -20400,7 +20400,7 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     division_id?: string | null
     firstname: string
@@ -20427,7 +20427,7 @@ export namespace Prisma {
   export type EmployeeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -20454,7 +20454,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -20481,7 +20481,7 @@ export namespace Prisma {
   export type EmployeeCreateManyInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     division_id?: string | null
     firstname: string
@@ -20501,7 +20501,7 @@ export namespace Prisma {
   export type EmployeeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -20519,7 +20519,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -21497,15 +21497,15 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -21638,20 +21638,20 @@ export namespace Prisma {
     rank_number?: SortOrder
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -21800,17 +21800,6 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type UserGroupCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -21832,22 +21821,6 @@ export namespace Prisma {
 
   export type UserGroupSumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type UserRelationFilter = {
@@ -22437,8 +22410,8 @@ export namespace Prisma {
     connect?: UserEmployeeWhereUniqueInput
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
     increment?: number
     decrement?: number
     multiply?: number
@@ -22761,14 +22734,6 @@ export namespace Prisma {
     update?: UserGroupMembersUpdateWithWhereUniqueWithoutUser_groupInput | UserGroupMembersUpdateWithWhereUniqueWithoutUser_groupInput[]
     updateMany?: UserGroupMembersUpdateManyWithWhereWithoutUser_groupInput | UserGroupMembersUpdateManyWithWhereWithoutUser_groupInput[]
     deleteMany?: UserGroupMembersScalarWhereInput | UserGroupMembersScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserGroupMembersUncheckedUpdateManyWithoutUser_groupNestedInput = {
@@ -23098,31 +23063,31 @@ export namespace Prisma {
     not?: NestedEnumEmployeeStatusFilter<$PrismaModel> | $Enums.EmployeeStatus
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -23186,33 +23151,6 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedEnumUserLogEventTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.UserLogEventType | EnumUserLogEventTypeFieldRefInput<$PrismaModel>
     in?: $Enums.UserLogEventType[] | ListEnumUserLogEventTypeFieldRefInput<$PrismaModel>
@@ -23258,7 +23196,7 @@ export namespace Prisma {
   export type EmployeeCreateWithoutDivisionInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     firstname: string
     middlename?: string | null
     lastname: string
@@ -23284,7 +23222,7 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateWithoutDivisionInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     firstname: string
     middlename?: string | null
@@ -23370,7 +23308,7 @@ export namespace Prisma {
     NOT?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
     id?: StringFilter<"Employee"> | string
     employee_number?: StringFilter<"Employee"> | string
-    rank_number?: IntNullableFilter<"Employee"> | number | null
+    rank_number?: IntFilter<"Employee"> | number
     department_id?: StringFilter<"Employee"> | string
     division_id?: StringNullableFilter<"Employee"> | string | null
     firstname?: StringFilter<"Employee"> | string
@@ -23420,7 +23358,7 @@ export namespace Prisma {
   export type EmployeeCreateWithoutDepartmentInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     firstname: string
     middlename?: string | null
     lastname: string
@@ -23446,7 +23384,7 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateWithoutDepartmentInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     division_id?: string | null
     firstname: string
     middlename?: string | null
@@ -24283,7 +24221,7 @@ export namespace Prisma {
   export type EmployeeCreateWithoutUser_employeeInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     firstname: string
     middlename?: string | null
     lastname: string
@@ -24309,7 +24247,7 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateWithoutUser_employeeInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     division_id?: string | null
     firstname: string
@@ -24398,7 +24336,7 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutUser_employeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -24424,7 +24362,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateWithoutUser_employeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -24538,7 +24476,7 @@ export namespace Prisma {
   export type EmployeeCreateWithoutJo_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     firstname: string
     middlename?: string | null
     lastname: string
@@ -24564,7 +24502,7 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateWithoutJo_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     division_id?: string | null
     firstname: string
@@ -24606,7 +24544,7 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutJo_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -24632,7 +24570,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateWithoutJo_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -24658,7 +24596,7 @@ export namespace Prisma {
   export type EmployeeCreateWithoutRv_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     firstname: string
     middlename?: string | null
     lastname: string
@@ -24684,7 +24622,7 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateWithoutRv_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     division_id?: string | null
     firstname: string
@@ -24726,7 +24664,7 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutRv_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -24752,7 +24690,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateWithoutRv_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -24778,7 +24716,7 @@ export namespace Prisma {
   export type EmployeeCreateWithoutSpr_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     firstname: string
     middlename?: string | null
     lastname: string
@@ -24804,7 +24742,7 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateWithoutSpr_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     division_id?: string | null
     firstname: string
@@ -24846,7 +24784,7 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutSpr_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -24872,7 +24810,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateWithoutSpr_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -24898,7 +24836,7 @@ export namespace Prisma {
   export type EmployeeCreateWithoutMeqs_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     firstname: string
     middlename?: string | null
     lastname: string
@@ -24924,7 +24862,7 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateWithoutMeqs_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     division_id?: string | null
     firstname: string
@@ -24966,7 +24904,7 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutMeqs_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -24992,7 +24930,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateWithoutMeqs_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -25018,7 +24956,7 @@ export namespace Prisma {
   export type EmployeeCreateWithoutPo_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     firstname: string
     middlename?: string | null
     lastname: string
@@ -25044,7 +24982,7 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateWithoutPo_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     division_id?: string | null
     firstname: string
@@ -25086,7 +25024,7 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutPo_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -25112,7 +25050,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateWithoutPo_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -25138,7 +25076,7 @@ export namespace Prisma {
   export type EmployeeCreateWithoutRr_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     firstname: string
     middlename?: string | null
     lastname: string
@@ -25164,7 +25102,7 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateWithoutRr_approver_settingInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     division_id?: string | null
     firstname: string
@@ -25206,7 +25144,7 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutRr_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -25232,7 +25170,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateWithoutRr_approver_settingInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -25258,7 +25196,7 @@ export namespace Prisma {
   export type EmployeeCreateManyDivisionInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     department_id: string
     firstname: string
     middlename?: string | null
@@ -25277,7 +25215,7 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutDivisionInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -25303,7 +25241,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateWithoutDivisionInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25329,7 +25267,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateManyWithoutDivisionInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     department_id?: StringFieldUpdateOperationsInput | string
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25357,7 +25295,7 @@ export namespace Prisma {
   export type EmployeeCreateManyDepartmentInput = {
     id?: string
     employee_number: string
-    rank_number?: number | null
+    rank_number: number
     division_id?: string | null
     firstname: string
     middlename?: string | null
@@ -25405,7 +25343,7 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutDepartmentInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
@@ -25431,7 +25369,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25457,7 +25395,7 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_number?: StringFieldUpdateOperationsInput | string
-    rank_number?: NullableIntFieldUpdateOperationsInput | number | null
+    rank_number?: IntFieldUpdateOperationsInput | number
     division_id?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null

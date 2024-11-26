@@ -52,6 +52,11 @@ export async function findOne(id: string): Promise<Employee | undefined> {
         query {
             employee(id: "${id}") {
                 id
+                employee_number
+                rank_number
+                name_prefix
+                name_suffix
+                status
                 firstname
                 middlename
                 lastname
@@ -89,34 +94,28 @@ export async function create(input: CreateEmployeeInput): Promise<MutationRespon
     
     console.log('input', input);
 
-    let signature_src = (input.signature_src && input.signature_src.trim() !== '') ? `"${input.signature_src}"` : null
-
-    let division_id = input.division ? `"${input.division.id}"` : null
+    const signature_src = (input.signature_src && input.signature_src.trim() !== '') ? `"${input.signature_src}"` : null
+    const division_id = input.division ? `"${input.division.id}"` : null
+    const rank = input.rank_number === 0 ? null : input.rank_number
+    const name_prefix = input.name_prefix.trim() === '' ? null : `"${input.name_prefix}"`
+    const name_suffix = input.name_suffix.trim() === '' ? null : `"${input.name_suffix}"`
 
     const mutation = `
         mutation {
             createEmployee(input: {
+                employee_number: "${input.employee_number}",
+                rank_number: ${rank},
                 firstname: "${input.firstname}",
                 middlename: "${input.middlename}",
                 lastname: "${input.lastname}",
+                name_prefix: ${name_prefix},
+                name_suffix: ${name_suffix},
                 signature_src: ${signature_src},
                 position: "${input.position}",
                 department_id: "${input.department?.id}",
                 division_id: ${division_id},
             }) {
                 id
-                firstname
-                middlename
-                lastname
-                position
-                division {
-                    id 
-                    name
-                }
-                department {
-                    id 
-                    name
-                }
             }
         }`;
 
@@ -150,33 +149,28 @@ export async function update(id: string, input: CreateEmployeeInput): Promise<Mu
 
     console.log('input', input);
 
-    let signature_src = (input.signature_src && input.signature_src.trim() !== '') ? `"${input.signature_src}"` : null
-    let division_id = input.division ? `"${input.division.id}"` : null
+    const signature_src = (input.signature_src && input.signature_src.trim() !== '') ? `"${input.signature_src}"` : null
+    const division_id = input.division ? `"${input.division.id}"` : null
+    const rank = input.rank_number === 0 ? null : input.rank_number
+    const name_prefix = input.name_prefix.trim() === '' ? null : `"${input.name_prefix}"`
+    const name_suffix = input.name_suffix.trim() === '' ? null : `"${input.name_suffix}"`
 
     const mutation = `
         mutation {
             updateEmployee(id: "${id}", input: {
+                employee_number: "${input.employee_number}",
+                rank_number: ${rank},
                 firstname: "${input.firstname}",
                 middlename: "${input.middlename}",
                 lastname: "${input.lastname}",
+                name_prefix: ${name_prefix},
+                name_suffix: ${name_suffix},
                 signature_src: ${signature_src},
                 position: "${input.position}",
                 department_id: "${input.department?.id}",
                 division_id: ${division_id},
             }) {
                 id
-                firstname
-                middlename
-                lastname
-                position
-                division {
-                    id 
-                    name
-                }
-                department {
-                    id 
-                    name
-                }
             }
         }`;
 
@@ -326,9 +320,13 @@ export async function fetchFormDataInUpdate(id: string):
         query {
             employee(id: "${id}") {
                 id
+                employee_number
+                rank_number
                 firstname
                 middlename
                 lastname
+                name_prefix
+                name_suffix
                 signature_src
                 position
                 division {

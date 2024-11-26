@@ -6,17 +6,20 @@ import type { Department } from "../department/department"
 
 export interface Employee {
     id: string
+    employee_number: string 
+    rank_number: number
     department_id: string
     division_id?: string | null
     firstname: string
     middlename: string
     lastname: string
+    name_prefix: string | null
+    name_suffix: string | null
     position: string
     signature_src: string
 
     // derived / resolvers 
 
-    // is_approver?: boolean
     pending_approvals?: Pending[]
     total_pending_approvals?: number
     is_budget_officer?: boolean
@@ -37,9 +40,13 @@ export interface FindAllResponse {
 }
 
 export interface CreateEmployeeInput {
+    employee_number: string
+    rank_number: number
     firstname: string
     middlename: string
     lastname: string
+    name_prefix: string
+    name_suffix: string
     position: string
     division: Division | null
     department: Department | null
@@ -47,9 +54,13 @@ export interface CreateEmployeeInput {
 }
 
 export interface UpdateEmployeeInput {
+    employee_number: string
+    rank_number: number
     firstname: string
     middlename: string
     lastname: string
+    name_prefix: string
+    name_suffix: string
     position: string
     division: Division | null
     department: Department | null

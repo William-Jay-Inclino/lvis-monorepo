@@ -82,7 +82,7 @@ model Account {
 model Employee {
   id         String  @id @default(uuid())
   employee_number String @unique
-  rank_number Int?
+  rank_number Int
   department_id String
   division_id String?
   firstname  String 

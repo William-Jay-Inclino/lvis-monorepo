@@ -37,6 +37,38 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
+                                    Name Prefix
+                                </label>
+                                <input type="text" class="form-control" v-model="item.name_prefix">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Name Suffix
+                                </label>
+                                <input type="text" class="form-control" v-model="item.name_suffix">
+                            </div>
+
+                            <div v-show="employee_fullname.trim() !== ''" class="alert alert-warning" role="alert">
+                                <small class="fst-italic">
+                                    This is how the employee is addressed in reports: <b>{{ employee_fullname }} </b>
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Employee Number <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" v-model="item.employee_number" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Rank Number <span class="text-danger">*</span>
+                                </label>
+                                <input type="number" class="form-control" v-model="item.rank_number" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
                                     Department <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
@@ -156,9 +188,13 @@ onMounted(async () => {
     employee.value = {...response.employee}
 
     item.value = {
+        employee_number: response.employee.employee_number,
+        rank_number: response.employee.rank_number,
         firstname: response.employee.firstname,
         middlename: response.employee.middlename,
         lastname: response.employee.lastname,
+        name_prefix: response.employee.name_prefix || '',
+        name_suffix: response.employee.name_suffix || '',
         position: response.employee.position,
         division: response.employee.division,
         department: response.employee.department,
@@ -183,6 +219,15 @@ const divisions_by_department = computed( () => {
 
     return department?.divisions
 
+})
+
+const employee_fullname = computed( () => {
+
+    if(!item.value) return ''
+
+    if(item.value.firstname.trim() === '' && item.value.lastname.trim() === '') return ''
+
+    return getFullnameWithTitles(item.value.firstname, item.value.lastname, item.value.middlename, item.value.name_prefix, item.value.name_suffix)
 })
 
 async function onSubmit() {

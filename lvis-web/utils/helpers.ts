@@ -13,6 +13,30 @@ export function getFullname(firstname: string, middlename: string | null, lastna
     return lastname + ', ' + firstname
 }
 
+export function getFullnameWithTitles(
+    firstname: string,
+    lastname: string,
+    middlename?: string | null,
+    namePrefix?: string | null,
+    nameSuffix?: string | null
+  ): string {
+    const middleInitial = middlename ? `${middlename[0].toUpperCase()}.` : "";
+  
+    const formattedLastName = nameSuffix ? `${lastname},` : lastname;
+  
+    const fullName = [
+      namePrefix,  
+      firstname,    
+      middleInitial, 
+      formattedLastName,
+      nameSuffix    
+    ]
+      .filter(Boolean) 
+      .join(" "); 
+  
+    return fullName;
+}
+
 export function convertMiddleNameToInitial(middleName: string) {
     if (middleName && middleName.length > 0) {
         return middleName.charAt(0).toUpperCase() + ".";

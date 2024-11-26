@@ -16,7 +16,6 @@
                             <div class="alert alert-info fst-italic" role="alert">
                                 <small> Fields with * are required </small>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">
                                     Firstname <span class="text-danger">*</span>
@@ -34,6 +33,37 @@
                                     Lastname <span class="text-danger">*</span>
                                 </label>
                                 <input type="text" class="form-control" v-model="formData.lastname" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Name Prefix
+                                </label>
+                                <input type="text" class="form-control" v-model="formData.name_prefix">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Name Suffix
+                                </label>
+                                <input type="text" class="form-control" v-model="formData.name_suffix">
+                            </div>
+
+                            <div v-show="employee_fullname.trim() !== ''" class="alert alert-warning" role="alert">
+                                <small class="fst-italic">
+                                    This is how the employee is addressed in reports: <b>{{ employee_fullname }} </b>
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Employee Number <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" v-model="formData.employee_number" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Rank Number <span class="text-danger">*</span>
+                                </label>
+                                <input type="number" class="form-control" v-model="formData.rank_number" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
@@ -141,9 +171,13 @@ const API_URL = config.public.apiUrl
 const departments = ref<Department[]>([])
 
 const _initialFormData: CreateEmployeeInput = {
+    employee_number: '',
+    rank_number: 0,
     firstname: '',
     middlename: '',
     lastname: '',
+    name_prefix: '',
+    name_suffix: '',
     position: '',
     division: null,
     department: null,
@@ -171,6 +205,13 @@ const divisions_by_department = computed( () => {
 
     return formData.value.department.divisions
 
+})
+
+const employee_fullname = computed( () => {
+
+    if(formData.value.firstname.trim() === '' && formData.value.lastname.trim() === '') return ''
+
+    return getFullnameWithTitles(formData.value.firstname, formData.value.lastname, formData.value.middlename, formData.value.name_prefix, formData.value.name_suffix)
 })
 
 

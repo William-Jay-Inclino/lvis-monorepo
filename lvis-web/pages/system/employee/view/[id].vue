@@ -20,10 +20,17 @@
         
                         <div class="row pt-3">
                             <div class="col">
+
+                                <div class="alert alert-info" role="alert">
+                                    <small class="fst-italic">
+                                        This is how the employee is addressed in reports: <b>{{ employee_fullname }} </b>
+                                    </small>
+                                </div>
+
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
-                                            <td class="text-muted">Firstname</td>
+                                            <td width="30%" class="text-muted">Firstname</td>
                                             <td> {{ item.firstname }} </td>
                                         </tr>
                                         <tr>
@@ -33,6 +40,22 @@
                                         <tr>
                                             <td class="text-muted">Lastname</td>
                                             <td> {{ item.lastname }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Name Prefix</td>
+                                            <td> {{ item.name_prefix }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Name Suffix</td>
+                                            <td> {{ item.name_suffix }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Employee Number</td>
+                                            <td> {{ item.employee_number }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Rank Number</td>
+                                            <td> {{ item.rank_number }} </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Position</td>
@@ -50,7 +73,7 @@
                                             <td class="text-muted">Signature</td>
                                             <td>
                                                 <div v-if="item.signature_src">
-                                                    <img :src="getUploadsPath(item.signature_src)" class="img-thumbnail">
+                                                    <img style="max-width: 150px;" :src="getUploadsPath(item.signature_src)" class="img-thumbnail">
                                                 </div>
                                                 <div v-else>
                                                     N/A
@@ -131,6 +154,10 @@ onMounted(async () => {
 
 })
 
+const employee_fullname = computed( () => {
+    if(!item.value) return ''
+    return getFullnameWithTitles(item.value.firstname, item.value.lastname, item.value.middlename, item.value.name_prefix, item.value.name_suffix)
+})
 
 function getUploadsPath(src: string) {
 

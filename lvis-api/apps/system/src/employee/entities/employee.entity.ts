@@ -1,7 +1,13 @@
-import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Directive, Int, registerEnumType } from '@nestjs/graphql';
 import { UserEmployee } from '../../user/entities/user-employee.entity';
 import { Department } from '../../department/entities/department.entity';
 import { Division } from '../../division/entities/division.entity';
+import { UserStatus } from 'apps/system/prisma/generated/client';
+
+registerEnumType(UserStatus, {
+  name: 'UserStatus',
+  description: 'UserStatus default is ACTIVE',
+});
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -11,6 +17,12 @@ export class Employee {
   id: string;
 
   @Field(() => String)
+  employee_number: string;
+  
+  @Field(() => Int)
+  rank_number: number;
+
+  @Field(() => String)
   firstname: string;
 
   @Field(() => String, { nullable: true })
@@ -18,6 +30,12 @@ export class Employee {
 
   @Field(() => String)
   lastname: string;
+
+  @Field(() => String, { nullable: true })
+  name_prefix?: string | null;
+
+  @Field(() => String, { nullable: true })
+  name_suffix?: string | null;
 
   @Field(() => String, { nullable: true })
   position: string;
@@ -30,6 +48,9 @@ export class Employee {
 
   @Field(() => String, { nullable: true })
   signature_src?: string | null;
+
+  @Field(() => UserStatus)
+  status: UserStatus;
 
   // =============== audit fields =============== 
 

@@ -9,12 +9,12 @@ export class CreateEmployeeInput {
   @IsString()
   employee_number: string;
 
-  @Field(() => Int, { nullable: true })
-  @IsOptional()
+  @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
-  @Min(1)
+  @Min(0)
   @Min(50)
-  rank_number: number | null;
+  rank_number: number;
 
   @Field(() => String, { nullable: true })
   @IsOptional()

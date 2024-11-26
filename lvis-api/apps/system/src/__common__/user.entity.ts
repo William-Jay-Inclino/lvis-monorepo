@@ -22,7 +22,7 @@ export interface Employee {
     employee_number: string 
     is_budget_officer?: number
     is_finance_manager?: number
-    rank_number?: number
+    rank_number: number
     name_prefix?: string 
     name_suffix?: string 
     firstname: string
