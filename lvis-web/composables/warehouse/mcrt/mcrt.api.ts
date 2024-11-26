@@ -211,6 +211,7 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
 
 export async function fetchFormDataInCreate(): Promise<{
     employees: Employee[],
+    auditors: Employee[],
     items: Item[],
     mcts: MCT[],
     serivs: SERIV[],
@@ -219,7 +220,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
+            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
                 data{
                     id
                     code
@@ -238,7 +239,7 @@ export async function fetchFormDataInCreate(): Promise<{
                     GWAPrice
                 }
             },
-            employees(page: 1, pageSize: 300) {
+            employees(page: 1, pageSize: 500) {
                 data{
                     id
                     firstname
@@ -315,6 +316,12 @@ export async function fetchFormDataInCreate(): Promise<{
                 firstname
                 middlename
                 lastname
+            },
+            auditors {
+                id 
+                firstname
+                middlename
+                lastname
             }
         }
     `;
@@ -324,6 +331,7 @@ export async function fetchFormDataInCreate(): Promise<{
         console.log('response', response)
 
         let employees = []
+        let auditors = []
         let items = []
         let mcts = []
         let serivs = []
@@ -355,18 +363,24 @@ export async function fetchFormDataInCreate(): Promise<{
             general_manager = data.general_manager
         }
 
+        if(data.auditors) {
+            auditors = data.auditors
+        }
+
         return {
             employees,
             items,
             mcts,
             serivs,
             general_manager,
+            auditors,
         }
 
     } catch (error) {
         console.error(error);
         return {
             employees: [],
+            auditors: [],
             items: [],
             mcts: [],
             serivs: [],
@@ -379,6 +393,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
 export async function fetchFormDataInUpdate(id: string): Promise<{
     employees: Employee[],
+    auditors: Employee[],
     stations: Station[],
     items: Item[],
     mcrt: MCRT | undefined
@@ -455,7 +470,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
+            items(page: 1, pageSize: 5000, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
                 data{
                     id
                     code
@@ -478,6 +493,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 id 
                 name
             },
+            auditors {
+                id 
+                firstname
+                middlename
+                lastname
+            }
         }
     `;
 
@@ -486,6 +507,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         console.log('response', response)
 
         let employees: Employee[] = []
+        let auditors: Employee[] = []
         let stations: Station[] = []
         let items: Item[] = []
 
@@ -509,8 +531,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             items = response.data.data.items.data
         }
 
-        if (data.stations && data.stations) {
+        if (data.stations) {
             stations = data.stations
+        }
+
+        if (data.auditors) {
+            auditors = data.auditors
         }
 
         return {
@@ -518,6 +544,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             employees,
             stations,
             items,
+            auditors,
         }
 
     } catch (error) {
@@ -525,6 +552,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         return {
             mcrt: undefined,
             employees: [],
+            auditors: [],
             stations: [],
             items: [],
         }

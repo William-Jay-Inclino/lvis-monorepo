@@ -34,7 +34,7 @@
                                 Select Employee <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="supervisor_orders.includes(approverSelected.order) ? supervisors : employees" label="fullname" v-model="newApprover" :clearable="false"></v-select>
+                                <v-select :options="getApproverOptions()" label="fullname" v-model="newApprover" :clearable="false"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -83,6 +83,10 @@ import type { Employee } from '~/composables/system/employee/employee.types';
             type: Array as () => Employee[],
             default: () => [],
         },
+        auditors: {
+            type: Array as () => Employee[],
+            default: () => [],
+        },
         isUpdating: {
             type: Boolean,
             default: false
@@ -116,6 +120,24 @@ import type { Employee } from '~/composables/system/employee/employee.types';
             currentApprover: {...currentApprover.value}, 
             newApprover: {...newApprover.value}
         }, closeChangeApproverModal.value)
+    }
+
+    function getApproverOptions(): Employee[] {
+
+        if(!approverSelected.value) return []
+        
+        const isAuditor = props.auditors.find(i => i.id === approverSelected.value?.approver.id)
+
+        if(isAuditor) {
+            return props.auditors
+        }
+
+        if(props.supervisor_orders.includes(approverSelected.value.order)) {
+            return props.supervisors
+        }
+
+        return props.employees
+
     }
 
 </script>

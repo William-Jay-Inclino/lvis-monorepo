@@ -184,7 +184,12 @@
                             </small>
                         </div>
 
-                        <WarehouseUpdateApprovers :is-updating="isChangingApprover" :approvers="approvers" :employees="employees" @change-approver="handleChangeApprover"/>
+                        <WarehouseUpdateApprovers
+                          :is-updating="isChangingApprover"
+                          :approvers="approvers"
+                          :employees="employees"
+                          :auditors="auditors"
+                          @change-approver="handleChangeApprover" />
                     </div>
                 </div>
 
@@ -314,6 +319,7 @@ const form = ref<FORM>(FORM.UPDATE_INFO)
 
 // DROPDOWNS
 const employees = ref<Employee[]>([])
+const auditors = ref<Employee[]>([])
 const stations = ref<Station[]>([])
 const items = ref<Item[]>([])
 const projects = ref<Project[]>([])
@@ -345,6 +351,7 @@ onMounted(async () => {
     stations.value = response.stations
     projects.value = response.projects
     employees.value = addPropertyFullName(response.employees)
+    auditors.value = addPropertyFullName(response.auditors)
     items.value = response.items
     request_types.value = WAREHOUSE_REQUEST_TYPES.map(i => ({...i}))
 

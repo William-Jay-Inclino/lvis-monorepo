@@ -165,7 +165,7 @@
                                 </label>
                                 <client-only>
                                     <v-select
-                                        :options="employees"
+                                        :options="approver.order === 3 ? auditors : employees"
                                         label="fullname"
                                         v-model="approver.approver"
                                         :clearable="false"
@@ -180,14 +180,6 @@
             
                     <div v-show="currentStep === 2" class="row justify-content-center pt-5">
                         <div class="col-lg-10">
-                            <!-- <div class="mb-3">
-                                <small class="form-label fst-italic text-muted">
-                                    Input the name of the item in the search field below
-                                </small>
-                                <client-only>
-                                    <v-select :options="items" v-model="mrvData.items" label="name" multiple></v-select>
-                                </client-only>
-                            </div> -->
 
                             <div class="text-end mb-3">
                                 <button
@@ -331,6 +323,7 @@
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
+    const auditors = ref<Employee[]>([])
     const projects = ref<Project[]>([])
     const stations = ref<Station[]>([])
     const items = ref<AddItem[]>([])
@@ -344,6 +337,7 @@
         const response = await mrvApi.fetchFormDataInCreate()
 
         employees.value = addPropertyFullName(response.employees)
+        auditors.value = addPropertyFullName(response.auditors)
         stations.value = response.stations
         projects.value = response.projects
         request_types.value = WAREHOUSE_REQUEST_TYPES.map(i => ({...i}))

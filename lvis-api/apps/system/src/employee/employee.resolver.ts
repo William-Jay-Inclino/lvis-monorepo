@@ -51,6 +51,11 @@ export class EmployeeResolver {
   }
 
   @Query(() => [Employee])
+  auditors() {
+    return this.employeeService.findAllAuditors();
+  }
+
+  @Query(() => [Employee])
   department_heads() {
     return this.employeeService.find_employees_by_user_group(USER_GROUP.DEPARTMENT_HEAD);
   }

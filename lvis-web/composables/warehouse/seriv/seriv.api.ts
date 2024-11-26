@@ -243,6 +243,7 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
 
 export async function fetchFormDataInCreate(): Promise<{
     employees: Employee[],
+    auditors: Employee[],
     stations: Station[],
     items: Item[],
     default_station: Station | null,
@@ -292,6 +293,12 @@ export async function fetchFormDataInCreate(): Promise<{
                 firstname
                 middlename
                 lastname
+            },
+            auditors {
+                id 
+                firstname
+                middlename
+                lastname
             }
         }
     `;
@@ -301,6 +308,7 @@ export async function fetchFormDataInCreate(): Promise<{
         console.log('response', response)
 
         let employees = []
+        let auditors = []
         let stations = []
         let items = []
         let warehouse_custodian = undefined
@@ -332,18 +340,24 @@ export async function fetchFormDataInCreate(): Promise<{
             default_station = data.default_station
         }
 
+        if(data.auditors) {
+            auditors = data.auditors
+        }
+
         return {
             employees,
             stations,
             items,
             warehouse_custodian,
             default_station,
+            auditors,
         }
 
     } catch (error) {
         console.error(error);
         return {
             employees: [],
+            auditors: [],
             stations: [],
             items: [],
             warehouse_custodian: null,
@@ -356,6 +370,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
 export async function fetchFormDataInUpdate(id: string): Promise<{
     employees: Employee[],
+    auditors: Employee[],
     stations: Station[],
     items: Item[],
     seriv: SERIV | undefined
@@ -460,6 +475,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 id 
                 name
             },
+            auditors {
+                id 
+                firstname
+                middlename
+                lastname
+            }
         }
     `;
 
@@ -468,6 +489,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         console.log('response', response)
 
         let employees: Employee[] = []
+        let auditors: Employee[] = []
         let stations: Station[] = []
         let items: Item[] = []
 
@@ -495,11 +517,16 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             stations = data.stations
         }
 
+        if (data.auditors && data.auditors) {
+            auditors = data.auditors
+        }
+
         return {
             seriv,
             employees,
             stations,
             items,
+            auditors,
         }
 
     } catch (error) {
@@ -507,6 +534,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         return {
             seriv: undefined,
             employees: [],
+            auditors: [],
             stations: [],
             items: [],
         }

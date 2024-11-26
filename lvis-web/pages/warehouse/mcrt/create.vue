@@ -219,7 +219,7 @@
                                 </label>
                                 <client-only>
                                     <v-select
-                                        :options="employees"
+                                        :options="approver.order === 4 ? auditors : employees"
                                         label="fullname"
                                         v-model="approver.approver"
                                         :clearable="false"
@@ -366,6 +366,7 @@
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
+    const auditors = ref<Employee[]>([])
     const items = ref<AddItem[]>([])
     const mcts = ref<MCT[]>([])
     const serivs = ref<SERIV[]>([])
@@ -378,6 +379,7 @@
         const response = await mcrtApi.fetchFormDataInCreate()
 
         employees.value = addPropertyFullName(response.employees)
+        auditors.value = addPropertyFullName(response.auditors)
         mcts.value = response.mcts
         serivs.value = response.serivs
 

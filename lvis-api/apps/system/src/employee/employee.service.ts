@@ -372,6 +372,38 @@ export class EmployeeService {
 
 	}
 
+	async findAllAuditors(): Promise<Employee[]> {
+
+		const user_group_members = await this.prisma.userGroupMembers.findMany({
+			where: {
+				user_group_id: USER_GROUP.AUDITOR,
+			},
+			include: {
+				user: {
+					include: {
+						user_employee: {
+							include: {
+								employee: true
+							}
+						}
+					}
+				}
+			}
+		})
+
+		if(user_group_members.length === 0) {
+			return []
+		}
+
+		const employees = user_group_members
+			.flatMap(member => member.user.user_employee)
+			.map(userEmployee => userEmployee.employee)
+			.filter(employee => employee !== null); 
+
+		return employees;
+
+	}
+
 	async is_finance_manager(employee_id: string): Promise<boolean> {
 		const isFinanceManager = await this.prisma.userGroupMembers.findFirst({
 		  where: {

@@ -147,7 +147,7 @@
                                 </label>
                                 <client-only>
                                     <v-select
-                                        :options="employees"
+                                        :options="approver.order === 3 ? auditors : employees"
                                         label="fullname"
                                         v-model="approver.approver"
                                         :clearable="false"
@@ -163,14 +163,6 @@
             
                     <div v-show="currentStep === 2" class="row justify-content-center pt-5">
                         <div class="col-lg-10">
-                            <!-- <div class="mb-3">
-                                <small class="form-label fst-italic text-muted">
-                                    Input the name of the item in the search field below
-                                </small>
-                                <client-only>
-                                    <v-select :options="items" v-model="serivData.items" label="label" multiple></v-select>
-                                </client-only>
-                            </div> -->
 
                             <div class="text-end mb-3">
                                 <button
@@ -254,7 +246,7 @@
     import Swal from 'sweetalert2';
     import { SERIV_DEFAULT_APPROVERS } from '~/composables/warehouse/seriv/seriv.constants';
     import { showCWOnumber, showMWOnumber, showORnumber } from '~/utils/helpers';
-import { useToast } from 'vue-toastification';
+    import { useToast } from 'vue-toastification';
 
     definePageMeta({
         name: ROUTES.SERIV_CREATE,
@@ -307,6 +299,7 @@ import { useToast } from 'vue-toastification';
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
+    const auditors = ref<Employee[]>([])
     const stations = ref<Station[]>([])
     const items = ref<AddItem[]>([])
     const request_types = ref<WarehouseRequestType[]>([])
@@ -319,6 +312,7 @@ import { useToast } from 'vue-toastification';
         const response = await serivApi.fetchFormDataInCreate()
 
         employees.value = addPropertyFullName(response.employees)
+        auditors.value = addPropertyFullName(response.auditors)
         stations.value = response.stations
         request_types.value = WAREHOUSE_REQUEST_TYPES.map(i => ({...i}))
 

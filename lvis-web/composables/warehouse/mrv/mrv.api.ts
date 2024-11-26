@@ -247,6 +247,7 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
 
 export async function fetchFormDataInCreate(): Promise<{
     employees: Employee[],
+    auditors: Employee[],
     stations: Station[],
     items: Item[],
     default_station: Station | null,
@@ -294,6 +295,12 @@ export async function fetchFormDataInCreate(): Promise<{
                 id 
                 name
             },
+            auditors {
+                id 
+                firstname
+                middlename
+                lastname
+            }
         }
     `;
 
@@ -302,6 +309,7 @@ export async function fetchFormDataInCreate(): Promise<{
         console.log('response', response)
 
         let employees = []
+        let auditors = []
         let stations = []
         let items = []
         let projects = []
@@ -333,18 +341,24 @@ export async function fetchFormDataInCreate(): Promise<{
             default_station = data.default_station
         }
 
+        if(data.auditors) {
+            auditors = data.auditors
+        }
+
         return {
             employees,
             stations,
             items,
             projects,
             default_station,
+            auditors,
         }
 
     } catch (error) {
         console.error(error);
         return {
             employees: [],
+            auditors: [],
             stations: [],
             items: [],
             projects: [],
@@ -357,6 +371,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
 export async function fetchFormDataInUpdate(id: string): Promise<{
     employees: Employee[],
+    auditors: Employee[],
     stations: Station[],
     items: Item[],
     projects: Project[],
@@ -436,7 +451,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     }
                 }
             },
-            employees(page: 1, pageSize: 10) {
+            employees(page: 1, pageSize: 500) {
                 data {
                     id
                     firstname
@@ -444,7 +459,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
+            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
                 data{
                     id
                     code
@@ -471,6 +486,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 id 
                 name
             },
+            auditors {
+                id 
+                firstname
+                middlename
+                lastname
+            }
         }
     `;
 
@@ -479,6 +500,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         console.log('response', response)
 
         let employees: Employee[] = []
+        let auditors: Employee[] = []
         let stations: Station[] = []
         let items: Item[] = []
         let projects: Project[] = []
@@ -503,12 +525,16 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             items = response.data.data.items.data
         }
 
-        if (data.stations && data.stations) {
+        if (data.stations) {
             stations = data.stations
         }
 
-        if (data.projects && data.projects) {
+        if (data.projects) {
             projects = data.projects
+        }
+
+        if (data.auditors) {
+            auditors = data.auditors
         }
 
         return {
@@ -517,6 +543,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             stations,
             items,
             projects,
+            auditors,
         }
 
     } catch (error) {
@@ -524,6 +551,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         return {
             mrv: undefined,
             employees: [],
+            auditors: [],
             stations: [],
             items: [],
             projects: [],
