@@ -389,6 +389,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                         firstname
                         middlename
                         lastname
+                        rank_number
                     }
                     date_approval 
                     notes
@@ -425,9 +426,10 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
             },
-            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.OFFICE_SUPPLY}") {
+            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.OFFICE_SUPPLY}") {
                 data{
                     id
                     code

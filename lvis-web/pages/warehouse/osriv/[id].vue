@@ -113,7 +113,14 @@
                             </div>
                         </div>
 
-                        <WarehouseUpdateApprovers :supervisor_orders="[1]" :disabled_orders="[2]" :is-updating="isChangingApprover" :approvers="approvers" :employees="employees" @change-approver="handleChangeApprover"/>
+                        <WarehouseUpdateApprovers
+                          :supervisor_orders="[1]"
+                          :disabled_orders="[2]"
+                          :is-updating="isChangingApprover"
+                          :approvers="approvers"
+                          :employees="employees"
+                          :supervisors="supervisors"
+                          @change-approver="handleChangeApprover" />
                     </div>
                 </div>
 

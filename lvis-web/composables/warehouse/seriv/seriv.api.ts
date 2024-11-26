@@ -251,7 +251,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
+            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
                 data{
                     id
                     code
@@ -270,12 +270,13 @@ export async function fetchFormDataInCreate(): Promise<{
                     GWAPrice
                 }
             },
-            employees(page: 1, pageSize: 300) {
+            employees(page: 1, pageSize: 500) {
                 data{
                     id
                     firstname
                     middlename
                     lastname
+                    rank_number
                 }
             },
             stations {
@@ -285,7 +286,6 @@ export async function fetchFormDataInCreate(): Promise<{
             default_station {
                 id 
                 name
-                location
             },
             warehouse_custodian {
                 id 
