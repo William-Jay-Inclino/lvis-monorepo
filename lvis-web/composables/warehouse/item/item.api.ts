@@ -514,7 +514,7 @@ export async function fetchItemsByCode(payload: string): Promise<Item[]> {
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
         }
-        return response.data.data.itemsByCodeOrName
+        return response.data.data.itemsByCode
 
     } catch (error) {
         console.error(error);

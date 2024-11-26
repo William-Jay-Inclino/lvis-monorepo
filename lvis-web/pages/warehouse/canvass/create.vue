@@ -247,9 +247,11 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 
 async function handleSearchedItems(searchedItems: Item[]) {
 
-    console.log('handleSearchedItems');
+    console.log('handleSearchedItems', searchedItems);
 
-    items.value = searchedItems.map(i => ({ ...i, label: `${i.code} - ${i.description}` }))
+    if(searchedItems.length > 0) {
+        items.value = searchedItems.map(i => ({ ...i, label: `${i.code} - ${i.description}` }))
+    }
 
 }
 

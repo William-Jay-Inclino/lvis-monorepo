@@ -113,7 +113,7 @@
                                 Item <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select @search="handleSearchItems" :options="items" label="label" v-model="canvassItem.item"
+                                <v-select @search="handleSearchItems" :options="availableItems" label="label" v-model="canvassItem.item"
                                     @option:selected="onChangeItem" :clearable="false"></v-select>
                             </client-only>
                             <small class="text-muted fst-italic"> Enter item code or name </small>
@@ -257,6 +257,12 @@ onMounted(() => {
 
 })
 
+const availableItems = computed(() => {
+    return props.items.filter(
+        (item) => !props.canvassItems.some((canvassItem) => canvassItem.item?.id === item.id)
+    );
+});
+
 function addItem() {
 
     if (!isValidCanvassItem()) {
@@ -336,6 +342,7 @@ function onChangeItem() {
 
 async function handleSearchItems(input: string, loading: (status: boolean) => void ) {
 
+
     if(input.trim() === ''){
         emits("searchedItems", [])
         return 
@@ -353,6 +360,8 @@ async function searchItems(input: string, loading: (status: boolean) => void) {
 
     try {
         const response = await fetchItemsByCode(input);
+
+        console.log('response', response);
         emits("searchedItems", response)
         
     } catch (error) {
