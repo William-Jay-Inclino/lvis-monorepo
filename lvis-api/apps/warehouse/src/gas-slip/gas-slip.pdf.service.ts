@@ -249,7 +249,7 @@ export class GasSlipPdfService {
                                             <td> ${formatDate(immediate_superior.date_approval, true)} </td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: center; position: relative; font-size: 10pt;">
+                                            <th style="text-align: center; position: relative; font-size: 10pt; padding: 5px 5px;">
                                                 <u style="position: relative; z-index: 1; margin-bottom: 9px;">
                                                     ${
                                                         // @ts-ignore
@@ -283,7 +283,7 @@ export class GasSlipPdfService {
                                             <td> ${formatDate(department_head.date_approval, true)} </td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: center; position: relative; font-size: 10pt;">
+                                            <th style="text-align: center; position: relative; font-size: 10pt; padding: 5px 5px;">
                                                 <u style="position: relative; z-index: 1; margin-bottom: 9px;">
                                                     ${
                                                         // @ts-ignore
