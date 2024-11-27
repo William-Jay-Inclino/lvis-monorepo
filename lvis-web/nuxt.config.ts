@@ -19,16 +19,12 @@ export default defineNuxtConfig({
               { charset: 'utf-8' },
               { name: 'author', content: 'William Jay Inclino' },
               { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-              // Add any other meta tags here
           ],
           link: [
               { rel: 'author', href: 'https://www.facebook.com/jewell.inclino' },
-              // { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' },
-            //   { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css' },
           ],
-          script: [
-              // { src: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js", type: "text/javascript" }
-          ],
+        //   script: [
+        //   ],
       }
   },
 
@@ -47,8 +43,14 @@ export default defineNuxtConfig({
 
   // pages: true,
   build: {
-      transpile: ['vue-toastification']
+      transpile: ['vue-toastification'],
   },
 
-  compatibilityDate: '2024-10-01',
+  vite: {
+    esbuild: {
+        drop: ['debugger'],
+        pure: ['console.log', 'console.debug', 'console.trace'],
+    }
+  }
+
 })

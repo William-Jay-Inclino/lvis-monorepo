@@ -9,6 +9,7 @@
     "reinstall": "pnpm run clean:node_modules && pnpm install",
     "build": "pnpm run clean:nuxt && nuxt build",
     "start:dev": "nuxt dev",
+    "start:prod": "nuxt start",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
