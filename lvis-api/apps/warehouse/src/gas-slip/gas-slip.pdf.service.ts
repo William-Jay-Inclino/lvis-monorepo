@@ -68,6 +68,8 @@ export class GasSlipPdfService {
                     font-size: 10pt;
                 }
                 .column {
+                    position: relative;
+                    z-index: 1;
                     width: 48%; /* Leave some space between the columns */
                     padding: 10px;
                     box-sizing: border-box;
@@ -89,13 +91,35 @@ export class GasSlipPdfService {
                     width: 50px;
                     margin-right: 10px;
                 }
+                .watermark-container {
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .watermark {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) rotate(-30deg); /* Slanting the watermark */
+                    font-size: 60pt; /* Large font size to cover the column */
+                    font-weight: bold;
+                    color: rgba(0, 0, 0, 0.1); /* More transparent */
+                    white-space: nowrap;
+                    z-index: 0;
+                    user-select: none; 
+                    pointer-events: none; 
+                }
             </style>
         
             <div class="container">
 
                 ${ columns.map( (item, indx) =>  `
 
-                    <div class="column">
+                    <div class="column ${indx === 0 ? 'watermark-container' : ''}">
+
+                        ${indx === 0 ? `
+                        <div class="watermark">ORIGINAL</div>
+                        ` : ''}
     
                         <div class="content-header">
                             <div class="logo-container">
