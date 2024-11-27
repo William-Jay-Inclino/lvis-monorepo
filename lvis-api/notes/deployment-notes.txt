@@ -48,7 +48,7 @@ inside backup folder create folders:
 - "warehouse_db"
 
 
-7. open crontab -e and paste 
+7. open crontab -e and paste (open as sudo)
 
 0 2 * * * /home/jay/Documents/projects/leyeco/lvis/scripts/system_db_backup.sh
 0 2 * * * /home/jay/Documents/projects/leyeco/lvis/scripts/warehouse_db_backup.sh
