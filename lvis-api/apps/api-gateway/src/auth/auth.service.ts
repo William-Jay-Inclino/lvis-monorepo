@@ -1,7 +1,6 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { HttpService } from '@nestjs/axios';
-import { catchError, firstValueFrom } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { USER_STATUS } from '../__common__/types';
 import axios from 'axios';
@@ -15,12 +14,11 @@ export class AuthService {
 
     constructor(
         private readonly jwtService: JwtService,
-        private readonly httpService: HttpService
     ) { }
 
     async validateUser(username: string, password: string): Promise<User> {
 
-        const user = await this.findByUserName(username);
+        const user = await this.getUserByUsername(username);
 
         if (user) {
             const decryptedPassword = decrypt_password(user.password, this.secretKey);
@@ -60,47 +58,18 @@ export class AuthService {
             });
 
         } catch (error) {
-            
+            throw new Error(`Error creating user audit log: ${error}`)
 
         }
     }
 
-    private async findByUserName(username: string): Promise<User> {
-        const query = `
-            query{
-                getUserByUserName(username: "${username}") {
-                    id
-                    username
-                    password
-                    status
-                    role
-                    permissions
-                    user_employee {
-                        employee {
-                            id
-                            is_budget_officer
-                            is_finance_manager
-                            total_pending_approvals
-                        }
-                    }
-                }
-            }
-        `;
-
-        const { data } = await firstValueFrom(
-            this.httpService.post(process.env.API_GATEWAY_URL, { query }).pipe(
-                catchError((error) => {
-                    throw error
-                }),
-            ),
-        );
-
-        if (!data || !data.data || !data.data.getUserByUserName) {
-            throw new UnauthorizedException("Unauthorized User")
+    async getUserByUsername(username: string): Promise<User> {
+        try {
+          const response = await axios.get(`${process.env.SYSTEM_API_URL}/user/get-user-by-username/${username}`);
+          return response.data
+        } catch (error) {
+            throw new Error(`Error in getting user: ${ error }`)
         }
-
-        return data.data.getUserByUserName
-
-    }
+      }
 
 }

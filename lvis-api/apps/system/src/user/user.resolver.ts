@@ -17,7 +17,10 @@ export class UserResolver {
 
   private readonly logger = new Logger(UserResolver.name);
 
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {
+
+    console.log('User resolver');
+  }
 
   @Query(() => User)
   async validateUserId(@Args('id') id: string) {

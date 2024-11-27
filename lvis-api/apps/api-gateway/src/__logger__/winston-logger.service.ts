@@ -22,7 +22,7 @@ export class WinstonLoggerService implements LoggerService {
         }),
         // Log to a file with daily rotation (no automatic deletion)
         new WinstonDailyRotateFile({
-          filename: 'logs/system/combined-%DATE%.log', // Logs will be rotated daily
+          filename: 'logs/api-gateway/combined-%DATE%.log', // Logs will be rotated daily
           datePattern: 'YYYY-MM-DD', // Date format for daily logs
           maxSize: '20m', // Maximum size before rotating (e.g., 20MB)
           // Do not set `maxFiles`, so the log files will not be automatically deleted
@@ -30,7 +30,7 @@ export class WinstonLoggerService implements LoggerService {
         // Separate file for error logs with daily rotation (no automatic deletion)
         new WinstonDailyRotateFile({
           level: 'error',
-          filename: 'logs/system/error-%DATE%.log',
+          filename: 'logs/api-gateway/error-%DATE%.log',
           datePattern: 'YYYY-MM-DD',
           maxSize: '20m',
           // Do not set `maxFiles`, so the log files will not be automatically deleted

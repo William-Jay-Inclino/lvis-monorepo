@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Req, Get, Body } from '@nestjs/common';
+import { Controller, UseGuards, Post, Req, Get, Body, Logger } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
@@ -9,18 +9,33 @@ import { UserLogEventType } from 'apps/system/prisma/generated/client';
 @Controller('auth')
 export class AuthController {
 
+  private readonly logger = new Logger(AuthController.name);
+  private filename = 'auth.controller.ts'
+
     constructor(
         private readonly authService: AuthService
     ) { }
 
     @UseGuards(LocalAuthGuard)
     @Post('login')
-    login(@Req() req: Request) {
+    async login(@Req() req: Request) {
 
+        // @ts-ignore
+        const username = req.user.username
+        const log_info = `User: ${username} | File: ${this.filename} | Function: login`
         const ip_address = req.socket.remoteAddress || req.ip;
         const deviceInfo = this.getDeviceInfo(req);
+        const log_data = { ip_address, deviceInfo }
 
-        return this.authService.login(req.user as User, ip_address, deviceInfo);
+        try {
+            
+            this.logger.log(log_info, JSON.stringify(log_data))
+            return await this.authService.login(req.user as User, ip_address, deviceInfo);
+
+        } catch (error) {
+            this.logger.error(log_info, error)
+        }
+
     }
 
     @Post('logout')
@@ -28,8 +43,16 @@ export class AuthController {
 
         const ip_address = req.socket.remoteAddress || req.ip;
         const deviceInfo = this.getDeviceInfo(req);
+        const log_info = `User ID: ${user_id} | File: ${this.filename} | Function: logout`
+        const log_data = { ip_address, deviceInfo }
 
-        return await this.authService.audit_log(user_id, ip_address, deviceInfo, UserLogEventType.LOGOUT)
+        try {
+            this.logger.log(log_info, JSON.stringify(log_data))
+            return await this.authService.audit_log(user_id, ip_address, deviceInfo, UserLogEventType.LOGOUT)
+        } catch (error) {
+            this.logger.error(log_info, error)
+        }
+
     }
 
     private getDeviceInfo(req: Request) {
