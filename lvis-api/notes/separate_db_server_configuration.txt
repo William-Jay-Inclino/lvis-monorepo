@@ -1,0 +1,54 @@
+1. Setup docker compose environment and command:
+
+    environment:
+      POSTGRES_USER: jay
+      POSTGRES_PASSWORD: jay123
+      POSTGRES_HOST_AUTH_METHOD: md5
+    command: postgres -c "listen_addresses=*"
+
+2. Restart the container:
+Run: docker restart docker-lvis-db-1
+
+
+3. Modify pg_hba.conf
+Run: docker exec -it docker-lvis-db-1 bash -c "echo 'host all all 0.0.0.0/0 md5' >> /var/lib/postgresql/data/pg_hba.conf"
+
+
+4. Restart the container:
+Run: docker restart docker-lvis-db-1
+
+
+Verify the changes: 
+Run: docker exec -it docker-lvis-db-1 bash -c "cat /var/lib/postgresql/data/postgresql.conf | grep listen_addresses"
+
+It should output:
+listen_addresses = '*'
+
+
+5. Verify pg_hba.conf Configuration
+Ensure PostgreSQL allows connections from any IP by checking or appending to pg_hba.conf:
+Run this command to append the necessary rule:
+docker exec -it docker-lvis-db-1 bash -c "echo 'host all all 0.0.0.0/0 md5' >> /var/lib/postgresql/data/pg_hba.conf"
+
+to Verify:
+docker exec -it docker-lvis-db-1 bash -c "cat /var/lib/postgresql/data/pg_hba.conf | grep '0.0.0.0/0'"
+
+You should see:
+host all all 0.0.0.0/0 md5
+
+
+6. Restart the container again:
+docker restart docker-lvis-db-1
+
+
+
+7. Check the Firewall on db server 
+Make sure port 5435 (the port set in docker compose file) is open 
+Run: 
+sudo ufw allow 5435/tcp
+sudo ufw reload
+
+
+
+To find the ip address run: 
+hostname -I
