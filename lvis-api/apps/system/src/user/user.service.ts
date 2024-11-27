@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { UpdateUserInput } from './dto/update-user.input';
@@ -11,7 +11,6 @@ import { decrypt_password, encrypt_password } from '../__common__/helpers';
 @Injectable()
 export class UserService {
 
-  private readonly logger = new Logger(UserService.name);
   private authUser: AuthUser
   private readonly secretKey = process.env.CRYPTO_SECRET_KEY;
 

@@ -1,9 +1,4 @@
-import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
-// import { RVApprover } from '../../rv-approver/entities/rv-approver.entity';
-// import { MEQSApprover } from '../../meqs-approver/entities/meqs-approver.entity';
-// import { POApprover } from '../../po-approver/entities/po-approver.entity';
-// import { RrApprover } from '../../rr-approver/entities/rr-approver.entity';
-// import { Pending } from '../../pending/entities/pending.entity';
+import { ObjectType, Field, ID, Directive, Int } from '@nestjs/graphql';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -11,6 +6,9 @@ export class Employee {
 
   @Field(() => ID)
   id: string;
+
+  @Field(() => Int)
+  total_pending_approvals: number
 
   // @Field()
   // firstname: string;

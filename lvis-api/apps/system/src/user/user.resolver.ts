@@ -16,11 +16,9 @@ import { ChangePwResponse } from './entities/change-pw-response.entity';
 export class UserResolver {
 
   private readonly logger = new Logger(UserResolver.name);
+  private filename = 'user.resolver.ts'
 
-  constructor(private readonly userService: UserService) {
-
-    console.log('User resolver');
-  }
+  constructor(private readonly userService: UserService) {}
 
   @Query(() => User)
   async validateUserId(@Args('id') id: string) {
@@ -33,12 +31,29 @@ export class UserResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => User)
-  createUser(
+  async createUser(
     @Args('input') input: CreateUserInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.userService.setAuthUser(authUser)
-    return this.userService.create(input);
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'createUser',
+        input: JSON.stringify(input)
+      })
+      
+      this.userService.setAuthUser(authUser)
+
+      const x = await this.userService.create(input);
+      
+      this.logger.log('User created successfully')
+
+      return x
+
+    } catch (error) {
+      this.logger.error('Error in creating user', error)
+    }
   }
 
   @UseGuards(GqlAuthGuard)
@@ -69,45 +84,113 @@ export class UserResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => User)
-  updateUser(
+  async updateUser(
     @Args('id') id: string,
     @Args('input') input: UpdateUserInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.userService.setAuthUser(authUser)
-    return this.userService.update(id, input);
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'updateUser',
+        user_id: id,
+        input: JSON.stringify(input),
+      })
+      
+      this.userService.setAuthUser(authUser)
+      const x = await this.userService.update(id, input);
+
+      this.logger.log('User updated successfully')
+
+      return x
+    } catch (error) {
+      this.logger.error('Error in updating user', error)
+    }
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => ChangePwResponse)
-  change_password(
+  async change_password(
     @Args('user_id') user_id: string,
     @Args('password') password: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.userService.setAuthUser(authUser)
-    return this.userService.change_password(user_id, password);
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'change_password',
+        user_id,
+        password,
+      })
+      
+      this.userService.setAuthUser(authUser)
+      const x = await this.userService.change_password(user_id, password);
+
+      this.logger.log('Password changed successfully')
+
+      return x
+    } catch (error) {
+      this.logger.error('Error in changing password', error)
+    }
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => ChangePwResponse)
-  change_own_password(
+  async change_own_password(
     @Args('current_pw') current_pw: string,
     @Args('new_pw') new_pw: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.userService.setAuthUser(authUser)
-    return this.userService.change_own_password(new_pw, current_pw)
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'change_own_password',
+        current_pw,
+        new_pw,
+      })
+      
+      this.userService.setAuthUser(authUser)
+      const x = await this.userService.change_own_password(new_pw, current_pw);
+
+      this.logger.log('Own Password changed successfully')
+
+      return x
+    } catch (error) {
+      this.logger.error('Error in changing own password', error)
+    }
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => SystemRemoveResponse)
-  removeUser(
+  async removeUser(
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.userService.setAuthUser(authUser)
-    return this.userService.remove(id);
+    try {
+
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'removeUser',
+        user_id: id,
+      })
+
+      this.userService.setAuthUser(authUser)
+      const x = await this.userService.remove(id);
+      
+      this.logger.log('User removed successfully')
+      
+      return x 
+
+    } catch (error) {
+      this.logger.error('Error in removing user', error)
+    }
   }
 
   @Query(() => Boolean)

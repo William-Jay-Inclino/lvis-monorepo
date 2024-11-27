@@ -63,7 +63,7 @@
                                 <label class="form-label">
                                     Rank Number <span class="text-danger">*</span>
                                 </label>
-                                <input type="number" class="form-control" v-model="formData.rank_number" required>
+                                <input type="number" class="form-control" v-model="formData.rank_number" required min="0"
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">

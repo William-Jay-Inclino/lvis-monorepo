@@ -39,8 +39,15 @@ export class AccountResolver {
         function: RESOLVERS.createAccount,
         input: JSON.stringify(createAccountInput)
       })
+      
       this.accountService.setAuthUser(authUser)
-      return await this.accountService.create(createAccountInput);
+
+      const x = await this.accountService.create(createAccountInput);
+      
+      this.logger.log('Account created successfully')
+
+      return x
+
     } catch (error) {
       this.logger.error('Error in creating account', error)
     }
@@ -51,13 +58,6 @@ export class AccountResolver {
   async accounts(@CurrentAuthUser() authUser: AuthUser) {
 
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.accounts,
-      })
-
       return await this.accountService.findAll();
 
     } catch (error) {
@@ -72,13 +72,6 @@ export class AccountResolver {
     @CurrentAuthUser() authUser: AuthUser
   ) {
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.account,
-        account_id: id,
-      })
       
       return await this.accountService.findOne(id);
 
@@ -107,8 +100,11 @@ export class AccountResolver {
       })
       
       this.accountService.setAuthUser(authUser)
-      return await this.accountService.update(id, updateAccountInput);
+      const x = await this.accountService.update(id, updateAccountInput);
 
+      this.logger.log('Account updated successfully')
+
+      return x
     } catch (error) {
       this.logger.error('Error in updating account', error)
     }
@@ -133,8 +129,12 @@ export class AccountResolver {
       })
 
       this.accountService.setAuthUser(authUser)
-      return await this.accountService.remove(id);
+      const x = await this.accountService.remove(id);
       
+      this.logger.log('Account removed successfully')
+      
+      return x 
+
     } catch (error) {
       this.logger.error('Error in removing account', error)
     }

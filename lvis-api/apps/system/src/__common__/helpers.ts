@@ -49,6 +49,13 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.updateDepartment]: systemPermissions.canManageDepartment?.update ?? false,
             [RESOLVERS.removeDepartment]: systemPermissions.canManageDepartment?.delete ?? false,
         },
+        [MODULES.DIVISION]: {
+            [RESOLVERS.createDivision]: systemPermissions.canManageDivision?.create ?? false,
+            // [RESOLVERS.departments]: systemPermissions.canManageDepartment?.read ?? false,
+            // [RESOLVERS.department]: systemPermissions.canManageDepartment?.read ?? false,
+            [RESOLVERS.updateDivision]: systemPermissions.canManageDivision?.update ?? false,
+            [RESOLVERS.removeDivision]: systemPermissions.canManageDivision?.delete ?? false,
+        },
         [MODULES.EMPLOYEE]: {
             [RESOLVERS.createEmployee]: systemPermissions.canManageEmployee?.create ?? false,
             // [RESOLVERS.employees]: systemPermissions.canManageEmployee?.read ?? false,

@@ -3,7 +3,7 @@ import { EmployeeService } from './employee.service';
 import { Employee } from './entities/employee.entity';
 import { CreateEmployeeInput } from './dto/create-employee.input';
 import { UpdateEmployeeInput } from './dto/update-employee.input';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { EmployeesResponse } from './entities/employees-response.entity';
@@ -18,17 +18,38 @@ import { USER_GROUP } from '../__common__/constants';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Employee)
 export class EmployeeResolver {
+
+  private readonly logger = new Logger(EmployeeResolver.name);
+  private filename = 'employee.resolver.ts'
+
   constructor(private readonly employeeService: EmployeeService) { }
 
   @Mutation(() => Employee)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.EMPLOYEE, RESOLVERS.createEmployee)
-  createEmployee(
+  async createEmployee(
     @Args('input') createEmployeeInput: CreateEmployeeInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.employeeService.setAuthUser(authUser)
-    return this.employeeService.create(createEmployeeInput);
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.createEmployee,
+        input: JSON.stringify(createEmployeeInput)
+      })
+      
+      this.employeeService.setAuthUser(authUser)
+
+      const x = await this.employeeService.create(createEmployeeInput);
+      
+      this.logger.log('Employee created successfully')
+
+      return x
+
+    } catch (error) {
+      this.logger.error('Error in creating employee', error)
+    }
   }
 
   @Query(() => EmployeesResponse)
@@ -75,24 +96,58 @@ export class EmployeeResolver {
   @Mutation(() => Employee)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.EMPLOYEE, RESOLVERS.updateEmployee)
-  updateEmployee(
+  async updateEmployee(
     @Args('id') id: string,
     @Args('input') updateEmployeeInput: UpdateEmployeeInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.employeeService.setAuthUser(authUser)
-    return this.employeeService.update(id, updateEmployeeInput);
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.updateEmployee,
+        employee_id: id,
+        input: JSON.stringify(updateEmployeeInput),
+      })
+      
+      this.employeeService.setAuthUser(authUser)
+      const x = await this.employeeService.update(id, updateEmployeeInput);
+
+      this.logger.log('Employee updated successfully')
+
+      return x
+    } catch (error) {
+      this.logger.error('Error in updating employee', error)
+    }
   }
 
   @Mutation(() => SystemRemoveResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.EMPLOYEE, RESOLVERS.removeEmployee)
-  removeEmployee(
+  async removeEmployee(
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.employeeService.setAuthUser(authUser)
-    return this.employeeService.remove(id);
+    try {
+
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.removeEmployee,
+        employee_id: id,
+      })
+
+      this.employeeService.setAuthUser(authUser)
+      const x = await this.employeeService.remove(id);
+      
+      this.logger.log('Employee removed successfully')
+      
+      return x 
+
+    } catch (error) {
+      this.logger.error('Error in removing employee', error)
+    }
   }
 
   @ResolveReference()

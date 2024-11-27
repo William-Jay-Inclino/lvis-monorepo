@@ -85,7 +85,6 @@ export async function findOne(id: string): Promise<User | undefined> {
                             code 
                             name
                         }
-                        total_pending_approvals
                         is_budget_officer
                         is_finance_manager
                     }

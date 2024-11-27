@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateClassificationInput } from './dto/create-classification.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Classification, Prisma } from 'apps/system/prisma/generated/client';
@@ -9,7 +9,6 @@ import { AuthUser } from '../__common__/auth-user.entity';
 @Injectable()
 export class ClassificationService {
 
-	private readonly logger = new Logger(ClassificationService.name);
 	private authUser: AuthUser
 
 	constructor(private readonly prisma: PrismaService) { }

@@ -29,6 +29,14 @@ export enum RESOLVERS {
     removeDepartment = 'removeDepartment',
 
 
+    // ========= DIVISION ========= 
+    createDivision = 'createDivision',
+    divisions = 'divisions',
+    division = 'division',
+    updateDivision = 'updateDivision',
+    removeDivision = 'removeDivision',
+
+
     // ========= EMPLOYEE ========= 
     createEmployee = 'createEmployee',
     employees = 'employees',

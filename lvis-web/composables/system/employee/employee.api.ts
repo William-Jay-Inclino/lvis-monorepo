@@ -96,7 +96,6 @@ export async function create(input: CreateEmployeeInput): Promise<MutationRespon
 
     const signature_src = (input.signature_src && input.signature_src.trim() !== '') ? `"${input.signature_src}"` : null
     const division_id = input.division ? `"${input.division.id}"` : null
-    const rank = input.rank_number === 0 ? null : input.rank_number
     const name_prefix = input.name_prefix.trim() === '' ? null : `"${input.name_prefix}"`
     const name_suffix = input.name_suffix.trim() === '' ? null : `"${input.name_suffix}"`
 
@@ -104,7 +103,7 @@ export async function create(input: CreateEmployeeInput): Promise<MutationRespon
         mutation {
             createEmployee(input: {
                 employee_number: "${input.employee_number}",
-                rank_number: ${rank},
+                rank_number: ${input.rank_number},
                 firstname: "${input.firstname}",
                 middlename: "${input.middlename}",
                 lastname: "${input.lastname}",
@@ -151,7 +150,6 @@ export async function update(id: string, input: CreateEmployeeInput): Promise<Mu
 
     const signature_src = (input.signature_src && input.signature_src.trim() !== '') ? `"${input.signature_src}"` : null
     const division_id = input.division ? `"${input.division.id}"` : null
-    const rank = input.rank_number === 0 ? null : input.rank_number
     const name_prefix = input.name_prefix.trim() === '' ? null : `"${input.name_prefix}"`
     const name_suffix = input.name_suffix.trim() === '' ? null : `"${input.name_suffix}"`
 
@@ -159,7 +157,7 @@ export async function update(id: string, input: CreateEmployeeInput): Promise<Mu
         mutation {
             updateEmployee(id: "${id}", input: {
                 employee_number: "${input.employee_number}",
-                rank_number: ${rank},
+                rank_number: ${input.rank_number},
                 firstname: "${input.firstname}",
                 middlename: "${input.middlename}",
                 lastname: "${input.lastname}",

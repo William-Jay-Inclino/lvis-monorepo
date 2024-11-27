@@ -54,6 +54,12 @@ export interface SystemPermissions {
         update?: boolean,
         delete?: boolean,
     },
+    canManageDivision?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
     canManageEmployee?: {
         create?: boolean,
         read?: boolean,
