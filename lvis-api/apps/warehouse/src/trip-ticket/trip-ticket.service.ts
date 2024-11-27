@@ -16,6 +16,7 @@ import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { Employee } from '../__employee__/entities/employee.entity';
+import { endOfYear, startOfYear } from 'date-fns';
 
 @Injectable()
 export class TripTicketService {
@@ -279,6 +280,17 @@ export class TripTicketService {
 		if (driver_id) filters.driver_id = driver_id;
 		if (date_prepared) filters.created_at = { gte: new Date(date_prepared) };
 		if (estimated_departure) filters.start_time = { gte: new Date(estimated_departure) };
+
+        // Default to current year's records if neither filter is provided
+        if (!vehicle_id && !driver_id && !date_prepared && !estimated_departure) {
+            const startOfYearDate = startOfYear(new Date());
+            const endOfYearDate = endOfYear(new Date());
+
+            filters.created_at = {
+                gte: startOfYearDate,
+                lte: endOfYearDate,
+            };
+        }
 	  
 		const [totalItems, tripTickets] = await this.prisma.$transaction([
 		  this.prisma.tripTicket.count({ where: filters }),

@@ -12,6 +12,7 @@ import { MCRTsResponse } from './entities/mcrts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { endOfYear, startOfYear } from 'date-fns';
 
 @Injectable()
 export class McrtService {
@@ -323,6 +324,17 @@ export class McrtService {
                 lte: endDate,
             };
 
+        }
+
+        // Default to current year's records if neither filter is provided
+        if (!date_requested) {
+            const startOfYearDate = startOfYear(new Date());
+            const endOfYearDate = endOfYear(new Date());
+
+            whereCondition.created_at = {
+                gte: startOfYearDate,
+                lte: endOfYearDate,
+            };
         }
         
         // whereCondition.cancelled_at = {

@@ -13,6 +13,7 @@ import { WarehouseCancelResponse } from '../__common__/classes';
 import { CreateMeqsApproverSubInput } from './dto/create-meqs-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { endOfYear, startOfYear } from 'date-fns';
 
 @Injectable()
 export class MeqsService {
@@ -384,6 +385,17 @@ export class MeqsService {
                 { rv: { canvass: { requested_by_id: requested_by_id } } },
                 { spr: { canvass: { requested_by_id: requested_by_id } } }
             ];
+        }
+
+        // Default to current year's records if neither filter is provided
+        if (!date_requested && !requested_by_id) {
+            const startOfYearDate = startOfYear(new Date());
+            const endOfYearDate = endOfYear(new Date());
+
+            whereCondition.created_at = {
+                gte: startOfYearDate,
+                lte: endOfYearDate,
+            };
         }
 
         // whereCondition.cancelled_at = {

@@ -14,6 +14,7 @@ import { UpdatePoByFinanceManagerInput } from './dto/update-po-by-finance-manage
 import { CreatePoApproverSubInput } from './dto/create-po-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { endOfYear, startOfYear } from 'date-fns';
 
 @Injectable()
 export class PoService {
@@ -275,6 +276,17 @@ export class PoService {
                 { meqs_supplier: { meqs: { rv: { canvass: { requested_by_id: requested_by_id } } } } },
                 { meqs_supplier: { meqs: { spr: { canvass: { requested_by_id: requested_by_id } } } } }
             ];
+        }
+
+        // Default to current year's records if neither filter is provided
+        if (!date_requested && !requested_by_id) {
+            const startOfYearDate = startOfYear(new Date());
+            const endOfYearDate = endOfYear(new Date());
+
+            whereCondition.created_at = {
+                gte: startOfYearDate,
+                lte: endOfYearDate,
+            };
         }
 
         // whereCondition.cancelled_at = {

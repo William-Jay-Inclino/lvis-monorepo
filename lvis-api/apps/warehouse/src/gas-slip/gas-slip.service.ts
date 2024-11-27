@@ -15,6 +15,7 @@ import { VEHICLE_CLASSIFICATION } from '../vehicle/entities/vehicle.enums';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { UpdateGasSlipInput } from './dto/update-gas-slip.input';
+import { endOfYear, startOfYear } from 'date-fns';
 
 @Injectable()
 export class GasSlipService {
@@ -171,6 +172,17 @@ export class GasSlipService {
 	  
 		const filters: any = {};
 		if (vehicle_id) filters.vehicle_id = vehicle_id;
+
+		// Default to current year's records if neither filter is provided
+		if (!vehicle_id) {
+			const startOfYearDate = startOfYear(new Date());
+			const endOfYearDate = endOfYear(new Date());
+
+			filters.created_at = {
+				gte: startOfYearDate,
+				lte: endOfYearDate,
+			};
+		}
 	  
 		const [totalItems, gasSlips] = await this.prisma.$transaction([
 		  this.prisma.gasSlip.count({ where: filters }),

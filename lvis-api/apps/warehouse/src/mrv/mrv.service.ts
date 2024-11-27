@@ -13,6 +13,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { CreateMrvItemSubInput } from './dto/create-mrv-item.sub.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { endOfYear, startOfYear } from 'date-fns';
 
 @Injectable()
 export class MrvService {
@@ -297,6 +298,17 @@ export class MrvService {
 
         if (requested_by_id) {
             whereCondition = { ...whereCondition, requested_by_id }
+        }
+
+        // Default to current year's records if neither filter is provided
+        if (!date_requested && !requested_by_id) {
+            const startOfYearDate = startOfYear(new Date());
+            const endOfYearDate = endOfYear(new Date());
+
+            whereCondition.created_at = {
+                gte: startOfYearDate,
+                lte: endOfYearDate,
+            };
         }
 
         const [items, totalItems] = await this.prisma.$transaction([

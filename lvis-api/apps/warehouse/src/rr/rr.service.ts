@@ -13,6 +13,7 @@ import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/he
 import { CreateRrApproverSubInput } from './dto/create-rr-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { endOfYear, startOfYear } from 'date-fns';
 
 @Injectable()
 export class RrService {
@@ -210,6 +211,17 @@ export class RrService {
                 { po: { meqs_supplier: { meqs: { rv: { canvass: { requested_by_id: requested_by_id } } } } } },
                 { po: { meqs_supplier: { meqs: { spr: { canvass: { requested_by_id: requested_by_id } } } } } },
             ];
+        }
+
+        // Default to current year's records if neither filter is provided
+        if (!date_requested && !requested_by_id) {
+            const startOfYearDate = startOfYear(new Date());
+            const endOfYearDate = endOfYear(new Date());
+
+            whereCondition.created_at = {
+                gte: startOfYearDate,
+                lte: endOfYearDate,
+            };
         }
 
         // whereCondition.cancelled_at = {

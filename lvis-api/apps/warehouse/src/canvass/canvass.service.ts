@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { getDateRange, isAdmin } from '../__common__/helpers';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { startOfYear, endOfYear } from 'date-fns';
 
 @Injectable()
 export class CanvassService {
@@ -187,6 +188,17 @@ export class CanvassService {
         if (requested_by_id) {
             whereCondition.requested_by_id = {
                 equals: requested_by_id,
+            };
+        }
+
+        // Default to current year's records if neither filter is provided
+        if (!date_requested && !requested_by_id) {
+            const startOfYearDate = startOfYear(new Date());
+            const endOfYearDate = endOfYear(new Date());
+
+            whereCondition.created_at = {
+                gte: startOfYearDate,
+                lte: endOfYearDate,
             };
         }
 
