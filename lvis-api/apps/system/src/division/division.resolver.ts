@@ -24,17 +24,19 @@ export class DivisionResolver {
     @CurrentAuthUser() authUser: AuthUser
   ) {
 
-    const log_info = `User: ${authUser.user.username} | File: ${this.filename} | Resolver: createDivision`
-
     try {
       
-      this.logger.log(log_info, JSON.stringify(createDivisionInput))
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'createDivision',
+      })
   
       this.divisionService.setAuthUser(authUser)
       return await this.divisionService.create(createDivisionInput);
   
     } catch (error) {
-      this.logger.error(log_info, error)
+      this.logger.error('Error in creating division', error)
     }
 
 

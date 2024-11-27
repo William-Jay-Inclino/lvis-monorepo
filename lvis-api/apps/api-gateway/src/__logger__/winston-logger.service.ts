@@ -12,53 +12,55 @@ export class WinstonLoggerService implements LoggerService {
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.printf(
-          ({ timestamp, level, message }) => `${timestamp} [${level}]: ${message}`,
-        ),
+          ({ timestamp, level, message, context }) =>
+            `${timestamp} [${level}]: ${message} - Context: ${context || 'N/A'}`
+        )
       ),
       transports: [
-        // Log to console
-        new winston.transports.Console({
-          format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
-        }),
-        // Log to a file with daily rotation (no automatic deletion)
+        // Log to a file with daily rotation in JSON format
         new WinstonDailyRotateFile({
-          filename: 'logs/api-gateway/combined-%DATE%.log', // Logs will be rotated daily
-          datePattern: 'YYYY-MM-DD', // Date format for daily logs
-          maxSize: '20m', // Maximum size before rotating (e.g., 20MB)
-          // Do not set `maxFiles`, so the log files will not be automatically deleted
+          filename: 'logs/api-gateway/combined-%DATE%.log',
+          datePattern: 'YYYY-MM-DD',
+          maxSize: '20m',
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            winston.format.prettyPrint({ colorize: false }) // Formats JSON nicely with indentation
+          ),
         }),
-        // Separate file for error logs with daily rotation (no automatic deletion)
+        // Error logs in a separate file with JSON format
         new WinstonDailyRotateFile({
           level: 'error',
           filename: 'logs/api-gateway/error-%DATE%.log',
           datePattern: 'YYYY-MM-DD',
           maxSize: '20m',
-          // Do not set `maxFiles`, so the log files will not be automatically deleted
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            winston.format.prettyPrint({ colorize: false }) // Formats JSON nicely
+          ),
         }),
       ],
     });
 
     this.logger.info('Winston logger initialized successfully');
-    
   }
 
-  log(message: string, ctxt: any) {
-    this.logger.info(`${message} - Context: ${ctxt}`);
+  log(message: any) {
+    this.logger.info(message);
   }
 
   error(message: string, trace: string) {
-    this.logger.error(`${message} - Trace: ${trace}`);
+    this.logger.error({ message, trace });
   }
 
   warn(message: string) {
-    this.logger.warn(message);
+    this.logger.warn({ message });
   }
 
   debug(message: string) {
-    this.logger.debug(message);
+    this.logger.debug({ message });
   }
 
   verbose(message: string) {
-    this.logger.verbose(message);
+    this.logger.verbose({ message });
   }
 }

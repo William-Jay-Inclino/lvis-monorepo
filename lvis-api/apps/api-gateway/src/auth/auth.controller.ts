@@ -22,18 +22,23 @@ export class AuthController {
 
         // @ts-ignore
         const username = req.user.username
-        const log_info = `User: ${username} | File: ${this.filename} | Function: login`
         const ip_address = req.socket.remoteAddress || req.ip;
-        const deviceInfo = this.getDeviceInfo(req);
-        const log_data = { ip_address, deviceInfo }
+        const device_info = this.getDeviceInfo(req);
 
         try {
             
-            this.logger.log(log_info, JSON.stringify(log_data))
-            return await this.authService.login(req.user as User, ip_address, deviceInfo);
+            this.logger.log({
+                username,
+                ip_address,
+                device_info,
+                filename: this.filename,
+                function: 'login'
+            })
+
+            return await this.authService.login(req.user as User, ip_address, device_info);
 
         } catch (error) {
-            this.logger.error(log_info, error)
+            this.logger.error('Error in login', error)
         }
 
     }
@@ -42,15 +47,22 @@ export class AuthController {
     async logout(@Req() req: Request, @Body('user_id') user_id: string) {
 
         const ip_address = req.socket.remoteAddress || req.ip;
-        const deviceInfo = this.getDeviceInfo(req);
-        const log_info = `User ID: ${user_id} | File: ${this.filename} | Function: logout`
-        const log_data = { ip_address, deviceInfo }
+        const device_info = this.getDeviceInfo(req);
 
         try {
-            this.logger.log(log_info, JSON.stringify(log_data))
-            return await this.authService.audit_log(user_id, ip_address, deviceInfo, UserLogEventType.LOGOUT)
+
+            this.logger.log({
+                user_id,
+                ip_address,
+                device_info,
+                filename: this.filename,
+                function: 'logout'
+            })
+
+            return await this.authService.audit_log(user_id, ip_address, device_info, UserLogEventType.LOGOUT)
+            
         } catch (error) {
-            this.logger.error(log_info, error)
+            this.logger.error('Error in logout', error)
         }
 
     }

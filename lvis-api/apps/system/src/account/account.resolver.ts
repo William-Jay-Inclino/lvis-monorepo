@@ -17,6 +17,9 @@ import { RESOLVERS } from '../__common__/resolvers.enum';
 @Resolver(() => Account)
 export class AccountResolver {
 
+  private readonly logger = new Logger(AccountResolver.name);
+  private filename = 'account.resolver.ts'
+
   constructor(
     private readonly accountService: AccountService
   ) { }
@@ -29,43 +32,113 @@ export class AccountResolver {
     @CurrentAuthUser() authUser: AuthUser
   ) {
 
-    this.accountService.setAuthUser(authUser)
-    const account = await this.accountService.create(createAccountInput);
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.createAccount,
+        input: JSON.stringify(createAccountInput)
+      })
+      this.accountService.setAuthUser(authUser)
+      return await this.accountService.create(createAccountInput);
+    } catch (error) {
+      this.logger.error('Error in creating account', error)
+    }
 
-    return account
   }
 
   @Query(() => [Account])
-  accounts() {
-    return this.accountService.findAll();
+  async accounts(@CurrentAuthUser() authUser: AuthUser) {
+
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.accounts,
+      })
+
+      return await this.accountService.findAll();
+
+    } catch (error) {
+      this.logger.error('Error in getting accounts', error)
+    }
+
   }
 
   @Query(() => Account)
-  account(@Args('id') id: string) {
-    return this.accountService.findOne(id);
+  async account(
+    @Args('id') id: string,
+    @CurrentAuthUser() authUser: AuthUser
+  ) {
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.account,
+        account_id: id,
+      })
+      
+      return await this.accountService.findOne(id);
+
+    } catch (error) {
+      this.logger.error('Error in getting account', error)
+    }
   }
 
   @Mutation(() => Account)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.ACCOUNT, RESOLVERS.updateAccount)
-  updateAccount(
+  async updateAccount(
     @Args('id') id: string,
     @Args('input') updateAccountInput: UpdateAccountInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.accountService.setAuthUser(authUser)
-    return this.accountService.update(id, updateAccountInput);
+
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.updateAccount,
+        account_id: id,
+        input: JSON.stringify(updateAccountInput),
+      })
+      
+      this.accountService.setAuthUser(authUser)
+      return await this.accountService.update(id, updateAccountInput);
+
+    } catch (error) {
+      this.logger.error('Error in updating account', error)
+    }
+
   }
 
   @Mutation(() => SystemRemoveResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.ACCOUNT, RESOLVERS.removeAccount)
-  removeAccount(
+  async removeAccount(
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.accountService.setAuthUser(authUser)
-    return this.accountService.remove(id);
+
+    try {
+
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.removeAccount,
+        account_id: id,
+      })
+
+      this.accountService.setAuthUser(authUser)
+      return await this.accountService.remove(id);
+      
+    } catch (error) {
+      this.logger.error('Error in removing account', error)
+    }
+
   }
 
   @ResolveReference()
