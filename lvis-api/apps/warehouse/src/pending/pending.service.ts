@@ -1,23 +1,12 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { MRVItem, MSTItem, OSRIVItem, Pending, Prisma, PrismaClient, SERIVItem, MCRTItem as _MCRTItem } from 'apps/warehouse/prisma/generated/client';
+import { MRVItem, MSTItem, OSRIVItem, Pending, Prisma, SERIVItem, MCRTItem as _MCRTItem } from 'apps/warehouse/prisma/generated/client';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE } from '../__common__/types';
-import { DB_ENTITY, ITEM_TYPE_CODE, MODULE_MAPPER, ModuleMapping } from '../__common__/constants';
+import { DB_ENTITY, ITEM_TYPE_CODE, ModuleMapping } from '../__common__/constants';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { RrApproverStatusUpdated } from '../rr-approver/events/rr-approver-status-updated.event';
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { OsrivApproverStatusUpdated } from '../osriv-approver/events/osriv-approver-status-updated.event';
-import { SerivApproverStatusUpdated } from '../seriv-approver/events/seriv-approver-status-updated.event';
-import { MctApproverStatusUpdated } from '../mct-approver/events/mct-approver-status-updated.event';
-import { McrtApproverStatusUpdated } from '../mcrt-approver/events/mcrt-approver-status-updated.event';
-import { MrvApproverStatusUpdated } from '../mrv-approver/events/mrv-approver-status-updated.event';
-import { MstApproverStatusUpdated } from '../mst/events/mst-approver-status-updated.event';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
-import { GasSlipApproverStatusUpdated } from '../gas-slip-approver/events/gas-slip-approver-status-updated.event';
 import { getModule } from '../__common__/helpers';
-import { TripTicketApproverStatusUpdated } from '../trip-ticket-approver/events/trip-ticket-approver-status-updated.event';
-import { MCRTItem } from '../mcrt-item/entities/mcrt-item.entity';
 import { ITEM_STATUS } from '../item/entities/item.types';
 import { ItemService } from '../item/item.service';
 import { TRIP_TICKET_STATUS } from '../trip-ticket/entities/trip-ticket.enums';
@@ -31,7 +20,6 @@ export class PendingService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
-        private eventEmitter: EventEmitter2,
         private itemService: ItemService,
     ) {}
 
@@ -60,239 +48,9 @@ export class PendingService {
             }
         })
 
-        console.log('totalPendings', totalPendings);
-
         return totalPendings
 
     }
-
-    // async approveOrDisapprovePending(payload: {
-    //     id: number, 
-    //     status: APPROVAL_STATUS,
-    //     remarks: string,
-    //     classification_id?: string,
-    //     fund_source_id?: string
-    // })
-    // : Promise<{success: boolean, msg: string}> {
-
-    //     console.log('approveOrDisapprovePending()', payload);
-
-    //     const {
-    //         id,
-    //         status,
-    //         remarks,
-    //         classification_id,
-    //         fund_source_id,
-    //     } = payload
-
-    //     // this array will be use in the transaction
-    //     const queries: Prisma.PrismaPromise<any>[] = []
-
-    //     // use for logging
-    //     const logs: string[] = []
-
-    //     const item = await this.prisma.pending.findUnique({
-    //         where: { id }
-    //     })
-
-    //     if(!item) {
-    //         throw new NotFoundException('pending id not found')
-    //     }
-
-    //     // =================== UPDATE APPROVER STATUS, REMARKS/NOTES, & DATE APPROVAL =================== 
-
-    //     const module = getModule(item.reference_table as DB_ENTITY)
-        
-    //     // model can be: rv/spr/jo/meqs/po/rr
-    //     // @ts-ignore
-    //     const model = await this.prisma[module.model].findUnique({
-    //         select: {
-    //             id: true,
-    //         },
-    //         where: {
-    //             [module.rcNumber]: item.reference_number,
-    //         }
-    //     })
-
-    //     if(!model) {
-    //         throw new NotFoundException(`reference_number: ${item.reference_number} not found in ${item.reference_table}`)
-    //     }
-
-    //     // get the x-approver table by the current approver 
-    //     // @ts-ignore
-    //     const approverModel = await this.prisma[module.approverModel].findFirst({
-    //     where: {
-    //         approver_id: item.approver_id,
-    //         [module.id]: model.id,
-    //         status: APPROVAL_STATUS.PENDING
-    //     },
-    //     orderBy: {
-    //         order: 'asc'  
-    //     }
-    //     });
-
-    //     if(!approverModel) {
-    //         throw new NotFoundException(`record to update not found`)
-    //     }
-
-    //     console.log('approverModel', approverModel);
-
-    //     // @ts-ignore
-    //     const updateStatusQuery = this.prisma[module.approverModel].update({
-    //         where: {
-    //             id: approverModel.id  
-    //         },
-    //         data: {
-    //             status,
-    //             notes: (!!remarks && remarks.trim().length > 0) ? remarks : approverModel.notes,
-    //             date_approval: new Date(),
-    //         },
-    //     });
-
-    //     queries.push(updateStatusQuery)
-    //     logs.push('update approver status')
-
-
-    //     // =================== DELETE PENDING =================== 
-
-    //     const deletePendingQuery = this.prisma.pending.delete({
-    //         where: {
-    //             id: item.id
-    //         }
-    //     })
-
-    //     queries.push(deletePendingQuery)
-    //     logs.push('delete pending')
-
-
-    //     // =================== ADD NEW PENDING IF STATUS IS APPROVE =================== 
-
-    //     if(status === APPROVAL_STATUS.APPROVED) {
-
-    //     // get the next in line approver
-    //     // @ts-ignore
-    //     const newPending = await this.prisma[module.approverModel].findFirst({
-    //         select: {
-    //             approver_id: true,
-    //         },
-    //         where: {
-    //             [module.id]: model.id,
-    //             status: APPROVAL_STATUS.PENDING,
-    //             NOT: {
-    //                 AND: [
-    //                     { approver_id: item.approver_id },
-    //                     { order: approverModel.order },
-    //                 ]
-    //             }
-    //         },
-    //         orderBy: {
-    //             order: 'asc'
-    //         }
-    //     })
-    
-    //     if(newPending) {
-    //         const addNewPendingQuery = this.prisma.pending.create({
-    //         data: {
-    //             approver_id: newPending.approver_id,
-    //             reference_number: item.reference_number,
-    //             reference_table: item.reference_table,
-    //             description: `${module.description} no. ${item.reference_number}`
-    //         }
-    //         })
-        
-    //         queries.push(addNewPendingQuery)
-    //         logs.push('add new pending since status is approve')
-    //     }
-
-    //     }
-
-    //     // =================== IF CLASSIFICATION_ID IS DEFINED THEN UPDATE IT =================== 
-    //     // classification_id is only available in rv, spr. and jo
-
-    //     const canUpdateClassification = !!classification_id && (module.model === 'rV' || module.model === 'sPR' || module.model === 'jO')
-
-    //     if( canUpdateClassification && (await this.isClassificationExist(classification_id, this.authUser)) ) {
-    //         // @ts-ignore
-    //         const updateClassificationQuery = this.prisma[module.model].update({
-    //             data: {
-    //                 classification_id,
-    //             },
-    //             where: {
-    //                 id: model.id
-    //             }
-    //         })
-        
-    //         queries.push(updateClassificationQuery)
-    //         logs.push('update classification_id')
-    //     }
-
-
-
-    //     // =================== IF FUND SOURCE ID IS DEFINED THEN UPDATE IT =================== 
-    //     // fund_source_id is only available in po
-
-    //     const canUpdateFundSource = !!fund_source_id && module.model === 'pO'
-
-    //     if( canUpdateFundSource && (await this.isFundSourceExist(fund_source_id, this.authUser)) ){
-
-    //         const updateFundSourceQuery = this.prisma.pO.update({
-    //             data: {
-    //             fund_source_id,
-    //             },
-    //             where: {
-    //             id: model.id
-    //             }
-    //         })
-
-    //         queries.push(updateFundSourceQuery)
-    //         logs.push('update fund_source_id')
-
-    //     }
-
-    //     try {
-    //         const result = await this.prisma.$transaction(queries)
-            
-    //         this.printLogsInConsole(logs)
-            
-    //         // emit event so that item will be transacted and stock qty will be added/deducted on the item inventory
-    //         // handler functions are located at item.service.ts
-
-    //         if (status === APPROVAL_STATUS.APPROVED) {
-    //             const eventMap = {
-    //                 [DB_ENTITY.RR]: { event: 'rr-approver-status.updated', eventClass: RrApproverStatusUpdated },
-    //                 [DB_ENTITY.OSRIV]: { event: 'osriv-approver-status.updated', eventClass: OsrivApproverStatusUpdated },
-    //                 [DB_ENTITY.SERIV]: { event: 'seriv-approver-status.updated', eventClass: SerivApproverStatusUpdated },
-    //                 [DB_ENTITY.MRV]: { event: 'mrv-approver-status.updated', eventClass: MrvApproverStatusUpdated },
-    //                 [DB_ENTITY.MCT]: { event: 'mct-approver-status.updated', eventClass: MctApproverStatusUpdated },
-    //                 [DB_ENTITY.MCRT]: { event: 'mcrt-approver-status.updated', eventClass: McrtApproverStatusUpdated },
-    //                 [DB_ENTITY.MST]: { event: 'mst-approver-status.updated', eventClass: MstApproverStatusUpdated },
-
-    //                 // handler function is in gas-slip.service.ts
-    //                 [DB_ENTITY.GAS_SLIP]: { event: 'gas-slip-approver-status.updated', eventClass: GasSlipApproverStatusUpdated },
-    //                 // handler function is in trip-ticket.service.ts
-    //                 [DB_ENTITY.TRIP_TICKET]: { event: 'trip-ticket-approver-status.updated', eventClass: TripTicketApproverStatusUpdated },
-    //             };
-            
-    //             const entity = Object.values(DB_ENTITY).find(key => module.model === MODULE_MAPPER[key].model);
-                
-    //             if (entity && eventMap[entity]) {
-    //                 const { event, eventClass } = eventMap[entity];
-    //                 this.eventEmitter.emit(event, new eventClass(approverModel.id));
-    //             }
-    //         }
-
-    //         return {
-    //             success: true,
-    //             msg: 'Successfully updated pending'
-    //         }
-    //     } catch (error) {
-    //         console.log('Error', error);
-    //         return {
-    //             success: false,
-    //             msg: error
-    //         }
-    //     }
-    // }
 
     async approveOrDisapprovePending(payload: {
         id: number, 
@@ -332,16 +90,12 @@ export class PendingService {
                 },
             })
 
-            console.log('approver status and notes updated');
-
             // delete pending
             await tx.pending.delete({
                 where: {
                     id: pending.id
                 }
             })
-
-            console.log('approver pending deleted');
 
             if(status === APPROVAL_STATUS.APPROVED) {
 
@@ -376,11 +130,8 @@ export class PendingService {
                         }
                     })
 
-                    console.log('new approver created in pending');
-
                 } else {
 
-                    console.log('is_last_approver set to true');
                     is_last_approver = true
                 }
             }
@@ -398,8 +149,6 @@ export class PendingService {
                     }
                 })
 
-                console.log('classification updated');
-            
             }
 
             // if fund source id is define then update it
@@ -416,52 +165,37 @@ export class PendingService {
                     }
                 })
 
-                console.log('fund source updated');
-
             }
 
             if(status === APPROVAL_STATUS.APPROVED && is_last_approver === true) {
 
-                console.log('status is approved and is_last_approver');
-                
                 if(module.model === 'rR') {
-                    console.log('module is rR');
                     await this.handle_RR_completion_of_approvals(tx, model.id)
 
                 } else if(module.model === 'oSRIV') {
-                    console.log('module is oSRIV');
                     await this.handle_OSRIV_completion_of_approvals(tx, model.id)
 
                 } else if(module.model === 'sERIV') {
-                    console.log('module is sERIV');
                     await this.handle_SERIV_completion_of_approvals(tx, model.id)
 
                 } else if(module.model === 'mRV') {
-                    console.log('module is mRV');
                     await this.handle_MRV_completion_of_approvals(tx, model.id)
 
                 } else if(module.model === 'mCT') {
-                    console.log('module is mCT');
                     await this.handle_MCT_completion_of_approvals(tx, model.id)
 
                 } else if(module.model === 'mCRT') {
-                    console.log('module is mCRT');
                     await this.handle_MCRT_completion_of_approvals(tx, model.id)
 
                 } else if(module.model === 'mST') {
-                    console.log('module is mST');
                     await this.handle_MST_completion_of_approvals(tx, model.id)
 
                 } else if(module.model === 'gasSlip') {
-                    console.log('module is gasSlip');
                     await this.handle_gas_slip_completion_of_approvals(tx, model.id)
 
                 } else if(module.model === 'tripTicket') {
-                    console.log('module is tripTicket');
                     await this.handle_trip_ticket_completion_of_approvals(tx, model.id)
 
-                } else {
-                    console.log('module has no handler for completion of approvals');
                 }
 
             }
@@ -526,17 +260,7 @@ export class PendingService {
         return approverModel
     }
 
-    // private async printLogsInConsole(logs: string[]) {
-    //     for(let log of logs) {
-    //         console.log(log);
-    //     }
-    // }
-
     private async isClassificationExist(classification_id: string, authUser: AuthUser): Promise<boolean> {
-
-        this.logger.log('isClassificationExist', classification_id)
-
-        console.log('this.authUser', this.authUser)
 
         const query = `
             query{
@@ -562,21 +286,15 @@ export class PendingService {
             ),
         );
 
-        console.log('data', data)
-
         if (!data || !data.data || !data.data.classification) {
-            console.log('classification not found')
             return false
         }
         const classification = data.data.classification
-        console.log('classification', classification)
         return true
 
     }
 
     private async isFundSourceExist(fund_source_id: string, authUser: AuthUser): Promise<boolean> {
-
-        this.logger.log('isFundSourceExist', fund_source_id)
 
         const query = `
             query{
@@ -602,14 +320,10 @@ export class PendingService {
             ),
         );
 
-        console.log('data', data)
-
         if (!data || !data.data || !data.data.account) {
-            console.log('account not found')
             return false
         }
         const account = data.data.account
-        console.log('account', account)
         return true
 
     }
@@ -641,14 +355,12 @@ export class PendingService {
         }
 
         if(rr.is_completed) {
-            console.log('RR is already completed. End function')
 			return
         }
 
         const hasDisapproval = rr.rr_approvers.find(i => i.status !== APPROVAL_STATUS.APPROVED)
 
         if(hasDisapproval) {
-            console.log('RR has disapproval. End function')
 			return
         }
 
@@ -723,14 +435,12 @@ export class PendingService {
         }
 
         if(osriv.is_completed) {
-            console.log('OSRIV is already completed. End function')
 			return
         }
 
         const hasDisapproval = osriv.osriv_approvers.find(i => i.status !== APPROVAL_STATUS.APPROVED)
 
         if(hasDisapproval) {
-            console.log('OSRIV has disapproval. End function')
 			return
         }
 
@@ -787,14 +497,12 @@ export class PendingService {
         }
 
         if(seriv.is_completed) {
-            console.log('SERIV is already completed. End function')
 			return
         }
 
         const hasDisapproval = seriv.seriv_approvers.find(i => i.status !== APPROVAL_STATUS.APPROVED)
 
         if(hasDisapproval) {
-            console.log('SERIV has disapproval. End function')
 			return
         }
 
@@ -848,14 +556,12 @@ export class PendingService {
         }
 
         if(mrv.is_completed) {
-            console.log('MRV is already completed. End function')
 			return
         }
 
         const hasDisapproval = mrv.mrv_approvers.find(i => i.status !== APPROVAL_STATUS.APPROVED)
 
         if(hasDisapproval) {
-            console.log('MRV has disapproval. End function')
 			return
         }
 
@@ -889,14 +595,12 @@ export class PendingService {
         }
 
         if(mct.is_completed) {
-            console.log('MCT is already completed. End function')
 			return
         }
 
         const hasDisapproval = mct.mct_approvers.find(i => i.status !== APPROVAL_STATUS.APPROVED)
 
         if(hasDisapproval) {
-            console.log('MCT has disapproval. End function')
 			return
         }
 
@@ -953,14 +657,12 @@ export class PendingService {
         }
 
         if(mcrt.is_completed) {
-            console.log('MCRT is already completed. End function')
 			return
         }
 
         const hasDisapproval = mcrt.mcrt_approvers.find(i => i.status !== APPROVAL_STATUS.APPROVED)
 
         if(hasDisapproval) {
-            console.log('RR has disapproval. End function')
 			return
         }
 
@@ -1021,14 +723,12 @@ export class PendingService {
         }
 
         if(mst.is_completed) {
-            console.log('MST is already completed. End function')
 			return
         }
 
         const hasDisapproval = mst.mst_approvers.find(i => i.status !== APPROVAL_STATUS.APPROVED)
 
         if(hasDisapproval) {
-            console.log('MST has disapproval. End function')
 			return
         }
 
@@ -1120,7 +820,6 @@ export class PendingService {
         const hasDisapproval = gas_slip.gas_slip_approvers.find(i => i.status !== APPROVAL_STATUS.APPROVED)
 
         if(hasDisapproval) {
-            console.log('Gas Slip has disapproval. End function')
 			return
         }
 
@@ -1147,7 +846,6 @@ export class PendingService {
         const hasDisapproval = trip.trip_ticket_approvers.find(i => i.status !== APPROVAL_STATUS.APPROVED)
 
         if(hasDisapproval) {
-            console.log('Trip Ticket has disapproval. End function')
 			return
         }
 

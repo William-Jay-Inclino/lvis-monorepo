@@ -38,8 +38,6 @@ export class PoApproverSettingService {
 			}
 		})
 
-		this.logger.log('Successfully created pOApproverSetting')
-
 		return created
 	}
 
@@ -89,8 +87,6 @@ export class PoApproverSettingService {
 			}
 		})
 
-		this.logger.log('Successfully updated pOApproverSetting')
-
 		return updated
 	}
 
@@ -118,8 +114,6 @@ export class PoApproverSettingService {
 		queries.push(removeApproverQuery)
 
 		const result = await this.prisma.$transaction(queries)
-
-		console.log('result', result)
 
 		const approvers = await this.findAll()
 
@@ -159,8 +153,6 @@ export class PoApproverSettingService {
 
 			const result = await this.prisma.$transaction(queries)
 
-			console.log('result', result)
-
 			const approvers = await this.findAll()
 
 			return {
@@ -174,7 +166,6 @@ export class PoApproverSettingService {
 	}
 
 	private async getQueries_for_setTemporaryApproverOrders(): Promise<string[]> {
-		console.log('setTemporaryApproverOrders')
 
 		const approvers = await this.findAll()
 
@@ -183,8 +174,6 @@ export class PoApproverSettingService {
 		let order = -1
 
 		for (let approver of approvers) {
-
-			console.log('order', order)
 
 			const query = this.prisma.pOApproverSetting.update({
 				where: { id: approver.id },
@@ -208,8 +197,6 @@ export class PoApproverSettingService {
 		Starting order is 2 since order 1 will be the immediate supervisor 
 	*/
 	private async getQueries_for_reOrderApprovers(idRemoved: string): Promise<string[]> {
-
-		console.log('getQueries_for_reOrderApprovers()', idRemoved)
 
 		const queries = []
 

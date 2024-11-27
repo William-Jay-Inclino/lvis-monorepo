@@ -16,7 +16,6 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     @Post('login')
     login(@Req() req: Request) {
-        console.log('logging in')
 
         const ip_address = req.socket.remoteAddress || req.ip;
         const deviceInfo = this.getDeviceInfo(req);
@@ -26,9 +25,7 @@ export class AuthController {
 
     @Post('logout')
     async logout(@Req() req: Request, @Body('user_id') user_id: string) {
-        console.log('logging out')
 
-        const user = req.user as User
         const ip_address = req.socket.remoteAddress || req.ip;
         const deviceInfo = this.getDeviceInfo(req);
 

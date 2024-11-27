@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SystemModule } from './system.module';
 import { config } from 'dotenv';
+import { WinstonLoggerService } from './__logger__/winston-logger.service';
 
 
 async function bootstrap() {
@@ -8,12 +9,13 @@ async function bootstrap() {
   try {
     config();
   } catch (error) {
-    console.error('Error loading .env file');
-    console.error(error);
+    console.error('Error loading .env file', error);
     process.exit(1);
   }
 
   const app = await NestFactory.create(SystemModule);
+  const winstonLogger = app.get(WinstonLoggerService);
+  app.useLogger(winstonLogger);
 
   app.setGlobalPrefix('/lvis/system-api');
 

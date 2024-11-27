@@ -69,7 +69,6 @@ export class EmployeeResolver {
 
   @Query(() => Employee)
   employee(@Args('id') id: string) {
-    console.log('____employee');
     return this.employeeService.findOne(id);
   }
 
@@ -98,8 +97,6 @@ export class EmployeeResolver {
 
   @ResolveReference()
   async resolveReference(reference: { __typename: string, id?: string, ids?: string[] }) {
-
-    console.log('reference', reference)
 
     if (reference.__typename === 'Employee') {
       return await this.employeeService.findOne(reference.id)

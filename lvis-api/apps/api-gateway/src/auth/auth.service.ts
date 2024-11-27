@@ -60,8 +60,7 @@ export class AuthService {
             });
 
         } catch (error) {
-
-            console.error('Error creating user audit log:', error);
+            
 
         }
     }

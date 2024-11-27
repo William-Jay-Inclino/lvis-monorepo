@@ -94,8 +94,6 @@ export class MeqsService {
     // When creating meqs, pendings should also be created for each approver
     async create(input: CreateMeqsInput): Promise<MEQS> {
 
-        this.logger.log('create()')
-
         if (!(await this.canCreate(input))) {
             throw new Error('Unable to create MEQS')
         }
@@ -242,8 +240,6 @@ export class MeqsService {
 
     async update(id: string, input: UpdateMeqsInput): Promise<MEQS> {
 
-        this.logger.log('update()')
-
         const existingItem = await this.prisma.mEQS.findUnique({
             where: { id }
         })
@@ -266,23 +262,17 @@ export class MeqsService {
             updated_by: this.authUser.user.username
         }
 
-        console.log('data', data)
-
         const updated = await this.prisma.mEQS.update({
             where: { id },
             data,
             include: this.includedFields
         })
 
-        this.logger.log('Successfully updated MEQS')
-
         return updated
 
     }
 
     async cancel(id: string): Promise<WarehouseCancelResponse> {
-
-        this.logger.log('cancel()')
 
         const existingItem = await this.prisma.mEQS.findUnique({
             where: { id },
@@ -296,8 +286,6 @@ export class MeqsService {
         if (!existingItem) {
             throw new NotFoundException('MEQS not found')
         }
-
-        console.log('existingItem', existingItem);
 
         if(!existingItem.rv && !existingItem.spr && !existingItem.jo) {
             throw new Error('MEQS is not associated with either RV, SPR, or JO');
@@ -351,8 +339,6 @@ export class MeqsService {
 
         const result = await this.prisma.$transaction(queries)
 
-        this.logger.log('Successfully cancelled MEQS')
-
         return {
             success: true,
             msg: 'Successfully cancelled MEQS',
@@ -370,8 +356,6 @@ export class MeqsService {
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
 
             whereCondition.meqs_date = {
                 gte: startDate,
@@ -650,15 +634,11 @@ export class MeqsService {
 
     private async areEmployeesExist(employeeIds: string[], authUser: AuthUser): Promise<boolean> {
 
-        this.logger.log('areEmployeesExist', employeeIds);
-
         const query = `
             query {
                 validateEmployeeIds(ids: ${JSON.stringify(employeeIds)})
             }
         `;
-
-        console.log('query', query)
 
         try {
             const { data } = await firstValueFrom(
@@ -678,10 +658,7 @@ export class MeqsService {
                 ),
             );
 
-            console.log('data', data);
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
@@ -692,7 +669,6 @@ export class MeqsService {
             return false
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -757,8 +733,6 @@ export class MeqsService {
             input.approver_id
         );
 
-        this.logger.log('employeeIds', employeeIds)
-
         const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
 
         if (!isValidEmployeeIds) {
@@ -778,13 +752,8 @@ export class MeqsService {
 
     private async canUpdate(input: UpdateMeqsInput, existingItem: MEQS): Promise<boolean> {
 
-        console.log('canUpdate()')
-        console.log('authUser', this.authUser)
-
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
-
-            console.log('is normal user')
 
             const approvers = await this.prisma.mEQSApprover.findMany({
                 where: {
@@ -800,7 +769,6 @@ export class MeqsService {
             }
         }
 
-        console.log('can update')
         return true
 
     }

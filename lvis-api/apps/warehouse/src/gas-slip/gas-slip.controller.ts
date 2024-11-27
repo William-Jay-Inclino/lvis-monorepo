@@ -23,9 +23,6 @@ export class GasSlipController {
         @Res() res: Response,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        console.log('id', id)
-        // @ts-ignore
-        console.log('authUser', authUser);
 
         this.gasSlipService.setAuthUser(authUser)
 
@@ -55,28 +52,11 @@ export class GasSlipController {
             res.send(pdfBuffer);
             
         } catch (error) {
-            console.error("Error generating PDF:", error);
 
             await this.gasSlipPdfService.decrement_print_count(id);
 
             throw new InternalServerErrorException("Failed to generate PDF");
         }
-
-        // const gasSlip = await this.gasSlipPdfService.findGasSlip(id)
-        // // @ts-ignore
-        // const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip)
-
-        // await this.gasSlipPdfService.increment_print_count(id)
-
-        // // Set response headers
-        // // @ts-ignore
-        // res.setHeader('Content-Type', 'application/pdf');
-        // // @ts-ignore
-        // res.setHeader('Content-Disposition', 'inline; filename="example.pdf"');
-
-        // // Send PDF buffer to client
-        // // @ts-ignore
-        // res.send(pdfBuffer);
 
     }
 

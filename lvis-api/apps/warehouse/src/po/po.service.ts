@@ -73,8 +73,6 @@ export class PoService {
     // When creating po, pendings should also be created for each approver
     async create(input: CreatePoInput): Promise<PO> {
 
-        this.logger.log('create()')
-
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create PO. Please try again')
         }
@@ -157,8 +155,6 @@ export class PoService {
 
     async update(id: string, input: UpdatePoInput): Promise<PO> {
 
-        this.logger.log('update(')
-
         const existingItem = await this.prisma.pO.findUnique({
             where: { id }
         })
@@ -187,15 +183,11 @@ export class PoService {
             include: this.includedFields
         })
 
-        this.logger.log('Successfully updated PO')
-
         return updated
 
     }
 
     async cancel(id: string): Promise<WarehouseCancelResponse> {
-
-        this.logger.log('cancel()')
 
         const existingItem = await this.prisma.pO.findUnique({
             where: { id },
@@ -243,8 +235,6 @@ export class PoService {
 
         const result = await this.prisma.$transaction(queries)
 
-        this.logger.log('Successfully cancelled PO')
-
         return {
             success: true,
             msg: 'Successfully cancelled PO',
@@ -262,8 +252,6 @@ export class PoService {
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
             whereCondition.po_date = {
                 gte: startDate,
                 lte: endDate,
@@ -435,8 +423,6 @@ export class PoService {
 
     async updateFundSourceByFinanceManager(poId: string, payload: UpdatePoByFinanceManagerInput): Promise<WarehouseRemoveResponse> {
 
-        console.log('updateFundSourceByFinanceManager()', poId, payload)
-
         if (!this.authUser.user.user_employee) {
             throw new BadRequestException('this.authUser.user.user_employee is undefined')
         }
@@ -498,9 +484,6 @@ export class PoService {
 
         const result = await this.prisma.$transaction(queries)
 
-        console.log('result', result)
-        console.log('Successfully updated po Fund Source and po approver')
-
         return {
             success: true,
             msg: 'Successfully updated po fund source and po approver'
@@ -561,15 +544,11 @@ export class PoService {
 
     private async areEmployeesExist(employeeIds: string[], authUser: AuthUser): Promise<boolean> {
 
-        this.logger.log('areEmployeesExist', employeeIds);
-
         const query = `
             query {
                 validateEmployeeIds(ids: ${JSON.stringify(employeeIds)})
             }
         `;
-
-        console.log('query', query)
 
         try {
             const { data } = await firstValueFrom(
@@ -589,18 +568,13 @@ export class PoService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -619,8 +593,6 @@ export class PoService {
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
-        this.logger.log('employeeIds', employeeIds)
-
         const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
 
         if (!isValidEmployeeIds) {
@@ -635,8 +607,6 @@ export class PoService {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
-
-            console.log('is normal user')
 
             const approvers = await this.prisma.pOApprover.findMany({
                 where: {
@@ -694,8 +664,6 @@ export class PoService {
 
     private async isFundSourceExist(fund_source_id: string, authUser: AuthUser): Promise<boolean> {
 
-        this.logger.log('isFundSourceExist', fund_source_id)
-
         const query = `
             query{
                 account(id: "${fund_source_id}") {
@@ -720,14 +688,10 @@ export class PoService {
             ),
         );
 
-        console.log('data', data)
-
         if (!data || !data.data || !data.data.account) {
-            console.log('account not found')
             return false
         }
         const account = data.data.account
-        console.log('account', account)
         return true
 
     }

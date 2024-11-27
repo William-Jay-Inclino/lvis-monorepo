@@ -30,8 +30,6 @@ export class MctService {
 
     async create(input: CreateMctInput) {
 
-        console.log('mct create', input);
-
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create MCT. Please try again')
         }
@@ -137,8 +135,6 @@ export class MctService {
 
         const result = await this.prisma.$transaction(queries)
 
-        console.log('Successfully cancelled MCT');
-
         return {
             success: true,
             msg: 'Successfully cancelled MCT',
@@ -183,15 +179,12 @@ export class MctService {
     }
 
     async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<MCTsResponse> {
-        console.log('mct: findAll');
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
 
             whereCondition.date_requested = {
                 gte: startDate,
@@ -335,28 +328,7 @@ export class MctService {
 
     }
 
-    // async isReferenced(mctId: string): Promise<Boolean> {
-
-    //     const mcrt = await this.prisma.mCRT.findUnique({
-    //         where: { mct_id: mctId }
-    //     })
-
-    //     if (mcrt) return true
-
-    //     return false
-
-    // }
-
-    async update(id: string, input: UpdateMctInput) {
-        console.log('TBA: update');
-    }
-
     async canUpdateForm(mctId: string): Promise<Boolean> {
-
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
-
         const mct = await this.prisma.mCT.findUnique({
             where: {
                 id: mctId
@@ -422,8 +394,6 @@ export class MctService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -442,18 +412,13 @@ export class MctService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -476,8 +441,6 @@ export class MctService {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
-
-            console.log('is normal user')
 
             const approvers = await this.prisma.mCTApprover.findMany({
                 where: {

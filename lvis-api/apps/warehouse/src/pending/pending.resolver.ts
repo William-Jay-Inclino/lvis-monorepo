@@ -26,7 +26,6 @@ export class PendingResolver {
     @Args('classification_id', { type: () => String, nullable: true }) classification_id?: string | null,
     @Args('fund_source_id', { type: () => String, nullable: true }) fund_source_id?: string | null,
   ) {
-    console.log('approve_pending');
 
     this.pendingService.setAuthUser(authUser)
 
@@ -47,7 +46,6 @@ export class PendingResolver {
     @Args('classification_id', { type: () => String, nullable: true }) classification_id?: string | null,
     @Args('fund_source_id', { type: () => String, nullable: true }) fund_source_id?: string | null,
   ) {
-    console.log('disapprove_pending');
 
     this.pendingService.setAuthUser(authUser)
     

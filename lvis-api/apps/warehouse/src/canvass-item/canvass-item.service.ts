@@ -23,8 +23,6 @@ export class CanvassItemService {
 
 	async create(input: CreateCanvassItemInput): Promise<CanvassItem> {
 
-		this.logger.log('create()')
-
 		if (!this.canAccess(input.canvass_id)) {
 			throw new ForbiddenException('Only Admin and Owner can create canvass item!')
 		}
@@ -49,12 +47,8 @@ export class CanvassItemService {
 			}
 		})
 
-		console.log('meqsSuppliers', meqsSuppliers)
-
 		// if canvass is still not reference in MEQS then normal create
 		if (meqsSuppliers.length === 0) {
-
-			console.log('no meqsSuppliers')
 
 			const createdCanvassItem = await this.prisma.canvassItem.create({
 				data,
@@ -63,8 +57,6 @@ export class CanvassItemService {
 					item: true
 				}
 			})
-
-			this.logger.log('Successfully created canvass item')
 
 			return createdCanvassItem
 
@@ -103,16 +95,12 @@ export class CanvassItemService {
 			})
 		}
 
-		console.log('data', data)
-
 		const createdCanvassItemWithMeqsSupplierItems = await this.prisma.canvassItem.create({
 			data,
 			include: {
 				unit: true,
 			}
 		})
-
-		this.logger.log('Successfully created canvass item with MEQS Supplier Items')
 
 		return createdCanvassItemWithMeqsSupplierItems
 
@@ -160,8 +148,6 @@ export class CanvassItemService {
 				item: true
 			}
 		})
-
-		this.logger.log('Successfully updated Canvass Item')
 
 		return updated
 	}

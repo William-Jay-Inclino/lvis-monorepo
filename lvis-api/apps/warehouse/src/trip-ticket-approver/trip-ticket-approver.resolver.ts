@@ -12,7 +12,6 @@ export class TripTicketApproverResolver {
 
   @ResolveField(() => Employee)
   approver(@Parent() tripTicketApprover: TripTicketApprover): any {
-    console.log('tripTicketApprover', tripTicketApprover);
     return { __typename: 'Employee', id: tripTicketApprover.approver_id }
   }
 

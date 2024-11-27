@@ -450,8 +450,6 @@ export class RrPdfService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -470,18 +468,13 @@ export class RrPdfService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.employee', data.data.employee)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return undefined;
             }
 
             return data.data.employee;
 
         } catch (error) {
-            console.error('Error getting employee:', error.message);
             return undefined;
         }
     }
@@ -597,7 +590,6 @@ export class RrPdfService {
         if(!src || src.trim() === '') return 
 
         const path = src.replace(UPLOADS_PATH, '')
-        console.log('PATH', path)
     
         const uploadsPath = this.API_FILE_ENDPOINT + path
         return uploadsPath
@@ -615,8 +607,6 @@ export class RrPdfService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -635,18 +625,13 @@ export class RrPdfService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.classification', data.data.classification)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return undefined;
             }
 
             return data.data.classification;
 
         } catch (error) {
-            console.error('Error getting classification:', error.message);
             return undefined;
         }
     }
@@ -663,8 +648,6 @@ export class RrPdfService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -683,18 +666,13 @@ export class RrPdfService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.account', data.data.account)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return undefined;
             }
 
             return data.data.account;
 
         } catch (error) {
-            console.error('Error getting fund source:', error.message);
             return undefined;
         }
     }

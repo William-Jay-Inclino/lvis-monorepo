@@ -379,8 +379,6 @@ export class CanvassPdfService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -399,19 +397,14 @@ export class CanvassPdfService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.employee', data.data.employee)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return undefined;
             }
 
             return data.data.employee;
 
         } catch (error) {
-            console.error('Error getting employee:', error.message);
-            return undefined;
+            throw new Error(`Error getting employee: ${error}`)
         }
     }
 
@@ -432,8 +425,6 @@ export class CanvassPdfService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -452,19 +443,14 @@ export class CanvassPdfService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.general_manager', data.data.general_manager)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return undefined;
             }
 
             return data.data.general_manager;
 
         } catch (error) {
-            console.error('Error getting general_manager:', error.message);
-            return undefined;
+            throw new Error(`Error getting general_manager: ${ error }`)
         }
     }
 

@@ -96,13 +96,9 @@ export class SerivItemService {
 	// MCRT that is approved
 	get_qty_returned(mcrts: MCRT[], item_id: string): number {
 
-		console.log('__mcrts', mcrts);
-
 		let qtyReturned = 0
 
 		for(let mcrt of mcrts) {
-
-			console.log('mcrt', mcrt);
 
 			if(!mcrt.is_completed) {
 				continue
@@ -128,8 +124,6 @@ export class SerivItemService {
 		let qtyQueue = 0
 
 		for(let mcrt of mcrts) {
-
-			console.log('mcrt', mcrt);
 
 			if(mcrt.cancelled_at) {
 				continue

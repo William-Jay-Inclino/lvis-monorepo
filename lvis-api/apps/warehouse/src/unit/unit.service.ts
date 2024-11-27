@@ -28,8 +28,6 @@ export class UnitService {
 			data
 		})
 
-		this.logger.log('Successfully created Unit')
-
 		return created
 
 	}
@@ -43,8 +41,6 @@ export class UnitService {
 		const item = await this.prisma.unit.findUnique({
 			where: { id }
 		})
-
-		console.log('item', item, id)
 
 		if (!item) {
 			throw new NotFoundException('Unit not found')
@@ -68,8 +64,6 @@ export class UnitService {
 				id
 			}
 		})
-
-		this.logger.log('Successfully updated Unit')
 
 		return updated
 

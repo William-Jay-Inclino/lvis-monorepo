@@ -93,12 +93,6 @@ export class OsrivResolver {
         return { __typename: 'Employee', id: osriv.requested_by_id }
     }
 
-    // @ResolveField(() => Department)
-    // department(@Parent() osriv: OSRIV): any {
-    //     console.log('department', osriv);
-    //     return { __typename: 'Department', id: osriv.department_id }
-    // }
-
     @ResolveField(() => [OSRIVApprover])
     osriv_approvers(@Parent() osriv: OSRIV): any {
         return this.osrivApproverService.findByOsrivId(osriv.id)

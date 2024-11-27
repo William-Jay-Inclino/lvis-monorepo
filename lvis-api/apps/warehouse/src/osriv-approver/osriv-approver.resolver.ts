@@ -18,7 +18,6 @@ export class OsrivApproverResolver {
 
   @ResolveField(() => Employee)
   approver(@Parent() osrivApprover: OSRIVApprover): any {
-    console.log('osrivApprover', osrivApprover);
     return { __typename: 'Employee', id: osrivApprover.approver_id }
   }
 

@@ -40,7 +40,6 @@ function handleAuth({ req }) {
     if(req.headers.authorization) {
       const token = getToken(req.headers.authorization)
       const decoded = decodeToken(token)
-      console.log('decode', decoded)
 
       return {
         user: decoded,
@@ -86,7 +85,6 @@ function handleAuth({ req }) {
           return new RemoteGraphQLDataSource({
             url,
             willSendRequest({ request, context }) {
-              // console.log('context', context)
               request.http.headers.set('user', context.user ? context.user : null);
               request.http.headers.set('authorization', context.authorization ? context.authorization : null);
             },

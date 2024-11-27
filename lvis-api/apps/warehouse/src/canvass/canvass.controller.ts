@@ -25,10 +25,6 @@ export class CanvassController {
         @Res() res: Response,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        console.log('id', id)
-        // @ts-ignore
-        console.log('authUser', authUser);
-
         this.canvassPdfService.setAuthUser(authUser)
 
         const canvass = await this.canvassPdfService.findCanvass(id)

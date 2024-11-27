@@ -61,10 +61,6 @@ export class RvService {
     // When creating rv, pendings should also be created for each approver
     async create(input: CreateRvInput): Promise<RV> {
 
-        this.logger.log('create()')
-
-        console.log('input', input);
-
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create RV. Please try again')
         }
@@ -138,8 +134,6 @@ export class RvService {
 
     async update(id: string, input: UpdateRvInput): Promise<RV> {
 
-        this.logger.log('update()')
-
         const existingItem = await this.prisma.rV.findUnique({
             where: { id },
             include: {
@@ -182,15 +176,9 @@ export class RvService {
         // if supervisor is updated
         if(input.supervisor_id) {
 
-            console.log('input.supervisor_id is defined');
-
             const existing_supervisor_id = await this.get_supervisor_id(id)
 
-            console.log('existing_supervisor_id', existing_supervisor_id);
-
             if(existing_supervisor_id !== input.supervisor_id) {
-
-                console.log('set new supervisor', input.supervisor_id);
 
                 // update supervisor in rv approver
 
@@ -267,15 +255,11 @@ export class RvService {
 
         const result = await this.prisma.$transaction(queries)
 
-        this.logger.log('Successfully updated RV');
-
         return result[0]
 
     }
 
     async cancel(id: string): Promise<WarehouseCancelResponse> {
-
-        this.logger.log('cancel()')
 
         const existingItem = await this.prisma.rV.findUnique({
             where: { id },
@@ -322,8 +306,6 @@ export class RvService {
         queries.push(deleteAssociatedPendings)
 
         const result = await this.prisma.$transaction(queries)
-
-        this.logger.log('Successfully cancelled RV')
 
         return {
             success: true,
@@ -378,15 +360,12 @@ export class RvService {
     }
 
     async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<RVsResponse> {
-        console.log('rv: findAll');
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
 
             whereCondition.date_requested = {
                 gte: startDate,
@@ -515,8 +494,6 @@ export class RvService {
 
     async updateClassificationByBudgetOfficer(rvId: string, payload: UpdateRvByBudgetOfficerInput): Promise<WarehouseRemoveResponse> {
 
-        console.log('updateClassificationByBudgetOfficer()', rvId, payload)
-
         if (!this.authUser.user.user_employee) {
             throw new BadRequestException('this.authUser.user.user_employee is undefined')
         }
@@ -577,9 +554,6 @@ export class RvService {
         queries.push(updateRvApproverQuery)
 
         const result = await this.prisma.$transaction(queries)
-
-        console.log('result', result)
-        console.log('Successfully updated rv classification and rv approver')
 
         return {
             success: true,
@@ -658,10 +632,6 @@ export class RvService {
 
     private async isClassificationExist(classification_id: string, authUser: AuthUser): Promise<boolean> {
 
-        this.logger.log('isClassificationExist', classification_id)
-
-        // console.log('this.authUser', this.authUser)
-
         const query = `
             query{
                 classification(id: "${classification_id}") {
@@ -686,29 +656,22 @@ export class RvService {
             ),
         );
 
-        console.log('data', data)
 
         if (!data || !data.data || !data.data.classification) {
-            console.log('classification not found')
             return false
         }
         const classification = data.data.classification
-        console.log('classification', classification)
         return true
 
     }
 
     private async areEmployeesExist(employeeIds: string[], authUser: AuthUser): Promise<boolean> {
 
-        this.logger.log('areEmployeesExist', employeeIds);
-
         const query = `
             query {
                 validateEmployeeIds(ids: ${JSON.stringify(employeeIds)})
             }
         `;
-
-        console.log('query', query)
 
         try {
             const { data } = await firstValueFrom(
@@ -728,18 +691,13 @@ export class RvService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -755,8 +713,6 @@ export class RvService {
         }
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
-
-        this.logger.log('employeeIds', employeeIds)
 
         const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
 
@@ -786,8 +742,6 @@ export class RvService {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
-
-            console.log('is normal user')
 
             const approvers = await this.prisma.rVApprover.findMany({
                 where: {

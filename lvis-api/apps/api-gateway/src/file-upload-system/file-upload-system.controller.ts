@@ -1,10 +1,9 @@
 // file-upload.controller.ts
 
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Logger, Param, Post, Res, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { Body, Controller, Delete, Get, Logger, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { SingleFileTypeValidationPipe } from './pipes/single-file-type-validation.pipe';
-import { MultipleFileTypeValidationPipe } from './pipes/multiple-file-type-validation.pipe';
 import { MAX_FILE_SIZE, EMPLOYEE_UPLOAD_PATH } from '../__common__/config';
 import { FileUploadSystemService } from './file-upload-system.service';
 
@@ -57,15 +56,12 @@ export class FileUploadSystemController {
     @Delete('/employee')
     async deleteMultipleFilesEmployee(@Body() filePaths: string[]) {
 
-        console.log('deleteMultipleFilesEmployee', filePaths)
         try {
             const destination = EMPLOYEE_UPLOAD_PATH;
             const deletePromises = filePaths.map(filePath => {
 
                 const parts = filePath.split('/');
                 const filename = parts[parts.length - 1];
-
-                console.log('filename to delete', filename)
 
                 this.fileUploadService.deleteFileLocally(filename, destination)
 

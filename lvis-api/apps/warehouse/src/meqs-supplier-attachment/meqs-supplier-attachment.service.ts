@@ -39,8 +39,6 @@ export class MeqsSupplierAttachmentService {
             }
         })
 
-        this.logger.log('Successfully created MEQS Supplier Attachment')
-
         return created
 
 
@@ -84,8 +82,6 @@ export class MeqsSupplierAttachmentService {
             }
         })
 
-        this.logger.log('Successfully updated MEQS Supplier Attachment')
-
         return updated
 
     }
@@ -113,11 +109,7 @@ export class MeqsSupplierAttachmentService {
 
     private async deleteFiles(filePaths: string[]) {
 
-        console.log('deleteFiles', filePaths)
-
         const url = process.env.API_URL + '/api/v1/file-upload/warehouse/meqs'
-
-        console.log('url', url)
 
         return axios.delete(url, { data: filePaths });
     }

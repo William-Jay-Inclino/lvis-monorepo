@@ -11,8 +11,7 @@ export class FileUploadService {
 
         // Check if the file exists before attempting to retrieve its path
         if (!fs.existsSync(filePath)) {
-            console.error(`File not found: ${filename}`)
-            //   throw new Error(`File not found: ${filename}`);
+              throw new Error(`File not found: ${filename}`);
         }
 
         return filePath;
@@ -62,8 +61,7 @@ export class FileUploadService {
             fs.unlinkSync(filePath);
         } else {
             // Handle file not found scenario
-            console.error(`File not found: ${filename}`)
-            // throw new Error(`File not found: ${filename}`);
+            throw new Error(`File not found: ${filename}`);
         }
     }
 

@@ -66,8 +66,6 @@ export class UserService {
 
     const created = await this.prisma.user.create({ data })
 
-    this.logger.log('Successfully created User')
-
     return created
   }
 
@@ -124,8 +122,6 @@ export class UserService {
 
     })
 
-    console.log('user', user)
-
     if (!user) {
       return null
     }
@@ -137,14 +133,11 @@ export class UserService {
   }
 
   async findByUserName(username: string): Promise<User | null> {
-    console.log('findByUserName()')
     const user = await this.prisma.user.findUnique({
       where: { username },
       include: this.includedFields
 
     })
-
-    console.log('user', user)
 
     if (!user) {
       return null
@@ -157,8 +150,6 @@ export class UserService {
   }
 
   async update(id: string, input: UpdateUserInput): Promise<User> {
-
-    console.log('update()', input)
 
     const existingUser = await this.findOne(id)
 
@@ -182,16 +173,12 @@ export class UserService {
       include: this.includedFields
     })
 
-    this.logger.log('Successfully updated User')
-
     return updated
 
 
   }
 
   async remove(id: string): Promise<SystemRemoveResponse> {
-
-    console.log('remove()', id)
 
     const user = await this.prisma.user.findUnique({
       where: { id },
@@ -207,8 +194,6 @@ export class UserService {
       const result = await this.prisma.user.delete({
         where: { id }
       })
-
-      console.log('result', result)
 
       return {
         success: true,
@@ -230,8 +215,6 @@ export class UserService {
     })
 
     const result = await this.prisma.$transaction([query1, query2])
-
-    console.log('result', result)
 
     return {
       success: true,

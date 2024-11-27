@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateDivisionInput } from './dto/create-division.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Division, Prisma } from 'apps/system/prisma/generated/client';
@@ -26,7 +26,7 @@ export class DivisionService {
 		}
 
 		if (input.permissions) {
-		data.permissions = JSON.parse(input.permissions)
+			data.permissions = JSON.parse(input.permissions)
 		}
 
 		const created = await this.prisma.division.create({ data })

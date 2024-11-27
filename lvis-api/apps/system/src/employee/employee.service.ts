@@ -46,8 +46,6 @@ export class EmployeeService {
 			}
 		})
 
-		this.logger.log('Successfully created Employee')
-
 		if(created.division) {
 			created.division.permissions = !!created.division.permissions ? JSON.stringify(created.division.permissions) : null
 		}
@@ -114,8 +112,6 @@ export class EmployeeService {
 
 	async findOne(id: string): Promise<Employee | null> {
 
-		this.logger.log('findOne', id)
-
 		const item = await this.prisma.employee.findUnique({
 			where: { id },
 			include: {
@@ -133,8 +129,6 @@ export class EmployeeService {
 			}
 		})
 
-		console.log('item', item, id)
-
 		if (!item) {
 			throw new NotFoundException('Employee not found')
 		}
@@ -149,8 +143,6 @@ export class EmployeeService {
 	}
 
 	async find_employees_by_user_group(user_group_id: USER_GROUP): Promise<Employee[]> {
-
-		console.log('find_employees_by_user_group', user_group_id);
 
 		const user_group_members = await this.prisma.userGroupMembers.findMany({
 			where: {
@@ -168,8 +160,6 @@ export class EmployeeService {
 				}
 			}
 		})
-
-		console.log('user_group_members', user_group_members);
 
 		const employees = user_group_members
 			.flatMap(member => member.user.user_employee)
@@ -217,10 +207,7 @@ export class EmployeeService {
 
 		if(!!input.signature_src && !!existingItem.signature_src && existingItem.signature_src.trim() !== '') {
 			this.deleteFiles([existingItem.signature_src])
-			console.log('previous file deleted');
 		}
-
-		this.logger.log('Successfully updated Employee')
 
 		
 		if(updated.division) {
@@ -260,15 +247,10 @@ export class EmployeeService {
 			select: { id: true }
 		});
 	
-		console.log('existingIds', existingIds);
-		console.log('uniqueIds', uniqueIds);
-	
 		return existingIds.length === uniqueIds.length;
 	}
 	
 	async findByIds(ids: string[]): Promise<Employee[]> {
-
-		this.logger.log('findByIds', ids)
 
 		return await this.prisma.employee.findMany({
 			where: {
@@ -333,8 +315,6 @@ export class EmployeeService {
 			.flatMap(member => member.user.user_employee)
 			.map(userEmployee => userEmployee.employee)
 			.filter(employee => employee !== null); // Filter to ensure only non-null employees are included
-
-		console.log('');
 
 		return employees;
 
@@ -422,11 +402,9 @@ export class EmployeeService {
 		});
 	  
 		if (isFinanceManager) {
-		  console.log('finance manager');
 		  return true;
 		}
 	  
-		console.log('not finance manager');
 		return false;
 	}
 
@@ -448,21 +426,15 @@ export class EmployeeService {
 		});
 	  
 		if (isBudgetOfficer) {
-		  console.log('budget officer');
 		  return true;
 		}
 	  
-		console.log('not budget officer');
 		return false;
 	}
 
     private async deleteFiles(filePaths: string[]) {
 
-        console.log('deleteFiles', filePaths)
-
         const url = process.env.API_URL + '/api/v1/file-upload/system/employee'
-
-        console.log('url', url)
 
         return axios.delete(url, { data: filePaths });
     }

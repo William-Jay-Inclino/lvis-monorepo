@@ -165,13 +165,10 @@ export class MrvService {
             updated_by: this.authUser.user.username,
         }
 
-        console.log('data', data);
-
         const result = await this.prisma.mRV.update({
             data,
             where: { id }
         })
-        console.log('Successfully updated MRV');
         return result
 
     }
@@ -234,8 +231,6 @@ export class MrvService {
 
         const result = await this.prisma.$transaction(queries)
 
-        console.log('Successfully cancelled MRV');
-
         return {
             success: true,
             msg: 'Successfully cancelled MRV',
@@ -279,15 +274,12 @@ export class MrvService {
     }
 
     async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<MRVsResponse> {
-        console.log('mrv: findAll');
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
 
             whereCondition.date_requested = {
                 gte: startDate,
@@ -507,8 +499,6 @@ export class MrvService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -527,18 +517,13 @@ export class MrvService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -569,8 +554,6 @@ export class MrvService {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
-
-            console.log('is normal user')
 
             const approvers = await this.prisma.mRVApprover.findMany({
                 where: {

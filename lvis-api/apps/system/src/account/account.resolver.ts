@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args, ResolveReference } from '@nestjs/graph
 import { AccountService } from './account.service';
 import { Account } from './entities/account.entity';
 import { CreateAccountInput } from './dto/create-account.input';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UpdateAccountInput } from './dto/update-account.input';
 import { SystemRemoveResponse } from '../__common__/classes';
@@ -16,17 +16,23 @@ import { RESOLVERS } from '../__common__/resolvers.enum';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Account)
 export class AccountResolver {
-  constructor(private readonly accountService: AccountService) { }
+
+  constructor(
+    private readonly accountService: AccountService
+  ) { }
 
   @Mutation(() => Account)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.ACCOUNT, RESOLVERS.createAccount)
-  createAccount(
+  async createAccount(
     @Args('input') createAccountInput: CreateAccountInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
+
     this.accountService.setAuthUser(authUser)
-    return this.accountService.create(createAccountInput);
+    const account = await this.accountService.create(createAccountInput);
+
+    return account
   }
 
   @Query(() => [Account])

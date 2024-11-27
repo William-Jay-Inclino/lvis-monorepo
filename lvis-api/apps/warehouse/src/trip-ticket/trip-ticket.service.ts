@@ -349,8 +349,6 @@ export class TripTicketService {
 
 	async getScheduledTrips(d: {start: Date, end: Date}) {
 
-		console.log('getScheduledTrips', d);
-		
 		return this.prisma.tripTicket.findMany({
 			where: {
 				start_time: {
@@ -465,7 +463,6 @@ export class TripTicketService {
 		}
 
 		const vehicle_nearest_trip = await this.get_nearest_trip_of_vehicle(vehicle.id)
-		console.log('vehicle_nearest_trip', vehicle_nearest_trip);
 		
 		return {
 			success: false,
@@ -511,7 +508,6 @@ export class TripTicketService {
 	}
 
 	async remove_actual_start_time(id: string): Promise<UpdateActualTimeResponse> {
-		console.log('remove_actual_start_time');
 
 		return await this.prisma.$transaction(async (prisma) => {
 			const existing_trip_ticket = await prisma.tripTicket.findUnique({
@@ -826,8 +822,6 @@ export class TripTicketService {
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
 
-            console.log('is normal user')
-
             const approvers = await this.prisma.tripTicketApprover.findMany({
                 where: {
                     trip_ticket_id: existingItem.id
@@ -902,8 +896,6 @@ export class TripTicketService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -922,18 +914,13 @@ export class TripTicketService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -948,8 +935,6 @@ export class TripTicketService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -968,17 +953,14 @@ export class TripTicketService {
                 ),
             );
 
-            console.log('data', data);
 
             if (!data || !data.data) {
-                console.log('No data returned');
                 return null;
             }
 
             return data.data.general_manager;
 
         } catch (error) {
-            console.error('Error getting general_manager:', error.message);
             return null;
         }
     }

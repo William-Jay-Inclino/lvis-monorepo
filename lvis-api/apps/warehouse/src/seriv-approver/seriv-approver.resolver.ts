@@ -18,7 +18,6 @@ export class SerivApproverResolver {
 
   @ResolveField(() => Employee)
   approver(@Parent() serivApprover: SERIVApprover): any {
-    console.log('serivApprover', serivApprover);
     return { __typename: 'Employee', id: serivApprover.approver_id }
   }
 

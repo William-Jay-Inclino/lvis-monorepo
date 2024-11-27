@@ -28,15 +28,10 @@ export class RrController {
         @Res() res: Response,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        console.log('id', id)
-        // @ts-ignore
-        console.log('authUser', authUser);
 
         this.rrPdfService.setAuthUser(authUser)
         
         const status = await this.rrService.getStatus(id)
-
-        console.log('status', status);
 
         if(status !== APPROVAL_STATUS.APPROVED) {
             throw new UnauthorizedException('Cannot generate pdf. Status is not approvedf')

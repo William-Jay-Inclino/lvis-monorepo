@@ -60,10 +60,6 @@ export class JoService {
     // When creating jo, pendings should also be created for each approver
     async create(input: CreateJoInput): Promise<JO> {
 
-        this.logger.log('create()')
-
-        console.log('input', input);
-
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create JO. Please try again')
         }
@@ -137,8 +133,6 @@ export class JoService {
 
     async update(id: string, input: UpdateJoInput): Promise<JO> {
 
-        this.logger.log('update()')
-
         const existingItem = await this.prisma.jO.findUnique({
             where: { id },
             include: {
@@ -179,15 +173,9 @@ export class JoService {
         // if supervisor is updated
         if(input.supervisor_id) {
 
-            console.log('input.supervisor_id is defined');
-
             const existing_supervisor_id = await this.get_supervisor_id(id)
 
-            console.log('existing_supervisor_id', existing_supervisor_id);
-
             if(existing_supervisor_id !== input.supervisor_id) {
-
-                console.log('set new supervisor', input.supervisor_id);
 
                 // update supervisor in rv approver
 
@@ -264,15 +252,11 @@ export class JoService {
 
         const result = await this.prisma.$transaction(queries)
 
-        this.logger.log('Successfully updated JO');
-
         return result[0]
 
     }
 
     async cancel(id: string): Promise<WarehouseCancelResponse> {
-
-        this.logger.log('cancel()')
 
         const existingItem = await this.prisma.jO.findUnique({
             where: { id },
@@ -319,8 +303,6 @@ export class JoService {
         queries.push(deleteAssociatedPendings)
 
         const result = await this.prisma.$transaction(queries)
-
-        this.logger.log('Successfully cancelled JO')
 
         return {
             success: true,
@@ -382,8 +364,6 @@ export class JoService {
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
 
             whereCondition.date_requested = {
                 gte: startDate,
@@ -511,8 +491,6 @@ export class JoService {
 
     async updateClassificationByBudgetOfficer(joId: string, payload: UpdateJoByBudgetOfficerInput): Promise<WarehouseRemoveResponse> {
 
-        console.log('updateClassificationByBudgetOfficer()', joId, payload)
-
         if (!this.authUser.user.user_employee) {
             throw new BadRequestException('this.authUser.user.user_employee is undefined')
         }
@@ -574,9 +552,6 @@ export class JoService {
 
         const result = await this.prisma.$transaction(queries)
 
-        console.log('result', result)
-        console.log('Successfully updated jo classification and jo approver')
-
         return {
             success: true,
             msg: 'Successfully updated jo classification and jo approver'
@@ -585,10 +560,6 @@ export class JoService {
     }
 
     async canUpdateForm(joId: string): Promise<Boolean> {
-
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
 
         const jo = await this.prisma.jO.findUnique({
             where: {
@@ -654,10 +625,6 @@ export class JoService {
 
     private async isClassificationExist(classification_id: string, authUser: AuthUser): Promise<boolean> {
 
-        this.logger.log('isClassificationExist', classification_id)
-
-        // console.log('this.authUser', this.authUser)
-
         const query = `
             query{
                 classification(id: "${classification_id}") {
@@ -682,21 +649,15 @@ export class JoService {
             ),
         );
 
-        console.log('data', data)
-
         if (!data || !data.data || !data.data.classification) {
-            console.log('classification not found')
             return false
         }
         const classification = data.data.classification
-        console.log('classification', classification)
         return true
 
     }
 
     private async isDepartmentExist(department_id: string, authUser: AuthUser): Promise<boolean> {
-
-        this.logger.log('isDepartmentExist', department_id)
 
         const query = `
             query{
@@ -722,29 +683,21 @@ export class JoService {
             ),
         );
 
-        console.log('data', data)
-
         if (!data || !data.data || !data.data.department) {
-            console.log('department not found')
             return false
         }
         const department = data.data.department
-        console.log('department', department)
         return true
 
     }
 
     private async areEmployeesExist(employeeIds: string[], authUser: AuthUser): Promise<boolean> {
 
-        this.logger.log('areEmployeesExist', employeeIds);
-
         const query = `
             query {
                 validateEmployeeIds(ids: ${JSON.stringify(employeeIds)})
             }
         `;
-
-        console.log('query', query)
 
         try {
             const { data } = await firstValueFrom(
@@ -764,18 +717,13 @@ export class JoService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -799,8 +747,6 @@ export class JoService {
         }
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
-
-        this.logger.log('employeeIds', employeeIds)
 
         const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
 
@@ -831,8 +777,6 @@ export class JoService {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
-
-            console.log('is normal user')
 
             const approvers = await this.prisma.jOApprover.findMany({
                 where: {

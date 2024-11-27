@@ -9,7 +9,6 @@ export class AuthResolver {
 
     @Mutation(() => User)
     async validateToken(@Args('token') token: string) {
-        console.log('token', token)
         const user = await this.authService.validateToken(token);
 
         if (!user) {

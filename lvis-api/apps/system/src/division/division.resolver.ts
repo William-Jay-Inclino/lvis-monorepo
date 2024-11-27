@@ -3,7 +3,7 @@ import { Division } from './entities/division.entity';
 import { CreateDivisionInput } from './dto/create-division.input';
 import { UpdateDivisionInput } from './dto/update-division.input';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { AuthUser } from '../__common__/auth-user.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { SystemRemoveResponse } from '../__common__/classes';
@@ -12,15 +12,32 @@ import { DivisionService } from './division.service';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Division)
 export class DivisionResolver {
+
+  private readonly logger = new Logger(DivisionResolver.name);
+  private filename = 'division.resolver.ts'
+
   constructor(private readonly divisionService: DivisionService) { }
 
   @Mutation(() => Division)
-  createDivision(
+  async createDivision(
     @Args('input') createDivisionInput: CreateDivisionInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.divisionService.setAuthUser(authUser)
-    return this.divisionService.create(createDivisionInput);
+
+    const log_info = `User: ${authUser.user.username} | File: ${this.filename} | Resolver: createDivision`
+
+    try {
+      
+      this.logger.log(log_info, JSON.stringify(createDivisionInput))
+  
+      this.divisionService.setAuthUser(authUser)
+      return await this.divisionService.create(createDivisionInput);
+  
+    } catch (error) {
+      this.logger.error(log_info, error)
+    }
+
+
   }
 
   @Query(() => [Division])

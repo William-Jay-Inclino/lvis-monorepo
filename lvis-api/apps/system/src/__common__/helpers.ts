@@ -6,34 +6,22 @@ import * as crypto from 'crypto';
 
 export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boolean {
 
-    console.log('canAccess()', user)
-    console.log('module', module)
-    console.log('resolver', resolver)
-
     if (user.role === Role.ADMIN) {
-        console.log('user is admin: allow access')
         return true
     }
 
-    console.log('user is normal user: validate access')
-
     if (!user.permissions) {
-        console.log('no user.permissions')
         return false;
     }
 
     // @ts-ignore
     const permissions = JSON.parse(user.permissions) as UserPermissions
 
-    console.log('permissions', permissions)
-
     if (!permissions) {
-        console.log('No permissions Object')
         return
     }
 
     if (!permissions.system) {
-        console.log('no permissions.system')
         return false
     }
 

@@ -29,7 +29,6 @@ export class MrvItemResolver {
 
     @ResolveField(() => Number)
     qty_returned(@Parent() mrvItem: MRVItem): number {
-        console.log('qty_returned', mrvItem);
         return this.serivItemService.get_qty_returned(mrvItem.mrv.mct.mcrts, mrvItem.item_id)
     }
 

@@ -71,7 +71,6 @@ export class VehicleResolver {
 
   @ResolveField(() => Employee)
   assignee(@Parent() vehicle: Vehicle): any {
-    console.log('assignee', vehicle);
     return { __typename: 'Employee', id: vehicle.assignee_id }
   }
 

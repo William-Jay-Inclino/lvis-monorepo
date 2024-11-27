@@ -38,8 +38,6 @@ export class VehicleService {
 			data
 		})
 
-		this.logger.log('Successfully created Vehicle')
-
 		return created
 
 	}
@@ -57,8 +55,6 @@ export class VehicleService {
 		const item = await this.prisma.vehicle.findUnique({
 			where: { id }
 		})
-
-		console.log('item', item, id)
 
 		if (!item) {
 			throw new NotFoundException('Vehicle not found')
@@ -125,8 +121,6 @@ export class VehicleService {
 			data,
 			where: { id },
 		});
-	
-		this.logger.log('Successfully updated Vehicle');
 	
 		return {
 			success: true,

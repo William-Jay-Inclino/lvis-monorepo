@@ -9,8 +9,6 @@ export class SettingService {
     
     async findGM() {
 
-        console.log('findGM()');
-        
         const item = await this.prisma.setting.findUnique({
         where: {
             key: SETTINGS.GENERAL_MANAGER
@@ -39,8 +37,6 @@ export class SettingService {
 
     async findWarehouseCustodian() {
 
-        console.log('findWarehouseCustodian()');
-        
         const item = await this.prisma.setting.findUnique({
         where: {
             key: SETTINGS.WAREHOUSE_CUSTODIAN
@@ -69,8 +65,6 @@ export class SettingService {
 
     async findFMSDChief() {
 
-        console.log('findFMSDChief()');
-        
         const item = await this.prisma.setting.findUnique({
         where: {
             key: SETTINGS.FMSD_CHIEF

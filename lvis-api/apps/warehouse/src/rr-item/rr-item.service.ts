@@ -64,8 +64,6 @@ export class RrItemService {
 
 	async update(id: string, input: UpdateRrItemInput): Promise<RRItem> {
 
-		this.logger.log('update(')
-
 		const existingItem = await this.findOne(id)
 
 		if (!this.canAccess(existingItem.rr_id)) {
@@ -87,15 +85,11 @@ export class RrItemService {
 			include: this.includedFields
 		})
 
-		this.logger.log('Successfully updated RR Item')
-
 		return updated
 
 	}
 
 	async updateMultiple(inputs: UpdateRrItemsInput[]): Promise<UpdateRrItemsResponse> {
-
-		this.logger.log('updateMultiple', inputs)
 
 		const firstInput = inputs[0]
 
@@ -134,10 +128,6 @@ export class RrItemService {
 
 		const result = await this.prisma.$transaction(queries)
 
-		console.log(`RR Items successfully updated it's quantity accepted`)
-
-		console.log('result', result)
-
 		return {
 			success: true,
 			msg: 'RR Items updated!',
@@ -160,8 +150,6 @@ export class RrItemService {
 
 		// validates if there is already an approver who take an action
 		if (isNormalUser(this.authUser)) {
-
-			console.log('is normal user')
 
 			const approvers = await this.prisma.rRApprover.findMany({
 				where: {

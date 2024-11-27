@@ -30,8 +30,6 @@ export class McrtService {
 
     async create(input: CreateMcrtInput) {
 
-        console.log('mcrt create', input);
-
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create MCRT. Please try again')
         }
@@ -171,7 +169,6 @@ export class McrtService {
             data,
             where: { id }
         })
-        console.log('Successfully updated MCRT');
         return result
 
     }
@@ -219,8 +216,6 @@ export class McrtService {
         queries.push(deleteAssociatedPendings)
 
         const result = await this.prisma.$transaction(queries)
-
-        console.log('Successfully cancelled MCRT');
 
         return {
             success: true,
@@ -309,15 +304,12 @@ export class McrtService {
     }
 
     async findAll(page: number, pageSize: number, date_requested?: string): Promise<MCRTsResponse> {
-        console.log('mcrt: findAll');
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
 
             whereCondition.mcrt_date = {
                 gte: startDate,
@@ -489,8 +481,6 @@ export class McrtService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -509,18 +499,13 @@ export class McrtService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -547,8 +532,6 @@ export class McrtService {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
-
-            console.log('is normal user')
 
             const approvers = await this.prisma.mCRTApprover.findMany({
                 where: {

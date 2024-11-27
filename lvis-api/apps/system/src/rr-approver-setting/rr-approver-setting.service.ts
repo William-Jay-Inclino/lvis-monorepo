@@ -38,8 +38,6 @@ export class RrApproverSettingService {
 			}
 		})
 
-		this.logger.log('Successfully created rRApproverSetting')
-
 		return created
 	}
 
@@ -89,8 +87,6 @@ export class RrApproverSettingService {
 			}
 		})
 
-		this.logger.log('Successfully updated rRApproverSetting')
-
 		return updated
 	}
 
@@ -118,8 +114,6 @@ export class RrApproverSettingService {
 		queries.push(removeApproverQuery)
 
 		const result = await this.prisma.$transaction(queries)
-
-		console.log('result', result)
 
 		const approvers = await this.findAll()
 
@@ -158,8 +152,6 @@ export class RrApproverSettingService {
 
 			const result = await this.prisma.$transaction(queries)
 
-			console.log('result', result)
-
 			const approvers = await this.findAll()
 
 			return {
@@ -173,7 +165,6 @@ export class RrApproverSettingService {
 	}
 
 	private async getQueries_for_setTemporaryApproverOrders(): Promise<string[]> {
-		console.log('setTemporaryApproverOrders')
 
 		const approvers = await this.findAll()
 
@@ -182,8 +173,6 @@ export class RrApproverSettingService {
 		let order = -1
 
 		for (let approver of approvers) {
-
-			console.log('order', order)
 
 			const query = this.prisma.rRApproverSetting.update({
 				where: { id: approver.id },
@@ -207,8 +196,6 @@ export class RrApproverSettingService {
 		Starting order is 3 since order 1 will be Received by and 2 is confirmed by
 	*/
 	private async getQueries_for_reOrderApprovers(idRemoved: string): Promise<string[]> {
-
-		console.log('getQueries_for_reOrderApprovers()', idRemoved)
 
 		const queries = []
 

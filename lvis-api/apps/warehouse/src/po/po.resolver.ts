@@ -149,7 +149,6 @@ export class PoResolver {
     @ResolveField(() => Account, { nullable: true })
     fund_source(@Parent() po: PO): any {
 
-        console.log('fund_source()')
         if (!po.fund_source_id) {
             return null
         }

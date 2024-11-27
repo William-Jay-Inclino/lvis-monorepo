@@ -22,7 +22,6 @@ export class UserResolver {
   @Query(() => User)
   async validateUserId(@Args('id') id: string) {
     const userFound = await this.userService.findOne(id);
-    console.log('userFound', userFound)
     if (!userFound) {
       throw new NotFoundException("User not found")
     }
@@ -52,7 +51,6 @@ export class UserResolver {
   @UseGuards(GqlAuthGuard)
   @Query(() => User)
   async user(@CurrentAuthUser() user: User, @Args('id') id: string) {
-    console.log('user: current-user', user)
     return await this.userService.findOne(id);
   }
 
@@ -118,8 +116,6 @@ export class UserResolver {
 
   @ResolveReference()
   async resolveReference(reference: { __typename: string, id?: string, username?: string }) {
-
-    console.log('reference', reference)
 
     if (reference.__typename === 'User' && reference.id) {
       return await this.userService.findOne(reference.id)

@@ -90,8 +90,6 @@ export class CanvassService {
 
     async create(input: CreateCanvassInput): Promise<Canvass> {
 
-        this.logger.log('create()', input)
-
         const isValidRequestedById = await this.areEmployeesExist([input.requested_by_id], this.authUser)
 
         if (!isValidRequestedById) {
@@ -126,15 +124,11 @@ export class CanvassService {
             data,
         })
 
-        this.logger.log('Successfully created canvass')
-
         return created
 
     }
 
     async update(id: string, input: UpdateCanvassInput): Promise<Canvass> {
-        this.logger.log('update()', input);
-
         const existingItem = await this.findOne(id);
 
         if (!(await this.canUpdate(existingItem.id))) {
@@ -161,14 +155,10 @@ export class CanvassService {
             where: { id },
         });
 
-        this.logger.log('Successfully updated canvass');
-
         return updated
     }
 
     async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<CanvassesResponse> {
-
-        console.log('findAll')
 
         const skip = (page - 1) * pageSize;
 
@@ -176,8 +166,6 @@ export class CanvassService {
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
 
             whereCondition.date_requested = {
                 gte: startDate,
@@ -227,8 +215,6 @@ export class CanvassService {
 
     async findOne(id: string): Promise<FindOneResponse> {
 
-        this.logger.log('findOne()', id)
-
         const item = await this.prisma.canvass.findUnique({
             include: this.includedFields,
             where: { id }
@@ -243,8 +229,6 @@ export class CanvassService {
     }
 
     async findByRcNumber(rc_number: string): Promise<Canvass> {
-
-        this.logger.log('findByRcNumber()', rc_number)
 
         const item = await this.prisma.canvass.findUnique({
             include: this.includedFields,
@@ -471,15 +455,11 @@ export class CanvassService {
 
     private async areEmployeesExist(employeeIds: string[], authUser: AuthUser): Promise<boolean> {
 
-        this.logger.log('areEmployeesExist', employeeIds);
-
         const query = `
             query {
                 validateEmployeeIds(ids: ${JSON.stringify(employeeIds)})
             }
         `;
-
-        console.log('query', query)
 
         try {
             const { data } = await firstValueFrom(
@@ -499,19 +479,14 @@ export class CanvassService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
-            return false;
+
         }
     }
 

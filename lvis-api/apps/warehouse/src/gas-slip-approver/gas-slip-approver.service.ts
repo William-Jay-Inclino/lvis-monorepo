@@ -22,8 +22,6 @@ export class GasSlipApproverService {
 
     async changeApprover(id: string, input: ChangeGasSlipApproverInput) {
 
-        console.log('gas-slip: changeApprover', input);
-
         return this.prisma.$transaction(async (prisma) => {
             const item = await prisma.gasSlipApprover.findUnique({
                 where: { id },
@@ -39,8 +37,6 @@ export class GasSlipApproverService {
             if (!item) {
                 throw new NotFoundException('gas slip approver not found with id of ' + id);
             }
-
-            console.log('item', item);
 
             if(item.status !== APPROVAL_STATUS.PENDING) {
                 throw new BadRequestException('Can only change approver if status is pending')
@@ -65,8 +61,6 @@ export class GasSlipApproverService {
 
             if (pending) {
 
-                console.log('previous approver has pending');
-
                 // delete previous approver's pending
                 await prisma.pending.delete({
                     where: { id: pending.id },
@@ -84,7 +78,7 @@ export class GasSlipApproverService {
                     },
                 });
             } else {
-                console.log('previous approver has no pending');
+                
             }
 
             return updateApprover;

@@ -18,7 +18,6 @@ export class MrvApproverResolver {
 
   @ResolveField(() => Employee)
   approver(@Parent() mrvApprover: MRVApprover): any {
-    console.log('mrvApprover', mrvApprover);
     return { __typename: 'Employee', id: mrvApprover.approver_id }
   }
 

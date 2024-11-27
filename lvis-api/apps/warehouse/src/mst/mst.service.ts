@@ -30,8 +30,6 @@ export class MstService {
 
     async create(input: CreateMstInput) {
 
-        console.log('mst create', input);
-
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create MST. Please try again')
         }
@@ -153,7 +151,6 @@ export class MstService {
             data,
             where: { id }
         })
-        console.log('Successfully updated MST');
         return result
 
     }
@@ -196,8 +193,6 @@ export class MstService {
 
         const result = await this.prisma.$transaction(queries)
 
-        console.log('Successfully cancelled MST');
-
         return {
             success: true,
             msg: 'Successfully cancelled MST',
@@ -238,15 +233,12 @@ export class MstService {
     }
 
     async findAll(page: number, pageSize: number, date_requested?: string, returned_by_id?: string): Promise<MSTsResponse> {
-        console.log('mst: findAll');
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
 
             whereCondition.mst_date = {
                 gte: startDate,
@@ -423,8 +415,6 @@ export class MstService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -443,18 +433,13 @@ export class MstService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -481,8 +466,6 @@ export class MstService {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
-
-            console.log('is normal user')
 
             const approvers = await this.prisma.mSTApprover.findMany({
                 where: {

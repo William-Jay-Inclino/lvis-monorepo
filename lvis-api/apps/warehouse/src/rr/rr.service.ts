@@ -88,8 +88,6 @@ export class RrService {
     // When creating rr, pendings should also be created for each approver
     async create(input: CreateRrInput): Promise<RR> {
 
-        this.logger.log('create()')
-
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create RR. Please try again')
         }
@@ -197,8 +195,6 @@ export class RrService {
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
             whereCondition.rr_date = {
                 gte: startDate,
                 lte: endDate,
@@ -411,8 +407,6 @@ export class RrService {
 
     async update(id: string, input: UpdateRrInput): Promise<RR> {
 
-        this.logger.log('update(')
-
         const existingItem = await this.prisma.rR.findUnique({
             where: { id }
         })
@@ -444,15 +438,11 @@ export class RrService {
             include: this.includedFields
         })
 
-        this.logger.log('Successfully updated rr')
-
         return updated
 
     }
 
     async cancel(id: string): Promise<WarehouseCancelResponse> {
-
-        this.logger.log('cancel()')
 
         const existingItem = await this.prisma.rR.findUnique({
             where: { id },
@@ -499,8 +489,6 @@ export class RrService {
         queries.push(deleteAssociatedPendings)
 
         const result = await this.prisma.$transaction(queries)
-
-        this.logger.log('Successfully cancelled RR')
 
         return {
             success: true,
@@ -564,15 +552,11 @@ export class RrService {
 
     private async areEmployeesExist(employeeIds: string[], authUser: AuthUser): Promise<boolean> {
 
-        this.logger.log('areEmployeesExist', employeeIds);
-
         const query = `
             query {
                 validateEmployeeIds(ids: ${JSON.stringify(employeeIds)})
             }
         `;
-
-        console.log('query', query)
 
         try {
             const { data } = await firstValueFrom(
@@ -592,18 +576,13 @@ export class RrService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -642,8 +621,6 @@ export class RrService {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
-
-            console.log('is normal user')
 
             const approvers = await this.prisma.rRApprover.findMany({
                 where: {

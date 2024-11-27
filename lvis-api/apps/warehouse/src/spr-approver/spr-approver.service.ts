@@ -13,8 +13,6 @@ export class SprApproverService {
 
   async findBySprId(sprId: string): Promise<SPRApprover[]> {
 
-    this.logger.log('findBySprId()', sprId)
-
     if (!sprId) {
       throw new BadRequestException('sprId is undefined')
     }

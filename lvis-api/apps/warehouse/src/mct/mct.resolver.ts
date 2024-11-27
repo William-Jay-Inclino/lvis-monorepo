@@ -71,16 +71,6 @@ export class MctResolver {
         }
     }
 
-    @Mutation(() => MCT)
-    async updateMct(
-        @Args('id') id: string,
-        @Args('input') updateMctInput: UpdateMctInput,
-        @CurrentAuthUser() authUser: AuthUser
-    ) {
-        this.mctService.setAuthUser(authUser)
-        return await this.mctService.update(id, updateMctInput);
-    }
-
     @Mutation(() => WarehouseCancelResponse)
     async cancelMct(
         @Args('id') id: string,

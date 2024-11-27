@@ -38,8 +38,6 @@ export class DepartmentService {
 			created.permissions = JSON.stringify(created.permissions)
 		}
 
-    this.logger.log('Successfully created Department')
-
     return created
 
   }
@@ -60,13 +58,9 @@ export class DepartmentService {
 
   async findOne(id: string): Promise<Department | null> {
 
-    console.log('department findOne', id);
-
     const item = await this.prisma.department.findUnique({
       where: { id }
     })
-
-    console.log('item', item, id)
 
     if (!item) {
       throw new NotFoundException('Department not found')
@@ -102,8 +96,6 @@ export class DepartmentService {
     if(updated.permissions) {
 			updated.permissions = JSON.stringify(updated.permissions)
 		}
-
-    this.logger.log('Successfully updated Department')
 
     return updated
 

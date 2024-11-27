@@ -73,8 +73,6 @@ export class MeqsSupplierService {
             }
         })
 
-        this.logger.log('Successfully created MEQSSupplier')
-
         return created
 
     }
@@ -100,10 +98,6 @@ export class MeqsSupplierService {
     }
 
     async update(id: string, input: UpdateMeqsSupplierInput): Promise<MEQSSupplier> {
-
-        this.logger.log('update')
-
-        console.log('input', input)
 
         const existingItem = await this.findOne(id)
 
@@ -163,9 +157,6 @@ export class MeqsSupplierService {
 
         const result = await this.prisma.$transaction(queries)
 
-
-        this.logger.log('Successfully updated MEQS Supplier and associated items and replaced attachments')
-
         return result[queries.length - 1]
 
     }
@@ -184,7 +175,6 @@ export class MeqsSupplierService {
             const filePaths = existingItem.attachments.map((i: MeqsSupplierAttachment) => i.src)
     
             // delete files in server
-            console.log('deleting actual files in server...')
             this.deleteFiles(filePaths)
         }
 
@@ -231,11 +221,7 @@ export class MeqsSupplierService {
 
     private async deleteFiles(filePaths: string[]) {
 
-        console.log('deleteFiles', filePaths)
-
         const url = process.env.API_URL + '/api/v1/file-upload/warehouse/meqs'
-
-        console.log('url', url)
 
         return axios.delete(url, { data: filePaths });
     }

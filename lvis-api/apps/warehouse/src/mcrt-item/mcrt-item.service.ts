@@ -90,8 +90,6 @@ export class McrtItemService {
 
 	get_qty_returned(mcrt: MCRT, item_id: string): number {
 
-		console.log('mcrt', mcrt);
-
 		if(mcrt.seriv) {
 			return this.serivItemService.get_qty_returned(mcrt.seriv.mcrts, item_id)
 		}
@@ -103,8 +101,6 @@ export class McrtItemService {
 	}
 
 	async get_qty_on_queue(mcrt: MCRT, item_id: string): Promise<number> {
-
-		console.log('----get_qty_on_queue', mcrt);
 
 		if(mcrt.seriv) {
 

@@ -42,8 +42,6 @@ export class MeqsSupplierItemService {
 			}
 		})
 
-		this.logger.log('Successfully created MEQSSupplier')
-
 		return created
 
 	}
@@ -87,8 +85,6 @@ export class MeqsSupplierItemService {
 				canvass_item: true
 			}
 		})
-
-		this.logger.log('Successfully updated MEQS Supplier Item')
 
 		return updated
 
@@ -186,10 +182,6 @@ export class MeqsSupplierItemService {
 
 		const result = await this.prisma.$transaction(queries)
 
-		console.log('result', result)
-
-		console.log('Successfully unaward other suppliers and award selected supplier')
-
 		return {
 			success: true,
 			msg: 'Supplier awarded successfully!'
@@ -252,10 +244,6 @@ export class MeqsSupplierItemService {
 		}
 
 		const result = await this.prisma.$transaction(queries)
-
-		console.log('result', result)
-
-		console.log('Successfully attach note')
 
 		return {
 			success: true,

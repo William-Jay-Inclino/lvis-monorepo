@@ -13,8 +13,6 @@ export class MeqsApproverService {
 
     async findByMeqsId(meqsId: string): Promise<MEQSApprover[]> {
 
-        this.logger.log('findByMeqsId()', meqsId)
-
         return await this.prisma.mEQSApprover.findMany({
             where: {
                 meqs_id: meqsId

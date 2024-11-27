@@ -166,7 +166,6 @@ export class SerivService {
             data,
             where: { id }
         })
-        console.log('Successfully updated SERIV');
         return result
 
     }
@@ -229,8 +228,6 @@ export class SerivService {
 
         const result = await this.prisma.$transaction(queries)
 
-        console.log('Successfully cancelled SERIV');
-
         return {
             success: true,
             msg: 'Successfully cancelled SERIV',
@@ -273,15 +270,12 @@ export class SerivService {
     }
 
     async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<SERIVsResponse> {
-        console.log('seriv: findAll');
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
 
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
-            console.log('startDate', startDate);
-            console.log('endDate', endDate)
 
             whereCondition.date_requested = {
                 gte: startDate,
@@ -502,8 +496,6 @@ export class SerivService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -522,18 +514,13 @@ export class SerivService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.validateEmployeeIds', data.data.validateEmployeeIds)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return false;
             }
 
             return data.data.validateEmployeeIds;
 
         } catch (error) {
-            console.error('Error querying employees:', error.message);
             return false;
         }
     }
@@ -564,8 +551,6 @@ export class SerivService {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
-
-            console.log('is normal user')
 
             const approvers = await this.prisma.sERIVApprover.findMany({
                 where: {

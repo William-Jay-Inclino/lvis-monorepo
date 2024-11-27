@@ -26,8 +26,6 @@ export class ClassificationService {
 
 		const created = await this.prisma.classification.create({ data })
 
-		this.logger.log('Successfully created Classification')
-
 		return created
 	}
 
@@ -65,8 +63,6 @@ export class ClassificationService {
 				id
 			}
 		})
-
-		this.logger.log('Successfully updated Classification')
 
 		return updated
 	}

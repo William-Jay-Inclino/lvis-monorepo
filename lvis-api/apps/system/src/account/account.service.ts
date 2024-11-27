@@ -9,7 +9,6 @@ import { AuthUser } from '../__common__/auth-user.entity';
 @Injectable()
 export class AccountService {
 
-  private readonly logger = new Logger(AccountService.name);
   private authUser: AuthUser
 
   constructor(private readonly prisma: PrismaService) { }
@@ -29,8 +28,6 @@ export class AccountService {
       data
     })
 
-    this.logger.log('Successfully created Account')
-
     return created
 
   }
@@ -44,8 +41,6 @@ export class AccountService {
     const item = await this.prisma.account.findUnique({
       where: { id }
     })
-
-    console.log('item', item, id)
 
     if (!item) {
       throw new NotFoundException('Account not found')
@@ -70,8 +65,6 @@ export class AccountService {
         id
       }
     })
-
-    this.logger.log('Successfully updated Account')
 
     return updated
 

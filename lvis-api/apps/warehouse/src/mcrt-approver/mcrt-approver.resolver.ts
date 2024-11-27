@@ -18,7 +18,6 @@ export class McrtApproverResolver {
 
   @ResolveField(() => Employee)
   approver(@Parent() mcrtApprover: MCRTApprover): any {
-    console.log('mcrtApprover', mcrtApprover);
     return { __typename: 'Employee', id: mcrtApprover.approver_id }
   }
 

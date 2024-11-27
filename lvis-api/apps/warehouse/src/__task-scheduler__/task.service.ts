@@ -13,23 +13,18 @@ constructor(private readonly prisma: PrismaService) { }
     // @Cron(CronExpression.EVERY_10_SECONDS)
     @Cron(CronExpression.EVERY_DAY_AT_2AM)
     async handle_osriv_expiration() {
-        console.log('handle_osriv_expiration');
         await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.OSRIV])
     }
 
     // @Cron(CronExpression.EVERY_10_SECONDS)
     @Cron(CronExpression.EVERY_DAY_AT_2AM)
     async handle_seriv_expiration() {
-        console.log('handle_seriv_expiration');
-
         await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.SERIV])
     }
 
     // @Cron(CronExpression.EVERY_10_SECONDS)
     @Cron(CronExpression.EVERY_DAY_AT_2AM)
     async handle_mrv_expiration() {
-        console.log('handle_mrv_expiration');
-
         await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.MRV])
     }
 
@@ -95,8 +90,6 @@ constructor(private readonly prisma: PrismaService) { }
             }
 
             const result = await this.prisma.$transaction(queries)
-
-            console.log(`Successfully cancelled ${module.model}`, record[module.rcNumber]);
 
         }
     }

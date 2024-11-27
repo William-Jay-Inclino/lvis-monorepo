@@ -13,8 +13,6 @@ export class JoApproverService {
 
   async findByJoId(joId: string): Promise<JOApprover[]> {
 
-    this.logger.log('findByJoId()', joId)
-
     if (!joId) {
       throw new BadRequestException('jo_id is undefined')
     }

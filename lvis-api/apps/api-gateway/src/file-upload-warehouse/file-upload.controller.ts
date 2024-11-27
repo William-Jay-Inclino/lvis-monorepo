@@ -76,15 +76,12 @@ export class FileUploadController {
     @Delete('/meqs')
     async deleteMultipleFilesMEQS(@Body() filePaths: string[]) {
 
-        console.log('deleteMultipleFilesMEQS', filePaths)
         try {
             const destination = MEQS_UPLOAD_PATH;
             const deletePromises = filePaths.map(filePath => {
 
                 const parts = filePath.split('/');
                 const filename = parts[parts.length - 1];
-
-                console.log('filename to delete', filename)
 
                 this.fileUploadService.deleteFileLocally(filename, destination)
 

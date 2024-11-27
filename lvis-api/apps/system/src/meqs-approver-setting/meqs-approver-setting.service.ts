@@ -38,8 +38,6 @@ export class MeqsApproverSettingService {
 			}
 		})
 
-		this.logger.log('Successfully created mEQSApproverSetting')
-
 		return created
 	}
 
@@ -89,8 +87,6 @@ export class MeqsApproverSettingService {
 			}
 		})
 
-		this.logger.log('Successfully updated mEQSApproverSetting')
-
 		return updated
 	}
 
@@ -118,8 +114,6 @@ export class MeqsApproverSettingService {
 		queries.push(removeApproverQuery)
 
 		const result = await this.prisma.$transaction(queries)
-
-		console.log('result', result)
 
 		const approvers = await this.findAll()
 
@@ -158,8 +152,6 @@ export class MeqsApproverSettingService {
 
 			const result = await this.prisma.$transaction(queries)
 
-			console.log('result', result)
-
 			const approvers = await this.findAll()
 
 			return {
@@ -173,7 +165,6 @@ export class MeqsApproverSettingService {
 	}
 
 	private async getQueries_for_setTemporaryApproverOrders(): Promise<string[]> {
-		console.log('setTemporaryApproverOrders')
 
 		const approvers = await this.findAll()
 
@@ -182,8 +173,6 @@ export class MeqsApproverSettingService {
 		let order = -1
 
 		for (let approver of approvers) {
-
-			console.log('order', order)
 
 			const query = this.prisma.mEQSApproverSetting.update({
 				where: { id: approver.id },
@@ -206,8 +195,6 @@ export class MeqsApproverSettingService {
 
 	*/
 	private async getQueries_for_reOrderApprovers(idRemoved: string): Promise<string[]> {
-
-		console.log('getQueries_for_reOrderApprovers()', idRemoved)
 
 		const queries = []
 

@@ -18,7 +18,6 @@ export class MstApproverResolver {
 
   @ResolveField(() => Employee)
   approver(@Parent() mstApprover: MSTApprover): any {
-    console.log('mstApprover', mstApprover);
     return { __typename: 'Employee', id: mstApprover.approver_id }
   }
 

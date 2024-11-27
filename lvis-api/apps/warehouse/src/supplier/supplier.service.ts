@@ -34,8 +34,6 @@ export class SupplierService {
 			data
 		})
 
-		this.logger.log('Successfully created Supplier')
-
 		return created
 
 	}
@@ -49,8 +47,6 @@ export class SupplierService {
 		const item = await this.prisma.supplier.findUnique({
 			where: { id }
 		})
-
-		console.log('item', item, id)
 
 		if (!item) {
 			throw new NotFoundException('Supplier not found')
@@ -80,8 +76,6 @@ export class SupplierService {
 				id
 			}
 		})
-
-		this.logger.log('Successfully updated Supplier')
 
 		return updated
 

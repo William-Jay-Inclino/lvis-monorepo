@@ -23,8 +23,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     async validate(validationPayload: { username: string, sub: string }): Promise<User | null> {
 
-        this.logger.log('JwtStrategy validationPayload', validationPayload)
-
         const query = `
             query{
                 validateUserId(id: "${validationPayload.sub}") {
@@ -44,8 +42,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             }
         `;
 
-        console.log('query', query)
-
         const { data } = await firstValueFrom(
             this.httpService.post(process.env.API_GATEWAY_URL, { query }).pipe(
                 catchError((error) => {
@@ -53,8 +49,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
                 }),
             ),
         );
-
-        console.log('data', data)
 
         if (!data || !data.data || !data.data.validateUserId) {
             throw new UnauthorizedException("Unauthorized User")

@@ -7,8 +7,7 @@ async function bootstrap() {
   try {
     config();
   } catch (error) {
-    console.error('Error loading .env file');
-    console.error(error);
+    console.error('Error loading .env file', error);
     process.exit(1);
   }
 

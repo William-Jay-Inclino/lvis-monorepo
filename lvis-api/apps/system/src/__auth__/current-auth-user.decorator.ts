@@ -12,19 +12,15 @@ export const CurrentAuthUser = createParamDecorator(
                 user: req.user
             }
 
-            // return context.switchToHttp().getRequest().user;
         }
 
         const ctx = GqlExecutionContext.create(context);
         const req = ctx.getContext().req
 
-        // console.log('req.headers.authorization', req.headers.authorization)
-        // console.log('req.user', req.user)
         return {
             authorization: req.headers.authorization,
             user: req.user
         }
 
-        // return ctx.getContext().req.user;
     }
 )

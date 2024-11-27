@@ -41,8 +41,6 @@ export class ProjectService {
 			where: { id }
 		})
 
-		console.log('item', item, id)
-
 		if (!item) {
 			throw new NotFoundException('Project not found')
 		}

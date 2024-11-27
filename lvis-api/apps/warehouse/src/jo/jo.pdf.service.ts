@@ -27,9 +27,6 @@ export class JoPdfService {
     }
 
     async generatePdf(jo: JO) {
-        console.log('jo', jo);
-
-        // const browser = await puppeteer.launch();
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -302,8 +299,6 @@ export class JoPdfService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -322,18 +317,13 @@ export class JoPdfService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.employee', data.data.employee)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return undefined;
             }
 
             return data.data.employee;
 
         } catch (error) {
-            console.error('Error getting employee:', error.message);
             return undefined;
         }
     }
@@ -349,8 +339,6 @@ export class JoPdfService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -369,18 +357,13 @@ export class JoPdfService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.department', data.data.department)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return undefined;
             }
 
             return data.data.department;
 
         } catch (error) {
-            console.error('Error getting department:', error.message);
             return undefined;
         }
     }
@@ -397,8 +380,6 @@ export class JoPdfService {
             }
         `;
 
-        console.log('query', query)
-
         try {
             const { data } = await firstValueFrom(
                 this.httpService.post(
@@ -417,18 +398,13 @@ export class JoPdfService {
                 ),
             );
 
-            console.log('data', data);
-            console.log('data.data.classification', data.data.classification)
-
             if (!data || !data.data) {
-                console.log('No data returned');
                 return undefined;
             }
 
             return data.data.classification;
 
         } catch (error) {
-            console.error('Error getting classification:', error.message);
             return undefined;
         }
     }
@@ -438,7 +414,6 @@ export class JoPdfService {
         if(!src || src.trim() === '') return 
 
         const path = src.replace(UPLOADS_PATH, '')
-        console.log('PATH', path)
     
         const uploadsPath = this.API_FILE_ENDPOINT + path
         return uploadsPath
