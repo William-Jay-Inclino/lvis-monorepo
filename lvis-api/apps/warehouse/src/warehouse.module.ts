@@ -62,6 +62,7 @@ import { GasSlipApproverModule } from './gas-slip-approver/gas-slip-approver.mod
 import { TripTicketModule } from './trip-ticket/trip-ticket.module';
 import { TripTicketApproverModule } from './trip-ticket-approver/trip-ticket-approver.module';
 import { GasStationModule } from './gas-station/gas-station.module';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 
 @Module({
@@ -77,6 +78,7 @@ import { GasStationModule } from './gas-station/gas-station.module';
     }),
     EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
+    PrometheusModule.register(),
     HttpModule,
     AuthModule,
     SeederModule,
