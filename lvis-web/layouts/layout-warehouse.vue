@@ -296,9 +296,7 @@ const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 onMounted( async() => {
     const _authUser = await getAuthUserAsync()
 
-    if(!isAdmin(_authUser)) {
-        await updateUserInLocalStorage(_authUser)
-    }
+    await updateUserInLocalStorage(_authUser)
 
     authUser.value = await getAuthUserAsync()
 

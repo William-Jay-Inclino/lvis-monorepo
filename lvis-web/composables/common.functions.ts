@@ -2,6 +2,10 @@
 import { findOne } from '~/composables/system/user/user.api'
 
 export async function updateUserInLocalStorage(authUser: AuthUser) {
+    console.log('updateUserInLocalStorage', authUser);
+
+    if(!authUser.user.user_employee) return 
+    
     try {
         const user = await findOne(authUser.user.id);
 
