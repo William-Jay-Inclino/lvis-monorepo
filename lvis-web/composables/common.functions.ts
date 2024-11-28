@@ -23,6 +23,7 @@ export async function updateUserInLocalStorage(authUser: AuthUser) {
             // update other props
             authUser.user.user_employee.employee.is_budget_officer = user.user_employee.employee.is_budget_officer
             authUser.user.user_employee.employee.is_finance_manager = user.user_employee.employee.is_finance_manager
+            authUser.user.permissions = user.permissions
 
         } else {
             console.warn('Employee data is missing in either authUser or user');
