@@ -88,7 +88,10 @@
                                                 <td class="text-muted align-middle"> {{ formatDate(i.created_at) }} </td>
                                                 <td class="text-center align-middle">
 
-                                                    <div v-if="i.is_posted === null" :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
+                                                    <div v-if="i.cancelled_at" :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
+                                                            {{ approvalStatus[i.status].label }}
+                                                    </div>
+                                                    <div v-else-if="i.is_posted === null" :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                             {{ approvalStatus[i.status].label }}
                                                     </div>
                                                     <div v-else-if="i.is_posted === true" class="badge bg-info">

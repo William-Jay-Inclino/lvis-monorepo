@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args, ResolveField, Parent, Int } from '@nes
 import { GasSlipService } from './gas-slip.service';
 import { GasSlip } from './entities/gas-slip.entity';
 import { CreateGasSlipInput } from './dto/create-gas-slip.input';
-import { WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
@@ -115,6 +115,33 @@ export class GasSlipResolver {
     } catch (error) {
       this.logger.error('Error in posting gas slip', error)
     }
+  }
+
+  @Mutation(() => WarehouseCancelResponse)
+  async cancelGasSlip(
+      @Args('id') id: string,
+      @CurrentAuthUser() authUser: AuthUser
+  ) {
+      try {
+
+          this.logger.log({
+            username: authUser.user.username,
+            filename: this.filename,
+            function: 'cancelGasSlip',
+            gas_slip_id: id,
+          })
+    
+          this.gasSlipService.setAuthUser(authUser)
+          const x = await this.gasSlipService.cancel(id);
+          
+          this.logger.log('Gas Slip cancelled successfully')
+          
+          return x 
+    
+      } catch (error) {
+          this.logger.error('Error in cancelling Gas Slip', error)
+      }
+
   }
 
   @Query(() => GasSlipsResponse)

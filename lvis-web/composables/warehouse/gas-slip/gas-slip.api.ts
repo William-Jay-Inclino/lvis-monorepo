@@ -80,6 +80,7 @@ export async function findByGasSlipNumber(gasSlipNumber: string): Promise<GasSli
                 id
                 gas_slip_number
                 is_posted
+                cancelled_at
                 vehicle {
                     id 
                     vehicle_number
@@ -233,6 +234,7 @@ export async function findAll(payload: {
             status
             created_at
             is_posted
+            cancelled_at
             vehicle {
                 id 
                 vehicle_number

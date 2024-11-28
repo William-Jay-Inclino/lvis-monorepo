@@ -200,7 +200,7 @@
                             </client-only> 
                             Search Search Gas Slip
                                         </nuxt-link>
-                                        <button v-if="!!item.can_print" @click="onClickPrint" class="btn btn-danger">
+                                        <button v-if="!!item.can_print && !item.cancelled_at" @click="onClickPrint" class="btn btn-danger">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'print']"/>
                             </client-only> Print Gas Slip

@@ -115,6 +115,7 @@ export class TripTicketResolver {
   }
 
   @Mutation(() => WarehouseCancelResponse)
+  @UseGuards(GqlAuthGuard)
   async cancelTripTicket(
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser

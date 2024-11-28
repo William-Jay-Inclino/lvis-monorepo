@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateGasSlipInput } from './dto/create-gas-slip.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { GasSlip, GasSlipApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
@@ -160,6 +160,53 @@ export class GasSlipService {
 		return updated
 		
 	}
+
+	async cancel(id: string): Promise<WarehouseCancelResponse> {
+
+        const existingItem = await this.prisma.gasSlip.findUnique({
+            where: { id }
+        })
+
+        if (!existingItem) {
+            throw new NotFoundException('Gas Slip not found')
+        }
+
+        if (!this.canAccess(existingItem)) {
+            throw new ForbiddenException('Only Admin and Owner can cancel this record!')
+        }
+
+        const queries: Prisma.PrismaPromise<any>[] = []
+        
+        const updateGasSlipQuery = this.prisma.gasSlip.update({
+            data: {
+                cancelled_at: new Date(),
+                cancelled_by: this.authUser.user.username
+            },
+            where: { id }
+        })
+
+        queries.push(updateGasSlipQuery)
+
+        // delete all associated pendings
+
+        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+            where: {
+                reference_number: existingItem.gas_slip_number
+            }
+        })
+
+        queries.push(deleteAssociatedPendings)
+
+        const result = await this.prisma.$transaction(queries)
+
+        return {
+            success: true,
+            msg: 'Successfully cancelled Gas Slip',
+            cancelled_at: result[0].cancelled_at,
+            cancelled_by: result[0].cancelled_by
+        }
+
+    }
 
 	async findAll(
 		page: number,
