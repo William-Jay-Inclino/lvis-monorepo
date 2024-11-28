@@ -9,7 +9,7 @@ export class SeederService {
     constructor(private readonly prisma: PrismaService) { }
 
     async seedData() {
-
+        console.log('seeding warehouse database...');
         try {
             await this.prisma.$transaction([
                 this.seedSupplier(),
@@ -30,6 +30,8 @@ export class SeederService {
     }
 
     seedSupplier() {
+        console.log('seeding supplier table...');
+
         try {
             return this.prisma.supplier.createMany({ data: data.suppliers })
         } catch (error) {
@@ -37,6 +39,7 @@ export class SeederService {
     }
 
     seedStation() {
+        console.log('seeding station table...');
         try {
             return this.prisma.station.createMany({ data: data.stations })
         } catch (error) {
@@ -44,6 +47,7 @@ export class SeederService {
     }
 
     seedProject() {
+        console.log('seeding project table...');
         try {
             return this.prisma.project.createMany({ data: data.projects })
         } catch (error) {
@@ -51,6 +55,7 @@ export class SeederService {
     }
 
     seedUnit() {
+        console.log('seeding unit table...');
         try {
             return this.prisma.unit.createMany({ data: data.units })
         } catch (error) {
@@ -58,6 +63,7 @@ export class SeederService {
     }
 
     seedItemType() {
+        console.log('seeding item_type table...');
         try {
             return this.prisma.itemType.createMany({ data: data.itemTypes })
         } catch (error) {
@@ -65,6 +71,7 @@ export class SeederService {
     }
 
     seedGasStations() {
+        console.log('seeding gas_station table...');
         try {
             return this.prisma.gasStation.createMany({ data: data.gasStations })
         } catch (error) {
@@ -72,6 +79,7 @@ export class SeederService {
     }
 
     seedFuelTypes() {
+        console.log('seeding fuel_type table...');
         try {
             return this.prisma.fuelType.createMany({ data: data.fuelTypes })
         } catch (error) {
@@ -79,6 +87,7 @@ export class SeederService {
     }
 
     seedItemCodeTracker() {
+        console.log('seeding item_code_tracker table...');
         try {
             return this.prisma.itemCodeTracker.createMany({ data: data.itemCodeTracker })
         } catch (error) {
@@ -86,6 +95,7 @@ export class SeederService {
     }
 
     seedSettingTable() {
+        console.log('seeding setting table...');
     
         try {
             return this.prisma.setting.createMany({

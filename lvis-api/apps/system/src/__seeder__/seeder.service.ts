@@ -13,7 +13,7 @@ export class SeederService {
     constructor(private readonly prisma: PrismaService) { }
 
     async seedData() {
-
+        console.log('seeding system database...');
         try {
             await this.prisma.$transaction(async (prisma) => {
 
@@ -44,7 +44,7 @@ export class SeederService {
     }
 
     async seedDepartment(prisma: Prisma.TransactionClient) {
-
+        console.log('seeding department table...');
         try {
             await prisma.department.createMany({
                 data: data.departments
@@ -56,6 +56,7 @@ export class SeederService {
     }
 
     async seedDivision(prisma: Prisma.TransactionClient) {
+        console.log('seeding division table...');
 
         try {
             await prisma.division.createMany({
@@ -68,6 +69,7 @@ export class SeederService {
     }
 
     async seedClassification(prisma: Prisma.TransactionClient) {
+        console.log('seeding classification table...');
 
         try {
             await prisma.classification.createMany({
@@ -81,6 +83,7 @@ export class SeederService {
     }
 
     async seedAccount(prisma: Prisma.TransactionClient) {
+        console.log('seeding account table...');
 
         try {
             await prisma.account.createMany({
@@ -94,6 +97,7 @@ export class SeederService {
     }
 
     async seedEmployee(prisma: Prisma.TransactionClient) {
+        console.log('seeding employee table...');
 
         try {
             await prisma.employee.createMany({
@@ -108,6 +112,8 @@ export class SeederService {
 
     async seedJOApproverSetting(prisma: Prisma.TransactionClient) {
 
+        console.log('seeding jo_approver_setting table...');
+
         try {
             await prisma.jOApproverSetting.createMany({
                 data: data.jo_default_approvers,
@@ -120,6 +126,7 @@ export class SeederService {
     }
 
     async seedRVApproverSetting(prisma: Prisma.TransactionClient) {
+        console.log('seeding rv_approver_setting table...');
 
         try {
 
@@ -134,6 +141,7 @@ export class SeederService {
     }
 
     async seedSPRApproverSetting(prisma: Prisma.TransactionClient) {
+        console.log('seeding spr_approver_setting table...');
 
         try {
 
@@ -148,6 +156,7 @@ export class SeederService {
     }
 
     async seedMEQSApproverSetting(prisma: Prisma.TransactionClient) {
+        console.log('seeding meqs_approver_setting table...');
 
         try {
             await prisma.mEQSApproverSetting.createMany({
@@ -161,6 +170,7 @@ export class SeederService {
     }
 
     async seedPOApproverSetting(prisma: Prisma.TransactionClient) {
+        console.log('seeding po_approver_setting table...');
 
         try {
             await prisma.pOApproverSetting.createMany({
@@ -173,6 +183,7 @@ export class SeederService {
     }
 
     async seedRRApproverSetting(prisma: Prisma.TransactionClient) {
+        console.log('seeding rr_approver_setting table...');
 
         try {
             await prisma.rRApproverSetting.createMany({
@@ -185,6 +196,7 @@ export class SeederService {
     }
 
     async seedUserTable(prisma: Prisma.TransactionClient) {
+        console.log('seeding user table...');
 
         const users = data.users.map(i => ({...i, password: encrypt_password(i.password, this.secretKey)}))
 
@@ -200,6 +212,7 @@ export class SeederService {
     }
 
     async seedUserGroupTable(prisma: Prisma.TransactionClient) {
+        console.log('seeding user_group table...');
 
         try {
             await prisma.userGroup.createMany({
@@ -212,6 +225,7 @@ export class SeederService {
     }
 
     async seedUserGroupMembersTable(prisma: Prisma.TransactionClient) {
+        console.log('seeding user_group_member table...');
 
         try {
             await prisma.userGroupMembers.createMany({
@@ -224,6 +238,7 @@ export class SeederService {
     }
 
     async seedUserEmployeeTable(prisma: Prisma.TransactionClient) {
+        console.log('seeding employee table...');
 
         try {
             for (const userEmployee of data.userEmployees) {
@@ -237,6 +252,7 @@ export class SeederService {
     }
 
     async seedSettingTable(prisma: Prisma.TransactionClient) {
+        console.log('seeding setting table...');
     
         try {
             await prisma.setting.createMany({
