@@ -82,7 +82,7 @@ export class MstService {
                 approver_id: firstApprover.approver_id,
                 reference_number: mstNumber,
                 reference_table: DB_ENTITY.MST,
-                description: `${ module.description } no. ${mst_created}`
+                description: `${ module.description } no. ${mstNumber}`
             }
 
             await tx.pending.create({ data: pendingData })

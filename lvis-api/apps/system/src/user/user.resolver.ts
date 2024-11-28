@@ -162,7 +162,12 @@ export class UserResolver {
       this.userService.setAuthUser(authUser)
       const x = await this.userService.change_own_password(new_pw, current_pw);
 
-      this.logger.log('Own Password changed successfully')
+      if(x.success){
+        this.logger.log('Own Password changed successfully')
+      }else {
+        this.logger.log(x.msg)
+      }
+
 
       return x
     } catch (error) {

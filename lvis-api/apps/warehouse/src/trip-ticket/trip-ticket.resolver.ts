@@ -157,7 +157,7 @@ export class TripTicketResolver {
 
       const x = await this.tripTicketService.update_actual_time(input.rf_id);
       
-      this.logger.log('Trip Ticket actual time successfully updated')
+      this.logger.log(x.msg)
       
       return x 
   
@@ -185,7 +185,7 @@ export class TripTicketResolver {
       this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.remove_actual_start_time(id);
       
-      this.logger.log('Trip Ticket actual start time successfully removed')
+      this.logger.log(x.msg)
       
       return x 
   
@@ -213,7 +213,7 @@ export class TripTicketResolver {
       this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.remove_actual_end_time(id);
       
-      this.logger.log('Trip Ticket actual end time successfully removed')
+      this.logger.log(x.msg)
       
       return x 
   
@@ -241,7 +241,7 @@ export class TripTicketResolver {
       this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.update_actual_start_time(input.trip_ticket_id, input.actual_start_time);
       
-      this.logger.log('Trip Ticket actual start time successfully updated')
+      this.logger.log(x.msg)
       
       return x 
   
@@ -269,7 +269,7 @@ export class TripTicketResolver {
       this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.update_actual_end_time(input.trip_ticket_id, input.actual_end_time);
       
-      this.logger.log('Trip Ticket actual end time successfully updated')
+      this.logger.log(x.msg)
       
       return x 
   

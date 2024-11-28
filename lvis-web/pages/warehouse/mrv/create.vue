@@ -94,7 +94,7 @@
                                     Project Name
                                 </label>
                                 <client-only>
-                                    <v-select :options="projects" label="name" v-model="mrvData.project" :clearable="false"></v-select>
+                                    <v-select :options="projects" label="name" v-model="mrvData.project"></v-select>
                                 </client-only>
                                 <!-- <small class="text-danger fst-italic" v-show="mrvDataErrors.project"> {{ errorMsg }} </small> -->
                             </div>

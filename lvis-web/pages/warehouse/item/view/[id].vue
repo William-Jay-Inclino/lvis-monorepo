@@ -185,7 +185,7 @@
                             <div class="col">
                                 <div class="d-flex justify-content-end gap-2">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <button v-if="canRead(authUser, 'canManageItem')" class="btn btn-secondary"
+                                        <button v-if="canSearch(authUser, 'canManageItem')" class="btn btn-secondary"
                                             @click="onClickGoToList">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'list']"/>
