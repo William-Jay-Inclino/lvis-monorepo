@@ -69,7 +69,7 @@
                             </div>
                         </div>
         
-                        <div class="h5wrapper mb-3 pt-3">
+                        <!-- <div class="h5wrapper mb-3 pt-3">
                             <hr class="result">
                             <h5 class="text-warning fst-italic">
                                 <client-only>
@@ -86,7 +86,7 @@
         
                         <div v-else>
                             <SystemUserPermissions :permissions="item.permissions" :is-view-only="true" />
-                        </div>
+                        </div> -->
         
         
         
