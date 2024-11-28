@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CanvassService } from '../canvass/canvass.service';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, SPR, SPRApprover } from 'apps/warehouse/prisma/generated/client';
@@ -18,7 +18,6 @@ import { endOfYear, startOfYear } from 'date-fns';
 @Injectable()
 export class SprService {
 
-    private readonly logger = new Logger(SprService.name);
     private authUser: AuthUser
 
     // fields that are included when returning a data from db

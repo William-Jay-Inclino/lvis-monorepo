@@ -6,6 +6,7 @@ import { CanvassService } from '../canvass/canvass.service';
 import { SprApproverService } from '../spr-approver/spr-approver.service';
 import { SprController } from './spr.controller';
 import { SprPdfService } from './spr.pdf.service';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
@@ -14,7 +15,9 @@ import { SprPdfService } from './spr.pdf.service';
     SprResolver, 
     SprPdfService, 
     SprApproverService, 
-    CanvassService],
+    CanvassService, 
+    WinstonLoggerService
+  ],
   exports: [SprService],
   controllers: [SprController]
 })

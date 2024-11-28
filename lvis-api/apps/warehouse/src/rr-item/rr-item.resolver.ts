@@ -4,15 +4,18 @@ import { RrItem } from './entities/rr-item.entity';
 import { UpdateRrItemInput } from './dto/update-rr-item.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { UpdateRrItemsInput } from './dto/update-rr-items.input';
 import { UpdateRrItemsResponse } from './entities/update-rr-items-response';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => RrItem)
 export class RrItemResolver {
-  constructor(private readonly rrItemService: RrItemService) { }
 
+  private readonly logger = new Logger(RrItemResolver.name);
+  private filename = 'rr-item.resolver.ts'
+
+  constructor(private readonly rrItemService: RrItemService) { }
 
   @Query(() => RrItem)
   async rr_item(
@@ -28,22 +31,61 @@ export class RrItemResolver {
   }
 
   @Mutation(() => RrItem)
-  updateRrItem(
+  async updateRrItem(
     @Args('id') id: string,
     @Args('input') updateRrItemInput: UpdateRrItemInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.rrItemService.setAuthUser(authUser)
-    return this.rrItemService.update(id, updateRrItemInput);
+
+    try {
+        this.logger.log({
+          username: authUser.user.username,
+          filename: this.filename,
+          function: 'updateRrItem',
+          rr_item_id: id,
+          input: JSON.stringify(updateRrItemInput)
+        })
+        
+        this.rrItemService.setAuthUser(authUser)
+
+        const x = await this.rrItemService.update(id, updateRrItemInput);
+        
+        this.logger.log('RR Item updated successfully')
+
+        return x
+
+    } catch (error) {
+        this.logger.error('Error in updating RR Item', error)
+    }
+
   }
 
   @Mutation(() => UpdateRrItemsResponse)
-  updateRrItems(
+  async updateRrItems(
     @Args({ name: 'inputs', type: () => [UpdateRrItemsInput] }) inputs: UpdateRrItemsInput[],
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.rrItemService.setAuthUser(authUser)
-    return this.rrItemService.updateMultiple(inputs);
+
+    try {
+        this.logger.log({
+          username: authUser.user.username,
+          filename: this.filename,
+          function: 'updateRrItems',
+          input: JSON.stringify(inputs)
+        })
+        
+        this.rrItemService.setAuthUser(authUser)
+
+        const x = await this.rrItemService.updateMultiple(inputs);
+        
+        this.logger.log('RR Items updated successfully')
+
+        return x
+
+    } catch (error) {
+        this.logger.error('Error in updating RR Items', error)
+    }
+
   }
 
 }

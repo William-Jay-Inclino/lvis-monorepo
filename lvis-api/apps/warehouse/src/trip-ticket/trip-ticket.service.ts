@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateTripTicketInput } from './dto/create-trip-ticket.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, TripTicket, TripTicketApprover } from 'apps/warehouse/prisma/generated/client';
-import { WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TRIP_TICKET_STATUS } from './entities/trip-ticket.enums';
 import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
@@ -263,6 +263,53 @@ export class TripTicketService {
 		return result[0]
 
 	}
+
+	async cancel(id: string): Promise<WarehouseCancelResponse> {
+
+        const existingItem = await this.prisma.tripTicket.findUnique({
+            where: { id }
+        })
+
+        if (!existingItem) {
+            throw new NotFoundException('Trip Ticket not found')
+        }
+
+        if (!this.canAccess(existingItem)) {
+            throw new ForbiddenException('Only Admin and Owner can cancel this record!')
+        }
+
+        const queries: Prisma.PrismaPromise<any>[] = []
+        
+        const updateTripQuery = this.prisma.tripTicket.update({
+            data: {
+                cancelled_at: new Date(),
+                cancelled_by: this.authUser.user.username
+            },
+            where: { id }
+        })
+
+        queries.push(updateTripQuery)
+
+        // delete all associated pendings
+
+        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+            where: {
+                reference_number: existingItem.trip_number
+            }
+        })
+
+        queries.push(deleteAssociatedPendings)
+
+        const result = await this.prisma.$transaction(queries)
+
+        return {
+            success: true,
+            msg: 'Successfully cancelled Trip Ticket',
+            cancelled_at: result[0].cancelled_at,
+            cancelled_by: result[0].cancelled_by
+        }
+
+    }
 
 	async findAll(
 		page: number,

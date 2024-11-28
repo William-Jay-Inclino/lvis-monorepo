@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRrInput } from './dto/create-rr.input';
 import { UpdateRrInput } from './dto/update-rr.input';
 import { PrismaService } from '../__prisma__/prisma.service';
@@ -10,7 +10,6 @@ import { APPROVAL_STATUS } from '../__common__/types';
 import { RRsResponse } from './entities/rr-response.entity';
 import * as moment from 'moment';
 import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
-import { CreateRrApproverSubInput } from './dto/create-rr-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
@@ -18,7 +17,6 @@ import { endOfYear, startOfYear } from 'date-fns';
 @Injectable()
 export class RrService {
 
-    private readonly logger = new Logger(RrService.name)
     private authUser: AuthUser
     private includedFields = {
         po: {

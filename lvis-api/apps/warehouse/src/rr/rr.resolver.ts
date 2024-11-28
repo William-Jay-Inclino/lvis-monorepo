@@ -6,10 +6,9 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { UpdateRrInput } from './dto/update-rr.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { NotFoundException, UseGuards } from '@nestjs/common';
+import { Logger, NotFoundException, UseGuards } from '@nestjs/common';
 import { RrApprover } from '../rr-approver/entities/rr-approver.entity';
 import { RrApproverService } from '../rr-approver/rr-approver.service';
-import { RrNumber } from './entities/rr-number.entity';
 import { RRsResponse } from './entities/rr-response.entity';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
@@ -25,6 +24,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => RR)
 export class RrResolver {
 
+    private readonly logger = new Logger(RrResolver.name);
+    private filename = 'rr.resolver.ts'
+
     constructor(
         private readonly rrService: RrService,
         private readonly rrApproverService: RrApproverService,
@@ -38,8 +40,27 @@ export class RrResolver {
         @Args('input') createRrInput: CreateRrInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.rrService.setAuthUser(authUser)
-        return await this.rrService.create(createRrInput);
+
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createRr,
+              input: JSON.stringify(createRrInput)
+            })
+            
+            this.rrService.setAuthUser(authUser)
+      
+            const x = await this.rrService.create(createRrInput);
+            
+            this.logger.log('RR created successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in creating RR', error)
+        }
+
     }
 
     @Query(() => RRsResponse)
@@ -83,8 +104,25 @@ export class RrResolver {
         @Args('input') updateRrInput: UpdateRrInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.rrService.setAuthUser(authUser)
-        return await this.rrService.update(id, updateRrInput);
+
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updateRr,
+              rr_id: id,
+              input: JSON.stringify(updateRrInput),
+            })
+            
+            this.rrService.setAuthUser(authUser)
+            const x = await this.rrService.update(id, updateRrInput);
+      
+            this.logger.log('RR updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating RR', error)
+        }
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -92,8 +130,25 @@ export class RrResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.rrService.setAuthUser(authUser)
-        return await this.rrService.cancel(id);
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelRr',
+              rr_id: id,
+            })
+      
+            this.rrService.setAuthUser(authUser)
+            const x = await this.rrService.cancel(id);
+            
+            this.logger.log('RR cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling RR', error)
+        }
     }
 
     @ResolveField(() => [RrApprover])

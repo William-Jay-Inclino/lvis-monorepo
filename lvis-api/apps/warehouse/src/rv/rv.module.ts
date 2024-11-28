@@ -6,6 +6,7 @@ import { RvApproverService } from '../rv-approver/rv-approver.service';
 import { CanvassService } from '../canvass/canvass.service';
 import { RvController } from './rv.controller';
 import { RvPdfService } from './rv.pdf.service';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
@@ -14,7 +15,9 @@ import { RvPdfService } from './rv.pdf.service';
     RvService, 
     RvPdfService, 
     RvApproverService, 
-    CanvassService],
+    CanvassService, 
+    WinstonLoggerService
+  ],
   exports: [RvService],
   controllers: [RvController]
 })

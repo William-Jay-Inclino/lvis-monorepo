@@ -6,7 +6,7 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { UpdateSerivInput } from './dto/update-seriv.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { SERIVApprover } from '../seriv-approver/entities/seriv-approver.entity';
 import { SerivApproverService } from '../seriv-approver/seriv-approver.service';
 import { SERIVsResponse } from './entities/serivs-response.entity';
@@ -22,6 +22,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => SERIV)
 export class SerivResolver {
 
+    private readonly logger = new Logger(SerivResolver.name);
+    private filename = 'seriv.resolver.ts'
+
     constructor(
         private readonly serivService: SerivService,
         private readonly serivApproverService: SerivApproverService
@@ -34,8 +37,25 @@ export class SerivResolver {
         @Args('input') createSerivInput: CreateSerivInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.serivService.setAuthUser(authUser)
-        return await this.serivService.create(createSerivInput);
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createSeriv,
+              input: JSON.stringify(createSerivInput)
+            })
+            
+            this.serivService.setAuthUser(authUser)
+      
+            const x = await this.serivService.create(createSerivInput);
+            
+            this.logger.log('SERIV created successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in creating SERIV', error)
+        }
     }
 
     @Query(() => SERIVsResponse)
@@ -75,8 +95,25 @@ export class SerivResolver {
         @Args('input') updateSerivInput: UpdateSerivInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.serivService.setAuthUser(authUser)
-        return await this.serivService.update(id, updateSerivInput);
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updateSeriv,
+              seriv_id: id,
+              input: JSON.stringify(updateSerivInput),
+            })
+            
+            this.serivService.setAuthUser(authUser)
+            const x = await this.serivService.update(id, updateSerivInput);
+      
+            this.logger.log('SERIV updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating SERIV', error)
+        }
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -84,8 +121,25 @@ export class SerivResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.serivService.setAuthUser(authUser)
-        return await this.serivService.cancel(id);
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelSeriv',
+              seriv_id: id,
+            })
+      
+            this.serivService.setAuthUser(authUser)
+            const x = await this.serivService.cancel(id);
+            
+            this.logger.log('SERIV cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling SERIV', error)
+        }
     }
 
     @ResolveField(() => Employee)

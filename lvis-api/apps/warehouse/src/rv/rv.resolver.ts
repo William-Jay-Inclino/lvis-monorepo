@@ -7,7 +7,7 @@ import { Classification } from '../__classification__/entities/classification.en
 import { UpdateRvInput } from './dto/update-rv.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { RVApprover } from '../rv-approver/entities/rv-approver.entity';
 import { RvApproverService } from '../rv-approver/rv-approver.service';
 import { RVsResponse } from './entities/rvs-response.entity';
@@ -24,6 +24,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => RV)
 export class RvResolver {
 
+    private readonly logger = new Logger(RvResolver.name);
+    private filename = 'rv.resolver.ts'
+
     constructor(
         private readonly rvService: RvService,
         private readonly rvApproverService: RvApproverService
@@ -36,8 +39,25 @@ export class RvResolver {
         @Args('input') createRvInput: CreateRvInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.rvService.setAuthUser(authUser)
-        return await this.rvService.create(createRvInput);
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createRv,
+              input: JSON.stringify(createRvInput)
+            })
+            
+            this.rvService.setAuthUser(authUser)
+      
+            const x = await this.rvService.create(createRvInput);
+            
+            this.logger.log('RV created successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in creating RV', error)
+        }
     }
 
     @Query(() => RVsResponse)
@@ -81,8 +101,25 @@ export class RvResolver {
         @Args('input') updateRvInput: UpdateRvInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.rvService.setAuthUser(authUser)
-        return await this.rvService.update(id, updateRvInput);
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updateRv,
+              rv_id: id,
+              input: JSON.stringify(updateRvInput),
+            })
+            
+            this.rvService.setAuthUser(authUser)
+            const x = await this.rvService.update(id, updateRvInput);
+      
+            this.logger.log('RV updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating RV', error)
+        }
     }
 
     @Mutation(() => WarehouseRemoveResponse)
@@ -91,8 +128,25 @@ export class RvResolver {
         @Args('input') input: UpdateRvByBudgetOfficerInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.rvService.setAuthUser(authUser)
-        return await this.rvService.updateClassificationByBudgetOfficer(id, input);
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'update_rv_classification_and_rv_approver',
+              rv_id: id,
+              input: JSON.stringify(input),
+            })
+            
+            this.rvService.setAuthUser(authUser)
+            const x = await this.rvService.updateClassificationByBudgetOfficer(id, input);
+      
+            this.logger.log('RV Classification and RV Approval updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating RV Classification and RV Approval', error)
+        }
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -100,8 +154,26 @@ export class RvResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.rvService.setAuthUser(authUser)
-        return await this.rvService.cancel(id);
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelRv',
+              rv_id: id,
+            })
+      
+            this.rvService.setAuthUser(authUser)
+            const x = await this.rvService.cancel(id);
+            
+            this.logger.log('RV cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling RV', error)
+        }
+
     }
 
     @ResolveField(() => Employee)

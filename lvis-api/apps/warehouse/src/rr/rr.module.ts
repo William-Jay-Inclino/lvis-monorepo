@@ -6,6 +6,7 @@ import { RrApproverService } from '../rr-approver/rr-approver.service';
 import { RrController } from './rr.controller';
 import { RrPdfService } from './rr.pdf.service';
 import { PoService } from '../po/po.service';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
@@ -14,7 +15,8 @@ import { PoService } from '../po/po.service';
     RrService, 
     RrPdfService, 
     RrApproverService,
-    PoService,
+    PoService, 
+    WinstonLoggerService
   ],
   exports: [RrService],
   controllers: [RrController]

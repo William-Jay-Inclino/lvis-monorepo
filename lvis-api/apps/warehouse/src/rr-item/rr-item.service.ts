@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateRrItemInput } from './dto/update-rr-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, RRApprover, RRItem } from 'apps/warehouse/prisma/generated/client';
@@ -11,7 +11,6 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @Injectable()
 export class RrItemService {
 
-	private readonly logger = new Logger(RrItemService.name)
 	private authUser: AuthUser
 	private includedFields = {
 		rr: true

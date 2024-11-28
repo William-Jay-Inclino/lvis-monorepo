@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CanvassService } from '../canvass/canvass.service';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, RV, RVApprover } from 'apps/warehouse/prisma/generated/client';
@@ -11,7 +11,6 @@ import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/
 import { RVsResponse } from './entities/rvs-response.entity';
 import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateRvByBudgetOfficerInput } from './dto/update-rv-by-budget-officer.input';
-import { CreateRvApproverSubInput } from './dto/create-rv-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
@@ -19,7 +18,6 @@ import { endOfYear, startOfYear } from 'date-fns';
 @Injectable()
 export class RvService {
 
-    private readonly logger = new Logger(RvService.name);
     private authUser: AuthUser
 
     // fields that are included when returning a data from db

@@ -3,13 +3,16 @@ import { SerivItemService } from './seriv-item.service';
 import { SERIVItem } from './entities/seriv-item.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { CreateSerivItemSubInput } from '../seriv/dto/create-seriv-item.sub.input';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => SERIVItem)
 export class SerivItemResolver {
+
+    private readonly logger = new Logger(SerivItemResolver.name);
+    private filename = 'seriv-item.resolver.ts'
 
     constructor(
         private readonly serivItemService: SerivItemService,
@@ -21,8 +24,26 @@ export class SerivItemResolver {
         @Args({ name: 'items', type: () => [CreateSerivItemSubInput] }) items: CreateSerivItemSubInput[],
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.serivItemService.setAuthUser(authUser)
-        return await this.serivItemService.updateSerivItems(seriv_id, items);
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'updateSerivItems',
+              seriv_id,
+              items: JSON.stringify(items)
+            })
+            
+            this.serivItemService.setAuthUser(authUser)
+      
+            const x = await this.serivItemService.updateSerivItems(seriv_id, items);
+            
+            this.logger.log('SERIV Items updated successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in updating SERIV Items', error)
+        }
     }
 
     @ResolveField(() => Number)

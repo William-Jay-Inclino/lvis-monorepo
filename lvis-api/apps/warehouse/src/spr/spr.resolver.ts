@@ -7,7 +7,7 @@ import { Classification } from '../__classification__/entities/classification.en
 import { UpdateSprInput } from './dto/update-spr.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { SPRApprover } from '../spr-approver/entities/spr-approver.entity';
 import { SprApproverService } from '../spr-approver/spr-approver.service';
 import { SPRsResponse } from './entities/sprs-response.entity';
@@ -24,6 +24,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => SPR)
 export class SprResolver {
 
+    private readonly logger = new Logger(SprResolver.name);
+    private filename = 'spr.resolver.ts'
+
     constructor(
         private readonly sprService: SprService,
         private readonly sprApproverService: SprApproverService
@@ -36,8 +39,25 @@ export class SprResolver {
         @Args('input') createSprInput: CreateSprInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.sprService.setAuthUser(authUser)
-        return await this.sprService.create(createSprInput);
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createSpr,
+              input: JSON.stringify(createSprInput)
+            })
+            
+            this.sprService.setAuthUser(authUser)
+      
+            const x = await this.sprService.create(createSprInput);
+            
+            this.logger.log('SPR created successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in creating SPR', error)
+        }
     }
 
     @Query(() => SPRsResponse)
@@ -81,8 +101,25 @@ export class SprResolver {
         @Args('input') updateSprInput: UpdateSprInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.sprService.setAuthUser(authUser)
-        return await this.sprService.update(id, updateSprInput);
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updateSpr,
+              spr_id: id,
+              input: JSON.stringify(updateSprInput),
+            })
+            
+            this.sprService.setAuthUser(authUser)
+            const x = await this.sprService.update(id, updateSprInput);
+      
+            this.logger.log('SPR updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating SPR', error)
+        }
     }
 
     @Mutation(() => WarehouseRemoveResponse)
@@ -91,8 +128,25 @@ export class SprResolver {
         @Args('input') input: UpdateSprByBudgetOfficerInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.sprService.setAuthUser(authUser)
-        return await this.sprService.updateClassificationByBudgetOfficer(id, input);
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'update_spr_classification_and_spr_approver',
+              spr_id: id,
+              input: JSON.stringify(input),
+            })
+            
+            this.sprService.setAuthUser(authUser)
+            const x = await this.sprService.updateClassificationByBudgetOfficer(id, input);
+      
+            this.logger.log('SPR Classification and SPR Approval updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating SPR Classification and SPR Approval', error)
+        }
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -100,8 +154,25 @@ export class SprResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.sprService.setAuthUser(authUser)
-        return await this.sprService.cancel(id);
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelSpr',
+              spr_id: id,
+            })
+      
+            this.sprService.setAuthUser(authUser)
+            const x = await this.sprService.cancel(id);
+            
+            this.logger.log('SPR cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling SPR', error)
+        }
     }
 
     @ResolveField(() => Employee)

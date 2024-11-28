@@ -5,14 +5,13 @@ import { CreateVehicleInput } from './dto/create-vehicle.input';
 import { UpdateVehicleInput } from './dto/update-vehicle.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
-import { TripTicket } from '../trip-ticket/entities/trip-ticket.entity';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { GasSlipService } from '../gas-slip/gas-slip.service';
 import { UpdateVehicleResponse } from './entities/update-vehicle-response.entity';
@@ -20,6 +19,10 @@ import { UpdateVehicleResponse } from './entities/update-vehicle-response.entity
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Vehicle)
 export class VehicleResolver {
+
+  private readonly logger = new Logger(VehicleResolver.name);
+  private filename = 'vehicle.resolver.ts'
+
   constructor(
     private readonly vehicleService: VehicleService,
     private readonly gasSlipService: GasSlipService,
@@ -28,12 +31,29 @@ export class VehicleResolver {
   @Mutation(() => Vehicle)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.VEHICLE, RESOLVERS.createVehicle)
-  createVehicle(
+  async createVehicle(
     @Args('input') createVehicleInput: CreateVehicleInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.vehicleService.setAuthUser(authUser)
-    return this.vehicleService.create(createVehicleInput);
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.createVehicle,
+        input: JSON.stringify(createVehicleInput)
+      })
+      
+      this.vehicleService.setAuthUser(authUser)
+
+      const x = await this.vehicleService.create(createVehicleInput);
+      
+      this.logger.log('Vehicle created successfully')
+
+      return x
+
+    } catch (error) {
+      this.logger.error('Error in creating Vehicle', error)
+    }
   }
 
   @Query(() => [Vehicle])
@@ -49,24 +69,58 @@ export class VehicleResolver {
   @Mutation(() => UpdateVehicleResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.VEHICLE, RESOLVERS.updateVehicle)
-  updateVehicle(
+  async updateVehicle(
     @Args('id') id: string,
     @Args('input') updateVehicleInput: UpdateVehicleInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.vehicleService.setAuthUser(authUser)
-    return this.vehicleService.update(id, updateVehicleInput);
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.updateVehicle,
+        vehicle_id: id,
+        input: JSON.stringify(updateVehicleInput),
+      })
+      
+      this.vehicleService.setAuthUser(authUser)
+      const x = await this.vehicleService.update(id, updateVehicleInput);
+
+      this.logger.log('Vehicle updated successfully')
+
+      return x
+    } catch (error) {
+      this.logger.error('Error in updating Vehicle', error)
+    }
   }
 
   @Mutation(() => WarehouseRemoveResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.VEHICLE, RESOLVERS.removeVehicle)
-  removeVehicle(
+  async removeVehicle(
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.vehicleService.setAuthUser(authUser)
-    return this.vehicleService.remove(id);
+    try {
+
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.removeVehicle,
+        vehicle_id: id,
+      })
+
+      this.vehicleService.setAuthUser(authUser)
+      const x = await this.vehicleService.remove(id);
+      
+      this.logger.log('Vehicle removed successfully')
+      
+      return x 
+
+    } catch (error) {
+      this.logger.error('Error in removing Vehicle', error)
+    }
   }
 
   @ResolveField(() => Employee)

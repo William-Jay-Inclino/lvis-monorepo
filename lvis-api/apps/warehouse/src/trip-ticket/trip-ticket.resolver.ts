@@ -2,9 +2,9 @@ import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nes
 import { TripTicketService } from './trip-ticket.service';
 import { TripTicket } from './entities/trip-ticket.entity';
 import { CreateTripTicketInput } from './dto/create-trip-ticket.input';
-import { WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
@@ -24,6 +24,10 @@ import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
 // @UseGuards(GqlAuthGuard)
 @Resolver(() => TripTicket)
 export class TripTicketResolver {
+
+    private readonly logger = new Logger(TripTicketResolver.name);
+    private filename = 'trip-ticket.resolver.ts'
+
   constructor(
     private readonly tripTicketService: TripTicketService,
     private readonly tripTicketApproverService: TripTicketApproverService,
@@ -32,12 +36,29 @@ export class TripTicketResolver {
   @Mutation(() => TripTicket)
   @UseGuards(GqlAuthGuard, AccessGuard)
   @CheckAccess(MODULES.TRIP_TICKET, RESOLVERS.createTripTicket)
-  createTripTicket(
+  async createTripTicket(
     @Args('input') createTripTicketInput: CreateTripTicketInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.tripTicketService.setAuthUser(authUser)
-    return this.tripTicketService.create(createTripTicketInput);
+      try {
+          this.logger.log({
+            username: authUser.user.username,
+            filename: this.filename,
+            function: RESOLVERS.createTripTicket,
+            input: JSON.stringify(createTripTicketInput)
+          })
+          
+          this.tripTicketService.setAuthUser(authUser)
+
+          const x = await this.tripTicketService.create(createTripTicketInput);
+          
+          this.logger.log('Trip Ticket created successfully')
+
+          return x
+
+      } catch (error) {
+          this.logger.error('Error in creating Trip Ticket', error)
+      }
   }
 
   @Mutation(() => TripTicket)
@@ -47,8 +68,25 @@ export class TripTicketResolver {
       @Args('input') input: UpdateTripTicketInput,
       @CurrentAuthUser() authUser: AuthUser
   ) {
-      this.tripTicketService.setAuthUser(authUser)
-      return await this.tripTicketService.update(id, input);
+      try {
+        
+          this.logger.log({
+            username: authUser.user.username,
+            filename: this.filename,
+            function: RESOLVERS.updateTripTicket,
+            trip_ticket_id: id,
+            input: JSON.stringify(input),
+          })
+          
+          this.tripTicketService.setAuthUser(authUser)
+          const x = await this.tripTicketService.update(id, input);
+
+          this.logger.log('Trip Ticket updated successfully')
+
+          return x
+      } catch (error) {
+          this.logger.error('Error in updating Trip Ticket', error)
+      }
   }
 
   @Query(() => TripTicketsResponse)
@@ -76,15 +114,31 @@ export class TripTicketResolver {
     return this.tripTicketService.findOne({ id, trip_number });
   }
 
-  @Mutation(() => WarehouseRemoveResponse)
-  @UseGuards(GqlAuthGuard, AccessGuard)
-  @CheckAccess(MODULES.TRIP_TICKET, RESOLVERS.removeTripTicket)
-  removeTripTicket(
+  @Mutation(() => WarehouseCancelResponse)
+  async cancelTripTicket(
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.tripTicketService.setAuthUser(authUser)
-    return this.tripTicketService.remove(id);
+
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'cancelTripTicket',
+        trip_ticket_id: id,
+      })
+
+      this.tripTicketService.setAuthUser(authUser)
+      const x = await this.tripTicketService.cancel(id);
+      
+      this.logger.log('Trip Ticket cancelled successfully')
+      
+      return x 
+  
+    } catch (error) {
+      this.logger.error('Error in cancelling Trip Ticket', error)
+    }
+
   }
 
   @Mutation(() => UpdateActualTimeResponse)
@@ -92,48 +146,136 @@ export class TripTicketResolver {
     @Args('input') input: UpdateActualTimeInput,
   ): Promise<UpdateActualTimeResponse> {
 
-    return await this.tripTicketService.update_actual_time(input.rf_id);
+    try {
+      this.logger.log({
+        username: 'N/A',
+        filename: this.filename,
+        function: 'updateActualTime',
+        rf_id: input.rf_id,
+      })
+
+      const x = await this.tripTicketService.update_actual_time(input.rf_id);
+      
+      this.logger.log('Trip Ticket actual time successfully updated')
+      
+      return x 
+  
+    } catch (error) {
+      this.logger.error('Error in updating actual time of Trip Ticket', error)
+    }
 
   }
 
   @Mutation(() => UpdateActualTimeResponse)
   @UseGuards(GqlAuthGuard, AccessGuard)
-  removeActualStartTime(
+  async removeActualStartTime(
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.tripTicketService.setAuthUser(authUser)
-    return this.tripTicketService.remove_actual_start_time(id);
+
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'removeActualStartTime',
+        trip_ticket_id: id,
+      })
+
+      this.tripTicketService.setAuthUser(authUser)
+      const x = await this.tripTicketService.remove_actual_start_time(id);
+      
+      this.logger.log('Trip Ticket actual start time successfully removed')
+      
+      return x 
+  
+    } catch (error) {
+      this.logger.error('Error in removing actual start time of Trip Ticket', error)
+    }
+
   }
 
   @Mutation(() => UpdateActualTimeResponse)
   @UseGuards(GqlAuthGuard, AccessGuard)
-  removeActualEndTime(
+  async removeActualEndTime(
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.tripTicketService.setAuthUser(authUser)
-    return this.tripTicketService.remove_actual_end_time(id);
+
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'removeActualEndTime',
+        trip_ticket_id: id,
+      })
+
+      this.tripTicketService.setAuthUser(authUser)
+      const x = await this.tripTicketService.remove_actual_end_time(id);
+      
+      this.logger.log('Trip Ticket actual end time successfully removed')
+      
+      return x 
+  
+    } catch (error) {
+      this.logger.error('Error in removing actual end time of Trip Ticket', error)
+    }
+
   }
 
   @Mutation(() => UpdateActualTimeResponse)
   @UseGuards(GqlAuthGuard, AccessGuard)
-  updateActualStartTime(
+  async updateActualStartTime(
     @Args('input') input: UpdateActualStartTimeInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.tripTicketService.setAuthUser(authUser)
-    return this.tripTicketService.update_actual_start_time(input.trip_ticket_id, input.actual_start_time);
+
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'updateActualStartTime',
+        input: JSON.stringify(input),
+      })
+
+      this.tripTicketService.setAuthUser(authUser)
+      const x = await this.tripTicketService.update_actual_start_time(input.trip_ticket_id, input.actual_start_time);
+      
+      this.logger.log('Trip Ticket actual start time successfully updated')
+      
+      return x 
+  
+    } catch (error) {
+      this.logger.error('Error in updating actual start time of Trip Ticket', error)
+    }
+
   }
 
   @Mutation(() => UpdateActualTimeResponse)
   @UseGuards(GqlAuthGuard, AccessGuard)
-  updateActualEndTime(
+  async updateActualEndTime(
     @Args('input') input: UpdateActualEndTimeInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.tripTicketService.setAuthUser(authUser)
-    return this.tripTicketService.update_actual_end_time(input.trip_ticket_id, input.actual_end_time);
+
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'updateActualEndTime',
+        input: JSON.stringify(input),
+      })
+
+      this.tripTicketService.setAuthUser(authUser)
+      const x = await this.tripTicketService.update_actual_end_time(input.trip_ticket_id, input.actual_end_time);
+      
+      this.logger.log('Trip Ticket actual end time successfully updated')
+      
+      return x 
+  
+    } catch (error) {
+      this.logger.error('Error in updating actual end time of Trip Ticket', error)
+    }
+
   }
 
   @Query(() => [TripTicket])
