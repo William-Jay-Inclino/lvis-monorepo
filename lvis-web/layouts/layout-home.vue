@@ -120,19 +120,20 @@ const API_URL = config.public.apiUrl
 
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
+let updateUserInterval: ReturnType<typeof setInterval>;
+
 onMounted(async() => {
     const _authUser = await getAuthUserAsync()
-
-    console.log('_authUser', _authUser);
-
     await updateUserInLocalStorage(_authUser)
-
     authUser.value = await getAuthUserAsync()
 
-    isMobile.value = window.innerWidth < MOBILE_WIDTH
-
-    window.addEventListener('resize', checkMobile);
+    updateUserInterval = setInterval(updateUserPeriodically, UPDATE_USER_IN_LOCAL_STORAGE_INTERVAL_SEC);
 })
+
+onUnmounted( () => {
+    clearInterval(updateUserInterval);
+})
+
 
 const totalPendings = computed(() => {
     if (!authUser.value) return
@@ -141,7 +142,6 @@ const totalPendings = computed(() => {
     }
     return 0
 })
-
 
 watch(isInactive, async (val) => {
     if (val) {
@@ -158,6 +158,12 @@ const isApprover = (authUser: AuthUser) => {
         return true
     }
 
+}
+
+async function updateUserPeriodically() {
+    const _authUser = await getAuthUserAsync()
+    await updateUserInLocalStorage(_authUser);
+    authUser.value = await getAuthUserAsync()
 }
 
 async function handleLogOut() {

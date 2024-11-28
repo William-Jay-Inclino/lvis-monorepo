@@ -51,6 +51,7 @@ export default defineNuxtConfig({
         drop: ['debugger'],
         pure: ['console.log', 'console.debug', 'console.trace'],
     }
-  }
+  },
 
+  compatibilityDate: '2024-11-29'
 })

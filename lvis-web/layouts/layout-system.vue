@@ -27,17 +27,6 @@
                         <li class="nav-item">
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
-                        <li v-if="isApprover(authUser)" class="nav-item">
-                            <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">
-                                <client-only>
-                                    <font-awesome-icon :icon="['fas', 'bell']" />
-                                </client-only>
-                                <span
-                                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
-                                    {{ totalPendings }}
-                                </span>
-                            </nuxt-link>
-                        </li>
                         <li v-if="isAdmin(authUser)" class="nav-item">
                             <nuxt-link class="nav-link text-white" to="/system/user">Users</nuxt-link>
                         </li>
@@ -60,16 +49,17 @@
                                         to="/system/classification">Classification</nuxt-link></li>
                             </ul>
                         </li>
-                        <!-- <li v-if="isAdmin(authUser)" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Settings
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><nuxt-link class="dropdown-item"
-                                        to="/system/settings/warehouse">Warehouse</nuxt-link></li>
-                            </ul>
-                        </li> -->
+                        <li v-if="isApprover(authUser)" class="nav-item">
+                            <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'bell']" />
+                                </client-only>
+                                <span
+                                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ totalPendings }}
+                                </span>
+                            </nuxt-link>
+                        </li>
                         <li v-if="authUser" class="nav-item dropdown">
                             <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -183,14 +173,18 @@ const API_URL = config.public.apiUrl
 
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
+let updateUserInterval: ReturnType<typeof setInterval>;
+
 onMounted(async() => {
     const _authUser = await getAuthUserAsync()
-
     await updateUserInLocalStorage(_authUser)
-
     authUser.value = await getAuthUserAsync()
 
+    updateUserInterval = setInterval(updateUserPeriodically, UPDATE_USER_IN_LOCAL_STORAGE_INTERVAL_SEC);
+})
 
+onUnmounted( () => {
+    clearInterval(updateUserInterval);
 })
 
 const totalPendings = computed(() => {
@@ -208,6 +202,14 @@ watch(isInactive, async (val) => {
         handleUserInactivity(handleLogOut)
     }
 });
+
+
+async function updateUserPeriodically() {
+    const _authUser = await getAuthUserAsync()
+    await updateUserInLocalStorage(_authUser);
+    authUser.value = await getAuthUserAsync()
+}
+
 
 async function handleLogOut() {
 
