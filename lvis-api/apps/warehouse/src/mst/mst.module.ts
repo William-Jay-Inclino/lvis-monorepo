@@ -3,9 +3,10 @@ import { MstService } from './mst.service';
 import { MstResolver } from './mst.resolver';
 import { HttpModule } from '@nestjs/axios';
 import { MstApproverService } from '../mst-approver/mst-approver.service';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [MstResolver, MstService, MstApproverService],
+  providers: [MstResolver, MstService, MstApproverService, WinstonLoggerService],
 })
 export class MstModule {}

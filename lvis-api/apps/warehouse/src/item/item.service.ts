@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
@@ -13,7 +13,6 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @Injectable()
 export class ItemService {
 
-	private readonly logger = new Logger(ItemService.name);
 	private authUser: AuthUser
 	private includedFields = {
 		unit: true
@@ -37,7 +36,6 @@ export class ItemService {
 			quantity: input.initial_quantity,
 			price: input.initial_average_price,
 			remarks: 'Initial item transaction',
-			// created_at: new Date(),
 			created_by: this.authUser.user.username,
 		  };
 	  

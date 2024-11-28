@@ -6,7 +6,7 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { UpdatePoInput } from './dto/update-po.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { NotFoundException, UseGuards } from '@nestjs/common';
+import { Logger, NotFoundException, UseGuards } from '@nestjs/common';
 import { PoApproverService } from '../po-approver/po-approver.service';
 import { POsResponse } from './entities/pos-response.entity';
 import { POApprover } from '../po-approver/entities/po-approver.entity';
@@ -26,6 +26,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => PO)
 export class PoResolver {
 
+    private readonly logger = new Logger(PoResolver.name);
+    private filename = 'jo.resolver.ts'
+
     constructor(
         private readonly poService: PoService,
         private readonly poApproverService: PoApproverService,
@@ -39,8 +42,27 @@ export class PoResolver {
         @Args('input') createPoInput: CreatePoInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.poService.setAuthUser(authUser)
-        return await this.poService.create(createPoInput);
+
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createPo,
+              input: JSON.stringify(createPoInput)
+            })
+            
+            this.poService.setAuthUser(authUser)
+      
+            const x = await this.poService.create(createPoInput);
+            
+            this.logger.log('PO created successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in creating PO', error)
+        }
+
     }
 
     @Query(() => POsResponse)
@@ -84,8 +106,25 @@ export class PoResolver {
         @Args('input') updatePoInput: UpdatePoInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.poService.setAuthUser(authUser)
-        return await this.poService.update(id, updatePoInput);
+
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updatePo,
+              po_id: id,
+              input: JSON.stringify(updatePoInput),
+            })
+            
+            this.poService.setAuthUser(authUser)
+            const x = await this.poService.update(id, updatePoInput);
+      
+            this.logger.log('PO updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating PO', error)
+        }
     }
 
     @Mutation(() => WarehouseRemoveResponse)
@@ -94,8 +133,26 @@ export class PoResolver {
         @Args('input') input: UpdatePoByFinanceManagerInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.poService.setAuthUser(authUser)
-        return await this.poService.updateFundSourceByFinanceManager(id, input);
+
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'update_po_fund_source_and_po_approver',
+              po_id: id,
+              input: JSON.stringify(input),
+            })
+            
+            this.poService.setAuthUser(authUser)
+            const x = await this.poService.updateFundSourceByFinanceManager(id, input);
+      
+            this.logger.log('PO Fund Source and PO Approval updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating PO Fund Source and PO Approval', error)
+        }
+
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -103,8 +160,25 @@ export class PoResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.poService.setAuthUser(authUser)
-        return await this.poService.cancel(id);
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelPo',
+              po_id: id,
+            })
+      
+            this.poService.setAuthUser(authUser)
+            const x = await this.poService.cancel(id);
+            
+            this.logger.log('PO cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling PO', error)
+        }
     }
 
     @ResolveField(() => [POApprover])

@@ -6,7 +6,7 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { UpdateMstInput } from './dto/update-mst.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { MSTApprover } from '../mst-approver/entities/mst-approver.entity';
 import { MstApproverService } from '../mst-approver/mst-approver.service';
 import { MSTsResponse } from './entities/msts-response.entity';
@@ -22,6 +22,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => MST)
 export class MstResolver {
 
+    private readonly logger = new Logger(MstResolver.name);
+    private filename = 'mst.resolver.ts'
+
     constructor(
         private readonly mstService: MstService,
         private readonly mstApproverService: MstApproverService
@@ -34,8 +37,27 @@ export class MstResolver {
         @Args('input') createMstInput: CreateMstInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mstService.setAuthUser(authUser)
-        return await this.mstService.create(createMstInput);
+
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createMst,
+              input: JSON.stringify(createMstInput)
+            })
+            
+            this.mstService.setAuthUser(authUser)
+      
+            const x = await this.mstService.create(createMstInput);
+            
+            this.logger.log('MST created successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in creating MST', error)
+        }
+
     }
 
     @Query(() => MSTsResponse)
@@ -75,8 +97,27 @@ export class MstResolver {
         @Args('input') updateMstInput: UpdateMstInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mstService.setAuthUser(authUser)
-        return await this.mstService.update(id, updateMstInput);
+
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updateMst,
+              mst_id: id,
+              input: JSON.stringify(updateMstInput),
+            })
+            
+            this.mstService.setAuthUser(authUser)
+            const x = await this.mstService.update(id, updateMstInput);
+      
+            this.logger.log('MST updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating MST', error)
+        }
+
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -84,8 +125,27 @@ export class MstResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mstService.setAuthUser(authUser)
-        return await this.mstService.cancel(id);
+
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.cancelMst,
+              mst_id: id,
+            })
+      
+            this.mstService.setAuthUser(authUser)
+            const x = await this.mstService.cancel(id);
+            
+            this.logger.log('MST cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling MST', error)
+        }
+
     }
 
     @ResolveField(() => Employee)

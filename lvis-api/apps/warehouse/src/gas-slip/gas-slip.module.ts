@@ -5,10 +5,11 @@ import { GasSlipApproverService } from '../gas-slip-approver/gas-slip-approver.s
 import { GasSlipPdfService } from './gas-slip.pdf.service';
 import { HttpModule } from '@nestjs/axios';
 import { GasSlipController } from './gas-slip.controller';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [GasSlipResolver, GasSlipService, GasSlipApproverService, GasSlipPdfService],
+  providers: [GasSlipResolver, GasSlipService, GasSlipApproverService, GasSlipPdfService, WinstonLoggerService],
   controllers: [GasSlipController],
 })
 export class GasSlipModule {}

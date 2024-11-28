@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreatePoInput } from './dto/create-po.input';
 import { PO, POApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
@@ -11,7 +11,6 @@ import { POsResponse } from './entities/pos-response.entity';
 import * as moment from 'moment';
 import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdatePoByFinanceManagerInput } from './dto/update-po-by-finance-manager.input';
-import { CreatePoApproverSubInput } from './dto/create-po-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
@@ -19,7 +18,6 @@ import { endOfYear, startOfYear } from 'date-fns';
 @Injectable()
 export class PoService {
 
-    private readonly logger = new Logger(PoService.name)
     private authUser: AuthUser
     private includedFields = {
         meqs_supplier: {

@@ -4,9 +4,10 @@ import { OsrivResolver } from './osriv.resolver';
 import { HttpModule } from '@nestjs/axios';
 import { OsrivApproverService } from '../osriv-approver/osriv-approver.service';
 import { CommonService } from '../__common__/classes';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [OsrivResolver, OsrivService, OsrivApproverService, CommonService],
+  providers: [OsrivResolver, OsrivService, OsrivApproverService, CommonService, WinstonLoggerService],
 })
 export class OsrivModule {}

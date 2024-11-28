@@ -1,9 +1,8 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOsrivInput } from './dto/create-osriv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Item, OSRIV, Prisma } from 'apps/warehouse/prisma/generated/client';
+import { OSRIV, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { CreateOsrivApproverSubInput } from './dto/create-osriv-approver.sub.input';
 import { DB_ENTITY, SETTINGS } from '../__common__/constants';
 import { UpdateOsrivInput } from './dto/update-osriv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
@@ -11,7 +10,6 @@ import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/he
 import { OSRIVsResponse } from './entities/osrivs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { CreateOsrivItemSubInput } from './dto/create-osriv-item.sub.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 

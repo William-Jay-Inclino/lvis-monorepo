@@ -6,7 +6,7 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { UpdateMcrtInput } from './dto/update-mcrt.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator'
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { MCRTApprover } from '../mcrt-approver/entities/mcrt-approver.entity';
 import { McrtApproverService } from '../mcrt-approver/mcrt-approver.service';
 import { MCRTsResponse } from './entities/mcrts-response.entity';
@@ -22,6 +22,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => MCRT)
 export class McrtResolver {
 
+    private readonly logger = new Logger(McrtResolver.name);
+    private filename = 'mcrt.resolver.ts'
+
     constructor(
         private readonly mcrtService: McrtService,
         private readonly mcrtApproverService: McrtApproverService
@@ -34,8 +37,25 @@ export class McrtResolver {
         @Args('input') createMcrtInput: CreateMcrtInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mcrtService.setAuthUser(authUser)
-        return await this.mcrtService.create(createMcrtInput);
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createMcrt,
+              input: JSON.stringify(createMcrtInput)
+            })
+            
+            this.mcrtService.setAuthUser(authUser)
+      
+            const x = await this.mcrtService.create(createMcrtInput);
+            
+            this.logger.log('MCRT created successfully')
+      
+            return x
+      
+          } catch (error) {
+            this.logger.error('Error in creating MCRT', error)
+          }
     }
 
     @Query(() => MCRTsResponse)
@@ -74,8 +94,25 @@ export class McrtResolver {
         @Args('input') updateMcrtInput: UpdateMcrtInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mcrtService.setAuthUser(authUser)
-        return await this.mcrtService.update(id, updateMcrtInput);
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updateMcrt,
+              mcrt_id: id,
+              input: JSON.stringify(updateMcrtInput),
+            })
+            
+            this.mcrtService.setAuthUser(authUser)
+            const x = await this.mcrtService.update(id, updateMcrtInput);
+      
+            this.logger.log('MCRT updated successfully')
+      
+            return x
+          } catch (error) {
+            this.logger.error('Error in updating MCRT', error)
+          }
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -83,8 +120,25 @@ export class McrtResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mcrtService.setAuthUser(authUser)
-        return await this.mcrtService.cancel(id);
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelMcrt',
+              mcrt_id: id,
+            })
+      
+            this.mcrtService.setAuthUser(authUser)
+            const x = await this.mcrtService.cancel(id);
+            
+            this.logger.log('MCRT cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling MCRT', error)
+        }
     }
 
     @ResolveField(() => Employee)

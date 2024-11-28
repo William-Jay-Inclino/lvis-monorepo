@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMeqsSupplierAttachmentInput } from './dto/create-meqs-supplier-attachment.input';
 import { UpdateMeqsSupplierAttachmentInput } from './dto/update-meqs-supplier-attachment.input';
 import { PrismaService } from '../__prisma__/prisma.service';
@@ -11,7 +11,6 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @Injectable()
 export class MeqsSupplierAttachmentService {
 
-    private readonly logger = new Logger(MeqsSupplierAttachmentService.name)
     private authUser: AuthUser
 
     constructor(private readonly prisma: PrismaService) { }

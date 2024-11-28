@@ -3,7 +3,6 @@ import { CreateMctInput } from './dto/create-mct.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { MCT, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { CreateMctApproverSubInput } from './dto/create-mct-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { UpdateMctInput } from './dto/update-mct.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
@@ -431,40 +430,6 @@ export class MctService {
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
-        }
-
-        return true
-
-    }
-
-    private async canUpdate(input: UpdateMctInput, existingItem: MCT): Promise<boolean> {
-
-        // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
-
-            const approvers = await this.prisma.mCTApprover.findMany({
-                where: {
-                    mct_id: existingItem.id
-                }
-            })
-
-            const hasAnyNonPendingApprover = approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)
-
-            if (hasAnyNonPendingApprover) {
-                throw new BadRequestException(`Unable to update MCT. Can only update if all approver's status is pending`)
-            }
-        }
-
-        const employeeIds = []
-
-        if (employeeIds.length > 0) {
-
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
-
-            if (!isValidEmployeeIds) {
-                throw new NotFoundException('One or more employee IDs is not valid')
-            }
-
         }
 
         return true

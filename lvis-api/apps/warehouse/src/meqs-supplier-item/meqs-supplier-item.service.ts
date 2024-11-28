@@ -146,8 +146,6 @@ export class MeqsSupplierItemService {
 
 		const queries = []
 
-		const updatedBy = this.authUser.user.username
-
 		const suppliers = meqsSupplier.meqs.meqs_suppliers
 
 		for (let supplier of suppliers) {
@@ -217,8 +215,6 @@ export class MeqsSupplierItemService {
 		}
 
 		const queries = []
-
-		const updatedBy = this.authUser.user.username
 
 		const suppliers = meqs.meqs_suppliers
 

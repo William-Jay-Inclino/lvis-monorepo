@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMeqsSupplierInput } from './dto/create-meqs-supplier.input';
 import { UpdateMeqsSupplierInput } from './dto/update-meqs-supplier.input';
 import { PrismaService } from '../__prisma__/prisma.service';
@@ -12,7 +12,6 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @Injectable()
 export class MeqsSupplierService {
 
-    private readonly logger = new Logger(MeqsSupplierService.name)
     private authUser: AuthUser
 
     constructor(
@@ -32,8 +31,6 @@ export class MeqsSupplierService {
         if (!this.canCreate(input)) {
             throw new BadRequestException()
         }
-
-        const createdBy = this.authUser.user.username
 
         const data: Prisma.MEQSSupplierCreateInput = {
             meqs: { connect: { id: input.meqs_id } },
@@ -104,9 +101,6 @@ export class MeqsSupplierService {
         if (!this.canAccess(existingItem.meqs_id)) {
             throw new ForbiddenException('Only Admin and Owner can update meqs supplier!')
         }
-
-        const updatedBy = this.authUser.user.username
-
 
         const data: Prisma.MEQSSupplierUpdateInput = {
             payment_terms: input.payment_terms ?? existingItem.payment_terms,

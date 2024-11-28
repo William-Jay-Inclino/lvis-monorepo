@@ -6,7 +6,7 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { UpdateOsrivInput } from './dto/update-osriv.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { OSRIVApprover } from '../osriv-approver/entities/osriv-approver.entity';
 import { OsrivApproverService } from '../osriv-approver/osriv-approver.service';
 import { OSRIVsResponse } from './entities/osrivs-response.entity';
@@ -22,6 +22,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => OSRIV)
 export class OsrivResolver {
 
+    private readonly logger = new Logger(OsrivResolver.name);
+    private filename = 'osriv.resolver.ts'
+
     constructor(
         private readonly osrivService: OsrivService,
         private readonly osrivApproverService: OsrivApproverService
@@ -34,8 +37,27 @@ export class OsrivResolver {
         @Args('input') createOsrivInput: CreateOsrivInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.osrivService.setAuthUser(authUser)
-        return await this.osrivService.create(createOsrivInput);
+
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createOsriv,
+              input: JSON.stringify(CreateOsrivInput)
+            })
+            
+            this.osrivService.setAuthUser(authUser)
+      
+            const x = await this.osrivService.create(createOsrivInput);
+            
+            this.logger.log('OSRIV created successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in creating OSRIV', error)
+        }
+
     }
 
     @Query(() => OSRIVsResponse)
@@ -75,8 +97,27 @@ export class OsrivResolver {
         @Args('input') updateOsrivInput: UpdateOsrivInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.osrivService.setAuthUser(authUser)
-        return await this.osrivService.update(id, updateOsrivInput);
+
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updateOsriv,
+              osriv_id: id,
+              input: JSON.stringify(updateOsrivInput),
+            })
+            
+            this.osrivService.setAuthUser(authUser)
+            const x = await this.osrivService.update(id, updateOsrivInput);
+      
+            this.logger.log('OSRIV updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating OSRIV', error)
+        }
+
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -84,8 +125,26 @@ export class OsrivResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.osrivService.setAuthUser(authUser)
-        return await this.osrivService.cancel(id);
+
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelOsriv',
+              osriv_id: id,
+            })
+      
+            this.osrivService.setAuthUser(authUser)
+            const x = await this.osrivService.cancel(id);
+            
+            this.logger.log('OSRIV cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling OSRIV', error)
+        }
     }
 
     @ResolveField(() => Employee)

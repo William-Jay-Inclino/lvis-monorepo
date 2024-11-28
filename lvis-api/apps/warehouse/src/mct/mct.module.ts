@@ -5,9 +5,10 @@ import { HttpModule } from '@nestjs/axios';
 import { MctApproverService } from '../mct-approver/mct-approver.service';
 import { MrvService } from '../mrv/mrv.service';
 import { CommonService } from '../__common__/classes';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [MctResolver, MctService, MctApproverService, MrvService, CommonService],
+  providers: [MctResolver, MctService, MctApproverService, MrvService, CommonService, WinstonLoggerService],
 })
 export class MctModule {}

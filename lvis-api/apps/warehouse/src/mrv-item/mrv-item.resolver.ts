@@ -3,7 +3,7 @@ import { MrvItemService } from './mrv-item.service';
 import { MRVItem } from './entities/mrv-item.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { CreateMrvItemSubInput } from '../mrv/dto/create-mrv-item.sub.input';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { SerivItemService } from '../seriv-item/seriv-item.service';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
@@ -11,6 +11,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MRVItem)
 export class MrvItemResolver {
+
+    private readonly logger = new Logger(MrvItemResolver.name);
+    private filename = 'mrv-item.resolver.ts'
 
     constructor(
         private readonly mrvItemService: MrvItemService,
@@ -23,8 +26,27 @@ export class MrvItemResolver {
         @Args({ name: 'items', type: () => [CreateMrvItemSubInput] }) items: CreateMrvItemSubInput[],
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mrvItemService.setAuthUser(authUser)
-        return await this.mrvItemService.updateMrvItems(mrv_id, items);
+
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'updateMrvItems',
+              mrv_id,
+              items: JSON.stringify(items)
+            })
+            
+            this.mrvItemService.setAuthUser(authUser)
+      
+            const x = await this.mrvItemService.updateMrvItems(mrv_id, items);
+            
+            this.logger.log('MRV Items updated successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in updating MRV Items', error)
+        }
     }
 
     @ResolveField(() => Number)

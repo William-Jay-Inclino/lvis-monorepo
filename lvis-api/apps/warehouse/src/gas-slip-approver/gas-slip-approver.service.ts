@@ -77,9 +77,7 @@ export class GasSlipApproverService {
                         description: `${ module.description } no. ${item.gas_slip.gas_slip_number}`,
                     },
                 });
-            } else {
-                
-            }
+            } 
 
             return updateApprover;
         });

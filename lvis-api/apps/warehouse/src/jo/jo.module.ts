@@ -6,6 +6,7 @@ import { CanvassService } from '../canvass/canvass.service';
 import { JoApproverService } from '../jo-approver/jo-approver.service';
 import { JoController } from './jo.controller';
 import { JoPdfService } from './jo.pdf.service';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
@@ -14,7 +15,8 @@ import { JoPdfService } from './jo.pdf.service';
     JoResolver, 
     JoPdfService, 
     JoApproverService, 
-    CanvassService
+    CanvassService, 
+    WinstonLoggerService
   ],
   exports: [JoService],
   controllers: [JoController]

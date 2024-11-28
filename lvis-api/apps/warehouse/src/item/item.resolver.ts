@@ -5,7 +5,7 @@ import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
 import { ItemsResponse } from './entities/items-response.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
@@ -18,17 +18,38 @@ import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Item)
 export class ItemResolver {
+
+    private readonly logger = new Logger(ItemResolver.name);
+    private filename = 'item.resolver.ts'
+
   constructor(private readonly itemService: ItemService) { }
 
   @Mutation(() => Item)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.ITEM, RESOLVERS.createItem)
-  createItem(
+  async createItem(
     @Args('input') createItemInput: CreateItemInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.itemService.setAuthUser(authUser)
-    return this.itemService.create(createItemInput);
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.createItem,
+        input: JSON.stringify(createItemInput)
+      })
+      
+      this.itemService.setAuthUser(authUser)
+
+      const x = await this.itemService.create(createItemInput);
+      
+      this.logger.log('Item created successfully')
+
+      return x
+
+    } catch (error) {
+      this.logger.error('Error in creating item', error)
+    }
   }
 
   @Query(() => ItemsResponse)
@@ -71,24 +92,60 @@ export class ItemResolver {
   @Mutation(() => Item)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.ITEM, RESOLVERS.updateItem)
-  updateItem(
+  async updateItem(
     @Args('id') id: string,
     @Args('input') updateItemInput: UpdateItemInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.itemService.setAuthUser(authUser)
-    return this.itemService.update(id, updateItemInput);
+
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.updateItem,
+        item_id: id,
+        input: JSON.stringify(updateItemInput),
+      })
+      
+      this.itemService.setAuthUser(authUser)
+      const x = await this.itemService.update(id, updateItemInput);
+
+      this.logger.log('Item updated successfully')
+
+      return x
+    } catch (error) {
+      this.logger.error('Error in updating item', error)
+    }
+
   }
 
   @Mutation(() => WarehouseRemoveResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.ITEM, RESOLVERS.removeItem)
-  removeItem(
+  async removeItem(
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.itemService.setAuthUser(authUser)
-    return this.itemService.remove(id);
+    try {
+
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.removeItem,
+        item_id: id,
+      })
+
+      this.itemService.setAuthUser(authUser)
+      const x = await this.itemService.remove(id);
+      
+      this.logger.log('Item removed successfully')
+      
+      return x 
+
+    } catch (error) {
+      this.logger.error('Error in removing item', error)
+    }
   }
 
   @ResolveField(() => Number)

@@ -1,6 +1,6 @@
 import { Args, Mutation, Resolver, Query, ResolveField, Parent, Int } from '@nestjs/graphql';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { NotFoundException, UseGuards } from '@nestjs/common';
+import { Logger, NotFoundException, UseGuards } from '@nestjs/common';
 import { MeqsService } from './meqs.service';
 import { MEQS } from './entities/meq.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -28,6 +28,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => MEQS)
 export class MeqsResolver {
 
+    private readonly logger = new Logger(MeqsResolver.name);
+    private filename = 'meqs.resolver.ts'
+
     constructor(
         private readonly meqsService: MeqsService,
         private readonly meqsApproverService: MeqsApproverService,
@@ -43,8 +46,25 @@ export class MeqsResolver {
         @Args('input') createMeqsInput: CreateMeqsInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.meqsService.setAuthUser(authUser)
-        return await this.meqsService.create(createMeqsInput);
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createMeqs,
+              input: JSON.stringify(createMeqsInput)
+            })
+            
+            this.meqsService.setAuthUser(authUser)
+      
+            const x = await this.meqsService.create(createMeqsInput);
+            
+            this.logger.log('MEQS created successfully')
+      
+            return x
+      
+          } catch (error) {
+            this.logger.error('Error in creating MEQS', error)
+          }
     }
 
     @Query(() => MEQSsResponse)
@@ -96,8 +116,26 @@ export class MeqsResolver {
         @Args('input') updateMeqsInput: UpdateMeqsInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.meqsService.setAuthUser(authUser)
-        return await this.meqsService.update(id, updateMeqsInput);
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updateMeqs,
+              meqs_id: id,
+              input: JSON.stringify(updateMeqsInput),
+            })
+            
+            this.meqsService.setAuthUser(authUser)
+            const x = await this.meqsService.update(id, updateMeqsInput);
+      
+            this.logger.log('MEQS updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating MEQS', error)
+        }
+
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -105,8 +143,26 @@ export class MeqsResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.meqsService.setAuthUser(authUser)
-        return await this.meqsService.cancel(id);
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelMeqs',
+              meqs_id: id,
+            })
+      
+            this.meqsService.setAuthUser(authUser)
+            const x = await this.meqsService.cancel(id);
+            
+            this.logger.log('MEQS cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling MEQS', error)
+        }
+
     }
 
     @ResolveField(() => [MEQSApprover])

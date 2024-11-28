@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { config } from 'dotenv';
 import { WarehouseModule } from './warehouse.module';
+import { WinstonLoggerService } from './__logger__/winston-logger.service';
 
 async function bootstrap() {
 
@@ -12,7 +13,9 @@ async function bootstrap() {
   }
 
   const app = await NestFactory.create(WarehouseModule);
-
+  const winstonLogger = app.get(WinstonLoggerService);
+  app.useLogger(winstonLogger);
+  
   app.setGlobalPrefix('/lvis/warehouse-api');
 
   app.enableCors();

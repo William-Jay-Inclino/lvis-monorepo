@@ -5,7 +5,6 @@ import { GasSlip, GasSlipApprover, Prisma } from 'apps/warehouse/prisma/generate
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
-import { CreateGasSlipApproverSubInput } from './dto/create-gas-slip-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { GasSlipsResponse } from './entities/gas-slips-response.entity';
 import { getModule, isAdmin, isNormalUser } from '../__common__/helpers';

@@ -9,6 +9,7 @@ import { RvService } from '../rv/rv.service';
 import { JoService } from '../jo/jo.service';
 import { SprService } from '../spr/spr.service';
 import { CanvassService } from '../canvass/canvass.service';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
@@ -20,7 +21,8 @@ import { CanvassService } from '../canvass/canvass.service';
     RvService,
     JoService,
     SprService,
-    CanvassService,
+    CanvassService, 
+    WinstonLoggerService
   ],
   controllers: [MeqsController],
 })

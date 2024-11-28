@@ -3,7 +3,6 @@ import { CreateMcrtInput } from './dto/create-mcrt.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { MCRT, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { CreateMcrtApproverSubInput } from './dto/create-mcrt-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { UpdateMcrtInput } from './dto/update-mcrt.input';
 import { WarehouseCancelResponse } from '../__common__/classes';

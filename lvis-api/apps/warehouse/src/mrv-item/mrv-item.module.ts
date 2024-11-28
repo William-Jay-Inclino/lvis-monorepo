@@ -5,6 +5,7 @@ import { CommonService } from '../__common__/classes';
 import { SerivItemService } from '../seriv-item/seriv-item.service';
 import { McrtService } from '../mcrt/mcrt.service';
 import { HttpModule } from '@nestjs/axios';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
@@ -13,7 +14,8 @@ import { HttpModule } from '@nestjs/axios';
     MrvItemService,
     CommonService,
     SerivItemService,
-    McrtService
+    McrtService,
+    WinstonLoggerService
   ],
 })
 export class MrvItemModule {}

@@ -1,18 +1,15 @@
-import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCanvassItemInput } from './dto/create-canvass-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CanvassItem, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { UpdateCanvassItemInput } from './dto/update-canvass-item.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
-import { VAT_TYPE } from '../__common__/types';
-import { MeqsSupplierItem } from '../meqs-supplier-item/entities/meqs-supplier-item.entity';
 import { isAdmin } from '../__common__/helpers';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class CanvassItemService {
 
-	private readonly logger = new Logger(CanvassItemService.name);
 	private authUser: AuthUser
 
 	constructor(private readonly prisma: PrismaService) { }
@@ -35,74 +32,74 @@ export class CanvassItemService {
 			quantity: input.quantity,
 		}
 
-		const meqsSuppliers = await this.prisma.mEQSSupplier.findMany({
-			where: {
-				meqs: {
-					OR: [
-						{ rv: { canvass_id: input.canvass_id } },
-						{ spr: { canvass_id: input.canvass_id } },
-						{ jo: { canvass_id: input.canvass_id } }
-					]
-				}
-			}
-		})
+		// const meqsSuppliers = await this.prisma.mEQSSupplier.findMany({
+		// 	where: {
+		// 		meqs: {
+		// 			OR: [
+		// 				{ rv: { canvass_id: input.canvass_id } },
+		// 				{ spr: { canvass_id: input.canvass_id } },
+		// 				{ jo: { canvass_id: input.canvass_id } }
+		// 			]
+		// 		}
+		// 	}
+		// })
 
 		// if canvass is still not reference in MEQS then normal create
-		if (meqsSuppliers.length === 0) {
+		// if (meqsSuppliers.length === 0) {
 
-			const createdCanvassItem = await this.prisma.canvassItem.create({
-				data,
-				include: {
-					unit: true,
-					item: true
-				}
-			})
+		// 	const createdCanvassItem = await this.prisma.canvassItem.create({
+		// 		data,
+		// 		include: {
+		// 			unit: true,
+		// 			item: true
+		// 		}
+		// 	})
 
-			return createdCanvassItem
+		// 	return createdCanvassItem
 
-		}
+		// }
 
 
 		// if canvass is already reference in MEQS then also create meqs_supplier_item in all meqs_supplier
 
-		const meqsSupplierItems = []
+		// const meqsSupplierItems = []
 
-		for (let meqsSupplier of meqsSuppliers) {
+		// for (let meqsSupplier of meqsSuppliers) {
 
-			meqsSupplierItems.push({
-				meqs_supplier_id: meqsSupplier.id,
-				price: 0,
-				notes: '',
-				is_awarded: false,
-				vat_type: VAT_TYPE.NONE,
-			})
+		// 	meqsSupplierItems.push({
+		// 		meqs_supplier_id: meqsSupplier.id,
+		// 		price: 0,
+		// 		notes: '',
+		// 		is_awarded: false,
+		// 		vat_type: VAT_TYPE.NONE,
+		// 	})
 
-		}
+		// }
 
-		data.meqs_supplier_items = {
-			create: meqsSupplierItems.map((i: MeqsSupplierItem) => {
+		// data.meqs_supplier_items = {
+		// 	create: meqsSupplierItems.map((i: MeqsSupplierItem) => {
 
-				const meqsSupplierItemData: Prisma.MEQSSupplierItemCreateWithoutCanvass_itemInput = {
-					meqs_supplier: { connect: { id: i.meqs_supplier_id } },
-					price: i.price,
-					notes: i.notes,
-					is_awarded: false,
-					vat_type: VAT_TYPE.NONE,
-				}
+		// 		const meqsSupplierItemData: Prisma.MEQSSupplierItemCreateWithoutCanvass_itemInput = {
+		// 			meqs_supplier: { connect: { id: i.meqs_supplier_id } },
+		// 			price: i.price,
+		// 			notes: i.notes,
+		// 			is_awarded: false,
+		// 			vat_type: VAT_TYPE.NONE,
+		// 		}
 
-				return meqsSupplierItemData
+		// 		return meqsSupplierItemData
 
-			})
-		}
+		// 	})
+		// }
 
-		const createdCanvassItemWithMeqsSupplierItems = await this.prisma.canvassItem.create({
+		const created = await this.prisma.canvassItem.create({
 			data,
 			include: {
 				unit: true,
 			}
 		})
 
-		return createdCanvassItemWithMeqsSupplierItems
+		return created
 
 
 	}
@@ -190,22 +187,5 @@ export class CanvassItemService {
 		return false
 
 	}
-
-	// async isReferenceInRR(id: string): Promise<boolean> {
-
-	// 	const rrItem = await this.prisma.rRItem.findFirst({
-	// 		select: {
-	// 			id: true
-	// 		},
-	// 		where: {
-	// 			meqs_supplier_item: {
-	// 				canvass_item_id: id
-	// 			}
-	// 		}
-	// 	})
-
-	// 	return !!rrItem
-
-	// }
 
 }

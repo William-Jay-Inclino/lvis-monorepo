@@ -3,9 +3,10 @@ import { PendingService } from './pending.service';
 import { PendingResolver } from './pending.resolver';
 import { HttpModule } from '@nestjs/axios';
 import { ItemService } from '../item/item.service';
+import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [PendingResolver, PendingService, ItemService],
+  providers: [PendingResolver, PendingService, ItemService, WinstonLoggerService],
 })
 export class PendingModule {}

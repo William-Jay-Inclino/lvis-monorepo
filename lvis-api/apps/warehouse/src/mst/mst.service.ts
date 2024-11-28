@@ -95,23 +95,6 @@ export class MstService {
 
     }
 
-    private getCreatePendingQuery(approvers: CreateMstApproverSubInput[], mstNumber: string) {
-
-        const firstApprover = approvers.reduce((min, obj) => {
-            return obj.order < min.order ? obj : min;
-        }, approvers[0]);
-
-        const data = {
-            approver_id: firstApprover.approver_id,
-            reference_number: mstNumber,
-            reference_table: DB_ENTITY.MST,
-            description: `MST no. ${mstNumber}`
-        }
-
-        return this.prisma.pending.create({ data })
-
-    }
-
     async update(id: string, input: UpdateMstInput) {
 
         const existingItem = await this.prisma.mST.findUnique({

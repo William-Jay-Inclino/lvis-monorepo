@@ -4,7 +4,7 @@ import { GasSlip } from './entities/gas-slip.entity';
 import { CreateGasSlipInput } from './dto/create-gas-slip.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
@@ -22,6 +22,10 @@ import { UpdateGasSlipInput } from './dto/update-gas-slip.input';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => GasSlip)
 export class GasSlipResolver {
+
+    private readonly logger = new Logger(GasSlipResolver.name);
+    private filename = 'gas-slip.resolver.ts'
+
   constructor(
     private readonly gasSlipService: GasSlipService,
     private readonly gasSlipApproverService: GasSlipApproverService,
@@ -30,12 +34,31 @@ export class GasSlipResolver {
   @Mutation(() => GasSlip)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.GAS_SLIP, RESOLVERS.createGasSlip)
-  createGasSlip(
+  async createGasSlip(
     @Args('input') createGasSlipInput: CreateGasSlipInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.gasSlipService.setAuthUser(authUser)
-    return this.gasSlipService.create(createGasSlipInput);
+
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.createGasSlip,
+        input: JSON.stringify(createGasSlipInput)
+      })
+      
+      this.gasSlipService.setAuthUser(authUser)
+
+      const x = await this.gasSlipService.create(createGasSlipInput);
+      
+      this.logger.log('Gas slip created successfully')
+
+      return x
+
+    } catch (error) {
+      this.logger.error('Error in creating gas slip', error)
+    }
+
   }
 
   @Mutation(() => GasSlip)
@@ -45,19 +68,53 @@ export class GasSlipResolver {
       @Args('input') input: UpdateGasSlipInput,
       @CurrentAuthUser() authUser: AuthUser
   ) {
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.updateGasSlip,
+        gas_slip_id: id,
+        input: JSON.stringify(input),
+      })
+      
       this.gasSlipService.setAuthUser(authUser)
-      return await this.gasSlipService.update(id, input);
+      const x = await this.gasSlipService.update(id, input);
+
+      this.logger.log('Gas slip updated successfully')
+
+      return x
+    } catch (error) {
+      this.logger.error('Error in updating gas slip', error)
+    }
   }
 
   @Mutation(() => GasSlip)
   @UseGuards(AccessGuard)
-  postGasSlip(
+  async postGasSlip(
     @Args('id') id: string,
     @Args('input') input: PostGasSlipInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.gasSlipService.setAuthUser(authUser)
-    return this.gasSlipService.post_gas_slip(id, input);
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'postGasSlip',
+        gas_slip_id: id,
+        input: JSON.stringify(input),
+      })
+      
+      this.gasSlipService.setAuthUser(authUser)
+      const x = await this.gasSlipService.post_gas_slip(id, input);
+
+      this.logger.log('Gas slip posted successfully')
+
+      return x
+    } catch (error) {
+      this.logger.error('Error in posting gas slip', error)
+    }
   }
 
   @Query(() => GasSlipsResponse)
@@ -93,12 +150,29 @@ export class GasSlipResolver {
   @Mutation(() => WarehouseRemoveResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.GAS_SLIP, RESOLVERS.removeGasSlip)
-  removeGasSlip(
+  async removeGasSlip(
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.gasSlipService.setAuthUser(authUser)
-    return this.gasSlipService.remove(id);
+    try {
+
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.removeGasSlip,
+        gas_slip_id: id,
+      })
+
+      this.gasSlipService.setAuthUser(authUser)
+      const x = await this.gasSlipService.remove(id);
+      
+      this.logger.log('Gas slip removed successfully')
+      
+      return x 
+
+    } catch (error) {
+      this.logger.error('Error in removing gas slip', error)
+    }
   }
 
   @ResolveField(() => [GasSlipApprover])

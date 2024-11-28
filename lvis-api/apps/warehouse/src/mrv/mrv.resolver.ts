@@ -6,7 +6,7 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { UpdateMrvInput } from './dto/update-mrv.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { MRVApprover } from '../mrv-approver/entities/mrv-approver.entity';
 import { MrvApproverService } from '../mrv-approver/mrv-approver.service';
 import { MRVsResponse } from './entities/mrvs-response.entity';
@@ -22,6 +22,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => MRV)
 export class MrvResolver {
 
+    private readonly logger = new Logger(MrvResolver.name);
+    private filename = 'mrv.resolver.ts'
+
     constructor(
         private readonly mrvService: MrvService,
         private readonly mrvApproverService: MrvApproverService
@@ -34,8 +37,25 @@ export class MrvResolver {
         @Args('input') createMrvInput: CreateMrvInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mrvService.setAuthUser(authUser)
-        return await this.mrvService.create(createMrvInput);
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createMrv,
+              input: JSON.stringify(createMrvInput)
+            })
+            
+            this.mrvService.setAuthUser(authUser)
+      
+            const x = await this.mrvService.create(createMrvInput);
+            
+            this.logger.log('MRV created successfully')
+      
+            return x
+      
+          } catch (error) {
+            this.logger.error('Error in creating MRV', error)
+          }
     }
 
     @Query(() => MRVsResponse)
@@ -75,8 +95,25 @@ export class MrvResolver {
         @Args('input') updateMrvInput: UpdateMrvInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mrvService.setAuthUser(authUser)
-        return await this.mrvService.update(id, updateMrvInput);
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updateMrv,
+              mrv_id: id,
+              input: JSON.stringify(updateMrvInput),
+            })
+            
+            this.mrvService.setAuthUser(authUser)
+            const x = await this.mrvService.update(id, updateMrvInput);
+      
+            this.logger.log('MRV updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating MRV', error)
+        }
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -84,8 +121,25 @@ export class MrvResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mrvService.setAuthUser(authUser)
-        return await this.mrvService.cancel(id);
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelMrv',
+              mrv_id: id,
+            })
+      
+            this.mrvService.setAuthUser(authUser)
+            const x = await this.mrvService.cancel(id);
+            
+            this.logger.log('MRV cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling MRV', error)
+        }
     }
 
     @ResolveField(() => Employee)

@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { MRVItem, MSTItem, OSRIVItem, Pending, Prisma, SERIVItem, MCRTItem as _MCRTItem } from 'apps/warehouse/prisma/generated/client';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE } from '../__common__/types';
@@ -14,7 +14,6 @@ import { TRIP_TICKET_STATUS } from '../trip-ticket/entities/trip-ticket.enums';
 @Injectable()
 export class PendingService {
 
-    private readonly logger = new Logger(PendingService.name)
     private authUser: AuthUser
 
     constructor(

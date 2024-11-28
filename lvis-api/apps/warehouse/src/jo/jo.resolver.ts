@@ -7,10 +7,9 @@ import { Classification } from '../__classification__/entities/classification.en
 import { UpdateJoInput } from './dto/update-jo.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { JOApprover } from '../jo-approver/entities/jo-approver.entity';
 import { JoApproverService } from '../jo-approver/jo-approver.service';
-import { JoNumber } from './entities/jo-number.entity';
 import { JOsResponse } from './entities/jos-response.entity';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { Department } from '../__department__ /entities/department.entity';
@@ -26,6 +25,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => JO)
 export class JoResolver {
 
+    private readonly logger = new Logger(JoResolver.name);
+    private filename = 'jo.resolver.ts'
+
     constructor(
         private readonly joService: JoService,
         private readonly joApproverService: JoApproverService
@@ -38,8 +40,25 @@ export class JoResolver {
         @Args('input') createJoInput: CreateJoInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.joService.setAuthUser(authUser)
-        return await this.joService.create(createJoInput);
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createJo,
+              input: JSON.stringify(createJoInput)
+            })
+            
+            this.joService.setAuthUser(authUser)
+      
+            const x = await this.joService.create(createJoInput);
+            
+            this.logger.log('JO created successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in creating JO', error)
+        }
     }
 
     @Query(() => JOsResponse)
@@ -83,8 +102,25 @@ export class JoResolver {
         @Args('input') updateJoInput: UpdateJoInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.joService.setAuthUser(authUser)
-        return await this.joService.update(id, updateJoInput);
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.updateJo,
+              jo_id: id,
+              input: JSON.stringify(updateJoInput),
+            })
+            
+            this.joService.setAuthUser(authUser)
+            const x = await this.joService.update(id, updateJoInput);
+      
+            this.logger.log('JO updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating JO', error)
+        }
     }
 
     @Mutation(() => WarehouseRemoveResponse)
@@ -93,8 +129,27 @@ export class JoResolver {
         @Args('input') input: UpdateJoByBudgetOfficerInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.joService.setAuthUser(authUser)
-        return await this.joService.updateClassificationByBudgetOfficer(id, input);
+
+        try {
+      
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'update_jo_classification_and_jo_approver',
+              jo_id: id,
+              input: JSON.stringify(input),
+            })
+            
+            this.joService.setAuthUser(authUser)
+            const x = await this.joService.updateClassificationByBudgetOfficer(id, input);
+      
+            this.logger.log('JO Classification and JO Approval updated successfully')
+      
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating JO Classification and JO Approval', error)
+        }
+
     }
 
     @Mutation(() => WarehouseCancelResponse)
@@ -102,8 +157,27 @@ export class JoResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.joService.setAuthUser(authUser)
-        return await this.joService.cancel(id);
+
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelJo',
+              jo_id: id,
+            })
+      
+            this.joService.setAuthUser(authUser)
+            const x = await this.joService.cancel(id);
+            
+            this.logger.log('JO cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling JO', error)
+        }
+
     }
 
     @ResolveField(() => Employee)

@@ -1,7 +1,7 @@
 import { Resolver, ResolveField, Parent, Args, Mutation } from '@nestjs/graphql';
 import { MRVApprover } from './entities/mrv-approver.entity';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { ChangeMrvApproverInput } from './dto/change-mrv-approver.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -12,6 +12,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @Resolver(() => MRVApprover)
 export class MrvApproverResolver {
 
+  private readonly logger = new Logger(MrvApproverResolver.name);
+  private filename = 'mrv-approver.resolver.ts'
+  
   constructor(
       private readonly mrvApproverService: MrvApproverService
   ) { }
@@ -27,8 +30,28 @@ export class MrvApproverResolver {
       @Args('input') changeMrvApproverInput: ChangeMrvApproverInput,
       @CurrentAuthUser() authUser: AuthUser
   ) {
+
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'changeMrvApprover',
+        mrv_approver_id: id,
+        input: JSON.stringify(changeMrvApproverInput)
+      })
+      
       this.mrvApproverService.setAuthUser(authUser)
-      return await this.mrvApproverService.changeApprover(id, changeMrvApproverInput);
+
+      const x = await this.mrvApproverService.changeApprover(id, changeMrvApproverInput);
+      
+      this.logger.log('MRV Approver changed successfully')
+
+      return x
+
+    } catch (error) {
+      this.logger.error('Error in changing MRV Approver', error)
+    }
+
   }
 
 }

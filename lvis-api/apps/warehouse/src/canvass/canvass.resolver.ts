@@ -6,7 +6,7 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { UpdateCanvassInput } from './dto/update-canvass.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { CanvassesResponse } from './entities/canvasses-response.entity';
@@ -20,6 +20,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @Resolver(() => Canvass)
 export class CanvassResolver {
 
+    private readonly logger = new Logger(CanvassResolver.name);
+    private filename = 'canvass.resolver.ts'
+
   constructor(private readonly canvassService: CanvassService) { }
 
   @Mutation(() => Canvass)
@@ -29,8 +32,27 @@ export class CanvassResolver {
     @Args('input') createCanvassInput: CreateCanvassInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.canvassService.setAuthUser(authUser)
-    return await this.canvassService.create(createCanvassInput)
+
+    try {
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.createCanvass,
+        input: JSON.stringify(createCanvassInput)
+      })
+      
+      this.canvassService.setAuthUser(authUser)
+
+      const x = await this.canvassService.create(createCanvassInput);
+      
+      this.logger.log('Canvass created successfully')
+
+      return x
+
+    } catch (error) {
+      this.logger.error('Error in creating canvass', error)
+    }
+
   }
 
   @Query(() => CanvassesResponse)
@@ -52,7 +74,7 @@ export class CanvassResolver {
   }
 
   @Query(() => Canvass)
-  canvass(
+  async canvass(
     @Args('id', { nullable: true }) id?: string,
     @Args('rc_number', { nullable: true }) rc_number?: string
   ) {
@@ -70,17 +92,55 @@ export class CanvassResolver {
     @Args('input') updateCanvassInput: UpdateCanvassInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.canvassService.setAuthUser(authUser)
-    return await this.canvassService.update(id, updateCanvassInput);
+
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.updateCanvass,
+        canvass_id: id,
+        input: JSON.stringify(updateCanvassInput),
+      })
+      
+      this.canvassService.setAuthUser(authUser)
+      const x = await this.canvassService.update(id, updateCanvassInput);
+
+      this.logger.log('Canvass updated successfully')
+
+      return x
+    } catch (error) {
+      this.logger.error('Error in updating canvass', error)
+    }
+
   }
 
   @Mutation(() => WarehouseRemoveResponse)
-  removeCanvass(
+  async removeCanvass(
     @Args('id', { type: () => String }) id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.canvassService.setAuthUser(authUser)
-    return this.canvassService.remove(id);
+
+    try {
+
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: RESOLVERS.removeCanvass,
+        canvass_id: id,
+      })
+
+      this.canvassService.setAuthUser(authUser)
+      const x = await this.canvassService.remove(id);
+      
+      this.logger.log('Canvass removed successfully')
+      
+      return x 
+
+    } catch (error) {
+      this.logger.error('Error in removing canvass', error)
+    }
+
   }
 
   @ResolveField(() => Employee)

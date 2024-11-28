@@ -3,10 +3,9 @@ import { MCT } from './entities/mct.entity';
 import { CreateMctInput } from './dto/create-mct.input';
 import { MctService } from './mct.service';
 import { Employee } from '../__employee__/entities/employee.entity';
-import { UpdateMctInput } from './dto/update-mct.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
-import { NotFoundException, UseGuards } from '@nestjs/common';
+import { Logger, NotFoundException, UseGuards } from '@nestjs/common';
 import { MCTApprover } from '../mct-approver/entities/mct-approver.entity';
 import { MctApproverService } from '../mct-approver/mct-approver.service';
 import { MCTsResponse } from './entities/mcts-response.entity';
@@ -23,6 +22,9 @@ import { APPROVAL_STATUS } from '../__common__/types';
 @Resolver(() => MCT)
 export class MctResolver {
 
+    private readonly logger = new Logger(MctResolver.name);
+    private filename = 'mct.resolver.ts'
+
     constructor(
         private readonly mctService: MctService,
         private readonly mrvService: MrvService,
@@ -36,8 +38,25 @@ export class MctResolver {
         @Args('input') createMctInput: CreateMctInput,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mctService.setAuthUser(authUser)
-        return await this.mctService.create(createMctInput);
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: RESOLVERS.createMct,
+              input: JSON.stringify(createMctInput)
+            })
+            
+            this.mctService.setAuthUser(authUser)
+      
+            const x = await this.mctService.create(createMctInput);
+            
+            this.logger.log('MCT created successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in creating MCT', error)
+        }
     }
 
     @Query(() => MCTsResponse)
@@ -76,8 +95,25 @@ export class MctResolver {
         @Args('id') id: string,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mctService.setAuthUser(authUser)
-        return await this.mctService.cancel(id);
+        try {
+
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'cancelMct',
+              mct_id: id,
+            })
+      
+            this.mctService.setAuthUser(authUser)
+            const x = await this.mctService.cancel(id);
+            
+            this.logger.log('MCT cancelled successfully')
+            
+            return x 
+      
+        } catch (error) {
+            this.logger.error('Error in cancelling MCT', error)
+        }
     }
 
     @ResolveField(() => [MCTApprover])
@@ -104,11 +140,6 @@ export class MctResolver {
         }
         return { __typename: 'Employee', id: mrv.requested_by_id }
     }
-
-    // @ResolveField(() => Boolean)
-    // async is_referenced(@Parent() mct: MCT) {
-    //     return await this.mctService.isReferenced(mct.id)
-    // }
 
     @ResolveField(() => Boolean)
     can_update(

@@ -19,7 +19,7 @@ export class WinstonLoggerService implements LoggerService {
       transports: [
         // Log to a file with daily rotation in JSON format
         new WinstonDailyRotateFile({
-          filename: 'logs/system/combined-%DATE%.log',
+          filename: 'logs/combined-%DATE%.log',
           datePattern: 'YYYY-MM-DD',
           maxSize: '20m',
           format: winston.format.combine(
@@ -30,7 +30,7 @@ export class WinstonLoggerService implements LoggerService {
         // Error logs in a separate file with JSON format
         new WinstonDailyRotateFile({
           level: 'error',
-          filename: 'logs/system/error-%DATE%.log',
+          filename: 'logs/error-%DATE%.log',
           datePattern: 'YYYY-MM-DD',
           maxSize: '20m',
           format: winston.format.combine(
