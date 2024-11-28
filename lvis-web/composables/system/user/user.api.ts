@@ -87,6 +87,7 @@ export async function findOne(id: string): Promise<User | undefined> {
                         }
                         is_budget_officer
                         is_finance_manager
+                        total_pending_approvals
                     }
                 }
             }

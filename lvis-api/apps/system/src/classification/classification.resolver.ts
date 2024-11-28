@@ -41,7 +41,7 @@ export class ClassificationResolver {
       this.classificationService.setAuthUser(authUser)
       const x = await this.classificationService.create(createClassificationInput);
       
-      this.logger.log('Account created successfully')
+      this.logger.log('Classification created successfully')
 
       return x
 

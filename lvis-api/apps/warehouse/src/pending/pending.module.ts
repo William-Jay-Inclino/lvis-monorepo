@@ -8,5 +8,6 @@ import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 @Module({
   imports: [HttpModule],
   providers: [PendingResolver, PendingService, ItemService, WinstonLoggerService],
+  exports: [PendingService],
 })
 export class PendingModule {}

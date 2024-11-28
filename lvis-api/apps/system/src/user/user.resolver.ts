@@ -36,11 +36,15 @@ export class UserResolver {
     @CurrentAuthUser() authUser: AuthUser
   ) {
     try {
+
+      // Create a copy of the input object and mask the password
+      const sanitizedInput = { ...input, password: '***' };
+
       this.logger.log({
         username: authUser.user.username,
         filename: this.filename,
         function: 'createUser',
-        input: JSON.stringify(input)
+        input: JSON.stringify(sanitizedInput)
       })
       
       this.userService.setAuthUser(authUser)
@@ -124,7 +128,7 @@ export class UserResolver {
         filename: this.filename,
         function: 'change_password',
         user_id,
-        password,
+        password: '***',
       })
       
       this.userService.setAuthUser(authUser)
@@ -151,8 +155,8 @@ export class UserResolver {
         username: authUser.user.username,
         filename: this.filename,
         function: 'change_own_password',
-        current_pw,
-        new_pw,
+        current_pw: '***',
+        new_pw: '***',
       })
       
       this.userService.setAuthUser(authUser)

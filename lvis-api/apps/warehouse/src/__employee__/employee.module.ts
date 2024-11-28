@@ -1,15 +1,12 @@
 import { Module } from '@nestjs/common';
+import { EmployeeResolver } from './employee.resolver';
 import { HttpModule } from '@nestjs/axios';
-import { CanvassService } from '../canvass/canvass.service';
-import { PendingService } from '../pending/pending.service';
-import { ItemService } from '../item/item.service';
+import { PendingModule } from '../pending/pending.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, PendingModule],
   providers: [
-    CanvassService,
-    PendingService,
-    ItemService,
+    EmployeeResolver,
   ],
 })
 export class EmployeeModule { }

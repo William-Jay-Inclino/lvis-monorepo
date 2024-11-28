@@ -259,8 +259,7 @@ onMounted(async () => {
     isLoadingPage.value = false
 
     if (!response) {
-        console.error('User not found')
-        return
+        return redirectTo401Page()
     }
 
     item.value = response
@@ -302,6 +301,8 @@ async function updateUserInfo() {
             position: 'top',
         })
 
+        router.push('/system/user/view/' + response.data.id)
+
     } else {
 
         Swal.fire({
@@ -314,34 +315,6 @@ async function updateUserInfo() {
     }
 
 }
-
-
-// async function updatePassword() {
-//     isUpdatingPassword.value = true
-//     const response = await api.updatePassword(item.value.id, item.value.password)
-//     isUpdatingPassword.value = false
-
-//     if (response.success && response.data) {
-
-//         Swal.fire({
-//             title: 'Success!',
-//             text: response.msg,
-//             icon: 'success',
-//             position: 'top',
-//         })
-
-//     } else {
-
-//         Swal.fire({
-//             title: 'Error!',
-//             text: response.msg,
-//             icon: 'error',
-//             position: 'top',
-//         })
-
-//     }
-
-// }
 
 async function updatePermissions() {
 
@@ -359,6 +332,8 @@ async function updatePermissions() {
             icon: 'success',
             position: 'top',
         })
+
+        router.push('/system/user/view/' + response.data.id)
 
     } else {
 

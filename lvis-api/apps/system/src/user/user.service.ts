@@ -122,7 +122,7 @@ export class UserService {
     })
 
     if (!user) {
-      return null
+      throw new NotFoundException("User not found with id of " + id)
     }
 
     user.permissions = JSON.stringify(user.permissions)
@@ -139,7 +139,7 @@ export class UserService {
     })
 
     if (!user) {
-      return null
+      throw new NotFoundException("User not found with username of " + username)
     }
 
     user.permissions = JSON.stringify(user.permissions)
