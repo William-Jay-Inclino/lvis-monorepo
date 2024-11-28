@@ -17,6 +17,7 @@ export interface Employee {
     name_suffix: string | null
     position: string
     signature_src: string
+    status: EMPLOYEE_STATUS
 
     // derived / resolvers 
 
@@ -71,4 +72,9 @@ export interface MutationResponse {
     success: boolean
     msg: string
     data?: Employee
+}
+
+export const enum EMPLOYEE_STATUS {
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE',
 }

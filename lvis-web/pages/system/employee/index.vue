@@ -29,7 +29,7 @@
                                 <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search
+                            Search 
                             </button>
                         </div>
                     </div>
@@ -52,8 +52,7 @@
                                                 <th class="bg-secondary text-white">Firstname</th>
                                                 <th class="bg-secondary text-white">Middlename</th>
                                                 <th class="bg-secondary text-white">Lastname</th>
-                                                <th class="bg-secondary text-white">Position</th>
-                                                <th class="bg-secondary text-white">Signature</th>
+                                                <th class="bg-secondary text-white">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
                                                     <font-awesome-icon :icon="['fas', 'cog']" />
@@ -66,28 +65,17 @@
                                                 <td class="text-muted"> {{ i.firstname }} </td>
                                                 <td class="text-muted"> {{ i.middlename }} </td>
                                                 <td class="text-muted"> {{ i.lastname }} </td>
-                                                <td class="text-muted"> {{ i.position ? i.position : 'N/A' }} </td>
-                                                <td class="text-muted">
-                                                    <div v-if="i.signature_src">
-                                                        <img :src="getUploadsPath(i.signature_src)" style="max-width: 100px; height: auto;">
-                                                    </div>
-                                                    <div v-else>
-                                                        N/A
+                                                <td class="text-center align-middle">
+                                                    <div :class="{ [`badge bg-${employeeStatus[i.status].color}`]: true }">
+                                                        {{ employeeStatus[i.status].label }}
                                                     </div>
                                                 </td>
-                                                <td class="text-center">
-                                                    <button
-                                                        :disabled="!canDelete(authUser, 'canManageEmployee', SERVICES.SYSTEM)"
-                                                        @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
+                                                <td class="align-middle text-center">
+                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm text-primary">
                                                         <client-only>
-                                                            <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageEmployee', SERVICES.SYSTEM) }"/>
+                                                            <font-awesome-icon :icon="['fas', 'info-circle']" />
                                                         </client-only>
-                                                    </button>
-                                                    <button :disabled="!canEdit(authUser, 'canManageEmployee', SERVICES.SYSTEM)"
-                                                        @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
-                                                        <client-only>
-                                                            <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageEmployee', SERVICES.SYSTEM) }" />
-                                                        </client-only>
+                                                        View details
                                                     </button>
                                                 </td>
                                             </tr>
@@ -142,6 +130,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 import { PAGINATION_SIZE } from '~/utils/config'
 import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
+import { employeeStatus } from '~/utils/constants';
 
 definePageMeta({
     name: ROUTES.EMPLOYEE_INDEX,
@@ -289,5 +278,7 @@ function getUploadsPath(src: string) {
 
 const onClickCreate = () => router.push('/system/employee/create')
 const onClickEdit = (id: string) => router.push('/system/employee/' + id)
+const onClickViewDetails = (id: string) => router.push('/system/employee/view/' + id)
+
 
 </script>

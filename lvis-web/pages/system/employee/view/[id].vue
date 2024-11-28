@@ -70,6 +70,14 @@
                                             <td> {{ item.division ? item.division.name : 'N/A' }} </td>
                                         </tr>
                                         <tr>
+                                            <td class="text-muted">Status</td>
+                                            <td>
+                                                <div :class="{ [`badge bg-${employeeStatus[item.status].color}`]: true }">
+                                                    {{ employeeStatus[item.status].label }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td class="text-muted">Signature</td>
                                             <td>
                                                 <div v-if="item.signature_src">
@@ -135,6 +143,7 @@ definePageMeta({
 
 import * as api from '~/composables/system/employee/employee.api'
 import type { Employee } from '~/composables/system/employee/employee.types';
+import { employeeStatus } from '~/utils/constants';
 
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)

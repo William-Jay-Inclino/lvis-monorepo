@@ -27,8 +27,7 @@ export async function findAll(payload: { page: number, pageSize: number, searchV
                     firstname
                     middlename
                     lastname
-                    signature_src
-                    position 
+                    status
                 }
                 totalItems
                 currentPage
@@ -62,6 +61,7 @@ export async function findOne(id: string): Promise<Employee | undefined> {
                 lastname
                 signature_src
                 position
+                status
                 division {
                     id 
                     name

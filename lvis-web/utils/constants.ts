@@ -1,4 +1,5 @@
 import { DEPARTMENT_STATUS, type WarehouseRequestType } from "~/composables/common.types"
+import { EMPLOYEE_STATUS } from "~/composables/system/employee/employee.types"
 
 
 export enum SERVICES {
@@ -293,6 +294,19 @@ export const departmentStatus = {
     },
     [DEPARTMENT_STATUS.INACTIVE]: {
         value: DEPARTMENT_STATUS.INACTIVE,
+        label: 'Inactive',
+        color: 'danger',
+    },
+}
+
+export const employeeStatus = {
+    [EMPLOYEE_STATUS.ACTIVE]: {
+        value: EMPLOYEE_STATUS.ACTIVE,
+        label: 'Active',
+        color: 'success',
+    },
+    [EMPLOYEE_STATUS.INACTIVE]: {
+        value: EMPLOYEE_STATUS.INACTIVE,
         label: 'Inactive',
         color: 'danger',
     },
