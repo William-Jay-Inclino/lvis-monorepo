@@ -108,9 +108,15 @@ export class MeqsSupplierAttachmentService {
 
     private async deleteFiles(filePaths: string[]) {
 
-        const url = process.env.API_URL + '/api/v1/file-upload/warehouse/meqs'
+        try {
 
-        return axios.delete(url, { data: filePaths });
+            const url = process.env.API_URL + '/api/v1/file-upload/warehouse/meqs'
+            return axios.delete(url, { data: filePaths });
+
+        } catch (error) {
+            throw new Error(`Error deleting files: ${ error }`)
+        }
+
     }
 
     private async canAccess(meqs_supplier_id: string): Promise<boolean> {

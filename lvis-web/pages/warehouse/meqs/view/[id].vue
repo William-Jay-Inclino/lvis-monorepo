@@ -197,7 +197,7 @@
                                                         <a href="javascript:void(0)" @click="onClickAttachment(attachment.src)"
                                                             data-bs-toggle="modal" data-bs-target="#myModal">
                                                             <img :src="getUploadsPath(attachment.src)"
-                                                                class="img-thumbnail small-image" :alt="attachment.src">
+                                                                class="img-thumbnail small-image" alt="Image not found">
                                                         </a>
                                                     </div>
                                                 </div>
