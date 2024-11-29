@@ -209,7 +209,7 @@
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>
                                     <div v-if="!item.cancelled_at">
-                                        <button v-if="isAdminOrOwner(item.created_by, authUser)" class="btn btn-warning me-2"
+                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status !== APPROVAL_STATUS.APPROVED" class="btn btn-warning me-2"
                                             @click="onCancelGasSlip()">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'times-circle']" />

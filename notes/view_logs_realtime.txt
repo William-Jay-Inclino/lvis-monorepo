@@ -1,0 +1,10 @@
+
+got to lvis-api/logs 
+
+command: 
+tail -n 40 -f combined-2024-11-29.log 
+
+
+Note: 
+-n 40 -> number of lines to view 
+-f <filename> -> filename
