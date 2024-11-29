@@ -35,7 +35,7 @@
                                                 <small class="text-info fst-italic"> View details </small>
                                             </nuxt-link>
                                         </td>
-                                        <td class="text-muted align-middle"> {{ formatDate(item.transaction_date) }} </td>
+                                        <td class="text-muted align-middle"> {{ formatDate(item.transaction_date, true) }} </td>
                                         <td v-if="!isDefaultApproval(item)" class="text-center align-middle">
                                             <button @click="onClickApprove(i)" class="btn btn-light w-50 text-success" data-bs-toggle="modal"
                                                 data-bs-target="#pendingModal">
