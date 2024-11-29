@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
 import { Request } from 'express';
 import { AuthService } from "./auth.service";
 import { LocalAuthGuard } from "./guards/local-auth.guard";
@@ -28,6 +28,11 @@ export class AuthController {
         admin.role = Role.ADMIN
 
         return this.userService.create(admin)
+    }
+
+    @Get('health-check')
+    test() {
+        return 'system OK'
     }
 
 }

@@ -8,7 +8,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Controller('canvass')
 export class CanvassController {
 
@@ -18,7 +18,7 @@ export class CanvassController {
 
 
     @Get('pdf/:id')
-    @UseGuards(AccessGuard)
+    @UseGuards(JwtAuthGuard, AccessGuard)
     @CheckAccess(MODULES.CANVASS, RESOLVERS.printCanvass)
     async generatePdf(
         @Param('id') id: string, 
@@ -41,6 +41,11 @@ export class CanvassController {
         // @ts-ignore
         res.send(pdfBuffer);
 
+    }
+
+    @Get('health-check')
+    test() {
+        return 'warehouse OK'
     }
 
 }

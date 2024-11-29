@@ -1,0 +1,15 @@
+
+
+API GATEWAY
+
+http://localhost:4000/lvis/api/auth/health-check
+
+
+SYSTEM 
+
+http://localhost:4001/lvis/system-api/auth/health-check
+
+
+WAREHOUSE
+
+http://localhost:4002/lvis/warehouse-api/canvass/health-check

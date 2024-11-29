@@ -1,0 +1,35 @@
+1. Install OpenSSH Server
+
+sudo apt update
+sudo apt install openssh-server
+
+
+2. Start and Enable SSH Service
+
+sudo systemctl start ssh
+sudo systemctl enable ssh
+
+
+3. Verify SSH Service is Running
+sudo systemctl status ssh
+
+
+
+If everything is set up correctly, you should see something like this:
+
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+     Active: active (running) since <date>
+
+
+4. Check Firewall Settings
+Ensure that your firewall allows incoming SSH connections on port 22. For example, on Ubuntu/Debian with ufw:
+
+sudo ufw allow ssh
+sudo ufw enable
+
+
+5. Test SSH Connection
+Once the SSH server is running and the firewall is properly configured, try to SSH into your server again:
+
+ssh kriz@192.168.1.110

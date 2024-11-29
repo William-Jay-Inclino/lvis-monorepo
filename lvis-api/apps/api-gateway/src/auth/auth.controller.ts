@@ -83,14 +83,14 @@ export class AuthController {
         };
     }
 
-    @Get('test-get')
-    test_get(@Req() req: Request) {
-        return 'hello'
+    @Get('health-check')
+    test() {
+        return 'api-gateway OK'
     }
 
-    @Post('test-post')
-    test_post(@Req() req: Request) {
-        return 'hello'
-    }
+    // @Post('test-post')
+    // test_post(@Req() req: Request) {
+    //     return 'hello'
+    // }
 
 }
