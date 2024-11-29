@@ -19,7 +19,6 @@ export class EmployeeResolver {
 
     @ResolveField(() => Int)
     async total_pending_approvals(@Parent() employee: Employee) {
-        console.log('total_pending_approvals', employee);
         return this.pendingService.getTotalPendingsByApproverId(employee.id)
         
     }
