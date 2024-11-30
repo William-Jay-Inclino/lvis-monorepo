@@ -164,23 +164,23 @@
 <script setup lang="ts">
 
 import Swal from 'sweetalert2';
+import { fetchTotalNotifications } from '~/composables/system/user/user.api';
 import { logout } from '~/utils/helpers';
 
 const authUser = ref()
 const router = useRouter()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
+const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
 let updateUserInterval: ReturnType<typeof setInterval>;
 
 onMounted(async() => {
-    const _authUser = await getAuthUserAsync()
-    await updateUserInLocalStorage(_authUser)
     authUser.value = await getAuthUserAsync()
-
-    updateUserInterval = setInterval(updateUserPeriodically, UPDATE_USER_IN_LOCAL_STORAGE_INTERVAL_SEC);
+    await updateTotalNotifications()
+    updateUserInterval = setInterval(updateTotalNotifications, UPDATE_TOTAL_NOTIFS_INTERVAL);
 })
 
 onUnmounted( () => {
@@ -204,10 +204,20 @@ watch(isInactive, async (val) => {
 });
 
 
-async function updateUserPeriodically() {
-    const _authUser = await getAuthUserAsync()
-    await updateUserInLocalStorage(_authUser);
-    authUser.value = await getAuthUserAsync()
+async function updateTotalNotifications() {
+    console.log('updateTotalNotifications');
+    
+    if(!authUser.value) return 
+
+    if(authUser.value.user.user_employee) {
+        const response = await fetchTotalNotifications(authUser.value.user.user_employee.employee_id, WAREHOUSE_API_URL)
+        if(response) {
+            authUser.value.user.user_employee.employee.total_pending_approvals = response
+            const newAuthUser = JSON.stringify(authUser.value);
+            localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
+        }
+    }
+
 }
 
 

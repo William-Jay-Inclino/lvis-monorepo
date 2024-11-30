@@ -26,18 +26,18 @@ export class PendingService {
         this.authUser = authUser
     }
 
-    async findPendingsByApproverId(approverId: string): Promise<Pending[]> {
+    // async findPendingsByApproverId(approverId: string): Promise<Pending[]> {
         
-        const pendings = await this.prisma.pending.findMany({
-            where: {
-                approver_id: approverId
-            },
-            take: 100
-        })
+    //     const pendings = await this.prisma.pending.findMany({
+    //         where: {
+    //             approver_id: approverId
+    //         },
+    //         take: 100
+    //     })
 
-        return pendings
+    //     return pendings
 
-    }
+    // }
 
     // async getTotalPendingsByApproverId(approverId: string): Promise<number> {
         

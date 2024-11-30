@@ -1,6 +1,6 @@
 // file-upload.controller.ts
 
-import { Body, Controller, Delete, Get, Logger, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Logger, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { SingleFileTypeValidationPipe } from './pipes/single-file-type-validation.pipe';
@@ -18,11 +18,23 @@ export class FileUploadSystemController {
     async getSingleFileEmployee(@Param('filename') filename: string, @Res() res: Response) {
         try {
             const destination = EMPLOYEE_UPLOAD_PATH;
+            const fileExists = await this.fileUploadService.checkFileExists(filename, destination);
+    
+            if (!fileExists) {
+                return (res as any).status(HttpStatus.NOT_FOUND).json({
+                    success: false,
+                    data: `File ${filename} not found`
+                });
+            }
+    
             const filePath = await this.fileUploadService.getFilePath(filename, destination);
-
-            (res as any).sendFile(filePath);
+            return (res as any).sendFile(filePath);
         } catch (error) {
             this.logger.error('Error retrieving single file:', error.message);
+            return (res as any).status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                data: `Failed to retrieve file: ${error.message}`
+            });
         }
     }
 
@@ -38,6 +50,7 @@ export class FileUploadSystemController {
             return { success: true, data: savedFilePath };
         } catch (error) {
             this.logger.error('Error uploading single file:', error.message);
+            throw new HttpException({ success: false, data: `Failed to upload single file: ${error.message}` }, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -50,6 +63,7 @@ export class FileUploadSystemController {
             return { success: true, data: `File deleted: ${filename}` };
         } catch (error) {
             this.logger.error('Error deleting single file:', error.message);
+            throw new HttpException({ success: false, data: `Failed to delete single file: ${error.message}` }, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -71,6 +85,7 @@ export class FileUploadSystemController {
             return { success: true, data: `Files deleted: ${filePaths.join(', ')}` };
         } catch (error) {
             this.logger.error('Error deleting files:', error.message);
+            throw new HttpException({ success: false, data: `Failed to delete multiple file: ${error.message}` }, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

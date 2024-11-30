@@ -1,6 +1,7 @@
 import { sendRequest } from "~/utils/api"
 import type { User, CreateUserInput, MutationResponse, FindAllResponse, UpdateUserInput, UserPermissions } from "./user.types";
 import type { Employee } from "../employee/employee.types";
+import axios from "axios";
 
 
 
@@ -448,3 +449,15 @@ export async function isUsernameExist(username: string): Promise<{
     }
 
 }
+
+export async function fetchTotalNotifications(employee_id: string, URL: string): Promise<number | undefined> {
+    try {
+        const response = await axios.get(
+            `${URL}/employee/${employee_id}/get-total-notifications`,
+        );
+        return response.data
+
+    } catch (err) {
+        console.error('Error fetching total notifications of user', err);
+    }
+  } 

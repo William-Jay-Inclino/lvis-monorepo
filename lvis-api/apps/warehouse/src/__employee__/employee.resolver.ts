@@ -10,8 +10,6 @@ import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 export class EmployeeResolver {
 
     private readonly logger = new Logger(EmployeeResolver.name);
-    private filename = 'employee.resolver.ts'
-
 
     constructor(
         private readonly employeeService: EmployeeService,
