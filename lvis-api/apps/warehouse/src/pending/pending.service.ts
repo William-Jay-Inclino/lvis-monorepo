@@ -39,17 +39,17 @@ export class PendingService {
 
     }
 
-    async getTotalPendingsByApproverId(approverId: string): Promise<Number> {
+    // async getTotalPendingsByApproverId(approverId: string): Promise<number> {
         
-        const totalPendings = await this.prisma.pending.count({
-            where: {
-                approver_id: approverId
-            }
-        })
+        // const totalPendings = await this.prisma.pending.count({
+        //     where: {
+        //         approver_id: approverId
+        //     }
+        // })
 
-        return totalPendings
+    //     return totalPendings
 
-    }
+    // }
 
     async approveOrDisapprovePending(payload: {
         id: number, 
