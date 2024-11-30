@@ -1,0 +1,106 @@
+Backup and Restore Procedures for Databases
+
+Overview
+This document provides detailed instructions on how to properly back up and restore the system_db and warehouse_db using the provided shell scripts. The backup and restore processes help ensure the safety and availability of your databases. Additionally, a cron job is set to automatically back up the databases daily at 2 AM.
+
+Scripts Overview
+The following shell scripts are used for the backup and restore operations:
+
+1. backup_system_db.sh – Backs up the system database.
+2. backup_warehouse_db.sh – Backs up the warehouse database.
+3. truncate_system_db.sh – Truncates the system database.
+4. truncate_warehouse_db.sh – Truncates the warehouse database.
+5. restore_system_db.sh – Restores the system database from a backup.
+6. restore_warehouse_db.sh – Restores the warehouse database from a backup.
+
+Daily Automated Backup
+A cron job has been configured to automatically run the backup_system_db.sh and backup_warehouse_db.sh scripts every day at 2:00 AM. These backups will be stored in the specified backup directories as defined in your .env file.
+
+To view or modify the cron job, use the following command:
+
+sudo crontab -e
+
+This is the cron job set to back up the databases at 2:00 AM:
+
+0 2 * * * /path/to/backup_system_db.sh >> /path/to/backup.log 2>&1
+0 2 * * * /path/to/backup_warehouse_db.sh >> /path/to/backup.log 2>&1
+
+Manual Backup Procedure
+In case you want to manually trigger the backup for the system_db or warehouse_db, you can use the following steps.
+
+1. Backup System Database
+- Run the following command to back up the system database:
+  
+  sudo ./backup_system_db.sh
+
+- This will create a backup file in the directory specified by BACKUP_SYSTEM_DIR in your .env file.
+
+2. Backup Warehouse Database
+- Run the following command to back up the warehouse database:
+
+  sudo ./backup_warehouse_db.sh
+
+- This will create a backup file in the directory specified by BACKUP_WAREHOUSE_DIR in your .env file.
+
+Manual Restore Procedure
+To restore a database from a backup file, follow the procedure outlined below. Make sure you have the correct backup file ready.
+
+1. Restore System Database
+- Ensure that the backup file is available in the directory specified by BACKUP_SYSTEM_DIR in your .env file.
+- Run the following command to restore the system database from the backup:
+
+  sudo ./restore_system_db.sh <backup_filename>
+
+  Replace <backup_filename> with the name of the backup file you want to restore, for example:
+
+  sudo ./restore_system_db.sh system_db_backup_2024-11-30_13-05-34.dump
+
+- The script will restore the database by copying the backup file into the Docker container and running the restore command.
+
+2. Restore Warehouse Database
+- Ensure that the backup file is available in the directory specified by BACKUP_WAREHOUSE_DIR in your .env file.
+- Run the following command to restore the warehouse database from the backup:
+
+  sudo ./restore_warehouse_db.sh <backup_filename>
+
+  Replace <backup_filename> with the name of the backup file you want to restore, for example:
+
+  sudo ./restore_warehouse_db.sh warehouse_db_backup_2024-11-30_13-05-34.dump
+
+- The script will restore the database by copying the backup file into the Docker container and running the restore command.
+
+Truncate Database Procedure
+In some cases, you may want to truncate (clear) the content of a database. The following steps show how to do that for both the system and warehouse databases.
+
+1. Truncate System Database
+- Run the following command to truncate the system database:
+
+  sudo ./truncate_system_db.sh
+
+- This will delete all data in the system database but will retain the schema.
+
+2. Truncate Warehouse Database
+- Run the following command to truncate the warehouse database:
+
+  sudo ./truncate_warehouse_db.sh
+
+- This will delete all data in the warehouse database but will retain the schema.
+
+Backup and Restore Logs
+The backup and restore processes generate logs that can be useful for troubleshooting. These logs are stored in the directories defined in your .env file, for example:
+
+- System Database Backup Log: /home/jay/Documents/projects/leyeco/lvis-monorepo/backup/logs/system_db_backup.log
+- Warehouse Database Backup Log: /home/jay/Documents/projects/leyeco/lvis-monorepo/backup/logs/warehouse_db_backup.log
+
+Check the logs for detailed information about the success or failure of each backup and restore operation.
+
+Important Notes
+- Backup Retention: Only a certain number of backups are kept based on the MAX_BACKUPS setting in your .env file. Once this limit is reached, older backups will be deleted.
+- Backup Directory: Ensure that the backup directory is regularly monitored for disk space. If the backup files grow too large, consider implementing a backup retention policy.
+- Database Container: Both restore and backup scripts require that the Docker container for the database is running. Use the following command to check the status of your database container:
+
+  docker ps
+
+  If the container is not running, start it using the appropriate command.
+  
+This guide ensures that you have clear steps to follow for both manual and automated backup and restore processes for your system_db and warehouse_db.
