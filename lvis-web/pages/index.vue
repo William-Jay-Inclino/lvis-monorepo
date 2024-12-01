@@ -67,9 +67,9 @@
                       <!-- Right Form Section (with background image) -->
                       <div class="col-md-7 d-none d-md-block column-right">
                           <div class="form-right text-start p-5 bg-image m-3 rounded"> <!-- Added m-3 for margin, rounded, and inline border-radius -->
-                              <p class="fs-3 mb-0 fw-bold">LVUMS</p>
-                              <p class="fw-bold">Leyeco V Unified Management System</p>
-                              <p>LVUMS empowers LEYECO V mission and vision through the following suite of powerful management tools:</p>
+                              <p class="fs-3 mb-0 fw-bold">LVIS</p>
+                              <p class="fw-bold">Leyeco V Integrated System</p>
+                              <p>LVIS empowers LEYECO V mission and vision through the following suite of powerful management tools:</p>
 
                               <!-- First Row -->
                               <div class="row fs-8">
