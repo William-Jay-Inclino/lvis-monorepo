@@ -525,7 +525,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.8.1
-   * Query Engine version: 605197351a3c8bdd595af2d2a9bc3025bca48ea2
+   * Query Engine version: 5dbef10bdbfb579e07d35cc85fb1518d357cb99e
    */
   export type PrismaVersion = {
     client: string
@@ -8392,16 +8392,19 @@ export namespace Prisma {
   export type UserGroupMinAggregateOutputType = {
     id: number | null
     name: string | null
+    created_at: Date | null
   }
 
   export type UserGroupMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    created_at: Date | null
   }
 
   export type UserGroupCountAggregateOutputType = {
     id: number
     name: number
+    created_at: number
     _all: number
   }
 
@@ -8417,16 +8420,19 @@ export namespace Prisma {
   export type UserGroupMinAggregateInputType = {
     id?: true
     name?: true
+    created_at?: true
   }
 
   export type UserGroupMaxAggregateInputType = {
     id?: true
     name?: true
+    created_at?: true
   }
 
   export type UserGroupCountAggregateInputType = {
     id?: true
     name?: true
+    created_at?: true
     _all?: true
   }
 
@@ -8519,6 +8525,7 @@ export namespace Prisma {
   export type UserGroupGroupByOutputType = {
     id: number
     name: string
+    created_at: Date
     _count: UserGroupCountAggregateOutputType | null
     _avg: UserGroupAvgAggregateOutputType | null
     _sum: UserGroupSumAggregateOutputType | null
@@ -8543,6 +8550,7 @@ export namespace Prisma {
   export type UserGroupSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    created_at?: boolean
     members?: boolean | UserGroup$membersArgs<ExtArgs>
     _count?: boolean | UserGroupCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userGroup"]>
@@ -8550,6 +8558,7 @@ export namespace Prisma {
   export type UserGroupSelectScalar = {
     id?: boolean
     name?: boolean
+    created_at?: boolean
   }
 
   export type UserGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8566,6 +8575,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      created_at: Date
     }, ExtArgs["result"]["userGroup"]>
     composites: {}
   }
@@ -8963,6 +8973,7 @@ export namespace Prisma {
   interface UserGroupFieldRefs {
     readonly id: FieldRef<"UserGroup", 'Int'>
     readonly name: FieldRef<"UserGroup", 'String'>
+    readonly created_at: FieldRef<"UserGroup", 'DateTime'>
   }
     
 
@@ -9334,16 +9345,19 @@ export namespace Prisma {
   export type UserGroupMembersMinAggregateOutputType = {
     user_id: string | null
     user_group_id: number | null
+    created_at: Date | null
   }
 
   export type UserGroupMembersMaxAggregateOutputType = {
     user_id: string | null
     user_group_id: number | null
+    created_at: Date | null
   }
 
   export type UserGroupMembersCountAggregateOutputType = {
     user_id: number
     user_group_id: number
+    created_at: number
     _all: number
   }
 
@@ -9359,16 +9373,19 @@ export namespace Prisma {
   export type UserGroupMembersMinAggregateInputType = {
     user_id?: true
     user_group_id?: true
+    created_at?: true
   }
 
   export type UserGroupMembersMaxAggregateInputType = {
     user_id?: true
     user_group_id?: true
+    created_at?: true
   }
 
   export type UserGroupMembersCountAggregateInputType = {
     user_id?: true
     user_group_id?: true
+    created_at?: true
     _all?: true
   }
 
@@ -9461,6 +9478,7 @@ export namespace Prisma {
   export type UserGroupMembersGroupByOutputType = {
     user_id: string
     user_group_id: number
+    created_at: Date
     _count: UserGroupMembersCountAggregateOutputType | null
     _avg: UserGroupMembersAvgAggregateOutputType | null
     _sum: UserGroupMembersSumAggregateOutputType | null
@@ -9485,6 +9503,7 @@ export namespace Prisma {
   export type UserGroupMembersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     user_id?: boolean
     user_group_id?: boolean
+    created_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     user_group?: boolean | UserGroupDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userGroupMembers"]>
@@ -9492,6 +9511,7 @@ export namespace Prisma {
   export type UserGroupMembersSelectScalar = {
     user_id?: boolean
     user_group_id?: boolean
+    created_at?: boolean
   }
 
   export type UserGroupMembersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9509,6 +9529,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       user_id: string
       user_group_id: number
+      created_at: Date
     }, ExtArgs["result"]["userGroupMembers"]>
     composites: {}
   }
@@ -9908,6 +9929,7 @@ export namespace Prisma {
   interface UserGroupMembersFieldRefs {
     readonly user_id: FieldRef<"UserGroupMembers", 'String'>
     readonly user_group_id: FieldRef<"UserGroupMembers", 'Int'>
+    readonly created_at: FieldRef<"UserGroupMembers", 'DateTime'>
   }
     
 
@@ -18813,7 +18835,8 @@ export namespace Prisma {
 
   export const UserGroupScalarFieldEnum: {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    created_at: 'created_at'
   };
 
   export type UserGroupScalarFieldEnum = (typeof UserGroupScalarFieldEnum)[keyof typeof UserGroupScalarFieldEnum]
@@ -18821,7 +18844,8 @@ export namespace Prisma {
 
   export const UserGroupMembersScalarFieldEnum: {
     user_id: 'user_id',
-    user_group_id: 'user_group_id'
+    user_group_id: 'user_group_id',
+    created_at: 'created_at'
   };
 
   export type UserGroupMembersScalarFieldEnum = (typeof UserGroupMembersScalarFieldEnum)[keyof typeof UserGroupMembersScalarFieldEnum]
@@ -19132,7 +19156,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFilter<"Division"> | $Enums.DivisionStatus
     permissions?: JsonNullableFilter<"Division">
     created_at?: DateTimeFilter<"Division"> | Date | string
-    department?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
+    department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
     Employee?: EmployeeListRelationFilter
   }
 
@@ -19159,7 +19183,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFilter<"Division"> | $Enums.DivisionStatus
     permissions?: JsonNullableFilter<"Division">
     created_at?: DateTimeFilter<"Division"> | Date | string
-    department?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
+    department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
     Employee?: EmployeeListRelationFilter
   }, "id" | "code">
 
@@ -19320,15 +19344,15 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"Employee"> | string | null
     created_at?: DateTimeFilter<"Employee"> | Date | string
     updated_at?: DateTimeFilter<"Employee"> | Date | string
-    jo_approver_setting?: XOR<JOApproverSettingNullableRelationFilter, JOApproverSettingWhereInput> | null
-    meqs_approver_setting?: XOR<MEQSApproverSettingNullableRelationFilter, MEQSApproverSettingWhereInput> | null
-    po_approver_setting?: XOR<POApproverSettingNullableRelationFilter, POApproverSettingWhereInput> | null
-    rv_approver_setting?: XOR<RVApproverSettingNullableRelationFilter, RVApproverSettingWhereInput> | null
-    spr_approver_setting?: XOR<SPRApproverSettingNullableRelationFilter, SPRApproverSettingWhereInput> | null
-    rr_approver_setting?: XOR<RRApproverSettingNullableRelationFilter, RRApproverSettingWhereInput> | null
-    department?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
-    division?: XOR<DivisionNullableRelationFilter, DivisionWhereInput> | null
-    user_employee?: XOR<UserEmployeeNullableRelationFilter, UserEmployeeWhereInput> | null
+    jo_approver_setting?: XOR<JOApproverSettingNullableScalarRelationFilter, JOApproverSettingWhereInput> | null
+    meqs_approver_setting?: XOR<MEQSApproverSettingNullableScalarRelationFilter, MEQSApproverSettingWhereInput> | null
+    po_approver_setting?: XOR<POApproverSettingNullableScalarRelationFilter, POApproverSettingWhereInput> | null
+    rv_approver_setting?: XOR<RVApproverSettingNullableScalarRelationFilter, RVApproverSettingWhereInput> | null
+    spr_approver_setting?: XOR<SPRApproverSettingNullableScalarRelationFilter, SPRApproverSettingWhereInput> | null
+    rr_approver_setting?: XOR<RRApproverSettingNullableScalarRelationFilter, RRApproverSettingWhereInput> | null
+    department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
+    division?: XOR<DivisionNullableScalarRelationFilter, DivisionWhereInput> | null
+    user_employee?: XOR<UserEmployeeNullableScalarRelationFilter, UserEmployeeWhereInput> | null
   }
 
   export type EmployeeOrderByWithRelationInput = {
@@ -19381,15 +19405,15 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"Employee"> | string | null
     created_at?: DateTimeFilter<"Employee"> | Date | string
     updated_at?: DateTimeFilter<"Employee"> | Date | string
-    jo_approver_setting?: XOR<JOApproverSettingNullableRelationFilter, JOApproverSettingWhereInput> | null
-    meqs_approver_setting?: XOR<MEQSApproverSettingNullableRelationFilter, MEQSApproverSettingWhereInput> | null
-    po_approver_setting?: XOR<POApproverSettingNullableRelationFilter, POApproverSettingWhereInput> | null
-    rv_approver_setting?: XOR<RVApproverSettingNullableRelationFilter, RVApproverSettingWhereInput> | null
-    spr_approver_setting?: XOR<SPRApproverSettingNullableRelationFilter, SPRApproverSettingWhereInput> | null
-    rr_approver_setting?: XOR<RRApproverSettingNullableRelationFilter, RRApproverSettingWhereInput> | null
-    department?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
-    division?: XOR<DivisionNullableRelationFilter, DivisionWhereInput> | null
-    user_employee?: XOR<UserEmployeeNullableRelationFilter, UserEmployeeWhereInput> | null
+    jo_approver_setting?: XOR<JOApproverSettingNullableScalarRelationFilter, JOApproverSettingWhereInput> | null
+    meqs_approver_setting?: XOR<MEQSApproverSettingNullableScalarRelationFilter, MEQSApproverSettingWhereInput> | null
+    po_approver_setting?: XOR<POApproverSettingNullableScalarRelationFilter, POApproverSettingWhereInput> | null
+    rv_approver_setting?: XOR<RVApproverSettingNullableScalarRelationFilter, RVApproverSettingWhereInput> | null
+    spr_approver_setting?: XOR<SPRApproverSettingNullableScalarRelationFilter, SPRApproverSettingWhereInput> | null
+    rr_approver_setting?: XOR<RRApproverSettingNullableScalarRelationFilter, RRApproverSettingWhereInput> | null
+    department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
+    division?: XOR<DivisionNullableScalarRelationFilter, DivisionWhereInput> | null
+    user_employee?: XOR<UserEmployeeNullableScalarRelationFilter, UserEmployeeWhereInput> | null
   }, "id" | "employee_number">
 
   export type EmployeeOrderByWithAggregationInput = {
@@ -19499,7 +19523,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
-    user_employee?: XOR<UserEmployeeNullableRelationFilter, UserEmployeeWhereInput> | null
+    user_employee?: XOR<UserEmployeeNullableScalarRelationFilter, UserEmployeeWhereInput> | null
     groups?: UserGroupMembersListRelationFilter
     user_audit_logs?: UserAuditLogListRelationFilter
   }
@@ -19540,7 +19564,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
-    user_employee?: XOR<UserEmployeeNullableRelationFilter, UserEmployeeWhereInput> | null
+    user_employee?: XOR<UserEmployeeNullableScalarRelationFilter, UserEmployeeWhereInput> | null
     groups?: UserGroupMembersListRelationFilter
     user_audit_logs?: UserAuditLogListRelationFilter
   }, "id" | "username">
@@ -19589,12 +19613,14 @@ export namespace Prisma {
     NOT?: UserGroupWhereInput | UserGroupWhereInput[]
     id?: IntFilter<"UserGroup"> | number
     name?: StringFilter<"UserGroup"> | string
+    created_at?: DateTimeFilter<"UserGroup"> | Date | string
     members?: UserGroupMembersListRelationFilter
   }
 
   export type UserGroupOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    created_at?: SortOrder
     members?: UserGroupMembersOrderByRelationAggregateInput
   }
 
@@ -19604,12 +19630,14 @@ export namespace Prisma {
     OR?: UserGroupWhereInput[]
     NOT?: UserGroupWhereInput | UserGroupWhereInput[]
     name?: StringFilter<"UserGroup"> | string
+    created_at?: DateTimeFilter<"UserGroup"> | Date | string
     members?: UserGroupMembersListRelationFilter
   }, "id">
 
   export type UserGroupOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    created_at?: SortOrder
     _count?: UserGroupCountOrderByAggregateInput
     _avg?: UserGroupAvgOrderByAggregateInput
     _max?: UserGroupMaxOrderByAggregateInput
@@ -19623,6 +19651,7 @@ export namespace Prisma {
     NOT?: UserGroupScalarWhereWithAggregatesInput | UserGroupScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"UserGroup"> | number
     name?: StringWithAggregatesFilter<"UserGroup"> | string
+    created_at?: DateTimeWithAggregatesFilter<"UserGroup"> | Date | string
   }
 
   export type UserGroupMembersWhereInput = {
@@ -19631,13 +19660,15 @@ export namespace Prisma {
     NOT?: UserGroupMembersWhereInput | UserGroupMembersWhereInput[]
     user_id?: StringFilter<"UserGroupMembers"> | string
     user_group_id?: IntFilter<"UserGroupMembers"> | number
-    user?: XOR<UserRelationFilter, UserWhereInput>
-    user_group?: XOR<UserGroupRelationFilter, UserGroupWhereInput>
+    created_at?: DateTimeFilter<"UserGroupMembers"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user_group?: XOR<UserGroupScalarRelationFilter, UserGroupWhereInput>
   }
 
   export type UserGroupMembersOrderByWithRelationInput = {
     user_id?: SortOrder
     user_group_id?: SortOrder
+    created_at?: SortOrder
     user?: UserOrderByWithRelationInput
     user_group?: UserGroupOrderByWithRelationInput
   }
@@ -19649,13 +19680,15 @@ export namespace Prisma {
     NOT?: UserGroupMembersWhereInput | UserGroupMembersWhereInput[]
     user_id?: StringFilter<"UserGroupMembers"> | string
     user_group_id?: IntFilter<"UserGroupMembers"> | number
-    user?: XOR<UserRelationFilter, UserWhereInput>
-    user_group?: XOR<UserGroupRelationFilter, UserGroupWhereInput>
+    created_at?: DateTimeFilter<"UserGroupMembers"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user_group?: XOR<UserGroupScalarRelationFilter, UserGroupWhereInput>
   }, "user_id_user_group_id">
 
   export type UserGroupMembersOrderByWithAggregationInput = {
     user_id?: SortOrder
     user_group_id?: SortOrder
+    created_at?: SortOrder
     _count?: UserGroupMembersCountOrderByAggregateInput
     _avg?: UserGroupMembersAvgOrderByAggregateInput
     _max?: UserGroupMembersMaxOrderByAggregateInput
@@ -19669,6 +19702,7 @@ export namespace Prisma {
     NOT?: UserGroupMembersScalarWhereWithAggregatesInput | UserGroupMembersScalarWhereWithAggregatesInput[]
     user_id?: StringWithAggregatesFilter<"UserGroupMembers"> | string
     user_group_id?: IntWithAggregatesFilter<"UserGroupMembers"> | number
+    created_at?: DateTimeWithAggregatesFilter<"UserGroupMembers"> | Date | string
   }
 
   export type UserEmployeeWhereInput = {
@@ -19680,8 +19714,8 @@ export namespace Prisma {
     employee_id?: StringFilter<"UserEmployee"> | string
     created_by?: StringFilter<"UserEmployee"> | string
     created_at?: DateTimeFilter<"UserEmployee"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
-    employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }
 
   export type UserEmployeeOrderByWithRelationInput = {
@@ -19703,8 +19737,8 @@ export namespace Prisma {
     NOT?: UserEmployeeWhereInput | UserEmployeeWhereInput[]
     created_by?: StringFilter<"UserEmployee"> | string
     created_at?: DateTimeFilter<"UserEmployee"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
-    employee?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }, "id" | "user_id" | "employee_id">
 
   export type UserEmployeeOrderByWithAggregationInput = {
@@ -19739,7 +19773,7 @@ export namespace Prisma {
     event_timestamp?: DateTimeFilter<"UserAuditLog"> | Date | string
     ip_address?: StringFilter<"UserAuditLog"> | string
     device_info?: JsonNullableFilter<"UserAuditLog">
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type UserAuditLogOrderByWithRelationInput = {
@@ -19762,7 +19796,7 @@ export namespace Prisma {
     event_timestamp?: DateTimeFilter<"UserAuditLog"> | Date | string
     ip_address?: StringFilter<"UserAuditLog"> | string
     device_info?: JsonNullableFilter<"UserAuditLog">
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type UserAuditLogOrderByWithAggregationInput = {
@@ -19800,7 +19834,7 @@ export namespace Prisma {
     order?: IntFilter<"JOApproverSetting"> | number
     approver_id?: StringFilter<"JOApproverSetting"> | string
     created_at?: DateTimeFilter<"JOApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }
 
   export type JOApproverSettingOrderByWithRelationInput = {
@@ -19821,7 +19855,7 @@ export namespace Prisma {
     NOT?: JOApproverSettingWhereInput | JOApproverSettingWhereInput[]
     label?: StringFilter<"JOApproverSetting"> | string
     created_at?: DateTimeFilter<"JOApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
   export type JOApproverSettingOrderByWithAggregationInput = {
@@ -19857,7 +19891,7 @@ export namespace Prisma {
     order?: IntFilter<"RVApproverSetting"> | number
     approver_id?: StringFilter<"RVApproverSetting"> | string
     created_at?: DateTimeFilter<"RVApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }
 
   export type RVApproverSettingOrderByWithRelationInput = {
@@ -19878,7 +19912,7 @@ export namespace Prisma {
     NOT?: RVApproverSettingWhereInput | RVApproverSettingWhereInput[]
     label?: StringFilter<"RVApproverSetting"> | string
     created_at?: DateTimeFilter<"RVApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
   export type RVApproverSettingOrderByWithAggregationInput = {
@@ -19914,7 +19948,7 @@ export namespace Prisma {
     order?: IntFilter<"SPRApproverSetting"> | number
     approver_id?: StringFilter<"SPRApproverSetting"> | string
     created_at?: DateTimeFilter<"SPRApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }
 
   export type SPRApproverSettingOrderByWithRelationInput = {
@@ -19935,7 +19969,7 @@ export namespace Prisma {
     NOT?: SPRApproverSettingWhereInput | SPRApproverSettingWhereInput[]
     label?: StringFilter<"SPRApproverSetting"> | string
     created_at?: DateTimeFilter<"SPRApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
   export type SPRApproverSettingOrderByWithAggregationInput = {
@@ -19971,7 +20005,7 @@ export namespace Prisma {
     order?: IntFilter<"MEQSApproverSetting"> | number
     approver_id?: StringFilter<"MEQSApproverSetting"> | string
     created_at?: DateTimeFilter<"MEQSApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }
 
   export type MEQSApproverSettingOrderByWithRelationInput = {
@@ -19992,7 +20026,7 @@ export namespace Prisma {
     NOT?: MEQSApproverSettingWhereInput | MEQSApproverSettingWhereInput[]
     label?: StringFilter<"MEQSApproverSetting"> | string
     created_at?: DateTimeFilter<"MEQSApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
   export type MEQSApproverSettingOrderByWithAggregationInput = {
@@ -20028,7 +20062,7 @@ export namespace Prisma {
     order?: IntFilter<"POApproverSetting"> | number
     approver_id?: StringFilter<"POApproverSetting"> | string
     created_at?: DateTimeFilter<"POApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }
 
   export type POApproverSettingOrderByWithRelationInput = {
@@ -20049,7 +20083,7 @@ export namespace Prisma {
     NOT?: POApproverSettingWhereInput | POApproverSettingWhereInput[]
     label?: StringFilter<"POApproverSetting"> | string
     created_at?: DateTimeFilter<"POApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
   export type POApproverSettingOrderByWithAggregationInput = {
@@ -20085,7 +20119,7 @@ export namespace Prisma {
     order?: IntFilter<"RRApproverSetting"> | number
     approver_id?: StringFilter<"RRApproverSetting"> | string
     created_at?: DateTimeFilter<"RRApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }
 
   export type RRApproverSettingOrderByWithRelationInput = {
@@ -20106,7 +20140,7 @@ export namespace Prisma {
     NOT?: RRApproverSettingWhereInput | RRApproverSettingWhereInput[]
     label?: StringFilter<"RRApproverSetting"> | string
     created_at?: DateTimeFilter<"RRApproverSetting"> | Date | string
-    approver?: XOR<EmployeeRelationFilter, EmployeeWhereInput>
+    approver?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }, "id" | "order" | "approver_id">
 
   export type RRApproverSettingOrderByWithAggregationInput = {
@@ -20704,41 +20738,49 @@ export namespace Prisma {
 
   export type UserGroupCreateInput = {
     name: string
+    created_at?: Date | string
     members?: UserGroupMembersCreateNestedManyWithoutUser_groupInput
   }
 
   export type UserGroupUncheckedCreateInput = {
     id?: number
     name: string
+    created_at?: Date | string
     members?: UserGroupMembersUncheckedCreateNestedManyWithoutUser_groupInput
   }
 
   export type UserGroupUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserGroupMembersUpdateManyWithoutUser_groupNestedInput
   }
 
   export type UserGroupUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserGroupMembersUncheckedUpdateManyWithoutUser_groupNestedInput
   }
 
   export type UserGroupCreateManyInput = {
     id?: number
     name: string
+    created_at?: Date | string
   }
 
   export type UserGroupUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserGroupUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserGroupMembersCreateInput = {
+    created_at?: Date | string
     user: UserCreateNestedOneWithoutGroupsInput
     user_group: UserGroupCreateNestedOneWithoutMembersInput
   }
@@ -20746,9 +20788,11 @@ export namespace Prisma {
   export type UserGroupMembersUncheckedCreateInput = {
     user_id: string
     user_group_id: number
+    created_at?: Date | string
   }
 
   export type UserGroupMembersUpdateInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutGroupsNestedInput
     user_group?: UserGroupUpdateOneRequiredWithoutMembersNestedInput
   }
@@ -20756,20 +20800,23 @@ export namespace Prisma {
   export type UserGroupMembersUncheckedUpdateInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     user_group_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserGroupMembersCreateManyInput = {
     user_id: string
     user_group_id: number
+    created_at?: Date | string
   }
 
   export type UserGroupMembersUpdateManyMutationInput = {
-
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserGroupMembersUncheckedUpdateManyInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     user_group_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserEmployeeCreateInput = {
@@ -21309,7 +21356,7 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type DepartmentRelationFilter = {
+  export type DepartmentScalarRelationFilter = {
     is?: DepartmentWhereInput
     isNot?: DepartmentWhereInput
   }
@@ -21530,42 +21577,42 @@ export namespace Prisma {
     not?: NestedEnumEmployeeStatusFilter<$PrismaModel> | $Enums.EmployeeStatus
   }
 
-  export type JOApproverSettingNullableRelationFilter = {
+  export type JOApproverSettingNullableScalarRelationFilter = {
     is?: JOApproverSettingWhereInput | null
     isNot?: JOApproverSettingWhereInput | null
   }
 
-  export type MEQSApproverSettingNullableRelationFilter = {
+  export type MEQSApproverSettingNullableScalarRelationFilter = {
     is?: MEQSApproverSettingWhereInput | null
     isNot?: MEQSApproverSettingWhereInput | null
   }
 
-  export type POApproverSettingNullableRelationFilter = {
+  export type POApproverSettingNullableScalarRelationFilter = {
     is?: POApproverSettingWhereInput | null
     isNot?: POApproverSettingWhereInput | null
   }
 
-  export type RVApproverSettingNullableRelationFilter = {
+  export type RVApproverSettingNullableScalarRelationFilter = {
     is?: RVApproverSettingWhereInput | null
     isNot?: RVApproverSettingWhereInput | null
   }
 
-  export type SPRApproverSettingNullableRelationFilter = {
+  export type SPRApproverSettingNullableScalarRelationFilter = {
     is?: SPRApproverSettingWhereInput | null
     isNot?: SPRApproverSettingWhereInput | null
   }
 
-  export type RRApproverSettingNullableRelationFilter = {
+  export type RRApproverSettingNullableScalarRelationFilter = {
     is?: RRApproverSettingWhereInput | null
     isNot?: RRApproverSettingWhereInput | null
   }
 
-  export type DivisionNullableRelationFilter = {
+  export type DivisionNullableScalarRelationFilter = {
     is?: DivisionWhereInput | null
     isNot?: DivisionWhereInput | null
   }
 
-  export type UserEmployeeNullableRelationFilter = {
+  export type UserEmployeeNullableScalarRelationFilter = {
     is?: UserEmployeeWhereInput | null
     isNot?: UserEmployeeWhereInput | null
   }
@@ -21803,6 +21850,7 @@ export namespace Prisma {
   export type UserGroupCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    created_at?: SortOrder
   }
 
   export type UserGroupAvgOrderByAggregateInput = {
@@ -21812,23 +21860,25 @@ export namespace Prisma {
   export type UserGroupMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    created_at?: SortOrder
   }
 
   export type UserGroupMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    created_at?: SortOrder
   }
 
   export type UserGroupSumOrderByAggregateInput = {
     id?: SortOrder
   }
 
-  export type UserRelationFilter = {
+  export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
   }
 
-  export type UserGroupRelationFilter = {
+  export type UserGroupScalarRelationFilter = {
     is?: UserGroupWhereInput
     isNot?: UserGroupWhereInput
   }
@@ -21841,6 +21891,7 @@ export namespace Prisma {
   export type UserGroupMembersCountOrderByAggregateInput = {
     user_id?: SortOrder
     user_group_id?: SortOrder
+    created_at?: SortOrder
   }
 
   export type UserGroupMembersAvgOrderByAggregateInput = {
@@ -21850,18 +21901,20 @@ export namespace Prisma {
   export type UserGroupMembersMaxOrderByAggregateInput = {
     user_id?: SortOrder
     user_group_id?: SortOrder
+    created_at?: SortOrder
   }
 
   export type UserGroupMembersMinOrderByAggregateInput = {
     user_id?: SortOrder
     user_group_id?: SortOrder
+    created_at?: SortOrder
   }
 
   export type UserGroupMembersSumOrderByAggregateInput = {
     user_group_id?: SortOrder
   }
 
-  export type EmployeeRelationFilter = {
+  export type EmployeeScalarRelationFilter = {
     is?: EmployeeWhereInput
     isNot?: EmployeeWhereInput
   }
@@ -23902,11 +23955,13 @@ export namespace Prisma {
   }
 
   export type UserGroupMembersCreateWithoutUserInput = {
+    created_at?: Date | string
     user_group: UserGroupCreateNestedOneWithoutMembersInput
   }
 
   export type UserGroupMembersUncheckedCreateWithoutUserInput = {
     user_group_id: number
+    created_at?: Date | string
   }
 
   export type UserGroupMembersCreateOrConnectWithoutUserInput = {
@@ -23991,6 +24046,7 @@ export namespace Prisma {
     NOT?: UserGroupMembersScalarWhereInput | UserGroupMembersScalarWhereInput[]
     user_id?: StringFilter<"UserGroupMembers"> | string
     user_group_id?: IntFilter<"UserGroupMembers"> | number
+    created_at?: DateTimeFilter<"UserGroupMembers"> | Date | string
   }
 
   export type UserAuditLogUpsertWithWhereUniqueWithoutUserInput = {
@@ -24022,11 +24078,13 @@ export namespace Prisma {
   }
 
   export type UserGroupMembersCreateWithoutUser_groupInput = {
+    created_at?: Date | string
     user: UserCreateNestedOneWithoutGroupsInput
   }
 
   export type UserGroupMembersUncheckedCreateWithoutUser_groupInput = {
     user_id: string
+    created_at?: Date | string
   }
 
   export type UserGroupMembersCreateOrConnectWithoutUser_groupInput = {
@@ -24098,11 +24156,13 @@ export namespace Prisma {
 
   export type UserGroupCreateWithoutMembersInput = {
     name: string
+    created_at?: Date | string
   }
 
   export type UserGroupUncheckedCreateWithoutMembersInput = {
     id?: number
     name: string
+    created_at?: Date | string
   }
 
   export type UserGroupCreateOrConnectWithoutMembersInput = {
@@ -24170,11 +24230,13 @@ export namespace Prisma {
 
   export type UserGroupUpdateWithoutMembersInput = {
     name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserGroupUncheckedUpdateWithoutMembersInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateWithoutUser_employeeInput = {
@@ -25413,6 +25475,7 @@ export namespace Prisma {
 
   export type UserGroupMembersCreateManyUserInput = {
     user_group_id: number
+    created_at?: Date | string
   }
 
   export type UserAuditLogCreateManyUserInput = {
@@ -25424,15 +25487,18 @@ export namespace Prisma {
   }
 
   export type UserGroupMembersUpdateWithoutUserInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_group?: UserGroupUpdateOneRequiredWithoutMembersNestedInput
   }
 
   export type UserGroupMembersUncheckedUpdateWithoutUserInput = {
     user_group_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserGroupMembersUncheckedUpdateManyWithoutUserInput = {
     user_group_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserAuditLogUpdateWithoutUserInput = {
@@ -25460,18 +25526,22 @@ export namespace Prisma {
 
   export type UserGroupMembersCreateManyUser_groupInput = {
     user_id: string
+    created_at?: Date | string
   }
 
   export type UserGroupMembersUpdateWithoutUser_groupInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutGroupsNestedInput
   }
 
   export type UserGroupMembersUncheckedUpdateWithoutUser_groupInput = {
     user_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserGroupMembersUncheckedUpdateManyWithoutUser_groupInput = {
     user_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

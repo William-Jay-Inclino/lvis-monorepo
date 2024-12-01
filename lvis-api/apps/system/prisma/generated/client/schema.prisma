@@ -157,6 +157,8 @@ model UserGroup {
   name        String                                     
   members     UserGroupMembers[]   
 
+  created_at DateTime  @default(now())
+
   @@map("user_group")
 }
 
@@ -167,8 +169,9 @@ model UserGroupMembers {
   user       User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_group      UserGroup   @relation(fields: [user_group_id], references: [id], onDelete: Cascade)
 
-  @@id([user_id, user_group_id])
+  created_at DateTime  @default(now())
 
+  @@id([user_id, user_group_id])
   @@map("user_group_member")
 }
 

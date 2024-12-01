@@ -157,7 +157,7 @@ async function updateTotalNotifications() {
 
     if(authUser.value.user.user_employee) {
         const response = await fetchTotalNotifications(authUser.value.user.user_employee.employee_id, WAREHOUSE_API_URL)
-        if(response) {
+        if(response !== undefined) {
             authUser.value.user.user_employee.employee.total_pending_approvals = response
             const newAuthUser = JSON.stringify(authUser.value);
             localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
