@@ -26,7 +26,7 @@
                             <div class="alert alert-info" role="alert">
                                 <div>
                                     <small class="fst-italic">
-                                        Fields with * are required
+                                        - Fields with * are required
                                     </small>
                                 </div>
                                 <div v-if="mrv_expiration">
