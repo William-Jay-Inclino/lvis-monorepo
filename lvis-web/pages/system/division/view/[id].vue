@@ -40,11 +40,11 @@
                             </div>
                         </div>
 
-                        <div class="row pt-3">
+                        <!-- <div class="row pt-3">
                             <div class="col">
                                 <SystemUserPermissions :permissions="item.permissions" :is-view-only="true" />
                             </div>
-                        </div>
+                        </div> -->
         
                         <div class="row pt-5">
                             <div class="col">

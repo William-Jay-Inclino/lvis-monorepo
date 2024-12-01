@@ -21,6 +21,15 @@ export class DepartmentService {
 
   async create(input: CreateDepartmentInput): Promise<Department> {
 
+    // Check if the department code already exists
+		const existingDepartment = await this.prisma.department.findUnique({
+			where: { code: input.code },
+		});
+	
+		if (existingDepartment) {
+			throw new Error('Department code must be unique');
+		}
+
     const data: Prisma.DepartmentCreateInput = {
       code: input.code,
       name: input.name,
@@ -75,7 +84,18 @@ export class DepartmentService {
 
   async update(id: string, input: UpdateDepartmentInput): Promise<Department> {
 
-    const existingItem = await this.findOne(id)
+		const existingItem = await this.findOne(id);
+	
+		// Check if the division code is being updated and if the new code already exists
+		if (input.code && input.code !== existingItem.code) {
+			const existingDepartment = await this.prisma.department.findUnique({
+				where: { code: input.code },
+			});
+	
+			if (existingDepartment) {
+				throw new Error('Department code must be unique');
+			}
+		}
 
     const data: Prisma.DepartmentUpdateInput = {
       code: input.code ?? existingItem.code,

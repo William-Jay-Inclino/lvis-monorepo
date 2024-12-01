@@ -18,24 +18,32 @@ export class DivisionService {
 	}
 
 	async create(input: CreateDivisionInput): Promise<Division> {
-
+		// Check if the division code already exists
+		const existingDivision = await this.prisma.division.findUnique({
+			where: { code: input.code },
+		});
+	
+		if (existingDivision) {
+			throw new Error('Division code must be unique');
+		}
+	
 		const data: Prisma.DivisionCreateInput = {
 			name: input.name,
 			code: input.code,
 			department: { connect: { id: input.department_id } },
-		}
-
+		};
+	
 		if (input.permissions) {
-			data.permissions = JSON.parse(input.permissions)
+			data.permissions = JSON.parse(input.permissions);
 		}
-
-		const created = await this.prisma.division.create({ data })
-
-		if(created.permissions) {
-			created.permissions = JSON.stringify(created.permissions)
+	
+		const created = await this.prisma.division.create({ data });
+	
+		if (created.permissions) {
+			created.permissions = JSON.stringify(created.permissions);
 		}
-
-		return created
+	
+		return created;
 	}
 
 	async findAll(): Promise<Division[]> {
@@ -71,31 +79,41 @@ export class DivisionService {
 	}
 
 	async update(id: string, input: UpdateDivisionInput): Promise<Division> {
-
-		const existingItem = await this.findOne(id)
-
+		const existingItem = await this.findOne(id);
+	
+		// Check if the division code is being updated and if the new code already exists
+		if (input.code && input.code !== existingItem.code) {
+			const existingDivision = await this.prisma.division.findUnique({
+				where: { code: input.code },
+			});
+	
+			if (existingDivision) {
+				throw new Error('Division code must be unique');
+			}
+		}
+	
 		const data: Prisma.DivisionUpdateInput = {
 			code: input.code ?? existingItem.code,
 			department: input.department_id ? { connect: { id: input.department_id } } : { connect: { id: existingItem.department_id } },
 			name: input.name ?? existingItem.name,
-		}
-
+		};
+	
 		if (input.permissions) {
-			data.permissions = JSON.parse(input.permissions)
+			data.permissions = JSON.parse(input.permissions);
 		}
-
+	
 		const updated = await this.prisma.division.update({
 			data,
 			where: {
-				id
-			}
-		})
-
-		if(updated.permissions) {
-			updated.permissions = JSON.stringify(updated.permissions)
+				id,
+			},
+		});
+	
+		if (updated.permissions) {
+			updated.permissions = JSON.stringify(updated.permissions);
 		}
-
-		return updated
+	
+		return updated;
 	}
 
 	async remove(id: string): Promise<SystemRemoveResponse> {

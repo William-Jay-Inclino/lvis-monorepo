@@ -15,7 +15,14 @@
                         <div class="col-lg-6">
 
                             <div class="alert alert-info fst-italic" role="alert">
-                                <small> Fields with * are required </small>
+                                <div>
+                                    <small> - Fields with * are required </small>
+                                </div>
+                                <div>
+                                    <small>
+                                        - User Permissions are assigned based on the division, so when creating a user account, default permissions will be applied according to the employee's division. If no division is specified, default department permissions will be used.
+                                    </small>
+                                </div>
                             </div>
 
                             <div class="mb-3">
