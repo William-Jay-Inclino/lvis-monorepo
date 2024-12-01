@@ -6,13 +6,14 @@ export default defineNuxtConfig({
           systemApiUrl: process.env.SYSTEM_API_URL,
           warehouseApiUrl: process.env.WAREHOUSE_API_URL,
           graphqlApiUrl: process.env.GRAPHQL_API_URL,
+          appVersion: process.env.APP_VERSION,
       }
   },
 
   devtools: { enabled: true },
 
   app: {
-      baseURL: '/lvis/',
+    //   baseURL: '/lvis/',
       head: {
           title: "Leyeco V Integrated System",
           meta: [

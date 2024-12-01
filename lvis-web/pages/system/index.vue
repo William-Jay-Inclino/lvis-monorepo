@@ -1,73 +1,68 @@
 <template>
-    
-    <div v-if="authUser" class="card">
-        
-        <div class="card-body">
 
-            <div class="container">
-    
-                <h1 class="mt-5 text-warning"> WELCOME TO SYSTEM MANAGEMENT</h1>
-    
-                <div class="row mb-5 mt-4">
-                    <div class="col-lg-6 col-md-6 col-12 text-muted">
-                        "Welcome to our System Management! Here, you can fine-tune your settings, define system variables, manage user permissions, and oversee data management. Empower your system's capabilities and tailor it to your unique needs."
-                        <br />
-                        <br />
-                        - Admin
+    <div v-if="authUser">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                    <h1 class="mt-5 text-warning">WELCOME TO SYSTEM MANAGEMENT</h1>
+                    <div class="row mb-5 mt-4">
+                        <div class="col-lg-6 col-md-6 col-12 text-muted">
+                            "Welcome to our System Management! Here, you can manage users, configure user permissions, and control data management. Empower your system's capabilities and tailor it to your specific needs."
+                            <br />
+                            <br />
+                            - Admin
+                        </div>
                     </div>
                 </div>
-    
             </div>
-            
         </div>
-
+    
+        <!-- New Section for Dashboard Analytics Announcement outside the card -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="faded-text">
+                        <h2 style="font-size: 4rem;">Dashboard Analytics coming soon</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
-
 </template>
 
-
-
 <script setup lang="ts">
-
 definePageMeta({
     layout: "layout-system"
 })
-
 
 const authUser = ref<AuthUser>()
 
 onMounted(() => {
     authUser.value = getAuthUser()
 })
-
-
-
 </script>
 
-
-
 <style scoped>
-
-.background-container {
-    /* display: grid;
-    place-items: center; */
-    height: 100vh;
-    overflow: auto;
-    padding-top: 40px;
+.faded-text {
+    font-weight: bold;
+    color: rgba(24, 119, 242, 0.3); /* More faded vibrant blue with reduced opacity */
+    animation: fadeIn 2s ease-in-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    margin-top: 100px; /* Add some space above the text */
+    transform: rotate(-15deg); /* Slant the text */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); /* Lighter shadow for a more faded look */
 }
 
-/* .background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('~/assets/img/systembg.png');
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-} */
-
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 </style>

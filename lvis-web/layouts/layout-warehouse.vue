@@ -4,7 +4,7 @@
         <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
             <div class="container">
                 <nuxt-link class="navbar-brand" to="/home">
-                    <img style="max-height: 60px;" src="~/assets/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
+                    <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
                     Leyeco V - WAREHOUSE
                 </nuxt-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -157,7 +157,7 @@
             </div>
         </nav>
 
-        <div class="container main-content">
+        <div class="container main-content mb-5">
 
             <div class="mt-3">
                 <!-- <slot /> -->
@@ -166,12 +166,6 @@
 
         </div>
 
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <Footer />
 
 

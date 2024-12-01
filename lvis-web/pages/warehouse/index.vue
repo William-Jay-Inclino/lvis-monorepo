@@ -1,26 +1,33 @@
 <template>
     
-    <div v-if="authUser" class="card">
+    <div v-if="authUser">
         
-        <div class="card-body">
-
-            <div class="container">
-    
-                <h1 class="text-warning mt-5"> WELCOME TO WAREHOUSE MANAGEMENT</h1>
-    
-                <div class="row text-muted mb-5 mt-4">
-                    <div class="col-lg-6 col-md-6 col-12">
-                        "Welcome to our Warehouse Management! Your hub for seamless purchasing, efficient warehousing, reliable motorpool management, and precise stock inventory control. Let's optimize your operations together!" 
-                        <br />
-                        <br />
-                        - Admin
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                    <h1 class="text-warning mt-5"> WELCOME TO WAREHOUSE MANAGEMENT</h1>
+                    <div class="row text-muted mb-5 mt-4">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            "Welcome to our Warehouse Management! Your hub for seamless purchasing, efficient warehousing, reliable motorpool management, and precise stock inventory control. Let's optimize your operations together!" 
+                            <br />
+                            <br />
+                            - Admin
+                        </div>
                     </div>
                 </div>
-    
             </div>
-
         </div>
 
+        <!-- New Section for Dashboard Analytics Announcement outside the card -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="faded-text">
+                        <h2 style="font-size: 4rem;">Dashboard Analytics coming soon</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -38,34 +45,33 @@ definePageMeta({
 
 const authUser = ref<AuthUser>()
 
+
 onMounted(() => {
     authUser.value = getAuthUser()
 })
 
 
-
 </script>
 
 
-
 <style scoped>
+    .faded-text {
+        font-weight: bold;
+        color: rgba(24, 119, 242, 0.3); /* More faded vibrant blue with reduced opacity */
+        animation: fadeIn 2s ease-in-out;
+        opacity: 0;
+        animation-fill-mode: forwards;
+        margin-top: 100px; /* Add some space above the text */
+        transform: rotate(-15deg); /* Slant the text */
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); /* Lighter shadow for a more faded look */
+    }
 
-/* .background-container {
-    height: 100vh;
-    overflow: auto;
-    padding-top: 40px;
-}
-
-.background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('~/assets/img/warehousebg.png');
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-} */
-
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
 </style>

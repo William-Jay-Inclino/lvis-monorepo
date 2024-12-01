@@ -1,11 +1,10 @@
 <template>
     <div id="wrapper">
-        <div :class="{'bg-container': !isMobile}">
 
             <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
                 <div class="container">
                     <a class="navbar-brand" href="#">
-                        <img style="max-height: 60px;" src="~/assets/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
+                        <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
                         Welcome, {{ authUser.user.username }}! <span v-if="!isMobile"> Have a productive day </span> 
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'smile']" />
@@ -65,17 +64,10 @@
                 </div>
             </nav>
     
-            <div class="container main-content">
+            <div class="container main-content mb-5">
                 <!-- <slot /> -->
                 <NuxtPage />
             </div>
-    
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
             
             <Footer />
     
@@ -99,8 +91,6 @@
                 </div>
             </div>
 
-            
-        </div>
     </div>
 </template>
 
@@ -221,12 +211,12 @@ function checkMobile() {
 
 
 <style scoped>
-.bg-container {
+/* .bg-container {
   background-image: url('~/assets/img/homebg2.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
   width: 100%;
-}
+} */
 </style>

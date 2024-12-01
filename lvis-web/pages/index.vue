@@ -10,7 +10,7 @@
                           <div class="form-left h-100 py-4 px-4">
                               <form action="" class="row g-4" @submit.prevent="login">
                                   <div class="col-12 text-center">
-                                      <img src="~/assets/img/leyeco-logo2.png" alt="Logo" class="logo"> <!-- Replace with your logo URL -->
+                                      <img src="/img/leyeco-logo2.png" alt="Logo" class="logo"> <!-- Replace with your logo URL -->
                                   </div>
                                   <div class="col-12 text-center fs-3 fw-bold mt-2">
                                       Welcome back!
@@ -225,8 +225,8 @@ padding-bottom: 30px;
   display: inline-block;
   display: flex;
   align-items: center;
-  background: rgb(142,207,255);
-  background: linear-gradient(141deg, rgba(142,207,255,1) 0%, rgba(255,255,255,1) 100%);
+  /* background: rgb(142,207,255);
+  background: linear-gradient(141deg, rgba(142,207,255,1) 0%, rgba(255,255,255,1) 100%); */
 }
 
 .bg-image{
