@@ -24,9 +24,16 @@
                         <div class="col-lg-6">
     
                             <div class="alert alert-info" role="alert">
-                                <small class="fst-italic">
-                                    Fields with * are required
-                                </small>
+                                <div>
+                                    <small class="fst-italic">
+                                        Fields with * are required
+                                    </small>
+                                </div>
+                                <div v-if="mrv_expiration">
+                                    <small class="fst-italic">
+                                        - The system will automatically cancel this MRV if it's not approved within <b>{{ mrv_expiration }} days </b>.
+                                    </small>
+                                </div>
                             </div>
     
                             <div class="mb-3">
@@ -320,6 +327,7 @@
     const mrvDataErrors = ref({ ..._mrvDataErrorsInitial })
 
     const default_station = ref<Station>()
+    const mrv_expiration = ref()
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
@@ -369,6 +377,10 @@
             if(station) {
                 mrvData.value.item_from = station
             }
+        }
+
+        if(response.mrv_expiration) {
+            mrv_expiration.value = response.mrv_expiration
         }
 
         isLoadingPage.value = false

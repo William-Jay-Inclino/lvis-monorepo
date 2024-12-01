@@ -57,6 +57,9 @@ export class MRV {
   @Field({ nullable: true })
   metadata?: string
 
+  @Field(() => Date)
+  exp_date: Date;
+
 
   // =============== audit fields ===============
 

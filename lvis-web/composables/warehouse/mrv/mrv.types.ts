@@ -26,6 +26,8 @@ export interface MRV {
     requested_by_id: string;
     withdrawn_by_id: string | null;
     item_from_id: string;
+    
+    exp_date: Date
   
 
     // =============== audit fields =============== 

@@ -123,6 +123,7 @@ export async function findOne(id: string): Promise<OSRIV | undefined> {
                 cancelled_at
                 created_by
                 can_update
+                exp_date
                 item_from {
                     name
                 }
@@ -248,6 +249,7 @@ export async function fetchFormDataInCreate(): Promise<{
     items: Item[],
     default_station: Station | null,
     warehouse_custodian: Employee | null,
+    osriv_expiration: number | null,
 }> {
 
     const query = `
@@ -293,7 +295,8 @@ export async function fetchFormDataInCreate(): Promise<{
                 firstname
                 middlename
                 lastname
-            }
+            },
+            osriv_expiration
         }
     `;
 
@@ -306,6 +309,7 @@ export async function fetchFormDataInCreate(): Promise<{
         let items = []
         let warehouse_custodian = undefined
         let default_station = undefined
+        let osriv_expiration = undefined
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -333,12 +337,17 @@ export async function fetchFormDataInCreate(): Promise<{
             default_station = data.default_station
         }
 
+        if(data.osriv_expiration) {
+            osriv_expiration = data.osriv_expiration
+        }
+
         return {
             employees,
             stations,
             items,
             warehouse_custodian,
             default_station,
+            osriv_expiration,
         }
 
     } catch (error) {
@@ -349,6 +358,7 @@ export async function fetchFormDataInCreate(): Promise<{
             items: [],
             warehouse_custodian: null,
             default_station: null,
+            osriv_expiration: null,
         }
     }
 

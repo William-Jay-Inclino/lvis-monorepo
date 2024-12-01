@@ -104,9 +104,12 @@ import { DB_ENTITY, type AuthUser } from '#imports';
 import type { Account } from '~/composables/system/account/account';
 import type { Classification } from '~/composables/system/classification/classification';
 import { MODULE_MAPPER } from '~/utils/constants';
+import { fetchTotalNotifications } from '~/composables/system/user/user.api';
 
 const isLoadingPage = ref(true)
 const isApproving = ref(false)
+const config = useRuntimeConfig()
+const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 
 
 const authUser = ref<AuthUser>()
@@ -146,7 +149,7 @@ onMounted(async () => {
         pendings.value = response.pendings
         classifications.value = response.classifications
         accounts.value = response.accounts
-        updateTotalPendingsOfUser(authUser.value, pendings.value.length)
+        // updateTotalPendingsOfUser(authUser.value, pendings.value.length)
         isLoadingPage.value = false
     }
 
@@ -189,11 +192,27 @@ function isDefaultApproval(pending: Pending) {
 
 }
 
-function updateTotalPendingsOfUser(authUser: AuthUser, totalPendings: number) {
-    console.log('updateTotalPendingsOfUser()', authUser, totalPendings)
-    authUser.user.user_employee!.employee.total_pending_approvals = totalPendings
-    const updatedAuthUser = JSON.stringify(authUser)
-    localStorage.setItem('authUser', updatedAuthUser);
+// function updateTotalPendingsOfUser(authUser: AuthUser, totalPendings: number) {
+//     console.log('updateTotalPendingsOfUser()', authUser, totalPendings)
+//     authUser.user.user_employee!.employee.total_pending_approvals = totalPendings
+//     const updatedAuthUser = JSON.stringify(authUser)
+//     localStorage.setItem('authUser', updatedAuthUser);
+// }
+
+async function updateTotalNotifications() {
+    console.log('updateTotalNotifications');
+    
+    if(!authUser.value) return 
+
+    if(authUser.value.user.user_employee) {
+        const response = await fetchTotalNotifications(authUser.value.user.user_employee.employee_id, WAREHOUSE_API_URL)
+        if(response) {
+            authUser.value.user.user_employee.employee.total_pending_approvals = response
+            const newAuthUser = JSON.stringify(authUser.value);
+            localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
+        }
+    }
+
 }
 
 function onClickApprove(indx: number) {
@@ -238,9 +257,10 @@ function handleCommonApprove(indx: number) {
                     position: 'top',
                 });
 
+                await updateTotalNotifications()
                 pendings.value.splice(indx, 1)
 
-                updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
+                // updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
 
                 } else {
 
@@ -299,9 +319,11 @@ function handleCommonDisapprove(indx: number) {
                     position: 'top',
                 });
 
+                await updateTotalNotifications()
+
                 pendings.value.splice(indx, 1)
 
-                updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
+                // updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
 
                 } else {
 
@@ -392,8 +414,10 @@ async function handleApproveWithUpdates(payload: ApprovalProps) {
             position: 'top',
         });
 
+        await updateTotalNotifications()
+
         pendings.value.splice(indx, 1)
-        updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
+        // updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
 
     } else {
         Swal.fire({

@@ -15,6 +15,7 @@ export interface OSRIV {
     requested_by_id: string;
     item_from_id: string;
 
+    exp_date: Date
 
     // =============== audit fields =============== 
   

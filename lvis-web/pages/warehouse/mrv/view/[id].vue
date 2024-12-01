@@ -20,6 +20,13 @@
                                     </h5>
                                     <hr class="result">
                                 </div>
+
+                                <div class="alert alert-info">
+                                    <small class="fst-italic">
+                                        Note: The system will automatically cancel this MRV if it's not approved by <b>{{ formatDate(item.exp_date) }}</b>.
+                                    </small>
+                                </div>
+
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover">
                                         <tbody>

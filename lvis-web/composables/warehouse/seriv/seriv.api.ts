@@ -121,6 +121,7 @@ export async function findOne(id: string): Promise<SERIV | undefined> {
                 cancelled_at
                 created_by
                 can_update
+                exp_date
                 mcrts {
                     id
                     mcrt_number
@@ -248,6 +249,7 @@ export async function fetchFormDataInCreate(): Promise<{
     items: Item[],
     default_station: Station | null,
     warehouse_custodian: Employee | null,
+    seriv_expiration: number | null,
 }> {
 
     const query = `
@@ -299,7 +301,8 @@ export async function fetchFormDataInCreate(): Promise<{
                 firstname
                 middlename
                 lastname
-            }
+            },
+            seriv_expiration
         }
     `;
 
@@ -313,6 +316,7 @@ export async function fetchFormDataInCreate(): Promise<{
         let items = []
         let warehouse_custodian = undefined
         let default_station = undefined
+        let seriv_expiration = undefined
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -344,6 +348,10 @@ export async function fetchFormDataInCreate(): Promise<{
             auditors = data.auditors
         }
 
+        if(data.seriv_expiration) {
+            seriv_expiration = data.seriv_expiration
+        }
+
         return {
             employees,
             stations,
@@ -351,6 +359,7 @@ export async function fetchFormDataInCreate(): Promise<{
             warehouse_custodian,
             default_station,
             auditors,
+            seriv_expiration,
         }
 
     } catch (error) {
@@ -362,6 +371,7 @@ export async function fetchFormDataInCreate(): Promise<{
             items: [],
             warehouse_custodian: null,
             default_station: null,
+            seriv_expiration: null,
         }
     }
 

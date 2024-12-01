@@ -24,9 +24,16 @@
                         <div class="col-lg-6">
     
                             <div class="alert alert-info" role="alert">
-                                <small class="fst-italic">
-                                    Fields with * are required
-                                </small>
+                                <div>
+                                    <small class="fst-italic">
+                                        - Fields with * are required
+                                    </small>
+                                </div>
+                                <div v-if="seriv_expiration">
+                                    <small class="fst-italic">
+                                        - The system will automatically cancel this SERIV if it's not approved within <b>{{ seriv_expiration }} days </b>.
+                                    </small>
+                                </div>
                             </div>
     
                             <div class="mb-3">
@@ -296,6 +303,7 @@
     const serivDataErrors = ref({ ..._serivDataErrorsInitial })
 
     const default_station = ref<Station>()
+    const seriv_expiration = ref()
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
@@ -352,6 +360,10 @@
             if(station) {
                 serivData.value.item_from = station
             }
+        }
+
+        if(response.seriv_expiration) {
+            seriv_expiration.value = response.seriv_expiration
         }
 
         isLoadingPage.value = false

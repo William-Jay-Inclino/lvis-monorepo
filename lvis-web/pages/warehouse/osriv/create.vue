@@ -29,6 +29,11 @@
                                         - Fields with * are required
                                     </small>
                                 </div>
+                                <div v-if="osriv_expiration">
+                                    <small class="fst-italic">
+                                        - The system will automatically cancel this OSRIV if it's not approved within <b>{{ osriv_expiration }} days </b>.
+                                    </small>
+                                </div>
                                 <div>
                                     <small class="fst-italic">
                                         - Only employees with a rank higher than {{ SUPERVISOR_MIN_RANK - 1 }} are included as options in the <b>Imd. Sup.</b> field.
@@ -209,6 +214,7 @@
     const osrivDataErrors = ref({ ..._osrivDataErrorsInitial })
 
     const default_station = ref<Station>()
+    const osriv_expiration = ref()
 
     // DROPDOWNS
     const employees = ref<Employee[]>([])
@@ -264,6 +270,10 @@
             if(station) {
                 osrivData.value.item_from = station
             }
+        }
+
+        if(response.osriv_expiration) {
+            osriv_expiration.value = response.osriv_expiration
         }
 
         isLoadingPage.value = false

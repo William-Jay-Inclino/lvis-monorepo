@@ -120,6 +120,7 @@ export async function findOne(id: string): Promise<MRV | undefined> {
                 cancelled_at
                 created_by
                 can_update
+                exp_date
                 item_from {
                     name
                 }
@@ -252,6 +253,7 @@ export async function fetchFormDataInCreate(): Promise<{
     items: Item[],
     default_station: Station | null,
     projects: Project[],
+    mrv_expiration: number | null,
 }> {
 
     const query = `
@@ -300,7 +302,8 @@ export async function fetchFormDataInCreate(): Promise<{
                 firstname
                 middlename
                 lastname
-            }
+            },
+            mrv_expiration
         }
     `;
 
@@ -314,6 +317,7 @@ export async function fetchFormDataInCreate(): Promise<{
         let items = []
         let projects = []
         let default_station = undefined
+        let mrv_expiration = undefined
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -344,6 +348,10 @@ export async function fetchFormDataInCreate(): Promise<{
         if(data.auditors) {
             auditors = data.auditors
         }
+        
+        if(data.mrv_expiration) {
+            mrv_expiration = data.mrv_expiration
+        }
 
         return {
             employees,
@@ -352,6 +360,7 @@ export async function fetchFormDataInCreate(): Promise<{
             projects,
             default_station,
             auditors,
+            mrv_expiration,
         }
 
     } catch (error) {
@@ -363,6 +372,7 @@ export async function fetchFormDataInCreate(): Promise<{
             items: [],
             projects: [],
             default_station: null,
+            mrv_expiration: null,
         }
     }
 

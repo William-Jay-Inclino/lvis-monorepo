@@ -63,6 +63,7 @@ import { TripTicketModule } from './trip-ticket/trip-ticket.module';
 import { TripTicketApproverModule } from './trip-ticket-approver/trip-ticket-approver.module';
 import { GasStationModule } from './gas-station/gas-station.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { SettingModule } from './setting/setting.module';
 
 
 @Module({
@@ -145,6 +146,7 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
     GasSlipApproverModule,
     TripTicketModule,
     TripTicketApproverModule,
+    SettingModule,
   ],
   controllers: [],
   providers: [

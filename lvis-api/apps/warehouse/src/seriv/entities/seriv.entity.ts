@@ -51,6 +51,9 @@ export class SERIV {
   @Field(() => String)
   item_from_id: string;
 
+  @Field(() => Date)
+  exp_date: Date;
+
 
   // =============== audit fields ===============
 

@@ -21,6 +21,12 @@
                                     <hr class="result">
                                 </div>
 
+                                <div class="alert alert-info">
+                                    <small class="fst-italic">
+                                        Note: The system will automatically cancel this OSRIV if it's not approved by <b>{{ formatDate(item.exp_date) }}</b>.
+                                    </small>
+                                </div>
+
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
@@ -36,7 +42,7 @@
                                             <td> {{ item.osriv_number }} </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-muted">Date</td>
+                                            <td class="text-muted">Date Requested</td>
                                             <td> {{ formatDate(item.date_requested) }} </td>
                                         </tr>
                                         <tr>
@@ -227,7 +233,6 @@ import { approvalStatus } from '~/utils/constants'
 import { useToast } from "vue-toastification";
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import { canPrint } from '~/utils/permissions';
 import { APPROVAL_STATUS, isBlankStatus } from '#imports';
 
 definePageMeta({
