@@ -14,7 +14,7 @@ The following shell scripts are used for the backup and restore operations:
 6. restore_warehouse_db.sh – Restores the warehouse database from a backup.
 
 Daily Automated Backup
-A cron job has been configured to automatically run the backup_system_db.sh and backup_warehouse_db.sh scripts every day at 2:00 AM. These backups will be stored in the specified backup directories as defined in your .env file.
+A cron job has been configured to automatically run the backup_system_db.sh and backup_warehouse_db.sh scripts every day at 3:00 AM. These backups will be stored in the specified backup directories as defined in your .env file.
 
 To view or modify the cron job, use the following command:
 

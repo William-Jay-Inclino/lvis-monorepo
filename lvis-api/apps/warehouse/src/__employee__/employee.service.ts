@@ -26,6 +26,9 @@ export class EmployeeService {
             where: {
                 approver_id: employee_id
             },
+            orderBy: {
+                transaction_date: 'asc'
+            }
         })
 
     }
