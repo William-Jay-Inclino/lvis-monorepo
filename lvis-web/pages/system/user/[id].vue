@@ -19,14 +19,6 @@
                                     User Info
                                 </a>
                             </li>
-                            <!-- <li class="nav-item" @click="formType = FORM_TYPE.LOGIN_CREDENTIALS">
-                                <a class="nav-link" :class="{ 'active': formType === FORM_TYPE.LOGIN_CREDENTIALS }" href="#">
-                                    <client-only>
-                                        <font-awesome-icon :icon="['fas', 'fa-lock']"/>
-                                    </client-only>  
-                                    Login Credentials
-                                </a>
-                            </li> -->
                             <li class="nav-item" @click="formType = FORM_TYPE.USER_PERMISSIONS">
                                 <a class="nav-link" :class="{ 'active': formType === FORM_TYPE.USER_PERMISSIONS }" href="#">
                                     <client-only>
@@ -127,39 +119,6 @@
                     </div>
         
                 </div>
-        
-        
-                <!-- <div v-else-if="formType === FORM_TYPE.LOGIN_CREDENTIALS" class="row justify-content-center pt-5">
-        
-                    <div class="col-lg-6">
-
-                        <div class="alert alert-info" role="alert">
-                            <small class="fst-italic"> Fields with * are required </small>
-                        </div>
-        
-                        <SystemUserLoginCredentials :username="item.username" :password="item.password"
-                            :can-update-username="false" @update-password="onUpdatePassword" />
-        
-        
-                        <div class="d-flex justify-content-between pt-3">
-                            <button type="button" @click="onClickGoToList" class="btn btn-secondary">
-                                <client-only>
-                                    <font-awesome-icon :icon="['fas', 'list']"/>
-                                </client-only> 
-                                Go to list
-                            </button>
-                            <button type="button" @click="updatePassword" class="btn btn-success"
-                                :disabled="isUpdatingPassword">
-                                <client-only>
-                                    <font-awesome-icon :icon="['fas', 'sync']"/>
-                                </client-only> 
-                                {{ isUpdatingPassword ? 'Updating...' : 'Update' }}
-                            </button>
-                        </div>
-        
-                    </div>
-        
-                </div> -->
         
         
                 <div v-else-if="formType === FORM_TYPE.USER_PERMISSIONS" class="row justify-content-center pt-5">

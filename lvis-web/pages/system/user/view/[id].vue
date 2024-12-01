@@ -69,27 +69,6 @@
                             </div>
                         </div>
         
-                        <!-- <div class="h5wrapper mb-3 pt-3">
-                            <hr class="result">
-                            <h5 class="text-warning fst-italic">
-                                <client-only>
-                                    <font-awesome-icon :icon="['fas', 'key']"/>
-                                </client-only>  
-                                User Permissions
-                            </h5>
-                            <hr class="result">
-                        </div>
-        
-                        <div v-if="item.role === ROLE.ADMIN">
-                            <div class="text-muted text-center">--No restrictions--</div>
-                        </div>
-        
-                        <div v-else>
-                            <SystemUserPermissions :permissions="item.permissions" :is-view-only="true" />
-                        </div> -->
-        
-        
-        
                         <div class="row pt-5 pb-5">
                             <div class="col">
                                 <div class="d-flex justify-content-end gap-2">
