@@ -1,6 +1,6 @@
 <template>
 
-    <div class="page-wrapper">
+    <div>
 
         <div class="container my-5">
             <h1 class="text-center mb-4">Trip Ticket Tracker</h1>
@@ -214,15 +214,6 @@
     
     .card-body {
         padding: 1.5rem;
-    }
-    
-    .page-wrapper {
-        width: 100%;
-        height: 100vh;
-        display: inline-block;
-        display: flex;
-        background: rgb(142,207,255);
-        background: linear-gradient(141deg, rgba(142,207,255,1) 0%, rgba(255,255,255,1) 100%);
     }
 
 </style>

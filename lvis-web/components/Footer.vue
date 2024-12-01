@@ -4,7 +4,7 @@
         <p>
           &copy; 2024 LVIS
           | {{ APP_VERSION }}
-          | Developed by <a target="_blank" href="https://www.facebook.com/jewell.inclino">William Jay Inclino</a>
+          | Developed by <a target="_blank" href="https://www.facebook.com/jewell.inclino">W.J.I</a>
           <client-only>
             <font-awesome-icon :icon="['fas', 'bolt']" class="text-warning ms-1"/>
           </client-only>
