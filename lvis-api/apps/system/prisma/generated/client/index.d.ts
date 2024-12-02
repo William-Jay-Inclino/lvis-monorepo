@@ -2417,6 +2417,7 @@ export namespace Prisma {
     name: string | null
     status: $Enums.DivisionStatus | null
     created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type DivisionMaxAggregateOutputType = {
@@ -2426,6 +2427,7 @@ export namespace Prisma {
     name: string | null
     status: $Enums.DivisionStatus | null
     created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type DivisionCountAggregateOutputType = {
@@ -2436,6 +2438,7 @@ export namespace Prisma {
     status: number
     permissions: number
     created_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -2447,6 +2450,7 @@ export namespace Prisma {
     name?: true
     status?: true
     created_at?: true
+    deleted_at?: true
   }
 
   export type DivisionMaxAggregateInputType = {
@@ -2456,6 +2460,7 @@ export namespace Prisma {
     name?: true
     status?: true
     created_at?: true
+    deleted_at?: true
   }
 
   export type DivisionCountAggregateInputType = {
@@ -2466,6 +2471,7 @@ export namespace Prisma {
     status?: true
     permissions?: true
     created_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -2549,6 +2555,7 @@ export namespace Prisma {
     status: $Enums.DivisionStatus
     permissions: JsonValue | null
     created_at: Date
+    deleted_at: Date | null
     _count: DivisionCountAggregateOutputType | null
     _min: DivisionMinAggregateOutputType | null
     _max: DivisionMaxAggregateOutputType | null
@@ -2576,6 +2583,7 @@ export namespace Prisma {
     status?: boolean
     permissions?: boolean
     created_at?: boolean
+    deleted_at?: boolean
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
     Employee?: boolean | Division$EmployeeArgs<ExtArgs>
     _count?: boolean | DivisionCountOutputTypeDefaultArgs<ExtArgs>
@@ -2589,6 +2597,7 @@ export namespace Prisma {
     status?: boolean
     permissions?: boolean
     created_at?: boolean
+    deleted_at?: boolean
   }
 
   export type DivisionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2612,6 +2621,7 @@ export namespace Prisma {
       status: $Enums.DivisionStatus
       permissions: Prisma.JsonValue | null
       created_at: Date
+      deleted_at: Date | null
     }, ExtArgs["result"]["division"]>
     composites: {}
   }
@@ -3016,6 +3026,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Division", 'DivisionStatus'>
     readonly permissions: FieldRef<"Division", 'Json'>
     readonly created_at: FieldRef<"Division", 'DateTime'>
+    readonly deleted_at: FieldRef<"Division", 'DateTime'>
   }
     
 
@@ -3380,6 +3391,7 @@ export namespace Prisma {
     name: string | null
     status: $Enums.DepartmentStatus | null
     created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type DepartmentMaxAggregateOutputType = {
@@ -3388,6 +3400,7 @@ export namespace Prisma {
     name: string | null
     status: $Enums.DepartmentStatus | null
     created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type DepartmentCountAggregateOutputType = {
@@ -3397,6 +3410,7 @@ export namespace Prisma {
     status: number
     permissions: number
     created_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -3407,6 +3421,7 @@ export namespace Prisma {
     name?: true
     status?: true
     created_at?: true
+    deleted_at?: true
   }
 
   export type DepartmentMaxAggregateInputType = {
@@ -3415,6 +3430,7 @@ export namespace Prisma {
     name?: true
     status?: true
     created_at?: true
+    deleted_at?: true
   }
 
   export type DepartmentCountAggregateInputType = {
@@ -3424,6 +3440,7 @@ export namespace Prisma {
     status?: true
     permissions?: true
     created_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -3506,6 +3523,7 @@ export namespace Prisma {
     status: $Enums.DepartmentStatus
     permissions: JsonValue | null
     created_at: Date
+    deleted_at: Date | null
     _count: DepartmentCountAggregateOutputType | null
     _min: DepartmentMinAggregateOutputType | null
     _max: DepartmentMaxAggregateOutputType | null
@@ -3532,6 +3550,7 @@ export namespace Prisma {
     status?: boolean
     permissions?: boolean
     created_at?: boolean
+    deleted_at?: boolean
     divisions?: boolean | Department$divisionsArgs<ExtArgs>
     Employee?: boolean | Department$EmployeeArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
@@ -3544,6 +3563,7 @@ export namespace Prisma {
     status?: boolean
     permissions?: boolean
     created_at?: boolean
+    deleted_at?: boolean
   }
 
   export type DepartmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3566,6 +3586,7 @@ export namespace Prisma {
       status: $Enums.DepartmentStatus
       permissions: Prisma.JsonValue | null
       created_at: Date
+      deleted_at: Date | null
     }, ExtArgs["result"]["department"]>
     composites: {}
   }
@@ -3969,6 +3990,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Department", 'DepartmentStatus'>
     readonly permissions: FieldRef<"Department", 'Json'>
     readonly created_at: FieldRef<"Department", 'DateTime'>
+    readonly deleted_at: FieldRef<"Department", 'DateTime'>
   }
     
 
@@ -4353,6 +4375,7 @@ export namespace Prisma {
     code: string | null
     name: string | null
     created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type AccountMaxAggregateOutputType = {
@@ -4360,6 +4383,7 @@ export namespace Prisma {
     code: string | null
     name: string | null
     created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type AccountCountAggregateOutputType = {
@@ -4367,6 +4391,7 @@ export namespace Prisma {
     code: number
     name: number
     created_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -4376,6 +4401,7 @@ export namespace Prisma {
     code?: true
     name?: true
     created_at?: true
+    deleted_at?: true
   }
 
   export type AccountMaxAggregateInputType = {
@@ -4383,6 +4409,7 @@ export namespace Prisma {
     code?: true
     name?: true
     created_at?: true
+    deleted_at?: true
   }
 
   export type AccountCountAggregateInputType = {
@@ -4390,6 +4417,7 @@ export namespace Prisma {
     code?: true
     name?: true
     created_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -4470,6 +4498,7 @@ export namespace Prisma {
     code: string
     name: string
     created_at: Date
+    deleted_at: Date | null
     _count: AccountCountAggregateOutputType | null
     _min: AccountMinAggregateOutputType | null
     _max: AccountMaxAggregateOutputType | null
@@ -4494,6 +4523,7 @@ export namespace Prisma {
     code?: boolean
     name?: boolean
     created_at?: boolean
+    deleted_at?: boolean
   }, ExtArgs["result"]["account"]>
 
   export type AccountSelectScalar = {
@@ -4501,6 +4531,7 @@ export namespace Prisma {
     code?: boolean
     name?: boolean
     created_at?: boolean
+    deleted_at?: boolean
   }
 
 
@@ -4512,6 +4543,7 @@ export namespace Prisma {
       code: string
       name: string
       created_at: Date
+      deleted_at: Date | null
     }, ExtArgs["result"]["account"]>
     composites: {}
   }
@@ -4910,6 +4942,7 @@ export namespace Prisma {
     readonly code: FieldRef<"Account", 'String'>
     readonly name: FieldRef<"Account", 'String'>
     readonly created_at: FieldRef<"Account", 'DateTime'>
+    readonly deleted_at: FieldRef<"Account", 'DateTime'>
   }
     
 
@@ -6463,18 +6496,21 @@ export namespace Prisma {
     id: string | null
     name: string | null
     created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type ClassificationMaxAggregateOutputType = {
     id: string | null
     name: string | null
     created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type ClassificationCountAggregateOutputType = {
     id: number
     name: number
     created_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -6483,18 +6519,21 @@ export namespace Prisma {
     id?: true
     name?: true
     created_at?: true
+    deleted_at?: true
   }
 
   export type ClassificationMaxAggregateInputType = {
     id?: true
     name?: true
     created_at?: true
+    deleted_at?: true
   }
 
   export type ClassificationCountAggregateInputType = {
     id?: true
     name?: true
     created_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -6574,6 +6613,7 @@ export namespace Prisma {
     id: string
     name: string
     created_at: Date
+    deleted_at: Date | null
     _count: ClassificationCountAggregateOutputType | null
     _min: ClassificationMinAggregateOutputType | null
     _max: ClassificationMaxAggregateOutputType | null
@@ -6597,12 +6637,14 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     created_at?: boolean
+    deleted_at?: boolean
   }, ExtArgs["result"]["classification"]>
 
   export type ClassificationSelectScalar = {
     id?: boolean
     name?: boolean
     created_at?: boolean
+    deleted_at?: boolean
   }
 
 
@@ -6613,6 +6655,7 @@ export namespace Prisma {
       id: string
       name: string
       created_at: Date
+      deleted_at: Date | null
     }, ExtArgs["result"]["classification"]>
     composites: {}
   }
@@ -7010,6 +7053,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Classification", 'String'>
     readonly name: FieldRef<"Classification", 'String'>
     readonly created_at: FieldRef<"Classification", 'DateTime'>
+    readonly deleted_at: FieldRef<"Classification", 'DateTime'>
   }
     
 
@@ -18754,7 +18798,8 @@ export namespace Prisma {
     name: 'name',
     status: 'status',
     permissions: 'permissions',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    deleted_at: 'deleted_at'
   };
 
   export type DivisionScalarFieldEnum = (typeof DivisionScalarFieldEnum)[keyof typeof DivisionScalarFieldEnum]
@@ -18766,7 +18811,8 @@ export namespace Prisma {
     name: 'name',
     status: 'status',
     permissions: 'permissions',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    deleted_at: 'deleted_at'
   };
 
   export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
@@ -18776,7 +18822,8 @@ export namespace Prisma {
     id: 'id',
     code: 'code',
     name: 'name',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    deleted_at: 'deleted_at'
   };
 
   export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -18808,7 +18855,8 @@ export namespace Prisma {
   export const ClassificationScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    deleted_at: 'deleted_at'
   };
 
   export type ClassificationScalarFieldEnum = (typeof ClassificationScalarFieldEnum)[keyof typeof ClassificationScalarFieldEnum]
@@ -19156,6 +19204,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFilter<"Division"> | $Enums.DivisionStatus
     permissions?: JsonNullableFilter<"Division">
     created_at?: DateTimeFilter<"Division"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Division"> | Date | string | null
     department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
     Employee?: EmployeeListRelationFilter
   }
@@ -19168,6 +19217,7 @@ export namespace Prisma {
     status?: SortOrder
     permissions?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     department?: DepartmentOrderByWithRelationInput
     Employee?: EmployeeOrderByRelationAggregateInput
   }
@@ -19183,6 +19233,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFilter<"Division"> | $Enums.DivisionStatus
     permissions?: JsonNullableFilter<"Division">
     created_at?: DateTimeFilter<"Division"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Division"> | Date | string | null
     department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
     Employee?: EmployeeListRelationFilter
   }, "id" | "code">
@@ -19195,6 +19246,7 @@ export namespace Prisma {
     status?: SortOrder
     permissions?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: DivisionCountOrderByAggregateInput
     _max?: DivisionMaxOrderByAggregateInput
     _min?: DivisionMinOrderByAggregateInput
@@ -19211,6 +19263,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusWithAggregatesFilter<"Division"> | $Enums.DivisionStatus
     permissions?: JsonNullableWithAggregatesFilter<"Division">
     created_at?: DateTimeWithAggregatesFilter<"Division"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Division"> | Date | string | null
   }
 
   export type DepartmentWhereInput = {
@@ -19223,6 +19276,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusFilter<"Department"> | $Enums.DepartmentStatus
     permissions?: JsonNullableFilter<"Department">
     created_at?: DateTimeFilter<"Department"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Department"> | Date | string | null
     divisions?: DivisionListRelationFilter
     Employee?: EmployeeListRelationFilter
   }
@@ -19234,6 +19288,7 @@ export namespace Prisma {
     status?: SortOrder
     permissions?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     divisions?: DivisionOrderByRelationAggregateInput
     Employee?: EmployeeOrderByRelationAggregateInput
   }
@@ -19248,6 +19303,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusFilter<"Department"> | $Enums.DepartmentStatus
     permissions?: JsonNullableFilter<"Department">
     created_at?: DateTimeFilter<"Department"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Department"> | Date | string | null
     divisions?: DivisionListRelationFilter
     Employee?: EmployeeListRelationFilter
   }, "id" | "code">
@@ -19259,6 +19315,7 @@ export namespace Prisma {
     status?: SortOrder
     permissions?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: DepartmentCountOrderByAggregateInput
     _max?: DepartmentMaxOrderByAggregateInput
     _min?: DepartmentMinOrderByAggregateInput
@@ -19274,6 +19331,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusWithAggregatesFilter<"Department"> | $Enums.DepartmentStatus
     permissions?: JsonNullableWithAggregatesFilter<"Department">
     created_at?: DateTimeWithAggregatesFilter<"Department"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Department"> | Date | string | null
   }
 
   export type AccountWhereInput = {
@@ -19284,6 +19342,7 @@ export namespace Prisma {
     code?: StringFilter<"Account"> | string
     name?: StringFilter<"Account"> | string
     created_at?: DateTimeFilter<"Account"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Account"> | Date | string | null
   }
 
   export type AccountOrderByWithRelationInput = {
@@ -19291,6 +19350,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
   }
 
   export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -19301,6 +19361,7 @@ export namespace Prisma {
     NOT?: AccountWhereInput | AccountWhereInput[]
     name?: StringFilter<"Account"> | string
     created_at?: DateTimeFilter<"Account"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Account"> | Date | string | null
   }, "id" | "code">
 
   export type AccountOrderByWithAggregationInput = {
@@ -19308,6 +19369,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: AccountCountOrderByAggregateInput
     _max?: AccountMaxOrderByAggregateInput
     _min?: AccountMinOrderByAggregateInput
@@ -19321,6 +19383,7 @@ export namespace Prisma {
     code?: StringWithAggregatesFilter<"Account"> | string
     name?: StringWithAggregatesFilter<"Account"> | string
     created_at?: DateTimeWithAggregatesFilter<"Account"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
   }
 
   export type EmployeeWhereInput = {
@@ -19471,12 +19534,14 @@ export namespace Prisma {
     id?: StringFilter<"Classification"> | string
     name?: StringFilter<"Classification"> | string
     created_at?: DateTimeFilter<"Classification"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Classification"> | Date | string | null
   }
 
   export type ClassificationOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
   }
 
   export type ClassificationWhereUniqueInput = Prisma.AtLeast<{
@@ -19486,12 +19551,14 @@ export namespace Prisma {
     NOT?: ClassificationWhereInput | ClassificationWhereInput[]
     name?: StringFilter<"Classification"> | string
     created_at?: DateTimeFilter<"Classification"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Classification"> | Date | string | null
   }, "id">
 
   export type ClassificationOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: ClassificationCountOrderByAggregateInput
     _max?: ClassificationMaxOrderByAggregateInput
     _min?: ClassificationMinOrderByAggregateInput
@@ -19504,6 +19571,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Classification"> | string
     name?: StringWithAggregatesFilter<"Classification"> | string
     created_at?: DateTimeWithAggregatesFilter<"Classification"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Classification"> | Date | string | null
   }
 
   export type UserWhereInput = {
@@ -20218,6 +20286,7 @@ export namespace Prisma {
     status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     department: DepartmentCreateNestedOneWithoutDivisionsInput
     Employee?: EmployeeCreateNestedManyWithoutDivisionInput
   }
@@ -20230,6 +20299,7 @@ export namespace Prisma {
     status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDivisionInput
   }
 
@@ -20240,6 +20310,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     department?: DepartmentUpdateOneRequiredWithoutDivisionsNestedInput
     Employee?: EmployeeUpdateManyWithoutDivisionNestedInput
   }
@@ -20252,6 +20323,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Employee?: EmployeeUncheckedUpdateManyWithoutDivisionNestedInput
   }
 
@@ -20263,6 +20335,7 @@ export namespace Prisma {
     status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type DivisionUpdateManyMutationInput = {
@@ -20272,6 +20345,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type DivisionUncheckedUpdateManyInput = {
@@ -20282,6 +20356,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type DepartmentCreateInput = {
@@ -20291,6 +20366,7 @@ export namespace Prisma {
     status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     divisions?: DivisionCreateNestedManyWithoutDepartmentInput
     Employee?: EmployeeCreateNestedManyWithoutDepartmentInput
   }
@@ -20302,6 +20378,7 @@ export namespace Prisma {
     status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     divisions?: DivisionUncheckedCreateNestedManyWithoutDepartmentInput
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   }
@@ -20313,6 +20390,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     divisions?: DivisionUpdateManyWithoutDepartmentNestedInput
     Employee?: EmployeeUpdateManyWithoutDepartmentNestedInput
   }
@@ -20324,6 +20402,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     divisions?: DivisionUncheckedUpdateManyWithoutDepartmentNestedInput
     Employee?: EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   }
@@ -20335,6 +20414,7 @@ export namespace Prisma {
     status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type DepartmentUpdateManyMutationInput = {
@@ -20344,6 +20424,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type DepartmentUncheckedUpdateManyInput = {
@@ -20353,6 +20434,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AccountCreateInput = {
@@ -20360,6 +20442,7 @@ export namespace Prisma {
     code: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type AccountUncheckedCreateInput = {
@@ -20367,6 +20450,7 @@ export namespace Prisma {
     code: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type AccountUpdateInput = {
@@ -20374,6 +20458,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AccountUncheckedUpdateInput = {
@@ -20381,6 +20466,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AccountCreateManyInput = {
@@ -20388,6 +20474,7 @@ export namespace Prisma {
     code: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type AccountUpdateManyMutationInput = {
@@ -20395,6 +20482,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AccountUncheckedUpdateManyInput = {
@@ -20402,6 +20490,7 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type EmployeeCreateInput = {
@@ -20574,42 +20663,49 @@ export namespace Prisma {
     id?: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type ClassificationUncheckedCreateInput = {
     id?: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type ClassificationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ClassificationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ClassificationCreateManyInput = {
     id?: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type ClassificationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ClassificationUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserCreateInput = {
@@ -21356,6 +21452,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type DepartmentScalarRelationFilter = {
     is?: DepartmentWhereInput
     isNot?: DepartmentWhereInput
@@ -21384,6 +21491,7 @@ export namespace Prisma {
     status?: SortOrder
     permissions?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type DivisionMaxOrderByAggregateInput = {
@@ -21393,6 +21501,7 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type DivisionMinOrderByAggregateInput = {
@@ -21402,6 +21511,7 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -21471,6 +21581,20 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type EnumDepartmentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.DepartmentStatus | EnumDepartmentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.DepartmentStatus[] | ListEnumDepartmentStatusFieldRefInput<$PrismaModel>
@@ -21495,6 +21619,7 @@ export namespace Prisma {
     status?: SortOrder
     permissions?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type DepartmentMaxOrderByAggregateInput = {
@@ -21503,6 +21628,7 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type DepartmentMinOrderByAggregateInput = {
@@ -21511,6 +21637,7 @@ export namespace Prisma {
     name?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type EnumDepartmentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -21528,6 +21655,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type AccountMaxOrderByAggregateInput = {
@@ -21535,6 +21663,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type AccountMinOrderByAggregateInput = {
@@ -21542,6 +21671,7 @@ export namespace Prisma {
     code?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -21733,18 +21863,21 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type ClassificationMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type ClassificationMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type EnumUserStatusFilter<$PrismaModel = never> = {
@@ -22241,6 +22374,10 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type DepartmentUpdateOneRequiredWithoutDivisionsNestedInput = {
@@ -22993,6 +23130,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -23076,6 +23224,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumDepartmentStatusFilter<$PrismaModel = never> = {
@@ -23228,6 +23390,7 @@ export namespace Prisma {
     status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     Employee?: EmployeeCreateNestedManyWithoutDepartmentInput
   }
 
@@ -23238,6 +23401,7 @@ export namespace Prisma {
     status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
@@ -23326,6 +23490,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Employee?: EmployeeUpdateManyWithoutDepartmentNestedInput
   }
 
@@ -23336,6 +23501,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Employee?: EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
@@ -23385,6 +23551,7 @@ export namespace Prisma {
     status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     Employee?: EmployeeCreateNestedManyWithoutDivisionInput
   }
 
@@ -23395,6 +23562,7 @@ export namespace Prisma {
     status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     Employee?: EmployeeUncheckedCreateNestedManyWithoutDivisionInput
   }
 
@@ -23497,6 +23665,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFilter<"Division"> | $Enums.DivisionStatus
     permissions?: JsonNullableFilter<"Division">
     created_at?: DateTimeFilter<"Division"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Division"> | Date | string | null
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -23636,6 +23805,7 @@ export namespace Prisma {
     status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     divisions?: DivisionCreateNestedManyWithoutDepartmentInput
   }
 
@@ -23646,6 +23816,7 @@ export namespace Prisma {
     status?: $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     divisions?: DivisionUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
@@ -23661,6 +23832,7 @@ export namespace Prisma {
     status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
     department: DepartmentCreateNestedOneWithoutDivisionsInput
   }
 
@@ -23672,6 +23844,7 @@ export namespace Prisma {
     status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type DivisionCreateOrConnectWithoutEmployeeInput = {
@@ -23866,6 +24039,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     divisions?: DivisionUpdateManyWithoutDepartmentNestedInput
   }
 
@@ -23876,6 +24050,7 @@ export namespace Prisma {
     status?: EnumDepartmentStatusFieldUpdateOperationsInput | $Enums.DepartmentStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     divisions?: DivisionUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
@@ -23897,6 +24072,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     department?: DepartmentUpdateOneRequiredWithoutDivisionsNestedInput
   }
 
@@ -23908,6 +24084,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserEmployeeUpsertWithoutEmployeeInput = {
@@ -25352,6 +25529,7 @@ export namespace Prisma {
     status?: $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type EmployeeCreateManyDepartmentInput = {
@@ -25380,6 +25558,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Employee?: EmployeeUpdateManyWithoutDivisionNestedInput
   }
 
@@ -25390,6 +25569,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Employee?: EmployeeUncheckedUpdateManyWithoutDivisionNestedInput
   }
 
@@ -25400,6 +25580,7 @@ export namespace Prisma {
     status?: EnumDivisionStatusFieldUpdateOperationsInput | $Enums.DivisionStatus
     permissions?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type EmployeeUpdateWithoutDepartmentInput = {

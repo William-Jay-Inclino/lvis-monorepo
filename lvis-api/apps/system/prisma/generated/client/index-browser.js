@@ -114,7 +114,8 @@ exports.Prisma.DivisionScalarFieldEnum = {
   name: 'name',
   status: 'status',
   permissions: 'permissions',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.DepartmentScalarFieldEnum = {
@@ -123,14 +124,16 @@ exports.Prisma.DepartmentScalarFieldEnum = {
   name: 'name',
   status: 'status',
   permissions: 'permissions',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.EmployeeScalarFieldEnum = {
@@ -156,7 +159,8 @@ exports.Prisma.EmployeeScalarFieldEnum = {
 exports.Prisma.ClassificationScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.UserScalarFieldEnum = {

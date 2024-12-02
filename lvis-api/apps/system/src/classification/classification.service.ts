@@ -30,8 +30,8 @@ export class ClassificationService {
 
 	async findAll(): Promise<Classification[]> {
 		return await this.prisma.classification.findMany({
-			orderBy: {
-				name: 'asc'
+			where: {
+				deleted_at: null
 			}
 		})
 	}
@@ -70,9 +70,12 @@ export class ClassificationService {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.classification.delete({
+		await this.prisma.classification.update({
 			where: { id },
-		})
+			data: {
+			  deleted_at: new Date()
+			}
+		  })
 
 		return {
 			success: true,

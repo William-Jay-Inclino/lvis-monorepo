@@ -1,16 +1,14 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDepartmentInput } from './dto/create-department.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, Department } from 'apps/system/prisma/generated/client';
 import { UpdateDepartmentInput } from './dto/update-department.input';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { AuthUser } from '../__common__/auth-user.entity';
-import { divisions } from '../__seeder__/mock-data';
 
 @Injectable()
 export class DepartmentService {
 
-  private readonly logger = new Logger(DepartmentService.name);
   private authUser: AuthUser
 
   constructor(private readonly prisma: PrismaService) { }
@@ -55,6 +53,9 @@ export class DepartmentService {
     const items = await this.prisma.department.findMany({
       include: {
         divisions: true
+      },
+      where: {
+        deleted_at: null
       }
     })
 
@@ -125,8 +126,11 @@ export class DepartmentService {
 
     const existingItem = await this.findOne(id)
 
-    await this.prisma.department.delete({
-      where: { id }
+    await this.prisma.department.update({
+      where: { id },
+      data: {
+        deleted_at: new Date()
+      }
     })
 
     return {

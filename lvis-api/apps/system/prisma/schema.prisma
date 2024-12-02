@@ -48,6 +48,7 @@ model Division {
   permissions Json?
 
   created_at DateTime  @default(now())
+  deleted_at DateTime?
 
   Employee Employee[]
 
@@ -62,6 +63,7 @@ model Department {
   permissions Json?
 
   created_at DateTime  @default(now())
+  deleted_at DateTime?
 
   divisions Division[]
 
@@ -75,6 +77,7 @@ model Account {
   name        String
 
   created_at DateTime  @default(now())
+  deleted_at DateTime?
 
   @@map("account")
 }
@@ -123,6 +126,7 @@ model Classification {
   name String
 
   created_at DateTime  @default(now())
+  deleted_at DateTime?
 
   @@map("classification")
 }

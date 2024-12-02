@@ -19,6 +19,14 @@ export class AccountService {
 
   async create(input: CreateAccountInput): Promise<Account> {
 
+    const existingAccount = await this.prisma.account.findUnique({
+			where: { code: input.code },
+		});
+	
+		if (existingAccount) {
+			throw new Error('Account code must be unique');
+		}
+
     const data: Prisma.AccountCreateInput = {
       code: input.code,
       name: input.name,
@@ -33,7 +41,11 @@ export class AccountService {
   }
 
   async findAll(): Promise<Account[]> {
-    return await this.prisma.account.findMany()
+    return await this.prisma.account.findMany({
+      where: {
+        deleted_at: null
+      }
+    })
   }
 
   async findOne(id: string): Promise<Account | null> {
@@ -51,13 +63,22 @@ export class AccountService {
 
   async update(id: string, input: UpdateAccountInput): Promise<Account> {
 
-    const existingItem = await this.findOne(id)
+    const existingItem = await this.findOne(id);
+	
+		if (input.code && input.code !== existingItem.code) {
+			const existingAccount = await this.prisma.account.findUnique({
+				where: { code: input.code },
+			});
+	
+			if (existingAccount) {
+				throw new Error('Department code must be unique');
+			}
+		}
 
     const data: Prisma.AccountUpdateInput = {
       code: input.code ?? existingItem.code,
       name: input.name ?? existingItem.name,
     }
-
 
     const updated = await this.prisma.account.update({
       data,
@@ -74,8 +95,11 @@ export class AccountService {
 
     const existingItem = await this.findOne(id)
 
-    await this.prisma.account.delete({
-      where: { id }
+    await this.prisma.account.update({
+      where: { id },
+      data: {
+        deleted_at: new Date()
+      }
     })
 
     return {

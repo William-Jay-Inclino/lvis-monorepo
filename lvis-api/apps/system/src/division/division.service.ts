@@ -50,7 +50,10 @@ export class DivisionService {
 		const items = await this.prisma.division.findMany({
 			orderBy: {
 				name: 'asc'
-			}
+			},
+			where: {
+				deleted_at: null
+			  }
 		})
 
 		return items.map(i => {
@@ -120,9 +123,12 @@ export class DivisionService {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.division.delete({
-			where: { id }
-		})
+		await this.prisma.division.update({
+			where: { id },
+			data: {
+			  deleted_at: new Date()
+			}
+		  })
 
 		return {
 			success: true,
