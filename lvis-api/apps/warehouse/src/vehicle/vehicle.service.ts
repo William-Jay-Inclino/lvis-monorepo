@@ -22,6 +22,24 @@ export class VehicleService {
 
 	async create(input: CreateVehicleInput): Promise<Vehicle> {
 
+		// Check if the vehicle number already exists
+		const existingVehicle = await this.prisma.vehicle.findUnique({
+			where: { vehicle_number: input.vehicle_number },
+		});
+
+		if (existingVehicle) {
+			throw new Error('Vehicle number must be unique');
+		}
+
+		// Check if the plate number already exists
+		const existingVehicle2 = await this.prisma.vehicle.findUnique({
+			where: { plate_number: input.plate_number },
+		});
+
+		if (existingVehicle2) {
+			throw new Error('Plate number must be unique');
+		}
+
 		const data: Prisma.VehicleCreateInput = {
 			vehicle_number: input.vehicle_number,
 			plate_number: input.plate_number,
@@ -46,6 +64,9 @@ export class VehicleService {
 		return await this.prisma.vehicle.findMany({
 			orderBy: {
 				vehicle_number: 'asc'
+			},
+			where: {
+				deleted_at: null
 			}
 		})
 	}
@@ -134,8 +155,9 @@ export class VehicleService {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.vehicle.delete({
+		await this.prisma.vehicle.update({
 			where: { id },
+			data: { deleted_at: new Date() }
 		})
 
 		return {

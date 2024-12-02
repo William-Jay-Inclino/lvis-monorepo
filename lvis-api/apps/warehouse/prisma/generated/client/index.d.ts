@@ -7399,6 +7399,7 @@ export namespace Prisma {
     updated_by: string | null
     created_at: Date | null
     updated_at: Date | null
+    deleted_at: Date | null
   }
 
   export type SupplierMaxAggregateOutputType = {
@@ -7413,6 +7414,7 @@ export namespace Prisma {
     updated_by: string | null
     created_at: Date | null
     updated_at: Date | null
+    deleted_at: Date | null
   }
 
   export type SupplierCountAggregateOutputType = {
@@ -7427,6 +7429,7 @@ export namespace Prisma {
     updated_by: number
     created_at: number
     updated_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -7451,6 +7454,7 @@ export namespace Prisma {
     updated_by?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
   }
 
   export type SupplierMaxAggregateInputType = {
@@ -7465,6 +7469,7 @@ export namespace Prisma {
     updated_by?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
   }
 
   export type SupplierCountAggregateInputType = {
@@ -7479,6 +7484,7 @@ export namespace Prisma {
     updated_by?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -7580,6 +7586,7 @@ export namespace Prisma {
     updated_by: string | null
     created_at: Date
     updated_at: Date
+    deleted_at: Date | null
     _count: SupplierCountAggregateOutputType | null
     _avg: SupplierAvgAggregateOutputType | null
     _sum: SupplierSumAggregateOutputType | null
@@ -7613,6 +7620,7 @@ export namespace Prisma {
     updated_by?: boolean
     created_at?: boolean
     updated_at?: boolean
+    deleted_at?: boolean
     MEQSSupplier?: boolean | Supplier$MEQSSupplierArgs<ExtArgs>
     _count?: boolean | SupplierCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["supplier"]>
@@ -7629,6 +7637,7 @@ export namespace Prisma {
     updated_by?: boolean
     created_at?: boolean
     updated_at?: boolean
+    deleted_at?: boolean
   }
 
   export type SupplierInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7654,6 +7663,7 @@ export namespace Prisma {
       updated_by: string | null
       created_at: Date
       updated_at: Date
+      deleted_at: Date | null
     }, ExtArgs["result"]["supplier"]>
     composites: {}
   }
@@ -8060,6 +8070,7 @@ export namespace Prisma {
     readonly updated_by: FieldRef<"Supplier", 'String'>
     readonly created_at: FieldRef<"Supplier", 'DateTime'>
     readonly updated_at: FieldRef<"Supplier", 'DateTime'>
+    readonly deleted_at: FieldRef<"Supplier", 'DateTime'>
   }
     
 
@@ -13108,6 +13119,7 @@ export namespace Prisma {
     updated_by: string | null
     created_at: Date | null
     updated_at: Date | null
+    deleted_at: Date | null
   }
 
   export type ItemMaxAggregateOutputType = {
@@ -13124,6 +13136,7 @@ export namespace Prisma {
     updated_by: string | null
     created_at: Date | null
     updated_at: Date | null
+    deleted_at: Date | null
   }
 
   export type ItemCountAggregateOutputType = {
@@ -13140,6 +13153,7 @@ export namespace Prisma {
     updated_by: number
     created_at: number
     updated_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -13174,6 +13188,7 @@ export namespace Prisma {
     updated_by?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
   }
 
   export type ItemMaxAggregateInputType = {
@@ -13190,6 +13205,7 @@ export namespace Prisma {
     updated_by?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
   }
 
   export type ItemCountAggregateInputType = {
@@ -13206,6 +13222,7 @@ export namespace Prisma {
     updated_by?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -13309,6 +13326,7 @@ export namespace Prisma {
     updated_by: string | null
     created_at: Date
     updated_at: Date
+    deleted_at: Date | null
     _count: ItemCountAggregateOutputType | null
     _avg: ItemAvgAggregateOutputType | null
     _sum: ItemSumAggregateOutputType | null
@@ -13344,6 +13362,7 @@ export namespace Prisma {
     updated_by?: boolean
     created_at?: boolean
     updated_at?: boolean
+    deleted_at?: boolean
     item_type?: boolean | ItemTypeDefaultArgs<ExtArgs>
     item_transactions?: boolean | Item$item_transactionsArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -13371,6 +13390,7 @@ export namespace Prisma {
     updated_by?: boolean
     created_at?: boolean
     updated_at?: boolean
+    deleted_at?: boolean
   }
 
   export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13416,6 +13436,7 @@ export namespace Prisma {
       updated_by: string | null
       created_at: Date
       updated_at: Date
+      deleted_at: Date | null
     }, ExtArgs["result"]["item"]>
     composites: {}
   }
@@ -13842,6 +13863,7 @@ export namespace Prisma {
     readonly updated_by: FieldRef<"Item", 'String'>
     readonly created_at: FieldRef<"Item", 'DateTime'>
     readonly updated_at: FieldRef<"Item", 'DateTime'>
+    readonly deleted_at: FieldRef<"Item", 'DateTime'>
   }
     
 
@@ -54727,6 +54749,7 @@ export namespace Prisma {
     updated_by: string | null
     created_at: Date | null
     updated_at: Date | null
+    deleted_at: Date | null
   }
 
   export type VehicleMaxAggregateOutputType = {
@@ -54743,6 +54766,7 @@ export namespace Prisma {
     updated_by: string | null
     created_at: Date | null
     updated_at: Date | null
+    deleted_at: Date | null
   }
 
   export type VehicleCountAggregateOutputType = {
@@ -54759,6 +54783,7 @@ export namespace Prisma {
     updated_by: number
     created_at: number
     updated_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -54787,6 +54812,7 @@ export namespace Prisma {
     updated_by?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
   }
 
   export type VehicleMaxAggregateInputType = {
@@ -54803,6 +54829,7 @@ export namespace Prisma {
     updated_by?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
   }
 
   export type VehicleCountAggregateInputType = {
@@ -54819,6 +54846,7 @@ export namespace Prisma {
     updated_by?: true
     created_at?: true
     updated_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -54922,6 +54950,7 @@ export namespace Prisma {
     updated_by: string | null
     created_at: Date
     updated_at: Date
+    deleted_at: Date | null
     _count: VehicleCountAggregateOutputType | null
     _avg: VehicleAvgAggregateOutputType | null
     _sum: VehicleSumAggregateOutputType | null
@@ -54957,6 +54986,7 @@ export namespace Prisma {
     updated_by?: boolean
     created_at?: boolean
     updated_at?: boolean
+    deleted_at?: boolean
     trip_tickets?: boolean | Vehicle$trip_ticketsArgs<ExtArgs>
     gas_slips?: boolean | Vehicle$gas_slipsArgs<ExtArgs>
     sprs?: boolean | Vehicle$sprsArgs<ExtArgs>
@@ -54977,6 +55007,7 @@ export namespace Prisma {
     updated_by?: boolean
     created_at?: boolean
     updated_at?: boolean
+    deleted_at?: boolean
   }
 
   export type VehicleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -55008,6 +55039,7 @@ export namespace Prisma {
       updated_by: string | null
       created_at: Date
       updated_at: Date
+      deleted_at: Date | null
     }, ExtArgs["result"]["vehicle"]>
     composites: {}
   }
@@ -55420,6 +55452,7 @@ export namespace Prisma {
     readonly updated_by: FieldRef<"Vehicle", 'String'>
     readonly created_at: FieldRef<"Vehicle", 'DateTime'>
     readonly updated_at: FieldRef<"Vehicle", 'DateTime'>
+    readonly deleted_at: FieldRef<"Vehicle", 'DateTime'>
   }
     
 
@@ -62056,7 +62089,8 @@ export namespace Prisma {
     created_by: 'created_by',
     updated_by: 'updated_by',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    deleted_at: 'deleted_at'
   };
 
   export type SupplierScalarFieldEnum = (typeof SupplierScalarFieldEnum)[keyof typeof SupplierScalarFieldEnum]
@@ -62123,7 +62157,8 @@ export namespace Prisma {
     created_by: 'created_by',
     updated_by: 'updated_by',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    deleted_at: 'deleted_at'
   };
 
   export type ItemScalarFieldEnum = (typeof ItemScalarFieldEnum)[keyof typeof ItemScalarFieldEnum]
@@ -62760,7 +62795,8 @@ export namespace Prisma {
     created_by: 'created_by',
     updated_by: 'updated_by',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    deleted_at: 'deleted_at'
   };
 
   export type VehicleScalarFieldEnum = (typeof VehicleScalarFieldEnum)[keyof typeof VehicleScalarFieldEnum]
@@ -63027,6 +63063,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"Supplier"> | string | null
     created_at?: DateTimeFilter<"Supplier"> | Date | string
     updated_at?: DateTimeFilter<"Supplier"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Supplier"> | Date | string | null
     MEQSSupplier?: MEQSSupplierListRelationFilter
   }
 
@@ -63042,6 +63079,7 @@ export namespace Prisma {
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     MEQSSupplier?: MEQSSupplierOrderByRelationAggregateInput
   }
 
@@ -63060,6 +63098,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"Supplier"> | string | null
     created_at?: DateTimeFilter<"Supplier"> | Date | string
     updated_at?: DateTimeFilter<"Supplier"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Supplier"> | Date | string | null
     MEQSSupplier?: MEQSSupplierListRelationFilter
   }, "id">
 
@@ -63075,6 +63114,7 @@ export namespace Prisma {
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: SupplierCountOrderByAggregateInput
     _avg?: SupplierAvgOrderByAggregateInput
     _max?: SupplierMaxOrderByAggregateInput
@@ -63097,6 +63137,7 @@ export namespace Prisma {
     updated_by?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Supplier"> | Date | string | null
   }
 
   export type UnitWhereInput = {
@@ -63367,6 +63408,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"Item"> | string | null
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
     item_type?: XOR<ItemTypeScalarRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
     unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
@@ -63393,6 +63435,7 @@ export namespace Prisma {
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     item_type?: ItemTypeOrderByWithRelationInput
     item_transactions?: ItemTransactionOrderByRelationAggregateInput
     unit?: UnitOrderByWithRelationInput
@@ -63422,6 +63465,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"Item"> | string | null
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
     item_type?: XOR<ItemTypeScalarRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
     unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
@@ -63448,6 +63492,7 @@ export namespace Prisma {
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: ItemCountOrderByAggregateInput
     _avg?: ItemAvgOrderByAggregateInput
     _max?: ItemMaxOrderByAggregateInput
@@ -63472,6 +63517,7 @@ export namespace Prisma {
     updated_by?: StringNullableWithAggregatesFilter<"Item"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Item"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Item"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
   }
 
   export type ItemLocationWhereInput = {
@@ -66834,6 +66880,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"Vehicle"> | string | null
     created_at?: DateTimeFilter<"Vehicle"> | Date | string
     updated_at?: DateTimeFilter<"Vehicle"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
     trip_tickets?: TripTicketListRelationFilter
     gas_slips?: GasSlipListRelationFilter
     sprs?: SPRListRelationFilter
@@ -66853,6 +66900,7 @@ export namespace Prisma {
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     trip_tickets?: TripTicketOrderByRelationAggregateInput
     gas_slips?: GasSlipOrderByRelationAggregateInput
     sprs?: SPROrderByRelationAggregateInput
@@ -66875,6 +66923,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"Vehicle"> | string | null
     created_at?: DateTimeFilter<"Vehicle"> | Date | string
     updated_at?: DateTimeFilter<"Vehicle"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
     trip_tickets?: TripTicketListRelationFilter
     gas_slips?: GasSlipListRelationFilter
     sprs?: SPRListRelationFilter
@@ -66894,6 +66943,7 @@ export namespace Prisma {
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: VehicleCountOrderByAggregateInput
     _avg?: VehicleAvgOrderByAggregateInput
     _max?: VehicleMaxOrderByAggregateInput
@@ -66918,6 +66968,7 @@ export namespace Prisma {
     updated_by?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Vehicle"> | Date | string | null
   }
 
   export type TripTicketWhereInput = {
@@ -67503,6 +67554,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     MEQSSupplier?: MEQSSupplierCreateNestedManyWithoutSupplierInput
   }
 
@@ -67518,6 +67570,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     MEQSSupplier?: MEQSSupplierUncheckedCreateNestedManyWithoutSupplierInput
   }
 
@@ -67533,6 +67586,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     MEQSSupplier?: MEQSSupplierUpdateManyWithoutSupplierNestedInput
   }
 
@@ -67548,6 +67602,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     MEQSSupplier?: MEQSSupplierUncheckedUpdateManyWithoutSupplierNestedInput
   }
 
@@ -67563,6 +67618,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type SupplierUpdateManyMutationInput = {
@@ -67577,6 +67633,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type SupplierUncheckedUpdateManyInput = {
@@ -67591,6 +67648,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UnitCreateInput = {
@@ -67858,6 +67916,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
@@ -67884,6 +67943,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
@@ -67906,6 +67966,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
@@ -67932,6 +67993,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
@@ -67956,6 +68018,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type ItemUpdateManyMutationInput = {
@@ -67970,6 +68033,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ItemUncheckedUpdateManyInput = {
@@ -67986,6 +68050,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ItemLocationCreateInput = {
@@ -71616,6 +71681,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     trip_tickets?: TripTicketCreateNestedManyWithoutVehicleInput
     gas_slips?: GasSlipCreateNestedManyWithoutVehicleInput
     sprs?: SPRCreateNestedManyWithoutVehicleInput
@@ -71635,6 +71701,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     trip_tickets?: TripTicketUncheckedCreateNestedManyWithoutVehicleInput
     gas_slips?: GasSlipUncheckedCreateNestedManyWithoutVehicleInput
     sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
@@ -71654,6 +71721,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trip_tickets?: TripTicketUpdateManyWithoutVehicleNestedInput
     gas_slips?: GasSlipUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUpdateManyWithoutVehicleNestedInput
@@ -71673,6 +71741,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trip_tickets?: TripTicketUncheckedUpdateManyWithoutVehicleNestedInput
     gas_slips?: GasSlipUncheckedUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
@@ -71692,6 +71761,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type VehicleUpdateManyMutationInput = {
@@ -71708,6 +71778,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VehicleUncheckedUpdateManyInput = {
@@ -71724,6 +71795,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TripTicketCreateInput = {
@@ -72441,6 +72513,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type MEQSSupplierListRelationFilter = {
     every?: MEQSSupplierWhereInput
     some?: MEQSSupplierWhereInput
@@ -72468,6 +72551,7 @@ export namespace Prisma {
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type SupplierAvgOrderByAggregateInput = {
@@ -72486,6 +72570,7 @@ export namespace Prisma {
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type SupplierMinOrderByAggregateInput = {
@@ -72500,6 +72585,7 @@ export namespace Prisma {
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type SupplierSumOrderByAggregateInput = {
@@ -72530,6 +72616,20 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type CanvassItemListRelationFilter = {
@@ -72787,6 +72887,7 @@ export namespace Prisma {
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type ItemAvgOrderByAggregateInput = {
@@ -72811,6 +72912,7 @@ export namespace Prisma {
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type ItemMinOrderByAggregateInput = {
@@ -72827,6 +72929,7 @@ export namespace Prisma {
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type ItemSumOrderByAggregateInput = {
@@ -73198,17 +73301,6 @@ export namespace Prisma {
     quantity?: SortOrder
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type CanvassNullableScalarRelationFilter = {
     is?: CanvassWhereInput | null
     isNot?: CanvassWhereInput | null
@@ -73281,20 +73373,6 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type RVScalarRelationFilter = {
@@ -75135,6 +75213,7 @@ export namespace Prisma {
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type VehicleAvgOrderByAggregateInput = {
@@ -75156,6 +75235,7 @@ export namespace Prisma {
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type VehicleMinOrderByAggregateInput = {
@@ -75172,6 +75252,7 @@ export namespace Prisma {
     updated_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type VehicleSumOrderByAggregateInput = {
@@ -75650,6 +75731,10 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type MEQSSupplierUpdateManyWithoutSupplierNestedInput = {
@@ -76852,10 +76937,6 @@ export namespace Prisma {
     connectOrCreate?: RVApproverCreateOrConnectWithoutRvInput | RVApproverCreateOrConnectWithoutRvInput[]
     createMany?: RVApproverCreateManyRvInputEnvelope
     connect?: RVApproverWhereUniqueInput | RVApproverWhereUniqueInput[]
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type CanvassUpdateOneWithoutRvNestedInput = {
@@ -79385,6 +79466,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -79421,6 +79513,20 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -79435,31 +79541,6 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
@@ -79514,6 +79595,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
@@ -79538,6 +79620,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
@@ -79591,6 +79674,7 @@ export namespace Prisma {
     updated_by?: StringNullableFilter<"Item"> | string | null
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
   }
 
   export type MEQSSupplierCreateWithoutSupplierInput = {
@@ -79687,6 +79771,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
@@ -79711,6 +79796,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
@@ -80758,6 +80844,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
@@ -80783,6 +80870,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
@@ -80891,6 +80979,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
@@ -80916,6 +81005,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
@@ -81113,6 +81203,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     unit: UnitCreateNestedOneWithoutItemsInput
     canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
@@ -81138,6 +81229,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
@@ -81301,6 +81393,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
@@ -81326,6 +81419,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
@@ -81911,6 +82005,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
@@ -81936,6 +82031,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
     osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
@@ -82070,6 +82166,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
@@ -82095,6 +82192,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
     osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
@@ -82886,6 +82984,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     trip_tickets?: TripTicketCreateNestedManyWithoutVehicleInput
     gas_slips?: GasSlipCreateNestedManyWithoutVehicleInput
   }
@@ -82904,6 +83003,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     trip_tickets?: TripTicketUncheckedCreateNestedManyWithoutVehicleInput
     gas_slips?: GasSlipUncheckedCreateNestedManyWithoutVehicleInput
   }
@@ -83062,6 +83162,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trip_tickets?: TripTicketUpdateManyWithoutVehicleNestedInput
     gas_slips?: GasSlipUpdateManyWithoutVehicleNestedInput
   }
@@ -83080,6 +83181,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trip_tickets?: TripTicketUncheckedUpdateManyWithoutVehicleNestedInput
     gas_slips?: GasSlipUncheckedUpdateManyWithoutVehicleNestedInput
   }
@@ -83605,6 +83707,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type SupplierUncheckedCreateWithoutMEQSSupplierInput = {
@@ -83619,6 +83722,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type SupplierCreateOrConnectWithoutMEQSSupplierInput = {
@@ -83791,6 +83895,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type SupplierUncheckedUpdateWithoutMEQSSupplierInput = {
@@ -83805,6 +83910,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MEQSSupplierAttachmentUpsertWithWhereUniqueWithoutMeqs_supplierInput = {
@@ -85306,6 +85412,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
@@ -85331,6 +85438,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
@@ -85455,6 +85563,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
@@ -85480,6 +85589,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
@@ -85985,6 +86095,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
@@ -86010,6 +86121,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
@@ -86152,6 +86264,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
@@ -86177,6 +86290,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
@@ -86711,6 +86825,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
@@ -86736,6 +86851,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
@@ -86880,6 +86996,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
@@ -86905,6 +87022,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
@@ -87783,6 +87901,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
@@ -87808,6 +87927,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
@@ -87940,6 +88060,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
@@ -87965,6 +88086,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
@@ -88269,6 +88391,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_type: ItemTypeCreateNestedOneWithoutItemsInput
     item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
     unit: UnitCreateNestedOneWithoutItemsInput
@@ -88294,6 +88417,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
     canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
     item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
@@ -88418,6 +88542,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
@@ -88443,6 +88568,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
@@ -88797,6 +88923,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     gas_slips?: GasSlipCreateNestedManyWithoutVehicleInput
     sprs?: SPRCreateNestedManyWithoutVehicleInput
   }
@@ -88815,6 +88942,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     gas_slips?: GasSlipUncheckedCreateNestedManyWithoutVehicleInput
     sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
   }
@@ -88879,6 +89007,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gas_slips?: GasSlipUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUpdateManyWithoutVehicleNestedInput
   }
@@ -88897,6 +89026,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gas_slips?: GasSlipUncheckedUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
   }
@@ -89065,6 +89195,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     trip_tickets?: TripTicketCreateNestedManyWithoutVehicleInput
     sprs?: SPRCreateNestedManyWithoutVehicleInput
   }
@@ -89083,6 +89214,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
     trip_tickets?: TripTicketUncheckedCreateNestedManyWithoutVehicleInput
     sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
   }
@@ -89175,6 +89307,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trip_tickets?: TripTicketUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUpdateManyWithoutVehicleNestedInput
   }
@@ -89193,6 +89326,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trip_tickets?: TripTicketUncheckedUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
   }
@@ -89532,6 +89666,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type ItemUpdateWithoutItem_typeInput = {
@@ -89546,6 +89681,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
@@ -89570,6 +89706,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
@@ -89593,6 +89730,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MEQSSupplierCreateManySupplierInput = {
@@ -89646,6 +89784,7 @@ export namespace Prisma {
     updated_by?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type CanvassItemUpdateWithoutUnitInput = {
@@ -89686,6 +89825,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
     item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
@@ -89710,6 +89850,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
     canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
     item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
@@ -89733,6 +89874,7 @@ export namespace Prisma {
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ItemLocationCreateManyStationInput = {

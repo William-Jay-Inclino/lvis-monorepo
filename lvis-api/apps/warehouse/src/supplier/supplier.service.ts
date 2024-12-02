@@ -38,7 +38,9 @@ export class SupplierService {
 	}
 
 	async findAll(): Promise<Supplier[]> {
-		return await this.prisma.supplier.findMany()
+		return await this.prisma.supplier.findMany({
+			where: { deleted_at: null }
+		})
 	}
 
 	async findOne(id: string): Promise<Supplier | null> {
@@ -84,8 +86,9 @@ export class SupplierService {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.supplier.delete({
-			where: { id }
+		await this.prisma.supplier.update({
+			where: { id },
+			data: { deleted_at: new Date() }
 		})
 
 		return {

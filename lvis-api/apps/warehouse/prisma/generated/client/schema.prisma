@@ -36,6 +36,7 @@ model Supplier {
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
+  deleted_at DateTime?
 
   MEQSSupplier MEQSSupplier[]
 
@@ -124,6 +125,7 @@ model Item {
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
+  deleted_at DateTime?
 
   item_type         ItemType          @relation(fields: [item_type_id], references: [id], onDelete: Restrict)
   item_transactions ItemTransaction[]
@@ -1013,6 +1015,7 @@ model Vehicle {
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
+  deleted_at DateTime?
 
   trip_tickets TripTicket[]
   gas_slips GasSlip[]
