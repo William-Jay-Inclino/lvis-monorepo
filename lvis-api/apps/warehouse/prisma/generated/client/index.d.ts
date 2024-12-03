@@ -64809,14 +64809,14 @@ export namespace Prisma {
 
   export type MEQSSupplierAttachmentWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    src?: string
     AND?: MEQSSupplierAttachmentWhereInput | MEQSSupplierAttachmentWhereInput[]
     OR?: MEQSSupplierAttachmentWhereInput[]
     NOT?: MEQSSupplierAttachmentWhereInput | MEQSSupplierAttachmentWhereInput[]
     meqs_supplier_id?: StringFilter<"MEQSSupplierAttachment"> | string
     filename?: StringFilter<"MEQSSupplierAttachment"> | string
+    src?: StringFilter<"MEQSSupplierAttachment"> | string
     meqs_supplier?: XOR<MEQSSupplierScalarRelationFilter, MEQSSupplierWhereInput>
-  }, "id" | "src">
+  }, "id">
 
   export type MEQSSupplierAttachmentOrderByWithAggregationInput = {
     id?: SortOrder

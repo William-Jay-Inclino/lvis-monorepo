@@ -472,7 +472,7 @@ model MEQSSupplierAttachment {
   id               String @id @default(uuid())
   meqs_supplier_id String
   filename         String @default("no_filename")
-  src              String @unique
+  src              String
 
   meqs_supplier MEQSSupplier @relation(fields: [meqs_supplier_id], references: [id], onDelete: Cascade)
 

@@ -649,7 +649,15 @@ async function saveMeqs(closeRequiredNotesBtn?: HTMLButtonElement) {
 
             for (let fileSrc of fileSources) {
 
-                const [x, filename] = fileSrc.split('_')
+                // Find the first underscore
+                const firstUnderscoreIndex = fileSrc.indexOf('_');
+
+                // Extract the part after the first underscore
+                const filename = fileSrc.substring(firstUnderscoreIndex + 1);
+
+                // const [x, filename] = fileSrc.split('_', 2)
+
+                console.log('filename', filename);
 
                 const attachment = supplier.attachments.find(i => i.filename === filename)
 
