@@ -40,7 +40,13 @@
                                 <label class="form-label">
                                     Initial Average Price <span class="text-danger">*</span>
                                 </label>
-                                <input type="number" class="form-control" v-model="formData.initial_average_price">
+                                <input 
+                                    type="number" 
+                                    class="form-control" 
+                                    v-model="formData.initial_average_price" 
+                                    step="0.01" 
+                                    min="0"
+                                >
                                 <small v-if="formDataErrors.initial_average_price" class="text-danger fst-italic"> Must be
                                     greater than or equal to 0 </small>
                             </div>

@@ -365,25 +365,6 @@ const props = defineProps({
 const config = useRuntimeConfig()
 const API_FILE_ENDPOINT = config.public.apiUrl + '/api/v1/file-upload'
 
-// const vatArray = ref([
-//     {
-//         value: VAT_TYPE.NONE,
-//         label: VAT[VAT_TYPE.NONE].label
-//     },
-//     {
-//         value: VAT_TYPE.INC,
-//         label: VAT[VAT_TYPE.INC].label
-//     },
-//     {
-//         value: VAT_TYPE.EXC,
-//         label: VAT[VAT_TYPE.EXC].label
-//     },
-//     {
-//         value: VAT_TYPE.EXEMPT,
-//         label: VAT[VAT_TYPE.EXEMPT].label
-//     }
-// ])
-
 const formIsAdd = ref(true)
 const editingIndx = ref()
 

@@ -63,7 +63,6 @@ export async function create(input: CreateMeqsSupplierInput): Promise<MutationRe
                         item {
                             id
                             code 
-                            name 
                             description
                         }
                         description
@@ -128,6 +127,7 @@ export async function update(id: string, input: UpdateMeqsSupplierInput): Promis
                     name 
                     address
                     is_vat_registered
+                    vat_type
                 }
                 attachments {
                     id 
@@ -149,7 +149,6 @@ export async function update(id: string, input: UpdateMeqsSupplierInput): Promis
                         item {
                             id
                             code 
-                            name 
                             description
                         }
                         description
