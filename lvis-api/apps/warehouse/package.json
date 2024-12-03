@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate:dev": "pnpx prisma migrate dev --schema=./prisma/schema.prisma"
+    "migrate:dev": "pnpx prisma migrate dev --schema=./prisma/schema.prisma",
+    "migrate:prod": "pnpx prisma migrate deploy --schema=./prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",
