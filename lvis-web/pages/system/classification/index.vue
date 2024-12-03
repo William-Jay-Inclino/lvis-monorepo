@@ -51,18 +51,20 @@
                                             <tr v-for="i in filteredItems">
                                                 <td class="text-muted"> {{ i.name }} </td>
                                                 <td class="text-center">
-                                                    <button :disabled="!canDelete(authUser, 'canManageClassification')"
-                                                        @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
-                                                        <client-only>
-                                                            <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageClassification', SERVICES.SYSTEM) }"/>
-                                                        </client-only>
-                                                    </button>
-                                                    <button :disabled="!canEdit(authUser, 'canManageClassification')"
-                                                        @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
-                                                        <client-only>
-                                                            <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageClassification', SERVICES.SYSTEM) }" />
-                                                        </client-only>
-                                                    </button>
+                                                    <div class="d-inline-flex">
+                                                        <button :disabled="!canDelete(authUser, 'canManageClassification')"
+                                                            @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
+                                                            <client-only>
+                                                                <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageClassification', SERVICES.SYSTEM) }"/>
+                                                            </client-only>
+                                                        </button>
+                                                        <button :disabled="!canEdit(authUser, 'canManageClassification')"
+                                                            @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
+                                                            <client-only>
+                                                                <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageClassification', SERVICES.SYSTEM) }" />
+                                                            </client-only>
+                                                        </button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>

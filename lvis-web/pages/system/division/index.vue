@@ -43,8 +43,8 @@
                                                 <th class="bg-secondary text-white">Name</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
-                                                    <font-awesome-icon :icon="['fas', 'cog']" />
-                                                </client-only>
+                                                        <font-awesome-icon :icon="['fas', 'cog']" />
+                                                    </client-only>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -53,18 +53,21 @@
                                                 <td class="text-muted"> {{ i.code }} </td>
                                                 <td class="text-muted"> {{ i.name }} </td>
                                                 <td class="text-center">
-                                                    <button :disabled="!canDelete(authUser, 'canManageDivision')"
-                                                        @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
-                                                        <client-only>
-                                                            <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageDivision', SERVICES.SYSTEM) }"/>
-                                                        </client-only>
-                                                    </button>
-                                                    <button :disabled="!canEdit(authUser, 'canManageDivision')"
-                                                        @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
-                                                        <client-only>
-                                                            <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageDivision', SERVICES.SYSTEM) }" />
-                                                        </client-only>
-                                                    </button>
+                                                    <div class="d-inline-flex">
+                                                        <button :disabled="!canDelete(authUser, 'canManageDivision')"
+                                                            @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
+                                                            <client-only>
+                                                                <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageDivision', SERVICES.SYSTEM) }"/>
+                                                            </client-only>
+                                                        </button>
+                                                        <button :disabled="!canEdit(authUser, 'canManageDivision')"
+                                                            @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
+                                                            <client-only>
+                                                                <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageDivision', SERVICES.SYSTEM) }" />
+                                                            </client-only>
+                                                        </button>
+                                                    </div>
+                                                    
                                                 </td>
                                             </tr>
                                         </tbody>
