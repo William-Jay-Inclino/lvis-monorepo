@@ -90,7 +90,7 @@
                             </small>
                         </div>
 
-                        <div v-if="canViewItemClass" class="mb-3">
+                        <div class="mb-3">
                             <label class="form-label">
                                 Item Class
                             </label>
@@ -110,7 +110,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-3" v-if="itemIsStock && canViewItemClass">
+                        <div class="mb-3" v-if="itemIsStock">
                             <label class="form-label">
                                 Item <span class="text-danger">*</span>
                             </label>
@@ -223,10 +223,10 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
-    canViewItemClass: {
-        type: Boolean,
-        default: false
-    },
+    // canViewItemClass: {
+    //     type: Boolean,
+    //     default: false
+    // },
 });
 
 

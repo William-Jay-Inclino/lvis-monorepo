@@ -58,7 +58,7 @@
                 <div v-show="currentStep === 2" class="row justify-content-center pt-5">
                     <div class="col-lg-10 col-md-10 col-sm-12">
         
-                        <WarehouseCanvassItems :can-view-item-class="canViewItemClass" :canvass-items="formData.canvass_items" :units="units"
+                        <WarehouseCanvassItems :canvass-items="formData.canvass_items" :units="units"
                             :items="items" @add-item="addCanvassItem" @edit-item="editCanvassItem"
                             @remove-item="removeCanvassItem" @searched-items="handleSearchedItems"/>
         
@@ -190,25 +190,25 @@ onMounted(async () => {
 })
 
 
-const is_auth_user_warehouse_custodian = computed( (): boolean => {
-    if(!!authUser.value && !!warehouse_custodian.value) {
-        if(authUser.value.user.user_employee) {
-            if(authUser.value.user.user_employee.employee_id === warehouse_custodian.value.id) {
-                return true 
-            }
-        }
-    }
+// const is_auth_user_warehouse_custodian = computed( (): boolean => {
+//     if(!!authUser.value && !!warehouse_custodian.value) {
+//         if(authUser.value.user.user_employee) {
+//             if(authUser.value.user.user_employee.employee_id === warehouse_custodian.value.id) {
+//                 return true 
+//             }
+//         }
+//     }
 
-    return false
-})
+//     return false
+// })
 
-const canViewItemClass = computed( (): boolean => {
-    if(!authUser.value) return false 
-    if(isAdmin(authUser.value) || is_auth_user_warehouse_custodian.value) {
-        return true 
-    }
-    return false
-})
+// const canViewItemClass = computed( (): boolean => {
+//     if(!authUser.value) return false 
+//     if(isAdmin(authUser.value) || is_auth_user_warehouse_custodian.value) {
+//         return true 
+//     }
+//     return false
+// })
 
 // ======================== FUNCTIONS ======================== 
 
