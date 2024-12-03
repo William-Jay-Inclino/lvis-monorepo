@@ -36,18 +36,20 @@
                         <td class="text-muted"> {{ item.unit ? item.unit.name : 'N/A' }} </td>
                         <td class="text-muted"> {{ item.quantity }} </td>
                         <td class="text-muted text-center">
-                            <button v-if="!canvassIsReferenceInRR" @click="removeItem(i)"
-                                class="btn btn-sm btn-light w-50">
-                                <client-only>
-                                    <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
-                                </client-only>
-                            </button>
-                            <button @click="onClickEdit(i)" class="btn btn-sm btn-light w-50" data-bs-toggle="modal"
-                                data-bs-target="#canvassItemModal">
-                                <client-only>
-                                    <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
-                                </client-only>
-                            </button>
+                            <div class="d-inline-flex">
+                                <button v-if="!canvassIsReferenceInRR" @click="removeItem(i)"
+                                    class="btn btn-sm btn-light w-50">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                                    </client-only>
+                                </button>
+                                <button @click="onClickEdit(i)" class="btn btn-sm btn-light w-50" data-bs-toggle="modal"
+                                    data-bs-target="#canvassItemModal">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
+                                    </client-only>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
