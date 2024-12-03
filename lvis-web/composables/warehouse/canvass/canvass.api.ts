@@ -209,6 +209,7 @@ export async function fetchFormDataInCreate(): Promise<{
     employees: Employee[],
     units: Unit[],
     items: Item[],
+    warehouse_custodian: Employee | undefined,
 }> {
 
 
@@ -237,6 +238,12 @@ export async function fetchFormDataInCreate(): Promise<{
                     }
                 }
             }
+            warehouse_custodian {
+                id
+                firstname
+                middlename
+                lastname
+            }
         }
     `;
 
@@ -247,6 +254,7 @@ export async function fetchFormDataInCreate(): Promise<{
         let employees = []
         let units = []
         let items = []
+        let warehouse_custodian = undefined
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -266,10 +274,15 @@ export async function fetchFormDataInCreate(): Promise<{
             items = response.data.data.items.data
         }
 
+        if (data.warehouse_custodian) {
+            warehouse_custodian = data.warehouse_custodian
+        }
+
         return {
             employees,
             units,
-            items
+            items,
+            warehouse_custodian,
         }
 
     } catch (error) {
@@ -277,7 +290,8 @@ export async function fetchFormDataInCreate(): Promise<{
         return {
             employees: [],
             units: [],
-            items: []
+            items: [],
+            warehouse_custodian: undefined
         }
     }
 
@@ -288,7 +302,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
     canvass: Canvass | undefined,
     employees: Employee[],
     units: Unit[],
-    items: Item[]
+    items: Item[],
+    warehouse_custodian: Employee | undefined,
 }> {
     const query = `
         query {
@@ -345,6 +360,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 id
                 name
             }
+            warehouse_custodian {
+                id
+                firstname
+                middlename
+                lastname
+            }
         }
     `;
 
@@ -355,6 +376,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         let employees = []
         let units = []
         let items = []
+        let warehouse_custodian = undefined
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -380,11 +402,16 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             items = response.data.data.items.data
         }
 
+        if (data.warehouse_custodian) {
+            warehouse_custodian = data.warehouse_custodian
+        }
+
         return {
             canvass,
             employees,
             units,
-            items
+            items,
+            warehouse_custodian
         }
 
     } catch (error) {
@@ -393,7 +420,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             canvass: undefined,
             employees: [],
             units: [],
-            items: []
+            items: [],
+            warehouse_custodian: undefined
         }
     }
 }

@@ -22,8 +22,8 @@
                         <th class="bg-secondary text-white">Quantity </th>
                         <th class="bg-secondary text-white text-center">
                             <client-only>
-                                                    <font-awesome-icon :icon="['fas', 'cog']" />
-                                                </client-only>
+                                <font-awesome-icon :icon="['fas', 'cog']" />
+                            </client-only>
                         </th>
                     </tr>
                 </thead>
@@ -36,9 +36,9 @@
                         <td class="text-muted"> {{ item.unit ? item.unit.name : 'N/A' }} </td>
                         <td class="text-muted"> {{ item.quantity }} </td>
                         <td class="text-muted text-center">
-                            <div class="d-inline-flex">
+                            <div class="d-flex w-100">
                                 <button v-if="!canvassIsReferenceInRR" @click="removeItem(i)"
-                                    class="btn btn-sm btn-light w-50">
+                                    class="btn btn-sm btn-light w-50 me-2">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
                                     </client-only>
@@ -90,7 +90,7 @@
                             </small>
                         </div>
 
-                        <div class="mb-3">
+                        <div v-if="canViewItemClass" class="mb-3">
                             <label class="form-label">
                                 Item Class
                             </label>
@@ -110,7 +110,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-3" v-if="itemIsStock">
+                        <div class="mb-3" v-if="itemIsStock && canViewItemClass">
                             <label class="form-label">
                                 Item <span class="text-danger">*</span>
                             </label>
@@ -223,6 +223,10 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    canViewItemClass: {
+        type: Boolean,
+        default: false
+    },
 });
 
 
@@ -313,7 +317,7 @@ function closeModal() {
     canvassItem.value = { ..._canvassItemInitial }
     canvassItemErrors.value = { ..._canvassItemErrorsInitial }
     formIsAdd.value = true
-    itemIsStock.value = true
+    itemIsStock.value = false
     editItemIndx.value = undefined
 }
 
