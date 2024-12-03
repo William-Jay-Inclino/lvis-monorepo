@@ -7,6 +7,7 @@ import { AuthUser } from '../__common__/auth-user.entity';
 import { UsersResponse } from './entities/users-response.entity';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { decrypt_password, encrypt_password } from '../__common__/helpers';
+import { USER_GROUP } from '../__common__/constants';
 
 @Injectable()
 export class UserService {
@@ -143,6 +144,11 @@ export class UserService {
     }
 
     user.permissions = JSON.stringify(user.permissions)
+
+    if(user.user_employee) {
+      user.user_employee.employee['is_budget_officer'] = await this.is_budget_officer(user.id)
+      user.user_employee.employee['is_finance_manager'] = await this.is_finance_manager(user.id)
+    }
 
     return user
 
@@ -302,5 +308,42 @@ export class UserService {
 
   }
 
+  private async is_budget_officer(user_id: string): Promise<boolean> {
+
+    const x = await this.prisma.userGroupMembers.findUnique({
+      where: {
+        user_id_user_group_id: {
+          user_id,
+          user_group_id: USER_GROUP.BUDGET_OFFICER
+        }
+      }
+    })
+
+    if(x) {
+      return true 
+    }
+
+    return false 
+
+  }
+
+  private async is_finance_manager(user_id: string): Promise<boolean> {
+
+    const x = await this.prisma.userGroupMembers.findUnique({
+      where: {
+        user_id_user_group_id: {
+          user_id,
+          user_group_id: USER_GROUP.FINANCE_MANAGER
+        }
+      }
+    })
+
+    if(x) {
+      return true 
+    }
+    
+    return false 
+
+  }
 
 }
