@@ -171,7 +171,7 @@ export class PoService {
 
         const data: Prisma.POUpdateInput = {
             notes: input.notes ?? existingItem.notes,
-            fund_source_id: input.fund_source_id ?? existingItem.fund_source_id,
+            fund_source_id: input.fund_source_id ?? null,
             updated_by: this.authUser.user.username
         }
 

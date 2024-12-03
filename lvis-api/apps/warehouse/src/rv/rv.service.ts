@@ -153,7 +153,7 @@ export class RvService {
 
         const data: Prisma.RVUpdateInput = {
             updated_by: this.authUser.user.username,
-            classification_id: input.classification_id ?? existingItem.classification_id,
+            classification_id: input.classification_id ?? null,
             work_order_no: input.work_order_no ?? existingItem.work_order_no,
             notes: input.notes ?? existingItem.notes,
             work_order_date: input.work_order_date ? new Date(input.work_order_date) : existingItem.work_order_date,

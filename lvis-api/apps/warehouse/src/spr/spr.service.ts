@@ -154,7 +154,7 @@ export class SprService {
         const data: Prisma.SPRUpdateInput = {
             updated_by: this.authUser.user.username,
             vehicle: input.vehicle_id ? { connect: { id: input.vehicle_id } } : { connect: { id: existingItem.vehicle_id } },
-            classification_id: input.classification_id ?? existingItem.classification_id,
+            classification_id: input.classification_id ?? null,
             notes: input.notes ?? existingItem.notes,
         }
 

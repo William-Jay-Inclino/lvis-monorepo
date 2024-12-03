@@ -154,7 +154,7 @@ export class JoService {
 
         const data: Prisma.JOUpdateInput = {
             updated_by: this.authUser.user.username,
-            classification_id: input.classification_id ?? existingItem.classification_id,
+            classification_id: input.classification_id ?? null,
             department_id: input.department_id ?? existingItem.department_id,
             equipment: input.equipment ?? existingItem.equipment,
             notes: input.notes ?? existingItem.notes,

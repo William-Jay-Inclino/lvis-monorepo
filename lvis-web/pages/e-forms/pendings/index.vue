@@ -37,29 +37,40 @@
                                         </td>
                                         <td class="text-muted align-middle"> {{ formatDate(item.transaction_date, true) }} </td>
                                         <td v-if="!isDefaultApproval(item)" class="text-center align-middle">
-                                            <button @click="onClickApprove(i)" class="btn btn-light w-50 text-success" data-bs-toggle="modal"
+                                            <div class="d-flex w-100">
+                                                <button 
+                                                @click="onClickApprove(i)" 
+                                                class="btn btn-light text-success w-50 me-2" 
+                                                data-bs-toggle="modal" 
                                                 data-bs-target="#pendingModal">
                                                 <client-only>
                                                     <font-awesome-icon :icon="['fas', 'check-circle']" />
-                                                </client-only> Approve
-                                            </button>
-                                            <button @click="handleCommonDisapprove(i)" class="btn btn-light w-50 text-danger">
+                                                </client-only> 
+                                                Approve
+                                                </button>
+                                                <button 
+                                                @click="handleCommonDisapprove(i)" 
+                                                class="btn btn-light text-danger w-50">
                                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Disapprove
-                                            </button>
+                                                    <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                                </client-only> 
+                                                Disapprove
+                                                </button>
+                                            </div>
                                         </td>
                                         <td v-else class="text-center align-middle">
-                                            <button @click="handleCommonApprove(i)" class="btn btn-light w-50 text-success">
+                                            <div class="d-flex w-100">
+                                                <button @click="handleCommonApprove(i)" class="btn btn-light text-success w-50 me-2">
                                                 <client-only>
                                                     <font-awesome-icon :icon="['fas', 'check-circle']" />
                                                 </client-only> Approve
-                                            </button>
-                                            <button @click="handleCommonDisapprove(i)" class="btn btn-light w-50 text-danger">
+                                                </button>
+                                                <button @click="handleCommonDisapprove(i)" class="btn btn-light text-danger w-50">
                                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Disapprove
-                                            </button>
+                                                    <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                                </client-only> Disapprove
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
