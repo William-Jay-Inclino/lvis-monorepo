@@ -227,7 +227,7 @@
                                     <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search Trip Ticket
+                            Search Trip Ticket
                                 </nuxt-link>
                                 <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
                                     <client-only>

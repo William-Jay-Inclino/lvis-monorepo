@@ -231,7 +231,7 @@
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search SERIV
+                            Search SERIV
                                         </nuxt-link>
                                         <button disabled
                                             v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')"

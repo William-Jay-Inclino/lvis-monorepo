@@ -215,7 +215,7 @@
                                     <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search MRV
+                            Search MRV
                                 </nuxt-link>
                                 <button @click="onClickNextStep1()" class="btn btn-primary">
                                     <client-only>

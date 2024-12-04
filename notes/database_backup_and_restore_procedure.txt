@@ -22,8 +22,8 @@ sudo crontab -e
 
 This is the cron job set to back up the databases at 2:00 AM:
 
-0 2 * * * /path/to/backup_system_db.sh >> /path/to/backup.log 2>&1
-0 2 * * * /path/to/backup_warehouse_db.sh >> /path/to/backup.log 2>&1
+0 2 * * * /path/to/backup_system_db.sh >> /path/to/backup.log 
+0 2 * * * /path/to/backup_warehouse_db.sh >> /path/to/backup.log 
 
 Manual Backup Procedure
 In case you want to manually trigger the backup for the system_db or warehouse_db, you can use the following steps.

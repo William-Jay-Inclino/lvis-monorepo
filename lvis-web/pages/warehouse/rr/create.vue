@@ -169,7 +169,7 @@
                                     <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search RR
+                            Search RR
                                 </nuxt-link>
         
                                 <button v-show="currentStep === 2" @click="goToStep1" class="btn btn-secondary">

@@ -226,7 +226,7 @@
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search RV
+                            Search RV
                                         </nuxt-link>
                                         <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageRV')" @click="onClickPrint" class="btn btn-danger">
                                             <client-only>

@@ -302,7 +302,7 @@
                                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search MEQS
+                            Search MEQS
                                     </nuxt-link>
                                     <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMEQS')" @click="onClickPrint" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#purchasingPdfModal">

@@ -238,7 +238,7 @@
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search Canvass
+                            Search Canvass
                                         </nuxt-link>
                                         <button v-if="canPrint(authUser, 'canManageCanvass')" @click="onClickPrint" class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">

@@ -207,7 +207,7 @@
                                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search MEQS
+                            Search MEQS
                                     </nuxt-link>
                                     <button @click="goToStep2()" type="button" class="btn btn-primary"
                                         :disabled="!canProceedStep2">

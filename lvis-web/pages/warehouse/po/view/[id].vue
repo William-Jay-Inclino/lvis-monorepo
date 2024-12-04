@@ -214,7 +214,7 @@
                                     <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search PO
+                            Search PO
                                 </nuxt-link>
                                 <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManagePO')" @click="onClickPrint" class="btn btn-danger">
                                     <client-only>

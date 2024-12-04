@@ -121,7 +121,7 @@
                                     <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search OSRIV
+                            Search OSRIV
                                 </nuxt-link>
                                 <button @click="onClickNextStep1()" class="btn btn-primary">
                                     <client-only>

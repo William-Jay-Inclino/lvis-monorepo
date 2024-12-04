@@ -138,7 +138,7 @@
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search MCT
+                            Search MCT
                                         </nuxt-link>
                                         <button disabled v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMCT')" @click="onClickPrint" class="btn btn-danger">
                                             <client-only>

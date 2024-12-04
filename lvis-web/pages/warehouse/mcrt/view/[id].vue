@@ -202,7 +202,7 @@
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search MCRT
+                            Search MCRT
                                         </nuxt-link>
                                     </div>
                                     <div v-if="!item.cancelled_at">

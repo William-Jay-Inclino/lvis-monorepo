@@ -187,7 +187,7 @@
                                 <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search MCT 
+                            Search MCT 
                             </nuxt-link>
                             <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                 class="btn btn-primary">

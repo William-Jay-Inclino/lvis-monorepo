@@ -173,7 +173,7 @@
                                     <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search Gas Slip
+                            Search Gas Slip
                                 </nuxt-link>
                                 <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaveDisabled || isSaving">
                                     <client-only>

@@ -202,7 +202,7 @@
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search Trip Ticket
+                            Search Trip Ticket
                                         </nuxt-link>
                                         <button disabled v-if="item.status === TRIP_TICKET_STATUS.APPROVED && canPrint(authUser, 'canManageTripTicket')" @click="onClickPrint" class="btn btn-danger">
                                             <client-only>

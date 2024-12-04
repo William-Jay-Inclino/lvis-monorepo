@@ -181,7 +181,7 @@
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search Search OSRIV
+                            Search OSRIV
                                         </nuxt-link>
                                     </div>
                                     <div v-if="!item.cancelled_at">
