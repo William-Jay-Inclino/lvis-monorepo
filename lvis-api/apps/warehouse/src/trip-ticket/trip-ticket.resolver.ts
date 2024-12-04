@@ -20,6 +20,7 @@ import { UpdateActualTimeInput } from './dto/update-actual-time.input';
 import { UpdateActualStartTimeInput } from './dto/update-actual-start-time.input';
 import { UpdateActualEndTimeInput } from './dto/update-actual-end-time.input';
 import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
+import { CreateTripResponse } from './entities/create-trip-response.entity';
 
 // @UseGuards(GqlAuthGuard)
 @Resolver(() => TripTicket)
@@ -33,32 +34,32 @@ export class TripTicketResolver {
     private readonly tripTicketApproverService: TripTicketApproverService,
   ) { }
 
-  @Mutation(() => TripTicket)
+  @Mutation(() => CreateTripResponse)
   @UseGuards(GqlAuthGuard, AccessGuard)
   @CheckAccess(MODULES.TRIP_TICKET, RESOLVERS.createTripTicket)
   async createTripTicket(
     @Args('input') createTripTicketInput: CreateTripTicketInput,
     @CurrentAuthUser() authUser: AuthUser
-  ) {
-      try {
-          this.logger.log({
-            username: authUser.user.username,
-            filename: this.filename,
-            function: RESOLVERS.createTripTicket,
-            input: JSON.stringify(createTripTicketInput)
-          })
-          
-          this.tripTicketService.setAuthUser(authUser)
+  ): Promise<CreateTripResponse> {
+    try {
+		this.logger.log({
+		username: authUser.user.username,
+		filename: this.filename,
+		function: RESOLVERS.createTripTicket,
+		input: JSON.stringify(createTripTicketInput)
+		})
+		
+		this.tripTicketService.setAuthUser(authUser)
 
-          const x = await this.tripTicketService.create(createTripTicketInput);
-          
-          this.logger.log('Trip Ticket created successfully')
+		const x = await this.tripTicketService.create(createTripTicketInput);
+		
+		this.logger.log(x.msg)
 
-          return x
+		return x
 
-      } catch (error) {
-          this.logger.error('Error in creating Trip Ticket', error)
-      }
+    } catch (error) {
+		this.logger.error('Error in creating Trip Ticket', error);
+    }
   }
 
   @Mutation(() => TripTicket)

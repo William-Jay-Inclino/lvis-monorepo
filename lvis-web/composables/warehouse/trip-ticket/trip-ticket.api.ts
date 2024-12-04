@@ -589,7 +589,11 @@ export async function create(input: CreateTripTicket): Promise<MutationResponse>
                     approvers: [${approvers}]
                 }
             ) {
-                id
+                success
+                msg
+                data {
+                    id
+                }
             }
     }`;
 
@@ -598,11 +602,7 @@ export async function create(input: CreateTripTicket): Promise<MutationResponse>
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.createTripTicket) {
-            return {
-                success: true,
-                msg: 'Trip Ticket created successfully!',
-                data: response.data.data.createTripTicket
-            };
+            return response.data.data.createTripTicket
         } else {
 
             console.error(JSON.stringify(response.data.errors))

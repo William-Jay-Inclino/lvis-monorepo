@@ -17,6 +17,8 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { CreateTripResponse } from './entities/create-trip-response.entity';
+import * as moment from 'moment';
 
 @Injectable()
 export class TripTicketService {
@@ -32,7 +34,7 @@ export class TripTicketService {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateTripTicketInput) {
+	async create(input: CreateTripTicketInput): Promise<CreateTripResponse> {
 
 		if (!(await this.canCreate(input))) {
             throw new Error('Failed to create TripTicket. Please try again')
@@ -53,12 +55,19 @@ export class TripTicketService {
 			throw new BadRequestException("Vehicle not available for trip")
 		}
 
-		await this.validateTripScheduleConflict({
+		const validate_response = await this.validateTripScheduleConflict({
 			vehicleId: input.vehicle_id,
 			driverId: input.driver_id,
 			startTime,
 			endTime
 		});
+
+		if(validate_response.success === false) {
+			return {
+				success: false,
+				msg: validate_response.msg,
+			}
+		}
 
 		const tripNumber = await this.getLatestTripNumber()
 
@@ -114,7 +123,11 @@ export class TripTicketService {
             return trip_created
         });
     
-        return result;
+        return {
+			success: true,
+			msg: 'Trip Ticket created successfully!',
+			data: result
+		}
 
 	}
 
@@ -816,7 +829,7 @@ export class TripTicketService {
 		driverId: string,
 		startTime: Date,
 		endTime: Date,
-	}) {
+	}): Promise<{success: boolean, msg: string}> {
 		const { tripId, vehicleId, driverId, startTime, endTime } = payload
 
 		if (startTime >= endTime) {
@@ -838,12 +851,30 @@ export class TripTicketService {
 				],
 				...(tripId && { id: { not: tripId } }), // Exclude current trip if tripId is provided
 			},
+			include: {
+				vehicle: {
+					select: {
+						name: true,
+						vehicle_number: true,
+					}
+				}
+			}
 		});
 	  
 		if (conflictingTrip) {
-		  throw new BadRequestException(
-			'There is a scheduling conflict with another trip for this vehicle or driver in the selected time range.'
-		  );
+
+			const formattedStart = moment(conflictingTrip.start_time).format('MMM DD YYYY, hh:mm A'); 
+			const formattedEnd = moment(conflictingTrip.end_time).format('MMM DD YYYY, hh:mm A');
+
+			return {
+				success: false,
+				msg: `Scheduling conflict detected for Trip Number ${conflictingTrip.trip_number} using vehicle ${conflictingTrip.vehicle.vehicle_number} ${conflictingTrip.vehicle.name}. The trip is scheduled from ${formattedStart} to ${formattedEnd}.`,
+			}
+		} else {
+			return {
+				success: true,
+				msg: 'No conflict. Can create'
+			}
 		}
 	}
 
