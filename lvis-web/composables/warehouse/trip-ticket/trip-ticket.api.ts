@@ -650,7 +650,11 @@ export async function update(id: string, input: UpdateTripTicket): Promise<Mutat
                     prepared_by_id: "${input.prepared_by?.id}"
                 }
             ) {
-                id
+                success
+                msg
+                data {
+                    id
+                }
             }
     }`;
 
@@ -659,14 +663,13 @@ export async function update(id: string, input: UpdateTripTicket): Promise<Mutat
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.updateTripTicket) {
-            return {
-                success: true,
-                msg: 'Trip Ticket updated successfully!',
-                data: response.data.data.updateTripTicket
-            };
+            return response.data.data.updateTripTicket
         }
 
-        throw new Error(JSON.stringify(response.data.errors));
+        return {
+            success: false,
+            msg: response.data.errors?.[0]?.message || 'Failed to create Trip Ticket. Please contact the system administrator',
+        }
 
     } catch (error) {
         console.error(error);

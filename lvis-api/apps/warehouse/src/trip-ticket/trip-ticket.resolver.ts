@@ -62,13 +62,13 @@ export class TripTicketResolver {
     }
   }
 
-  @Mutation(() => TripTicket)
+  @Mutation(() => CreateTripResponse)
   @UseGuards(GqlAuthGuard, AccessGuard)
   async updateTripTicket(
       @Args('id') id: string,
       @Args('input') input: UpdateTripTicketInput,
       @CurrentAuthUser() authUser: AuthUser
-  ) {
+  ): Promise<CreateTripResponse> {
       try {
         
           this.logger.log({
@@ -82,7 +82,7 @@ export class TripTicketResolver {
           this.tripTicketService.setAuthUser(authUser)
           const x = await this.tripTicketService.update(id, input);
 
-          this.logger.log('Trip Ticket updated successfully')
+          this.logger.log(x.msg)
 
           return x
       } catch (error) {

@@ -131,7 +131,7 @@ export class TripTicketService {
 
 	}
 
-	async update(id: string, input: UpdateTripTicketInput) {
+	async update(id: string, input: UpdateTripTicketInput): Promise<CreateTripResponse> {
         const existingItem = await this.prisma.tripTicket.findUnique({
             where: { id },
             include: {
@@ -162,13 +162,21 @@ export class TripTicketService {
 			startTime = new Date(input.start_time);
 			endTime = new Date(input.end_time);
 		  
-			await this.validateTripScheduleConflict({
+			const validate_response = await this.validateTripScheduleConflict({
 				tripId: id,
 				vehicleId: input.vehicle_id,
 				driverId: input.driver_id,
 				startTime,
 				endTime
 			});
+
+			if(validate_response.success === false) {
+				return {
+					success: false,
+					msg: validate_response.msg,
+				}
+			}
+
 		}
 
 		const queries = []
@@ -273,7 +281,11 @@ export class TripTicketService {
 
 		const result = await this.prisma.$transaction(queries)
 
-		return result[0]
+		return {
+			success: true,
+			msg: 'Trip Ticket updated successfully!',
+			data: result[0]
+		}
 
 	}
 
