@@ -81,8 +81,8 @@ export async function create(input: CreateVehicleInput): Promise<MutationRespons
         mutation {
             createVehicle(
                 input: {
-                    vehicle_number: "${input.vehicle_number}",
-                    plate_number: "${input.plate_number}",
+                    vehicle_number: "${input.vehicle_number.toUpperCase()}",
+                    plate_number: "${input.plate_number.toUpperCase()}",
                     name: "${input.name}",
                     classification_id: ${input.classification?.id},
                     assignee_id: "${input.assignee?.id}",
@@ -126,8 +126,8 @@ export async function update(id: string, input: UpdateVehicleInput): Promise<Mut
             updateVehicle(
                 id: "${id}",
                 input: {
-                    vehicle_number: "${input.vehicle_number}",
-                    plate_number: "${input.plate_number}",
+                    vehicle_number: "${input.vehicle_number.toUpperCase()}",
+                    plate_number: "${input.plate_number.toUpperCase()}",
                     name: "${input.name}",
                     classification_id: ${input.classification?.id},
                     assignee_id: "${input.assignee?.id}",

@@ -30,13 +30,13 @@
                                 <label class="form-label">
                                     Vehicle Number <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" v-model="item.vehicle_number" required>
+                                <input type="text" class="form-control" v-model="item.vehicle_number" required style="text-transform: uppercase;">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
                                     Plate Number <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" v-model="item.plate_number" required>
+                                <input type="text" class="form-control" v-model="item.plate_number" required style="text-transform: uppercase;">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
