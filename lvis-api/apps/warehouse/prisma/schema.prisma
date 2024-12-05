@@ -682,10 +682,12 @@ model SERIV {
   is_completed    Boolean  @default(false)
 
   request_type Int
+
   or_number String?
   mwo_number String?
   cwo_number String?
   jo_number String?
+  
   consumer_name String
   location String
 
@@ -757,10 +759,12 @@ model MRV {
   is_completed    Boolean  @default(false)
 
   request_type Int
+
   or_number String?
   mwo_number String?
   cwo_number String?
   jo_number String?
+
   consumer_name String
   location String
 
@@ -875,10 +879,6 @@ model MCRT {
   is_completed    Boolean  @default(false)
 
   returned_by_id String
-
-  wo_number String?
-  mo_number String?
-  jo_number String?
 
   note String
 

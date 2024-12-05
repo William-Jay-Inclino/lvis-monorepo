@@ -16,10 +16,6 @@ export interface MCRT {
     mcrt_date: string;
 
     returned_by_id: string;
-
-    wo_number: string | null;
-    mo_number: string | null;
-    jo_number: string | null;
     
     note: string;
 
@@ -79,9 +75,6 @@ export interface MCRT {
     mct: MCT | null
     seriv: SERIV | null
     returned_by: Employee | null
-    wo_number: string 
-    mo_number: string 
-    jo_number: string 
     note: string 
     approvers: CreateMCRTApprover[]
     items: MCRTItem[]
@@ -90,19 +83,5 @@ export interface MCRT {
 
   export interface UpdateMcrtInput {
     returned_by: Employee | null
-    wo_number: string | null
-    mo_number: string | null
-    jo_number: string | null
     note: string 
   }
-
-  // export interface AddMCRTItem {
-  //   itemId: string
-  //   code: string
-  //   description: string 
-  //   referenceQty: number 
-  //   mcrtQty: number 
-  //   unit: Unit 
-  //   unitPrice: number 
-  //   showQtyError: boolean
-  // }

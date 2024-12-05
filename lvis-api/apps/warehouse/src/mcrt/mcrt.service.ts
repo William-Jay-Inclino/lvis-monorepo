@@ -76,9 +76,6 @@ export class McrtService {
             mcrt_number: mcrtNumber,
             mcrt_date: new Date(),
             returned_by_id: input.returned_by_id,
-            wo_number: input.wo_number,
-            mo_number: input.mo_number,
-            jo_number: input.jo_number,
             note: input.note,
             mcrt_approvers: {
                 create: input.approvers.map(i => {
@@ -154,10 +151,6 @@ export class McrtService {
 
             note: input.note ?? existingItem.note,
 
-            wo_number: input.wo_number ?? existingItem.wo_number,
-            mo_number: input.mo_number ?? existingItem.mo_number,
-            jo_number: input.jo_number ?? existingItem.jo_number,
-
             returned_by_id: input.returned_by_id ?? existingItem.returned_by_id,
 
             updated_by: this.authUser.user.username,
@@ -228,7 +221,11 @@ export class McrtService {
     async findBy(payload: { id?: string, mcrt_number?: string }): Promise<MCRT | null> {
         const item = await this.prisma.mCRT.findFirst({
             include: {
-                mct: true,
+                mct: {
+                    include: {
+                        mrv: true
+                    }
+                },
                 seriv: true,
                 mcrt_items: {
                     include: {

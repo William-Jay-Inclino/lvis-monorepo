@@ -89,23 +89,23 @@
 
                         <div class="mb-3">
                             <label class="form-label">
-                                WO Number
+                                CWO Number 
                             </label>
-                            <input v-model="mcrtData.wo_number" class="form-control"/>
+                            <input :value="cwo_number" class="form-control" disabled/>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">
-                                MO Number
+                                MWO Number 
                             </label>
-                            <input v-model="mcrtData.mo_number" class="form-control" />
+                            <input :value="mwo_number" class="form-control" disabled/>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">
                                 JO Number
                             </label>
-                            <input v-model="mcrtData.jo_number" class="form-control"/>
+                            <input v-model="jo_number" class="form-control" disabled/>
                         </div>
         
                         <div class="mb-3">
@@ -355,6 +355,50 @@ const isDisabledUpdateItemsBtn = computed( () => {
     
 })
 
+
+const jo_number = computed( () => {
+        
+        if(mcrtData.value.mct) {
+            return mcrtData.value.mct.mrv.jo_number
+        }
+
+        if(mcrtData.value.seriv) {
+            return mcrtData.value.seriv.jo_number
+        }
+
+        return ''
+
+    })
+
+    const mwo_number = computed( () => {
+        
+        if(mcrtData.value.mct) {
+            return mcrtData.value.mct.mrv.mwo_number
+        }
+
+        if(mcrtData.value.seriv) {
+            return mcrtData.value.seriv.mwo_number
+        }
+
+        return ''
+
+    })
+
+    const cwo_number = computed( () => {
+        
+        if(mcrtData.value.mct) {
+            return mcrtData.value.mct.mrv.cwo_number
+        }
+
+        if(mcrtData.value.seriv) {
+            return mcrtData.value.seriv.cwo_number
+        }
+
+        return ''
+
+})
+
+
 // ======================== FUNCTIONS ========================  
 
 function populateForm(data: MCRT) {
@@ -387,9 +431,6 @@ async function updateMcrtInfo() {
     const data: UpdateMcrtInput = {
         note: mcrtData.value.note,
         returned_by: mcrtData.value.returned_by,
-        wo_number: mcrtData.value.wo_number,
-        mo_number: mcrtData.value.mo_number,
-        jo_number: mcrtData.value.jo_number,
 
     }
 

@@ -48536,9 +48536,6 @@ export namespace Prisma {
     mcrt_date: Date | null
     is_completed: boolean | null
     returned_by_id: string | null
-    wo_number: string | null
-    mo_number: string | null
-    jo_number: string | null
     note: string | null
     cancelled_by: string | null
     created_by: string | null
@@ -48558,9 +48555,6 @@ export namespace Prisma {
     mcrt_date: Date | null
     is_completed: boolean | null
     returned_by_id: string | null
-    wo_number: string | null
-    mo_number: string | null
-    jo_number: string | null
     note: string | null
     cancelled_by: string | null
     created_by: string | null
@@ -48580,9 +48574,6 @@ export namespace Prisma {
     mcrt_date: number
     is_completed: number
     returned_by_id: number
-    wo_number: number
-    mo_number: number
-    jo_number: number
     note: number
     cancelled_by: number
     created_by: number
@@ -48604,9 +48595,6 @@ export namespace Prisma {
     mcrt_date?: true
     is_completed?: true
     returned_by_id?: true
-    wo_number?: true
-    mo_number?: true
-    jo_number?: true
     note?: true
     cancelled_by?: true
     created_by?: true
@@ -48626,9 +48614,6 @@ export namespace Prisma {
     mcrt_date?: true
     is_completed?: true
     returned_by_id?: true
-    wo_number?: true
-    mo_number?: true
-    jo_number?: true
     note?: true
     cancelled_by?: true
     created_by?: true
@@ -48648,9 +48633,6 @@ export namespace Prisma {
     mcrt_date?: true
     is_completed?: true
     returned_by_id?: true
-    wo_number?: true
-    mo_number?: true
-    jo_number?: true
     note?: true
     cancelled_by?: true
     created_by?: true
@@ -48743,9 +48725,6 @@ export namespace Prisma {
     mcrt_date: Date
     is_completed: boolean
     returned_by_id: string
-    wo_number: string | null
-    mo_number: string | null
-    jo_number: string | null
     note: string
     cancelled_by: string | null
     created_by: string
@@ -48782,9 +48761,6 @@ export namespace Prisma {
     mcrt_date?: boolean
     is_completed?: boolean
     returned_by_id?: boolean
-    wo_number?: boolean
-    mo_number?: boolean
-    jo_number?: boolean
     note?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -48809,9 +48785,6 @@ export namespace Prisma {
     mcrt_date?: boolean
     is_completed?: boolean
     returned_by_id?: boolean
-    wo_number?: boolean
-    mo_number?: boolean
-    jo_number?: boolean
     note?: boolean
     cancelled_by?: boolean
     created_by?: boolean
@@ -48848,9 +48821,6 @@ export namespace Prisma {
       mcrt_date: Date
       is_completed: boolean
       returned_by_id: string
-      wo_number: string | null
-      mo_number: string | null
-      jo_number: string | null
       note: string
       cancelled_by: string | null
       created_by: string
@@ -49268,9 +49238,6 @@ export namespace Prisma {
     readonly mcrt_date: FieldRef<"MCRT", 'DateTime'>
     readonly is_completed: FieldRef<"MCRT", 'Boolean'>
     readonly returned_by_id: FieldRef<"MCRT", 'String'>
-    readonly wo_number: FieldRef<"MCRT", 'String'>
-    readonly mo_number: FieldRef<"MCRT", 'String'>
-    readonly jo_number: FieldRef<"MCRT", 'String'>
     readonly note: FieldRef<"MCRT", 'String'>
     readonly cancelled_by: FieldRef<"MCRT", 'String'>
     readonly created_by: FieldRef<"MCRT", 'String'>
@@ -62695,9 +62662,6 @@ export namespace Prisma {
     mcrt_date: 'mcrt_date',
     is_completed: 'is_completed',
     returned_by_id: 'returned_by_id',
-    wo_number: 'wo_number',
-    mo_number: 'mo_number',
-    jo_number: 'jo_number',
     note: 'note',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
@@ -66357,9 +66321,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFilter<"MCRT"> | Date | string
     is_completed?: BoolFilter<"MCRT"> | boolean
     returned_by_id?: StringFilter<"MCRT"> | string
-    wo_number?: StringNullableFilter<"MCRT"> | string | null
-    mo_number?: StringNullableFilter<"MCRT"> | string | null
-    jo_number?: StringNullableFilter<"MCRT"> | string | null
     note?: StringFilter<"MCRT"> | string
     cancelled_by?: StringNullableFilter<"MCRT"> | string | null
     created_by?: StringFilter<"MCRT"> | string
@@ -66383,9 +66344,6 @@ export namespace Prisma {
     mcrt_date?: SortOrder
     is_completed?: SortOrder
     returned_by_id?: SortOrder
-    wo_number?: SortOrderInput | SortOrder
-    mo_number?: SortOrderInput | SortOrder
-    jo_number?: SortOrderInput | SortOrder
     note?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -66412,9 +66370,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFilter<"MCRT"> | Date | string
     is_completed?: BoolFilter<"MCRT"> | boolean
     returned_by_id?: StringFilter<"MCRT"> | string
-    wo_number?: StringNullableFilter<"MCRT"> | string | null
-    mo_number?: StringNullableFilter<"MCRT"> | string | null
-    jo_number?: StringNullableFilter<"MCRT"> | string | null
     note?: StringFilter<"MCRT"> | string
     cancelled_by?: StringNullableFilter<"MCRT"> | string | null
     created_by?: StringFilter<"MCRT"> | string
@@ -66438,9 +66393,6 @@ export namespace Prisma {
     mcrt_date?: SortOrder
     is_completed?: SortOrder
     returned_by_id?: SortOrder
-    wo_number?: SortOrderInput | SortOrder
-    mo_number?: SortOrderInput | SortOrder
-    jo_number?: SortOrderInput | SortOrder
     note?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
@@ -66466,9 +66418,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeWithAggregatesFilter<"MCRT"> | Date | string
     is_completed?: BoolWithAggregatesFilter<"MCRT"> | boolean
     returned_by_id?: StringWithAggregatesFilter<"MCRT"> | string
-    wo_number?: StringNullableWithAggregatesFilter<"MCRT"> | string | null
-    mo_number?: StringNullableWithAggregatesFilter<"MCRT"> | string | null
-    jo_number?: StringNullableWithAggregatesFilter<"MCRT"> | string | null
     note?: StringWithAggregatesFilter<"MCRT"> | string
     cancelled_by?: StringNullableWithAggregatesFilter<"MCRT"> | string | null
     created_by?: StringWithAggregatesFilter<"MCRT"> | string
@@ -71106,9 +71055,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -71132,9 +71078,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -71154,9 +71097,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -71180,9 +71120,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -71204,9 +71141,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -71224,9 +71158,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -71246,9 +71177,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -74870,9 +74798,6 @@ export namespace Prisma {
     mcrt_date?: SortOrder
     is_completed?: SortOrder
     returned_by_id?: SortOrder
-    wo_number?: SortOrder
-    mo_number?: SortOrder
-    jo_number?: SortOrder
     note?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -74892,9 +74817,6 @@ export namespace Prisma {
     mcrt_date?: SortOrder
     is_completed?: SortOrder
     returned_by_id?: SortOrder
-    wo_number?: SortOrder
-    mo_number?: SortOrder
-    jo_number?: SortOrder
     note?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -74914,9 +74836,6 @@ export namespace Prisma {
     mcrt_date?: SortOrder
     is_completed?: SortOrder
     returned_by_id?: SortOrder
-    wo_number?: SortOrder
-    mo_number?: SortOrder
-    jo_number?: SortOrder
     note?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
@@ -85730,9 +85649,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -85754,9 +85670,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -85882,9 +85795,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFilter<"MCRT"> | Date | string
     is_completed?: BoolFilter<"MCRT"> | boolean
     returned_by_id?: StringFilter<"MCRT"> | string
-    wo_number?: StringNullableFilter<"MCRT"> | string | null
-    mo_number?: StringNullableFilter<"MCRT"> | string | null
-    jo_number?: StringNullableFilter<"MCRT"> | string | null
     note?: StringFilter<"MCRT"> | string
     cancelled_by?: StringNullableFilter<"MCRT"> | string | null
     created_by?: StringFilter<"MCRT"> | string
@@ -87177,9 +87087,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -87201,9 +87108,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -87738,9 +87642,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -87763,9 +87664,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -87800,9 +87698,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -87825,9 +87720,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -87846,9 +87738,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -87871,9 +87760,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -87999,9 +87885,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -88024,9 +87907,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -91282,9 +91162,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -91355,9 +91232,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -91379,9 +91253,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -91402,9 +91273,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -91503,9 +91371,6 @@ export namespace Prisma {
     mcrt_date: Date | string
     is_completed?: boolean
     returned_by_id: string
-    wo_number?: string | null
-    mo_number?: string | null
-    jo_number?: string | null
     note: string
     cancelled_by?: string | null
     created_by: string
@@ -91553,9 +91418,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -91577,9 +91439,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -91600,9 +91459,6 @@ export namespace Prisma {
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
     returned_by_id?: StringFieldUpdateOperationsInput | string
-    wo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    mo_number?: NullableStringFieldUpdateOperationsInput | string | null
-    jo_number?: NullableStringFieldUpdateOperationsInput | string | null
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string

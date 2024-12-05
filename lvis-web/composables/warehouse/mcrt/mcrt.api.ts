@@ -98,9 +98,6 @@ export async function findOne(id: string): Promise<MCRT | undefined> {
                 status
                 mcrt_date 
                 note
-                wo_number
-                mo_number
-                jo_number
                 cancelled_at
                 created_by
                 can_update
@@ -108,10 +105,18 @@ export async function findOne(id: string): Promise<MCRT | undefined> {
                 mct {
                     id 
                     mct_number
+                    mrv {
+                        jo_number
+                        mwo_number
+                        cwo_number
+                    }
                 }
                 seriv {
                     id 
                     seriv_number
+                    jo_number
+                    mwo_number
+                    cwo_number
                 }
                 returned_by {
                     firstname 
@@ -253,6 +258,9 @@ export async function fetchFormDataInCreate(): Promise<{
                     mct_number
                     status
                     mrv {
+                        mwo_number
+                        cwo_number
+                        jo_number
                         mrv_items {
                             id
                             quantity
@@ -285,6 +293,9 @@ export async function fetchFormDataInCreate(): Promise<{
                     id
                     seriv_number
                     status
+                    mwo_number
+                    cwo_number
+                    jo_number
                     seriv_items {
                         id
                         quantity
@@ -411,15 +422,24 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 status
                 created_by
                 can_update
+                seriv {
+                    cwo_number
+                    mwo_number
+                    jo_number
+                }
+                mct {
+                    mrv {
+                        cwo_number
+                        mwo_number
+                        jo_number
+                    }
+                }
                 returned_by {
                     id
                     firstname
                     middlename
                     lastname
                 }
-                wo_number
-                mo_number
-                jo_number
                 note
                 cancelled_at
                 mcrt_approvers {
@@ -566,10 +586,6 @@ export async function create(input: CreateMcrtInput): Promise<MutationResponse> 
     const mct_id = input.mct ? `"${input.mct.id}"` : null
     const seriv_id = input.seriv ? `"${input.seriv.id}"` : null
 
-    const wo_number = input.wo_number?.trim() === '' ? null : `"${input.wo_number}"`
-    const mo_number = input.mo_number?.trim() === '' ? null : `"${input.mo_number}"`
-    const jo_number = input.jo_number?.trim() === '' ? null : `"${input.jo_number}"`
-
     const approvers = input.approvers.map(i => {
         return `
         {
@@ -595,9 +611,6 @@ export async function create(input: CreateMcrtInput): Promise<MutationResponse> 
                     mct_id: ${mct_id}
                     seriv_id: ${seriv_id}
                     returned_by_id: "${input.returned_by?.id}"
-                    wo_number: ${wo_number}
-                    mo_number: ${mo_number}
-                    jo_number: ${jo_number}
                     note: "${input.note}"
                     approvers: [${approvers}]
                     items: [${items}]
@@ -633,10 +646,6 @@ export async function create(input: CreateMcrtInput): Promise<MutationResponse> 
 
 export async function update(id: string, input: UpdateMcrtInput): Promise<MutationResponse> {
 
-    const wo_number = input.wo_number?.trim() === '' || !input.wo_number ? null : `"${input.wo_number}"`
-    const mo_number = input.wo_number?.trim() === '' || !input.mo_number ? null : `"${input.mo_number}"`
-    const jo_number = input.jo_number?.trim() === '' || !input.jo_number ? null : `"${input.jo_number}"`
-
     const mutation = `
         mutation {
             updateMcrt(
@@ -644,9 +653,6 @@ export async function update(id: string, input: UpdateMcrtInput): Promise<Mutati
                 input: {
                     note: "${input.note}"
                     returned_by_id: "${input.returned_by?.id}"
-                    wo_number: ${wo_number}
-                    mo_number: ${mo_number}
-                    jo_number: ${jo_number}
                 }
             ) {
                 id

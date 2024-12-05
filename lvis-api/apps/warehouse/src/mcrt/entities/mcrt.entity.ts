@@ -31,15 +31,6 @@ export class MCRT {
   @Field(() => String)
   returned_by_id: string;
 
-  @Field(() => String, { nullable: true })
-  wo_number: string | null;
-
-  @Field(() => String, { nullable: true })
-  mo_number: string | null;
-
-  @Field(() => String, { nullable: true })
-  jo_number: string | null;
-
   @Field(() => String)
   note: string;
 

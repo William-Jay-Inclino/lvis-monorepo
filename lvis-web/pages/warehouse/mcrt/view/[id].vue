@@ -62,16 +62,16 @@
                                                 <td> {{ formatDate(item.mcrt_date) }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Work Order Number</td>
-                                                <td> {{ item.wo_number }} </td>
+                                                <td class="text-muted">CWO Number</td>
+                                                <td> {{ cwo_number }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Maint Order Number</td>
-                                                <td> {{ item.mo_number }} </td>
+                                                <td class="text-muted">MWO Number</td>
+                                                <td> {{ mwo_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">JO Number</td>
-                                                <td> {{ item.jo_number }} </td>
+                                                <td> {{ jo_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Note</td>
@@ -290,6 +290,55 @@ onMounted(async () => {
     item.value = await api.findOne(route.params.id as string)
 
     isLoadingPage.value = false
+
+})
+
+
+const jo_number = computed( () => {
+
+    if(!item.value) return ''
+        
+    if(item.value.mct) {
+        return item.value.mct.mrv.jo_number
+    }
+
+    if(item.value.seriv) {
+        return item.value.seriv.jo_number
+    }
+
+    return ''
+
+})
+
+const mwo_number = computed( () => {
+
+    if(!item.value) return ''
+        
+    if(item.value.mct) {
+        return item.value.mct.mrv.mwo_number
+    }
+
+    if(item.value.seriv) {
+        return item.value.seriv.mwo_number
+    }
+
+    return ''
+
+})
+
+const cwo_number = computed( () => {
+
+    if(!item.value) return ''
+        
+    if(item.value.mct) {
+        return item.value.mct.mrv.cwo_number
+    }
+
+    if(item.value.seriv) {
+        return item.value.seriv.cwo_number
+    }
+
+    return ''
 
 })
 

@@ -22,21 +22,6 @@ export class CreateMcrtInput {
   @IsNotEmpty()
   returned_by_id: string;
 
-  @Field(() => String, { nullable: true })
-  @IsString()
-  @IsOptional()
-  wo_number: string | null;
-
-  @Field(() => String, { nullable: true })
-  @IsString()
-  @IsOptional()
-  mo_number: string | null;
-
-  @Field(() => String, { nullable: true })
-  @IsString()
-  @IsOptional()
-  jo_number: string | null;
-
   @Field(() => String)
   @IsString()
   @IsNotEmpty()

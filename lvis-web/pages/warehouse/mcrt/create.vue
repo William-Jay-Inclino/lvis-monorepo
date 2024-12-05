@@ -157,26 +157,23 @@
     
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Work Order Number 
+                                    CWO Number 
                                 </label>
-                                <input v-model="mcrtData.wo_number" class="form-control"
-                                    rows="3" />
+                                <input :value="cwo_number" class="form-control" disabled/>
                             </div>
     
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Maint Order Number 
+                                    MWO Number 
                                 </label>
-                                <input v-model="mcrtData.mo_number" class="form-control"
-                                    rows="3" />
+                                <input :value="mwo_number" class="form-control" disabled/>
                             </div>
     
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Job Order Number
+                                    JO Number
                                 </label>
-                                <input v-model="mcrtData.jo_number" class="form-control"
-                                    rows="3" />
+                                <input v-model="jo_number" class="form-control" disabled/>
                             </div>
     
                             <div class="mb-3">
@@ -254,11 +251,11 @@
                         <div :class="{ 'col-lg-6': currentStep === 1, 'col-lg-11 col-md-10 col-sm-12': currentStep === 2 }">
             
                             <div v-if="currentStep === 1" class="d-flex justify-content-between">
-                                <nuxt-link class="btn btn-secondary" to="/warehouse/osriv">
+                                <nuxt-link class="btn btn-secondary" to="/warehouse/mcrt">
                                     <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search OSRIV
+                            Search MCRT 
                                 </nuxt-link>
                                 <button @click="onClickNextStep1()" class="btn btn-primary">
                                     <client-only>
@@ -351,9 +348,6 @@
         mct: null,
         seriv: null,
         returned_by: null,
-        wo_number: "",
-        mo_number: "",
-        jo_number: "",
         note: "",
         approvers: [],
         items: []
@@ -439,6 +433,48 @@
             return true 
         }
         return false
+    })
+
+    const jo_number = computed( () => {
+        
+        if(mcrtData.value.mct) {
+            return mcrtData.value.mct.mrv.jo_number
+        }
+
+        if(mcrtData.value.seriv) {
+            return mcrtData.value.seriv.jo_number
+        }
+
+        return ''
+
+    })
+
+    const mwo_number = computed( () => {
+        
+        if(mcrtData.value.mct) {
+            return mcrtData.value.mct.mrv.mwo_number
+        }
+
+        if(mcrtData.value.seriv) {
+            return mcrtData.value.seriv.mwo_number
+        }
+
+        return ''
+
+    })
+
+    const cwo_number = computed( () => {
+        
+        if(mcrtData.value.mct) {
+            return mcrtData.value.mct.mrv.cwo_number
+        }
+
+        if(mcrtData.value.seriv) {
+            return mcrtData.value.seriv.cwo_number
+        }
+
+        return ''
+
     })
 
     // ======================== WATCHERS ========================  
