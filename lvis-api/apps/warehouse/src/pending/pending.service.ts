@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { MRVItem, MSTItem, OSRIVItem, Pending, Prisma, SERIVItem, MCRTItem as _MCRTItem } from 'apps/warehouse/prisma/generated/client';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE } from '../__common__/types';
-import { DB_ENTITY, ITEM_TYPE_CODE, ModuleMapping } from '../__common__/constants';
+import { DB_ENTITY, ITEM_TYPE_CODE, ModuleMapping, WAREHOUSE_REQUEST_TYPE } from '../__common__/constants';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
@@ -10,6 +10,7 @@ import { getModule } from '../__common__/helpers';
 import { ITEM_STATUS } from '../item/entities/item.types';
 import { ItemService } from '../item/item.service';
 import { TRIP_TICKET_STATUS } from '../trip-ticket/entities/trip-ticket.enums';
+import { CommonService } from '../__common__/classes';
 
 @Injectable()
 export class PendingService {
@@ -19,37 +20,13 @@ export class PendingService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
-        private itemService: ItemService,
+        private readonly itemService: ItemService,
+        private readonly commonService: CommonService,
     ) {}
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
-
-    // async findPendingsByApproverId(approverId: string): Promise<Pending[]> {
-        
-    //     const pendings = await this.prisma.pending.findMany({
-    //         where: {
-    //             approver_id: approverId
-    //         },
-    //         take: 100
-    //     })
-
-    //     return pendings
-
-    // }
-
-    // async getTotalPendingsByApproverId(approverId: string): Promise<number> {
-        
-        // const totalPendings = await this.prisma.pending.count({
-        //     where: {
-        //         approver_id: approverId
-        //     }
-        // })
-
-    //     return totalPendings
-
-    // }
 
     async approveOrDisapprovePending(payload: {
         id: number, 
@@ -527,13 +504,20 @@ export class PendingService {
             data: itemTransactions
         })
         
-        // update is_completed in seriv
+        // update seriv
+
+        let mwoNumber = null
+        if(seriv.request_type === WAREHOUSE_REQUEST_TYPE.MAINTENANCE_WORK_ORDER) {
+            mwoNumber = await this.commonService.generateMwoNumber();
+        }
+
         await tx.sERIV.update({
 			where: {
 				id: seriv_id
 			},
 			data: {
-				is_completed: true
+				is_completed: true,
+                mwo_number: mwoNumber
 			}
 		})
 
@@ -564,9 +548,17 @@ export class PendingService {
 			return
         }
 
+        let mwoNumber = null
+        if(mrv.request_type === WAREHOUSE_REQUEST_TYPE.MAINTENANCE_WORK_ORDER) {
+            mwoNumber = await this.commonService.generateMwoNumber();
+        }
+
         await tx.mRV.update({
             where: { id: mrv_id },
-            data: { is_completed: true }
+            data: { 
+                is_completed: true,
+                mwo_number: mwoNumber 
+            }
         })
 
     }

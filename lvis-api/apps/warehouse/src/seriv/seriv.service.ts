@@ -2,8 +2,8 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateSerivInput } from './dto/create-seriv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { SERIV, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { APPROVAL_STATUS } from '../__common__/types';
-import { DB_ENTITY, SETTINGS } from '../__common__/constants';
+import { APPROVAL_STATUS, REQUEST_TYPE } from '../__common__/types';
+import { DB_ENTITY, SETTINGS, WAREHOUSE_REQUEST_TYPE } from '../__common__/constants';
 import { UpdateSerivInput } from './dto/update-seriv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
 import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
@@ -46,7 +46,6 @@ export class SerivService {
             exp_date: expDate,
             request_type: input.request_type,
             or_number: input.or_number,
-            mwo_number: input.mwo_number,
             cwo_number: input.cwo_number,
             jo_number: input.jo_number,
             consumer_name: input.consumer_name,
@@ -145,7 +144,6 @@ export class SerivService {
             request_type: input.request_type ?? existingItem.request_type,
 
             or_number: input.or_number ?? existingItem.or_number,
-            mwo_number: input.mwo_number ?? existingItem.mwo_number,
             cwo_number: input.cwo_number ?? existingItem.cwo_number,
             jo_number: input.jo_number ?? existingItem.jo_number,
 

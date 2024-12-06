@@ -24,11 +24,6 @@ export class CreateSerivInput {
   @Field(() => String, { nullable: true })
   @IsString()
   @IsOptional()
-  mwo_number: string | null;
-
-  @Field(() => String, { nullable: true })
-  @IsString()
-  @IsOptional()
   cwo_number: string | null;
 
   @Field(() => String, { nullable: true })

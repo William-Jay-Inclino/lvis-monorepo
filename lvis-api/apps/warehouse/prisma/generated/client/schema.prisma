@@ -105,7 +105,15 @@ model Setting {
   @@map("setting")
 }
 
+model MwoSequenceTracker {
+  id        Int      @id @default(autoincrement())
+  yearMonth String   @unique 
+  sequence  Int      @default(0) 
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
+  @@map("mwo_sequence_tracker")
+}
 
 // ========================= STOCK ITEM INVENTORY ========================= 
 
@@ -684,7 +692,7 @@ model SERIV {
   request_type Int
 
   or_number String?
-  mwo_number String?
+  mwo_number String? @unique
   cwo_number String?
   jo_number String?
   
@@ -761,7 +769,7 @@ model MRV {
   request_type Int
 
   or_number String?
-  mwo_number String?
+  mwo_number String? @unique
   cwo_number String?
   jo_number String?
 

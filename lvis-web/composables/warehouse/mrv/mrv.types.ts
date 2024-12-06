@@ -91,7 +91,6 @@ export interface MRV {
     project: Project | null
     purpose: string 
     or_number: string | null
-    mwo_number: string | null 
     cwo_number: string | null 
     jo_number: string 
     consumer_name: string 
@@ -112,7 +111,6 @@ export interface MRV {
     withdrawn_by: Employee | null 
     item_from: Station | null 
     or_number: string | null
-    mwo_number: string | null 
     cwo_number: string | null 
     jo_number: string | null
     consumer_name: string 

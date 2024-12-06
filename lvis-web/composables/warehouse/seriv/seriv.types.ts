@@ -51,7 +51,10 @@ export interface SERIV {
     seriv_items: SERIVItem[]
     status: APPROVAL_STATUS
     can_update?: boolean;
-  
+    request_type_object: {
+      id: WAREHOUSE_REQUEST_TYPE,
+      name: string,
+    }
   }
 
 
@@ -86,7 +89,6 @@ export interface SERIV {
     request_type: WarehouseRequestType | null
     purpose: string 
     or_number: string | null
-    mwo_number: string | null 
     cwo_number: string | null 
     jo_number: string | null
     consumer_name: string 
@@ -105,7 +107,6 @@ export interface SERIV {
     withdrawn_by: Employee | null 
     item_from: Station | null 
     or_number: string | null
-    mwo_number: string | null 
     cwo_number: string | null 
     jo_number: string | null
     consumer_name: string 

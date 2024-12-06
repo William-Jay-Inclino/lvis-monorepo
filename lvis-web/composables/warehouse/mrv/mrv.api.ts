@@ -574,7 +574,6 @@ export async function create(input: CreateMrvInput): Promise<MutationResponse> {
     console.log('create', input);
 
     const or_number = input.or_number?.trim() === '' ? null : `"${input.or_number}"`
-    const mwo_number = input.mwo_number?.trim() === '' ? null : `"${input.mwo_number}"`
     const cwo_number = input.cwo_number?.trim() === '' ? null : `"${input.cwo_number}"`
     const jo_number = input.jo_number?.trim() === '' ? null : `"${input.jo_number}"`
     const project_id = input.project ? `"${input.project.id}"` : null
@@ -605,7 +604,6 @@ export async function create(input: CreateMrvInput): Promise<MutationResponse> {
                     request_type: ${input.request_type?.id}
                     purpose: "${input.purpose}"
                     or_number: ${or_number}
-                    mwo_number: ${mwo_number}
                     cwo_number: ${cwo_number}
                     jo_number: ${jo_number}
                     consumer_name: "${input.consumer_name}"
@@ -648,7 +646,6 @@ export async function create(input: CreateMrvInput): Promise<MutationResponse> {
 export async function update(id: string, input: UpdateMrvInput): Promise<MutationResponse> {
 
     const or_number = input.or_number?.trim() === '' || !input.or_number ? null : `"${input.or_number}"`
-    const mwo_number = input.mwo_number?.trim() === '' || !input.mwo_number ? null : `"${input.mwo_number}"`
     const cwo_number = input.cwo_number?.trim() === '' || !input.cwo_number ? null : `"${input.cwo_number}"`
     const jo_number = input.jo_number?.trim() === '' || !input.jo_number ? null : `"${input.jo_number}"`
     const project_id = input.project ? `"${input.project.id}"` : null
@@ -665,7 +662,6 @@ export async function update(id: string, input: UpdateMrvInput): Promise<Mutatio
                     withdrawn_by_id: "${input.withdrawn_by?.id}"
                     item_from_id: "${input.item_from?.id}"
                     or_number: ${or_number}
-                    mwo_number: ${mwo_number}
                     cwo_number: ${cwo_number}
                     jo_number: ${jo_number}
                     consumer_name: "${input.consumer_name}"

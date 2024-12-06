@@ -74,6 +74,9 @@
                             <client-only>
                                 <v-select :options="request_types" label="name" v-model="mrvData.request_type_object" :clearable="false"></v-select>
                             </client-only>
+                            <small v-if="showMwoNumber" class="text-muted fst-italic">
+                                Note: The MWO number is automatically assigned when approved.
+                            </small>
                         </div>
 
                         <div v-if="showOrNumber" class="mb-3">
@@ -81,14 +84,6 @@
                                 OR Number
                             </label>
                             <input v-model="mrvData.or_number" class="form-control"
-                                rows="3" />
-                        </div>
-
-                        <div v-if="showMwoNumber" class="mb-3">
-                            <label class="form-label">
-                                MWO Number
-                            </label>
-                            <input v-model="mrvData.mwo_number" class="form-control"
                                 rows="3" />
                         </div>
 
@@ -540,7 +535,6 @@ async function updateMrvInfo() {
         withdrawn_by: mrvData.value.withdrawn_by,
         item_from: mrvData.value.item_from,
         or_number: mrvData.value.or_number,
-        mwo_number: mrvData.value.mwo_number,
         cwo_number: mrvData.value.cwo_number,
         jo_number: mrvData.value.jo_number,
         consumer_name: mrvData.value.consumer_name,

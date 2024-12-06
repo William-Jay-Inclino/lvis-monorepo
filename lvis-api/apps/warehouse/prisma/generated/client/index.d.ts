@@ -49,6 +49,11 @@ export type Pending = $Result.DefaultSelection<Prisma.$PendingPayload>
  */
 export type Setting = $Result.DefaultSelection<Prisma.$SettingPayload>
 /**
+ * Model MwoSequenceTracker
+ * 
+ */
+export type MwoSequenceTracker = $Result.DefaultSelection<Prisma.$MwoSequenceTrackerPayload>
+/**
  * Model Item
  * 
  */
@@ -475,6 +480,16 @@ export class PrismaClient<
     * ```
     */
   get setting(): Prisma.SettingDelegate<ExtArgs>;
+
+  /**
+   * `prisma.mwoSequenceTracker`: Exposes CRUD operations for the **MwoSequenceTracker** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MwoSequenceTrackers
+    * const mwoSequenceTrackers = await prisma.mwoSequenceTracker.findMany()
+    * ```
+    */
+  get mwoSequenceTracker(): Prisma.MwoSequenceTrackerDelegate<ExtArgs>;
 
   /**
    * `prisma.item`: Exposes CRUD operations for the **Item** model.
@@ -1422,6 +1437,7 @@ export namespace Prisma {
     Project: 'Project',
     Pending: 'Pending',
     Setting: 'Setting',
+    MwoSequenceTracker: 'MwoSequenceTracker',
     Item: 'Item',
     ItemLocation: 'ItemLocation',
     ItemMovement: 'ItemMovement',
@@ -1485,7 +1501,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'itemType' | 'supplier' | 'unit' | 'station' | 'project' | 'pending' | 'setting' | 'item' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'itemCodeTracker' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem' | 'vehicle' | 'tripTicket' | 'tripTicketApprover' | 'gasSlip' | 'gasSlipApprover' | 'gasStation' | 'fuelType'
+      modelProps: 'itemType' | 'supplier' | 'unit' | 'station' | 'project' | 'pending' | 'setting' | 'mwoSequenceTracker' | 'item' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'itemCodeTracker' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem' | 'vehicle' | 'tripTicket' | 'tripTicketApprover' | 'gasSlip' | 'gasSlipApprover' | 'gasStation' | 'fuelType'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1948,6 +1964,72 @@ export namespace Prisma {
           count: {
             args: Prisma.SettingCountArgs<ExtArgs>,
             result: $Utils.Optional<SettingCountAggregateOutputType> | number
+          }
+        }
+      }
+      MwoSequenceTracker: {
+        payload: Prisma.$MwoSequenceTrackerPayload<ExtArgs>
+        fields: Prisma.MwoSequenceTrackerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MwoSequenceTrackerFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MwoSequenceTrackerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MwoSequenceTrackerFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MwoSequenceTrackerPayload>
+          }
+          findFirst: {
+            args: Prisma.MwoSequenceTrackerFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MwoSequenceTrackerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MwoSequenceTrackerFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MwoSequenceTrackerPayload>
+          }
+          findMany: {
+            args: Prisma.MwoSequenceTrackerFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MwoSequenceTrackerPayload>[]
+          }
+          create: {
+            args: Prisma.MwoSequenceTrackerCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MwoSequenceTrackerPayload>
+          }
+          createMany: {
+            args: Prisma.MwoSequenceTrackerCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.MwoSequenceTrackerDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MwoSequenceTrackerPayload>
+          }
+          update: {
+            args: Prisma.MwoSequenceTrackerUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MwoSequenceTrackerPayload>
+          }
+          deleteMany: {
+            args: Prisma.MwoSequenceTrackerDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MwoSequenceTrackerUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.MwoSequenceTrackerUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MwoSequenceTrackerPayload>
+          }
+          aggregate: {
+            args: Prisma.MwoSequenceTrackerAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateMwoSequenceTracker>
+          }
+          groupBy: {
+            args: Prisma.MwoSequenceTrackerGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<MwoSequenceTrackerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MwoSequenceTrackerCountArgs<ExtArgs>,
+            result: $Utils.Optional<MwoSequenceTrackerCountAggregateOutputType> | number
           }
         }
       }
@@ -13073,6 +13155,914 @@ export namespace Prisma {
      * Select specific fields to fetch from the Setting
      */
     select?: SettingSelect<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model MwoSequenceTracker
+   */
+
+  export type AggregateMwoSequenceTracker = {
+    _count: MwoSequenceTrackerCountAggregateOutputType | null
+    _avg: MwoSequenceTrackerAvgAggregateOutputType | null
+    _sum: MwoSequenceTrackerSumAggregateOutputType | null
+    _min: MwoSequenceTrackerMinAggregateOutputType | null
+    _max: MwoSequenceTrackerMaxAggregateOutputType | null
+  }
+
+  export type MwoSequenceTrackerAvgAggregateOutputType = {
+    id: number | null
+    sequence: number | null
+  }
+
+  export type MwoSequenceTrackerSumAggregateOutputType = {
+    id: number | null
+    sequence: number | null
+  }
+
+  export type MwoSequenceTrackerMinAggregateOutputType = {
+    id: number | null
+    yearMonth: string | null
+    sequence: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type MwoSequenceTrackerMaxAggregateOutputType = {
+    id: number | null
+    yearMonth: string | null
+    sequence: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type MwoSequenceTrackerCountAggregateOutputType = {
+    id: number
+    yearMonth: number
+    sequence: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type MwoSequenceTrackerAvgAggregateInputType = {
+    id?: true
+    sequence?: true
+  }
+
+  export type MwoSequenceTrackerSumAggregateInputType = {
+    id?: true
+    sequence?: true
+  }
+
+  export type MwoSequenceTrackerMinAggregateInputType = {
+    id?: true
+    yearMonth?: true
+    sequence?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type MwoSequenceTrackerMaxAggregateInputType = {
+    id?: true
+    yearMonth?: true
+    sequence?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type MwoSequenceTrackerCountAggregateInputType = {
+    id?: true
+    yearMonth?: true
+    sequence?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type MwoSequenceTrackerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MwoSequenceTracker to aggregate.
+     */
+    where?: MwoSequenceTrackerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MwoSequenceTrackers to fetch.
+     */
+    orderBy?: MwoSequenceTrackerOrderByWithRelationInput | MwoSequenceTrackerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MwoSequenceTrackerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MwoSequenceTrackers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MwoSequenceTrackers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MwoSequenceTrackers
+    **/
+    _count?: true | MwoSequenceTrackerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MwoSequenceTrackerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MwoSequenceTrackerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MwoSequenceTrackerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MwoSequenceTrackerMaxAggregateInputType
+  }
+
+  export type GetMwoSequenceTrackerAggregateType<T extends MwoSequenceTrackerAggregateArgs> = {
+        [P in keyof T & keyof AggregateMwoSequenceTracker]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMwoSequenceTracker[P]>
+      : GetScalarType<T[P], AggregateMwoSequenceTracker[P]>
+  }
+
+
+
+
+  export type MwoSequenceTrackerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MwoSequenceTrackerWhereInput
+    orderBy?: MwoSequenceTrackerOrderByWithAggregationInput | MwoSequenceTrackerOrderByWithAggregationInput[]
+    by: MwoSequenceTrackerScalarFieldEnum[] | MwoSequenceTrackerScalarFieldEnum
+    having?: MwoSequenceTrackerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MwoSequenceTrackerCountAggregateInputType | true
+    _avg?: MwoSequenceTrackerAvgAggregateInputType
+    _sum?: MwoSequenceTrackerSumAggregateInputType
+    _min?: MwoSequenceTrackerMinAggregateInputType
+    _max?: MwoSequenceTrackerMaxAggregateInputType
+  }
+
+  export type MwoSequenceTrackerGroupByOutputType = {
+    id: number
+    yearMonth: string
+    sequence: number
+    created_at: Date
+    updated_at: Date
+    _count: MwoSequenceTrackerCountAggregateOutputType | null
+    _avg: MwoSequenceTrackerAvgAggregateOutputType | null
+    _sum: MwoSequenceTrackerSumAggregateOutputType | null
+    _min: MwoSequenceTrackerMinAggregateOutputType | null
+    _max: MwoSequenceTrackerMaxAggregateOutputType | null
+  }
+
+  type GetMwoSequenceTrackerGroupByPayload<T extends MwoSequenceTrackerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MwoSequenceTrackerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MwoSequenceTrackerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MwoSequenceTrackerGroupByOutputType[P]>
+            : GetScalarType<T[P], MwoSequenceTrackerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MwoSequenceTrackerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    yearMonth?: boolean
+    sequence?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["mwoSequenceTracker"]>
+
+  export type MwoSequenceTrackerSelectScalar = {
+    id?: boolean
+    yearMonth?: boolean
+    sequence?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+
+  export type $MwoSequenceTrackerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MwoSequenceTracker"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      yearMonth: string
+      sequence: number
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["mwoSequenceTracker"]>
+    composites: {}
+  }
+
+
+  type MwoSequenceTrackerGetPayload<S extends boolean | null | undefined | MwoSequenceTrackerDefaultArgs> = $Result.GetResult<Prisma.$MwoSequenceTrackerPayload, S>
+
+  type MwoSequenceTrackerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MwoSequenceTrackerFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MwoSequenceTrackerCountAggregateInputType | true
+    }
+
+  export interface MwoSequenceTrackerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MwoSequenceTracker'], meta: { name: 'MwoSequenceTracker' } }
+    /**
+     * Find zero or one MwoSequenceTracker that matches the filter.
+     * @param {MwoSequenceTrackerFindUniqueArgs} args - Arguments to find a MwoSequenceTracker
+     * @example
+     * // Get one MwoSequenceTracker
+     * const mwoSequenceTracker = await prisma.mwoSequenceTracker.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends MwoSequenceTrackerFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, MwoSequenceTrackerFindUniqueArgs<ExtArgs>>
+    ): Prisma__MwoSequenceTrackerClient<$Result.GetResult<Prisma.$MwoSequenceTrackerPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one MwoSequenceTracker that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {MwoSequenceTrackerFindUniqueOrThrowArgs} args - Arguments to find a MwoSequenceTracker
+     * @example
+     * // Get one MwoSequenceTracker
+     * const mwoSequenceTracker = await prisma.mwoSequenceTracker.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends MwoSequenceTrackerFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MwoSequenceTrackerFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__MwoSequenceTrackerClient<$Result.GetResult<Prisma.$MwoSequenceTrackerPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first MwoSequenceTracker that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MwoSequenceTrackerFindFirstArgs} args - Arguments to find a MwoSequenceTracker
+     * @example
+     * // Get one MwoSequenceTracker
+     * const mwoSequenceTracker = await prisma.mwoSequenceTracker.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends MwoSequenceTrackerFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, MwoSequenceTrackerFindFirstArgs<ExtArgs>>
+    ): Prisma__MwoSequenceTrackerClient<$Result.GetResult<Prisma.$MwoSequenceTrackerPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first MwoSequenceTracker that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MwoSequenceTrackerFindFirstOrThrowArgs} args - Arguments to find a MwoSequenceTracker
+     * @example
+     * // Get one MwoSequenceTracker
+     * const mwoSequenceTracker = await prisma.mwoSequenceTracker.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends MwoSequenceTrackerFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MwoSequenceTrackerFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__MwoSequenceTrackerClient<$Result.GetResult<Prisma.$MwoSequenceTrackerPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more MwoSequenceTrackers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MwoSequenceTrackerFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MwoSequenceTrackers
+     * const mwoSequenceTrackers = await prisma.mwoSequenceTracker.findMany()
+     * 
+     * // Get first 10 MwoSequenceTrackers
+     * const mwoSequenceTrackers = await prisma.mwoSequenceTracker.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mwoSequenceTrackerWithIdOnly = await prisma.mwoSequenceTracker.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends MwoSequenceTrackerFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MwoSequenceTrackerFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MwoSequenceTrackerPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a MwoSequenceTracker.
+     * @param {MwoSequenceTrackerCreateArgs} args - Arguments to create a MwoSequenceTracker.
+     * @example
+     * // Create one MwoSequenceTracker
+     * const MwoSequenceTracker = await prisma.mwoSequenceTracker.create({
+     *   data: {
+     *     // ... data to create a MwoSequenceTracker
+     *   }
+     * })
+     * 
+    **/
+    create<T extends MwoSequenceTrackerCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, MwoSequenceTrackerCreateArgs<ExtArgs>>
+    ): Prisma__MwoSequenceTrackerClient<$Result.GetResult<Prisma.$MwoSequenceTrackerPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many MwoSequenceTrackers.
+     *     @param {MwoSequenceTrackerCreateManyArgs} args - Arguments to create many MwoSequenceTrackers.
+     *     @example
+     *     // Create many MwoSequenceTrackers
+     *     const mwoSequenceTracker = await prisma.mwoSequenceTracker.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends MwoSequenceTrackerCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MwoSequenceTrackerCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a MwoSequenceTracker.
+     * @param {MwoSequenceTrackerDeleteArgs} args - Arguments to delete one MwoSequenceTracker.
+     * @example
+     * // Delete one MwoSequenceTracker
+     * const MwoSequenceTracker = await prisma.mwoSequenceTracker.delete({
+     *   where: {
+     *     // ... filter to delete one MwoSequenceTracker
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends MwoSequenceTrackerDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, MwoSequenceTrackerDeleteArgs<ExtArgs>>
+    ): Prisma__MwoSequenceTrackerClient<$Result.GetResult<Prisma.$MwoSequenceTrackerPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one MwoSequenceTracker.
+     * @param {MwoSequenceTrackerUpdateArgs} args - Arguments to update one MwoSequenceTracker.
+     * @example
+     * // Update one MwoSequenceTracker
+     * const mwoSequenceTracker = await prisma.mwoSequenceTracker.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends MwoSequenceTrackerUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, MwoSequenceTrackerUpdateArgs<ExtArgs>>
+    ): Prisma__MwoSequenceTrackerClient<$Result.GetResult<Prisma.$MwoSequenceTrackerPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more MwoSequenceTrackers.
+     * @param {MwoSequenceTrackerDeleteManyArgs} args - Arguments to filter MwoSequenceTrackers to delete.
+     * @example
+     * // Delete a few MwoSequenceTrackers
+     * const { count } = await prisma.mwoSequenceTracker.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends MwoSequenceTrackerDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MwoSequenceTrackerDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MwoSequenceTrackers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MwoSequenceTrackerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MwoSequenceTrackers
+     * const mwoSequenceTracker = await prisma.mwoSequenceTracker.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends MwoSequenceTrackerUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, MwoSequenceTrackerUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MwoSequenceTracker.
+     * @param {MwoSequenceTrackerUpsertArgs} args - Arguments to update or create a MwoSequenceTracker.
+     * @example
+     * // Update or create a MwoSequenceTracker
+     * const mwoSequenceTracker = await prisma.mwoSequenceTracker.upsert({
+     *   create: {
+     *     // ... data to create a MwoSequenceTracker
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MwoSequenceTracker we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends MwoSequenceTrackerUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, MwoSequenceTrackerUpsertArgs<ExtArgs>>
+    ): Prisma__MwoSequenceTrackerClient<$Result.GetResult<Prisma.$MwoSequenceTrackerPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of MwoSequenceTrackers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MwoSequenceTrackerCountArgs} args - Arguments to filter MwoSequenceTrackers to count.
+     * @example
+     * // Count the number of MwoSequenceTrackers
+     * const count = await prisma.mwoSequenceTracker.count({
+     *   where: {
+     *     // ... the filter for the MwoSequenceTrackers we want to count
+     *   }
+     * })
+    **/
+    count<T extends MwoSequenceTrackerCountArgs>(
+      args?: Subset<T, MwoSequenceTrackerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MwoSequenceTrackerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MwoSequenceTracker.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MwoSequenceTrackerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MwoSequenceTrackerAggregateArgs>(args: Subset<T, MwoSequenceTrackerAggregateArgs>): Prisma.PrismaPromise<GetMwoSequenceTrackerAggregateType<T>>
+
+    /**
+     * Group by MwoSequenceTracker.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MwoSequenceTrackerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MwoSequenceTrackerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MwoSequenceTrackerGroupByArgs['orderBy'] }
+        : { orderBy?: MwoSequenceTrackerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MwoSequenceTrackerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMwoSequenceTrackerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MwoSequenceTracker model
+   */
+  readonly fields: MwoSequenceTrackerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MwoSequenceTracker.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MwoSequenceTrackerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the MwoSequenceTracker model
+   */ 
+  interface MwoSequenceTrackerFieldRefs {
+    readonly id: FieldRef<"MwoSequenceTracker", 'Int'>
+    readonly yearMonth: FieldRef<"MwoSequenceTracker", 'String'>
+    readonly sequence: FieldRef<"MwoSequenceTracker", 'Int'>
+    readonly created_at: FieldRef<"MwoSequenceTracker", 'DateTime'>
+    readonly updated_at: FieldRef<"MwoSequenceTracker", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * MwoSequenceTracker findUnique
+   */
+  export type MwoSequenceTrackerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MwoSequenceTracker
+     */
+    select?: MwoSequenceTrackerSelect<ExtArgs> | null
+    /**
+     * Filter, which MwoSequenceTracker to fetch.
+     */
+    where: MwoSequenceTrackerWhereUniqueInput
+  }
+
+
+  /**
+   * MwoSequenceTracker findUniqueOrThrow
+   */
+  export type MwoSequenceTrackerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MwoSequenceTracker
+     */
+    select?: MwoSequenceTrackerSelect<ExtArgs> | null
+    /**
+     * Filter, which MwoSequenceTracker to fetch.
+     */
+    where: MwoSequenceTrackerWhereUniqueInput
+  }
+
+
+  /**
+   * MwoSequenceTracker findFirst
+   */
+  export type MwoSequenceTrackerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MwoSequenceTracker
+     */
+    select?: MwoSequenceTrackerSelect<ExtArgs> | null
+    /**
+     * Filter, which MwoSequenceTracker to fetch.
+     */
+    where?: MwoSequenceTrackerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MwoSequenceTrackers to fetch.
+     */
+    orderBy?: MwoSequenceTrackerOrderByWithRelationInput | MwoSequenceTrackerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MwoSequenceTrackers.
+     */
+    cursor?: MwoSequenceTrackerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MwoSequenceTrackers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MwoSequenceTrackers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MwoSequenceTrackers.
+     */
+    distinct?: MwoSequenceTrackerScalarFieldEnum | MwoSequenceTrackerScalarFieldEnum[]
+  }
+
+
+  /**
+   * MwoSequenceTracker findFirstOrThrow
+   */
+  export type MwoSequenceTrackerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MwoSequenceTracker
+     */
+    select?: MwoSequenceTrackerSelect<ExtArgs> | null
+    /**
+     * Filter, which MwoSequenceTracker to fetch.
+     */
+    where?: MwoSequenceTrackerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MwoSequenceTrackers to fetch.
+     */
+    orderBy?: MwoSequenceTrackerOrderByWithRelationInput | MwoSequenceTrackerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MwoSequenceTrackers.
+     */
+    cursor?: MwoSequenceTrackerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MwoSequenceTrackers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MwoSequenceTrackers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MwoSequenceTrackers.
+     */
+    distinct?: MwoSequenceTrackerScalarFieldEnum | MwoSequenceTrackerScalarFieldEnum[]
+  }
+
+
+  /**
+   * MwoSequenceTracker findMany
+   */
+  export type MwoSequenceTrackerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MwoSequenceTracker
+     */
+    select?: MwoSequenceTrackerSelect<ExtArgs> | null
+    /**
+     * Filter, which MwoSequenceTrackers to fetch.
+     */
+    where?: MwoSequenceTrackerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MwoSequenceTrackers to fetch.
+     */
+    orderBy?: MwoSequenceTrackerOrderByWithRelationInput | MwoSequenceTrackerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MwoSequenceTrackers.
+     */
+    cursor?: MwoSequenceTrackerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MwoSequenceTrackers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MwoSequenceTrackers.
+     */
+    skip?: number
+    distinct?: MwoSequenceTrackerScalarFieldEnum | MwoSequenceTrackerScalarFieldEnum[]
+  }
+
+
+  /**
+   * MwoSequenceTracker create
+   */
+  export type MwoSequenceTrackerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MwoSequenceTracker
+     */
+    select?: MwoSequenceTrackerSelect<ExtArgs> | null
+    /**
+     * The data needed to create a MwoSequenceTracker.
+     */
+    data: XOR<MwoSequenceTrackerCreateInput, MwoSequenceTrackerUncheckedCreateInput>
+  }
+
+
+  /**
+   * MwoSequenceTracker createMany
+   */
+  export type MwoSequenceTrackerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MwoSequenceTrackers.
+     */
+    data: MwoSequenceTrackerCreateManyInput | MwoSequenceTrackerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * MwoSequenceTracker update
+   */
+  export type MwoSequenceTrackerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MwoSequenceTracker
+     */
+    select?: MwoSequenceTrackerSelect<ExtArgs> | null
+    /**
+     * The data needed to update a MwoSequenceTracker.
+     */
+    data: XOR<MwoSequenceTrackerUpdateInput, MwoSequenceTrackerUncheckedUpdateInput>
+    /**
+     * Choose, which MwoSequenceTracker to update.
+     */
+    where: MwoSequenceTrackerWhereUniqueInput
+  }
+
+
+  /**
+   * MwoSequenceTracker updateMany
+   */
+  export type MwoSequenceTrackerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MwoSequenceTrackers.
+     */
+    data: XOR<MwoSequenceTrackerUpdateManyMutationInput, MwoSequenceTrackerUncheckedUpdateManyInput>
+    /**
+     * Filter which MwoSequenceTrackers to update
+     */
+    where?: MwoSequenceTrackerWhereInput
+  }
+
+
+  /**
+   * MwoSequenceTracker upsert
+   */
+  export type MwoSequenceTrackerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MwoSequenceTracker
+     */
+    select?: MwoSequenceTrackerSelect<ExtArgs> | null
+    /**
+     * The filter to search for the MwoSequenceTracker to update in case it exists.
+     */
+    where: MwoSequenceTrackerWhereUniqueInput
+    /**
+     * In case the MwoSequenceTracker found by the `where` argument doesn't exist, create a new MwoSequenceTracker with this data.
+     */
+    create: XOR<MwoSequenceTrackerCreateInput, MwoSequenceTrackerUncheckedCreateInput>
+    /**
+     * In case the MwoSequenceTracker was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MwoSequenceTrackerUpdateInput, MwoSequenceTrackerUncheckedUpdateInput>
+  }
+
+
+  /**
+   * MwoSequenceTracker delete
+   */
+  export type MwoSequenceTrackerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MwoSequenceTracker
+     */
+    select?: MwoSequenceTrackerSelect<ExtArgs> | null
+    /**
+     * Filter which MwoSequenceTracker to delete.
+     */
+    where: MwoSequenceTrackerWhereUniqueInput
+  }
+
+
+  /**
+   * MwoSequenceTracker deleteMany
+   */
+  export type MwoSequenceTrackerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MwoSequenceTrackers to delete
+     */
+    where?: MwoSequenceTrackerWhereInput
+  }
+
+
+  /**
+   * MwoSequenceTracker without action
+   */
+  export type MwoSequenceTrackerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MwoSequenceTracker
+     */
+    select?: MwoSequenceTrackerSelect<ExtArgs> | null
   }
 
 
@@ -62111,6 +63101,17 @@ export namespace Prisma {
   export type SettingScalarFieldEnum = (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum]
 
 
+  export const MwoSequenceTrackerScalarFieldEnum: {
+    id: 'id',
+    yearMonth: 'yearMonth',
+    sequence: 'sequence',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type MwoSequenceTrackerScalarFieldEnum = (typeof MwoSequenceTrackerScalarFieldEnum)[keyof typeof MwoSequenceTrackerScalarFieldEnum]
+
+
   export const ItemScalarFieldEnum: {
     id: 'id',
     item_type_id: 'item_type_id',
@@ -63353,6 +64354,60 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Setting"> | number
     key?: StringWithAggregatesFilter<"Setting"> | string
     value?: StringWithAggregatesFilter<"Setting"> | string
+  }
+
+  export type MwoSequenceTrackerWhereInput = {
+    AND?: MwoSequenceTrackerWhereInput | MwoSequenceTrackerWhereInput[]
+    OR?: MwoSequenceTrackerWhereInput[]
+    NOT?: MwoSequenceTrackerWhereInput | MwoSequenceTrackerWhereInput[]
+    id?: IntFilter<"MwoSequenceTracker"> | number
+    yearMonth?: StringFilter<"MwoSequenceTracker"> | string
+    sequence?: IntFilter<"MwoSequenceTracker"> | number
+    created_at?: DateTimeFilter<"MwoSequenceTracker"> | Date | string
+    updated_at?: DateTimeFilter<"MwoSequenceTracker"> | Date | string
+  }
+
+  export type MwoSequenceTrackerOrderByWithRelationInput = {
+    id?: SortOrder
+    yearMonth?: SortOrder
+    sequence?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MwoSequenceTrackerWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    yearMonth?: string
+    AND?: MwoSequenceTrackerWhereInput | MwoSequenceTrackerWhereInput[]
+    OR?: MwoSequenceTrackerWhereInput[]
+    NOT?: MwoSequenceTrackerWhereInput | MwoSequenceTrackerWhereInput[]
+    sequence?: IntFilter<"MwoSequenceTracker"> | number
+    created_at?: DateTimeFilter<"MwoSequenceTracker"> | Date | string
+    updated_at?: DateTimeFilter<"MwoSequenceTracker"> | Date | string
+  }, "id" | "yearMonth">
+
+  export type MwoSequenceTrackerOrderByWithAggregationInput = {
+    id?: SortOrder
+    yearMonth?: SortOrder
+    sequence?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: MwoSequenceTrackerCountOrderByAggregateInput
+    _avg?: MwoSequenceTrackerAvgOrderByAggregateInput
+    _max?: MwoSequenceTrackerMaxOrderByAggregateInput
+    _min?: MwoSequenceTrackerMinOrderByAggregateInput
+    _sum?: MwoSequenceTrackerSumOrderByAggregateInput
+  }
+
+  export type MwoSequenceTrackerScalarWhereWithAggregatesInput = {
+    AND?: MwoSequenceTrackerScalarWhereWithAggregatesInput | MwoSequenceTrackerScalarWhereWithAggregatesInput[]
+    OR?: MwoSequenceTrackerScalarWhereWithAggregatesInput[]
+    NOT?: MwoSequenceTrackerScalarWhereWithAggregatesInput | MwoSequenceTrackerScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"MwoSequenceTracker"> | number
+    yearMonth?: StringWithAggregatesFilter<"MwoSequenceTracker"> | string
+    sequence?: IntWithAggregatesFilter<"MwoSequenceTracker"> | number
+    created_at?: DateTimeWithAggregatesFilter<"MwoSequenceTracker"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"MwoSequenceTracker"> | Date | string
   }
 
   export type ItemWhereInput = {
@@ -65613,6 +66668,7 @@ export namespace Prisma {
   export type SERIVWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     seriv_number?: string
+    mwo_number?: string
     AND?: SERIVWhereInput | SERIVWhereInput[]
     OR?: SERIVWhereInput[]
     NOT?: SERIVWhereInput | SERIVWhereInput[]
@@ -65623,7 +66679,6 @@ export namespace Prisma {
     is_completed?: BoolFilter<"SERIV"> | boolean
     request_type?: IntFilter<"SERIV"> | number
     or_number?: StringNullableFilter<"SERIV"> | string | null
-    mwo_number?: StringNullableFilter<"SERIV"> | string | null
     cwo_number?: StringNullableFilter<"SERIV"> | string | null
     jo_number?: StringNullableFilter<"SERIV"> | string | null
     consumer_name?: StringFilter<"SERIV"> | string
@@ -65641,7 +66696,7 @@ export namespace Prisma {
     seriv_approvers?: SERIVApproverListRelationFilter
     seriv_items?: SERIVItemListRelationFilter
     mcrts?: MCRTListRelationFilter
-  }, "id" | "seriv_number">
+  }, "id" | "seriv_number" | "mwo_number">
 
   export type SERIVOrderByWithAggregationInput = {
     id?: SortOrder
@@ -65909,6 +66964,7 @@ export namespace Prisma {
   export type MRVWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     mrv_number?: string
+    mwo_number?: string
     AND?: MRVWhereInput | MRVWhereInput[]
     OR?: MRVWhereInput[]
     NOT?: MRVWhereInput | MRVWhereInput[]
@@ -65920,7 +66976,6 @@ export namespace Prisma {
     is_completed?: BoolFilter<"MRV"> | boolean
     request_type?: IntFilter<"MRV"> | number
     or_number?: StringNullableFilter<"MRV"> | string | null
-    mwo_number?: StringNullableFilter<"MRV"> | string | null
     cwo_number?: StringNullableFilter<"MRV"> | string | null
     jo_number?: StringNullableFilter<"MRV"> | string | null
     consumer_name?: StringFilter<"MRV"> | string
@@ -65939,7 +66994,7 @@ export namespace Prisma {
     mrv_items?: MRVItemListRelationFilter
     mct?: XOR<MCTNullableScalarRelationFilter, MCTWhereInput> | null
     project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
-  }, "id" | "mrv_number">
+  }, "id" | "mrv_number" | "mwo_number">
 
   export type MRVOrderByWithAggregationInput = {
     id?: SortOrder
@@ -67851,6 +68906,59 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     key?: StringFieldUpdateOperationsInput | string
     value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MwoSequenceTrackerCreateInput = {
+    yearMonth: string
+    sequence?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MwoSequenceTrackerUncheckedCreateInput = {
+    id?: number
+    yearMonth: string
+    sequence?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MwoSequenceTrackerUpdateInput = {
+    yearMonth?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MwoSequenceTrackerUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    yearMonth?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MwoSequenceTrackerCreateManyInput = {
+    id?: number
+    yearMonth: string
+    sequence?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MwoSequenceTrackerUpdateManyMutationInput = {
+    yearMonth?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MwoSequenceTrackerUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    yearMonth?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ItemCreateInput = {
@@ -72729,6 +73837,40 @@ export namespace Prisma {
 
   export type SettingSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type MwoSequenceTrackerCountOrderByAggregateInput = {
+    id?: SortOrder
+    yearMonth?: SortOrder
+    sequence?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MwoSequenceTrackerAvgOrderByAggregateInput = {
+    id?: SortOrder
+    sequence?: SortOrder
+  }
+
+  export type MwoSequenceTrackerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    yearMonth?: SortOrder
+    sequence?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MwoSequenceTrackerMinOrderByAggregateInput = {
+    id?: SortOrder
+    yearMonth?: SortOrder
+    sequence?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MwoSequenceTrackerSumOrderByAggregateInput = {
+    id?: SortOrder
+    sequence?: SortOrder
   }
 
   export type ItemTypeScalarRelationFilter = {
@@ -92277,6 +93419,10 @@ export namespace Prisma {
      * @deprecated Use SettingDefaultArgs instead
      */
     export type SettingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SettingDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MwoSequenceTrackerDefaultArgs instead
+     */
+    export type MwoSequenceTrackerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MwoSequenceTrackerDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ItemDefaultArgs instead
      */

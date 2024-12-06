@@ -29,11 +29,6 @@ export class CreateMrvInput {
   @Field(() => String, { nullable: true })
   @IsString()
   @IsOptional()
-  mwo_number: string | null;
-
-  @Field(() => String, { nullable: true })
-  @IsString()
-  @IsOptional()
   cwo_number: string | null;
 
   @Field(() => String, { nullable: true })

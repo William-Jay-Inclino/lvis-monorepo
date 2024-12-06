@@ -65,19 +65,26 @@
                                             </tr>
                                             <tr v-if="showORnumber(item.request_type)">
                                                 <td class="text-muted">OR Number</td>
-                                                <td> {{ item.or_number }} </td>
+                                                <td> {{ item.or_number ? item.or_number : 'N/A' }} </td>
                                             </tr>
                                             <tr v-if="showMWOnumber(item.request_type)">
                                                 <td class="text-muted">MWO Number</td>
-                                                <td> {{ item.mwo_number }} </td>
+                                                <td>
+                                                    <span v-if="item.mwo_number">
+                                                        {{ item.mwo_number }}
+                                                    </span>
+                                                    <span class="fst-italic" v-else>
+                                                        <small class="text-danger">MWO number is automatically assigned when approved</small>
+                                                    </span> 
+                                                </td>
                                             </tr>
                                             <tr v-if="showCWOnumber(item.request_type)">
                                                 <td class="text-muted">CWO Number</td>
-                                                <td> {{ item.cwo_number }} </td>
+                                                <td> {{ item.cwo_number ? item.cwo_number : 'N/A' }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">JO Number</td>
-                                                <td> {{ item.jo_number }} </td>
+                                                <td> {{ item.jo_number ? item.jo_number : 'N/A' }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Item from</td>

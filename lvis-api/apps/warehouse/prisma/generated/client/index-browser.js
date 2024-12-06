@@ -162,6 +162,14 @@ exports.Prisma.SettingScalarFieldEnum = {
   value: 'value'
 };
 
+exports.Prisma.MwoSequenceTrackerScalarFieldEnum = {
+  id: 'id',
+  yearMonth: 'yearMonth',
+  sequence: 'sequence',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.ItemScalarFieldEnum = {
   id: 'id',
   item_type_id: 'item_type_id',
@@ -799,6 +807,7 @@ exports.Prisma.ModelName = {
   Project: 'Project',
   Pending: 'Pending',
   Setting: 'Setting',
+  MwoSequenceTracker: 'MwoSequenceTracker',
   Item: 'Item',
   ItemLocation: 'ItemLocation',
   ItemMovement: 'ItemMovement',

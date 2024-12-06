@@ -43,11 +43,6 @@ export class UpdateMrvInput {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
-  mwo_number?: string;
-
-  @Field(() => String, { nullable: true })
-  @IsOptional()
-  @IsString()
   cwo_number?: string;
 
   @Field(() => String, { nullable: true })

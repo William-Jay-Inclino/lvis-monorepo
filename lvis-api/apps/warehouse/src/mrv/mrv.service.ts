@@ -3,7 +3,7 @@ import { CreateMrvInput } from './dto/create-mrv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { MRV, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { DB_ENTITY, SETTINGS } from '../__common__/constants';
+import { DB_ENTITY, SETTINGS, WAREHOUSE_REQUEST_TYPE } from '../__common__/constants';
 import { UpdateMrvInput } from './dto/update-mrv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
 import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
@@ -47,7 +47,6 @@ export class MrvService {
             exp_date: expDate,
             request_type: input.request_type,
             or_number: input.or_number,
-            mwo_number: input.mwo_number,
             cwo_number: input.cwo_number,
             jo_number: input.jo_number,
             consumer_name: input.consumer_name,
@@ -153,7 +152,6 @@ export class MrvService {
             purpose: input.purpose ?? existingItem.purpose,
             request_type: input.request_type ?? existingItem.request_type,
             or_number: input.or_number ?? undefined,
-            mwo_number: input.mwo_number ?? undefined,
             cwo_number: input.cwo_number ?? undefined,
             jo_number: input.jo_number ?? undefined,
             consumer_name: input.consumer_name ?? existingItem.consumer_name,

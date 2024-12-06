@@ -83,4 +83,42 @@ export class CommonService {
 
     }
 
+    /*  
+        No reset limit even if the sequence exceeds 999.
+        Reset happens only at the start of a new month.
+        Three-digit padding ensures consistency except if it reaches 1000
+
+    */
+    async generateMwoNumber(): Promise<string> {
+        const now = new Date();
+        const year = now.getFullYear().toString().slice(2); // e.g., "24"
+        const month = (now.getMonth() + 1).toString().padStart(2, '0'); // e.g., "12"
+        const yearMonth = `${year}${month}`; // e.g., "2412"
+      
+        return this.prisma.$transaction(async (prisma) => {
+          // Find or create the sequence tracker for the current yearMonth
+          let tracker = await prisma.mwoSequenceTracker.findUnique({
+            where: { yearMonth },
+          });
+      
+          if (!tracker) {
+            // New month, start sequence from 1
+            tracker = await prisma.mwoSequenceTracker.create({
+              data: { yearMonth, sequence: 1 },
+            });
+          } else {
+            // Increment the sequence if it already exists
+            tracker = await prisma.mwoSequenceTracker.update({
+              where: { yearMonth },
+              data: { sequence: { increment: 1 } },
+            });
+          }
+      
+          // Format the sequence with 3 digits minimum, without resetting at 1000
+          const paddedSequence = tracker.sequence.toString().padStart(3, '0');
+          return `${yearMonth}-${paddedSequence}`; // e.g., "2412-001", "2412-1000", "2412-1001"
+        });
+      }
+      
+
 }

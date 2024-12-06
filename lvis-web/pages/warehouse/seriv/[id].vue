@@ -72,8 +72,11 @@
                                 Request Type <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="request_types" label="name" v-model="serivData.request_type" :clearable="false"></v-select>
+                                <v-select :options="request_types" label="name" v-model="serivData.request_type_object" :clearable="false"></v-select>
                             </client-only>
+                            <small v-if="showMwoNumber" class="text-muted fst-italic">
+                                Note: The MWO number is automatically assigned when approved.
+                            </small>
                         </div>
 
                         <div v-if="showOrNumber" class="mb-3">
@@ -459,7 +462,7 @@ const showOrNumber = computed( () => {
 
     if(!serivData.value.request_type) return false 
 
-    return showORnumber(serivData.value.request_type)
+    return showORnumber(serivData.value.request_type_object.id)
 
 })
 
@@ -467,7 +470,7 @@ const showMwoNumber = computed( () => {
 
     if(!serivData.value.request_type) return false 
 
-    return showMWOnumber(serivData.value.request_type)
+    return showMWOnumber(serivData.value.request_type_object.id)
 
 
 })
@@ -476,7 +479,7 @@ const showCwoNumber = computed( () => {
 
     if(!serivData.value.request_type) return false 
 
-    return showCWOnumber(serivData.value.request_type)
+    return showCWOnumber(serivData.value.request_type_object.id)
 
 })
 
@@ -485,6 +488,11 @@ const showCwoNumber = computed( () => {
 function populateForm(data: SERIV) {
 
     data.date_requested = formatToValidHtmlDate(data.date_requested)
+
+    data.request_type_object = {
+        id: data.request_type,
+        name: warehouseRequestTypeMapper[data.request_type],
+    }
 
     const requestedBy = data.requested_by
     requestedBy!['fullname'] = getFullname(requestedBy!.firstname, requestedBy!.middlename, requestedBy!.lastname)
@@ -517,14 +525,13 @@ async function updateSerivInfo() {
     const data: UpdateSerivInput = {
         purpose: serivData.value.purpose,
         request_type: {
-            id: serivData.value.request_type,
-            name: warehouseRequestTypeMapper[serivData.value.request_type]
+            id: serivData.value.request_type_object.id,
+            name: warehouseRequestTypeMapper[serivData.value.request_type_object.id]
         },
         requested_by: serivData.value.requested_by,
         withdrawn_by: serivData.value.withdrawn_by,
         item_from: serivData.value.item_from,
         or_number: serivData.value.or_number,
-        mwo_number: serivData.value.mwo_number,
         cwo_number: serivData.value.cwo_number,
         jo_number: serivData.value.jo_number,
         consumer_name: serivData.value.consumer_name,

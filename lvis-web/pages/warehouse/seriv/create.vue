@@ -43,6 +43,9 @@
                                 <client-only>
                                     <v-select :options="request_types" label="name" v-model="serivData.request_type" :clearable="false"></v-select>
                                 </client-only>
+                                <small v-if="showMwoNumber" class="text-muted fst-italic">
+                                    Note: The MWO number is automatically assigned when approved.
+                                </small>
                                 <small class="text-danger fst-italic" v-show="serivDataErrors.request_type"> {{ errorMsg }} </small>
                             </div>
     
@@ -51,14 +54,6 @@
                                     OR Number
                                 </label>
                                 <input v-model="serivData.or_number" class="form-control"
-                                    rows="3" />
-                            </div>
-    
-                            <div v-if="showMwoNumber" class="mb-3">
-                                <label class="form-label">
-                                    MWO Number
-                                </label>
-                                <input v-model="serivData.mwo_number" class="form-control"
                                     rows="3" />
                             </div>
     
@@ -289,7 +284,6 @@
         request_type: null,
         purpose: "",
         or_number: "",
-        mwo_number: "",
         cwo_number: "",
         jo_number: "",
         consumer_name: "",
