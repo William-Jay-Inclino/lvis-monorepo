@@ -63,7 +63,7 @@
                         <div class="mb-3">
                             <label class="form-label">Supplier</label>
                             <client-only>
-                                <v-select :options="suppliers" label="name" v-model="supplier"></v-select>
+                                <v-select @search="handleSearchSuppliers" :options="suppliers" label="name" v-model="supplier"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -219,6 +219,7 @@ import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { fetchSprNumbers } from '~/composables/warehouse/spr/spr.api';
 import { fetchJoNumbers } from '~/composables/warehouse/jo/jo.api';
 import type { Supplier } from '~/composables/warehouse/supplier/supplier';
+import { fetchSuppliers } from '~/composables/warehouse/supplier/supplier.api';
 
 
 definePageMeta({
@@ -439,6 +440,17 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 
 }
 
+async function handleSearchSuppliers(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        suppliers.value = []
+        return 
+    } 
+
+    debouncedSearchSuppliers(input, loading)
+
+}
+
 async function searchMeqsNumbers(input: string, loading: (status: boolean) => void) {
     console.log('searchMeqsNumbers');
     console.log('input', input);
@@ -524,6 +536,22 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
     }
 }
 
+async function searchSuppliers(input: string, loading: (status: boolean) => void) {
+    console.log('searchSuppliers');
+    console.log('input', input);
+
+    loading(true)
+
+    try {
+        const response = await fetchSuppliers(input);
+        suppliers.value = response
+    } catch (error) {
+        console.error('Error fetching Suppliers:', error);
+    } finally {
+        loading(false);
+    }
+}
+
 // ======================== UTILS ======================== 
 
 const onClickViewDetails = (id: string) => router.push('/warehouse/meqs/view/' + id)
@@ -547,6 +575,10 @@ const debouncedSearchRvNumbers = debounce((input: string, loading: (status: bool
 
 const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
     searchEmployees(input, loading);
+}, 500);
+
+const debouncedSearchSuppliers = debounce((input: string, loading: (status: boolean) => void) => {
+    searchSuppliers(input, loading);
 }, 500);
 
 </script>
