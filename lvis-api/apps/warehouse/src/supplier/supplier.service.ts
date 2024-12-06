@@ -5,6 +5,7 @@ import { Prisma, Supplier } from 'apps/warehouse/prisma/generated/client';
 import { UpdateSupplierInput } from './dto/update-supplier.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { SuppliersResponse } from './entities/suppliers-response.entity';
 
 @Injectable()
 export class SupplierService {
@@ -37,11 +38,38 @@ export class SupplierService {
 
 	}
 
-	async findAll(): Promise<Supplier[]> {
-		return await this.prisma.supplier.findMany({
-			where: { deleted_at: null }
-		})
-	}
+    async findAll(page: number, pageSize: number, name?: string): Promise<SuppliersResponse> {
+
+        const skip = (page - 1) * pageSize;
+
+		let whereCondition: any = {};
+
+        const [items, totalItems] = await this.prisma.$transaction([
+            this.prisma.supplier.findMany({
+                where: {
+					deleted_at: null, 
+					...(name && {
+					  name: {
+						contains: name, 
+						mode: 'insensitive', 
+					  },
+					}),
+				  },
+                skip,
+                take: pageSize,
+            }),
+            this.prisma.supplier.count({
+                where: whereCondition,
+            }),
+        ]);
+
+        return {
+            data: items,
+            totalItems,
+            currentPage: page,
+            totalPages: Math.ceil(totalItems / pageSize),
+        };
+    }
 
 	async findOne(id: string): Promise<Supplier | null> {
 
@@ -96,6 +124,29 @@ export class SupplierService {
 			msg: "Supplier successfully deleted"
 		}
 
+	}
+
+	async findItemsByName(q: string) {
+		const input = q.trim(); 
+	
+		const items = await this.prisma.supplier.findMany({
+			select: {
+				id: true,
+				name: true,
+				address: true,
+				is_vat_registered: true,
+				vat_type: true,
+			},
+			where: {
+				deleted_at: null,
+				OR: [
+					{ name: { startsWith: input } },
+				],
+			},
+			take: 10,
+		});
+	
+		return items;
 	}
 
 }

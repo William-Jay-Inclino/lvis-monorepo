@@ -45,9 +45,11 @@ export async function fetchDataInSearchFilters(): Promise<{
                     lastname
                 }
             }
-            suppliers {
-                id 
-                name
+            suppliers(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
             }
         }
     `;
@@ -91,8 +93,8 @@ export async function fetchDataInSearchFilters(): Promise<{
             jos = data.jos.data
         }
 
-        if(data.suppliers) {
-            suppliers = data.suppliers
+        if (data.suppliers && data.suppliers.data) {
+            suppliers = data.suppliers.data
         }
 
         return {
@@ -653,12 +655,14 @@ export async function fetchFormDataInCreate(): Promise<{
                     }
                 }
             },
-            suppliers{
-                id 
-                name
-                address
-                is_vat_registered
-                vat_type
+            suppliers(page: 1, pageSize: 10) {
+                data {
+                    id 
+                    name
+                    address
+                    is_vat_registered
+                    vat_type
+                }
             },
             meqsApproverSettings{
                 approver_id
@@ -702,8 +706,8 @@ export async function fetchFormDataInCreate(): Promise<{
             sprs = response.data.data.sprs.data
         }
 
-        if (data.suppliers) {
-            suppliers = data.suppliers
+        if (data.suppliers && data.suppliers.data) {
+            suppliers = response.data.data.suppliers.data
         }
 
         if (data.meqsApproverSettings) {
@@ -884,12 +888,14 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            suppliers{
-                id 
-                name
-                address
-                is_vat_registered
-                vat_type
+            suppliers(page: 1, pageSize: 10) {
+                data {
+                    id 
+                    name
+                    address
+                    is_vat_registered
+                    vat_type
+                }
             }
         }
     `;
@@ -915,8 +921,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             employees = response.data.data.employees.data
         }
 
-        if (data.suppliers) {
-            suppliers = data.suppliers
+        if (data.suppliers && data.suppliers.data) {
+            suppliers = response.data.data.suppliers.data
         }
 
         return {

@@ -30,6 +30,8 @@ model Supplier {
   address  String @default("")
   vat_type Int    @default(1)
   is_vat_registered Boolean @default(false)
+  contact_person  String?
+  remarks  String?
 
   created_by String
   updated_by String?

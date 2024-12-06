@@ -29,3 +29,11 @@ export interface MutationResponse {
     msg: string
     data?: Supplier
 }
+
+
+export interface FindAllResponse {
+	data: Supplier[]
+	totalItems: number
+	currentPage: number
+	totalPages: number
+}

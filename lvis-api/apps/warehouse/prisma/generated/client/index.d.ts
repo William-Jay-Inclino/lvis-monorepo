@@ -7477,6 +7477,8 @@ export namespace Prisma {
     address: string | null
     vat_type: number | null
     is_vat_registered: boolean | null
+    contact_person: string | null
+    remarks: string | null
     created_by: string | null
     updated_by: string | null
     created_at: Date | null
@@ -7492,6 +7494,8 @@ export namespace Prisma {
     address: string | null
     vat_type: number | null
     is_vat_registered: boolean | null
+    contact_person: string | null
+    remarks: string | null
     created_by: string | null
     updated_by: string | null
     created_at: Date | null
@@ -7507,6 +7511,8 @@ export namespace Prisma {
     address: number
     vat_type: number
     is_vat_registered: number
+    contact_person: number
+    remarks: number
     created_by: number
     updated_by: number
     created_at: number
@@ -7532,6 +7538,8 @@ export namespace Prisma {
     address?: true
     vat_type?: true
     is_vat_registered?: true
+    contact_person?: true
+    remarks?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -7547,6 +7555,8 @@ export namespace Prisma {
     address?: true
     vat_type?: true
     is_vat_registered?: true
+    contact_person?: true
+    remarks?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -7562,6 +7572,8 @@ export namespace Prisma {
     address?: true
     vat_type?: true
     is_vat_registered?: true
+    contact_person?: true
+    remarks?: true
     created_by?: true
     updated_by?: true
     created_at?: true
@@ -7664,6 +7676,8 @@ export namespace Prisma {
     address: string
     vat_type: number
     is_vat_registered: boolean
+    contact_person: string | null
+    remarks: string | null
     created_by: string
     updated_by: string | null
     created_at: Date
@@ -7698,6 +7712,8 @@ export namespace Prisma {
     address?: boolean
     vat_type?: boolean
     is_vat_registered?: boolean
+    contact_person?: boolean
+    remarks?: boolean
     created_by?: boolean
     updated_by?: boolean
     created_at?: boolean
@@ -7715,6 +7731,8 @@ export namespace Prisma {
     address?: boolean
     vat_type?: boolean
     is_vat_registered?: boolean
+    contact_person?: boolean
+    remarks?: boolean
     created_by?: boolean
     updated_by?: boolean
     created_at?: boolean
@@ -7741,6 +7759,8 @@ export namespace Prisma {
       address: string
       vat_type: number
       is_vat_registered: boolean
+      contact_person: string | null
+      remarks: string | null
       created_by: string
       updated_by: string | null
       created_at: Date
@@ -8148,6 +8168,8 @@ export namespace Prisma {
     readonly address: FieldRef<"Supplier", 'String'>
     readonly vat_type: FieldRef<"Supplier", 'Int'>
     readonly is_vat_registered: FieldRef<"Supplier", 'Boolean'>
+    readonly contact_person: FieldRef<"Supplier", 'String'>
+    readonly remarks: FieldRef<"Supplier", 'String'>
     readonly created_by: FieldRef<"Supplier", 'String'>
     readonly updated_by: FieldRef<"Supplier", 'String'>
     readonly created_at: FieldRef<"Supplier", 'DateTime'>
@@ -63054,6 +63076,8 @@ export namespace Prisma {
     address: 'address',
     vat_type: 'vat_type',
     is_vat_registered: 'is_vat_registered',
+    contact_person: 'contact_person',
+    remarks: 'remarks',
     created_by: 'created_by',
     updated_by: 'updated_by',
     created_at: 'created_at',
@@ -64036,6 +64060,8 @@ export namespace Prisma {
     address?: StringFilter<"Supplier"> | string
     vat_type?: IntFilter<"Supplier"> | number
     is_vat_registered?: BoolFilter<"Supplier"> | boolean
+    contact_person?: StringNullableFilter<"Supplier"> | string | null
+    remarks?: StringNullableFilter<"Supplier"> | string | null
     created_by?: StringFilter<"Supplier"> | string
     updated_by?: StringNullableFilter<"Supplier"> | string | null
     created_at?: DateTimeFilter<"Supplier"> | Date | string
@@ -64052,6 +64078,8 @@ export namespace Prisma {
     address?: SortOrder
     vat_type?: SortOrder
     is_vat_registered?: SortOrder
+    contact_person?: SortOrderInput | SortOrder
+    remarks?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -64071,6 +64099,8 @@ export namespace Prisma {
     address?: StringFilter<"Supplier"> | string
     vat_type?: IntFilter<"Supplier"> | number
     is_vat_registered?: BoolFilter<"Supplier"> | boolean
+    contact_person?: StringNullableFilter<"Supplier"> | string | null
+    remarks?: StringNullableFilter<"Supplier"> | string | null
     created_by?: StringFilter<"Supplier"> | string
     updated_by?: StringNullableFilter<"Supplier"> | string | null
     created_at?: DateTimeFilter<"Supplier"> | Date | string
@@ -64087,6 +64117,8 @@ export namespace Prisma {
     address?: SortOrder
     vat_type?: SortOrder
     is_vat_registered?: SortOrder
+    contact_person?: SortOrderInput | SortOrder
+    remarks?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -64110,6 +64142,8 @@ export namespace Prisma {
     address?: StringWithAggregatesFilter<"Supplier"> | string
     vat_type?: IntWithAggregatesFilter<"Supplier"> | number
     is_vat_registered?: BoolWithAggregatesFilter<"Supplier"> | boolean
+    contact_person?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
+    remarks?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
     created_by?: StringWithAggregatesFilter<"Supplier"> | string
     updated_by?: StringNullableWithAggregatesFilter<"Supplier"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
@@ -68571,6 +68605,8 @@ export namespace Prisma {
     address?: string
     vat_type?: number
     is_vat_registered?: boolean
+    contact_person?: string | null
+    remarks?: string | null
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -68587,6 +68623,8 @@ export namespace Prisma {
     address?: string
     vat_type?: number
     is_vat_registered?: boolean
+    contact_person?: string | null
+    remarks?: string | null
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -68603,6 +68641,8 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
+    contact_person?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -68619,6 +68659,8 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
+    contact_person?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -68635,6 +68677,8 @@ export namespace Prisma {
     address?: string
     vat_type?: number
     is_vat_registered?: boolean
+    contact_person?: string | null
+    remarks?: string | null
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -68650,6 +68694,8 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
+    contact_person?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -68665,6 +68711,8 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
+    contact_person?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -73607,6 +73655,8 @@ export namespace Prisma {
     address?: SortOrder
     vat_type?: SortOrder
     is_vat_registered?: SortOrder
+    contact_person?: SortOrder
+    remarks?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
@@ -73626,6 +73676,8 @@ export namespace Prisma {
     address?: SortOrder
     vat_type?: SortOrder
     is_vat_registered?: SortOrder
+    contact_person?: SortOrder
+    remarks?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
@@ -73641,6 +73693,8 @@ export namespace Prisma {
     address?: SortOrder
     vat_type?: SortOrder
     is_vat_registered?: SortOrder
+    contact_person?: SortOrder
+    remarks?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     created_at?: SortOrder
@@ -84791,6 +84845,8 @@ export namespace Prisma {
     address?: string
     vat_type?: number
     is_vat_registered?: boolean
+    contact_person?: string | null
+    remarks?: string | null
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -84806,6 +84862,8 @@ export namespace Prisma {
     address?: string
     vat_type?: number
     is_vat_registered?: boolean
+    contact_person?: string | null
+    remarks?: string | null
     created_by: string
     updated_by?: string | null
     created_at?: Date | string
@@ -84979,6 +85037,8 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
+    contact_person?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -84994,6 +85054,8 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     vat_type?: IntFieldUpdateOperationsInput | number
     is_vat_registered?: BoolFieldUpdateOperationsInput | boolean
+    contact_person?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

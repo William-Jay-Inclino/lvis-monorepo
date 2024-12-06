@@ -12,6 +12,7 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { SuppliersResponse } from './entities/suppliers-response.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Supplier)
@@ -50,14 +51,25 @@ export class SupplierResolver {
     }
   }
 
-  @Query(() => [Supplier])
-  suppliers() {
-    return this.supplierService.findAll();
+  @Query(() => SuppliersResponse)
+  suppliers(
+    @Args('page') page: number,
+    @Args('pageSize') pageSize: number,
+    @Args('name', { nullable: true }) name?: string,
+  ) {
+    return this.supplierService.findAll(page, pageSize, name);
   }
 
   @Query(() => Supplier)
   supplier(@Args('id') id: string) {
     return this.supplierService.findOne(id);
+  }
+
+  @Query(() => [Supplier])
+  suppliersByName(
+    @Args('input') input: string,
+  ) {
+    return this.supplierService.findItemsByName(input)
   }
 
   @Mutation(() => Supplier)

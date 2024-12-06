@@ -222,7 +222,7 @@
         
                                 <div class="row">
                                     <div class="col">
-                                        <WarehouseMEQSSupplier :suppliers="suppliers" :meqs_suppliers="meqsData.meqs_suppliers"
+                                        <WarehouseMEQSSupplier @search-suppliers="handleSearchedSuppliers" :suppliers="suppliers" :meqs_suppliers="meqsData.meqs_suppliers"
                                             :canvass_items="canvassItems" @add-supplier="addSupplier"
                                             @edit-supplier="editSupplier" @remove-supplier="removeSupplier"
                                             @add-attachment="addAttachment" @remove-attachment="removeAttachment" />
@@ -926,7 +926,10 @@ async function removeAttachment(supplierIndx: number, attachmentIndx: number) {
 
 }
 
-
+async function handleSearchedSuppliers(searched_suppliers: Supplier[]) {
+    console.log('handleSearchedSuppliers');
+    suppliers.value = searched_suppliers.map(i => ({...i}))
+}
 
 // ======================== CHILD FUNCTIONS: AWARD ======================== 
 

@@ -16,14 +16,6 @@ export async function create(input: CreateMeqsSupplierInput): Promise<MutationRe
     }).join(', ');
 
 
-    // const attachments = input.attachments.map(attachment => {
-    //     return `
-    //     {
-    //       src: "${attachment.src}"
-    //       filename: "${attachment.filename}"
-    //     }`;
-    // })
-
 
     const mutation = `
         mutation {

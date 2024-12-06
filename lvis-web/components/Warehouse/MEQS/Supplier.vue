@@ -128,7 +128,7 @@
                                         v-if="formIsAdd">*</span>
                                     <div v-if="formIsAdd">
                                         <client-only>
-                                            <v-select @option:selected="onChangeSupplier" :options="availableSuppliers"
+                                            <v-select @search="handleSearchSuppliers" @option:selected="onChangeSupplier" :options="availableSuppliers"
                                                 v-model="formData.supplier" label="name_with_address"></v-select>
                                         </client-only>
                                     </div>
@@ -317,13 +317,14 @@ import type { MeqsSupplier } from '~/composables/warehouse/meqs/meqs-supplier';
 import { VAT } from '~/utils/constants'
 import type { MeqsSupplierItem } from '~/composables/warehouse/meqs/meqs-supplier-item';
 import type { Supplier } from '~/composables/warehouse/supplier/supplier'
+import { fetchSuppliers } from "~/composables/warehouse/supplier/supplier.api";
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
     FilePondPluginImagePreview
 );
 
-const emits = defineEmits(['addSupplier', 'editSupplier', 'removeSupplier', 'addAttachment', 'removeAttachment']);
+const emits = defineEmits(['addSupplier', 'editSupplier', 'removeSupplier', 'addAttachment', 'removeAttachment', 'search-suppliers']);
 
 const props = defineProps({
     // suppliers in the form
@@ -622,8 +623,36 @@ function getUploadsPath(src: string) {
 
 }
 
+async function handleSearchSuppliers(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        emits('search-suppliers', [])
+        return 
+    } 
+
+    debouncedSearchSuppliers(input, loading)
+
+}
+
+async function searchSuppliers(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchSuppliers(input);
+        emits('search-suppliers', response)
+    } catch (error) {
+        console.error('Error fetching Employees:', error);
+    } finally {
+        loading(false);
+    }
+}
+
 // utils 
 
+const debouncedSearchSuppliers = debounce((input: string, loading: (status: boolean) => void) => {
+  searchSuppliers(input, loading);
+}, 500);
 
 function isInvalidPrice(price: number) {
     if (!price) return true
