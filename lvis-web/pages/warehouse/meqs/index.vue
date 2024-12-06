@@ -57,6 +57,17 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row pt-1">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Supplier</label>
+                            <client-only>
+                                <v-select :options="suppliers" label="name" v-model="supplier"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                </div>
         
                 <div class="d-flex justify-content-end gap-2">
                     <button @click="search()" class="btn btn-primary" :disabled="isSearching">
@@ -207,6 +218,7 @@ import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { fetchSprNumbers } from '~/composables/warehouse/spr/spr.api';
 import { fetchJoNumbers } from '~/composables/warehouse/jo/jo.api';
+import type { Supplier } from '~/composables/warehouse/supplier/supplier';
 
 
 definePageMeta({
@@ -246,6 +258,7 @@ const rvs = ref<RV[]>([])
 const jos = ref<JO[]>([])
 const sprs = ref<SPR[]>([])
 const employees = ref<Employee[]>([])
+const suppliers = ref<Supplier[]>([])
 
 // fields
 const transactionType = ref(transactionTypes.value[0])
@@ -255,6 +268,7 @@ const jo = ref<JO | null>(null)
 const spr = ref<SPR | null>(null)
 const date_requested = ref(null)
 const requested_by = ref<Employee | null>(null)
+const supplier = ref<Supplier | null>(null)
 // ----------------
 
 
@@ -271,6 +285,7 @@ onMounted(async () => {
     rvs.value = response.rvs
     sprs.value = response.sprs
     jos.value = response.jos
+    suppliers.value = response.suppliers
     employees.value = response.employees.map((i) => {
         i.fullname = getFullname(i.firstname, i.middlename, i.lastname)
         return i
@@ -331,7 +346,8 @@ async function search() {
         page: 1,
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null
+        requested_by_id: requested_by.value ? requested_by.value.id : null,
+        supplier_id: supplier.value ? supplier.value.id : null,
 
     })
     isSearching.value = false
@@ -350,8 +366,8 @@ async function changePage(page: number) {
         page,
         pageSize: pagination.value.pageSize,
         date_requested: null,
-        requested_by_id: null
-
+        requested_by_id: null,
+        supplier_id: null
     })
     isPaginating.value = false
 
@@ -511,7 +527,6 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
 // ======================== UTILS ======================== 
 
 const onClickViewDetails = (id: string) => router.push('/warehouse/meqs/view/' + id)
-const onClickEdit = (id: string) => router.push('/warehouse/meqs/' + id)
 const onClickAdd = () => router.push('/warehouse/meqs/create')
 
 const debouncedSearchMeqsNumbers = debounce((input: string, loading: (status: boolean) => void) => {

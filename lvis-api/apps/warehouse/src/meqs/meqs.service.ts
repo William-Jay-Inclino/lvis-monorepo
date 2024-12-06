@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { HttpService } from '@nestjs/axios';
 import { CreateMeqsInput } from './dto/create-meqs.input';
@@ -10,14 +10,12 @@ import { MEQSsResponse } from './entities/meqs-response.entity';
 import * as moment from 'moment';
 import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { WarehouseCancelResponse } from '../__common__/classes';
-import { CreateMeqsApproverSubInput } from './dto/create-meqs-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 
 @Injectable()
 export class MeqsService {
-    private readonly logger = new Logger(MeqsService.name);
     private authUser: AuthUser
 
     private includedFields = {
@@ -348,7 +346,13 @@ export class MeqsService {
 
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<MEQSsResponse> {
+    async findAll(
+        page: number, 
+        pageSize: number, 
+        date_requested?: string, 
+        requested_by_id?: string,
+        supplier_id?: string,
+    ): Promise<MEQSsResponse> {
 
         const skip = (page - 1) * pageSize;
 
@@ -369,6 +373,14 @@ export class MeqsService {
                 { rv: { canvass: { requested_by_id: requested_by_id } } },
                 { spr: { canvass: { requested_by_id: requested_by_id } } }
             ];
+        }
+
+        if (supplier_id) {
+            whereCondition.meqs_suppliers = {
+              some: {
+                supplier_id: supplier_id,
+              },
+            };
         }
 
         // Default to current year's records if neither filter is provided

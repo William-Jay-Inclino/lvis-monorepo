@@ -13,6 +13,7 @@ export async function fetchDataInSearchFilters(): Promise<{
     rvs: RV[],
     sprs: SPR[],
     jos: JO[],
+    suppliers: Supplier[],
 }> {
     const query = `
         query {
@@ -44,6 +45,10 @@ export async function fetchDataInSearchFilters(): Promise<{
                     lastname
                 }
             }
+            suppliers {
+                id 
+                name
+            }
         }
     `;
 
@@ -56,6 +61,7 @@ export async function fetchDataInSearchFilters(): Promise<{
         let sprs = []
         let jos = []
         let employees = []
+        let suppliers = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -85,12 +91,17 @@ export async function fetchDataInSearchFilters(): Promise<{
             jos = data.jos.data
         }
 
+        if(data.suppliers) {
+            suppliers = data.suppliers
+        }
+
         return {
             meqs,
             employees,
             rvs,
             sprs,
             jos,
+            suppliers,
         }
 
     } catch (error) {
@@ -101,6 +112,7 @@ export async function fetchDataInSearchFilters(): Promise<{
             rvs: [],
             sprs: [],
             jos: [],
+            suppliers: [],
         }
     }
 }
@@ -273,12 +285,13 @@ export async function findByReferenceNumber(payload: {
     }
 }
 
-export async function findAll(payload: { page: number, pageSize: number, date_requested: string | null, requested_by_id: string | null }): Promise<FindAllResponse> {
+export async function findAll(payload: { page: number, pageSize: number, date_requested: string | null, requested_by_id: string | null, supplier_id: string | null }): Promise<FindAllResponse> {
 
-    const { page, pageSize, date_requested, requested_by_id } = payload;
+    const { page, pageSize, date_requested, requested_by_id, supplier_id } = payload;
 
     let date_requested2 = null
     let requested_by_id2 = null
+    let supplier_id2 = null
 
     if (date_requested) {
         date_requested2 = `"${date_requested}"`
@@ -288,6 +301,10 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
         requested_by_id2 = `"${requested_by_id}"`
     }
 
+    if (supplier_id) {
+        supplier_id2 = `"${supplier_id}"`
+    }
+
     const query = `
         query {
             meqs(
@@ -295,6 +312,7 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 pageSize: ${pageSize},
                 date_requested: ${date_requested2},
                 requested_by_id: ${requested_by_id2},
+                supplier_id: ${supplier_id2},
             ) {
                 data {
                     id

@@ -73,8 +73,9 @@ export class MeqsResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
+        @Args('supplier_id', { nullable: true }) supplier_id?: string,
     ) {
-        return this.meqsService.findAll(page, pageSize, date_requested, requested_by_id);
+        return this.meqsService.findAll(page, pageSize, date_requested, requested_by_id, supplier_id);
     }
 
     @Query(() => [MEQS])
