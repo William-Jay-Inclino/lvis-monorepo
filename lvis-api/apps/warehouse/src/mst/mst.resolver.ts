@@ -155,7 +155,7 @@ export class MstResolver {
 
     @ResolveField(() => [MSTApprover])
     mst_approvers(@Parent() mst: MST): any {
-        return this.mstApproverService.findByMstId(mst.id)
+        return this.mstApproverService.findByMstId(mst.id, mst.mst_number)
     }
 
     @ResolveField(() => Int)

@@ -167,7 +167,7 @@ export class MeqsResolver {
 
     @ResolveField(() => [MEQSApprover])
     meqs_approvers(@Parent() meqs: MEQS): any {
-        return this.meqsApproverService.findByMeqsId(meqs.id)
+        return this.meqsApproverService.findByMeqsId(meqs.id, meqs.meqs_number)
     }
 
     @ResolveField(() => Int)

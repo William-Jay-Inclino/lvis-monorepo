@@ -89,17 +89,33 @@ const remarks = ref(props.pendingApproval?.approver_notes || '')
 
 const formErrors = ref({ ..._initialFormErrors })
 
+const approver_notes = computed( () => {
+    if(props.pendingApproval) {
+        return props.pendingApproval.approver_notes
+    }
+})
+
+watch(() => approver_notes.value, (newValue) => {
+    remarks.value = newValue || ''; 
+});
+
+
 function approve() {
     console.log('approve')
 
     if (!isValidApprove()) return
 
 
+    const sanitizedRemarks = remarks.value
+    .trim()  // Remove leading/trailing spaces
+    .replace(/\s+/g, ' '); // Replace multiple spaces with a single space
+
+
     if (props.employee.is_budget_officer) {
         const payload = {
             pendingApproval: props.pendingApproval,
             classification: classification.value,
-            remarks: remarks.value
+            remarks: sanitizedRemarks
         }
         emits('approve-budget-officer', payload, closePendingModal.value)
 
@@ -111,7 +127,7 @@ function approve() {
         const payload = {
             pendingApproval: props.pendingApproval,
             fundSource: fundSource.value,
-            remarks: remarks.value
+            remarks: sanitizedRemarks
         }
         emits('approve-finance-manager', payload, closePendingModal.value)
 

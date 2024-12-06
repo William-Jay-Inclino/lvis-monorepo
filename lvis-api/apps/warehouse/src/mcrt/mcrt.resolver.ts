@@ -148,7 +148,7 @@ export class McrtResolver {
 
     @ResolveField(() => [MCRTApprover])
     mcrt_approvers(@Parent() mcrt: MCRT): any {
-        return this.mcrtApproverService.findByMcrtId(mcrt.id)
+        return this.mcrtApproverService.findByMcrtId(mcrt.id, mcrt.mcrt_number)
     }
 
     @ResolveField(() => Int)

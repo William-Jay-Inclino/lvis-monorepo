@@ -81,19 +81,46 @@ export class SerivApproverService {
         });
     }
 
-    async findBySerivId(serivId: string): Promise<SERIVApprover[]> {
+    // attach pending note if there is any. Will replace the serivApprover note
+    // attach only if serivApprover status is pending
+    async findBySerivId(serivId: string, seriv_number: string): Promise<SERIVApprover[]> {
+        const approvers = await this.prisma.sERIVApprover.findMany({
+            where: { seriv_id: serivId },
+            orderBy: { order: 'asc' }
+        });
+    
+    
+        const pendingPromises = approvers.map(approver => 
+            this.prisma.pending.findUnique({
+                select: {
+                    approver_id: true, 
+                    approver_notes: true 
+                },
+                where: {
+                    approver_id_reference_number_reference_table: {
+                        approver_id: approver.approver_id,
+                        reference_number: seriv_number,
+                        reference_table: DB_ENTITY.SERIV
+                    }
+                }
+            })
+        );
+    
+        const pendingResults = await Promise.all(pendingPromises);
 
-        if (!serivId) {
-            throw new BadRequestException('seriv_id is undefined')
-        }
+        for(let approver of approvers) {
+            const pending = pendingResults.find(i => {
+                if(i) {
+                    return i.approver_id === approver.approver_id
+                }
+            })
 
-        return await this.prisma.sERIVApprover.findMany({
-            where: {
-                seriv_id: serivId
-            },
-            orderBy: {
-                order: 'asc'
+            // if approver has current pending. Use the pending note 
+            if(pending && approver.status === APPROVAL_STATUS.PENDING) {
+                approver.notes = pending.approver_notes
             }
-        })
+        }
+        
+        return approvers; 
     }
 }

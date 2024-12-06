@@ -1,8 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateMctApproverInput } from './dto/create-mct-approver.input';
-import { UpdateMctApproverInput } from './dto/update-mct-approver.input';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { MCTApprover } from 'apps/warehouse/prisma/generated/client';
+import { DB_ENTITY } from '../__common__/constants';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @Injectable()
 export class MctApproverService {
@@ -11,39 +11,46 @@ export class MctApproverService {
         private readonly prisma: PrismaService,
     ) { }
 
-    create(CreateMrvApproverInput: CreateMctApproverInput) {
-        return 'This action adds a new serivApprover';
-    }
+    // attach pending note if there is any. Will replace the mctApprover note
+    // attach only if mctApprover status is pending
+    async findByMctId(mctId: string, mct_number: string): Promise<MCTApprover[]> {
+        const approvers = await this.prisma.mCTApprover.findMany({
+            where: { mct_id: mctId },
+            orderBy: { order: 'asc' }
+        });
+    
+    
+        const pendingPromises = approvers.map(approver => 
+            this.prisma.pending.findUnique({
+                select: {
+                    approver_id: true, 
+                    approver_notes: true 
+                },
+                where: {
+                    approver_id_reference_number_reference_table: {
+                        approver_id: approver.approver_id,
+                        reference_number: mct_number,
+                        reference_table: DB_ENTITY.MCT
+                    }
+                }
+            })
+        );
+    
+        const pendingResults = await Promise.all(pendingPromises);
 
-    findAll() {
-        return `This action returns all serivApprover`;
-    }
+        for(let approver of approvers) {
+            const pending = pendingResults.find(i => {
+                if(i) {
+                    return i.approver_id === approver.approver_id
+                }
+            })
 
-    findOne(id: number) {
-        return `This action returns a #${id} serivApprover`;
-    }
-
-    update(id: number, updateMrvApproverInput: UpdateMctApproverInput) {
-        return `This action updates a #${id} serivApprover`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} serivApprover`;
-    }
-
-    async findByMctId(mctId: string): Promise<MCTApprover[]> {
-
-        if (!mctId) {
-            throw new BadRequestException('mrv_id is undefined')
-        }
-
-        return await this.prisma.mCTApprover.findMany({
-            where: {
-                mct_id: mctId
-            },
-            orderBy: {
-                order: 'asc'
+            // if approver has current pending. Use the pending note 
+            if(pending && approver.status === APPROVAL_STATUS.PENDING) {
+                approver.notes = pending.approver_notes
             }
-        })
+        }
+        
+        return approvers; 
     }
 }

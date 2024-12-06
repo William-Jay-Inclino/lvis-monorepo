@@ -183,7 +183,7 @@ export class PoResolver {
 
     @ResolveField(() => [POApprover])
     po_approvers(@Parent() po: PO): any {
-        return this.poApproverService.findByPoId(po.id)
+        return this.poApproverService.findByPoId(po.id, po.po_number)
     }
 
     @ResolveField(() => Int)

@@ -193,7 +193,7 @@ export class SprResolver {
 
     @ResolveField(() => [SPRApprover])
     spr_approvers(@Parent() spr: SPR): any {
-        return this.sprApproverService.findBySprId(spr.id)
+        return this.sprApproverService.findBySprId(spr.id, spr.spr_number)
     }
 
     @ResolveField(() => Int)

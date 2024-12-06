@@ -1,31 +1,57 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { SPRApprover } from 'apps/warehouse/prisma/generated/client';
+import { DB_ENTITY } from '../__common__/constants';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @Injectable()
 export class SprApproverService {
-
-  private readonly logger = new Logger(SprApproverService.name);
 
   constructor(
     private readonly prisma: PrismaService,
   ) { }
 
-  async findBySprId(sprId: string): Promise<SPRApprover[]> {
+    // attach pending note if there is any. Will replace the sprApprover note
+    // attach only if sprApprover status is pending
+    async findBySprId(sprId: string, spr_number: string): Promise<SPRApprover[]> {
+      const approvers = await this.prisma.sPRApprover.findMany({
+          where: { spr_id: sprId },
+          orderBy: { order: 'asc' }
+      });
+  
+  
+      const pendingPromises = approvers.map(approver => 
+          this.prisma.pending.findUnique({
+              select: {
+                  approver_id: true, 
+                  approver_notes: true 
+              },
+              where: {
+                  approver_id_reference_number_reference_table: {
+                      approver_id: approver.approver_id,
+                      reference_number: spr_number,
+                      reference_table: DB_ENTITY.SPR
+                  }
+              }
+          })
+      );
+  
+      const pendingResults = await Promise.all(pendingPromises);
 
-    if (!sprId) {
-      throw new BadRequestException('sprId is undefined')
-    }
+      for(let approver of approvers) {
+          const pending = pendingResults.find(i => {
+              if(i) {
+                  return i.approver_id === approver.approver_id
+              }
+          })
 
-    return await this.prisma.sPRApprover.findMany({
-      // include: this.includedFields,
-      where: {
-        spr_id: sprId
-      },
-      orderBy: {
-        order: 'asc'
+          // if approver has current pending. Use the pending note 
+          if(pending && approver.status === APPROVAL_STATUS.PENDING) {
+              approver.notes = pending.approver_notes
+          }
       }
-    })
+      
+      return approvers; 
   }
 
 

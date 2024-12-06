@@ -203,7 +203,7 @@ export class JoResolver {
 
     @ResolveField(() => [JOApprover])
     jo_approvers(@Parent() jo: JO): any {
-        return this.joApproverService.findByJoId(jo.id)
+        return this.joApproverService.findByJoId(jo.id, jo.jo_number)
     }
 
     @ResolveField(() => Int)

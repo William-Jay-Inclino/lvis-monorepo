@@ -81,19 +81,46 @@ export class McrtApproverService {
         });
     }
 
-    async findByMcrtId(mcrtId: string): Promise<MCRTApprover[]> {
+    // attach pending note if there is any. Will replace the mcrtApprover note
+    // attach only if mcrtApprover status is pending
+    async findByMcrtId(mcrtId: string, mcrt_number: string): Promise<MCRTApprover[]> {
+        const approvers = await this.prisma.mCRTApprover.findMany({
+            where: { mcrt_id: mcrtId },
+            orderBy: { order: 'asc' }
+        });
+    
+    
+        const pendingPromises = approvers.map(approver => 
+            this.prisma.pending.findUnique({
+                select: {
+                    approver_id: true, 
+                    approver_notes: true 
+                },
+                where: {
+                    approver_id_reference_number_reference_table: {
+                        approver_id: approver.approver_id,
+                        reference_number: mcrt_number,
+                        reference_table: DB_ENTITY.MCRT
+                    }
+                }
+            })
+        );
+    
+        const pendingResults = await Promise.all(pendingPromises);
 
-        if (!mcrtId) {
-            throw new BadRequestException('mcrt_id is undefined')
-        }
+        for(let approver of approvers) {
+            const pending = pendingResults.find(i => {
+                if(i) {
+                    return i.approver_id === approver.approver_id
+                }
+            })
 
-        return await this.prisma.mCRTApprover.findMany({
-            where: {
-                mcrt_id: mcrtId
-            },
-            orderBy: {
-                order: 'asc'
+            // if approver has current pending. Use the pending note 
+            if(pending && approver.status === APPROVAL_STATUS.PENDING) {
+                approver.notes = pending.approver_notes
             }
-        })
+        }
+        
+        return approvers; 
     }
 }

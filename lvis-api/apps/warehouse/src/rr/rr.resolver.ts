@@ -153,7 +153,7 @@ export class RrResolver {
 
     @ResolveField(() => [RrApprover])
     rr_approvers(@Parent() rr: RR): any {
-        return this.rrApproverService.findByRrId(rr.id)
+        return this.rrApproverService.findByRrId(rr.id, rr.rr_number)
     }
 
     @ResolveField(() => Employee)

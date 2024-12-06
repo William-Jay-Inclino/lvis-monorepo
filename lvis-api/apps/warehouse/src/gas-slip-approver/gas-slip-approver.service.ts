@@ -83,20 +83,47 @@ export class GasSlipApproverService {
         });
     }
 
-    async findByGasSlipId(gas_slip_id: string): Promise<GasSlipApprover[]> {
+    // attach pending note if there is any. Will replace the gasSlipApprover note
+    // attach only if gasSlipApprover status is pending
+    async findByGasSlipId(gasId: string, gas_number: string): Promise<GasSlipApprover[]> {
+        const approvers = await this.prisma.gasSlipApprover.findMany({
+            where: { gas_slip_id: gasId },
+            orderBy: { order: 'asc' }
+        });
+    
+    
+        const pendingPromises = approvers.map(approver => 
+            this.prisma.pending.findUnique({
+                select: {
+                    approver_id: true, 
+                    approver_notes: true 
+                },
+                where: {
+                    approver_id_reference_number_reference_table: {
+                        approver_id: approver.approver_id,
+                        reference_number: gas_number,
+                        reference_table: DB_ENTITY.GAS_SLIP
+                    }
+                }
+            })
+        );
+    
+        const pendingResults = await Promise.all(pendingPromises);
 
-        if (!gas_slip_id) {
-            throw new BadRequestException('gas_slip_id is undefined')
-        }
+        for(let approver of approvers) {
+            const pending = pendingResults.find(i => {
+                if(i) {
+                    return i.approver_id === approver.approver_id
+                }
+            })
 
-        return await this.prisma.gasSlipApprover.findMany({
-            where: {
-                gas_slip_id
-            },
-            orderBy: {
-                order: 'asc'
+            // if approver has current pending. Use the pending note 
+            if(pending && approver.status === APPROVAL_STATUS.PENDING) {
+                approver.notes = pending.approver_notes
             }
-        })
+        }
+        
+        return approvers; 
     }
 
 }

@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nes
 import { TripTicketService } from './trip-ticket.service';
 import { TripTicket } from './entities/trip-ticket.entity';
 import { CreateTripTicketInput } from './dto/create-trip-ticket.input';
-import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse } from '../__common__/classes';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
@@ -309,7 +309,7 @@ export class TripTicketResolver {
   @ResolveField(() => [TripTicketApprover])
   @UseGuards(GqlAuthGuard)
   trip_ticket_approvers(@Parent() tripTicket: TripTicket): any {
-      return this.tripTicketApproverService.findByTripTicketId(tripTicket.id)
+      return this.tripTicketApproverService.findByTripTicketId(tripTicket.id, tripTicket.trip_number)
   }
 
   @ResolveField(() => Boolean)

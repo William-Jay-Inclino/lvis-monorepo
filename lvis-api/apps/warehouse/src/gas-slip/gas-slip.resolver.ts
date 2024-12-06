@@ -204,7 +204,7 @@ export class GasSlipResolver {
 
   @ResolveField(() => [GasSlipApprover])
     gas_slip_approvers(@Parent() gasSlip: GasSlip): any {
-      return this.gasSlipApproverService.findByGasSlipId(gasSlip.id)
+      return this.gasSlipApproverService.findByGasSlipId(gasSlip.id, gasSlip.gas_slip_number)
   }
 
   @ResolveField(() => Int)

@@ -154,7 +154,7 @@ export class OsrivResolver {
 
     @ResolveField(() => [OSRIVApprover])
     osriv_approvers(@Parent() osriv: OSRIV): any {
-        return this.osrivApproverService.findByOsrivId(osriv.id)
+        return this.osrivApproverService.findByOsrivId(osriv.id, osriv.osriv_number)
     }
 
     @ResolveField(() => Int)

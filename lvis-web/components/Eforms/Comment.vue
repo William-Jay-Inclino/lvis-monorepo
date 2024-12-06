@@ -2,8 +2,8 @@
     <div class="textarea-container position-relative">
         <!-- Textarea for editing the comment -->
         <textarea
-            class="form-control"
-            rows="3"
+            class="form-control form-control-sm"
+            rows="5"
             v-model="currentNote"
             :disabled="!is_editing || is_saving"
             @keyup.enter="saveComment"
@@ -11,23 +11,32 @@
         
         <!-- Buttons inside the textarea bottom-right -->
         <div v-if="is_editing" class="position-absolute bottom-0 end-0 p-2">
-            <button @click="cancelEdit" class="btn btn-light btn-sm me-2">
+            <button @click="cancelEdit" class="btn btn-light btn-sm text-danger me-3">
                 <client-only>
-                    <font-awesome-icon :icon="['fas', 'times-circle']" class="text-danger" />
+                    <font-awesome-icon :icon="['fas', 'times-circle']" />
                 </client-only>
             </button>
-            <button @click="saveComment" class="btn btn-light btn-sm">
+            <button @click="saveComment" class="btn btn-light btn-sm text-success">
                 <client-only>
-                    <font-awesome-icon :icon="['fas', 'check-circle']" class="text-success" />
+                    <font-awesome-icon 
+                        v-if="!is_saving" 
+                        :icon="['fas', 'check-circle']" 
+                    />
+                    <span 
+                        v-else 
+                        class="spinner-border spinner-border-sm text-success" 
+                        role="status" 
+                        aria-hidden="true">
+                    </span>
                 </client-only>
             </button>
         </div>
 
         <!-- Display Edit button when not editing -->
         <div v-else class="position-absolute bottom-0 end-0 p-2">
-            <button @click="startEdit" class="btn btn-light btn-sm">
+            <button @click="startEdit" class="btn btn-light btn-sm text-primary">
                 <client-only>
-                    <font-awesome-icon :icon="['fas', 'edit']" class="text-primary" />
+                    <font-awesome-icon :icon="['fas', 'edit']" /> Comment
                 </client-only>
             </button>
         </div>

@@ -157,7 +157,7 @@ export class SerivResolver {
 
     @ResolveField(() => [SERIVApprover])
     seriv_approvers(@Parent() seriv: SERIV): any {
-        return this.serivApproverService.findBySerivId(seriv.id)
+        return this.serivApproverService.findBySerivId(seriv.id, seriv.seriv_number)
     }
 
     @ResolveField(() => Int)

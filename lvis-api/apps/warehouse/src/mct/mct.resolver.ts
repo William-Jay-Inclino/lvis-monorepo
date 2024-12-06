@@ -118,7 +118,7 @@ export class MctResolver {
 
     @ResolveField(() => [MCTApprover])
     mct_approvers(@Parent() mct: MCT): any {
-        return this.mctApproverService.findByMctId(mct.id)
+        return this.mctApproverService.findByMctId(mct.id, mct.mct_number)
     }
 
     @ResolveField(() => Int)

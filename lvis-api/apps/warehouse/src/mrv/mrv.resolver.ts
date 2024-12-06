@@ -157,7 +157,7 @@ export class MrvResolver {
 
     @ResolveField(() => [MRVApprover])
     mrv_approvers(@Parent() mrv: MRV): any {
-        return this.mrvApproverService.findByMrvId(mrv.id)
+        return this.mrvApproverService.findByMrvId(mrv.id, mrv.mrv_number)
     }
 
     @ResolveField(() => Int)
