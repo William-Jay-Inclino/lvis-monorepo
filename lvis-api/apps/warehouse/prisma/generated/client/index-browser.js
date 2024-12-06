@@ -153,7 +153,8 @@ exports.Prisma.PendingScalarFieldEnum = {
   reference_number: 'reference_number',
   reference_table: 'reference_table',
   description: 'description',
-  transaction_date: 'transaction_date'
+  transaction_date: 'transaction_date',
+  approver_notes: 'approver_notes'
 };
 
 exports.Prisma.SettingScalarFieldEnum = {

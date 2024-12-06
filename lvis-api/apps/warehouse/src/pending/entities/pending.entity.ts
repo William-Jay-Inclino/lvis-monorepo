@@ -18,6 +18,9 @@ export class Pending {
   @Field()
   description: string;
 
+  @Field({ nullable: true })
+  approver_notes: string | null;
+
   @Field( () => Date)
   transaction_date: Date;
 

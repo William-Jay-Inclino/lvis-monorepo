@@ -20,6 +20,7 @@ export async function getPendingsByEmployeeId(employeeId: string): Promise<{
                     reference_table
                     description
                     transaction_date
+                    approver_notes
                 }
             }
             classifications{
@@ -189,4 +190,50 @@ try {
         msg: 'Failed to disapprove. Please contact system administrator'
     };
 }
+}
+
+export async function saveComment(pending_id: number, comment: string): Promise<{success: boolean, msg: string}> {
+
+        const mutation = `
+            mutation {
+                update_approver_notes(
+                    input: {
+                        pending_id: ${pending_id},
+                        notes: "${comment}"
+                    }
+                ) {
+                    success
+                    msg
+                }
+            }`;
+
+    try {
+        const response = await sendRequest(mutation);
+
+        if (response.data && response.data.data && response.data.data.update_approver_notes) {
+
+            if(!!response.data.data.update_approver_notes.success) {
+               return {
+                   success: true,
+                   msg: 'Comment added successfully!',
+               };
+            } else {
+                return {
+                    success: false,
+                    msg: `Failed to add comment. Please reload the page and then try again`,
+                };
+            }
+
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to add comment. Please contact system administrator'
+        };
+    }
 }

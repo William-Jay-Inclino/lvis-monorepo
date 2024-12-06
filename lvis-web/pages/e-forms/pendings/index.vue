@@ -13,12 +13,13 @@
                     <div class="col-lg-12">
         
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th class="bg-secondary text-white"> No </th>
                                         <th class="bg-secondary text-white"> Transaction </th>
                                         <th class="bg-secondary text-white"> Date </th>
+                                        <th class="bg-secondary text-white"> Your Comment </th>
                                         <th class="text-center bg-secondary text-white">
                                             Approve / Disapprove
                                         </th>
@@ -32,10 +33,21 @@
                                             {{ item.description }}
                                             <nuxt-link class="btn btn-outline-light btn-sm"
                                                 :to="getLink(item.reference_table, item.reference_number)" target="_blank">
-                                                <small class="text-info fst-italic"> View details </small>
+                                                <small class="text-primary fst-italic"> View details </small>
                                             </nuxt-link>
                                         </td>
                                         <td class="text-muted align-middle"> {{ formatDate(item.transaction_date, true) }} </td>
+                                        <td>
+                                            <EformsComment
+                                                :pending_id="item.id"
+                                                :is_editing="item.is_editing"
+                                                :is_saving="item.is_saving"
+                                                :notes="item.approver_notes" 
+                                                @start-edit="handleStartEditComment"
+                                                @cancel="handleCancelEditComment"
+                                                @save="handleSaveComment"
+                                            />
+                                        </td>
                                         <td v-if="!isDefaultApproval(item)" class="text-center align-middle">
                                             <div class="d-flex w-100">
                                                 <button 
@@ -116,6 +128,7 @@ import type { Account } from '~/composables/system/account/account';
 import type { Classification } from '~/composables/system/classification/classification';
 import { MODULE_MAPPER } from '~/utils/constants';
 import { fetchTotalNotifications } from '~/composables/system/user/user.api';
+import { useToast } from "vue-toastification";
 
 const isLoadingPage = ref(true)
 const isApproving = ref(false)
@@ -127,6 +140,7 @@ const authUser = ref<AuthUser>()
 const pendings = ref<Pending[]>([])
 const classifications = ref<Classification[]>([])
 const accounts = ref<Account[]>([])
+const toast = useToast();
 
 type ModalData = {
     pendingApproval: Pending | null,
@@ -157,7 +171,7 @@ onMounted(async () => {
     if (authUser.value.user.user_employee) {
 
         const response = await pendingsApi.getPendingsByEmployeeId(authUser.value.user.user_employee.employee.id)
-        pendings.value = response.pendings
+        pendings.value = response.pendings.map(i => ({...i, is_editing: false, is_saving: false}))
         classifications.value = response.classifications
         accounts.value = response.accounts
         // updateTotalPendingsOfUser(authUser.value, pendings.value.length)
@@ -203,13 +217,6 @@ function isDefaultApproval(pending: Pending) {
 
 }
 
-// function updateTotalPendingsOfUser(authUser: AuthUser, totalPendings: number) {
-//     console.log('updateTotalPendingsOfUser()', authUser, totalPendings)
-//     authUser.user.user_employee!.employee.total_pending_approvals = totalPendings
-//     const updatedAuthUser = JSON.stringify(authUser)
-//     localStorage.setItem('authUser', updatedAuthUser);
-// }
-
 async function updateTotalNotifications() {
     console.log('updateTotalNotifications');
     
@@ -241,6 +248,7 @@ function handleCommonApprove(indx: number) {
         title: "Approve Confirmation",
         text: `Are you sure you want to approve transaction ${item.description}?`,
         input: 'text',
+        inputValue: item.approver_notes || '', 
         inputPlaceholder: 'Enter remarks (optional)...',
         position: "top",
         icon: "warning",
@@ -298,6 +306,7 @@ function handleCommonDisapprove(indx: number) {
         title: "Disapprove Confirmation",
         text: `Are you sure you want to disapprove transaction ${item.description}?`,
         input: 'text',
+        inputValue: item.approver_notes || '',
         inputPlaceholder: 'Enter remarks...',
         position: "top",
         icon: "warning",
@@ -440,6 +449,53 @@ async function handleApproveWithUpdates(payload: ApprovalProps) {
     }
 
     payload.closeBtnModal.click()
+}
+
+
+// =============================== Comment.vue Handlers =============================== 
+
+async function handleSaveComment(pending_id: number, comment: string) {
+    
+    const pending = pendings.value.find(i => i.id === pending_id) 
+    if(!pending) {
+        console.error('Pending not found with id of', pending_id);
+        return 
+    }
+
+    const sanitizedComment = comment
+    .trim()  // Remove leading/trailing spaces
+    .replace(/\s+/g, ' '); // Replace multiple spaces with a single space
+
+    pending.is_saving = true 
+    const response = await pendingsApi.saveComment(pending_id, sanitizedComment)
+    pending.is_saving = false 
+    pending.is_editing = false
+
+    if(response.success) {
+        toast.success(response.msg)
+        pending.approver_notes = comment 
+    } else {
+        toast.error(response.msg)
+    }
+
+}
+
+function handleCancelEditComment(pending_id: number) {
+    const pending = pendings.value.find(i => i.id === pending_id) 
+    if(!pending) {
+        console.error('Pending not found with id of', pending_id);
+        return 
+    }
+    pending.is_editing = false
+}
+
+function handleStartEditComment(pending_id: number) {
+    const pending = pendings.value.find(i => i.id === pending_id) 
+    if(!pending) {
+        console.error('Pending not found with id of', pending_id);
+        return 
+    }
+    pending.is_editing = true
 }
 
 </script>

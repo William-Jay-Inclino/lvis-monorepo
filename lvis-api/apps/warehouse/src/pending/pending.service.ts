@@ -11,6 +11,7 @@ import { ITEM_STATUS } from '../item/entities/item.types';
 import { ItemService } from '../item/item.service';
 import { TRIP_TICKET_STATUS } from '../trip-ticket/entities/trip-ticket.enums';
 import { CommonService } from '../__common__/classes';
+import { PendingResponse } from './entities/pending-response.entity';
 
 @Injectable()
 export class PendingService {
@@ -26,6 +27,30 @@ export class PendingService {
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
+    }
+
+    async update_approver_notes(pending_id: number, notes: string): Promise<PendingResponse> {
+
+        try {
+
+            await this.prisma.pending.update({
+                where: {
+                    id: pending_id
+                },
+                data: {
+                    approver_notes: notes
+                }
+            })
+
+            return {
+                success: true,
+                msg: 'Notes added successfully'
+            }
+            
+        } catch (error) {
+            throw new Error(`Error in updating pending. pending_id: ${pending_id}, notes: ${notes}`)
+        }
+
     }
 
     async approveOrDisapprovePending(payload: {

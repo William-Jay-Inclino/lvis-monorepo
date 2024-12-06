@@ -11389,6 +11389,7 @@ export namespace Prisma {
     reference_table: string | null
     description: string | null
     transaction_date: Date | null
+    approver_notes: string | null
   }
 
   export type PendingMaxAggregateOutputType = {
@@ -11398,6 +11399,7 @@ export namespace Prisma {
     reference_table: string | null
     description: string | null
     transaction_date: Date | null
+    approver_notes: string | null
   }
 
   export type PendingCountAggregateOutputType = {
@@ -11407,6 +11409,7 @@ export namespace Prisma {
     reference_table: number
     description: number
     transaction_date: number
+    approver_notes: number
     _all: number
   }
 
@@ -11426,6 +11429,7 @@ export namespace Prisma {
     reference_table?: true
     description?: true
     transaction_date?: true
+    approver_notes?: true
   }
 
   export type PendingMaxAggregateInputType = {
@@ -11435,6 +11439,7 @@ export namespace Prisma {
     reference_table?: true
     description?: true
     transaction_date?: true
+    approver_notes?: true
   }
 
   export type PendingCountAggregateInputType = {
@@ -11444,6 +11449,7 @@ export namespace Prisma {
     reference_table?: true
     description?: true
     transaction_date?: true
+    approver_notes?: true
     _all?: true
   }
 
@@ -11540,6 +11546,7 @@ export namespace Prisma {
     reference_table: string
     description: string
     transaction_date: Date
+    approver_notes: string | null
     _count: PendingCountAggregateOutputType | null
     _avg: PendingAvgAggregateOutputType | null
     _sum: PendingSumAggregateOutputType | null
@@ -11568,6 +11575,7 @@ export namespace Prisma {
     reference_table?: boolean
     description?: boolean
     transaction_date?: boolean
+    approver_notes?: boolean
   }, ExtArgs["result"]["pending"]>
 
   export type PendingSelectScalar = {
@@ -11577,6 +11585,7 @@ export namespace Prisma {
     reference_table?: boolean
     description?: boolean
     transaction_date?: boolean
+    approver_notes?: boolean
   }
 
 
@@ -11590,6 +11599,7 @@ export namespace Prisma {
       reference_table: string
       description: string
       transaction_date: Date
+      approver_notes: string | null
     }, ExtArgs["result"]["pending"]>
     composites: {}
   }
@@ -11990,6 +12000,7 @@ export namespace Prisma {
     readonly reference_table: FieldRef<"Pending", 'String'>
     readonly description: FieldRef<"Pending", 'String'>
     readonly transaction_date: FieldRef<"Pending", 'DateTime'>
+    readonly approver_notes: FieldRef<"Pending", 'String'>
   }
     
 
@@ -63086,7 +63097,8 @@ export namespace Prisma {
     reference_number: 'reference_number',
     reference_table: 'reference_table',
     description: 'description',
-    transaction_date: 'transaction_date'
+    transaction_date: 'transaction_date',
+    approver_notes: 'approver_notes'
   };
 
   export type PendingScalarFieldEnum = (typeof PendingScalarFieldEnum)[keyof typeof PendingScalarFieldEnum]
@@ -64262,6 +64274,7 @@ export namespace Prisma {
     reference_table?: StringFilter<"Pending"> | string
     description?: StringFilter<"Pending"> | string
     transaction_date?: DateTimeFilter<"Pending"> | Date | string
+    approver_notes?: StringNullableFilter<"Pending"> | string | null
   }
 
   export type PendingOrderByWithRelationInput = {
@@ -64271,6 +64284,7 @@ export namespace Prisma {
     reference_table?: SortOrder
     description?: SortOrder
     transaction_date?: SortOrder
+    approver_notes?: SortOrderInput | SortOrder
   }
 
   export type PendingWhereUniqueInput = Prisma.AtLeast<{
@@ -64284,6 +64298,7 @@ export namespace Prisma {
     reference_table?: StringFilter<"Pending"> | string
     description?: StringFilter<"Pending"> | string
     transaction_date?: DateTimeFilter<"Pending"> | Date | string
+    approver_notes?: StringNullableFilter<"Pending"> | string | null
   }, "id" | "approver_id_reference_number_reference_table">
 
   export type PendingOrderByWithAggregationInput = {
@@ -64293,6 +64308,7 @@ export namespace Prisma {
     reference_table?: SortOrder
     description?: SortOrder
     transaction_date?: SortOrder
+    approver_notes?: SortOrderInput | SortOrder
     _count?: PendingCountOrderByAggregateInput
     _avg?: PendingAvgOrderByAggregateInput
     _max?: PendingMaxOrderByAggregateInput
@@ -64310,6 +64326,7 @@ export namespace Prisma {
     reference_table?: StringWithAggregatesFilter<"Pending"> | string
     description?: StringWithAggregatesFilter<"Pending"> | string
     transaction_date?: DateTimeWithAggregatesFilter<"Pending"> | Date | string
+    approver_notes?: StringNullableWithAggregatesFilter<"Pending"> | string | null
   }
 
   export type SettingWhereInput = {
@@ -68815,6 +68832,7 @@ export namespace Prisma {
     reference_table: string
     description: string
     transaction_date?: Date | string
+    approver_notes?: string | null
   }
 
   export type PendingUncheckedCreateInput = {
@@ -68824,6 +68842,7 @@ export namespace Prisma {
     reference_table: string
     description: string
     transaction_date?: Date | string
+    approver_notes?: string | null
   }
 
   export type PendingUpdateInput = {
@@ -68832,6 +68851,7 @@ export namespace Prisma {
     reference_table?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     transaction_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    approver_notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PendingUncheckedUpdateInput = {
@@ -68841,6 +68861,7 @@ export namespace Prisma {
     reference_table?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     transaction_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    approver_notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PendingCreateManyInput = {
@@ -68850,6 +68871,7 @@ export namespace Prisma {
     reference_table: string
     description: string
     transaction_date?: Date | string
+    approver_notes?: string | null
   }
 
   export type PendingUpdateManyMutationInput = {
@@ -68858,6 +68880,7 @@ export namespace Prisma {
     reference_table?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     transaction_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    approver_notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PendingUncheckedUpdateManyInput = {
@@ -68867,6 +68890,7 @@ export namespace Prisma {
     reference_table?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     transaction_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    approver_notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SettingCreateInput = {
@@ -73785,6 +73809,7 @@ export namespace Prisma {
     reference_table?: SortOrder
     description?: SortOrder
     transaction_date?: SortOrder
+    approver_notes?: SortOrder
   }
 
   export type PendingAvgOrderByAggregateInput = {
@@ -73798,6 +73823,7 @@ export namespace Prisma {
     reference_table?: SortOrder
     description?: SortOrder
     transaction_date?: SortOrder
+    approver_notes?: SortOrder
   }
 
   export type PendingMinOrderByAggregateInput = {
@@ -73807,6 +73833,7 @@ export namespace Prisma {
     reference_table?: SortOrder
     description?: SortOrder
     transaction_date?: SortOrder
+    approver_notes?: SortOrder
   }
 
   export type PendingSumOrderByAggregateInput = {

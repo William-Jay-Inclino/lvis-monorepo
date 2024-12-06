@@ -90,6 +90,7 @@ model Pending {
   reference_table   String
   description      String
   transaction_date  DateTime @default(now())
+  approver_notes String?
 
 
   @@unique([approver_id, reference_number, reference_table])

@@ -85,7 +85,7 @@ const closePendingModal = ref<HTMLButtonElement>()
 
 const classification = ref<Classification>()
 const fundSource = ref<Account>()
-const remarks = ref('')
+const remarks = ref(props.pendingApproval?.approver_notes || '')
 
 const formErrors = ref({ ..._initialFormErrors })
 

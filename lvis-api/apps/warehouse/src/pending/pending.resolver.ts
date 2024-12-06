@@ -1,4 +1,4 @@
-import { Resolver, Query, Args, Mutation, Int } from '@nestjs/graphql';
+import { Resolver, Args, Mutation, Int } from '@nestjs/graphql';
 import { PendingService } from './pending.service';
 import { Pending } from './entities/pending.entity';
 import { PendingResponse } from './entities/pending-response.entity';
@@ -7,6 +7,7 @@ import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { UpdateApproverNotesInput } from './entities/update-approver-notes.input';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Pending)
@@ -16,11 +17,6 @@ export class PendingResolver {
     private filename = 'pending.resolver.ts'
 
   constructor(private readonly pendingService: PendingService) {}
-
-  // @Query(() => [Pending])
-  // pendings_by_approver_id(@Args('approver_id') approver_id: string,) {
-  //   return this.pendingService.findPendingsByApproverId(approver_id);
-  // }
 
   @Mutation(() => PendingResponse)
   async approve_pending(
@@ -98,6 +94,35 @@ export class PendingResolver {
 
     } catch (error) {
         this.logger.error('Error in disapproving pending', error)
+    }
+
+  }
+
+  @Mutation(() => PendingResponse)
+  async update_approver_notes(
+    @CurrentAuthUser() authUser: AuthUser,
+    @Args('input') input: UpdateApproverNotesInput,
+  ): Promise<PendingResponse> {
+    const { pending_id, notes } = input;
+
+    try {
+      
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'update_approver_notes',
+        input: JSON.stringify(input)
+      })
+
+      this.pendingService.setAuthUser(authUser)
+      const x = await this.pendingService.update_approver_notes(pending_id, notes);
+
+      this.logger.log(x.msg)
+
+      return x
+
+    } catch (error) {
+      this.logger.error('Error in updating approver notes', error)
     }
 
   }

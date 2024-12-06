@@ -194,7 +194,7 @@ export class RvResolver {
 
     @ResolveField(() => [RVApprover])
     rv_approvers(@Parent() rv: RV): any {
-        return this.rvApproverService.findByRvId(rv.id)
+        return this.rvApproverService.findByRvId(rv.id, rv.rv_number)
     }
 
     @ResolveField(() => Int)
