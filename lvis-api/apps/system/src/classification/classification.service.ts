@@ -5,6 +5,7 @@ import { Classification, Prisma } from 'apps/system/prisma/generated/client';
 import { UpdateClassificationInput } from './dto/update-classification.input';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { AuthUser } from '../__common__/auth-user.entity';
+import { ClassificationsResponse } from './entities/classifications-response.entity';
 
 @Injectable()
 export class ClassificationService {
@@ -28,13 +29,38 @@ export class ClassificationService {
 		return created
 	}
 
-	async findAll(): Promise<Classification[]> {
-		return await this.prisma.classification.findMany({
-			where: {
-				deleted_at: null
-			}
-		})
-	}
+    async findAll(page: number, pageSize: number, name?: string): Promise<ClassificationsResponse> {
+
+        const skip = (page - 1) * pageSize;
+
+        let whereCondition: any = {};
+
+        const [items, totalItems] = await this.prisma.$transaction([
+            this.prisma.classification.findMany({
+                where: {
+                    deleted_at: null, 
+                    ...(name && {
+                        name: {
+                        contains: name, 
+                        mode: 'insensitive', 
+                        },
+                    }),
+                },
+                skip,
+                take: pageSize,
+            }),
+            this.prisma.classification.count({
+                where: whereCondition,
+            }),
+        ]);
+
+        return {
+            data: items,
+            totalItems,
+            currentPage: page,
+            totalPages: Math.ceil(totalItems / pageSize),
+        };
+    }
 
 	async findOne(id: string): Promise<Classification | null> {
 		const item = await this.prisma.classification.findUnique({
@@ -82,6 +108,22 @@ export class ClassificationService {
 			msg: "Classification successfully deleted"
 		}
 
+	}
+
+	async findClassificationsByName(q: string) {
+		const input = q.trim(); 
+	
+		const items = await this.prisma.classification.findMany({
+			where: {
+				deleted_at: null,
+				OR: [
+					{ name: { startsWith: input } },
+				],
+			},
+			take: 10,
+		});
+	
+		return items;
 	}
 
 }

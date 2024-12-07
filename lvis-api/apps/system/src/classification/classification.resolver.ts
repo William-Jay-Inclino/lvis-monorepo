@@ -12,6 +12,7 @@ import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from '../__common__/modules.enum';
 import { RESOLVERS } from '../__common__/resolvers.enum';
+import { ClassificationsResponse } from './entities/classifications-response.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Classification)
@@ -51,14 +52,25 @@ export class ClassificationResolver {
 
   }
 
-  @Query(() => [Classification])
-  classifications() {
-    return this.classificationService.findAll();
+  @Query(() => ClassificationsResponse)
+  classifications(
+    @Args('page') page: number,
+    @Args('pageSize') pageSize: number,
+    @Args('name', { nullable: true }) name?: string,
+  ) {
+    return this.classificationService.findAll(page, pageSize, name);
   }
 
   @Query(() => Classification)
   classification(@Args('id') id: string) {
     return this.classificationService.findOne(id);
+  }
+
+  @Query(() => [Classification])
+  classificationsByName(
+    @Args('input') input: string,
+  ) {
+    return this.classificationService.findClassificationsByName(input)
   }
 
   @Mutation(() => Classification)
