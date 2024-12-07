@@ -42,22 +42,22 @@ export class AccountService {
     }
 
     async findAll(page: number, pageSize: number, name?: string): Promise<AccountsResponse> {
-
         const skip = (page - 1) * pageSize;
-
-        let whereCondition: any = {};
-
+    
+        let whereCondition: any = {
+            deleted_at: null,
+        };
+    
+        if (name) {
+            whereCondition.name = {
+                contains: name,
+                mode: 'insensitive',
+            };
+        }
+    
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.account.findMany({
-                where: {
-                    deleted_at: null, 
-                    ...(name && {
-                        name: {
-                        contains: name, 
-                        mode: 'insensitive', 
-                        },
-                    }),
-                },
+                where: whereCondition,
                 skip,
                 take: pageSize,
             }),
@@ -65,7 +65,7 @@ export class AccountService {
                 where: whereCondition,
             }),
         ]);
-
+    
         return {
             data: items,
             totalItems,
@@ -73,6 +73,7 @@ export class AccountService {
             totalPages: Math.ceil(totalItems / pageSize),
         };
     }
+    
 
     async findOne(id: string): Promise<Account | null> {
 

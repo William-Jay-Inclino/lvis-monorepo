@@ -266,16 +266,3 @@ const onClickViewDetails = (id: string) => router.push('/system/classification/v
 const onClickAdd = () => router.push('/system/classification/create')
 
 </script>
-
-<style scoped>
-
-.card {
-    overflow: hidden;
-    word-wrap: break-word;
-}
-
-.overflow-auto {
-    overflow-x: auto;
-}
-
-</style>

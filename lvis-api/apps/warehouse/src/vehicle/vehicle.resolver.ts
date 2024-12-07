@@ -15,6 +15,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { Employee } from '../__employee__/entities/employee.entity';
 import { GasSlipService } from '../gas-slip/gas-slip.service';
 import { UpdateVehicleResponse } from './entities/update-vehicle-response.entity';
+import { VehiclesResponse } from './entities/vehicles-response.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Vehicle)
@@ -56,14 +57,33 @@ export class VehicleResolver {
     }
   }
 
-  @Query(() => [Vehicle])
-  vehicles() {
-    return this.vehicleService.findAll();
+  @Query(() => VehiclesResponse)
+  vehicles(
+    @Args('page') page: number,
+    @Args('pageSize') pageSize: number,
+    @Args('assignee_id', { nullable: true }) assignee_id?: string,
+  ) {
+    return this.vehicleService.findAll(page, pageSize, assignee_id);
   }
 
   @Query(() => Vehicle)
-  vehicle(@Args('id') id: string) {
-    return this.vehicleService.findOne(id);
+  async vehicle(
+    @Args('id', { nullable: true }) id?: string,
+    @Args('vehicle_number', { nullable: true }) vehicle_number?: string
+  ) {
+    if (id) {
+      return this.vehicleService.findOne(id);
+    }
+    if (vehicle_number) {
+      return this.vehicleService.findByVehicleNumber(vehicle_number)
+    }
+  }
+
+  @Query(() => [Vehicle])
+  vehiclesByName(
+    @Args('input') input: string,
+  ) {
+    return this.vehicleService.findVehiclesByName(input)
   }
 
   @Mutation(() => UpdateVehicleResponse)

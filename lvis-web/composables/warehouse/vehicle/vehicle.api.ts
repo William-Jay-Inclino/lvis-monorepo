@@ -1,14 +1,124 @@
 import { sendRequest } from "~/utils/api"
-import type { Vehicle, CreateVehicleInput, MutationResponse, UpdateVehicleInput } from "./vehicle.types";
+import type { Vehicle, CreateVehicleInput, MutationResponse, UpdateVehicleInput, FindAllResponse } from "./vehicle.types";
 import type { Employee } from "~/composables/system/employee/employee.types";
 
 
 
-export async function findAll(): Promise<Vehicle[]> {
+export async function fetchDataInSearchFilters(): Promise<{
+    vehicles: Vehicle[],
+    employees: Employee[],
+}> {
+    const query = `
+        query {
+            vehicles(page: 1, pageSize: 10) {
+                data {
+                    id
+                    vehicle_number
+                    name
+                }
+            }
+            employees(page: 1, pageSize: 10) {
+                data {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        let vehicles = []
+        let employees = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (data.vehicles && data.vehicles.data) {
+            vehicles = data.vehicles.data
+        }
+
+        if (data.employees && data.employees.data) {
+            employees = data.employees.data
+        }
+
+        return {
+            vehicles,
+            employees,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            vehicles: [],
+            employees: [],
+        }
+    }
+}
+
+export async function findAll(payload: { 
+    page: number, 
+    pageSize: number, 
+    assignee_id: string | null, 
+}): Promise<FindAllResponse> {
+
+    const { page, pageSize, assignee_id } = payload;
+
+    let assignee_id2 = null
+
+    if (assignee_id) {
+        assignee_id2 = `"${assignee_id}"`
+    }
 
     const query = `
         query {
-            vehicles {
+            vehicles(
+                page: ${page},
+                pageSize: ${pageSize},
+                assignee_id: ${assignee_id2},
+            ) {
+                data {
+                    id
+                    vehicle_number
+                    plate_number
+                    classification_id
+                    assignee {
+                        id 
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    name
+                    date_acquired
+                    status
+                }
+                totalItems
+                currentPage
+                totalPages
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return response.data.data.vehicles;
+    } catch (error) {
+        console.error(error);
+        throw error
+    }
+}
+
+export async function findByVehicleNumber(vehicle_number: string): Promise<Vehicle | undefined> {
+    const query = `
+        query {
+            vehicle(vehicle_number: "${vehicle_number}") {
                 id
                 vehicle_number
                 plate_number
@@ -29,13 +139,18 @@ export async function findAll(): Promise<Vehicle[]> {
     try {
         const response = await sendRequest(query);
         console.log('response', response)
-        return response.data.data.vehicles;
+
+        if (response.data && response.data.data && response.data.data.vehicle) {
+            return response.data.data.vehicle;
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
     } catch (error) {
         console.error(error);
-        throw error
+        return undefined
     }
 }
-
 export async function findOne(id: string): Promise<Vehicle | undefined> {
     const query = `
         query {
@@ -356,5 +471,31 @@ export async function assignRFID(vehicleId: string, rfID: string): Promise<Mutat
             msg: 'Failed to assign RFID. Please contact the system administrator'
         }
 
+    }
+}
+
+export async function fetchVehicles(payload: string): Promise<Vehicle[]> {
+    const query = `
+        query {
+            vehiclesByName(input: "${payload}") {
+                id 
+                vehicle_number
+                name
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+        return response.data.data.vehiclesByName
+
+    } catch (error) {
+        console.error(error);
+        return []
     }
 }

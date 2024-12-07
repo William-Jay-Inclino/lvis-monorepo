@@ -7,6 +7,7 @@ import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { VEHICLE_STATUS } from './entities/vehicle.enums';
 import { UpdateVehicleResponse } from './entities/update-vehicle-response.entity';
+import { VehiclesResponse } from './entities/vehicles-response.entity';
 
 @Injectable()
 export class VehicleService {
@@ -60,17 +61,46 @@ export class VehicleService {
 
 	}
 
-	async findAll(): Promise<Vehicle[]> {
-		return await this.prisma.vehicle.findMany({
-			orderBy: {
-				vehicle_number: 'asc'
-			},
-			where: {
-				deleted_at: null
-			}
-		})
+	async findAll(
+		page: number, 
+		pageSize: number, 
+		assignee_id?: string,
+	): Promise<VehiclesResponse> {
+	
+		const skip = (page - 1) * pageSize;
+	
+		let whereCondition: any = {
+			deleted_at: null,
+		};
+	
+		if (assignee_id) {
+			whereCondition.assignee_id = {
+				equals: assignee_id,
+			};
+		}
+	
+		const [items, totalItems] = await this.prisma.$transaction([
+			this.prisma.vehicle.findMany({
+				where: whereCondition,
+				orderBy: {
+					vehicle_number: 'asc',
+				},
+				skip,
+				take: pageSize,
+			}),
+			this.prisma.vehicle.count({
+				where: whereCondition,
+			}),
+		]);
+	
+		return {
+			data: items,
+			totalItems,
+			currentPage: page,
+			totalPages: Math.ceil(totalItems / pageSize),
+		};
 	}
-
+	
 	async findOne(id: string): Promise<Vehicle | null> {
 
 		const item = await this.prisma.vehicle.findUnique({
@@ -149,7 +179,6 @@ export class VehicleService {
 			data: updated,
 		};
 	}
-	
 
 	async remove(id: string): Promise<WarehouseRemoveResponse> {
 
@@ -166,5 +195,41 @@ export class VehicleService {
 		}
 
 	}
+
+	async findVehiclesByName(q: string) {
+		const input = q.trim();
+	
+		const items = await this.prisma.vehicle.findMany({
+			select: {
+				id: true,
+				name: true,
+				vehicle_number: true,
+			},
+			where: {
+				deleted_at: null,
+				OR: [
+					{ name: { startsWith: input } },
+					{ vehicle_number: { startsWith: input } },
+				],
+			},
+			take: 10,
+		});
+	
+		return items;
+	}
+
+	async findByVehicleNumber(vehicle_number: string): Promise<Vehicle> {
+
+        const item = await this.prisma.vehicle.findUnique({
+            where: { vehicle_number }
+        })
+
+        if (!item) {
+            throw new NotFoundException('Vehicle not found')
+        }
+
+        return item
+
+    }
 
 }

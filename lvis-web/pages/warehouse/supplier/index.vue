@@ -273,16 +273,3 @@ const onClickViewDetails = (id: string) => router.push('/warehouse/supplier/view
 const onClickAdd = () => router.push('/warehouse/supplier/create')
 
 </script>
-
-<style scoped>
-
-.card {
-    overflow: hidden;
-    word-wrap: break-word;
-}
-
-.overflow-auto {
-    overflow-x: auto;
-}
-
-</style>

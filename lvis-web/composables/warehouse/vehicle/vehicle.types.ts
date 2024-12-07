@@ -55,3 +55,11 @@ export interface VehicleClassification {
     id: VEHICLE_CLASSIFICATION 
     name: string 
 }
+
+
+export interface FindAllResponse {
+	data: Vehicle[]
+	totalItems: number
+	currentPage: number
+	totalPages: number
+}
