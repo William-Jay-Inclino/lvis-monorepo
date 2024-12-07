@@ -87,7 +87,7 @@
         
                         <div class="row">
                             <div class="col">
-                                <nav class="overflow-auto">
+                                <nav>
                                     <ul class="pagination justify-content-center">
                                         <!-- Previous Button -->
                                         <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">

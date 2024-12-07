@@ -92,18 +92,40 @@
                         <div class="col">
                             <nav>
                                 <ul class="pagination justify-content-center">
+                                    <!-- Previous Button -->
                                     <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                        <a class="page-link" @click="changePage(pagination.currentPage - 1)"
-                                            href="#">Previous</a>
+                                        <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
                                     </li>
-                                    <li v-for="page in pagination.totalPages" :key="page" class="page-item"
-                                        :class="{ active: pagination.currentPage === page }">
+
+                                    <!-- First Page -->
+                                    <li v-if="visiblePages[0] > 1" class="page-item">
+                                        <a class="page-link" @click="changePage(1)" href="#">1</a>
+                                    </li>
+                                    <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+
+                                    <!-- Visible Pages -->
+                                    <li
+                                        v-for="page in visiblePages"
+                                        :key="page"
+                                        class="page-item"
+                                        :class="{ active: pagination.currentPage === page }"
+                                        >
                                         <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                     </li>
-                                    <li class="page-item"
-                                        :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                        <a class="page-link" @click="changePage(pagination.currentPage + 1)"
-                                            href="#">Next</a>
+
+                                    <!-- Last Page -->
+                                    <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                    <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
+                                        <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                    </li>
+
+                                    <!-- Next Button -->
+                                    <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
+                                        <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -170,6 +192,28 @@ onMounted(async () => {
     pagination.value.totalPages = totalPages
 })
 
+
+const visiblePages = computed(() => {
+    const maxVisible = 5; // Max pages to show
+    const currentPage = pagination.value.currentPage;
+    const totalPages = pagination.value.totalPages;
+
+    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let end = Math.min(totalPages, start + maxVisible - 1);
+
+    // Adjust start if we're near the end
+    if (end - start < maxVisible - 1) {
+        start = Math.max(1, end - maxVisible + 1);
+    }
+
+    const pages: number[] = [];
+    for (let i = start; i <= end; i++) {
+        pages.push(i);
+    }
+    return pages;
+});
+
+
 async function changePage(page: number) {
     isSearching.value = true
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
@@ -200,60 +244,60 @@ async function search() {
     pagination.value.totalPages = totalPages
 }
 
-async function onClickDelete(id: string) {
-    console.log('onClickDelete', id)
+// async function onClickDelete(id: string) {
+//     console.log('onClickDelete', id)
 
-    const indx = items.value.findIndex(i => i.id === id)
-    const item = items.value[indx]
-
-
-    if (!item) {
-        console.error('Item not found with id: ' + id)
-        return
-    }
-
-    Swal.fire({
-        title: "Are you sure?",
-        text: `${item.username} will be removed!`,
-        position: "top",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#e74a3b",
-        cancelButtonColor: "#6c757d",
-        confirmButtonText: "Yes, remove it!",
-        reverseButtons: true,
-        showLoaderOnConfirm: true,
-        preConfirm: async (remove) => {
-
-            if (remove) {
-                const response = await api.remove(item.id)
-
-                if (response.success) {
-
-                    items.value.splice(indx, 1)
-                    toast.success(response.msg)
+//     const indx = items.value.findIndex(i => i.id === id)
+//     const item = items.value[indx]
 
 
-                } else {
+//     if (!item) {
+//         console.error('Item not found with id: ' + id)
+//         return
+//     }
 
-                    Swal.fire({
-                        title: 'Error!',
-                        text: response.msg,
-                        icon: 'error',
-                        position: 'top',
-                    })
+//     Swal.fire({
+//         title: "Are you sure?",
+//         text: `${item.username} will be removed!`,
+//         position: "top",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: "#e74a3b",
+//         cancelButtonColor: "#6c757d",
+//         confirmButtonText: "Yes, remove it!",
+//         reverseButtons: true,
+//         showLoaderOnConfirm: true,
+//         preConfirm: async (remove) => {
 
-                }
-            }
+//             if (remove) {
+//                 const response = await api.remove(item.id)
 
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-    })
-}
+//                 if (response.success) {
+
+//                     items.value.splice(indx, 1)
+//                     toast.success(response.msg)
+
+
+//                 } else {
+
+//                     Swal.fire({
+//                         title: 'Error!',
+//                         text: response.msg,
+//                         icon: 'error',
+//                         position: 'top',
+//                     })
+
+//                 }
+//             }
+
+//         },
+//         allowOutsideClick: () => !Swal.isLoading()
+//     })
+// }
 
 
 const onClickCreate = () => router.push('/system/user/create')
-const onClickEdit = (id: string) => router.push('/system/user/' + id)
+// const onClickEdit = (id: string) => router.push('/system/user/' + id)
 const onClickViewDetails = (id: string) => router.push('/system/user/view/' + id)
 
 </script>
