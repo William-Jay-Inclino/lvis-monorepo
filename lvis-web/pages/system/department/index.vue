@@ -60,13 +60,13 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="d-inline-flex">
-                                                        <button :disabled="!canDelete(authUser, 'canManageDepartment')"
+                                                        <button :disabled="!canDelete(authUser, 'canManageDepartment', SERVICES.SYSTEM)"
                                                             @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
                                                             <client-only>
                                                                 <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageDepartment', SERVICES.SYSTEM) }"/>
                                                             </client-only>
                                                         </button>
-                                                        <button :disabled="!canEdit(authUser, 'canManageDepartment')"
+                                                        <button :disabled="!canEdit(authUser, 'canManageDepartment', SERVICES.SYSTEM)"
                                                             @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
                                                             <client-only>
                                                                 <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageDepartment', SERVICES.SYSTEM) }" />

@@ -10,6 +10,7 @@ export enum SERVICES {
 export enum MODULES {
 
     // ==============================================   SYSTEM ============================================== 
+    USER = 'USER',
     EMPLOYEE = 'EMPLOYEE',
     SETTINGS = 'SETTINGS',
     ACCOUNT = 'ACCOUNT',
@@ -58,6 +59,11 @@ export enum ROUTES {
 
     // ==============================================   SYSTEM ============================================== 
 
+    // =======================  USER ======================= 
+    USER_INDEX = `${SERVICES.SYSTEM}_USER_INDEX`,
+    USER_CREATE = `${SERVICES.SYSTEM}_USER_CREATE`,
+    USER_UPDATE = `${SERVICES.SYSTEM}_USER_UPDATE`,
+    USER_VIEW = `${SERVICES.SYSTEM}_USER_VIEW`,
 
 
     // =======================  EMPLOYEE ======================= 

@@ -111,13 +111,10 @@
 
 import Swal from 'sweetalert2'
 import { getFullname, formatToValidHtmlDate } from '~/utils/helpers'
-import { useToast } from "vue-toastification";
 import type { PO, UpdatePoInput } from '~/composables/warehouse/po/po.types';
 import * as poApi from '~/composables/warehouse/po/po.api'
-import * as poApproverApi from '~/composables/warehouse/po/po-approver.api'
 import type { Account } from '~/composables/system/account/account';
 import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { fetchAccountsByName } from '~/composables/system/account/account.api';
 
 definePageMeta({
@@ -133,7 +130,6 @@ const authUser = ref<AuthUser>({} as AuthUser)
 // DEPENDENCIES
 const route = useRoute()
 const router = useRouter();
-const toast = useToast();
 
 // FLAGS
 const isPODetailForm = ref(true)

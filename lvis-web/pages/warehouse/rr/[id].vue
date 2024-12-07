@@ -144,17 +144,6 @@
                     </div>
                 </div>
         
-                <!-- <div v-show="form === FORM_TYPE.APPROVER" class="row justify-content-center pt-5">
-        
-                    <div class="col-12">
-                        <WarehouseApprover :approvers="rrData.rr_approvers" :employees="employees"
-                            :isUpdatingApproverOrder="isUpdatingApproverOrder" :isAddingApprover="isAddingApprover"
-                            :isEditingApprover="isEditingApprover" @changeApproverOrder="changeApproverOrder"
-                            @addApprover="addApprover" @editApprover="editApprover" @removeApprover="removeApprover"  @searched-employees="handleSearchedEmployees"/>
-                    </div>
-        
-                </div> -->
-        
         
                 <div class="row justify-content-center pt-3">
                     <div :class="{ 'col-lg-6': form === FORM_TYPE.RR_INFO, 'col-12': form !== FORM_TYPE.RR_INFO }">
@@ -363,11 +352,6 @@ async function updateRrInfo() {
         })
     }
 
-}
-
-// handle searched employees from child component (Approver) 
-async function handleSearchedEmployees(searchedEmployees: Employee[]) {
-    employees.value = addPropertyFullName(searchedEmployees)
 }
 
 async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {

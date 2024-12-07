@@ -40,19 +40,19 @@
                             <div class="col">
                                 <div class="d-flex justify-content-end gap-2">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <button v-if="canRead(authUser, 'canManageAccount')" class="btn btn-secondary"
+                                        <button v-if="canRead(authUser, 'canManageAccount', SERVICES.SYSTEM)" class="btn btn-secondary"
                                             @click="onClickGoToList">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'list']"/>
                             </client-only> Go to List
                                         </button>
-                                        <button v-if="canEdit(authUser, 'canManageAccount')" class="btn btn-success"
+                                        <button v-if="canEdit(authUser, 'canManageAccount', SERVICES.SYSTEM)" class="btn btn-success"
                                             @click="onClickUpdate">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'sync']"/>
                             </client-only> Update
                                         </button>
-                                        <button v-if="canCreate(authUser, 'canManageAccount')" class="btn btn-primary"
+                                        <button v-if="canCreate(authUser, 'canManageAccount', SERVICES.SYSTEM)" class="btn btn-primary"
                                             @click="onClickAddNew">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'plus']"/>

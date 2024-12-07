@@ -150,7 +150,6 @@
 import * as api from '~/composables/system/employee/employee.api'
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { PAGINATION_SIZE } from '~/utils/config'
-import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
 import { employeeStatus } from '~/utils/constants';
 

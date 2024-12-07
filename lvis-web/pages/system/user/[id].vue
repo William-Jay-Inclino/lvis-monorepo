@@ -180,7 +180,9 @@
 <script setup lang="ts">
 
 definePageMeta({
-    layout: "layout-system"
+    name: ROUTES.USER_UPDATE,
+    layout: "layout-system",
+    middleware: ['auth'],
 })
 
 import * as api from '~/composables/system/user/user.api'

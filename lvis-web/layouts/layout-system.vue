@@ -133,16 +133,6 @@
                                     to="/system/account">Account</nuxt-link></li>
                         </ul>
                     </li>
-                    <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Settings
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><nuxt-link class="dropdown-item"
-                                    to="/system/settings/warehouse">Warehouse</nuxt-link></li>
-                        </ul>
-                    </li> -->
                 </ul>
                 <div class="mt-auto d-grid">
                     <a @click="handleLogOut" class="btn btn-outline-danger btn-block"> Logout </a>

@@ -23,7 +23,7 @@
                             </client-only> 
                              {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageAccount')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button v-if="canCreate(authUser, 'canManageAccount', SERVICES.SYSTEM)" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'plus']"/>
                          </client-only> Create 
@@ -70,9 +70,7 @@
                                                 <td class="text-muted align-middle"> {{ i.code }} </td>
                                                 <td class="text-muted align-middle"> {{ i.name }} </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
-                                                        :class="{ 'text-primary': canRead(authUser, 'canManageAccount') }"
-                                                        :disabled="!canRead(authUser, 'canManageAccount')">
+                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm text-primary">
                                                         <client-only>
                                                             <font-awesome-icon :icon="['fas', 'info-circle']" />
                                                         </client-only>

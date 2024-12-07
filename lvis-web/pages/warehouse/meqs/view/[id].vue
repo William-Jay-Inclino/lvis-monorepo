@@ -474,24 +474,6 @@ function onClickNote(canvass_item_id: string) {
 
 }
 
-// function hasRemarks(canvass_item_id: string): boolean {
-
-//     for (let supplier of item.value!.meqs_suppliers) {
-
-//         const item = supplier.meqs_supplier_items.find(i => i.canvass_item.id === canvass_item_id)
-
-//         if (item) {
-//             const isNotEmpty = (!!item.notes || item.notes.trim() !== '')
-//             if(isNotEmpty){
-//                 return true 
-//             }
-//         }
-
-//     }
-
-//     return false 
-// }
-
 const hasPO = computed(() => {
 
     if (!item.value) return false

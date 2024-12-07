@@ -12,11 +12,11 @@ const ROUTE_EXEMPTIONS = [
     ROUTES.RR_UPDATE,
 ]
 
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware( async(to, from) => {
 
     if(import.meta.client) {
 
-        const authUser = getAuthUser()
+        const authUser = await getAuthUserAsync()
 
         if (isAdmin(authUser)) return
     
@@ -34,12 +34,17 @@ export default defineNuxtRouteMiddleware((to, from) => {
             if (!permissions) return redirectTo401Page()
     
             // data management
+            const isUserModule = to.name?.toString().includes(MODULES.USER)
             const isEmployeeModule = to.name?.toString().includes(MODULES.EMPLOYEE)
             const isAccountModule = to.name?.toString().includes(MODULES.ACCOUNT)
             const isClassificationModule = to.name?.toString().includes(MODULES.CLASSIFICATION)
             const isDepartmentModule = to.name?.toString().includes(MODULES.DEPARTMENT)
             const isDivisionModule = to.name?.toString().includes(MODULES.DIVISION)
-    
+
+            if (isUserModule) {
+                if (!(await canAccessUser(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
     
             if (isEmployeeModule) {
                 if (!canAccessEmployee(to.name as ROUTES, permissions)) return redirectTo401Page()
@@ -260,6 +265,20 @@ function isApprover(authUser: AuthUser) {
 
 
 // ============================================== SYSTEM ============================================== 
+
+async function canAccessUser(route: ROUTES, permissions: SystemPermissions) {
+
+    console.log('canAccessUser', route, permissions)
+
+    const authUser = await getAuthUserAsync()
+
+    if(!isAdmin(authUser)) {
+        return false 
+    }
+
+    return true
+
+}
 
 function canAccessEmployee(route: ROUTES, permissions: SystemPermissions) {
 

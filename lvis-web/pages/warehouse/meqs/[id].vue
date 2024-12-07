@@ -105,18 +105,6 @@
         
                 </div>
         
-        
-                <!-- <div v-show="form === FORM_TYPE.APPROVER" class="row justify-content-center pt-5">
-        
-                    <div class="col-12">
-                        <WarehouseApprover :approvers="meqsData.meqs_approvers" :employees="employees"
-                            :isUpdatingApproverOrder="isUpdatingApproverOrder" :isAddingApprover="isAddingApprover"
-                            :isEditingApprover="isEditingApprover" @changeApproverOrder="changeApproverOrder"
-                            @addApprover="addApprover" @editApprover="editApprover" @removeApprover="removeApprover" @searched-employees="handleSearchedEmployees"/>
-                    </div>
-        
-                </div> -->
-        
                 <div v-show="form === FORM_TYPE.SUPPLIER" class="row justify-content-center pt-5">
         
                     <div class="12">
@@ -225,9 +213,6 @@ const API_URL = config.public.apiUrl
 
 // FLAGS
 const isUpdating = ref(false)
-const isUpdatingApproverOrder = ref(false)
-const isAddingApprover = ref(false)
-const isEditingApprover = ref(false)
 const isAddingSupplier = ref(false)
 const isEditingSupplier = ref(false)
 const isAddingAttachment = ref(false)
@@ -368,14 +353,6 @@ async function updateMeqsInfo() {
     }
 
 }
-
-// handle searched employees from child component (Approver) 
-async function handleSearchedEmployees(searchedEmployees: Employee[]) {
-    employees.value = addPropertyFullName(searchedEmployees)
-}
-
-
-// ======================== CHILD EVENTS: <WarehouseApprover> ========================  
 
 async function addSupplier(payload: MeqsSupplier) {
     console.log('addSupplier()', payload)
@@ -776,32 +753,6 @@ function isLowestPriceItem(meqs_supplier_item_id: string, canvass_item_id: strin
 
     return false 
 }
-
-
-// ======================== UTILS ========================  
-
-// async function onCancelMeqs() {
-//     Swal.fire({
-//         title: "Are you sure?",
-//         text: `This MEQS will be cancelled!`,
-//         position: "top",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#e74a3b",
-//         cancelButtonColor: "#6c757d",
-//         confirmButtonText: "Yes, cancel it!",
-//         reverseButtons: true,
-//         showLoaderOnConfirm: true,
-//         preConfirm: async (remove) => {
-
-//             if (remove) {
-//                 await cancelMeqs()
-//             }
-
-//         },
-//         allowOutsideClick: () => !Swal.isLoading()
-//     })
-// }
 
 function onClickTab(formType: FORM_TYPE) {
     form.value = formType
