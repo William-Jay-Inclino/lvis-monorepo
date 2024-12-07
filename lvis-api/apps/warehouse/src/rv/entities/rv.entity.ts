@@ -1,8 +1,7 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { Canvass } from '../../canvass/entities/canvass.entity';
 import { MEQS } from '../../meqs/entities/meq.entity';
 import { RVApprover } from '../../rv-approver/entities/rv-approver.entity';
-
 @ObjectType()
 export class RV {
 
@@ -32,6 +31,9 @@ export class RV {
 
   @Field(() => String)
   notes: string;
+
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
 
 
   // =============== audit fields ===============

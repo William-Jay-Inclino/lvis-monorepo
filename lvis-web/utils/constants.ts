@@ -463,3 +463,12 @@ export const itemStatusArray = [
         name: itemStatusMapper[ITEM_STATUS.NOT_USABLE]
     }
 ]
+
+
+
+export const approvalStatusArray = [
+    { id: APPROVAL_STATUS.PENDING, label: approvalStatus[APPROVAL_STATUS.PENDING].label },
+    { id: APPROVAL_STATUS.APPROVED, label: approvalStatus[APPROVAL_STATUS.APPROVED].label },
+    { id: APPROVAL_STATUS.DISAPPROVED, label: approvalStatus[APPROVAL_STATUS.DISAPPROVED].label },
+    { id: APPROVAL_STATUS.CANCELLED, label: approvalStatus[APPROVAL_STATUS.CANCELLED].label }
+]

@@ -283,6 +283,7 @@ model RV {
   work_order_no     String?
   work_order_date   DateTime?
   notes             String
+  approval_status Int?
 
   cancelled_by String?
   created_by   String

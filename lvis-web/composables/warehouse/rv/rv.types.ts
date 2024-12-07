@@ -14,7 +14,7 @@ export interface RV {
   work_order_no: string;
   work_order_date: string;
   notes: string;
-
+  approval_status: APPROVAL_STATUS
 
 
 

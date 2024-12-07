@@ -90,6 +90,7 @@ export class RvService {
             notes: input.notes ?? null,
             work_order_date: input.work_order_date ? new Date(input.work_order_date) : null,
             canvass: { connect: { id: input.canvass_id } },
+            approval_status: APPROVAL_STATUS.PENDING,
             rv_approvers: {
                 create: input.approvers.map(i => {
                     return {
@@ -284,6 +285,7 @@ export class RvService {
             data: {
                 cancelled_at: new Date(),
                 cancelled_by: this.authUser.user.username,
+                approval_status: APPROVAL_STATUS.CANCELLED,
                 canvass: {
                     disconnect: true
                 }
@@ -357,7 +359,7 @@ export class RvService {
         return item
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<RVsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<RVsResponse> {
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
@@ -376,6 +378,11 @@ export class RvService {
             whereCondition = { ...whereCondition, canvass: { requested_by_id: requested_by_id } }
         }
 
+        if (approval_status) {
+            console.log('1');
+            whereCondition.approval_status = approval_status;
+        }
+
          // Default to current year's records if neither filter is provided
          if (!date_requested && !requested_by_id) {
             const startOfYearDate = startOfYear(new Date());
@@ -386,10 +393,6 @@ export class RvService {
                 lte: endOfYearDate,
             };
         }
-        
-        // whereCondition.cancelled_at = {
-        //     equals: null,
-        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.rV.findMany({

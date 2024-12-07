@@ -135,6 +135,19 @@ export class PendingService {
 
                     is_last_approver = true
                 }
+
+            } 
+            else if(status === APPROVAL_STATUS.DISAPPROVED) {
+
+                await tx[module.model].update({
+                    where: {
+                        id: model.id
+                    },
+                    data: {
+                        approval_status: APPROVAL_STATUS.DISAPPROVED
+                    }
+                })
+
             }
 
             // if classification is define then update it
@@ -197,6 +210,8 @@ export class PendingService {
                 } else if(module.model === 'tripTicket') {
                     await this.handle_trip_ticket_completion_of_approvals(tx, model.id)
 
+                } else if(module.model === 'rV') {
+                    await this.handle_RV_completion_of_approvals(tx, model.id)
                 }
 
             }
@@ -326,6 +341,28 @@ export class PendingService {
         }
         const account = data.data.account
         return true
+
+    }
+
+    private async handle_RV_completion_of_approvals(tx: Prisma.TransactionClient, rv_id: string) {
+
+        const rv = await tx.rV.findUnique({
+            where: { id: rv_id },
+            include: {
+                rv_approvers: true
+            }
+        })
+
+        if(!rv) {
+            throw new NotFoundException('RV not found with id: ' + rv_id)
+        }
+
+        await tx.rV.update({
+            where: { id: rv_id },
+            data: { 
+                approval_status: APPROVAL_STATUS.APPROVED
+            }
+        })
 
     }
 

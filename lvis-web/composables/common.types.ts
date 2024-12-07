@@ -158,3 +158,8 @@ export interface WarehouseRequestType {
 	id: number
 	name: string
 }
+
+export interface IApprovalStatus {
+    id: number 
+    label: string
+}

@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">RV Number</label>
                             <client-only>
@@ -17,7 +17,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">RC Number</label>
                             <client-only>
@@ -25,17 +25,28 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="date_requested" type="date" class="form-control">
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                </div>
+
+                <div class="row">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
                                 <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="requested_by"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <client-only>
+                                <v-select @search="handleSearchEmployees" :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -181,6 +192,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchRcNumbers } from '~/composables/warehouse/canvass/canvass.api';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
+import { approvalStatusArray } from '~/utils/constants';
 
 definePageMeta({
     name: ROUTES.RV_INDEX,
@@ -212,6 +224,7 @@ const pagination = ref({ ..._paginationInitial })
 const canvass = ref<Canvass | null>(null)
 const rv = ref<RV | null>(null)
 const date_requested = ref(null)
+const approval_status = ref<IApprovalStatus | null>(null)
 const requested_by = ref<Employee | null>(null)
 const canvasses = ref<Canvass[]>([])
 const rvs = ref<RV[]>([])
@@ -257,8 +270,8 @@ async function changePage(page: number) {
         page,
         pageSize: pagination.value.pageSize,
         date_requested: null,
-        requested_by_id: null
-
+        requested_by_id: null,
+        approval_status: null,
     })
     isPaginating.value = false
 
@@ -303,8 +316,8 @@ async function search() {
         page: 1,
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null
-
+        requested_by_id: requested_by.value ? requested_by.value.id : null,
+        approval_status: approval_status.value ? approval_status.value.id : null
     })
     isSearching.value = false
     items.value = data
@@ -401,7 +414,6 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
 // ======================== UTILS ======================== 
 
 const onClickViewDetails = (id: string) => router.push('/warehouse/rv/view/' + id)
-const onClickEdit = (id: string) => router.push('/warehouse/rv/' + id)
 const onClickAdd = () => router.push('/warehouse/rv/create')
 
 const debouncedSearchRvNumbers = debounce((input: string, loading: (status: boolean) => void) => {

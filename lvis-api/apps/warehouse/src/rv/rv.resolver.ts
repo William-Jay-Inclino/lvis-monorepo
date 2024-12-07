@@ -66,8 +66,9 @@ export class RvResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.rvService.findAll(page, pageSize, date_requested, requested_by_id);
+        return this.rvService.findAll(page, pageSize, date_requested, requested_by_id, approval_status);
     }
 
     @Query(() => [RV])
@@ -204,6 +205,10 @@ export class RvResolver {
             return APPROVAL_STATUS.CANCELLED
         }
 
+        if(rv.approval_status) {
+            return rv.approval_status
+        }
+        
         return await this.rvService.getStatus(rv.id)
 
     }
