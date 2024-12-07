@@ -379,12 +379,11 @@ export class RvService {
         }
 
         if (approval_status) {
-            console.log('1');
             whereCondition.approval_status = approval_status;
         }
 
          // Default to current year's records if neither filter is provided
-         if (!date_requested && !requested_by_id) {
+         if (!date_requested && !requested_by_id && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 

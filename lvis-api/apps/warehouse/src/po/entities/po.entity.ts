@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { MeqsSupplier } from '../../meqs-supplier/entities/meqs-supplier.entity';
 import { RR } from '../../rr/entities/rr.entity';
 import { POApprover } from '../../po-approver/entities/po-approver.entity';
@@ -27,6 +27,13 @@ export class PO {
   @Field(() => String, { nullable: true })
   notes: string;
 
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
+
+  
+
+  
+  // =============== audit fields ===============
   @Field({ nullable: true })
   cancelled_by: string | null;
 

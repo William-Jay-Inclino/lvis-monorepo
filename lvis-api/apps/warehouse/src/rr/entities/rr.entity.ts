@@ -39,6 +39,14 @@ export class RR {
   @Field(() => Boolean)
   is_completed: boolean;
 
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
+
+
+
+
+  // =============== audit fields ===============
+
   @Field({ nullable: true })
   cancelled_by: string | null;
 

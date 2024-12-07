@@ -99,8 +99,9 @@ export class TripTicketResolver {
     @Args('driver_id', { type: () => String, nullable: true }) driver_id?: string,
     @Args('date_prepared', { type: () => String, nullable: true }) date_prepared?: string,
     @Args('estimated_departure', { type: () => String, nullable: true }) estimated_departure?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
   ): Promise<TripTicketsResponse> {
-    return this.tripTicketService.findAll(page, pageSize, vehicle_id, driver_id, date_prepared, estimated_departure);
+    return this.tripTicketService.findAll(page, pageSize, vehicle_id, driver_id, date_prepared, estimated_departure, approval_status);
   }
 
   @Query(() => TripTicket)

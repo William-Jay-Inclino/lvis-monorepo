@@ -66,8 +66,9 @@ export class OsrivResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.osrivService.findAll(page, pageSize, date_requested, requested_by_id);
+        return this.osrivService.findAll(page, pageSize, date_requested, requested_by_id, approval_status);
     }
 
     @Query(() => [OSRIV])
@@ -162,6 +163,10 @@ export class OsrivResolver {
 
         if (osriv.cancelled_at) {
             return APPROVAL_STATUS.CANCELLED
+        }
+
+        if(osriv.approval_status) {
+            return osriv.approval_status
         }
 
         return await this.osrivService.getStatus(osriv.id)

@@ -65,8 +65,9 @@ export class MctResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.mctService.findAll(page, pageSize, date_requested, requested_by_id);
+        return this.mctService.findAll(page, pageSize, date_requested, requested_by_id, approval_status);
     }
 
     @Query(() => [MCT])
@@ -126,6 +127,10 @@ export class MctResolver {
 
         if (mct.cancelled_at) {
             return APPROVAL_STATUS.CANCELLED
+        }
+
+        if(mct.approval_status) {
+            return mct.approval_status
         }
 
         return await this.mctService.getStatus(mct.id)

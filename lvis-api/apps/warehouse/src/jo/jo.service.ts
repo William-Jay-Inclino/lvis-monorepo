@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CanvassService } from '../canvass/canvass.service';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, JO, JOApprover } from 'apps/warehouse/prisma/generated/client';
@@ -18,7 +18,6 @@ import { endOfYear, startOfYear } from 'date-fns';
 @Injectable()
 export class JoService {
 
-    private readonly logger = new Logger(CanvassService.name);
     private authUser: AuthUser
 
     // fields that are included when returning a data from db
@@ -91,6 +90,7 @@ export class JoService {
             department_id: input.department_id ?? null,
             notes: input.notes ?? null,
             canvass: { connect: { id: input.canvass_id } },
+            approval_status: APPROVAL_STATUS.PENDING,
             jo_approvers: {
                 create: input.approvers.map(i => {
                     return {
@@ -357,7 +357,7 @@ export class JoService {
         return item
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<JOsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<JOsResponse> {
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
@@ -375,8 +375,12 @@ export class JoService {
             whereCondition = { ...whereCondition, canvass: { requested_by_id: requested_by_id } }
         }
 
+        if (approval_status) {
+            whereCondition.approval_status = approval_status;
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !requested_by_id) {
+        if (!date_requested && !requested_by_id && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 
@@ -385,10 +389,6 @@ export class JoService {
                 lte: endOfYearDate,
             };
         }
-        
-        // whereCondition.cancelled_at = {
-        //     equals: null,
-        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.jO.findMany({

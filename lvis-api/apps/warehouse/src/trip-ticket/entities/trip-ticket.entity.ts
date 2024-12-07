@@ -57,7 +57,8 @@ export class TripTicket {
   @Field(() => Int)
   status: TRIP_TICKET_STATUS;
 
-
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
 
 
   // =============== audit fields ===============

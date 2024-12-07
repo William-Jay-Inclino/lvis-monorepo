@@ -74,8 +74,9 @@ export class MeqsResolver {
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
         @Args('supplier_id', { nullable: true }) supplier_id?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.meqsService.findAll(page, pageSize, date_requested, requested_by_id, supplier_id);
+        return this.meqsService.findAll(page, pageSize, date_requested, requested_by_id, supplier_id, approval_status);
     }
 
     @Query(() => [MEQS])
@@ -176,6 +177,10 @@ export class MeqsResolver {
 
         if (meqs.cancelled_at) {
             return APPROVAL_STATUS.CANCELLED
+        }
+
+        if(meqs.approval_status) {
+            return meqs.approval_status
         }
 
         return await this.meqsService.getStatus(meqs.id)

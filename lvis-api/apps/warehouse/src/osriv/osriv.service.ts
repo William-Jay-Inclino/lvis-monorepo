@@ -47,6 +47,7 @@ export class OsrivService {
             purpose: input.purpose,
             requested_by_id: input.requested_by_id,
             item_from: { connect: { id: input.item_from_id } },
+            approval_status: APPROVAL_STATUS.PENDING,
             osriv_approvers: {
                 create: input.approvers.map(i => ({
                     approver_id: i.approver_id,
@@ -239,7 +240,7 @@ export class OsrivService {
         return item;
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<OSRIVsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<OSRIVsResponse> {
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
@@ -258,8 +259,12 @@ export class OsrivService {
             whereCondition = { ...whereCondition, requested_by_id }
         }
 
+        if (approval_status) {
+            whereCondition.approval_status = approval_status;
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !requested_by_id) {
+        if (!date_requested && !requested_by_id && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 

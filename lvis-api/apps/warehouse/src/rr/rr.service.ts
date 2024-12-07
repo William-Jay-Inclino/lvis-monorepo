@@ -130,6 +130,7 @@ export class RrService {
             delivery_number: input.delivery_number ?? undefined,
             notes: input.notes,
             delivery_charge: input.delivery_charge,
+            approval_status: APPROVAL_STATUS.PENDING,
             rr_approvers: {
                 create: input.approvers.map(i => {
 
@@ -185,7 +186,7 @@ export class RrService {
 
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<RRsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<RRsResponse> {
 
         const skip = (page - 1) * pageSize;
 
@@ -207,8 +208,12 @@ export class RrService {
             ];
         }
 
+        if (approval_status) {
+            whereCondition.approval_status = approval_status;
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !requested_by_id) {
+        if (!date_requested && !requested_by_id && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 
@@ -217,10 +222,6 @@ export class RrService {
                 lte: endOfYearDate,
             };
         }
-
-        // whereCondition.cancelled_at = {
-        //     equals: null,
-        // };
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.rR.findMany({

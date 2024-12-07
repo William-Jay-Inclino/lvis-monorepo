@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { MSTApprover } from '../../mst-approver/entities/mst-approver.entity';
 import { MSTItem } from '../../mst-item/entities/mst-item.entity';
 
@@ -28,6 +28,9 @@ export class MST {
 
   @Field(() => String)
   remarks: string;
+  
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
 
 
   // =============== audit fields ===============

@@ -64,8 +64,9 @@ export class SerivResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.serivService.findAll(page, pageSize, date_requested, requested_by_id);
+        return this.serivService.findAll(page, pageSize, date_requested, requested_by_id, approval_status);
     }
 
     @Query(() => [SERIV])
@@ -165,6 +166,10 @@ export class SerivResolver {
 
         if (seriv.cancelled_at) {
             return APPROVAL_STATUS.CANCELLED
+        }
+
+        if(seriv.approval_status) {
+            return seriv.approval_status
         }
 
         return await this.serivService.getStatus(seriv.id)

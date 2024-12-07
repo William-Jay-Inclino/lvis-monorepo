@@ -101,6 +101,7 @@ export class PoService {
             po_number: poNumber,
             meqs_number: meqsSupplier.meqs.meqs_number,
             notes: '',
+            approval_status: APPROVAL_STATUS.PENDING,
             meqs_supplier: {
                 connect: {
                     id: input.meqs_supplier_id
@@ -242,7 +243,7 @@ export class PoService {
 
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<POsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<POsResponse> {
 
         const skip = (page - 1) * pageSize;
 
@@ -263,9 +264,13 @@ export class PoService {
                 { meqs_supplier: { meqs: { spr: { canvass: { requested_by_id: requested_by_id } } } } }
             ];
         }
+        
+        if (approval_status) {
+            whereCondition.approval_status = approval_status;
+        }
 
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !requested_by_id) {
+        if (!date_requested && !requested_by_id && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 
@@ -274,10 +279,6 @@ export class PoService {
                 lte: endOfYearDate,
             };
         }
-
-        // whereCondition.cancelled_at = {
-        //     equals: null,
-        // };
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.pO.findMany({

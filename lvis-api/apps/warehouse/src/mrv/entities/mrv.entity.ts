@@ -60,6 +60,8 @@ export class MRV {
   @Field(() => Date)
   exp_date: Date;
 
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
 
   // =============== audit fields ===============
 

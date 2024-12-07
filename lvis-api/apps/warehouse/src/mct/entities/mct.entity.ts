@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { MRV } from '../../mrv/entities/mrv.entity';
 import { MCTApprover } from '../../mct-approver/entities/mct-approver.entity';
 import { MCRT } from '../../mcrt/entities/mcrt.entity';
@@ -21,9 +21,8 @@ export class MCT {
   @Field(() => String)
   mct_date: string;
 
-  @Field({ nullable: true })
-  metadata?: string
-
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
 
   // =============== audit fields ===============
 

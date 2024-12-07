@@ -90,6 +90,7 @@ export class SprService {
             notes: input.notes ?? null,
             canvass: { connect: { id: input.canvass_id } },
             vehicle: { connect: { id: input.vehicle_id } },
+            approval_status: APPROVAL_STATUS.PENDING,
             spr_approvers: {
                 create: input.approvers.map(i => {
                     return {
@@ -354,7 +355,7 @@ export class SprService {
         return item
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<SPRsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<SPRsResponse> {
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
@@ -372,8 +373,12 @@ export class SprService {
             whereCondition = { ...whereCondition, canvass: { requested_by_id: requested_by_id } }
         }
 
+        if (approval_status) {
+            whereCondition.approval_status = approval_status;
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !requested_by_id) {
+        if (!date_requested && !requested_by_id && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 

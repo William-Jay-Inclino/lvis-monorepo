@@ -6,7 +6,7 @@ import { APPROVAL_STATUS } from '../__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
 import { UpdateMctInput } from './dto/update-mct.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin} from '../__common__/helpers';
 import { MCTsResponse } from './entities/mcts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -52,6 +52,7 @@ export class MctService {
             mrv_number: mrv.mrv_number,
             mct_date: new Date(),
             mrv: { connect: { id: input.mrv_id } },
+            approval_status: APPROVAL_STATUS.PENDING,
             mct_approvers: {
                 create: input.approvers.map(i => {
                     return {
@@ -177,7 +178,7 @@ export class MctService {
         return item;
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<MCTsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<MCTsResponse> {
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
@@ -196,8 +197,12 @@ export class MctService {
             whereCondition = { ...whereCondition, mrv: { requested_by_id: requested_by_id } }
         }
 
+        if (approval_status) {
+            whereCondition.approval_status = approval_status;
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !requested_by_id) {
+        if (!date_requested && !requested_by_id && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 
@@ -206,10 +211,6 @@ export class MctService {
                 lte: endOfYearDate,
             };
         }
-        
-        // whereCondition.cancelled_at = {
-        //     equals: null,
-        // }
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mCT.findMany({

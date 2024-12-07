@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { Canvass } from '../../canvass/entities/canvass.entity';
 import { MEQS } from '../../meqs/entities/meq.entity';
 import { JOApprover } from '../../jo-approver/entities/jo-approver.entity';
@@ -33,7 +33,8 @@ export class JO {
   @Field(() => String)
   notes: string;
 
-
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
 
   // =============== audit fields ===============
 

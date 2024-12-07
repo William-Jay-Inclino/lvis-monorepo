@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { MCT } from '../../mct/entities/mct.entity';
 import { MCRTApprover } from '../../mcrt-approver/entities/mcrt-approver.entity';
 import { MCRTItem } from '../../mcrt-item/entities/mcrt-item.entity';
@@ -37,9 +37,8 @@ export class MCRT {
   @Field(() => Boolean)
   is_completed: boolean;
 
-  @Field({ nullable: true })
-  metadata?: string
-
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
 
   // =============== audit fields ===============
 

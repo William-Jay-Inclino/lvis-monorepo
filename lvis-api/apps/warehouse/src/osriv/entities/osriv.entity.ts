@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { OSRIVApprover } from '../../osriv-approver/entities/osriv-approver.entity';
 import { OSRIVItem } from '../../osriv-item/entities/osriv-item.entity';
 import { Station } from '../../station/entities/station.entity';
@@ -30,6 +30,8 @@ export class OSRIV {
   @Field(() => Date)
   exp_date: Date;
 
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
 
   // =============== audit fields ===============
 

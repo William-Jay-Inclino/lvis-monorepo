@@ -64,8 +64,9 @@ export class MrvResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.mrvService.findAll(page, pageSize, date_requested, requested_by_id);
+        return this.mrvService.findAll(page, pageSize, date_requested, requested_by_id, approval_status);
     }
 
     @Query(() => [MRV])
@@ -165,6 +166,10 @@ export class MrvResolver {
 
         if (mrv.cancelled_at) {
             return APPROVAL_STATUS.CANCELLED
+        }
+
+        if(mrv.approval_status) {
+            return mrv.approval_status
         }
 
         return await this.mrvService.getStatus(mrv.id)

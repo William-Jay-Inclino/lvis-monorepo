@@ -69,8 +69,9 @@ export class RrResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.rrService.findAll(page, pageSize, date_requested, requested_by_id);
+        return this.rrService.findAll(page, pageSize, date_requested, requested_by_id, approval_status);
     }
 
     @Query(() => [RR])
@@ -189,6 +190,10 @@ export class RrResolver {
 
         if (rr.cancelled_at) {
             return APPROVAL_STATUS.CANCELLED
+        }
+
+        if(rr.approval_status) {
+            return rr.approval_status
         }
 
         return await this.rrService.getStatus(rr.id)

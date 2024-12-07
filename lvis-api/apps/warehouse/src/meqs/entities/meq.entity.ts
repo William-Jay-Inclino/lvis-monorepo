@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { JO } from '../../jo/entities/jo.entity';
 import { RV } from '../../rv/entities/rv.entity';
 import { SPR } from '../../spr/entities/spr.entity';
@@ -37,6 +37,13 @@ export class MEQS {
 
   @Field(() => String)
   notes: string;
+
+  @Field(() => Int, { nullable: true })
+  approval_status: number | null;
+
+
+
+  // =============== audit fields ===============
 
   @Field()
   created_by: string;

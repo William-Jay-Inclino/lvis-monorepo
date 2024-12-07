@@ -71,6 +71,7 @@ export class GasSlipService {
 			liter_in_text: input.liter_in_text,
 			purpose: input.purpose,
 			created_by: this.authUser.user.username,
+            approval_status: APPROVAL_STATUS.PENDING,
 			gas_slip_approvers: {
 				create: input.approvers.map(i => {
 					return {
@@ -211,16 +212,20 @@ export class GasSlipService {
 	async findAll(
 		page: number,
 		pageSize: number,
-		vehicle_id?: string,
+		vehicle_id?: string, 
+        approval_status?: number
 	  ): Promise<GasSlipsResponse> {
 		const skip = (page - 1) * pageSize;
 		const take = pageSize;
 	  
 		const filters: any = {};
 		if (vehicle_id) filters.vehicle_id = vehicle_id;
+        if (approval_status) {
+            filters.approval_status = approval_status;
+        }
 
 		// Default to current year's records if neither filter is provided
-		if (!vehicle_id) {
+		if (!vehicle_id && !approval_status) {
 			const startOfYearDate = startOfYear(new Date());
 			const endOfYearDate = endOfYear(new Date());
 

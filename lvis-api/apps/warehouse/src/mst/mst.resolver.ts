@@ -66,8 +66,9 @@ export class MstResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('returned_by_id', { nullable: true }) returned_by_id?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.mstService.findAll(page, pageSize, date_requested, returned_by_id);
+        return this.mstService.findAll(page, pageSize, date_requested, returned_by_id, approval_status);
     }
 
     @Query(() => [MST])
@@ -163,6 +164,10 @@ export class MstResolver {
 
         if (mst.cancelled_at) {
             return APPROVAL_STATUS.CANCELLED
+        }
+
+        if(mst.approval_status) {
+            return mst.approval_status
         }
 
         return await this.mstService.getStatus(mst.id)

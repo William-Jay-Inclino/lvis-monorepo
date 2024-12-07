@@ -23676,8 +23676,18 @@ export namespace Prisma {
 
   export type AggregateJO = {
     _count: JOCountAggregateOutputType | null
+    _avg: JOAvgAggregateOutputType | null
+    _sum: JOSumAggregateOutputType | null
     _min: JOMinAggregateOutputType | null
     _max: JOMaxAggregateOutputType | null
+  }
+
+  export type JOAvgAggregateOutputType = {
+    approval_status: number | null
+  }
+
+  export type JOSumAggregateOutputType = {
+    approval_status: number | null
   }
 
   export type JOMinAggregateOutputType = {
@@ -23690,6 +23700,7 @@ export namespace Prisma {
     classification_id: string | null
     department_id: string | null
     notes: string | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -23708,6 +23719,7 @@ export namespace Prisma {
     classification_id: string | null
     department_id: string | null
     notes: string | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -23726,6 +23738,7 @@ export namespace Prisma {
     classification_id: number
     department_id: number
     notes: number
+    approval_status: number
     cancelled_by: number
     created_by: number
     updated_by: number
@@ -23735,6 +23748,14 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type JOAvgAggregateInputType = {
+    approval_status?: true
+  }
+
+  export type JOSumAggregateInputType = {
+    approval_status?: true
+  }
 
   export type JOMinAggregateInputType = {
     id?: true
@@ -23746,6 +23767,7 @@ export namespace Prisma {
     classification_id?: true
     department_id?: true
     notes?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -23764,6 +23786,7 @@ export namespace Prisma {
     classification_id?: true
     department_id?: true
     notes?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -23782,6 +23805,7 @@ export namespace Prisma {
     classification_id?: true
     department_id?: true
     notes?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -23829,6 +23853,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: JOAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: JOSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: JOMinAggregateInputType
@@ -23859,6 +23895,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: JOCountAggregateInputType | true
+    _avg?: JOAvgAggregateInputType
+    _sum?: JOSumAggregateInputType
     _min?: JOMinAggregateInputType
     _max?: JOMaxAggregateInputType
   }
@@ -23873,6 +23911,7 @@ export namespace Prisma {
     classification_id: string | null
     department_id: string
     notes: string
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string
     updated_by: string | null
@@ -23880,6 +23919,8 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     _count: JOCountAggregateOutputType | null
+    _avg: JOAvgAggregateOutputType | null
+    _sum: JOSumAggregateOutputType | null
     _min: JOMinAggregateOutputType | null
     _max: JOMaxAggregateOutputType | null
   }
@@ -23908,6 +23949,7 @@ export namespace Prisma {
     classification_id?: boolean
     department_id?: boolean
     notes?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -23930,6 +23972,7 @@ export namespace Prisma {
     classification_id?: boolean
     department_id?: boolean
     notes?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -23963,6 +24006,7 @@ export namespace Prisma {
       classification_id: string | null
       department_id: string
       notes: string
+      approval_status: number | null
       cancelled_by: string | null
       created_by: string
       updated_by: string | null
@@ -24377,6 +24421,7 @@ export namespace Prisma {
     readonly classification_id: FieldRef<"JO", 'String'>
     readonly department_id: FieldRef<"JO", 'String'>
     readonly notes: FieldRef<"JO", 'String'>
+    readonly approval_status: FieldRef<"JO", 'Int'>
     readonly cancelled_by: FieldRef<"JO", 'String'>
     readonly created_by: FieldRef<"JO", 'String'>
     readonly updated_by: FieldRef<"JO", 'String'>
@@ -25758,8 +25803,18 @@ export namespace Prisma {
 
   export type AggregateSPR = {
     _count: SPRCountAggregateOutputType | null
+    _avg: SPRAvgAggregateOutputType | null
+    _sum: SPRSumAggregateOutputType | null
     _min: SPRMinAggregateOutputType | null
     _max: SPRMaxAggregateOutputType | null
+  }
+
+  export type SPRAvgAggregateOutputType = {
+    approval_status: number | null
+  }
+
+  export type SPRSumAggregateOutputType = {
+    approval_status: number | null
   }
 
   export type SPRMinAggregateOutputType = {
@@ -25771,6 +25826,7 @@ export namespace Prisma {
     vehicle_id: string | null
     classification_id: string | null
     notes: string | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -25788,6 +25844,7 @@ export namespace Prisma {
     vehicle_id: string | null
     classification_id: string | null
     notes: string | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -25805,6 +25862,7 @@ export namespace Prisma {
     vehicle_id: number
     classification_id: number
     notes: number
+    approval_status: number
     cancelled_by: number
     created_by: number
     updated_by: number
@@ -25815,6 +25873,14 @@ export namespace Prisma {
   }
 
 
+  export type SPRAvgAggregateInputType = {
+    approval_status?: true
+  }
+
+  export type SPRSumAggregateInputType = {
+    approval_status?: true
+  }
+
   export type SPRMinAggregateInputType = {
     id?: true
     canvass_number?: true
@@ -25824,6 +25890,7 @@ export namespace Prisma {
     vehicle_id?: true
     classification_id?: true
     notes?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -25841,6 +25908,7 @@ export namespace Prisma {
     vehicle_id?: true
     classification_id?: true
     notes?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -25858,6 +25926,7 @@ export namespace Prisma {
     vehicle_id?: true
     classification_id?: true
     notes?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -25905,6 +25974,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: SPRAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SPRSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: SPRMinAggregateInputType
@@ -25935,6 +26016,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SPRCountAggregateInputType | true
+    _avg?: SPRAvgAggregateInputType
+    _sum?: SPRSumAggregateInputType
     _min?: SPRMinAggregateInputType
     _max?: SPRMaxAggregateInputType
   }
@@ -25948,6 +26031,7 @@ export namespace Prisma {
     vehicle_id: string
     classification_id: string | null
     notes: string
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string
     updated_by: string | null
@@ -25955,6 +26039,8 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     _count: SPRCountAggregateOutputType | null
+    _avg: SPRAvgAggregateOutputType | null
+    _sum: SPRSumAggregateOutputType | null
     _min: SPRMinAggregateOutputType | null
     _max: SPRMaxAggregateOutputType | null
   }
@@ -25982,6 +26068,7 @@ export namespace Prisma {
     vehicle_id?: boolean
     classification_id?: boolean
     notes?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -26004,6 +26091,7 @@ export namespace Prisma {
     vehicle_id?: boolean
     classification_id?: boolean
     notes?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -26038,6 +26126,7 @@ export namespace Prisma {
       vehicle_id: string
       classification_id: string | null
       notes: string
+      approval_status: number | null
       cancelled_by: string | null
       created_by: string
       updated_by: string | null
@@ -26453,6 +26542,7 @@ export namespace Prisma {
     readonly vehicle_id: FieldRef<"SPR", 'String'>
     readonly classification_id: FieldRef<"SPR", 'String'>
     readonly notes: FieldRef<"SPR", 'String'>
+    readonly approval_status: FieldRef<"SPR", 'Int'>
     readonly cancelled_by: FieldRef<"SPR", 'String'>
     readonly created_by: FieldRef<"SPR", 'String'>
     readonly updated_by: FieldRef<"SPR", 'String'>
@@ -27834,8 +27924,18 @@ export namespace Prisma {
 
   export type AggregateMEQS = {
     _count: MEQSCountAggregateOutputType | null
+    _avg: MEQSAvgAggregateOutputType | null
+    _sum: MEQSSumAggregateOutputType | null
     _min: MEQSMinAggregateOutputType | null
     _max: MEQSMaxAggregateOutputType | null
+  }
+
+  export type MEQSAvgAggregateOutputType = {
+    approval_status: number | null
+  }
+
+  export type MEQSSumAggregateOutputType = {
+    approval_status: number | null
   }
 
   export type MEQSMinAggregateOutputType = {
@@ -27849,6 +27949,7 @@ export namespace Prisma {
     meqs_number: string | null
     meqs_date: Date | null
     notes: string | null
+    approval_status: number | null
     created_by: string | null
     updated_by: string | null
     cancelled_by: string | null
@@ -27868,6 +27969,7 @@ export namespace Prisma {
     meqs_number: string | null
     meqs_date: Date | null
     notes: string | null
+    approval_status: number | null
     created_by: string | null
     updated_by: string | null
     cancelled_by: string | null
@@ -27887,6 +27989,7 @@ export namespace Prisma {
     meqs_number: number
     meqs_date: number
     notes: number
+    approval_status: number
     created_by: number
     updated_by: number
     cancelled_by: number
@@ -27896,6 +27999,14 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type MEQSAvgAggregateInputType = {
+    approval_status?: true
+  }
+
+  export type MEQSSumAggregateInputType = {
+    approval_status?: true
+  }
 
   export type MEQSMinAggregateInputType = {
     id?: true
@@ -27908,6 +28019,7 @@ export namespace Prisma {
     meqs_number?: true
     meqs_date?: true
     notes?: true
+    approval_status?: true
     created_by?: true
     updated_by?: true
     cancelled_by?: true
@@ -27927,6 +28039,7 @@ export namespace Prisma {
     meqs_number?: true
     meqs_date?: true
     notes?: true
+    approval_status?: true
     created_by?: true
     updated_by?: true
     cancelled_by?: true
@@ -27946,6 +28059,7 @@ export namespace Prisma {
     meqs_number?: true
     meqs_date?: true
     notes?: true
+    approval_status?: true
     created_by?: true
     updated_by?: true
     cancelled_by?: true
@@ -27993,6 +28107,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MEQSAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MEQSSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MEQSMinAggregateInputType
@@ -28023,6 +28149,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MEQSCountAggregateInputType | true
+    _avg?: MEQSAvgAggregateInputType
+    _sum?: MEQSSumAggregateInputType
     _min?: MEQSMinAggregateInputType
     _max?: MEQSMaxAggregateInputType
   }
@@ -28038,6 +28166,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date
     notes: string
+    approval_status: number | null
     created_by: string
     updated_by: string | null
     cancelled_by: string | null
@@ -28045,6 +28174,8 @@ export namespace Prisma {
     updated_at: Date
     cancelled_at: Date | null
     _count: MEQSCountAggregateOutputType | null
+    _avg: MEQSAvgAggregateOutputType | null
+    _sum: MEQSSumAggregateOutputType | null
     _min: MEQSMinAggregateOutputType | null
     _max: MEQSMaxAggregateOutputType | null
   }
@@ -28074,6 +28205,7 @@ export namespace Prisma {
     meqs_number?: boolean
     meqs_date?: boolean
     notes?: boolean
+    approval_status?: boolean
     created_by?: boolean
     updated_by?: boolean
     cancelled_by?: boolean
@@ -28099,6 +28231,7 @@ export namespace Prisma {
     meqs_number?: boolean
     meqs_date?: boolean
     notes?: boolean
+    approval_status?: boolean
     created_by?: boolean
     updated_by?: boolean
     cancelled_by?: boolean
@@ -28137,6 +28270,7 @@ export namespace Prisma {
       meqs_number: string
       meqs_date: Date
       notes: string
+      approval_status: number | null
       created_by: string
       updated_by: string | null
       cancelled_by: string | null
@@ -28556,6 +28690,7 @@ export namespace Prisma {
     readonly meqs_number: FieldRef<"MEQS", 'String'>
     readonly meqs_date: FieldRef<"MEQS", 'DateTime'>
     readonly notes: FieldRef<"MEQS", 'String'>
+    readonly approval_status: FieldRef<"MEQS", 'Int'>
     readonly created_by: FieldRef<"MEQS", 'String'>
     readonly updated_by: FieldRef<"MEQS", 'String'>
     readonly cancelled_by: FieldRef<"MEQS", 'String'>
@@ -32879,8 +33014,18 @@ export namespace Prisma {
 
   export type AggregatePO = {
     _count: POCountAggregateOutputType | null
+    _avg: POAvgAggregateOutputType | null
+    _sum: POSumAggregateOutputType | null
     _min: POMinAggregateOutputType | null
     _max: POMaxAggregateOutputType | null
+  }
+
+  export type POAvgAggregateOutputType = {
+    approval_status: number | null
+  }
+
+  export type POSumAggregateOutputType = {
+    approval_status: number | null
   }
 
   export type POMinAggregateOutputType = {
@@ -32891,6 +33036,7 @@ export namespace Prisma {
     fund_source_id: string | null
     po_date: Date | null
     notes: string | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -32907,6 +33053,7 @@ export namespace Prisma {
     fund_source_id: string | null
     po_date: Date | null
     notes: string | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -32923,6 +33070,7 @@ export namespace Prisma {
     fund_source_id: number
     po_date: number
     notes: number
+    approval_status: number
     cancelled_by: number
     created_by: number
     updated_by: number
@@ -32933,6 +33081,14 @@ export namespace Prisma {
   }
 
 
+  export type POAvgAggregateInputType = {
+    approval_status?: true
+  }
+
+  export type POSumAggregateInputType = {
+    approval_status?: true
+  }
+
   export type POMinAggregateInputType = {
     id?: true
     meqs_supplier_id?: true
@@ -32941,6 +33097,7 @@ export namespace Prisma {
     fund_source_id?: true
     po_date?: true
     notes?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -32957,6 +33114,7 @@ export namespace Prisma {
     fund_source_id?: true
     po_date?: true
     notes?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -32973,6 +33131,7 @@ export namespace Prisma {
     fund_source_id?: true
     po_date?: true
     notes?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -33020,6 +33179,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: POAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: POSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: POMinAggregateInputType
@@ -33050,6 +33221,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: POCountAggregateInputType | true
+    _avg?: POAvgAggregateInputType
+    _sum?: POSumAggregateInputType
     _min?: POMinAggregateInputType
     _max?: POMaxAggregateInputType
   }
@@ -33062,6 +33235,7 @@ export namespace Prisma {
     fund_source_id: string | null
     po_date: Date
     notes: string
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string
     updated_by: string | null
@@ -33069,6 +33243,8 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     _count: POCountAggregateOutputType | null
+    _avg: POAvgAggregateOutputType | null
+    _sum: POSumAggregateOutputType | null
     _min: POMinAggregateOutputType | null
     _max: POMaxAggregateOutputType | null
   }
@@ -33095,6 +33271,7 @@ export namespace Prisma {
     fund_source_id?: boolean
     po_date?: boolean
     notes?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -33115,6 +33292,7 @@ export namespace Prisma {
     fund_source_id?: boolean
     po_date?: boolean
     notes?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -33146,6 +33324,7 @@ export namespace Prisma {
       fund_source_id: string | null
       po_date: Date
       notes: string
+      approval_status: number | null
       cancelled_by: string | null
       created_by: string
       updated_by: string | null
@@ -33558,6 +33737,7 @@ export namespace Prisma {
     readonly fund_source_id: FieldRef<"PO", 'String'>
     readonly po_date: FieldRef<"PO", 'DateTime'>
     readonly notes: FieldRef<"PO", 'String'>
+    readonly approval_status: FieldRef<"PO", 'Int'>
     readonly cancelled_by: FieldRef<"PO", 'String'>
     readonly created_by: FieldRef<"PO", 'String'>
     readonly updated_by: FieldRef<"PO", 'String'>
@@ -34952,10 +35132,12 @@ export namespace Prisma {
 
   export type RRAvgAggregateOutputType = {
     delivery_charge: number | null
+    approval_status: number | null
   }
 
   export type RRSumAggregateOutputType = {
     delivery_charge: number | null
+    approval_status: number | null
   }
 
   export type RRMinAggregateOutputType = {
@@ -34970,6 +35152,7 @@ export namespace Prisma {
     notes: string | null
     delivery_charge: number | null
     is_completed: boolean | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -34990,6 +35173,7 @@ export namespace Prisma {
     notes: string | null
     delivery_charge: number | null
     is_completed: boolean | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -35010,6 +35194,7 @@ export namespace Prisma {
     notes: number
     delivery_charge: number
     is_completed: number
+    approval_status: number
     cancelled_by: number
     created_by: number
     updated_by: number
@@ -35022,10 +35207,12 @@ export namespace Prisma {
 
   export type RRAvgAggregateInputType = {
     delivery_charge?: true
+    approval_status?: true
   }
 
   export type RRSumAggregateInputType = {
     delivery_charge?: true
+    approval_status?: true
   }
 
   export type RRMinAggregateInputType = {
@@ -35040,6 +35227,7 @@ export namespace Prisma {
     notes?: true
     delivery_charge?: true
     is_completed?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -35060,6 +35248,7 @@ export namespace Prisma {
     notes?: true
     delivery_charge?: true
     is_completed?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -35080,6 +35269,7 @@ export namespace Prisma {
     notes?: true
     delivery_charge?: true
     is_completed?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -35187,6 +35377,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed: boolean
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string
     updated_by: string | null
@@ -35226,6 +35417,7 @@ export namespace Prisma {
     notes?: boolean
     delivery_charge?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -35250,6 +35442,7 @@ export namespace Prisma {
     notes?: boolean
     delivery_charge?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -35285,6 +35478,7 @@ export namespace Prisma {
       notes: string
       delivery_charge: number
       is_completed: boolean
+      approval_status: number | null
       cancelled_by: string | null
       created_by: string
       updated_by: string | null
@@ -35701,6 +35895,7 @@ export namespace Prisma {
     readonly notes: FieldRef<"RR", 'String'>
     readonly delivery_charge: FieldRef<"RR", 'Float'>
     readonly is_completed: FieldRef<"RR", 'Boolean'>
+    readonly approval_status: FieldRef<"RR", 'Int'>
     readonly cancelled_by: FieldRef<"RR", 'String'>
     readonly created_by: FieldRef<"RR", 'String'>
     readonly updated_by: FieldRef<"RR", 'String'>
@@ -38054,8 +38249,18 @@ export namespace Prisma {
 
   export type AggregateOSRIV = {
     _count: OSRIVCountAggregateOutputType | null
+    _avg: OSRIVAvgAggregateOutputType | null
+    _sum: OSRIVSumAggregateOutputType | null
     _min: OSRIVMinAggregateOutputType | null
     _max: OSRIVMaxAggregateOutputType | null
+  }
+
+  export type OSRIVAvgAggregateOutputType = {
+    approval_status: number | null
+  }
+
+  export type OSRIVSumAggregateOutputType = {
+    approval_status: number | null
   }
 
   export type OSRIVMinAggregateOutputType = {
@@ -38066,6 +38271,7 @@ export namespace Prisma {
     purpose: string | null
     note: string | null
     is_completed: boolean | null
+    approval_status: number | null
     requested_by_id: string | null
     item_from_id: string | null
     cancelled_by: string | null
@@ -38084,6 +38290,7 @@ export namespace Prisma {
     purpose: string | null
     note: string | null
     is_completed: boolean | null
+    approval_status: number | null
     requested_by_id: string | null
     item_from_id: string | null
     cancelled_by: string | null
@@ -38102,6 +38309,7 @@ export namespace Prisma {
     purpose: number
     note: number
     is_completed: number
+    approval_status: number
     requested_by_id: number
     item_from_id: number
     cancelled_by: number
@@ -38114,6 +38322,14 @@ export namespace Prisma {
   }
 
 
+  export type OSRIVAvgAggregateInputType = {
+    approval_status?: true
+  }
+
+  export type OSRIVSumAggregateInputType = {
+    approval_status?: true
+  }
+
   export type OSRIVMinAggregateInputType = {
     id?: true
     osriv_number?: true
@@ -38122,6 +38338,7 @@ export namespace Prisma {
     purpose?: true
     note?: true
     is_completed?: true
+    approval_status?: true
     requested_by_id?: true
     item_from_id?: true
     cancelled_by?: true
@@ -38140,6 +38357,7 @@ export namespace Prisma {
     purpose?: true
     note?: true
     is_completed?: true
+    approval_status?: true
     requested_by_id?: true
     item_from_id?: true
     cancelled_by?: true
@@ -38158,6 +38376,7 @@ export namespace Prisma {
     purpose?: true
     note?: true
     is_completed?: true
+    approval_status?: true
     requested_by_id?: true
     item_from_id?: true
     cancelled_by?: true
@@ -38207,6 +38426,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: OSRIVAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OSRIVSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: OSRIVMinAggregateInputType
@@ -38237,6 +38468,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: OSRIVCountAggregateInputType | true
+    _avg?: OSRIVAvgAggregateInputType
+    _sum?: OSRIVSumAggregateInputType
     _min?: OSRIVMinAggregateInputType
     _max?: OSRIVMaxAggregateInputType
   }
@@ -38249,6 +38482,7 @@ export namespace Prisma {
     purpose: string
     note: string
     is_completed: boolean
+    approval_status: number | null
     requested_by_id: string
     item_from_id: string
     cancelled_by: string | null
@@ -38258,6 +38492,8 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     _count: OSRIVCountAggregateOutputType | null
+    _avg: OSRIVAvgAggregateOutputType | null
+    _sum: OSRIVSumAggregateOutputType | null
     _min: OSRIVMinAggregateOutputType | null
     _max: OSRIVMaxAggregateOutputType | null
   }
@@ -38284,6 +38520,7 @@ export namespace Prisma {
     purpose?: boolean
     note?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     requested_by_id?: boolean
     item_from_id?: boolean
     cancelled_by?: boolean
@@ -38306,6 +38543,7 @@ export namespace Prisma {
     purpose?: boolean
     note?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     requested_by_id?: boolean
     item_from_id?: boolean
     cancelled_by?: boolean
@@ -38339,6 +38577,7 @@ export namespace Prisma {
       purpose: string
       note: string
       is_completed: boolean
+      approval_status: number | null
       requested_by_id: string
       item_from_id: string
       cancelled_by: string | null
@@ -38753,6 +38992,7 @@ export namespace Prisma {
     readonly purpose: FieldRef<"OSRIV", 'String'>
     readonly note: FieldRef<"OSRIV", 'String'>
     readonly is_completed: FieldRef<"OSRIV", 'Boolean'>
+    readonly approval_status: FieldRef<"OSRIV", 'Int'>
     readonly requested_by_id: FieldRef<"OSRIV", 'String'>
     readonly item_from_id: FieldRef<"OSRIV", 'String'>
     readonly cancelled_by: FieldRef<"OSRIV", 'String'>
@@ -41114,10 +41354,12 @@ export namespace Prisma {
   }
 
   export type SERIVAvgAggregateOutputType = {
+    approval_status: number | null
     request_type: number | null
   }
 
   export type SERIVSumAggregateOutputType = {
+    approval_status: number | null
     request_type: number | null
   }
 
@@ -41129,6 +41371,7 @@ export namespace Prisma {
     purpose: string | null
     note: string | null
     is_completed: boolean | null
+    approval_status: number | null
     request_type: number | null
     or_number: string | null
     mwo_number: string | null
@@ -41155,6 +41398,7 @@ export namespace Prisma {
     purpose: string | null
     note: string | null
     is_completed: boolean | null
+    approval_status: number | null
     request_type: number | null
     or_number: string | null
     mwo_number: string | null
@@ -41181,6 +41425,7 @@ export namespace Prisma {
     purpose: number
     note: number
     is_completed: number
+    approval_status: number
     request_type: number
     or_number: number
     mwo_number: number
@@ -41202,10 +41447,12 @@ export namespace Prisma {
 
 
   export type SERIVAvgAggregateInputType = {
+    approval_status?: true
     request_type?: true
   }
 
   export type SERIVSumAggregateInputType = {
+    approval_status?: true
     request_type?: true
   }
 
@@ -41217,6 +41464,7 @@ export namespace Prisma {
     purpose?: true
     note?: true
     is_completed?: true
+    approval_status?: true
     request_type?: true
     or_number?: true
     mwo_number?: true
@@ -41243,6 +41491,7 @@ export namespace Prisma {
     purpose?: true
     note?: true
     is_completed?: true
+    approval_status?: true
     request_type?: true
     or_number?: true
     mwo_number?: true
@@ -41269,6 +41518,7 @@ export namespace Prisma {
     purpose?: true
     note?: true
     is_completed?: true
+    approval_status?: true
     request_type?: true
     or_number?: true
     mwo_number?: true
@@ -41382,6 +41632,7 @@ export namespace Prisma {
     purpose: string
     note: string
     is_completed: boolean
+    approval_status: number | null
     request_type: number
     or_number: string | null
     mwo_number: string | null
@@ -41427,6 +41678,7 @@ export namespace Prisma {
     purpose?: boolean
     note?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     request_type?: boolean
     or_number?: boolean
     mwo_number?: boolean
@@ -41458,6 +41710,7 @@ export namespace Prisma {
     purpose?: boolean
     note?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     request_type?: boolean
     or_number?: boolean
     mwo_number?: boolean
@@ -41501,6 +41754,7 @@ export namespace Prisma {
       purpose: string
       note: string
       is_completed: boolean
+      approval_status: number | null
       request_type: number
       or_number: string | null
       mwo_number: string | null
@@ -41925,6 +42179,7 @@ export namespace Prisma {
     readonly purpose: FieldRef<"SERIV", 'String'>
     readonly note: FieldRef<"SERIV", 'String'>
     readonly is_completed: FieldRef<"SERIV", 'Boolean'>
+    readonly approval_status: FieldRef<"SERIV", 'Int'>
     readonly request_type: FieldRef<"SERIV", 'Int'>
     readonly or_number: FieldRef<"SERIV", 'String'>
     readonly mwo_number: FieldRef<"SERIV", 'String'>
@@ -44315,10 +44570,12 @@ export namespace Prisma {
   }
 
   export type MRVAvgAggregateOutputType = {
+    approval_status: number | null
     request_type: number | null
   }
 
   export type MRVSumAggregateOutputType = {
+    approval_status: number | null
     request_type: number | null
   }
 
@@ -44331,6 +44588,7 @@ export namespace Prisma {
     purpose: string | null
     note: string | null
     is_completed: boolean | null
+    approval_status: number | null
     request_type: number | null
     or_number: string | null
     mwo_number: string | null
@@ -44358,6 +44616,7 @@ export namespace Prisma {
     purpose: string | null
     note: string | null
     is_completed: boolean | null
+    approval_status: number | null
     request_type: number | null
     or_number: string | null
     mwo_number: string | null
@@ -44385,6 +44644,7 @@ export namespace Prisma {
     purpose: number
     note: number
     is_completed: number
+    approval_status: number
     request_type: number
     or_number: number
     mwo_number: number
@@ -44406,10 +44666,12 @@ export namespace Prisma {
 
 
   export type MRVAvgAggregateInputType = {
+    approval_status?: true
     request_type?: true
   }
 
   export type MRVSumAggregateInputType = {
+    approval_status?: true
     request_type?: true
   }
 
@@ -44422,6 +44684,7 @@ export namespace Prisma {
     purpose?: true
     note?: true
     is_completed?: true
+    approval_status?: true
     request_type?: true
     or_number?: true
     mwo_number?: true
@@ -44449,6 +44712,7 @@ export namespace Prisma {
     purpose?: true
     note?: true
     is_completed?: true
+    approval_status?: true
     request_type?: true
     or_number?: true
     mwo_number?: true
@@ -44476,6 +44740,7 @@ export namespace Prisma {
     purpose?: true
     note?: true
     is_completed?: true
+    approval_status?: true
     request_type?: true
     or_number?: true
     mwo_number?: true
@@ -44590,6 +44855,7 @@ export namespace Prisma {
     purpose: string
     note: string
     is_completed: boolean
+    approval_status: number | null
     request_type: number
     or_number: string | null
     mwo_number: string | null
@@ -44636,6 +44902,7 @@ export namespace Prisma {
     purpose?: boolean
     note?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     request_type?: boolean
     or_number?: boolean
     mwo_number?: boolean
@@ -44669,6 +44936,7 @@ export namespace Prisma {
     purpose?: boolean
     note?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     request_type?: boolean
     or_number?: boolean
     mwo_number?: boolean
@@ -44715,6 +44983,7 @@ export namespace Prisma {
       purpose: string
       note: string
       is_completed: boolean
+      approval_status: number | null
       request_type: number
       or_number: string | null
       mwo_number: string | null
@@ -45142,6 +45411,7 @@ export namespace Prisma {
     readonly purpose: FieldRef<"MRV", 'String'>
     readonly note: FieldRef<"MRV", 'String'>
     readonly is_completed: FieldRef<"MRV", 'Boolean'>
+    readonly approval_status: FieldRef<"MRV", 'Int'>
     readonly request_type: FieldRef<"MRV", 'Int'>
     readonly or_number: FieldRef<"MRV", 'String'>
     readonly mwo_number: FieldRef<"MRV", 'String'>
@@ -47536,8 +47806,18 @@ export namespace Prisma {
 
   export type AggregateMCT = {
     _count: MCTCountAggregateOutputType | null
+    _avg: MCTAvgAggregateOutputType | null
+    _sum: MCTSumAggregateOutputType | null
     _min: MCTMinAggregateOutputType | null
     _max: MCTMaxAggregateOutputType | null
+  }
+
+  export type MCTAvgAggregateOutputType = {
+    approval_status: number | null
+  }
+
+  export type MCTSumAggregateOutputType = {
+    approval_status: number | null
   }
 
   export type MCTMinAggregateOutputType = {
@@ -47547,6 +47827,7 @@ export namespace Prisma {
     mct_number: string | null
     mct_date: Date | null
     is_completed: boolean | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -47562,6 +47843,7 @@ export namespace Prisma {
     mct_number: string | null
     mct_date: Date | null
     is_completed: boolean | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -47577,6 +47859,7 @@ export namespace Prisma {
     mct_number: number
     mct_date: number
     is_completed: number
+    approval_status: number
     cancelled_by: number
     created_by: number
     updated_by: number
@@ -47587,6 +47870,14 @@ export namespace Prisma {
   }
 
 
+  export type MCTAvgAggregateInputType = {
+    approval_status?: true
+  }
+
+  export type MCTSumAggregateInputType = {
+    approval_status?: true
+  }
+
   export type MCTMinAggregateInputType = {
     id?: true
     mrv_id?: true
@@ -47594,6 +47885,7 @@ export namespace Prisma {
     mct_number?: true
     mct_date?: true
     is_completed?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -47609,6 +47901,7 @@ export namespace Prisma {
     mct_number?: true
     mct_date?: true
     is_completed?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -47624,6 +47917,7 @@ export namespace Prisma {
     mct_number?: true
     mct_date?: true
     is_completed?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -47671,6 +47965,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MCTAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MCTSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MCTMinAggregateInputType
@@ -47701,6 +48007,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MCTCountAggregateInputType | true
+    _avg?: MCTAvgAggregateInputType
+    _sum?: MCTSumAggregateInputType
     _min?: MCTMinAggregateInputType
     _max?: MCTMaxAggregateInputType
   }
@@ -47712,6 +48020,7 @@ export namespace Prisma {
     mct_number: string
     mct_date: Date
     is_completed: boolean
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string
     updated_by: string | null
@@ -47719,6 +48028,8 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     _count: MCTCountAggregateOutputType | null
+    _avg: MCTAvgAggregateOutputType | null
+    _sum: MCTSumAggregateOutputType | null
     _min: MCTMinAggregateOutputType | null
     _max: MCTMaxAggregateOutputType | null
   }
@@ -47744,6 +48055,7 @@ export namespace Prisma {
     mct_number?: boolean
     mct_date?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -47763,6 +48075,7 @@ export namespace Prisma {
     mct_number?: boolean
     mct_date?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -47793,6 +48106,7 @@ export namespace Prisma {
       mct_number: string
       mct_date: Date
       is_completed: boolean
+      approval_status: number | null
       cancelled_by: string | null
       created_by: string
       updated_by: string | null
@@ -48204,6 +48518,7 @@ export namespace Prisma {
     readonly mct_number: FieldRef<"MCT", 'String'>
     readonly mct_date: FieldRef<"MCT", 'DateTime'>
     readonly is_completed: FieldRef<"MCT", 'Boolean'>
+    readonly approval_status: FieldRef<"MCT", 'Int'>
     readonly cancelled_by: FieldRef<"MCT", 'String'>
     readonly created_by: FieldRef<"MCT", 'String'>
     readonly updated_by: FieldRef<"MCT", 'String'>
@@ -49590,8 +49905,18 @@ export namespace Prisma {
 
   export type AggregateMCRT = {
     _count: MCRTCountAggregateOutputType | null
+    _avg: MCRTAvgAggregateOutputType | null
+    _sum: MCRTSumAggregateOutputType | null
     _min: MCRTMinAggregateOutputType | null
     _max: MCRTMaxAggregateOutputType | null
+  }
+
+  export type MCRTAvgAggregateOutputType = {
+    approval_status: number | null
+  }
+
+  export type MCRTSumAggregateOutputType = {
+    approval_status: number | null
   }
 
   export type MCRTMinAggregateOutputType = {
@@ -49603,6 +49928,7 @@ export namespace Prisma {
     mcrt_number: string | null
     mcrt_date: Date | null
     is_completed: boolean | null
+    approval_status: number | null
     returned_by_id: string | null
     note: string | null
     cancelled_by: string | null
@@ -49622,6 +49948,7 @@ export namespace Prisma {
     mcrt_number: string | null
     mcrt_date: Date | null
     is_completed: boolean | null
+    approval_status: number | null
     returned_by_id: string | null
     note: string | null
     cancelled_by: string | null
@@ -49641,6 +49968,7 @@ export namespace Prisma {
     mcrt_number: number
     mcrt_date: number
     is_completed: number
+    approval_status: number
     returned_by_id: number
     note: number
     cancelled_by: number
@@ -49653,6 +49981,14 @@ export namespace Prisma {
   }
 
 
+  export type MCRTAvgAggregateInputType = {
+    approval_status?: true
+  }
+
+  export type MCRTSumAggregateInputType = {
+    approval_status?: true
+  }
+
   export type MCRTMinAggregateInputType = {
     id?: true
     mct_id?: true
@@ -49662,6 +49998,7 @@ export namespace Prisma {
     mcrt_number?: true
     mcrt_date?: true
     is_completed?: true
+    approval_status?: true
     returned_by_id?: true
     note?: true
     cancelled_by?: true
@@ -49681,6 +50018,7 @@ export namespace Prisma {
     mcrt_number?: true
     mcrt_date?: true
     is_completed?: true
+    approval_status?: true
     returned_by_id?: true
     note?: true
     cancelled_by?: true
@@ -49700,6 +50038,7 @@ export namespace Prisma {
     mcrt_number?: true
     mcrt_date?: true
     is_completed?: true
+    approval_status?: true
     returned_by_id?: true
     note?: true
     cancelled_by?: true
@@ -49749,6 +50088,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MCRTAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MCRTSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MCRTMinAggregateInputType
@@ -49779,6 +50130,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MCRTCountAggregateInputType | true
+    _avg?: MCRTAvgAggregateInputType
+    _sum?: MCRTSumAggregateInputType
     _min?: MCRTMinAggregateInputType
     _max?: MCRTMaxAggregateInputType
   }
@@ -49792,6 +50145,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date
     is_completed: boolean
+    approval_status: number | null
     returned_by_id: string
     note: string
     cancelled_by: string | null
@@ -49801,6 +50155,8 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     _count: MCRTCountAggregateOutputType | null
+    _avg: MCRTAvgAggregateOutputType | null
+    _sum: MCRTSumAggregateOutputType | null
     _min: MCRTMinAggregateOutputType | null
     _max: MCRTMaxAggregateOutputType | null
   }
@@ -49828,6 +50184,7 @@ export namespace Prisma {
     mcrt_number?: boolean
     mcrt_date?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     returned_by_id?: boolean
     note?: boolean
     cancelled_by?: boolean
@@ -49852,6 +50209,7 @@ export namespace Prisma {
     mcrt_number?: boolean
     mcrt_date?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     returned_by_id?: boolean
     note?: boolean
     cancelled_by?: boolean
@@ -49888,6 +50246,7 @@ export namespace Prisma {
       mcrt_number: string
       mcrt_date: Date
       is_completed: boolean
+      approval_status: number | null
       returned_by_id: string
       note: string
       cancelled_by: string | null
@@ -50305,6 +50664,7 @@ export namespace Prisma {
     readonly mcrt_number: FieldRef<"MCRT", 'String'>
     readonly mcrt_date: FieldRef<"MCRT", 'DateTime'>
     readonly is_completed: FieldRef<"MCRT", 'Boolean'>
+    readonly approval_status: FieldRef<"MCRT", 'Int'>
     readonly returned_by_id: FieldRef<"MCRT", 'String'>
     readonly note: FieldRef<"MCRT", 'String'>
     readonly cancelled_by: FieldRef<"MCRT", 'String'>
@@ -52691,8 +53051,18 @@ export namespace Prisma {
 
   export type AggregateMST = {
     _count: MSTCountAggregateOutputType | null
+    _avg: MSTAvgAggregateOutputType | null
+    _sum: MSTSumAggregateOutputType | null
     _min: MSTMinAggregateOutputType | null
     _max: MSTMaxAggregateOutputType | null
+  }
+
+  export type MSTAvgAggregateOutputType = {
+    approval_status: number | null
+  }
+
+  export type MSTSumAggregateOutputType = {
+    approval_status: number | null
   }
 
   export type MSTMinAggregateOutputType = {
@@ -52700,6 +53070,7 @@ export namespace Prisma {
     mst_number: string | null
     mst_date: Date | null
     is_completed: boolean | null
+    approval_status: number | null
     returned_by_id: string | null
     cwo_number: string | null
     mwo_number: string | null
@@ -52718,6 +53089,7 @@ export namespace Prisma {
     mst_number: string | null
     mst_date: Date | null
     is_completed: boolean | null
+    approval_status: number | null
     returned_by_id: string | null
     cwo_number: string | null
     mwo_number: string | null
@@ -52736,6 +53108,7 @@ export namespace Prisma {
     mst_number: number
     mst_date: number
     is_completed: number
+    approval_status: number
     returned_by_id: number
     cwo_number: number
     mwo_number: number
@@ -52751,11 +53124,20 @@ export namespace Prisma {
   }
 
 
+  export type MSTAvgAggregateInputType = {
+    approval_status?: true
+  }
+
+  export type MSTSumAggregateInputType = {
+    approval_status?: true
+  }
+
   export type MSTMinAggregateInputType = {
     id?: true
     mst_number?: true
     mst_date?: true
     is_completed?: true
+    approval_status?: true
     returned_by_id?: true
     cwo_number?: true
     mwo_number?: true
@@ -52774,6 +53156,7 @@ export namespace Prisma {
     mst_number?: true
     mst_date?: true
     is_completed?: true
+    approval_status?: true
     returned_by_id?: true
     cwo_number?: true
     mwo_number?: true
@@ -52792,6 +53175,7 @@ export namespace Prisma {
     mst_number?: true
     mst_date?: true
     is_completed?: true
+    approval_status?: true
     returned_by_id?: true
     cwo_number?: true
     mwo_number?: true
@@ -52844,6 +53228,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MSTAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MSTSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MSTMinAggregateInputType
@@ -52874,6 +53270,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MSTCountAggregateInputType | true
+    _avg?: MSTAvgAggregateInputType
+    _sum?: MSTSumAggregateInputType
     _min?: MSTMinAggregateInputType
     _max?: MSTMaxAggregateInputType
   }
@@ -52883,6 +53281,7 @@ export namespace Prisma {
     mst_number: string
     mst_date: Date
     is_completed: boolean
+    approval_status: number | null
     returned_by_id: string
     cwo_number: string | null
     mwo_number: string | null
@@ -52895,6 +53294,8 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     _count: MSTCountAggregateOutputType | null
+    _avg: MSTAvgAggregateOutputType | null
+    _sum: MSTSumAggregateOutputType | null
     _min: MSTMinAggregateOutputType | null
     _max: MSTMaxAggregateOutputType | null
   }
@@ -52918,6 +53319,7 @@ export namespace Prisma {
     mst_number?: boolean
     mst_date?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     returned_by_id?: boolean
     cwo_number?: boolean
     mwo_number?: boolean
@@ -52939,6 +53341,7 @@ export namespace Prisma {
     mst_number?: boolean
     mst_date?: boolean
     is_completed?: boolean
+    approval_status?: boolean
     returned_by_id?: boolean
     cwo_number?: boolean
     mwo_number?: boolean
@@ -52970,6 +53373,7 @@ export namespace Prisma {
       mst_number: string
       mst_date: Date
       is_completed: boolean
+      approval_status: number | null
       returned_by_id: string
       cwo_number: string | null
       mwo_number: string | null
@@ -53382,6 +53786,7 @@ export namespace Prisma {
     readonly mst_number: FieldRef<"MST", 'String'>
     readonly mst_date: FieldRef<"MST", 'DateTime'>
     readonly is_completed: FieldRef<"MST", 'Boolean'>
+    readonly approval_status: FieldRef<"MST", 'Int'>
     readonly returned_by_id: FieldRef<"MST", 'String'>
     readonly cwo_number: FieldRef<"MST", 'String'>
     readonly mwo_number: FieldRef<"MST", 'String'>
@@ -56892,10 +57297,12 @@ export namespace Prisma {
 
   export type TripTicketAvgAggregateOutputType = {
     status: number | null
+    approval_status: number | null
   }
 
   export type TripTicketSumAggregateOutputType = {
     status: number | null
+    approval_status: number | null
   }
 
   export type TripTicketMinAggregateOutputType = {
@@ -56916,6 +57323,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean | null
     prepared_by_id: string | null
     status: number | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -56942,6 +57350,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean | null
     prepared_by_id: string | null
     status: number | null
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -56968,6 +57377,7 @@ export namespace Prisma {
     is_out_of_coverage: number
     prepared_by_id: number
     status: number
+    approval_status: number
     cancelled_by: number
     created_by: number
     updated_by: number
@@ -56980,10 +57390,12 @@ export namespace Prisma {
 
   export type TripTicketAvgAggregateInputType = {
     status?: true
+    approval_status?: true
   }
 
   export type TripTicketSumAggregateInputType = {
     status?: true
+    approval_status?: true
   }
 
   export type TripTicketMinAggregateInputType = {
@@ -57004,6 +57416,7 @@ export namespace Prisma {
     is_out_of_coverage?: true
     prepared_by_id?: true
     status?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -57030,6 +57443,7 @@ export namespace Prisma {
     is_out_of_coverage?: true
     prepared_by_id?: true
     status?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -57056,6 +57470,7 @@ export namespace Prisma {
     is_out_of_coverage?: true
     prepared_by_id?: true
     status?: true
+    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -57169,6 +57584,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
+    approval_status: number | null
     cancelled_by: string | null
     created_by: string
     updated_by: string | null
@@ -57214,6 +57630,7 @@ export namespace Prisma {
     is_out_of_coverage?: boolean
     prepared_by_id?: boolean
     status?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -57243,6 +57660,7 @@ export namespace Prisma {
     is_out_of_coverage?: boolean
     prepared_by_id?: boolean
     status?: boolean
+    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -57282,6 +57700,7 @@ export namespace Prisma {
       is_out_of_coverage: boolean
       prepared_by_id: string
       status: number
+      approval_status: number | null
       cancelled_by: string | null
       created_by: string
       updated_by: string | null
@@ -57702,6 +58121,7 @@ export namespace Prisma {
     readonly is_out_of_coverage: FieldRef<"TripTicket", 'Boolean'>
     readonly prepared_by_id: FieldRef<"TripTicket", 'String'>
     readonly status: FieldRef<"TripTicket", 'Int'>
+    readonly approval_status: FieldRef<"TripTicket", 'Int'>
     readonly cancelled_by: FieldRef<"TripTicket", 'String'>
     readonly created_by: FieldRef<"TripTicket", 'String'>
     readonly updated_by: FieldRef<"TripTicket", 'String'>
@@ -59060,6 +59480,7 @@ export namespace Prisma {
   export type GasSlipAvgAggregateOutputType = {
     gas_station_id: number | null
     fuel_type_id: number | null
+    approval_status: number | null
     actual_liter: number | null
     price_per_liter: number | null
     print_count: number | null
@@ -59068,6 +59489,7 @@ export namespace Prisma {
   export type GasSlipSumAggregateOutputType = {
     gas_station_id: number | null
     fuel_type_id: number | null
+    approval_status: number | null
     actual_liter: number | null
     price_per_liter: number | null
     print_count: number | null
@@ -59081,6 +59503,7 @@ export namespace Prisma {
     gas_station_id: number | null
     fuel_type_id: number | null
     requested_by_id: string | null
+    approval_status: number | null
     with_container: boolean | null
     liter_in_text: string | null
     actual_liter: number | null
@@ -59104,6 +59527,7 @@ export namespace Prisma {
     gas_station_id: number | null
     fuel_type_id: number | null
     requested_by_id: string | null
+    approval_status: number | null
     with_container: boolean | null
     liter_in_text: string | null
     actual_liter: number | null
@@ -59127,6 +59551,7 @@ export namespace Prisma {
     gas_station_id: number
     fuel_type_id: number
     requested_by_id: number
+    approval_status: number
     with_container: number
     liter_in_text: number
     actual_liter: number
@@ -59147,6 +59572,7 @@ export namespace Prisma {
   export type GasSlipAvgAggregateInputType = {
     gas_station_id?: true
     fuel_type_id?: true
+    approval_status?: true
     actual_liter?: true
     price_per_liter?: true
     print_count?: true
@@ -59155,6 +59581,7 @@ export namespace Prisma {
   export type GasSlipSumAggregateInputType = {
     gas_station_id?: true
     fuel_type_id?: true
+    approval_status?: true
     actual_liter?: true
     price_per_liter?: true
     print_count?: true
@@ -59168,6 +59595,7 @@ export namespace Prisma {
     gas_station_id?: true
     fuel_type_id?: true
     requested_by_id?: true
+    approval_status?: true
     with_container?: true
     liter_in_text?: true
     actual_liter?: true
@@ -59191,6 +59619,7 @@ export namespace Prisma {
     gas_station_id?: true
     fuel_type_id?: true
     requested_by_id?: true
+    approval_status?: true
     with_container?: true
     liter_in_text?: true
     actual_liter?: true
@@ -59214,6 +59643,7 @@ export namespace Prisma {
     gas_station_id?: true
     fuel_type_id?: true
     requested_by_id?: true
+    approval_status?: true
     with_container?: true
     liter_in_text?: true
     actual_liter?: true
@@ -59324,6 +59754,7 @@ export namespace Prisma {
     gas_station_id: number
     fuel_type_id: number
     requested_by_id: string
+    approval_status: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter: number | null
@@ -59366,6 +59797,7 @@ export namespace Prisma {
     gas_station_id?: boolean
     fuel_type_id?: boolean
     requested_by_id?: boolean
+    approval_status?: boolean
     with_container?: boolean
     liter_in_text?: boolean
     actual_liter?: boolean
@@ -59394,6 +59826,7 @@ export namespace Prisma {
     gas_station_id?: boolean
     fuel_type_id?: boolean
     requested_by_id?: boolean
+    approval_status?: boolean
     with_container?: boolean
     liter_in_text?: boolean
     actual_liter?: boolean
@@ -59434,6 +59867,7 @@ export namespace Prisma {
       gas_station_id: number
       fuel_type_id: number
       requested_by_id: string
+      approval_status: number | null
       with_container: boolean
       liter_in_text: string
       actual_liter: number | null
@@ -59855,6 +60289,7 @@ export namespace Prisma {
     readonly gas_station_id: FieldRef<"GasSlip", 'Int'>
     readonly fuel_type_id: FieldRef<"GasSlip", 'Int'>
     readonly requested_by_id: FieldRef<"GasSlip", 'String'>
+    readonly approval_status: FieldRef<"GasSlip", 'Int'>
     readonly with_container: FieldRef<"GasSlip", 'Boolean'>
     readonly liter_in_text: FieldRef<"GasSlip", 'String'>
     readonly actual_liter: FieldRef<"GasSlip", 'Float'>
@@ -63340,6 +63775,7 @@ export namespace Prisma {
     classification_id: 'classification_id',
     department_id: 'department_id',
     notes: 'notes',
+    approval_status: 'approval_status',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
     updated_by: 'updated_by',
@@ -63374,6 +63810,7 @@ export namespace Prisma {
     vehicle_id: 'vehicle_id',
     classification_id: 'classification_id',
     notes: 'notes',
+    approval_status: 'approval_status',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
     updated_by: 'updated_by',
@@ -63410,6 +63847,7 @@ export namespace Prisma {
     meqs_number: 'meqs_number',
     meqs_date: 'meqs_date',
     notes: 'notes',
+    approval_status: 'approval_status',
     created_by: 'created_by',
     updated_by: 'updated_by',
     cancelled_by: 'cancelled_by',
@@ -63476,6 +63914,7 @@ export namespace Prisma {
     fund_source_id: 'fund_source_id',
     po_date: 'po_date',
     notes: 'notes',
+    approval_status: 'approval_status',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
     updated_by: 'updated_by',
@@ -63513,6 +63952,7 @@ export namespace Prisma {
     notes: 'notes',
     delivery_charge: 'delivery_charge',
     is_completed: 'is_completed',
+    approval_status: 'approval_status',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
     updated_by: 'updated_by',
@@ -63556,6 +63996,7 @@ export namespace Prisma {
     purpose: 'purpose',
     note: 'note',
     is_completed: 'is_completed',
+    approval_status: 'approval_status',
     requested_by_id: 'requested_by_id',
     item_from_id: 'item_from_id',
     cancelled_by: 'cancelled_by',
@@ -63602,6 +64043,7 @@ export namespace Prisma {
     purpose: 'purpose',
     note: 'note',
     is_completed: 'is_completed',
+    approval_status: 'approval_status',
     request_type: 'request_type',
     or_number: 'or_number',
     mwo_number: 'mwo_number',
@@ -63657,6 +64099,7 @@ export namespace Prisma {
     purpose: 'purpose',
     note: 'note',
     is_completed: 'is_completed',
+    approval_status: 'approval_status',
     request_type: 'request_type',
     or_number: 'or_number',
     mwo_number: 'mwo_number',
@@ -63710,6 +64153,7 @@ export namespace Prisma {
     mct_number: 'mct_number',
     mct_date: 'mct_date',
     is_completed: 'is_completed',
+    approval_status: 'approval_status',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
     updated_by: 'updated_by',
@@ -63744,6 +64188,7 @@ export namespace Prisma {
     mcrt_number: 'mcrt_number',
     mcrt_date: 'mcrt_date',
     is_completed: 'is_completed',
+    approval_status: 'approval_status',
     returned_by_id: 'returned_by_id',
     note: 'note',
     cancelled_by: 'cancelled_by',
@@ -63787,6 +64232,7 @@ export namespace Prisma {
     mst_number: 'mst_number',
     mst_date: 'mst_date',
     is_completed: 'is_completed',
+    approval_status: 'approval_status',
     returned_by_id: 'returned_by_id',
     cwo_number: 'cwo_number',
     mwo_number: 'mwo_number',
@@ -63867,6 +64313,7 @@ export namespace Prisma {
     is_out_of_coverage: 'is_out_of_coverage',
     prepared_by_id: 'prepared_by_id',
     status: 'status',
+    approval_status: 'approval_status',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
     updated_by: 'updated_by',
@@ -63900,6 +64347,7 @@ export namespace Prisma {
     gas_station_id: 'gas_station_id',
     fuel_type_id: 'fuel_type_id',
     requested_by_id: 'requested_by_id',
+    approval_status: 'approval_status',
     with_container: 'with_container',
     liter_in_text: 'liter_in_text',
     actual_liter: 'actual_liter',
@@ -65300,6 +65748,7 @@ export namespace Prisma {
     classification_id?: StringNullableFilter<"JO"> | string | null
     department_id?: StringFilter<"JO"> | string
     notes?: StringFilter<"JO"> | string
+    approval_status?: IntNullableFilter<"JO"> | number | null
     cancelled_by?: StringNullableFilter<"JO"> | string | null
     created_by?: StringFilter<"JO"> | string
     updated_by?: StringNullableFilter<"JO"> | string | null
@@ -65321,6 +65770,7 @@ export namespace Prisma {
     classification_id?: SortOrderInput | SortOrder
     department_id?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -65345,6 +65795,7 @@ export namespace Prisma {
     classification_id?: StringNullableFilter<"JO"> | string | null
     department_id?: StringFilter<"JO"> | string
     notes?: StringFilter<"JO"> | string
+    approval_status?: IntNullableFilter<"JO"> | number | null
     cancelled_by?: StringNullableFilter<"JO"> | string | null
     created_by?: StringFilter<"JO"> | string
     updated_by?: StringNullableFilter<"JO"> | string | null
@@ -65366,6 +65817,7 @@ export namespace Prisma {
     classification_id?: SortOrderInput | SortOrder
     department_id?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -65373,8 +65825,10 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: JOCountOrderByAggregateInput
+    _avg?: JOAvgOrderByAggregateInput
     _max?: JOMaxOrderByAggregateInput
     _min?: JOMinOrderByAggregateInput
+    _sum?: JOSumOrderByAggregateInput
   }
 
   export type JOScalarWhereWithAggregatesInput = {
@@ -65390,6 +65844,7 @@ export namespace Prisma {
     classification_id?: StringNullableWithAggregatesFilter<"JO"> | string | null
     department_id?: StringWithAggregatesFilter<"JO"> | string
     notes?: StringWithAggregatesFilter<"JO"> | string
+    approval_status?: IntNullableWithAggregatesFilter<"JO"> | number | null
     cancelled_by?: StringNullableWithAggregatesFilter<"JO"> | string | null
     created_by?: StringWithAggregatesFilter<"JO"> | string
     updated_by?: StringNullableWithAggregatesFilter<"JO"> | string | null
@@ -65483,6 +65938,7 @@ export namespace Prisma {
     vehicle_id?: StringFilter<"SPR"> | string
     classification_id?: StringNullableFilter<"SPR"> | string | null
     notes?: StringFilter<"SPR"> | string
+    approval_status?: IntNullableFilter<"SPR"> | number | null
     cancelled_by?: StringNullableFilter<"SPR"> | string | null
     created_by?: StringFilter<"SPR"> | string
     updated_by?: StringNullableFilter<"SPR"> | string | null
@@ -65504,6 +65960,7 @@ export namespace Prisma {
     vehicle_id?: SortOrder
     classification_id?: SortOrderInput | SortOrder
     notes?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -65528,6 +65985,7 @@ export namespace Prisma {
     vehicle_id?: StringFilter<"SPR"> | string
     classification_id?: StringNullableFilter<"SPR"> | string | null
     notes?: StringFilter<"SPR"> | string
+    approval_status?: IntNullableFilter<"SPR"> | number | null
     cancelled_by?: StringNullableFilter<"SPR"> | string | null
     created_by?: StringFilter<"SPR"> | string
     updated_by?: StringNullableFilter<"SPR"> | string | null
@@ -65549,6 +66007,7 @@ export namespace Prisma {
     vehicle_id?: SortOrder
     classification_id?: SortOrderInput | SortOrder
     notes?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -65556,8 +66015,10 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: SPRCountOrderByAggregateInput
+    _avg?: SPRAvgOrderByAggregateInput
     _max?: SPRMaxOrderByAggregateInput
     _min?: SPRMinOrderByAggregateInput
+    _sum?: SPRSumOrderByAggregateInput
   }
 
   export type SPRScalarWhereWithAggregatesInput = {
@@ -65572,6 +66033,7 @@ export namespace Prisma {
     vehicle_id?: StringWithAggregatesFilter<"SPR"> | string
     classification_id?: StringNullableWithAggregatesFilter<"SPR"> | string | null
     notes?: StringWithAggregatesFilter<"SPR"> | string
+    approval_status?: IntNullableWithAggregatesFilter<"SPR"> | number | null
     cancelled_by?: StringNullableWithAggregatesFilter<"SPR"> | string | null
     created_by?: StringWithAggregatesFilter<"SPR"> | string
     updated_by?: StringNullableWithAggregatesFilter<"SPR"> | string | null
@@ -65667,6 +66129,7 @@ export namespace Prisma {
     meqs_number?: StringFilter<"MEQS"> | string
     meqs_date?: DateTimeFilter<"MEQS"> | Date | string
     notes?: StringFilter<"MEQS"> | string
+    approval_status?: IntNullableFilter<"MEQS"> | number | null
     created_by?: StringFilter<"MEQS"> | string
     updated_by?: StringNullableFilter<"MEQS"> | string | null
     cancelled_by?: StringNullableFilter<"MEQS"> | string | null
@@ -65691,6 +66154,7 @@ export namespace Prisma {
     meqs_number?: SortOrder
     meqs_date?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
@@ -65718,6 +66182,7 @@ export namespace Prisma {
     spr_number?: StringNullableFilter<"MEQS"> | string | null
     meqs_date?: DateTimeFilter<"MEQS"> | Date | string
     notes?: StringFilter<"MEQS"> | string
+    approval_status?: IntNullableFilter<"MEQS"> | number | null
     created_by?: StringFilter<"MEQS"> | string
     updated_by?: StringNullableFilter<"MEQS"> | string | null
     cancelled_by?: StringNullableFilter<"MEQS"> | string | null
@@ -65742,6 +66207,7 @@ export namespace Prisma {
     meqs_number?: SortOrder
     meqs_date?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
@@ -65749,8 +66215,10 @@ export namespace Prisma {
     updated_at?: SortOrder
     cancelled_at?: SortOrderInput | SortOrder
     _count?: MEQSCountOrderByAggregateInput
+    _avg?: MEQSAvgOrderByAggregateInput
     _max?: MEQSMaxOrderByAggregateInput
     _min?: MEQSMinOrderByAggregateInput
+    _sum?: MEQSSumOrderByAggregateInput
   }
 
   export type MEQSScalarWhereWithAggregatesInput = {
@@ -65767,6 +66235,7 @@ export namespace Prisma {
     meqs_number?: StringWithAggregatesFilter<"MEQS"> | string
     meqs_date?: DateTimeWithAggregatesFilter<"MEQS"> | Date | string
     notes?: StringWithAggregatesFilter<"MEQS"> | string
+    approval_status?: IntNullableWithAggregatesFilter<"MEQS"> | number | null
     created_by?: StringWithAggregatesFilter<"MEQS"> | string
     updated_by?: StringNullableWithAggregatesFilter<"MEQS"> | string | null
     cancelled_by?: StringNullableWithAggregatesFilter<"MEQS"> | string | null
@@ -66044,6 +66513,7 @@ export namespace Prisma {
     fund_source_id?: StringNullableFilter<"PO"> | string | null
     po_date?: DateTimeFilter<"PO"> | Date | string
     notes?: StringFilter<"PO"> | string
+    approval_status?: IntNullableFilter<"PO"> | number | null
     cancelled_by?: StringNullableFilter<"PO"> | string | null
     created_by?: StringFilter<"PO"> | string
     updated_by?: StringNullableFilter<"PO"> | string | null
@@ -66063,6 +66533,7 @@ export namespace Prisma {
     fund_source_id?: SortOrderInput | SortOrder
     po_date?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -66085,6 +66556,7 @@ export namespace Prisma {
     fund_source_id?: StringNullableFilter<"PO"> | string | null
     po_date?: DateTimeFilter<"PO"> | Date | string
     notes?: StringFilter<"PO"> | string
+    approval_status?: IntNullableFilter<"PO"> | number | null
     cancelled_by?: StringNullableFilter<"PO"> | string | null
     created_by?: StringFilter<"PO"> | string
     updated_by?: StringNullableFilter<"PO"> | string | null
@@ -66104,6 +66576,7 @@ export namespace Prisma {
     fund_source_id?: SortOrderInput | SortOrder
     po_date?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -66111,8 +66584,10 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: POCountOrderByAggregateInput
+    _avg?: POAvgOrderByAggregateInput
     _max?: POMaxOrderByAggregateInput
     _min?: POMinOrderByAggregateInput
+    _sum?: POSumOrderByAggregateInput
   }
 
   export type POScalarWhereWithAggregatesInput = {
@@ -66126,6 +66601,7 @@ export namespace Prisma {
     fund_source_id?: StringNullableWithAggregatesFilter<"PO"> | string | null
     po_date?: DateTimeWithAggregatesFilter<"PO"> | Date | string
     notes?: StringWithAggregatesFilter<"PO"> | string
+    approval_status?: IntNullableWithAggregatesFilter<"PO"> | number | null
     cancelled_by?: StringNullableWithAggregatesFilter<"PO"> | string | null
     created_by?: StringWithAggregatesFilter<"PO"> | string
     updated_by?: StringNullableWithAggregatesFilter<"PO"> | string | null
@@ -66221,6 +66697,7 @@ export namespace Prisma {
     notes?: StringFilter<"RR"> | string
     delivery_charge?: FloatFilter<"RR"> | number
     is_completed?: BoolFilter<"RR"> | boolean
+    approval_status?: IntNullableFilter<"RR"> | number | null
     cancelled_by?: StringNullableFilter<"RR"> | string | null
     created_by?: StringFilter<"RR"> | string
     updated_by?: StringNullableFilter<"RR"> | string | null
@@ -66244,6 +66721,7 @@ export namespace Prisma {
     notes?: SortOrder
     delivery_charge?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -66270,6 +66748,7 @@ export namespace Prisma {
     notes?: StringFilter<"RR"> | string
     delivery_charge?: FloatFilter<"RR"> | number
     is_completed?: BoolFilter<"RR"> | boolean
+    approval_status?: IntNullableFilter<"RR"> | number | null
     cancelled_by?: StringNullableFilter<"RR"> | string | null
     created_by?: StringFilter<"RR"> | string
     updated_by?: StringNullableFilter<"RR"> | string | null
@@ -66293,6 +66772,7 @@ export namespace Prisma {
     notes?: SortOrder
     delivery_charge?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -66321,6 +66801,7 @@ export namespace Prisma {
     notes?: StringWithAggregatesFilter<"RR"> | string
     delivery_charge?: FloatWithAggregatesFilter<"RR"> | number
     is_completed?: BoolWithAggregatesFilter<"RR"> | boolean
+    approval_status?: IntNullableWithAggregatesFilter<"RR"> | number | null
     cancelled_by?: StringNullableWithAggregatesFilter<"RR"> | string | null
     created_by?: StringWithAggregatesFilter<"RR"> | string
     updated_by?: StringNullableWithAggregatesFilter<"RR"> | string | null
@@ -66470,6 +66951,7 @@ export namespace Prisma {
     purpose?: StringFilter<"OSRIV"> | string
     note?: StringFilter<"OSRIV"> | string
     is_completed?: BoolFilter<"OSRIV"> | boolean
+    approval_status?: IntNullableFilter<"OSRIV"> | number | null
     requested_by_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
     cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
@@ -66491,6 +66973,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
@@ -66515,6 +66998,7 @@ export namespace Prisma {
     purpose?: StringFilter<"OSRIV"> | string
     note?: StringFilter<"OSRIV"> | string
     is_completed?: BoolFilter<"OSRIV"> | boolean
+    approval_status?: IntNullableFilter<"OSRIV"> | number | null
     requested_by_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
     cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
@@ -66536,6 +67020,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
@@ -66545,8 +67030,10 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: OSRIVCountOrderByAggregateInput
+    _avg?: OSRIVAvgOrderByAggregateInput
     _max?: OSRIVMaxOrderByAggregateInput
     _min?: OSRIVMinOrderByAggregateInput
+    _sum?: OSRIVSumOrderByAggregateInput
   }
 
   export type OSRIVScalarWhereWithAggregatesInput = {
@@ -66560,6 +67047,7 @@ export namespace Prisma {
     purpose?: StringWithAggregatesFilter<"OSRIV"> | string
     note?: StringWithAggregatesFilter<"OSRIV"> | string
     is_completed?: BoolWithAggregatesFilter<"OSRIV"> | boolean
+    approval_status?: IntNullableWithAggregatesFilter<"OSRIV"> | number | null
     requested_by_id?: StringWithAggregatesFilter<"OSRIV"> | string
     item_from_id?: StringWithAggregatesFilter<"OSRIV"> | string
     cancelled_by?: StringNullableWithAggregatesFilter<"OSRIV"> | string | null
@@ -66717,6 +67205,7 @@ export namespace Prisma {
     purpose?: StringFilter<"SERIV"> | string
     note?: StringFilter<"SERIV"> | string
     is_completed?: BoolFilter<"SERIV"> | boolean
+    approval_status?: IntNullableFilter<"SERIV"> | number | null
     request_type?: IntFilter<"SERIV"> | number
     or_number?: StringNullableFilter<"SERIV"> | string | null
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
@@ -66747,6 +67236,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     request_type?: SortOrder
     or_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
@@ -66781,6 +67271,7 @@ export namespace Prisma {
     purpose?: StringFilter<"SERIV"> | string
     note?: StringFilter<"SERIV"> | string
     is_completed?: BoolFilter<"SERIV"> | boolean
+    approval_status?: IntNullableFilter<"SERIV"> | number | null
     request_type?: IntFilter<"SERIV"> | number
     or_number?: StringNullableFilter<"SERIV"> | string | null
     cwo_number?: StringNullableFilter<"SERIV"> | string | null
@@ -66810,6 +67301,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     request_type?: SortOrder
     or_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
@@ -66844,6 +67336,7 @@ export namespace Prisma {
     purpose?: StringWithAggregatesFilter<"SERIV"> | string
     note?: StringWithAggregatesFilter<"SERIV"> | string
     is_completed?: BoolWithAggregatesFilter<"SERIV"> | boolean
+    approval_status?: IntNullableWithAggregatesFilter<"SERIV"> | number | null
     request_type?: IntWithAggregatesFilter<"SERIV"> | number
     or_number?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
     mwo_number?: StringNullableWithAggregatesFilter<"SERIV"> | string | null
@@ -67010,6 +67503,7 @@ export namespace Prisma {
     purpose?: StringFilter<"MRV"> | string
     note?: StringFilter<"MRV"> | string
     is_completed?: BoolFilter<"MRV"> | boolean
+    approval_status?: IntNullableFilter<"MRV"> | number | null
     request_type?: IntFilter<"MRV"> | number
     or_number?: StringNullableFilter<"MRV"> | string | null
     mwo_number?: StringNullableFilter<"MRV"> | string | null
@@ -67042,6 +67536,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     request_type?: SortOrder
     or_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
@@ -67078,6 +67573,7 @@ export namespace Prisma {
     purpose?: StringFilter<"MRV"> | string
     note?: StringFilter<"MRV"> | string
     is_completed?: BoolFilter<"MRV"> | boolean
+    approval_status?: IntNullableFilter<"MRV"> | number | null
     request_type?: IntFilter<"MRV"> | number
     or_number?: StringNullableFilter<"MRV"> | string | null
     cwo_number?: StringNullableFilter<"MRV"> | string | null
@@ -67109,6 +67605,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     request_type?: SortOrder
     or_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
@@ -67144,6 +67641,7 @@ export namespace Prisma {
     purpose?: StringWithAggregatesFilter<"MRV"> | string
     note?: StringWithAggregatesFilter<"MRV"> | string
     is_completed?: BoolWithAggregatesFilter<"MRV"> | boolean
+    approval_status?: IntNullableWithAggregatesFilter<"MRV"> | number | null
     request_type?: IntWithAggregatesFilter<"MRV"> | number
     or_number?: StringNullableWithAggregatesFilter<"MRV"> | string | null
     mwo_number?: StringNullableWithAggregatesFilter<"MRV"> | string | null
@@ -67308,6 +67806,7 @@ export namespace Prisma {
     mct_number?: StringFilter<"MCT"> | string
     mct_date?: DateTimeFilter<"MCT"> | Date | string
     is_completed?: BoolFilter<"MCT"> | boolean
+    approval_status?: IntNullableFilter<"MCT"> | number | null
     cancelled_by?: StringNullableFilter<"MCT"> | string | null
     created_by?: StringFilter<"MCT"> | string
     updated_by?: StringNullableFilter<"MCT"> | string | null
@@ -67326,6 +67825,7 @@ export namespace Prisma {
     mct_number?: SortOrder
     mct_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -67347,6 +67847,7 @@ export namespace Prisma {
     mrv_number?: StringFilter<"MCT"> | string
     mct_date?: DateTimeFilter<"MCT"> | Date | string
     is_completed?: BoolFilter<"MCT"> | boolean
+    approval_status?: IntNullableFilter<"MCT"> | number | null
     cancelled_by?: StringNullableFilter<"MCT"> | string | null
     created_by?: StringFilter<"MCT"> | string
     updated_by?: StringNullableFilter<"MCT"> | string | null
@@ -67365,6 +67866,7 @@ export namespace Prisma {
     mct_number?: SortOrder
     mct_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -67372,8 +67874,10 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: MCTCountOrderByAggregateInput
+    _avg?: MCTAvgOrderByAggregateInput
     _max?: MCTMaxOrderByAggregateInput
     _min?: MCTMinOrderByAggregateInput
+    _sum?: MCTSumOrderByAggregateInput
   }
 
   export type MCTScalarWhereWithAggregatesInput = {
@@ -67386,6 +67890,7 @@ export namespace Prisma {
     mct_number?: StringWithAggregatesFilter<"MCT"> | string
     mct_date?: DateTimeWithAggregatesFilter<"MCT"> | Date | string
     is_completed?: BoolWithAggregatesFilter<"MCT"> | boolean
+    approval_status?: IntNullableWithAggregatesFilter<"MCT"> | number | null
     cancelled_by?: StringNullableWithAggregatesFilter<"MCT"> | string | null
     created_by?: StringWithAggregatesFilter<"MCT"> | string
     updated_by?: StringNullableWithAggregatesFilter<"MCT"> | string | null
@@ -67479,6 +67984,7 @@ export namespace Prisma {
     mcrt_number?: StringFilter<"MCRT"> | string
     mcrt_date?: DateTimeFilter<"MCRT"> | Date | string
     is_completed?: BoolFilter<"MCRT"> | boolean
+    approval_status?: IntNullableFilter<"MCRT"> | number | null
     returned_by_id?: StringFilter<"MCRT"> | string
     note?: StringFilter<"MCRT"> | string
     cancelled_by?: StringNullableFilter<"MCRT"> | string | null
@@ -67502,6 +68008,7 @@ export namespace Prisma {
     mcrt_number?: SortOrder
     mcrt_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     returned_by_id?: SortOrder
     note?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
@@ -67528,6 +68035,7 @@ export namespace Prisma {
     seriv_number?: StringNullableFilter<"MCRT"> | string | null
     mcrt_date?: DateTimeFilter<"MCRT"> | Date | string
     is_completed?: BoolFilter<"MCRT"> | boolean
+    approval_status?: IntNullableFilter<"MCRT"> | number | null
     returned_by_id?: StringFilter<"MCRT"> | string
     note?: StringFilter<"MCRT"> | string
     cancelled_by?: StringNullableFilter<"MCRT"> | string | null
@@ -67551,6 +68059,7 @@ export namespace Prisma {
     mcrt_number?: SortOrder
     mcrt_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     returned_by_id?: SortOrder
     note?: SortOrder
     cancelled_by?: SortOrderInput | SortOrder
@@ -67560,8 +68069,10 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: MCRTCountOrderByAggregateInput
+    _avg?: MCRTAvgOrderByAggregateInput
     _max?: MCRTMaxOrderByAggregateInput
     _min?: MCRTMinOrderByAggregateInput
+    _sum?: MCRTSumOrderByAggregateInput
   }
 
   export type MCRTScalarWhereWithAggregatesInput = {
@@ -67576,6 +68087,7 @@ export namespace Prisma {
     mcrt_number?: StringWithAggregatesFilter<"MCRT"> | string
     mcrt_date?: DateTimeWithAggregatesFilter<"MCRT"> | Date | string
     is_completed?: BoolWithAggregatesFilter<"MCRT"> | boolean
+    approval_status?: IntNullableWithAggregatesFilter<"MCRT"> | number | null
     returned_by_id?: StringWithAggregatesFilter<"MCRT"> | string
     note?: StringWithAggregatesFilter<"MCRT"> | string
     cancelled_by?: StringNullableWithAggregatesFilter<"MCRT"> | string | null
@@ -67730,6 +68242,7 @@ export namespace Prisma {
     mst_number?: StringFilter<"MST"> | string
     mst_date?: DateTimeFilter<"MST"> | Date | string
     is_completed?: BoolFilter<"MST"> | boolean
+    approval_status?: IntNullableFilter<"MST"> | number | null
     returned_by_id?: StringFilter<"MST"> | string
     cwo_number?: StringNullableFilter<"MST"> | string | null
     mwo_number?: StringNullableFilter<"MST"> | string | null
@@ -67750,6 +68263,7 @@ export namespace Prisma {
     mst_number?: SortOrder
     mst_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     returned_by_id?: SortOrder
     cwo_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
@@ -67773,6 +68287,7 @@ export namespace Prisma {
     NOT?: MSTWhereInput | MSTWhereInput[]
     mst_date?: DateTimeFilter<"MST"> | Date | string
     is_completed?: BoolFilter<"MST"> | boolean
+    approval_status?: IntNullableFilter<"MST"> | number | null
     returned_by_id?: StringFilter<"MST"> | string
     cwo_number?: StringNullableFilter<"MST"> | string | null
     mwo_number?: StringNullableFilter<"MST"> | string | null
@@ -67793,6 +68308,7 @@ export namespace Prisma {
     mst_number?: SortOrder
     mst_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     returned_by_id?: SortOrder
     cwo_number?: SortOrderInput | SortOrder
     mwo_number?: SortOrderInput | SortOrder
@@ -67805,8 +68321,10 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: MSTCountOrderByAggregateInput
+    _avg?: MSTAvgOrderByAggregateInput
     _max?: MSTMaxOrderByAggregateInput
     _min?: MSTMinOrderByAggregateInput
+    _sum?: MSTSumOrderByAggregateInput
   }
 
   export type MSTScalarWhereWithAggregatesInput = {
@@ -67817,6 +68335,7 @@ export namespace Prisma {
     mst_number?: StringWithAggregatesFilter<"MST"> | string
     mst_date?: DateTimeWithAggregatesFilter<"MST"> | Date | string
     is_completed?: BoolWithAggregatesFilter<"MST"> | boolean
+    approval_status?: IntNullableWithAggregatesFilter<"MST"> | number | null
     returned_by_id?: StringWithAggregatesFilter<"MST"> | string
     cwo_number?: StringNullableWithAggregatesFilter<"MST"> | string | null
     mwo_number?: StringNullableWithAggregatesFilter<"MST"> | string | null
@@ -68100,6 +68619,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFilter<"TripTicket"> | boolean
     prepared_by_id?: StringFilter<"TripTicket"> | string
     status?: IntFilter<"TripTicket"> | number
+    approval_status?: IntNullableFilter<"TripTicket"> | number | null
     cancelled_by?: StringNullableFilter<"TripTicket"> | string | null
     created_by?: StringFilter<"TripTicket"> | string
     updated_by?: StringNullableFilter<"TripTicket"> | string | null
@@ -68128,6 +68648,7 @@ export namespace Prisma {
     is_out_of_coverage?: SortOrder
     prepared_by_id?: SortOrder
     status?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -68159,6 +68680,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFilter<"TripTicket"> | boolean
     prepared_by_id?: StringFilter<"TripTicket"> | string
     status?: IntFilter<"TripTicket"> | number
+    approval_status?: IntNullableFilter<"TripTicket"> | number | null
     cancelled_by?: StringNullableFilter<"TripTicket"> | string | null
     created_by?: StringFilter<"TripTicket"> | string
     updated_by?: StringNullableFilter<"TripTicket"> | string | null
@@ -68187,6 +68709,7 @@ export namespace Prisma {
     is_out_of_coverage?: SortOrder
     prepared_by_id?: SortOrder
     status?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -68221,6 +68744,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolWithAggregatesFilter<"TripTicket"> | boolean
     prepared_by_id?: StringWithAggregatesFilter<"TripTicket"> | string
     status?: IntWithAggregatesFilter<"TripTicket"> | number
+    approval_status?: IntNullableWithAggregatesFilter<"TripTicket"> | number | null
     cancelled_by?: StringNullableWithAggregatesFilter<"TripTicket"> | string | null
     created_by?: StringWithAggregatesFilter<"TripTicket"> | string
     updated_by?: StringNullableWithAggregatesFilter<"TripTicket"> | string | null
@@ -68313,6 +68837,7 @@ export namespace Prisma {
     gas_station_id?: IntFilter<"GasSlip"> | number
     fuel_type_id?: IntFilter<"GasSlip"> | number
     requested_by_id?: StringFilter<"GasSlip"> | string
+    approval_status?: IntNullableFilter<"GasSlip"> | number | null
     with_container?: BoolFilter<"GasSlip"> | boolean
     liter_in_text?: StringFilter<"GasSlip"> | string
     actual_liter?: FloatNullableFilter<"GasSlip"> | number | null
@@ -68340,6 +68865,7 @@ export namespace Prisma {
     gas_station_id?: SortOrder
     fuel_type_id?: SortOrder
     requested_by_id?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     with_container?: SortOrder
     liter_in_text?: SortOrder
     actual_liter?: SortOrderInput | SortOrder
@@ -68370,6 +68896,7 @@ export namespace Prisma {
     gas_station_id?: IntFilter<"GasSlip"> | number
     fuel_type_id?: IntFilter<"GasSlip"> | number
     requested_by_id?: StringFilter<"GasSlip"> | string
+    approval_status?: IntNullableFilter<"GasSlip"> | number | null
     with_container?: BoolFilter<"GasSlip"> | boolean
     liter_in_text?: StringFilter<"GasSlip"> | string
     actual_liter?: FloatNullableFilter<"GasSlip"> | number | null
@@ -68397,6 +68924,7 @@ export namespace Prisma {
     gas_station_id?: SortOrder
     fuel_type_id?: SortOrder
     requested_by_id?: SortOrder
+    approval_status?: SortOrderInput | SortOrder
     with_container?: SortOrder
     liter_in_text?: SortOrder
     actual_liter?: SortOrderInput | SortOrder
@@ -68428,6 +68956,7 @@ export namespace Prisma {
     gas_station_id?: IntWithAggregatesFilter<"GasSlip"> | number
     fuel_type_id?: IntWithAggregatesFilter<"GasSlip"> | number
     requested_by_id?: StringWithAggregatesFilter<"GasSlip"> | string
+    approval_status?: IntNullableWithAggregatesFilter<"GasSlip"> | number | null
     with_container?: BoolWithAggregatesFilter<"GasSlip"> | boolean
     liter_in_text?: StringWithAggregatesFilter<"GasSlip"> | string
     actual_liter?: FloatNullableWithAggregatesFilter<"GasSlip"> | number | null
@@ -69909,6 +70438,7 @@ export namespace Prisma {
     classification_id?: string | null
     department_id: string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -69930,6 +70460,7 @@ export namespace Prisma {
     classification_id?: string | null
     department_id: string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -69949,6 +70480,7 @@ export namespace Prisma {
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69970,6 +70502,7 @@ export namespace Prisma {
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69990,6 +70523,7 @@ export namespace Prisma {
     classification_id?: string | null
     department_id: string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -70007,6 +70541,7 @@ export namespace Prisma {
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70025,6 +70560,7 @@ export namespace Prisma {
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70116,6 +70652,7 @@ export namespace Prisma {
     date_requested: Date | string
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -70137,6 +70674,7 @@ export namespace Prisma {
     vehicle_id: string
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -70154,6 +70692,7 @@ export namespace Prisma {
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70175,6 +70714,7 @@ export namespace Prisma {
     vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70194,6 +70734,7 @@ export namespace Prisma {
     vehicle_id: string
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -70209,6 +70750,7 @@ export namespace Prisma {
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70226,6 +70768,7 @@ export namespace Prisma {
     vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70318,6 +70861,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -70342,6 +70886,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -70360,6 +70905,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70384,6 +70930,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70405,6 +70952,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -70421,6 +70969,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70440,6 +70989,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70710,6 +71260,7 @@ export namespace Prisma {
     fund_source_id?: string | null
     po_date: Date | string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -70729,6 +71280,7 @@ export namespace Prisma {
     fund_source_id?: string | null
     po_date: Date | string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -70746,6 +71298,7 @@ export namespace Prisma {
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70765,6 +71318,7 @@ export namespace Prisma {
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70783,6 +71337,7 @@ export namespace Prisma {
     fund_source_id?: string | null
     po_date: Date | string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -70798,6 +71353,7 @@ export namespace Prisma {
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70814,6 +71370,7 @@ export namespace Prisma {
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70909,6 +71466,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -70932,6 +71490,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -70953,6 +71512,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70976,6 +71536,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70998,6 +71559,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -71017,6 +71579,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71037,6 +71600,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71180,6 +71744,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -71200,6 +71765,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
@@ -71220,6 +71786,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -71240,6 +71807,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71260,6 +71828,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
@@ -71278,6 +71847,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -71295,6 +71865,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71447,6 +72018,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -71476,6 +72048,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -71505,6 +72078,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71534,6 +72108,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71563,6 +72138,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -71589,6 +72165,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71614,6 +72191,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71774,6 +72352,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -71805,6 +72384,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -71834,6 +72414,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71865,6 +72446,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71895,6 +72477,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -71921,6 +72504,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71947,6 +72531,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72105,6 +72690,7 @@ export namespace Prisma {
     mct_number: string
     mct_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -72123,6 +72709,7 @@ export namespace Prisma {
     mct_number: string
     mct_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -72139,6 +72726,7 @@ export namespace Prisma {
     mct_number?: StringFieldUpdateOperationsInput | string
     mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72157,6 +72745,7 @@ export namespace Prisma {
     mct_number?: StringFieldUpdateOperationsInput | string
     mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72174,6 +72763,7 @@ export namespace Prisma {
     mct_number: string
     mct_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -72188,6 +72778,7 @@ export namespace Prisma {
     mct_number?: StringFieldUpdateOperationsInput | string
     mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72203,6 +72794,7 @@ export namespace Prisma {
     mct_number?: StringFieldUpdateOperationsInput | string
     mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72294,6 +72886,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -72317,6 +72910,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -72336,6 +72930,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72359,6 +72954,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72380,6 +72976,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -72397,6 +72994,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72416,6 +73014,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72565,6 +73164,7 @@ export namespace Prisma {
     mst_number: string
     mst_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -72585,6 +73185,7 @@ export namespace Prisma {
     mst_number: string
     mst_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -72605,6 +73206,7 @@ export namespace Prisma {
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72625,6 +73227,7 @@ export namespace Prisma {
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72645,6 +73248,7 @@ export namespace Prisma {
     mst_number: string
     mst_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -72663,6 +73267,7 @@ export namespace Prisma {
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72681,6 +73286,7 @@ export namespace Prisma {
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72983,6 +73589,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -73011,6 +73618,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -73037,6 +73645,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73065,6 +73674,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73092,6 +73702,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -73117,6 +73728,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73143,6 +73755,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73232,6 +73845,7 @@ export namespace Prisma {
     gas_slip_number: string
     driver_id: string
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -73259,6 +73873,7 @@ export namespace Prisma {
     gas_station_id: number
     fuel_type_id: number
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -73280,6 +73895,7 @@ export namespace Prisma {
     gas_slip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -73307,6 +73923,7 @@ export namespace Prisma {
     gas_station_id?: IntFieldUpdateOperationsInput | number
     fuel_type_id?: IntFieldUpdateOperationsInput | number
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -73331,6 +73948,7 @@ export namespace Prisma {
     gas_station_id: number
     fuel_type_id: number
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -73351,6 +73969,7 @@ export namespace Prisma {
     gas_slip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -73374,6 +73993,7 @@ export namespace Prisma {
     gas_station_id?: IntFieldUpdateOperationsInput | number
     fuel_type_id?: IntFieldUpdateOperationsInput | number
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -74697,12 +75317,17 @@ export namespace Prisma {
     classification_id?: SortOrder
     department_id?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type JOAvgOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type JOMaxOrderByAggregateInput = {
@@ -74715,6 +75340,7 @@ export namespace Prisma {
     classification_id?: SortOrder
     department_id?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -74733,12 +75359,17 @@ export namespace Prisma {
     classification_id?: SortOrder
     department_id?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type JOSumOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type JOScalarRelationFilter = {
@@ -74818,12 +75449,17 @@ export namespace Prisma {
     vehicle_id?: SortOrder
     classification_id?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type SPRAvgOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type SPRMaxOrderByAggregateInput = {
@@ -74835,6 +75471,7 @@ export namespace Prisma {
     vehicle_id?: SortOrder
     classification_id?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -74852,12 +75489,17 @@ export namespace Prisma {
     vehicle_id?: SortOrder
     classification_id?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type SPRSumOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type SPRScalarRelationFilter = {
@@ -74934,12 +75576,17 @@ export namespace Prisma {
     meqs_number?: SortOrder
     meqs_date?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     cancelled_at?: SortOrder
+  }
+
+  export type MEQSAvgOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type MEQSMaxOrderByAggregateInput = {
@@ -74953,6 +75600,7 @@ export namespace Prisma {
     meqs_number?: SortOrder
     meqs_date?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_by?: SortOrder
@@ -74972,12 +75620,17 @@ export namespace Prisma {
     meqs_number?: SortOrder
     meqs_date?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     cancelled_at?: SortOrder
+  }
+
+  export type MEQSSumOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type MEQSScalarRelationFilter = {
@@ -75188,12 +75841,17 @@ export namespace Prisma {
     fund_source_id?: SortOrder
     po_date?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type POAvgOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type POMaxOrderByAggregateInput = {
@@ -75204,6 +75862,7 @@ export namespace Prisma {
     fund_source_id?: SortOrder
     po_date?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -75220,12 +75879,17 @@ export namespace Prisma {
     fund_source_id?: SortOrder
     po_date?: SortOrder
     notes?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type POSumOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type POScalarRelationFilter = {
@@ -75298,6 +75962,7 @@ export namespace Prisma {
     notes?: SortOrder
     delivery_charge?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -75308,6 +75973,7 @@ export namespace Prisma {
 
   export type RRAvgOrderByAggregateInput = {
     delivery_charge?: SortOrder
+    approval_status?: SortOrder
   }
 
   export type RRMaxOrderByAggregateInput = {
@@ -75322,6 +75988,7 @@ export namespace Prisma {
     notes?: SortOrder
     delivery_charge?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -75342,6 +76009,7 @@ export namespace Prisma {
     notes?: SortOrder
     delivery_charge?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -75352,6 +76020,7 @@ export namespace Prisma {
 
   export type RRSumOrderByAggregateInput = {
     delivery_charge?: SortOrder
+    approval_status?: SortOrder
   }
 
   export type RRScalarRelationFilter = {
@@ -75459,6 +76128,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrder
@@ -75469,6 +76139,10 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
+  export type OSRIVAvgOrderByAggregateInput = {
+    approval_status?: SortOrder
+  }
+
   export type OSRIVMaxOrderByAggregateInput = {
     id?: SortOrder
     osriv_number?: SortOrder
@@ -75477,6 +76151,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrder
@@ -75495,6 +76170,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     requested_by_id?: SortOrder
     item_from_id?: SortOrder
     cancelled_by?: SortOrder
@@ -75503,6 +76179,10 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type OSRIVSumOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type OSRIVScalarRelationFilter = {
@@ -75620,6 +76300,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrder
     mwo_number?: SortOrder
@@ -75639,6 +76320,7 @@ export namespace Prisma {
   }
 
   export type SERIVAvgOrderByAggregateInput = {
+    approval_status?: SortOrder
     request_type?: SortOrder
   }
 
@@ -75650,6 +76332,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrder
     mwo_number?: SortOrder
@@ -75676,6 +76359,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrder
     mwo_number?: SortOrder
@@ -75695,6 +76379,7 @@ export namespace Prisma {
   }
 
   export type SERIVSumOrderByAggregateInput = {
+    approval_status?: SortOrder
     request_type?: SortOrder
   }
 
@@ -75814,6 +76499,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrder
     mwo_number?: SortOrder
@@ -75833,6 +76519,7 @@ export namespace Prisma {
   }
 
   export type MRVAvgOrderByAggregateInput = {
+    approval_status?: SortOrder
     request_type?: SortOrder
   }
 
@@ -75845,6 +76532,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrder
     mwo_number?: SortOrder
@@ -75872,6 +76560,7 @@ export namespace Prisma {
     purpose?: SortOrder
     note?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     request_type?: SortOrder
     or_number?: SortOrder
     mwo_number?: SortOrder
@@ -75891,6 +76580,7 @@ export namespace Prisma {
   }
 
   export type MRVSumOrderByAggregateInput = {
+    approval_status?: SortOrder
     request_type?: SortOrder
   }
 
@@ -76003,12 +76693,17 @@ export namespace Prisma {
     mct_number?: SortOrder
     mct_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type MCTAvgOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type MCTMaxOrderByAggregateInput = {
@@ -76018,6 +76713,7 @@ export namespace Prisma {
     mct_number?: SortOrder
     mct_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -76033,12 +76729,17 @@ export namespace Prisma {
     mct_number?: SortOrder
     mct_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type MCTSumOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type MCTScalarRelationFilter = {
@@ -76118,6 +76819,7 @@ export namespace Prisma {
     mcrt_number?: SortOrder
     mcrt_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     returned_by_id?: SortOrder
     note?: SortOrder
     cancelled_by?: SortOrder
@@ -76126,6 +76828,10 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type MCRTAvgOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type MCRTMaxOrderByAggregateInput = {
@@ -76137,6 +76843,7 @@ export namespace Prisma {
     mcrt_number?: SortOrder
     mcrt_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     returned_by_id?: SortOrder
     note?: SortOrder
     cancelled_by?: SortOrder
@@ -76156,6 +76863,7 @@ export namespace Prisma {
     mcrt_number?: SortOrder
     mcrt_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     returned_by_id?: SortOrder
     note?: SortOrder
     cancelled_by?: SortOrder
@@ -76164,6 +76872,10 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type MCRTSumOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type MCRTScalarRelationFilter = {
@@ -76268,6 +76980,7 @@ export namespace Prisma {
     mst_number?: SortOrder
     mst_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     returned_by_id?: SortOrder
     cwo_number?: SortOrder
     mwo_number?: SortOrder
@@ -76281,11 +76994,16 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
+  export type MSTAvgOrderByAggregateInput = {
+    approval_status?: SortOrder
+  }
+
   export type MSTMaxOrderByAggregateInput = {
     id?: SortOrder
     mst_number?: SortOrder
     mst_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     returned_by_id?: SortOrder
     cwo_number?: SortOrder
     mwo_number?: SortOrder
@@ -76304,6 +77022,7 @@ export namespace Prisma {
     mst_number?: SortOrder
     mst_date?: SortOrder
     is_completed?: SortOrder
+    approval_status?: SortOrder
     returned_by_id?: SortOrder
     cwo_number?: SortOrder
     mwo_number?: SortOrder
@@ -76315,6 +77034,10 @@ export namespace Prisma {
     cancelled_at?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type MSTSumOrderByAggregateInput = {
+    approval_status?: SortOrder
   }
 
   export type MSTScalarRelationFilter = {
@@ -76528,6 +77251,7 @@ export namespace Prisma {
     is_out_of_coverage?: SortOrder
     prepared_by_id?: SortOrder
     status?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -76538,6 +77262,7 @@ export namespace Prisma {
 
   export type TripTicketAvgOrderByAggregateInput = {
     status?: SortOrder
+    approval_status?: SortOrder
   }
 
   export type TripTicketMaxOrderByAggregateInput = {
@@ -76558,6 +77283,7 @@ export namespace Prisma {
     is_out_of_coverage?: SortOrder
     prepared_by_id?: SortOrder
     status?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -76584,6 +77310,7 @@ export namespace Prisma {
     is_out_of_coverage?: SortOrder
     prepared_by_id?: SortOrder
     status?: SortOrder
+    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -76594,6 +77321,7 @@ export namespace Prisma {
 
   export type TripTicketSumOrderByAggregateInput = {
     status?: SortOrder
+    approval_status?: SortOrder
   }
 
   export type TripTicketScalarRelationFilter = {
@@ -76693,6 +77421,7 @@ export namespace Prisma {
     gas_station_id?: SortOrder
     fuel_type_id?: SortOrder
     requested_by_id?: SortOrder
+    approval_status?: SortOrder
     with_container?: SortOrder
     liter_in_text?: SortOrder
     actual_liter?: SortOrder
@@ -76711,6 +77440,7 @@ export namespace Prisma {
   export type GasSlipAvgOrderByAggregateInput = {
     gas_station_id?: SortOrder
     fuel_type_id?: SortOrder
+    approval_status?: SortOrder
     actual_liter?: SortOrder
     price_per_liter?: SortOrder
     print_count?: SortOrder
@@ -76724,6 +77454,7 @@ export namespace Prisma {
     gas_station_id?: SortOrder
     fuel_type_id?: SortOrder
     requested_by_id?: SortOrder
+    approval_status?: SortOrder
     with_container?: SortOrder
     liter_in_text?: SortOrder
     actual_liter?: SortOrder
@@ -76747,6 +77478,7 @@ export namespace Prisma {
     gas_station_id?: SortOrder
     fuel_type_id?: SortOrder
     requested_by_id?: SortOrder
+    approval_status?: SortOrder
     with_container?: SortOrder
     liter_in_text?: SortOrder
     actual_liter?: SortOrder
@@ -76765,6 +77497,7 @@ export namespace Prisma {
   export type GasSlipSumOrderByAggregateInput = {
     gas_station_id?: SortOrder
     fuel_type_id?: SortOrder
+    approval_status?: SortOrder
     actual_liter?: SortOrder
     price_per_liter?: SortOrder
     print_count?: SortOrder
@@ -81161,6 +81894,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -81180,6 +81914,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -81209,6 +81944,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -81239,6 +81975,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -81277,6 +82014,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -81305,6 +82043,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -81389,6 +82128,7 @@ export namespace Prisma {
     purpose?: StringFilter<"OSRIV"> | string
     note?: StringFilter<"OSRIV"> | string
     is_completed?: BoolFilter<"OSRIV"> | boolean
+    approval_status?: IntNullableFilter<"OSRIV"> | number | null
     requested_by_id?: StringFilter<"OSRIV"> | string
     item_from_id?: StringFilter<"OSRIV"> | string
     cancelled_by?: StringNullableFilter<"OSRIV"> | string | null
@@ -81427,6 +82167,7 @@ export namespace Prisma {
     purpose?: StringFilter<"MRV"> | string
     note?: StringFilter<"MRV"> | string
     is_completed?: BoolFilter<"MRV"> | boolean
+    approval_status?: IntNullableFilter<"MRV"> | number | null
     request_type?: IntFilter<"MRV"> | number
     or_number?: StringNullableFilter<"MRV"> | string | null
     mwo_number?: StringNullableFilter<"MRV"> | string | null
@@ -81472,6 +82213,7 @@ export namespace Prisma {
     purpose?: StringFilter<"SERIV"> | string
     note?: StringFilter<"SERIV"> | string
     is_completed?: BoolFilter<"SERIV"> | boolean
+    approval_status?: IntNullableFilter<"SERIV"> | number | null
     request_type?: IntFilter<"SERIV"> | number
     or_number?: StringNullableFilter<"SERIV"> | string | null
     mwo_number?: StringNullableFilter<"SERIV"> | string | null
@@ -81498,6 +82240,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -81527,6 +82270,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -82892,6 +83636,7 @@ export namespace Prisma {
     classification_id?: string | null
     department_id: string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -82911,6 +83656,7 @@ export namespace Prisma {
     classification_id?: string | null
     department_id: string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -82978,6 +83724,7 @@ export namespace Prisma {
     date_requested: Date | string
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -82997,6 +83744,7 @@ export namespace Prisma {
     vehicle_id: string
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -83048,6 +83796,7 @@ export namespace Prisma {
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83067,6 +83816,7 @@ export namespace Prisma {
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83146,6 +83896,7 @@ export namespace Prisma {
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83165,6 +83916,7 @@ export namespace Prisma {
     vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83515,6 +84267,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -83537,6 +84290,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -83644,6 +84398,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83666,6 +84421,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83847,6 +84603,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -83869,6 +84626,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -83976,6 +84734,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83998,6 +84757,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84047,6 +84807,7 @@ export namespace Prisma {
     classification_id?: string | null
     department_id: string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -84067,6 +84828,7 @@ export namespace Prisma {
     classification_id?: string | null
     department_id: string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -84101,6 +84863,7 @@ export namespace Prisma {
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84121,6 +84884,7 @@ export namespace Prisma {
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84175,6 +84939,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -84197,6 +84962,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -84347,6 +85113,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84369,6 +85136,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84465,6 +85233,7 @@ export namespace Prisma {
     date_requested: Date | string
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -84485,6 +85254,7 @@ export namespace Prisma {
     vehicle_id: string
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -84517,6 +85287,7 @@ export namespace Prisma {
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84537,6 +85308,7 @@ export namespace Prisma {
     vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84555,6 +85327,7 @@ export namespace Prisma {
     classification_id?: string | null
     department_id: string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -84575,6 +85348,7 @@ export namespace Prisma {
     classification_id?: string | null
     department_id: string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -84641,6 +85415,7 @@ export namespace Prisma {
     date_requested: Date | string
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -84661,6 +85436,7 @@ export namespace Prisma {
     vehicle_id: string
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -84753,6 +85529,7 @@ export namespace Prisma {
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84773,6 +85550,7 @@ export namespace Prisma {
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     department_id?: StringFieldUpdateOperationsInput | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84851,6 +85629,7 @@ export namespace Prisma {
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84871,6 +85650,7 @@ export namespace Prisma {
     vehicle_id?: StringFieldUpdateOperationsInput | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84934,6 +85714,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -84957,6 +85738,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -85069,6 +85851,7 @@ export namespace Prisma {
     fund_source_id?: string | null
     po_date: Date | string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -85086,6 +85869,7 @@ export namespace Prisma {
     fund_source_id?: string | null
     po_date: Date | string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -85120,6 +85904,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85143,6 +85928,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85257,6 +86043,7 @@ export namespace Prisma {
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85274,6 +86061,7 @@ export namespace Prisma {
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85498,6 +86286,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -85521,6 +86310,7 @@ export namespace Prisma {
     meqs_number: string
     meqs_date: Date | string
     notes: string
+    approval_status?: number | null
     created_by: string
     updated_by?: string | null
     cancelled_by?: string | null
@@ -85554,6 +86344,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85577,6 +86368,7 @@ export namespace Prisma {
     meqs_number?: StringFieldUpdateOperationsInput | string
     meqs_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85620,6 +86412,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -85641,6 +86434,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -85751,6 +86545,7 @@ export namespace Prisma {
     notes?: StringFilter<"RR"> | string
     delivery_charge?: FloatFilter<"RR"> | number
     is_completed?: BoolFilter<"RR"> | boolean
+    approval_status?: IntNullableFilter<"RR"> | number | null
     cancelled_by?: StringNullableFilter<"RR"> | string | null
     created_by?: StringFilter<"RR"> | string
     updated_by?: StringNullableFilter<"RR"> | string | null
@@ -85796,6 +86591,7 @@ export namespace Prisma {
     fund_source_id?: string | null
     po_date: Date | string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -85814,6 +86610,7 @@ export namespace Prisma {
     fund_source_id?: string | null
     po_date: Date | string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -85846,6 +86643,7 @@ export namespace Prisma {
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85864,6 +86662,7 @@ export namespace Prisma {
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85880,6 +86679,7 @@ export namespace Prisma {
     fund_source_id?: string | null
     po_date: Date | string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -85898,6 +86698,7 @@ export namespace Prisma {
     fund_source_id?: string | null
     po_date: Date | string
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -85984,6 +86785,7 @@ export namespace Prisma {
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86002,6 +86804,7 @@ export namespace Prisma {
     fund_source_id?: NullableStringFieldUpdateOperationsInput | string | null
     po_date?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86068,6 +86871,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -86090,6 +86894,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -86126,6 +86931,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86148,6 +86954,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86168,6 +86975,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -86190,6 +86998,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -86289,6 +87098,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86311,6 +87121,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86557,6 +87368,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -86576,6 +87388,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
@@ -86611,6 +87424,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -86630,6 +87444,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86649,6 +87464,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -86668,6 +87484,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     requested_by_id: string
     item_from_id: string
     cancelled_by?: string | null
@@ -86794,6 +87611,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -86813,6 +87631,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     item_from_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87013,6 +87832,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -87034,6 +87854,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -87159,6 +87980,7 @@ export namespace Prisma {
     mcrt_number?: StringFilter<"MCRT"> | string
     mcrt_date?: DateTimeFilter<"MCRT"> | Date | string
     is_completed?: BoolFilter<"MCRT"> | boolean
+    approval_status?: IntNullableFilter<"MCRT"> | number | null
     returned_by_id?: StringFilter<"MCRT"> | string
     note?: StringFilter<"MCRT"> | string
     cancelled_by?: StringNullableFilter<"MCRT"> | string | null
@@ -87177,6 +87999,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -87205,6 +88028,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -87249,6 +88073,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87277,6 +88102,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87305,6 +88131,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -87333,6 +88160,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -87468,6 +88296,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87496,6 +88325,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87704,6 +88534,7 @@ export namespace Prisma {
     mct_number: string
     mct_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -87720,6 +88551,7 @@ export namespace Prisma {
     mct_number: string
     mct_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -87844,6 +88676,7 @@ export namespace Prisma {
     mct_number?: StringFieldUpdateOperationsInput | string
     mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87860,6 +88693,7 @@ export namespace Prisma {
     mct_number?: StringFieldUpdateOperationsInput | string
     mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87901,6 +88735,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -87931,6 +88766,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -87975,6 +88811,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88005,6 +88842,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88033,6 +88871,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -88063,6 +88902,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -88198,6 +89038,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88228,6 +89069,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88359,6 +89201,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -88389,6 +89232,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -88451,6 +89295,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -88472,6 +89317,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -88513,6 +89359,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88543,6 +89390,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88615,6 +89463,7 @@ export namespace Prisma {
     mct_number: string
     mct_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -88632,6 +89481,7 @@ export namespace Prisma {
     mct_number: string
     mct_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -88663,6 +89513,7 @@ export namespace Prisma {
     mct_number?: StringFieldUpdateOperationsInput | string
     mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88680,6 +89531,7 @@ export namespace Prisma {
     mct_number?: StringFieldUpdateOperationsInput | string
     mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88695,6 +89547,7 @@ export namespace Prisma {
     mct_number: string
     mct_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -88712,6 +89565,7 @@ export namespace Prisma {
     mct_number: string
     mct_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -88734,6 +89588,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -88762,6 +89617,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -88860,6 +89716,7 @@ export namespace Prisma {
     mct_number?: StringFieldUpdateOperationsInput | string
     mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88877,6 +89734,7 @@ export namespace Prisma {
     mct_number?: StringFieldUpdateOperationsInput | string
     mct_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88905,6 +89763,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88933,6 +89792,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89006,6 +89866,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -89028,6 +89889,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -89062,6 +89924,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89084,6 +89947,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89102,6 +89966,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -89124,6 +89989,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -89249,6 +90115,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89271,6 +90138,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89494,6 +90362,7 @@ export namespace Prisma {
     mst_number: string
     mst_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -89513,6 +90382,7 @@ export namespace Prisma {
     mst_number: string
     mst_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -89548,6 +90418,7 @@ export namespace Prisma {
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89567,6 +90438,7 @@ export namespace Prisma {
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89586,6 +90458,7 @@ export namespace Prisma {
     mst_number: string
     mst_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -89605,6 +90478,7 @@ export namespace Prisma {
     mst_number: string
     mst_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     cwo_number?: string | null
     mwo_number?: string | null
@@ -89731,6 +90605,7 @@ export namespace Prisma {
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89750,6 +90625,7 @@ export namespace Prisma {
     mst_number?: StringFieldUpdateOperationsInput | string
     mst_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     cwo_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89884,6 +90760,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -89910,6 +90787,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -89934,6 +90812,7 @@ export namespace Prisma {
     gas_slip_number: string
     driver_id: string
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -89959,6 +90838,7 @@ export namespace Prisma {
     gas_station_id: number
     fuel_type_id: number
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -89992,6 +90872,7 @@ export namespace Prisma {
     date_requested: Date | string
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -90011,6 +90892,7 @@ export namespace Prisma {
     canvass_id?: string | null
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -90068,6 +90950,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFilter<"TripTicket"> | boolean
     prepared_by_id?: StringFilter<"TripTicket"> | string
     status?: IntFilter<"TripTicket"> | number
+    approval_status?: IntNullableFilter<"TripTicket"> | number | null
     cancelled_by?: StringNullableFilter<"TripTicket"> | string | null
     created_by?: StringFilter<"TripTicket"> | string
     updated_by?: StringNullableFilter<"TripTicket"> | string | null
@@ -90103,6 +90986,7 @@ export namespace Prisma {
     gas_station_id?: IntFilter<"GasSlip"> | number
     fuel_type_id?: IntFilter<"GasSlip"> | number
     requested_by_id?: StringFilter<"GasSlip"> | string
+    approval_status?: IntNullableFilter<"GasSlip"> | number | null
     with_container?: BoolFilter<"GasSlip"> | boolean
     liter_in_text?: StringFilter<"GasSlip"> | string
     actual_liter?: FloatNullableFilter<"GasSlip"> | number | null
@@ -90146,6 +91030,7 @@ export namespace Prisma {
     vehicle_id?: StringFilter<"SPR"> | string
     classification_id?: StringNullableFilter<"SPR"> | string | null
     notes?: StringFilter<"SPR"> | string
+    approval_status?: IntNullableFilter<"SPR"> | number | null
     cancelled_by?: StringNullableFilter<"SPR"> | string | null
     created_by?: StringFilter<"SPR"> | string
     updated_by?: StringNullableFilter<"SPR"> | string | null
@@ -90323,6 +91208,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -90350,6 +91236,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -90391,6 +91278,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -90418,6 +91306,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -90651,6 +91540,7 @@ export namespace Prisma {
     gas_slip_number: string
     driver_id: string
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -90677,6 +91567,7 @@ export namespace Prisma {
     gas_station_id: number
     fuel_type_id: number
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -90713,6 +91604,7 @@ export namespace Prisma {
     gas_slip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -90739,6 +91631,7 @@ export namespace Prisma {
     gas_station_id?: IntFieldUpdateOperationsInput | number
     fuel_type_id?: IntFieldUpdateOperationsInput | number
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -90759,6 +91652,7 @@ export namespace Prisma {
     gas_slip_number: string
     driver_id: string
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -90784,6 +91678,7 @@ export namespace Prisma {
     driver_id: string
     fuel_type_id: number
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -90831,6 +91726,7 @@ export namespace Prisma {
     gas_slip_number: string
     driver_id: string
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -90856,6 +91752,7 @@ export namespace Prisma {
     driver_id: string
     gas_station_id: number
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -91137,6 +92034,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     requested_by_id: string
     cancelled_by?: string | null
     created_by: string
@@ -91155,6 +92053,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -91180,6 +92079,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -91230,6 +92130,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -91249,6 +92150,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -91268,6 +92170,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     requested_by_id?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
@@ -91285,6 +92188,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91315,6 +92219,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91344,6 +92249,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91369,6 +92275,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91397,6 +92304,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91425,6 +92333,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91450,6 +92359,7 @@ export namespace Prisma {
     purpose: string
     note?: string
     is_completed?: boolean
+    approval_status?: number | null
     request_type: number
     or_number?: string | null
     mwo_number?: string | null
@@ -91476,6 +92386,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91505,6 +92416,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91534,6 +92446,7 @@ export namespace Prisma {
     purpose?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     request_type?: IntFieldUpdateOperationsInput | number
     or_number?: NullableStringFieldUpdateOperationsInput | string | null
     mwo_number?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92256,6 +93169,7 @@ export namespace Prisma {
     notes: string
     delivery_charge: number
     is_completed?: boolean
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -92285,6 +93199,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92306,6 +93221,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92327,6 +93243,7 @@ export namespace Prisma {
     notes?: StringFieldUpdateOperationsInput | string
     delivery_charge?: FloatFieldUpdateOperationsInput | number
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92526,6 +93443,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -92596,6 +93514,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92617,6 +93536,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92637,6 +93557,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92735,6 +93656,7 @@ export namespace Prisma {
     mcrt_number: string
     mcrt_date: Date | string
     is_completed?: boolean
+    approval_status?: number | null
     returned_by_id: string
     note: string
     cancelled_by?: string | null
@@ -92782,6 +93704,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92803,6 +93726,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92823,6 +93747,7 @@ export namespace Prisma {
     mcrt_number?: StringFieldUpdateOperationsInput | string
     mcrt_date?: DateTimeFieldUpdateOperationsInput | Date | string
     is_completed?: BoolFieldUpdateOperationsInput | boolean
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     returned_by_id?: StringFieldUpdateOperationsInput | string
     note?: StringFieldUpdateOperationsInput | string
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92994,6 +93919,7 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -93009,6 +93935,7 @@ export namespace Prisma {
     gas_station_id: number
     fuel_type_id: number
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -93032,6 +93959,7 @@ export namespace Prisma {
     canvass_id?: string | null
     classification_id?: string | null
     notes: string
+    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -93057,6 +93985,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93083,6 +94012,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93109,6 +94039,7 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93122,6 +94053,7 @@ export namespace Prisma {
     gas_slip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -93147,6 +94079,7 @@ export namespace Prisma {
     gas_station_id?: IntFieldUpdateOperationsInput | number
     fuel_type_id?: IntFieldUpdateOperationsInput | number
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -93170,6 +94103,7 @@ export namespace Prisma {
     gas_station_id?: IntFieldUpdateOperationsInput | number
     fuel_type_id?: IntFieldUpdateOperationsInput | number
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -93192,6 +94126,7 @@ export namespace Prisma {
     date_requested?: DateTimeFieldUpdateOperationsInput | Date | string
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93211,6 +94146,7 @@ export namespace Prisma {
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93229,6 +94165,7 @@ export namespace Prisma {
     canvass_id?: NullableStringFieldUpdateOperationsInput | string | null
     classification_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93324,6 +94261,7 @@ export namespace Prisma {
     driver_id: string
     fuel_type_id: number
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -93344,6 +94282,7 @@ export namespace Prisma {
     gas_slip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -93369,6 +94308,7 @@ export namespace Prisma {
     driver_id?: StringFieldUpdateOperationsInput | string
     fuel_type_id?: IntFieldUpdateOperationsInput | number
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -93392,6 +94332,7 @@ export namespace Prisma {
     driver_id?: StringFieldUpdateOperationsInput | string
     fuel_type_id?: IntFieldUpdateOperationsInput | number
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -93414,6 +94355,7 @@ export namespace Prisma {
     driver_id: string
     gas_station_id: number
     requested_by_id: string
+    approval_status?: number | null
     with_container: boolean
     liter_in_text: string
     actual_liter?: number | null
@@ -93434,6 +94376,7 @@ export namespace Prisma {
     gas_slip_number?: StringFieldUpdateOperationsInput | string
     driver_id?: StringFieldUpdateOperationsInput | string
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -93459,6 +94402,7 @@ export namespace Prisma {
     driver_id?: StringFieldUpdateOperationsInput | string
     gas_station_id?: IntFieldUpdateOperationsInput | number
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -93482,6 +94426,7 @@ export namespace Prisma {
     driver_id?: StringFieldUpdateOperationsInput | string
     gas_station_id?: IntFieldUpdateOperationsInput | number
     requested_by_id?: StringFieldUpdateOperationsInput | string
+    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     with_container?: BoolFieldUpdateOperationsInput | boolean
     liter_in_text?: StringFieldUpdateOperationsInput | string
     actual_liter?: NullableFloatFieldUpdateOperationsInput | number | null

@@ -63,8 +63,9 @@ export class McrtResolver {
         @Args('page') page: number,
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.mcrtService.findAll(page, pageSize, date_requested);
+        return this.mcrtService.findAll(page, pageSize, date_requested, approval_status);
     }
 
     @Query(() => [MCRT])
@@ -156,6 +157,10 @@ export class McrtResolver {
 
         if (mcrt.cancelled_at) {
             return APPROVAL_STATUS.CANCELLED
+        }
+
+        if(mcrt.approval_status) {
+            return mcrt.approval_status
         }
 
         return await this.mcrtService.getStatus(mcrt.id)

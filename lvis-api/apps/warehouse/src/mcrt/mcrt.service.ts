@@ -77,6 +77,7 @@ export class McrtService {
             mcrt_date: new Date(),
             returned_by_id: input.returned_by_id,
             note: input.note,
+            approval_status: APPROVAL_STATUS.PENDING,
             mcrt_approvers: {
                 create: input.approvers.map(i => {
                     return {
@@ -299,7 +300,7 @@ export class McrtService {
         return item;
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string): Promise<MCRTsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, approval_status?: number): Promise<MCRTsResponse> {
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
@@ -314,8 +315,12 @@ export class McrtService {
 
         }
 
+        if (approval_status) {
+            whereCondition.approval_status = approval_status;
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!date_requested) {
+        if (!date_requested && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 
@@ -325,9 +330,7 @@ export class McrtService {
             };
         }
         
-        // whereCondition.cancelled_at = {
-        //     equals: null,
-        // }
+
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mCRT.findMany({

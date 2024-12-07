@@ -54,6 +54,7 @@ export class MrvService {
             purpose: input.purpose,
             requested_by_id: input.requested_by_id,
             withdrawn_by_id: input.withdrawn_by_id,
+            approval_status: APPROVAL_STATUS.PENDING,
             item_from: {
                 connect: {
                     id: input.item_from_id
@@ -270,7 +271,7 @@ export class MrvService {
         return item;
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<MRVsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<MRVsResponse> {
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
@@ -289,8 +290,12 @@ export class MrvService {
             whereCondition = { ...whereCondition, requested_by_id }
         }
 
+        if (approval_status) {
+            whereCondition.approval_status = approval_status;
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !requested_by_id) {
+        if (!date_requested && !requested_by_id && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 

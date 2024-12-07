@@ -203,6 +203,7 @@ export class MeqsService {
             spr_number,
             rv_number,
             notes: input.notes,
+            approval_status: APPROVAL_STATUS.PENDING,
             meqs_number: meqsNumber,
             meqs_date: new Date(today),
             meqs_approvers,
@@ -352,6 +353,7 @@ export class MeqsService {
         date_requested?: string, 
         requested_by_id?: string,
         supplier_id?: string,
+        approval_status?: number
     ): Promise<MEQSsResponse> {
 
         const skip = (page - 1) * pageSize;
@@ -375,6 +377,10 @@ export class MeqsService {
             ];
         }
 
+        if (approval_status) {
+            whereCondition.approval_status = approval_status;
+        }
+
         if (supplier_id) {
             whereCondition.meqs_suppliers = {
               some: {
@@ -384,7 +390,7 @@ export class MeqsService {
         }
 
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !requested_by_id) {
+        if (!date_requested && !requested_by_id && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 
@@ -393,10 +399,6 @@ export class MeqsService {
                 lte: endOfYearDate,
             };
         }
-
-        // whereCondition.cancelled_at = {
-        //     equals: null,
-        // };
 
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.mEQS.findMany({

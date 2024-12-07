@@ -45,6 +45,7 @@ export class MstService {
             mwo_number: input.mwo_number,
             jo_number: input.jo_number,
             remarks: input.remarks,
+            approval_status: APPROVAL_STATUS.PENDING,
             mst_approvers: {
                 create: input.approvers.map(i => {
                     return {
@@ -215,7 +216,7 @@ export class MstService {
         return item;
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, returned_by_id?: string): Promise<MSTsResponse> {
+    async findAll(page: number, pageSize: number, date_requested?: string, returned_by_id?: string, approval_status?: number): Promise<MSTsResponse> {
         const skip = (page - 1) * pageSize;
 
         let whereCondition: any = {};
@@ -234,8 +235,12 @@ export class MstService {
             whereCondition = { ...whereCondition, returned_by_id }
         }
 
+        if (approval_status) {
+            whereCondition.approval_status = approval_status;
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !returned_by_id) {
+        if (!date_requested && !returned_by_id && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 

@@ -6,7 +6,6 @@ import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TRIP_TICKET_STATUS } from './entities/trip-ticket.enums';
 import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
-import { CreateTripTicketApproverSubInput } from './dto/create-trip-ticket-approver.sub.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
 import { VEHICLE_STATUS } from '../vehicle/entities/vehicle.enums';
@@ -86,6 +85,7 @@ export class TripTicketService {
 			is_out_of_coverage: input.is_out_of_coverage,
 			prepared_by_id: input.prepared_by_id,
 			status: TRIP_TICKET_STATUS.PENDING,
+            approval_status: APPROVAL_STATUS.PENDING,
 			created_by: this.authUser.user.username,
 			trip_ticket_approvers: {
                 create: input.approvers.map(i => {
@@ -343,6 +343,7 @@ export class TripTicketService {
 		driver_id?: string,
 		date_prepared?: string,
 		estimated_departure?: string,
+		approval_status?: number
 	  ): Promise<TripTicketsResponse> {
 		const skip = (page - 1) * pageSize;
 		const take = pageSize;
@@ -353,8 +354,12 @@ export class TripTicketService {
 		if (date_prepared) filters.created_at = { gte: new Date(date_prepared) };
 		if (estimated_departure) filters.start_time = { gte: new Date(estimated_departure) };
 
+		if (approval_status) {
+            filters.approval_status = approval_status;
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!vehicle_id && !driver_id && !date_prepared && !estimated_departure) {
+        if (!vehicle_id && !driver_id && !date_prepared && !estimated_departure && !approval_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 

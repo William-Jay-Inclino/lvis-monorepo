@@ -330,6 +330,7 @@ model JO {
   classification_id String?
   department_id     String
   notes             String
+  approval_status Int?
 
   cancelled_by String?
   created_by   String
@@ -375,6 +376,7 @@ model SPR {
   vehicle_id        String
   classification_id String?
   notes             String
+  approval_status Int?
 
   cancelled_by String?
   created_by   String
@@ -423,6 +425,7 @@ model MEQS {
   meqs_number String   @unique
   meqs_date   DateTime
   notes       String
+  approval_status Int?
 
   created_by   String
   updated_by   String?
@@ -518,6 +521,7 @@ model PO {
   fund_source_id   String?
   po_date          DateTime
   notes            String
+  approval_status Int?
 
   cancelled_by String?
   created_by   String
@@ -565,6 +569,7 @@ model RR {
   notes           String
   delivery_charge Float
   is_completed    Boolean  @default(false)
+  approval_status Int?
 
   cancelled_by String?
   created_by   String
@@ -630,6 +635,7 @@ model OSRIV {
   purpose             String
   note             String @default("")
   is_completed    Boolean  @default(false)
+  approval_status Int?
 
   requested_by_id String
   item_from_id String
@@ -692,6 +698,7 @@ model SERIV {
   purpose             String
   note             String @default("")
   is_completed    Boolean  @default(false)
+  approval_status Int?
 
   request_type Int
 
@@ -769,6 +776,7 @@ model MRV {
   purpose             String
   note             String @default("")
   is_completed    Boolean  @default(false)
+  approval_status Int?
 
   request_type Int
 
@@ -845,6 +853,7 @@ model MCT {
   mct_number         String    @unique
   mct_date    DateTime
   is_completed    Boolean  @default(false)
+  approval_status Int?
 
   cancelled_by String?
   created_by   String
@@ -889,6 +898,7 @@ model MCRT {
   mcrt_number         String    @unique
   mcrt_date    DateTime
   is_completed    Boolean  @default(false)
+  approval_status Int?
 
   returned_by_id String
 
@@ -949,6 +959,7 @@ model MST {
   mst_number         String    @unique
   mst_date    DateTime
   is_completed    Boolean  @default(false)
+  approval_status Int?
 
   returned_by_id String
 
@@ -1057,6 +1068,7 @@ model TripTicket {
   
   prepared_by_id String 
   status Int
+  approval_status Int?
 
   cancelled_by String?
   created_by String
@@ -1098,6 +1110,7 @@ model GasSlip {
   gas_station_id Int 
   fuel_type_id Int 
   requested_by_id String 
+  approval_status Int?
   
   with_container Boolean 
   liter_in_text String 

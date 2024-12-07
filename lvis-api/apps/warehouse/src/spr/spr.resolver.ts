@@ -66,8 +66,9 @@ export class SprResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
+        @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.sprService.findAll(page, pageSize, date_requested, requested_by_id);
+        return this.sprService.findAll(page, pageSize, date_requested, requested_by_id, approval_status);
     }
 
     @Query(() => [SPR])
@@ -201,6 +202,10 @@ export class SprResolver {
 
         if (spr.cancelled_at) {
             return APPROVAL_STATUS.CANCELLED
+        }
+
+        if(spr.approval_status) {
+            return spr.approval_status
         }
 
         return await this.sprService.getStatus(spr.id)
