@@ -1018,7 +1018,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.8.1
-   * Query Engine version: 5dbef10bdbfb579e07d35cc85fb1518d357cb99e
+   * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
    */
   export type PrismaVersion = {
     client: string
@@ -64957,9 +64957,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
-    item_type?: XOR<ItemTypeScalarRelationFilter, ItemTypeWhereInput>
+    item_type?: XOR<ItemTypeRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
-    unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
+    unit?: XOR<UnitRelationFilter, UnitWhereInput>
     canvass_items?: CanvassItemListRelationFilter
     item_locations?: ItemLocationListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
@@ -65014,9 +65014,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
-    item_type?: XOR<ItemTypeScalarRelationFilter, ItemTypeWhereInput>
+    item_type?: XOR<ItemTypeRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
-    unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
+    unit?: XOR<UnitRelationFilter, UnitWhereInput>
     canvass_items?: CanvassItemListRelationFilter
     item_locations?: ItemLocationListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
@@ -65077,8 +65077,8 @@ export namespace Prisma {
     station_id?: StringFilter<"ItemLocation"> | string
     quantity_on_hand?: IntFilter<"ItemLocation"> | number
     created_at?: DateTimeFilter<"ItemLocation"> | Date | string
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    station?: XOR<StationScalarRelationFilter, StationWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    station?: XOR<StationRelationFilter, StationWhereInput>
     origin_movements?: ItemMovementListRelationFilter
     destination_movements?: ItemMovementListRelationFilter
   }
@@ -65104,8 +65104,8 @@ export namespace Prisma {
     station_id?: StringFilter<"ItemLocation"> | string
     quantity_on_hand?: IntFilter<"ItemLocation"> | number
     created_at?: DateTimeFilter<"ItemLocation"> | Date | string
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    station?: XOR<StationScalarRelationFilter, StationWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    station?: XOR<StationRelationFilter, StationWhereInput>
     origin_movements?: ItemMovementListRelationFilter
     destination_movements?: ItemMovementListRelationFilter
   }, "id">
@@ -65143,8 +65143,8 @@ export namespace Prisma {
     destination_id?: StringFilter<"ItemMovement"> | string
     quantity_moved?: IntFilter<"ItemMovement"> | number
     created_at?: DateTimeFilter<"ItemMovement"> | Date | string
-    origin?: XOR<ItemLocationScalarRelationFilter, ItemLocationWhereInput>
-    destination?: XOR<ItemLocationScalarRelationFilter, ItemLocationWhereInput>
+    origin?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
+    destination?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
   }
 
   export type ItemMovementOrderByWithRelationInput = {
@@ -65166,8 +65166,8 @@ export namespace Prisma {
     destination_id?: StringFilter<"ItemMovement"> | string
     quantity_moved?: IntFilter<"ItemMovement"> | number
     created_at?: DateTimeFilter<"ItemMovement"> | Date | string
-    origin?: XOR<ItemLocationScalarRelationFilter, ItemLocationWhereInput>
-    destination?: XOR<ItemLocationScalarRelationFilter, ItemLocationWhereInput>
+    origin?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
+    destination?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
   }, "id">
 
   export type ItemMovementOrderByWithAggregationInput = {
@@ -65213,13 +65213,13 @@ export namespace Prisma {
     is_initial?: BoolFilter<"ItemTransaction"> | boolean
     created_at?: DateTimeFilter<"ItemTransaction"> | Date | string
     created_by?: StringFilter<"ItemTransaction"> | string
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    rr_item?: XOR<RRItemNullableScalarRelationFilter, RRItemWhereInput> | null
-    osriv_item?: XOR<OSRIVItemNullableScalarRelationFilter, OSRIVItemWhereInput> | null
-    seriv_item?: XOR<SERIVItemNullableScalarRelationFilter, SERIVItemWhereInput> | null
-    mrv_item?: XOR<MRVItemNullableScalarRelationFilter, MRVItemWhereInput> | null
-    mcrt_item?: XOR<MCRTItemNullableScalarRelationFilter, MCRTItemWhereInput> | null
-    mst_item?: XOR<MSTItemNullableScalarRelationFilter, MSTItemWhereInput> | null
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    rr_item?: XOR<RRItemNullableRelationFilter, RRItemWhereInput> | null
+    osriv_item?: XOR<OSRIVItemNullableRelationFilter, OSRIVItemWhereInput> | null
+    seriv_item?: XOR<SERIVItemNullableRelationFilter, SERIVItemWhereInput> | null
+    mrv_item?: XOR<MRVItemNullableRelationFilter, MRVItemWhereInput> | null
+    mcrt_item?: XOR<MCRTItemNullableRelationFilter, MCRTItemWhereInput> | null
+    mst_item?: XOR<MSTItemNullableRelationFilter, MSTItemWhereInput> | null
   }
 
   export type ItemTransactionOrderByWithRelationInput = {
@@ -65266,13 +65266,13 @@ export namespace Prisma {
     is_initial?: BoolFilter<"ItemTransaction"> | boolean
     created_at?: DateTimeFilter<"ItemTransaction"> | Date | string
     created_by?: StringFilter<"ItemTransaction"> | string
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    rr_item?: XOR<RRItemNullableScalarRelationFilter, RRItemWhereInput> | null
-    osriv_item?: XOR<OSRIVItemNullableScalarRelationFilter, OSRIVItemWhereInput> | null
-    seriv_item?: XOR<SERIVItemNullableScalarRelationFilter, SERIVItemWhereInput> | null
-    mrv_item?: XOR<MRVItemNullableScalarRelationFilter, MRVItemWhereInput> | null
-    mcrt_item?: XOR<MCRTItemNullableScalarRelationFilter, MCRTItemWhereInput> | null
-    mst_item?: XOR<MSTItemNullableScalarRelationFilter, MSTItemWhereInput> | null
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    rr_item?: XOR<RRItemNullableRelationFilter, RRItemWhereInput> | null
+    osriv_item?: XOR<OSRIVItemNullableRelationFilter, OSRIVItemWhereInput> | null
+    seriv_item?: XOR<SERIVItemNullableRelationFilter, SERIVItemWhereInput> | null
+    mrv_item?: XOR<MRVItemNullableRelationFilter, MRVItemWhereInput> | null
+    mcrt_item?: XOR<MCRTItemNullableRelationFilter, MCRTItemWhereInput> | null
+    mst_item?: XOR<MSTItemNullableRelationFilter, MSTItemWhereInput> | null
   }, "id" | "rr_item_id" | "osriv_item_id" | "seriv_item_id" | "mrv_item_id" | "mcrt_item_id" | "mst_item_id">
 
   export type ItemTransactionOrderByWithAggregationInput = {
@@ -65383,9 +65383,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Canvass"> | Date | string
     updated_at?: DateTimeFilter<"Canvass"> | Date | string
     canvass_items?: CanvassItemListRelationFilter
-    jo?: XOR<JONullableScalarRelationFilter, JOWhereInput> | null
-    rv?: XOR<RVNullableScalarRelationFilter, RVWhereInput> | null
-    spr?: XOR<SPRNullableScalarRelationFilter, SPRWhereInput> | null
+    jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
+    rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
+    spr?: XOR<SPRNullableRelationFilter, SPRWhereInput> | null
   }
 
   export type CanvassOrderByWithRelationInput = {
@@ -65420,9 +65420,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Canvass"> | Date | string
     updated_at?: DateTimeFilter<"Canvass"> | Date | string
     canvass_items?: CanvassItemListRelationFilter
-    jo?: XOR<JONullableScalarRelationFilter, JOWhereInput> | null
-    rv?: XOR<RVNullableScalarRelationFilter, RVWhereInput> | null
-    spr?: XOR<SPRNullableScalarRelationFilter, SPRWhereInput> | null
+    jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
+    rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
+    spr?: XOR<SPRNullableRelationFilter, SPRWhereInput> | null
   }, "id" | "rc_number">
 
   export type CanvassOrderByWithAggregationInput = {
@@ -65468,9 +65468,9 @@ export namespace Prisma {
     description?: StringFilter<"CanvassItem"> | string
     quantity?: IntFilter<"CanvassItem"> | number
     meqs_supplier_items?: MEQSSupplierItemListRelationFilter
-    canvass?: XOR<CanvassScalarRelationFilter, CanvassWhereInput>
-    unit?: XOR<UnitNullableScalarRelationFilter, UnitWhereInput> | null
-    item?: XOR<ItemNullableScalarRelationFilter, ItemWhereInput> | null
+    canvass?: XOR<CanvassRelationFilter, CanvassWhereInput>
+    unit?: XOR<UnitNullableRelationFilter, UnitWhereInput> | null
+    item?: XOR<ItemNullableRelationFilter, ItemWhereInput> | null
   }
 
   export type CanvassItemOrderByWithRelationInput = {
@@ -65497,9 +65497,9 @@ export namespace Prisma {
     description?: StringFilter<"CanvassItem"> | string
     quantity?: IntFilter<"CanvassItem"> | number
     meqs_supplier_items?: MEQSSupplierItemListRelationFilter
-    canvass?: XOR<CanvassScalarRelationFilter, CanvassWhereInput>
-    unit?: XOR<UnitNullableScalarRelationFilter, UnitWhereInput> | null
-    item?: XOR<ItemNullableScalarRelationFilter, ItemWhereInput> | null
+    canvass?: XOR<CanvassRelationFilter, CanvassWhereInput>
+    unit?: XOR<UnitNullableRelationFilter, UnitWhereInput> | null
+    item?: XOR<ItemNullableRelationFilter, ItemWhereInput> | null
   }, "id">
 
   export type CanvassItemOrderByWithAggregationInput = {
@@ -65548,8 +65548,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RV"> | Date | string | null
     created_at?: DateTimeFilter<"RV"> | Date | string
     updated_at?: DateTimeFilter<"RV"> | Date | string
-    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     rv_approvers?: RVApproverListRelationFilter
   }
 
@@ -65595,8 +65595,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RV"> | Date | string | null
     created_at?: DateTimeFilter<"RV"> | Date | string
     updated_at?: DateTimeFilter<"RV"> | Date | string
-    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     rv_approvers?: RVApproverListRelationFilter
   }, "id" | "rv_number" | "canvass_id">
 
@@ -65658,7 +65658,7 @@ export namespace Prisma {
     status?: IntFilter<"RVApprover"> | number
     label?: StringFilter<"RVApprover"> | string
     order?: IntFilter<"RVApprover"> | number
-    rv?: XOR<RVScalarRelationFilter, RVWhereInput>
+    rv?: XOR<RVRelationFilter, RVWhereInput>
   }
 
   export type RVApproverOrderByWithRelationInput = {
@@ -65686,7 +65686,7 @@ export namespace Prisma {
     status?: IntFilter<"RVApprover"> | number
     label?: StringFilter<"RVApprover"> | string
     order?: IntFilter<"RVApprover"> | number
-    rv?: XOR<RVScalarRelationFilter, RVWhereInput>
+    rv?: XOR<RVRelationFilter, RVWhereInput>
   }, "id" | "rv_id_order">
 
   export type RVApproverOrderByWithAggregationInput = {
@@ -65739,8 +65739,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"JO"> | Date | string | null
     created_at?: DateTimeFilter<"JO"> | Date | string
     updated_at?: DateTimeFilter<"JO"> | Date | string
-    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     jo_approvers?: JOApproverListRelationFilter
   }
 
@@ -65786,8 +65786,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"JO"> | Date | string | null
     created_at?: DateTimeFilter<"JO"> | Date | string
     updated_at?: DateTimeFilter<"JO"> | Date | string
-    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     jo_approvers?: JOApproverListRelationFilter
   }, "id" | "jo_number" | "canvass_id">
 
@@ -65849,7 +65849,7 @@ export namespace Prisma {
     status?: IntFilter<"JOApprover"> | number
     label?: StringFilter<"JOApprover"> | string
     order?: IntFilter<"JOApprover"> | number
-    jo?: XOR<JOScalarRelationFilter, JOWhereInput>
+    jo?: XOR<JORelationFilter, JOWhereInput>
   }
 
   export type JOApproverOrderByWithRelationInput = {
@@ -65877,7 +65877,7 @@ export namespace Prisma {
     status?: IntFilter<"JOApprover"> | number
     label?: StringFilter<"JOApprover"> | string
     order?: IntFilter<"JOApprover"> | number
-    jo?: XOR<JOScalarRelationFilter, JOWhereInput>
+    jo?: XOR<JORelationFilter, JOWhereInput>
   }, "id" | "jo_id_order">
 
   export type JOApproverOrderByWithAggregationInput = {
@@ -65929,10 +65929,10 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SPR"> | Date | string | null
     created_at?: DateTimeFilter<"SPR"> | Date | string
     updated_at?: DateTimeFilter<"SPR"> | Date | string
-    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     spr_approvers?: SPRApproverListRelationFilter
-    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
   }
 
   export type SPROrderByWithRelationInput = {
@@ -65976,10 +65976,10 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SPR"> | Date | string | null
     created_at?: DateTimeFilter<"SPR"> | Date | string
     updated_at?: DateTimeFilter<"SPR"> | Date | string
-    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
     spr_approvers?: SPRApproverListRelationFilter
-    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
   }, "id" | "spr_number" | "canvass_id">
 
   export type SPROrderByWithAggregationInput = {
@@ -66038,7 +66038,7 @@ export namespace Prisma {
     status?: IntFilter<"SPRApprover"> | number
     label?: StringFilter<"SPRApprover"> | string
     order?: IntFilter<"SPRApprover"> | number
-    spr?: XOR<SPRScalarRelationFilter, SPRWhereInput>
+    spr?: XOR<SPRRelationFilter, SPRWhereInput>
   }
 
   export type SPRApproverOrderByWithRelationInput = {
@@ -66066,7 +66066,7 @@ export namespace Prisma {
     status?: IntFilter<"SPRApprover"> | number
     label?: StringFilter<"SPRApprover"> | string
     order?: IntFilter<"SPRApprover"> | number
-    spr?: XOR<SPRScalarRelationFilter, SPRWhereInput>
+    spr?: XOR<SPRRelationFilter, SPRWhereInput>
   }, "id" | "spr_id_order">
 
   export type SPRApproverOrderByWithAggregationInput = {
@@ -66120,9 +66120,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MEQS"> | Date | string
     updated_at?: DateTimeFilter<"MEQS"> | Date | string
     cancelled_at?: DateTimeNullableFilter<"MEQS"> | Date | string | null
-    jo?: XOR<JONullableScalarRelationFilter, JOWhereInput> | null
-    rv?: XOR<RVNullableScalarRelationFilter, RVWhereInput> | null
-    spr?: XOR<SPRNullableScalarRelationFilter, SPRWhereInput> | null
+    jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
+    rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
+    spr?: XOR<SPRNullableRelationFilter, SPRWhereInput> | null
     meqs_approvers?: MEQSApproverListRelationFilter
     meqs_suppliers?: MEQSSupplierListRelationFilter
   }
@@ -66173,9 +66173,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MEQS"> | Date | string
     updated_at?: DateTimeFilter<"MEQS"> | Date | string
     cancelled_at?: DateTimeNullableFilter<"MEQS"> | Date | string | null
-    jo?: XOR<JONullableScalarRelationFilter, JOWhereInput> | null
-    rv?: XOR<RVNullableScalarRelationFilter, RVWhereInput> | null
-    spr?: XOR<SPRNullableScalarRelationFilter, SPRWhereInput> | null
+    jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
+    rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
+    spr?: XOR<SPRNullableRelationFilter, SPRWhereInput> | null
     meqs_approvers?: MEQSApproverListRelationFilter
     meqs_suppliers?: MEQSSupplierListRelationFilter
   }, "id" | "jo_id" | "rv_id" | "spr_id" | "meqs_number">
@@ -66236,11 +66236,11 @@ export namespace Prisma {
     meqs_id?: StringFilter<"MEQSSupplier"> | string
     supplier_id?: StringFilter<"MEQSSupplier"> | string
     payment_terms?: StringFilter<"MEQSSupplier"> | string
-    meqs?: XOR<MEQSScalarRelationFilter, MEQSWhereInput>
-    supplier?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
+    meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
+    supplier?: XOR<SupplierRelationFilter, SupplierWhereInput>
     attachments?: MEQSSupplierAttachmentListRelationFilter
     meqs_supplier_items?: MEQSSupplierItemListRelationFilter
-    po?: XOR<PONullableScalarRelationFilter, POWhereInput> | null
+    po?: XOR<PONullableRelationFilter, POWhereInput> | null
   }
 
   export type MEQSSupplierOrderByWithRelationInput = {
@@ -66264,11 +66264,11 @@ export namespace Prisma {
     meqs_id?: StringFilter<"MEQSSupplier"> | string
     supplier_id?: StringFilter<"MEQSSupplier"> | string
     payment_terms?: StringFilter<"MEQSSupplier"> | string
-    meqs?: XOR<MEQSScalarRelationFilter, MEQSWhereInput>
-    supplier?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
+    meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
+    supplier?: XOR<SupplierRelationFilter, SupplierWhereInput>
     attachments?: MEQSSupplierAttachmentListRelationFilter
     meqs_supplier_items?: MEQSSupplierItemListRelationFilter
-    po?: XOR<PONullableScalarRelationFilter, POWhereInput> | null
+    po?: XOR<PONullableRelationFilter, POWhereInput> | null
   }, "id" | "meqs_id_supplier_id">
 
   export type MEQSSupplierOrderByWithAggregationInput = {
@@ -66302,8 +66302,8 @@ export namespace Prisma {
     notes?: StringFilter<"MEQSSupplierItem"> | string
     is_awarded?: BoolFilter<"MEQSSupplierItem"> | boolean
     vat_type?: IntFilter<"MEQSSupplierItem"> | number
-    canvass_item?: XOR<CanvassItemScalarRelationFilter, CanvassItemWhereInput>
-    meqs_supplier?: XOR<MEQSSupplierScalarRelationFilter, MEQSSupplierWhereInput>
+    canvass_item?: XOR<CanvassItemRelationFilter, CanvassItemWhereInput>
+    meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
     rr_items?: RRItemListRelationFilter
   }
 
@@ -66331,8 +66331,8 @@ export namespace Prisma {
     notes?: StringFilter<"MEQSSupplierItem"> | string
     is_awarded?: BoolFilter<"MEQSSupplierItem"> | boolean
     vat_type?: IntFilter<"MEQSSupplierItem"> | number
-    canvass_item?: XOR<CanvassItemScalarRelationFilter, CanvassItemWhereInput>
-    meqs_supplier?: XOR<MEQSSupplierScalarRelationFilter, MEQSSupplierWhereInput>
+    canvass_item?: XOR<CanvassItemRelationFilter, CanvassItemWhereInput>
+    meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
     rr_items?: RRItemListRelationFilter
   }, "id">
 
@@ -66372,7 +66372,7 @@ export namespace Prisma {
     meqs_supplier_id?: StringFilter<"MEQSSupplierAttachment"> | string
     filename?: StringFilter<"MEQSSupplierAttachment"> | string
     src?: StringFilter<"MEQSSupplierAttachment"> | string
-    meqs_supplier?: XOR<MEQSSupplierScalarRelationFilter, MEQSSupplierWhereInput>
+    meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
   }
 
   export type MEQSSupplierAttachmentOrderByWithRelationInput = {
@@ -66391,7 +66391,7 @@ export namespace Prisma {
     meqs_supplier_id?: StringFilter<"MEQSSupplierAttachment"> | string
     filename?: StringFilter<"MEQSSupplierAttachment"> | string
     src?: StringFilter<"MEQSSupplierAttachment"> | string
-    meqs_supplier?: XOR<MEQSSupplierScalarRelationFilter, MEQSSupplierWhereInput>
+    meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
   }, "id">
 
   export type MEQSSupplierAttachmentOrderByWithAggregationInput = {
@@ -66426,7 +66426,7 @@ export namespace Prisma {
     status?: IntFilter<"MEQSApprover"> | number
     label?: StringFilter<"MEQSApprover"> | string
     order?: IntFilter<"MEQSApprover"> | number
-    meqs?: XOR<MEQSScalarRelationFilter, MEQSWhereInput>
+    meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
   }
 
   export type MEQSApproverOrderByWithRelationInput = {
@@ -66453,7 +66453,7 @@ export namespace Prisma {
     status?: IntFilter<"MEQSApprover"> | number
     label?: StringFilter<"MEQSApprover"> | string
     order?: IntFilter<"MEQSApprover"> | number
-    meqs?: XOR<MEQSScalarRelationFilter, MEQSWhereInput>
+    meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
   }, "id">
 
   export type MEQSApproverOrderByWithAggregationInput = {
@@ -66504,7 +66504,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"PO"> | Date | string | null
     created_at?: DateTimeFilter<"PO"> | Date | string
     updated_at?: DateTimeFilter<"PO"> | Date | string
-    meqs_supplier?: XOR<MEQSSupplierNullableScalarRelationFilter, MEQSSupplierWhereInput> | null
+    meqs_supplier?: XOR<MEQSSupplierNullableRelationFilter, MEQSSupplierWhereInput> | null
     rrs?: RRListRelationFilter
     po_approvers?: POApproverListRelationFilter
   }
@@ -66547,7 +66547,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"PO"> | Date | string | null
     created_at?: DateTimeFilter<"PO"> | Date | string
     updated_at?: DateTimeFilter<"PO"> | Date | string
-    meqs_supplier?: XOR<MEQSSupplierNullableScalarRelationFilter, MEQSSupplierWhereInput> | null
+    meqs_supplier?: XOR<MEQSSupplierNullableRelationFilter, MEQSSupplierWhereInput> | null
     rrs?: RRListRelationFilter
     po_approvers?: POApproverListRelationFilter
   }, "id" | "meqs_supplier_id" | "po_number">
@@ -66606,7 +66606,7 @@ export namespace Prisma {
     status?: IntFilter<"POApprover"> | number
     label?: StringFilter<"POApprover"> | string
     order?: IntFilter<"POApprover"> | number
-    po?: XOR<POScalarRelationFilter, POWhereInput>
+    po?: XOR<PORelationFilter, POWhereInput>
   }
 
   export type POApproverOrderByWithRelationInput = {
@@ -66633,7 +66633,7 @@ export namespace Prisma {
     status?: IntFilter<"POApprover"> | number
     label?: StringFilter<"POApprover"> | string
     order?: IntFilter<"POApprover"> | number
-    po?: XOR<POScalarRelationFilter, POWhereInput>
+    po?: XOR<PORelationFilter, POWhereInput>
   }, "id">
 
   export type POApproverOrderByWithAggregationInput = {
@@ -66688,7 +66688,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RR"> | Date | string | null
     created_at?: DateTimeFilter<"RR"> | Date | string
     updated_at?: DateTimeFilter<"RR"> | Date | string
-    po?: XOR<PONullableScalarRelationFilter, POWhereInput> | null
+    po?: XOR<PONullableRelationFilter, POWhereInput> | null
     rr_approvers?: RRApproverListRelationFilter
     rr_items?: RRItemListRelationFilter
   }
@@ -66739,7 +66739,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RR"> | Date | string | null
     created_at?: DateTimeFilter<"RR"> | Date | string
     updated_at?: DateTimeFilter<"RR"> | Date | string
-    po?: XOR<PONullableScalarRelationFilter, POWhereInput> | null
+    po?: XOR<PONullableRelationFilter, POWhereInput> | null
     rr_approvers?: RRApproverListRelationFilter
     rr_items?: RRItemListRelationFilter
   }, "id" | "rr_number" | "invoice_number">
@@ -66806,7 +66806,7 @@ export namespace Prisma {
     status?: IntFilter<"RRApprover"> | number
     label?: StringFilter<"RRApprover"> | string
     order?: IntFilter<"RRApprover"> | number
-    rr?: XOR<RRScalarRelationFilter, RRWhereInput>
+    rr?: XOR<RRRelationFilter, RRWhereInput>
   }
 
   export type RRApproverOrderByWithRelationInput = {
@@ -66833,7 +66833,7 @@ export namespace Prisma {
     status?: IntFilter<"RRApprover"> | number
     label?: StringFilter<"RRApprover"> | string
     order?: IntFilter<"RRApprover"> | number
-    rr?: XOR<RRScalarRelationFilter, RRWhereInput>
+    rr?: XOR<RRRelationFilter, RRWhereInput>
   }, "id">
 
   export type RRApproverOrderByWithAggregationInput = {
@@ -66874,9 +66874,9 @@ export namespace Prisma {
     rr_id?: StringFilter<"RRItem"> | string
     meqs_supplier_item_id?: StringFilter<"RRItem"> | string
     quantity_accepted?: IntFilter<"RRItem"> | number
-    rr?: XOR<RRScalarRelationFilter, RRWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
-    meqs_supplier_item?: XOR<MEQSSupplierItemScalarRelationFilter, MEQSSupplierItemWhereInput>
+    rr?: XOR<RRRelationFilter, RRWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    meqs_supplier_item?: XOR<MEQSSupplierItemRelationFilter, MEQSSupplierItemWhereInput>
   }
 
   export type RRItemOrderByWithRelationInput = {
@@ -66897,9 +66897,9 @@ export namespace Prisma {
     rr_id?: StringFilter<"RRItem"> | string
     meqs_supplier_item_id?: StringFilter<"RRItem"> | string
     quantity_accepted?: IntFilter<"RRItem"> | number
-    rr?: XOR<RRScalarRelationFilter, RRWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
-    meqs_supplier_item?: XOR<MEQSSupplierItemScalarRelationFilter, MEQSSupplierItemWhereInput>
+    rr?: XOR<RRRelationFilter, RRWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    meqs_supplier_item?: XOR<MEQSSupplierItemRelationFilter, MEQSSupplierItemWhereInput>
   }, "id">
 
   export type RRItemOrderByWithAggregationInput = {
@@ -66944,7 +66944,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"OSRIV"> | Date | string | null
     created_at?: DateTimeFilter<"OSRIV"> | Date | string
     updated_at?: DateTimeFilter<"OSRIV"> | Date | string
-    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     osriv_approvers?: OSRIVApproverListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
   }
@@ -66991,7 +66991,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"OSRIV"> | Date | string | null
     created_at?: DateTimeFilter<"OSRIV"> | Date | string
     updated_at?: DateTimeFilter<"OSRIV"> | Date | string
-    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     osriv_approvers?: OSRIVApproverListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
   }, "id" | "osriv_number">
@@ -67054,7 +67054,7 @@ export namespace Prisma {
     status?: IntFilter<"OSRIVApprover"> | number
     label?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
-    osriv?: XOR<OSRIVScalarRelationFilter, OSRIVWhereInput>
+    osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
   }
 
   export type OSRIVApproverOrderByWithRelationInput = {
@@ -67082,7 +67082,7 @@ export namespace Prisma {
     status?: IntFilter<"OSRIVApprover"> | number
     label?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
-    osriv?: XOR<OSRIVScalarRelationFilter, OSRIVWhereInput>
+    osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
   }, "id" | "osriv_id_order">
 
   export type OSRIVApproverOrderByWithAggregationInput = {
@@ -67124,9 +67124,9 @@ export namespace Prisma {
     item_id?: StringFilter<"OSRIVItem"> | string
     quantity?: IntFilter<"OSRIVItem"> | number
     price?: FloatFilter<"OSRIVItem"> | number
-    osriv?: XOR<OSRIVScalarRelationFilter, OSRIVWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type OSRIVItemOrderByWithRelationInput = {
@@ -67149,9 +67149,9 @@ export namespace Prisma {
     item_id?: StringFilter<"OSRIVItem"> | string
     quantity?: IntFilter<"OSRIVItem"> | number
     price?: FloatFilter<"OSRIVItem"> | number
-    osriv?: XOR<OSRIVScalarRelationFilter, OSRIVWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type OSRIVItemOrderByWithAggregationInput = {
@@ -67206,7 +67206,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SERIV"> | Date | string | null
     created_at?: DateTimeFilter<"SERIV"> | Date | string
     updated_at?: DateTimeFilter<"SERIV"> | Date | string
-    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     seriv_approvers?: SERIVApproverListRelationFilter
     seriv_items?: SERIVItemListRelationFilter
     mcrts?: MCRTListRelationFilter
@@ -67271,7 +67271,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SERIV"> | Date | string | null
     created_at?: DateTimeFilter<"SERIV"> | Date | string
     updated_at?: DateTimeFilter<"SERIV"> | Date | string
-    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     seriv_approvers?: SERIVApproverListRelationFilter
     seriv_items?: SERIVItemListRelationFilter
     mcrts?: MCRTListRelationFilter
@@ -67351,7 +67351,7 @@ export namespace Prisma {
     status?: IntFilter<"SERIVApprover"> | number
     label?: StringFilter<"SERIVApprover"> | string
     order?: IntFilter<"SERIVApprover"> | number
-    seriv?: XOR<SERIVScalarRelationFilter, SERIVWhereInput>
+    seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
   }
 
   export type SERIVApproverOrderByWithRelationInput = {
@@ -67379,7 +67379,7 @@ export namespace Prisma {
     status?: IntFilter<"SERIVApprover"> | number
     label?: StringFilter<"SERIVApprover"> | string
     order?: IntFilter<"SERIVApprover"> | number
-    seriv?: XOR<SERIVScalarRelationFilter, SERIVWhereInput>
+    seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
   }, "id" | "seriv_id_order">
 
   export type SERIVApproverOrderByWithAggregationInput = {
@@ -67421,9 +67421,9 @@ export namespace Prisma {
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
     price?: FloatFilter<"SERIVItem"> | number
-    seriv?: XOR<SERIVScalarRelationFilter, SERIVWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type SERIVItemOrderByWithRelationInput = {
@@ -67446,9 +67446,9 @@ export namespace Prisma {
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
     price?: FloatFilter<"SERIVItem"> | number
-    seriv?: XOR<SERIVScalarRelationFilter, SERIVWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type SERIVItemOrderByWithAggregationInput = {
@@ -67504,11 +67504,11 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MRV"> | Date | string | null
     created_at?: DateTimeFilter<"MRV"> | Date | string
     updated_at?: DateTimeFilter<"MRV"> | Date | string
-    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     mrv_approvers?: MRVApproverListRelationFilter
     mrv_items?: MRVItemListRelationFilter
-    mct?: XOR<MCTNullableScalarRelationFilter, MCTWhereInput> | null
-    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
+    mct?: XOR<MCTNullableRelationFilter, MCTWhereInput> | null
+    project?: XOR<ProjectNullableRelationFilter, ProjectWhereInput> | null
   }
 
   export type MRVOrderByWithRelationInput = {
@@ -67573,11 +67573,11 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MRV"> | Date | string | null
     created_at?: DateTimeFilter<"MRV"> | Date | string
     updated_at?: DateTimeFilter<"MRV"> | Date | string
-    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
+    item_from?: XOR<StationRelationFilter, StationWhereInput>
     mrv_approvers?: MRVApproverListRelationFilter
     mrv_items?: MRVItemListRelationFilter
-    mct?: XOR<MCTNullableScalarRelationFilter, MCTWhereInput> | null
-    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
+    mct?: XOR<MCTNullableRelationFilter, MCTWhereInput> | null
+    project?: XOR<ProjectNullableRelationFilter, ProjectWhereInput> | null
   }, "id" | "mrv_number" | "mwo_number">
 
   export type MRVOrderByWithAggregationInput = {
@@ -67656,7 +67656,7 @@ export namespace Prisma {
     status?: IntFilter<"MRVApprover"> | number
     label?: StringFilter<"MRVApprover"> | string
     order?: IntFilter<"MRVApprover"> | number
-    mrv?: XOR<MRVScalarRelationFilter, MRVWhereInput>
+    mrv?: XOR<MRVRelationFilter, MRVWhereInput>
   }
 
   export type MRVApproverOrderByWithRelationInput = {
@@ -67684,7 +67684,7 @@ export namespace Prisma {
     status?: IntFilter<"MRVApprover"> | number
     label?: StringFilter<"MRVApprover"> | string
     order?: IntFilter<"MRVApprover"> | number
-    mrv?: XOR<MRVScalarRelationFilter, MRVWhereInput>
+    mrv?: XOR<MRVRelationFilter, MRVWhereInput>
   }, "id" | "mrv_id_order">
 
   export type MRVApproverOrderByWithAggregationInput = {
@@ -67726,9 +67726,9 @@ export namespace Prisma {
     item_id?: StringFilter<"MRVItem"> | string
     quantity?: IntFilter<"MRVItem"> | number
     price?: FloatFilter<"MRVItem"> | number
-    mrv?: XOR<MRVScalarRelationFilter, MRVWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    mrv?: XOR<MRVRelationFilter, MRVWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type MRVItemOrderByWithRelationInput = {
@@ -67751,9 +67751,9 @@ export namespace Prisma {
     item_id?: StringFilter<"MRVItem"> | string
     quantity?: IntFilter<"MRVItem"> | number
     price?: FloatFilter<"MRVItem"> | number
-    mrv?: XOR<MRVScalarRelationFilter, MRVWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    mrv?: XOR<MRVRelationFilter, MRVWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type MRVItemOrderByWithAggregationInput = {
@@ -67797,7 +67797,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MCT"> | Date | string | null
     created_at?: DateTimeFilter<"MCT"> | Date | string
     updated_at?: DateTimeFilter<"MCT"> | Date | string
-    mrv?: XOR<MRVNullableScalarRelationFilter, MRVWhereInput> | null
+    mrv?: XOR<MRVNullableRelationFilter, MRVWhereInput> | null
     mct_approvers?: MCTApproverListRelationFilter
     mcrts?: MCRTListRelationFilter
   }
@@ -67838,7 +67838,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MCT"> | Date | string | null
     created_at?: DateTimeFilter<"MCT"> | Date | string
     updated_at?: DateTimeFilter<"MCT"> | Date | string
-    mrv?: XOR<MRVNullableScalarRelationFilter, MRVWhereInput> | null
+    mrv?: XOR<MRVNullableRelationFilter, MRVWhereInput> | null
     mct_approvers?: MCTApproverListRelationFilter
     mcrts?: MCRTListRelationFilter
   }, "id" | "mrv_id" | "mct_number">
@@ -67895,7 +67895,7 @@ export namespace Prisma {
     status?: IntFilter<"MCTApprover"> | number
     label?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
-    mct?: XOR<MCTScalarRelationFilter, MCTWhereInput>
+    mct?: XOR<MCTRelationFilter, MCTWhereInput>
   }
 
   export type MCTApproverOrderByWithRelationInput = {
@@ -67923,7 +67923,7 @@ export namespace Prisma {
     status?: IntFilter<"MCTApprover"> | number
     label?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
-    mct?: XOR<MCTScalarRelationFilter, MCTWhereInput>
+    mct?: XOR<MCTRelationFilter, MCTWhereInput>
   }, "id" | "mct_id_order">
 
   export type MCTApproverOrderByWithAggregationInput = {
@@ -67977,8 +67977,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MCRT"> | Date | string | null
     created_at?: DateTimeFilter<"MCRT"> | Date | string
     updated_at?: DateTimeFilter<"MCRT"> | Date | string
-    mct?: XOR<MCTNullableScalarRelationFilter, MCTWhereInput> | null
-    seriv?: XOR<SERIVNullableScalarRelationFilter, SERIVWhereInput> | null
+    mct?: XOR<MCTNullableRelationFilter, MCTWhereInput> | null
+    seriv?: XOR<SERIVNullableRelationFilter, SERIVWhereInput> | null
     mcrt_approvers?: MCRTApproverListRelationFilter
     mcrt_items?: MCRTItemListRelationFilter
   }
@@ -68028,8 +68028,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MCRT"> | Date | string | null
     created_at?: DateTimeFilter<"MCRT"> | Date | string
     updated_at?: DateTimeFilter<"MCRT"> | Date | string
-    mct?: XOR<MCTNullableScalarRelationFilter, MCTWhereInput> | null
-    seriv?: XOR<SERIVNullableScalarRelationFilter, SERIVWhereInput> | null
+    mct?: XOR<MCTNullableRelationFilter, MCTWhereInput> | null
+    seriv?: XOR<SERIVNullableRelationFilter, SERIVWhereInput> | null
     mcrt_approvers?: MCRTApproverListRelationFilter
     mcrt_items?: MCRTItemListRelationFilter
   }, "id" | "mcrt_number">
@@ -68094,7 +68094,7 @@ export namespace Prisma {
     status?: IntFilter<"MCRTApprover"> | number
     label?: StringFilter<"MCRTApprover"> | string
     order?: IntFilter<"MCRTApprover"> | number
-    mcrt?: XOR<MCRTScalarRelationFilter, MCRTWhereInput>
+    mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
   }
 
   export type MCRTApproverOrderByWithRelationInput = {
@@ -68122,7 +68122,7 @@ export namespace Prisma {
     status?: IntFilter<"MCRTApprover"> | number
     label?: StringFilter<"MCRTApprover"> | string
     order?: IntFilter<"MCRTApprover"> | number
-    mcrt?: XOR<MCRTScalarRelationFilter, MCRTWhereInput>
+    mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
   }, "id" | "mcrt_id_order">
 
   export type MCRTApproverOrderByWithAggregationInput = {
@@ -68164,9 +68164,9 @@ export namespace Prisma {
     item_id?: StringFilter<"MCRTItem"> | string
     quantity?: IntFilter<"MCRTItem"> | number
     price?: FloatFilter<"MCRTItem"> | number
-    mcrt?: XOR<MCRTScalarRelationFilter, MCRTWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type MCRTItemOrderByWithRelationInput = {
@@ -68189,9 +68189,9 @@ export namespace Prisma {
     item_id?: StringFilter<"MCRTItem"> | string
     quantity?: IntFilter<"MCRTItem"> | number
     price?: FloatFilter<"MCRTItem"> | number
-    mcrt?: XOR<MCRTScalarRelationFilter, MCRTWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type MCRTItemOrderByWithAggregationInput = {
@@ -68345,7 +68345,7 @@ export namespace Prisma {
     status?: IntFilter<"MSTApprover"> | number
     label?: StringFilter<"MSTApprover"> | string
     order?: IntFilter<"MSTApprover"> | number
-    mst?: XOR<MSTScalarRelationFilter, MSTWhereInput>
+    mst?: XOR<MSTRelationFilter, MSTWhereInput>
   }
 
   export type MSTApproverOrderByWithRelationInput = {
@@ -68373,7 +68373,7 @@ export namespace Prisma {
     status?: IntFilter<"MSTApprover"> | number
     label?: StringFilter<"MSTApprover"> | string
     order?: IntFilter<"MSTApprover"> | number
-    mst?: XOR<MSTScalarRelationFilter, MSTWhereInput>
+    mst?: XOR<MSTRelationFilter, MSTWhereInput>
   }, "id" | "mst_id_order">
 
   export type MSTApproverOrderByWithAggregationInput = {
@@ -68416,9 +68416,9 @@ export namespace Prisma {
     quantity?: IntFilter<"MSTItem"> | number
     price?: FloatFilter<"MSTItem"> | number
     status?: IntFilter<"MSTItem"> | number
-    mst?: XOR<MSTScalarRelationFilter, MSTWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    mst?: XOR<MSTRelationFilter, MSTWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type MSTItemOrderByWithRelationInput = {
@@ -68443,9 +68443,9 @@ export namespace Prisma {
     quantity?: IntFilter<"MSTItem"> | number
     price?: FloatFilter<"MSTItem"> | number
     status?: IntFilter<"MSTItem"> | number
-    mst?: XOR<MSTScalarRelationFilter, MSTWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    mst?: XOR<MSTRelationFilter, MSTWhereInput>
+    item?: XOR<ItemRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type MSTItemOrderByWithAggregationInput = {
@@ -68609,7 +68609,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"TripTicket"> | Date | string | null
     created_at?: DateTimeFilter<"TripTicket"> | Date | string
     updated_at?: DateTimeFilter<"TripTicket"> | Date | string
-    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
     trip_ticket_approvers?: TripTicketApproverListRelationFilter
   }
 
@@ -68668,7 +68668,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"TripTicket"> | Date | string | null
     created_at?: DateTimeFilter<"TripTicket"> | Date | string
     updated_at?: DateTimeFilter<"TripTicket"> | Date | string
-    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
     trip_ticket_approvers?: TripTicketApproverListRelationFilter
   }, "id" | "trip_number">
 
@@ -68744,7 +68744,7 @@ export namespace Prisma {
     status?: IntFilter<"TripTicketApprover"> | number
     label?: StringFilter<"TripTicketApprover"> | string
     order?: IntFilter<"TripTicketApprover"> | number
-    trip_ticket?: XOR<TripTicketScalarRelationFilter, TripTicketWhereInput>
+    trip_ticket?: XOR<TripTicketRelationFilter, TripTicketWhereInput>
   }
 
   export type TripTicketApproverOrderByWithRelationInput = {
@@ -68772,7 +68772,7 @@ export namespace Prisma {
     status?: IntFilter<"TripTicketApprover"> | number
     label?: StringFilter<"TripTicketApprover"> | string
     order?: IntFilter<"TripTicketApprover"> | number
-    trip_ticket?: XOR<TripTicketScalarRelationFilter, TripTicketWhereInput>
+    trip_ticket?: XOR<TripTicketRelationFilter, TripTicketWhereInput>
   }, "id" | "trip_ticket_id_order">
 
   export type TripTicketApproverOrderByWithAggregationInput = {
@@ -68830,9 +68830,9 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"GasSlip"> | Date | string | null
     created_at?: DateTimeFilter<"GasSlip"> | Date | string
     updated_at?: DateTimeFilter<"GasSlip"> | Date | string
-    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
-    gas_station?: XOR<GasStationScalarRelationFilter, GasStationWhereInput>
-    fuel_type?: XOR<FuelTypeScalarRelationFilter, FuelTypeWhereInput>
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    gas_station?: XOR<GasStationRelationFilter, GasStationWhereInput>
+    fuel_type?: XOR<FuelTypeRelationFilter, FuelTypeWhereInput>
     gas_slip_approvers?: GasSlipApproverListRelationFilter
   }
 
@@ -68889,9 +68889,9 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"GasSlip"> | Date | string | null
     created_at?: DateTimeFilter<"GasSlip"> | Date | string
     updated_at?: DateTimeFilter<"GasSlip"> | Date | string
-    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
-    gas_station?: XOR<GasStationScalarRelationFilter, GasStationWhereInput>
-    fuel_type?: XOR<FuelTypeScalarRelationFilter, FuelTypeWhereInput>
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    gas_station?: XOR<GasStationRelationFilter, GasStationWhereInput>
+    fuel_type?: XOR<FuelTypeRelationFilter, FuelTypeWhereInput>
     gas_slip_approvers?: GasSlipApproverListRelationFilter
   }, "id" | "gas_slip_number">
 
@@ -68963,7 +68963,7 @@ export namespace Prisma {
     status?: IntFilter<"GasSlipApprover"> | number
     label?: StringFilter<"GasSlipApprover"> | string
     order?: IntFilter<"GasSlipApprover"> | number
-    gas_slip?: XOR<GasSlipScalarRelationFilter, GasSlipWhereInput>
+    gas_slip?: XOR<GasSlipRelationFilter, GasSlipWhereInput>
   }
 
   export type GasSlipApproverOrderByWithRelationInput = {
@@ -68991,7 +68991,7 @@ export namespace Prisma {
     status?: IntFilter<"GasSlipApprover"> | number
     label?: StringFilter<"GasSlipApprover"> | string
     order?: IntFilter<"GasSlipApprover"> | number
-    gas_slip?: XOR<GasSlipScalarRelationFilter, GasSlipWhereInput>
+    gas_slip?: XOR<GasSlipRelationFilter, GasSlipWhereInput>
   }, "id" | "gas_slip_id_order">
 
   export type GasSlipApproverOrderByWithAggregationInput = {
@@ -74606,7 +74606,7 @@ export namespace Prisma {
     sequence?: SortOrder
   }
 
-  export type ItemTypeScalarRelationFilter = {
+  export type ItemTypeRelationFilter = {
     is?: ItemTypeWhereInput
     isNot?: ItemTypeWhereInput
   }
@@ -74617,7 +74617,7 @@ export namespace Prisma {
     none?: ItemTransactionWhereInput
   }
 
-  export type UnitScalarRelationFilter = {
+  export type UnitRelationFilter = {
     is?: UnitWhereInput
     isNot?: UnitWhereInput
   }
@@ -74743,12 +74743,12 @@ export namespace Prisma {
     alert_level?: SortOrder
   }
 
-  export type ItemScalarRelationFilter = {
+  export type ItemRelationFilter = {
     is?: ItemWhereInput
     isNot?: ItemWhereInput
   }
 
-  export type StationScalarRelationFilter = {
+  export type StationRelationFilter = {
     is?: StationWhereInput
     isNot?: StationWhereInput
   }
@@ -74795,7 +74795,7 @@ export namespace Prisma {
     quantity_on_hand?: SortOrder
   }
 
-  export type ItemLocationScalarRelationFilter = {
+  export type ItemLocationRelationFilter = {
     is?: ItemLocationWhereInput
     isNot?: ItemLocationWhereInput
   }
@@ -74843,32 +74843,32 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type RRItemNullableScalarRelationFilter = {
+  export type RRItemNullableRelationFilter = {
     is?: RRItemWhereInput | null
     isNot?: RRItemWhereInput | null
   }
 
-  export type OSRIVItemNullableScalarRelationFilter = {
+  export type OSRIVItemNullableRelationFilter = {
     is?: OSRIVItemWhereInput | null
     isNot?: OSRIVItemWhereInput | null
   }
 
-  export type SERIVItemNullableScalarRelationFilter = {
+  export type SERIVItemNullableRelationFilter = {
     is?: SERIVItemWhereInput | null
     isNot?: SERIVItemWhereInput | null
   }
 
-  export type MRVItemNullableScalarRelationFilter = {
+  export type MRVItemNullableRelationFilter = {
     is?: MRVItemWhereInput | null
     isNot?: MRVItemWhereInput | null
   }
 
-  export type MCRTItemNullableScalarRelationFilter = {
+  export type MCRTItemNullableRelationFilter = {
     is?: MCRTItemWhereInput | null
     isNot?: MCRTItemWhereInput | null
   }
 
-  export type MSTItemNullableScalarRelationFilter = {
+  export type MSTItemNullableRelationFilter = {
     is?: MSTItemWhereInput | null
     isNot?: MSTItemWhereInput | null
   }
@@ -74990,17 +74990,17 @@ export namespace Prisma {
     last_incremental?: SortOrder
   }
 
-  export type JONullableScalarRelationFilter = {
+  export type JONullableRelationFilter = {
     is?: JOWhereInput | null
     isNot?: JOWhereInput | null
   }
 
-  export type RVNullableScalarRelationFilter = {
+  export type RVNullableRelationFilter = {
     is?: RVWhereInput | null
     isNot?: RVWhereInput | null
   }
 
-  export type SPRNullableScalarRelationFilter = {
+  export type SPRNullableRelationFilter = {
     is?: SPRWhereInput | null
     isNot?: SPRWhereInput | null
   }
@@ -75050,17 +75050,17 @@ export namespace Prisma {
     none?: MEQSSupplierItemWhereInput
   }
 
-  export type CanvassScalarRelationFilter = {
+  export type CanvassRelationFilter = {
     is?: CanvassWhereInput
     isNot?: CanvassWhereInput
   }
 
-  export type UnitNullableScalarRelationFilter = {
+  export type UnitNullableRelationFilter = {
     is?: UnitWhereInput | null
     isNot?: UnitWhereInput | null
   }
 
-  export type ItemNullableScalarRelationFilter = {
+  export type ItemNullableRelationFilter = {
     is?: ItemWhereInput | null
     isNot?: ItemWhereInput | null
   }
@@ -75115,12 +75115,12 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type CanvassNullableScalarRelationFilter = {
+  export type CanvassNullableRelationFilter = {
     is?: CanvassWhereInput | null
     isNot?: CanvassWhereInput | null
   }
 
-  export type MEQSNullableScalarRelationFilter = {
+  export type MEQSNullableRelationFilter = {
     is?: MEQSWhereInput | null
     isNot?: MEQSWhereInput | null
   }
@@ -75216,7 +75216,7 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type RVScalarRelationFilter = {
+  export type RVRelationFilter = {
     is?: RVWhereInput
     isNot?: RVWhereInput
   }
@@ -75344,7 +75344,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type JOScalarRelationFilter = {
+  export type JORelationFilter = {
     is?: JOWhereInput
     isNot?: JOWhereInput
   }
@@ -75403,7 +75403,7 @@ export namespace Prisma {
     none?: SPRApproverWhereInput
   }
 
-  export type VehicleScalarRelationFilter = {
+  export type VehicleRelationFilter = {
     is?: VehicleWhereInput
     isNot?: VehicleWhereInput
   }
@@ -75474,7 +75474,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type SPRScalarRelationFilter = {
+  export type SPRRelationFilter = {
     is?: SPRWhereInput
     isNot?: SPRWhereInput
   }
@@ -75605,12 +75605,12 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type MEQSScalarRelationFilter = {
+  export type MEQSRelationFilter = {
     is?: MEQSWhereInput
     isNot?: MEQSWhereInput
   }
 
-  export type SupplierScalarRelationFilter = {
+  export type SupplierRelationFilter = {
     is?: SupplierWhereInput
     isNot?: SupplierWhereInput
   }
@@ -75621,7 +75621,7 @@ export namespace Prisma {
     none?: MEQSSupplierAttachmentWhereInput
   }
 
-  export type PONullableScalarRelationFilter = {
+  export type PONullableRelationFilter = {
     is?: POWhereInput | null
     isNot?: POWhereInput | null
   }
@@ -75656,12 +75656,12 @@ export namespace Prisma {
     payment_terms?: SortOrder
   }
 
-  export type CanvassItemScalarRelationFilter = {
+  export type CanvassItemRelationFilter = {
     is?: CanvassItemWhereInput
     isNot?: CanvassItemWhereInput
   }
 
-  export type MEQSSupplierScalarRelationFilter = {
+  export type MEQSSupplierRelationFilter = {
     is?: MEQSSupplierWhereInput
     isNot?: MEQSSupplierWhereInput
   }
@@ -75780,7 +75780,7 @@ export namespace Prisma {
     order?: SortOrder
   }
 
-  export type MEQSSupplierNullableScalarRelationFilter = {
+  export type MEQSSupplierNullableRelationFilter = {
     is?: MEQSSupplierWhereInput | null
     isNot?: MEQSSupplierWhereInput | null
   }
@@ -75864,7 +75864,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type POScalarRelationFilter = {
+  export type PORelationFilter = {
     is?: POWhereInput
     isNot?: POWhereInput
   }
@@ -75995,7 +75995,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type RRScalarRelationFilter = {
+  export type RRRelationFilter = {
     is?: RRWhereInput
     isNot?: RRWhereInput
   }
@@ -76043,12 +76043,12 @@ export namespace Prisma {
     order?: SortOrder
   }
 
-  export type ItemTransactionNullableScalarRelationFilter = {
+  export type ItemTransactionNullableRelationFilter = {
     is?: ItemTransactionWhereInput | null
     isNot?: ItemTransactionWhereInput | null
   }
 
-  export type MEQSSupplierItemScalarRelationFilter = {
+  export type MEQSSupplierItemRelationFilter = {
     is?: MEQSSupplierItemWhereInput
     isNot?: MEQSSupplierItemWhereInput
   }
@@ -76157,7 +76157,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type OSRIVScalarRelationFilter = {
+  export type OSRIVRelationFilter = {
     is?: OSRIVWhereInput
     isNot?: OSRIVWhereInput
   }
@@ -76355,7 +76355,7 @@ export namespace Prisma {
     request_type?: SortOrder
   }
 
-  export type SERIVScalarRelationFilter = {
+  export type SERIVRelationFilter = {
     is?: SERIVWhereInput
     isNot?: SERIVWhereInput
   }
@@ -76448,12 +76448,12 @@ export namespace Prisma {
     none?: MRVApproverWhereInput
   }
 
-  export type MCTNullableScalarRelationFilter = {
+  export type MCTNullableRelationFilter = {
     is?: MCTWhereInput | null
     isNot?: MCTWhereInput | null
   }
 
-  export type ProjectNullableScalarRelationFilter = {
+  export type ProjectNullableRelationFilter = {
     is?: ProjectWhereInput | null
     isNot?: ProjectWhereInput | null
   }
@@ -76556,7 +76556,7 @@ export namespace Prisma {
     request_type?: SortOrder
   }
 
-  export type MRVScalarRelationFilter = {
+  export type MRVRelationFilter = {
     is?: MRVWhereInput
     isNot?: MRVWhereInput
   }
@@ -76643,7 +76643,7 @@ export namespace Prisma {
     price?: SortOrder
   }
 
-  export type MRVNullableScalarRelationFilter = {
+  export type MRVNullableRelationFilter = {
     is?: MRVWhereInput | null
     isNot?: MRVWhereInput | null
   }
@@ -76714,7 +76714,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type MCTScalarRelationFilter = {
+  export type MCTRelationFilter = {
     is?: MCTWhereInput
     isNot?: MCTWhereInput
   }
@@ -76767,7 +76767,7 @@ export namespace Prisma {
     order?: SortOrder
   }
 
-  export type SERIVNullableScalarRelationFilter = {
+  export type SERIVNullableRelationFilter = {
     is?: SERIVWhereInput | null
     isNot?: SERIVWhereInput | null
   }
@@ -76850,7 +76850,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type MCRTScalarRelationFilter = {
+  export type MCRTRelationFilter = {
     is?: MCRTWhereInput
     isNot?: MCRTWhereInput
   }
@@ -77012,7 +77012,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type MSTScalarRelationFilter = {
+  export type MSTRelationFilter = {
     is?: MSTWhereInput
     isNot?: MSTWhereInput
   }
@@ -77291,7 +77291,7 @@ export namespace Prisma {
     status?: SortOrder
   }
 
-  export type TripTicketScalarRelationFilter = {
+  export type TripTicketRelationFilter = {
     is?: TripTicketWhereInput
     isNot?: TripTicketWhereInput
   }
@@ -77360,12 +77360,12 @@ export namespace Prisma {
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
-  export type GasStationScalarRelationFilter = {
+  export type GasStationRelationFilter = {
     is?: GasStationWhereInput
     isNot?: GasStationWhereInput
   }
 
-  export type FuelTypeScalarRelationFilter = {
+  export type FuelTypeRelationFilter = {
     is?: FuelTypeWhereInput
     isNot?: FuelTypeWhereInput
   }
@@ -77494,7 +77494,7 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
-  export type GasSlipScalarRelationFilter = {
+  export type GasSlipRelationFilter = {
     is?: GasSlipWhereInput
     isNot?: GasSlipWhereInput
   }

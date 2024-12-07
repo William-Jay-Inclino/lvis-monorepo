@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.8.1
- * Query Engine version: 5dbef10bdbfb579e07d35cc85fb1518d357cb99e
+ * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
  */
 Prisma.prismaVersion = {
   client: "5.8.1",
-  engine: "5dbef10bdbfb579e07d35cc85fb1518d357cb99e"
+  engine: "78caf6feeaed953168c64e15a249c3e9a033ebe2"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {

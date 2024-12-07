@@ -1,0 +1,26 @@
+Check Your Local Migrations Directory
+Go to your project's prisma/migrations directory, and look for the name of the last migration folder. It will look something like this:
+
+
+prisma/migrations/
+    ├── 20230601_initial_migration
+    ├── 20230615_add_contact_person
+
+
+In this example, the latest migration is 20230615_add_contact_person.
+
+
+Mark the Latest Local Migration as Applied Run the following command, using your local migration name:
+
+
+npx prisma migrate resolve --applied "20230615_add_contact_person"
+
+This tells Prisma, "Consider this migration as applied, even if the _prisma_migrations table doesn't show it."
+
+
+After resolving the migration, follow up with:
+npx prisma db push
+
+
+
+This will ensure the schema is updated in your local database without creating or applying new migrations.

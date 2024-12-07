@@ -2,45 +2,63 @@
 
     <div class="card">
         <div class="card-body">
+
             <div v-if="!isLoadingPage">
-        
-                <h2 class="text-warning">Account</h2>
-        
+                <h2 class="text-warning">Search Account</h2>
                 <hr>
         
-                <div class="row">
+                <div class="row pt-3">
                     <div class="col">
-                        <button v-if="canCreate(authUser, 'canManageAccount')" @click="onClickCreate"
-                            class="btn btn-primary float-end">
-                            <client-only>
-                            <font-awesome-icon :icon="['fas', 'plus']"/>
-                        </client-only> 
-                        Create
-                        </button>
-                    </div>
-                </div>
-        
-                <div class="row justify-content-center pt-5">
-                    <div class="col-lg-8">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="search for code..." v-model="searchValue">
+                        <div class="mb-3">
+                            <label class="form-label">Account Name</label>
+                            <input @keyup.enter="search" type="text" class="form-control" v-model="searchName">
                         </div>
                     </div>
                 </div>
         
+                <div class="d-flex justify-content-end gap-2">
+                    <button @click="search" class="btn btn-primary" :disabled="isSearching">
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" />
+                            </client-only> 
+                             {{ isSearching ? 'Searching...' : 'Search' }}
+                    </button>
+                    <button v-if="canCreate(authUser, 'canManageAccount')" @click="onClickAdd" class="btn btn-primary float-end">
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'plus']"/>
+                         </client-only> Create 
+                    </button>
+                </div>
+        
+                <div class="h5wrapper mb-3 mt-3" v-show="!isInitialLoad && !isSearching && !isPaginating">
+                    <hr class="result">
+                    <h6 class="text-warning"><i>Search results...</i></h6>
+                    <hr class="result">
+                </div>
+        
                 <div class="row justify-content-center pt-3">
         
-                    <div v-show="items.length > 0" class="col-lg-8">
+                    <div class="text-center text-muted fst-italic" v-show="isSearching || isPaginating">
+                        Please wait...
+                    </div>
+        
+                    <div class="text-center text-muted fst-italic"
+                        v-show="items.length === 0 && (!isInitialLoad && !isSearching)">
+                        No results found
+                    </div>
+        
+                    <div v-show="items.length > 0 && (!isSearching && !isPaginating)" class="col-lg">
         
                         <div class="row">
                             <div class="col">
+        
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th class="bg-secondary text-white">Code</th>
                                                 <th class="bg-secondary text-white">Name</th>
-                                                <th class="text-center bg-secondary text-white">
+                                                <th width="15%" class="text-center bg-secondary text-white">
                                                     <client-only>
                                                         <font-awesome-icon :icon="['fas', 'cog']" />
                                                     </client-only>
@@ -48,29 +66,68 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in filteredItems">
-                                                <td class="text-muted"> {{ i.code }} </td>
-                                                <td class="text-muted"> {{ i.name }} </td>
-                                                <td class="text-center">
-                                                    <div class="d-inline-flex">
-                                                        <button :disabled="!canDelete(authUser, 'canManageAccount')"
-                                                            @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
-                                                            <client-only>
-                                                                <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageAccount', SERVICES.SYSTEM) }"/>
-                                                            </client-only>
-                                                        </button>
-                                                        <button :disabled="!canEdit(authUser, 'canManageAccount')"
-                                                            @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
-                                                            <client-only>
-                                                                <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageAccount', SERVICES.SYSTEM) }" />
-                                                            </client-only>
-                                                        </button>
-                                                    </div>
+                                            <tr v-for="i in items">
+                                                <td class="text-muted align-middle"> {{ i.code }} </td>
+                                                <td class="text-muted align-middle"> {{ i.name }} </td>
+                                                <td class="align-middle text-center">
+                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
+                                                        :class="{ 'text-primary': canRead(authUser, 'canManageAccount') }"
+                                                        :disabled="!canRead(authUser, 'canManageAccount')">
+                                                        <client-only>
+                                                            <font-awesome-icon :icon="['fas', 'info-circle']" />
+                                                        </client-only>
+                                                        View details
+                                                    </button>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+        
+                            </div>
+                        </div>
+        
+                        <div class="row">
+                            <div class="col">
+                                <nav class="overflow-auto">
+                                    <ul class="pagination justify-content-center">
+                                        <!-- Previous Button -->
+                                        <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
+                                        </li>
+
+                                        <!-- First Page -->
+                                        <li v-if="visiblePages[0] > 1" class="page-item">
+                                            <a class="page-link" @click="changePage(1)" href="#">1</a>
+                                        </li>
+                                        <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+
+                                        <!-- Visible Pages -->
+                                        <li
+                                            v-for="page in visiblePages"
+                                            :key="page"
+                                            class="page-item"
+                                            :class="{ active: pagination.currentPage === page }"
+                                            >
+                                            <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
+                                        </li>
+
+                                        <!-- Last Page -->
+                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                        </li>
+
+                                        <!-- Next Button -->
+                                        <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
+                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
         
@@ -78,15 +135,14 @@
                     </div>
                 </div>
         
-        
             </div>
         
             <div v-else>
                 <LoaderSpinner />
             </div>
+            
         </div>
     </div>
-
 
 </template>
 
@@ -94,92 +150,135 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/system/account/account.api'
-import type { Account } from '~/composables/system/account/account'
-import Swal from 'sweetalert2'
+import { PAGINATION_SIZE } from '~/utils/config'
 import { useToast } from "vue-toastification";
+import type { Account } from '~/composables/system/account/account';
+
 
 definePageMeta({
     name: ROUTES.ACCOUNT_INDEX,
     layout: "layout-system",
     middleware: ['auth'],
 })
-
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 
 const toast = useToast();
 const router = useRouter()
 
+// flags
+const isInitialLoad = ref(true)
+const isSearching = ref(false)
+const isPaginating = ref(false)
+
+// pagination
+const _paginationInitial = {
+    currentPage: 0,
+    totalPages: 0,
+    totalItems: 0,
+    pageSize: PAGINATION_SIZE,
+}
+const pagination = ref({ ..._paginationInitial })
+
+
+// search filters
+const searchName = ref('')
+// ----------------
+
+
+// container for search result
 const items = ref<Account[]>([])
-const searchValue = ref('')
+
+// ======================== LIFECYCLE HOOKS ======================== 
 
 onMounted(async () => {
     authUser.value = getAuthUser()
-    items.value = await api.findAll()
+
     isLoadingPage.value = false
 
 })
 
-const filteredItems = computed(() => {
 
-    if (searchValue.value.trim() === '') return items.value
+const visiblePages = computed(() => {
+    const maxVisible = 5; // Max pages to show
+    const currentPage = pagination.value.currentPage;
+    const totalPages = pagination.value.totalPages;
 
-    return items.value.filter(i => i.code.toLowerCase().includes(searchValue.value.toLowerCase()))
+    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let end = Math.min(totalPages, start + maxVisible - 1);
 
-})
-
-async function onClickDelete(id: string) {
-    console.log('onClickDelete', id)
-
-    const indx = items.value.findIndex(i => i.id === id)
-    const item = items.value[indx]
-
-
-    if (!item) {
-        console.error('Item not found with id: ' + id)
-        return
+    // Adjust start if we're near the end
+    if (end - start < maxVisible - 1) {
+        start = Math.max(1, end - maxVisible + 1);
     }
 
-    Swal.fire({
-        title: "Are you sure?",
-        text: `${item.name} will be removed!`,
-        position: "top",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#e74a3b",
-        cancelButtonColor: "#6c757d",
-        confirmButtonText: "Yes, remove it!",
-        reverseButtons: true,
-        showLoaderOnConfirm: true,
-        preConfirm: async (remove) => {
-
-            if (remove) {
-                const response = await api.remove(item.id)
-
-                if (response.success) {
-
-                    items.value.splice(indx, 1)
-                    toast.success(response.msg)
+    const pages: number[] = [];
+    for (let i = start; i <= end; i++) {
+        pages.push(i);
+    }
+    return pages;
+});
 
 
-                } else {
 
-                    Swal.fire({
-                        title: 'Error!',
-                        text: response.msg,
-                        icon: 'error',
-                        position: 'top',
-                    })
+// ======================== FUNCTIONS ======================== 
 
-                }
-            }
+async function changePage(page: number) {
 
-        },
-        allowOutsideClick: () => !Swal.isLoading()
+    isPaginating.value = true
+
+    const { data, currentPage, totalItems, totalPages } = await api.findAll({
+        page,
+        pageSize: pagination.value.pageSize,
+        name: searchName.value,
+
     })
+
+    isPaginating.value = false
+    items.value = data
+    pagination.value.totalItems = totalItems
+    pagination.value.currentPage = currentPage
+    pagination.value.totalPages = totalPages
 }
 
-const onClickCreate = () => router.push('/system/account/create')
-const onClickEdit = (id: string) => router.push('/system/account/' + id)
+async function search() {
+
+    isInitialLoad.value = false
+    isSearching.value = true
+
+    items.value = []
+
+    const { data, currentPage, totalItems, totalPages } = await api.findAll({
+        page: 1,
+        pageSize: pagination.value.pageSize,
+        name: searchName.value,
+    })
+
+    isSearching.value = false
+
+    items.value = data
+    pagination.value.totalItems = totalItems
+    pagination.value.currentPage = currentPage
+    pagination.value.totalPages = totalPages
+}
+
+
+// ======================== UTILS ======================== 
+
+const onClickViewDetails = (id: string) => router.push('/system/account/view/' + id)
+const onClickAdd = () => router.push('/system/account/create')
 
 </script>
+
+<style scoped>
+
+.card {
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.overflow-auto {
+    overflow-x: auto;
+}
+
+</style>

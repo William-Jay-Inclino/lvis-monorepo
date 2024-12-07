@@ -12,6 +12,7 @@ import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from '../__common__/modules.enum';
 import { RESOLVERS } from '../__common__/resolvers.enum';
+import { AccountsResponse } from './entities/accounts-response.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Account)
@@ -54,16 +55,13 @@ export class AccountResolver {
 
   }
 
-  @Query(() => [Account])
-  async accounts(@CurrentAuthUser() authUser: AuthUser) {
-
-    try {
-      return await this.accountService.findAll();
-
-    } catch (error) {
-      this.logger.error('Error in getting accounts', error)
-    }
-
+  @Query(() => AccountsResponse)
+  accounts(
+    @Args('page') page: number,
+    @Args('pageSize') pageSize: number,
+    @Args('name', { nullable: true }) name?: string,
+  ) {
+    return this.accountService.findAll(page, pageSize, name);
   }
 
   @Query(() => Account)
@@ -78,6 +76,13 @@ export class AccountResolver {
     } catch (error) {
       this.logger.error('Error in getting account', error)
     }
+  }
+
+  @Query(() => [Account])
+  accountsByCode(
+    @Args('input') input: string,
+  ) {
+    return this.accountService.findAccountsByCode(input)
   }
 
   @Mutation(() => Account)

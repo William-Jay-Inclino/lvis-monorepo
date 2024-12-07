@@ -17,3 +17,11 @@ export interface MutationResponse {
     msg: string
     data?: Account
 }
+
+
+export interface FindAllResponse {
+	data: Account[]
+	totalItems: number
+	currentPage: number
+	totalPages: number
+}

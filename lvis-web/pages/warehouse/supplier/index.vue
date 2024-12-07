@@ -26,7 +26,7 @@
                     <button v-if="canCreate(authUser, 'canManageSupplier')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add 
+                         </client-only> Create 
                     </button>
                 </div>
         
@@ -47,7 +47,7 @@
                         No results found
                     </div>
         
-                    <div v-show="items.length > 0" class="col-lg">
+                    <div v-show="items.length > 0 && (!isSearching && !isPaginating)" class="col-lg">
         
                         <div class="row">
                             <div class="col">
@@ -93,20 +93,42 @@
         
                         <div class="row">
                             <div class="col">
-                                <nav>
+                                <nav class="overflow-auto">
                                     <ul class="pagination justify-content-center">
+                                        <!-- Previous Button -->
                                         <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)"
-                                                href="#">Previous</a>
+                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
                                         </li>
-                                        <li v-for="page in pagination.totalPages" :key="page" class="page-item"
-                                            :class="{ active: pagination.currentPage === page }">
+
+                                        <!-- First Page -->
+                                        <li v-if="visiblePages[0] > 1" class="page-item">
+                                            <a class="page-link" @click="changePage(1)" href="#">1</a>
+                                        </li>
+                                        <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+
+                                        <!-- Visible Pages -->
+                                        <li
+                                            v-for="page in visiblePages"
+                                            :key="page"
+                                            class="page-item"
+                                            :class="{ active: pagination.currentPage === page }"
+                                            >
                                             <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                         </li>
-                                        <li class="page-item"
-                                            :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)"
-                                                href="#">Next</a>
+
+                                        <!-- Last Page -->
+                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                        </li>
+
+                                        <!-- Next Button -->
+                                        <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
+                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -133,7 +155,6 @@
 
 import * as api from '~/composables/warehouse/supplier/supplier.api'
 import { PAGINATION_SIZE } from '~/utils/config'
-import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
 import type { Supplier } from '~/composables/warehouse/supplier/supplier';
 
@@ -180,6 +201,27 @@ onMounted(async () => {
     isLoadingPage.value = false
 
 })
+
+
+const visiblePages = computed(() => {
+    const maxVisible = 5; // Max pages to show
+    const currentPage = pagination.value.currentPage;
+    const totalPages = pagination.value.totalPages;
+
+    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let end = Math.min(totalPages, start + maxVisible - 1);
+
+    // Adjust start if we're near the end
+    if (end - start < maxVisible - 1) {
+        start = Math.max(1, end - maxVisible + 1);
+    }
+
+    const pages: number[] = [];
+    for (let i = start; i <= end; i++) {
+        pages.push(i);
+    }
+    return pages;
+});
 
 
 
@@ -231,3 +273,16 @@ const onClickViewDetails = (id: string) => router.push('/warehouse/supplier/view
 const onClickAdd = () => router.push('/warehouse/supplier/create')
 
 </script>
+
+<style scoped>
+
+.card {
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.overflow-auto {
+    overflow-x: auto;
+}
+
+</style>

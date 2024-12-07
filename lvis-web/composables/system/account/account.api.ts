@@ -1,16 +1,33 @@
 import { sendRequest } from "~/utils/api"
-import type { Account, CreateAccountInput, MutationResponse } from "./account";
+import type { Account, CreateAccountInput, FindAllResponse, MutationResponse } from "./account";
 
 
 
-export async function findAll(): Promise<Account[]> {
+export async function findAll(payload: { page: number, pageSize: number, name: string }): Promise<FindAllResponse> {
+
+    const { page, pageSize, name } = payload;
+
+    let name2 = null
+
+    if (name.trim() !== '') {
+        name2 = `"${name}"`
+    }
 
     const query = `
         query {
-            accounts {
-                id
-                code
-                name
+            accounts(
+                page: ${page},
+                pageSize: ${pageSize},
+                name: ${name2},
+            ) {
+                data {
+                    id
+                    code 
+                    name
+                }
+                totalItems
+                currentPage
+                totalPages
             }
         }
     `;
