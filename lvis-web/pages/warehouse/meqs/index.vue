@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">MEQS Number</label>
                             <client-only>
@@ -17,7 +17,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Transaction</label>
                             <div class="row g-0">
@@ -42,18 +42,10 @@
                     </div>
         
         
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="date_requested" type="date" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="mb-3">
-                            <label class="form-label">Requisitioner</label>
-                            <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="requested_by"></v-select>
-                            </client-only>
                         </div>
                     </div>
                 </div>
@@ -61,9 +53,25 @@
                 <div class="row pt-1">
                     <div class="col">
                         <div class="mb-3">
+                            <label class="form-label">Requisitioner</label>
+                            <client-only>
+                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="requested_by"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
                             <label class="form-label">Supplier</label>
                             <client-only>
                                 <v-select @search="handleSearchSuppliers" :options="suppliers" label="name" v-model="supplier"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <client-only>
+                                <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -74,13 +82,13 @@
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search {{ isSearching ? 'Searching...' : 'Search' }}
+                             {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
                     <button v-if="canCreate(authUser, 'canManageMEQS')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
-                        Create MEQS
+                        Create 
                     </button>
                 </div>
         
@@ -268,6 +276,7 @@ const rv = ref<RV | null>(null)
 const jo = ref<JO | null>(null)
 const spr = ref<SPR | null>(null)
 const date_requested = ref(null)
+const approval_status = ref<IApprovalStatus | null>(null)
 const requested_by = ref<Employee | null>(null)
 const supplier = ref<Supplier | null>(null)
 // ----------------
@@ -349,7 +358,7 @@ async function search() {
         date_requested: date_requested.value,
         requested_by_id: requested_by.value ? requested_by.value.id : null,
         supplier_id: supplier.value ? supplier.value.id : null,
-
+        approval_status: approval_status.value ? approval_status.value.id : null
     })
     isSearching.value = false
     items.value = data
@@ -368,7 +377,8 @@ async function changePage(page: number) {
         pageSize: pagination.value.pageSize,
         date_requested: null,
         requested_by_id: null,
-        supplier_id: null
+        supplier_id: null,
+        approval_status: null,
     })
     isPaginating.value = false
 

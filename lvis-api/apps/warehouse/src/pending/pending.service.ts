@@ -183,36 +183,33 @@ export class PendingService {
 
             if(status === APPROVAL_STATUS.APPROVED && is_last_approver === true) {
 
-                if(module.model === 'rR') {
-                    await this.handle_RR_completion_of_approvals(tx, model.id)
+                if(module.model === 'rV') await this.handle_RV_completion_of_approvals(tx, model.id) 
 
-                } else if(module.model === 'oSRIV') {
-                    await this.handle_OSRIV_completion_of_approvals(tx, model.id)
+                else if(module.model === 'sPR') await this.handle_SPR_completion_of_approvals(tx, model.id)
 
-                } else if(module.model === 'sERIV') {
-                    await this.handle_SERIV_completion_of_approvals(tx, model.id)
+                else if(module.model === 'jO')  await this.handle_JO_completion_of_approvals(tx, model.id)
 
-                } else if(module.model === 'mRV') {
-                    await this.handle_MRV_completion_of_approvals(tx, model.id)
+                else if(module.model === 'mEQS') await this.handle_MEQS_completion_of_approvals(tx, model.id) 
 
-                } else if(module.model === 'mCT') {
-                    await this.handle_MCT_completion_of_approvals(tx, model.id)
+                else if(module.model === 'pO') await this.handle_PO_completion_of_approvals(tx, model.id)
 
-                } else if(module.model === 'mCRT') {
-                    await this.handle_MCRT_completion_of_approvals(tx, model.id)
+                else if(module.model === 'rR') await this.handle_RR_completion_of_approvals(tx, model.id) 
 
-                } else if(module.model === 'mST') {
-                    await this.handle_MST_completion_of_approvals(tx, model.id)
+                else if(module.model === 'oSRIV') await this.handle_OSRIV_completion_of_approvals(tx, model.id)
 
-                } else if(module.model === 'gasSlip') {
-                    await this.handle_gas_slip_completion_of_approvals(tx, model.id)
+                else if(module.model === 'sERIV') await this.handle_SERIV_completion_of_approvals(tx, model.id)
 
-                } else if(module.model === 'tripTicket') {
-                    await this.handle_trip_ticket_completion_of_approvals(tx, model.id)
+                else if(module.model === 'mRV') await this.handle_MRV_completion_of_approvals(tx, model.id)
 
-                } else if(module.model === 'rV') {
-                    await this.handle_RV_completion_of_approvals(tx, model.id)
-                }
+                else if(module.model === 'mCT') await this.handle_MCT_completion_of_approvals(tx, model.id)
+
+                else if(module.model === 'mCRT') await this.handle_MCRT_completion_of_approvals(tx, model.id)
+
+                else if(module.model === 'mST') await this.handle_MST_completion_of_approvals(tx, model.id)
+
+                else if(module.model === 'gasSlip') await this.handle_gas_slip_completion_of_approvals(tx, model.id)
+                    
+                else if(module.model === 'tripTicket') await this.handle_trip_ticket_completion_of_approvals(tx, model.id)
 
             }
 
@@ -366,6 +363,95 @@ export class PendingService {
 
     }
 
+    private async handle_SPR_completion_of_approvals(tx: Prisma.TransactionClient, spr_id: string) {
+
+        const spr = await tx.sPR.findUnique({
+            where: { id: spr_id },
+            include: {
+                spr_approvers: true
+            }
+        })
+
+        if(!spr) {
+            throw new NotFoundException('SPR not found with id: ' + spr_id)
+        }
+
+        await tx.sPR.update({
+            where: { id: spr_id },
+            data: { 
+                approval_status: APPROVAL_STATUS.APPROVED
+            }
+        })
+
+    }
+
+    private async handle_JO_completion_of_approvals(tx: Prisma.TransactionClient, jo_id: string) {
+
+        const jo = await tx.jO.findUnique({
+            where: { id: jo_id },
+            include: {
+                jo_approvers: true
+            }
+        })
+
+        if(!jo) {
+            throw new NotFoundException('JO not found with id: ' + jo_id)
+        }
+
+        await tx.jO.update({
+            where: { id: jo_id },
+            data: { 
+                approval_status: APPROVAL_STATUS.APPROVED
+            }
+        })
+
+    }
+
+    private async handle_MEQS_completion_of_approvals(tx: Prisma.TransactionClient, meqs_id: string) {
+
+        const meqs = await tx.mEQS.findUnique({
+            where: { id: meqs_id },
+            include: {
+                meqs_approvers: true
+            }
+        })
+
+        if(!meqs) {
+            throw new NotFoundException('MEQS not found with id: ' + meqs_id)
+        }
+
+        await tx.mEQS.update({
+            where: { id: meqs_id },
+            data: { 
+                approval_status: APPROVAL_STATUS.APPROVED
+            }
+        })
+
+    }
+
+    private async handle_PO_completion_of_approvals(tx: Prisma.TransactionClient, po_id: string) {
+
+        const po = await tx.pO.findUnique({
+            where: { id: po_id },
+            include: {
+                po_approvers: true
+            }
+        })
+
+        if(!po) {
+            throw new NotFoundException('PO not found with id: ' + po_id)
+        }
+
+        await tx.pO.update({
+            where: { id: po_id },
+            data: { 
+                approval_status: APPROVAL_STATUS.APPROVED
+            }
+        })
+
+    }
+
+
     private async handle_RR_completion_of_approvals(tx: Prisma.TransactionClient, rr_id: string): Promise<void> {
 
         const rr = await tx.rR.findUnique({
@@ -448,7 +534,8 @@ export class PendingService {
         await tx.rR.update({
             where: { id: rr_id },
             data: {
-                is_completed: true
+                is_completed: true,
+                approval_status: APPROVAL_STATUS.APPROVED
             }
         })
 
@@ -509,7 +596,8 @@ export class PendingService {
 				id: osriv_id
 			},
 			data: {
-				is_completed: true
+				is_completed: true,
+                approval_status: APPROVAL_STATUS.APPROVED
 			}
 		})
 
@@ -579,7 +667,8 @@ export class PendingService {
 			},
 			data: {
 				is_completed: true,
-                mwo_number: mwoNumber
+                mwo_number: mwoNumber,
+                approval_status: APPROVAL_STATUS.APPROVED
 			}
 		})
 
@@ -619,7 +708,8 @@ export class PendingService {
             where: { id: mrv_id },
             data: { 
                 is_completed: true,
-                mwo_number: mwoNumber 
+                mwo_number: mwoNumber,
+                approval_status: APPROVAL_STATUS.APPROVED
             }
         })
 
@@ -683,7 +773,8 @@ export class PendingService {
 				id: mct_id
 			},
 			data: {
-				is_completed: true
+				is_completed: true,
+                approval_status: APPROVAL_STATUS.APPROVED
 			}
 		})
 
@@ -745,7 +836,8 @@ export class PendingService {
 				id: mcrt_id
 			},
 			data: {
-				is_completed: true
+				is_completed: true,
+                approval_status: APPROVAL_STATUS.APPROVED
 			}
 		})
 
@@ -816,7 +908,8 @@ export class PendingService {
 				id: mst_id
 			},
 			data: {
-				is_completed: true
+				is_completed: true,
+                approval_status: APPROVAL_STATUS.APPROVED
 			}
 		})
 
@@ -878,7 +971,10 @@ export class PendingService {
 
         await tx.gasSlip.update({
             where: { id: gas_slip_id },
-            data: { is_posted: false }
+            data: { 
+                is_posted: false,
+                approval_status: APPROVAL_STATUS.APPROVED
+            }
         })
 
     }
@@ -907,7 +1003,8 @@ export class PendingService {
 				id: trip_id
 			},
 			data: {
-				status: TRIP_TICKET_STATUS.APPROVED
+				status: TRIP_TICKET_STATUS.APPROVED,
+                approval_status: APPROVAL_STATUS.APPROVED
 			}
 		})
 

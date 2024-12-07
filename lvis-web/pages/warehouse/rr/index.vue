@@ -10,7 +10,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">RR Number</label>
                             <client-only>
@@ -18,7 +18,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">PO Number</label>
                             <client-only>
@@ -26,17 +26,28 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="date_requested" type="date" class="form-control">
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                </div>
+
+                <div class="row">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
                                 <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="requested_by"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <client-only>
+                                <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -47,13 +58,13 @@
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search {{ isSearching ? 'Searching...' : 'Search' }}
+                             {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
                     <button v-if="canCreate(authUser, 'canManageRR')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
-                        Create RR
+                        Create 
                     </button>
                 </div>
         
@@ -213,6 +224,7 @@ const requested_by = ref<Employee | null>(null)
 const employees = ref<Employee[]>([])
 const pos = ref<PO[]>([])
 const rrs = ref<RR[]>([])
+const approval_status = ref<IApprovalStatus | null>(null)
 
 
 // container for search result
@@ -246,8 +258,8 @@ async function changePage(page: number) {
         page,
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null
-
+        requested_by_id: requested_by.value ? requested_by.value.id : null,
+        approval_status: approval_status.value ? approval_status.value.id : null
     })
 
     isPaginating.value = false
@@ -300,8 +312,8 @@ async function search() {
         page: 1,
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null
-
+        requested_by_id: requested_by.value ? requested_by.value.id : null,
+        approval_status: approval_status.value ? approval_status.value.id : null
     })
 
     isSearching.value = false

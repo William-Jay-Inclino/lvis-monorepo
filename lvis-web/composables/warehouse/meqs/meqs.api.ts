@@ -287,13 +287,22 @@ export async function findByReferenceNumber(payload: {
     }
 }
 
-export async function findAll(payload: { page: number, pageSize: number, date_requested: string | null, requested_by_id: string | null, supplier_id: string | null }): Promise<FindAllResponse> {
+export async function findAll(
+    payload: { 
+        page: number, 
+        pageSize: number, 
+        date_requested: string | null, 
+        requested_by_id: string | null, 
+        supplier_id: string | null,
+        approval_status: APPROVAL_STATUS | null, 
+    }): Promise<FindAllResponse> {
 
-    const { page, pageSize, date_requested, requested_by_id, supplier_id } = payload;
+    const { page, pageSize, date_requested, requested_by_id, supplier_id, approval_status } = payload;
 
     let date_requested2 = null
     let requested_by_id2 = null
     let supplier_id2 = null
+    let approval_status2 = null
 
     if (date_requested) {
         date_requested2 = `"${date_requested}"`
@@ -307,6 +316,10 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
         supplier_id2 = `"${supplier_id}"`
     }
 
+    if (approval_status) {
+        approval_status2 = approval_status
+    }
+
     const query = `
         query {
             meqs(
@@ -315,6 +328,7 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 date_requested: ${date_requested2},
                 requested_by_id: ${requested_by_id2},
                 supplier_id: ${supplier_id2},
+                approval_status: ${approval_status2},
             ) {
                 data {
                     id

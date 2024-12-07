@@ -171,14 +171,25 @@ export async function findOne(id: string): Promise<MCRT | undefined> {
     }
 }
 
-export async function findAll(payload: { page: number, pageSize: number, date_requested: string | null}): Promise<FindAllResponse> {
+export async function findAll(
+    payload: { 
+        page: number, 
+        pageSize: number, 
+        date_requested: string | null, 
+        approval_status: APPROVAL_STATUS | null, 
+    }): Promise<FindAllResponse> {
 
-    const { page, pageSize, date_requested } = payload;
+    const { page, pageSize, date_requested, approval_status } = payload;
 
     let date_requested2 = null
+    let approval_status2 = null
 
     if (date_requested) {
         date_requested2 = `"${date_requested}"`
+    }
+
+    if (approval_status) {
+        approval_status2 = approval_status
     }
 
     const query = `
@@ -187,6 +198,7 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 page: ${page},
                 pageSize: ${pageSize},
                 date_requested: ${date_requested2},
+                approval_status: ${approval_status2},
             ) {
                 data {
                     id

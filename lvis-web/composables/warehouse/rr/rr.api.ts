@@ -101,12 +101,19 @@ export async function findByRefNumber(payload: { po_number?: string, rr_number?:
     }
 }
 
-export async function findAll(payload: { page: number, pageSize: number, date_requested: string | null, requested_by_id: string | null }): Promise<FindAllResponse> {
+export async function findAll(payload: { 
+    page: number, 
+    pageSize: number, 
+    date_requested: string | null, 
+    requested_by_id: string | null 
+    approval_status: APPROVAL_STATUS | null, 
+    }): Promise<FindAllResponse> {
 
-    const { page, pageSize, date_requested, requested_by_id } = payload;
+    const { page, pageSize, date_requested, requested_by_id, approval_status } = payload;
 
     let date_requested2 = null
     let requested_by_id2 = null
+    let approval_status2 = null
 
     if (date_requested) {
         date_requested2 = `"${date_requested}"`
@@ -116,6 +123,10 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
         requested_by_id2 = `"${requested_by_id}"`
     }
 
+    if (approval_status) {
+        approval_status2 = approval_status
+    }
+
     const query = `
         query {
             rrs(
@@ -123,6 +134,7 @@ export async function findAll(payload: { page: number, pageSize: number, date_re
                 pageSize: ${pageSize},
                 date_requested: ${date_requested2},
                 requested_by_id: ${requested_by_id2},
+                approval_status: ${approval_status2},
             ) {
                 data {
                     id

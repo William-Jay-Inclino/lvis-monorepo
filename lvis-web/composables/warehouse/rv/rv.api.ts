@@ -298,7 +298,6 @@ export async function findAll(
                     created_by
                     status
                     can_update
-                    approval_status
                     canvass{
                         rc_number
                         requested_by {

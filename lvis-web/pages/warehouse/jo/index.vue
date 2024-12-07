@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">JO Number</label>
                             <client-only>
@@ -17,7 +17,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">RC Number</label>
                             <client-only>
@@ -25,17 +25,28 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="date_requested" type="date" class="form-control">
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                </div>
+
+                <div class="row">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
                                 <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="requested_by"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <client-only>
+                                <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -46,13 +57,13 @@
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search {{ isSearching ? 'Searching...' : 'Search' }}
+                             {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
                     <button v-if="canCreate(authUser, 'canManageJO')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
-                        Create JO
+                        Create 
                     </button>
                 </div>
         
@@ -215,6 +226,7 @@ const pagination = ref({ ..._paginationInitial })
 const canvass = ref<Canvass | null>(null)
 const jo = ref<JO | null>(null)
 const date_requested = ref(null)
+const approval_status = ref<IApprovalStatus | null>(null)
 const requested_by = ref<Employee | null>(null)
 const canvasses = ref<Canvass[]>([])
 const jos = ref<JO[]>([])
@@ -230,9 +242,6 @@ const items = ref<JO[]>([])
 // ======================== LIFECYCLE HOOKS ======================== 
 
 onMounted(async () => {
-    // isMobile.value = window.innerWidth < MOBILE_WIDTH
-
-    // window.addEventListener('resize', checkMobile);
 
     authUser.value = getAuthUser()
 
@@ -263,8 +272,8 @@ async function changePage(page: number) {
         page,
         pageSize: pagination.value.pageSize,
         date_requested: null,
-        requested_by_id: null
-
+        requested_by_id: null,
+        approval_status: null,
     })
     isPaginating.value = false
 
@@ -309,8 +318,8 @@ async function search() {
         page: 1,
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null
-
+        requested_by_id: requested_by.value ? requested_by.value.id : null,
+        approval_status: approval_status.value ? approval_status.value.id : null
     })
     isSearching.value = false
     items.value = data

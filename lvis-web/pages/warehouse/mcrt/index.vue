@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">MCRT Number</label>
                             <client-only>
@@ -17,10 +17,18 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="date_requested" type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <client-only>
+                                <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
+                            </client-only>
                         </div>
                     </div>
                 </div>
@@ -30,13 +38,13 @@
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search {{ isSearching ? 'Searching...' : 'Search' }}
+                             {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
                     <button v-if="canCreate(authUser, 'canManageMCRT')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
-                        Create MCRT
+                        Create 
                     </button>
                 </div>
         
@@ -186,7 +194,8 @@ const mcrt = ref<MCRT | null>(null)
 const date_requested = ref(null)
 const mcrts = ref<MCRT[]>([])
 const employees = ref<Employee[]>([])
-// ----------------
+const approval_status = ref<IApprovalStatus | null>(null)
+    // ----------------
 
 
 // table data
@@ -222,7 +231,7 @@ async function changePage(page: number) {
         page,
         pageSize: pagination.value.pageSize,
         date_requested: null,
-
+        approval_status: null,
     })
     isPaginating.value = false
 
@@ -256,7 +265,7 @@ async function search() {
         page: 1,
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
-
+        approval_status: approval_status.value ? approval_status.value.id : null
     })
     isSearching.value = false
     items.value = data

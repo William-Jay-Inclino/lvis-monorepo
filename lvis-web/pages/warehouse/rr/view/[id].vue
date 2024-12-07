@@ -448,7 +448,7 @@
                                 </button>
                             </div>
                             <div v-if="!item.cancelled_at">
-                                <button v-if="isAdminOrOwner(item.created_by, authUser) && !isApproved" class="btn btn-warning me-2"
+                                <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
                                     @click="onCancelRr()">
                                     <client-only>
                                 <font-awesome-icon :icon="['fas', 'times-circle']" />

@@ -37,14 +37,14 @@
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
-                            Search {{ isSearching ? 'Searching...' : 'Search' }}
+                            {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
                     <button v-if="canCreate(authUser, 'canManageCanvass')" @click="onClickAdd"
                         class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
-                        Create Canvass
+                        Create 
                     </button>
                 </div>
         
