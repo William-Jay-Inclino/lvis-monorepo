@@ -79,10 +79,10 @@ export class AccountResolver {
   }
 
   @Query(() => [Account])
-  accountsByCode(
+  accountsByName(
     @Args('input') input: string,
   ) {
-    return this.accountService.findAccountsByCode(input)
+    return this.accountService.findAccountsByName(input)
   }
 
   @Mutation(() => Account)

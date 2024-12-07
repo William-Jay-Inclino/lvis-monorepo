@@ -110,7 +110,7 @@
                                         Fund Source
                                     </label>
                                     <client-only>
-                                        <v-select :options="accounts" label="name" v-model="poData.fund_source"></v-select>
+                                        <v-select @search="handleSearchAccounts" :options="accounts" label="name" v-model="poData.fund_source"></v-select>
                                     </client-only>
                                 </div>
         
@@ -238,6 +238,7 @@ import Swal from 'sweetalert2'
 import { getTotalNetPrice, getVatAmount } from '~/utils/helpers';
 import type { Account } from '~/composables/system/account/account';
 import { fetchMeqsByMeqsNumber } from '~/composables/warehouse/meqs/meqs.api';
+import { fetchAccountsByName } from '~/composables/system/account/account.api';
 
 definePageMeta({
     name: ROUTES.PO_CREATE,
@@ -346,15 +347,6 @@ const totalPriceOfAllItems = computed(() => {
 
     for (let item of supplierItems.value) {
 
-        // const totalPriceOfItem = getTotalNetPrice({
-        //     vatType: item.vat_type,
-        //     pricePerUnit: item.price,
-        //     vatPerUnit: getVatAmount(item.price, item.vat_type),
-        //     quantity: item.canvass_item.quantity
-        // })
-
-        // totalPrice += totalPriceOfItem
-
         totalPrice += item.price * item.canvass_item.quantity
 
     }
@@ -442,6 +434,17 @@ async function handleSearchMeqsNumber(input: string, loading: (status: boolean) 
 
 }
 
+async function handleSearchAccounts(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        accounts.value = []
+        return 
+    } 
+
+    debouncedSearchAccounts(input, loading)
+    
+}
+
 async function searchMeqsNumbers(input: string, loading: (status: boolean) => void) {
     console.log('searchMeqsNumbers');
     console.log('input', input);
@@ -460,12 +463,30 @@ async function searchMeqsNumbers(input: string, loading: (status: boolean) => vo
 }
 
 
+async function searchAccounts(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchAccountsByName(input);
+        accounts.value = response
+    } catch (error) {
+        console.error('Error fetching Accounts:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+
 // ======================== UTILS ========================  
 
 const debouncedSearchRcNumbers = debounce((input: string, loading: (status: boolean) => void) => {
     searchMeqsNumbers(input, loading);
 }, 500);
 
+const debouncedSearchAccounts = debounce((input: string, loading: (status: boolean) => void) => {
+    searchAccounts(input, loading);
+}, 500);
 
 
 </script>

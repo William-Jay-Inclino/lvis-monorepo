@@ -33,7 +33,7 @@
                     <div class="mb-3" v-if="employee.is_finance_manager">
                         <label class="form-label"> Fund Source </label>
                         <client-only>
-                            <v-select :options="accounts" label="name" v-model="fundSource"></v-select>
+                            <v-select @search="handleSearchAccounts" :options="accounts" label="name" v-model="fundSource"></v-select>
                         </client-only>
                         <small class="text-danger fst-italic" v-if="formErrors.fundSource">
                             This field is required </small>
@@ -59,11 +59,13 @@
 <script setup lang="ts">
 import { type Pending } from '~/composables/e-forms/pendings/pendings.types';
 import type { Account } from '~/composables/system/account/account';
+import { fetchAccountsByName } from '~/composables/system/account/account.api';
 import type { Employee } from '~/composables/system/employee/employee.types';
 
 const emits = defineEmits([
     'approve-budget-officer',
     'approve-finance-manager',
+    'search-accounts'
 ])
 
 const props = defineProps<{
@@ -166,5 +168,35 @@ function closeModal() {
     fundSource.value = undefined
     formErrors.value = { ..._initialFormErrors }
 }
+
+
+async function handleSearchAccounts(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        emits('search-accounts', [])
+        return 
+    } 
+
+    debouncedSearchAccounts(input, loading)
+
+}
+
+async function searchAccounts(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchAccountsByName(input);
+        emits('search-accounts', response)
+    } catch (error) {
+        console.error('Error fetching Accounts:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+const debouncedSearchAccounts = debounce((input: string, loading: (status: boolean) => void) => {
+    searchAccounts(input, loading);
+}, 500);
 
 </script>

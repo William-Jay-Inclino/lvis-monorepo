@@ -27,10 +27,13 @@ export async function getPendingsByEmployeeId(employeeId: string): Promise<{
                 id
                 name
             }
-            accounts{
-                id
-                name
-            }
+            accounts(page: 1, pageSize: 10) {
+                data {
+                    id
+                    code 
+                    name
+                }
+            },
         }
     `;
 
@@ -58,6 +61,10 @@ export async function getPendingsByEmployeeId(employeeId: string): Promise<{
 
         if (data.classifications) {
             classifications = data.classifications
+        }
+
+        if (data.accounts && data.accounts.data) {
+            accounts = response.data.data.accounts.data
         }
 
         return {

@@ -135,14 +135,14 @@ export class AccountService {
 
     }
 
-    async findAccountsByCode(q: string) {
+    async findAccountsByName(q: string) {
 		const input = q.trim(); 
 	
 		const items = await this.prisma.account.findMany({
 			where: {
 				deleted_at: null,
 				OR: [
-					{ code: { startsWith: input } },
+					{ name: { startsWith: input } },
 				],
 			},
 			take: 10,

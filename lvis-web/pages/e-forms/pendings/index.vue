@@ -100,7 +100,9 @@
                     :classifications="classifications" 
                     :is-approving="isApproving"
                     @approve-budget-officer="handleApproveBudgetOfficer" 
-                    @approve-finance-manager="handleApproveFinanceManager"/>
+                    @approve-finance-manager="handleApproveFinanceManager"
+                    @search-accounts="handleSearchedAccounts"
+                    />
     
             </div>
 
@@ -129,6 +131,7 @@ import type { Classification } from '~/composables/system/classification/classif
 import { MODULE_MAPPER } from '~/utils/constants';
 import { fetchTotalNotifications } from '~/composables/system/user/user.api';
 import { useToast } from "vue-toastification";
+import { fetchAccountsByName } from '~/composables/system/account/account.api';
 
 const isLoadingPage = ref(true)
 const isApproving = ref(false)
@@ -451,6 +454,10 @@ async function handleApproveWithUpdates(payload: ApprovalProps) {
     payload.closeBtnModal.click()
 }
 
+async function handleSearchedAccounts(searchedAccounts: Account[]) {
+    accounts.value = searchedAccounts.map(i => ({...i}))
+}
+
 
 // =============================== Comment.vue Handlers =============================== 
 
@@ -497,5 +504,6 @@ function handleStartEditComment(pending_id: number) {
     }
     pending.is_editing = true
 }
+
 
 </script>

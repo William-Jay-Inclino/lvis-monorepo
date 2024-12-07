@@ -325,11 +325,13 @@ export async function fetchFormDataInCreate(): Promise<{
                 label
                 order
             },
-            accounts {
-                id
-                code
-                name
-            }
+            accounts(page: 1, pageSize: 10) {
+                data {
+                    id
+                    code 
+                    name
+                }
+            },
         }
     `;
 
@@ -355,8 +357,8 @@ export async function fetchFormDataInCreate(): Promise<{
             approvers = data.poApproverSettings
         }
 
-        if (data.accounts) {
-            accounts = data.accounts
+        if (data.accounts && data.accounts.data) {
+            accounts = response.data.data.accounts.data
         }
 
         return {
@@ -477,11 +479,13 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            accounts {
-                id
-                code
-                name
-            }
+            accounts(page: 1, pageSize: 10) {
+                data {
+                    id
+                    code 
+                    name
+                }
+            },
         }
     `;
 
@@ -506,8 +510,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             employees = response.data.data.employees.data
         }
 
-        if (data.accounts) {
-            accounts = data.accounts
+        if (data.accounts && data.accounts.data) {
+            accounts = response.data.data.accounts.data
         }
 
         return {

@@ -186,3 +186,29 @@ export async function remove(id: string): Promise<{ success: boolean, msg: strin
         }
     }
 }
+
+export async function fetchAccountsByName(payload: string): Promise<Account[]> {
+    const query = `
+        query {
+            accountsByName(input: "${payload}") {
+                id
+                code 
+                name
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+        return response.data.data.accountsByName
+
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
