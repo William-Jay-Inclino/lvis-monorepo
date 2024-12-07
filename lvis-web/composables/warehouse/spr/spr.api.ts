@@ -375,9 +375,11 @@ export async function fetchFormDataInCreate(): Promise<{
                 label
                 order
             },
-            classifications{
-                id
-                name
+            classifications(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
             },
             vehicles{
                 id
@@ -415,8 +417,8 @@ export async function fetchFormDataInCreate(): Promise<{
             approvers = data.sprApproverSettings
         }
 
-        if (data.classifications) {
-            classifications = data.classifications
+        if (data.classifications && data.classifications.data) {
+            classifications = response.data.data.classifications.data
         }
 
         if (data.vehicles) {
@@ -516,9 +518,11 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     rank_number
                 }
             },
-            classifications{
-                id
-                name
+            classifications(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
             },
             vehicles{
                 id
@@ -552,8 +556,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             employees = response.data.data.employees.data
         }
 
-        if (data.classifications) {
-            classifications = response.data.data.classifications
+        if (data.classifications && data.classifications.data) {
+            classifications = response.data.data.classifications.data
         }
 
         if (data.vehicles) {

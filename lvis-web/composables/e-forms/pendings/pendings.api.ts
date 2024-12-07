@@ -23,10 +23,12 @@ export async function getPendingsByEmployeeId(employeeId: string): Promise<{
                     approver_notes
                 }
             }
-            classifications{
-                id
-                name
-            }
+            classifications(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
+            },
             accounts(page: 1, pageSize: 10) {
                 data {
                     id
@@ -59,8 +61,8 @@ export async function getPendingsByEmployeeId(employeeId: string): Promise<{
             accounts = data.accounts
         }
 
-        if (data.classifications) {
-            classifications = data.classifications
+        if (data.classifications && data.classifications.data) {
+            classifications = response.data.data.classifications.data
         }
 
         if (data.accounts && data.accounts.data) {

@@ -106,7 +106,7 @@
                                         Classification
                                     </label>
                                     <client-only>
-                                        <v-select :options="classifications" label="name"
+                                        <v-select @search="handleSearchClassifications" :options="classifications" label="name"
                                             v-model="rvData.classification"></v-select>
                                     </client-only>
                                 </div>
@@ -177,6 +177,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchCanvassesByRcNumber } from '~/composables/warehouse/canvass/canvass.api';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
+import { fetchClassificationsByName } from '~/composables/system/classification/classification.api';
 
 definePageMeta({
     name: ROUTES.RV_CREATE,
@@ -339,6 +340,17 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 
 }
 
+async function handleSearchClassifications(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        classifications.value = []
+        return 
+    } 
+
+    debouncedSearchClassifications(input, loading)
+
+}
+
 async function searchEmployees(input: string, loading: (status: boolean) => void) {
     console.log('searchEmployees');
     console.log('input', input);
@@ -368,6 +380,20 @@ async function searchRcNumbers(input: string, loading: (status: boolean) => void
         canvasses.value = response;
     } catch (error) {
         console.error('Error fetching RC numbers:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+async function searchClassifications(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchClassificationsByName(input);
+        classifications.value = response
+    } catch (error) {
+        console.error('Error fetching Classifications:', error);
     } finally {
         loading(false);
     }
@@ -403,6 +429,10 @@ const debouncedSearchRcNumbers = debounce((input: string, loading: (status: bool
 
 const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
     searchEmployees(input, loading);
+}, 500);
+
+const debouncedSearchClassifications = debounce((input: string, loading: (status: boolean) => void) => {
+    searchClassifications(input, loading);
 }, 500);
 
 </script>

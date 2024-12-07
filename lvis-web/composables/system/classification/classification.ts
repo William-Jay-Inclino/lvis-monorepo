@@ -15,3 +15,11 @@ export interface MutationResponse {
     msg: string
     data?: Classification
 }
+
+
+export interface FindAllResponse {
+	data: Classification[]
+	totalItems: number
+	currentPage: number
+	totalPages: number
+}

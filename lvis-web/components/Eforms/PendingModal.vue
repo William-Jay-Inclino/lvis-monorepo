@@ -25,7 +25,7 @@
                     <div class="mb-3" v-if="employee.is_budget_officer">
                         <label class="form-label"> Classification </label>
                         <client-only>
-                            <v-select :options="classifications" label="name" v-model="classification"></v-select>
+                            <v-select @search="handleSearchClassifications" :options="classifications" label="name" v-model="classification"></v-select>
                         </client-only>
                         <small class="text-danger fst-italic" v-if="formErrors.classification">
                             This field is required </small>
@@ -60,12 +60,14 @@
 import { type Pending } from '~/composables/e-forms/pendings/pendings.types';
 import type { Account } from '~/composables/system/account/account';
 import { fetchAccountsByName } from '~/composables/system/account/account.api';
+import { fetchClassificationsByName } from '~/composables/system/classification/classification.api';
 import type { Employee } from '~/composables/system/employee/employee.types';
 
 const emits = defineEmits([
     'approve-budget-officer',
     'approve-finance-manager',
-    'search-accounts'
+    'search-accounts',
+    'search-classifications',
 ])
 
 const props = defineProps<{
@@ -181,6 +183,17 @@ async function handleSearchAccounts(input: string, loading: (status: boolean) =>
 
 }
 
+async function handleSearchClassifications(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        emits('search-accounts', [])
+        return 
+    } 
+
+    debouncedSearchAccounts(input, loading)
+
+}
+
 async function searchAccounts(input: string, loading: (status: boolean) => void) {
 
     loading(true)
@@ -195,8 +208,26 @@ async function searchAccounts(input: string, loading: (status: boolean) => void)
     }
 }
 
+async function searchClassifications(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchClassificationsByName(input);
+        emits('search-classifications', response)
+    } catch (error) {
+        console.error('Error fetching Classifications:', error);
+    } finally {
+        loading(false);
+    }
+}
+
 const debouncedSearchAccounts = debounce((input: string, loading: (status: boolean) => void) => {
     searchAccounts(input, loading);
+}, 500);
+
+const debouncedSearchClassifications = debounce((input: string, loading: (status: boolean) => void) => {
+    searchClassifications(input, loading);
 }, 500);
 
 </script>

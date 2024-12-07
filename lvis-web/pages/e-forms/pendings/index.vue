@@ -102,6 +102,7 @@
                     @approve-budget-officer="handleApproveBudgetOfficer" 
                     @approve-finance-manager="handleApproveFinanceManager"
                     @search-accounts="handleSearchedAccounts"
+                    @search-classifications="handleSearchedClassifications"
                     />
     
             </div>
@@ -458,6 +459,9 @@ async function handleSearchedAccounts(searchedAccounts: Account[]) {
     accounts.value = searchedAccounts.map(i => ({...i}))
 }
 
+async function handleSearchedClassifications(searchedClassifications: Classification[]) {
+    classifications.value = searchedClassifications.map(i => ({...i}))
+}
 
 // =============================== Comment.vue Handlers =============================== 
 
