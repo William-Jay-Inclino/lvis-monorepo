@@ -219,14 +219,22 @@ export async function findAll(payload: {
     page: number, 
     pageSize: number, 
     vehicle_id?: string, 
-  }): Promise<FindAllResponse> {
-  
+    approval_status: APPROVAL_STATUS | null, 
+    }): Promise<FindAllResponse> {
+    
+    let approval_status2 = null
+
+    if (payload.approval_status) {
+        approval_status2 = payload.approval_status
+    }
+
     const query = `
       query {
         gas_slips(
           page: ${payload.page}, 
           pageSize: ${payload.pageSize}, 
-          ${payload.vehicle_id ? `vehicle_id: "${payload.vehicle_id}",` : ""}
+          ${payload.vehicle_id ? `vehicle_id: "${payload.vehicle_id}",` : ""},
+            approval_status: ${approval_status2},
         ) {
           data {
             id

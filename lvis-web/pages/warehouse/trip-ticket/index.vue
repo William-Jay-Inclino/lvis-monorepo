@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Trip Number</label>
                             <client-only>
@@ -17,7 +17,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
@@ -25,7 +25,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Driver</label>
                             <client-only>
@@ -33,13 +33,24 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <client-only>
+                                <v-select :options="tripStatusArray" label="label" v-model="trip_status"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row pt-1">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Date Prepared</label>
                             <input v-model="date_prepared" type="date" class="form-control">
                         </div>
                     </div>
-                    <div class="col-lg">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Est. Departure</label>
                             <input v-model="date_departure" type="date" class="form-control">
@@ -186,7 +197,8 @@ import { ROUTES } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
-import { tripTicketStatus } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
+import { tripTicketStatus, type ITripStatus } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
+import { tripStatusArray } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
 
 definePageMeta({
     name: ROUTES.TRIP_TICKET_INDEX,
@@ -223,7 +235,8 @@ const date_departure = ref(null)
 const trip_tickets = ref<TripTicket[]>([])
 const employees = ref<Employee[]>([])
 const vehicles = ref<Vehicle[]>([])
-// ----------------
+const trip_status = ref<ITripStatus | null>(null)
+    // ----------------
 
 
 // table data
@@ -267,7 +280,7 @@ async function changePage(page: number) {
         driver_id: driver.value ? driver.value.id : undefined,
         date_prepared: date_prepared.value || undefined,
         estimated_departure: date_departure.value || undefined,
-
+        trip_status: trip_status.value ? trip_status.value.id : null
     })
     isPaginating.value = false
 
@@ -304,7 +317,7 @@ async function search() {
         driver_id: driver.value ? driver.value.id : undefined,
         date_prepared: date_prepared.value || undefined,
         estimated_departure: date_departure.value || undefined,
-
+        trip_status: trip_status.value ? trip_status.value.id : null
     })
     isSearching.value = false
     items.value = data

@@ -735,7 +735,6 @@ exports.Prisma.TripTicketScalarFieldEnum = {
   is_out_of_coverage: 'is_out_of_coverage',
   prepared_by_id: 'prepared_by_id',
   status: 'status',
-  approval_status: 'approval_status',
   cancelled_by: 'cancelled_by',
   created_by: 'created_by',
   updated_by: 'updated_by',

@@ -57297,12 +57297,10 @@ export namespace Prisma {
 
   export type TripTicketAvgAggregateOutputType = {
     status: number | null
-    approval_status: number | null
   }
 
   export type TripTicketSumAggregateOutputType = {
     status: number | null
-    approval_status: number | null
   }
 
   export type TripTicketMinAggregateOutputType = {
@@ -57323,7 +57321,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean | null
     prepared_by_id: string | null
     status: number | null
-    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -57350,7 +57347,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean | null
     prepared_by_id: string | null
     status: number | null
-    approval_status: number | null
     cancelled_by: string | null
     created_by: string | null
     updated_by: string | null
@@ -57377,7 +57373,6 @@ export namespace Prisma {
     is_out_of_coverage: number
     prepared_by_id: number
     status: number
-    approval_status: number
     cancelled_by: number
     created_by: number
     updated_by: number
@@ -57390,12 +57385,10 @@ export namespace Prisma {
 
   export type TripTicketAvgAggregateInputType = {
     status?: true
-    approval_status?: true
   }
 
   export type TripTicketSumAggregateInputType = {
     status?: true
-    approval_status?: true
   }
 
   export type TripTicketMinAggregateInputType = {
@@ -57416,7 +57409,6 @@ export namespace Prisma {
     is_out_of_coverage?: true
     prepared_by_id?: true
     status?: true
-    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -57443,7 +57435,6 @@ export namespace Prisma {
     is_out_of_coverage?: true
     prepared_by_id?: true
     status?: true
-    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -57470,7 +57461,6 @@ export namespace Prisma {
     is_out_of_coverage?: true
     prepared_by_id?: true
     status?: true
-    approval_status?: true
     cancelled_by?: true
     created_by?: true
     updated_by?: true
@@ -57584,7 +57574,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
-    approval_status: number | null
     cancelled_by: string | null
     created_by: string
     updated_by: string | null
@@ -57630,7 +57619,6 @@ export namespace Prisma {
     is_out_of_coverage?: boolean
     prepared_by_id?: boolean
     status?: boolean
-    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -57660,7 +57648,6 @@ export namespace Prisma {
     is_out_of_coverage?: boolean
     prepared_by_id?: boolean
     status?: boolean
-    approval_status?: boolean
     cancelled_by?: boolean
     created_by?: boolean
     updated_by?: boolean
@@ -57700,7 +57687,6 @@ export namespace Prisma {
       is_out_of_coverage: boolean
       prepared_by_id: string
       status: number
-      approval_status: number | null
       cancelled_by: string | null
       created_by: string
       updated_by: string | null
@@ -58121,7 +58107,6 @@ export namespace Prisma {
     readonly is_out_of_coverage: FieldRef<"TripTicket", 'Boolean'>
     readonly prepared_by_id: FieldRef<"TripTicket", 'String'>
     readonly status: FieldRef<"TripTicket", 'Int'>
-    readonly approval_status: FieldRef<"TripTicket", 'Int'>
     readonly cancelled_by: FieldRef<"TripTicket", 'String'>
     readonly created_by: FieldRef<"TripTicket", 'String'>
     readonly updated_by: FieldRef<"TripTicket", 'String'>
@@ -64313,7 +64298,6 @@ export namespace Prisma {
     is_out_of_coverage: 'is_out_of_coverage',
     prepared_by_id: 'prepared_by_id',
     status: 'status',
-    approval_status: 'approval_status',
     cancelled_by: 'cancelled_by',
     created_by: 'created_by',
     updated_by: 'updated_by',
@@ -68619,7 +68603,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFilter<"TripTicket"> | boolean
     prepared_by_id?: StringFilter<"TripTicket"> | string
     status?: IntFilter<"TripTicket"> | number
-    approval_status?: IntNullableFilter<"TripTicket"> | number | null
     cancelled_by?: StringNullableFilter<"TripTicket"> | string | null
     created_by?: StringFilter<"TripTicket"> | string
     updated_by?: StringNullableFilter<"TripTicket"> | string | null
@@ -68648,7 +68631,6 @@ export namespace Prisma {
     is_out_of_coverage?: SortOrder
     prepared_by_id?: SortOrder
     status?: SortOrder
-    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -68680,7 +68662,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFilter<"TripTicket"> | boolean
     prepared_by_id?: StringFilter<"TripTicket"> | string
     status?: IntFilter<"TripTicket"> | number
-    approval_status?: IntNullableFilter<"TripTicket"> | number | null
     cancelled_by?: StringNullableFilter<"TripTicket"> | string | null
     created_by?: StringFilter<"TripTicket"> | string
     updated_by?: StringNullableFilter<"TripTicket"> | string | null
@@ -68709,7 +68690,6 @@ export namespace Prisma {
     is_out_of_coverage?: SortOrder
     prepared_by_id?: SortOrder
     status?: SortOrder
-    approval_status?: SortOrderInput | SortOrder
     cancelled_by?: SortOrderInput | SortOrder
     created_by?: SortOrder
     updated_by?: SortOrderInput | SortOrder
@@ -68744,7 +68724,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolWithAggregatesFilter<"TripTicket"> | boolean
     prepared_by_id?: StringWithAggregatesFilter<"TripTicket"> | string
     status?: IntWithAggregatesFilter<"TripTicket"> | number
-    approval_status?: IntNullableWithAggregatesFilter<"TripTicket"> | number | null
     cancelled_by?: StringNullableWithAggregatesFilter<"TripTicket"> | string | null
     created_by?: StringWithAggregatesFilter<"TripTicket"> | string
     updated_by?: StringNullableWithAggregatesFilter<"TripTicket"> | string | null
@@ -73589,7 +73568,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
-    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -73618,7 +73596,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
-    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -73645,7 +73622,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
-    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73674,7 +73650,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
-    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73702,7 +73677,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
-    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -73728,7 +73702,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
-    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73755,7 +73728,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
-    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -77251,7 +77223,6 @@ export namespace Prisma {
     is_out_of_coverage?: SortOrder
     prepared_by_id?: SortOrder
     status?: SortOrder
-    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -77262,7 +77233,6 @@ export namespace Prisma {
 
   export type TripTicketAvgOrderByAggregateInput = {
     status?: SortOrder
-    approval_status?: SortOrder
   }
 
   export type TripTicketMaxOrderByAggregateInput = {
@@ -77283,7 +77253,6 @@ export namespace Prisma {
     is_out_of_coverage?: SortOrder
     prepared_by_id?: SortOrder
     status?: SortOrder
-    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -77310,7 +77279,6 @@ export namespace Prisma {
     is_out_of_coverage?: SortOrder
     prepared_by_id?: SortOrder
     status?: SortOrder
-    approval_status?: SortOrder
     cancelled_by?: SortOrder
     created_by?: SortOrder
     updated_by?: SortOrder
@@ -77321,7 +77289,6 @@ export namespace Prisma {
 
   export type TripTicketSumOrderByAggregateInput = {
     status?: SortOrder
-    approval_status?: SortOrder
   }
 
   export type TripTicketScalarRelationFilter = {
@@ -90760,7 +90727,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
-    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -90787,7 +90753,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
-    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -90950,7 +90915,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFilter<"TripTicket"> | boolean
     prepared_by_id?: StringFilter<"TripTicket"> | string
     status?: IntFilter<"TripTicket"> | number
-    approval_status?: IntNullableFilter<"TripTicket"> | number | null
     cancelled_by?: StringNullableFilter<"TripTicket"> | string | null
     created_by?: StringFilter<"TripTicket"> | string
     updated_by?: StringNullableFilter<"TripTicket"> | string | null
@@ -91208,7 +91172,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
-    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -91236,7 +91199,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
-    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -91278,7 +91240,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
-    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91306,7 +91267,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
-    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93919,7 +93879,6 @@ export namespace Prisma {
     is_out_of_coverage: boolean
     prepared_by_id: string
     status: number
-    approval_status?: number | null
     cancelled_by?: string | null
     created_by: string
     updated_by?: string | null
@@ -93985,7 +93944,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
-    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -94012,7 +93970,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
-    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -94039,7 +93996,6 @@ export namespace Prisma {
     is_out_of_coverage?: BoolFieldUpdateOperationsInput | boolean
     prepared_by_id?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
-    approval_status?: NullableIntFieldUpdateOperationsInput | number | null
     cancelled_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null

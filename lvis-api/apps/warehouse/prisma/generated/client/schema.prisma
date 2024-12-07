@@ -1068,7 +1068,6 @@ model TripTicket {
   
   prepared_by_id String 
   status Int
-  approval_status Int?
 
   cancelled_by String?
   created_by String

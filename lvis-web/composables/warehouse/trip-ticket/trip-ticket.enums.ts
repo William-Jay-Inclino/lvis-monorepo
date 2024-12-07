@@ -42,3 +42,19 @@ export const tripTicketStatus = {
         color: 'warning',
     },
 }
+
+
+export const tripStatusArray = [
+    { id: TRIP_TICKET_STATUS.PENDING, label: tripTicketStatus[TRIP_TICKET_STATUS.PENDING].label },
+    { id: TRIP_TICKET_STATUS.APPROVED, label: tripTicketStatus[TRIP_TICKET_STATUS.APPROVED].label },
+    { id: TRIP_TICKET_STATUS.DISAPPROVED, label: tripTicketStatus[TRIP_TICKET_STATUS.DISAPPROVED].label },
+    { id: TRIP_TICKET_STATUS.CANCELLED, label: tripTicketStatus[TRIP_TICKET_STATUS.CANCELLED].label },
+    { id: TRIP_TICKET_STATUS.IN_PROGRESS, label: tripTicketStatus[TRIP_TICKET_STATUS.IN_PROGRESS].label },
+    { id: TRIP_TICKET_STATUS.COMPLETED, label: tripTicketStatus[TRIP_TICKET_STATUS.COMPLETED].label },
+]
+
+
+export interface ITripStatus {
+    id: number 
+    label: string
+}

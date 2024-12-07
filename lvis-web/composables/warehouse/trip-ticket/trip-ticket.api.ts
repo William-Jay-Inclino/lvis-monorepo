@@ -1,6 +1,7 @@
 import type { CreateTripTicket, FindAllResponse, MutationResponse, TripTicket, UpdateTripTicket } from "./trip-ticket.types";
 import { sendRequest } from "~/utils/api"
 import type { Employee } from "~/composables/system/employee/employee.types";
+import type { TRIP_TICKET_STATUS } from "./trip-ticket.enums";
 
 export async function fetchDataInSearchFilters(): Promise<{
     trip_tickets: TripTicket[],
@@ -244,14 +245,22 @@ export async function findAll(payload: {
     vehicle_id?: string, 
     driver_id?: string, 
     date_prepared?: string, 
-    estimated_departure?: string 
-  }): Promise<FindAllResponse> {
-  
+    estimated_departure?: string,
+    trip_status: TRIP_TICKET_STATUS | null, 
+    }): Promise<FindAllResponse> {
+    
+    let trip_status2 = null 
+
+    if(payload.trip_status) {
+        trip_status2 = payload.trip_status
+    }
+
     const query = `
       query {
         trip_tickets(
           page: ${payload.page}, 
           pageSize: ${payload.pageSize}, 
+          trip_status: ${trip_status2},
           ${payload.vehicle_id ? `vehicle_id: "${payload.vehicle_id}",` : ""}
           ${payload.driver_id ? `driver_id: "${payload.driver_id}",` : ""}
           ${payload.date_prepared ? `date_prepared: "${payload.date_prepared}",` : ""}

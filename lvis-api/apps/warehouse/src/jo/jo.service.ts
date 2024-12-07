@@ -282,6 +282,7 @@ export class JoService {
         const updateJoQuery = this.prisma.jO.update({
             data: {
                 cancelled_at: new Date(),
+                approval_status: APPROVAL_STATUS.CANCELLED,
                 cancelled_by: this.authUser.user.username,
                 canvass: {
                     disconnect: true

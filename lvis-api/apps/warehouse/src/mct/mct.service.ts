@@ -114,6 +114,7 @@ export class MctService {
             data: {
                 cancelled_at: new Date(),
                 cancelled_by: this.authUser.user.username,
+                approval_status: APPROVAL_STATUS.CANCELLED,
                 mrv: {
                     disconnect: true
                 }

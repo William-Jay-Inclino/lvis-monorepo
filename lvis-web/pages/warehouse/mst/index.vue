@@ -246,9 +246,9 @@ async function changePage(page: number) {
     const { data, currentPage, totalItems, totalPages } = await mstApi.findAll({
         page,
         pageSize: pagination.value.pageSize,
-        date_requested: null,
-        returned_by_id: null,
-        approval_status: null,
+        date_requested: date_requested.value,
+        returned_by_id: returned_by.value ? returned_by.value.id : null,
+        approval_status: approval_status.value ? approval_status.value.id : null
     })
     isPaginating.value = false
 

@@ -251,9 +251,9 @@ async function changePage(page: number) {
     const { data, currentPage, totalItems, totalPages } = await osrivApi.findAll({
         page,
         pageSize: pagination.value.pageSize,
-        date_requested: null,
-        requested_by_id: null,
-        approval_status: null,
+        date_requested: date_requested.value,
+        requested_by_id: requested_by.value ? requested_by.value.id : null,
+        approval_status: approval_status.value ? approval_status.value.id : null
     })
     isPaginating.value = false
 

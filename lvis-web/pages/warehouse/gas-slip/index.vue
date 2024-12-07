@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Gas Slip Number</label>
                             <client-only>
@@ -17,11 +17,19 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
                                 <v-select :options="vehicles" label="label" v-model="vehicle"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <client-only>
+                                <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -205,7 +213,8 @@ const vehicle = ref<Vehicle | null>(null)
 const gas_slips = ref<GasSlip[]>([])
 const employees = ref<Employee[]>([])
 const vehicles = ref<Vehicle[]>([])
-// ----------------
+const approval_status = ref<IApprovalStatus | null>(null)
+    // ----------------
 
 
 // table data
@@ -246,6 +255,7 @@ async function changePage(page: number) {
         page,
         pageSize: pagination.value.pageSize,
         vehicle_id: vehicle.value ? vehicle.value.id : undefined,
+        approval_status: approval_status.value ? approval_status.value.id : null,
     })
     isPaginating.value = false
 
@@ -279,6 +289,7 @@ async function search() {
         page: 1,
         pageSize: pagination.value.pageSize,
         vehicle_id: vehicle.value ? vehicle.value.id : undefined,
+        approval_status: approval_status.value ? approval_status.value.id : null,
     })
     isSearching.value = false
     items.value = data

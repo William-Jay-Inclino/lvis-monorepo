@@ -85,7 +85,6 @@ export class TripTicketService {
 			is_out_of_coverage: input.is_out_of_coverage,
 			prepared_by_id: input.prepared_by_id,
 			status: TRIP_TICKET_STATUS.PENDING,
-            approval_status: APPROVAL_STATUS.PENDING,
 			created_by: this.authUser.user.username,
 			trip_ticket_approvers: {
                 create: input.approvers.map(i => {
@@ -308,7 +307,8 @@ export class TripTicketService {
         const updateTripQuery = this.prisma.tripTicket.update({
             data: {
                 cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username
+                cancelled_by: this.authUser.user.username,
+				status: TRIP_TICKET_STATUS.CANCELLED,
             },
             where: { id }
         })
@@ -343,7 +343,7 @@ export class TripTicketService {
 		driver_id?: string,
 		date_prepared?: string,
 		estimated_departure?: string,
-		approval_status?: number
+		trip_status?: number
 	  ): Promise<TripTicketsResponse> {
 		const skip = (page - 1) * pageSize;
 		const take = pageSize;
@@ -354,12 +354,12 @@ export class TripTicketService {
 		if (date_prepared) filters.created_at = { gte: new Date(date_prepared) };
 		if (estimated_departure) filters.start_time = { gte: new Date(estimated_departure) };
 
-		if (approval_status) {
-            filters.approval_status = approval_status;
+		if (trip_status) {
+            filters.status = trip_status;
         }
 
         // Default to current year's records if neither filter is provided
-        if (!vehicle_id && !driver_id && !date_prepared && !estimated_departure && !approval_status) {
+        if (!vehicle_id && !driver_id && !date_prepared && !estimated_departure && !trip_status) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 

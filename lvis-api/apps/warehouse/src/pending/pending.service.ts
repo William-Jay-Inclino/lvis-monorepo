@@ -139,14 +139,30 @@ export class PendingService {
             } 
             else if(status === APPROVAL_STATUS.DISAPPROVED) {
 
-                await tx[module.model].update({
-                    where: {
-                        id: model.id
-                    },
-                    data: {
-                        approval_status: APPROVAL_STATUS.DISAPPROVED
-                    }
-                })
+                if(module.model === 'tripTicket') {
+                    await tx.tripTicket.update({
+                        where: {
+                            id: model.id
+                        },
+                        data: {
+                            status: TRIP_TICKET_STATUS.DISAPPROVED
+                        }
+                    })
+                } 
+                
+                else {
+
+                    await tx[module.model].update({
+                        where: {
+                            id: model.id
+                        },
+                        data: {
+                            approval_status: APPROVAL_STATUS.DISAPPROVED
+                        }
+                    })
+
+                }
+
 
             }
 
@@ -1004,7 +1020,6 @@ export class PendingService {
 			},
 			data: {
 				status: TRIP_TICKET_STATUS.APPROVED,
-                approval_status: APPROVAL_STATUS.APPROVED
 			}
 		})
 

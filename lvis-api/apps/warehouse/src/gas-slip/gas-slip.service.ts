@@ -181,7 +181,8 @@ export class GasSlipService {
         const updateGasSlipQuery = this.prisma.gasSlip.update({
             data: {
                 cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username
+                cancelled_by: this.authUser.user.username,
+                approval_status: APPROVAL_STATUS.CANCELLED
             },
             where: { id }
         })
