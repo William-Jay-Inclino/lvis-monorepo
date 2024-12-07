@@ -93,7 +93,7 @@
                                 Classification
                             </label>
                             <client-only>
-                                <v-select :options="classifications" label="name" v-model="rvData.classification"></v-select>
+                                <v-select @search="handleSearchClassifications" :options="classifications" label="name" v-model="rvData.classification"></v-select>
                             </client-only>
                         </div>
         
@@ -121,18 +121,6 @@
         
                     </div>
                 </div>
-        
-                <!-- <div v-show="!isRVDetailForm" class="row justify-content-center pt-5">
-        
-                    <div class="col-12">
-                        <WarehouseApprover :approvers="rvData.rv_approvers" :employees="employees"
-                            :isUpdatingApproverOrder="isUpdatingApproverOrder" :isAddingApprover="isAddingRvApprover"
-                            :isEditingApprover="isEditingRvApprover" @changeApproverOrder="changeApproverOrder"
-                            @addApprover="addApprover" @editApprover="editApprover" @removeApprover="removeApprover" @searched-employees="handleSearchedEmployees"/>
-                    </div>
-        
-        
-                </div> -->
         
         
                 <div class="row justify-content-center pt-3">
@@ -183,6 +171,7 @@ import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
+import { fetchClassificationsByName } from '~/composables/system/classification/classification.api';
 
 definePageMeta({
     name: ROUTES.RV_UPDATE,
@@ -330,12 +319,6 @@ async function updateRvInfo() {
 
         router.push(`/warehouse/rv/view/${response.data.id}`);
 
-        // rvData.value.rv_approvers = response.data.rv_approvers.map(i => {
-        //     i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-        //     i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-        //     return i
-        // })
-
     } else {
         Swal.fire({
             title: 'Error!',
@@ -358,10 +341,17 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 
 }
 
-// handle searched employees from child component (Approver) 
-async function handleSearchedEmployees(searchedEmployees: Employee[]) {
-    employees.value = addPropertyFullName(searchedEmployees)
+async function handleSearchClassifications(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        classifications.value = []
+        return 
+    } 
+
+    debouncedSearchClassifications(input, loading)
+
 }
+
 
 async function searchEmployees(input: string, loading: (status: boolean) => void) {
     console.log('searchEmployees');
@@ -380,161 +370,20 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
     }
 }
 
-// ======================== CHILD EVENTS: <WarehouseApprover> ========================  
+async function searchClassifications(input: string, loading: (status: boolean) => void) {
 
-// async function addApprover(
-//     data: CreateApproverInput,
-//     modalCloseBtn: HTMLButtonElement
-// ) {
+    loading(true)
 
-//     console.log('data', data)
+    try {
+        const response = await fetchClassificationsByName(input);
+        classifications.value = response
+    } catch (error) {
+        console.error('Error fetching Classifications:', error);
+    } finally {
+        loading(false);
+    }
+}
 
-//     isAddingRvApprover.value = true
-//     const response = await rvApproverApi.create(rvData.value.id, data)
-//     isAddingRvApprover.value = false
-
-//     if (response.success && response.data) {
-//         toast.success(response.msg)
-
-//         const approver = response.data.approver
-
-//         approver!.fullname = getFullname(approver!.firstname, approver!.middlename, approver!.lastname)
-
-//         response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
-
-//         rvData.value.rv_approvers.push(response.data)
-//         modalCloseBtn.click()
-//     } else {
-//         Swal.fire({
-//             title: 'Error!',
-//             text: response.msg,
-//             icon: 'error',
-//             position: 'top',
-//         })
-//     }
-// }
-
-// async function editApprover(
-//     data: UpdateApproverInput,
-//     modalCloseBtn: HTMLButtonElement
-// ) {
-//     isEditingRvApprover.value = true
-//     const response = await rvApproverApi.update(data)
-//     isEditingRvApprover.value = false
-
-//     if (response.success && response.data) {
-//         toast.success(response.msg)
-
-//         const prevApproverItemIndx = rvData.value.rv_approvers.findIndex(i => i.id === data.id)
-
-//         response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
-
-//         const a = response.data.approver
-
-//         console.log('a', a);
-
-//         response.data.approver!['fullname'] = getFullname(a!.firstname, a!.middlename, a!.lastname)
-
-//         rvData.value.rv_approvers[prevApproverItemIndx] = { ...response.data }
-
-//         rvData.value.supervisor = a!
-//         rvData.value.supervisor_id = a!.id
-
-//         modalCloseBtn.click()
-
-//     } else {
-//         Swal.fire({
-//             title: 'Error!',
-//             text: response.msg,
-//             icon: 'error',
-//             position: 'top',
-//         })
-//     }
-// }
-
-// async function removeApprover(id: string) {
-
-//     const indx = rvData.value.rv_approvers.findIndex(i => i.id === id)
-
-//     const item = rvData.value.rv_approvers[indx]
-
-//     if (!item) {
-//         console.error('approver not found with id of: ' + id)
-//         return
-//     }
-
-//     Swal.fire({
-//         title: "Are you sure?",
-//         text: `${item.approver?.fullname} will be removed!`,
-//         position: "top",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#e74a3b",
-//         cancelButtonColor: "#6c757d",
-//         confirmButtonText: "Yes, delete it!",
-//         reverseButtons: true,
-//         showLoaderOnConfirm: true,
-//         preConfirm: async (remove) => {
-
-//             if (remove) {
-//                 const response = await rvApproverApi.remove(item.id)
-
-//                 if (response.success) {
-
-//                     toast.success(`${item.approver?.fullname} removed!`)
-
-//                     rvData.value.rv_approvers.splice(indx, 1)
-
-//                 } else {
-
-//                     Swal.fire({
-//                         title: 'Error!',
-//                         text: response.msg,
-//                         icon: 'error',
-//                         position: 'top',
-//                     })
-
-//                 }
-//             }
-
-//         },
-//         allowOutsideClick: () => !Swal.isLoading()
-//     })
-
-// }
-
-// async function changeApproverOrder(
-//     data: { id: string, order: number }[],
-//     modalCloseBtn: HTMLButtonElement
-// ) {
-
-//     console.log('data', data)
-//     console.log('modalCloseBtn', modalCloseBtn)
-
-//     isUpdatingApproverOrder.value = true
-//     const response = await rvApproverApi.updateApproverOrder(data)
-//     isUpdatingApproverOrder.value = false
-
-//     if (response.success && response.approvers) {
-//         toast.success(response.msg)
-
-//         rvData.value.rv_approvers = response.approvers.map(i => {
-//             i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-//             i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-//             return i
-//         })
-//         modalCloseBtn.click()
-
-//     } else {
-//         Swal.fire({
-//             title: 'Error!',
-//             text: response.msg,
-//             icon: 'error',
-//             position: 'top',
-//         })
-//     }
-
-// }
 
 // ======================== UTILS ========================  
 
@@ -558,6 +407,10 @@ function isValidRvInfo(): boolean {
 
 const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
     searchEmployees(input, loading);
+}, 500);
+
+const debouncedSearchClassifications = debounce((input: string, loading: (status: boolean) => void) => {
+    searchClassifications(input, loading);
 }, 500);
 
 </script>

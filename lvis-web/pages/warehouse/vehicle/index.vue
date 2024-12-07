@@ -173,7 +173,7 @@ import { fetchEmployees } from '~/composables/system/employee/employee.api';
 
 definePageMeta({
     name: ROUTES.VEHICLE_INDEX,
-    layout: "layout-system",
+    layout: "layout-warehouse",
     middleware: ['auth'],
 })
 const isLoadingPage = ref(true)

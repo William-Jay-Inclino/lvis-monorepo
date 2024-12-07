@@ -108,7 +108,7 @@
                                         Vehicle <span class="text-danger">*</span>
                                     </label>
                                     <client-only>
-                                        <v-select :options="vehicles" label="label" v-model="sprData.vehicle"></v-select>
+                                        <v-select @search="handleSearchVehicles" :options="vehicles" label="label" v-model="sprData.vehicle"></v-select>
                                     </client-only>
                                     <small class="text-danger fst-italic" v-if="sprDataErrors.vehicle"> This field is required
                                     </small>
@@ -177,6 +177,7 @@ import { fetchCanvassesByRcNumber } from '~/composables/warehouse/canvass/canvas
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { fetchClassificationsByName } from '~/composables/system/classification/classification.api';
+import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';
 
 definePageMeta({
     name: ROUTES.SPR_CREATE,
@@ -351,6 +352,17 @@ async function handleSearchClassifications(input: string, loading: (status: bool
 
 }
 
+async function handleSearchVehicles(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        vehicles.value = []
+        return 
+    } 
+
+    debouncedSearchVehicles(input, loading)
+
+}
+
 async function searchEmployees(input: string, loading: (status: boolean) => void) {
     console.log('searchEmployees');
     console.log('input', input);
@@ -400,6 +412,20 @@ async function searchClassifications(input: string, loading: (status: boolean) =
     }
 }
 
+async function searchVehicles(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchVehicles(input);
+        vehicles.value = response.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
+    } catch (error) {
+        console.error('Error fetching Vehicles:', error);
+    } finally {
+        loading(false);
+    }
+}
+
 // ======================== UTILS ========================  
 
 function isValid(): boolean {
@@ -438,6 +464,10 @@ const debouncedSearchEmployees = debounce((input: string, loading: (status: bool
 
 const debouncedSearchClassifications = debounce((input: string, loading: (status: boolean) => void) => {
     searchClassifications(input, loading);
+}, 500);
+
+const debouncedSearchVehicles = debounce((input: string, loading: (status: boolean) => void) => {
+    searchVehicles(input, loading);
 }, 500);
 
 </script>

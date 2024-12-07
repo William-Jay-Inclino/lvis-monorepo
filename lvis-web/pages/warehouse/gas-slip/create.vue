@@ -34,7 +34,7 @@
                                     Vehicle <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="vehicles" label="label" v-model="gsData.vehicle" :clearable="false"></v-select>
+                                    <v-select @search="handleSearchVehicles" :options="vehicles" label="label" v-model="gsData.vehicle" :clearable="false"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.vehicle"> {{ errorMsg }}
                                 </small>
@@ -208,6 +208,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { GAS_SLIP_DEFAULT_APPROVERS } from '~/composables/warehouse/gas-slip/gas-slips.constants';
 import { VEHICLE_CLASSIFICATION, VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
+import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';
 
 definePageMeta({
     name: ROUTES.GAS_SLIP_CREATE,
@@ -402,6 +403,36 @@ function getApproverOptions(order: number) {
     }
     return employees.value
 }
+
+
+async function handleSearchVehicles(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        vehicles.value = []
+        return 
+    } 
+
+    debouncedSearchVehicles(input, loading)
+
+}
+
+async function searchVehicles(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchVehicles(input);
+        vehicles.value = response.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
+    } catch (error) {
+        console.error('Error fetching Employees:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+const debouncedSearchVehicles = debounce((input: string, loading: (status: boolean) => void) => {
+    searchVehicles(input, loading);
+}, 500);
 
 
 </script>

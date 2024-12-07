@@ -93,7 +93,7 @@
                                 Classification
                             </label>
                             <client-only>
-                                <v-select :options="classifications" label="name" v-model="joData.classification"></v-select>
+                                <v-select @search="handleSearchClassifications" :options="classifications" label="name" v-model="joData.classification"></v-select>
                             </client-only>
                         </div>
         
@@ -178,6 +178,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import type { Department } from '~/composables/system/department/department';
+import { fetchClassificationsByName } from '~/composables/system/classification/classification.api';
 
 definePageMeta({
     name: ROUTES.JO_UPDATE,
@@ -329,12 +330,6 @@ async function updateJoInfo() {
 
         router.push(`/warehouse/jo/view/${response.data.id}`);
 
-        // joData.value.jo_approvers = response.data.jo_approvers.map(i => {
-        //     i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-        //     i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-        //     return i
-        // })
-
     } else {
         Swal.fire({
             title: 'Error!',
@@ -357,6 +352,17 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 
 }
 
+async function handleSearchClassifications(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        classifications.value = []
+        return 
+    } 
+
+    debouncedSearchClassifications(input, loading)
+
+}
+
 async function searchEmployees(input: string, loading: (status: boolean) => void) {
     console.log('searchEmployees');
     console.log('input', input);
@@ -369,6 +375,20 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
         employees.value = addPropertyFullName(response)
     } catch (error) {
         console.error('Error fetching Employees:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+async function searchClassifications(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchClassificationsByName(input);
+        classifications.value = response
+    } catch (error) {
+        console.error('Error fetching Classifications:', error);
     } finally {
         loading(false);
     }
@@ -388,10 +408,6 @@ function isValidJoInfo(): boolean {
         joDataErrors.value.department = true
     }
 
-    // if (joData.value.equipment.trim() === '') {
-    //     joDataErrors.value.equipment = true
-    // }
-
     const hasError = Object.values(joDataErrors.value).includes(true);
 
     if (hasError) {
@@ -406,5 +422,8 @@ const debouncedSearchEmployees = debounce((input: string, loading: (status: bool
     searchEmployees(input, loading);
 }, 500);
 
+const debouncedSearchClassifications = debounce((input: string, loading: (status: boolean) => void) => {
+    searchClassifications(input, loading);
+}, 500);
 
 </script>

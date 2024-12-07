@@ -57,7 +57,7 @@
                         <div class="mb-3" v-if="isAdmin(authUser)">
                             <label class="form-label">Fund Source</label>
                             <client-only>
-                                <v-select :options="accounts" label="name" v-model="poData.fund_source"></v-select>
+                                <v-select @search="handleSearchAccounts" :options="accounts" label="name" v-model="poData.fund_source"></v-select>
                             </client-only>
                         </div>
 
@@ -69,18 +69,6 @@
                     </div>
 
                 </div>
-
-
-                <!-- <div v-show="!isPODetailForm" class="row justify-content-center pt-5">
-
-                    <div class="col-12">
-                        <WarehouseApprover :approvers="poData.po_approvers" :employees="employees"
-                            :isUpdatingApproverOrder="isUpdatingApproverOrder" :isAddingApprover="isAddingApprover"
-                            :isEditingApprover="isEditingApprover" @changeApproverOrder="changeApproverOrder"
-                            @addApprover="addApprover" @editApprover="editApprover" @removeApprover="removeApprover" @searched-employees="handleSearchedEmployees"/>
-                    </div>
-
-                </div> -->
 
 
                 <div class="row justify-content-center pt-3">
@@ -130,6 +118,7 @@ import * as poApproverApi from '~/composables/warehouse/po/po-approver.api'
 import type { Account } from '~/composables/system/account/account';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
+import { fetchAccountsByName } from '~/composables/system/account/account.api';
 
 definePageMeta({
     name: ROUTES.PO_UPDATE,
@@ -263,157 +252,36 @@ async function updatePoInfo() {
 
 }
 
-// handle searched employees from child component (Approver) 
-async function handleSearchedEmployees(searchedEmployees: Employee[]) {
-    employees.value = addPropertyFullName(searchedEmployees)
+async function handleSearchAccounts(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        accounts.value = []
+        return 
+    } 
+
+    debouncedSearchAccounts(input, loading)
+
 }
 
-// ======================== CHILD EVENTS: <WarehouseApprover> ========================  
 
-async function addApprover(
-    data: CreateApproverInput,
-    modalCloseBtn: HTMLButtonElement
-) {
-    console.log('data', data)
+async function searchAccounts(input: string, loading: (status: boolean) => void) {
 
-    isAddingApprover.value = true
-    const response = await poApproverApi.create(poData.value.id, data)
-    isAddingApprover.value = false
+    loading(true)
 
-    if (response.success && response.data) {
-        toast.success(response.msg)
-
-        const approver = response.data.approver
-
-        approver!.fullname = getFullname(approver!.firstname, approver!.middlename, approver!.lastname)
-
-        response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
-
-        poData.value.po_approvers.push(response.data)
-        modalCloseBtn.click()
-    } else {
-        Swal.fire({
-            title: 'Error!',
-            text: response.msg,
-            icon: 'error',
-            position: 'top',
-        })
+    try {
+        const response = await fetchAccountsByName(input);
+        accounts.value = response
+    } catch (error) {
+        console.error('Error fetching Accounts:', error);
+    } finally {
+        loading(false);
     }
 }
 
-async function editApprover(
-    data: UpdateApproverInput,
-    modalCloseBtn: HTMLButtonElement
-) {
-    isEditingApprover.value = true
-    const response = await poApproverApi.update(data)
-    isEditingApprover.value = false
 
-    if (response.success && response.data) {
-        toast.success(response.msg)
-
-        const prevApproverItemIndx = poData.value.po_approvers.findIndex(i => i.id === data.id)
-
-        response.data.date_approval = response.data.date_approval ? formatToValidHtmlDate(response.data.date_approval, true) : null
-
-        const a = response.data.approver
-
-        response.data.approver!['fullname'] = getFullname(a!.firstname, a!.middlename, a!.lastname)
-
-        poData.value.po_approvers[prevApproverItemIndx] = { ...response.data }
-
-        modalCloseBtn.click()
-
-    } else {
-        Swal.fire({
-            title: 'Error!',
-            text: response.msg,
-            icon: 'error',
-            position: 'top',
-        })
-    }
-}
-
-async function removeApprover(id: string) {
-    const indx = poData.value.po_approvers.findIndex(i => i.id === id)
-
-    const item = poData.value.po_approvers[indx]
-
-    if (!item) {
-        console.error('approver not found with id of: ' + id)
-        return
-    }
-
-    Swal.fire({
-        title: "Are you sure?",
-        text: `${item.approver?.fullname} will be removed!`,
-        position: "top",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#e74a3b",
-        cancelButtonColor: "#6c757d",
-        confirmButtonText: "Yes, delete it!",
-        reverseButtons: true,
-        showLoaderOnConfirm: true,
-        preConfirm: async (remove) => {
-
-            if (remove) {
-                const response = await poApproverApi.remove(item.id)
-
-                if (response.success) {
-
-                    toast.success(`${item.approver?.fullname} removed!`)
-
-                    poData.value.po_approvers.splice(indx, 1)
-
-                } else {
-
-                    Swal.fire({
-                        title: 'Error!',
-                        text: response.msg,
-                        icon: 'error',
-                        position: 'top',
-                    })
-
-                }
-            }
-
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-    })
-}
-
-async function changeApproverOrder(
-    data: { id: string, order: number }[],
-    modalCloseBtn: HTMLButtonElement
-) {
-    console.log('data', data)
-    console.log('modalCloseBtn', modalCloseBtn)
-
-    isUpdatingApproverOrder.value = true
-    const response = await poApproverApi.updateApproverOrder(data)
-    isUpdatingApproverOrder.value = false
-
-    if (response.success && response.approvers) {
-        toast.success(response.msg)
-
-        poData.value.po_approvers = response.approvers.map(i => {
-            i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-            i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-            return i
-        })
-        modalCloseBtn.click()
-
-    } else {
-        Swal.fire({
-            title: 'Error!',
-            text: response.msg,
-            icon: 'error',
-            position: 'top',
-        })
-    }
-}
-
+const debouncedSearchAccounts = debounce((input: string, loading: (status: boolean) => void) => {
+    searchAccounts(input, loading);
+}, 500);
 
 
 </script>

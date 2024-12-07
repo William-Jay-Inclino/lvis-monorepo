@@ -23,8 +23,12 @@ export async function fetchDataInSearchFilters(): Promise<{
                     lastname
                 }
             },
-            vehicles {
-                vehicle_number
+            vehicles(page: 1, pageSize: 10) {
+                data {
+                    id
+                    vehicle_number
+                    name
+                }
             }
         }
     `;
@@ -51,8 +55,8 @@ export async function fetchDataInSearchFilters(): Promise<{
             trip_tickets = data.trip_tickets.data
         }
 
-        if(data.vehicles) {
-            vehicles = data.vehicles
+        if (data.vehicles && data.vehicles.data) {
+            vehicles = data.vehicles.data
         }
 
         return {
@@ -80,6 +84,7 @@ export async function findByTripNumber(tripNumber: string): Promise<TripTicket |
                 vehicle {
                     id
                     vehicle_number
+                    name
                 }
                 driver {
                     id 
@@ -272,6 +277,7 @@ export async function findAll(payload: {
             vehicle {
                 id
                 vehicle_number
+                name
             }
             driver {
                 id 
@@ -319,19 +325,21 @@ export async function fetchFormDataInCreate(): Promise<{
                     rank_number
                 }
             },
-            vehicles {
-                id
-                vehicle_number
-                plate_number
-                name
-                classification_id
-                date_acquired
-                status
-                assignee {
-                    id 
-                    firstname 
-                    middlename 
-                    lastname
+            vehicles(page: 1, pageSize: 10) {
+                data {
+                    id
+                    vehicle_number
+                    plate_number
+                    name
+                    classification_id
+                    date_acquired
+                    status
+                    assignee {
+                        id 
+                        firstname 
+                        middlename 
+                        lastname
+                    }
                 }
             }
             fmsd_chief {
@@ -368,8 +376,8 @@ export async function fetchFormDataInCreate(): Promise<{
             employees = response.data.data.employees.data
         }
 
-        if (data.vehicles) {
-            vehicles = data.vehicles
+        if (data.vehicles && data.vehicles.data) {
+            vehicles = response.data.data.vehicles.data
         }
 
         if (data.fmsd_chief) {
@@ -474,19 +482,21 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     rank_number
                 }
             },
-            vehicles {
-                id
-                vehicle_number
-                plate_number
-                name
-                classification_id
-                date_acquired
-                status
-                assignee {
-                    id 
-                    firstname 
-                    middlename 
-                    lastname
+            vehicles(page: 1, pageSize: 10) {
+                data {
+                    id
+                    vehicle_number
+                    plate_number
+                    name
+                    classification_id
+                    date_acquired
+                    status
+                    assignee {
+                        id 
+                        firstname 
+                        middlename 
+                        lastname
+                    }
                 }
             }
         }
@@ -515,8 +525,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             employees = response.data.data.employees.data
         }
 
-        if (data.vehicles && data.vehicles) {
-            vehicles = data.vehicles
+        if (data.vehicles && data.vehicles.data) {
+            vehicles = response.data.data.vehicles.data
         }
 
         return {

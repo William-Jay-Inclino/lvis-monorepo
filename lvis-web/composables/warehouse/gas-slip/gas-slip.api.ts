@@ -23,11 +23,13 @@ export async function fetchDataInSearchFilters(): Promise<{
                     lastname
                 }
             },
-            vehicles {
-                id
-                vehicle_number
-                name
-            }
+            vehicles(page: 1, pageSize: 10) {
+                data {
+                    id
+                    vehicle_number
+                    name
+                }
+            },
         }
     `;
 
@@ -53,8 +55,8 @@ export async function fetchDataInSearchFilters(): Promise<{
             gas_slips = data.gas_slips.data
         }
 
-        if(data.vehicles) {
-            vehicles = data.vehicles
+        if (data.vehicles && data.vehicles.data) {
+            vehicles = data.vehicles.data
         }
 
         return {
@@ -297,19 +299,21 @@ export async function fetchFormDataInCreate(): Promise<{
                     rank_number
                 }
             },
-            vehicles {
-                id
-                vehicle_number
-                plate_number
-                name
-                classification_id
-                date_acquired
-                total_unposted_gas_slips
-                assignee {
-                    id 
-                    firstname 
-                    middlename 
-                    lastname
+            vehicles(page: 1, pageSize: 10) {
+                data {
+                    id
+                    vehicle_number
+                    plate_number
+                    name
+                    classification_id
+                    date_acquired
+                    total_unposted_gas_slips
+                    assignee {
+                        id 
+                        firstname 
+                        middlename 
+                        lastname
+                    }
                 }
             }
             gas_stations {
@@ -349,8 +353,8 @@ export async function fetchFormDataInCreate(): Promise<{
             employees = response.data.data.employees.data
         }
 
-        if (data.vehicles) {
-            vehicles = data.vehicles
+        if (data.vehicles && data.vehicles.data) {
+            vehicles = response.data.data.vehicles.data
         }
 
         if (data.department_heads) {
@@ -467,19 +471,21 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     rank_number
                 }
             },
-            vehicles {
-                id
-                vehicle_number
-                plate_number
-                name
-                classification_id
-                date_acquired
-                total_unposted_gas_slips
-                assignee {
-                    id 
-                    firstname 
-                    middlename 
-                    lastname
+            vehicles(page: 1, pageSize: 10) {
+                data {
+                    id
+                    vehicle_number
+                    plate_number
+                    name
+                    classification_id
+                    date_acquired
+                    total_unposted_gas_slips
+                    assignee {
+                        id 
+                        firstname 
+                        middlename 
+                        lastname
+                    }
                 }
             }
             gas_stations {
@@ -525,8 +531,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             employees = response.data.data.employees.data
         }
 
-        if (data.vehicles) {
-            vehicles = data.vehicles
+        if (data.vehicles && data.vehicles.data) {
+            vehicles = response.data.data.vehicles.data
         }
 
         if (data.department_heads) {

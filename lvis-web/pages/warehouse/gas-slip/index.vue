@@ -21,7 +21,7 @@
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
-                                <v-select :options="vehicles" label="label" v-model="vehicle"></v-select>
+                                <v-select @search="handleSearchVehicles" :options="vehicles" label="label" v-model="vehicle"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -180,6 +180,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { tripTicketStatus } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
+import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';
 
 definePageMeta({
     name: ROUTES.GAS_SLIP_INDEX,
@@ -310,14 +311,14 @@ async function handleSearchGasSlipNumber(input: string, loading: (status: boolea
 
 }
 
-async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
+async function handleSearchVehicles(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        employees.value = []
+        vehicles.value = []
         return 
     } 
 
-    debouncedSearchEmployees(input, loading)
+    debouncedSearchVehicles(input, loading)
 
 }
 
@@ -336,16 +337,13 @@ async function searchGasSlipNumbers(input: string, loading: (status: boolean) =>
     }
 }
 
-async function searchEmployees(input: string, loading: (status: boolean) => void) {
-    console.log('searchEmployees');
-    console.log('input', input);
+async function searchVehicles(input: string, loading: (status: boolean) => void) {
 
     loading(true)
 
     try {
-        const response = await fetchEmployees(input);
-        console.log('response', response);
-        employees.value = addPropertyFullName(response)
+        const response = await fetchVehicles(input);
+        vehicles.value = response.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
     } catch (error) {
         console.error('Error fetching Employees:', error);
     } finally {
@@ -362,8 +360,8 @@ const debouncedSearchGasSlipNumbers = debounce((input: string, loading: (status:
   searchGasSlipNumbers(input, loading);
 }, 500);
 
-const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
-    searchEmployees(input, loading);
+const debouncedSearchVehicles = debounce((input: string, loading: (status: boolean) => void) => {
+    searchVehicles(input, loading);
 }, 500);
 
 </script>

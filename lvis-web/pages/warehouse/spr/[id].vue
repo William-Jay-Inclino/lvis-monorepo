@@ -91,7 +91,7 @@
                                 Vehicle <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="vehicles" label="label" v-model="sprData.vehicle"
+                                <v-select @search="handleSearchVehicles" :options="vehicles" label="label" v-model="sprData.vehicle"
                                     :clearable="false"></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-if="sprDataErrors.vehicle"> This field is required
@@ -103,7 +103,7 @@
                                 Classification
                             </label>
                             <client-only>
-                                <v-select :options="classifications" label="name" v-model="sprData.classification"></v-select>
+                                <v-select @search="handleSearchClassifications" :options="classifications" label="name" v-model="sprData.classification"></v-select>
                             </client-only>
                         </div>
         
@@ -117,18 +117,6 @@
         
                     </div>
                 </div>
-        
-                <!-- <div v-show="!isSPRDetailForm" class="row justify-content-center pt-5">
-        
-                    <div class="col-12">
-                        <WarehouseApprover :approvers="sprData.spr_approvers" :employees="employees"
-                            :isUpdatingApproverOrder="isUpdatingApproverOrder" :isAddingApprover="isAddingSprApprover"
-                            :isEditingApprover="isEditingSprApprover" @changeApproverOrder="changeApproverOrder"
-                            @addApprover="addApprover" @editApprover="editApprover" @removeApprover="removeApprover" @searched-employees="handleSearchedEmployees"/>
-                    </div>
-        
-        
-                </div> -->
         
         
                 <div class="row justify-content-center pt-3">
@@ -179,6 +167,8 @@ import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
+import { fetchClassificationsByName } from '~/composables/system/classification/classification.api';
+import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';
 
 definePageMeta({
     name: ROUTES.SPR_UPDATE,
@@ -329,12 +319,6 @@ async function updateSprInfo() {
 
         router.push(`/warehouse/spr/view/${response.data.id}`);
 
-        // sprData.value.spr_approvers = response.data.spr_approvers.map(i => {
-        //     i.date_approval = i.date_approval ? formatToValidHtmlDate(i.date_approval, true) : null
-        //     i.approver!['fullname'] = getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname)
-        //     return i
-        // })
-
     } else {
         Swal.fire({
             title: 'Error!',
@@ -357,6 +341,28 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 
 }
 
+async function handleSearchClassifications(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        classifications.value = []
+        return 
+    } 
+
+    debouncedSearchClassifications(input, loading)
+
+}
+
+async function handleSearchVehicles(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        vehicles.value = []
+        return 
+    } 
+
+    debouncedSearchVehicles(input, loading)
+
+}
+
 
 async function searchEmployees(input: string, loading: (status: boolean) => void) {
     console.log('searchEmployees');
@@ -370,6 +376,34 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
         employees.value = addPropertyFullName(response)
     } catch (error) {
         console.error('Error fetching Employees:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+async function searchClassifications(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchClassificationsByName(input);
+        classifications.value = response
+    } catch (error) {
+        console.error('Error fetching Classifications:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+async function searchVehicles(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchVehicles(input);
+        vehicles.value = response.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
+    } catch (error) {
+        console.error('Error fetching Vehicles:', error);
     } finally {
         loading(false);
     }
@@ -395,6 +429,14 @@ function isValidSprInfo(): boolean {
 
 const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
     searchEmployees(input, loading);
+}, 500);
+
+const debouncedSearchClassifications = debounce((input: string, loading: (status: boolean) => void) => {
+    searchClassifications(input, loading);
+}, 500);
+
+const debouncedSearchVehicles = debounce((input: string, loading: (status: boolean) => void) => {
+    searchVehicles(input, loading);
 }, 500);
 
 </script>

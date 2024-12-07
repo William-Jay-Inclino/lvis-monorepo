@@ -200,11 +200,6 @@ export class VehicleService {
 		const input = q.trim();
 	
 		const items = await this.prisma.vehicle.findMany({
-			select: {
-				id: true,
-				name: true,
-				vehicle_number: true,
-			},
 			where: {
 				deleted_at: null,
 				OR: [

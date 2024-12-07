@@ -21,7 +21,7 @@
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
-                                <v-select :options="vehicles" label="vehicle_number" v-model="vehicle"></v-select>
+                                <v-select @search="handleSearchVehicles" :options="vehicles" label="label" v-model="vehicle"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="bg-secondary text-white">Trip Number</th>
-                                                <th class="bg-secondary text-white">Vehicle Number</th>
+                                                <th class="bg-secondary text-white">Vehicle</th>
                                                 <th class="bg-secondary text-white">Driver</th>
                                                 <th class="bg-secondary text-white">Date Prepared</th>
                                                 <th class="bg-secondary text-white">Est. Date Departure</th>
@@ -117,7 +117,7 @@
                                         <tbody>
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.trip_number }} </td>
-                                                <td class="text-muted align-middle"> {{ i.vehicle.vehicle_number }} </td>
+                                                <td class="text-muted align-middle"> {{ i.vehicle.vehicle_number + ' ' + i.vehicle.name }} </td>
                                                 <td class="text-muted align-middle">
                                                     {{ getFullname(i.driver.firstname, i.driver.middlename, i.driver.lastname) }}
                                                 </td>
@@ -199,6 +199,7 @@ import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import { tripTicketStatus, type ITripStatus } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
 import { tripStatusArray } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
+import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';
 
 definePageMeta({
     name: ROUTES.TRIP_TICKET_INDEX,
@@ -252,7 +253,7 @@ onMounted(async () => {
 
     const response = await tripTicketApi.fetchDataInSearchFilters()
 
-    vehicles.value = response.vehicles
+    vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
     trip_tickets.value = response.trip_tickets
     employees.value = addPropertyFullName(response.employees)
 
@@ -349,6 +350,17 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 
 }
 
+async function handleSearchVehicles(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        vehicles.value = []
+        return 
+    } 
+
+    debouncedSearchVehicles(input, loading)
+
+}
+
 async function searchTripNumbers(input: string, loading: (status: boolean) => void) {
     console.log('searchTripNumbers');
     console.log('input', input);
@@ -383,6 +395,20 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
     }
 }
 
+async function searchVehicles(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchVehicles(input);
+        vehicles.value = response.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
+    } catch (error) {
+        console.error('Error fetching Employees:', error);
+    } finally {
+        loading(false);
+    }
+}
+
 // ======================== UTILS ======================== 
 
 const onClickViewDetails = (id: string) => router.push('/warehouse/trip-ticket/view/' + id)
@@ -394,6 +420,10 @@ const debouncedSearchTripNumbers = debounce((input: string, loading: (status: bo
 
 const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
     searchEmployees(input, loading);
+}, 500);
+
+const debouncedSearchVehicles = debounce((input: string, loading: (status: boolean) => void) => {
+    searchVehicles(input, loading);
 }, 500);
 
 </script>

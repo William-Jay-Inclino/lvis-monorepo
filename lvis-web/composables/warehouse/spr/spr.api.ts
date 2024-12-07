@@ -381,10 +381,12 @@ export async function fetchFormDataInCreate(): Promise<{
                     name
                 }
             },
-            vehicles{
-                id
-                name
-                vehicle_number
+            vehicles(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                    vehicle_number
+                }
             }
         }
     `;
@@ -421,8 +423,8 @@ export async function fetchFormDataInCreate(): Promise<{
             classifications = response.data.data.classifications.data
         }
 
-        if (data.vehicles) {
-            vehicles = data.vehicles
+        if (data.vehicles && data.vehicles.data) {
+            vehicles = response.data.data.vehicles.data
         }
 
         return {
@@ -524,10 +526,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     name
                 }
             },
-            vehicles{
-                id
-                name
-                vehicle_number
+            vehicles(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                    vehicle_number
+                }
             }
         }
     `;
@@ -560,8 +564,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             classifications = response.data.data.classifications.data
         }
 
-        if (data.vehicles) {
-            vehicles = response.data.data.vehicles
+        if (data.vehicles && data.vehicles.data) {
+            vehicles = response.data.data.vehicles.data
         }
 
         return {

@@ -478,9 +478,20 @@ export async function fetchVehicles(payload: string): Promise<Vehicle[]> {
     const query = `
         query {
             vehiclesByName(input: "${payload}") {
-                id 
+                id
                 vehicle_number
+                plate_number
                 name
+                classification_id
+                date_acquired
+                status
+                total_unposted_gas_slips
+                assignee {
+                    id 
+                    firstname 
+                    middlename 
+                    lastname
+                }
             },
         }
     `;
