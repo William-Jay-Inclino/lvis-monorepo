@@ -27,6 +27,21 @@
                                     </small>
                                 </div>
 
+                                <div v-if="has_user_account" class="mb-2">
+                                    <button @click="onClickViewUserAccount" class="btn btn-sm btn-light text-primary">
+                                        View user account
+                                    </button>
+                                </div>
+
+                                <div v-else class="alert alert-light mb-2">
+                                    <small>
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'warning']" class="text-warning me-1"/>
+                                        </client-only>
+                                        {{ item.firstname }} does not have a user account. <button @click="onClickCreateUserAccount" class="btn btn-sm btn-light text-primary">Create One</button>
+                                    </small>
+                                </div>
+
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
@@ -168,6 +183,13 @@ const employee_fullname = computed( () => {
     return getFullnameWithTitles(item.value.firstname, item.value.lastname, item.value.middlename, item.value.name_prefix, item.value.name_suffix)
 })
 
+const has_user_account = computed( () => {
+    if(item.value?.user_employee) {
+        return true 
+    }
+    return false 
+})
+
 function getUploadsPath(src: string) {
 
     const path = src.replace(UPLOADS_PATH, '')
@@ -181,6 +203,13 @@ function getUploadsPath(src: string) {
 const onClickGoToList = () => router.push(`/system/employee`);
 const onClickAddNew = () => router.push(`/system/employee/create`);
 const onClickUpdate = () => router.push(`/system/employee/${item.value?.id}`);
+const onClickCreateUserAccount = () => router.push(`/system/user/create`);
+
+const onClickViewUserAccount = () => {
+    if(item.value?.user_employee?.user) {
+        router.push(`/system/user/${item.value?.user_employee.user.id}`)
+    }
+}
 
 
 </script>

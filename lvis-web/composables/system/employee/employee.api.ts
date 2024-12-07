@@ -70,6 +70,11 @@ export async function findOne(id: string): Promise<Employee | undefined> {
                     id 
                     name
                 }   
+                user_employee {
+                        user {
+                        id
+                    }
+                }
             }
         }
     `;
@@ -400,6 +405,21 @@ export async function fetchEmployees(payload: string): Promise<Employee[]> {
                 middlename 
                 lastname
                 rank_number
+                division {
+                    id 
+                    code
+                    name 
+                    permissions
+                }
+                department {
+                    id 
+                    code
+                    name 
+                    permissions
+                }
+                user_employee {
+                    id
+                }
             },
         }
     `;

@@ -275,6 +275,13 @@ export class EmployeeService {
 				middlename: true,
 				lastname: true,
 				rank_number: true,
+				division: true,
+				department: true,
+				user_employee: {
+					select: {
+						id: true
+					}
+				}
 			},
 			where: {
 				OR: [
@@ -284,8 +291,19 @@ export class EmployeeService {
 			},
 			take: 10,
 		});
-	
-		return employees;
+
+		return employees.map(i => {
+			if (i.division) {
+				i.division.permissions = i.division.permissions 
+					? JSON.stringify(i.division.permissions) 
+					: null;
+			}
+			i.department.permissions = i.department.permissions 
+					? JSON.stringify(i.department.permissions) 
+					: null;
+			return i;
+		});
+
 	}
 
 	async findAllBudgetOfficers(): Promise<Employee[]> {

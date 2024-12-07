@@ -56,7 +56,7 @@
                             Select Employee <span class="text-danger">*</span>
                         </label>
                         <client-only>
-                            <v-select @option:selected="onEmployeeSelected" :options="employees" label="fullname"
+                            <v-select @search="handleSearchEmployees" @option:selected="onEmployeeSelected" :options="employees" label="fullname"
                                 v-model="formData.employee">
                                 <template v-slot:option="option">
                                     <div v-if="option.user_employee" class="row">
@@ -233,6 +233,8 @@ import { permissions } from '~/composables/system/user/user.permissions'
 import Swal from 'sweetalert2'
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { mergeUserPermissions } from '~/composables/system/user/user.helpers'
+import { fetchEmployees } from '~/composables/system/employee/employee.api';
+import { addPropertyFullName } from '~/composables/system/employee/employee';
 
 const router = useRouter()
 const isSaving = ref(false)
@@ -381,17 +383,20 @@ function onChangeEmployee() {
     formData.value.firstname = formData.value.employee.firstname
     formData.value.middlename = formData.value.employee.middlename
     formData.value.lastname = formData.value.employee.lastname
-    // console.log('formData.value.employee.position.permissions', formData.value.employee.position.permissions);
 
-    if(formData.value.employee.division) {
+    // add default permissions
+    if(formData.value.employee.division && formData.value.employee.division.permissions) {
         console.log('1');
         formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), formData.value.employee.division.permissions)
-    } else {
+    } else if(formData.value.employee.department.permissions){
         console.log('2', formData.value.employee.department.permissions);
         formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), formData.value.employee.department.permissions)
+    } else {
+        console.log('3');
+        // no default permissions
+        formData.value.permissions = JSON.parse(JSON.stringify(permissions))
     }
 
-    // formData.value.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), formData.value.employee.position.permissions)
 }
 
 function onEmployeeSelected(payload: Employee) {
@@ -407,6 +412,34 @@ function onEmployeeSelected(payload: Employee) {
 
         onChangeEmployee()
 
+    }
+}
+
+async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        employees.value = []
+        return 
+    } 
+
+    debouncedSearchEmployees(input, loading)
+
+}
+
+async function searchEmployees(input: string, loading: (status: boolean) => void) {
+    console.log('searchEmployees');
+    console.log('input', input);
+
+    loading(true)
+
+    try {
+        const response = await fetchEmployees(input);
+        console.log('response', response);
+        employees.value = addPropertyFullName(response)
+    } catch (error) {
+        console.error('Error fetching Employees:', error);
+    } finally {
+        loading(false);
     }
 }
 
@@ -465,5 +498,9 @@ const generateUsername = (firstName: string, lastName: string) => {
     const username = `${formattedFirstName}.${formattedLastName}`;
     return username;
 };
+
+const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
+    searchEmployees(input, loading);
+}, 500);
 
 </script>
