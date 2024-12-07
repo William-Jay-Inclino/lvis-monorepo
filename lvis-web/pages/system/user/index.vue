@@ -38,7 +38,7 @@
                     Loading please wait...
                 </div>
     
-                <div v-show="items.length > 0" class="col-lg-10">
+                <div v-show="items.length > 0 && !isSearching" class="col-lg-10">
     
                     <div class="row">
                         <div class="col">

@@ -50,7 +50,7 @@
                     </button>
                 </div>
         
-                <div class="h5wrapper mb-3 mt-3" v-show="!isInitialLoad && !isSearching && !isPaginating">
+                <div class="h5wrapper mb-3 mt-3" v-show="!isInitialLoad && !isSearching">
                     <hr class="result">
                     <h6 class="text-warning"><i>Search results...</i></h6>
                     <hr class="result">
@@ -58,7 +58,7 @@
         
                 <div class="row justify-content-center pt-3">
         
-                    <div class="text-center text-muted fst-italic" v-show="isSearching || isPaginating">
+                    <div class="text-center text-muted fst-italic" v-show="isSearching">
                         Please wait...
                     </div>
         
@@ -68,7 +68,7 @@
                     </div>
         
         
-                    <div v-show="items.length > 0" class="col-lg">
+                    <div v-show="items.length > 0 && !isSearching" class="col-lg">
         
                         <div class="row">
                             <div class="col">
@@ -215,7 +215,6 @@ const router = useRouter()
 // flags
 const isInitialLoad = ref(true)
 const isSearching = ref(false)
-const isPaginating = ref(false)
 
 // pagination
 const _paginationInitial = {
@@ -289,7 +288,7 @@ const visiblePages = computed(() => {
 
 async function changePage(page: number) {
 
-    isPaginating.value = true
+    isSearching.value = true
 
     const { data, currentPage, totalItems, totalPages } = await gasSlipApi.findAll({
         page,
@@ -297,7 +296,7 @@ async function changePage(page: number) {
         vehicle_id: vehicle.value ? vehicle.value.id : undefined,
         approval_status: approval_status.value ? approval_status.value.id : null,
     })
-    isPaginating.value = false
+    isSearching.value = false
 
     items.value = data
     pagination.value.totalItems = totalItems

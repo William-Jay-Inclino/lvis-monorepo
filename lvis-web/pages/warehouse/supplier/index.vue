@@ -30,7 +30,7 @@
                     </button>
                 </div>
         
-                <div class="h5wrapper mb-3 mt-3" v-show="!isInitialLoad && !isSearching && !isPaginating">
+                <div class="h5wrapper mb-3 mt-3" v-show="!isInitialLoad && !isSearching">
                     <hr class="result">
                     <h6 class="text-warning"><i>Search results...</i></h6>
                     <hr class="result">
@@ -38,7 +38,7 @@
         
                 <div class="row justify-content-center pt-3">
         
-                    <div class="text-center text-muted fst-italic" v-show="isSearching || isPaginating">
+                    <div class="text-center text-muted fst-italic" v-show="isSearching">
                         Please wait...
                     </div>
         
@@ -47,7 +47,7 @@
                         No results found
                     </div>
         
-                    <div v-show="items.length > 0 && (!isSearching && !isPaginating)" class="col-lg">
+                    <div v-show="items.length > 0 && !isSearching" class="col-lg">
         
                         <div class="row">
                             <div class="col">
@@ -155,7 +155,6 @@
 
 import * as api from '~/composables/warehouse/supplier/supplier.api'
 import { PAGINATION_SIZE } from '~/utils/config'
-import { useToast } from "vue-toastification";
 import type { Supplier } from '~/composables/warehouse/supplier/supplier';
 
 
@@ -167,13 +166,11 @@ definePageMeta({
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 
-const toast = useToast();
 const router = useRouter()
 
 // flags
 const isInitialLoad = ref(true)
 const isSearching = ref(false)
-const isPaginating = ref(false)
 
 // pagination
 const _paginationInitial = {
@@ -229,7 +226,7 @@ const visiblePages = computed(() => {
 
 async function changePage(page: number) {
 
-    isPaginating.value = true
+    isSearching.value = true
 
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page,
@@ -238,7 +235,7 @@ async function changePage(page: number) {
 
     })
 
-    isPaginating.value = false
+    isSearching.value = false
     items.value = data
     pagination.value.totalItems = totalItems
     pagination.value.currentPage = currentPage
