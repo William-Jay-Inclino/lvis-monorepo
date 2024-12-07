@@ -11,7 +11,7 @@
         
                 <div class="row">
                     <div class="col">
-                        <button v-if="canCreate(authUser, 'canManageDepartment')" @click="onClickCreate"
+                        <button v-if="canCreate(authUser, 'canManageDepartment', SERVICES.SYSTEM)" @click="onClickCreate"
                             class="btn btn-primary float-end">
                             <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>

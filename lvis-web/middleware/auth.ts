@@ -21,7 +21,7 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
         if (isAdmin(authUser)) return
     
         if (ROUTE_EXEMPTIONS.includes(to.name as ROUTES)) return
-    
+
         if (!authUser.user.permissions) return redirectTo401Page()
 
         const isSystemService = to.name?.toString().includes(SERVICES.SYSTEM)
@@ -79,7 +79,7 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
     
     
         if (isWarehouseService) {
-    
+
             const permissions = authUser.user.permissions.warehouse
             if (!permissions) return redirectTo401Page()
     
@@ -102,16 +102,10 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
     
             // data management
             const isSupplierModule = to.name?.toString().includes(MODULES.SUPPLIER)
-            const isUnitModule = to.name?.toString().includes(MODULES.UNIT)
-            
-            // stock inventory
             const isItemModule = to.name?.toString().includes(MODULES.ITEM)
-            const isItemTypeModule = to.name?.toString().includes(MODULES.ITEM_TYPE)
             
             // motorpool
             const isVehicleModule = to.name?.toString().includes(MODULES.VEHICLE)
-            const isFuelTypeModule = to.name?.toString().includes(MODULES.FUEL_TYPE)
-            const isGasStationModule = to.name?.toString().includes(MODULES.GAS_STATION)
             const isTripTicketModule = to.name?.toString().includes(MODULES.TRIP_TICKET)
             const isGasSlipModule = to.name?.toString().includes(MODULES.GAS_SLIP)
 
@@ -123,73 +117,73 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             }
     
             if (isRVModule) {
-                if (!canAccessRV(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessRV(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
             }
     
             if (isSPRModule) {
-                if (!canAccessSPR(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessSPR(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
     
             if (isJOModule) {
-                if (!canAccessJO(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessJO(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
     
             if (isMEQSModule) {
-                if (!canAccessMEQS(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessMEQS(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
     
             if (isPOModule) {
-                if (!canAccessPO(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessPO(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
     
             if (isRRModule) {
-                if (!canAccessRR(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessRR(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
             
             // =========================== WAREHOUSING =========================== 
             if (isOSRIVModule) {
-                if (!canAccessOSRIV(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessOSRIV(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
     
             if (isSERIVModule) {
-                if (!canAccessSERIV(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessSERIV(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
     
             if (isMRVModule) {
-                if (!canAccessMRV(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessMRV(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
     
             if (isMCTModule) {
-                if (!canAccessMCT(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessMCT(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
     
             if (isMCRTModule) {
-                if (!canAccessMCRT(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessMCRT(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
     
             if (isMSTModule) {
-                if (!canAccessMST(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessMST(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
     
             }
@@ -200,23 +194,11 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
     
             }
     
-            if (isUnitModule) {
-                if (!canAccessUnit(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-    
-            }
-    
             if (isItemModule) {
                 if (!canAccessItem(to.name as ROUTES, permissions)) return redirectTo401Page()
                 return
     
             }
-    
-            if (isItemTypeModule) {
-                if (!canAccessItemType(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-            }
-    
 
             // =========================== MOTORPOOL =========================== 
             if (isVehicleModule) {
@@ -224,23 +206,13 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
                 return
             }
 
-            if (isFuelTypeModule) {
-                if (!canAccessFuelType(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-            }
-
-            if (isGasStationModule) {
-                if (!canAccessGasStation(to.name as ROUTES, permissions)) return redirectTo401Page()
-                return
-            }
-
             if (isTripTicketModule) {
-                if (!canAccessTripTicket(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessTripTicket(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
             }
 
             if (isGasSlipModule) {
-                if (!canAccessGasSlip(to.name as ROUTES, permissions)) return redirectTo401Page()
+                if (!(await canAccessGasSlip(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
             }
 
@@ -358,13 +330,13 @@ function canAccessDivision(route: ROUTES, permissions: SystemPermissions) {
 // ============================================== WAREHOUSE ============================================== 
 
 
-function canAccessCanvass(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessCanvass(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessCanvass', route, permissions)
 
     if (!permissions.canManageCanvass) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.CANVASS_INDEX) return !!permissions.canManageCanvass.search
     if (route === ROUTES.CANVASS_CREATE) return !!permissions.canManageCanvass.create
@@ -377,13 +349,13 @@ function canAccessCanvass(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessRV(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessRV(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessRV', route, permissions)
-
+    
     if (!permissions.canManageRV) return false
-
-    const authUser = getAuthUser()
+    
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.RV_INDEX) return !!permissions.canManageRV.search
     if (route === ROUTES.RV_CREATE) return !!permissions.canManageRV.create
@@ -396,13 +368,13 @@ function canAccessRV(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessSPR(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessSPR(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessSPR', route, permissions)
 
     if (!permissions.canManageSPR) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.SPR_INDEX) return !!permissions.canManageSPR.search
     if (route === ROUTES.SPR_CREATE) return !!permissions.canManageSPR.create
@@ -415,13 +387,13 @@ function canAccessSPR(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessJO(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessJO(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessJO', route, permissions)
 
     if (!permissions.canManageJO) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.JO_INDEX) return !!permissions.canManageJO.search
     if (route === ROUTES.JO_CREATE) return !!permissions.canManageJO.create
@@ -434,13 +406,13 @@ function canAccessJO(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessMEQS(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessMEQS(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessMEQS', route, permissions)
 
     if (!permissions.canManageMEQS) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.MEQS_INDEX) return !!permissions.canManageMEQS.search
     if (route === ROUTES.MEQS_CREATE) return !!permissions.canManageMEQS.create
@@ -453,13 +425,13 @@ function canAccessMEQS(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessPO(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessPO(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessPO', route, permissions)
 
     if (!permissions.canManagePO) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.PO_INDEX) return !!permissions.canManagePO.search
     if (route === ROUTES.PO_CREATE) return !!permissions.canManagePO.create
@@ -472,13 +444,13 @@ function canAccessPO(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessRR(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessRR(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessRR', route, permissions)
 
     if (!permissions.canManageRR) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.RR_INDEX) return !!permissions.canManageRR.search
     if (route === ROUTES.RR_CREATE) return !!permissions.canManageRR.create
@@ -491,13 +463,13 @@ function canAccessRR(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessOSRIV(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessOSRIV(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessOSRIV', route, permissions)
 
     if (!permissions.canManageOSRIV) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.OSRIV_INDEX) return !!permissions.canManageOSRIV.search
     if (route === ROUTES.OSRIV_CREATE) return !!permissions.canManageOSRIV.create
@@ -510,13 +482,13 @@ function canAccessOSRIV(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessSERIV(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessSERIV(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessSERIV', route, permissions)
 
     if (!permissions.canManageSERIV) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.SERIV_INDEX) return !!permissions.canManageSERIV.search
     if (route === ROUTES.SERIV_CREATE) return !!permissions.canManageSERIV.create
@@ -529,13 +501,13 @@ function canAccessSERIV(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessMRV(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessMRV(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessMRV', route, permissions)
 
     if (!permissions.canManageMRV) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.MRV_INDEX) return !!permissions.canManageMRV.search
     if (route === ROUTES.MRV_CREATE) return !!permissions.canManageMRV.create
@@ -548,13 +520,13 @@ function canAccessMRV(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessMCT(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessMCT(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessMCT', route, permissions)
 
     if (!permissions.canManageMCT) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.MCT_INDEX) return !!permissions.canManageMCT.search
     if (route === ROUTES.MCT_CREATE) return !!permissions.canManageMCT.create
@@ -567,13 +539,13 @@ function canAccessMCT(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessMCRT(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessMCRT(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessMCRT', route, permissions)
 
     if (!permissions.canManageMCRT) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.MCRT_INDEX) return !!permissions.canManageMCRT.search
     if (route === ROUTES.MCRT_CREATE) return !!permissions.canManageMCRT.create
@@ -586,13 +558,13 @@ function canAccessMCRT(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessMST(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessMST(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessMST', route, permissions)
 
     if (!permissions.canManageMST) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.MST_INDEX) return !!permissions.canManageMST.search
     if (route === ROUTES.MST_CREATE) return !!permissions.canManageMST.create
@@ -620,21 +592,6 @@ function canAccessSupplier(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessUnit(route: ROUTES, permissions: WarehousePermissions) {
-
-    console.log('canAccessUnit', route, permissions)
-
-    if (!permissions.canManageUnit) return false
-
-    if (route === ROUTES.UNIT_INDEX) return !!permissions.canManageUnit.read
-    if (route === ROUTES.UNIT_CREATE) return !!permissions.canManageUnit.create
-    if (route === ROUTES.UNIT_UPDATE) return !!permissions.canManageUnit.update
-
-
-    return true
-
-}
-
 function canAccessItem(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessItem', route, permissions)
@@ -651,20 +608,7 @@ function canAccessItem(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessItemType(route: ROUTES, permissions: WarehousePermissions) {
 
-    console.log('canAccessItemType', route, permissions)
-
-    if (!permissions.canManageItemType) return false
-
-    if (route === ROUTES.ITEM_TYPE_INDEX) return !!permissions.canManageItemType.read
-    if (route === ROUTES.ITEM_TYPE_CREATE) return !!permissions.canManageItemType.create
-    if (route === ROUTES.ITEM_TYPE_UPDATE) return !!permissions.canManageItemType.update
-
-
-    return true
-
-}
 
 
 // ============================================== MOTORPOOL ============================================== 
@@ -684,43 +628,13 @@ function canAccessVehicle(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessFuelType(route: ROUTES, permissions: WarehousePermissions) {
-
-    console.log('canAccessFuelType', route, permissions)
-
-    if (!permissions.canManageFuelType) return false
-
-    if (route === ROUTES.FUEL_TYPE_INDEX) return !!permissions.canManageFuelType.read
-    if (route === ROUTES.FUEL_TYPE_CREATE) return !!permissions.canManageFuelType.create
-    if (route === ROUTES.FUEL_TYPE_UPDATE) return !!permissions.canManageFuelType.update
-
-
-    return true
-
-}
-
-function canAccessGasStation(route: ROUTES, permissions: WarehousePermissions) {
-
-    console.log('canAccessGasStation', route, permissions)
-
-    if (!permissions.canManageGasStation) return false
-
-    if (route === ROUTES.GAS_STATION_INDEX) return !!permissions.canManageGasStation.read
-    if (route === ROUTES.GAS_STATION_CREATE) return !!permissions.canManageGasStation.create
-    if (route === ROUTES.GAS_STATION_UPDATE) return !!permissions.canManageGasStation.update
-
-
-    return true
-
-}
-
-function canAccessTripTicket(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessTripTicket(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessTripTicket', route, permissions)
 
     if (!permissions.canManageTripTicket) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.TRIP_TICKET_INDEX) return !!permissions.canManageTripTicket.search
     if (route === ROUTES.TRIP_TICKET_CREATE) return !!permissions.canManageTripTicket.create
@@ -733,13 +647,13 @@ function canAccessTripTicket(route: ROUTES, permissions: WarehousePermissions) {
 
 }
 
-function canAccessGasSlip(route: ROUTES, permissions: WarehousePermissions) {
+async function canAccessGasSlip(route: ROUTES, permissions: WarehousePermissions) {
 
     console.log('canAccessGasSlip', route, permissions)
 
     if (!permissions.canManageGasSlip) return false
 
-    const authUser = getAuthUser()
+    const authUser = await getAuthUserAsync()
 
     if (route === ROUTES.GAS_SLIP_INDEX) return !!permissions.canManageGasSlip.search
     if (route === ROUTES.GAS_SLIP_CREATE) return !!permissions.canManageGasSlip.create
