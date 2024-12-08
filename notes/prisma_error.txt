@@ -1,0 +1,47 @@
+to resolve this error. Just run: pnpx prisma generate in apps/system and apps/warehouse
+
+
+Synchronize Prisma Versions
+Ensure both prisma and @prisma/client are on the same version. Since your prisma CLI is at version 6.0.1, you should upgrade @prisma/client to match.
+
+Run the following command to update the dependencies:
+
+pnpm add -D prisma@6.0.1
+pnpm add @prisma/client@6.0.1
+
+
+
+
+Enabling inline tracing for this subgraph. To disable, use ApolloServerPluginInlineTraceDisabled.
+Running API in NODE development on http://[::1]:4001
+/home/l5user01/apps/lvis-monorepo/lvis-api/dist/apps/system/main.js:497
+${st(e)}`}var Nd=$("prisma:client:engines:resolveEnginePath"),Ld=()=>new RegExp("runtime[\\\\/]library\\.m?js$");async function ll(e,t){let r={binary:process.env.PRISMA_QUERY_ENGINE_BINARY,library:process.env.PRISMA_QUERY_ENGINE_LIBRARY}[e]??t.prismaPath;if(r!==void 0)return r;let{enginePath:n,searchedLocations:i}=await $d(e,t);if(Nd("enginePath",n),n!==void 0&&e==="binary"&&Di(n),n!==void 0)return t.prismaPath=n;let o=await ft(),s=t.generator?.binaryTargets??[],a=s.some(d=>d.native),l=!s.some(d=>d.value===o),u=__filename.match(Ld())===null,c={searchedLocations:i,generatorBinaryTargets:s,generator:t.generator,runtimeBinaryTarget:o,queryEngineName:ul(e,o),expectedLocation:Tr.default.relative(process.cwd(),t.dirname),errorStack:new Error().stack},p;throw a&&l?p=ol(c):l?p=nl(c):u?p=il(c):p=sl(c),new k(p,t.clientVersion)}async function $d(engineType,config){let binaryTarget=await ft(),searchedLocations=[],dirname=eval("__dirname"),searchLocations=[config.dirname,Tr.default.resolve(dirname,".."),config.generator?.output?.value??dirname,Tr.default.resolve(dirname,"../../../.prisma/client"),"/tmp/prisma-engines",config.cwd];__filename.includes("resolveEnginePath")&&searchLocations.push(js());for(let e of searchLocations){let t=ul(engineType,binaryTarget),r=Tr.default.join(e,t);if(searchedLocations.push(e),al.default.existsSync(r))return{enginePath:r,searchedLocations}}return{enginePath:void 0,searchedLocations}}function ul(e,t){return e==="library"?en(t,"fs"):`query-engine-${t}${t==="windows"?".exe":""}`}function jn(e,t){return{batch:e,transaction:t?.kind==="batch"?{isolationLevel:t.options.isolationLevel}:void 0}}var fo=F(Vi());function cl(e){return e?e.replace(/".*"/g,'"X"').replace(/[\s:\[]([+-]?([0-9]*[.])?[0-9]+)/g,t=>`${t[0]}5`):""}function pl(e){return e.split(`
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^
+
+PrismaClientInitializationError: Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This is likely caused by a bundler that has not copied "libquery_engine-debian-openssl-3.0.x.so.node" next to the resulting bundle.
+Ensure that "libquery_engine-debian-openssl-3.0.x.so.node" has been copied next to the bundle or in "prisma/generated/client".
+
+We would appreciate if you could take the time to share some information with us.
+Please help us by answering a few questions: https://pris.ly/engine-not-found-bundler-investigation
+
+The following locations have been searched:
+  /home/l5user01/apps/lvis-monorepo/lvis-api/prisma/generated/client
+  /home/l5user01/apps/lvis-monorepo/lvis-api/dist/apps
+  /home/jay/Documents/projects/leyeco/lvis-monorepo/lvis-api/apps/system/prisma/generated/client
+  /home/l5user01/apps/lvis-monorepo/lvis-api/.prisma/client
+  /tmp/prisma-engines
+    at ll (/home/l5user01/apps/lvis-monorepo/lvis-api/dist/apps/system/main.js:497:805)
+    at async Object.loadLibrary (/home/l5user01/apps/lvis-monorepo/lvis-api/dist/apps/system/main.js:544:9958)
+    at async zt.loadEngine (/home/l5user01/apps/lvis-monorepo/lvis-api/dist/apps/system/main.js:546:448)
+    at async zt.instantiateLibrary (/home/l5user01/apps/lvis-monorepo/lvis-api/dist/apps/system/main.js:545:9673) {
+  clientVersion: '5.8.1',
+  errorCode: undefined
+}
+
+Node.js v22.11.0
+ ELIFECYCLE  Command failed with exit code 1.
+
+
+

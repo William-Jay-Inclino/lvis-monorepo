@@ -8,7 +8,7 @@ termninal:
 1. RUN DOCKER CONTAINER FOR POSTGRES DB
 
 -inside docker folder directory run: 
-docker-compose up -d system-db warehouse-db
+docker-compose up -d lvis-db
 
 
 2. MIGRATE DATABASE

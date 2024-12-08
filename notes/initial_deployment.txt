@@ -1,0 +1,29 @@
+
+1. Generate ssh key and add it in github
+2. git clone lvis-monorepo 
+
+
+============ lvis-api ============
+
+3. Configure .env: 
+    /lvis-api 
+    /lvis-api/apps/system
+    /lvis-api/apps/warehouse 
+
+4. run docker-compose up -d lvis-db inside docker folder 
+5. run pnpm install  
+6. migrate system and warehouse db 
+7. start system and warehouse service using start:dev. If no errors then run pnpm run build
+8. run pm2 start ecosystem.config.js
+9. Initialize database seeder 
+    - create admin
+    - system db seeder 
+    -warehouse db seeder 
+
+
+============ lvis-web ============
+
+10. Configure .env
+11. run pnpm i 
+12. run pnpm run build 
+13 run pm2 start ecosystem.config.cjs
