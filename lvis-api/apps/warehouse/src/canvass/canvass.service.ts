@@ -418,10 +418,10 @@ export class CanvassService {
             throw new NotFoundException('Canvass not found with id of ' + canvassId)
         }
 
-        const isOwner = canvass.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = canvass.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
-            return false
+        if (!hasPermission) {
+            return false;
         }
 
         if (canvass.rv) {

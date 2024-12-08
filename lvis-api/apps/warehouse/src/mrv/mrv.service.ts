@@ -447,9 +447,9 @@ export class MrvService {
             }
         })
 
-        const isOwner = mrv.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = mrv.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
+        if (!hasPermission) {
             return false
         }
 

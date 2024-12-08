@@ -27,6 +27,7 @@ export class SprService {
                 canvass_items: {
                     include: {
                         unit: true,
+                        item: true
                     }
                 }
             }
@@ -578,9 +579,9 @@ export class SprService {
             }
         })
 
-        const isOwner = spr.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = spr.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
+        if (!hasPermission) {
             return false
         }
 

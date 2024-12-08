@@ -208,11 +208,11 @@ export class MeqsSupplierItemService {
 			throw new NotFoundException("MEQS not found with ID of " + meqs_id)
 		}
 
-		const isOwner = meqs.created_by === this.authUser.user.username
+        const hasPermission = meqs.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-		if (!isAdmin(this.authUser) || !isOwner) {
-			throw new ForbiddenException('Only Admin and Owner can attach note!')
-		}
+        if (!hasPermission) {
+            throw new ForbiddenException('Only Admin and Owner can attach note!')
+        }
 
 		const queries = []
 

@@ -32,7 +32,6 @@ export interface Canvass {
     spr?: SPR
     requested_by: Employee | null;
     is_referenced: boolean;
-    is_reference_in_rr?: boolean
     can_update?: boolean
 }
 

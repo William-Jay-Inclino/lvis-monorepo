@@ -349,10 +349,10 @@ export class GasSlipService {
             }
         })
 
-        const isOwner = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
-            return false
+        if (!hasPermission) {
+            return false;
         }
 
         const hasApproval = gasSlip.gas_slip_approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)
@@ -377,10 +377,10 @@ export class GasSlipService {
             }
         })
 
-        const isOwner = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
-            return false
+        if (!hasPermission) {
+            return false;
         }
 
         const status = await this.getStatus(gas_slip_id)
@@ -406,10 +406,10 @@ export class GasSlipService {
             }
         })
 
-        const isOwner = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
-            return false
+        if (!hasPermission) {
+            return false;
         }
 
         if(gasSlip.is_posted !== null && gasSlip.is_posted === false) {

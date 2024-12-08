@@ -87,7 +87,7 @@
                 <div v-show="!isCanvassDetailForm" class="row justify-content-center pt-5">
                     <div class="col-lg-10 col-md-10 col-sm-12">
         
-                        <WarehouseCanvassItems :canvass-is-reference-in-r-r="canvass.is_reference_in_rr"
+                        <WarehouseCanvassItems
                             :canvass-items="canvass.canvass_items" :units="units" :items="items"
                             :is-adding="isAddingItem" :is-editing="isEditingItem" @add-item="addCanvassItem"
                             @edit-item="editCanvassItem" @remove-item="removeCanvassItem" @searched-items="handleSearchedItems"/>

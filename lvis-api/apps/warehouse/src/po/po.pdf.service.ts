@@ -50,7 +50,7 @@ export class PoPdfService {
 
         const generalManager = approvers.pop()
 
-        let requisitioner, classification_id, refType, refNumber, refDate, rc_number
+        let requisitioner, classification_id, refType, refNumber, refDate, rc_number, purpose
 
         if(po.meqs_supplier.meqs.rv) {
             requisitioner = await this.getEmployee(po.meqs_supplier.meqs.rv.canvass.requested_by_id, this.authUser)
@@ -59,6 +59,7 @@ export class PoPdfService {
             refNumber = po.meqs_supplier.meqs.rv.rv_number
             refDate = po.meqs_supplier.meqs.rv.date_requested
             rc_number = po.meqs_supplier.meqs.rv.canvass.rc_number
+            purpose = po.meqs_supplier.meqs.rv.canvass.purpose
         } else if(po.meqs_supplier.meqs.spr) {
             requisitioner = await this.getEmployee(po.meqs_supplier.meqs.spr.canvass.requested_by_id, this.authUser)
             classification_id = po.meqs_supplier.meqs.spr.classification_id
@@ -66,6 +67,7 @@ export class PoPdfService {
             refNumber = po.meqs_supplier.meqs.spr.spr_number
             refDate = po.meqs_supplier.meqs.spr.date_requested
             rc_number = po.meqs_supplier.meqs.spr.canvass.rc_number
+            purpose = po.meqs_supplier.meqs.spr.canvass.purpose
         } else {
             requisitioner = await this.getEmployee(po.meqs_supplier.meqs.jo.canvass.requested_by_id, this.authUser)
             classification_id = po.meqs_supplier.meqs.jo.classification_id
@@ -73,6 +75,7 @@ export class PoPdfService {
             refNumber = po.meqs_supplier.meqs.jo.jo_number
             refDate = po.meqs_supplier.meqs.jo.date_requested
             rc_number = po.meqs_supplier.meqs.jo.canvass.rc_number
+            purpose = po.meqs_supplier.meqs.jo.canvass.purpose
         }
 
         const classification = await this.getClassification(classification_id, this.authUser)
@@ -221,7 +224,7 @@ export class PoPdfService {
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 5px;"> Purpose: This is a temporary purpose </td>
+                        <td style="padding: 5px;"> Purpose: ${ purpose } </td>
                         <td style="padding: 5px;">
                             Requisitioner: ${ requisitioner.firstname + ' ' + requisitioner.lastname } 
                         </td>

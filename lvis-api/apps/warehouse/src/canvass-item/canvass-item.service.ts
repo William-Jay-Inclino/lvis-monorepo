@@ -32,66 +32,6 @@ export class CanvassItemService {
 			quantity: input.quantity,
 		}
 
-		// const meqsSuppliers = await this.prisma.mEQSSupplier.findMany({
-		// 	where: {
-		// 		meqs: {
-		// 			OR: [
-		// 				{ rv: { canvass_id: input.canvass_id } },
-		// 				{ spr: { canvass_id: input.canvass_id } },
-		// 				{ jo: { canvass_id: input.canvass_id } }
-		// 			]
-		// 		}
-		// 	}
-		// })
-
-		// if canvass is still not reference in MEQS then normal create
-		// if (meqsSuppliers.length === 0) {
-
-		// 	const createdCanvassItem = await this.prisma.canvassItem.create({
-		// 		data,
-		// 		include: {
-		// 			unit: true,
-		// 			item: true
-		// 		}
-		// 	})
-
-		// 	return createdCanvassItem
-
-		// }
-
-
-		// if canvass is already reference in MEQS then also create meqs_supplier_item in all meqs_supplier
-
-		// const meqsSupplierItems = []
-
-		// for (let meqsSupplier of meqsSuppliers) {
-
-		// 	meqsSupplierItems.push({
-		// 		meqs_supplier_id: meqsSupplier.id,
-		// 		price: 0,
-		// 		notes: '',
-		// 		is_awarded: false,
-		// 		vat_type: VAT_TYPE.NONE,
-		// 	})
-
-		// }
-
-		// data.meqs_supplier_items = {
-		// 	create: meqsSupplierItems.map((i: MeqsSupplierItem) => {
-
-		// 		const meqsSupplierItemData: Prisma.MEQSSupplierItemCreateWithoutCanvass_itemInput = {
-		// 			meqs_supplier: { connect: { id: i.meqs_supplier_id } },
-		// 			price: i.price,
-		// 			notes: i.notes,
-		// 			is_awarded: false,
-		// 			vat_type: VAT_TYPE.NONE,
-		// 		}
-
-		// 		return meqsSupplierItemData
-
-		// 	})
-		// }
-
 		const created = await this.prisma.canvassItem.create({
 			data,
 			include: {

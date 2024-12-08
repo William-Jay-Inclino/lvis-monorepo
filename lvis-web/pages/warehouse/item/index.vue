@@ -12,7 +12,7 @@
                         <div class="mb-3">
                             <label class="form-label">Item Code</label>
                             <client-only>
-                                <v-select :options="itemOptions" label="code" v-model="searchItem"></v-select>
+                                <v-select @search="handleSearchItems" :options="itemOptions" label="code" v-model="searchItem"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -311,11 +311,39 @@ async function search() {
     pagination.value.totalPages = totalPages
 }
 
+async function handleSearchItems(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        itemOptions.value = []
+        return 
+    } 
+
+    debouncedSearchItems(input, loading)
+
+}
+
+async function searchItems(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await api.fetchItemsByCode(input);
+        itemOptions.value = response
+    } catch (error) {
+        console.error('Error fetching Items:', error);
+    } finally {
+        loading(false);
+    }
+}
+
 
 // ======================== UTILS ======================== 
 
+const debouncedSearchItems = debounce((input: string, loading: (status: boolean) => void) => {
+    searchItems(input, loading);
+}, 500);
+
 const onClickViewDetails = (id: string) => router.push('/warehouse/item/view/' + id)
-// const onClickEdit = (id: string) => router.push('/warehouse/item/' + id)
 const onClickAdd = () => router.push('/warehouse/item/create')
 
 </script>

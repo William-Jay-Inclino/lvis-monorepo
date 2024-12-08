@@ -2,13 +2,6 @@
 
     <div>
 
-        <div v-if="canvassIsReferenceInRR" class="alert alert-info" role="alert">
-            <small class="fst-italic">
-                Note: Adding/removing items and modifying quantity, are not permitted if
-                the canvass has already been referenced in the receiving report
-            </small>
-        </div>
-
         <div class="table-responsive">
 
             <table class="table table-hover">
@@ -37,7 +30,7 @@
                         <td class="text-muted"> {{ item.quantity }} </td>
                         <td class="text-muted text-center">
                             <div class="d-flex w-100">
-                                <button v-if="!canvassIsReferenceInRR" @click="removeItem(i)"
+                                <button @click="removeItem(i)"
                                     class="btn btn-sm btn-light w-50 me-2">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
@@ -54,7 +47,7 @@
                     </tr>
                 </tbody>
 
-                <tfoot v-if="!canvassIsReferenceInRR">
+                <tfoot>
                     <tr>
                         <td colspan="7" class="text-center">
                             <button @click="onCLickAdd()" class="btn btn-primary btn-sm" data-bs-toggle="modal"
@@ -152,9 +145,8 @@
                             <label class="form-label">
                                 Quantity <span class="text-danger">*</span>
                             </label>
-                            <input v-if="!canvassIsReferenceInRR" type="number" class="form-control"
+                            <input type="number" class="form-control"
                                 v-model="canvassItem.quantity">
-                            <input v-else type="number" class="form-control" :value="canvassItem.quantity" disabled>
                             <small class="text-danger fst-italic" v-if="canvassItemErrors.quantity">
                                 This field is required and quantity must be greater than 0
                             </small>
@@ -219,14 +211,6 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
-    canvassIsReferenceInRR: {
-        type: Boolean,
-        default: false
-    },
-    // canViewItemClass: {
-    //     type: Boolean,
-    //     default: false
-    // },
 });
 
 

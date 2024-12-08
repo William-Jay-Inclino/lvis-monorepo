@@ -27,7 +27,7 @@ import { APPROVAL_STATUS } from '../__common__/types';
 export class PoResolver {
 
     private readonly logger = new Logger(PoResolver.name);
-    private filename = 'jo.resolver.ts'
+    private filename = 'po.resolver.ts'
 
     constructor(
         private readonly poService: PoService,

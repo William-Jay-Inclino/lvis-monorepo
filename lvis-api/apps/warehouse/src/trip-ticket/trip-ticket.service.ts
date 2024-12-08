@@ -805,9 +805,9 @@ export class TripTicketService {
             }
         })
 
-        const isOwner = trip_ticket.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = trip_ticket.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
+        if (!hasPermission) {
             return false
         }
 

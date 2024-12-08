@@ -373,9 +373,9 @@ export class OsrivService {
             }
         })
 
-        const isOwner = osriv.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = osriv.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
+        if (!hasPermission) {
             return false
         }
 

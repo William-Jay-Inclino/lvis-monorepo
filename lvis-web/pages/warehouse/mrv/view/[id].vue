@@ -67,7 +67,14 @@
                                             </tr>
                                             <tr v-if="showMWOnumber(item.request_type)">
                                                 <td class="text-muted">MWO Number</td>
-                                                <td> {{ item.mwo_number ? item.mwo_number : 'N/A' }} </td>
+                                                <td>
+                                                    <span v-if="item.mwo_number">
+                                                        {{ item.mwo_number }}
+                                                    </span>
+                                                    <span class="fst-italic" v-else>
+                                                        <small class="text-danger">MWO number is automatically assigned when approved</small>
+                                                    </span> 
+                                                </td>
                                             </tr>
                                             <tr v-if="showCWOnumber(item.request_type)">
                                                 <td class="text-muted">CWO Number</td>

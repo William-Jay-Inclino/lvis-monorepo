@@ -27,6 +27,7 @@ export class JoService {
                 canvass_items: {
                     include: {
                         unit: true,
+                        item: true
                     }
                 }
             }
@@ -572,10 +573,10 @@ export class JoService {
             }
         })
 
-        const isOwner = jo.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = jo.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
-            return false
+        if (!hasPermission) {
+            return false;
         }
 
         const hasApproval = jo.jo_approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)

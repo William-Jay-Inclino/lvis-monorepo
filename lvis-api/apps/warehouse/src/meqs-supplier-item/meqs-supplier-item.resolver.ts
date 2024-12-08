@@ -14,7 +14,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 export class MeqsSupplierItemResolver {
 
   private readonly logger = new Logger(MeqsSupplierItemResolver.name);
-  private filename = 'account.resolver.ts'
+  private filename = 'meqs-supplier-item.resolver.ts'
   
   constructor(private readonly meqsSupplierItemService: MeqsSupplierItemService) { }
 

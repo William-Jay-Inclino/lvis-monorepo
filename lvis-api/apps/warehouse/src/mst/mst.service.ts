@@ -349,9 +349,9 @@ export class MstService {
             }
         })
 
-        const isOwner = mst.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = mst.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
+        if (!hasPermission) {
             return false
         }
 

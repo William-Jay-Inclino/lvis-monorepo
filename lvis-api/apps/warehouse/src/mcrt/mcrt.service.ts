@@ -426,10 +426,10 @@ export class McrtService {
             }
         })
 
-        const isOwner = mcrt.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = mcrt.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
-            return false
+        if (!hasPermission) {
+            return false;
         }
 
         const hasApproval = mcrt.mcrt_approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)

@@ -515,9 +515,9 @@ export class RrService {
             }
         })
 
-        const isOwner = rr.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = rr.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
+        if (!hasPermission) {
             return false
         }
 

@@ -25,7 +25,8 @@ export class MeqsService {
                     include: {
                         canvass_items: {
                             include: {
-                                unit: true
+                                unit: true,
+                                item: true
                             }
                         }
                     }
@@ -38,7 +39,8 @@ export class MeqsService {
                     include: {
                         canvass_items: {
                             include: {
-                                unit: true
+                                unit: true,
+                                item: true
                             }
                         }
                     }
@@ -51,7 +53,8 @@ export class MeqsService {
                     include: {
                         canvass_items: {
                             include: {
-                                unit: true
+                                unit: true,
+                                item: true
                             }
                         }
                     }
@@ -71,7 +74,8 @@ export class MeqsService {
                     include: {
                         canvass_item: {
                             include: {
-                                unit: true
+                                unit: true,
+                                item: true
                             }
                         }
                     }
@@ -612,10 +616,10 @@ export class MeqsService {
             }
         })
 
-        const isOwner = meqs.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = meqs.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
-            return false
+        if (!hasPermission) {
+            return false;
         }
 
         const hasApproval = meqs.meqs_approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)

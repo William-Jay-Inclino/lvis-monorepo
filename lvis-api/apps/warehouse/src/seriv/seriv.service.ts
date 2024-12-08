@@ -443,9 +443,9 @@ export class SerivService {
             }
         })
 
-        const isOwner = seriv.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = seriv.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
+        if (!hasPermission) {
             return false
         }
 

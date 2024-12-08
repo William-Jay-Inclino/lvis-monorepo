@@ -340,10 +340,10 @@ export class MctService {
             }
         })
 
-        const isOwner = mct.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = mct.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
-            return false
+        if (!hasPermission) {
+            return false;
         }
 
         const hasApproval = mct.mct_approvers.find(i => i.status !== APPROVAL_STATUS.PENDING)

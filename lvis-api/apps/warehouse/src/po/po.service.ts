@@ -100,7 +100,7 @@ export class PoService {
             fund_source_id: input.fund_source_id ?? null,
             po_number: poNumber,
             meqs_number: meqsSupplier.meqs.meqs_number,
-            notes: '',
+            notes: input.notes,
             approval_status: APPROVAL_STATUS.PENDING,
             meqs_supplier: {
                 connect: {
@@ -507,9 +507,9 @@ export class PoService {
             }
         })
 
-        const isOwner = po.created_by === this.authUser.user.username || isAdmin(this.authUser)
+        const hasPermission = po.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!isOwner) {
+        if (!hasPermission) {
             return false
         }
 
