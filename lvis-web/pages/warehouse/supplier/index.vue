@@ -75,8 +75,8 @@
                                                 <td class="text-muted align-middle"> {{ VAT[i.vat_type].label }} </td>
                                                 <td class="align-middle text-center">
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
-                                                        :class="{ 'text-primary': canViewDetails(authUser, 'canManageSupplier') }"
-                                                        :disabled="!canViewDetails(authUser, 'canManageSupplier')">
+                                                        :class="{ 'text-primary': canRead(authUser, 'canManageSupplier') }"
+                                                        :disabled="!canRead(authUser, 'canManageSupplier')">
                                                         <client-only>
                                                             <font-awesome-icon :icon="['fas', 'info-circle']" />
                                                         </client-only>
