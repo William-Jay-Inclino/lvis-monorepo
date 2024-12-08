@@ -25,11 +25,22 @@
                             </client-only>
                         </div>
                     </div>
+                </div>
+                
+                <div class="row">
                     <div class="col">
                         <div class="mb-3">
-                            <label class="form-label">Status</label>
+                            <label class="form-label">Approval Status</label>
                             <client-only>
                                 <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Post Status</label>
+                            <client-only>
+                                <v-select :options="post_status_array" label="label" v-model="post_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -207,6 +218,11 @@ definePageMeta({
     middleware: ['auth'],
 })
 
+interface PostStatus {
+    id: boolean,
+    label: string
+}
+
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 
@@ -233,6 +249,11 @@ const gas_slips = ref<GasSlip[]>([])
 const employees = ref<Employee[]>([])
 const vehicles = ref<Vehicle[]>([])
 const approval_status = ref<IApprovalStatus | null>(null)
+const post_status_array = ref<PostStatus[]>([
+    { id: false, label: 'Unposted' },
+    { id: true, label: 'Posted' },
+])
+const post_status = ref<PostStatus | null>(null)
     // ----------------
 
 
@@ -295,6 +316,7 @@ async function changePage(page: number) {
         pageSize: pagination.value.pageSize,
         vehicle_id: vehicle.value ? vehicle.value.id : undefined,
         approval_status: approval_status.value ? approval_status.value.id : null,
+        is_posted: post_status.value ? post_status.value.id : null,
     })
     isSearching.value = false
 
@@ -323,12 +345,12 @@ async function search() {
     }
 
 
-    // find by VEHICLE
     const { data, currentPage, totalItems, totalPages } = await gasSlipApi.findAll({
         page: 1,
         pageSize: pagination.value.pageSize,
         vehicle_id: vehicle.value ? vehicle.value.id : undefined,
         approval_status: approval_status.value ? approval_status.value.id : null,
+        is_posted: post_status.value ? post_status.value.id : null,
     })
     isSearching.value = false
     items.value = data

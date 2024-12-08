@@ -149,9 +149,10 @@ export class GasSlipResolver {
     @Args('page', { type: () => Int, defaultValue: 1 }) page: number,
     @Args('pageSize', { type: () => Int, defaultValue: 10 }) pageSize: number,
     @Args('vehicle_id', { type: () => String, nullable: true }) vehicle_id?: string,
-    @Args('approval_status', { nullable: true }) approval_status?: number
+    @Args('approval_status', { nullable: true }) approval_status?: number,
+    @Args('is_posted', { nullable: true }) is_posted?: boolean,
   ): Promise<GasSlipsResponse> {
-    return this.gasSlipService.findAll(page, pageSize, vehicle_id, approval_status);
+    return this.gasSlipService.findAll(page, pageSize, vehicle_id, approval_status, is_posted);
   }
 
   @Query(() => GasSlip)

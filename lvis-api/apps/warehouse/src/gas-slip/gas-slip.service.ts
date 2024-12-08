@@ -11,7 +11,7 @@ import { getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { PostGasSlipInput } from './dto/post-gas-slip.input';
 import { MAX_UNPOSTED_GAS_SLIPS } from '../__common__/config';
 import { VEHICLE_CLASSIFICATION } from '../vehicle/entities/vehicle.enums';
-import { catchError, firstValueFrom } from 'rxjs';
+import { catchError, filter, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { UpdateGasSlipInput } from './dto/update-gas-slip.input';
 import { endOfYear, startOfYear } from 'date-fns';
@@ -214,7 +214,8 @@ export class GasSlipService {
 		page: number,
 		pageSize: number,
 		vehicle_id?: string, 
-        approval_status?: number
+        approval_status?: number,
+        is_posted?: boolean,
 	  ): Promise<GasSlipsResponse> {
 		const skip = (page - 1) * pageSize;
 		const take = pageSize;
@@ -223,6 +224,9 @@ export class GasSlipService {
 		if (vehicle_id) filters.vehicle_id = vehicle_id;
         if (approval_status) {
             filters.approval_status = approval_status;
+        }
+        if(is_posted) {
+            filters.is_posted = is_posted
         }
 
 		// Default to current year's records if neither filter is provided

@@ -222,7 +222,10 @@ export async function findAll(payload: {
     pageSize: number, 
     vehicle_id?: string, 
     approval_status: APPROVAL_STATUS | null, 
+    is_posted: boolean | null, 
     }): Promise<FindAllResponse> {
+
+        console.log('payload', payload);
     
     let approval_status2 = null
 
@@ -230,12 +233,14 @@ export async function findAll(payload: {
         approval_status2 = payload.approval_status
     }
 
+
     const query = `
       query {
         gas_slips(
           page: ${payload.page}, 
           pageSize: ${payload.pageSize}, 
-          ${payload.vehicle_id ? `vehicle_id: "${payload.vehicle_id}",` : ""},
+          ${payload.vehicle_id ? `vehicle_id: "${payload.vehicle_id}",` : ""}
+          ${payload.is_posted !== null && payload.is_posted !== undefined ? `is_posted: ${payload.is_posted},` : ""}
             approval_status: ${approval_status2},
         ) {
           data {
