@@ -803,19 +803,19 @@ export const jo_default_approvers: JOApproverSetting[] = [
     {
         id: faker.string.uuid(),
         approver_id: ricaflor,
-        label: 'Budget By:',
+        label: 'Budget By',
         order: 2,
     },
     {
         id: faker.string.uuid(),
         approver_id: marlon,
-        label: 'Pre-Audited By:',
+        label: 'Pre-Audited By',
         order: 3,
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
-        label: 'Approved By:',
+        label: 'Approved By',
         order: 4,
     },
 ]
@@ -824,19 +824,19 @@ export const rv_default_approvers: RVApproverSetting[] = [
     {
         id: faker.string.uuid(),
         approver_id: ricaflor,
-        label: 'Budget By:',
+        label: 'Budget By',
         order: 2,
     },
     {
         id: faker.string.uuid(),
         approver_id: marlon,
-        label: 'Pre-Audited By:',
+        label: 'Pre-Audited By',
         order: 3,
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
-        label: 'Approved By:',
+        label: 'Approved By',
         order: 4,
     },
 ]
@@ -845,19 +845,19 @@ export const spr_default_approvers: SPRApproverSetting[] = [
     {
         id: faker.string.uuid(),
         approver_id: ricaflor,
-        label: 'Budget By:',
+        label: 'Budget By',
         order: 2,
     },
     {
         id: faker.string.uuid(),
         approver_id: marlon,
-        label: 'Pre-Audited By:',
+        label: 'Pre-Audited By',
         order: 3,
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
-        label: 'Approved By:',
+        label: 'Approved By',
         order: 4,
     },
 ]
@@ -899,25 +899,25 @@ export const po_default_approvers: POApproverSetting[] = [
     {
         id: faker.string.uuid(),
         approver_id: ricaflor,
-        label: 'Budget By:',
+        label: 'Budget By',
         order: 1,
     },
     {
         id: faker.string.uuid(),
         approver_id: paula,
-        label: 'Finance By:',
+        label: 'Finance By',
         order: 2,
     },
     {
         id: faker.string.uuid(),
         approver_id: marlon,
-        label: 'Audited By:',
+        label: 'Audited By',
         order: 3,
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
-        label: 'Approved By:',
+        label: 'Approved By',
         order: 4,
     },
 ]
@@ -926,13 +926,13 @@ export const rr_default_approvers: RRApproverSetting[] = [
     {
         id: faker.string.uuid(),
         approver_id: marlon,
-        label: 'Audited By:',
+        label: 'Audited By',
         order: 3,
     },
     {
         id: faker.string.uuid(),
         approver_id: jannie,
-        label: 'Approved By:',
+        label: 'Approved By',
         order: 4,
     },
 ]

@@ -1,0 +1,62 @@
+Error: 
+
+message: 'Failed to launch the browser process!\n' +
+    '/home/kriz/.cache/puppeteer/chrome/linux-123.0.6312.105/chrome-linux64/chrome: error while loading shared libraries: libatk-1.0.so.0: cannot open shared object file: No such file or directory\n' +
+    '\n' +
+    '\n' +
+    'TROUBLESHOOTING: https://pptr.dev/troubleshooting\n',
+  trace: 'Error: Failed to launch the browser process!\n' +
+    '/home/kriz/.cache/puppeteer/chrome/linux-123.0.6312.105/chrome-linux64/chrome: error while loading shared libraries: libatk-1.0.so.0: cannot open shared object file: No such file or directory\n' +
+    '\n' +
+    '\n' +
+    'TROUBLESHOOTING: https://pptr.dev/troubleshooting\n' +
+    '\n' +
+    '    at Interface.onClose (/home/kriz/apps/lvis-monorepo/lvis-api/node_modules/.pnpm/@puppeteer+browsers@2.2.1/node_modules/@puppeteer/browsers/lib/cjs/launch.js:310:24)\n' +
+    '    at Interface.emit (node:events:530:35)\n' +
+    '    at Interface.close (node:internal/readline/interface:526:10)\n' +
+    '    at Socket.onend (node:internal/readline/interface:252:10)\n' +
+    '    at Socket.emit (node:events:530:35)\n' +
+    '    at endReadableNT (node:internal/streams/readable:1698:12)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)',
+
+
+    Solution: 
+
+    The error indicates that Puppeteer cannot find the required library (libatk-1.0.so.0) on your production server. Puppeteer depends on several system libraries to function correctly, especially when running Chrome or Chromium in headless mode. This issue typically arises when deploying to a production environment without the necessary dependencies installed.
+
+    Steps to Resolve:
+    Install Missing System Libraries On your production server, install the required libraries for Chromium.
+
+    Run the following commands (for Debian/Ubuntu-based systems):
+
+
+sudo apt update
+sudo apt install -y \
+    libasound2t64 \
+    libatk1.0-0 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libgbm-dev \
+    libpango-1.0-0 \
+    libcups2 \
+    libatk-bridge2.0-0 \
+    libxshmfence1 \
+    libpangocairo-1.0-0 \
+    libwayland-client0 \
+    libwayland-cursor0 \
+    libwayland-egl1 \
+    gstreamer1.0-libav \
+    gstreamer1.0-plugins-bad \
+    gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-ugly \
+    gstreamer1.0-pulseaudio
+
+
+
+
+
+npx puppeteer --version
