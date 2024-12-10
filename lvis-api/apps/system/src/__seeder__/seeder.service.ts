@@ -269,6 +269,10 @@ export class SeederService {
                         key: SETTINGS.FMSD_CHIEF,
                         value: data.monroe
                     },
+                    {
+                        key: SETTINGS.ISD_MANAGER,
+                        value: data.analou
+                    },
                 ]
             });
         } catch (error) {

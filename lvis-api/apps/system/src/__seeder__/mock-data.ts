@@ -207,7 +207,7 @@ export const classifications: Classification[] = [
 
 // =========================== EMPLOYEES =========================== 
 
-const analou = faker.string.uuid()
+export const analou = faker.string.uuid()
 const ricaflor = faker.string.uuid()
 const marlon = faker.string.uuid()
 export const jannie = faker.string.uuid()

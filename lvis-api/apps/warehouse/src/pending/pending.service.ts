@@ -902,6 +902,7 @@ export class PendingService {
 			const data: Prisma.ItemTransactionCreateManyInput = {
 				item_id: SU_Item.item_id,
 				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+                is_initial: true,
 				quantity: SU_Item.quantity,
 				price: SU_Item.price,
 				remarks: 'MST Request Item is usable',

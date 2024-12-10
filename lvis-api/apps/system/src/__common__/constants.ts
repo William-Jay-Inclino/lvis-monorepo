@@ -3,6 +3,7 @@ export const enum SETTINGS {
     GENERAL_MANAGER = 'general_manager',
     WAREHOUSE_CUSTODIAN = 'warehouse_custodian',
     FMSD_CHIEF = 'fmsd_chief',
+    ISD_MANAGER = 'isd_manager',
 }
 
 export const enum USER_GROUP {

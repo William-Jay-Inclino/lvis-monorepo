@@ -37,6 +37,7 @@ export class ItemService {
 			price: input.initial_average_price,
 			remarks: 'Initial item transaction',
 			created_by: this.authUser.user.username,
+			is_initial: true,
 		  };
 	  
 		  const createdBy = this.authUser.user.username;

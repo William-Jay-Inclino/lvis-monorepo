@@ -5,6 +5,7 @@ import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from '../__common__/auth-user.entity';
+import { SETTINGS } from '../__common__/constants';
 
 @UseGuards(GqlAuthGuard)
 export class SettingResolver {
@@ -25,7 +26,7 @@ export class SettingResolver {
         function: 'general_manager',
       })
       
-      return this.settingService.findGM();
+      return this.settingService.find_employee_in_settings(SETTINGS.GENERAL_MANAGER);
 
     } catch (error) {
       this.logger.error("Error in getting general_manager", error)
@@ -43,7 +44,7 @@ export class SettingResolver {
         function: 'warehouse_custodian',
       })
       
-      return this.settingService.findWarehouseCustodian();
+      return this.settingService.find_employee_in_settings(SETTINGS.WAREHOUSE_CUSTODIAN);
 
     } catch (error) {
       this.logger.error("Error in getting warehouse_custodian", error)
@@ -60,10 +61,27 @@ export class SettingResolver {
         function: 'fmsd_chief',
       })
       
-      return this.settingService.findFMSDChief();
+      return this.settingService.find_employee_in_settings(SETTINGS.FMSD_CHIEF);
 
     } catch (error) {
       this.logger.error("Error in getting fmsd_chief", error)
+    }
+  }
+
+  @Query(() => Employee)
+  isd_manager(@CurrentAuthUser() authUser: AuthUser) {
+    try {
+
+      this.logger.log({
+        username: authUser.user.username,
+        filename: this.filename,
+        function: 'isd_manager',
+      })
+      
+      return this.settingService.find_employee_in_settings(SETTINGS.ISD_MANAGER);
+
+    } catch (error) {
+      this.logger.error("Error in getting isd_manager", error)
     }
   }
 

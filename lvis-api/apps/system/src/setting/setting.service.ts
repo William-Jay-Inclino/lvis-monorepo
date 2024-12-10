@@ -1,22 +1,23 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { SETTINGS } from '../__common__/constants';
+import { Employee } from '../employee/entities/employee.entity';
 
 @Injectable()
 export class SettingService {
 
     constructor(private readonly prisma: PrismaService) { }
-    
-    async findGM() {
+
+    async find_employee_in_settings(key: SETTINGS){
 
         const item = await this.prisma.setting.findUnique({
-        where: {
-            key: SETTINGS.GENERAL_MANAGER
-        }
+            where: {
+                key
+            }
         })
 
         if(!item) {
-            throw new NotFoundException(`key ${SETTINGS.GENERAL_MANAGER} in setting table not found`)
+            throw new NotFoundException(`key: ${key} in setting table not found`)
         }
 
         const employee = await this.prisma.employee.findUnique({
@@ -35,55 +36,4 @@ export class SettingService {
 
     }
 
-    async findWarehouseCustodian() {
-
-        const item = await this.prisma.setting.findUnique({
-        where: {
-            key: SETTINGS.WAREHOUSE_CUSTODIAN
-        }
-        })
-
-        if(!item) {
-            throw new NotFoundException(`key ${SETTINGS.WAREHOUSE_CUSTODIAN} in setting table not found`)
-        }
-
-        const employee = await this.prisma.employee.findUnique({
-            where: { id: item.value },
-            include: {
-                division: true,
-                department: true,
-            }
-        })
-
-        if(!employee) {
-            throw new NotFoundException('Employee not found with id of ' + item.value)
-        }
-
-        return employee
-
-    }
-
-    async findFMSDChief() {
-
-        const item = await this.prisma.setting.findUnique({
-        where: {
-            key: SETTINGS.FMSD_CHIEF
-        }
-        })
-
-        if(!item) {
-            throw new NotFoundException(`key ${SETTINGS.FMSD_CHIEF} in setting table not found`)
-        }
-
-        const employee = await this.prisma.employee.findUnique({
-            where: { id: item.value },
-        })
-
-        if(!employee) {
-            throw new NotFoundException('Employee not found with id of ' + item.value)
-        }
-
-        return employee
-
-    }
 }

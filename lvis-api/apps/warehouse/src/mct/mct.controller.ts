@@ -68,4 +68,51 @@ export class MctController {
 
     }
 
+    @Get('pdf-gate-pass/:id')
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.MCT, RESOLVERS.printMct)
+    async generateGatePassPDF(
+        @Param('id') id: string, 
+        @Res() res: Response,
+        @CurrentAuthUser() authUser: AuthUser
+    ) {
+
+        try {
+
+            this.logger.log({
+                username: authUser.user.username,
+                filename: this.filename,
+                function: 'generateGatePassPDF',
+                mct_id: id
+            })
+            
+            this.mctPdfService.setAuthUser(authUser)
+    
+            const mct = await this.mctPdfService.findMct(id)
+
+            console.log('mct', mct);
+    
+            if(mct.approval_status !== APPROVAL_STATUS.APPROVED) {
+                throw new UnauthorizedException('Cannot generate gate pass pdf. Status is not approved')
+            }
+    
+            // @ts-ignore
+            const pdfBuffer = await this.mctPdfService.generateGatePassPdf(mct)
+    
+            // @ts-ignore
+            res.setHeader('Content-Type', 'application/pdf');
+            // @ts-ignore
+            res.setHeader('Content-Disposition', 'inline; filename="example.pdf"');
+    
+            // Send PDF buffer to client
+            // @ts-ignore
+            res.send(pdfBuffer);
+
+        } catch (error) {
+            this.logger.error('Error in generating Gate Pass PDF in MCT', error)
+        }
+
+
+    }
+
 }
