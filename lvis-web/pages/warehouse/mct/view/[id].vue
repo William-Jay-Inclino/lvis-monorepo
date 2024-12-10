@@ -140,10 +140,10 @@
                             </client-only> 
                             Search MCT
                                         </nuxt-link>
-                                        <button disabled v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMCT')" @click="onClickPrint" class="btn btn-danger">
+                                        <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMCT')" @click="onClickPrint" class="btn btn-danger">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'print']"/>
-                            </client-only> Print MCT
+                                                <font-awesome-icon :icon="['fas', 'print']"/>
+                                            </client-only> Print MCT
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>

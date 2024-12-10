@@ -6,9 +6,20 @@ import { MctApproverService } from '../mct-approver/mct-approver.service';
 import { MrvService } from '../mrv/mrv.service';
 import { CommonService } from '../__common__/classes';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
+import { MctController } from './mct.controller';
+import { MctPdfService } from './mct.pdf.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [MctResolver, MctService, MctApproverService, MrvService, CommonService, WinstonLoggerService],
+  providers: [
+    MctResolver, 
+    MctService, 
+    MctApproverService, 
+    MrvService, 
+    CommonService, 
+    WinstonLoggerService,
+    MctPdfService,
+  ],
+  controllers: [MctController]
 })
 export class MctModule {}
