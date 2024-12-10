@@ -5,9 +5,19 @@ import { HttpModule } from '@nestjs/axios';
 import { SerivApproverService } from '../seriv-approver/seriv-approver.service';
 import { CommonService } from '../__common__/classes';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
+import { SerivController } from './seriv.controller';
+import { SerivPdfService } from './seriv.pdf.service';
 
 @Module({
   imports: [HttpModule],
-  providers: [SerivResolver, SerivService, SerivApproverService, CommonService, WinstonLoggerService],
+  providers: [
+    SerivResolver, 
+    SerivService, 
+    SerivApproverService, 
+    CommonService, 
+    WinstonLoggerService,
+    SerivPdfService,
+  ],
+  controllers: [SerivController]
 })
 export class SerivModule {}

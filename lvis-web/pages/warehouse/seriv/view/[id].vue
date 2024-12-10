@@ -240,12 +240,21 @@
                             </client-only> 
                             Search SERIV
                                         </nuxt-link>
-                                        <button disabled
+                                        <!-- <button disabled
                                             v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')"
                                             @click="onClickPrint" class="btn btn-danger">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'print']"/>
                             </client-only> Print SERIV
+                                        </button> -->
+                                        <button
+                                            v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')"
+                                            @click="onClickPrint({is_gate_pass: true})"
+                                            class="btn btn-danger"
+                                        >
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'shield-alt']"/>
+                                            </client-only> Print Gate Pass
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
@@ -390,10 +399,12 @@ async function cancelSeriv() {
 
 }
 
-async function onClickPrint() {
+async function onClickPrint(payload?: {is_gate_pass?: boolean}) {
     console.log('onClickPrint()');
 
     printBtn.value?.click()
+    
+    const end_point = payload && payload.is_gate_pass ? '/seriv/pdf-gate-pass/' : '/seriv/pdf/'
 
     try {
 
@@ -401,7 +412,7 @@ async function onClickPrint() {
 
         isLoadingPdf.value = true
 
-        const response = await axios.get(WAREHOUSE_API_URL + '/seriv/pdf/' + item.value?.id, {
+        const response = await axios.get(WAREHOUSE_API_URL + end_point + item.value?.id, {
             responseType: 'blob',
             headers: {
                 Authorization: `Bearer ${accessToken}`, // Include Authorization header

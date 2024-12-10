@@ -321,6 +321,6 @@ async function onClickPrint(payload?: {is_gate_pass?: boolean}) {
 
 
 const onClickAdd = () => router.push('/warehouse/mct/create')
-const onClickUpdate = (id: string) => router.push('/warehouse/mct/' + id)
+// const onClickUpdate = (id: string) => router.push('/warehouse/mct/' + id)
 
 </script>
