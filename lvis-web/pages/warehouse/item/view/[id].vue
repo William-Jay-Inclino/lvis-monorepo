@@ -252,18 +252,27 @@ onMounted(async () => {
 })
 
 const initialPrice = computed(() => {
+
+    if(item.value?.item_transactions.length === 0) return 0
+
     const indx = item.value!.item_transactions.length - 1
     const initialTransaction = item.value!.item_transactions[indx]
     return formatToPhpCurrency(initialTransaction.price)
 })
 
 const highestPrice = computed(() => {
+
+    if(item.value?.item_transactions.length === 0) return 0
+
     const largestNumber = item.value!.item_transactions.reduce((max: number, obj: ItemTransaction) => obj.price > max ? obj.price : max, item.value!.item_transactions[0].price);
 
     return formatToPhpCurrency(largestNumber)
 })
 
 const lowestPrice = computed(() => {
+    
+    if(item.value?.item_transactions.length === 0) return 0
+    
     const smallesNumber = item.value!.item_transactions.reduce((max: number, obj: ItemTransaction) => obj.price < max ? obj.price : max, item.value!.item_transactions[0].price);
 
     return formatToPhpCurrency(smallesNumber)
