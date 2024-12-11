@@ -101,7 +101,7 @@ export class MctPdfService {
                 <div style="display: flex; justify-content: space-between;">
 
                     <div>
-                        <table style="font-size: 10pt; width: 150px;">
+                        <table style="font-size: 10pt; width: 200px;">
                             <tr>
                                 <td style="width: 50%">MCT No.:</td>
                                 <td style="border-bottom: 1px solid black; font-weight: bold; text-align: center">
@@ -116,7 +116,7 @@ export class MctPdfService {
                     </div>
 
                     <div>
-                        <table style="font-size: 10pt; width: 150px;">
+                        <table style="font-size: 10pt; width: 200px;">
                             <tr>
                                 <td> Date: </td>
                                 <td style="border-bottom: 1px solid black; font-weight: bold; text-align: center">
@@ -362,7 +362,7 @@ export class MctPdfService {
 
                 <div style="display: flex; justify-content: flex-end;">
                     <div>
-                        <table style="font-size: 10pt; width: 140px;">
+                        <table style="font-size: 10pt; width: 200px;">
                             <tr>
                                 <td style="width: 30%">Date:</td>
                                 <td style="border-bottom: 1px solid black; font-weight: bold; text-align: center">
