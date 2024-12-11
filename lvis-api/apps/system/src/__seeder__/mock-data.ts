@@ -732,23 +732,23 @@ export const userEmployees: UserEmployee[] = [
 export const userGroups : UserGroup[] = [
     {
         id: 1,
-        name: 'Department Head',
+        name: 'Department Heads',
     },
     {
         id: 2,
-        name: 'Finance Manager',
+        name: 'Finance Managers',
     },
     {
         id: 3,
-        name: 'Budget Officer',
+        name: 'Budget Officers',
     },
     {
         id: 4,
-        name: 'Auditor',
+        name: 'Auditors',
     },
     {
         id: 5,
-        name: 'Driver',
+        name: 'Drivers',
     }
 ]
 

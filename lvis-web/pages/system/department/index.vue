@@ -41,7 +41,6 @@
                                             <tr>
                                                 <th class="bg-secondary text-white">Code</th>
                                                 <th class="bg-secondary text-white">Name</th>
-                                                <th class="bg-secondary text-white">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
                                                     <font-awesome-icon :icon="['fas', 'cog']" />
@@ -53,11 +52,6 @@
                                             <tr v-for="i in filteredItems">
                                                 <td class="text-muted"> {{ i.code }} </td>
                                                 <td class="text-muted"> {{ i.name }} </td>
-                                                <td class="text-muted">
-                                                    <div :class="{ [`badge bg-${departmentStatus[i.status].color}`]: true }">
-                                                        {{ departmentStatus[i.status].label }}
-                                                    </div>
-                                                </td>
                                                 <td class="text-center">
                                                     <div class="d-inline-flex">
                                                         <button :disabled="!canDelete(authUser, 'canManageDepartment', SERVICES.SYSTEM)"
