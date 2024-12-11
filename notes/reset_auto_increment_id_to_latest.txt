@@ -1,0 +1,11 @@
+
+
+Need ni sya if mag populate ka daan og table na auto incremented ang id. Ang mahitabo if mag create ka og new item kay mag pataka na ang database og assign og new id tungod out of sync naman sila sa record.
+Ang last nahinumdoman ni database kay di naman mao kay nag populate naman ka. So every time mag populate ka og table nga auto increment ang ID kay eh run gyud ni sya na command
+
+Execute this command in the pgadmin query tool:
+
+SELECT setval(pg_get_serial_sequence('item_transaction', 'id'), (SELECT MAX(id) FROM item_transaction));
+
+
+change 'item_transaction' sa table na imu gusto nga mag start ang id og aut increment

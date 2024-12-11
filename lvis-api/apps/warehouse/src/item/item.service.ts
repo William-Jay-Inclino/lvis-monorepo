@@ -327,6 +327,8 @@ export class ItemService {
 
 	getGWAPrice(itemTransactions: ItemTransaction[]): number {
 
+		if(itemTransactions.length === 0) return 0
+
 		const stockInTransactions = itemTransactions.filter(i => i.type === ITEM_TRANSACTION_TYPE.STOCK_IN)
 		const totalPrices = stockInTransactions.reduce((total, item) => total + item.price, 0);
 		const gwa = totalPrices / stockInTransactions.length;
