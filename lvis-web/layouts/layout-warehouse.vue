@@ -452,7 +452,8 @@ function canViewDataManagement(authUser: AuthUser) {
         (!!warehousePermissions.canManageSupplier && warehousePermissions.canManageSupplier.read) ||  
         (!!warehousePermissions.canManageFuelType && warehousePermissions.canManageFuelType.read) || 
         (!!warehousePermissions.canManageGasStation && warehousePermissions.canManageGasStation.read) || 
-        (!!warehousePermissions.canManageItem && warehousePermissions.canManageItem.search)
+        (!!warehousePermissions.canManageItem && warehousePermissions.canManageItem.search) || 
+        (!!warehousePermissions.canManageProject && warehousePermissions.canManageProject.read)
     )
 }
 
