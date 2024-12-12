@@ -39,10 +39,8 @@ export enum MODULES {
     // =======================  DATA MANAGEMENT ======================= 
     SUPPLIER = 'SUPPLIER',
     UNIT = 'UNIT',
-    
-    // =======================  STOCK INVENTORY ======================= 
+    PROJECT = 'PROJECT',
     ITEM = 'ITEM',
-    ITEM_TYPE = 'ITEM_TYPE',
     
     // =======================  MOTORPOOL ======================= 
     VEHICLE = 'VEHICLE',
