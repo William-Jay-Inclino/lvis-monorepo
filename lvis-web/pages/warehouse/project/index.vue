@@ -23,7 +23,7 @@
                             </client-only> 
                              {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageProject', SERVICES.SYSTEM)" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button v-if="canCreate(authUser, 'canManageProject')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'plus']"/>
                          </client-only> Create 
