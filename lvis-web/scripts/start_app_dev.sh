@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Run the pnpm command
-pnpm run preview
+pnpm run start:dev
