@@ -68,6 +68,12 @@
                                 <small v-if="formDataErrors.item_type" class="text-danger fst-italic"> This field is required
                                 </small>
                             </div>
+                            <div v-if="show_project_field" class="mb-3">
+                                <label class="form-label">Project</label>
+                                <client-only>
+                                    <v-select :options="projects" label="name" v-model="formData.project"></v-select>
+                                </client-only>
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label">Alert level</label>  <span class="text-danger">*</span>
                                 <client-only>
@@ -133,6 +139,7 @@ const isSaving = ref(false)
 
 const itemTypes = ref<ItemType[]>([])
 const units = ref<Unit[]>([])
+const projects = ref<Project[]>([])
 const alertLevels = ref<number[]>([])
 
 const _initialFormErrors = {
@@ -149,7 +156,8 @@ const _initialFormData: CreateItemInput = {
     description: '',
     initial_quantity: 0,
     initial_average_price: 0,
-    alert_level: 20
+    alert_level: 20,
+    project: null,
 }
 
 const formData = ref({ ..._initialFormData })
@@ -161,10 +169,33 @@ onMounted(async () => {
 
     units.value = response.units
     itemTypes.value = response.item_types
+    projects.value = response.projects
     alertLevels.value = generateNumbersBy5({ max: 100 })
     isLoadingPage.value = false
 })
 
+const item_type = computed( () => {
+    return formData.value.item_type 
+})
+
+const show_project_field = computed( (): boolean => {
+    
+    if(!item_type.value) return false 
+
+    if(item_type.value.code === ITEM_TYPE.LINE_MATERIALS || item_type.value.code === ITEM_TYPE.SPECIAL_EQUIPMENT) {
+        return true 
+    }
+
+    return false
+
+})
+
+// clear project if item type is null or not line material and special equipment
+watch(item_type, (val) => {
+    if(!val || val.code !== ITEM_TYPE.LINE_MATERIALS && val.code !== ITEM_TYPE.SPECIAL_EQUIPMENT) {
+        formData.value.project = null 
+    }
+})
 
 async function onSubmit() {
 

@@ -32,7 +32,11 @@ export class ProjectService {
 	}
 
 	async findAll(): Promise<Project[]> {
-		return await this.prisma.project.findMany()
+		return await this.prisma.project.findMany({
+			include: {
+				project_items: true,
+			}
+		})
 	}
 
 	async findOne(id: string): Promise<Project | null> {

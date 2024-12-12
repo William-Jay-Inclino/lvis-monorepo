@@ -59,6 +59,11 @@ export type MwoSequenceTracker = $Result.DefaultSelection<Prisma.$MwoSequenceTra
  */
 export type Item = $Result.DefaultSelection<Prisma.$ItemPayload>
 /**
+ * Model ProjectItem
+ * 
+ */
+export type ProjectItem = $Result.DefaultSelection<Prisma.$ProjectItemPayload>
+/**
  * Model ItemLocation
  * 
  */
@@ -500,6 +505,16 @@ export class PrismaClient<
     * ```
     */
   get item(): Prisma.ItemDelegate<ExtArgs>;
+
+  /**
+   * `prisma.projectItem`: Exposes CRUD operations for the **ProjectItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProjectItems
+    * const projectItems = await prisma.projectItem.findMany()
+    * ```
+    */
+  get projectItem(): Prisma.ProjectItemDelegate<ExtArgs>;
 
   /**
    * `prisma.itemLocation`: Exposes CRUD operations for the **ItemLocation** model.
@@ -1018,7 +1033,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.8.1
-   * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
+   * Query Engine version: 5dbef10bdbfb579e07d35cc85fb1518d357cb99e
    */
   export type PrismaVersion = {
     client: string
@@ -1439,6 +1454,7 @@ export namespace Prisma {
     Setting: 'Setting',
     MwoSequenceTracker: 'MwoSequenceTracker',
     Item: 'Item',
+    ProjectItem: 'ProjectItem',
     ItemLocation: 'ItemLocation',
     ItemMovement: 'ItemMovement',
     ItemTransaction: 'ItemTransaction',
@@ -1501,7 +1517,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'itemType' | 'supplier' | 'unit' | 'station' | 'project' | 'pending' | 'setting' | 'mwoSequenceTracker' | 'item' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'itemCodeTracker' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem' | 'vehicle' | 'tripTicket' | 'tripTicketApprover' | 'gasSlip' | 'gasSlipApprover' | 'gasStation' | 'fuelType'
+      modelProps: 'itemType' | 'supplier' | 'unit' | 'station' | 'project' | 'pending' | 'setting' | 'mwoSequenceTracker' | 'item' | 'projectItem' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'itemCodeTracker' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem' | 'vehicle' | 'tripTicket' | 'tripTicketApprover' | 'gasSlip' | 'gasSlipApprover' | 'gasStation' | 'fuelType'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2096,6 +2112,72 @@ export namespace Prisma {
           count: {
             args: Prisma.ItemCountArgs<ExtArgs>,
             result: $Utils.Optional<ItemCountAggregateOutputType> | number
+          }
+        }
+      }
+      ProjectItem: {
+        payload: Prisma.$ProjectItemPayload<ExtArgs>
+        fields: Prisma.ProjectItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProjectItemFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProjectItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProjectItemFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProjectItemPayload>
+          }
+          findFirst: {
+            args: Prisma.ProjectItemFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProjectItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProjectItemFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProjectItemPayload>
+          }
+          findMany: {
+            args: Prisma.ProjectItemFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProjectItemPayload>[]
+          }
+          create: {
+            args: Prisma.ProjectItemCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProjectItemPayload>
+          }
+          createMany: {
+            args: Prisma.ProjectItemCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ProjectItemDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProjectItemPayload>
+          }
+          update: {
+            args: Prisma.ProjectItemUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProjectItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProjectItemDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProjectItemUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ProjectItemUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProjectItemPayload>
+          }
+          aggregate: {
+            args: Prisma.ProjectItemAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateProjectItem>
+          }
+          groupBy: {
+            args: Prisma.ProjectItemGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ProjectItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProjectItemCountArgs<ExtArgs>,
+            result: $Utils.Optional<ProjectItemCountAggregateOutputType> | number
           }
         }
       }
@@ -5461,10 +5543,12 @@ export namespace Prisma {
 
   export type ProjectCountOutputType = {
     mrv: number
+    project_items: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mrv?: boolean | ProjectCountOutputTypeCountMrvArgs
+    project_items?: boolean | ProjectCountOutputTypeCountProject_itemsArgs
   }
 
   // Custom InputTypes
@@ -5485,6 +5569,14 @@ export namespace Prisma {
    */
   export type ProjectCountOutputTypeCountMrvArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MRVWhereInput
+  }
+
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountProject_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectItemWhereInput
   }
 
 
@@ -10614,6 +10706,7 @@ export namespace Prisma {
     name?: boolean
     created_at?: boolean
     mrv?: boolean | Project$mrvArgs<ExtArgs>
+    project_items?: boolean | Project$project_itemsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
@@ -10625,6 +10718,7 @@ export namespace Prisma {
 
   export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mrv?: boolean | Project$mrvArgs<ExtArgs>
+    project_items?: boolean | Project$project_itemsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -10633,6 +10727,7 @@ export namespace Prisma {
     name: "Project"
     objects: {
       mrv: Prisma.$MRVPayload<ExtArgs>[]
+      project_items: Prisma.$ProjectItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11005,6 +11100,8 @@ export namespace Prisma {
 
     mrv<T extends Project$mrvArgs<ExtArgs> = {}>(args?: Subset<T, Project$mrvArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MRVPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    project_items<T extends Project$project_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Project$project_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11365,6 +11462,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MRVScalarFieldEnum | MRVScalarFieldEnum[]
+  }
+
+
+  /**
+   * Project.project_items
+   */
+  export type Project$project_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    where?: ProjectItemWhereInput
+    orderBy?: ProjectItemOrderByWithRelationInput | ProjectItemOrderByWithRelationInput[]
+    cursor?: ProjectItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProjectItemScalarFieldEnum | ProjectItemScalarFieldEnum[]
   }
 
 
@@ -14396,6 +14514,7 @@ export namespace Prisma {
     mrv_items?: boolean | Item$mrv_itemsArgs<ExtArgs>
     mcrt_items?: boolean | Item$mcrt_itemsArgs<ExtArgs>
     mst_items?: boolean | Item$mst_itemsArgs<ExtArgs>
+    project_item?: boolean | Item$project_itemArgs<ExtArgs>
     _count?: boolean | ItemCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["item"]>
 
@@ -14427,6 +14546,7 @@ export namespace Prisma {
     mrv_items?: boolean | Item$mrv_itemsArgs<ExtArgs>
     mcrt_items?: boolean | Item$mcrt_itemsArgs<ExtArgs>
     mst_items?: boolean | Item$mst_itemsArgs<ExtArgs>
+    project_item?: boolean | Item$project_itemArgs<ExtArgs>
     _count?: boolean | ItemCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -14444,6 +14564,7 @@ export namespace Prisma {
       mrv_items: Prisma.$MRVItemPayload<ExtArgs>[]
       mcrt_items: Prisma.$MCRTItemPayload<ExtArgs>[]
       mst_items: Prisma.$MSTItemPayload<ExtArgs>[]
+      project_item: Prisma.$ProjectItemPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14844,6 +14965,8 @@ export namespace Prisma {
     mcrt_items<T extends Item$mcrt_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Item$mcrt_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCRTItemPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     mst_items<T extends Item$mst_itemsArgs<ExtArgs> = {}>(args?: Subset<T, Item$mst_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MSTItemPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    project_item<T extends Item$project_itemArgs<ExtArgs> = {}>(args?: Subset<T, Item$project_itemArgs<ExtArgs>>): Prisma__ProjectItemClient<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -15367,6 +15490,22 @@ export namespace Prisma {
 
 
   /**
+   * Item.project_item
+   */
+  export type Item$project_itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    where?: ProjectItemWhereInput
+  }
+
+
+  /**
    * Item without action
    */
   export type ItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15378,6 +15517,957 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: ItemInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model ProjectItem
+   */
+
+  export type AggregateProjectItem = {
+    _count: ProjectItemCountAggregateOutputType | null
+    _avg: ProjectItemAvgAggregateOutputType | null
+    _sum: ProjectItemSumAggregateOutputType | null
+    _min: ProjectItemMinAggregateOutputType | null
+    _max: ProjectItemMaxAggregateOutputType | null
+  }
+
+  export type ProjectItemAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ProjectItemSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ProjectItemMinAggregateOutputType = {
+    id: number | null
+    project_id: string | null
+    item_id: string | null
+  }
+
+  export type ProjectItemMaxAggregateOutputType = {
+    id: number | null
+    project_id: string | null
+    item_id: string | null
+  }
+
+  export type ProjectItemCountAggregateOutputType = {
+    id: number
+    project_id: number
+    item_id: number
+    _all: number
+  }
+
+
+  export type ProjectItemAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ProjectItemSumAggregateInputType = {
+    id?: true
+  }
+
+  export type ProjectItemMinAggregateInputType = {
+    id?: true
+    project_id?: true
+    item_id?: true
+  }
+
+  export type ProjectItemMaxAggregateInputType = {
+    id?: true
+    project_id?: true
+    item_id?: true
+  }
+
+  export type ProjectItemCountAggregateInputType = {
+    id?: true
+    project_id?: true
+    item_id?: true
+    _all?: true
+  }
+
+  export type ProjectItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProjectItem to aggregate.
+     */
+    where?: ProjectItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectItems to fetch.
+     */
+    orderBy?: ProjectItemOrderByWithRelationInput | ProjectItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProjectItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProjectItems
+    **/
+    _count?: true | ProjectItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProjectItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProjectItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProjectItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProjectItemMaxAggregateInputType
+  }
+
+  export type GetProjectItemAggregateType<T extends ProjectItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateProjectItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProjectItem[P]>
+      : GetScalarType<T[P], AggregateProjectItem[P]>
+  }
+
+
+
+
+  export type ProjectItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectItemWhereInput
+    orderBy?: ProjectItemOrderByWithAggregationInput | ProjectItemOrderByWithAggregationInput[]
+    by: ProjectItemScalarFieldEnum[] | ProjectItemScalarFieldEnum
+    having?: ProjectItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProjectItemCountAggregateInputType | true
+    _avg?: ProjectItemAvgAggregateInputType
+    _sum?: ProjectItemSumAggregateInputType
+    _min?: ProjectItemMinAggregateInputType
+    _max?: ProjectItemMaxAggregateInputType
+  }
+
+  export type ProjectItemGroupByOutputType = {
+    id: number
+    project_id: string
+    item_id: string | null
+    _count: ProjectItemCountAggregateOutputType | null
+    _avg: ProjectItemAvgAggregateOutputType | null
+    _sum: ProjectItemSumAggregateOutputType | null
+    _min: ProjectItemMinAggregateOutputType | null
+    _max: ProjectItemMaxAggregateOutputType | null
+  }
+
+  type GetProjectItemGroupByPayload<T extends ProjectItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProjectItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProjectItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProjectItemGroupByOutputType[P]>
+            : GetScalarType<T[P], ProjectItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProjectItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    project_id?: boolean
+    item_id?: boolean
+    item?: boolean | ProjectItem$itemArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectItem"]>
+
+  export type ProjectItemSelectScalar = {
+    id?: boolean
+    project_id?: boolean
+    item_id?: boolean
+  }
+
+  export type ProjectItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    item?: boolean | ProjectItem$itemArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+
+
+  export type $ProjectItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProjectItem"
+    objects: {
+      item: Prisma.$ItemPayload<ExtArgs> | null
+      project: Prisma.$ProjectPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      project_id: string
+      item_id: string | null
+    }, ExtArgs["result"]["projectItem"]>
+    composites: {}
+  }
+
+
+  type ProjectItemGetPayload<S extends boolean | null | undefined | ProjectItemDefaultArgs> = $Result.GetResult<Prisma.$ProjectItemPayload, S>
+
+  type ProjectItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ProjectItemFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ProjectItemCountAggregateInputType | true
+    }
+
+  export interface ProjectItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProjectItem'], meta: { name: 'ProjectItem' } }
+    /**
+     * Find zero or one ProjectItem that matches the filter.
+     * @param {ProjectItemFindUniqueArgs} args - Arguments to find a ProjectItem
+     * @example
+     * // Get one ProjectItem
+     * const projectItem = await prisma.projectItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ProjectItemFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ProjectItemFindUniqueArgs<ExtArgs>>
+    ): Prisma__ProjectItemClient<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one ProjectItem that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ProjectItemFindUniqueOrThrowArgs} args - Arguments to find a ProjectItem
+     * @example
+     * // Get one ProjectItem
+     * const projectItem = await prisma.projectItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ProjectItemFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProjectItemFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ProjectItemClient<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first ProjectItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectItemFindFirstArgs} args - Arguments to find a ProjectItem
+     * @example
+     * // Get one ProjectItem
+     * const projectItem = await prisma.projectItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ProjectItemFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProjectItemFindFirstArgs<ExtArgs>>
+    ): Prisma__ProjectItemClient<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first ProjectItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectItemFindFirstOrThrowArgs} args - Arguments to find a ProjectItem
+     * @example
+     * // Get one ProjectItem
+     * const projectItem = await prisma.projectItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ProjectItemFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProjectItemFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ProjectItemClient<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more ProjectItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectItemFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProjectItems
+     * const projectItems = await prisma.projectItem.findMany()
+     * 
+     * // Get first 10 ProjectItems
+     * const projectItems = await prisma.projectItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const projectItemWithIdOnly = await prisma.projectItem.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ProjectItemFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProjectItemFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a ProjectItem.
+     * @param {ProjectItemCreateArgs} args - Arguments to create a ProjectItem.
+     * @example
+     * // Create one ProjectItem
+     * const ProjectItem = await prisma.projectItem.create({
+     *   data: {
+     *     // ... data to create a ProjectItem
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ProjectItemCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ProjectItemCreateArgs<ExtArgs>>
+    ): Prisma__ProjectItemClient<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many ProjectItems.
+     *     @param {ProjectItemCreateManyArgs} args - Arguments to create many ProjectItems.
+     *     @example
+     *     // Create many ProjectItems
+     *     const projectItem = await prisma.projectItem.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ProjectItemCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProjectItemCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ProjectItem.
+     * @param {ProjectItemDeleteArgs} args - Arguments to delete one ProjectItem.
+     * @example
+     * // Delete one ProjectItem
+     * const ProjectItem = await prisma.projectItem.delete({
+     *   where: {
+     *     // ... filter to delete one ProjectItem
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ProjectItemDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ProjectItemDeleteArgs<ExtArgs>>
+    ): Prisma__ProjectItemClient<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one ProjectItem.
+     * @param {ProjectItemUpdateArgs} args - Arguments to update one ProjectItem.
+     * @example
+     * // Update one ProjectItem
+     * const projectItem = await prisma.projectItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ProjectItemUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ProjectItemUpdateArgs<ExtArgs>>
+    ): Prisma__ProjectItemClient<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more ProjectItems.
+     * @param {ProjectItemDeleteManyArgs} args - Arguments to filter ProjectItems to delete.
+     * @example
+     * // Delete a few ProjectItems
+     * const { count } = await prisma.projectItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ProjectItemDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProjectItemDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProjectItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProjectItems
+     * const projectItem = await prisma.projectItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ProjectItemUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ProjectItemUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ProjectItem.
+     * @param {ProjectItemUpsertArgs} args - Arguments to update or create a ProjectItem.
+     * @example
+     * // Update or create a ProjectItem
+     * const projectItem = await prisma.projectItem.upsert({
+     *   create: {
+     *     // ... data to create a ProjectItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProjectItem we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ProjectItemUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ProjectItemUpsertArgs<ExtArgs>>
+    ): Prisma__ProjectItemClient<$Result.GetResult<Prisma.$ProjectItemPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of ProjectItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectItemCountArgs} args - Arguments to filter ProjectItems to count.
+     * @example
+     * // Count the number of ProjectItems
+     * const count = await prisma.projectItem.count({
+     *   where: {
+     *     // ... the filter for the ProjectItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProjectItemCountArgs>(
+      args?: Subset<T, ProjectItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProjectItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProjectItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProjectItemAggregateArgs>(args: Subset<T, ProjectItemAggregateArgs>): Prisma.PrismaPromise<GetProjectItemAggregateType<T>>
+
+    /**
+     * Group by ProjectItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProjectItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProjectItemGroupByArgs['orderBy'] }
+        : { orderBy?: ProjectItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProjectItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProjectItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProjectItem model
+   */
+  readonly fields: ProjectItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProjectItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProjectItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    item<T extends ProjectItem$itemArgs<ExtArgs> = {}>(args?: Subset<T, ProjectItem$itemArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the ProjectItem model
+   */ 
+  interface ProjectItemFieldRefs {
+    readonly id: FieldRef<"ProjectItem", 'Int'>
+    readonly project_id: FieldRef<"ProjectItem", 'String'>
+    readonly item_id: FieldRef<"ProjectItem", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * ProjectItem findUnique
+   */
+  export type ProjectItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectItem to fetch.
+     */
+    where: ProjectItemWhereUniqueInput
+  }
+
+
+  /**
+   * ProjectItem findUniqueOrThrow
+   */
+  export type ProjectItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectItem to fetch.
+     */
+    where: ProjectItemWhereUniqueInput
+  }
+
+
+  /**
+   * ProjectItem findFirst
+   */
+  export type ProjectItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectItem to fetch.
+     */
+    where?: ProjectItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectItems to fetch.
+     */
+    orderBy?: ProjectItemOrderByWithRelationInput | ProjectItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProjectItems.
+     */
+    cursor?: ProjectItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProjectItems.
+     */
+    distinct?: ProjectItemScalarFieldEnum | ProjectItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * ProjectItem findFirstOrThrow
+   */
+  export type ProjectItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectItem to fetch.
+     */
+    where?: ProjectItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectItems to fetch.
+     */
+    orderBy?: ProjectItemOrderByWithRelationInput | ProjectItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProjectItems.
+     */
+    cursor?: ProjectItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProjectItems.
+     */
+    distinct?: ProjectItemScalarFieldEnum | ProjectItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * ProjectItem findMany
+   */
+  export type ProjectItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectItems to fetch.
+     */
+    where?: ProjectItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectItems to fetch.
+     */
+    orderBy?: ProjectItemOrderByWithRelationInput | ProjectItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProjectItems.
+     */
+    cursor?: ProjectItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectItems.
+     */
+    skip?: number
+    distinct?: ProjectItemScalarFieldEnum | ProjectItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * ProjectItem create
+   */
+  export type ProjectItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProjectItem.
+     */
+    data: XOR<ProjectItemCreateInput, ProjectItemUncheckedCreateInput>
+  }
+
+
+  /**
+   * ProjectItem createMany
+   */
+  export type ProjectItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProjectItems.
+     */
+    data: ProjectItemCreateManyInput | ProjectItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ProjectItem update
+   */
+  export type ProjectItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProjectItem.
+     */
+    data: XOR<ProjectItemUpdateInput, ProjectItemUncheckedUpdateInput>
+    /**
+     * Choose, which ProjectItem to update.
+     */
+    where: ProjectItemWhereUniqueInput
+  }
+
+
+  /**
+   * ProjectItem updateMany
+   */
+  export type ProjectItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProjectItems.
+     */
+    data: XOR<ProjectItemUpdateManyMutationInput, ProjectItemUncheckedUpdateManyInput>
+    /**
+     * Filter which ProjectItems to update
+     */
+    where?: ProjectItemWhereInput
+  }
+
+
+  /**
+   * ProjectItem upsert
+   */
+  export type ProjectItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProjectItem to update in case it exists.
+     */
+    where: ProjectItemWhereUniqueInput
+    /**
+     * In case the ProjectItem found by the `where` argument doesn't exist, create a new ProjectItem with this data.
+     */
+    create: XOR<ProjectItemCreateInput, ProjectItemUncheckedCreateInput>
+    /**
+     * In case the ProjectItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProjectItemUpdateInput, ProjectItemUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ProjectItem delete
+   */
+  export type ProjectItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
+    /**
+     * Filter which ProjectItem to delete.
+     */
+    where: ProjectItemWhereUniqueInput
+  }
+
+
+  /**
+   * ProjectItem deleteMany
+   */
+  export type ProjectItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProjectItems to delete
+     */
+    where?: ProjectItemWhereInput
+  }
+
+
+  /**
+   * ProjectItem.item
+   */
+  export type ProjectItem$itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Item
+     */
+    select?: ItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ItemInclude<ExtArgs> | null
+    where?: ItemWhereInput
+  }
+
+
+  /**
+   * ProjectItem without action
+   */
+  export type ProjectItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectItem
+     */
+    select?: ProjectItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProjectItemInclude<ExtArgs> | null
   }
 
 
@@ -63633,6 +64723,15 @@ export namespace Prisma {
   export type ItemScalarFieldEnum = (typeof ItemScalarFieldEnum)[keyof typeof ItemScalarFieldEnum]
 
 
+  export const ProjectItemScalarFieldEnum: {
+    id: 'id',
+    project_id: 'project_id',
+    item_id: 'item_id'
+  };
+
+  export type ProjectItemScalarFieldEnum = (typeof ProjectItemScalarFieldEnum)[keyof typeof ProjectItemScalarFieldEnum]
+
+
   export const ItemLocationScalarFieldEnum: {
     id: 'id',
     item_id: 'item_id',
@@ -64739,6 +65838,7 @@ export namespace Prisma {
     name?: StringFilter<"Project"> | string
     created_at?: DateTimeFilter<"Project"> | Date | string
     mrv?: MRVListRelationFilter
+    project_items?: ProjectItemListRelationFilter
   }
 
   export type ProjectOrderByWithRelationInput = {
@@ -64746,6 +65846,7 @@ export namespace Prisma {
     name?: SortOrder
     created_at?: SortOrder
     mrv?: MRVOrderByRelationAggregateInput
+    project_items?: ProjectItemOrderByRelationAggregateInput
   }
 
   export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -64756,6 +65857,7 @@ export namespace Prisma {
     name?: StringFilter<"Project"> | string
     created_at?: DateTimeFilter<"Project"> | Date | string
     mrv?: MRVListRelationFilter
+    project_items?: ProjectItemListRelationFilter
   }, "id">
 
   export type ProjectOrderByWithAggregationInput = {
@@ -64957,9 +66059,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
-    item_type?: XOR<ItemTypeRelationFilter, ItemTypeWhereInput>
+    item_type?: XOR<ItemTypeScalarRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
-    unit?: XOR<UnitRelationFilter, UnitWhereInput>
+    unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
     canvass_items?: CanvassItemListRelationFilter
     item_locations?: ItemLocationListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
@@ -64967,6 +66069,7 @@ export namespace Prisma {
     mrv_items?: MRVItemListRelationFilter
     mcrt_items?: MCRTItemListRelationFilter
     mst_items?: MSTItemListRelationFilter
+    project_item?: XOR<ProjectItemNullableScalarRelationFilter, ProjectItemWhereInput> | null
   }
 
   export type ItemOrderByWithRelationInput = {
@@ -64994,6 +66097,7 @@ export namespace Prisma {
     mrv_items?: MRVItemOrderByRelationAggregateInput
     mcrt_items?: MCRTItemOrderByRelationAggregateInput
     mst_items?: MSTItemOrderByRelationAggregateInput
+    project_item?: ProjectItemOrderByWithRelationInput
   }
 
   export type ItemWhereUniqueInput = Prisma.AtLeast<{
@@ -65014,9 +66118,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
     deleted_at?: DateTimeNullableFilter<"Item"> | Date | string | null
-    item_type?: XOR<ItemTypeRelationFilter, ItemTypeWhereInput>
+    item_type?: XOR<ItemTypeScalarRelationFilter, ItemTypeWhereInput>
     item_transactions?: ItemTransactionListRelationFilter
-    unit?: XOR<UnitRelationFilter, UnitWhereInput>
+    unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
     canvass_items?: CanvassItemListRelationFilter
     item_locations?: ItemLocationListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
@@ -65024,6 +66128,7 @@ export namespace Prisma {
     mrv_items?: MRVItemListRelationFilter
     mcrt_items?: MCRTItemListRelationFilter
     mst_items?: MSTItemListRelationFilter
+    project_item?: XOR<ProjectItemNullableScalarRelationFilter, ProjectItemWhereInput> | null
   }, "id" | "code">
 
   export type ItemOrderByWithAggregationInput = {
@@ -65068,6 +66173,56 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
   }
 
+  export type ProjectItemWhereInput = {
+    AND?: ProjectItemWhereInput | ProjectItemWhereInput[]
+    OR?: ProjectItemWhereInput[]
+    NOT?: ProjectItemWhereInput | ProjectItemWhereInput[]
+    id?: IntFilter<"ProjectItem"> | number
+    project_id?: StringFilter<"ProjectItem"> | string
+    item_id?: StringNullableFilter<"ProjectItem"> | string | null
+    item?: XOR<ItemNullableScalarRelationFilter, ItemWhereInput> | null
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+  }
+
+  export type ProjectItemOrderByWithRelationInput = {
+    id?: SortOrder
+    project_id?: SortOrder
+    item_id?: SortOrderInput | SortOrder
+    item?: ItemOrderByWithRelationInput
+    project?: ProjectOrderByWithRelationInput
+  }
+
+  export type ProjectItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    item_id?: string
+    AND?: ProjectItemWhereInput | ProjectItemWhereInput[]
+    OR?: ProjectItemWhereInput[]
+    NOT?: ProjectItemWhereInput | ProjectItemWhereInput[]
+    project_id?: StringFilter<"ProjectItem"> | string
+    item?: XOR<ItemNullableScalarRelationFilter, ItemWhereInput> | null
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+  }, "id" | "item_id">
+
+  export type ProjectItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    project_id?: SortOrder
+    item_id?: SortOrderInput | SortOrder
+    _count?: ProjectItemCountOrderByAggregateInput
+    _avg?: ProjectItemAvgOrderByAggregateInput
+    _max?: ProjectItemMaxOrderByAggregateInput
+    _min?: ProjectItemMinOrderByAggregateInput
+    _sum?: ProjectItemSumOrderByAggregateInput
+  }
+
+  export type ProjectItemScalarWhereWithAggregatesInput = {
+    AND?: ProjectItemScalarWhereWithAggregatesInput | ProjectItemScalarWhereWithAggregatesInput[]
+    OR?: ProjectItemScalarWhereWithAggregatesInput[]
+    NOT?: ProjectItemScalarWhereWithAggregatesInput | ProjectItemScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ProjectItem"> | number
+    project_id?: StringWithAggregatesFilter<"ProjectItem"> | string
+    item_id?: StringNullableWithAggregatesFilter<"ProjectItem"> | string | null
+  }
+
   export type ItemLocationWhereInput = {
     AND?: ItemLocationWhereInput | ItemLocationWhereInput[]
     OR?: ItemLocationWhereInput[]
@@ -65077,8 +66232,8 @@ export namespace Prisma {
     station_id?: StringFilter<"ItemLocation"> | string
     quantity_on_hand?: IntFilter<"ItemLocation"> | number
     created_at?: DateTimeFilter<"ItemLocation"> | Date | string
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    station?: XOR<StationRelationFilter, StationWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    station?: XOR<StationScalarRelationFilter, StationWhereInput>
     origin_movements?: ItemMovementListRelationFilter
     destination_movements?: ItemMovementListRelationFilter
   }
@@ -65104,8 +66259,8 @@ export namespace Prisma {
     station_id?: StringFilter<"ItemLocation"> | string
     quantity_on_hand?: IntFilter<"ItemLocation"> | number
     created_at?: DateTimeFilter<"ItemLocation"> | Date | string
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    station?: XOR<StationRelationFilter, StationWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    station?: XOR<StationScalarRelationFilter, StationWhereInput>
     origin_movements?: ItemMovementListRelationFilter
     destination_movements?: ItemMovementListRelationFilter
   }, "id">
@@ -65143,8 +66298,8 @@ export namespace Prisma {
     destination_id?: StringFilter<"ItemMovement"> | string
     quantity_moved?: IntFilter<"ItemMovement"> | number
     created_at?: DateTimeFilter<"ItemMovement"> | Date | string
-    origin?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
-    destination?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
+    origin?: XOR<ItemLocationScalarRelationFilter, ItemLocationWhereInput>
+    destination?: XOR<ItemLocationScalarRelationFilter, ItemLocationWhereInput>
   }
 
   export type ItemMovementOrderByWithRelationInput = {
@@ -65166,8 +66321,8 @@ export namespace Prisma {
     destination_id?: StringFilter<"ItemMovement"> | string
     quantity_moved?: IntFilter<"ItemMovement"> | number
     created_at?: DateTimeFilter<"ItemMovement"> | Date | string
-    origin?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
-    destination?: XOR<ItemLocationRelationFilter, ItemLocationWhereInput>
+    origin?: XOR<ItemLocationScalarRelationFilter, ItemLocationWhereInput>
+    destination?: XOR<ItemLocationScalarRelationFilter, ItemLocationWhereInput>
   }, "id">
 
   export type ItemMovementOrderByWithAggregationInput = {
@@ -65213,13 +66368,13 @@ export namespace Prisma {
     is_initial?: BoolFilter<"ItemTransaction"> | boolean
     created_at?: DateTimeFilter<"ItemTransaction"> | Date | string
     created_by?: StringFilter<"ItemTransaction"> | string
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    rr_item?: XOR<RRItemNullableRelationFilter, RRItemWhereInput> | null
-    osriv_item?: XOR<OSRIVItemNullableRelationFilter, OSRIVItemWhereInput> | null
-    seriv_item?: XOR<SERIVItemNullableRelationFilter, SERIVItemWhereInput> | null
-    mrv_item?: XOR<MRVItemNullableRelationFilter, MRVItemWhereInput> | null
-    mcrt_item?: XOR<MCRTItemNullableRelationFilter, MCRTItemWhereInput> | null
-    mst_item?: XOR<MSTItemNullableRelationFilter, MSTItemWhereInput> | null
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    rr_item?: XOR<RRItemNullableScalarRelationFilter, RRItemWhereInput> | null
+    osriv_item?: XOR<OSRIVItemNullableScalarRelationFilter, OSRIVItemWhereInput> | null
+    seriv_item?: XOR<SERIVItemNullableScalarRelationFilter, SERIVItemWhereInput> | null
+    mrv_item?: XOR<MRVItemNullableScalarRelationFilter, MRVItemWhereInput> | null
+    mcrt_item?: XOR<MCRTItemNullableScalarRelationFilter, MCRTItemWhereInput> | null
+    mst_item?: XOR<MSTItemNullableScalarRelationFilter, MSTItemWhereInput> | null
   }
 
   export type ItemTransactionOrderByWithRelationInput = {
@@ -65266,13 +66421,13 @@ export namespace Prisma {
     is_initial?: BoolFilter<"ItemTransaction"> | boolean
     created_at?: DateTimeFilter<"ItemTransaction"> | Date | string
     created_by?: StringFilter<"ItemTransaction"> | string
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    rr_item?: XOR<RRItemNullableRelationFilter, RRItemWhereInput> | null
-    osriv_item?: XOR<OSRIVItemNullableRelationFilter, OSRIVItemWhereInput> | null
-    seriv_item?: XOR<SERIVItemNullableRelationFilter, SERIVItemWhereInput> | null
-    mrv_item?: XOR<MRVItemNullableRelationFilter, MRVItemWhereInput> | null
-    mcrt_item?: XOR<MCRTItemNullableRelationFilter, MCRTItemWhereInput> | null
-    mst_item?: XOR<MSTItemNullableRelationFilter, MSTItemWhereInput> | null
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    rr_item?: XOR<RRItemNullableScalarRelationFilter, RRItemWhereInput> | null
+    osriv_item?: XOR<OSRIVItemNullableScalarRelationFilter, OSRIVItemWhereInput> | null
+    seriv_item?: XOR<SERIVItemNullableScalarRelationFilter, SERIVItemWhereInput> | null
+    mrv_item?: XOR<MRVItemNullableScalarRelationFilter, MRVItemWhereInput> | null
+    mcrt_item?: XOR<MCRTItemNullableScalarRelationFilter, MCRTItemWhereInput> | null
+    mst_item?: XOR<MSTItemNullableScalarRelationFilter, MSTItemWhereInput> | null
   }, "id" | "rr_item_id" | "osriv_item_id" | "seriv_item_id" | "mrv_item_id" | "mcrt_item_id" | "mst_item_id">
 
   export type ItemTransactionOrderByWithAggregationInput = {
@@ -65383,9 +66538,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Canvass"> | Date | string
     updated_at?: DateTimeFilter<"Canvass"> | Date | string
     canvass_items?: CanvassItemListRelationFilter
-    jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
-    rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
-    spr?: XOR<SPRNullableRelationFilter, SPRWhereInput> | null
+    jo?: XOR<JONullableScalarRelationFilter, JOWhereInput> | null
+    rv?: XOR<RVNullableScalarRelationFilter, RVWhereInput> | null
+    spr?: XOR<SPRNullableScalarRelationFilter, SPRWhereInput> | null
   }
 
   export type CanvassOrderByWithRelationInput = {
@@ -65420,9 +66575,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Canvass"> | Date | string
     updated_at?: DateTimeFilter<"Canvass"> | Date | string
     canvass_items?: CanvassItemListRelationFilter
-    jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
-    rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
-    spr?: XOR<SPRNullableRelationFilter, SPRWhereInput> | null
+    jo?: XOR<JONullableScalarRelationFilter, JOWhereInput> | null
+    rv?: XOR<RVNullableScalarRelationFilter, RVWhereInput> | null
+    spr?: XOR<SPRNullableScalarRelationFilter, SPRWhereInput> | null
   }, "id" | "rc_number">
 
   export type CanvassOrderByWithAggregationInput = {
@@ -65468,9 +66623,9 @@ export namespace Prisma {
     description?: StringFilter<"CanvassItem"> | string
     quantity?: IntFilter<"CanvassItem"> | number
     meqs_supplier_items?: MEQSSupplierItemListRelationFilter
-    canvass?: XOR<CanvassRelationFilter, CanvassWhereInput>
-    unit?: XOR<UnitNullableRelationFilter, UnitWhereInput> | null
-    item?: XOR<ItemNullableRelationFilter, ItemWhereInput> | null
+    canvass?: XOR<CanvassScalarRelationFilter, CanvassWhereInput>
+    unit?: XOR<UnitNullableScalarRelationFilter, UnitWhereInput> | null
+    item?: XOR<ItemNullableScalarRelationFilter, ItemWhereInput> | null
   }
 
   export type CanvassItemOrderByWithRelationInput = {
@@ -65497,9 +66652,9 @@ export namespace Prisma {
     description?: StringFilter<"CanvassItem"> | string
     quantity?: IntFilter<"CanvassItem"> | number
     meqs_supplier_items?: MEQSSupplierItemListRelationFilter
-    canvass?: XOR<CanvassRelationFilter, CanvassWhereInput>
-    unit?: XOR<UnitNullableRelationFilter, UnitWhereInput> | null
-    item?: XOR<ItemNullableRelationFilter, ItemWhereInput> | null
+    canvass?: XOR<CanvassScalarRelationFilter, CanvassWhereInput>
+    unit?: XOR<UnitNullableScalarRelationFilter, UnitWhereInput> | null
+    item?: XOR<ItemNullableScalarRelationFilter, ItemWhereInput> | null
   }, "id">
 
   export type CanvassItemOrderByWithAggregationInput = {
@@ -65548,8 +66703,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RV"> | Date | string | null
     created_at?: DateTimeFilter<"RV"> | Date | string
     updated_at?: DateTimeFilter<"RV"> | Date | string
-    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
     rv_approvers?: RVApproverListRelationFilter
   }
 
@@ -65595,8 +66750,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RV"> | Date | string | null
     created_at?: DateTimeFilter<"RV"> | Date | string
     updated_at?: DateTimeFilter<"RV"> | Date | string
-    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
     rv_approvers?: RVApproverListRelationFilter
   }, "id" | "rv_number" | "canvass_id">
 
@@ -65658,7 +66813,7 @@ export namespace Prisma {
     status?: IntFilter<"RVApprover"> | number
     label?: StringFilter<"RVApprover"> | string
     order?: IntFilter<"RVApprover"> | number
-    rv?: XOR<RVRelationFilter, RVWhereInput>
+    rv?: XOR<RVScalarRelationFilter, RVWhereInput>
   }
 
   export type RVApproverOrderByWithRelationInput = {
@@ -65686,7 +66841,7 @@ export namespace Prisma {
     status?: IntFilter<"RVApprover"> | number
     label?: StringFilter<"RVApprover"> | string
     order?: IntFilter<"RVApprover"> | number
-    rv?: XOR<RVRelationFilter, RVWhereInput>
+    rv?: XOR<RVScalarRelationFilter, RVWhereInput>
   }, "id" | "rv_id_order">
 
   export type RVApproverOrderByWithAggregationInput = {
@@ -65739,8 +66894,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"JO"> | Date | string | null
     created_at?: DateTimeFilter<"JO"> | Date | string
     updated_at?: DateTimeFilter<"JO"> | Date | string
-    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
     jo_approvers?: JOApproverListRelationFilter
   }
 
@@ -65786,8 +66941,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"JO"> | Date | string | null
     created_at?: DateTimeFilter<"JO"> | Date | string
     updated_at?: DateTimeFilter<"JO"> | Date | string
-    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
     jo_approvers?: JOApproverListRelationFilter
   }, "id" | "jo_number" | "canvass_id">
 
@@ -65849,7 +67004,7 @@ export namespace Prisma {
     status?: IntFilter<"JOApprover"> | number
     label?: StringFilter<"JOApprover"> | string
     order?: IntFilter<"JOApprover"> | number
-    jo?: XOR<JORelationFilter, JOWhereInput>
+    jo?: XOR<JOScalarRelationFilter, JOWhereInput>
   }
 
   export type JOApproverOrderByWithRelationInput = {
@@ -65877,7 +67032,7 @@ export namespace Prisma {
     status?: IntFilter<"JOApprover"> | number
     label?: StringFilter<"JOApprover"> | string
     order?: IntFilter<"JOApprover"> | number
-    jo?: XOR<JORelationFilter, JOWhereInput>
+    jo?: XOR<JOScalarRelationFilter, JOWhereInput>
   }, "id" | "jo_id_order">
 
   export type JOApproverOrderByWithAggregationInput = {
@@ -65929,10 +67084,10 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SPR"> | Date | string | null
     created_at?: DateTimeFilter<"SPR"> | Date | string
     updated_at?: DateTimeFilter<"SPR"> | Date | string
-    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
     spr_approvers?: SPRApproverListRelationFilter
-    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
   }
 
   export type SPROrderByWithRelationInput = {
@@ -65976,10 +67131,10 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SPR"> | Date | string | null
     created_at?: DateTimeFilter<"SPR"> | Date | string
     updated_at?: DateTimeFilter<"SPR"> | Date | string
-    canvass?: XOR<CanvassNullableRelationFilter, CanvassWhereInput> | null
-    meqs?: XOR<MEQSNullableRelationFilter, MEQSWhereInput> | null
+    canvass?: XOR<CanvassNullableScalarRelationFilter, CanvassWhereInput> | null
+    meqs?: XOR<MEQSNullableScalarRelationFilter, MEQSWhereInput> | null
     spr_approvers?: SPRApproverListRelationFilter
-    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
   }, "id" | "spr_number" | "canvass_id">
 
   export type SPROrderByWithAggregationInput = {
@@ -66038,7 +67193,7 @@ export namespace Prisma {
     status?: IntFilter<"SPRApprover"> | number
     label?: StringFilter<"SPRApprover"> | string
     order?: IntFilter<"SPRApprover"> | number
-    spr?: XOR<SPRRelationFilter, SPRWhereInput>
+    spr?: XOR<SPRScalarRelationFilter, SPRWhereInput>
   }
 
   export type SPRApproverOrderByWithRelationInput = {
@@ -66066,7 +67221,7 @@ export namespace Prisma {
     status?: IntFilter<"SPRApprover"> | number
     label?: StringFilter<"SPRApprover"> | string
     order?: IntFilter<"SPRApprover"> | number
-    spr?: XOR<SPRRelationFilter, SPRWhereInput>
+    spr?: XOR<SPRScalarRelationFilter, SPRWhereInput>
   }, "id" | "spr_id_order">
 
   export type SPRApproverOrderByWithAggregationInput = {
@@ -66120,9 +67275,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MEQS"> | Date | string
     updated_at?: DateTimeFilter<"MEQS"> | Date | string
     cancelled_at?: DateTimeNullableFilter<"MEQS"> | Date | string | null
-    jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
-    rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
-    spr?: XOR<SPRNullableRelationFilter, SPRWhereInput> | null
+    jo?: XOR<JONullableScalarRelationFilter, JOWhereInput> | null
+    rv?: XOR<RVNullableScalarRelationFilter, RVWhereInput> | null
+    spr?: XOR<SPRNullableScalarRelationFilter, SPRWhereInput> | null
     meqs_approvers?: MEQSApproverListRelationFilter
     meqs_suppliers?: MEQSSupplierListRelationFilter
   }
@@ -66173,9 +67328,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MEQS"> | Date | string
     updated_at?: DateTimeFilter<"MEQS"> | Date | string
     cancelled_at?: DateTimeNullableFilter<"MEQS"> | Date | string | null
-    jo?: XOR<JONullableRelationFilter, JOWhereInput> | null
-    rv?: XOR<RVNullableRelationFilter, RVWhereInput> | null
-    spr?: XOR<SPRNullableRelationFilter, SPRWhereInput> | null
+    jo?: XOR<JONullableScalarRelationFilter, JOWhereInput> | null
+    rv?: XOR<RVNullableScalarRelationFilter, RVWhereInput> | null
+    spr?: XOR<SPRNullableScalarRelationFilter, SPRWhereInput> | null
     meqs_approvers?: MEQSApproverListRelationFilter
     meqs_suppliers?: MEQSSupplierListRelationFilter
   }, "id" | "jo_id" | "rv_id" | "spr_id" | "meqs_number">
@@ -66236,11 +67391,11 @@ export namespace Prisma {
     meqs_id?: StringFilter<"MEQSSupplier"> | string
     supplier_id?: StringFilter<"MEQSSupplier"> | string
     payment_terms?: StringFilter<"MEQSSupplier"> | string
-    meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
-    supplier?: XOR<SupplierRelationFilter, SupplierWhereInput>
+    meqs?: XOR<MEQSScalarRelationFilter, MEQSWhereInput>
+    supplier?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     attachments?: MEQSSupplierAttachmentListRelationFilter
     meqs_supplier_items?: MEQSSupplierItemListRelationFilter
-    po?: XOR<PONullableRelationFilter, POWhereInput> | null
+    po?: XOR<PONullableScalarRelationFilter, POWhereInput> | null
   }
 
   export type MEQSSupplierOrderByWithRelationInput = {
@@ -66264,11 +67419,11 @@ export namespace Prisma {
     meqs_id?: StringFilter<"MEQSSupplier"> | string
     supplier_id?: StringFilter<"MEQSSupplier"> | string
     payment_terms?: StringFilter<"MEQSSupplier"> | string
-    meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
-    supplier?: XOR<SupplierRelationFilter, SupplierWhereInput>
+    meqs?: XOR<MEQSScalarRelationFilter, MEQSWhereInput>
+    supplier?: XOR<SupplierScalarRelationFilter, SupplierWhereInput>
     attachments?: MEQSSupplierAttachmentListRelationFilter
     meqs_supplier_items?: MEQSSupplierItemListRelationFilter
-    po?: XOR<PONullableRelationFilter, POWhereInput> | null
+    po?: XOR<PONullableScalarRelationFilter, POWhereInput> | null
   }, "id" | "meqs_id_supplier_id">
 
   export type MEQSSupplierOrderByWithAggregationInput = {
@@ -66302,8 +67457,8 @@ export namespace Prisma {
     notes?: StringFilter<"MEQSSupplierItem"> | string
     is_awarded?: BoolFilter<"MEQSSupplierItem"> | boolean
     vat_type?: IntFilter<"MEQSSupplierItem"> | number
-    canvass_item?: XOR<CanvassItemRelationFilter, CanvassItemWhereInput>
-    meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
+    canvass_item?: XOR<CanvassItemScalarRelationFilter, CanvassItemWhereInput>
+    meqs_supplier?: XOR<MEQSSupplierScalarRelationFilter, MEQSSupplierWhereInput>
     rr_items?: RRItemListRelationFilter
   }
 
@@ -66331,8 +67486,8 @@ export namespace Prisma {
     notes?: StringFilter<"MEQSSupplierItem"> | string
     is_awarded?: BoolFilter<"MEQSSupplierItem"> | boolean
     vat_type?: IntFilter<"MEQSSupplierItem"> | number
-    canvass_item?: XOR<CanvassItemRelationFilter, CanvassItemWhereInput>
-    meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
+    canvass_item?: XOR<CanvassItemScalarRelationFilter, CanvassItemWhereInput>
+    meqs_supplier?: XOR<MEQSSupplierScalarRelationFilter, MEQSSupplierWhereInput>
     rr_items?: RRItemListRelationFilter
   }, "id">
 
@@ -66372,7 +67527,7 @@ export namespace Prisma {
     meqs_supplier_id?: StringFilter<"MEQSSupplierAttachment"> | string
     filename?: StringFilter<"MEQSSupplierAttachment"> | string
     src?: StringFilter<"MEQSSupplierAttachment"> | string
-    meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
+    meqs_supplier?: XOR<MEQSSupplierScalarRelationFilter, MEQSSupplierWhereInput>
   }
 
   export type MEQSSupplierAttachmentOrderByWithRelationInput = {
@@ -66391,7 +67546,7 @@ export namespace Prisma {
     meqs_supplier_id?: StringFilter<"MEQSSupplierAttachment"> | string
     filename?: StringFilter<"MEQSSupplierAttachment"> | string
     src?: StringFilter<"MEQSSupplierAttachment"> | string
-    meqs_supplier?: XOR<MEQSSupplierRelationFilter, MEQSSupplierWhereInput>
+    meqs_supplier?: XOR<MEQSSupplierScalarRelationFilter, MEQSSupplierWhereInput>
   }, "id">
 
   export type MEQSSupplierAttachmentOrderByWithAggregationInput = {
@@ -66426,7 +67581,7 @@ export namespace Prisma {
     status?: IntFilter<"MEQSApprover"> | number
     label?: StringFilter<"MEQSApprover"> | string
     order?: IntFilter<"MEQSApprover"> | number
-    meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
+    meqs?: XOR<MEQSScalarRelationFilter, MEQSWhereInput>
   }
 
   export type MEQSApproverOrderByWithRelationInput = {
@@ -66453,7 +67608,7 @@ export namespace Prisma {
     status?: IntFilter<"MEQSApprover"> | number
     label?: StringFilter<"MEQSApprover"> | string
     order?: IntFilter<"MEQSApprover"> | number
-    meqs?: XOR<MEQSRelationFilter, MEQSWhereInput>
+    meqs?: XOR<MEQSScalarRelationFilter, MEQSWhereInput>
   }, "id">
 
   export type MEQSApproverOrderByWithAggregationInput = {
@@ -66504,7 +67659,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"PO"> | Date | string | null
     created_at?: DateTimeFilter<"PO"> | Date | string
     updated_at?: DateTimeFilter<"PO"> | Date | string
-    meqs_supplier?: XOR<MEQSSupplierNullableRelationFilter, MEQSSupplierWhereInput> | null
+    meqs_supplier?: XOR<MEQSSupplierNullableScalarRelationFilter, MEQSSupplierWhereInput> | null
     rrs?: RRListRelationFilter
     po_approvers?: POApproverListRelationFilter
   }
@@ -66547,7 +67702,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"PO"> | Date | string | null
     created_at?: DateTimeFilter<"PO"> | Date | string
     updated_at?: DateTimeFilter<"PO"> | Date | string
-    meqs_supplier?: XOR<MEQSSupplierNullableRelationFilter, MEQSSupplierWhereInput> | null
+    meqs_supplier?: XOR<MEQSSupplierNullableScalarRelationFilter, MEQSSupplierWhereInput> | null
     rrs?: RRListRelationFilter
     po_approvers?: POApproverListRelationFilter
   }, "id" | "meqs_supplier_id" | "po_number">
@@ -66606,7 +67761,7 @@ export namespace Prisma {
     status?: IntFilter<"POApprover"> | number
     label?: StringFilter<"POApprover"> | string
     order?: IntFilter<"POApprover"> | number
-    po?: XOR<PORelationFilter, POWhereInput>
+    po?: XOR<POScalarRelationFilter, POWhereInput>
   }
 
   export type POApproverOrderByWithRelationInput = {
@@ -66633,7 +67788,7 @@ export namespace Prisma {
     status?: IntFilter<"POApprover"> | number
     label?: StringFilter<"POApprover"> | string
     order?: IntFilter<"POApprover"> | number
-    po?: XOR<PORelationFilter, POWhereInput>
+    po?: XOR<POScalarRelationFilter, POWhereInput>
   }, "id">
 
   export type POApproverOrderByWithAggregationInput = {
@@ -66688,7 +67843,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RR"> | Date | string | null
     created_at?: DateTimeFilter<"RR"> | Date | string
     updated_at?: DateTimeFilter<"RR"> | Date | string
-    po?: XOR<PONullableRelationFilter, POWhereInput> | null
+    po?: XOR<PONullableScalarRelationFilter, POWhereInput> | null
     rr_approvers?: RRApproverListRelationFilter
     rr_items?: RRItemListRelationFilter
   }
@@ -66739,7 +67894,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"RR"> | Date | string | null
     created_at?: DateTimeFilter<"RR"> | Date | string
     updated_at?: DateTimeFilter<"RR"> | Date | string
-    po?: XOR<PONullableRelationFilter, POWhereInput> | null
+    po?: XOR<PONullableScalarRelationFilter, POWhereInput> | null
     rr_approvers?: RRApproverListRelationFilter
     rr_items?: RRItemListRelationFilter
   }, "id" | "rr_number" | "invoice_number">
@@ -66806,7 +67961,7 @@ export namespace Prisma {
     status?: IntFilter<"RRApprover"> | number
     label?: StringFilter<"RRApprover"> | string
     order?: IntFilter<"RRApprover"> | number
-    rr?: XOR<RRRelationFilter, RRWhereInput>
+    rr?: XOR<RRScalarRelationFilter, RRWhereInput>
   }
 
   export type RRApproverOrderByWithRelationInput = {
@@ -66833,7 +67988,7 @@ export namespace Prisma {
     status?: IntFilter<"RRApprover"> | number
     label?: StringFilter<"RRApprover"> | string
     order?: IntFilter<"RRApprover"> | number
-    rr?: XOR<RRRelationFilter, RRWhereInput>
+    rr?: XOR<RRScalarRelationFilter, RRWhereInput>
   }, "id">
 
   export type RRApproverOrderByWithAggregationInput = {
@@ -66874,9 +68029,9 @@ export namespace Prisma {
     rr_id?: StringFilter<"RRItem"> | string
     meqs_supplier_item_id?: StringFilter<"RRItem"> | string
     quantity_accepted?: IntFilter<"RRItem"> | number
-    rr?: XOR<RRRelationFilter, RRWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
-    meqs_supplier_item?: XOR<MEQSSupplierItemRelationFilter, MEQSSupplierItemWhereInput>
+    rr?: XOR<RRScalarRelationFilter, RRWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    meqs_supplier_item?: XOR<MEQSSupplierItemScalarRelationFilter, MEQSSupplierItemWhereInput>
   }
 
   export type RRItemOrderByWithRelationInput = {
@@ -66897,9 +68052,9 @@ export namespace Prisma {
     rr_id?: StringFilter<"RRItem"> | string
     meqs_supplier_item_id?: StringFilter<"RRItem"> | string
     quantity_accepted?: IntFilter<"RRItem"> | number
-    rr?: XOR<RRRelationFilter, RRWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
-    meqs_supplier_item?: XOR<MEQSSupplierItemRelationFilter, MEQSSupplierItemWhereInput>
+    rr?: XOR<RRScalarRelationFilter, RRWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
+    meqs_supplier_item?: XOR<MEQSSupplierItemScalarRelationFilter, MEQSSupplierItemWhereInput>
   }, "id">
 
   export type RRItemOrderByWithAggregationInput = {
@@ -66944,7 +68099,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"OSRIV"> | Date | string | null
     created_at?: DateTimeFilter<"OSRIV"> | Date | string
     updated_at?: DateTimeFilter<"OSRIV"> | Date | string
-    item_from?: XOR<StationRelationFilter, StationWhereInput>
+    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
     osriv_approvers?: OSRIVApproverListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
   }
@@ -66991,7 +68146,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"OSRIV"> | Date | string | null
     created_at?: DateTimeFilter<"OSRIV"> | Date | string
     updated_at?: DateTimeFilter<"OSRIV"> | Date | string
-    item_from?: XOR<StationRelationFilter, StationWhereInput>
+    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
     osriv_approvers?: OSRIVApproverListRelationFilter
     osriv_items?: OSRIVItemListRelationFilter
   }, "id" | "osriv_number">
@@ -67054,7 +68209,7 @@ export namespace Prisma {
     status?: IntFilter<"OSRIVApprover"> | number
     label?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
-    osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
+    osriv?: XOR<OSRIVScalarRelationFilter, OSRIVWhereInput>
   }
 
   export type OSRIVApproverOrderByWithRelationInput = {
@@ -67082,7 +68237,7 @@ export namespace Prisma {
     status?: IntFilter<"OSRIVApprover"> | number
     label?: StringFilter<"OSRIVApprover"> | string
     order?: IntFilter<"OSRIVApprover"> | number
-    osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
+    osriv?: XOR<OSRIVScalarRelationFilter, OSRIVWhereInput>
   }, "id" | "osriv_id_order">
 
   export type OSRIVApproverOrderByWithAggregationInput = {
@@ -67124,9 +68279,9 @@ export namespace Prisma {
     item_id?: StringFilter<"OSRIVItem"> | string
     quantity?: IntFilter<"OSRIVItem"> | number
     price?: FloatFilter<"OSRIVItem"> | number
-    osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    osriv?: XOR<OSRIVScalarRelationFilter, OSRIVWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type OSRIVItemOrderByWithRelationInput = {
@@ -67149,9 +68304,9 @@ export namespace Prisma {
     item_id?: StringFilter<"OSRIVItem"> | string
     quantity?: IntFilter<"OSRIVItem"> | number
     price?: FloatFilter<"OSRIVItem"> | number
-    osriv?: XOR<OSRIVRelationFilter, OSRIVWhereInput>
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    osriv?: XOR<OSRIVScalarRelationFilter, OSRIVWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type OSRIVItemOrderByWithAggregationInput = {
@@ -67206,7 +68361,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SERIV"> | Date | string | null
     created_at?: DateTimeFilter<"SERIV"> | Date | string
     updated_at?: DateTimeFilter<"SERIV"> | Date | string
-    item_from?: XOR<StationRelationFilter, StationWhereInput>
+    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
     seriv_approvers?: SERIVApproverListRelationFilter
     seriv_items?: SERIVItemListRelationFilter
     mcrts?: MCRTListRelationFilter
@@ -67271,7 +68426,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"SERIV"> | Date | string | null
     created_at?: DateTimeFilter<"SERIV"> | Date | string
     updated_at?: DateTimeFilter<"SERIV"> | Date | string
-    item_from?: XOR<StationRelationFilter, StationWhereInput>
+    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
     seriv_approvers?: SERIVApproverListRelationFilter
     seriv_items?: SERIVItemListRelationFilter
     mcrts?: MCRTListRelationFilter
@@ -67351,7 +68506,7 @@ export namespace Prisma {
     status?: IntFilter<"SERIVApprover"> | number
     label?: StringFilter<"SERIVApprover"> | string
     order?: IntFilter<"SERIVApprover"> | number
-    seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
+    seriv?: XOR<SERIVScalarRelationFilter, SERIVWhereInput>
   }
 
   export type SERIVApproverOrderByWithRelationInput = {
@@ -67379,7 +68534,7 @@ export namespace Prisma {
     status?: IntFilter<"SERIVApprover"> | number
     label?: StringFilter<"SERIVApprover"> | string
     order?: IntFilter<"SERIVApprover"> | number
-    seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
+    seriv?: XOR<SERIVScalarRelationFilter, SERIVWhereInput>
   }, "id" | "seriv_id_order">
 
   export type SERIVApproverOrderByWithAggregationInput = {
@@ -67421,9 +68576,9 @@ export namespace Prisma {
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
     price?: FloatFilter<"SERIVItem"> | number
-    seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    seriv?: XOR<SERIVScalarRelationFilter, SERIVWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type SERIVItemOrderByWithRelationInput = {
@@ -67446,9 +68601,9 @@ export namespace Prisma {
     item_id?: StringFilter<"SERIVItem"> | string
     quantity?: IntFilter<"SERIVItem"> | number
     price?: FloatFilter<"SERIVItem"> | number
-    seriv?: XOR<SERIVRelationFilter, SERIVWhereInput>
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    seriv?: XOR<SERIVScalarRelationFilter, SERIVWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type SERIVItemOrderByWithAggregationInput = {
@@ -67504,11 +68659,11 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MRV"> | Date | string | null
     created_at?: DateTimeFilter<"MRV"> | Date | string
     updated_at?: DateTimeFilter<"MRV"> | Date | string
-    item_from?: XOR<StationRelationFilter, StationWhereInput>
+    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
     mrv_approvers?: MRVApproverListRelationFilter
     mrv_items?: MRVItemListRelationFilter
-    mct?: XOR<MCTNullableRelationFilter, MCTWhereInput> | null
-    project?: XOR<ProjectNullableRelationFilter, ProjectWhereInput> | null
+    mct?: XOR<MCTNullableScalarRelationFilter, MCTWhereInput> | null
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
   }
 
   export type MRVOrderByWithRelationInput = {
@@ -67573,11 +68728,11 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MRV"> | Date | string | null
     created_at?: DateTimeFilter<"MRV"> | Date | string
     updated_at?: DateTimeFilter<"MRV"> | Date | string
-    item_from?: XOR<StationRelationFilter, StationWhereInput>
+    item_from?: XOR<StationScalarRelationFilter, StationWhereInput>
     mrv_approvers?: MRVApproverListRelationFilter
     mrv_items?: MRVItemListRelationFilter
-    mct?: XOR<MCTNullableRelationFilter, MCTWhereInput> | null
-    project?: XOR<ProjectNullableRelationFilter, ProjectWhereInput> | null
+    mct?: XOR<MCTNullableScalarRelationFilter, MCTWhereInput> | null
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
   }, "id" | "mrv_number" | "mwo_number">
 
   export type MRVOrderByWithAggregationInput = {
@@ -67656,7 +68811,7 @@ export namespace Prisma {
     status?: IntFilter<"MRVApprover"> | number
     label?: StringFilter<"MRVApprover"> | string
     order?: IntFilter<"MRVApprover"> | number
-    mrv?: XOR<MRVRelationFilter, MRVWhereInput>
+    mrv?: XOR<MRVScalarRelationFilter, MRVWhereInput>
   }
 
   export type MRVApproverOrderByWithRelationInput = {
@@ -67684,7 +68839,7 @@ export namespace Prisma {
     status?: IntFilter<"MRVApprover"> | number
     label?: StringFilter<"MRVApprover"> | string
     order?: IntFilter<"MRVApprover"> | number
-    mrv?: XOR<MRVRelationFilter, MRVWhereInput>
+    mrv?: XOR<MRVScalarRelationFilter, MRVWhereInput>
   }, "id" | "mrv_id_order">
 
   export type MRVApproverOrderByWithAggregationInput = {
@@ -67726,9 +68881,9 @@ export namespace Prisma {
     item_id?: StringFilter<"MRVItem"> | string
     quantity?: IntFilter<"MRVItem"> | number
     price?: FloatFilter<"MRVItem"> | number
-    mrv?: XOR<MRVRelationFilter, MRVWhereInput>
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    mrv?: XOR<MRVScalarRelationFilter, MRVWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type MRVItemOrderByWithRelationInput = {
@@ -67751,9 +68906,9 @@ export namespace Prisma {
     item_id?: StringFilter<"MRVItem"> | string
     quantity?: IntFilter<"MRVItem"> | number
     price?: FloatFilter<"MRVItem"> | number
-    mrv?: XOR<MRVRelationFilter, MRVWhereInput>
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    mrv?: XOR<MRVScalarRelationFilter, MRVWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type MRVItemOrderByWithAggregationInput = {
@@ -67797,7 +68952,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MCT"> | Date | string | null
     created_at?: DateTimeFilter<"MCT"> | Date | string
     updated_at?: DateTimeFilter<"MCT"> | Date | string
-    mrv?: XOR<MRVNullableRelationFilter, MRVWhereInput> | null
+    mrv?: XOR<MRVNullableScalarRelationFilter, MRVWhereInput> | null
     mct_approvers?: MCTApproverListRelationFilter
     mcrts?: MCRTListRelationFilter
   }
@@ -67838,7 +68993,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MCT"> | Date | string | null
     created_at?: DateTimeFilter<"MCT"> | Date | string
     updated_at?: DateTimeFilter<"MCT"> | Date | string
-    mrv?: XOR<MRVNullableRelationFilter, MRVWhereInput> | null
+    mrv?: XOR<MRVNullableScalarRelationFilter, MRVWhereInput> | null
     mct_approvers?: MCTApproverListRelationFilter
     mcrts?: MCRTListRelationFilter
   }, "id" | "mrv_id" | "mct_number">
@@ -67895,7 +69050,7 @@ export namespace Prisma {
     status?: IntFilter<"MCTApprover"> | number
     label?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
-    mct?: XOR<MCTRelationFilter, MCTWhereInput>
+    mct?: XOR<MCTScalarRelationFilter, MCTWhereInput>
   }
 
   export type MCTApproverOrderByWithRelationInput = {
@@ -67923,7 +69078,7 @@ export namespace Prisma {
     status?: IntFilter<"MCTApprover"> | number
     label?: StringFilter<"MCTApprover"> | string
     order?: IntFilter<"MCTApprover"> | number
-    mct?: XOR<MCTRelationFilter, MCTWhereInput>
+    mct?: XOR<MCTScalarRelationFilter, MCTWhereInput>
   }, "id" | "mct_id_order">
 
   export type MCTApproverOrderByWithAggregationInput = {
@@ -67977,8 +69132,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MCRT"> | Date | string | null
     created_at?: DateTimeFilter<"MCRT"> | Date | string
     updated_at?: DateTimeFilter<"MCRT"> | Date | string
-    mct?: XOR<MCTNullableRelationFilter, MCTWhereInput> | null
-    seriv?: XOR<SERIVNullableRelationFilter, SERIVWhereInput> | null
+    mct?: XOR<MCTNullableScalarRelationFilter, MCTWhereInput> | null
+    seriv?: XOR<SERIVNullableScalarRelationFilter, SERIVWhereInput> | null
     mcrt_approvers?: MCRTApproverListRelationFilter
     mcrt_items?: MCRTItemListRelationFilter
   }
@@ -68028,8 +69183,8 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"MCRT"> | Date | string | null
     created_at?: DateTimeFilter<"MCRT"> | Date | string
     updated_at?: DateTimeFilter<"MCRT"> | Date | string
-    mct?: XOR<MCTNullableRelationFilter, MCTWhereInput> | null
-    seriv?: XOR<SERIVNullableRelationFilter, SERIVWhereInput> | null
+    mct?: XOR<MCTNullableScalarRelationFilter, MCTWhereInput> | null
+    seriv?: XOR<SERIVNullableScalarRelationFilter, SERIVWhereInput> | null
     mcrt_approvers?: MCRTApproverListRelationFilter
     mcrt_items?: MCRTItemListRelationFilter
   }, "id" | "mcrt_number">
@@ -68094,7 +69249,7 @@ export namespace Prisma {
     status?: IntFilter<"MCRTApprover"> | number
     label?: StringFilter<"MCRTApprover"> | string
     order?: IntFilter<"MCRTApprover"> | number
-    mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
+    mcrt?: XOR<MCRTScalarRelationFilter, MCRTWhereInput>
   }
 
   export type MCRTApproverOrderByWithRelationInput = {
@@ -68122,7 +69277,7 @@ export namespace Prisma {
     status?: IntFilter<"MCRTApprover"> | number
     label?: StringFilter<"MCRTApprover"> | string
     order?: IntFilter<"MCRTApprover"> | number
-    mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
+    mcrt?: XOR<MCRTScalarRelationFilter, MCRTWhereInput>
   }, "id" | "mcrt_id_order">
 
   export type MCRTApproverOrderByWithAggregationInput = {
@@ -68164,9 +69319,9 @@ export namespace Prisma {
     item_id?: StringFilter<"MCRTItem"> | string
     quantity?: IntFilter<"MCRTItem"> | number
     price?: FloatFilter<"MCRTItem"> | number
-    mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    mcrt?: XOR<MCRTScalarRelationFilter, MCRTWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type MCRTItemOrderByWithRelationInput = {
@@ -68189,9 +69344,9 @@ export namespace Prisma {
     item_id?: StringFilter<"MCRTItem"> | string
     quantity?: IntFilter<"MCRTItem"> | number
     price?: FloatFilter<"MCRTItem"> | number
-    mcrt?: XOR<MCRTRelationFilter, MCRTWhereInput>
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    mcrt?: XOR<MCRTScalarRelationFilter, MCRTWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type MCRTItemOrderByWithAggregationInput = {
@@ -68345,7 +69500,7 @@ export namespace Prisma {
     status?: IntFilter<"MSTApprover"> | number
     label?: StringFilter<"MSTApprover"> | string
     order?: IntFilter<"MSTApprover"> | number
-    mst?: XOR<MSTRelationFilter, MSTWhereInput>
+    mst?: XOR<MSTScalarRelationFilter, MSTWhereInput>
   }
 
   export type MSTApproverOrderByWithRelationInput = {
@@ -68373,7 +69528,7 @@ export namespace Prisma {
     status?: IntFilter<"MSTApprover"> | number
     label?: StringFilter<"MSTApprover"> | string
     order?: IntFilter<"MSTApprover"> | number
-    mst?: XOR<MSTRelationFilter, MSTWhereInput>
+    mst?: XOR<MSTScalarRelationFilter, MSTWhereInput>
   }, "id" | "mst_id_order">
 
   export type MSTApproverOrderByWithAggregationInput = {
@@ -68416,9 +69571,9 @@ export namespace Prisma {
     quantity?: IntFilter<"MSTItem"> | number
     price?: FloatFilter<"MSTItem"> | number
     status?: IntFilter<"MSTItem"> | number
-    mst?: XOR<MSTRelationFilter, MSTWhereInput>
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    mst?: XOR<MSTScalarRelationFilter, MSTWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
   }
 
   export type MSTItemOrderByWithRelationInput = {
@@ -68443,9 +69598,9 @@ export namespace Prisma {
     quantity?: IntFilter<"MSTItem"> | number
     price?: FloatFilter<"MSTItem"> | number
     status?: IntFilter<"MSTItem"> | number
-    mst?: XOR<MSTRelationFilter, MSTWhereInput>
-    item?: XOR<ItemRelationFilter, ItemWhereInput>
-    item_transaction?: XOR<ItemTransactionNullableRelationFilter, ItemTransactionWhereInput> | null
+    mst?: XOR<MSTScalarRelationFilter, MSTWhereInput>
+    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item_transaction?: XOR<ItemTransactionNullableScalarRelationFilter, ItemTransactionWhereInput> | null
   }, "id">
 
   export type MSTItemOrderByWithAggregationInput = {
@@ -68609,7 +69764,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"TripTicket"> | Date | string | null
     created_at?: DateTimeFilter<"TripTicket"> | Date | string
     updated_at?: DateTimeFilter<"TripTicket"> | Date | string
-    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
     trip_ticket_approvers?: TripTicketApproverListRelationFilter
   }
 
@@ -68668,7 +69823,7 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"TripTicket"> | Date | string | null
     created_at?: DateTimeFilter<"TripTicket"> | Date | string
     updated_at?: DateTimeFilter<"TripTicket"> | Date | string
-    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
     trip_ticket_approvers?: TripTicketApproverListRelationFilter
   }, "id" | "trip_number">
 
@@ -68744,7 +69899,7 @@ export namespace Prisma {
     status?: IntFilter<"TripTicketApprover"> | number
     label?: StringFilter<"TripTicketApprover"> | string
     order?: IntFilter<"TripTicketApprover"> | number
-    trip_ticket?: XOR<TripTicketRelationFilter, TripTicketWhereInput>
+    trip_ticket?: XOR<TripTicketScalarRelationFilter, TripTicketWhereInput>
   }
 
   export type TripTicketApproverOrderByWithRelationInput = {
@@ -68772,7 +69927,7 @@ export namespace Prisma {
     status?: IntFilter<"TripTicketApprover"> | number
     label?: StringFilter<"TripTicketApprover"> | string
     order?: IntFilter<"TripTicketApprover"> | number
-    trip_ticket?: XOR<TripTicketRelationFilter, TripTicketWhereInput>
+    trip_ticket?: XOR<TripTicketScalarRelationFilter, TripTicketWhereInput>
   }, "id" | "trip_ticket_id_order">
 
   export type TripTicketApproverOrderByWithAggregationInput = {
@@ -68830,9 +69985,9 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"GasSlip"> | Date | string | null
     created_at?: DateTimeFilter<"GasSlip"> | Date | string
     updated_at?: DateTimeFilter<"GasSlip"> | Date | string
-    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
-    gas_station?: XOR<GasStationRelationFilter, GasStationWhereInput>
-    fuel_type?: XOR<FuelTypeRelationFilter, FuelTypeWhereInput>
+    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
+    gas_station?: XOR<GasStationScalarRelationFilter, GasStationWhereInput>
+    fuel_type?: XOR<FuelTypeScalarRelationFilter, FuelTypeWhereInput>
     gas_slip_approvers?: GasSlipApproverListRelationFilter
   }
 
@@ -68889,9 +70044,9 @@ export namespace Prisma {
     cancelled_at?: DateTimeNullableFilter<"GasSlip"> | Date | string | null
     created_at?: DateTimeFilter<"GasSlip"> | Date | string
     updated_at?: DateTimeFilter<"GasSlip"> | Date | string
-    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
-    gas_station?: XOR<GasStationRelationFilter, GasStationWhereInput>
-    fuel_type?: XOR<FuelTypeRelationFilter, FuelTypeWhereInput>
+    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
+    gas_station?: XOR<GasStationScalarRelationFilter, GasStationWhereInput>
+    fuel_type?: XOR<FuelTypeScalarRelationFilter, FuelTypeWhereInput>
     gas_slip_approvers?: GasSlipApproverListRelationFilter
   }, "id" | "gas_slip_number">
 
@@ -68963,7 +70118,7 @@ export namespace Prisma {
     status?: IntFilter<"GasSlipApprover"> | number
     label?: StringFilter<"GasSlipApprover"> | string
     order?: IntFilter<"GasSlipApprover"> | number
-    gas_slip?: XOR<GasSlipRelationFilter, GasSlipWhereInput>
+    gas_slip?: XOR<GasSlipScalarRelationFilter, GasSlipWhereInput>
   }
 
   export type GasSlipApproverOrderByWithRelationInput = {
@@ -68991,7 +70146,7 @@ export namespace Prisma {
     status?: IntFilter<"GasSlipApprover"> | number
     label?: StringFilter<"GasSlipApprover"> | string
     order?: IntFilter<"GasSlipApprover"> | number
-    gas_slip?: XOR<GasSlipRelationFilter, GasSlipWhereInput>
+    gas_slip?: XOR<GasSlipScalarRelationFilter, GasSlipWhereInput>
   }, "id" | "gas_slip_id_order">
 
   export type GasSlipApproverOrderByWithAggregationInput = {
@@ -69394,6 +70549,7 @@ export namespace Prisma {
     name: string
     created_at?: Date | string
     mrv?: MRVCreateNestedManyWithoutProjectInput
+    project_items?: ProjectItemCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateInput = {
@@ -69401,6 +70557,7 @@ export namespace Prisma {
     name: string
     created_at?: Date | string
     mrv?: MRVUncheckedCreateNestedManyWithoutProjectInput
+    project_items?: ProjectItemUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUpdateInput = {
@@ -69408,6 +70565,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     mrv?: MRVUpdateManyWithoutProjectNestedInput
+    project_items?: ProjectItemUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateInput = {
@@ -69415,6 +70573,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     mrv?: MRVUncheckedUpdateManyWithoutProjectNestedInput
+    project_items?: ProjectItemUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyInput = {
@@ -69617,6 +70776,7 @@ export namespace Prisma {
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
     mst_items?: MSTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateInput = {
@@ -69642,6 +70802,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
     mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemUpdateInput = {
@@ -69667,6 +70828,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateInput = {
@@ -69692,6 +70854,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type ItemCreateManyInput = {
@@ -69741,6 +70904,44 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ProjectItemCreateInput = {
+    item?: ItemCreateNestedOneWithoutProject_itemInput
+    project: ProjectCreateNestedOneWithoutProject_itemsInput
+  }
+
+  export type ProjectItemUncheckedCreateInput = {
+    id?: number
+    project_id: string
+    item_id?: string | null
+  }
+
+  export type ProjectItemUpdateInput = {
+    item?: ItemUpdateOneWithoutProject_itemNestedInput
+    project?: ProjectUpdateOneRequiredWithoutProject_itemsNestedInput
+  }
+
+  export type ProjectItemUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    project_id?: StringFieldUpdateOperationsInput | string
+    item_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProjectItemCreateManyInput = {
+    id?: number
+    project_id: string
+    item_id?: string | null
+  }
+
+  export type ProjectItemUpdateManyMutationInput = {
+
+  }
+
+  export type ProjectItemUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    project_id?: StringFieldUpdateOperationsInput | string
+    item_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ItemLocationCreateInput = {
@@ -74484,6 +75685,16 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
+  export type ProjectItemListRelationFilter = {
+    every?: ProjectItemWhereInput
+    some?: ProjectItemWhereInput
+    none?: ProjectItemWhereInput
+  }
+
+  export type ProjectItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProjectCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -74606,7 +75817,7 @@ export namespace Prisma {
     sequence?: SortOrder
   }
 
-  export type ItemTypeRelationFilter = {
+  export type ItemTypeScalarRelationFilter = {
     is?: ItemTypeWhereInput
     isNot?: ItemTypeWhereInput
   }
@@ -74617,7 +75828,7 @@ export namespace Prisma {
     none?: ItemTransactionWhereInput
   }
 
-  export type UnitRelationFilter = {
+  export type UnitScalarRelationFilter = {
     is?: UnitWhereInput
     isNot?: UnitWhereInput
   }
@@ -74650,6 +75861,11 @@ export namespace Prisma {
     every?: MSTItemWhereInput
     some?: MSTItemWhereInput
     none?: MSTItemWhereInput
+  }
+
+  export type ProjectItemNullableScalarRelationFilter = {
+    is?: ProjectItemWhereInput | null
+    isNot?: ProjectItemWhereInput | null
   }
 
   export type ItemTransactionOrderByRelationAggregateInput = {
@@ -74743,12 +75959,48 @@ export namespace Prisma {
     alert_level?: SortOrder
   }
 
-  export type ItemRelationFilter = {
+  export type ItemNullableScalarRelationFilter = {
+    is?: ItemWhereInput | null
+    isNot?: ItemWhereInput | null
+  }
+
+  export type ProjectScalarRelationFilter = {
+    is?: ProjectWhereInput
+    isNot?: ProjectWhereInput
+  }
+
+  export type ProjectItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    project_id?: SortOrder
+    item_id?: SortOrder
+  }
+
+  export type ProjectItemAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ProjectItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    project_id?: SortOrder
+    item_id?: SortOrder
+  }
+
+  export type ProjectItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    project_id?: SortOrder
+    item_id?: SortOrder
+  }
+
+  export type ProjectItemSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ItemScalarRelationFilter = {
     is?: ItemWhereInput
     isNot?: ItemWhereInput
   }
 
-  export type StationRelationFilter = {
+  export type StationScalarRelationFilter = {
     is?: StationWhereInput
     isNot?: StationWhereInput
   }
@@ -74795,7 +76047,7 @@ export namespace Prisma {
     quantity_on_hand?: SortOrder
   }
 
-  export type ItemLocationRelationFilter = {
+  export type ItemLocationScalarRelationFilter = {
     is?: ItemLocationWhereInput
     isNot?: ItemLocationWhereInput
   }
@@ -74843,32 +76095,32 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type RRItemNullableRelationFilter = {
+  export type RRItemNullableScalarRelationFilter = {
     is?: RRItemWhereInput | null
     isNot?: RRItemWhereInput | null
   }
 
-  export type OSRIVItemNullableRelationFilter = {
+  export type OSRIVItemNullableScalarRelationFilter = {
     is?: OSRIVItemWhereInput | null
     isNot?: OSRIVItemWhereInput | null
   }
 
-  export type SERIVItemNullableRelationFilter = {
+  export type SERIVItemNullableScalarRelationFilter = {
     is?: SERIVItemWhereInput | null
     isNot?: SERIVItemWhereInput | null
   }
 
-  export type MRVItemNullableRelationFilter = {
+  export type MRVItemNullableScalarRelationFilter = {
     is?: MRVItemWhereInput | null
     isNot?: MRVItemWhereInput | null
   }
 
-  export type MCRTItemNullableRelationFilter = {
+  export type MCRTItemNullableScalarRelationFilter = {
     is?: MCRTItemWhereInput | null
     isNot?: MCRTItemWhereInput | null
   }
 
-  export type MSTItemNullableRelationFilter = {
+  export type MSTItemNullableScalarRelationFilter = {
     is?: MSTItemWhereInput | null
     isNot?: MSTItemWhereInput | null
   }
@@ -74990,17 +76242,17 @@ export namespace Prisma {
     last_incremental?: SortOrder
   }
 
-  export type JONullableRelationFilter = {
+  export type JONullableScalarRelationFilter = {
     is?: JOWhereInput | null
     isNot?: JOWhereInput | null
   }
 
-  export type RVNullableRelationFilter = {
+  export type RVNullableScalarRelationFilter = {
     is?: RVWhereInput | null
     isNot?: RVWhereInput | null
   }
 
-  export type SPRNullableRelationFilter = {
+  export type SPRNullableScalarRelationFilter = {
     is?: SPRWhereInput | null
     isNot?: SPRWhereInput | null
   }
@@ -75050,19 +76302,14 @@ export namespace Prisma {
     none?: MEQSSupplierItemWhereInput
   }
 
-  export type CanvassRelationFilter = {
+  export type CanvassScalarRelationFilter = {
     is?: CanvassWhereInput
     isNot?: CanvassWhereInput
   }
 
-  export type UnitNullableRelationFilter = {
+  export type UnitNullableScalarRelationFilter = {
     is?: UnitWhereInput | null
     isNot?: UnitWhereInput | null
-  }
-
-  export type ItemNullableRelationFilter = {
-    is?: ItemWhereInput | null
-    isNot?: ItemWhereInput | null
   }
 
   export type MEQSSupplierItemOrderByRelationAggregateInput = {
@@ -75115,12 +76362,12 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type CanvassNullableRelationFilter = {
+  export type CanvassNullableScalarRelationFilter = {
     is?: CanvassWhereInput | null
     isNot?: CanvassWhereInput | null
   }
 
-  export type MEQSNullableRelationFilter = {
+  export type MEQSNullableScalarRelationFilter = {
     is?: MEQSWhereInput | null
     isNot?: MEQSWhereInput | null
   }
@@ -75216,7 +76463,7 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type RVRelationFilter = {
+  export type RVScalarRelationFilter = {
     is?: RVWhereInput
     isNot?: RVWhereInput
   }
@@ -75344,7 +76591,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type JORelationFilter = {
+  export type JOScalarRelationFilter = {
     is?: JOWhereInput
     isNot?: JOWhereInput
   }
@@ -75403,7 +76650,7 @@ export namespace Prisma {
     none?: SPRApproverWhereInput
   }
 
-  export type VehicleRelationFilter = {
+  export type VehicleScalarRelationFilter = {
     is?: VehicleWhereInput
     isNot?: VehicleWhereInput
   }
@@ -75474,7 +76721,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type SPRRelationFilter = {
+  export type SPRScalarRelationFilter = {
     is?: SPRWhereInput
     isNot?: SPRWhereInput
   }
@@ -75605,12 +76852,12 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type MEQSRelationFilter = {
+  export type MEQSScalarRelationFilter = {
     is?: MEQSWhereInput
     isNot?: MEQSWhereInput
   }
 
-  export type SupplierRelationFilter = {
+  export type SupplierScalarRelationFilter = {
     is?: SupplierWhereInput
     isNot?: SupplierWhereInput
   }
@@ -75621,7 +76868,7 @@ export namespace Prisma {
     none?: MEQSSupplierAttachmentWhereInput
   }
 
-  export type PONullableRelationFilter = {
+  export type PONullableScalarRelationFilter = {
     is?: POWhereInput | null
     isNot?: POWhereInput | null
   }
@@ -75656,12 +76903,12 @@ export namespace Prisma {
     payment_terms?: SortOrder
   }
 
-  export type CanvassItemRelationFilter = {
+  export type CanvassItemScalarRelationFilter = {
     is?: CanvassItemWhereInput
     isNot?: CanvassItemWhereInput
   }
 
-  export type MEQSSupplierRelationFilter = {
+  export type MEQSSupplierScalarRelationFilter = {
     is?: MEQSSupplierWhereInput
     isNot?: MEQSSupplierWhereInput
   }
@@ -75780,7 +77027,7 @@ export namespace Prisma {
     order?: SortOrder
   }
 
-  export type MEQSSupplierNullableRelationFilter = {
+  export type MEQSSupplierNullableScalarRelationFilter = {
     is?: MEQSSupplierWhereInput | null
     isNot?: MEQSSupplierWhereInput | null
   }
@@ -75864,7 +77111,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type PORelationFilter = {
+  export type POScalarRelationFilter = {
     is?: POWhereInput
     isNot?: POWhereInput
   }
@@ -75995,7 +77242,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type RRRelationFilter = {
+  export type RRScalarRelationFilter = {
     is?: RRWhereInput
     isNot?: RRWhereInput
   }
@@ -76043,12 +77290,12 @@ export namespace Prisma {
     order?: SortOrder
   }
 
-  export type ItemTransactionNullableRelationFilter = {
+  export type ItemTransactionNullableScalarRelationFilter = {
     is?: ItemTransactionWhereInput | null
     isNot?: ItemTransactionWhereInput | null
   }
 
-  export type MEQSSupplierItemRelationFilter = {
+  export type MEQSSupplierItemScalarRelationFilter = {
     is?: MEQSSupplierItemWhereInput
     isNot?: MEQSSupplierItemWhereInput
   }
@@ -76157,7 +77404,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type OSRIVRelationFilter = {
+  export type OSRIVScalarRelationFilter = {
     is?: OSRIVWhereInput
     isNot?: OSRIVWhereInput
   }
@@ -76355,7 +77602,7 @@ export namespace Prisma {
     request_type?: SortOrder
   }
 
-  export type SERIVRelationFilter = {
+  export type SERIVScalarRelationFilter = {
     is?: SERIVWhereInput
     isNot?: SERIVWhereInput
   }
@@ -76448,12 +77695,12 @@ export namespace Prisma {
     none?: MRVApproverWhereInput
   }
 
-  export type MCTNullableRelationFilter = {
+  export type MCTNullableScalarRelationFilter = {
     is?: MCTWhereInput | null
     isNot?: MCTWhereInput | null
   }
 
-  export type ProjectNullableRelationFilter = {
+  export type ProjectNullableScalarRelationFilter = {
     is?: ProjectWhereInput | null
     isNot?: ProjectWhereInput | null
   }
@@ -76556,7 +77803,7 @@ export namespace Prisma {
     request_type?: SortOrder
   }
 
-  export type MRVRelationFilter = {
+  export type MRVScalarRelationFilter = {
     is?: MRVWhereInput
     isNot?: MRVWhereInput
   }
@@ -76643,7 +77890,7 @@ export namespace Prisma {
     price?: SortOrder
   }
 
-  export type MRVNullableRelationFilter = {
+  export type MRVNullableScalarRelationFilter = {
     is?: MRVWhereInput | null
     isNot?: MRVWhereInput | null
   }
@@ -76714,7 +77961,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type MCTRelationFilter = {
+  export type MCTScalarRelationFilter = {
     is?: MCTWhereInput
     isNot?: MCTWhereInput
   }
@@ -76767,7 +78014,7 @@ export namespace Prisma {
     order?: SortOrder
   }
 
-  export type SERIVNullableRelationFilter = {
+  export type SERIVNullableScalarRelationFilter = {
     is?: SERIVWhereInput | null
     isNot?: SERIVWhereInput | null
   }
@@ -76850,7 +78097,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type MCRTRelationFilter = {
+  export type MCRTScalarRelationFilter = {
     is?: MCRTWhereInput
     isNot?: MCRTWhereInput
   }
@@ -77012,7 +78259,7 @@ export namespace Prisma {
     approval_status?: SortOrder
   }
 
-  export type MSTRelationFilter = {
+  export type MSTScalarRelationFilter = {
     is?: MSTWhereInput
     isNot?: MSTWhereInput
   }
@@ -77291,7 +78538,7 @@ export namespace Prisma {
     status?: SortOrder
   }
 
-  export type TripTicketRelationFilter = {
+  export type TripTicketScalarRelationFilter = {
     is?: TripTicketWhereInput
     isNot?: TripTicketWhereInput
   }
@@ -77360,12 +78607,12 @@ export namespace Prisma {
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
-  export type GasStationRelationFilter = {
+  export type GasStationScalarRelationFilter = {
     is?: GasStationWhereInput
     isNot?: GasStationWhereInput
   }
 
-  export type FuelTypeRelationFilter = {
+  export type FuelTypeScalarRelationFilter = {
     is?: FuelTypeWhereInput
     isNot?: FuelTypeWhereInput
   }
@@ -77494,7 +78741,7 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
-  export type GasSlipRelationFilter = {
+  export type GasSlipScalarRelationFilter = {
     is?: GasSlipWhereInput
     isNot?: GasSlipWhereInput
   }
@@ -77964,11 +79211,25 @@ export namespace Prisma {
     connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
   }
 
+  export type ProjectItemCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ProjectItemCreateWithoutProjectInput, ProjectItemUncheckedCreateWithoutProjectInput> | ProjectItemCreateWithoutProjectInput[] | ProjectItemUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectItemCreateOrConnectWithoutProjectInput | ProjectItemCreateOrConnectWithoutProjectInput[]
+    createMany?: ProjectItemCreateManyProjectInputEnvelope
+    connect?: ProjectItemWhereUniqueInput | ProjectItemWhereUniqueInput[]
+  }
+
   export type MRVUncheckedCreateNestedManyWithoutProjectInput = {
     create?: XOR<MRVCreateWithoutProjectInput, MRVUncheckedCreateWithoutProjectInput> | MRVCreateWithoutProjectInput[] | MRVUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: MRVCreateOrConnectWithoutProjectInput | MRVCreateOrConnectWithoutProjectInput[]
     createMany?: MRVCreateManyProjectInputEnvelope
     connect?: MRVWhereUniqueInput | MRVWhereUniqueInput[]
+  }
+
+  export type ProjectItemUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ProjectItemCreateWithoutProjectInput, ProjectItemUncheckedCreateWithoutProjectInput> | ProjectItemCreateWithoutProjectInput[] | ProjectItemUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectItemCreateOrConnectWithoutProjectInput | ProjectItemCreateOrConnectWithoutProjectInput[]
+    createMany?: ProjectItemCreateManyProjectInputEnvelope
+    connect?: ProjectItemWhereUniqueInput | ProjectItemWhereUniqueInput[]
   }
 
   export type MRVUpdateManyWithoutProjectNestedInput = {
@@ -77985,6 +79246,20 @@ export namespace Prisma {
     deleteMany?: MRVScalarWhereInput | MRVScalarWhereInput[]
   }
 
+  export type ProjectItemUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ProjectItemCreateWithoutProjectInput, ProjectItemUncheckedCreateWithoutProjectInput> | ProjectItemCreateWithoutProjectInput[] | ProjectItemUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectItemCreateOrConnectWithoutProjectInput | ProjectItemCreateOrConnectWithoutProjectInput[]
+    upsert?: ProjectItemUpsertWithWhereUniqueWithoutProjectInput | ProjectItemUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ProjectItemCreateManyProjectInputEnvelope
+    set?: ProjectItemWhereUniqueInput | ProjectItemWhereUniqueInput[]
+    disconnect?: ProjectItemWhereUniqueInput | ProjectItemWhereUniqueInput[]
+    delete?: ProjectItemWhereUniqueInput | ProjectItemWhereUniqueInput[]
+    connect?: ProjectItemWhereUniqueInput | ProjectItemWhereUniqueInput[]
+    update?: ProjectItemUpdateWithWhereUniqueWithoutProjectInput | ProjectItemUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ProjectItemUpdateManyWithWhereWithoutProjectInput | ProjectItemUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ProjectItemScalarWhereInput | ProjectItemScalarWhereInput[]
+  }
+
   export type MRVUncheckedUpdateManyWithoutProjectNestedInput = {
     create?: XOR<MRVCreateWithoutProjectInput, MRVUncheckedCreateWithoutProjectInput> | MRVCreateWithoutProjectInput[] | MRVUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: MRVCreateOrConnectWithoutProjectInput | MRVCreateOrConnectWithoutProjectInput[]
@@ -77997,6 +79272,20 @@ export namespace Prisma {
     update?: MRVUpdateWithWhereUniqueWithoutProjectInput | MRVUpdateWithWhereUniqueWithoutProjectInput[]
     updateMany?: MRVUpdateManyWithWhereWithoutProjectInput | MRVUpdateManyWithWhereWithoutProjectInput[]
     deleteMany?: MRVScalarWhereInput | MRVScalarWhereInput[]
+  }
+
+  export type ProjectItemUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ProjectItemCreateWithoutProjectInput, ProjectItemUncheckedCreateWithoutProjectInput> | ProjectItemCreateWithoutProjectInput[] | ProjectItemUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectItemCreateOrConnectWithoutProjectInput | ProjectItemCreateOrConnectWithoutProjectInput[]
+    upsert?: ProjectItemUpsertWithWhereUniqueWithoutProjectInput | ProjectItemUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ProjectItemCreateManyProjectInputEnvelope
+    set?: ProjectItemWhereUniqueInput | ProjectItemWhereUniqueInput[]
+    disconnect?: ProjectItemWhereUniqueInput | ProjectItemWhereUniqueInput[]
+    delete?: ProjectItemWhereUniqueInput | ProjectItemWhereUniqueInput[]
+    connect?: ProjectItemWhereUniqueInput | ProjectItemWhereUniqueInput[]
+    update?: ProjectItemUpdateWithWhereUniqueWithoutProjectInput | ProjectItemUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ProjectItemUpdateManyWithWhereWithoutProjectInput | ProjectItemUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ProjectItemScalarWhereInput | ProjectItemScalarWhereInput[]
   }
 
   export type ItemTypeCreateNestedOneWithoutItemsInput = {
@@ -78067,6 +79356,12 @@ export namespace Prisma {
     connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
   }
 
+  export type ProjectItemCreateNestedOneWithoutItemInput = {
+    create?: XOR<ProjectItemCreateWithoutItemInput, ProjectItemUncheckedCreateWithoutItemInput>
+    connectOrCreate?: ProjectItemCreateOrConnectWithoutItemInput
+    connect?: ProjectItemWhereUniqueInput
+  }
+
   export type ItemTransactionUncheckedCreateNestedManyWithoutItemInput = {
     create?: XOR<ItemTransactionCreateWithoutItemInput, ItemTransactionUncheckedCreateWithoutItemInput> | ItemTransactionCreateWithoutItemInput[] | ItemTransactionUncheckedCreateWithoutItemInput[]
     connectOrCreate?: ItemTransactionCreateOrConnectWithoutItemInput | ItemTransactionCreateOrConnectWithoutItemInput[]
@@ -78121,6 +79416,12 @@ export namespace Prisma {
     connectOrCreate?: MSTItemCreateOrConnectWithoutItemInput | MSTItemCreateOrConnectWithoutItemInput[]
     createMany?: MSTItemCreateManyItemInputEnvelope
     connect?: MSTItemWhereUniqueInput | MSTItemWhereUniqueInput[]
+  }
+
+  export type ProjectItemUncheckedCreateNestedOneWithoutItemInput = {
+    create?: XOR<ProjectItemCreateWithoutItemInput, ProjectItemUncheckedCreateWithoutItemInput>
+    connectOrCreate?: ProjectItemCreateOrConnectWithoutItemInput
+    connect?: ProjectItemWhereUniqueInput
   }
 
   export type ItemTypeUpdateOneRequiredWithoutItemsNestedInput = {
@@ -78251,6 +79552,16 @@ export namespace Prisma {
     deleteMany?: MSTItemScalarWhereInput | MSTItemScalarWhereInput[]
   }
 
+  export type ProjectItemUpdateOneWithoutItemNestedInput = {
+    create?: XOR<ProjectItemCreateWithoutItemInput, ProjectItemUncheckedCreateWithoutItemInput>
+    connectOrCreate?: ProjectItemCreateOrConnectWithoutItemInput
+    upsert?: ProjectItemUpsertWithoutItemInput
+    disconnect?: ProjectItemWhereInput | boolean
+    delete?: ProjectItemWhereInput | boolean
+    connect?: ProjectItemWhereUniqueInput
+    update?: XOR<XOR<ProjectItemUpdateToOneWithWhereWithoutItemInput, ProjectItemUpdateWithoutItemInput>, ProjectItemUncheckedUpdateWithoutItemInput>
+  }
+
   export type ItemTransactionUncheckedUpdateManyWithoutItemNestedInput = {
     create?: XOR<ItemTransactionCreateWithoutItemInput, ItemTransactionUncheckedCreateWithoutItemInput> | ItemTransactionCreateWithoutItemInput[] | ItemTransactionUncheckedCreateWithoutItemInput[]
     connectOrCreate?: ItemTransactionCreateOrConnectWithoutItemInput | ItemTransactionCreateOrConnectWithoutItemInput[]
@@ -78361,6 +79672,46 @@ export namespace Prisma {
     update?: MSTItemUpdateWithWhereUniqueWithoutItemInput | MSTItemUpdateWithWhereUniqueWithoutItemInput[]
     updateMany?: MSTItemUpdateManyWithWhereWithoutItemInput | MSTItemUpdateManyWithWhereWithoutItemInput[]
     deleteMany?: MSTItemScalarWhereInput | MSTItemScalarWhereInput[]
+  }
+
+  export type ProjectItemUncheckedUpdateOneWithoutItemNestedInput = {
+    create?: XOR<ProjectItemCreateWithoutItemInput, ProjectItemUncheckedCreateWithoutItemInput>
+    connectOrCreate?: ProjectItemCreateOrConnectWithoutItemInput
+    upsert?: ProjectItemUpsertWithoutItemInput
+    disconnect?: ProjectItemWhereInput | boolean
+    delete?: ProjectItemWhereInput | boolean
+    connect?: ProjectItemWhereUniqueInput
+    update?: XOR<XOR<ProjectItemUpdateToOneWithWhereWithoutItemInput, ProjectItemUpdateWithoutItemInput>, ProjectItemUncheckedUpdateWithoutItemInput>
+  }
+
+  export type ItemCreateNestedOneWithoutProject_itemInput = {
+    create?: XOR<ItemCreateWithoutProject_itemInput, ItemUncheckedCreateWithoutProject_itemInput>
+    connectOrCreate?: ItemCreateOrConnectWithoutProject_itemInput
+    connect?: ItemWhereUniqueInput
+  }
+
+  export type ProjectCreateNestedOneWithoutProject_itemsInput = {
+    create?: XOR<ProjectCreateWithoutProject_itemsInput, ProjectUncheckedCreateWithoutProject_itemsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutProject_itemsInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type ItemUpdateOneWithoutProject_itemNestedInput = {
+    create?: XOR<ItemCreateWithoutProject_itemInput, ItemUncheckedCreateWithoutProject_itemInput>
+    connectOrCreate?: ItemCreateOrConnectWithoutProject_itemInput
+    upsert?: ItemUpsertWithoutProject_itemInput
+    disconnect?: ItemWhereInput | boolean
+    delete?: ItemWhereInput | boolean
+    connect?: ItemWhereUniqueInput
+    update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutProject_itemInput, ItemUpdateWithoutProject_itemInput>, ItemUncheckedUpdateWithoutProject_itemInput>
+  }
+
+  export type ProjectUpdateOneRequiredWithoutProject_itemsNestedInput = {
+    create?: XOR<ProjectCreateWithoutProject_itemsInput, ProjectUncheckedCreateWithoutProject_itemsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutProject_itemsInput
+    upsert?: ProjectUpsertWithoutProject_itemsInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutProject_itemsInput, ProjectUpdateWithoutProject_itemsInput>, ProjectUncheckedUpdateWithoutProject_itemsInput>
   }
 
   export type ItemCreateNestedOneWithoutItem_locationsInput = {
@@ -81569,6 +82920,7 @@ export namespace Prisma {
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
     mst_items?: MSTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutItem_typeInput = {
@@ -81593,6 +82945,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
     mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutItem_typeInput = {
@@ -81745,6 +83098,7 @@ export namespace Prisma {
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
     mst_items?: MSTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutUnitInput = {
@@ -81769,6 +83123,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
     mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutUnitInput = {
@@ -82269,6 +83624,25 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProjectItemCreateWithoutProjectInput = {
+    item?: ItemCreateNestedOneWithoutProject_itemInput
+  }
+
+  export type ProjectItemUncheckedCreateWithoutProjectInput = {
+    id?: number
+    item_id?: string | null
+  }
+
+  export type ProjectItemCreateOrConnectWithoutProjectInput = {
+    where: ProjectItemWhereUniqueInput
+    create: XOR<ProjectItemCreateWithoutProjectInput, ProjectItemUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ProjectItemCreateManyProjectInputEnvelope = {
+    data: ProjectItemCreateManyProjectInput | ProjectItemCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MRVUpsertWithWhereUniqueWithoutProjectInput = {
     where: MRVWhereUniqueInput
     update: XOR<MRVUpdateWithoutProjectInput, MRVUncheckedUpdateWithoutProjectInput>
@@ -82283,6 +83657,31 @@ export namespace Prisma {
   export type MRVUpdateManyWithWhereWithoutProjectInput = {
     where: MRVScalarWhereInput
     data: XOR<MRVUpdateManyMutationInput, MRVUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type ProjectItemUpsertWithWhereUniqueWithoutProjectInput = {
+    where: ProjectItemWhereUniqueInput
+    update: XOR<ProjectItemUpdateWithoutProjectInput, ProjectItemUncheckedUpdateWithoutProjectInput>
+    create: XOR<ProjectItemCreateWithoutProjectInput, ProjectItemUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ProjectItemUpdateWithWhereUniqueWithoutProjectInput = {
+    where: ProjectItemWhereUniqueInput
+    data: XOR<ProjectItemUpdateWithoutProjectInput, ProjectItemUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type ProjectItemUpdateManyWithWhereWithoutProjectInput = {
+    where: ProjectItemScalarWhereInput
+    data: XOR<ProjectItemUpdateManyMutationInput, ProjectItemUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type ProjectItemScalarWhereInput = {
+    AND?: ProjectItemScalarWhereInput | ProjectItemScalarWhereInput[]
+    OR?: ProjectItemScalarWhereInput[]
+    NOT?: ProjectItemScalarWhereInput | ProjectItemScalarWhereInput[]
+    id?: IntFilter<"ProjectItem"> | number
+    project_id?: StringFilter<"ProjectItem"> | string
+    item_id?: StringNullableFilter<"ProjectItem"> | string | null
   }
 
   export type ItemTypeCreateWithoutItemsInput = {
@@ -82553,6 +83952,20 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProjectItemCreateWithoutItemInput = {
+    project: ProjectCreateNestedOneWithoutProject_itemsInput
+  }
+
+  export type ProjectItemUncheckedCreateWithoutItemInput = {
+    id?: number
+    project_id: string
+  }
+
+  export type ProjectItemCreateOrConnectWithoutItemInput = {
+    where: ProjectItemWhereUniqueInput
+    create: XOR<ProjectItemCreateWithoutItemInput, ProjectItemUncheckedCreateWithoutItemInput>
+  }
+
   export type ItemTypeUpsertWithoutItemsInput = {
     update: XOR<ItemTypeUpdateWithoutItemsInput, ItemTypeUncheckedUpdateWithoutItemsInput>
     create: XOR<ItemTypeCreateWithoutItemsInput, ItemTypeUncheckedCreateWithoutItemsInput>
@@ -82807,6 +84220,186 @@ export namespace Prisma {
     status?: IntFilter<"MSTItem"> | number
   }
 
+  export type ProjectItemUpsertWithoutItemInput = {
+    update: XOR<ProjectItemUpdateWithoutItemInput, ProjectItemUncheckedUpdateWithoutItemInput>
+    create: XOR<ProjectItemCreateWithoutItemInput, ProjectItemUncheckedCreateWithoutItemInput>
+    where?: ProjectItemWhereInput
+  }
+
+  export type ProjectItemUpdateToOneWithWhereWithoutItemInput = {
+    where?: ProjectItemWhereInput
+    data: XOR<ProjectItemUpdateWithoutItemInput, ProjectItemUncheckedUpdateWithoutItemInput>
+  }
+
+  export type ProjectItemUpdateWithoutItemInput = {
+    project?: ProjectUpdateOneRequiredWithoutProject_itemsNestedInput
+  }
+
+  export type ProjectItemUncheckedUpdateWithoutItemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    project_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ItemCreateWithoutProject_itemInput = {
+    id?: string
+    code: string
+    description?: string | null
+    total_quantity: number
+    quantity_on_queue?: number
+    initial_quantity: number
+    alert_level?: number
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    item_type: ItemTypeCreateNestedOneWithoutItemsInput
+    item_transactions?: ItemTransactionCreateNestedManyWithoutItemInput
+    unit: UnitCreateNestedOneWithoutItemsInput
+    canvass_items?: CanvassItemCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationCreateNestedManyWithoutItemInput
+    osriv_items?: OSRIVItemCreateNestedManyWithoutItemInput
+    seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
+    mrv_items?: MRVItemCreateNestedManyWithoutItemInput
+    mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemUncheckedCreateWithoutProject_itemInput = {
+    id?: string
+    item_type_id: number
+    unit_id: string
+    code: string
+    description?: string | null
+    total_quantity: number
+    quantity_on_queue?: number
+    initial_quantity: number
+    alert_level?: number
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    item_transactions?: ItemTransactionUncheckedCreateNestedManyWithoutItemInput
+    canvass_items?: CanvassItemUncheckedCreateNestedManyWithoutItemInput
+    item_locations?: ItemLocationUncheckedCreateNestedManyWithoutItemInput
+    osriv_items?: OSRIVItemUncheckedCreateNestedManyWithoutItemInput
+    seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
+    mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
+    mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type ItemCreateOrConnectWithoutProject_itemInput = {
+    where: ItemWhereUniqueInput
+    create: XOR<ItemCreateWithoutProject_itemInput, ItemUncheckedCreateWithoutProject_itemInput>
+  }
+
+  export type ProjectCreateWithoutProject_itemsInput = {
+    id?: string
+    name: string
+    created_at?: Date | string
+    mrv?: MRVCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutProject_itemsInput = {
+    id?: string
+    name: string
+    created_at?: Date | string
+    mrv?: MRVUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutProject_itemsInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutProject_itemsInput, ProjectUncheckedCreateWithoutProject_itemsInput>
+  }
+
+  export type ItemUpsertWithoutProject_itemInput = {
+    update: XOR<ItemUpdateWithoutProject_itemInput, ItemUncheckedUpdateWithoutProject_itemInput>
+    create: XOR<ItemCreateWithoutProject_itemInput, ItemUncheckedCreateWithoutProject_itemInput>
+    where?: ItemWhereInput
+  }
+
+  export type ItemUpdateToOneWithWhereWithoutProject_itemInput = {
+    where?: ItemWhereInput
+    data: XOR<ItemUpdateWithoutProject_itemInput, ItemUncheckedUpdateWithoutProject_itemInput>
+  }
+
+  export type ItemUpdateWithoutProject_itemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    total_quantity?: IntFieldUpdateOperationsInput | number
+    quantity_on_queue?: IntFieldUpdateOperationsInput | number
+    initial_quantity?: IntFieldUpdateOperationsInput | number
+    alert_level?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    item_type?: ItemTypeUpdateOneRequiredWithoutItemsNestedInput
+    item_transactions?: ItemTransactionUpdateManyWithoutItemNestedInput
+    unit?: UnitUpdateOneRequiredWithoutItemsNestedInput
+    canvass_items?: CanvassItemUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUpdateManyWithoutItemNestedInput
+    osriv_items?: OSRIVItemUpdateManyWithoutItemNestedInput
+    seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
+    mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
+    mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+  }
+
+  export type ItemUncheckedUpdateWithoutProject_itemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    item_type_id?: IntFieldUpdateOperationsInput | number
+    unit_id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    total_quantity?: IntFieldUpdateOperationsInput | number
+    quantity_on_queue?: IntFieldUpdateOperationsInput | number
+    initial_quantity?: IntFieldUpdateOperationsInput | number
+    alert_level?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    item_transactions?: ItemTransactionUncheckedUpdateManyWithoutItemNestedInput
+    canvass_items?: CanvassItemUncheckedUpdateManyWithoutItemNestedInput
+    item_locations?: ItemLocationUncheckedUpdateManyWithoutItemNestedInput
+    osriv_items?: OSRIVItemUncheckedUpdateManyWithoutItemNestedInput
+    seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
+    mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
+    mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type ProjectUpsertWithoutProject_itemsInput = {
+    update: XOR<ProjectUpdateWithoutProject_itemsInput, ProjectUncheckedUpdateWithoutProject_itemsInput>
+    create: XOR<ProjectCreateWithoutProject_itemsInput, ProjectUncheckedCreateWithoutProject_itemsInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutProject_itemsInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutProject_itemsInput, ProjectUncheckedUpdateWithoutProject_itemsInput>
+  }
+
+  export type ProjectUpdateWithoutProject_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mrv?: MRVUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutProject_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mrv?: MRVUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
   export type ItemCreateWithoutItem_locationsInput = {
     id?: string
     code: string
@@ -82829,6 +84422,7 @@ export namespace Prisma {
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
     mst_items?: MSTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutItem_locationsInput = {
@@ -82853,6 +84447,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
     mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutItem_locationsInput = {
@@ -82964,6 +84559,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutItem_locationsInput = {
@@ -82988,6 +84584,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type StationUpsertWithoutItemsInput = {
@@ -83188,6 +84785,7 @@ export namespace Prisma {
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
     mst_items?: MSTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutItem_transactionsInput = {
@@ -83212,6 +84810,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
     mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutItem_transactionsInput = {
@@ -83378,6 +84977,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutItem_transactionsInput = {
@@ -83402,6 +85002,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type RRItemUpsertWithoutItem_transactionInput = {
@@ -84002,6 +85603,7 @@ export namespace Prisma {
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
     mst_items?: MSTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutCanvass_itemsInput = {
@@ -84026,6 +85628,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
     mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutCanvass_itemsInput = {
@@ -84163,6 +85766,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutCanvass_itemsInput = {
@@ -84187,6 +85791,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type CanvassCreateWithoutRvInput = {
@@ -87490,6 +89095,7 @@ export namespace Prisma {
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
     mst_items?: MSTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutOsriv_itemsInput = {
@@ -87514,6 +89120,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
     mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutOsriv_itemsInput = {
@@ -87643,6 +89250,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutOsriv_itemsInput = {
@@ -87667,6 +89275,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type ItemTransactionUpsertWithoutOsriv_itemInput = {
@@ -88175,6 +89784,7 @@ export namespace Prisma {
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
     mst_items?: MSTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutSeriv_itemsInput = {
@@ -88199,6 +89809,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
     mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutSeriv_itemsInput = {
@@ -88346,6 +89957,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutSeriv_itemsInput = {
@@ -88370,6 +89982,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type ItemTransactionUpsertWithoutSeriv_itemInput = {
@@ -88538,12 +90151,14 @@ export namespace Prisma {
     id?: string
     name: string
     created_at?: Date | string
+    project_items?: ProjectItemCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutMrvInput = {
     id?: string
     name: string
     created_at?: Date | string
+    project_items?: ProjectItemUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutMrvInput = {
@@ -88686,12 +90301,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    project_items?: ProjectItemUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutMrvInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    project_items?: ProjectItemUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type MRVCreateWithoutMrv_approversInput = {
@@ -88917,6 +90534,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
     mst_items?: MSTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutMrv_itemsInput = {
@@ -88941,6 +90559,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
     mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutMrv_itemsInput = {
@@ -89090,6 +90709,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutMrv_itemsInput = {
@@ -89114,6 +90734,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type ItemTransactionUpsertWithoutMrv_itemInput = {
@@ -89995,6 +91616,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mst_items?: MSTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutMcrt_itemsInput = {
@@ -90019,6 +91641,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mst_items?: MSTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutMcrt_itemsInput = {
@@ -90150,6 +91773,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutMcrt_itemsInput = {
@@ -90174,6 +91798,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type ItemTransactionUpsertWithoutMcrt_itemInput = {
@@ -90487,6 +92112,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutMst_itemsInput = {
@@ -90511,6 +92137,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedCreateNestedManyWithoutItemInput
     mrv_items?: MRVItemUncheckedCreateNestedManyWithoutItemInput
     mcrt_items?: MCRTItemUncheckedCreateNestedManyWithoutItemInput
+    project_item?: ProjectItemUncheckedCreateNestedOneWithoutItemInput
   }
 
   export type ItemCreateOrConnectWithoutMst_itemsInput = {
@@ -90640,6 +92267,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutMst_itemsInput = {
@@ -90664,6 +92292,7 @@ export namespace Prisma {
     seriv_items?: SERIVItemUncheckedUpdateManyWithoutItemNestedInput
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type ItemTransactionUpsertWithoutMst_itemInput = {
@@ -91793,6 +93422,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutItem_typeInput = {
@@ -91817,6 +93447,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateManyWithoutItem_typeInput = {
@@ -91937,6 +93568,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutUnitInput = {
@@ -91961,6 +93593,7 @@ export namespace Prisma {
     mrv_items?: MRVItemUncheckedUpdateManyWithoutItemNestedInput
     mcrt_items?: MCRTItemUncheckedUpdateManyWithoutItemNestedInput
     mst_items?: MSTItemUncheckedUpdateManyWithoutItemNestedInput
+    project_item?: ProjectItemUncheckedUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateManyWithoutUnitInput = {
@@ -92338,6 +93971,11 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type ProjectItemCreateManyProjectInput = {
+    id?: number
+    item_id?: string | null
+  }
+
   export type MRVUpdateWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -92423,6 +94061,20 @@ export namespace Prisma {
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectItemUpdateWithoutProjectInput = {
+    item?: ItemUpdateOneWithoutProject_itemNestedInput
+  }
+
+  export type ProjectItemUncheckedUpdateWithoutProjectInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    item_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProjectItemUncheckedUpdateManyWithoutProjectInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    item_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ItemTransactionCreateManyItemInput = {
@@ -94551,6 +96203,10 @@ export namespace Prisma {
      * @deprecated Use ItemDefaultArgs instead
      */
     export type ItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ProjectItemDefaultArgs instead
+     */
+    export type ProjectItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProjectItemDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ItemLocationDefaultArgs instead
      */

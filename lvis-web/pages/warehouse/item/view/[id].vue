@@ -35,6 +35,10 @@
                                                 <td class="text-muted">Item Type</td>
                                                 <td> {{ item.item_type.name }} </td>
                                             </tr>
+                                            <tr v-if="item.project_item">
+                                                <td class="text-muted">Project</td>
+                                                <td> {{ item.project_item.project.name }} </td>
+                                            </tr>
                                             <tr>
                                                 <td class="text-muted">Unit</td>
                                                 <td> {{ item.unit.name }} </td>

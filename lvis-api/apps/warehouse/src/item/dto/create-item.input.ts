@@ -14,6 +14,11 @@ export class CreateItemInput {
   @IsString()
   unit_id: string
 
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  project_id?: string | null
+
   @Field()
   @IsOptional()
   @IsString()

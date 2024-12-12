@@ -1,4 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { ProjectItem } from './project-item.entity';
 
 @ObjectType()
 export class Project {
@@ -8,5 +9,8 @@ export class Project {
 
   @Field(() => String)
   name: string;
+
+  @Field(() => [ProjectItem])
+  project_items: ProjectItem[];
 
 }

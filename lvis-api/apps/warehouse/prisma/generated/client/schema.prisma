@@ -79,6 +79,7 @@ model Project {
 
   
   mrv MRV[]
+  project_items ProjectItem[]
 
   created_at DateTime  @default(now())
 
@@ -150,8 +151,22 @@ model Item {
   mcrt_items MCRTItem[]
   mst_items MSTItem[]
 
+  project_item ProjectItem?
+
   @@index([item_type_id, unit_id, created_by])
   @@map("item")
+}
+
+model ProjectItem {
+  id         Int     @id @default(autoincrement())
+  project_id String 
+  item_id String? @unique
+
+  item Item? @relation(fields: [item_id], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [project_id], references: [id], onDelete: Cascade)
+
+  @@index([project_id]) 
+  @@map("project_item")
 }
 
 model ItemLocation {

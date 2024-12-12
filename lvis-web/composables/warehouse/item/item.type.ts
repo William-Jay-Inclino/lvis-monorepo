@@ -1,3 +1,4 @@
+import type { ProjectItem } from "../project/project-item.types";
 import type { RrItem } from "../rr/rr-item.types";
 import type { ItemTransaction } from './item-transaction.type'
 import { ITEM_STATUS, ITEM_TYPE } from "~/utils/constants";
@@ -20,6 +21,7 @@ export interface Item {
 	// set programmatically
 	label?: string
 	item_type: ItemType
+	project_item: ProjectItem | null
 }
 
 export interface ItemType {
@@ -43,6 +45,7 @@ export interface CreateItemInput {
 	initial_quantity: number
 	initial_average_price: number
 	alert_level: number
+	project: Project | null 
 }
 
 
@@ -51,6 +54,7 @@ export interface UpdateItemInput {
 	unit: Unit
 	description: string
 	alert_level: number
+	project: Project | null 
 }
 
 

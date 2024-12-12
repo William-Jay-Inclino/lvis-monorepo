@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
@@ -14,9 +14,6 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 export class ItemService {
 
 	private authUser: AuthUser
-	private includedFields = {
-		unit: true
-	}
 
 	constructor(
 		private readonly prisma: PrismaService
@@ -71,12 +68,22 @@ export class ItemService {
 			item_transactions: {
 			  create: item_transaction,
 			},
+			project_item: input.project_id
+			? {
+				create: {
+				project: { connect: { id: input.project_id } },
+				},
+			}
+			: undefined,
 		  };
 	  
 		  // Create the item
 		  const createdItem = await prisma.item.create({
 			data,
-			include: this.includedFields,
+			include: {
+				unit: true,
+				project_item: true,
+			},
 		  });
 	  
 		  return createdItem;
@@ -219,6 +226,11 @@ export class ItemService {
 				},
 				unit: true,
 				item_type: true,
+				project_item: {
+					include: {
+						project: true,
+					}
+				},
 			},
 			where: { id }
 		})
@@ -284,30 +296,76 @@ export class ItemService {
 
 	async update(id: string, input: UpdateItemInput): Promise<Item> {
 
-		const existingItem = await this.findOne(id)
+		return await this.prisma.$transaction(async(tx) => {
 
-		const updatedBy = this.authUser.user.username
+			const existingItem = await tx.item.findUnique({
+				where: { id },
+				include: {
+					project_item: true,
+				}
+			})
 
-		const data: Prisma.ItemUpdateInput = {
-			item_type: input.item_type_id ? { connect: { id: input.item_type_id } } : { connect: { id: existingItem.item_type_id } },
-			unit: input.unit_id ?
-				{ connect: { id: input.unit_id } }
-				:
-				{ connect: { id: existingItem.unit_id } },
-			description: input.description ?? existingItem.description,
-			alert_level: input.alert_level ?? existingItem.alert_level,
-			updated_by: updatedBy
-		}
-
-		const updated = await this.prisma.item.update({
-			data,
-			include: this.includedFields,
-			where: {
-				id
+			if(!existingItem) {
+				throw new BadRequestException('Item not found with id of ' + id)
 			}
+
+			if(!input.project_id && existingItem.project_item) {
+				await tx.projectItem.delete({
+					where: {
+						id: existingItem.project_item.id
+					}
+				})
+			}
+
+			if(input.project_id && !existingItem.project_item) {
+				await tx.projectItem.create({
+					data: {
+						project_id: input.project_id,
+						item_id: id
+					}
+				})
+			}
+
+			if(input.project_id && existingItem.project_item) {
+				await tx.projectItem.update({
+					where: { id: existingItem.project_item.id },
+					data: {
+						project_id: input.project_id
+					}
+				})
+			}
+			
+			const updatedBy = this.authUser.user.username
+
+			const data: Prisma.ItemUpdateInput = {
+				item_type: input.item_type_id ? 
+					{ connect: { id: input.item_type_id } } 
+					: 
+					{ connect: { id: existingItem.item_type_id } },
+				unit: input.unit_id ?
+					{ connect: { id: input.unit_id } }
+					:
+					{ connect: { id: existingItem.unit_id } },
+				description: input.description ?? existingItem.description,
+				alert_level: input.alert_level ?? existingItem.alert_level,
+				updated_by: updatedBy,
+			}
+	
+			const updated = await tx.item.update({
+				data,
+				include: {
+					unit: true,
+					project_item: true,
+				},
+				where: {
+					id
+				}
+			})
+	
+			return updated
+
 		})
 
-		return updated
 
 	}
 

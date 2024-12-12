@@ -2,6 +2,7 @@ import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Unit } from '../../unit/entities/unit.entity';
 import { ItemTransaction } from './item-transaction.entity';
 import { ItemType } from '../../item-type/entities/item-type.entity';
+import { ProjectItem } from '../../project/entities/project-item.entity';
 
 @ObjectType()
 export class Item {
@@ -60,5 +61,8 @@ export class Item {
 
   @Field(() => ItemType)
   item_type: ItemType;
+
+  @Field(() => ProjectItem, { nullable: true })
+  project_item: ProjectItem;
 
 }

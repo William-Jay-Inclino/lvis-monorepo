@@ -166,6 +166,13 @@ export async function findOne(id: string): Promise<Item | undefined> {
                     id
                     name
                 }
+                project_item {
+                    id
+                    project {
+                        id
+                        name
+                    }
+                }
                 item_transactions {
                     id
                     type 
@@ -237,6 +244,7 @@ export async function findOne(id: string): Promise<Item | undefined> {
 export async function fetchFormDataInCreate(): Promise<{
     units: Unit[],
     item_types: ItemType[],
+    projects: Project[],
 }> {
 
 
@@ -250,6 +258,10 @@ export async function fetchFormDataInCreate(): Promise<{
                 id
                 code 
                 name
+            },
+            projects {
+                id 
+                name
             }
         }
     `;
@@ -260,6 +272,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
         let units = []
         let item_types = []
+        let projects = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -273,9 +286,13 @@ export async function fetchFormDataInCreate(): Promise<{
         if (data.item_types) {
             item_types = data.item_types
         }
+        if (data.projects) {
+            projects = data.projects
+        }
 
         return {
             units,
+            projects,
             item_types,
         }
 
@@ -283,6 +300,7 @@ export async function fetchFormDataInCreate(): Promise<{
         console.error(error);
         return {
             units: [],
+            projects: [],
             item_types: [],
         }
     }
@@ -292,6 +310,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
 export async function fetchFormDataInUpdate(id: string): Promise<{
     units: Unit[],
+    projects: Unit[],
     item: Item | undefined,
     item_types: ItemType[],
 }> {
@@ -304,6 +323,13 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 code 
                 description
                 alert_level
+                project_item {
+                    id 
+                    project {
+                        id 
+                        name
+                    }
+                }
                 item_type {
                     id 
                     code 
@@ -314,7 +340,11 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     name
                 }
             }
-            units{
+            units {
+                id
+                name
+            }
+            projects {
                 id
                 name
             }
@@ -332,6 +362,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
 
         let units = []
         let item_types = []
+        let projects = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -353,10 +384,15 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             item_types = data.item_types
         }
 
+        if (data.projects) {
+            projects = data.projects
+        }
+
         return {
             units,
             item,
             item_types,
+            projects,
         }
 
     } catch (error) {
@@ -365,6 +401,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             item: undefined,
             units: [],
             item_types: [],
+            projects: [],
         }
     }
 
@@ -378,6 +415,7 @@ export async function create(input: CreateItemInput): Promise<MutationResponse> 
             createItem(input: {
                 item_type_id: ${input.item_type?.id},
                 unit_id: "${input.unit?.id}",
+                project_id: ${input.project ? `"${input.project.id}"` : null},
                 description: "${input.description}",
                 initial_quantity: ${input.initial_quantity},
                 initial_average_price: ${input.initial_average_price},
@@ -428,6 +466,7 @@ export async function update(id: string, input: UpdateItemInput): Promise<Mutati
             updateItem(id: "${id}", input: {
                 item_type_id: ${input.item_type.id},
                 unit_id: "${input.unit?.id}",
+                project_id: ${input.project ? `"${input.project.id}"` : null},
                 description: "${input.description}",
                 alert_level: ${input.alert_level},
             }) {
