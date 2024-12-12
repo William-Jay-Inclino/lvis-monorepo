@@ -5,6 +5,7 @@ import { Prisma, Project } from 'apps/warehouse/prisma/generated/client';
 import { UpdateProjectInput } from './dto/update-project.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { ProjectsResponse } from './entities/projects-response.entity';
 
 @Injectable()
 export class ProjectService {
@@ -31,13 +32,38 @@ export class ProjectService {
 
 	}
 
-	async findAll(): Promise<Project[]> {
-		return await this.prisma.project.findMany({
-			include: {
-				project_items: true,
-			}
-		})
-	}
+    async findAll(page: number, pageSize: number, name?: string): Promise<ProjectsResponse> {
+        const skip = (page - 1) * pageSize;
+    
+        let whereCondition: any = {
+            deleted_at: null,
+        };
+    
+        if (name) {
+            whereCondition.name = {
+                contains: name,
+                mode: 'insensitive',
+            };
+        }
+    
+        const [items, totalItems] = await this.prisma.$transaction([
+            this.prisma.project.findMany({
+                where: whereCondition,
+                skip,
+                take: pageSize,
+            }),
+            this.prisma.project.count({
+                where: whereCondition,
+            }),
+        ]);
+    
+        return {
+            data: items,
+            totalItems,
+            currentPage: page,
+            totalPages: Math.ceil(totalItems / pageSize),
+        };
+    }
 
 	async findOne(id: string): Promise<Project | null> {
 
@@ -76,8 +102,11 @@ export class ProjectService {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.project.delete({
-			where: { id }
+		await this.prisma.project.update({
+			where: { id },
+			data: {
+			  deleted_at: new Date()
+			}
 		})
 
 		return {
@@ -85,6 +114,22 @@ export class ProjectService {
 			msg: "Project successfully deleted"
 		}
 
+	}
+
+	async findProjectsByName(q: string) {
+		const input = q.trim(); 
+	
+		const items = await this.prisma.project.findMany({
+			where: {
+				deleted_at: null,
+				OR: [
+					{ name: { startsWith: input } },
+				],
+			},
+			take: 10,
+		});
+	
+		return items;
 	}
 
 }

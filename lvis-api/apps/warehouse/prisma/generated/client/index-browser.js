@@ -146,7 +146,8 @@ exports.Prisma.StationScalarFieldEnum = {
 exports.Prisma.ProjectScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.PendingScalarFieldEnum = {

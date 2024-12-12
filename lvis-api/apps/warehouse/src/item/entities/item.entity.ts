@@ -63,6 +63,6 @@ export class Item {
   item_type: ItemType;
 
   @Field(() => ProjectItem, { nullable: true })
-  project_item: ProjectItem;
+  project_item: ProjectItem | null;
 
 }

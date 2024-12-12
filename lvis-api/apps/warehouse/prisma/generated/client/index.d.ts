@@ -10571,18 +10571,21 @@ export namespace Prisma {
     id: string | null
     name: string | null
     created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type ProjectMaxAggregateOutputType = {
     id: string | null
     name: string | null
     created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type ProjectCountAggregateOutputType = {
     id: number
     name: number
     created_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -10591,18 +10594,21 @@ export namespace Prisma {
     id?: true
     name?: true
     created_at?: true
+    deleted_at?: true
   }
 
   export type ProjectMaxAggregateInputType = {
     id?: true
     name?: true
     created_at?: true
+    deleted_at?: true
   }
 
   export type ProjectCountAggregateInputType = {
     id?: true
     name?: true
     created_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -10682,6 +10688,7 @@ export namespace Prisma {
     id: string
     name: string
     created_at: Date
+    deleted_at: Date | null
     _count: ProjectCountAggregateOutputType | null
     _min: ProjectMinAggregateOutputType | null
     _max: ProjectMaxAggregateOutputType | null
@@ -10705,6 +10712,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     created_at?: boolean
+    deleted_at?: boolean
     mrv?: boolean | Project$mrvArgs<ExtArgs>
     project_items?: boolean | Project$project_itemsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
@@ -10714,6 +10722,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     created_at?: boolean
+    deleted_at?: boolean
   }
 
   export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10733,6 +10742,7 @@ export namespace Prisma {
       id: string
       name: string
       created_at: Date
+      deleted_at: Date | null
     }, ExtArgs["result"]["project"]>
     composites: {}
   }
@@ -11133,6 +11143,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Project", 'String'>
     readonly name: FieldRef<"Project", 'String'>
     readonly created_at: FieldRef<"Project", 'DateTime'>
+    readonly deleted_at: FieldRef<"Project", 'DateTime'>
   }
     
 
@@ -64664,7 +64675,8 @@ export namespace Prisma {
   export const ProjectScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    deleted_at: 'deleted_at'
   };
 
   export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
@@ -65837,6 +65849,7 @@ export namespace Prisma {
     id?: StringFilter<"Project"> | string
     name?: StringFilter<"Project"> | string
     created_at?: DateTimeFilter<"Project"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Project"> | Date | string | null
     mrv?: MRVListRelationFilter
     project_items?: ProjectItemListRelationFilter
   }
@@ -65845,6 +65858,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     mrv?: MRVOrderByRelationAggregateInput
     project_items?: ProjectItemOrderByRelationAggregateInput
   }
@@ -65856,6 +65870,7 @@ export namespace Prisma {
     NOT?: ProjectWhereInput | ProjectWhereInput[]
     name?: StringFilter<"Project"> | string
     created_at?: DateTimeFilter<"Project"> | Date | string
+    deleted_at?: DateTimeNullableFilter<"Project"> | Date | string | null
     mrv?: MRVListRelationFilter
     project_items?: ProjectItemListRelationFilter
   }, "id">
@@ -65864,6 +65879,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: ProjectCountOrderByAggregateInput
     _max?: ProjectMaxOrderByAggregateInput
     _min?: ProjectMinOrderByAggregateInput
@@ -65876,6 +65892,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Project"> | string
     name?: StringWithAggregatesFilter<"Project"> | string
     created_at?: DateTimeWithAggregatesFilter<"Project"> | Date | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
   }
 
   export type PendingWhereInput = {
@@ -70548,6 +70565,7 @@ export namespace Prisma {
     id?: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     mrv?: MRVCreateNestedManyWithoutProjectInput
     project_items?: ProjectItemCreateNestedManyWithoutProjectInput
   }
@@ -70556,6 +70574,7 @@ export namespace Prisma {
     id?: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     mrv?: MRVUncheckedCreateNestedManyWithoutProjectInput
     project_items?: ProjectItemUncheckedCreateNestedManyWithoutProjectInput
   }
@@ -70564,6 +70583,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mrv?: MRVUpdateManyWithoutProjectNestedInput
     project_items?: ProjectItemUpdateManyWithoutProjectNestedInput
   }
@@ -70572,6 +70592,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mrv?: MRVUncheckedUpdateManyWithoutProjectNestedInput
     project_items?: ProjectItemUncheckedUpdateManyWithoutProjectNestedInput
   }
@@ -70580,18 +70601,21 @@ export namespace Prisma {
     id?: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type ProjectUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ProjectUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PendingCreateInput = {
@@ -75699,18 +75723,21 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type ProjectMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type ProjectMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type PendingApprover_idReference_numberReference_tableCompoundUniqueInput = {
@@ -84299,6 +84326,7 @@ export namespace Prisma {
     id?: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     mrv?: MRVCreateNestedManyWithoutProjectInput
   }
 
@@ -84306,6 +84334,7 @@ export namespace Prisma {
     id?: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     mrv?: MRVUncheckedCreateNestedManyWithoutProjectInput
   }
 
@@ -84390,6 +84419,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mrv?: MRVUpdateManyWithoutProjectNestedInput
   }
 
@@ -84397,6 +84427,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mrv?: MRVUncheckedUpdateManyWithoutProjectNestedInput
   }
 
@@ -90151,6 +90182,7 @@ export namespace Prisma {
     id?: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     project_items?: ProjectItemCreateNestedManyWithoutProjectInput
   }
 
@@ -90158,6 +90190,7 @@ export namespace Prisma {
     id?: string
     name: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     project_items?: ProjectItemUncheckedCreateNestedManyWithoutProjectInput
   }
 
@@ -90301,6 +90334,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     project_items?: ProjectItemUpdateManyWithoutProjectNestedInput
   }
 
@@ -90308,6 +90342,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     project_items?: ProjectItemUncheckedUpdateManyWithoutProjectNestedInput
   }
 

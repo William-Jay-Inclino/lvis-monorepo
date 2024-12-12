@@ -26,17 +26,6 @@
                                     <input type="text" class="form-control" v-model="searchInput">
                                 </div>
                             </div>
-                            <!-- <div class="col">
-                                <div class="input-group">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Filter by - {{ itemTypeMapper[filterBy].toUpperCase() }}
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a @click="handleFilterByChange(ITEM_TYPE.OFFICE_SUPPLY)" class="dropdown-item" href="javascript:void(0)">{{ itemTypeMapper[ITEM_TYPE.OFFICE_SUPPLY] }}</a></li>
-                                        <li><a @click="handleFilterByChange(ITEM_TYPE.SPECIAL_EQUIPMENT)" class="dropdown-item" href="javascript:void(0)">{{ itemTypeMapper[ITEM_TYPE.SPECIAL_EQUIPMENT] }}</a></li>
-                                    </ul>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
 
@@ -54,7 +43,7 @@
                             <tbody> 
                                 <tr v-for="item in filteredItems">
                                     <td class="align-middle text-muted"> {{ item.code }} </td>
-                                    <td class="align-middle text-muted"> {{ item.description }} </td>
+                                    <td class="align-middle text-muted"> {{ item.description }} {{ item.project_item ? `(${item.project_item.project.name})` : '' }} </td>
                                     <td class="align-middle text-muted"> {{ item.unit.name }} </td>
                                     <td class="align-middle text-muted"> {{ item.item_type.name }} </td>
                                     <td class="align-middle text-center">

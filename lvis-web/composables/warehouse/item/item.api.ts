@@ -259,9 +259,11 @@ export async function fetchFormDataInCreate(): Promise<{
                 code 
                 name
             },
-            projects {
-                id 
-                name
+            projects(page: 1, pageSize: 10) {
+                data {
+                    id 
+                    name
+                }
             }
         }
     `;
@@ -286,8 +288,8 @@ export async function fetchFormDataInCreate(): Promise<{
         if (data.item_types) {
             item_types = data.item_types
         }
-        if (data.projects) {
-            projects = data.projects
+        if (data.projects && data.projects.data) {
+            projects = response.data.data.projects.data
         }
 
         return {
@@ -344,9 +346,11 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 id
                 name
             }
-            projects {
-                id
-                name
+            projects(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
             }
             item_types{
                 id
@@ -384,8 +388,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             item_types = data.item_types
         }
 
-        if (data.projects) {
-            projects = data.projects
+        if (data.projects && data.projects.data) {
+            projects = response.data.data.projects.data
         }
 
         return {

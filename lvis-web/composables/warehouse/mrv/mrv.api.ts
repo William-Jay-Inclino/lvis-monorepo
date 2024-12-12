@@ -271,7 +271,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
+            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
                 data{
                     id
                     code
@@ -284,6 +284,12 @@ export async function fetchFormDataInCreate(): Promise<{
                     unit {
                         id 
                         name
+                    }
+                    project_item {
+                        project {
+                            id 
+                            name
+                        }
                     }
                     total_quantity
                     quantity_on_queue
@@ -302,9 +308,11 @@ export async function fetchFormDataInCreate(): Promise<{
                 id 
                 name
             },
-            projects {
-                id 
-                name
+            projects(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
             },
             default_station {
                 id 
@@ -350,8 +358,8 @@ export async function fetchFormDataInCreate(): Promise<{
             stations = response.data.data.stations
         }
 
-        if (data.projects) {
-            projects = response.data.data.projects
+        if (data.projects && data.projects.data) {
+            projects = response.data.data.projects.data
         }
 
         if(data.default_station) {
@@ -468,6 +476,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                             id 
                             name
                         }
+                        project_item {
+                            project {
+                                id 
+                                name
+                            }
+                        }
                         total_quantity
                         quantity_on_queue
                         GWAPrice
@@ -496,6 +510,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                         id 
                         name
                     }
+                    project_item {
+                        project {
+                            id 
+                            name
+                        }
+                    }
                     total_quantity
                     quantity_on_queue
                     GWAPrice
@@ -505,9 +525,11 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 id 
                 name
             },
-            projects {
-                id 
-                name
+            projects(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
             },
             auditors {
                 id 
@@ -552,8 +574,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             stations = data.stations
         }
 
-        if (data.projects) {
-            projects = data.projects
+        if (data.projects && data.projects.data) {
+            projects = response.data.data.projects.data
         }
 
         if (data.auditors) {

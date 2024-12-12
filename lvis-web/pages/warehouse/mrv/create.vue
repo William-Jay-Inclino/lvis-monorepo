@@ -94,9 +94,8 @@
                                     Project Name
                                 </label>
                                 <client-only>
-                                    <v-select :options="projects" label="name" v-model="mrvData.project"></v-select>
+                                    <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="mrvData.project"></v-select>
                                 </client-only>
-                                <!-- <small class="text-danger fst-italic" v-show="mrvDataErrors.project"> {{ errorMsg }} </small> -->
                             </div>
     
                             <div class="mb-3">
@@ -244,7 +243,7 @@
             </div>
         </div>
 
-        <WarehouseAddItemModal @add-item="handleAddItem" :items="items" :added-item-ids="mrvItemIds"/>
+        <WarehouseAddItemModal @add-item="handleAddItem" :items="available_items" :added-item-ids="mrvItemIds"/>
 
     </div>
 
@@ -264,6 +263,7 @@
     import { MRV_DEFAULT_APPROVERS } from '~/composables/warehouse/mrv/mrv.constants';
     import { showCWOnumber, showMWOnumber, showORnumber } from '~/utils/helpers';
     import { useToast } from 'vue-toastification';
+    import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';
 
     definePageMeta({
         name: ROUTES.MRV_CREATE,
@@ -353,6 +353,7 @@
                 qty_request: 0,
                 GWAPrice: i.GWAPrice,
                 item_type: i.item_type,
+                project_item: i.project_item 
             }
 
             return x
@@ -416,6 +417,38 @@
     })
 
     const mrvItemIds = computed( () => mrvData.value.items.map(i => i.id))
+
+    const available_items = computed( (): AddItem[] => {
+
+        if(!mrvData.value.project) {
+            return items.value.filter(i => {
+                if(!i.project_item) {
+                    return i
+                }
+            })
+        }
+
+        return items.value.filter(i => {
+            if(i.project_item && i.project_item.project.id === mrvData.value.project?.id) {
+                return i
+            }
+        })
+
+    })  
+
+    const project = computed( () => mrvData.value.project)
+
+
+
+    // ======================== WATCHERS ========================  
+
+    watch(project, (val) => {
+
+        console.log('project is updated. Clearing items...');
+
+        mrvData.value.items = []
+
+    })
 
     // ======================== FUNCTIONS ========================  
 
@@ -489,6 +522,7 @@
             GWAPrice: item.GWAPrice,
             qty_request: 0,
             item_type: item.item_type,
+            project_item: item.project_item ? item.project_item : null
         }
 
         mrvData.value.items.push(mrvItem)
@@ -519,22 +553,6 @@
         if (mrvData.value.purpose.trim() === '') {
             mrvDataErrors.value.purpose = true
         }
-
-        // if(showOrNumber.value === true && mrvData.value.or_number?.trim() === '') {
-        //     mrvDataErrors.value.or_number = true
-        // }
-
-        // if(showMwoNumber.value === true && mrvData.value.mwo_number?.trim() === '') {
-        //     mrvDataErrors.value.mwo_number = true
-        // }
-
-        // if(showCwoNumber.value === true && mrvData.value.cwo_number?.trim() === '') {
-        //     mrvDataErrors.value.cwo_number = true
-        // }
-
-        // if(mrvData.value.jo_number?.trim() === '') {
-        //     mrvDataErrors.value.jo_number = true
-        // }
 
         if(mrvData.value.consumer_name?.trim() === '') {
             mrvDataErrors.value.consumer_name = true
@@ -596,6 +614,35 @@
     }
 
 
+    async function handleSearchProjects(input: string, loading: (status: boolean) => void ) {
+
+        if(input.trim() === ''){
+            projects.value = []
+            return 
+        } 
+
+        debouncedSearchProjects(input, loading)
+
+    }
+
+
+    async function searchProjects(input: string, loading: (status: boolean) => void) {
+
+        loading(true)
+
+        try {
+            const response = await fetchProjectsByName(input);
+            projects.value = response
+        } catch (error) {
+            console.error('Error fetching Projects:', error);
+        } finally {
+            loading(false);
+        }
+    }
+
+    const debouncedSearchProjects = debounce((input: string, loading: (status: boolean) => void) => {
+        searchProjects(input, loading);
+    }, 500);
 
 
 

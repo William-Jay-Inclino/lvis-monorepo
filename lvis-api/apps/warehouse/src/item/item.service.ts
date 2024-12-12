@@ -157,6 +157,11 @@ export class ItemService {
 				unit: true,
 				item_transactions: true,
 				item_type: true,
+				project_item: {
+					include: {
+						project: true,
+					}
+				},
 			},
 			where: whereCondition,
 			orderBy: {

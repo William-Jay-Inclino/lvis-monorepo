@@ -1,9 +1,16 @@
 <template>
     <div class="mb-3">
         <div class="alert alert-info">
-            <small class="fst-italic">
-                Quantity Request should be greater than 0 and less than or equal to the available quantity
-            </small>
+            <div>
+                <small class="fst-italic">
+                    - Quantity Request should be greater than 0 and less than or equal to the available quantity
+                </small>
+            </div>
+            <div>
+                <small class="fst-italic">
+                    - Available items to add are based on the project
+                </small>
+            </div>
         </div>
         
         <table class="table table-bordered table-hovered table-sm small">
@@ -21,7 +28,7 @@
             </thead>
             <tbody>
                 <tr v-for="i, indx in items">
-                    <td class="text-muted align-middle"> {{ i.label }} </td>
+                    <td class="text-muted align-middle"> {{ i.label }} {{ i.project_item ? `(${i.project_item.project.name})` : '' }} </td>
                     <td class="text-muted align-middle text-center"> {{ i.unit.name }} </td>
                     <td class="text-muted align-middle text-center"> {{ i.available_quantity }} </td>
                     <td class="text-muted align-middle text-center"> {{ formatToPhpCurrency(i.GWAPrice) }} </td>

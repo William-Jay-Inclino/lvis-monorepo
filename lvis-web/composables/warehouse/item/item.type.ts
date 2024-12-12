@@ -79,4 +79,5 @@ export interface AddItem {
 		id: ITEM_STATUS,
 		name: string,
 	}
+	project_item?: ProjectItem | null
 }

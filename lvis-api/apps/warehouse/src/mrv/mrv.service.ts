@@ -123,51 +123,65 @@ export class MrvService {
 
     async update(id: string, input: UpdateMrvInput) {
 
-        const existingItem = await this.prisma.mRV.findUnique({
-            where: { id },
-            include: {
-                mrv_approvers: true
+        return await this.prisma.$transaction(async(tx) => {
+
+            const existingItem = await tx.mRV.findUnique({
+                where: { id },
+                include: {
+                    mrv_approvers: true,
+                }
+            })
+    
+            if (!existingItem) {
+                throw new NotFoundException('MRV not found')
             }
+    
+            if (!this.canAccess(existingItem)) {
+                throw new ForbiddenException('Only Admin and Owner can update this record!')
+            }
+    
+            if (!(await this.canUpdate(input, existingItem, tx))) {
+                throw new Error('Failed to update MRV. Please try again')
+            }
+
+            // new project so delete all mrv_items
+            if(input.project_id !== existingItem.project_id) {
+                await tx.mRVItem.deleteMany({
+                    where: {
+                        mrv_id: id
+                    }
+                })
+            }
+    
+            const data: Prisma.MRVUpdateInput = {
+                project: input.project_id
+                ? { connect: { id: input.project_id } } // Connect new project_id if provided
+                : input.project_id === null
+                ? { disconnect: true } // Disconnect if explicitly set to null
+                : existingItem.project_id
+                ? { connect: { id: existingItem.project_id } } // Keep the existing project_id if it exists
+                : undefined, // If no project_id exists, leave it undefined
+                purpose: input.purpose ?? existingItem.purpose,
+                request_type: input.request_type ?? existingItem.request_type,
+                or_number: input.or_number ?? undefined,
+                cwo_number: input.cwo_number ?? undefined,
+                jo_number: input.jo_number ?? undefined,
+                consumer_name: input.consumer_name ?? existingItem.consumer_name,
+                location: input.location ?? existingItem.location,
+                requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
+                withdrawn_by_id: input.withdrawn_by_id ?? existingItem.withdrawn_by_id,
+                item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
+                updated_by: this.authUser.user.username,
+            }
+    
+            const result = await tx.mRV.update({
+                data,
+                where: { id }
+            })
+            return result
+
         })
 
-        if (!existingItem) {
-            throw new NotFoundException('MRV not found')
-        }
-
-        if (!this.canAccess(existingItem)) {
-            throw new ForbiddenException('Only Admin and Owner can update this record!')
-        }
-
-        if (!(await this.canUpdate(input, existingItem))) {
-            throw new Error('Failed to update MRV. Please try again')
-        }
-
-        const data: Prisma.MRVUpdateInput = {
-            project: input.project_id
-            ? { connect: { id: input.project_id } } // Connect new project_id if provided
-            : input.project_id === null
-            ? { disconnect: true } // Disconnect if explicitly set to null
-            : existingItem.project_id
-            ? { connect: { id: existingItem.project_id } } // Keep the existing project_id if it exists
-            : undefined, // If no project_id exists, leave it undefined
-            purpose: input.purpose ?? existingItem.purpose,
-            request_type: input.request_type ?? existingItem.request_type,
-            or_number: input.or_number ?? undefined,
-            cwo_number: input.cwo_number ?? undefined,
-            jo_number: input.jo_number ?? undefined,
-            consumer_name: input.consumer_name ?? existingItem.consumer_name,
-            location: input.location ?? existingItem.location,
-            requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
-            withdrawn_by_id: input.withdrawn_by_id ?? existingItem.withdrawn_by_id,
-            item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
-            updated_by: this.authUser.user.username,
-        }
-
-        const result = await this.prisma.mRV.update({
-            data,
-            where: { id }
-        })
-        return result
 
     }
 
@@ -249,6 +263,11 @@ export class MrvService {
                                 unit: true,
                                 item_transactions: true,
                                 item_type: true,
+                                project_item: {
+                                    include: {
+                                        project: true,
+                                    }
+                                }
                             }
                         }
                     }
@@ -553,12 +572,12 @@ export class MrvService {
 
     }
 
-    private async canUpdate(input: UpdateMrvInput, existingItem: MRV): Promise<boolean> {
+    private async canUpdate(input: UpdateMrvInput, existingItem: MRV, tx: Prisma.TransactionClient): Promise<boolean> {
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
 
-            const approvers = await this.prisma.mRVApprover.findMany({
+            const approvers = await tx.mRVApprover.findMany({
                 where: {
                     mrv_id: existingItem.id
                 }

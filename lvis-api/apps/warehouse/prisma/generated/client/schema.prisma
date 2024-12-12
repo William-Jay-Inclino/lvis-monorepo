@@ -82,6 +82,7 @@ model Project {
   project_items ProjectItem[]
 
   created_at DateTime  @default(now())
+  deleted_at DateTime?
 
   @@map("project")
 }

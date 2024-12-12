@@ -117,8 +117,9 @@
                                     Project Name <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="projects" label="name" v-model="mrvData.project"></v-select>
+                                    <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="mrvData.project"></v-select>
                                 </client-only>
+                                <small class="fst-italic text-danger">Note: Updating the project will remove all items.</small>
                             </div>
 
                         <div class="mb-3">
@@ -273,6 +274,7 @@ import type { Employee } from '~/composables/system/employee/employee.types';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
 import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
+import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';
 
 definePageMeta({
     name: ROUTES.MRV_UPDATE,
@@ -321,6 +323,7 @@ const projects = ref<Project[]>([])
 const request_types = ref<WarehouseRequestType[]>([])
 
 // FORM DATA
+const previous_data = ref<MRV>({} as MRV)
 const mrvDataErrors = ref({ ..._mrvDataErrorsInitial })
 const mrvData = ref<MRV>({} as MRV)
 
@@ -340,6 +343,8 @@ onMounted(async () => {
     if (!response.mrv.can_update) {
         return redirectTo401Page()
     }
+
+    previous_data.value = {...response.mrv}
 
     populateForm(response.mrv)
 
@@ -414,6 +419,7 @@ const itemsInTable = computed( (): AddItem[] => {
                 qty_request: i.quantity,
                 GWAPrice: i.item.GWAPrice,
                 item_type: i.item.item_type,
+                project_item: i.item.project_item,
             }
 
             return x
@@ -421,21 +427,38 @@ const itemsInTable = computed( (): AddItem[] => {
 })
 
 const itemsInModal = computed( (): AddItem[] => {
-    return items.value.map(i => {
-            const x: AddItem = {
-                id: i.id,
-                code: i.code,
-                description: i.description,
-                label: i.code + ' - ' + i.description,
-                available_quantity: i.total_quantity - i.quantity_on_queue,
-                unit: i.unit,
-                qty_request: 0,
-                GWAPrice: i.GWAPrice,
-                item_type: i.item_type,
-            }
 
-            return x
+    const _items = items.value.map(i => {
+        const x: AddItem = {
+            id: i.id,
+            code: i.code,
+            description: i.description,
+            label: i.code + ' - ' + i.description,
+            available_quantity: i.total_quantity - i.quantity_on_queue,
+            unit: i.unit,
+            qty_request: 0,
+            GWAPrice: i.GWAPrice,
+            item_type: i.item_type,
+            project_item: i.project_item,
+        }
+
+        return x
+    })
+
+    if(!previous_data.value.project) {
+        return _items.filter(i => {
+            if(!i.project_item) {
+                return i
+            }
         })
+    }
+
+    return _items.filter(i => {
+        if(i.project_item && i.project_item.project.id === previous_data.value.project?.id) {
+            return i
+        }
+    })
+
 })
 
 const isDisabledUpdateItemsBtn = computed( () => {
@@ -484,6 +507,7 @@ const showCwoNumber = computed( () => {
     return showCWOnumber(mrvData.value.request_type_object.id)
 
 })
+
 
 // ======================== FUNCTIONS ========================  
 
@@ -581,9 +605,11 @@ async function updateMrvItems() {
             position: 'top',
         })
 
-        mrvData.value.mrv_items = response.mrv_items
+        router.push(`/warehouse/mrv/view/${mrvData.value.id}`);
 
-        await fetchItems()
+        // mrvData.value.mrv_items = response.mrv_items
+
+        // await fetchItems()
 
     } else {
         Swal.fire({
@@ -717,15 +743,6 @@ function isValidMrvInfo(): boolean {
     if(mrvData.value.purpose.trim() === '') {
         mrvDataErrors.value.purpose = true
     }
-
-    // if (!mrvData.value.requested_by) {
-    //     mrvDataErrors.value.requested_by = true
-    // }
-
-    // if (!mrvData.value.item_from) {
-    //     mrvDataErrors.value.item_from = true
-    // }
-
     const hasError = Object.values(mrvDataErrors.value).includes(true);
 
     if (hasError) {
@@ -735,6 +752,36 @@ function isValidMrvInfo(): boolean {
     return true
 
 }
+
+async function handleSearchProjects(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        projects.value = []
+        return 
+    } 
+
+    debouncedSearchProjects(input, loading)
+
+}
+
+
+async function searchProjects(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchProjectsByName(input);
+        projects.value = response
+    } catch (error) {
+        console.error('Error fetching Projects:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+const debouncedSearchProjects = debounce((input: string, loading: (status: boolean) => void) => {
+    searchProjects(input, loading);
+}, 500);
 
 
 </script>

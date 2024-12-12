@@ -101,7 +101,7 @@ export class ClassificationService {
 			data: {
 			  deleted_at: new Date()
 			}
-		  })
+		})
 
 		return {
 			success: true,

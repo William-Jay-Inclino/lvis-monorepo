@@ -48,7 +48,7 @@
                             <div v-if="show_project_field" class="mb-3">
                                 <label class="form-label">Project</label>
                                 <client-only>
-                                    <v-select :options="projects" label="name" v-model="formData.project"></v-select>
+                                    <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="formData.project"></v-select>
                                 </client-only>
                             </div>
                             <div class="mb-3">
@@ -102,6 +102,7 @@ import type { UpdateItemInput, Item, ItemType } from '~/composables/warehouse/it
 import Swal from 'sweetalert2'
 import { generateNumbersBy5 } from '~/composables/warehouse/item/item.common';
 import type { Project } from '~/composables/warehouse/project/project.types';
+import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';
 
 definePageMeta({
     name: ROUTES.ITEM_UPDATE,
@@ -231,6 +232,36 @@ function isValid(): boolean {
     return true
 
 }
+
+async function handleSearchProjects(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        projects.value = []
+        return 
+    } 
+
+    debouncedSearchProjects(input, loading)
+
+}
+
+
+async function searchProjects(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchProjectsByName(input);
+        projects.value = response
+    } catch (error) {
+        console.error('Error fetching Projects:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+const debouncedSearchProjects = debounce((input: string, loading: (status: boolean) => void) => {
+    searchProjects(input, loading);
+}, 500);
 
 
 const onClickGoToList = () => router.push('/warehouse/item')
