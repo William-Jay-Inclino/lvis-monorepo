@@ -204,6 +204,12 @@ export enum ROUTES {
     ITEM_TYPE_UPDATE = `${SERVICES.WAREHOUSE}_ITEM_TYPE_UPDATE`,
     ITEM_TYPE_VIEW = `${SERVICES.WAREHOUSE}_ITEM_TYPE_VIEW`,
 
+    // =======================  PROJECT ======================= 
+    PROJECT_INDEX = `${SERVICES.WAREHOUSE}_PROJECT_INDEX`,
+    PROJECT_CREATE = `${SERVICES.WAREHOUSE}_PROJECT_CREATE`,
+    PROJECT_UPDATE = `${SERVICES.WAREHOUSE}_PROJECT_UPDATE`,
+    PROJECT_VIEW = `${SERVICES.WAREHOUSE}_PROJECT_VIEW`,
+
 
 
     // ==============================================   MOTORPOOL  ============================================== 

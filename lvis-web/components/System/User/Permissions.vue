@@ -788,6 +788,39 @@
                             </div>
                         </td>
                     </tr>
+                    <tr v-if="permissions.warehouse.canManageProject">
+                        <td class="text-muted align-middle">Project Mgmt</td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                v-model="permissions.warehouse.canManageProject.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageProject.read">
+                                <label class="form-check-label">
+                                    Read
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageProject.update">
+                                <label class="form-check-label">
+                                    Update
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageProject.delete">
+                                <label class="form-check-label">
+                                    Delete
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
                     <tr>
                         <th colspan="2" class="fst-italic text-warning">
                             <h5> MOTORPOOL </h5>

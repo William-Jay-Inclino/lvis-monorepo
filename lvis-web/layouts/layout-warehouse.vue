@@ -105,18 +105,14 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li v-if="canView('canManageItem', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/item">Item</nuxt-link></li>
-                                <!-- <li v-if="canView('canManageUnit', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/unit">Unit</nuxt-link></li> -->
                                 <li v-if="canView('canManageSupplier', authUser)">
                                     <nuxt-link class="dropdown-item"
                                         to="/warehouse/supplier">Supplier</nuxt-link>
                                 </li>
-                                <!-- <li v-if="canView('canManageFuelType', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/fuel-type">Fuel Type</nuxt-link>
+                                <li v-if="canView('canManageProject', authUser)">
+                                    <nuxt-link class="dropdown-item"
+                                        to="/warehouse/project">Project</nuxt-link>
                                 </li>
-                                <li v-if="canView('canManageGasStation', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/gas-station">Gas Station</nuxt-link>
-                                </li> -->
                             </ul>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
@@ -177,12 +173,6 @@
             </div>
             <div class="offcanvas-body d-flex flex-column">
                 <ul class="nav flex-column mb-3">
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">User Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Activity Log</a>
-                    </li> -->
                     <li class="nav-item">
                         <a href="javascript:void(0)" class="nav-link text-warning fst-italic fw-bold">
                             {{ authUser.user.username }}
@@ -240,6 +230,22 @@
                             </li>
                         </ul>
                     </li>
+                    <li v-if="canViewMotorpool(authUser)" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Motorpool
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li v-if="canView('canManageTripTicket', authUser)"><nuxt-link class="dropdown-item"
+                                to="/warehouse/trip-ticket">Trip Ticket</nuxt-link></li>
+                            <li v-if="canView('canManageGasSlip', authUser)"><nuxt-link class="dropdown-item"
+                                to="/warehouse/gas-slip">Gas Slip</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageVehicle', authUser)"><nuxt-link class="dropdown-item"
+                                to="/warehouse/vehicle">Vehicle</nuxt-link>
+                            </li>
+                        </ul>
+                    </li>
                     <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -248,16 +254,13 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li v-if="canView('canManageItem', authUser)"><nuxt-link class="dropdown-item"
                                 to="/warehouse/item">Item</nuxt-link></li>
-                            <!-- <li v-if="canView('canManageUnit', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/unit">Unit</nuxt-link>
-                            </li> -->
-                            <li v-if="canView('canManageVehicle', authUser)">
-                                <nuxt-link class="dropdown-item"
-                                    to="/warehouse/vehicle">Vehicle</nuxt-link>
-                            </li>
                             <li v-if="canView('canManageSupplier', authUser)">
                                 <nuxt-link class="dropdown-item"
                                     to="/warehouse/supplier">Supplier</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageProject', authUser)">
+                                <nuxt-link class="dropdown-item"
+                                    to="/warehouse/project">Project</nuxt-link>
                             </li>
                         </ul>
                     </li>

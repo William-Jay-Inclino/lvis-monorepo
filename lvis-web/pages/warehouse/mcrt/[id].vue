@@ -473,9 +473,11 @@ async function updateMcrtItems() {
             position: 'top',
         })
 
-        mcrtData.value.mcrt_items = response.mcrt_items
+        router.push(`/warehouse/mcrt/view/${mcrtData.value.id}`);
 
-        await fetchItems(mcrtData.value.id)
+        // mcrtData.value.mcrt_items = response.mcrt_items
+
+        // await fetchItems(mcrtData.value.id)
 
     } else {
         Swal.fire({

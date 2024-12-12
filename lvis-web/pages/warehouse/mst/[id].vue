@@ -422,7 +422,7 @@ async function updateMstInfo() {
             position: 'top',
         })
 
-        router.push(`/warehouse/mcrt/view/${response.data.id}`);
+        router.push(`/warehouse/mst/view/${response.data.id}`);
 
     } else {
         Swal.fire({
@@ -449,7 +449,9 @@ async function updateMstItems() {
             position: 'top',
         })
 
-        mstData.value.mst_items = response.mst_items.map(i => ({...i, statusObject: { id: i.status, name: itemStatusMapper[i.status] }}))
+        router.push(`/warehouse/mst/view/${mstData.value.id}`);
+
+        // mstData.value.mst_items = response.mst_items.map(i => ({...i, statusObject: { id: i.status, name: itemStatusMapper[i.status] }}))
 
     } else {
         Swal.fire({

@@ -467,9 +467,11 @@ async function updateOsrivItems() {
             position: 'top',
         })
 
-        osrivData.value.osriv_items = response.osriv_items
+        router.push(`/warehouse/osriv/view/${osrivData.value.id}`);
 
-        await fetchItems()
+        // osrivData.value.osriv_items = response.osriv_items
+
+        // await fetchItems()
 
     } else {
         Swal.fire({

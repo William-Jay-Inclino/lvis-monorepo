@@ -578,9 +578,12 @@ async function updateSerivItems() {
             position: 'top',
         })
 
-        serivData.value.seriv_items = response.seriv_items
+        router.push(`/warehouse/seriv/view/${serivData.value.id}`);
 
-        await fetchItems()
+
+        // serivData.value.seriv_items = response.seriv_items
+
+        // await fetchItems()
 
     } else {
         Swal.fire({

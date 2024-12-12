@@ -134,7 +134,12 @@ export const warehousePermissions: WarehousePermissions = {
         update: false,
         delete: false,
     },
-
+    canManageProject: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
 
 
     // ========= STOCK INVENTORY ========= 

@@ -47,6 +47,16 @@ export async function findOne(id: string): Promise<Project | undefined> {
             project(id: "${id}") {
                 id
                 name
+                project_items {
+                    item {
+                        code 
+                        description
+                        total_quantity
+                        unit {
+                            name
+                        }
+                    }
+                }
             }
         }
     `;

@@ -68,7 +68,21 @@ export class ProjectService {
 	async findOne(id: string): Promise<Project | null> {
 
 		const item = await this.prisma.project.findUnique({
-			where: { id }
+			where: { id },
+			include: {
+				project_items: {
+					include: {
+						item: {
+							select: {
+								code: true,
+								description: true,
+								total_quantity: true,
+								unit: true,
+							}
+						}
+					}
+				}
+			},
 		})
 
 		if (!item) {

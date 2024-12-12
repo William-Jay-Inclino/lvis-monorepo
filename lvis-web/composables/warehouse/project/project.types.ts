@@ -1,8 +1,11 @@
+import type { ProjectItem } from "./project-item.types";
 
 
 export interface Project {
     id: string 
     name: string 
+
+    project_items: ProjectItem[]
 }
 
 export interface CreateProjectInput {

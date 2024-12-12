@@ -33,7 +33,7 @@
                         <table class="table table-bordered table-hover table-sm small">
                             <thead>
                                 <tr>
-                                    <th>Code</th>
+                                    <th width="10%">Code</th>
                                     <th>Item Description</th>
                                     <th>Unit</th>
                                     <th>Item Type</th>
