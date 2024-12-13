@@ -423,6 +423,12 @@ async function updateOsrivInfo() {
     console.log('update')
 
     if (!isValidOsrivInfo()) {
+        Swal.fire({
+            title: 'Form has errors!',
+            text: 'Please review the form and correct the errors.',
+            icon: 'error',
+            position: 'top',
+        })
         return
     }
 
@@ -484,15 +490,15 @@ async function updateOsrivItems() {
 
 }
 
-async function fetchItems() {
+// async function fetchItems() {
 
-    isFetchingItems.value = true
-    const response = await osrivItemApi.fetchItems()
-    isFetchingItems.value = false
+//     isFetchingItems.value = true
+//     const response = await osrivItemApi.fetchItems()
+//     isFetchingItems.value = false
 
-    items.value = response.items
+//     items.value = response.items
 
-}
+// }
 
 // ======================== CHILD EVENTS: <WarehouseUpdateApprovers> ========================  
 

@@ -275,6 +275,7 @@ import { addPropertyFullName } from '~/composables/system/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
 import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
 import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';
+import type { Project } from '~/composables/warehouse/project/project.types';
 
 definePageMeta({
     name: ROUTES.MRV_UPDATE,
@@ -543,6 +544,12 @@ async function updateMrvInfo() {
     console.log('update')
 
     if (!isValidMrvInfo()) {
+        Swal.fire({
+            title: 'Form has errors!',
+            text: 'Please review the form and correct the errors.',
+            icon: 'error',
+            position: 'top',
+        })
         return
     }
 

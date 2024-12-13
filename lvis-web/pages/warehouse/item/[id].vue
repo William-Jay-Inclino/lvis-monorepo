@@ -187,7 +187,15 @@ async function onSubmit() {
 
     console.log('saving...')
 
-    if (!isValid()) return
+    if (!isValid()) {
+        Swal.fire({
+            title: 'Form has errors!',
+            text: 'Please review the form and correct the errors.',
+            icon: 'error',
+            position: 'top',
+        })
+        return 
+    }
 
     isSaving.value = true
     const response = await api.update(item.value.id, formData.value)

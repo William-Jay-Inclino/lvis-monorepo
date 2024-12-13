@@ -300,6 +300,12 @@ async function updateRvInfo() {
     console.log('update')
 
     if (!isValidRvInfo()) {
+        Swal.fire({
+            title: 'Form has errors!',
+            text: 'Please review the form and correct the errors.',
+            icon: 'error',
+            position: 'top',
+        })
         return
     }
 

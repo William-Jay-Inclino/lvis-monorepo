@@ -300,6 +300,12 @@ async function updateSprInfo() {
     console.log('update')
 
     if (!isValidSprInfo()) {
+        Swal.fire({
+            title: 'Form has errors!',
+            text: 'Please review the form and correct the errors.',
+            icon: 'error',
+            position: 'top',
+        })
         return
     }
 

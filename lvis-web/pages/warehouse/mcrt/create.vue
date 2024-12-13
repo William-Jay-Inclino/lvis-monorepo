@@ -524,7 +524,15 @@
 
         const hasErrorItem = mcrtData.value.items.some(i => i.showQtyError === true)
 
-        if(hasErrorItem) return
+        if(hasErrorItem) {
+            Swal.fire({
+                title: 'Form has errors!',
+                text: 'Please review the form and correct the errors.',
+                icon: 'error',
+                position: 'top',
+            })
+            return 
+        }
 
         isSaving.value = true
         const response = await mcrtApi.create(mcrtData.value)
@@ -755,6 +763,14 @@
         const hasError = Object.values(mcrtDataErrors.value).includes(true);
         const hasErrorApprovers = mcrtData.value.approvers.some(i => i.showRequiredMsg === true)
         if (hasError || hasErrorApprovers) {
+
+            Swal.fire({
+                title: 'Form has errors!',
+                text: 'Please review the form and correct the errors.',
+                icon: 'error',
+                position: 'top',
+            })
+
             return 
         }
 

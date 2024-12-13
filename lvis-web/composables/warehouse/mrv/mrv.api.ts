@@ -3,6 +3,7 @@ import { sendRequest } from "~/utils/api"
 import type { Employee } from "~/composables/system/employee/employee.types";
 import type { Station } from "../station/station";
 import type { Item } from "../item/item.type";
+import type { Project } from "../project/project.types";
 
 export async function fetchDataInSearchFilters(): Promise<{
     mrvs: MRV[],
@@ -271,7 +272,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
+            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.HOUSE_WIRING},${ITEM_TYPE.SPARE_PARTS}") {
                 data{
                     id
                     code
@@ -496,7 +497,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
+            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.HOUSE_WIRING},${ITEM_TYPE.SPARE_PARTS}") {
                 data{
                     id
                     code

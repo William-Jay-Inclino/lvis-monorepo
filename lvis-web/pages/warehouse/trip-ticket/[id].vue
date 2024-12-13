@@ -463,6 +463,12 @@ async function updateTripInfo() {
     console.log('update')
 
     if (!isValidTripInfo()) {
+        Swal.fire({
+            title: 'Form has errors!',
+            text: 'Please review the form and correct the errors.',
+            icon: 'error',
+            position: 'top',
+        })
         return
     }
 

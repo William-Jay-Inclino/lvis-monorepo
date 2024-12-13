@@ -275,6 +275,12 @@ async function save() {
     console.log('save')
 
     if (!isValid()) {
+        Swal.fire({
+            title: 'Form has errors!',
+            text: 'Please review the form and correct the errors.',
+            icon: 'error',
+            position: 'top',
+        })
         return
     }
 

@@ -281,6 +281,12 @@ async function updateCanvassDetail() {
     const hasError = Object.values(canvassErrors.value).includes(true);
 
     if (hasError) {
+        Swal.fire({
+            title: 'Form has errors!',
+            text: 'Please review the form and correct the errors.',
+            icon: 'error',
+            position: 'top',
+        })
         return
     }
 

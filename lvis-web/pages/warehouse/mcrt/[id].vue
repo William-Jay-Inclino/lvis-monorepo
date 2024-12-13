@@ -423,6 +423,12 @@ async function updateMcrtInfo() {
     console.log('update')
 
     if (!isValidMcrtInfo()) {
+        Swal.fire({
+            title: 'Form has errors!',
+            text: 'Please review the form and correct the errors.',
+            icon: 'error',
+            position: 'top',
+        })
         return
     }
 

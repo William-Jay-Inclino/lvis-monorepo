@@ -552,6 +552,13 @@
 
         if(!hasErrorStep1()) {
             currentStep.value += 1
+        } else {
+            Swal.fire({
+                title: 'Form has errors!',
+                text: 'Please review the form and correct the errors.',
+                icon: 'error',
+                position: 'top',
+            })
         }
 
     }
