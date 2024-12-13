@@ -243,11 +243,11 @@ function isValid(): boolean {
         formDataErrors.value.description = true
     }
 
-    if (formData.value.initial_quantity < 0) {
+    if (!formData.value.initial_quantity || formData.value.initial_quantity < 0) {
         formDataErrors.value.initial_quantity = true
     }
 
-    if (formData.value.initial_average_price < 0) {
+    if (!formData.value.initial_average_price || formData.value.initial_average_price < 0) {
         formDataErrors.value.initial_average_price = true
     }
 
