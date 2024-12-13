@@ -126,6 +126,7 @@ import type { CreateItemInput, ItemType } from '~/composables/warehouse/item/ite
 import { generateNumbersBy5 } from '~/composables/warehouse/item/item.common'
 import Swal from 'sweetalert2'
 import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';
+import type { Project } from '~/composables/warehouse/project/project.types';
 
 definePageMeta({
     name: ROUTES.ITEM_CREATE,
@@ -183,7 +184,7 @@ const show_project_field = computed( (): boolean => {
     
     if(!item_type.value) return false 
 
-    if(item_type.value.code === ITEM_TYPE.LINE_MATERIALS || item_type.value.code === ITEM_TYPE.SPECIAL_EQUIPMENT) {
+    if(ITEM_TYPES_WITH_PROJECT.includes(item_type.value.code)) {
         return true 
     }
 
@@ -193,10 +194,11 @@ const show_project_field = computed( (): boolean => {
 
 // clear project if item type is null or not line material and special equipment
 watch(item_type, (val) => {
-    if(!val || val.code !== ITEM_TYPE.LINE_MATERIALS && val.code !== ITEM_TYPE.SPECIAL_EQUIPMENT) {
-        formData.value.project = null 
+
+    if (!val || !ITEM_TYPES_WITH_PROJECT.includes(val.code)) {
+        formData.value.project = null;
     }
-})
+});
 
 async function onSubmit() {
 

@@ -1,0 +1,28 @@
+
+
+1. Right click on table user and select Query tool
+
+2. Create the trigger function and execute the query
+
+CREATE OR REPLACE FUNCTION prevent_username_update()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the username column is being updated
+    IF NEW.username <> OLD.username THEN
+        RAISE EXCEPTION 'Username cannot be changed after it is set';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+3. Create the Trigger. Execute this in the query tool: 
+
+CREATE TRIGGER username_immutable
+BEFORE UPDATE ON "user"
+FOR EACH ROW
+EXECUTE FUNCTION prevent_username_update();
+
+
+
+Now username cannot be edited

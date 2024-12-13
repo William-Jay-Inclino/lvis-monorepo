@@ -66,6 +66,11 @@ export const itemTypes: ItemType[] = [
         id: 4,
         name: 'Spare Parts',
         code: 'SP',
+    },
+    {
+        id: 5,
+        name: 'House Wiring',
+        code: 'HW',
     }
 ]
 
@@ -91,6 +96,12 @@ export const itemCodeTracker: ItemCodeTracker[] = [
     {
         id: 4,
         item_code: 'SP',
+        year: 24,
+        last_incremental: 0,
+    },
+    {
+        id: 5,
+        item_code: 'HW',
         year: 24,
         last_incremental: 0,
     }

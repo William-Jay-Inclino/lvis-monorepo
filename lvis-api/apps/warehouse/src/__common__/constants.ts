@@ -208,4 +208,5 @@ export const enum ITEM_TYPE_CODE {
     'SE' = 'SE',
     'LM' = 'LM',
     'SP' = 'SP',
+    'HW' = 'HW',
 }

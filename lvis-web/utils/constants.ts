@@ -399,7 +399,10 @@ export const enum ITEM_TYPE {
     SPECIAL_EQUIPMENT = 'SE',
     LINE_MATERIALS = 'LM',
     SPARE_PARTS = 'SP',
+    HOUSE_WIRING = 'HW',
 }
+
+export const ITEM_TYPES_WITH_PROJECT = [ITEM_TYPE.LINE_MATERIALS, ITEM_TYPE.SPECIAL_EQUIPMENT, ITEM_TYPE.HOUSE_WIRING];
 
 export const enum WAREHOUSE_REQUEST_TYPE {
     TURN_ON_ORDER = 1,
@@ -452,7 +455,6 @@ export const WAREHOUSE_REQUEST_TYPES: WarehouseRequestType[] = [
     },
 ]
 
-
 export const enum ITEM_STATUS {
     NOT_USABLE = 0,
     USABLE = 1,
@@ -473,8 +475,6 @@ export const itemStatusArray = [
         name: itemStatusMapper[ITEM_STATUS.NOT_USABLE]
     }
 ]
-
-
 
 export const approvalStatusArray = [
     { id: APPROVAL_STATUS.PENDING, label: approvalStatus[APPROVAL_STATUS.PENDING].label },

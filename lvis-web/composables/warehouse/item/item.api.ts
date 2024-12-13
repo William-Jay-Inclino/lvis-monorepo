@@ -1,4 +1,5 @@
 import type { ITEM_TYPE } from "#imports";
+import type { Project } from "../project/project.types";
 import type { CreateItemInput, FindAllResponse, Item, ItemType, MutationResponse, UpdateItemInput } from "./item.type";
 
 
@@ -312,7 +313,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
 export async function fetchFormDataInUpdate(id: string): Promise<{
     units: Unit[],
-    projects: Unit[],
+    projects: Project[],
     item: Item | undefined,
     item_types: ItemType[],
 }> {

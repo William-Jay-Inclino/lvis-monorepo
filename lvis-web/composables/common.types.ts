@@ -137,14 +137,6 @@ export interface Vehicle {
     total_unposted_gas_slips: number
 }
 
-
-
-export interface Project {
-    id: string
-    name: string
-}
-
-
 export interface GasStation {
     id: string
     name: string
