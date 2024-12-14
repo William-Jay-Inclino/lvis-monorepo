@@ -1,0 +1,29 @@
+Set the Timezone Using timedatectl
+You can use the timedatectl command to set the timezone on your server. Here’s how:
+
+List Available Timezones: First, you can list all available timezones to ensure that Asia/Manila is available:
+
+timedatectl list-timezones | grep Manila
+
+This should show Asia/Manila if it's available.
+
+Set the Timezone: To change the timezone to Asia/Manila, run the following command:
+
+sudo timedatectl set-timezone Asia/Manila
+
+
+ Verify the Change
+After setting the timezone, verify that it has been correctly applied:
+
+timedatectl
+
+
+output: 
+
+                      Local time: Sat 2024-12-14 14:18:10 PST
+                  Universal time: Sat 2024-12-14 06:18:10 UTC
+                         RTC time: Sat 2024-12-14 06:18:09
+                        Time zone: Asia/Manila (PST, +0800)
+        System clock synchronized: yes
+                         NTP service: active
+                     RTC in local TZ: no
