@@ -114,7 +114,7 @@
 
                         <div class="mb-3">
                                 <label class="form-label">
-                                    Project Name <span class="text-danger">*</span>
+                                    Project Name
                                 </label>
                                 <client-only>
                                     <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="mrvData.project"></v-select>
@@ -629,15 +629,15 @@ async function updateMrvItems() {
 
 }
 
-async function fetchItems() {
+// async function fetchItems() {
 
-    isFetchingItems.value = true
-    const response = await mrvItemApi.fetchItems()
-    isFetchingItems.value = false
+//     isFetchingItems.value = true
+//     const response = await mrvItemApi.fetchItems()
+//     isFetchingItems.value = false
 
-    items.value = response.items
+//     items.value = response.items
 
-}
+// }
 
 // ======================== CHILD EVENTS: <WarehouseUpdateApprovers> ========================  
 
@@ -747,9 +747,18 @@ function isValidMrvInfo(): boolean {
 
     mrvDataErrors.value = { ..._mrvDataErrorsInitial }
 
+    if(mrvData.value.consumer_name.trim() === '') {
+        mrvDataErrors.value.consumer_name = true
+    }
+
+    if(mrvData.value.location.trim() === '') {
+        mrvDataErrors.value.location = true
+    }
+
     if(mrvData.value.purpose.trim() === '') {
         mrvDataErrors.value.purpose = true
     }
+
     const hasError = Object.values(mrvDataErrors.value).includes(true);
 
     if (hasError) {

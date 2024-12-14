@@ -559,7 +559,7 @@ import type { Project } from '~/composables/warehouse/project/project.types';
             mrvDataErrors.value.consumer_name = true
         }
 
-        if(mrvData.value.consumer_name?.trim() === '') {
+        if(mrvData.value.location?.trim() === '') {
             mrvDataErrors.value.location = true
         }
 

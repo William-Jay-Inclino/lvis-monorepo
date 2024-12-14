@@ -1,7 +1,7 @@
 <template>
     <!-- Modal -->
     <div class="modal fade" id="addItemModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-warning">Add Item</h5>
@@ -36,7 +36,7 @@
                                     <th width="10%">Code</th>
                                     <th>Item Description</th>
                                     <th>Unit</th>
-                                    <th>Item Type</th>
+                                    <!-- <th>Item Type</th> -->
                                     <th></th>
                                 </tr>
                             </thead>
@@ -45,7 +45,7 @@
                                     <td class="align-middle text-muted"> {{ item.code }} </td>
                                     <td class="align-middle text-muted"> {{ item.description }} {{ item.project_item ? `(${item.project_item.project.name})` : '' }} </td>
                                     <td class="align-middle text-muted"> {{ item.unit.name }} </td>
-                                    <td class="align-middle text-muted"> {{ item.item_type.name }} </td>
+                                    <!-- <td class="align-middle text-muted"> {{ item.item_type.name }} </td> -->
                                     <td class="align-middle text-center">
                                         <button @click="emits('add-item', item.id)" v-if="!item.isAdded" class="btn btn-primary btn-sm">
                                             Add
