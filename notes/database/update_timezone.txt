@@ -1,0 +1,6 @@
+
+// to change timezone 
+ALTER DATABASE your_database SET timezone TO 'Asia/Manila';
+
+// to verify
+SELECT now();
