@@ -7,12 +7,11 @@ export const UPLOADS_PATH = 'uploads'
 export const VAT_RATE = 0.12
 
 // use for automatic log out if no user activity
-export const USER_INACTIVITY_MAX_MINS = 15
+export const USER_INACTIVITY_MAX_MINS = 45
 
 export const LOCAL_STORAGE_AUTH_USER_KEY = 'lvis-auth-user'
 
 export const SUPERVISOR_MIN_RANK = 11
 
-// export const UPDATE_USER_IN_LOCAL_STORAGE_INTERVAL_SEC = 10000
-
-export const UPDATE_TOTAL_NOTIFS_INTERVAL =  10000
+// 10 mins
+export const UPDATE_TOTAL_NOTIFS_INTERVAL =  60000 * 10

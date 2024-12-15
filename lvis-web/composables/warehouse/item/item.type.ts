@@ -1,4 +1,5 @@
 import type { ProjectItem } from "../project/project-item.types";
+import type { Project } from "../project/project.types";
 import type { RrItem } from "../rr/rr-item.types";
 import type { ItemTransaction } from './item-transaction.type'
 import { ITEM_STATUS, ITEM_TYPE } from "~/utils/constants";

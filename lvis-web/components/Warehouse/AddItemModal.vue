@@ -43,9 +43,9 @@
                             <tbody> 
                                 <tr v-for="item in filteredItems">
                                     <td class="align-middle text-muted"> {{ item.code }} </td>
-                                    <td class="align-middle text-muted"> {{ item.description }} {{ item.project_item ? `(${item.project_item.project.name})` : '' }} </td>
+                                    <td class="align-middle text-muted"> {{ item.description }} </td>
+                                    <!-- <td class="align-middle text-muted"> {{ item.description }} {{ item.project_item ? `(${item.project_item.project.name})` : '' }} </td> -->
                                     <td class="align-middle text-muted"> {{ item.unit.name }} </td>
-                                    <!-- <td class="align-middle text-muted"> {{ item.item_type.name }} </td> -->
                                     <td class="align-middle text-center">
                                         <button @click="emits('add-item', item.id)" v-if="!item.isAdded" class="btn btn-primary btn-sm">
                                             Add

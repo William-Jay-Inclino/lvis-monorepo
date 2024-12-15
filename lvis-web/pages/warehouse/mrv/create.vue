@@ -348,13 +348,13 @@ import type { Project } from '~/composables/warehouse/project/project.types';
                 id: i.id,
                 label: i.code + ' - ' + i.description, 
                 code: i.code,
-                description: i.description,
+                description: `${i.description} ${i.project_item ? `(${i.project_item.project.name})` : ''}`,
                 available_quantity: i.total_quantity - i.quantity_on_queue,
                 unit: i.unit,
                 qty_request: 0,
                 GWAPrice: i.GWAPrice,
                 item_type: i.item_type,
-                project_item: i.project_item 
+                project_item: i.project_item,
             }
 
             return x

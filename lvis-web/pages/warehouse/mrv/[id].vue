@@ -433,7 +433,7 @@ const itemsInModal = computed( (): AddItem[] => {
         const x: AddItem = {
             id: i.id,
             code: i.code,
-            description: i.description,
+            description: `${i.description} ${i.project_item ? `(${i.project_item.project.name})` : ''}`,
             label: i.code + ' - ' + i.description,
             available_quantity: i.total_quantity - i.quantity_on_queue,
             unit: i.unit,
