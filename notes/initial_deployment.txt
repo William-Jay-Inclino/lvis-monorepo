@@ -1,6 +1,10 @@
 
+0. run apt update and apt upgrade
+
+
 1. Generate ssh key and add it in github
 2. git clone lvis-monorepo 
+3. run command: <see note puppeeter error>
 
 
 ============ lvis-api ============

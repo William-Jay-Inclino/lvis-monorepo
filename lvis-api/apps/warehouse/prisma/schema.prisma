@@ -1060,6 +1060,8 @@ model Vehicle {
   gas_slips GasSlip[]
   sprs SPR[]
 
+  service_history VehicleMaintenance[]
+
   @@index([assignee_id, classification_id, status]) 
   @@map("vehicle")
 }
@@ -1186,4 +1188,63 @@ model FuelType {
   gas_slips GasSlip[]
 
   @@map("fuel_type")
+}
+
+model VehicleService {
+  id String @id @default(uuid())
+  name String 
+
+  service_logs VehicleMaintenanceDetail[]
+  @@map("vehicle_service")
+}
+
+model ServiceCenter {
+  id String @id @default(uuid())
+  name String @unique
+  location String 
+  contact_person String @default("N/A")
+  contact_number String @default("N/A")
+  remarks String @default("")
+
+  service_records VehicleMaintenance[]
+  @@map("service_center")
+}
+
+model VehicleMaintenance {
+  id String @id @default(uuid())
+  ref_number String @unique
+  vehicle_id String 
+  service_center_id String 
+  service_date DateTime
+  service_mileage Int 
+  next_service_date DateTime
+  next_service_mileage Int 
+  cost Float @default(0)
+  remarks String 
+  performed_by String 
+
+  created_by String
+  updated_by String?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+
+  vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Restrict)
+  service_center ServiceCenter @relation(fields: [service_center_id], references: [id], onDelete: Restrict)
+  services VehicleMaintenanceDetail[]
+
+  @@index([vehicle_id])
+  @@map("vehicle_maintenance")
+}
+
+model VehicleMaintenanceDetail {
+  id String @id @default(uuid())
+  maintenance_id String 
+  service_id String 
+  note String @default("")
+
+  vehicle_maintanance VehicleMaintenance @relation(fields: [maintenance_id], references: [id], onDelete: Cascade)
+  service VehicleService @relation(fields: [service_id], references: [id], onDelete: Restrict)
+
+  @@map("vehicle_maintenance_detail")
 }
