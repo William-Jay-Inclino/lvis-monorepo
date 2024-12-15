@@ -33,7 +33,11 @@ export class UnitService {
 	}
 
 	async findAll(): Promise<Unit[]> {
-		return await this.prisma.unit.findMany()
+		return await this.prisma.unit.findMany({
+			orderBy: {
+				name: 'asc'
+			}
+		})
 	}
 
 	async findOne(id: string): Promise<Unit | null> {

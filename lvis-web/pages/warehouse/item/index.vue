@@ -8,7 +8,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Item Code</label>
                             <client-only>
@@ -16,17 +16,25 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Description</label>
                             <input type="text" class="form-control" v-model="searchDesc">
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Item Type</label>
                             <client-only>
                                 <v-select :options="itemTypes" label="name" v-model="searchItemType"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label"> Project </label>
+                            <client-only>
+                                <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="searchProject"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -87,7 +95,9 @@
                                         <tbody>
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.code }} </td>
-                                                <td class="text-muted align-middle"> {{ i.description }} </td>
+                                                <td class="text-muted align-middle"> 
+                                                    {{ i.description }} {{ i.project_item ? `(${i.project_item.project.name})` : '' }} 
+                                                </td>
                                                 <td class="text-muted align-middle"> {{ i.item_type.name }} </td>
                                                 <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice) }}
                                                 </td>
@@ -176,6 +186,8 @@ import * as api from '~/composables/warehouse/item/item.api'
 import type { Item, ItemType } from '~/composables/warehouse/item/item.type';
 import { PAGINATION_SIZE } from '~/utils/config'
 import { useToast } from "vue-toastification";
+import type { Project } from '~/composables/warehouse/project/project.types';
+import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';
 
 
 definePageMeta({
@@ -206,9 +218,11 @@ const pagination = ref({ ..._paginationInitial })
 // search filters
 const itemOptions = ref<Item[]>([])
 const itemTypes = ref<ItemType[]>([])
+const projects = ref<Project[]>([])
 const searchItem = ref<Item | null>(null)
 const searchDesc = ref('')
 const searchItemType = ref<ItemType | null>(null)
+const searchProject = ref<Project | null>(null)
 // ----------------
 
 
@@ -226,6 +240,7 @@ onMounted(async () => {
 
     itemOptions.value = response.items
     itemTypes.value = response.item_types
+    projects.value = response.projects
     isLoadingPage.value = false
 
 })
@@ -262,8 +277,8 @@ async function changePage(page: number) {
         page,
         pageSize: pagination.value.pageSize,
         description: searchDesc.value,
-        itemTypeCode: searchItemType.value ? searchItemType.value.code : null
-
+        itemTypeCode: searchItemType.value ? searchItemType.value.code : null,
+        project_id: searchProject.value ? searchProject.value.id : null,
     })
 
     isSearching.value = false
@@ -300,7 +315,8 @@ async function search() {
         page: 1,
         pageSize: pagination.value.pageSize,
         description: searchDesc.value,
-        itemTypeCode: searchItemType.value ? searchItemType.value.code : null
+        itemTypeCode: searchItemType.value ? searchItemType.value.code : null,
+        project_id: searchProject.value ? searchProject.value.id : null,
     })
 
     isSearching.value = false
@@ -322,6 +338,17 @@ async function handleSearchItems(input: string, loading: (status: boolean) => vo
 
 }
 
+async function handleSearchProjects(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        projects.value = []
+        return 
+    } 
+
+    debouncedSearchProjects(input, loading)
+
+}
+
 async function searchItems(input: string, loading: (status: boolean) => void) {
 
     loading(true)
@@ -336,11 +363,29 @@ async function searchItems(input: string, loading: (status: boolean) => void) {
     }
 }
 
+async function searchProjects(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchProjectsByName(input);
+        projects.value = response
+    } catch (error) {
+        console.error('Error fetching Projects:', error);
+    } finally {
+        loading(false);
+    }
+}
+
 
 // ======================== UTILS ======================== 
 
 const debouncedSearchItems = debounce((input: string, loading: (status: boolean) => void) => {
     searchItems(input, loading);
+}, 500);
+
+const debouncedSearchProjects = debounce((input: string, loading: (status: boolean) => void) => {
+    searchProjects(input, loading);
 }, 500);
 
 const onClickViewDetails = (id: string) => router.push('/warehouse/item/view/' + id)

@@ -113,6 +113,10 @@
                                     <nuxt-link class="dropdown-item"
                                         to="/warehouse/project">Project</nuxt-link>
                                 </li>
+                                <li v-if="canView('canManageUnit', authUser)">
+                                    <nuxt-link class="dropdown-item"
+                                        to="/warehouse/unit">Unit</nuxt-link>
+                                </li>
                             </ul>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
@@ -140,8 +144,6 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
-                                <!-- <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Activity log</a></li> -->
                                 <li>
                                     <a @click="handleLogOut" class="dropdown-item"> Logout </a>
                                 </li>
@@ -261,6 +263,10 @@
                             <li v-if="canView('canManageProject', authUser)">
                                 <nuxt-link class="dropdown-item"
                                     to="/warehouse/project">Project</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageUnit', authUser)">
+                                <nuxt-link class="dropdown-item"
+                                    to="/warehouse/unit">Unit</nuxt-link>
                             </li>
                         </ul>
                     </li>

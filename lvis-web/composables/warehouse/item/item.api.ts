@@ -7,6 +7,7 @@ import type { CreateItemInput, FindAllResponse, Item, ItemType, MutationResponse
 export async function fetchDataInSearchFilters(): Promise<{
     items: Item[],
     item_types: ItemType[],
+    projects: Project[],
 }> {
     const query = `
         query {
@@ -20,6 +21,12 @@ export async function fetchDataInSearchFilters(): Promise<{
                 code 
                 name
             }
+            projects(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
+            }
         }
     `;
 
@@ -29,6 +36,7 @@ export async function fetchDataInSearchFilters(): Promise<{
 
         let items = []
         let item_types = []
+        let projects = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -40,6 +48,10 @@ export async function fetchDataInSearchFilters(): Promise<{
             items = response.data.data.items.data
         }
 
+        if (data.projects && data.projects.data) {
+            projects = response.data.data.projects.data
+        }
+
         if(data.item_types) {
             item_types = data.item_types
         }
@@ -47,6 +59,7 @@ export async function fetchDataInSearchFilters(): Promise<{
         return {
             items,
             item_types,
+            projects,
         }
 
     } catch (error) {
@@ -54,16 +67,25 @@ export async function fetchDataInSearchFilters(): Promise<{
         return {
             items: [],
             item_types: [],
+            projects: [],
         }
     }
 }
 
-export async function findAll(payload: { page: number, pageSize: number, description: string, itemTypeCode: ITEM_TYPE | null }): Promise<FindAllResponse> {
+export async function findAll(
+    payload: { 
+        page: number, 
+        pageSize: number, 
+        description: string, 
+        itemTypeCode: ITEM_TYPE | null, 
+        project_id: string | null, 
+    }): Promise<FindAllResponse> {
 
-    const { page, pageSize, description, itemTypeCode } = payload;
+    const { page, pageSize, description, itemTypeCode, project_id } = payload;
 
     let description2 = null
     let itemTypeCode2 = null
+    let project_id2 = null
 
     if (description.trim() !== '') {
         description2 = `"${description}"`
@@ -73,13 +95,18 @@ export async function findAll(payload: { page: number, pageSize: number, descrip
         itemTypeCode2 = `"${itemTypeCode}"`
     }
 
+    if(project_id) {
+        project_id2 = `"${project_id}"`
+    }
+
     const query = `
         query {
             items(
                 page: ${page},
                 pageSize: ${pageSize},
                 description: ${description2},
-                item_codes: ${itemTypeCode2}
+                item_codes: ${itemTypeCode2},
+                project_id: ${project_id2},
             ) {
                 data {
                     id
@@ -93,6 +120,11 @@ export async function findAll(payload: { page: number, pageSize: number, descrip
                     total_quantity
                     quantity_on_queue
                     GWAPrice
+                    project_item {
+                        project {
+                            name
+                        }
+                    }
                 }
                 totalItems
                 currentPage

@@ -104,6 +104,7 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             const isSupplierModule = to.name?.toString().includes(MODULES.SUPPLIER)
             const isItemModule = to.name?.toString().includes(MODULES.ITEM)
             const isProjectModule = to.name?.toString().includes(MODULES.PROJECT)
+            const isUnitModule = to.name?.toString().includes(MODULES.UNIT)
             
             // motorpool
             const isVehicleModule = to.name?.toString().includes(MODULES.VEHICLE)
@@ -203,6 +204,12 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
 
             if (isProjectModule) {
                 if (!canAccessProject(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+    
+            }
+
+            if (isUnitModule) {
+                if (!canAccessUnit(to.name as ROUTES, permissions)) return redirectTo401Page()
                 return
     
             }
@@ -624,6 +631,21 @@ function canAccessProject(route: ROUTES, permissions: WarehousePermissions) {
     if (route === ROUTES.PROJECT_INDEX) return !!permissions.canManageProject.read
     if (route === ROUTES.PROJECT_CREATE) return !!permissions.canManageProject.create
     if (route === ROUTES.PROJECT_UPDATE) return !!permissions.canManageProject.update
+
+
+    return true
+
+}
+
+function canAccessUnit(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessUnit', route, permissions)
+
+    if (!permissions.canManageUnit) return false
+
+    if (route === ROUTES.UNIT_INDEX) return !!permissions.canManageUnit.read
+    if (route === ROUTES.UNIT_CREATE) return !!permissions.canManageUnit.create
+    if (route === ROUTES.UNIT_UPDATE) return !!permissions.canManageUnit.update
 
 
     return true
