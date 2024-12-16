@@ -5,12 +5,13 @@
             <table class="table table-hover">
                 <tbody>
                     <tr>
-                        <th colspan="2" class="fst-italic text-warning">
+                        <th colspan="3" class="fst-italic text-warning">
                             <h5> HOMEPAGE </h5>
                         </th>
                     </tr>
                     <tr>
                         <td class="text-muted">View System</td>
+                        <td></td>
                         <td>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -20,6 +21,7 @@
                     </tr>
                     <tr>
                         <td class="text-muted">View Warehouse</td>
+                        <td></td>
                         <td>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -28,20 +30,31 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="fst-italic text-warning">
+                        <td colspan="3" class="fst-italic text-warning">
                             <h5> SYSTEM </h5>
                         </td>
                     </tr>
                     <tr>
                         <td class="text-muted">Users</td>
+                        <td></td>
                         <td class="text-muted"> Only admin </td>
                     </tr>
                     <tr>
                         <td class="text-muted">Settings</td>
+                        <td></td>
                         <td class="text-muted"> Only admin </td>
                     </tr>
                     <tr v-if="permissions.system.canManageEmployee">
                         <td class="text-muted align-middle">Employee Mgmt.</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.employee" @click="grant_or_revoke_all_module_access('employee', permissions.system.canManageEmployee)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div>
                                 <div class="form-check form-switch">
@@ -77,6 +90,15 @@
                     </tr>
                     <tr v-if="permissions.system.canManageDepartment">
                         <td class="text-muted align-middle">Department Mgmt.</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.department" @click="grant_or_revoke_all_module_access('department', permissions.system.canManageDepartment)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div>
                                 <div class="form-check form-switch">
@@ -112,6 +134,15 @@
                     </tr>
                     <tr v-if="permissions.system.canManageDivision">
                         <td class="text-muted align-middle">Division Mgmt.</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.division" @click="grant_or_revoke_all_module_access('division', permissions.system.canManageDivision)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div>
                                 <div class="form-check form-switch">
@@ -147,6 +178,15 @@
                     </tr>
                     <tr v-if="permissions.system.canManageAccount">
                         <td class="text-muted align-middle">Account Mgmt.</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.account" @click="grant_or_revoke_all_module_access('account', permissions.system.canManageAccount)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div>
                                 <div class="form-check form-switch">
@@ -182,6 +222,15 @@
                     </tr>
                     <tr v-if="permissions.system.canManageClassification">
                         <td class="text-muted align-middle">Classification Mgmt.</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.classification" @click="grant_or_revoke_all_module_access('classification', permissions.system.canManageClassification)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div>
                                 <div class="form-check form-switch">
@@ -216,12 +265,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <th colspan="2" class="fst-italic text-warning">
+                        <th colspan="3" class="fst-italic text-warning">
                             <h5> WAREHOUSE </h5>
                         </th>
                     </tr>
                     <tr v-if="permissions.warehouse.canManageCanvass">
                         <td class="text-muted align-middle">Canvass</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.canvass" @click="grant_or_revoke_all_module_access('canvass', permissions.warehouse.canManageCanvass)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -255,6 +313,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageRV">
                         <td class="text-muted align-middle">RV</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.rv" @click="grant_or_revoke_all_module_access('rv', permissions.warehouse.canManageRV)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -288,6 +355,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageSPR">
                         <td class="text-muted align-middle">SPR</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.spr" @click="grant_or_revoke_all_module_access('spr', permissions.warehouse.canManageSPR)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -321,6 +397,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageJO">
                         <td class="text-muted align-middle">JO</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.jo" @click="grant_or_revoke_all_module_access('jo', permissions.warehouse.canManageJO)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -354,6 +439,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageMEQS">
                         <td class="text-muted align-middle">MEQS</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.meqs" @click="grant_or_revoke_all_module_access('meqs', permissions.warehouse.canManageMEQS)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -387,6 +481,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManagePO">
                         <td class="text-muted align-middle">PO</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.po" @click="grant_or_revoke_all_module_access('po', permissions.warehouse.canManagePO)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -420,6 +523,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageRR">
                         <td class="text-muted align-middle">RR</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.rr" @click="grant_or_revoke_all_module_access('rr', permissions.warehouse.canManageRR)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -453,6 +565,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageOSRIV">
                         <td class="text-muted align-middle">OSRIV</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.osriv" @click="grant_or_revoke_all_module_access('osriv', permissions.warehouse.canManageOSRIV)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -486,6 +607,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageSERIV">
                         <td class="text-muted align-middle">SERIV</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.seriv" @click="grant_or_revoke_all_module_access('seriv', permissions.warehouse.canManageSERIV)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -519,6 +649,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageMRV">
                         <td class="text-muted align-middle">MRV</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.mrv" @click="grant_or_revoke_all_module_access('mrv', permissions.warehouse.canManageMRV)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -552,6 +691,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageMCT">
                         <td class="text-muted align-middle">MCT</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.mct" @click="grant_or_revoke_all_module_access('mct', permissions.warehouse.canManageMCT)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -585,6 +733,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageMCRT">
                         <td class="text-muted align-middle">MCRT</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.mcrt" @click="grant_or_revoke_all_module_access('mcrt', permissions.warehouse.canManageMCRT)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -618,6 +775,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageMST">
                         <td class="text-muted align-middle">MST</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.mst" @click="grant_or_revoke_all_module_access('mst', permissions.warehouse.canManageMST)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -651,6 +817,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageItem">
                         <td class="text-muted align-middle">Item Mgmt</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.item" @click="grant_or_revoke_all_module_access('item', permissions.warehouse.canManageItem)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -689,74 +864,17 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- <tr v-if="permissions.warehouse.canManageItemType">
-                        <td class="text-muted align-middle">Item Type Mgmt</td>
-                        <td class="text-muted">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageItemType.create">
-                                <label class="form-check-label">
-                                    Create
-                                </label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageItemType.read">
-                                <label class="form-check-label">
-                                    Read
-                                </label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageItemType.update">
-                                <label class="form-check-label">
-                                    Update
-                                </label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageItemType.delete">
-                                <label class="form-check-label">
-                                    Delete
-                                </label>
-                            </div>
-                        </td>
-                    </tr> -->
-                    <!-- <tr v-if="permissions.warehouse.canManageUnit">
-                        <td class="text-muted align-middle">Unit Mgmt</td>
-                        <td class="text-muted">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageUnit.create">
-                                <label class="form-check-label">
-                                    Create
-                                </label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageUnit.read">
-                                <label class="form-check-label">
-                                    Read
-                                </label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageUnit.update">
-                                <label class="form-check-label">
-                                    Update
-                                </label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.warehouse.canManageUnit.delete">
-                                <label class="form-check-label">
-                                    Delete
-                                </label>
-                            </div>
-                        </td>
-                    </tr> -->
                     <tr v-if="permissions.warehouse.canManageSupplier">
                         <td class="text-muted align-middle">Supplier Mgmt</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.supplier" @click="grant_or_revoke_all_module_access('supplier', permissions.warehouse.canManageSupplier)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -790,6 +908,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageProject">
                         <td class="text-muted align-middle">Project Mgmt</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.project" @click="grant_or_revoke_all_module_access('project', permissions.warehouse.canManageProject)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -823,6 +950,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageUnit">
                         <td class="text-muted align-middle">Unit Mgmt</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.unit" @click="grant_or_revoke_all_module_access('unit', permissions.warehouse.canManageUnit)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -855,12 +991,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <th colspan="2" class="fst-italic text-warning">
+                        <th colspan="3" class="fst-italic text-warning">
                             <h5> MOTORPOOL </h5>
                         </th>
                     </tr>
                     <tr v-if="permissions.warehouse.canManageTripTicket">
                         <td class="text-muted align-middle">Trip Ticket</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.tripTicket" @click="grant_or_revoke_all_module_access('tripTicket', permissions.warehouse.canManageTripTicket)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -887,6 +1032,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageGasSlip">
                         <td class="text-muted align-middle">Gas Slip</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.gasSlip" @click="grant_or_revoke_all_module_access('gasSlip', permissions.warehouse.canManageGasSlip)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -913,6 +1067,15 @@
                     </tr>
                     <tr v-if="permissions.warehouse.canManageVehicle">
                         <td class="text-muted align-middle">Vehicle Mgmt</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.vehicle" @click="grant_or_revoke_all_module_access('vehicle', permissions.warehouse.canManageVehicle)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
                         <td class="text-muted">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
@@ -968,6 +1131,64 @@ const props = defineProps({
         default: false,
     },
 });
+
+type ModuleAccess = {
+    [key: string]: boolean; 
+};
+
+const module_access = ref<ModuleAccess>({
+    employee: false,
+    department: false,
+    division: false,
+    account: false,
+    classification: false,
+    canvass: false,
+    rv: false,
+    spr: false,
+    jo: false,
+    meqs: false,
+    po: false,
+    rr: false,
+    osriv: false,
+    seriv: false,
+    mrv: false,
+    mct: false,
+    mcrt: false,
+    mst: false,
+    item: false,
+    supplier: false,
+    project: false,
+    unit: false,
+    tripTicket: false,
+    gasSlip: false,
+    vehicle: false,
+})
+
+function grant_or_revoke_all_module_access(module: string, permission: any) {
+    if (module_access.value[module] === true) {
+        module_access.value[module] = false
+        revoke_all_access(permission);
+    } else {
+        module_access.value[module] = true
+        grant_all_access(permission);
+    }
+}
+
+
+function set_permissions(modulePermissions: any, value: boolean) {
+     // Iterate through each permission field (create, read, update, delete, etc.)
+    for (let permission in modulePermissions) {
+        modulePermissions[permission] = value
+    }
+}
+
+function grant_all_access(modulePermissions: Record<string, any>) {
+    set_permissions(modulePermissions, true);
+}
+
+function revoke_all_access(modulePermissions: Record<string, any>) {
+    set_permissions(modulePermissions, false);
+}
 
 </script>
 
