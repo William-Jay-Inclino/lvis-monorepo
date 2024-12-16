@@ -258,71 +258,7 @@ async function search() {
     pagination.value.totalPages = totalPages
 }
 
-// async function onClickDelete(id: string) {
-//     console.log('onClickDelete', id)
-
-//     const indx = items.value.findIndex(i => i.id === id)
-//     const item = items.value[indx]
-
-
-//     if (!item) {
-//         console.error('Item not found with id: ' + id)
-//         return
-//     }
-
-//     const fullname = getFullname(item.firstname, item.middlename, item.lastname)
-
-//     Swal.fire({
-//         title: "Are you sure?",
-//         text: `${fullname} will be removed!`,
-//         position: "top",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#e74a3b",
-//         cancelButtonColor: "#6c757d",
-//         confirmButtonText: "Yes, remove it!",
-//         reverseButtons: true,
-//         showLoaderOnConfirm: true,
-//         preConfirm: async (remove) => {
-
-//             if (remove) {
-//                 const response = await api.remove(item.id)
-
-//                 if (response.success) {
-
-//                     items.value.splice(indx, 1)
-//                     toast.success(response.msg)
-
-
-//                 } else {
-
-//                     Swal.fire({
-//                         title: 'Error!',
-//                         text: response.msg,
-//                         icon: 'error',
-//                         position: 'top',
-//                     })
-
-//                 }
-//             }
-
-//         },
-//         allowOutsideClick: () => !Swal.isLoading()
-//     })
-// }
-
-// function getUploadsPath(src: string) {
-
-//     const path = src.replace(UPLOADS_PATH, '')
-//     console.log('PATH', path)
-
-//     const uploadsPath = API_FILE_ENDPOINT + path
-//     return uploadsPath
-
-// }
-
 const onClickCreate = () => router.push('/system/employee/create')
-// const onClickEdit = (id: string) => router.push('/system/employee/' + id)
 const onClickViewDetails = (id: string) => router.push('/system/employee/view/' + id)
 
 
