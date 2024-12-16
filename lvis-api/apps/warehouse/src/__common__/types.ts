@@ -32,6 +32,17 @@ export interface Project {
     name: string 
 }
 
+export interface VehicleService {
+    id: string
+    name: string 
+}
+
+export interface ServiceCenter {
+    id: string
+    name: string 
+    location: string
+}
+
 export interface ItemType {
     id: number
     name: string

@@ -437,7 +437,31 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
     try {
         const response = await fetchEmployees(input);
         console.log('response', response);
-        employees.value = addPropertyFullName(response)
+
+        employees.value = response.map((i) => {
+            i.fullname = getFullname(i.firstname, i.middlename, i.lastname)
+
+            if(i.division) {
+                
+                if(i.division.permissions) {
+                    // @ts-ignore
+                    i.division.permissions = JSON.parse(i.division.permissions)
+                } else {
+                    i.division.permissions = JSON.parse(JSON.stringify(permissions))
+                }
+
+            }
+
+            if(i.department.permissions) {
+                // @ts-ignore
+                i.department.permissions = JSON.parse(i.department.permissions)
+            } else {
+                i.department.permissions = JSON.parse(JSON.stringify(permissions))
+            }
+
+            return i
+        })
+        
     } catch (error) {
         console.error('Error fetching Employees:', error);
     } finally {

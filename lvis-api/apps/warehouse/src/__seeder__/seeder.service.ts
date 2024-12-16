@@ -20,7 +20,8 @@ export class SeederService {
                 this.seedFuelTypes(),
                 this.seedItemCodeTracker(),
                 this.seedUnit(),
-                // this.seedVehicle(),
+                this.seedVehicleService(),
+                this.seedServiceCenter(),
                 this.seedSettingTable(),
             ]
 
@@ -90,6 +91,22 @@ export class SeederService {
         console.log('seeding item_code_tracker table...');
         try {
             return this.prisma.itemCodeTracker.createMany({ data: data.itemCodeTracker })
+        } catch (error) {
+        }
+    }
+
+    seedVehicleService() {
+        console.log('seeding vehicle_service table...');
+        try {
+            return this.prisma.vehicleService.createMany({ data: data.services })
+        } catch (error) {
+        }
+    }
+
+    seedServiceCenter() {
+        console.log('seeding service_center table...');
+        try {
+            return this.prisma.serviceCenter.createMany({ data: data.serviceCenters })
         } catch (error) {
         }
     }

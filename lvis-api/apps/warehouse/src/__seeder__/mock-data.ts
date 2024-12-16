@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { ItemCodeTracker, ItemType, Project, Station, Supplier, Unit, VAT_TYPE, Vehicle } from "../__common__/types"
+import { ItemCodeTracker, ItemType, Project, ServiceCenter, Station, Supplier, Unit, VAT_TYPE, Vehicle, VehicleService } from "../__common__/types"
 import { GasStation } from "../gas-station/entities/gas-station.entity"
 import { FuelType } from "../fuel-type/entities/fuel-type.entity"
 
@@ -210,7 +210,6 @@ export const gasStations: GasStation[] = [
     },
 ]
 
-
 export const fuelTypes: FuelType[] = [
     {
         id: 1,
@@ -220,4 +219,32 @@ export const fuelTypes: FuelType[] = [
         id: 2,
         name: 'Unleaded',
     },
+]
+
+export const services: VehicleService[] = [
+    { id: faker.string.uuid(), name: "Oil Change" },
+    { id: faker.string.uuid(), name: "Tire Rotation" },
+    { id: faker.string.uuid(), name: "Brake Inspection" },
+    { id: faker.string.uuid(), name: "Battery Check" },
+    { id: faker.string.uuid(), name: "Air Filter Replacement" },
+    { id: faker.string.uuid(), name: "Wheel Alignment and Balancing" },
+    { id: faker.string.uuid(), name: "Fluid Check and Top-Up" },
+    { id: faker.string.uuid(), name: "Spark Plug Replacement" },
+    { id: faker.string.uuid(), name: "Timing Belt/Chain Inspection" },
+    { id: faker.string.uuid(), name: "Suspension Check" },
+    { id: faker.string.uuid(), name: "Transmission Service" },
+    { id: faker.string.uuid(), name: "Cooling System Maintenance" },
+    { id: faker.string.uuid(), name: "Fuel System Cleaning" },
+    { id: faker.string.uuid(), name: "Drive Belt Replacement" },
+    { id: faker.string.uuid(), name: "Software Diagnostics" },
+    { id: faker.string.uuid(), name: "Paint or Body Repair" },
+    { id: faker.string.uuid(), name: "Rustproofing/Undercoating" }
+];
+
+export const serviceCenters: ServiceCenter[] = [
+    { id: faker.string.uuid(), name: "Toyota Ormoc", location: "Ormoc City" },
+    { id: faker.string.uuid(), name: "Honda Ormoc", location: "Ormoc City" },
+    { id: faker.string.uuid(), name: "Suzuki Ormoc", location: "Ormoc City" },
+    { id: faker.string.uuid(), name: "Ford Ormoc", location: "Ormoc City" },
+    { id: faker.string.uuid(), name: "LEYECO", location: "Ormoc City" },
 ]

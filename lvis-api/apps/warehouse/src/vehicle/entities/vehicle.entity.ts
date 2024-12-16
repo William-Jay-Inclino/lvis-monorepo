@@ -2,7 +2,7 @@ import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from './vehicle.enums';
 import { GasSlip } from '../../gas-slip/entities/gas-slip.entity';
 import { TripTicket } from '../../trip-ticket/entities/trip-ticket.entity';
-import { VehicleMaintenance } from './maintenance.entity';
+import { VehicleMaintenance } from './vehicle-maintenance.entity';
 
 @ObjectType()
 export class Vehicle {
