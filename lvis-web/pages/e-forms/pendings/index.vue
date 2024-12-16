@@ -127,12 +127,12 @@ import { type Pending } from '~/composables/e-forms/pendings/pendings.types';
 import * as pendingsApi from '~/composables/e-forms/pendings/pendings.api'
 import Swal from 'sweetalert2'
 import { DB_ENTITY, type AuthUser } from '#imports';
-import type { Account } from '~/composables/system/account/account';
-import type { Classification } from '~/composables/system/classification/classification';
+import type { Account } from '~/composables/accounting/account/account';
+import type { Classification } from '~/composables/accounting/classification/classification';
 import { MODULE_MAPPER } from '~/utils/constants';
 import { fetchTotalNotifications } from '~/composables/system/user/user.api';
 import { useToast } from "vue-toastification";
-import { fetchAccountsByName } from '~/composables/system/account/account.api';
+import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
 
 const isLoadingPage = ref(true)
 const isApproving = ref(false)

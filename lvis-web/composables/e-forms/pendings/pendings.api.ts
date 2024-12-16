@@ -1,6 +1,6 @@
 import type { ApproveOrDisapprovePayload, Pending } from "./pendings.types";
-import type { Classification } from "~/composables/system/classification/classification";
-import type { Account } from "~/composables/system/account/account";
+import type { Classification } from "~/composables/accounting/classification/classification";
+import type { Account } from "~/composables/accounting/account/account";
 
 
 

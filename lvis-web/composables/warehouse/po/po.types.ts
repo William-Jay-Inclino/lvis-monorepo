@@ -2,7 +2,7 @@ import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { MeqsSupplier } from "../meqs/meqs-supplier";
 import type { PoApproverSettings } from "./po-approver.types";
 import type { RR } from "../rr/rr.types";
-import type { Account } from "~/composables/system/account/account";
+import type { Account } from "~/composables/accounting/account/account";
 import type { Employee } from "~/composables/system/employee/employee.types";
 
 export interface PO {

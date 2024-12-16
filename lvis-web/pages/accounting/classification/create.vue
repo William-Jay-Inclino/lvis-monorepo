@@ -55,13 +55,13 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/classification/classification.api'
-import type { CreateClassificationInput } from '~/composables/system/classification/classification'
+import * as api from '~/composables/accounting/classification/classification.api'
+import type { CreateClassificationInput } from '~/composables/accounting/classification/classification'
 import Swal from 'sweetalert2'
 
 definePageMeta({
     name: ROUTES.CLASSIFICATION_CREATE,
-    layout: "layout-system",
+    layout: "layout-accounting",
     middleware: ['auth'],
 })
 
@@ -92,7 +92,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/system/classification/view/${response.data.id}`);
+        router.push(`/accounting/classification/view/${response.data.id}`);
 
     } else {
 
@@ -109,6 +109,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/classification')
+const onClickGoToList = () => router.push('/accounting/classification')
 
 </script>

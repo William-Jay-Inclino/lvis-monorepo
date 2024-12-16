@@ -145,15 +145,15 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/classification/classification.api'
+import * as api from '~/composables/accounting/classification/classification.api'
 import { PAGINATION_SIZE } from '~/utils/config'
 import { useToast } from "vue-toastification";
-import type { Classification } from '~/composables/system/classification/classification';
+import type { Classification } from '~/composables/accounting/classification/classification';
 
 
 definePageMeta({
     name: ROUTES.CLASSIFICATION_INDEX,
-    layout: "layout-system",
+    layout: "layout-accounting",
     middleware: ['auth'],
 })
 const isLoadingPage = ref(true)
@@ -259,7 +259,7 @@ async function search() {
 
 // ======================== UTILS ======================== 
 
-const onClickViewDetails = (id: string) => router.push('/system/classification/view/' + id)
-const onClickAdd = () => router.push('/system/classification/create')
+const onClickViewDetails = (id: string) => router.push('/accounting/classification/view/' + id)
+const onClickAdd = () => router.push('/accounting/classification/create')
 
 </script>

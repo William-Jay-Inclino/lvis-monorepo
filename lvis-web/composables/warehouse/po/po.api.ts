@@ -1,4 +1,4 @@
-import type { Account } from "~/composables/system/account/account";
+import type { Account } from "~/composables/accounting/account/account";
 import type { MEQS } from "../meqs/meqs.types";
 import type { PoApproverSettings } from "./po-approver.types";
 import type { CreatePoInput, FindAllResponse, MutationResponse, PO, UpdatePoInput } from "./po.types";

@@ -5,7 +5,7 @@
             <div class="container">
                 <nuxt-link class="navbar-brand" to="/home">
                     <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
-                    Leyeco V - SYSTEM
+                    Leyeco V - ACCOUNTING
                 </nuxt-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -27,27 +27,11 @@
                         <li class="nav-item">
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
-                        <li v-if="isAdmin(authUser)" class="nav-item">
-                            <nuxt-link class="nav-link text-white" to="/system/user">Users</nuxt-link>
+                        <li v-if="canView('canManageAccount', authUser)" class="nav-item">
+                            <nuxt-link class="nav-link text-white" to="/accounting/account">Account</nuxt-link>
                         </li>
-                        <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Data Management
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li v-if="canView('canManageEmployee', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/system/employee">Employee</nuxt-link></li>
-                                <li v-if="canView('canManageDepartment', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/system/department">Department</nuxt-link></li>
-                                <li v-if="canView('canManageDivision', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/system/division">Division</nuxt-link></li>
-                                <li v-if="canView('canManageAccount', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/accounting/account">Account</nuxt-link></li>
-                                <li v-if="canView('canManageClassification', authUser)"><nuxt-link
-                                        class="dropdown-item"
-                                        to="/accounting/classification">Classification</nuxt-link></li>
-                            </ul>
+                        <li v-if="canView('canManageClassification', authUser)" class="nav-item">
+                            <nuxt-link class="nav-link text-white" to="/accounting/classification">Classification</nuxt-link>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">
@@ -115,23 +99,11 @@
                     <li v-if="isAdmin(authUser)" class="nav-item">
                         <nuxt-link class="nav-link" to="/system/user">Users</nuxt-link>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Data Management
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><nuxt-link class="dropdown-item" to="/system/employee">Employee</nuxt-link>
-                            </li>
-                            <li><nuxt-link class="dropdown-item"
-                                    to="/system/department">Department</nuxt-link></li>
-                            <li><nuxt-link class="dropdown-item"
-                                to="/system/division">Division</nuxt-link></li>
-                            <li><nuxt-link class="dropdown-item"
-                                    to="/accounting/classification">Classification</nuxt-link></li>
-                            <li><nuxt-link class="dropdown-item"
-                                    to="/accounting/account">Account</nuxt-link></li>
-                        </ul>
+                    <li class="nav-item">
+                        <nuxt-link class="nav-link" to="/accounting/account">Account</nuxt-link>
+                    </li>
+                    <li class="nav-item">
+                        <nuxt-link class="nav-link" to="/accounting/classification">Classification</nuxt-link>
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">
@@ -249,24 +221,6 @@ const isApprover = (authUser: AuthUser) => {
         return true
     }
 
-}
-
-function canViewDataManagement(authUser: AuthUser) {
-
-    if (isAdmin(authUser)) return true
-
-    if (!authUser.user.permissions) return false
-
-    const systemPermissions = authUser.user.permissions.system
-
-
-    return (
-        (!!systemPermissions.canManageAccount && systemPermissions.canManageAccount.read) ||
-        (!!systemPermissions.canManageEmployee && systemPermissions.canManageEmployee.read) ||
-        (!!systemPermissions.canManageDepartment && systemPermissions.canManageDepartment.read) ||
-        (!!systemPermissions.canManageDivision && systemPermissions.canManageDivision.read) ||
-        (!!systemPermissions.canManageClassification && systemPermissions.canManageClassification.read)
-    )
 }
 
 // check first if has module

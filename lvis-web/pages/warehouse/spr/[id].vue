@@ -167,7 +167,7 @@ import { approvalStatus } from '~/utils/constants';
 import type { Employee } from '~/composables/system/employee/employee.types';
 import { fetchEmployees } from '~/composables/system/employee/employee.api';
 import { addPropertyFullName } from '~/composables/system/employee/employee';
-import { fetchClassificationsByName } from '~/composables/system/classification/classification.api';
+import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';
 import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';
 
 definePageMeta({

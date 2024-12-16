@@ -79,12 +79,12 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/classification/classification.api'
-import type { Classification } from '~/composables/system/classification/classification';
+import * as api from '~/composables/accounting/classification/classification.api'
+import type { Classification } from '~/composables/accounting/classification/classification';
 
 definePageMeta({
     name: ROUTES.CLASSIFICATION_VIEW,
-    layout: "layout-system",
+    layout: "layout-accounting",
     middleware: ['auth'],
 })
 
@@ -103,9 +103,9 @@ onMounted(async () => {
 })
 
 
-const onClickGoToList = () => router.push(`/system/classification`);
-const onClickAddNew = () => router.push(`/system/classification/create`);
-const onClickUpdate = () => router.push(`/system/classification/${item.value?.id}`);
+const onClickGoToList = () => router.push(`/accounting/classification`);
+const onClickAddNew = () => router.push(`/accounting/classification/create`);
+const onClickUpdate = () => router.push(`/accounting/classification/${item.value?.id}`);
 
 
 </script>

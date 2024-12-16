@@ -2,10 +2,9 @@
 
     <div class="card">
         <div class="card-body">
-        
             <div v-if="!isLoadingPage">
         
-                <h2 class="text-warning">Update Account</h2>
+                <h2 class="text-warning">Update Classification</h2>
         
                 <hr>
         
@@ -18,12 +17,6 @@
                                 <small> Fields with * are required </small>
                             </div>
                             
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    Code <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" class="form-control" v-model="item.code" required>
-                            </div>
                             <div class="mb-3">
                                 <label class="form-label">
                                     Name <span class="text-danger">*</span>
@@ -58,22 +51,23 @@
             <div v-else>
                 <LoaderSpinner />
             </div>
-
         </div>
     </div>
+
+
 
 </template>
 
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/account/account.api'
-import type { CreateAccountInput, Account } from '~/composables/system/account/account'
+import * as api from '~/composables/accounting/classification/classification.api'
+import type { CreateClassificationInput, Classification } from '~/composables/accounting/classification/classification'
 import Swal from 'sweetalert2'
 
 definePageMeta({
-    name: ROUTES.ACCOUNT_UPDATE,
-    layout: "layout-system",
+    name: ROUTES.CLASSIFICATION_UPDATE,
+    layout: "layout-accounting",
     middleware: ['auth'],
 })
 
@@ -83,14 +77,14 @@ const route = useRoute()
 const router = useRouter()
 const isSaving = ref(false)
 
-const item = ref<Account>()
+const item = ref<Classification>()
 
 onMounted(async () => {
 
     const response = await api.findOne(route.params.id as string)
 
     if (!response) {
-        console.error('Account not found')
+        console.error('Classification not found')
         return
     }
 
@@ -106,8 +100,7 @@ async function onSubmit() {
 
     console.log('saving...')
 
-    const data: CreateAccountInput = {
-        code: item.value.code,
+    const data: CreateClassificationInput = {
         name: item.value.name,
     }
 
@@ -124,7 +117,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/system/account/view/${response.data.id}`);
+        router.push(`/accounting/classification/view/${response.data.id}`);
 
     } else {
 
@@ -141,6 +134,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/account')
+const onClickGoToList = () => router.push('/accounting/classification')
 
 </script>

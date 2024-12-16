@@ -147,15 +147,15 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/account/account.api'
+import * as api from '~/composables/accounting/account/account.api'
 import { PAGINATION_SIZE } from '~/utils/config'
 import { useToast } from "vue-toastification";
-import type { Account } from '~/composables/system/account/account';
+import type { Account } from '~/composables/accounting/account/account';
 
 
 definePageMeta({
     name: ROUTES.ACCOUNT_INDEX,
-    layout: "layout-system",
+    layout: "layout-accounting",
     middleware: ['auth'],
 })
 const isLoadingPage = ref(true)
@@ -262,7 +262,7 @@ async function search() {
 
 // ======================== UTILS ======================== 
 
-const onClickViewDetails = (id: string) => router.push('/system/account/view/' + id)
-const onClickAdd = () => router.push('/system/account/create')
+const onClickViewDetails = (id: string) => router.push('/accounting/account/view/' + id)
+const onClickAdd = () => router.push('/accounting/account/create')
 
 </script>

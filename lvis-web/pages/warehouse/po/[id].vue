@@ -113,9 +113,9 @@ import Swal from 'sweetalert2'
 import { getFullname, formatToValidHtmlDate } from '~/utils/helpers'
 import type { PO, UpdatePoInput } from '~/composables/warehouse/po/po.types';
 import * as poApi from '~/composables/warehouse/po/po.api'
-import type { Account } from '~/composables/system/account/account';
+import type { Account } from '~/composables/accounting/account/account';
 import type { Employee } from '~/composables/system/employee/employee.types';
-import { fetchAccountsByName } from '~/composables/system/account/account.api';
+import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
 
 definePageMeta({
     name: ROUTES.PO_UPDATE,

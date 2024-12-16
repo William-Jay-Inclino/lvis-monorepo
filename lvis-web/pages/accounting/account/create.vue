@@ -59,13 +59,13 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/account/account.api'
-import type { CreateAccountInput } from '~/composables/system/account/account'
+import * as api from '~/composables/accounting/account/account.api'
+import type { CreateAccountInput } from '~/composables/accounting/account/account'
 import Swal from 'sweetalert2'
 
 definePageMeta({
     name: ROUTES.ACCOUNT_CREATE,
-    layout: "layout-system",
+    layout: "layout-accounting",
     middleware: ['auth'],
 })
 
@@ -97,7 +97,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/system/account/view/${response.data.id}`);
+        router.push(`/accounting/account/view/${response.data.id}`);
 
     } else {
 
@@ -114,6 +114,6 @@ async function onSubmit() {
 
 
 
-const onClickGoToList = () => router.push('/system/account')
+const onClickGoToList = () => router.push('/accounting/account')
 
 </script>

@@ -21,6 +21,15 @@
                 </div>
             </div>
 
+            <div class="col-12 col-sm-6 col-md-4 pb-5">
+                <div class="card shadow mx-auto" style="max-width: 13rem;">
+                    <img src="/img/accounting2.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
+                    <div class="card-footer text-center">
+                        <button @click="goToAccounting" class="btn" :class="{'btn-primary': canViewAccounting, 'btn-secondary': !canViewAccounting}" :disabled="!canViewAccounting"> ACCOUNTING {{ !canViewAccounting ? '(Restricted)' : ''  }}</button>
+                    </div>
+                </div>
+            </div>
+
             <div v-for="(card, index) in comingSoonCards" :key="index" class="col-12 col-sm-6 col-md-4 pb-5">
                 <div class="card shadow mx-auto" style="max-width: 13rem; background-color: #f0f0f0;">
                     <img
@@ -83,13 +92,34 @@ const canViewWarehouse = computed(() => {
 
 })
 
+const canViewAccounting = computed(() => {
+
+    if (!authUser.value) return false
+
+    if (isAdmin(authUser.value)) return true
+
+    if (!authUser.value.user.permissions) return false
+
+    const systemPermission = authUser.value.user.permissions.system
+
+    const canReadAccount = systemPermission.canManageAccount && systemPermission.canManageAccount.read === true
+    const canReadClassification = systemPermission.canManageClassification && systemPermission.canManageClassification.read === true 
+
+    if(canReadAccount || canReadClassification) {
+        return true 
+    }
+
+    return false 
+
+})
+
 const comingSoonCards = [
   { name: "POWERSERVE", image: "/img/powerserve2.png" },
   { name: "e-CONNECT", image: "/img/econnect.png" },
   { name: "POWERBILL", image: "/img/powerbill.png" },
   { name: "LPS", image: "/img/lps.png" },
   { name: "e-FORMS", image: "/img/eforms.png" },
-  { name: "ACCOUNTING", image: "/img/accounting2.png" },
+//   { name: "ACCOUNTING", image: "/img/accounting2.png" },
   { name: "POWERPAY", image: "/img/powerpay.png" }
 ];
 
@@ -105,6 +135,12 @@ const goToWarehouse =  () => {
     if(!canViewWarehouse.value) return 
 
     router.push('/warehouse')
+}
+
+const goToAccounting =  () => {
+    if(!canViewAccounting.value) return 
+
+    router.push('/accounting')
 }
 
 

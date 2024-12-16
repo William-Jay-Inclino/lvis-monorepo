@@ -236,9 +236,9 @@ import { formatToPhpCurrency } from '~/utils/helpers'
 import type { MeqsSupplier } from '~/composables/warehouse/meqs/meqs-supplier';
 import Swal from 'sweetalert2'
 import { getTotalNetPrice, getVatAmount } from '~/utils/helpers';
-import type { Account } from '~/composables/system/account/account';
+import type { Account } from '~/composables/accounting/account/account';
 import { fetchMeqsByMeqsNumber } from '~/composables/warehouse/meqs/meqs.api';
-import { fetchAccountsByName } from '~/composables/system/account/account.api';
+import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
 
 definePageMeta({
     name: ROUTES.PO_CREATE,

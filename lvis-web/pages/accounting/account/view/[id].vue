@@ -81,12 +81,12 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/system/account/account.api'
-import type { Account } from '~/composables/system/account/account';
+import * as api from '~/composables/accounting/account/account.api'
+import type { Account } from '~/composables/accounting/account/account';
 
 definePageMeta({
     name: ROUTES.ACCOUNT_VIEW,
-    layout: "layout-system",
+    layout: "layout-accounting",
     middleware: ['auth'],
 })
 
@@ -105,9 +105,9 @@ onMounted(async () => {
 })
 
 
-const onClickGoToList = () => router.push(`/system/account`);
-const onClickAddNew = () => router.push(`/system/account/create`);
-const onClickUpdate = () => router.push(`/system/account/${item.value?.id}`);
+const onClickGoToList = () => router.push(`/accounting/account`);
+const onClickAddNew = () => router.push(`/accounting/account/create`);
+const onClickUpdate = () => router.push(`/accounting/account/${item.value?.id}`);
 
 
 </script>

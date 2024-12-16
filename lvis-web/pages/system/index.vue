@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <div class="faded-text">
-                        <h2 style="font-size: 4rem;">Dashboard Analytics coming soon</h2>
+                        <h2 style="font-size: 4rem;">Dashboard Analytics coming soon...</h2>
                     </div>
                 </div>
             </div>

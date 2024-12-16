@@ -5,10 +5,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="container">
-                    <h1 class="text-warning mt-5"> WELCOME TO WAREHOUSE MANAGEMENT</h1>
+                    <h1 class="text-warning mt-5"> WELCOME TO ACCOUNTING MANAGEMENT </h1>
                     <div class="row text-muted mb-5 mt-4">
                         <div class="col-lg-6 col-md-6 col-12">
-                            "Welcome to our Warehouse Management! Your hub for seamless purchasing, efficient warehousing, reliable motorpool management, and precise stock inventory control. Let's optimize your operations together!" 
+                            "Effortlessly manage your financial records, transactions, and reports. Streamline accounting operations for accuracy, compliance, and efficiency.""
                             <br />
                             <br />
                             - Admin
@@ -18,12 +18,11 @@
             </div>
         </div>
 
-        <!-- New Section for Dashboard Analytics Announcement outside the card -->
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
                     <div class="faded-text">
-                        <h2 style="font-size: 4rem;">Dashboard Analytics coming soon...</h2>
+                        <h2 style="font-size: 4rem;">More features coming soon...</h2>
                     </div>
                 </div>
             </div>
@@ -39,7 +38,7 @@
 <script setup lang="ts">
 
 definePageMeta({
-    layout: "layout-warehouse"
+    layout: "layout-accounting"
 })
 
 
