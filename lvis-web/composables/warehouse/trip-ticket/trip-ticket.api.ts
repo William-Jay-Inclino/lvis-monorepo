@@ -132,6 +132,7 @@ export async function findOne(id: string): Promise<TripTicket | undefined> {
                 id
                 trip_number
                 vehicle {
+                    id
                     vehicle_number
                     plate_number
                     name

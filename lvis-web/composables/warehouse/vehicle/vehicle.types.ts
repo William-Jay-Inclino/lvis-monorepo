@@ -1,5 +1,9 @@
 import type { Employee } from "~/composables/system/employee/employee.types"
 import type { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from "./vehicle.enums"
+import type { GasSlip } from "../gas-slip/gas-slip.types"
+import type { ServiceCenter } from "../service-center/service-center.types"
+import type { VehicleService } from "../vehicle-service/vehicle-service.types"
+import type { TripTicket } from "../trip-ticket/trip-ticket.types"
 
 export interface Vehicle {
     id: string
@@ -17,8 +21,10 @@ export interface Vehicle {
     label?: string
     assignee: Employee
     total_unposted_gas_slips: number
+    gas_slips: GasSlip[]
+    trip_tickets: TripTicket[]
+    service_history: VehicleMaintenance
 }
-
 
 export interface CreateVehicleInput {
     name: string
@@ -50,16 +56,34 @@ export interface MutationResponse {
     data?: Vehicle
 }
 
-
 export interface VehicleClassification {
     id: VEHICLE_CLASSIFICATION 
     name: string 
 }
-
 
 export interface FindAllResponse {
 	data: Vehicle[]
 	totalItems: number
 	currentPage: number
 	totalPages: number
+}
+
+export interface VehicleMaintenance {
+    id: string 
+    ref_number: string 
+    vehicle_id: string 
+    service_center_id: string 
+    service_date: string 
+    service_mileage: string 
+    next_service_date: string 
+    next_service_mileage: string 
+    cost: string 
+    remarks: string 
+    performed_by: string 
+    created_at: string 
+
+    // derived / resolvers
+    vehicle: Vehicle 
+    service_center: ServiceCenter 
+    services: VehicleService[]
 }

@@ -806,6 +806,45 @@ exports.Prisma.FuelTypeScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.VehicleServiceScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.ServiceCenterScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  location: 'location',
+  contact_person: 'contact_person',
+  contact_number: 'contact_number',
+  remarks: 'remarks'
+};
+
+exports.Prisma.VehicleMaintenanceScalarFieldEnum = {
+  id: 'id',
+  ref_number: 'ref_number',
+  vehicle_id: 'vehicle_id',
+  service_center_id: 'service_center_id',
+  service_date: 'service_date',
+  service_mileage: 'service_mileage',
+  next_service_date: 'next_service_date',
+  next_service_mileage: 'next_service_mileage',
+  cost: 'cost',
+  remarks: 'remarks',
+  performed_by: 'performed_by',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.VehicleMaintenanceDetailScalarFieldEnum = {
+  id: 'id',
+  maintenance_id: 'maintenance_id',
+  service_id: 'service_id',
+  note: 'note'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -878,7 +917,11 @@ exports.Prisma.ModelName = {
   GasSlip: 'GasSlip',
   GasSlipApprover: 'GasSlipApprover',
   GasStation: 'GasStation',
-  FuelType: 'FuelType'
+  FuelType: 'FuelType',
+  VehicleService: 'VehicleService',
+  ServiceCenter: 'ServiceCenter',
+  VehicleMaintenance: 'VehicleMaintenance',
+  VehicleMaintenanceDetail: 'VehicleMaintenanceDetail'
 };
 
 /**

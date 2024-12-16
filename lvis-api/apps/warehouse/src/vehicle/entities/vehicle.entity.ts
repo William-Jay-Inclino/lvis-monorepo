@@ -1,5 +1,8 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from './vehicle.enums';
+import { GasSlip } from '../../gas-slip/entities/gas-slip.entity';
+import { TripTicket } from '../../trip-ticket/entities/trip-ticket.entity';
+import { VehicleMaintenance } from './maintenance.entity';
 
 @ObjectType()
 export class Vehicle {
@@ -31,6 +34,10 @@ export class Vehicle {
   @Field(() => Int)
   status: VEHICLE_STATUS;
 
+
+
+  // =========== audit fields ===========
+
   @Field()
   created_by: string;
 
@@ -42,5 +49,17 @@ export class Vehicle {
 
   @Field(() => Date)
   updated_at: Date;
+
+
+  // =========== resolves ===========
+
+  @Field(() => [GasSlip])
+  gas_slips: GasSlip[]
+
+  @Field(() => [TripTicket])
+  trip_tickets: TripTicket[]
+
+  @Field(() => [VehicleMaintenance])
+  service_history: VehicleMaintenance[]
 
 }

@@ -37,7 +37,11 @@
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Vehicle</td>
-                                            <td> {{ item.vehicle.vehicle_number + " " + item.vehicle.name }} </td>
+                                            <td>
+                                                <nuxt-link :to="'/warehouse/vehicle/view/' + item.vehicle.id">
+                                                    {{ item.vehicle.vehicle_number + " " + item.vehicle.name }} 
+                                                </nuxt-link>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Driver</td>

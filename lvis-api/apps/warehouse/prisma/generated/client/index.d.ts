@@ -293,6 +293,26 @@ export type GasStation = $Result.DefaultSelection<Prisma.$GasStationPayload>
  * 
  */
 export type FuelType = $Result.DefaultSelection<Prisma.$FuelTypePayload>
+/**
+ * Model VehicleService
+ * 
+ */
+export type VehicleService = $Result.DefaultSelection<Prisma.$VehicleServicePayload>
+/**
+ * Model ServiceCenter
+ * 
+ */
+export type ServiceCenter = $Result.DefaultSelection<Prisma.$ServiceCenterPayload>
+/**
+ * Model VehicleMaintenance
+ * 
+ */
+export type VehicleMaintenance = $Result.DefaultSelection<Prisma.$VehicleMaintenancePayload>
+/**
+ * Model VehicleMaintenanceDetail
+ * 
+ */
+export type VehicleMaintenanceDetail = $Result.DefaultSelection<Prisma.$VehicleMaintenanceDetailPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -975,6 +995,46 @@ export class PrismaClient<
     * ```
     */
   get fuelType(): Prisma.FuelTypeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.vehicleService`: Exposes CRUD operations for the **VehicleService** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VehicleServices
+    * const vehicleServices = await prisma.vehicleService.findMany()
+    * ```
+    */
+  get vehicleService(): Prisma.VehicleServiceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.serviceCenter`: Exposes CRUD operations for the **ServiceCenter** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ServiceCenters
+    * const serviceCenters = await prisma.serviceCenter.findMany()
+    * ```
+    */
+  get serviceCenter(): Prisma.ServiceCenterDelegate<ExtArgs>;
+
+  /**
+   * `prisma.vehicleMaintenance`: Exposes CRUD operations for the **VehicleMaintenance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VehicleMaintenances
+    * const vehicleMaintenances = await prisma.vehicleMaintenance.findMany()
+    * ```
+    */
+  get vehicleMaintenance(): Prisma.VehicleMaintenanceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.vehicleMaintenanceDetail`: Exposes CRUD operations for the **VehicleMaintenanceDetail** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VehicleMaintenanceDetails
+    * const vehicleMaintenanceDetails = await prisma.vehicleMaintenanceDetail.findMany()
+    * ```
+    */
+  get vehicleMaintenanceDetail(): Prisma.VehicleMaintenanceDetailDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1500,7 +1560,11 @@ export namespace Prisma {
     GasSlip: 'GasSlip',
     GasSlipApprover: 'GasSlipApprover',
     GasStation: 'GasStation',
-    FuelType: 'FuelType'
+    FuelType: 'FuelType',
+    VehicleService: 'VehicleService',
+    ServiceCenter: 'ServiceCenter',
+    VehicleMaintenance: 'VehicleMaintenance',
+    VehicleMaintenanceDetail: 'VehicleMaintenanceDetail'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1517,7 +1581,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'itemType' | 'supplier' | 'unit' | 'station' | 'project' | 'pending' | 'setting' | 'mwoSequenceTracker' | 'item' | 'projectItem' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'itemCodeTracker' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem' | 'vehicle' | 'tripTicket' | 'tripTicketApprover' | 'gasSlip' | 'gasSlipApprover' | 'gasStation' | 'fuelType'
+      modelProps: 'itemType' | 'supplier' | 'unit' | 'station' | 'project' | 'pending' | 'setting' | 'mwoSequenceTracker' | 'item' | 'projectItem' | 'itemLocation' | 'itemMovement' | 'itemTransaction' | 'itemCodeTracker' | 'canvass' | 'canvassItem' | 'rV' | 'rVApprover' | 'jO' | 'jOApprover' | 'sPR' | 'sPRApprover' | 'mEQS' | 'mEQSSupplier' | 'mEQSSupplierItem' | 'mEQSSupplierAttachment' | 'mEQSApprover' | 'pO' | 'pOApprover' | 'rR' | 'rRApprover' | 'rRItem' | 'oSRIV' | 'oSRIVApprover' | 'oSRIVItem' | 'sERIV' | 'sERIVApprover' | 'sERIVItem' | 'mRV' | 'mRVApprover' | 'mRVItem' | 'mCT' | 'mCTApprover' | 'mCRT' | 'mCRTApprover' | 'mCRTItem' | 'mST' | 'mSTApprover' | 'mSTItem' | 'vehicle' | 'tripTicket' | 'tripTicketApprover' | 'gasSlip' | 'gasSlipApprover' | 'gasStation' | 'fuelType' | 'vehicleService' | 'serviceCenter' | 'vehicleMaintenance' | 'vehicleMaintenanceDetail'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -5217,6 +5281,270 @@ export namespace Prisma {
           }
         }
       }
+      VehicleService: {
+        payload: Prisma.$VehicleServicePayload<ExtArgs>
+        fields: Prisma.VehicleServiceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VehicleServiceFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleServicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VehicleServiceFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleServicePayload>
+          }
+          findFirst: {
+            args: Prisma.VehicleServiceFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleServicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VehicleServiceFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleServicePayload>
+          }
+          findMany: {
+            args: Prisma.VehicleServiceFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleServicePayload>[]
+          }
+          create: {
+            args: Prisma.VehicleServiceCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleServicePayload>
+          }
+          createMany: {
+            args: Prisma.VehicleServiceCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.VehicleServiceDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleServicePayload>
+          }
+          update: {
+            args: Prisma.VehicleServiceUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleServicePayload>
+          }
+          deleteMany: {
+            args: Prisma.VehicleServiceDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VehicleServiceUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.VehicleServiceUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleServicePayload>
+          }
+          aggregate: {
+            args: Prisma.VehicleServiceAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateVehicleService>
+          }
+          groupBy: {
+            args: Prisma.VehicleServiceGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<VehicleServiceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VehicleServiceCountArgs<ExtArgs>,
+            result: $Utils.Optional<VehicleServiceCountAggregateOutputType> | number
+          }
+        }
+      }
+      ServiceCenter: {
+        payload: Prisma.$ServiceCenterPayload<ExtArgs>
+        fields: Prisma.ServiceCenterFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ServiceCenterFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServiceCenterPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ServiceCenterFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServiceCenterPayload>
+          }
+          findFirst: {
+            args: Prisma.ServiceCenterFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServiceCenterPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ServiceCenterFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServiceCenterPayload>
+          }
+          findMany: {
+            args: Prisma.ServiceCenterFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServiceCenterPayload>[]
+          }
+          create: {
+            args: Prisma.ServiceCenterCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServiceCenterPayload>
+          }
+          createMany: {
+            args: Prisma.ServiceCenterCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ServiceCenterDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServiceCenterPayload>
+          }
+          update: {
+            args: Prisma.ServiceCenterUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServiceCenterPayload>
+          }
+          deleteMany: {
+            args: Prisma.ServiceCenterDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ServiceCenterUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ServiceCenterUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServiceCenterPayload>
+          }
+          aggregate: {
+            args: Prisma.ServiceCenterAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateServiceCenter>
+          }
+          groupBy: {
+            args: Prisma.ServiceCenterGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ServiceCenterGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ServiceCenterCountArgs<ExtArgs>,
+            result: $Utils.Optional<ServiceCenterCountAggregateOutputType> | number
+          }
+        }
+      }
+      VehicleMaintenance: {
+        payload: Prisma.$VehicleMaintenancePayload<ExtArgs>
+        fields: Prisma.VehicleMaintenanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VehicleMaintenanceFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VehicleMaintenanceFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenancePayload>
+          }
+          findFirst: {
+            args: Prisma.VehicleMaintenanceFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VehicleMaintenanceFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenancePayload>
+          }
+          findMany: {
+            args: Prisma.VehicleMaintenanceFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenancePayload>[]
+          }
+          create: {
+            args: Prisma.VehicleMaintenanceCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenancePayload>
+          }
+          createMany: {
+            args: Prisma.VehicleMaintenanceCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.VehicleMaintenanceDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenancePayload>
+          }
+          update: {
+            args: Prisma.VehicleMaintenanceUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenancePayload>
+          }
+          deleteMany: {
+            args: Prisma.VehicleMaintenanceDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VehicleMaintenanceUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.VehicleMaintenanceUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenancePayload>
+          }
+          aggregate: {
+            args: Prisma.VehicleMaintenanceAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateVehicleMaintenance>
+          }
+          groupBy: {
+            args: Prisma.VehicleMaintenanceGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<VehicleMaintenanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VehicleMaintenanceCountArgs<ExtArgs>,
+            result: $Utils.Optional<VehicleMaintenanceCountAggregateOutputType> | number
+          }
+        }
+      }
+      VehicleMaintenanceDetail: {
+        payload: Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>
+        fields: Prisma.VehicleMaintenanceDetailFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VehicleMaintenanceDetailFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceDetailPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VehicleMaintenanceDetailFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceDetailPayload>
+          }
+          findFirst: {
+            args: Prisma.VehicleMaintenanceDetailFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceDetailPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VehicleMaintenanceDetailFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceDetailPayload>
+          }
+          findMany: {
+            args: Prisma.VehicleMaintenanceDetailFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceDetailPayload>[]
+          }
+          create: {
+            args: Prisma.VehicleMaintenanceDetailCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceDetailPayload>
+          }
+          createMany: {
+            args: Prisma.VehicleMaintenanceDetailCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.VehicleMaintenanceDetailDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceDetailPayload>
+          }
+          update: {
+            args: Prisma.VehicleMaintenanceDetailUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceDetailPayload>
+          }
+          deleteMany: {
+            args: Prisma.VehicleMaintenanceDetailDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VehicleMaintenanceDetailUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.VehicleMaintenanceDetailUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceDetailPayload>
+          }
+          aggregate: {
+            args: Prisma.VehicleMaintenanceDetailAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateVehicleMaintenanceDetail>
+          }
+          groupBy: {
+            args: Prisma.VehicleMaintenanceDetailGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<VehicleMaintenanceDetailGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VehicleMaintenanceDetailCountArgs<ExtArgs>,
+            result: $Utils.Optional<VehicleMaintenanceDetailCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -6391,12 +6719,14 @@ export namespace Prisma {
     trip_tickets: number
     gas_slips: number
     sprs: number
+    service_history: number
   }
 
   export type VehicleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trip_tickets?: boolean | VehicleCountOutputTypeCountTrip_ticketsArgs
     gas_slips?: boolean | VehicleCountOutputTypeCountGas_slipsArgs
     sprs?: boolean | VehicleCountOutputTypeCountSprsArgs
+    service_history?: boolean | VehicleCountOutputTypeCountService_historyArgs
   }
 
   // Custom InputTypes
@@ -6433,6 +6763,14 @@ export namespace Prisma {
    */
   export type VehicleCountOutputTypeCountSprsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SPRWhereInput
+  }
+
+
+  /**
+   * VehicleCountOutputType without action
+   */
+  export type VehicleCountOutputTypeCountService_historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleMaintenanceWhereInput
   }
 
 
@@ -6569,6 +6907,108 @@ export namespace Prisma {
    */
   export type FuelTypeCountOutputTypeCountGas_slipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GasSlipWhereInput
+  }
+
+
+
+  /**
+   * Count Type VehicleServiceCountOutputType
+   */
+
+  export type VehicleServiceCountOutputType = {
+    service_logs: number
+  }
+
+  export type VehicleServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service_logs?: boolean | VehicleServiceCountOutputTypeCountService_logsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * VehicleServiceCountOutputType without action
+   */
+  export type VehicleServiceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleServiceCountOutputType
+     */
+    select?: VehicleServiceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * VehicleServiceCountOutputType without action
+   */
+  export type VehicleServiceCountOutputTypeCountService_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleMaintenanceDetailWhereInput
+  }
+
+
+
+  /**
+   * Count Type ServiceCenterCountOutputType
+   */
+
+  export type ServiceCenterCountOutputType = {
+    service_records: number
+  }
+
+  export type ServiceCenterCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service_records?: boolean | ServiceCenterCountOutputTypeCountService_recordsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ServiceCenterCountOutputType without action
+   */
+  export type ServiceCenterCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenterCountOutputType
+     */
+    select?: ServiceCenterCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ServiceCenterCountOutputType without action
+   */
+  export type ServiceCenterCountOutputTypeCountService_recordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleMaintenanceWhereInput
+  }
+
+
+
+  /**
+   * Count Type VehicleMaintenanceCountOutputType
+   */
+
+  export type VehicleMaintenanceCountOutputType = {
+    services: number
+  }
+
+  export type VehicleMaintenanceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    services?: boolean | VehicleMaintenanceCountOutputTypeCountServicesArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * VehicleMaintenanceCountOutputType without action
+   */
+  export type VehicleMaintenanceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceCountOutputType
+     */
+    select?: VehicleMaintenanceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * VehicleMaintenanceCountOutputType without action
+   */
+  export type VehicleMaintenanceCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleMaintenanceDetailWhereInput
   }
 
 
@@ -57531,6 +57971,7 @@ export namespace Prisma {
     trip_tickets?: boolean | Vehicle$trip_ticketsArgs<ExtArgs>
     gas_slips?: boolean | Vehicle$gas_slipsArgs<ExtArgs>
     sprs?: boolean | Vehicle$sprsArgs<ExtArgs>
+    service_history?: boolean | Vehicle$service_historyArgs<ExtArgs>
     _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vehicle"]>
 
@@ -57555,6 +57996,7 @@ export namespace Prisma {
     trip_tickets?: boolean | Vehicle$trip_ticketsArgs<ExtArgs>
     gas_slips?: boolean | Vehicle$gas_slipsArgs<ExtArgs>
     sprs?: boolean | Vehicle$sprsArgs<ExtArgs>
+    service_history?: boolean | Vehicle$service_historyArgs<ExtArgs>
     _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -57565,6 +58007,7 @@ export namespace Prisma {
       trip_tickets: Prisma.$TripTicketPayload<ExtArgs>[]
       gas_slips: Prisma.$GasSlipPayload<ExtArgs>[]
       sprs: Prisma.$SPRPayload<ExtArgs>[]
+      service_history: Prisma.$VehicleMaintenancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -57951,6 +58394,8 @@ export namespace Prisma {
     gas_slips<T extends Vehicle$gas_slipsArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$gas_slipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GasSlipPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     sprs<T extends Vehicle$sprsArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$sprsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SPRPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    service_history<T extends Vehicle$service_historyArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$service_historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -58365,6 +58810,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SPRScalarFieldEnum | SPRScalarFieldEnum[]
+  }
+
+
+  /**
+   * Vehicle.service_history
+   */
+  export type Vehicle$service_historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    where?: VehicleMaintenanceWhereInput
+    orderBy?: VehicleMaintenanceOrderByWithRelationInput | VehicleMaintenanceOrderByWithRelationInput[]
+    cursor?: VehicleMaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VehicleMaintenanceScalarFieldEnum | VehicleMaintenanceScalarFieldEnum[]
   }
 
 
@@ -64611,6 +65077,3881 @@ export namespace Prisma {
 
 
   /**
+   * Model VehicleService
+   */
+
+  export type AggregateVehicleService = {
+    _count: VehicleServiceCountAggregateOutputType | null
+    _min: VehicleServiceMinAggregateOutputType | null
+    _max: VehicleServiceMaxAggregateOutputType | null
+  }
+
+  export type VehicleServiceMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type VehicleServiceMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type VehicleServiceCountAggregateOutputType = {
+    id: number
+    name: number
+    _all: number
+  }
+
+
+  export type VehicleServiceMinAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type VehicleServiceMaxAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type VehicleServiceCountAggregateInputType = {
+    id?: true
+    name?: true
+    _all?: true
+  }
+
+  export type VehicleServiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VehicleService to aggregate.
+     */
+    where?: VehicleServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleServices to fetch.
+     */
+    orderBy?: VehicleServiceOrderByWithRelationInput | VehicleServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VehicleServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleServices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleServices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VehicleServices
+    **/
+    _count?: true | VehicleServiceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VehicleServiceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VehicleServiceMaxAggregateInputType
+  }
+
+  export type GetVehicleServiceAggregateType<T extends VehicleServiceAggregateArgs> = {
+        [P in keyof T & keyof AggregateVehicleService]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVehicleService[P]>
+      : GetScalarType<T[P], AggregateVehicleService[P]>
+  }
+
+
+
+
+  export type VehicleServiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleServiceWhereInput
+    orderBy?: VehicleServiceOrderByWithAggregationInput | VehicleServiceOrderByWithAggregationInput[]
+    by: VehicleServiceScalarFieldEnum[] | VehicleServiceScalarFieldEnum
+    having?: VehicleServiceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VehicleServiceCountAggregateInputType | true
+    _min?: VehicleServiceMinAggregateInputType
+    _max?: VehicleServiceMaxAggregateInputType
+  }
+
+  export type VehicleServiceGroupByOutputType = {
+    id: string
+    name: string
+    _count: VehicleServiceCountAggregateOutputType | null
+    _min: VehicleServiceMinAggregateOutputType | null
+    _max: VehicleServiceMaxAggregateOutputType | null
+  }
+
+  type GetVehicleServiceGroupByPayload<T extends VehicleServiceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VehicleServiceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VehicleServiceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VehicleServiceGroupByOutputType[P]>
+            : GetScalarType<T[P], VehicleServiceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VehicleServiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    service_logs?: boolean | VehicleService$service_logsArgs<ExtArgs>
+    _count?: boolean | VehicleServiceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vehicleService"]>
+
+  export type VehicleServiceSelectScalar = {
+    id?: boolean
+    name?: boolean
+  }
+
+  export type VehicleServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service_logs?: boolean | VehicleService$service_logsArgs<ExtArgs>
+    _count?: boolean | VehicleServiceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $VehicleServicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VehicleService"
+    objects: {
+      service_logs: Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+    }, ExtArgs["result"]["vehicleService"]>
+    composites: {}
+  }
+
+
+  type VehicleServiceGetPayload<S extends boolean | null | undefined | VehicleServiceDefaultArgs> = $Result.GetResult<Prisma.$VehicleServicePayload, S>
+
+  type VehicleServiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<VehicleServiceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: VehicleServiceCountAggregateInputType | true
+    }
+
+  export interface VehicleServiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VehicleService'], meta: { name: 'VehicleService' } }
+    /**
+     * Find zero or one VehicleService that matches the filter.
+     * @param {VehicleServiceFindUniqueArgs} args - Arguments to find a VehicleService
+     * @example
+     * // Get one VehicleService
+     * const vehicleService = await prisma.vehicleService.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends VehicleServiceFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleServiceFindUniqueArgs<ExtArgs>>
+    ): Prisma__VehicleServiceClient<$Result.GetResult<Prisma.$VehicleServicePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one VehicleService that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {VehicleServiceFindUniqueOrThrowArgs} args - Arguments to find a VehicleService
+     * @example
+     * // Get one VehicleService
+     * const vehicleService = await prisma.vehicleService.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends VehicleServiceFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleServiceFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__VehicleServiceClient<$Result.GetResult<Prisma.$VehicleServicePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first VehicleService that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleServiceFindFirstArgs} args - Arguments to find a VehicleService
+     * @example
+     * // Get one VehicleService
+     * const vehicleService = await prisma.vehicleService.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends VehicleServiceFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleServiceFindFirstArgs<ExtArgs>>
+    ): Prisma__VehicleServiceClient<$Result.GetResult<Prisma.$VehicleServicePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first VehicleService that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleServiceFindFirstOrThrowArgs} args - Arguments to find a VehicleService
+     * @example
+     * // Get one VehicleService
+     * const vehicleService = await prisma.vehicleService.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends VehicleServiceFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleServiceFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__VehicleServiceClient<$Result.GetResult<Prisma.$VehicleServicePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more VehicleServices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleServiceFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VehicleServices
+     * const vehicleServices = await prisma.vehicleService.findMany()
+     * 
+     * // Get first 10 VehicleServices
+     * const vehicleServices = await prisma.vehicleService.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vehicleServiceWithIdOnly = await prisma.vehicleService.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends VehicleServiceFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleServiceFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleServicePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a VehicleService.
+     * @param {VehicleServiceCreateArgs} args - Arguments to create a VehicleService.
+     * @example
+     * // Create one VehicleService
+     * const VehicleService = await prisma.vehicleService.create({
+     *   data: {
+     *     // ... data to create a VehicleService
+     *   }
+     * })
+     * 
+    **/
+    create<T extends VehicleServiceCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleServiceCreateArgs<ExtArgs>>
+    ): Prisma__VehicleServiceClient<$Result.GetResult<Prisma.$VehicleServicePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many VehicleServices.
+     *     @param {VehicleServiceCreateManyArgs} args - Arguments to create many VehicleServices.
+     *     @example
+     *     // Create many VehicleServices
+     *     const vehicleService = await prisma.vehicleService.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends VehicleServiceCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleServiceCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a VehicleService.
+     * @param {VehicleServiceDeleteArgs} args - Arguments to delete one VehicleService.
+     * @example
+     * // Delete one VehicleService
+     * const VehicleService = await prisma.vehicleService.delete({
+     *   where: {
+     *     // ... filter to delete one VehicleService
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends VehicleServiceDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleServiceDeleteArgs<ExtArgs>>
+    ): Prisma__VehicleServiceClient<$Result.GetResult<Prisma.$VehicleServicePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one VehicleService.
+     * @param {VehicleServiceUpdateArgs} args - Arguments to update one VehicleService.
+     * @example
+     * // Update one VehicleService
+     * const vehicleService = await prisma.vehicleService.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends VehicleServiceUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleServiceUpdateArgs<ExtArgs>>
+    ): Prisma__VehicleServiceClient<$Result.GetResult<Prisma.$VehicleServicePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more VehicleServices.
+     * @param {VehicleServiceDeleteManyArgs} args - Arguments to filter VehicleServices to delete.
+     * @example
+     * // Delete a few VehicleServices
+     * const { count } = await prisma.vehicleService.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends VehicleServiceDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleServiceDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VehicleServices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleServiceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VehicleServices
+     * const vehicleService = await prisma.vehicleService.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends VehicleServiceUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleServiceUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one VehicleService.
+     * @param {VehicleServiceUpsertArgs} args - Arguments to update or create a VehicleService.
+     * @example
+     * // Update or create a VehicleService
+     * const vehicleService = await prisma.vehicleService.upsert({
+     *   create: {
+     *     // ... data to create a VehicleService
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VehicleService we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends VehicleServiceUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleServiceUpsertArgs<ExtArgs>>
+    ): Prisma__VehicleServiceClient<$Result.GetResult<Prisma.$VehicleServicePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of VehicleServices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleServiceCountArgs} args - Arguments to filter VehicleServices to count.
+     * @example
+     * // Count the number of VehicleServices
+     * const count = await prisma.vehicleService.count({
+     *   where: {
+     *     // ... the filter for the VehicleServices we want to count
+     *   }
+     * })
+    **/
+    count<T extends VehicleServiceCountArgs>(
+      args?: Subset<T, VehicleServiceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VehicleServiceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VehicleService.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleServiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VehicleServiceAggregateArgs>(args: Subset<T, VehicleServiceAggregateArgs>): Prisma.PrismaPromise<GetVehicleServiceAggregateType<T>>
+
+    /**
+     * Group by VehicleService.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleServiceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VehicleServiceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VehicleServiceGroupByArgs['orderBy'] }
+        : { orderBy?: VehicleServiceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VehicleServiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVehicleServiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VehicleService model
+   */
+  readonly fields: VehicleServiceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VehicleService.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VehicleServiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    service_logs<T extends VehicleService$service_logsArgs<ExtArgs> = {}>(args?: Subset<T, VehicleService$service_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the VehicleService model
+   */ 
+  interface VehicleServiceFieldRefs {
+    readonly id: FieldRef<"VehicleService", 'String'>
+    readonly name: FieldRef<"VehicleService", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * VehicleService findUnique
+   */
+  export type VehicleServiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleService
+     */
+    select?: VehicleServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleService to fetch.
+     */
+    where: VehicleServiceWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleService findUniqueOrThrow
+   */
+  export type VehicleServiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleService
+     */
+    select?: VehicleServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleService to fetch.
+     */
+    where: VehicleServiceWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleService findFirst
+   */
+  export type VehicleServiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleService
+     */
+    select?: VehicleServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleService to fetch.
+     */
+    where?: VehicleServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleServices to fetch.
+     */
+    orderBy?: VehicleServiceOrderByWithRelationInput | VehicleServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VehicleServices.
+     */
+    cursor?: VehicleServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleServices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleServices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VehicleServices.
+     */
+    distinct?: VehicleServiceScalarFieldEnum | VehicleServiceScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleService findFirstOrThrow
+   */
+  export type VehicleServiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleService
+     */
+    select?: VehicleServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleService to fetch.
+     */
+    where?: VehicleServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleServices to fetch.
+     */
+    orderBy?: VehicleServiceOrderByWithRelationInput | VehicleServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VehicleServices.
+     */
+    cursor?: VehicleServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleServices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleServices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VehicleServices.
+     */
+    distinct?: VehicleServiceScalarFieldEnum | VehicleServiceScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleService findMany
+   */
+  export type VehicleServiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleService
+     */
+    select?: VehicleServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleServices to fetch.
+     */
+    where?: VehicleServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleServices to fetch.
+     */
+    orderBy?: VehicleServiceOrderByWithRelationInput | VehicleServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VehicleServices.
+     */
+    cursor?: VehicleServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleServices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleServices.
+     */
+    skip?: number
+    distinct?: VehicleServiceScalarFieldEnum | VehicleServiceScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleService create
+   */
+  export type VehicleServiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleService
+     */
+    select?: VehicleServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleServiceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VehicleService.
+     */
+    data: XOR<VehicleServiceCreateInput, VehicleServiceUncheckedCreateInput>
+  }
+
+
+  /**
+   * VehicleService createMany
+   */
+  export type VehicleServiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VehicleServices.
+     */
+    data: VehicleServiceCreateManyInput | VehicleServiceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * VehicleService update
+   */
+  export type VehicleServiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleService
+     */
+    select?: VehicleServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleServiceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VehicleService.
+     */
+    data: XOR<VehicleServiceUpdateInput, VehicleServiceUncheckedUpdateInput>
+    /**
+     * Choose, which VehicleService to update.
+     */
+    where: VehicleServiceWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleService updateMany
+   */
+  export type VehicleServiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VehicleServices.
+     */
+    data: XOR<VehicleServiceUpdateManyMutationInput, VehicleServiceUncheckedUpdateManyInput>
+    /**
+     * Filter which VehicleServices to update
+     */
+    where?: VehicleServiceWhereInput
+  }
+
+
+  /**
+   * VehicleService upsert
+   */
+  export type VehicleServiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleService
+     */
+    select?: VehicleServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleServiceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VehicleService to update in case it exists.
+     */
+    where: VehicleServiceWhereUniqueInput
+    /**
+     * In case the VehicleService found by the `where` argument doesn't exist, create a new VehicleService with this data.
+     */
+    create: XOR<VehicleServiceCreateInput, VehicleServiceUncheckedCreateInput>
+    /**
+     * In case the VehicleService was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VehicleServiceUpdateInput, VehicleServiceUncheckedUpdateInput>
+  }
+
+
+  /**
+   * VehicleService delete
+   */
+  export type VehicleServiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleService
+     */
+    select?: VehicleServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleServiceInclude<ExtArgs> | null
+    /**
+     * Filter which VehicleService to delete.
+     */
+    where: VehicleServiceWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleService deleteMany
+   */
+  export type VehicleServiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VehicleServices to delete
+     */
+    where?: VehicleServiceWhereInput
+  }
+
+
+  /**
+   * VehicleService.service_logs
+   */
+  export type VehicleService$service_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    where?: VehicleMaintenanceDetailWhereInput
+    orderBy?: VehicleMaintenanceDetailOrderByWithRelationInput | VehicleMaintenanceDetailOrderByWithRelationInput[]
+    cursor?: VehicleMaintenanceDetailWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VehicleMaintenanceDetailScalarFieldEnum | VehicleMaintenanceDetailScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleService without action
+   */
+  export type VehicleServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleService
+     */
+    select?: VehicleServiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleServiceInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model ServiceCenter
+   */
+
+  export type AggregateServiceCenter = {
+    _count: ServiceCenterCountAggregateOutputType | null
+    _min: ServiceCenterMinAggregateOutputType | null
+    _max: ServiceCenterMaxAggregateOutputType | null
+  }
+
+  export type ServiceCenterMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    location: string | null
+    contact_person: string | null
+    contact_number: string | null
+    remarks: string | null
+  }
+
+  export type ServiceCenterMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    location: string | null
+    contact_person: string | null
+    contact_number: string | null
+    remarks: string | null
+  }
+
+  export type ServiceCenterCountAggregateOutputType = {
+    id: number
+    name: number
+    location: number
+    contact_person: number
+    contact_number: number
+    remarks: number
+    _all: number
+  }
+
+
+  export type ServiceCenterMinAggregateInputType = {
+    id?: true
+    name?: true
+    location?: true
+    contact_person?: true
+    contact_number?: true
+    remarks?: true
+  }
+
+  export type ServiceCenterMaxAggregateInputType = {
+    id?: true
+    name?: true
+    location?: true
+    contact_person?: true
+    contact_number?: true
+    remarks?: true
+  }
+
+  export type ServiceCenterCountAggregateInputType = {
+    id?: true
+    name?: true
+    location?: true
+    contact_person?: true
+    contact_number?: true
+    remarks?: true
+    _all?: true
+  }
+
+  export type ServiceCenterAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ServiceCenter to aggregate.
+     */
+    where?: ServiceCenterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceCenters to fetch.
+     */
+    orderBy?: ServiceCenterOrderByWithRelationInput | ServiceCenterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ServiceCenterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceCenters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceCenters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ServiceCenters
+    **/
+    _count?: true | ServiceCenterCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ServiceCenterMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ServiceCenterMaxAggregateInputType
+  }
+
+  export type GetServiceCenterAggregateType<T extends ServiceCenterAggregateArgs> = {
+        [P in keyof T & keyof AggregateServiceCenter]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateServiceCenter[P]>
+      : GetScalarType<T[P], AggregateServiceCenter[P]>
+  }
+
+
+
+
+  export type ServiceCenterGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceCenterWhereInput
+    orderBy?: ServiceCenterOrderByWithAggregationInput | ServiceCenterOrderByWithAggregationInput[]
+    by: ServiceCenterScalarFieldEnum[] | ServiceCenterScalarFieldEnum
+    having?: ServiceCenterScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ServiceCenterCountAggregateInputType | true
+    _min?: ServiceCenterMinAggregateInputType
+    _max?: ServiceCenterMaxAggregateInputType
+  }
+
+  export type ServiceCenterGroupByOutputType = {
+    id: string
+    name: string
+    location: string
+    contact_person: string
+    contact_number: string
+    remarks: string
+    _count: ServiceCenterCountAggregateOutputType | null
+    _min: ServiceCenterMinAggregateOutputType | null
+    _max: ServiceCenterMaxAggregateOutputType | null
+  }
+
+  type GetServiceCenterGroupByPayload<T extends ServiceCenterGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ServiceCenterGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ServiceCenterGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ServiceCenterGroupByOutputType[P]>
+            : GetScalarType<T[P], ServiceCenterGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ServiceCenterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    location?: boolean
+    contact_person?: boolean
+    contact_number?: boolean
+    remarks?: boolean
+    service_records?: boolean | ServiceCenter$service_recordsArgs<ExtArgs>
+    _count?: boolean | ServiceCenterCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["serviceCenter"]>
+
+  export type ServiceCenterSelectScalar = {
+    id?: boolean
+    name?: boolean
+    location?: boolean
+    contact_person?: boolean
+    contact_number?: boolean
+    remarks?: boolean
+  }
+
+  export type ServiceCenterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service_records?: boolean | ServiceCenter$service_recordsArgs<ExtArgs>
+    _count?: boolean | ServiceCenterCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $ServiceCenterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ServiceCenter"
+    objects: {
+      service_records: Prisma.$VehicleMaintenancePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      location: string
+      contact_person: string
+      contact_number: string
+      remarks: string
+    }, ExtArgs["result"]["serviceCenter"]>
+    composites: {}
+  }
+
+
+  type ServiceCenterGetPayload<S extends boolean | null | undefined | ServiceCenterDefaultArgs> = $Result.GetResult<Prisma.$ServiceCenterPayload, S>
+
+  type ServiceCenterCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ServiceCenterFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ServiceCenterCountAggregateInputType | true
+    }
+
+  export interface ServiceCenterDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ServiceCenter'], meta: { name: 'ServiceCenter' } }
+    /**
+     * Find zero or one ServiceCenter that matches the filter.
+     * @param {ServiceCenterFindUniqueArgs} args - Arguments to find a ServiceCenter
+     * @example
+     * // Get one ServiceCenter
+     * const serviceCenter = await prisma.serviceCenter.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ServiceCenterFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ServiceCenterFindUniqueArgs<ExtArgs>>
+    ): Prisma__ServiceCenterClient<$Result.GetResult<Prisma.$ServiceCenterPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one ServiceCenter that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ServiceCenterFindUniqueOrThrowArgs} args - Arguments to find a ServiceCenter
+     * @example
+     * // Get one ServiceCenter
+     * const serviceCenter = await prisma.serviceCenter.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ServiceCenterFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServiceCenterFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ServiceCenterClient<$Result.GetResult<Prisma.$ServiceCenterPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first ServiceCenter that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceCenterFindFirstArgs} args - Arguments to find a ServiceCenter
+     * @example
+     * // Get one ServiceCenter
+     * const serviceCenter = await prisma.serviceCenter.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ServiceCenterFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServiceCenterFindFirstArgs<ExtArgs>>
+    ): Prisma__ServiceCenterClient<$Result.GetResult<Prisma.$ServiceCenterPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first ServiceCenter that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceCenterFindFirstOrThrowArgs} args - Arguments to find a ServiceCenter
+     * @example
+     * // Get one ServiceCenter
+     * const serviceCenter = await prisma.serviceCenter.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ServiceCenterFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServiceCenterFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ServiceCenterClient<$Result.GetResult<Prisma.$ServiceCenterPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more ServiceCenters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceCenterFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ServiceCenters
+     * const serviceCenters = await prisma.serviceCenter.findMany()
+     * 
+     * // Get first 10 ServiceCenters
+     * const serviceCenters = await prisma.serviceCenter.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const serviceCenterWithIdOnly = await prisma.serviceCenter.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ServiceCenterFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServiceCenterFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceCenterPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a ServiceCenter.
+     * @param {ServiceCenterCreateArgs} args - Arguments to create a ServiceCenter.
+     * @example
+     * // Create one ServiceCenter
+     * const ServiceCenter = await prisma.serviceCenter.create({
+     *   data: {
+     *     // ... data to create a ServiceCenter
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ServiceCenterCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ServiceCenterCreateArgs<ExtArgs>>
+    ): Prisma__ServiceCenterClient<$Result.GetResult<Prisma.$ServiceCenterPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many ServiceCenters.
+     *     @param {ServiceCenterCreateManyArgs} args - Arguments to create many ServiceCenters.
+     *     @example
+     *     // Create many ServiceCenters
+     *     const serviceCenter = await prisma.serviceCenter.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ServiceCenterCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServiceCenterCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ServiceCenter.
+     * @param {ServiceCenterDeleteArgs} args - Arguments to delete one ServiceCenter.
+     * @example
+     * // Delete one ServiceCenter
+     * const ServiceCenter = await prisma.serviceCenter.delete({
+     *   where: {
+     *     // ... filter to delete one ServiceCenter
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ServiceCenterDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ServiceCenterDeleteArgs<ExtArgs>>
+    ): Prisma__ServiceCenterClient<$Result.GetResult<Prisma.$ServiceCenterPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one ServiceCenter.
+     * @param {ServiceCenterUpdateArgs} args - Arguments to update one ServiceCenter.
+     * @example
+     * // Update one ServiceCenter
+     * const serviceCenter = await prisma.serviceCenter.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ServiceCenterUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ServiceCenterUpdateArgs<ExtArgs>>
+    ): Prisma__ServiceCenterClient<$Result.GetResult<Prisma.$ServiceCenterPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more ServiceCenters.
+     * @param {ServiceCenterDeleteManyArgs} args - Arguments to filter ServiceCenters to delete.
+     * @example
+     * // Delete a few ServiceCenters
+     * const { count } = await prisma.serviceCenter.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ServiceCenterDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServiceCenterDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ServiceCenters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceCenterUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ServiceCenters
+     * const serviceCenter = await prisma.serviceCenter.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ServiceCenterUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ServiceCenterUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ServiceCenter.
+     * @param {ServiceCenterUpsertArgs} args - Arguments to update or create a ServiceCenter.
+     * @example
+     * // Update or create a ServiceCenter
+     * const serviceCenter = await prisma.serviceCenter.upsert({
+     *   create: {
+     *     // ... data to create a ServiceCenter
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ServiceCenter we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ServiceCenterUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ServiceCenterUpsertArgs<ExtArgs>>
+    ): Prisma__ServiceCenterClient<$Result.GetResult<Prisma.$ServiceCenterPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of ServiceCenters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceCenterCountArgs} args - Arguments to filter ServiceCenters to count.
+     * @example
+     * // Count the number of ServiceCenters
+     * const count = await prisma.serviceCenter.count({
+     *   where: {
+     *     // ... the filter for the ServiceCenters we want to count
+     *   }
+     * })
+    **/
+    count<T extends ServiceCenterCountArgs>(
+      args?: Subset<T, ServiceCenterCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ServiceCenterCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ServiceCenter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceCenterAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ServiceCenterAggregateArgs>(args: Subset<T, ServiceCenterAggregateArgs>): Prisma.PrismaPromise<GetServiceCenterAggregateType<T>>
+
+    /**
+     * Group by ServiceCenter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceCenterGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ServiceCenterGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ServiceCenterGroupByArgs['orderBy'] }
+        : { orderBy?: ServiceCenterGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ServiceCenterGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceCenterGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ServiceCenter model
+   */
+  readonly fields: ServiceCenterFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ServiceCenter.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ServiceCenterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    service_records<T extends ServiceCenter$service_recordsArgs<ExtArgs> = {}>(args?: Subset<T, ServiceCenter$service_recordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the ServiceCenter model
+   */ 
+  interface ServiceCenterFieldRefs {
+    readonly id: FieldRef<"ServiceCenter", 'String'>
+    readonly name: FieldRef<"ServiceCenter", 'String'>
+    readonly location: FieldRef<"ServiceCenter", 'String'>
+    readonly contact_person: FieldRef<"ServiceCenter", 'String'>
+    readonly contact_number: FieldRef<"ServiceCenter", 'String'>
+    readonly remarks: FieldRef<"ServiceCenter", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * ServiceCenter findUnique
+   */
+  export type ServiceCenterFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenter
+     */
+    select?: ServiceCenterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ServiceCenterInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceCenter to fetch.
+     */
+    where: ServiceCenterWhereUniqueInput
+  }
+
+
+  /**
+   * ServiceCenter findUniqueOrThrow
+   */
+  export type ServiceCenterFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenter
+     */
+    select?: ServiceCenterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ServiceCenterInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceCenter to fetch.
+     */
+    where: ServiceCenterWhereUniqueInput
+  }
+
+
+  /**
+   * ServiceCenter findFirst
+   */
+  export type ServiceCenterFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenter
+     */
+    select?: ServiceCenterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ServiceCenterInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceCenter to fetch.
+     */
+    where?: ServiceCenterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceCenters to fetch.
+     */
+    orderBy?: ServiceCenterOrderByWithRelationInput | ServiceCenterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ServiceCenters.
+     */
+    cursor?: ServiceCenterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceCenters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceCenters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ServiceCenters.
+     */
+    distinct?: ServiceCenterScalarFieldEnum | ServiceCenterScalarFieldEnum[]
+  }
+
+
+  /**
+   * ServiceCenter findFirstOrThrow
+   */
+  export type ServiceCenterFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenter
+     */
+    select?: ServiceCenterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ServiceCenterInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceCenter to fetch.
+     */
+    where?: ServiceCenterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceCenters to fetch.
+     */
+    orderBy?: ServiceCenterOrderByWithRelationInput | ServiceCenterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ServiceCenters.
+     */
+    cursor?: ServiceCenterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceCenters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceCenters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ServiceCenters.
+     */
+    distinct?: ServiceCenterScalarFieldEnum | ServiceCenterScalarFieldEnum[]
+  }
+
+
+  /**
+   * ServiceCenter findMany
+   */
+  export type ServiceCenterFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenter
+     */
+    select?: ServiceCenterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ServiceCenterInclude<ExtArgs> | null
+    /**
+     * Filter, which ServiceCenters to fetch.
+     */
+    where?: ServiceCenterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServiceCenters to fetch.
+     */
+    orderBy?: ServiceCenterOrderByWithRelationInput | ServiceCenterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ServiceCenters.
+     */
+    cursor?: ServiceCenterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServiceCenters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServiceCenters.
+     */
+    skip?: number
+    distinct?: ServiceCenterScalarFieldEnum | ServiceCenterScalarFieldEnum[]
+  }
+
+
+  /**
+   * ServiceCenter create
+   */
+  export type ServiceCenterCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenter
+     */
+    select?: ServiceCenterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ServiceCenterInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ServiceCenter.
+     */
+    data: XOR<ServiceCenterCreateInput, ServiceCenterUncheckedCreateInput>
+  }
+
+
+  /**
+   * ServiceCenter createMany
+   */
+  export type ServiceCenterCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ServiceCenters.
+     */
+    data: ServiceCenterCreateManyInput | ServiceCenterCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ServiceCenter update
+   */
+  export type ServiceCenterUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenter
+     */
+    select?: ServiceCenterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ServiceCenterInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ServiceCenter.
+     */
+    data: XOR<ServiceCenterUpdateInput, ServiceCenterUncheckedUpdateInput>
+    /**
+     * Choose, which ServiceCenter to update.
+     */
+    where: ServiceCenterWhereUniqueInput
+  }
+
+
+  /**
+   * ServiceCenter updateMany
+   */
+  export type ServiceCenterUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ServiceCenters.
+     */
+    data: XOR<ServiceCenterUpdateManyMutationInput, ServiceCenterUncheckedUpdateManyInput>
+    /**
+     * Filter which ServiceCenters to update
+     */
+    where?: ServiceCenterWhereInput
+  }
+
+
+  /**
+   * ServiceCenter upsert
+   */
+  export type ServiceCenterUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenter
+     */
+    select?: ServiceCenterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ServiceCenterInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ServiceCenter to update in case it exists.
+     */
+    where: ServiceCenterWhereUniqueInput
+    /**
+     * In case the ServiceCenter found by the `where` argument doesn't exist, create a new ServiceCenter with this data.
+     */
+    create: XOR<ServiceCenterCreateInput, ServiceCenterUncheckedCreateInput>
+    /**
+     * In case the ServiceCenter was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ServiceCenterUpdateInput, ServiceCenterUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ServiceCenter delete
+   */
+  export type ServiceCenterDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenter
+     */
+    select?: ServiceCenterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ServiceCenterInclude<ExtArgs> | null
+    /**
+     * Filter which ServiceCenter to delete.
+     */
+    where: ServiceCenterWhereUniqueInput
+  }
+
+
+  /**
+   * ServiceCenter deleteMany
+   */
+  export type ServiceCenterDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ServiceCenters to delete
+     */
+    where?: ServiceCenterWhereInput
+  }
+
+
+  /**
+   * ServiceCenter.service_records
+   */
+  export type ServiceCenter$service_recordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    where?: VehicleMaintenanceWhereInput
+    orderBy?: VehicleMaintenanceOrderByWithRelationInput | VehicleMaintenanceOrderByWithRelationInput[]
+    cursor?: VehicleMaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VehicleMaintenanceScalarFieldEnum | VehicleMaintenanceScalarFieldEnum[]
+  }
+
+
+  /**
+   * ServiceCenter without action
+   */
+  export type ServiceCenterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCenter
+     */
+    select?: ServiceCenterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ServiceCenterInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model VehicleMaintenance
+   */
+
+  export type AggregateVehicleMaintenance = {
+    _count: VehicleMaintenanceCountAggregateOutputType | null
+    _avg: VehicleMaintenanceAvgAggregateOutputType | null
+    _sum: VehicleMaintenanceSumAggregateOutputType | null
+    _min: VehicleMaintenanceMinAggregateOutputType | null
+    _max: VehicleMaintenanceMaxAggregateOutputType | null
+  }
+
+  export type VehicleMaintenanceAvgAggregateOutputType = {
+    service_mileage: number | null
+    next_service_mileage: number | null
+    cost: number | null
+  }
+
+  export type VehicleMaintenanceSumAggregateOutputType = {
+    service_mileage: number | null
+    next_service_mileage: number | null
+    cost: number | null
+  }
+
+  export type VehicleMaintenanceMinAggregateOutputType = {
+    id: string | null
+    ref_number: string | null
+    vehicle_id: string | null
+    service_center_id: string | null
+    service_date: Date | null
+    service_mileage: number | null
+    next_service_date: Date | null
+    next_service_mileage: number | null
+    cost: number | null
+    remarks: string | null
+    performed_by: string | null
+    created_by: string | null
+    updated_by: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type VehicleMaintenanceMaxAggregateOutputType = {
+    id: string | null
+    ref_number: string | null
+    vehicle_id: string | null
+    service_center_id: string | null
+    service_date: Date | null
+    service_mileage: number | null
+    next_service_date: Date | null
+    next_service_mileage: number | null
+    cost: number | null
+    remarks: string | null
+    performed_by: string | null
+    created_by: string | null
+    updated_by: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type VehicleMaintenanceCountAggregateOutputType = {
+    id: number
+    ref_number: number
+    vehicle_id: number
+    service_center_id: number
+    service_date: number
+    service_mileage: number
+    next_service_date: number
+    next_service_mileage: number
+    cost: number
+    remarks: number
+    performed_by: number
+    created_by: number
+    updated_by: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type VehicleMaintenanceAvgAggregateInputType = {
+    service_mileage?: true
+    next_service_mileage?: true
+    cost?: true
+  }
+
+  export type VehicleMaintenanceSumAggregateInputType = {
+    service_mileage?: true
+    next_service_mileage?: true
+    cost?: true
+  }
+
+  export type VehicleMaintenanceMinAggregateInputType = {
+    id?: true
+    ref_number?: true
+    vehicle_id?: true
+    service_center_id?: true
+    service_date?: true
+    service_mileage?: true
+    next_service_date?: true
+    next_service_mileage?: true
+    cost?: true
+    remarks?: true
+    performed_by?: true
+    created_by?: true
+    updated_by?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type VehicleMaintenanceMaxAggregateInputType = {
+    id?: true
+    ref_number?: true
+    vehicle_id?: true
+    service_center_id?: true
+    service_date?: true
+    service_mileage?: true
+    next_service_date?: true
+    next_service_mileage?: true
+    cost?: true
+    remarks?: true
+    performed_by?: true
+    created_by?: true
+    updated_by?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type VehicleMaintenanceCountAggregateInputType = {
+    id?: true
+    ref_number?: true
+    vehicle_id?: true
+    service_center_id?: true
+    service_date?: true
+    service_mileage?: true
+    next_service_date?: true
+    next_service_mileage?: true
+    cost?: true
+    remarks?: true
+    performed_by?: true
+    created_by?: true
+    updated_by?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type VehicleMaintenanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VehicleMaintenance to aggregate.
+     */
+    where?: VehicleMaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenances to fetch.
+     */
+    orderBy?: VehicleMaintenanceOrderByWithRelationInput | VehicleMaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VehicleMaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VehicleMaintenances
+    **/
+    _count?: true | VehicleMaintenanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VehicleMaintenanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VehicleMaintenanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VehicleMaintenanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VehicleMaintenanceMaxAggregateInputType
+  }
+
+  export type GetVehicleMaintenanceAggregateType<T extends VehicleMaintenanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateVehicleMaintenance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVehicleMaintenance[P]>
+      : GetScalarType<T[P], AggregateVehicleMaintenance[P]>
+  }
+
+
+
+
+  export type VehicleMaintenanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleMaintenanceWhereInput
+    orderBy?: VehicleMaintenanceOrderByWithAggregationInput | VehicleMaintenanceOrderByWithAggregationInput[]
+    by: VehicleMaintenanceScalarFieldEnum[] | VehicleMaintenanceScalarFieldEnum
+    having?: VehicleMaintenanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VehicleMaintenanceCountAggregateInputType | true
+    _avg?: VehicleMaintenanceAvgAggregateInputType
+    _sum?: VehicleMaintenanceSumAggregateInputType
+    _min?: VehicleMaintenanceMinAggregateInputType
+    _max?: VehicleMaintenanceMaxAggregateInputType
+  }
+
+  export type VehicleMaintenanceGroupByOutputType = {
+    id: string
+    ref_number: string
+    vehicle_id: string
+    service_center_id: string
+    service_date: Date
+    service_mileage: number
+    next_service_date: Date
+    next_service_mileage: number
+    cost: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by: string | null
+    created_at: Date
+    updated_at: Date
+    _count: VehicleMaintenanceCountAggregateOutputType | null
+    _avg: VehicleMaintenanceAvgAggregateOutputType | null
+    _sum: VehicleMaintenanceSumAggregateOutputType | null
+    _min: VehicleMaintenanceMinAggregateOutputType | null
+    _max: VehicleMaintenanceMaxAggregateOutputType | null
+  }
+
+  type GetVehicleMaintenanceGroupByPayload<T extends VehicleMaintenanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VehicleMaintenanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VehicleMaintenanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VehicleMaintenanceGroupByOutputType[P]>
+            : GetScalarType<T[P], VehicleMaintenanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VehicleMaintenanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ref_number?: boolean
+    vehicle_id?: boolean
+    service_center_id?: boolean
+    service_date?: boolean
+    service_mileage?: boolean
+    next_service_date?: boolean
+    next_service_mileage?: boolean
+    cost?: boolean
+    remarks?: boolean
+    performed_by?: boolean
+    created_by?: boolean
+    updated_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+    service_center?: boolean | ServiceCenterDefaultArgs<ExtArgs>
+    services?: boolean | VehicleMaintenance$servicesArgs<ExtArgs>
+    _count?: boolean | VehicleMaintenanceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vehicleMaintenance"]>
+
+  export type VehicleMaintenanceSelectScalar = {
+    id?: boolean
+    ref_number?: boolean
+    vehicle_id?: boolean
+    service_center_id?: boolean
+    service_date?: boolean
+    service_mileage?: boolean
+    next_service_date?: boolean
+    next_service_mileage?: boolean
+    cost?: boolean
+    remarks?: boolean
+    performed_by?: boolean
+    created_by?: boolean
+    updated_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type VehicleMaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+    service_center?: boolean | ServiceCenterDefaultArgs<ExtArgs>
+    services?: boolean | VehicleMaintenance$servicesArgs<ExtArgs>
+    _count?: boolean | VehicleMaintenanceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $VehicleMaintenancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VehicleMaintenance"
+    objects: {
+      vehicle: Prisma.$VehiclePayload<ExtArgs>
+      service_center: Prisma.$ServiceCenterPayload<ExtArgs>
+      services: Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ref_number: string
+      vehicle_id: string
+      service_center_id: string
+      service_date: Date
+      service_mileage: number
+      next_service_date: Date
+      next_service_mileage: number
+      cost: number
+      remarks: string
+      performed_by: string
+      created_by: string
+      updated_by: string | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["vehicleMaintenance"]>
+    composites: {}
+  }
+
+
+  type VehicleMaintenanceGetPayload<S extends boolean | null | undefined | VehicleMaintenanceDefaultArgs> = $Result.GetResult<Prisma.$VehicleMaintenancePayload, S>
+
+  type VehicleMaintenanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<VehicleMaintenanceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: VehicleMaintenanceCountAggregateInputType | true
+    }
+
+  export interface VehicleMaintenanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VehicleMaintenance'], meta: { name: 'VehicleMaintenance' } }
+    /**
+     * Find zero or one VehicleMaintenance that matches the filter.
+     * @param {VehicleMaintenanceFindUniqueArgs} args - Arguments to find a VehicleMaintenance
+     * @example
+     * // Get one VehicleMaintenance
+     * const vehicleMaintenance = await prisma.vehicleMaintenance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends VehicleMaintenanceFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceFindUniqueArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceClient<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one VehicleMaintenance that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {VehicleMaintenanceFindUniqueOrThrowArgs} args - Arguments to find a VehicleMaintenance
+     * @example
+     * // Get one VehicleMaintenance
+     * const vehicleMaintenance = await prisma.vehicleMaintenance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends VehicleMaintenanceFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceClient<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first VehicleMaintenance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceFindFirstArgs} args - Arguments to find a VehicleMaintenance
+     * @example
+     * // Get one VehicleMaintenance
+     * const vehicleMaintenance = await prisma.vehicleMaintenance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends VehicleMaintenanceFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceFindFirstArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceClient<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first VehicleMaintenance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceFindFirstOrThrowArgs} args - Arguments to find a VehicleMaintenance
+     * @example
+     * // Get one VehicleMaintenance
+     * const vehicleMaintenance = await prisma.vehicleMaintenance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends VehicleMaintenanceFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceClient<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more VehicleMaintenances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VehicleMaintenances
+     * const vehicleMaintenances = await prisma.vehicleMaintenance.findMany()
+     * 
+     * // Get first 10 VehicleMaintenances
+     * const vehicleMaintenances = await prisma.vehicleMaintenance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vehicleMaintenanceWithIdOnly = await prisma.vehicleMaintenance.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends VehicleMaintenanceFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a VehicleMaintenance.
+     * @param {VehicleMaintenanceCreateArgs} args - Arguments to create a VehicleMaintenance.
+     * @example
+     * // Create one VehicleMaintenance
+     * const VehicleMaintenance = await prisma.vehicleMaintenance.create({
+     *   data: {
+     *     // ... data to create a VehicleMaintenance
+     *   }
+     * })
+     * 
+    **/
+    create<T extends VehicleMaintenanceCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceCreateArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceClient<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many VehicleMaintenances.
+     *     @param {VehicleMaintenanceCreateManyArgs} args - Arguments to create many VehicleMaintenances.
+     *     @example
+     *     // Create many VehicleMaintenances
+     *     const vehicleMaintenance = await prisma.vehicleMaintenance.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends VehicleMaintenanceCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a VehicleMaintenance.
+     * @param {VehicleMaintenanceDeleteArgs} args - Arguments to delete one VehicleMaintenance.
+     * @example
+     * // Delete one VehicleMaintenance
+     * const VehicleMaintenance = await prisma.vehicleMaintenance.delete({
+     *   where: {
+     *     // ... filter to delete one VehicleMaintenance
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends VehicleMaintenanceDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceDeleteArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceClient<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one VehicleMaintenance.
+     * @param {VehicleMaintenanceUpdateArgs} args - Arguments to update one VehicleMaintenance.
+     * @example
+     * // Update one VehicleMaintenance
+     * const vehicleMaintenance = await prisma.vehicleMaintenance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends VehicleMaintenanceUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceUpdateArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceClient<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more VehicleMaintenances.
+     * @param {VehicleMaintenanceDeleteManyArgs} args - Arguments to filter VehicleMaintenances to delete.
+     * @example
+     * // Delete a few VehicleMaintenances
+     * const { count } = await prisma.vehicleMaintenance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends VehicleMaintenanceDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VehicleMaintenances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VehicleMaintenances
+     * const vehicleMaintenance = await prisma.vehicleMaintenance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends VehicleMaintenanceUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one VehicleMaintenance.
+     * @param {VehicleMaintenanceUpsertArgs} args - Arguments to update or create a VehicleMaintenance.
+     * @example
+     * // Update or create a VehicleMaintenance
+     * const vehicleMaintenance = await prisma.vehicleMaintenance.upsert({
+     *   create: {
+     *     // ... data to create a VehicleMaintenance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VehicleMaintenance we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends VehicleMaintenanceUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceUpsertArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceClient<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of VehicleMaintenances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceCountArgs} args - Arguments to filter VehicleMaintenances to count.
+     * @example
+     * // Count the number of VehicleMaintenances
+     * const count = await prisma.vehicleMaintenance.count({
+     *   where: {
+     *     // ... the filter for the VehicleMaintenances we want to count
+     *   }
+     * })
+    **/
+    count<T extends VehicleMaintenanceCountArgs>(
+      args?: Subset<T, VehicleMaintenanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VehicleMaintenanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VehicleMaintenance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VehicleMaintenanceAggregateArgs>(args: Subset<T, VehicleMaintenanceAggregateArgs>): Prisma.PrismaPromise<GetVehicleMaintenanceAggregateType<T>>
+
+    /**
+     * Group by VehicleMaintenance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VehicleMaintenanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VehicleMaintenanceGroupByArgs['orderBy'] }
+        : { orderBy?: VehicleMaintenanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VehicleMaintenanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVehicleMaintenanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VehicleMaintenance model
+   */
+  readonly fields: VehicleMaintenanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VehicleMaintenance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VehicleMaintenanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    vehicle<T extends VehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VehicleDefaultArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    service_center<T extends ServiceCenterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceCenterDefaultArgs<ExtArgs>>): Prisma__ServiceCenterClient<$Result.GetResult<Prisma.$ServiceCenterPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    services<T extends VehicleMaintenance$servicesArgs<ExtArgs> = {}>(args?: Subset<T, VehicleMaintenance$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the VehicleMaintenance model
+   */ 
+  interface VehicleMaintenanceFieldRefs {
+    readonly id: FieldRef<"VehicleMaintenance", 'String'>
+    readonly ref_number: FieldRef<"VehicleMaintenance", 'String'>
+    readonly vehicle_id: FieldRef<"VehicleMaintenance", 'String'>
+    readonly service_center_id: FieldRef<"VehicleMaintenance", 'String'>
+    readonly service_date: FieldRef<"VehicleMaintenance", 'DateTime'>
+    readonly service_mileage: FieldRef<"VehicleMaintenance", 'Int'>
+    readonly next_service_date: FieldRef<"VehicleMaintenance", 'DateTime'>
+    readonly next_service_mileage: FieldRef<"VehicleMaintenance", 'Int'>
+    readonly cost: FieldRef<"VehicleMaintenance", 'Float'>
+    readonly remarks: FieldRef<"VehicleMaintenance", 'String'>
+    readonly performed_by: FieldRef<"VehicleMaintenance", 'String'>
+    readonly created_by: FieldRef<"VehicleMaintenance", 'String'>
+    readonly updated_by: FieldRef<"VehicleMaintenance", 'String'>
+    readonly created_at: FieldRef<"VehicleMaintenance", 'DateTime'>
+    readonly updated_at: FieldRef<"VehicleMaintenance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * VehicleMaintenance findUnique
+   */
+  export type VehicleMaintenanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenance to fetch.
+     */
+    where: VehicleMaintenanceWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleMaintenance findUniqueOrThrow
+   */
+  export type VehicleMaintenanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenance to fetch.
+     */
+    where: VehicleMaintenanceWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleMaintenance findFirst
+   */
+  export type VehicleMaintenanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenance to fetch.
+     */
+    where?: VehicleMaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenances to fetch.
+     */
+    orderBy?: VehicleMaintenanceOrderByWithRelationInput | VehicleMaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VehicleMaintenances.
+     */
+    cursor?: VehicleMaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VehicleMaintenances.
+     */
+    distinct?: VehicleMaintenanceScalarFieldEnum | VehicleMaintenanceScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleMaintenance findFirstOrThrow
+   */
+  export type VehicleMaintenanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenance to fetch.
+     */
+    where?: VehicleMaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenances to fetch.
+     */
+    orderBy?: VehicleMaintenanceOrderByWithRelationInput | VehicleMaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VehicleMaintenances.
+     */
+    cursor?: VehicleMaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VehicleMaintenances.
+     */
+    distinct?: VehicleMaintenanceScalarFieldEnum | VehicleMaintenanceScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleMaintenance findMany
+   */
+  export type VehicleMaintenanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenances to fetch.
+     */
+    where?: VehicleMaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenances to fetch.
+     */
+    orderBy?: VehicleMaintenanceOrderByWithRelationInput | VehicleMaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VehicleMaintenances.
+     */
+    cursor?: VehicleMaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenances.
+     */
+    skip?: number
+    distinct?: VehicleMaintenanceScalarFieldEnum | VehicleMaintenanceScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleMaintenance create
+   */
+  export type VehicleMaintenanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VehicleMaintenance.
+     */
+    data: XOR<VehicleMaintenanceCreateInput, VehicleMaintenanceUncheckedCreateInput>
+  }
+
+
+  /**
+   * VehicleMaintenance createMany
+   */
+  export type VehicleMaintenanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VehicleMaintenances.
+     */
+    data: VehicleMaintenanceCreateManyInput | VehicleMaintenanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * VehicleMaintenance update
+   */
+  export type VehicleMaintenanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VehicleMaintenance.
+     */
+    data: XOR<VehicleMaintenanceUpdateInput, VehicleMaintenanceUncheckedUpdateInput>
+    /**
+     * Choose, which VehicleMaintenance to update.
+     */
+    where: VehicleMaintenanceWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleMaintenance updateMany
+   */
+  export type VehicleMaintenanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VehicleMaintenances.
+     */
+    data: XOR<VehicleMaintenanceUpdateManyMutationInput, VehicleMaintenanceUncheckedUpdateManyInput>
+    /**
+     * Filter which VehicleMaintenances to update
+     */
+    where?: VehicleMaintenanceWhereInput
+  }
+
+
+  /**
+   * VehicleMaintenance upsert
+   */
+  export type VehicleMaintenanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VehicleMaintenance to update in case it exists.
+     */
+    where: VehicleMaintenanceWhereUniqueInput
+    /**
+     * In case the VehicleMaintenance found by the `where` argument doesn't exist, create a new VehicleMaintenance with this data.
+     */
+    create: XOR<VehicleMaintenanceCreateInput, VehicleMaintenanceUncheckedCreateInput>
+    /**
+     * In case the VehicleMaintenance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VehicleMaintenanceUpdateInput, VehicleMaintenanceUncheckedUpdateInput>
+  }
+
+
+  /**
+   * VehicleMaintenance delete
+   */
+  export type VehicleMaintenanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter which VehicleMaintenance to delete.
+     */
+    where: VehicleMaintenanceWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleMaintenance deleteMany
+   */
+  export type VehicleMaintenanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VehicleMaintenances to delete
+     */
+    where?: VehicleMaintenanceWhereInput
+  }
+
+
+  /**
+   * VehicleMaintenance.services
+   */
+  export type VehicleMaintenance$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    where?: VehicleMaintenanceDetailWhereInput
+    orderBy?: VehicleMaintenanceDetailOrderByWithRelationInput | VehicleMaintenanceDetailOrderByWithRelationInput[]
+    cursor?: VehicleMaintenanceDetailWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VehicleMaintenanceDetailScalarFieldEnum | VehicleMaintenanceDetailScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleMaintenance without action
+   */
+  export type VehicleMaintenanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenance
+     */
+    select?: VehicleMaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model VehicleMaintenanceDetail
+   */
+
+  export type AggregateVehicleMaintenanceDetail = {
+    _count: VehicleMaintenanceDetailCountAggregateOutputType | null
+    _min: VehicleMaintenanceDetailMinAggregateOutputType | null
+    _max: VehicleMaintenanceDetailMaxAggregateOutputType | null
+  }
+
+  export type VehicleMaintenanceDetailMinAggregateOutputType = {
+    id: string | null
+    maintenance_id: string | null
+    service_id: string | null
+    note: string | null
+  }
+
+  export type VehicleMaintenanceDetailMaxAggregateOutputType = {
+    id: string | null
+    maintenance_id: string | null
+    service_id: string | null
+    note: string | null
+  }
+
+  export type VehicleMaintenanceDetailCountAggregateOutputType = {
+    id: number
+    maintenance_id: number
+    service_id: number
+    note: number
+    _all: number
+  }
+
+
+  export type VehicleMaintenanceDetailMinAggregateInputType = {
+    id?: true
+    maintenance_id?: true
+    service_id?: true
+    note?: true
+  }
+
+  export type VehicleMaintenanceDetailMaxAggregateInputType = {
+    id?: true
+    maintenance_id?: true
+    service_id?: true
+    note?: true
+  }
+
+  export type VehicleMaintenanceDetailCountAggregateInputType = {
+    id?: true
+    maintenance_id?: true
+    service_id?: true
+    note?: true
+    _all?: true
+  }
+
+  export type VehicleMaintenanceDetailAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VehicleMaintenanceDetail to aggregate.
+     */
+    where?: VehicleMaintenanceDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenanceDetails to fetch.
+     */
+    orderBy?: VehicleMaintenanceDetailOrderByWithRelationInput | VehicleMaintenanceDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VehicleMaintenanceDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenanceDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenanceDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VehicleMaintenanceDetails
+    **/
+    _count?: true | VehicleMaintenanceDetailCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VehicleMaintenanceDetailMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VehicleMaintenanceDetailMaxAggregateInputType
+  }
+
+  export type GetVehicleMaintenanceDetailAggregateType<T extends VehicleMaintenanceDetailAggregateArgs> = {
+        [P in keyof T & keyof AggregateVehicleMaintenanceDetail]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVehicleMaintenanceDetail[P]>
+      : GetScalarType<T[P], AggregateVehicleMaintenanceDetail[P]>
+  }
+
+
+
+
+  export type VehicleMaintenanceDetailGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleMaintenanceDetailWhereInput
+    orderBy?: VehicleMaintenanceDetailOrderByWithAggregationInput | VehicleMaintenanceDetailOrderByWithAggregationInput[]
+    by: VehicleMaintenanceDetailScalarFieldEnum[] | VehicleMaintenanceDetailScalarFieldEnum
+    having?: VehicleMaintenanceDetailScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VehicleMaintenanceDetailCountAggregateInputType | true
+    _min?: VehicleMaintenanceDetailMinAggregateInputType
+    _max?: VehicleMaintenanceDetailMaxAggregateInputType
+  }
+
+  export type VehicleMaintenanceDetailGroupByOutputType = {
+    id: string
+    maintenance_id: string
+    service_id: string
+    note: string
+    _count: VehicleMaintenanceDetailCountAggregateOutputType | null
+    _min: VehicleMaintenanceDetailMinAggregateOutputType | null
+    _max: VehicleMaintenanceDetailMaxAggregateOutputType | null
+  }
+
+  type GetVehicleMaintenanceDetailGroupByPayload<T extends VehicleMaintenanceDetailGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VehicleMaintenanceDetailGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VehicleMaintenanceDetailGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VehicleMaintenanceDetailGroupByOutputType[P]>
+            : GetScalarType<T[P], VehicleMaintenanceDetailGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VehicleMaintenanceDetailSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    maintenance_id?: boolean
+    service_id?: boolean
+    note?: boolean
+    vehicle_maintanance?: boolean | VehicleMaintenanceDefaultArgs<ExtArgs>
+    service?: boolean | VehicleServiceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vehicleMaintenanceDetail"]>
+
+  export type VehicleMaintenanceDetailSelectScalar = {
+    id?: boolean
+    maintenance_id?: boolean
+    service_id?: boolean
+    note?: boolean
+  }
+
+  export type VehicleMaintenanceDetailInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vehicle_maintanance?: boolean | VehicleMaintenanceDefaultArgs<ExtArgs>
+    service?: boolean | VehicleServiceDefaultArgs<ExtArgs>
+  }
+
+
+  export type $VehicleMaintenanceDetailPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VehicleMaintenanceDetail"
+    objects: {
+      vehicle_maintanance: Prisma.$VehicleMaintenancePayload<ExtArgs>
+      service: Prisma.$VehicleServicePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      maintenance_id: string
+      service_id: string
+      note: string
+    }, ExtArgs["result"]["vehicleMaintenanceDetail"]>
+    composites: {}
+  }
+
+
+  type VehicleMaintenanceDetailGetPayload<S extends boolean | null | undefined | VehicleMaintenanceDetailDefaultArgs> = $Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload, S>
+
+  type VehicleMaintenanceDetailCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<VehicleMaintenanceDetailFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: VehicleMaintenanceDetailCountAggregateInputType | true
+    }
+
+  export interface VehicleMaintenanceDetailDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VehicleMaintenanceDetail'], meta: { name: 'VehicleMaintenanceDetail' } }
+    /**
+     * Find zero or one VehicleMaintenanceDetail that matches the filter.
+     * @param {VehicleMaintenanceDetailFindUniqueArgs} args - Arguments to find a VehicleMaintenanceDetail
+     * @example
+     * // Get one VehicleMaintenanceDetail
+     * const vehicleMaintenanceDetail = await prisma.vehicleMaintenanceDetail.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends VehicleMaintenanceDetailFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceDetailFindUniqueArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceDetailClient<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one VehicleMaintenanceDetail that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {VehicleMaintenanceDetailFindUniqueOrThrowArgs} args - Arguments to find a VehicleMaintenanceDetail
+     * @example
+     * // Get one VehicleMaintenanceDetail
+     * const vehicleMaintenanceDetail = await prisma.vehicleMaintenanceDetail.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends VehicleMaintenanceDetailFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceDetailFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceDetailClient<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first VehicleMaintenanceDetail that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceDetailFindFirstArgs} args - Arguments to find a VehicleMaintenanceDetail
+     * @example
+     * // Get one VehicleMaintenanceDetail
+     * const vehicleMaintenanceDetail = await prisma.vehicleMaintenanceDetail.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends VehicleMaintenanceDetailFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceDetailFindFirstArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceDetailClient<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first VehicleMaintenanceDetail that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceDetailFindFirstOrThrowArgs} args - Arguments to find a VehicleMaintenanceDetail
+     * @example
+     * // Get one VehicleMaintenanceDetail
+     * const vehicleMaintenanceDetail = await prisma.vehicleMaintenanceDetail.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends VehicleMaintenanceDetailFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceDetailFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceDetailClient<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more VehicleMaintenanceDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceDetailFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VehicleMaintenanceDetails
+     * const vehicleMaintenanceDetails = await prisma.vehicleMaintenanceDetail.findMany()
+     * 
+     * // Get first 10 VehicleMaintenanceDetails
+     * const vehicleMaintenanceDetails = await prisma.vehicleMaintenanceDetail.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vehicleMaintenanceDetailWithIdOnly = await prisma.vehicleMaintenanceDetail.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends VehicleMaintenanceDetailFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceDetailFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a VehicleMaintenanceDetail.
+     * @param {VehicleMaintenanceDetailCreateArgs} args - Arguments to create a VehicleMaintenanceDetail.
+     * @example
+     * // Create one VehicleMaintenanceDetail
+     * const VehicleMaintenanceDetail = await prisma.vehicleMaintenanceDetail.create({
+     *   data: {
+     *     // ... data to create a VehicleMaintenanceDetail
+     *   }
+     * })
+     * 
+    **/
+    create<T extends VehicleMaintenanceDetailCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceDetailCreateArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceDetailClient<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many VehicleMaintenanceDetails.
+     *     @param {VehicleMaintenanceDetailCreateManyArgs} args - Arguments to create many VehicleMaintenanceDetails.
+     *     @example
+     *     // Create many VehicleMaintenanceDetails
+     *     const vehicleMaintenanceDetail = await prisma.vehicleMaintenanceDetail.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends VehicleMaintenanceDetailCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceDetailCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a VehicleMaintenanceDetail.
+     * @param {VehicleMaintenanceDetailDeleteArgs} args - Arguments to delete one VehicleMaintenanceDetail.
+     * @example
+     * // Delete one VehicleMaintenanceDetail
+     * const VehicleMaintenanceDetail = await prisma.vehicleMaintenanceDetail.delete({
+     *   where: {
+     *     // ... filter to delete one VehicleMaintenanceDetail
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends VehicleMaintenanceDetailDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceDetailDeleteArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceDetailClient<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one VehicleMaintenanceDetail.
+     * @param {VehicleMaintenanceDetailUpdateArgs} args - Arguments to update one VehicleMaintenanceDetail.
+     * @example
+     * // Update one VehicleMaintenanceDetail
+     * const vehicleMaintenanceDetail = await prisma.vehicleMaintenanceDetail.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends VehicleMaintenanceDetailUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceDetailUpdateArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceDetailClient<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more VehicleMaintenanceDetails.
+     * @param {VehicleMaintenanceDetailDeleteManyArgs} args - Arguments to filter VehicleMaintenanceDetails to delete.
+     * @example
+     * // Delete a few VehicleMaintenanceDetails
+     * const { count } = await prisma.vehicleMaintenanceDetail.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends VehicleMaintenanceDetailDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleMaintenanceDetailDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VehicleMaintenanceDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceDetailUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VehicleMaintenanceDetails
+     * const vehicleMaintenanceDetail = await prisma.vehicleMaintenanceDetail.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends VehicleMaintenanceDetailUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceDetailUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one VehicleMaintenanceDetail.
+     * @param {VehicleMaintenanceDetailUpsertArgs} args - Arguments to update or create a VehicleMaintenanceDetail.
+     * @example
+     * // Update or create a VehicleMaintenanceDetail
+     * const vehicleMaintenanceDetail = await prisma.vehicleMaintenanceDetail.upsert({
+     *   create: {
+     *     // ... data to create a VehicleMaintenanceDetail
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VehicleMaintenanceDetail we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends VehicleMaintenanceDetailUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, VehicleMaintenanceDetailUpsertArgs<ExtArgs>>
+    ): Prisma__VehicleMaintenanceDetailClient<$Result.GetResult<Prisma.$VehicleMaintenanceDetailPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of VehicleMaintenanceDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceDetailCountArgs} args - Arguments to filter VehicleMaintenanceDetails to count.
+     * @example
+     * // Count the number of VehicleMaintenanceDetails
+     * const count = await prisma.vehicleMaintenanceDetail.count({
+     *   where: {
+     *     // ... the filter for the VehicleMaintenanceDetails we want to count
+     *   }
+     * })
+    **/
+    count<T extends VehicleMaintenanceDetailCountArgs>(
+      args?: Subset<T, VehicleMaintenanceDetailCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VehicleMaintenanceDetailCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VehicleMaintenanceDetail.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceDetailAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VehicleMaintenanceDetailAggregateArgs>(args: Subset<T, VehicleMaintenanceDetailAggregateArgs>): Prisma.PrismaPromise<GetVehicleMaintenanceDetailAggregateType<T>>
+
+    /**
+     * Group by VehicleMaintenanceDetail.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceDetailGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VehicleMaintenanceDetailGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VehicleMaintenanceDetailGroupByArgs['orderBy'] }
+        : { orderBy?: VehicleMaintenanceDetailGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VehicleMaintenanceDetailGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVehicleMaintenanceDetailGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VehicleMaintenanceDetail model
+   */
+  readonly fields: VehicleMaintenanceDetailFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VehicleMaintenanceDetail.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VehicleMaintenanceDetailClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    vehicle_maintanance<T extends VehicleMaintenanceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VehicleMaintenanceDefaultArgs<ExtArgs>>): Prisma__VehicleMaintenanceClient<$Result.GetResult<Prisma.$VehicleMaintenancePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    service<T extends VehicleServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VehicleServiceDefaultArgs<ExtArgs>>): Prisma__VehicleServiceClient<$Result.GetResult<Prisma.$VehicleServicePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the VehicleMaintenanceDetail model
+   */ 
+  interface VehicleMaintenanceDetailFieldRefs {
+    readonly id: FieldRef<"VehicleMaintenanceDetail", 'String'>
+    readonly maintenance_id: FieldRef<"VehicleMaintenanceDetail", 'String'>
+    readonly service_id: FieldRef<"VehicleMaintenanceDetail", 'String'>
+    readonly note: FieldRef<"VehicleMaintenanceDetail", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * VehicleMaintenanceDetail findUnique
+   */
+  export type VehicleMaintenanceDetailFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenanceDetail to fetch.
+     */
+    where: VehicleMaintenanceDetailWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail findUniqueOrThrow
+   */
+  export type VehicleMaintenanceDetailFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenanceDetail to fetch.
+     */
+    where: VehicleMaintenanceDetailWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail findFirst
+   */
+  export type VehicleMaintenanceDetailFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenanceDetail to fetch.
+     */
+    where?: VehicleMaintenanceDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenanceDetails to fetch.
+     */
+    orderBy?: VehicleMaintenanceDetailOrderByWithRelationInput | VehicleMaintenanceDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VehicleMaintenanceDetails.
+     */
+    cursor?: VehicleMaintenanceDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenanceDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenanceDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VehicleMaintenanceDetails.
+     */
+    distinct?: VehicleMaintenanceDetailScalarFieldEnum | VehicleMaintenanceDetailScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail findFirstOrThrow
+   */
+  export type VehicleMaintenanceDetailFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenanceDetail to fetch.
+     */
+    where?: VehicleMaintenanceDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenanceDetails to fetch.
+     */
+    orderBy?: VehicleMaintenanceDetailOrderByWithRelationInput | VehicleMaintenanceDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VehicleMaintenanceDetails.
+     */
+    cursor?: VehicleMaintenanceDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenanceDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenanceDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VehicleMaintenanceDetails.
+     */
+    distinct?: VehicleMaintenanceDetailScalarFieldEnum | VehicleMaintenanceDetailScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail findMany
+   */
+  export type VehicleMaintenanceDetailFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenanceDetails to fetch.
+     */
+    where?: VehicleMaintenanceDetailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenanceDetails to fetch.
+     */
+    orderBy?: VehicleMaintenanceDetailOrderByWithRelationInput | VehicleMaintenanceDetailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VehicleMaintenanceDetails.
+     */
+    cursor?: VehicleMaintenanceDetailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenanceDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenanceDetails.
+     */
+    skip?: number
+    distinct?: VehicleMaintenanceDetailScalarFieldEnum | VehicleMaintenanceDetailScalarFieldEnum[]
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail create
+   */
+  export type VehicleMaintenanceDetailCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VehicleMaintenanceDetail.
+     */
+    data: XOR<VehicleMaintenanceDetailCreateInput, VehicleMaintenanceDetailUncheckedCreateInput>
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail createMany
+   */
+  export type VehicleMaintenanceDetailCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VehicleMaintenanceDetails.
+     */
+    data: VehicleMaintenanceDetailCreateManyInput | VehicleMaintenanceDetailCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail update
+   */
+  export type VehicleMaintenanceDetailUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VehicleMaintenanceDetail.
+     */
+    data: XOR<VehicleMaintenanceDetailUpdateInput, VehicleMaintenanceDetailUncheckedUpdateInput>
+    /**
+     * Choose, which VehicleMaintenanceDetail to update.
+     */
+    where: VehicleMaintenanceDetailWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail updateMany
+   */
+  export type VehicleMaintenanceDetailUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VehicleMaintenanceDetails.
+     */
+    data: XOR<VehicleMaintenanceDetailUpdateManyMutationInput, VehicleMaintenanceDetailUncheckedUpdateManyInput>
+    /**
+     * Filter which VehicleMaintenanceDetails to update
+     */
+    where?: VehicleMaintenanceDetailWhereInput
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail upsert
+   */
+  export type VehicleMaintenanceDetailUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VehicleMaintenanceDetail to update in case it exists.
+     */
+    where: VehicleMaintenanceDetailWhereUniqueInput
+    /**
+     * In case the VehicleMaintenanceDetail found by the `where` argument doesn't exist, create a new VehicleMaintenanceDetail with this data.
+     */
+    create: XOR<VehicleMaintenanceDetailCreateInput, VehicleMaintenanceDetailUncheckedCreateInput>
+    /**
+     * In case the VehicleMaintenanceDetail was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VehicleMaintenanceDetailUpdateInput, VehicleMaintenanceDetailUncheckedUpdateInput>
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail delete
+   */
+  export type VehicleMaintenanceDetailDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+    /**
+     * Filter which VehicleMaintenanceDetail to delete.
+     */
+    where: VehicleMaintenanceDetailWhereUniqueInput
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail deleteMany
+   */
+  export type VehicleMaintenanceDetailDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VehicleMaintenanceDetails to delete
+     */
+    where?: VehicleMaintenanceDetailWhereInput
+  }
+
+
+  /**
+   * VehicleMaintenanceDetail without action
+   */
+  export type VehicleMaintenanceDetailDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceDetail
+     */
+    select?: VehicleMaintenanceDetailSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: VehicleMaintenanceDetailInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -65489,6 +69830,57 @@ export namespace Prisma {
   };
 
   export type FuelTypeScalarFieldEnum = (typeof FuelTypeScalarFieldEnum)[keyof typeof FuelTypeScalarFieldEnum]
+
+
+  export const VehicleServiceScalarFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type VehicleServiceScalarFieldEnum = (typeof VehicleServiceScalarFieldEnum)[keyof typeof VehicleServiceScalarFieldEnum]
+
+
+  export const ServiceCenterScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    location: 'location',
+    contact_person: 'contact_person',
+    contact_number: 'contact_number',
+    remarks: 'remarks'
+  };
+
+  export type ServiceCenterScalarFieldEnum = (typeof ServiceCenterScalarFieldEnum)[keyof typeof ServiceCenterScalarFieldEnum]
+
+
+  export const VehicleMaintenanceScalarFieldEnum: {
+    id: 'id',
+    ref_number: 'ref_number',
+    vehicle_id: 'vehicle_id',
+    service_center_id: 'service_center_id',
+    service_date: 'service_date',
+    service_mileage: 'service_mileage',
+    next_service_date: 'next_service_date',
+    next_service_mileage: 'next_service_mileage',
+    cost: 'cost',
+    remarks: 'remarks',
+    performed_by: 'performed_by',
+    created_by: 'created_by',
+    updated_by: 'updated_by',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type VehicleMaintenanceScalarFieldEnum = (typeof VehicleMaintenanceScalarFieldEnum)[keyof typeof VehicleMaintenanceScalarFieldEnum]
+
+
+  export const VehicleMaintenanceDetailScalarFieldEnum: {
+    id: 'id',
+    maintenance_id: 'maintenance_id',
+    service_id: 'service_id',
+    note: 'note'
+  };
+
+  export type VehicleMaintenanceDetailScalarFieldEnum = (typeof VehicleMaintenanceDetailScalarFieldEnum)[keyof typeof VehicleMaintenanceDetailScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -69667,6 +74059,7 @@ export namespace Prisma {
     trip_tickets?: TripTicketListRelationFilter
     gas_slips?: GasSlipListRelationFilter
     sprs?: SPRListRelationFilter
+    service_history?: VehicleMaintenanceListRelationFilter
   }
 
   export type VehicleOrderByWithRelationInput = {
@@ -69687,6 +74080,7 @@ export namespace Prisma {
     trip_tickets?: TripTicketOrderByRelationAggregateInput
     gas_slips?: GasSlipOrderByRelationAggregateInput
     sprs?: SPROrderByRelationAggregateInput
+    service_history?: VehicleMaintenanceOrderByRelationAggregateInput
   }
 
   export type VehicleWhereUniqueInput = Prisma.AtLeast<{
@@ -69710,6 +74104,7 @@ export namespace Prisma {
     trip_tickets?: TripTicketListRelationFilter
     gas_slips?: GasSlipListRelationFilter
     sprs?: SPRListRelationFilter
+    service_history?: VehicleMaintenanceListRelationFilter
   }, "id" | "vehicle_number" | "plate_number" | "rf_id">
 
   export type VehicleOrderByWithAggregationInput = {
@@ -70278,6 +74673,272 @@ export namespace Prisma {
     NOT?: FuelTypeScalarWhereWithAggregatesInput | FuelTypeScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"FuelType"> | number
     name?: StringWithAggregatesFilter<"FuelType"> | string
+  }
+
+  export type VehicleServiceWhereInput = {
+    AND?: VehicleServiceWhereInput | VehicleServiceWhereInput[]
+    OR?: VehicleServiceWhereInput[]
+    NOT?: VehicleServiceWhereInput | VehicleServiceWhereInput[]
+    id?: StringFilter<"VehicleService"> | string
+    name?: StringFilter<"VehicleService"> | string
+    service_logs?: VehicleMaintenanceDetailListRelationFilter
+  }
+
+  export type VehicleServiceOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    service_logs?: VehicleMaintenanceDetailOrderByRelationAggregateInput
+  }
+
+  export type VehicleServiceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: VehicleServiceWhereInput | VehicleServiceWhereInput[]
+    OR?: VehicleServiceWhereInput[]
+    NOT?: VehicleServiceWhereInput | VehicleServiceWhereInput[]
+    name?: StringFilter<"VehicleService"> | string
+    service_logs?: VehicleMaintenanceDetailListRelationFilter
+  }, "id">
+
+  export type VehicleServiceOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    _count?: VehicleServiceCountOrderByAggregateInput
+    _max?: VehicleServiceMaxOrderByAggregateInput
+    _min?: VehicleServiceMinOrderByAggregateInput
+  }
+
+  export type VehicleServiceScalarWhereWithAggregatesInput = {
+    AND?: VehicleServiceScalarWhereWithAggregatesInput | VehicleServiceScalarWhereWithAggregatesInput[]
+    OR?: VehicleServiceScalarWhereWithAggregatesInput[]
+    NOT?: VehicleServiceScalarWhereWithAggregatesInput | VehicleServiceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"VehicleService"> | string
+    name?: StringWithAggregatesFilter<"VehicleService"> | string
+  }
+
+  export type ServiceCenterWhereInput = {
+    AND?: ServiceCenterWhereInput | ServiceCenterWhereInput[]
+    OR?: ServiceCenterWhereInput[]
+    NOT?: ServiceCenterWhereInput | ServiceCenterWhereInput[]
+    id?: StringFilter<"ServiceCenter"> | string
+    name?: StringFilter<"ServiceCenter"> | string
+    location?: StringFilter<"ServiceCenter"> | string
+    contact_person?: StringFilter<"ServiceCenter"> | string
+    contact_number?: StringFilter<"ServiceCenter"> | string
+    remarks?: StringFilter<"ServiceCenter"> | string
+    service_records?: VehicleMaintenanceListRelationFilter
+  }
+
+  export type ServiceCenterOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    contact_person?: SortOrder
+    contact_number?: SortOrder
+    remarks?: SortOrder
+    service_records?: VehicleMaintenanceOrderByRelationAggregateInput
+  }
+
+  export type ServiceCenterWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: ServiceCenterWhereInput | ServiceCenterWhereInput[]
+    OR?: ServiceCenterWhereInput[]
+    NOT?: ServiceCenterWhereInput | ServiceCenterWhereInput[]
+    location?: StringFilter<"ServiceCenter"> | string
+    contact_person?: StringFilter<"ServiceCenter"> | string
+    contact_number?: StringFilter<"ServiceCenter"> | string
+    remarks?: StringFilter<"ServiceCenter"> | string
+    service_records?: VehicleMaintenanceListRelationFilter
+  }, "id" | "name">
+
+  export type ServiceCenterOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    contact_person?: SortOrder
+    contact_number?: SortOrder
+    remarks?: SortOrder
+    _count?: ServiceCenterCountOrderByAggregateInput
+    _max?: ServiceCenterMaxOrderByAggregateInput
+    _min?: ServiceCenterMinOrderByAggregateInput
+  }
+
+  export type ServiceCenterScalarWhereWithAggregatesInput = {
+    AND?: ServiceCenterScalarWhereWithAggregatesInput | ServiceCenterScalarWhereWithAggregatesInput[]
+    OR?: ServiceCenterScalarWhereWithAggregatesInput[]
+    NOT?: ServiceCenterScalarWhereWithAggregatesInput | ServiceCenterScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ServiceCenter"> | string
+    name?: StringWithAggregatesFilter<"ServiceCenter"> | string
+    location?: StringWithAggregatesFilter<"ServiceCenter"> | string
+    contact_person?: StringWithAggregatesFilter<"ServiceCenter"> | string
+    contact_number?: StringWithAggregatesFilter<"ServiceCenter"> | string
+    remarks?: StringWithAggregatesFilter<"ServiceCenter"> | string
+  }
+
+  export type VehicleMaintenanceWhereInput = {
+    AND?: VehicleMaintenanceWhereInput | VehicleMaintenanceWhereInput[]
+    OR?: VehicleMaintenanceWhereInput[]
+    NOT?: VehicleMaintenanceWhereInput | VehicleMaintenanceWhereInput[]
+    id?: StringFilter<"VehicleMaintenance"> | string
+    ref_number?: StringFilter<"VehicleMaintenance"> | string
+    vehicle_id?: StringFilter<"VehicleMaintenance"> | string
+    service_center_id?: StringFilter<"VehicleMaintenance"> | string
+    service_date?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    service_mileage?: IntFilter<"VehicleMaintenance"> | number
+    next_service_date?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    next_service_mileage?: IntFilter<"VehicleMaintenance"> | number
+    cost?: FloatFilter<"VehicleMaintenance"> | number
+    remarks?: StringFilter<"VehicleMaintenance"> | string
+    performed_by?: StringFilter<"VehicleMaintenance"> | string
+    created_by?: StringFilter<"VehicleMaintenance"> | string
+    updated_by?: StringNullableFilter<"VehicleMaintenance"> | string | null
+    created_at?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    updated_at?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
+    service_center?: XOR<ServiceCenterScalarRelationFilter, ServiceCenterWhereInput>
+    services?: VehicleMaintenanceDetailListRelationFilter
+  }
+
+  export type VehicleMaintenanceOrderByWithRelationInput = {
+    id?: SortOrder
+    ref_number?: SortOrder
+    vehicle_id?: SortOrder
+    service_center_id?: SortOrder
+    service_date?: SortOrder
+    service_mileage?: SortOrder
+    next_service_date?: SortOrder
+    next_service_mileage?: SortOrder
+    cost?: SortOrder
+    remarks?: SortOrder
+    performed_by?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    vehicle?: VehicleOrderByWithRelationInput
+    service_center?: ServiceCenterOrderByWithRelationInput
+    services?: VehicleMaintenanceDetailOrderByRelationAggregateInput
+  }
+
+  export type VehicleMaintenanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    ref_number?: string
+    AND?: VehicleMaintenanceWhereInput | VehicleMaintenanceWhereInput[]
+    OR?: VehicleMaintenanceWhereInput[]
+    NOT?: VehicleMaintenanceWhereInput | VehicleMaintenanceWhereInput[]
+    vehicle_id?: StringFilter<"VehicleMaintenance"> | string
+    service_center_id?: StringFilter<"VehicleMaintenance"> | string
+    service_date?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    service_mileage?: IntFilter<"VehicleMaintenance"> | number
+    next_service_date?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    next_service_mileage?: IntFilter<"VehicleMaintenance"> | number
+    cost?: FloatFilter<"VehicleMaintenance"> | number
+    remarks?: StringFilter<"VehicleMaintenance"> | string
+    performed_by?: StringFilter<"VehicleMaintenance"> | string
+    created_by?: StringFilter<"VehicleMaintenance"> | string
+    updated_by?: StringNullableFilter<"VehicleMaintenance"> | string | null
+    created_at?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    updated_at?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    vehicle?: XOR<VehicleScalarRelationFilter, VehicleWhereInput>
+    service_center?: XOR<ServiceCenterScalarRelationFilter, ServiceCenterWhereInput>
+    services?: VehicleMaintenanceDetailListRelationFilter
+  }, "id" | "ref_number">
+
+  export type VehicleMaintenanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    ref_number?: SortOrder
+    vehicle_id?: SortOrder
+    service_center_id?: SortOrder
+    service_date?: SortOrder
+    service_mileage?: SortOrder
+    next_service_date?: SortOrder
+    next_service_mileage?: SortOrder
+    cost?: SortOrder
+    remarks?: SortOrder
+    performed_by?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: VehicleMaintenanceCountOrderByAggregateInput
+    _avg?: VehicleMaintenanceAvgOrderByAggregateInput
+    _max?: VehicleMaintenanceMaxOrderByAggregateInput
+    _min?: VehicleMaintenanceMinOrderByAggregateInput
+    _sum?: VehicleMaintenanceSumOrderByAggregateInput
+  }
+
+  export type VehicleMaintenanceScalarWhereWithAggregatesInput = {
+    AND?: VehicleMaintenanceScalarWhereWithAggregatesInput | VehicleMaintenanceScalarWhereWithAggregatesInput[]
+    OR?: VehicleMaintenanceScalarWhereWithAggregatesInput[]
+    NOT?: VehicleMaintenanceScalarWhereWithAggregatesInput | VehicleMaintenanceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"VehicleMaintenance"> | string
+    ref_number?: StringWithAggregatesFilter<"VehicleMaintenance"> | string
+    vehicle_id?: StringWithAggregatesFilter<"VehicleMaintenance"> | string
+    service_center_id?: StringWithAggregatesFilter<"VehicleMaintenance"> | string
+    service_date?: DateTimeWithAggregatesFilter<"VehicleMaintenance"> | Date | string
+    service_mileage?: IntWithAggregatesFilter<"VehicleMaintenance"> | number
+    next_service_date?: DateTimeWithAggregatesFilter<"VehicleMaintenance"> | Date | string
+    next_service_mileage?: IntWithAggregatesFilter<"VehicleMaintenance"> | number
+    cost?: FloatWithAggregatesFilter<"VehicleMaintenance"> | number
+    remarks?: StringWithAggregatesFilter<"VehicleMaintenance"> | string
+    performed_by?: StringWithAggregatesFilter<"VehicleMaintenance"> | string
+    created_by?: StringWithAggregatesFilter<"VehicleMaintenance"> | string
+    updated_by?: StringNullableWithAggregatesFilter<"VehicleMaintenance"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"VehicleMaintenance"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"VehicleMaintenance"> | Date | string
+  }
+
+  export type VehicleMaintenanceDetailWhereInput = {
+    AND?: VehicleMaintenanceDetailWhereInput | VehicleMaintenanceDetailWhereInput[]
+    OR?: VehicleMaintenanceDetailWhereInput[]
+    NOT?: VehicleMaintenanceDetailWhereInput | VehicleMaintenanceDetailWhereInput[]
+    id?: StringFilter<"VehicleMaintenanceDetail"> | string
+    maintenance_id?: StringFilter<"VehicleMaintenanceDetail"> | string
+    service_id?: StringFilter<"VehicleMaintenanceDetail"> | string
+    note?: StringFilter<"VehicleMaintenanceDetail"> | string
+    vehicle_maintanance?: XOR<VehicleMaintenanceScalarRelationFilter, VehicleMaintenanceWhereInput>
+    service?: XOR<VehicleServiceScalarRelationFilter, VehicleServiceWhereInput>
+  }
+
+  export type VehicleMaintenanceDetailOrderByWithRelationInput = {
+    id?: SortOrder
+    maintenance_id?: SortOrder
+    service_id?: SortOrder
+    note?: SortOrder
+    vehicle_maintanance?: VehicleMaintenanceOrderByWithRelationInput
+    service?: VehicleServiceOrderByWithRelationInput
+  }
+
+  export type VehicleMaintenanceDetailWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: VehicleMaintenanceDetailWhereInput | VehicleMaintenanceDetailWhereInput[]
+    OR?: VehicleMaintenanceDetailWhereInput[]
+    NOT?: VehicleMaintenanceDetailWhereInput | VehicleMaintenanceDetailWhereInput[]
+    maintenance_id?: StringFilter<"VehicleMaintenanceDetail"> | string
+    service_id?: StringFilter<"VehicleMaintenanceDetail"> | string
+    note?: StringFilter<"VehicleMaintenanceDetail"> | string
+    vehicle_maintanance?: XOR<VehicleMaintenanceScalarRelationFilter, VehicleMaintenanceWhereInput>
+    service?: XOR<VehicleServiceScalarRelationFilter, VehicleServiceWhereInput>
+  }, "id">
+
+  export type VehicleMaintenanceDetailOrderByWithAggregationInput = {
+    id?: SortOrder
+    maintenance_id?: SortOrder
+    service_id?: SortOrder
+    note?: SortOrder
+    _count?: VehicleMaintenanceDetailCountOrderByAggregateInput
+    _max?: VehicleMaintenanceDetailMaxOrderByAggregateInput
+    _min?: VehicleMaintenanceDetailMinOrderByAggregateInput
+  }
+
+  export type VehicleMaintenanceDetailScalarWhereWithAggregatesInput = {
+    AND?: VehicleMaintenanceDetailScalarWhereWithAggregatesInput | VehicleMaintenanceDetailScalarWhereWithAggregatesInput[]
+    OR?: VehicleMaintenanceDetailScalarWhereWithAggregatesInput[]
+    NOT?: VehicleMaintenanceDetailScalarWhereWithAggregatesInput | VehicleMaintenanceDetailScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"VehicleMaintenanceDetail"> | string
+    maintenance_id?: StringWithAggregatesFilter<"VehicleMaintenanceDetail"> | string
+    service_id?: StringWithAggregatesFilter<"VehicleMaintenanceDetail"> | string
+    note?: StringWithAggregatesFilter<"VehicleMaintenanceDetail"> | string
   }
 
   export type ItemTypeCreateInput = {
@@ -74663,6 +79324,7 @@ export namespace Prisma {
     trip_tickets?: TripTicketCreateNestedManyWithoutVehicleInput
     gas_slips?: GasSlipCreateNestedManyWithoutVehicleInput
     sprs?: SPRCreateNestedManyWithoutVehicleInput
+    service_history?: VehicleMaintenanceCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUncheckedCreateInput = {
@@ -74683,6 +79345,7 @@ export namespace Prisma {
     trip_tickets?: TripTicketUncheckedCreateNestedManyWithoutVehicleInput
     gas_slips?: GasSlipUncheckedCreateNestedManyWithoutVehicleInput
     sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
+    service_history?: VehicleMaintenanceUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUpdateInput = {
@@ -74703,6 +79366,7 @@ export namespace Prisma {
     trip_tickets?: TripTicketUpdateManyWithoutVehicleNestedInput
     gas_slips?: GasSlipUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUpdateManyWithoutVehicleNestedInput
+    service_history?: VehicleMaintenanceUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateInput = {
@@ -74723,6 +79387,7 @@ export namespace Prisma {
     trip_tickets?: TripTicketUncheckedUpdateManyWithoutVehicleNestedInput
     gas_slips?: GasSlipUncheckedUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
+    service_history?: VehicleMaintenanceUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleCreateManyInput = {
@@ -75352,6 +80017,287 @@ export namespace Prisma {
   export type FuelTypeUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VehicleServiceCreateInput = {
+    id?: string
+    name: string
+    service_logs?: VehicleMaintenanceDetailCreateNestedManyWithoutServiceInput
+  }
+
+  export type VehicleServiceUncheckedCreateInput = {
+    id?: string
+    name: string
+    service_logs?: VehicleMaintenanceDetailUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type VehicleServiceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    service_logs?: VehicleMaintenanceDetailUpdateManyWithoutServiceNestedInput
+  }
+
+  export type VehicleServiceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    service_logs?: VehicleMaintenanceDetailUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type VehicleServiceCreateManyInput = {
+    id?: string
+    name: string
+  }
+
+  export type VehicleServiceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VehicleServiceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ServiceCenterCreateInput = {
+    id?: string
+    name: string
+    location: string
+    contact_person?: string
+    contact_number?: string
+    remarks?: string
+    service_records?: VehicleMaintenanceCreateNestedManyWithoutService_centerInput
+  }
+
+  export type ServiceCenterUncheckedCreateInput = {
+    id?: string
+    name: string
+    location: string
+    contact_person?: string
+    contact_number?: string
+    remarks?: string
+    service_records?: VehicleMaintenanceUncheckedCreateNestedManyWithoutService_centerInput
+  }
+
+  export type ServiceCenterUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    contact_person?: StringFieldUpdateOperationsInput | string
+    contact_number?: StringFieldUpdateOperationsInput | string
+    remarks?: StringFieldUpdateOperationsInput | string
+    service_records?: VehicleMaintenanceUpdateManyWithoutService_centerNestedInput
+  }
+
+  export type ServiceCenterUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    contact_person?: StringFieldUpdateOperationsInput | string
+    contact_number?: StringFieldUpdateOperationsInput | string
+    remarks?: StringFieldUpdateOperationsInput | string
+    service_records?: VehicleMaintenanceUncheckedUpdateManyWithoutService_centerNestedInput
+  }
+
+  export type ServiceCenterCreateManyInput = {
+    id?: string
+    name: string
+    location: string
+    contact_person?: string
+    contact_number?: string
+    remarks?: string
+  }
+
+  export type ServiceCenterUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    contact_person?: StringFieldUpdateOperationsInput | string
+    contact_number?: StringFieldUpdateOperationsInput | string
+    remarks?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ServiceCenterUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    contact_person?: StringFieldUpdateOperationsInput | string
+    contact_number?: StringFieldUpdateOperationsInput | string
+    remarks?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VehicleMaintenanceCreateInput = {
+    id?: string
+    ref_number: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    vehicle: VehicleCreateNestedOneWithoutService_historyInput
+    service_center: ServiceCenterCreateNestedOneWithoutService_recordsInput
+    services?: VehicleMaintenanceDetailCreateNestedManyWithoutVehicle_maintananceInput
+  }
+
+  export type VehicleMaintenanceUncheckedCreateInput = {
+    id?: string
+    ref_number: string
+    vehicle_id: string
+    service_center_id: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    services?: VehicleMaintenanceDetailUncheckedCreateNestedManyWithoutVehicle_maintananceInput
+  }
+
+  export type VehicleMaintenanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle?: VehicleUpdateOneRequiredWithoutService_historyNestedInput
+    service_center?: ServiceCenterUpdateOneRequiredWithoutService_recordsNestedInput
+    services?: VehicleMaintenanceDetailUpdateManyWithoutVehicle_maintananceNestedInput
+  }
+
+  export type VehicleMaintenanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    vehicle_id?: StringFieldUpdateOperationsInput | string
+    service_center_id?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: VehicleMaintenanceDetailUncheckedUpdateManyWithoutVehicle_maintananceNestedInput
+  }
+
+  export type VehicleMaintenanceCreateManyInput = {
+    id?: string
+    ref_number: string
+    vehicle_id: string
+    service_center_id: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type VehicleMaintenanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    vehicle_id?: StringFieldUpdateOperationsInput | string
+    service_center_id?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceDetailCreateInput = {
+    id?: string
+    note?: string
+    vehicle_maintanance: VehicleMaintenanceCreateNestedOneWithoutServicesInput
+    service: VehicleServiceCreateNestedOneWithoutService_logsInput
+  }
+
+  export type VehicleMaintenanceDetailUncheckedCreateInput = {
+    id?: string
+    maintenance_id: string
+    service_id: string
+    note?: string
+  }
+
+  export type VehicleMaintenanceDetailUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    vehicle_maintanance?: VehicleMaintenanceUpdateOneRequiredWithoutServicesNestedInput
+    service?: VehicleServiceUpdateOneRequiredWithoutService_logsNestedInput
+  }
+
+  export type VehicleMaintenanceDetailUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenance_id?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VehicleMaintenanceDetailCreateManyInput = {
+    id?: string
+    maintenance_id: string
+    service_id: string
+    note?: string
+  }
+
+  export type VehicleMaintenanceDetailUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VehicleMaintenanceDetailUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenance_id?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -78396,6 +83342,12 @@ export namespace Prisma {
     none?: SPRWhereInput
   }
 
+  export type VehicleMaintenanceListRelationFilter = {
+    every?: VehicleMaintenanceWhereInput
+    some?: VehicleMaintenanceWhereInput
+    none?: VehicleMaintenanceWhereInput
+  }
+
   export type TripTicketOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -78405,6 +83357,10 @@ export namespace Prisma {
   }
 
   export type SPROrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VehicleMaintenanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -78865,6 +83821,160 @@ export namespace Prisma {
 
   export type FuelTypeSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type VehicleMaintenanceDetailListRelationFilter = {
+    every?: VehicleMaintenanceDetailWhereInput
+    some?: VehicleMaintenanceDetailWhereInput
+    none?: VehicleMaintenanceDetailWhereInput
+  }
+
+  export type VehicleMaintenanceDetailOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VehicleServiceCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type VehicleServiceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type VehicleServiceMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type ServiceCenterCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    contact_person?: SortOrder
+    contact_number?: SortOrder
+    remarks?: SortOrder
+  }
+
+  export type ServiceCenterMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    contact_person?: SortOrder
+    contact_number?: SortOrder
+    remarks?: SortOrder
+  }
+
+  export type ServiceCenterMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    contact_person?: SortOrder
+    contact_number?: SortOrder
+    remarks?: SortOrder
+  }
+
+  export type ServiceCenterScalarRelationFilter = {
+    is?: ServiceCenterWhereInput
+    isNot?: ServiceCenterWhereInput
+  }
+
+  export type VehicleMaintenanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    ref_number?: SortOrder
+    vehicle_id?: SortOrder
+    service_center_id?: SortOrder
+    service_date?: SortOrder
+    service_mileage?: SortOrder
+    next_service_date?: SortOrder
+    next_service_mileage?: SortOrder
+    cost?: SortOrder
+    remarks?: SortOrder
+    performed_by?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type VehicleMaintenanceAvgOrderByAggregateInput = {
+    service_mileage?: SortOrder
+    next_service_mileage?: SortOrder
+    cost?: SortOrder
+  }
+
+  export type VehicleMaintenanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ref_number?: SortOrder
+    vehicle_id?: SortOrder
+    service_center_id?: SortOrder
+    service_date?: SortOrder
+    service_mileage?: SortOrder
+    next_service_date?: SortOrder
+    next_service_mileage?: SortOrder
+    cost?: SortOrder
+    remarks?: SortOrder
+    performed_by?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type VehicleMaintenanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    ref_number?: SortOrder
+    vehicle_id?: SortOrder
+    service_center_id?: SortOrder
+    service_date?: SortOrder
+    service_mileage?: SortOrder
+    next_service_date?: SortOrder
+    next_service_mileage?: SortOrder
+    cost?: SortOrder
+    remarks?: SortOrder
+    performed_by?: SortOrder
+    created_by?: SortOrder
+    updated_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type VehicleMaintenanceSumOrderByAggregateInput = {
+    service_mileage?: SortOrder
+    next_service_mileage?: SortOrder
+    cost?: SortOrder
+  }
+
+  export type VehicleMaintenanceScalarRelationFilter = {
+    is?: VehicleMaintenanceWhereInput
+    isNot?: VehicleMaintenanceWhereInput
+  }
+
+  export type VehicleServiceScalarRelationFilter = {
+    is?: VehicleServiceWhereInput
+    isNot?: VehicleServiceWhereInput
+  }
+
+  export type VehicleMaintenanceDetailCountOrderByAggregateInput = {
+    id?: SortOrder
+    maintenance_id?: SortOrder
+    service_id?: SortOrder
+    note?: SortOrder
+  }
+
+  export type VehicleMaintenanceDetailMaxOrderByAggregateInput = {
+    id?: SortOrder
+    maintenance_id?: SortOrder
+    service_id?: SortOrder
+    note?: SortOrder
+  }
+
+  export type VehicleMaintenanceDetailMinOrderByAggregateInput = {
+    id?: SortOrder
+    maintenance_id?: SortOrder
+    service_id?: SortOrder
+    note?: SortOrder
   }
 
   export type ItemCreateNestedManyWithoutItem_typeInput = {
@@ -82310,6 +87420,13 @@ export namespace Prisma {
     connect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
   }
 
+  export type VehicleMaintenanceCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<VehicleMaintenanceCreateWithoutVehicleInput, VehicleMaintenanceUncheckedCreateWithoutVehicleInput> | VehicleMaintenanceCreateWithoutVehicleInput[] | VehicleMaintenanceUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: VehicleMaintenanceCreateOrConnectWithoutVehicleInput | VehicleMaintenanceCreateOrConnectWithoutVehicleInput[]
+    createMany?: VehicleMaintenanceCreateManyVehicleInputEnvelope
+    connect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+  }
+
   export type TripTicketUncheckedCreateNestedManyWithoutVehicleInput = {
     create?: XOR<TripTicketCreateWithoutVehicleInput, TripTicketUncheckedCreateWithoutVehicleInput> | TripTicketCreateWithoutVehicleInput[] | TripTicketUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: TripTicketCreateOrConnectWithoutVehicleInput | TripTicketCreateOrConnectWithoutVehicleInput[]
@@ -82329,6 +87446,13 @@ export namespace Prisma {
     connectOrCreate?: SPRCreateOrConnectWithoutVehicleInput | SPRCreateOrConnectWithoutVehicleInput[]
     createMany?: SPRCreateManyVehicleInputEnvelope
     connect?: SPRWhereUniqueInput | SPRWhereUniqueInput[]
+  }
+
+  export type VehicleMaintenanceUncheckedCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<VehicleMaintenanceCreateWithoutVehicleInput, VehicleMaintenanceUncheckedCreateWithoutVehicleInput> | VehicleMaintenanceCreateWithoutVehicleInput[] | VehicleMaintenanceUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: VehicleMaintenanceCreateOrConnectWithoutVehicleInput | VehicleMaintenanceCreateOrConnectWithoutVehicleInput[]
+    createMany?: VehicleMaintenanceCreateManyVehicleInputEnvelope
+    connect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
   }
 
   export type TripTicketUpdateManyWithoutVehicleNestedInput = {
@@ -82373,6 +87497,20 @@ export namespace Prisma {
     deleteMany?: SPRScalarWhereInput | SPRScalarWhereInput[]
   }
 
+  export type VehicleMaintenanceUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<VehicleMaintenanceCreateWithoutVehicleInput, VehicleMaintenanceUncheckedCreateWithoutVehicleInput> | VehicleMaintenanceCreateWithoutVehicleInput[] | VehicleMaintenanceUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: VehicleMaintenanceCreateOrConnectWithoutVehicleInput | VehicleMaintenanceCreateOrConnectWithoutVehicleInput[]
+    upsert?: VehicleMaintenanceUpsertWithWhereUniqueWithoutVehicleInput | VehicleMaintenanceUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: VehicleMaintenanceCreateManyVehicleInputEnvelope
+    set?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    delete?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    connect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    update?: VehicleMaintenanceUpdateWithWhereUniqueWithoutVehicleInput | VehicleMaintenanceUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: VehicleMaintenanceUpdateManyWithWhereWithoutVehicleInput | VehicleMaintenanceUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: VehicleMaintenanceScalarWhereInput | VehicleMaintenanceScalarWhereInput[]
+  }
+
   export type TripTicketUncheckedUpdateManyWithoutVehicleNestedInput = {
     create?: XOR<TripTicketCreateWithoutVehicleInput, TripTicketUncheckedCreateWithoutVehicleInput> | TripTicketCreateWithoutVehicleInput[] | TripTicketUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: TripTicketCreateOrConnectWithoutVehicleInput | TripTicketCreateOrConnectWithoutVehicleInput[]
@@ -82413,6 +87551,20 @@ export namespace Prisma {
     update?: SPRUpdateWithWhereUniqueWithoutVehicleInput | SPRUpdateWithWhereUniqueWithoutVehicleInput[]
     updateMany?: SPRUpdateManyWithWhereWithoutVehicleInput | SPRUpdateManyWithWhereWithoutVehicleInput[]
     deleteMany?: SPRScalarWhereInput | SPRScalarWhereInput[]
+  }
+
+  export type VehicleMaintenanceUncheckedUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<VehicleMaintenanceCreateWithoutVehicleInput, VehicleMaintenanceUncheckedCreateWithoutVehicleInput> | VehicleMaintenanceCreateWithoutVehicleInput[] | VehicleMaintenanceUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: VehicleMaintenanceCreateOrConnectWithoutVehicleInput | VehicleMaintenanceCreateOrConnectWithoutVehicleInput[]
+    upsert?: VehicleMaintenanceUpsertWithWhereUniqueWithoutVehicleInput | VehicleMaintenanceUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: VehicleMaintenanceCreateManyVehicleInputEnvelope
+    set?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    delete?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    connect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    update?: VehicleMaintenanceUpdateWithWhereUniqueWithoutVehicleInput | VehicleMaintenanceUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: VehicleMaintenanceUpdateManyWithWhereWithoutVehicleInput | VehicleMaintenanceUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: VehicleMaintenanceScalarWhereInput | VehicleMaintenanceScalarWhereInput[]
   }
 
   export type VehicleCreateNestedOneWithoutTrip_ticketsInput = {
@@ -82677,6 +87829,188 @@ export namespace Prisma {
     update?: GasSlipUpdateWithWhereUniqueWithoutFuel_typeInput | GasSlipUpdateWithWhereUniqueWithoutFuel_typeInput[]
     updateMany?: GasSlipUpdateManyWithWhereWithoutFuel_typeInput | GasSlipUpdateManyWithWhereWithoutFuel_typeInput[]
     deleteMany?: GasSlipScalarWhereInput | GasSlipScalarWhereInput[]
+  }
+
+  export type VehicleMaintenanceDetailCreateNestedManyWithoutServiceInput = {
+    create?: XOR<VehicleMaintenanceDetailCreateWithoutServiceInput, VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput> | VehicleMaintenanceDetailCreateWithoutServiceInput[] | VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: VehicleMaintenanceDetailCreateOrConnectWithoutServiceInput | VehicleMaintenanceDetailCreateOrConnectWithoutServiceInput[]
+    createMany?: VehicleMaintenanceDetailCreateManyServiceInputEnvelope
+    connect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+  }
+
+  export type VehicleMaintenanceDetailUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<VehicleMaintenanceDetailCreateWithoutServiceInput, VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput> | VehicleMaintenanceDetailCreateWithoutServiceInput[] | VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: VehicleMaintenanceDetailCreateOrConnectWithoutServiceInput | VehicleMaintenanceDetailCreateOrConnectWithoutServiceInput[]
+    createMany?: VehicleMaintenanceDetailCreateManyServiceInputEnvelope
+    connect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+  }
+
+  export type VehicleMaintenanceDetailUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<VehicleMaintenanceDetailCreateWithoutServiceInput, VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput> | VehicleMaintenanceDetailCreateWithoutServiceInput[] | VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: VehicleMaintenanceDetailCreateOrConnectWithoutServiceInput | VehicleMaintenanceDetailCreateOrConnectWithoutServiceInput[]
+    upsert?: VehicleMaintenanceDetailUpsertWithWhereUniqueWithoutServiceInput | VehicleMaintenanceDetailUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: VehicleMaintenanceDetailCreateManyServiceInputEnvelope
+    set?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    delete?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    connect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    update?: VehicleMaintenanceDetailUpdateWithWhereUniqueWithoutServiceInput | VehicleMaintenanceDetailUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: VehicleMaintenanceDetailUpdateManyWithWhereWithoutServiceInput | VehicleMaintenanceDetailUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: VehicleMaintenanceDetailScalarWhereInput | VehicleMaintenanceDetailScalarWhereInput[]
+  }
+
+  export type VehicleMaintenanceDetailUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<VehicleMaintenanceDetailCreateWithoutServiceInput, VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput> | VehicleMaintenanceDetailCreateWithoutServiceInput[] | VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: VehicleMaintenanceDetailCreateOrConnectWithoutServiceInput | VehicleMaintenanceDetailCreateOrConnectWithoutServiceInput[]
+    upsert?: VehicleMaintenanceDetailUpsertWithWhereUniqueWithoutServiceInput | VehicleMaintenanceDetailUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: VehicleMaintenanceDetailCreateManyServiceInputEnvelope
+    set?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    delete?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    connect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    update?: VehicleMaintenanceDetailUpdateWithWhereUniqueWithoutServiceInput | VehicleMaintenanceDetailUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: VehicleMaintenanceDetailUpdateManyWithWhereWithoutServiceInput | VehicleMaintenanceDetailUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: VehicleMaintenanceDetailScalarWhereInput | VehicleMaintenanceDetailScalarWhereInput[]
+  }
+
+  export type VehicleMaintenanceCreateNestedManyWithoutService_centerInput = {
+    create?: XOR<VehicleMaintenanceCreateWithoutService_centerInput, VehicleMaintenanceUncheckedCreateWithoutService_centerInput> | VehicleMaintenanceCreateWithoutService_centerInput[] | VehicleMaintenanceUncheckedCreateWithoutService_centerInput[]
+    connectOrCreate?: VehicleMaintenanceCreateOrConnectWithoutService_centerInput | VehicleMaintenanceCreateOrConnectWithoutService_centerInput[]
+    createMany?: VehicleMaintenanceCreateManyService_centerInputEnvelope
+    connect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+  }
+
+  export type VehicleMaintenanceUncheckedCreateNestedManyWithoutService_centerInput = {
+    create?: XOR<VehicleMaintenanceCreateWithoutService_centerInput, VehicleMaintenanceUncheckedCreateWithoutService_centerInput> | VehicleMaintenanceCreateWithoutService_centerInput[] | VehicleMaintenanceUncheckedCreateWithoutService_centerInput[]
+    connectOrCreate?: VehicleMaintenanceCreateOrConnectWithoutService_centerInput | VehicleMaintenanceCreateOrConnectWithoutService_centerInput[]
+    createMany?: VehicleMaintenanceCreateManyService_centerInputEnvelope
+    connect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+  }
+
+  export type VehicleMaintenanceUpdateManyWithoutService_centerNestedInput = {
+    create?: XOR<VehicleMaintenanceCreateWithoutService_centerInput, VehicleMaintenanceUncheckedCreateWithoutService_centerInput> | VehicleMaintenanceCreateWithoutService_centerInput[] | VehicleMaintenanceUncheckedCreateWithoutService_centerInput[]
+    connectOrCreate?: VehicleMaintenanceCreateOrConnectWithoutService_centerInput | VehicleMaintenanceCreateOrConnectWithoutService_centerInput[]
+    upsert?: VehicleMaintenanceUpsertWithWhereUniqueWithoutService_centerInput | VehicleMaintenanceUpsertWithWhereUniqueWithoutService_centerInput[]
+    createMany?: VehicleMaintenanceCreateManyService_centerInputEnvelope
+    set?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    delete?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    connect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    update?: VehicleMaintenanceUpdateWithWhereUniqueWithoutService_centerInput | VehicleMaintenanceUpdateWithWhereUniqueWithoutService_centerInput[]
+    updateMany?: VehicleMaintenanceUpdateManyWithWhereWithoutService_centerInput | VehicleMaintenanceUpdateManyWithWhereWithoutService_centerInput[]
+    deleteMany?: VehicleMaintenanceScalarWhereInput | VehicleMaintenanceScalarWhereInput[]
+  }
+
+  export type VehicleMaintenanceUncheckedUpdateManyWithoutService_centerNestedInput = {
+    create?: XOR<VehicleMaintenanceCreateWithoutService_centerInput, VehicleMaintenanceUncheckedCreateWithoutService_centerInput> | VehicleMaintenanceCreateWithoutService_centerInput[] | VehicleMaintenanceUncheckedCreateWithoutService_centerInput[]
+    connectOrCreate?: VehicleMaintenanceCreateOrConnectWithoutService_centerInput | VehicleMaintenanceCreateOrConnectWithoutService_centerInput[]
+    upsert?: VehicleMaintenanceUpsertWithWhereUniqueWithoutService_centerInput | VehicleMaintenanceUpsertWithWhereUniqueWithoutService_centerInput[]
+    createMany?: VehicleMaintenanceCreateManyService_centerInputEnvelope
+    set?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    delete?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    connect?: VehicleMaintenanceWhereUniqueInput | VehicleMaintenanceWhereUniqueInput[]
+    update?: VehicleMaintenanceUpdateWithWhereUniqueWithoutService_centerInput | VehicleMaintenanceUpdateWithWhereUniqueWithoutService_centerInput[]
+    updateMany?: VehicleMaintenanceUpdateManyWithWhereWithoutService_centerInput | VehicleMaintenanceUpdateManyWithWhereWithoutService_centerInput[]
+    deleteMany?: VehicleMaintenanceScalarWhereInput | VehicleMaintenanceScalarWhereInput[]
+  }
+
+  export type VehicleCreateNestedOneWithoutService_historyInput = {
+    create?: XOR<VehicleCreateWithoutService_historyInput, VehicleUncheckedCreateWithoutService_historyInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutService_historyInput
+    connect?: VehicleWhereUniqueInput
+  }
+
+  export type ServiceCenterCreateNestedOneWithoutService_recordsInput = {
+    create?: XOR<ServiceCenterCreateWithoutService_recordsInput, ServiceCenterUncheckedCreateWithoutService_recordsInput>
+    connectOrCreate?: ServiceCenterCreateOrConnectWithoutService_recordsInput
+    connect?: ServiceCenterWhereUniqueInput
+  }
+
+  export type VehicleMaintenanceDetailCreateNestedManyWithoutVehicle_maintananceInput = {
+    create?: XOR<VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput, VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput> | VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput[] | VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput[]
+    connectOrCreate?: VehicleMaintenanceDetailCreateOrConnectWithoutVehicle_maintananceInput | VehicleMaintenanceDetailCreateOrConnectWithoutVehicle_maintananceInput[]
+    createMany?: VehicleMaintenanceDetailCreateManyVehicle_maintananceInputEnvelope
+    connect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+  }
+
+  export type VehicleMaintenanceDetailUncheckedCreateNestedManyWithoutVehicle_maintananceInput = {
+    create?: XOR<VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput, VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput> | VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput[] | VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput[]
+    connectOrCreate?: VehicleMaintenanceDetailCreateOrConnectWithoutVehicle_maintananceInput | VehicleMaintenanceDetailCreateOrConnectWithoutVehicle_maintananceInput[]
+    createMany?: VehicleMaintenanceDetailCreateManyVehicle_maintananceInputEnvelope
+    connect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+  }
+
+  export type VehicleUpdateOneRequiredWithoutService_historyNestedInput = {
+    create?: XOR<VehicleCreateWithoutService_historyInput, VehicleUncheckedCreateWithoutService_historyInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutService_historyInput
+    upsert?: VehicleUpsertWithoutService_historyInput
+    connect?: VehicleWhereUniqueInput
+    update?: XOR<XOR<VehicleUpdateToOneWithWhereWithoutService_historyInput, VehicleUpdateWithoutService_historyInput>, VehicleUncheckedUpdateWithoutService_historyInput>
+  }
+
+  export type ServiceCenterUpdateOneRequiredWithoutService_recordsNestedInput = {
+    create?: XOR<ServiceCenterCreateWithoutService_recordsInput, ServiceCenterUncheckedCreateWithoutService_recordsInput>
+    connectOrCreate?: ServiceCenterCreateOrConnectWithoutService_recordsInput
+    upsert?: ServiceCenterUpsertWithoutService_recordsInput
+    connect?: ServiceCenterWhereUniqueInput
+    update?: XOR<XOR<ServiceCenterUpdateToOneWithWhereWithoutService_recordsInput, ServiceCenterUpdateWithoutService_recordsInput>, ServiceCenterUncheckedUpdateWithoutService_recordsInput>
+  }
+
+  export type VehicleMaintenanceDetailUpdateManyWithoutVehicle_maintananceNestedInput = {
+    create?: XOR<VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput, VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput> | VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput[] | VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput[]
+    connectOrCreate?: VehicleMaintenanceDetailCreateOrConnectWithoutVehicle_maintananceInput | VehicleMaintenanceDetailCreateOrConnectWithoutVehicle_maintananceInput[]
+    upsert?: VehicleMaintenanceDetailUpsertWithWhereUniqueWithoutVehicle_maintananceInput | VehicleMaintenanceDetailUpsertWithWhereUniqueWithoutVehicle_maintananceInput[]
+    createMany?: VehicleMaintenanceDetailCreateManyVehicle_maintananceInputEnvelope
+    set?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    delete?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    connect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    update?: VehicleMaintenanceDetailUpdateWithWhereUniqueWithoutVehicle_maintananceInput | VehicleMaintenanceDetailUpdateWithWhereUniqueWithoutVehicle_maintananceInput[]
+    updateMany?: VehicleMaintenanceDetailUpdateManyWithWhereWithoutVehicle_maintananceInput | VehicleMaintenanceDetailUpdateManyWithWhereWithoutVehicle_maintananceInput[]
+    deleteMany?: VehicleMaintenanceDetailScalarWhereInput | VehicleMaintenanceDetailScalarWhereInput[]
+  }
+
+  export type VehicleMaintenanceDetailUncheckedUpdateManyWithoutVehicle_maintananceNestedInput = {
+    create?: XOR<VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput, VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput> | VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput[] | VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput[]
+    connectOrCreate?: VehicleMaintenanceDetailCreateOrConnectWithoutVehicle_maintananceInput | VehicleMaintenanceDetailCreateOrConnectWithoutVehicle_maintananceInput[]
+    upsert?: VehicleMaintenanceDetailUpsertWithWhereUniqueWithoutVehicle_maintananceInput | VehicleMaintenanceDetailUpsertWithWhereUniqueWithoutVehicle_maintananceInput[]
+    createMany?: VehicleMaintenanceDetailCreateManyVehicle_maintananceInputEnvelope
+    set?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    delete?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    connect?: VehicleMaintenanceDetailWhereUniqueInput | VehicleMaintenanceDetailWhereUniqueInput[]
+    update?: VehicleMaintenanceDetailUpdateWithWhereUniqueWithoutVehicle_maintananceInput | VehicleMaintenanceDetailUpdateWithWhereUniqueWithoutVehicle_maintananceInput[]
+    updateMany?: VehicleMaintenanceDetailUpdateManyWithWhereWithoutVehicle_maintananceInput | VehicleMaintenanceDetailUpdateManyWithWhereWithoutVehicle_maintananceInput[]
+    deleteMany?: VehicleMaintenanceDetailScalarWhereInput | VehicleMaintenanceDetailScalarWhereInput[]
+  }
+
+  export type VehicleMaintenanceCreateNestedOneWithoutServicesInput = {
+    create?: XOR<VehicleMaintenanceCreateWithoutServicesInput, VehicleMaintenanceUncheckedCreateWithoutServicesInput>
+    connectOrCreate?: VehicleMaintenanceCreateOrConnectWithoutServicesInput
+    connect?: VehicleMaintenanceWhereUniqueInput
+  }
+
+  export type VehicleServiceCreateNestedOneWithoutService_logsInput = {
+    create?: XOR<VehicleServiceCreateWithoutService_logsInput, VehicleServiceUncheckedCreateWithoutService_logsInput>
+    connectOrCreate?: VehicleServiceCreateOrConnectWithoutService_logsInput
+    connect?: VehicleServiceWhereUniqueInput
+  }
+
+  export type VehicleMaintenanceUpdateOneRequiredWithoutServicesNestedInput = {
+    create?: XOR<VehicleMaintenanceCreateWithoutServicesInput, VehicleMaintenanceUncheckedCreateWithoutServicesInput>
+    connectOrCreate?: VehicleMaintenanceCreateOrConnectWithoutServicesInput
+    upsert?: VehicleMaintenanceUpsertWithoutServicesInput
+    connect?: VehicleMaintenanceWhereUniqueInput
+    update?: XOR<XOR<VehicleMaintenanceUpdateToOneWithWhereWithoutServicesInput, VehicleMaintenanceUpdateWithoutServicesInput>, VehicleMaintenanceUncheckedUpdateWithoutServicesInput>
+  }
+
+  export type VehicleServiceUpdateOneRequiredWithoutService_logsNestedInput = {
+    create?: XOR<VehicleServiceCreateWithoutService_logsInput, VehicleServiceUncheckedCreateWithoutService_logsInput>
+    connectOrCreate?: VehicleServiceCreateOrConnectWithoutService_logsInput
+    upsert?: VehicleServiceUpsertWithoutService_logsInput
+    connect?: VehicleServiceWhereUniqueInput
+    update?: XOR<XOR<VehicleServiceUpdateToOneWithWhereWithoutService_logsInput, VehicleServiceUpdateWithoutService_logsInput>, VehicleServiceUncheckedUpdateWithoutService_logsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -86628,6 +91962,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     trip_tickets?: TripTicketCreateNestedManyWithoutVehicleInput
     gas_slips?: GasSlipCreateNestedManyWithoutVehicleInput
+    service_history?: VehicleMaintenanceCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUncheckedCreateWithoutSprsInput = {
@@ -86647,6 +91982,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     trip_tickets?: TripTicketUncheckedCreateNestedManyWithoutVehicleInput
     gas_slips?: GasSlipUncheckedCreateNestedManyWithoutVehicleInput
+    service_history?: VehicleMaintenanceUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleCreateOrConnectWithoutSprsInput = {
@@ -86808,6 +92144,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trip_tickets?: TripTicketUpdateManyWithoutVehicleNestedInput
     gas_slips?: GasSlipUpdateManyWithoutVehicleNestedInput
+    service_history?: VehicleMaintenanceUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateWithoutSprsInput = {
@@ -86827,6 +92164,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trip_tickets?: TripTicketUncheckedUpdateManyWithoutVehicleNestedInput
     gas_slips?: GasSlipUncheckedUpdateManyWithoutVehicleNestedInput
+    service_history?: VehicleMaintenanceUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type SPRCreateWithoutSpr_approversInput = {
@@ -92542,6 +97880,52 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type VehicleMaintenanceCreateWithoutVehicleInput = {
+    id?: string
+    ref_number: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    service_center: ServiceCenterCreateNestedOneWithoutService_recordsInput
+    services?: VehicleMaintenanceDetailCreateNestedManyWithoutVehicle_maintananceInput
+  }
+
+  export type VehicleMaintenanceUncheckedCreateWithoutVehicleInput = {
+    id?: string
+    ref_number: string
+    service_center_id: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    services?: VehicleMaintenanceDetailUncheckedCreateNestedManyWithoutVehicle_maintananceInput
+  }
+
+  export type VehicleMaintenanceCreateOrConnectWithoutVehicleInput = {
+    where: VehicleMaintenanceWhereUniqueInput
+    create: XOR<VehicleMaintenanceCreateWithoutVehicleInput, VehicleMaintenanceUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type VehicleMaintenanceCreateManyVehicleInputEnvelope = {
+    data: VehicleMaintenanceCreateManyVehicleInput | VehicleMaintenanceCreateManyVehicleInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TripTicketUpsertWithWhereUniqueWithoutVehicleInput = {
     where: TripTicketWhereUniqueInput
     update: XOR<TripTicketUpdateWithoutVehicleInput, TripTicketUncheckedUpdateWithoutVehicleInput>
@@ -92667,6 +98051,43 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"SPR"> | Date | string
   }
 
+  export type VehicleMaintenanceUpsertWithWhereUniqueWithoutVehicleInput = {
+    where: VehicleMaintenanceWhereUniqueInput
+    update: XOR<VehicleMaintenanceUpdateWithoutVehicleInput, VehicleMaintenanceUncheckedUpdateWithoutVehicleInput>
+    create: XOR<VehicleMaintenanceCreateWithoutVehicleInput, VehicleMaintenanceUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type VehicleMaintenanceUpdateWithWhereUniqueWithoutVehicleInput = {
+    where: VehicleMaintenanceWhereUniqueInput
+    data: XOR<VehicleMaintenanceUpdateWithoutVehicleInput, VehicleMaintenanceUncheckedUpdateWithoutVehicleInput>
+  }
+
+  export type VehicleMaintenanceUpdateManyWithWhereWithoutVehicleInput = {
+    where: VehicleMaintenanceScalarWhereInput
+    data: XOR<VehicleMaintenanceUpdateManyMutationInput, VehicleMaintenanceUncheckedUpdateManyWithoutVehicleInput>
+  }
+
+  export type VehicleMaintenanceScalarWhereInput = {
+    AND?: VehicleMaintenanceScalarWhereInput | VehicleMaintenanceScalarWhereInput[]
+    OR?: VehicleMaintenanceScalarWhereInput[]
+    NOT?: VehicleMaintenanceScalarWhereInput | VehicleMaintenanceScalarWhereInput[]
+    id?: StringFilter<"VehicleMaintenance"> | string
+    ref_number?: StringFilter<"VehicleMaintenance"> | string
+    vehicle_id?: StringFilter<"VehicleMaintenance"> | string
+    service_center_id?: StringFilter<"VehicleMaintenance"> | string
+    service_date?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    service_mileage?: IntFilter<"VehicleMaintenance"> | number
+    next_service_date?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    next_service_mileage?: IntFilter<"VehicleMaintenance"> | number
+    cost?: FloatFilter<"VehicleMaintenance"> | number
+    remarks?: StringFilter<"VehicleMaintenance"> | string
+    performed_by?: StringFilter<"VehicleMaintenance"> | string
+    created_by?: StringFilter<"VehicleMaintenance"> | string
+    updated_by?: StringNullableFilter<"VehicleMaintenance"> | string | null
+    created_at?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+    updated_at?: DateTimeFilter<"VehicleMaintenance"> | Date | string
+  }
+
   export type VehicleCreateWithoutTrip_ticketsInput = {
     id?: string
     vehicle_number: string
@@ -92684,6 +98105,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     gas_slips?: GasSlipCreateNestedManyWithoutVehicleInput
     sprs?: SPRCreateNestedManyWithoutVehicleInput
+    service_history?: VehicleMaintenanceCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUncheckedCreateWithoutTrip_ticketsInput = {
@@ -92703,6 +98125,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     gas_slips?: GasSlipUncheckedCreateNestedManyWithoutVehicleInput
     sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
+    service_history?: VehicleMaintenanceUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleCreateOrConnectWithoutTrip_ticketsInput = {
@@ -92768,6 +98191,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gas_slips?: GasSlipUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUpdateManyWithoutVehicleNestedInput
+    service_history?: VehicleMaintenanceUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateWithoutTrip_ticketsInput = {
@@ -92787,6 +98211,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gas_slips?: GasSlipUncheckedUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
+    service_history?: VehicleMaintenanceUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type TripTicketApproverUpsertWithWhereUniqueWithoutTrip_ticketInput = {
@@ -92956,6 +98381,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     trip_tickets?: TripTicketCreateNestedManyWithoutVehicleInput
     sprs?: SPRCreateNestedManyWithoutVehicleInput
+    service_history?: VehicleMaintenanceCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUncheckedCreateWithoutGas_slipsInput = {
@@ -92975,6 +98401,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     trip_tickets?: TripTicketUncheckedCreateNestedManyWithoutVehicleInput
     sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
+    service_history?: VehicleMaintenanceUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleCreateOrConnectWithoutGas_slipsInput = {
@@ -93068,6 +98495,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trip_tickets?: TripTicketUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUpdateManyWithoutVehicleNestedInput
+    service_history?: VehicleMaintenanceUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateWithoutGas_slipsInput = {
@@ -93087,6 +98515,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trip_tickets?: TripTicketUncheckedUpdateManyWithoutVehicleNestedInput
     sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
+    service_history?: VehicleMaintenanceUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type GasStationUpsertWithoutGas_slipsInput = {
@@ -93417,6 +98846,426 @@ export namespace Prisma {
   export type GasSlipUpdateManyWithWhereWithoutFuel_typeInput = {
     where: GasSlipScalarWhereInput
     data: XOR<GasSlipUpdateManyMutationInput, GasSlipUncheckedUpdateManyWithoutFuel_typeInput>
+  }
+
+  export type VehicleMaintenanceDetailCreateWithoutServiceInput = {
+    id?: string
+    note?: string
+    vehicle_maintanance: VehicleMaintenanceCreateNestedOneWithoutServicesInput
+  }
+
+  export type VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput = {
+    id?: string
+    maintenance_id: string
+    note?: string
+  }
+
+  export type VehicleMaintenanceDetailCreateOrConnectWithoutServiceInput = {
+    where: VehicleMaintenanceDetailWhereUniqueInput
+    create: XOR<VehicleMaintenanceDetailCreateWithoutServiceInput, VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput>
+  }
+
+  export type VehicleMaintenanceDetailCreateManyServiceInputEnvelope = {
+    data: VehicleMaintenanceDetailCreateManyServiceInput | VehicleMaintenanceDetailCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VehicleMaintenanceDetailUpsertWithWhereUniqueWithoutServiceInput = {
+    where: VehicleMaintenanceDetailWhereUniqueInput
+    update: XOR<VehicleMaintenanceDetailUpdateWithoutServiceInput, VehicleMaintenanceDetailUncheckedUpdateWithoutServiceInput>
+    create: XOR<VehicleMaintenanceDetailCreateWithoutServiceInput, VehicleMaintenanceDetailUncheckedCreateWithoutServiceInput>
+  }
+
+  export type VehicleMaintenanceDetailUpdateWithWhereUniqueWithoutServiceInput = {
+    where: VehicleMaintenanceDetailWhereUniqueInput
+    data: XOR<VehicleMaintenanceDetailUpdateWithoutServiceInput, VehicleMaintenanceDetailUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type VehicleMaintenanceDetailUpdateManyWithWhereWithoutServiceInput = {
+    where: VehicleMaintenanceDetailScalarWhereInput
+    data: XOR<VehicleMaintenanceDetailUpdateManyMutationInput, VehicleMaintenanceDetailUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type VehicleMaintenanceDetailScalarWhereInput = {
+    AND?: VehicleMaintenanceDetailScalarWhereInput | VehicleMaintenanceDetailScalarWhereInput[]
+    OR?: VehicleMaintenanceDetailScalarWhereInput[]
+    NOT?: VehicleMaintenanceDetailScalarWhereInput | VehicleMaintenanceDetailScalarWhereInput[]
+    id?: StringFilter<"VehicleMaintenanceDetail"> | string
+    maintenance_id?: StringFilter<"VehicleMaintenanceDetail"> | string
+    service_id?: StringFilter<"VehicleMaintenanceDetail"> | string
+    note?: StringFilter<"VehicleMaintenanceDetail"> | string
+  }
+
+  export type VehicleMaintenanceCreateWithoutService_centerInput = {
+    id?: string
+    ref_number: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    vehicle: VehicleCreateNestedOneWithoutService_historyInput
+    services?: VehicleMaintenanceDetailCreateNestedManyWithoutVehicle_maintananceInput
+  }
+
+  export type VehicleMaintenanceUncheckedCreateWithoutService_centerInput = {
+    id?: string
+    ref_number: string
+    vehicle_id: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    services?: VehicleMaintenanceDetailUncheckedCreateNestedManyWithoutVehicle_maintananceInput
+  }
+
+  export type VehicleMaintenanceCreateOrConnectWithoutService_centerInput = {
+    where: VehicleMaintenanceWhereUniqueInput
+    create: XOR<VehicleMaintenanceCreateWithoutService_centerInput, VehicleMaintenanceUncheckedCreateWithoutService_centerInput>
+  }
+
+  export type VehicleMaintenanceCreateManyService_centerInputEnvelope = {
+    data: VehicleMaintenanceCreateManyService_centerInput | VehicleMaintenanceCreateManyService_centerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VehicleMaintenanceUpsertWithWhereUniqueWithoutService_centerInput = {
+    where: VehicleMaintenanceWhereUniqueInput
+    update: XOR<VehicleMaintenanceUpdateWithoutService_centerInput, VehicleMaintenanceUncheckedUpdateWithoutService_centerInput>
+    create: XOR<VehicleMaintenanceCreateWithoutService_centerInput, VehicleMaintenanceUncheckedCreateWithoutService_centerInput>
+  }
+
+  export type VehicleMaintenanceUpdateWithWhereUniqueWithoutService_centerInput = {
+    where: VehicleMaintenanceWhereUniqueInput
+    data: XOR<VehicleMaintenanceUpdateWithoutService_centerInput, VehicleMaintenanceUncheckedUpdateWithoutService_centerInput>
+  }
+
+  export type VehicleMaintenanceUpdateManyWithWhereWithoutService_centerInput = {
+    where: VehicleMaintenanceScalarWhereInput
+    data: XOR<VehicleMaintenanceUpdateManyMutationInput, VehicleMaintenanceUncheckedUpdateManyWithoutService_centerInput>
+  }
+
+  export type VehicleCreateWithoutService_historyInput = {
+    id?: string
+    vehicle_number: string
+    plate_number: string
+    rf_id?: string | null
+    classification_id: number
+    assignee_id: string
+    name: string
+    date_acquired: Date | string
+    status: number
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    trip_tickets?: TripTicketCreateNestedManyWithoutVehicleInput
+    gas_slips?: GasSlipCreateNestedManyWithoutVehicleInput
+    sprs?: SPRCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleUncheckedCreateWithoutService_historyInput = {
+    id?: string
+    vehicle_number: string
+    plate_number: string
+    rf_id?: string | null
+    classification_id: number
+    assignee_id: string
+    name: string
+    date_acquired: Date | string
+    status: number
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deleted_at?: Date | string | null
+    trip_tickets?: TripTicketUncheckedCreateNestedManyWithoutVehicleInput
+    gas_slips?: GasSlipUncheckedCreateNestedManyWithoutVehicleInput
+    sprs?: SPRUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleCreateOrConnectWithoutService_historyInput = {
+    where: VehicleWhereUniqueInput
+    create: XOR<VehicleCreateWithoutService_historyInput, VehicleUncheckedCreateWithoutService_historyInput>
+  }
+
+  export type ServiceCenterCreateWithoutService_recordsInput = {
+    id?: string
+    name: string
+    location: string
+    contact_person?: string
+    contact_number?: string
+    remarks?: string
+  }
+
+  export type ServiceCenterUncheckedCreateWithoutService_recordsInput = {
+    id?: string
+    name: string
+    location: string
+    contact_person?: string
+    contact_number?: string
+    remarks?: string
+  }
+
+  export type ServiceCenterCreateOrConnectWithoutService_recordsInput = {
+    where: ServiceCenterWhereUniqueInput
+    create: XOR<ServiceCenterCreateWithoutService_recordsInput, ServiceCenterUncheckedCreateWithoutService_recordsInput>
+  }
+
+  export type VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput = {
+    id?: string
+    note?: string
+    service: VehicleServiceCreateNestedOneWithoutService_logsInput
+  }
+
+  export type VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput = {
+    id?: string
+    service_id: string
+    note?: string
+  }
+
+  export type VehicleMaintenanceDetailCreateOrConnectWithoutVehicle_maintananceInput = {
+    where: VehicleMaintenanceDetailWhereUniqueInput
+    create: XOR<VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput, VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput>
+  }
+
+  export type VehicleMaintenanceDetailCreateManyVehicle_maintananceInputEnvelope = {
+    data: VehicleMaintenanceDetailCreateManyVehicle_maintananceInput | VehicleMaintenanceDetailCreateManyVehicle_maintananceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VehicleUpsertWithoutService_historyInput = {
+    update: XOR<VehicleUpdateWithoutService_historyInput, VehicleUncheckedUpdateWithoutService_historyInput>
+    create: XOR<VehicleCreateWithoutService_historyInput, VehicleUncheckedCreateWithoutService_historyInput>
+    where?: VehicleWhereInput
+  }
+
+  export type VehicleUpdateToOneWithWhereWithoutService_historyInput = {
+    where?: VehicleWhereInput
+    data: XOR<VehicleUpdateWithoutService_historyInput, VehicleUncheckedUpdateWithoutService_historyInput>
+  }
+
+  export type VehicleUpdateWithoutService_historyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vehicle_number?: StringFieldUpdateOperationsInput | string
+    plate_number?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
+    classification_id?: IntFieldUpdateOperationsInput | number
+    assignee_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trip_tickets?: TripTicketUpdateManyWithoutVehicleNestedInput
+    gas_slips?: GasSlipUpdateManyWithoutVehicleNestedInput
+    sprs?: SPRUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleUncheckedUpdateWithoutService_historyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vehicle_number?: StringFieldUpdateOperationsInput | string
+    plate_number?: StringFieldUpdateOperationsInput | string
+    rf_id?: NullableStringFieldUpdateOperationsInput | string | null
+    classification_id?: IntFieldUpdateOperationsInput | number
+    assignee_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    date_acquired?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trip_tickets?: TripTicketUncheckedUpdateManyWithoutVehicleNestedInput
+    gas_slips?: GasSlipUncheckedUpdateManyWithoutVehicleNestedInput
+    sprs?: SPRUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type ServiceCenterUpsertWithoutService_recordsInput = {
+    update: XOR<ServiceCenterUpdateWithoutService_recordsInput, ServiceCenterUncheckedUpdateWithoutService_recordsInput>
+    create: XOR<ServiceCenterCreateWithoutService_recordsInput, ServiceCenterUncheckedCreateWithoutService_recordsInput>
+    where?: ServiceCenterWhereInput
+  }
+
+  export type ServiceCenterUpdateToOneWithWhereWithoutService_recordsInput = {
+    where?: ServiceCenterWhereInput
+    data: XOR<ServiceCenterUpdateWithoutService_recordsInput, ServiceCenterUncheckedUpdateWithoutService_recordsInput>
+  }
+
+  export type ServiceCenterUpdateWithoutService_recordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    contact_person?: StringFieldUpdateOperationsInput | string
+    contact_number?: StringFieldUpdateOperationsInput | string
+    remarks?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ServiceCenterUncheckedUpdateWithoutService_recordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    contact_person?: StringFieldUpdateOperationsInput | string
+    contact_number?: StringFieldUpdateOperationsInput | string
+    remarks?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VehicleMaintenanceDetailUpsertWithWhereUniqueWithoutVehicle_maintananceInput = {
+    where: VehicleMaintenanceDetailWhereUniqueInput
+    update: XOR<VehicleMaintenanceDetailUpdateWithoutVehicle_maintananceInput, VehicleMaintenanceDetailUncheckedUpdateWithoutVehicle_maintananceInput>
+    create: XOR<VehicleMaintenanceDetailCreateWithoutVehicle_maintananceInput, VehicleMaintenanceDetailUncheckedCreateWithoutVehicle_maintananceInput>
+  }
+
+  export type VehicleMaintenanceDetailUpdateWithWhereUniqueWithoutVehicle_maintananceInput = {
+    where: VehicleMaintenanceDetailWhereUniqueInput
+    data: XOR<VehicleMaintenanceDetailUpdateWithoutVehicle_maintananceInput, VehicleMaintenanceDetailUncheckedUpdateWithoutVehicle_maintananceInput>
+  }
+
+  export type VehicleMaintenanceDetailUpdateManyWithWhereWithoutVehicle_maintananceInput = {
+    where: VehicleMaintenanceDetailScalarWhereInput
+    data: XOR<VehicleMaintenanceDetailUpdateManyMutationInput, VehicleMaintenanceDetailUncheckedUpdateManyWithoutVehicle_maintananceInput>
+  }
+
+  export type VehicleMaintenanceCreateWithoutServicesInput = {
+    id?: string
+    ref_number: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    vehicle: VehicleCreateNestedOneWithoutService_historyInput
+    service_center: ServiceCenterCreateNestedOneWithoutService_recordsInput
+  }
+
+  export type VehicleMaintenanceUncheckedCreateWithoutServicesInput = {
+    id?: string
+    ref_number: string
+    vehicle_id: string
+    service_center_id: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type VehicleMaintenanceCreateOrConnectWithoutServicesInput = {
+    where: VehicleMaintenanceWhereUniqueInput
+    create: XOR<VehicleMaintenanceCreateWithoutServicesInput, VehicleMaintenanceUncheckedCreateWithoutServicesInput>
+  }
+
+  export type VehicleServiceCreateWithoutService_logsInput = {
+    id?: string
+    name: string
+  }
+
+  export type VehicleServiceUncheckedCreateWithoutService_logsInput = {
+    id?: string
+    name: string
+  }
+
+  export type VehicleServiceCreateOrConnectWithoutService_logsInput = {
+    where: VehicleServiceWhereUniqueInput
+    create: XOR<VehicleServiceCreateWithoutService_logsInput, VehicleServiceUncheckedCreateWithoutService_logsInput>
+  }
+
+  export type VehicleMaintenanceUpsertWithoutServicesInput = {
+    update: XOR<VehicleMaintenanceUpdateWithoutServicesInput, VehicleMaintenanceUncheckedUpdateWithoutServicesInput>
+    create: XOR<VehicleMaintenanceCreateWithoutServicesInput, VehicleMaintenanceUncheckedCreateWithoutServicesInput>
+    where?: VehicleMaintenanceWhereInput
+  }
+
+  export type VehicleMaintenanceUpdateToOneWithWhereWithoutServicesInput = {
+    where?: VehicleMaintenanceWhereInput
+    data: XOR<VehicleMaintenanceUpdateWithoutServicesInput, VehicleMaintenanceUncheckedUpdateWithoutServicesInput>
+  }
+
+  export type VehicleMaintenanceUpdateWithoutServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle?: VehicleUpdateOneRequiredWithoutService_historyNestedInput
+    service_center?: ServiceCenterUpdateOneRequiredWithoutService_recordsNestedInput
+  }
+
+  export type VehicleMaintenanceUncheckedUpdateWithoutServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    vehicle_id?: StringFieldUpdateOperationsInput | string
+    service_center_id?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleServiceUpsertWithoutService_logsInput = {
+    update: XOR<VehicleServiceUpdateWithoutService_logsInput, VehicleServiceUncheckedUpdateWithoutService_logsInput>
+    create: XOR<VehicleServiceCreateWithoutService_logsInput, VehicleServiceUncheckedCreateWithoutService_logsInput>
+    where?: VehicleServiceWhereInput
+  }
+
+  export type VehicleServiceUpdateToOneWithWhereWithoutService_logsInput = {
+    where?: VehicleServiceWhereInput
+    data: XOR<VehicleServiceUpdateWithoutService_logsInput, VehicleServiceUncheckedUpdateWithoutService_logsInput>
+  }
+
+  export type VehicleServiceUpdateWithoutService_logsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VehicleServiceUncheckedUpdateWithoutService_logsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type ItemCreateManyItem_typeInput = {
@@ -95614,6 +101463,23 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type VehicleMaintenanceCreateManyVehicleInput = {
+    id?: string
+    ref_number: string
+    service_center_id: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type TripTicketUpdateWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
     trip_number?: StringFieldUpdateOperationsInput | string
@@ -95813,6 +101679,59 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_center?: ServiceCenterUpdateOneRequiredWithoutService_recordsNestedInput
+    services?: VehicleMaintenanceDetailUpdateManyWithoutVehicle_maintananceNestedInput
+  }
+
+  export type VehicleMaintenanceUncheckedUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    service_center_id?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: VehicleMaintenanceDetailUncheckedUpdateManyWithoutVehicle_maintananceNestedInput
+  }
+
+  export type VehicleMaintenanceUncheckedUpdateManyWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    service_center_id?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -96085,6 +102004,124 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type VehicleMaintenanceDetailCreateManyServiceInput = {
+    id?: string
+    maintenance_id: string
+    note?: string
+  }
+
+  export type VehicleMaintenanceDetailUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    vehicle_maintanance?: VehicleMaintenanceUpdateOneRequiredWithoutServicesNestedInput
+  }
+
+  export type VehicleMaintenanceDetailUncheckedUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenance_id?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VehicleMaintenanceDetailUncheckedUpdateManyWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenance_id?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VehicleMaintenanceCreateManyService_centerInput = {
+    id?: string
+    ref_number: string
+    vehicle_id: string
+    service_date: Date | string
+    service_mileage: number
+    next_service_date: Date | string
+    next_service_mileage: number
+    cost?: number
+    remarks: string
+    performed_by: string
+    created_by: string
+    updated_by?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type VehicleMaintenanceUpdateWithoutService_centerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle?: VehicleUpdateOneRequiredWithoutService_historyNestedInput
+    services?: VehicleMaintenanceDetailUpdateManyWithoutVehicle_maintananceNestedInput
+  }
+
+  export type VehicleMaintenanceUncheckedUpdateWithoutService_centerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    vehicle_id?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: VehicleMaintenanceDetailUncheckedUpdateManyWithoutVehicle_maintananceNestedInput
+  }
+
+  export type VehicleMaintenanceUncheckedUpdateManyWithoutService_centerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ref_number?: StringFieldUpdateOperationsInput | string
+    vehicle_id?: StringFieldUpdateOperationsInput | string
+    service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    next_service_mileage?: IntFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    remarks?: StringFieldUpdateOperationsInput | string
+    performed_by?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceDetailCreateManyVehicle_maintananceInput = {
+    id?: string
+    service_id: string
+    note?: string
+  }
+
+  export type VehicleMaintenanceDetailUpdateWithoutVehicle_maintananceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    service?: VehicleServiceUpdateOneRequiredWithoutService_logsNestedInput
+  }
+
+  export type VehicleMaintenanceDetailUncheckedUpdateWithoutVehicle_maintananceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VehicleMaintenanceDetailUncheckedUpdateManyWithoutVehicle_maintananceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    service_id?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+  }
+
 
 
   /**
@@ -96202,6 +102239,18 @@ export namespace Prisma {
      * @deprecated Use FuelTypeCountOutputTypeDefaultArgs instead
      */
     export type FuelTypeCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FuelTypeCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use VehicleServiceCountOutputTypeDefaultArgs instead
+     */
+    export type VehicleServiceCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleServiceCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ServiceCenterCountOutputTypeDefaultArgs instead
+     */
+    export type ServiceCenterCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ServiceCenterCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use VehicleMaintenanceCountOutputTypeDefaultArgs instead
+     */
+    export type VehicleMaintenanceCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleMaintenanceCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ItemTypeDefaultArgs instead
      */
@@ -96426,6 +102475,22 @@ export namespace Prisma {
      * @deprecated Use FuelTypeDefaultArgs instead
      */
     export type FuelTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FuelTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use VehicleServiceDefaultArgs instead
+     */
+    export type VehicleServiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleServiceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ServiceCenterDefaultArgs instead
+     */
+    export type ServiceCenterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ServiceCenterDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use VehicleMaintenanceDefaultArgs instead
+     */
+    export type VehicleMaintenanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleMaintenanceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use VehicleMaintenanceDetailDefaultArgs instead
+     */
+    export type VehicleMaintenanceDetailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleMaintenanceDetailDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

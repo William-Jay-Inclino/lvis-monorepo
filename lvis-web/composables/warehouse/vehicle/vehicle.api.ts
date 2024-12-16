@@ -170,6 +170,41 @@ export async function findOne(id: string): Promise<Vehicle | undefined> {
                 name
                 date_acquired
                 status
+                gas_slips {
+                    id 
+                    gas_slip_number 
+                    driver {
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    gas_station {
+                        name
+                    }
+                    requested_by {
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    status
+                    is_posted
+                    created_at
+                    cancelled_at
+                }
+                trip_tickets {
+                    id 
+                    trip_number 
+                    driver {
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    destination
+                    purpose
+                    start_time
+                    status
+                    cancelled_at
+                }
             }
         }
     `;

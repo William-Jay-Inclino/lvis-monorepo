@@ -105,7 +105,9 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Vehicle Number</td>
-                                        <td> {{ item.vehicle.vehicle_number }} </td>
+                                        <td>
+                                            <nuxt-link :to="'/warehouse/vehicle/view/' + item.vehicle.id">{{ item.vehicle.vehicle_number }}</nuxt-link> 
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Plate Number</td>

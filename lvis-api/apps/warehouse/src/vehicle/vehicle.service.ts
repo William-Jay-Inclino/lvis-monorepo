@@ -104,7 +104,16 @@ export class VehicleService {
 	async findOne(id: string): Promise<Vehicle | null> {
 
 		const item = await this.prisma.vehicle.findUnique({
-			where: { id }
+			where: { id },
+			include: {
+				gas_slips: {
+					include: {
+						gas_station: true,
+						fuel_type: true,
+					}
+				},
+				trip_tickets: true,
+			}
 		})
 
 		if (!item) {

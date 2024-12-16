@@ -5,7 +5,7 @@
 
             <div v-if="!isLoadingPage && authUser" class="row justify-content-center pt-3">
         
-                <div class="col-lg-6">
+                <div class="col-lg-9">
         
                     <div v-if="item">
         
@@ -83,6 +83,155 @@
                                 </table>
                             </div>
                         </div>
+
+                        <div class="row pt-3 mb-3">
+                            <div class="col">
+                                <ul class="nav nav-tabs nav-fill">
+                                    <li class="nav-item">
+                                        <a @click="onClickTab('gas-slip')" class="nav-link" :class="{'active': tab_selected === 'gas-slip'}" href="javascript:void(0)">Gas Slips</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a @click="onClickTab('trip-ticket')" class="nav-link" :class="{'active': tab_selected === 'trip-ticket'}" href="javascript:void(0)">Trips</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a @click="onClickTab('service-history')" class="nav-link" :class="{'active': tab_selected === 'service-history'}" href="javascript:void(0)">Service History</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div v-show="tab_selected === 'gas-slip'">
+
+                            <div class="h5wrapper mb-3 pt-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <client-only>
+                                    <font-awesome-icon :icon="['fas', 'gas-pump']"/>
+                                </client-only> Gas Slips
+                                </h5>
+                                <hr class="result">
+                            </div>
+    
+                            <div class="row pt-3">
+
+                                <div v-if="item.gas_slips.length === 0" class="col text-center">
+                                    <span class="text-muted fst-italic"> ----------------- No Record ----------------- </span>
+                                </div>
+
+                                <div v-else class="col">
+                                    <div style="max-height: 300px; overflow-y: auto;">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-muted">GS No.</th>
+                                                    <th class="text-muted">Driver</th>
+                                                    <th class="text-muted">Requested By</th>
+                                                    <th class="text-muted">Gas Station</th>
+                                                    <th class="text-muted text-center">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="gs in item.gas_slips">
+                                                    <td>
+                                                        <nuxt-link :to="'/warehouse/gas-slip/view/' + gs.id">{{ gs.gas_slip_number }}</nuxt-link>
+                                                    </td>
+                                                    <td> {{ getFullname(gs.driver.firstname, gs.driver.middlename, gs.driver.lastname) }} </td>
+                                                    <td> {{ getFullname(gs.requested_by.firstname, gs.requested_by.middlename, gs.requested_by.lastname) }} </td>
+                                                    <td> {{ gs.gas_station.name }} </td>
+                                                    <td class="text-center align-middle">
+        
+                                                        <div v-if="gs.cancelled_at" :class="{ [`badge bg-${approvalStatus[gs.status].color}`]: true }">
+                                                                {{ approvalStatus[gs.status].label }}
+                                                        </div>
+                                                        <div v-else-if="gs.is_posted === null" :class="{ [`badge bg-${approvalStatus[gs.status].color}`]: true }">
+                                                                {{ approvalStatus[gs.status].label }}
+                                                        </div>
+                                                        <div v-else-if="gs.is_posted === true" class="badge bg-info">
+                                                            Posted
+                                                        </div>
+                                                        <div v-else class="badge bg-secondary">
+                                                            Unposted
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div v-show="tab_selected === 'trip-ticket'">
+                            <div class="h5wrapper mb-3 pt-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <client-only>
+                                    <font-awesome-icon :icon="['fas', 'car']"/>
+                                </client-only> Trips
+                                </h5>
+                                <hr class="result">
+                            </div>
+    
+                            <div class="row pt-3">
+
+                                <div v-if="item.trip_tickets.length === 0" class="col text-center">
+                                    <span class="text-muted fst-italic"> ----------------- No Record ----------------- </span>
+                                </div>
+
+                                <div v-else class="col">
+                                    <div style="max-height: 300px; overflow-y: auto;">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-muted">Trip No.</th>
+                                                    <th class="text-muted">Driver</th>
+                                                    <th class="text-muted">Destination</th>
+                                                    <th class="text-muted">Purpose</th>
+                                                    <th class="text-muted">Date</th>
+                                                    <th class="text-muted text-center">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="trip in item.trip_tickets">
+                                                    <td>
+                                                        <nuxt-link :to="'/warehouse/trip-ticket/view/' + trip.id">{{ trip.trip_number }}</nuxt-link>
+                                                    </td>
+                                                    <td> {{ getFullname(trip.driver.firstname, trip.driver.middlename, trip.driver.lastname) }} </td>
+                                                    <td> {{ trip.destination }} </td>
+                                                    <td> {{ trip.purpose }} </td>
+                                                    <td> {{ formatDate(trip.start_time) }} </td>
+                                                    <td class="text-center align-middle">
+                                                        <div :class="{ [`badge bg-${tripTicketStatus[trip.status].color}`]: true }">
+                                                            {{ tripTicketStatus[trip.status].label }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div v-show="tab_selected === 'service-history'">
+                            <div class="h5wrapper mb-3 pt-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <client-only>
+                                    <font-awesome-icon :icon="['fas', 'history']"/>
+                                </client-only> Service History
+                                </h5>
+                                <hr class="result">
+                            </div>
+    
+                            <div class="row pt-3">
+                                <div class="col text-center">
+                                    <span class="text-muted fst-italic"> ----------------- No Record ----------------- </span>
+                                </div>
+                            </div>
+                        </div>
+
         
                         <div class="row pt-5">
                             <div class="col">
@@ -132,6 +281,7 @@ import * as api from '~/composables/warehouse/vehicle/vehicle.api'
 import type { Vehicle } from '~/composables/warehouse/vehicle/vehicle.types';
 import { VehicleStatusMapper, VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 import Swal from 'sweetalert2'
+import { tripTicketStatus } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
 
 definePageMeta({
     name: ROUTES.VEHICLE_VIEW,
@@ -144,6 +294,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 const router = useRouter()
 const route = useRoute()
 const item = ref<Vehicle | undefined>()
+const tab_selected = ref<'gas-slip' | 'trip-ticket' | 'service-history'>('gas-slip')
 
 onMounted(async () => {
     authUser.value = getAuthUser()
@@ -209,6 +360,8 @@ function onClickAssignRFID(vehicle: Vehicle, isUpdate: boolean = false) {
     })
 
 }
+
+const onClickTab = (tab: 'gas-slip' | 'trip-ticket' | 'service-history') => tab_selected.value = tab
 
 const onClickGoToList = () => router.push(`/warehouse/vehicle`);
 const onClickAddNew = () => router.push(`/warehouse/vehicle/create`);
