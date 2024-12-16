@@ -24,6 +24,7 @@ export async function findAll(payload: { page: number, pageSize: number, searchV
             ) {
                 data {
                     id
+                    employee_number
                     firstname
                     middlename
                     lastname

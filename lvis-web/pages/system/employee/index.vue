@@ -49,6 +49,7 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
+                                                <th class="bg-secondary text-white">Employee No.</th>
                                                 <th class="bg-secondary text-white">Firstname</th>
                                                 <th class="bg-secondary text-white">Middlename</th>
                                                 <th class="bg-secondary text-white">Lastname</th>
@@ -62,6 +63,7 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in items">
+                                                <td class="text-muted"> {{ i.employee_number }} </td>
                                                 <td class="text-muted"> {{ i.firstname }} </td>
                                                 <td class="text-muted"> {{ i.middlename }} </td>
                                                 <td class="text-muted"> {{ i.lastname }} </td>
