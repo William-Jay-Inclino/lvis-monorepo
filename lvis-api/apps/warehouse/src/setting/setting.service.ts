@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { SETTINGS } from '../__common__/constants';
 import { PrismaService } from '../__prisma__/prisma.service';
 
@@ -59,6 +59,21 @@ export class SettingService {
         }
 
         return expirationValue
+
+    }
+
+    async get_min_or_max_supplier_in_meqs(key: SETTINGS) {
+        const item = await this.prisma.setting.findUnique({
+            where: {
+                key
+            }
+        })
+
+        if(!item) {
+            throw new NotFoundException(`key: ${key} in setting table not found`)
+        }
+
+        return Number(item.value)
 
     }
 

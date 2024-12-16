@@ -5,7 +5,7 @@
         <div class="alert alert-info" role="alert">
             <div>
                 <small class="fst-italic">
-                    - Minimum of 3 and Maximum of 5 suppliers
+                    - Minimum of {{ min_no_of_supplier }} and Maximum of {{ max_no_of_supplier }} suppliers
                 </small>
             </div>
             <div v-if="!isPageCreate">
@@ -361,6 +361,14 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    min_no_of_supplier: {
+        type: Number,
+        default: 1,
+    },
+    max_no_of_supplier: {
+        type: Number,
+        default: 2,
+    }
 });
 
 const config = useRuntimeConfig()

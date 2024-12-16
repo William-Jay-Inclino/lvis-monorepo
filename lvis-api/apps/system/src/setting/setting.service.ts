@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { SETTINGS } from '../__common__/constants';
-import { Employee } from '../employee/entities/employee.entity';
 
 @Injectable()
 export class SettingService {

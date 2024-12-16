@@ -222,10 +222,19 @@
         
                                 <div class="row">
                                     <div class="col">
-                                        <WarehouseMEQSSupplier @search-suppliers="handleSearchedSuppliers" :suppliers="suppliers" :meqs_suppliers="meqsData.meqs_suppliers"
-                                            :canvass_items="canvassItems" @add-supplier="addSupplier"
-                                            @edit-supplier="editSupplier" @remove-supplier="removeSupplier"
-                                            @add-attachment="addAttachment" @remove-attachment="removeAttachment" />
+                                        <WarehouseMEQSSupplier 
+                                            :suppliers="suppliers" 
+                                            :meqs_suppliers="meqsData.meqs_suppliers"
+                                            :canvass_items="canvassItems" 
+                                            :min_no_of_supplier="min_no_of_supplier"
+                                            :max_no_of_supplier="max_no_of_supplier"
+                                            @search-suppliers="handleSearchedSuppliers" 
+                                            @add-supplier="addSupplier"
+                                            @edit-supplier="editSupplier" 
+                                            @remove-supplier="removeSupplier"
+                                            @add-attachment="addAttachment" 
+                                            @remove-attachment="removeAttachment" 
+                                        />
                                     </div>
                                 </div>
         
@@ -329,6 +338,8 @@ const router = useRouter();
 const transactionTypes = ref(['RV', 'SPR', 'JO'])
 const requiredNotesBtn = ref<HTMLButtonElement>()
 const API_URL = config.public.apiUrl
+const min_no_of_supplier = ref(3)
+const max_no_of_supplier = ref(5)
 
 // FLAGS 
 const isInitialStep3 = ref(true)
@@ -369,6 +380,8 @@ onMounted(async () => {
     sprs.value = response.sprs
     suppliers.value = response.suppliers
     meqsData.value.approvers = response.approvers
+    min_no_of_supplier.value = response.minimum_no_of_supplier
+    max_no_of_supplier.value = response.maximum_no_of_supplier
 
     isLoadingPage.value = false
 
@@ -384,7 +397,7 @@ const referenceIsJo = computed((): boolean => !!meqsData.value.jo)
 const referenceIsSpr = computed((): boolean => !!meqsData.value.spr)
 const hasReference = computed((): boolean => !!referenceIsRv.value || !!referenceIsJo.value || !!referenceIsSpr.value)
 const canProceedStep2 = computed((): boolean => !!hasReference.value)
-const canProceedStep3 = computed((): boolean => meqsData.value.meqs_suppliers.length >= 3 && meqsData.value.meqs_suppliers.length <= 5)
+const canProceedStep3 = computed((): boolean => meqsData.value.meqs_suppliers.length >= min_no_of_supplier.value && meqsData.value.meqs_suppliers.length <= max_no_of_supplier.value)
 // const canProceedStep3 = computed((): boolean => true)
 
 const purpose = computed(() => {

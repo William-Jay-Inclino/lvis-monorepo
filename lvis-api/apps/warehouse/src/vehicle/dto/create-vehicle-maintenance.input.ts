@@ -25,7 +25,7 @@ export class CreateVehicleMaintenanceInput {
     @IsNotEmpty()
     @IsInt()
     @Min(0)
-    service_mileage: string;
+    service_mileage: number;
 
     @Field(() => Date)
     @IsNotEmpty()
@@ -36,7 +36,7 @@ export class CreateVehicleMaintenanceInput {
     @IsNotEmpty()
     @IsInt()
     @Min(0)
-    next_service_mileage: string;
+    next_service_mileage: number;
 
     @Field(() => Float)
     @IsNotEmpty()

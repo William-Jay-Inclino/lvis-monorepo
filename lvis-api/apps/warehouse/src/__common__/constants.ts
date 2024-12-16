@@ -6,6 +6,8 @@ export const enum SETTINGS {
     SERIV_EXP_PERIOD_IN_DAYS = 'seriv_exp_period_in_days',
     MRV_EXP_PERIOD_IN_DAYS = 'mrv_exp_period_in_days',
     DEFAULT_STATION = 'default_station',
+    MIN_SUPPLIER_IN_MEQS = 'min_supplier_in_meqs',
+    MAX_SUPPLIER_IN_MEQS = 'max_supplier_in_meqs',
 }
 
 export const VAT = {

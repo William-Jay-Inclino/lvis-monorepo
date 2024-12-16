@@ -577,7 +577,9 @@ export async function fetchFormDataInCreate(): Promise<{
     sprs: SPR[],
     jos: JO[],
     suppliers: Supplier[],
-    approvers: MeqsApproverSettings[]
+    approvers: MeqsApproverSettings[],
+    minimum_no_of_supplier: number,
+    maximum_no_of_supplier: number,
 }> {
 
     const query = `
@@ -689,6 +691,8 @@ export async function fetchFormDataInCreate(): Promise<{
                 label
                 order
             },
+            minimum_no_of_supplier_in_meqs,
+            maximum_no_of_supplier_in_meqs,
         }
     `;
 
@@ -701,6 +705,8 @@ export async function fetchFormDataInCreate(): Promise<{
         let sprs = []
         let suppliers = []
         let approvers = []
+        let minimum_no_of_supplier = 3
+        let maximum_no_of_supplier = 5
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -728,12 +734,22 @@ export async function fetchFormDataInCreate(): Promise<{
             approvers = data.meqsApproverSettings
         }
 
+        if(data.minimum_no_of_supplier_in_meqs) {
+            minimum_no_of_supplier = data.minimum_no_of_supplier_in_meqs
+        }
+
+        if(data.maximum_no_of_supplier_in_meqs) {
+            maximum_no_of_supplier = data.maximum_no_of_supplier_in_meqs
+        }
+
         return {
             rvs,
             jos,
             sprs,
             suppliers,
-            approvers
+            approvers,
+            minimum_no_of_supplier,
+            maximum_no_of_supplier
         }
 
     } catch (error) {
@@ -743,7 +759,9 @@ export async function fetchFormDataInCreate(): Promise<{
             jos: [],
             sprs: [],
             suppliers: [],
-            approvers: []
+            approvers: [],
+            minimum_no_of_supplier: 3,
+            maximum_no_of_supplier: 5,
         }
     }
 
@@ -753,7 +771,9 @@ export async function fetchFormDataInCreate(): Promise<{
 export async function fetchFormDataInUpdate(id: string): Promise<{
     employees: Employee[],
     suppliers: Supplier[],
-    meqs: MEQS | undefined
+    meqs: MEQS | undefined,
+    minimum_no_of_supplier: number,
+    maximum_no_of_supplier: number,
 }> {
 
     const query = `
@@ -910,7 +930,9 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     is_vat_registered
                     vat_type
                 }
-            }
+            },
+            minimum_no_of_supplier_in_meqs,
+            maximum_no_of_supplier_in_meqs,
         }
     `;
 
@@ -920,6 +942,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
 
         let employees: Employee[] = []
         let suppliers: Supplier[] = []
+        let minimum_no_of_supplier = 3
+        let maximum_no_of_supplier = 5
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -939,10 +963,20 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             suppliers = response.data.data.suppliers.data
         }
 
+        if(data.minimum_no_of_supplier_in_meqs) {
+            minimum_no_of_supplier = data.minimum_no_of_supplier_in_meqs
+        }
+
+        if(data.maximum_no_of_supplier_in_meqs) {
+            maximum_no_of_supplier = data.maximum_no_of_supplier_in_meqs
+        }
+
         return {
             meqs: data.meq,
             employees,
             suppliers,
+            minimum_no_of_supplier,
+            maximum_no_of_supplier
         }
 
     } catch (error) {
@@ -950,7 +984,9 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         return {
             meqs: undefined,
             employees: [],
-            suppliers: []
+            suppliers: [],
+            minimum_no_of_supplier: 3,
+            maximum_no_of_supplier: 5,
         }
     }
 
