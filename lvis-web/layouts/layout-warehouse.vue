@@ -28,7 +28,7 @@
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
                         <li v-if="canViewWarehousing(authUser)" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                            <a :class="{ active: isActiveWarehouse }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Warehouse
                             </a>
@@ -57,7 +57,7 @@
                             </ul>
                         </li>
                         <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
+                            <a :class="{ active: isActiveDataManagement }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Data Management
                             </a>
@@ -212,6 +212,7 @@ import { logout } from '~/utils/helpers';
 
 const authUser = ref<AuthUser>()
 const router = useRouter()
+const route = useRoute()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
@@ -240,6 +241,23 @@ const totalPendings = computed(() => {
     }
     return 0
 })
+
+const isActiveWarehouse = computed(() => 
+    route.path === '/warehouse/rr' || 
+    route.path === '/warehouse/osriv' || 
+    route.path === '/warehouse/seriv' || 
+    route.path === '/warehouse/mrv' || 
+    route.path === '/warehouse/mct' ||
+    route.path === '/warehouse/mcrt' ||
+    route.path === '/warehouse/mst'
+)
+
+const isActiveDataManagement = computed(() => 
+    route.path === '/warehouse/item' || 
+    route.path === '/warehouse/supplier' || 
+    route.path === '/warehouse/project' || 
+    route.path === '/warehouse/unit'
+)
 
 watch(isInactive, async (val) => {
     if (val) {

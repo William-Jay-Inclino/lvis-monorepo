@@ -28,13 +28,13 @@
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
                         <li v-if="canView('canManageEmployee', authUser)" class="nav-item">
-                            <nuxt-link class="nav-link text-white" to="/hr/employee">Employee</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path === '/hr/employee' }" class="nav-link text-white" to="/hr/employee">Employee</nuxt-link>
                         </li>
                         <li v-if="canView('canManageDepartment', authUser)" class="nav-item">
-                            <nuxt-link class="nav-link text-white" to="/hr/department">Department</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path === '/hr/department' }" class="nav-link text-white" to="/hr/department">Department</nuxt-link>
                         </li>
                         <li v-if="canView('canManageDivision', authUser)" class="nav-item">
-                            <nuxt-link class="nav-link text-white" to="/hr/division">Division</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path === '/hr/division' }" class="nav-link text-white" to="/hr/division">Division</nuxt-link>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">

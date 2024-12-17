@@ -44,3 +44,28 @@ a:hover {
     text-decoration: none; /* Remove underline on hover */
 }
 
+
+.nav-link {
+    position: relative;
+    text-decoration: none; /* Remove default underline */
+    color: white;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px; /* Thin underline */
+    background-color: yellow;
+    transition: width 0.3s ease; /* Smooth animation for width */
+}
+
+.nav-link.active::before {
+    width: 100%; /* Expand underline on active state */
+}
+
+.nav-link:hover::before {
+    width: 100%; /* Expand underline on hover */
+}

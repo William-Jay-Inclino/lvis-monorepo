@@ -28,7 +28,7 @@
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
                         <li v-if="isAdmin(authUser)" class="nav-item">
-                            <nuxt-link class="nav-link text-white" to="/system/user">Users</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path === '/system/user' }" class="nav-link text-white" to="/system/user">Users</nuxt-link>
                         </li>
                         <li v-if="isAdmin(authUser)" class="nav-item">
                             <a class="nav-link text-white"> Settings </a>
