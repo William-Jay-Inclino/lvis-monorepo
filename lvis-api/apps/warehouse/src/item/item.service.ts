@@ -90,7 +90,7 @@ export class ItemService {
 		});
 	  
 		return result;
-	  }
+	}
 	  
 	async generateItemCode(itemTypeCode: ITEM_TYPE_CODE, prisma: Prisma.TransactionClient): Promise<string> {
 		const currentYear = new Date().getFullYear() % 100; // Get the last two digits of the current year
