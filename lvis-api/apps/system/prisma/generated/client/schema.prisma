@@ -39,13 +39,13 @@ enum UserLogEventType {
 }
 
 model Division {
-  id            String     @id @default(uuid())
+  id            String         @id @default(uuid())
   department_id String
-  department    Department @relation(fields: [department_id], references: [id], onDelete: Restrict)
-  code          String     @unique
+  department    Department     @relation(fields: [department_id], references: [id], onDelete: Restrict)
+  code          String         @unique
   name          String
-  status        DivisionStatus        @default(ACTIVE)
-  permissions Json?
+  status        DivisionStatus @default(ACTIVE)
+  permissions   Json?
 
   created_at DateTime  @default(now())
   deleted_at DateTime?
@@ -56,25 +56,25 @@ model Division {
 }
 
 model Department {
-  id     String @id @default(uuid())
-  code   String @unique
-  name   String
-  status DepartmentStatus    @default(ACTIVE)
+  id          String           @id @default(uuid())
+  code        String           @unique
+  name        String
+  status      DepartmentStatus @default(ACTIVE)
   permissions Json?
 
   created_at DateTime  @default(now())
   deleted_at DateTime?
 
   divisions Division[]
+  Employee  Employee[]
 
   @@map("department")
-  Employee Employee[]
 }
 
 model Account {
-  id          String @id @default(uuid())
-  code        String @unique
-  name        String
+  id   String @id @default(uuid())
+  code String @unique
+  name String
 
   created_at DateTime  @default(now())
   deleted_at DateTime?
@@ -83,19 +83,19 @@ model Account {
 }
 
 model Employee {
-  id         String  @id @default(uuid())
-  employee_number String @unique
-  rank_number Int
-  department_id String
-  division_id String?
-  firstname  String 
-  middlename String?
-  lastname   String
-  name_prefix String?
-  name_suffix String?
-  signature_src String?
-  position String @default("TBA")
-  status EmployeeStatus @default(ACTIVE)
+  id              String         @id @default(uuid())
+  employee_number String         @unique
+  rank_number     Int
+  department_id   String
+  division_id     String?
+  firstname       String
+  middlename      String?
+  lastname        String
+  name_prefix     String?
+  name_suffix     String?
+  signature_src   String?
+  position        String         @default("TBA")
+  status          EmployeeStatus @default(ACTIVE)
 
   jo_approver_setting   JOApproverSetting?   @relation("JOApproverSetting")
   meqs_approver_setting MEQSApproverSetting? @relation("MEQSApproverSetting")
@@ -105,19 +105,17 @@ model Employee {
   rr_approver_setting   RRApproverSetting?   @relation("RRApproverSetting")
 
   department Department @relation(fields: [department_id], references: [id], onDelete: Restrict)
-  division Division? @relation(fields: [division_id], references: [id], onDelete: Restrict)
+  division   Division?  @relation(fields: [division_id], references: [id], onDelete: Restrict)
 
   created_by String
   updated_by String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   user_employee UserEmployee?
 
-
   @@index([firstname, lastname])
-
   @@map("employee")
 }
 
@@ -132,48 +130,48 @@ model Classification {
 }
 
 model User {
-  id          String  @id @default(uuid())
-  username    String  @unique
+  id          String     @id @default(uuid())
+  username    String     @unique
   password    String
-  firstname   String  @default("")
+  firstname   String     @default("")
   middlename  String?
-  lastname    String  @default("")
-  status      UserStatus     @default(ACTIVE)
-  role        Role    @default(USER)
+  lastname    String     @default("")
+  status      UserStatus @default(ACTIVE)
+  role        Role       @default(USER)
   permissions Json?
 
   created_by String
   updated_by String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   // user_permissions UserPermission[]
-  user_employee UserEmployee?
-  groups      UserGroupMembers[]  
+  user_employee   UserEmployee?
+  groups          UserGroupMembers[]
+  user_audit_logs UserAuditLog[]
 
   @@map("user")
-  user_audit_logs UserAuditLog[]
 }
 
 model UserGroup {
-  id          Int          @id @default(autoincrement())  
-  name        String                                     
-  members     UserGroupMembers[]   
+  id      Int                @id @default(autoincrement())
+  name    String
+  members UserGroupMembers[]
 
-  created_at DateTime  @default(now())
+  created_at DateTime @default(now())
 
   @@map("user_group")
 }
 
 model UserGroupMembers {
-  user_id     String         
-  user_group_id    Int         
+  user_id       String
+  user_group_id Int
 
-  user       User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  user_group      UserGroup   @relation(fields: [user_group_id], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_group UserGroup @relation(fields: [user_group_id], references: [id], onDelete: Cascade)
 
-  created_at DateTime  @default(now())
+  created_at DateTime @default(now())
 
   @@id([user_id, user_group_id])
   @@map("user_group_member")
@@ -193,17 +191,17 @@ model UserEmployee {
 }
 
 model UserAuditLog {
-  id             Int      @id @default(autoincrement())
+  id              Int              @id @default(autoincrement())
   user_id         String
   event_type      UserLogEventType
-  event_timestamp DateTime @default(now())
+  event_timestamp DateTime         @default(now())
   ip_address      String
   device_info     Json?
 
-  user           User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
-  @@map("user_audit_log")
   @@index([user_id])
+  @@map("user_audit_log")
 }
 
 model JOApproverSetting {
@@ -285,9 +283,9 @@ model RRApproverSetting {
 }
 
 model Setting {
-  id         Int     @id @default(autoincrement())
-  key String @unique
-  value String 
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
 
   @@map("setting")
 }
