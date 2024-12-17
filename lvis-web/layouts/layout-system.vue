@@ -219,42 +219,6 @@ const isApprover = (authUser: AuthUser) => {
 
 }
 
-function canViewDataManagement(authUser: AuthUser) {
-
-    if (isAdmin(authUser)) return true
-
-    if (!authUser.user.permissions) return false
-
-    const systemPermissions = authUser.user.permissions.system
-
-
-    return (
-        (!!systemPermissions.canManageAccount && systemPermissions.canManageAccount.read) ||
-        (!!systemPermissions.canManageEmployee && systemPermissions.canManageEmployee.read) ||
-        (!!systemPermissions.canManageDepartment && systemPermissions.canManageDepartment.read) ||
-        (!!systemPermissions.canManageDivision && systemPermissions.canManageDivision.read) ||
-        (!!systemPermissions.canManageClassification && systemPermissions.canManageClassification.read)
-    )
-}
-
-// check first if has module
-// check if user can read the specified module
-
-function canView(module: string, authUser: AuthUser) {
-
-    if (isAdmin(authUser)) return true
-
-    if (!authUser.user.permissions) return false
-
-    // @ts-ignore
-    if (!authUser.user.permissions.system[module]) return false
-
-    // @ts-ignore
-    if (authUser.user.permissions.system[module].read) return true
-
-    return false
-}
-
 
 </script>
 

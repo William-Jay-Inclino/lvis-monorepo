@@ -242,13 +242,20 @@ function canView(module: string, authUser: AuthUser) {
 
     if (isAdmin(authUser)) return true
 
-    if (!authUser.user.permissions) return false
+    if (!authUser.user.permissions){
+        return false
+    }
 
     // @ts-ignore
-    if (!authUser.user.permissions.system[module]) return false
+    if (!authUser.user.permissions.warehouse[module]) {
+        return false
+    }
 
     // @ts-ignore
-    if (authUser.user.permissions.system[module].read) return true
+    if (!!authUser.user.permissions.warehouse[module].read || !!authUser.user.permissions.warehouse[module].search) {
+        return true
+    }
+
 
     return false
 }
