@@ -1,7 +1,7 @@
 import { sendRequest } from "~/utils/api"
 import type { Division, CreateDivisionInput, MutationResponse } from "./division.ts";
 import { permissions } from '~/composables/system/user/user.permissions'
-import type { Department } from "#imports";
+import type { Department } from "../department/department.js";
 
 
 export async function findAll(): Promise<Division[]> {

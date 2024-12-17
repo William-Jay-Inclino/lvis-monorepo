@@ -1,3 +1,4 @@
+import type { Employee } from "~/composables/hr/employee/employee.types"
 
 
 

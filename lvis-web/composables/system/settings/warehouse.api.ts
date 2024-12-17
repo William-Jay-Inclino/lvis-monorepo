@@ -1,3 +1,4 @@
+import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { ApproverMutationResponse, ApproverSetting, CreateApproverSetting, UpdateApproverOrderResponse, UpdateApproverSetting } from "./warehouse.types";
 
 

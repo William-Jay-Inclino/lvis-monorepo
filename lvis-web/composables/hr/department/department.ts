@@ -1,6 +1,5 @@
 import type { DEPARTMENT_STATUS } from "~/composables/common.types";
-import type { UserPermissions } from "../user/user.types";
-
+import type { UserPermissions } from "~/composables/system/user/user.types";
 
 export interface Department {
     id: string;

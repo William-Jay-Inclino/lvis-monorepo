@@ -1,4 +1,5 @@
 import { APPROVAL_STATUS } from "#imports"
+import type { Employee } from "~/composables/hr/employee/employee.types"
 
 export interface PoApproverSettings {
   approver_id: string,
