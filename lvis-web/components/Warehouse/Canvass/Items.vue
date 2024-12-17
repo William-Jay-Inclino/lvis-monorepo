@@ -182,7 +182,7 @@
 
 
 <script setup lang="ts">
-import type { CanvassItem } from '~/composables/warehouse/canvass/canvass-item.types';
+import type { CanvassItem } from '~/composables/purchase/canvass/canvass-item.types';
 import { fetchItemsByCode } from '~/composables/warehouse/item/item.api';
 import type { Item } from '~/composables/warehouse/item/item.type';
 import { MOBILE_WIDTH } from '~/utils/config';

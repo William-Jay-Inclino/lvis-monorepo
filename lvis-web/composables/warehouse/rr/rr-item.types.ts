@@ -1,5 +1,5 @@
 import type { RR } from "./rr.types"
-import type { MeqsSupplierItem } from '../meqs/meqs-supplier-item'
+import type { MeqsSupplierItem } from '../../purchase/meqs/meqs-supplier-item'
 import type { ItemTransaction } from "../item/item-transaction.type"
 
 export interface RrItem {

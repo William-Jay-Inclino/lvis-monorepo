@@ -128,11 +128,11 @@
 <script setup lang="ts">
 
     import { ref } from 'vue'
-    import type { TripTicket } from '~/composables/warehouse/trip-ticket/trip-ticket.types';
-    import { updateActualTime } from '~/composables/warehouse/trip-ticket/trip-ticket.api'
+    import type { TripTicket } from '~/composables/motorpool/trip-ticket/trip-ticket.types';
+    import { updateActualTime } from '~/composables/motorpool/trip-ticket/trip-ticket.api'
     import { useToast } from "vue-toastification";
     import Swal from 'sweetalert2'
-    import { tripTicketStatus } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
+    import { tripTicketStatus } from '~/composables/motorpool/trip-ticket/trip-ticket.enums';
 
     const toast = useToast();
 

@@ -27,39 +27,15 @@
                         <li class="nav-item">
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
-                        <li v-if="canViewPurchasing(authUser)" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Purchasing
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li v-if="canView('canManageCanvass', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/canvass">Canvass</nuxt-link></li>
-                                <li v-if="canView('canManageRV', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/rv">RV</nuxt-link>
-                                </li>
-                                <li v-if="canView('canManageJO', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/jo">JO</nuxt-link>
-                                </li>
-                                <li v-if="canView('canManageSPR', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/spr">SPR</nuxt-link>
-                                </li>
-                                <li v-if="canView('canManageMEQS', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/meqs">MEQS</nuxt-link></li>
-                                <li v-if="canView('canManagePO', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/po">PO</nuxt-link>
-                                </li>
-                                <li v-if="canView('canManageRR', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/warehouse/rr">RR</nuxt-link>
-                                </li>
-                            </ul>
-                        </li>
                         <li v-if="canViewWarehousing(authUser)" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Warehouse
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li v-if="canView('canManageRR', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/warehouse/rr">RR</nuxt-link>
+                                </li>
                                 <li v-if="canView('canManageOSRIV', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/osriv">OSRIV</nuxt-link>
                                 </li>
@@ -77,23 +53,6 @@
                                 </li>
                                 <li v-if="canView('canManageMST', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/mst">MST</nuxt-link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li v-if="canViewMotorpool(authUser)" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Motorpool
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li v-if="canView('canManageTripTicket', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/trip-ticket">Trip Ticket</nuxt-link>
-                                </li>
-                                <li v-if="canView('canManageGasSlip', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/gas-slip">Gas Slip</nuxt-link>
-                                </li>
-                                <li v-if="canView('canManageVehicle', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/vehicle">Vehicle</nuxt-link>
                                 </li>
                             </ul>
                         </li>
@@ -183,29 +142,6 @@
                     <li class="nav-item">
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
                     </li>
-                    <li v-if="canViewPurchasing(authUser)" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Purchasing
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li v-if="canView('canManageCanvass', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/canvass">Canvass</nuxt-link>
-                            </li>
-                            <li v-if="canView('canManageRV', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/rv">RV</nuxt-link></li>
-                            <li v-if="canView('canManageJO', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/jo">JO</nuxt-link></li>
-                            <li v-if="canView('canManageSPR', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/spr">SPR</nuxt-link></li>
-                            <li v-if="canView('canManageMEQS', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/meqs">MEQS</nuxt-link></li>
-                            <li v-if="canView('canManagePO', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/po">PO</nuxt-link></li>
-                            <li v-if="canView('canManageRR', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/rr">RR</nuxt-link></li>
-                        </ul>
-                    </li>
                     <li v-if="canViewWarehousing(authUser)" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -229,22 +165,6 @@
                             </li>
                             <li v-if="canView('canManageMST', authUser)"><nuxt-link class="dropdown-item"
                                 to="/warehouse/mst">MST</nuxt-link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li v-if="canViewMotorpool(authUser)" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Motorpool
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li v-if="canView('canManageTripTicket', authUser)"><nuxt-link class="dropdown-item"
-                                to="/warehouse/trip-ticket">Trip Ticket</nuxt-link></li>
-                            <li v-if="canView('canManageGasSlip', authUser)"><nuxt-link class="dropdown-item"
-                                to="/warehouse/gas-slip">Gas Slip</nuxt-link>
-                            </li>
-                            <li v-if="canView('canManageVehicle', authUser)"><nuxt-link class="dropdown-item"
-                                to="/warehouse/vehicle">Vehicle</nuxt-link>
                             </li>
                         </ul>
                     </li>
@@ -390,25 +310,25 @@ const isApprover = (authUser: AuthUser) => {
 
 }
 
-function canViewPurchasing(authUser: AuthUser) {
+// function canViewPurchasing(authUser: AuthUser) {
 
-    if (isAdmin(authUser)) return true
+//     if (isAdmin(authUser)) return true
 
-    if (!authUser.user.permissions) return false
+//     if (!authUser.user.permissions) return false
 
-    const warehousePermissions = authUser.user.permissions.warehouse
+//     const warehousePermissions = authUser.user.permissions.warehouse
 
 
-    return (
-        (!!warehousePermissions.canManageCanvass && warehousePermissions.canManageCanvass.search) ||
-        (!!warehousePermissions.canManageRV && warehousePermissions.canManageRV.search) ||
-        (!!warehousePermissions.canManageSPR && warehousePermissions.canManageSPR.search) ||
-        (!!warehousePermissions.canManageJO && warehousePermissions.canManageJO.search) ||
-        (!!warehousePermissions.canManageMEQS && warehousePermissions.canManageMEQS.search) ||
-        (!!warehousePermissions.canManagePO && warehousePermissions.canManagePO.search) ||
-        (!!warehousePermissions.canManageRR && warehousePermissions.canManageRR.search)
-    )
-}
+//     return (
+//         (!!warehousePermissions.canManageCanvass && warehousePermissions.canManageCanvass.search) ||
+//         (!!warehousePermissions.canManageRV && warehousePermissions.canManageRV.search) ||
+//         (!!warehousePermissions.canManageSPR && warehousePermissions.canManageSPR.search) ||
+//         (!!warehousePermissions.canManageJO && warehousePermissions.canManageJO.search) ||
+//         (!!warehousePermissions.canManageMEQS && warehousePermissions.canManageMEQS.search) ||
+//         (!!warehousePermissions.canManagePO && warehousePermissions.canManagePO.search) ||
+//         (!!warehousePermissions.canManageRR && warehousePermissions.canManageRR.search)
+//     )
+// }
 
 function canViewWarehousing(authUser: AuthUser) {
 
@@ -420,6 +340,7 @@ function canViewWarehousing(authUser: AuthUser) {
 
 
     return (
+        (!!warehousePermissions.canManageRR && warehousePermissions.canManageRR.search) || 
         (!!warehousePermissions.canManageOSRIV && warehousePermissions.canManageOSRIV.search) || 
         (!!warehousePermissions.canManageSERIV && warehousePermissions.canManageSERIV.search) || 
         (!!warehousePermissions.canManageMRV && warehousePermissions.canManageMRV.search) || 
@@ -429,21 +350,21 @@ function canViewWarehousing(authUser: AuthUser) {
     )
 }
 
-function canViewMotorpool(authUser: AuthUser) {
+// function canViewMotorpool(authUser: AuthUser) {
 
-    if (isAdmin(authUser)) return true
+//     if (isAdmin(authUser)) return true
 
-    if (!authUser.user.permissions) return false
+//     if (!authUser.user.permissions) return false
 
-    const warehousePermissions = authUser.user.permissions.warehouse
+//     const warehousePermissions = authUser.user.permissions.warehouse
 
 
-    return (
-        (!!warehousePermissions.canManageVehicle && warehousePermissions.canManageVehicle.read) || 
-        (!!warehousePermissions.canManageTripTicket && warehousePermissions.canManageTripTicket.search) || 
-        (!!warehousePermissions.canManageGasSlip && warehousePermissions.canManageGasSlip.search)
-    )
-}
+//     return (
+//         (!!warehousePermissions.canManageVehicle && warehousePermissions.canManageVehicle.read) || 
+//         (!!warehousePermissions.canManageTripTicket && warehousePermissions.canManageTripTicket.search) || 
+//         (!!warehousePermissions.canManageGasSlip && warehousePermissions.canManageGasSlip.search)
+//     )
+// }
 
 function canViewDataManagement(authUser: AuthUser) {
 

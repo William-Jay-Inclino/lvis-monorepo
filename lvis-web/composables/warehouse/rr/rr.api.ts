@@ -1,6 +1,6 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Item } from "../item/item.type"
-import type { PO } from "../po/po.types"
+import type { PO } from "../../purchase/po/po.types"
 import type { RrApproverSettings } from "./rr-approver.types"
 import type { CreateRrInput, FindAllResponse, MutationResponse, RR, UpdateRrInput } from "./rr.types"
 

@@ -312,10 +312,10 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
-import type { CanvassItem } from '~/composables/warehouse/canvass/canvass-item.types';
-import type { MeqsSupplier } from '~/composables/warehouse/meqs/meqs-supplier';
+import type { CanvassItem } from '~/composables/purchase/canvass/canvass-item.types';
+import type { MeqsSupplier } from '~/composables/purchase/meqs/meqs-supplier';
 import { VAT } from '~/utils/constants'
-import type { MeqsSupplierItem } from '~/composables/warehouse/meqs/meqs-supplier-item';
+import type { MeqsSupplierItem } from '~/composables/purchase/meqs/meqs-supplier-item';
 import type { Supplier } from '~/composables/warehouse/supplier/supplier'
 import { fetchSuppliers } from "~/composables/warehouse/supplier/supplier.api";
 

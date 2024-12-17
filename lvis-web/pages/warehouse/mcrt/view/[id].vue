@@ -178,7 +178,11 @@
                                         <tbody>
                                             <tr v-for="i, count in item.mcrt_items">
                                                 <td> {{ count + 1 }} </td>
-                                                <td> {{ i.item.code + ' - ' + i.item.description }} </td>
+                                                <td>
+                                                    <nuxt-link :to="'/warehouse/item/view/' + i.item.id">
+                                                        {{ i.item.code + ' - ' + i.item.description }} 
+                                                    </nuxt-link> 
+                                                </td>
                                                 <td> {{ i.item.unit.name }} </td>
                                                 <td> {{ i.quantity }} </td>
                                                 <td> {{ formatToPhpCurrency(i.price) }} </td>

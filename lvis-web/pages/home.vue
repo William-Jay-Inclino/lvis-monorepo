@@ -14,9 +14,27 @@
 
             <div class="col-12 col-sm-6 col-md-4 pb-5">
                 <div class="card shadow mx-auto" style="max-width: 13rem;">
+                    <img src="/img/purchasing.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
+                    <div class="card-footer text-center">
+                        <button @click="goToPurchasing" class="btn" :class="{'btn-primary': canViewPurchasing, 'btn-secondary': !canViewPurchasing}" :disabled="!canViewPurchasing"> PURCHASING {{ !canViewPurchasing ? '(Restricted)' : ''  }}</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 pb-5">
+                <div class="card shadow mx-auto" style="max-width: 13rem;">
                     <img src="/img/warehouse.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
                     <div class="card-footer text-center">
                         <button @click="goToWarehouse" class="btn" :class="{'btn-primary': canViewWarehouse, 'btn-secondary': !canViewWarehouse}" :disabled="!canViewWarehouse"> WAREHOUSE {{ !canViewWarehouse ? '(Restricted)' : ''  }}</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 pb-5">
+                <div class="card shadow mx-auto" style="max-width: 13rem;">
+                    <img src="/img/motorpool.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
+                    <div class="card-footer text-center">
+                        <button @click="goToMotorpool" class="btn" :class="{'btn-primary': canViewMotorpool, 'btn-secondary': !canViewMotorpool}" :disabled="!canViewMotorpool"> MOTORPOOL {{ !canViewMotorpool ? '(Restricted)' : ''  }}</button>
                     </div>
                 </div>
             </div>
@@ -86,19 +104,6 @@ const canViewSystem = computed(() => {
 
 })
 
-
-// const canViewWarehouse = computed(() => {
-
-//     if (!authUser.value) return false
-
-//     if (isAdmin(authUser.value)) return true
-
-//     if (!authUser.value.user.permissions) return false
-
-//     return !!authUser.value.user.permissions.canViewWarehouse
-
-// })
-
 const canViewAccounting = computed(() => {
 
     if (!authUser.value) return false
@@ -142,7 +147,7 @@ const canViewHR = computed(() => {
 
 })
 
-const canViewWarehouse = computed(() => {
+const canViewPurchasing = computed(() => {
 
     if (!authUser.value) return false
 
@@ -158,8 +163,29 @@ const canViewWarehouse = computed(() => {
     const canReadJO = warehousePermission.canManageJO && warehousePermission.canManageJO.search === true
     const canReadMEQS = warehousePermission.canManageMEQS && warehousePermission.canManageMEQS.search === true
     const canReadPO = warehousePermission.canManagePO && warehousePermission.canManagePO.search === true
-    const canReadRR = warehousePermission.canManageRR && warehousePermission.canManageRR.search === true
 
+    if(
+        canReadCanvass || canReadRV || canReadSPR || canReadJO || canReadMEQS || canReadPO
+    ) {
+        return true
+    }
+
+
+    return false 
+
+})
+
+const canViewWarehouse = computed(() => {
+
+    if (!authUser.value) return false
+
+    if (isAdmin(authUser.value)) return true
+
+    if (!authUser.value.user.permissions) return false
+
+    const warehousePermission = authUser.value.user.permissions.warehouse
+
+    const canReadRR = warehousePermission.canManageRR && warehousePermission.canManageRR.search === true
     const canReadOSRIV = warehousePermission.canManageOSRIV && warehousePermission.canManageOSRIV.search === true
     const canReadSERIV = warehousePermission.canManageSERIV && warehousePermission.canManageSERIV.search === true
     const canReadMRV = warehousePermission.canManageMRV && warehousePermission.canManageMRV.search === true
@@ -172,9 +198,8 @@ const canViewWarehouse = computed(() => {
     const canReadUnit = warehousePermission.canManageUnit && warehousePermission.canManageUnit.read === true
 
     if(
-        canReadCanvass || canReadRV || canReadSPR || canReadJO || canReadMEQS || canReadPO || canReadRR || 
-        canReadOSRIV || canReadSERIV || canReadMRV || canReadMCT || canReadMCRT || canReadMST || 
-        canReadItem || canReadSupplier || canReadProject || canReadUnit 
+        canReadRR || canReadOSRIV || canReadSERIV || canReadMRV || canReadMCT || canReadMCRT || 
+        canReadMST || canReadItem || canReadSupplier || canReadProject || canReadUnit 
     ) {
         return true
     }
@@ -184,14 +209,36 @@ const canViewWarehouse = computed(() => {
 
 })
 
+const canViewMotorpool = computed(() => {
+
+    if (!authUser.value) return false
+
+    if (isAdmin(authUser.value)) return true
+
+    if (!authUser.value.user.permissions) return false
+
+    const warehousePermission = authUser.value.user.permissions.warehouse
+
+    const canReadVehicle = warehousePermission.canManageVehicle && warehousePermission.canManageVehicle.read === true
+    const canReadGasSlip = warehousePermission.canManageGasSlip && warehousePermission.canManageGasSlip.search === true
+    const canReadTripTicket = warehousePermission.canManageTripTicket && warehousePermission.canManageTripTicket.search === true
+
+    if(canReadVehicle || canReadGasSlip || canReadTripTicket ) {
+        return true
+    }
+
+    return false 
+
+})
+
 const comingSoonCards = [
   { name: "POWERSERVE", image: "/img/powerserve2.png" },
 //   { name: "e-CONNECT", image: "/img/econnect.png" },
-  { name: "POWERBILL", image: "/img/powerbill.png" },
-  { name: "LPS", image: "/img/lps.png" },
-  { name: "e-FORMS", image: "/img/eforms.png" },
+//   { name: "POWERBILL", image: "/img/powerbill.png" },
+//   { name: "LPS", image: "/img/lps.png" },
+  { name: "HOUSEWIRING", image: "/img/housewiring2.png" },
 //   { name: "ACCOUNTING", image: "/img/accounting2.png" },
-  { name: "POWERPAY", image: "/img/powerpay.png" }
+  { name: "BILLING", image: "/img/powerpay.png" }
 ];
 
 
@@ -201,11 +248,22 @@ const goToSystem = () => {
     router.push('/system')
 }
 
+const goToPurchasing =  () => {
+    if(!canViewPurchasing.value) return 
+
+    router.push('/purchase')
+}
 
 const goToWarehouse =  () => {
     if(!canViewWarehouse.value) return 
 
     router.push('/warehouse')
+}
+
+const goToMotorpool =  () => {
+    if(!canViewMotorpool.value) return 
+
+    router.push('/motorpool')
 }
 
 const goToAccounting =  () => {

@@ -113,10 +113,10 @@
 
 
 <script setup lang="ts">
-import type { CanvassItem } from '~/composables/warehouse/canvass/canvass-item.types';
-import { hasRemarks } from '~/composables/warehouse/meqs/meqs';
-import type { MeqsSupplier } from '~/composables/warehouse/meqs/meqs-supplier';
-import type { MeqsSupplierItem } from '~/composables/warehouse/meqs/meqs-supplier-item';
+import type { CanvassItem } from '~/composables/purchase/canvass/canvass-item.types';
+import { hasRemarks } from '~/composables/purchase/meqs/meqs';
+import type { MeqsSupplier } from '~/composables/purchase/meqs/meqs-supplier';
+import type { MeqsSupplierItem } from '~/composables/purchase/meqs/meqs-supplier-item';
 
 
 const emits = defineEmits(['awardSupplierItem', 'attachNote']);

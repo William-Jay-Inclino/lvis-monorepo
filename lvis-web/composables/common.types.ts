@@ -1,7 +1,7 @@
 import type { Department } from "./hr/department/department"
 import type { Employee } from "./hr/employee/employee.types"
 import type { User, UserPermissions } from "./system/user/user.types"
-import type { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from "./warehouse/vehicle/vehicle.enums"
+import type { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from "./motorpool/vehicle/vehicle.enums"
 
 export enum USER_STATUS {
     ACTIVE = 'ACTIVE',

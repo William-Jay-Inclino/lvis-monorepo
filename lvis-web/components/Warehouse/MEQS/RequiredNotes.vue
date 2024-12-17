@@ -71,7 +71,7 @@
 
 
 <script setup lang="ts">
-import type { CanvassItemWithSuppliers } from '~/composables/warehouse/meqs/meqs.types';
+import type { CanvassItemWithSuppliers } from '~/composables/purchase/meqs/meqs.types';
 
 
 const emits = defineEmits(['save', 'updateNotes']);

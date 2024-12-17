@@ -1,4 +1,4 @@
-import type { PO } from "../po/po.types";
+import type { PO } from "../../purchase/po/po.types";
 import type { RrApproverSettings } from "./rr-approver.types";
 import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { RrItem } from "./rr-item.types";

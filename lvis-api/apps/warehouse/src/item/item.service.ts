@@ -401,16 +401,32 @@ export class ItemService {
 	}
 
 	getGWAPrice(itemTransactions: ItemTransaction[]): number {
-
-		if(itemTransactions.length === 0) return 0
-
-		const stockInTransactions = itemTransactions.filter(i => i.type === ITEM_TRANSACTION_TYPE.STOCK_IN)
-		const totalPrices = stockInTransactions.reduce((total, item) => total + item.price, 0);
+		console.log('itemTransactions', itemTransactions);
+	
+		// Return 0 if no transactions exist
+		if (!itemTransactions || itemTransactions.length === 0) {
+			return 0;
+		}
+	
+		// Filter STOCK_IN transactions
+		const stockInTransactions = itemTransactions.filter(i => i.type === ITEM_TRANSACTION_TYPE.STOCK_IN);
+	
+		// Return 0 if no STOCK_IN transactions exist
+		if (stockInTransactions.length === 0) {
+			return 0;
+		}
+	
+		// Calculate total prices with fallback for undefined/null prices
+		const totalPrices = stockInTransactions.reduce((total, item) => {
+			const price = typeof item.price === 'number' && item.price >= 0 ? item.price : 0;
+			return total + price;
+		}, 0);
+	
+		// Calculate GWA and ensure a valid number
 		const gwa = totalPrices / stockInTransactions.length;
-
-		return gwa
-
+		return isNaN(gwa) || gwa < 0 ? 0 : gwa;
 	}
+	
 
 	
 

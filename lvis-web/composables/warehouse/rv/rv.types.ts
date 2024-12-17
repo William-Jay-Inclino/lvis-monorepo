@@ -1,7 +1,7 @@
 import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { Canvass } from "../canvass/canvass.types";
 import type { RVApprover, RvApproverSettings } from "./rv-approver.types";
-import type { MEQS } from "../meqs/meqs.types";
+import type { MEQS } from "../../purchase/meqs/meqs.types";
 import type { Employee } from "~/composables/hr/employee/employee.types";
 
 export interface RV {

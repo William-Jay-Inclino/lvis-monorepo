@@ -1,10 +1,10 @@
 import axios from "axios";
-import type { RV } from "../rv/rv.types";
-import type { CreateMeqsInput, FindAllResponse, MEQS, MeqsApproverSettings, MutationResponse, UpdateMeqsInput } from "./meqs.types";
+import type { FindAllResponse, MutationResponse, RV } from "../rv/rv.types";
 import type { SPR } from "../spr/spr.types";
-import type { JO } from "../jo/jo.types";
-import type { Supplier } from "../supplier/supplier";
+import type { Supplier } from "../../warehouse/supplier/supplier";
 import type { Employee } from "~/composables/hr/employee/employee.types";
+import type { MEQS, MeqsApproverSettings, CreateMeqsInput, UpdateMeqsInput } from "./meqs.types";
+import type { JO } from "~/composables/purchase/jo/jo.types";
 
 
 export async function fetchDataInSearchFilters(): Promise<{
@@ -1093,7 +1093,7 @@ export async function create(input: CreateMeqsInput): Promise<MutationResponse> 
 
     const meqs_suppliers = input.meqs_suppliers.map(meqSupplier => {
 
-        const meqs_supplier_items = meqSupplier.meqs_supplier_items.map(item => {
+        const meqs_supplier_items = meqSupplier.meqs_supplier_items.map((item: any) => {
 
             if (!item.notes) {
                 item.notes = ''
@@ -1109,7 +1109,7 @@ export async function create(input: CreateMeqsInput): Promise<MutationResponse> 
             }`;
         }).join(', ');
 
-        const attachments = meqSupplier.attachments.map(attachment => {
+        const attachments = meqSupplier.attachments.map((attachment: { src: any; filename: any; }) => {
             return `
             {
               src: "${attachment.src}"

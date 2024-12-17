@@ -1,10 +1,10 @@
 import type { Unit } from "~/composables/common.types";
-import type { CanvassItem } from "./canvass-item.types"
-import type { RV } from "../rv/rv.types";
-import type { Item } from "../item/item.type";
-import type { JO } from "../jo/jo.types";
-import type { SPR } from "../spr/spr.types";
+import type { RV } from "../../purchase/rv/rv.types";
+import type { Item } from "../../warehouse/item/item.type";
+import type { JO } from "../../purchase/jo/jo.types";
+import type { SPR } from "../../purchase/spr/spr.types";
 import type { Employee } from "~/composables/hr/employee/employee.types";
+import type { CanvassItem } from "~/composables/purchase/canvass/canvass-item.types";
 
 
 export interface Canvass {

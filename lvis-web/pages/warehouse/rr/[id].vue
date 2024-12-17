@@ -57,7 +57,7 @@
                             <label class="form-label">PO Number</label>
                             <input type="text" class="form-control" :value="rrData.po.po_number" disabled>
                             <nuxt-link class="btn btn-sm btn-light text-primary"
-                                :to="'/warehouse/po/view/' + rrData.po.id" target="_blank">View PO
+                                :to="'/purchase/po/view/' + rrData.po.id" target="_blank">View PO
                                 details</nuxt-link>
                         </div>
         

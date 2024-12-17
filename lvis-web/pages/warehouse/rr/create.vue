@@ -61,7 +61,7 @@
                             </client-only>
                             <div>
                                 <nuxt-link v-if="rrData.po" class="btn btn-sm btn-light text-primary"
-                                    :to="'/warehouse/po/view/' + rrData.po.id" target="_blank">View PO
+                                    :to="'/purchase/po/view/' + rrData.po.id" target="_blank">View PO
                                     details</nuxt-link>
                             </div>
                             <div v-if="rrData.po && rrData.po.rrs.length > 0">
@@ -210,10 +210,10 @@
 
 <script script setup lang="ts">
 
-import type { PO } from '~/composables/warehouse/po/po.types';
+import type { PO } from '~/composables/purchase/po/po.types';
 import type { CreateRrInput } from '~/composables/warehouse/rr/rr.types';
 import * as rrApi from '~/composables/warehouse/rr/rr.api';
-import type { MeqsSupplierItem } from '~/composables/warehouse/meqs/meqs-supplier-item';
+import type { MeqsSupplierItem } from '~/composables/purchase/meqs/meqs-supplier-item';
 import type { RrItem } from '~/composables/warehouse/rr/rr-item.types';
 import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
@@ -221,7 +221,7 @@ import type { Item } from '~/composables/warehouse/item/item.type';
 import type { Employee } from '~/composables/hr/employee/employee.types';
 import { fetchEmployees } from '~/composables/hr/employee/employee.api';
 import { addPropertyFullName } from '~/composables/hr/employee/employee';
-import { fetchPosByPoNumber } from '~/composables/warehouse/po/po.api';
+import { fetchPosByPoNumber } from '~/composables/purchase/po/po.api';
 
 definePageMeta({
     name: ROUTES.RR_CREATE,
