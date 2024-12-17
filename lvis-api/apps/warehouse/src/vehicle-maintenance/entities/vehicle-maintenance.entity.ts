@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID, Int, Float } from '@nestjs/graphql';
-import { Vehicle } from './vehicle.entity';
+import { Vehicle } from '../../vehicle/entities/vehicle.entity';
 import { ServiceCenter } from '../../service-center/entities/service-center.entity';
 import { VehicleService } from '../../vehicle-service/entities/vehicle-service.entity';
 

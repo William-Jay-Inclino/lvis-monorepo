@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { AuthUser } from "apps/system/src/__common__/auth-user.entity";
 import { PrismaService } from "../__prisma__/prisma.service";
-import { CreateVehicleMaintenanceInput } from "./dto/create-vehicle-maintenance.input";
+import { CreateVehicleMaintenanceInput } from "../vehicle-maintenance/dto/create-vehicle-maintenance.input";
 import { Prisma, VehicleMaintenance } from "apps/warehouse/prisma/generated/client";
 
 @Injectable()
