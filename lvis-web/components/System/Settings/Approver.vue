@@ -253,7 +253,7 @@
 
 
 <script setup lang="ts">
-import type { Employee } from '~/composables/system/employee/employee.types';
+import type { Employee } from '~/composables/hr/employee/employee.types';
 import type { ApproverSetting, CreateApproverSetting, UpdateApproverSetting } from '~/composables/system/settings/warehouse.types';
 
 

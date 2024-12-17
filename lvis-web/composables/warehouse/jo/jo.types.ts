@@ -2,8 +2,8 @@ import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { Canvass } from "../canvass/canvass.types";
 import type { MEQS } from "../meqs/meqs.types";
 import type { JOApprover, JoApproverSettings } from "./jo-approver.types";
-import type { Employee } from "~/composables/system/employee/employee.types";
-import type { Department } from "~/composables/system/department/department";
+import type { Employee } from "~/composables/hr/employee/employee.types";
+import type { Department } from "~/composables/hr/department/department";
 
 export interface JO {
   id: string;

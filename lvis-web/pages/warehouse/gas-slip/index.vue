@@ -208,8 +208,8 @@ import { type GasSlip } from '~/composables/warehouse/gas-slip/gas-slip.types';
 import * as gasSlipApi from '~/composables/warehouse/gas-slip/gas-slip.api'
 import { PAGINATION_SIZE } from '~/utils/config'
 import { ROUTES, approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';
 
 definePageMeta({

@@ -174,10 +174,10 @@ import { useToast } from "vue-toastification";
 import * as joApi from '~/composables/warehouse/jo/jo.api'
 import { type JO } from '~/composables/warehouse/jo/jo.types';
 import { approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
-import type { Department } from '~/composables/system/department/department';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
+import type { Department } from '~/composables/hr/department/department';
 import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';
 
 definePageMeta({

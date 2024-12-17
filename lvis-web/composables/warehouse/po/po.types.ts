@@ -3,7 +3,7 @@ import type { MeqsSupplier } from "../meqs/meqs-supplier";
 import type { PoApproverSettings } from "./po-approver.types";
 import type { RR } from "../rr/rr.types";
 import type { Account } from "~/composables/accounting/account/account";
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 
 export interface PO {
     id: string;

@@ -30,6 +30,15 @@
                 </div>
             </div>
 
+            <div class="col-12 col-sm-6 col-md-4 pb-5">
+                <div class="card shadow mx-auto" style="max-width: 13rem;">
+                    <img src="/img/HR.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
+                    <div class="card-footer text-center">
+                        <button @click="goToHR" class="btn" :class="{'btn-primary': canViewHR, 'btn-secondary': !canViewHR}" :disabled="!canViewHR"> HR {{ !canViewHR ? '(Restricted)' : ''  }}</button>
+                    </div>
+                </div>
+            </div>
+
             <div v-for="(card, index) in comingSoonCards" :key="index" class="col-12 col-sm-6 col-md-4 pb-5">
                 <div class="card shadow mx-auto" style="max-width: 13rem; background-color: #f0f0f0;">
                     <img
@@ -73,24 +82,22 @@ const canViewSystem = computed(() => {
 
     if (isAdmin(authUser.value)) return true
 
-    if (!authUser.value.user.permissions) return false
-
-    return !!authUser.value.user.permissions.canViewSystem
+    return false
 
 })
 
 
-const canViewWarehouse = computed(() => {
+// const canViewWarehouse = computed(() => {
 
-    if (!authUser.value) return false
+//     if (!authUser.value) return false
 
-    if (isAdmin(authUser.value)) return true
+//     if (isAdmin(authUser.value)) return true
 
-    if (!authUser.value.user.permissions) return false
+//     if (!authUser.value.user.permissions) return false
 
-    return !!authUser.value.user.permissions.canViewWarehouse
+//     return !!authUser.value.user.permissions.canViewWarehouse
 
-})
+// })
 
 const canViewAccounting = computed(() => {
 
@@ -113,9 +120,73 @@ const canViewAccounting = computed(() => {
 
 })
 
+const canViewHR = computed(() => {
+
+    if (!authUser.value) return false
+
+    if (isAdmin(authUser.value)) return true
+
+    if (!authUser.value.user.permissions) return false
+
+    const systemPermission = authUser.value.user.permissions.system
+
+    const canReadEmployee = systemPermission.canManageEmployee && systemPermission.canManageEmployee.read === true
+    const canReadDepartment = systemPermission.canManageDepartment && systemPermission.canManageDepartment.read === true 
+    const canReadDivision = systemPermission.canManageDivision && systemPermission.canManageDivision.read === true 
+
+    if(canReadEmployee || canReadDepartment || canReadDivision) {
+        return true 
+    }
+
+    return false 
+
+})
+
+const canViewWarehouse = computed(() => {
+
+    if (!authUser.value) return false
+
+    if (isAdmin(authUser.value)) return true
+
+    if (!authUser.value.user.permissions) return false
+
+    const warehousePermission = authUser.value.user.permissions.warehouse
+
+    const canReadCanvass = warehousePermission.canManageCanvass && warehousePermission.canManageCanvass.search === true
+    const canReadRV = warehousePermission.canManageRV && warehousePermission.canManageRV.search === true
+    const canReadSPR = warehousePermission.canManageSPR && warehousePermission.canManageSPR.search === true
+    const canReadJO = warehousePermission.canManageJO && warehousePermission.canManageJO.search === true
+    const canReadMEQS = warehousePermission.canManageMEQS && warehousePermission.canManageMEQS.search === true
+    const canReadPO = warehousePermission.canManagePO && warehousePermission.canManagePO.search === true
+    const canReadRR = warehousePermission.canManageRR && warehousePermission.canManageRR.search === true
+
+    const canReadOSRIV = warehousePermission.canManageOSRIV && warehousePermission.canManageOSRIV.search === true
+    const canReadSERIV = warehousePermission.canManageSERIV && warehousePermission.canManageSERIV.search === true
+    const canReadMRV = warehousePermission.canManageMRV && warehousePermission.canManageMRV.search === true
+    const canReadMCT = warehousePermission.canManageMCT && warehousePermission.canManageMCT.search === true
+    const canReadMCRT = warehousePermission.canManageMCRT && warehousePermission.canManageMCRT.search === true
+    const canReadMST = warehousePermission.canManageMST && warehousePermission.canManageMST.search === true
+    const canReadItem = warehousePermission.canManageItem && warehousePermission.canManageItem.search === true
+    const canReadSupplier = warehousePermission.canManageSupplier && warehousePermission.canManageSupplier.read === true
+    const canReadProject = warehousePermission.canManageProject && warehousePermission.canManageProject.read === true
+    const canReadUnit = warehousePermission.canManageUnit && warehousePermission.canManageUnit.read === true
+
+    if(
+        canReadCanvass || canReadRV || canReadSPR || canReadJO || canReadMEQS || canReadPO || canReadRR || 
+        canReadOSRIV || canReadSERIV || canReadMRV || canReadMCT || canReadMCRT || canReadMST || 
+        canReadItem || canReadSupplier || canReadProject || canReadUnit 
+    ) {
+        return true
+    }
+
+
+    return false 
+
+})
+
 const comingSoonCards = [
   { name: "POWERSERVE", image: "/img/powerserve2.png" },
-  { name: "e-CONNECT", image: "/img/econnect.png" },
+//   { name: "e-CONNECT", image: "/img/econnect.png" },
   { name: "POWERBILL", image: "/img/powerbill.png" },
   { name: "LPS", image: "/img/lps.png" },
   { name: "e-FORMS", image: "/img/eforms.png" },
@@ -141,6 +212,12 @@ const goToAccounting =  () => {
     if(!canViewAccounting.value) return 
 
     router.push('/accounting')
+}
+
+const goToHR =  () => {
+    if(!canViewHR.value) return 
+
+    router.push('/hr')
 }
 
 

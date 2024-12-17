@@ -269,8 +269,8 @@ import * as serivApproverApi from '~/composables/warehouse/seriv/seriv-approver.
 import * as serivItemApi from '~/composables/warehouse/seriv/seriv-item.api'
 import { type SERIV, type UpdateSerivInput } from '~/composables/warehouse/seriv/seriv.types';
 import { approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
 import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
 

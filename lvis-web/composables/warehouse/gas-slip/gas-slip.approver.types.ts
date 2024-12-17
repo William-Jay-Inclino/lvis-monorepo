@@ -1,4 +1,4 @@
-import type { Employee } from "~/composables/system/employee/employee.types"
+import type { Employee } from "~/composables/hr/employee/employee.types"
 
 
 export interface GasSlipApprover {

@@ -12,6 +12,9 @@
                             <br />
                             <br />
                             - Admin
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'smile']" />
+                            </client-only>
                         </div>
                     </div>
                 </div>

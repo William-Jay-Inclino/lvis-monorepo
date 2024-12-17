@@ -1,5 +1,5 @@
 import { DEPARTMENT_STATUS, type WarehouseRequestType } from "~/composables/common.types"
-import { EMPLOYEE_STATUS } from "~/composables/system/employee/employee.types"
+import { EMPLOYEE_STATUS } from "~/composables/hr/employee/employee.types"
 
 
 export enum SERVICES {

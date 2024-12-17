@@ -195,9 +195,9 @@ import * as mrvApi from '~/composables/warehouse/mrv/mrv.api'
 import { getFullname, formatDate } from '~/utils/helpers'
 import { PAGINATION_SIZE } from '~/utils/config'
 import { ROUTES, approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 
 definePageMeta({
     name: ROUTES.MRV_INDEX,

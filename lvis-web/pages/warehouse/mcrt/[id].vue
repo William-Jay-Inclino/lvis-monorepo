@@ -214,8 +214,8 @@ import * as mcrtApproverApi from '~/composables/warehouse/mcrt/mcrt-approver.api
 import * as mcrtItemApi from '~/composables/warehouse/mcrt/mcrt-item.api'
 import { type MCRT, type UpdateMcrtInput } from '~/composables/warehouse/mcrt/mcrt.types';
 import { approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
 import type { Item } from '~/composables/warehouse/item/item.type';
 import type { MCRTItem } from '~/composables/warehouse/mcrt/mcrt-item.types';

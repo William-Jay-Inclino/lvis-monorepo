@@ -3,7 +3,7 @@ import type { Canvass } from "../canvass/canvass.types";
 import type { CreateSprInput, FindAllResponse, MutationResponse, SPR, UpdateSprInput } from "./spr.types";
 import { sendRequest } from "~/utils/api"
 import type { SprApproverSettings } from "./spr-approver.types";
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 
 export async function fetchDataInSearchFilters(): Promise<{
     canvasses: Canvass[],

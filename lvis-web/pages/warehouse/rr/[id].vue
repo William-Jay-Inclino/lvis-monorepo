@@ -198,9 +198,9 @@ import type { RR } from '~/composables/warehouse/rr/rr.types';
 import * as rrApi from '~/composables/warehouse/rr/rr.api'
 import * as rrApproverApi from '~/composables/warehouse/rr/rr-approver.api'
 import * as rrItemApi from '~/composables/warehouse/rr/rr-item.api'
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 
 definePageMeta({
     name: ROUTES.RR_UPDATE,

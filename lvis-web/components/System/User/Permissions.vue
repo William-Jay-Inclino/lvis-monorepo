@@ -5,44 +5,9 @@
             <table class="table table-hover">
                 <tbody>
                     <tr>
-                        <th colspan="3" class="fst-italic text-warning">
-                            <h5> HOMEPAGE </h5>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td class="text-muted">View System</td>
-                        <td></td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.canViewSystem">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-muted">View Warehouse</td>
-                        <td></td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
-                                    v-model="permissions.canViewWarehouse">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
                         <td colspan="3" class="fst-italic text-warning">
-                            <h5> SYSTEM </h5>
+                            <h5> HR </h5>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="text-muted">Users</td>
-                        <td></td>
-                        <td class="text-muted"> Only admin </td>
-                    </tr>
-                    <tr>
-                        <td class="text-muted">Settings</td>
-                        <td></td>
-                        <td class="text-muted"> Only admin </td>
                     </tr>
                     <tr v-if="permissions.system.canManageEmployee">
                         <td class="text-muted align-middle">Employee Mgmt.</td>
@@ -174,6 +139,11 @@
                                     </label>
                                 </div>
                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="fst-italic text-warning">
+                            <h5> ACCOUNTING </h5>
                         </td>
                     </tr>
                     <tr v-if="permissions.system.canManageAccount">

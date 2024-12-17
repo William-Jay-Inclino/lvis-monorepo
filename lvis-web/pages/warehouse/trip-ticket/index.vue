@@ -216,9 +216,9 @@ import * as tripTicketApi from '~/composables/warehouse/trip-ticket/trip-ticket.
 import { getFullname, formatDate } from '~/utils/helpers'
 import { PAGINATION_SIZE } from '~/utils/config'
 import { ROUTES } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { tripTicketStatus, type ITripStatus } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
 import { tripStatusArray } from '~/composables/warehouse/trip-ticket/trip-ticket.enums';
 import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';

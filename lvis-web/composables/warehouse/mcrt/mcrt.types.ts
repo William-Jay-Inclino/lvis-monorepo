@@ -1,4 +1,4 @@
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateMCRTApprover, MCRTApprover } from "./mcrt-approver.types";
 import type { MCRTItem } from "./mcrt-item.types";

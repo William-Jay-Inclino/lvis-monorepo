@@ -260,8 +260,8 @@ import Swal from 'sweetalert2'
 import { getFullname } from '~/utils/helpers'
 import * as tripApi from '~/composables/warehouse/trip-ticket/trip-ticket.api'
 import type { CreateTripTicket } from '~/composables/warehouse/trip-ticket/trip-ticket.types';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { TRIP_TICKET_DEFAULT_APPROVERS } from '~/composables/warehouse/trip-ticket/trip-ticket.constants';
 import { VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';

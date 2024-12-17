@@ -183,8 +183,8 @@
 
     import * as mstApi from '~/composables/warehouse/mst/mst.api'
     import type { CreateMstInput, MST } from '~/composables/warehouse/mst/mst.types';
-    import type { Employee } from '~/composables/system/employee/employee.types';
-    import { addPropertyFullName } from '~/composables/system/employee/employee';
+    import type { Employee } from '~/composables/hr/employee/employee.types';
+    import { addPropertyFullName } from '~/composables/hr/employee/employee';
     import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';
     import { MST_DEFAULT_APPROVERS } from '~/composables/warehouse/mst/mst.constants';

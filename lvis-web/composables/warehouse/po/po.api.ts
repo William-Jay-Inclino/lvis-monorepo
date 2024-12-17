@@ -2,7 +2,7 @@ import type { Account } from "~/composables/accounting/account/account";
 import type { MEQS } from "../meqs/meqs.types";
 import type { PoApproverSettings } from "./po-approver.types";
 import type { CreatePoInput, FindAllResponse, MutationResponse, PO, UpdatePoInput } from "./po.types";
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 
 export async function findByRefNumber(payload: { po_number?: string, meqs_number?: string }): Promise<PO | undefined> {
 

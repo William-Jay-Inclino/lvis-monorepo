@@ -251,8 +251,8 @@ import * as gsApi from '~/composables/warehouse/gas-slip/gas-slip.api'
 import * as gsApproverApi from '~/composables/warehouse/gas-slip/gas-slip-approver.api'
 import { type GasSlip, type UpdateGasSlip } from '~/composables/warehouse/gas-slip/gas-slip.types';
 import { approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { VEHICLE_CLASSIFICATION, VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';
 

@@ -255,8 +255,8 @@
 
     import * as mrvApi from '~/composables/warehouse/mrv/mrv.api'
     import type { CreateMrvInput } from '~/composables/warehouse/mrv/mrv.types';
-    import type { Employee } from '~/composables/system/employee/employee.types';
-    import { addPropertyFullName } from '~/composables/system/employee/employee';
+    import type { Employee } from '~/composables/hr/employee/employee.types';
+    import { addPropertyFullName } from '~/composables/hr/employee/employee';
     import type { Station } from '~/composables/warehouse/station/station';
     import type { AddItem } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';

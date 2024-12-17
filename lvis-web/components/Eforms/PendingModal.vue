@@ -61,7 +61,7 @@ import { type Pending } from '~/composables/e-forms/pendings/pendings.types';
 import type { Account } from '~/composables/accounting/account/account';
 import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
 import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';
-import type { Employee } from '~/composables/system/employee/employee.types';
+import type { Employee } from '~/composables/hr/employee/employee.types';
 
 const emits = defineEmits([
     'approve-budget-officer',

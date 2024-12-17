@@ -1,0 +1,217 @@
+<template>
+
+    <div class="card">
+        <div class="card-body">
+            <div v-if="!isLoadingPage && authUser" class="row justify-content-center pt-3">
+        
+                <div class="col-lg-6">
+        
+                    <div v-if="item">
+        
+                        <div class="h5wrapper mb-3">
+                            <hr class="result">
+                            <h5 class="text-warning fst-italic">
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                            </client-only> Employee Info
+                            </h5>
+                            <hr class="result">
+                        </div>
+        
+                        <div class="row pt-3">
+                            <div class="col">
+
+                                <div class="alert alert-info" role="alert">
+                                    <small class="fst-italic">
+                                        This is how the employee is addressed in reports: <b>{{ employee_fullname }} </b>
+                                    </small>
+                                </div>
+
+                                <div v-if="has_user_account" class="mb-2">
+                                    <button @click="onClickViewUserAccount" class="btn btn-sm btn-light text-primary">
+                                        View user account
+                                    </button>
+                                </div>
+
+                                <div v-else class="alert alert-light mb-2">
+                                    <small>
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'warning']" class="text-warning me-1"/>
+                                        </client-only>
+                                        {{ item.firstname }} does not have a user account. 
+                                        <button v-if="isAdmin(authUser)" @click="onClickCreateUserAccount" class="btn btn-sm btn-light text-primary">Create One</button>
+                                    </small>
+                                </div>
+
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td width="30%" class="text-muted">Firstname</td>
+                                            <td> {{ item.firstname }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Middlename</td>
+                                            <td> {{ item.middlename || 'N/A' }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Lastname</td>
+                                            <td> {{ item.lastname }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Name Prefix</td>
+                                            <td> {{ item.name_prefix }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Name Suffix</td>
+                                            <td> {{ item.name_suffix }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Employee Number</td>
+                                            <td> {{ item.employee_number }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Rank Number</td>
+                                            <td> {{ item.rank_number }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Position</td>
+                                            <td> {{ item.position }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Department</td>
+                                            <td> {{ item.department.name }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Division</td>
+                                            <td> {{ item.division ? item.division.name : 'N/A' }} </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td class="text-muted">Status</td>
+                                            <td>
+                                                <div :class="{ [`badge bg-${employeeStatus[item.status].color}`]: true }">
+                                                    {{ employeeStatus[item.status].label }}
+                                                </div>
+                                            </td>
+                                        </tr> -->
+                                        <tr>
+                                            <td class="text-muted">Signature</td>
+                                            <td>
+                                                <div v-if="item.signature_src">
+                                                    <img style="max-width: 150px;" :src="getUploadsPath(item.signature_src)" class="img-thumbnail">
+                                                </div>
+                                                <div v-else>
+                                                    N/A
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+        
+                        <div class="row pt-5">
+                            <div class="col">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <button v-if="canRead(authUser, 'canManageEmployee', SERVICES.SYSTEM)" class="btn btn-secondary"
+                                            @click="onClickGoToList">
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'list']"/>
+                            </client-only> Go to List
+                                        </button>
+                                        <button v-if="canEdit(authUser, 'canManageEmployee', SERVICES.SYSTEM)" class="btn btn-success"
+                                            @click="onClickUpdate">
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                            </client-only> Update
+                                        </button>
+                                        <button v-if="canCreate(authUser, 'canManageEmployee', SERVICES.SYSTEM)" class="btn btn-primary"
+                                            @click="onClickAddNew">
+                                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'plus']"/>
+                         </client-only> Add New
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+        
+                </div>
+            </div>
+        
+            <div v-else>
+                <LoaderSpinner />
+            </div>
+        </div>
+    </div>
+
+
+</template>
+
+
+<script setup lang="ts">
+
+definePageMeta({
+    name: ROUTES.EMPLOYEE_VIEW,
+    layout: "layout-hr",
+    middleware: ['auth'],
+})
+
+import * as api from '~/composables/hr/employee/employee.api'
+import type { Employee } from '~/composables/hr/employee/employee.types';
+
+const isLoadingPage = ref(true)
+const authUser = ref<AuthUser>({} as AuthUser)
+
+const config = useRuntimeConfig()
+const API_FILE_ENDPOINT = config.public.apiUrl + '/api/v1/file-upload'
+
+
+const router = useRouter()
+const route = useRoute()
+const item = ref<Employee | undefined>()
+
+onMounted(async () => {
+    authUser.value = getAuthUser()
+    item.value = await api.findOne(route.params.id as string)
+    isLoadingPage.value = false
+
+})
+
+const employee_fullname = computed( () => {
+    if(!item.value) return ''
+    return getFullnameWithTitles(item.value.firstname, item.value.lastname, item.value.middlename, item.value.name_prefix, item.value.name_suffix)
+})
+
+const has_user_account = computed( () => {
+    if(item.value?.user_employee) {
+        return true 
+    }
+    return false 
+})
+
+function getUploadsPath(src: string) {
+
+    const path = src.replace(UPLOADS_PATH, '')
+    console.log('PATH', path)
+
+    const uploadsPath = API_FILE_ENDPOINT + path
+    return uploadsPath
+
+}
+
+const onClickGoToList = () => router.push(`/hr/employee`);
+const onClickAddNew = () => router.push(`/hr/employee/create`);
+const onClickUpdate = () => router.push(`/hr/employee/${item.value?.id}`);
+const onClickCreateUserAccount = () => router.push(`/system/user/create`);
+
+const onClickViewUserAccount = () => {
+    if(item.value?.user_employee?.user) {
+        router.push(`/system/user/${item.value?.user_employee.user.id}`)
+    }
+}
+
+
+</script>

@@ -30,24 +30,8 @@
                         <li v-if="isAdmin(authUser)" class="nav-item">
                             <nuxt-link class="nav-link text-white" to="/system/user">Users</nuxt-link>
                         </li>
-                        <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Data Management
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li v-if="canView('canManageEmployee', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/system/employee">Employee</nuxt-link></li>
-                                <li v-if="canView('canManageDepartment', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/system/department">Department</nuxt-link></li>
-                                <li v-if="canView('canManageDivision', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/system/division">Division</nuxt-link></li>
-                                <li v-if="canView('canManageAccount', authUser)"><nuxt-link class="dropdown-item"
-                                        to="/accounting/account">Account</nuxt-link></li>
-                                <li v-if="canView('canManageClassification', authUser)"><nuxt-link
-                                        class="dropdown-item"
-                                        to="/accounting/classification">Classification</nuxt-link></li>
-                            </ul>
+                        <li v-if="isAdmin(authUser)" class="nav-item">
+                            <a class="nav-link text-white"> Settings </a>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">
@@ -114,24 +98,8 @@
                     </li>
                     <li v-if="isAdmin(authUser)" class="nav-item">
                         <nuxt-link class="nav-link" to="/system/user">Users</nuxt-link>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Data Management
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><nuxt-link class="dropdown-item" to="/system/employee">Employee</nuxt-link>
-                            </li>
-                            <li><nuxt-link class="dropdown-item"
-                                    to="/system/department">Department</nuxt-link></li>
-                            <li><nuxt-link class="dropdown-item"
-                                to="/system/division">Division</nuxt-link></li>
-                            <li><nuxt-link class="dropdown-item"
-                                    to="/accounting/classification">Classification</nuxt-link></li>
-                            <li><nuxt-link class="dropdown-item"
-                                    to="/accounting/account">Account</nuxt-link></li>
-                        </ul>
+                    </li><li v-if="isAdmin(authUser)" class="nav-item">
+                        <a class="nav-link" href="javascript:void()"> Settings </a>
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">

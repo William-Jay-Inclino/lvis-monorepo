@@ -143,9 +143,9 @@ import type { CanvassItem } from '~/composables/warehouse/canvass/canvass-item.t
 import { useToast } from "vue-toastification";
 import { formatToValidHtmlDate, redirectTo401Page } from '~/utils/helpers'
 import type { Item } from '~/composables/warehouse/item/item.type';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 
 definePageMeta({
     name: ROUTES.CANVASS_UPDATE,

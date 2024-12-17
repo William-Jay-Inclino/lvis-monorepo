@@ -1,6 +1,6 @@
 import type { CreateMrvInput, FindAllResponse, MutationResponse, MRV, UpdateMrvInput } from "./mrv.types";
 import { sendRequest } from "~/utils/api"
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { Station } from "../station/station";
 import type { Item } from "../item/item.type";
 import type { Project } from "../project/project.types";

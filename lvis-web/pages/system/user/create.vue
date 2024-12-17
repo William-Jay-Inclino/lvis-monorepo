@@ -233,10 +233,9 @@ import * as api from '~/composables/system/user/user.api'
 import type { CreateUserInput } from '~/composables/system/user/user.types'
 import { permissions } from '~/composables/system/user/user.permissions'
 import Swal from 'sweetalert2'
-import type { Employee } from '~/composables/system/employee/employee.types';
+import type { Employee } from '~/composables/hr/employee/employee.types';
 import { mergeUserPermissions } from '~/composables/system/user/user.helpers'
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
 
 const router = useRouter()
 const isSaving = ref(false)

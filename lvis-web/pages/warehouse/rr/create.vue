@@ -218,9 +218,9 @@ import type { RrItem } from '~/composables/warehouse/rr/rr-item.types';
 import Swal from 'sweetalert2'
 import { useToast } from "vue-toastification";
 import type { Item } from '~/composables/warehouse/item/item.type';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { fetchPosByPoNumber } from '~/composables/warehouse/po/po.api';
 
 definePageMeta({

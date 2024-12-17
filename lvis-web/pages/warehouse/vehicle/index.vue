@@ -166,9 +166,9 @@ import * as api from '~/composables/warehouse/vehicle/vehicle.api'
 import { PAGINATION_SIZE } from '~/utils/config'
 import { useToast } from "vue-toastification";
 import type { Vehicle } from '~/composables/warehouse/vehicle/vehicle.types';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
 
 
 definePageMeta({

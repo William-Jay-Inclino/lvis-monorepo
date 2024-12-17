@@ -172,10 +172,10 @@ import { getFullname } from '~/utils/helpers'
 import * as sprApi from '~/composables/warehouse/spr/spr.api'
 import type { Canvass } from '~/composables/warehouse/canvass/canvass.types';
 import type { CreateSprInput } from '~/composables/warehouse/spr/spr.types';
-import type { Employee } from '~/composables/system/employee/employee.types';
+import type { Employee } from '~/composables/hr/employee/employee.types';
 import { fetchCanvassesByRcNumber } from '~/composables/warehouse/canvass/canvass.api';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';
 import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';
 

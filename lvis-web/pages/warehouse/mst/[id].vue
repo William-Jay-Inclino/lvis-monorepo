@@ -206,8 +206,8 @@ import * as mstApproverApi from '~/composables/warehouse/mst/mst-approver.api'
 import * as mstItemApi from '~/composables/warehouse/mst/mst-item.api'
 import { type MST, type UpdateMstInput } from '~/composables/warehouse/mst/mst.types';
 import { approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
 import { ITEM_STATUS } from '~/utils/constants';
 import type { MSTItem } from '~/composables/warehouse/mst/mst-item.types';

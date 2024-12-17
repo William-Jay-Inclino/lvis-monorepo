@@ -285,8 +285,8 @@
 
 
 <script setup lang="ts">
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
 
 
     const emits = defineEmits(['changeApproverOrder', 'addApprover', 'editApprover', 'removeApprover', 'searchedEmployees']);

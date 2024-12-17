@@ -1,4 +1,4 @@
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { CreateTripTicketApprover, TripTicketApprover } from "./trip-ticket-approver.types";
 import type { TRIP_TICKET_STATUS } from "./trip-ticket.enums";
 

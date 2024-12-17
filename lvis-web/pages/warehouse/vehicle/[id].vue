@@ -104,8 +104,8 @@ import Swal from 'sweetalert2'
 import type { UpdateVehicleInput } from '~/composables/warehouse/vehicle/vehicle.types';
 import { VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 import { VEHICLE_CLASSIFICATIONS } from '~/composables/warehouse/vehicle/vehicle.constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 
 definePageMeta({
     name: ROUTES.VEHICLE_UPDATE,

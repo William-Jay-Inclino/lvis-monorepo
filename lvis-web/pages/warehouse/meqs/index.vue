@@ -242,10 +242,10 @@ import * as meqsApi from '~/composables/warehouse/meqs/meqs.api'
 import type { JO } from '~/composables/warehouse/jo/jo.types';
 import type { SPR } from '~/composables/warehouse/spr/spr.types';
 import { getFullname, formatDate } from '~/utils/helpers'
-import type { Employee } from '~/composables/system/employee/employee.types';
+import type { Employee } from '~/composables/hr/employee/employee.types';
 import { fetchRvNumbers } from '~/composables/warehouse/rv/rv.api';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { fetchSprNumbers } from '~/composables/warehouse/spr/spr.api';
 import { fetchJoNumbers } from '~/composables/warehouse/jo/jo.api';
 import type { Supplier } from '~/composables/warehouse/supplier/supplier';

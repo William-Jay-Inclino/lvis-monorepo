@@ -205,8 +205,8 @@ import * as osrivApproverApi from '~/composables/warehouse/osriv/osriv-approver.
 import * as osrivItemApi from '~/composables/warehouse/osriv/osriv-item.api'
 import { type OSRIV } from '~/composables/warehouse/osriv/osriv.types';
 import { approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
 import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
 

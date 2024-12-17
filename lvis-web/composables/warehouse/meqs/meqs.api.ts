@@ -4,7 +4,7 @@ import type { CreateMeqsInput, FindAllResponse, MEQS, MeqsApproverSettings, Muta
 import type { SPR } from "../spr/spr.types";
 import type { JO } from "../jo/jo.types";
 import type { Supplier } from "../supplier/supplier";
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 
 
 export async function fetchDataInSearchFilters(): Promise<{

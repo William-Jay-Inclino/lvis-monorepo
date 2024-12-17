@@ -1,6 +1,6 @@
 import type { CreateSerivInput, FindAllResponse, MutationResponse, SERIV, UpdateSerivInput } from "./seriv.types";
 import { sendRequest } from "~/utils/api"
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { Station } from "../station/station";
 import type { Item } from "../item/item.type";
 import { ITEM_TYPE } from "~/utils/constants";

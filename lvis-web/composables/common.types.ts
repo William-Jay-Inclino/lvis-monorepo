@@ -1,5 +1,5 @@
-import type { Department } from "./system/department/department"
-import type { Employee } from "./system/employee/employee.types"
+import type { Department } from "./hr/department/department"
+import type { Employee } from "./hr/employee/employee.types"
 import type { User, UserPermissions } from "./system/user/user.types"
 import type { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from "./warehouse/vehicle/vehicle.enums"
 

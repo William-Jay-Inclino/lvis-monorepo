@@ -192,9 +192,9 @@ import * as meqsSupplierAttachmentApi from '~/composables/warehouse/meqs/meqs-su
 import type { CreateMeqsSupplierAttachmentSubInput, CreateMeqsSupplierInput, CreateMeqsSupplierItemInput, MeqsSupplier, UpdateMeqsSupplierInput, UpdateMeqsSupplierItemInput } from '~/composables/warehouse/meqs/meqs-supplier';
 import type { CreateMeqsSupplierAttachmentInput } from '~/composables/warehouse/meqs/meqs-supplier-attachment';
 import type { Supplier } from '~/composables/warehouse/supplier/supplier';
-import type { Employee } from '~/composables/system/employee/employee.types';
+import type { Employee } from '~/composables/hr/employee/employee.types';
 import { getLowestPriceItem, getSupplierItemsByCanvassId } from '~/composables/warehouse/meqs/meqs';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 
 definePageMeta({
     name: ROUTES.MEQS_UPDATE,

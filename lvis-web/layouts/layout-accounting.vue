@@ -96,13 +96,10 @@
                     <li class="nav-item">
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
                     </li>
-                    <li v-if="isAdmin(authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/system/user">Users</nuxt-link>
-                    </li>
-                    <li class="nav-item">
+                    <li v-if="canView('canManageAccount', authUser)" class="nav-item">
                         <nuxt-link class="nav-link" to="/accounting/account">Account</nuxt-link>
                     </li>
-                    <li class="nav-item">
+                    <li v-if="canView('canManageClassification', authUser)" class="nav-item">
                         <nuxt-link class="nav-link" to="/accounting/classification">Classification</nuxt-link>
                     </li>
                 </ul>

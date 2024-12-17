@@ -3,8 +3,8 @@ import type { Canvass } from "../canvass/canvass.types";
 import type { CreateJoInput, FindAllResponse, MutationResponse, JO, UpdateJoInput } from "./jo.types";
 import { sendRequest } from "~/utils/api"
 import type { JoApproverSettings } from "./jo-approver.types";
-import type { Employee } from "~/composables/system/employee/employee.types";
-import type { Department } from "~/composables/system/department/department";
+import type { Employee } from "~/composables/hr/employee/employee.types";
+import type { Department } from "~/composables/hr/department/department";
 
 export async function fetchDataInSearchFilters(): Promise<{
     canvasses: Canvass[],

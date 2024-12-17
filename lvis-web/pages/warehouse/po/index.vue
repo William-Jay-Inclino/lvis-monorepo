@@ -207,9 +207,9 @@ import type { PO } from '~/composables/warehouse/po/po.types';
 import { getFullname, formatDate } from '~/utils/helpers'
 import { PAGINATION_SIZE } from '~/utils/config'
 import type { MEQS } from '~/composables/warehouse/meqs/meqs.types';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { fetchMeqsNumbers } from '~/composables/warehouse/meqs/meqs.api';
 
 

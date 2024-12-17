@@ -107,8 +107,8 @@
 import * as api from '~/composables/warehouse/vehicle/vehicle.api'
 import type { CreateVehicleInput } from '~/composables/warehouse/vehicle/vehicle.types'
 import Swal from 'sweetalert2'
-import { addPropertyFullName } from '~/composables/system/employee/employee';
-import type { Employee } from '~/composables/system/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
 import { VEHICLE_CLASSIFICATIONS } from '~/composables/warehouse/vehicle/vehicle.constants';
 
 definePageMeta({

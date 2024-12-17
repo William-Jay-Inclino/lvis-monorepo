@@ -1,6 +1,6 @@
 import type { CreateMctInput, FindAllResponse, MutationResponse, MCT } from "./mct.types";
 import { sendRequest } from "~/utils/api"
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { Station } from "../station/station";
 import type { Item } from "../item/item.type";
 import type { MRV } from "../mrv/mrv.types";

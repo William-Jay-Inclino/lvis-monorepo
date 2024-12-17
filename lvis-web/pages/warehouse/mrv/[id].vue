@@ -270,8 +270,8 @@ import * as mrvApproverApi from '~/composables/warehouse/mrv/mrv-approver.api'
 import * as mrvItemApi from '~/composables/warehouse/mrv/mrv-item.api'
 import { type MRV, type UpdateMrvInput } from '~/composables/warehouse/mrv/mrv.types';
 import { approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
 import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
 import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';

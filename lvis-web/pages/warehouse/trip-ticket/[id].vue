@@ -297,8 +297,8 @@ import * as tripApi from '~/composables/warehouse/trip-ticket/trip-ticket.api'
 import * as tripApproverApi from '~/composables/warehouse/trip-ticket/trip-ticket-approver.api'
 import { type TripTicket, type UpdateTripTicket } from '~/composables/warehouse/trip-ticket/trip-ticket.types';
 import { approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';
 

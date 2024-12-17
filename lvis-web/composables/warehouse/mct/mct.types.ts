@@ -2,7 +2,7 @@ import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateMCTApprover, MCTApprover } from "./mct-approver.types";
 import type { MRV } from "../mrv/mrv.types";
 import type { MCRT } from "../mcrt/mcrt.types";
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 
 
 export interface MCT {

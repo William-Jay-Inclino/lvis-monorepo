@@ -204,8 +204,8 @@ import Swal from 'sweetalert2'
 import { getFullname } from '~/utils/helpers'
 import * as gsApi from '~/composables/warehouse/gas-slip/gas-slip.api'
 import type { CreateGasSlip } from '~/composables/warehouse/gas-slip/gas-slip.types';
-import type { Employee } from '~/composables/system/employee/employee.types';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { GAS_SLIP_DEFAULT_APPROVERS } from '~/composables/warehouse/gas-slip/gas-slips.constants';
 import { VEHICLE_CLASSIFICATION, VehicleClassificationMapper } from '~/composables/warehouse/vehicle/vehicle.enums';
 import { fetchVehicles } from '~/composables/warehouse/vehicle/vehicle.api';

@@ -241,8 +241,8 @@
 
     import * as serivApi from '~/composables/warehouse/seriv/seriv.api'
     import type { CreateSerivInput } from '~/composables/warehouse/seriv/seriv.types';
-    import type { Employee } from '~/composables/system/employee/employee.types';
-    import { addPropertyFullName } from '~/composables/system/employee/employee';
+    import type { Employee } from '~/composables/hr/employee/employee.types';
+    import { addPropertyFullName } from '~/composables/hr/employee/employee';
     import type { Station } from '~/composables/warehouse/station/station';
     import type { AddItem } from '~/composables/warehouse/item/item.type';
     import Swal from 'sweetalert2';

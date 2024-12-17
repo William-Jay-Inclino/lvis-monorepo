@@ -1,4 +1,4 @@
-import type { Employee } from "~/composables/system/employee/employee.types"
+import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from "./vehicle.enums"
 import type { GasSlip } from "../gas-slip/gas-slip.types"
 import type { ServiceCenter } from "../service-center/service-center.types"

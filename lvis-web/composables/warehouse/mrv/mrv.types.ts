@@ -1,11 +1,12 @@
-import type { Employee } from "~/composables/system/employee/employee.types";
-import type { AddItem, Item } from "../item/item.type";
-import type { APPROVAL_STATUS, Project } from "~/composables/common.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
+import type { AddItem } from "../item/item.type";
+import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateMRVApprover, MRVApprover } from "./mrv-approver.types";
 import type { MRVItem } from "./mrv-item.types";
 import type { Station } from "../station/station";
 import { WAREHOUSE_REQUEST_TYPE } from "#imports";
 import type { MCT } from "../mct/mct.types";
+import type { Project } from "../project/project.types";
 
 
 export interface MRV {

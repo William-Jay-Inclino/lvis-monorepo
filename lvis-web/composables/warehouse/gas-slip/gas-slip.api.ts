@@ -1,6 +1,6 @@
 import type { CreateGasSlip, FindAllResponse, MutationResponse, GasSlip, PostGasSlip, UpdateGasSlip } from "./gas-slip.types";
 import { sendRequest } from "~/utils/api"
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { FuelType, GasStation } from "~/composables/common.types";
 
 export async function fetchDataInSearchFilters(): Promise<{

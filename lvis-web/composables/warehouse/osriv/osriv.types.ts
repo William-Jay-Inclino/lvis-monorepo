@@ -1,4 +1,4 @@
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { AddItem, Item } from "../item/item.type";
 import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateOSRIVApprover, OSRIVApprover } from "./osriv-approver.types";

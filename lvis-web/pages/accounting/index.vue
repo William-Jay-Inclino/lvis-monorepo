@@ -8,10 +8,13 @@
                     <h1 class="text-warning mt-5"> WELCOME TO ACCOUNTING MANAGEMENT </h1>
                     <div class="row text-muted mb-5 mt-4">
                         <div class="col-lg-6 col-md-6 col-12">
-                            "Effortlessly manage your financial records, transactions, and reports. Streamline accounting operations for accuracy, compliance, and efficiency.""
+                            "Effortlessly manage your financial records, transactions, and reports. Streamline accounting operations for accuracy, compliance, and efficiency."
                             <br />
                             <br />
                             - Admin
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'smile']" />
+                            </client-only>
                         </div>
                     </div>
                 </div>

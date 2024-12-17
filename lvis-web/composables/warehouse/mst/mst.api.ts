@@ -1,6 +1,6 @@
 import type { CreateMstInput, FindAllResponse, MutationResponse, MST, UpdateMstInput } from "./mst.types";
 import { sendRequest } from "~/utils/api"
-import type { Employee } from "~/composables/system/employee/employee.types";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { Item } from "../item/item.type";
 
 export async function fetchDataInSearchFilters(): Promise<{

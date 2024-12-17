@@ -218,8 +218,8 @@
 
     import * as mctApi from '~/composables/warehouse/mct/mct.api'
     import type { CreateMctInput } from '~/composables/warehouse/mct/mct.types';
-    import type { Employee } from '~/composables/system/employee/employee.types';
-    import { addPropertyFullName } from '~/composables/system/employee/employee';
+    import type { Employee } from '~/composables/hr/employee/employee.types';
+    import { addPropertyFullName } from '~/composables/hr/employee/employee';
     import Swal from 'sweetalert2';
     import { MCT_DEFAULT_APPROVERS } from '~/composables/warehouse/mct/mct.constants';
     import type { MRV } from '~/composables/warehouse/mrv/mrv.types';

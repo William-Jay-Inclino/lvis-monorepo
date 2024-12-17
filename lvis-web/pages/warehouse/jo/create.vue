@@ -179,11 +179,11 @@ import { getFullname } from '~/utils/helpers'
 import * as joApi from '~/composables/warehouse/jo/jo.api'
 import type { Canvass } from '~/composables/warehouse/canvass/canvass.types';
 import type { CreateJoInput } from '~/composables/warehouse/jo/jo.types';
-import type { Employee } from '~/composables/system/employee/employee.types';
+import type { Employee } from '~/composables/hr/employee/employee.types';
 import { fetchCanvassesByRcNumber } from '~/composables/warehouse/canvass/canvass.api';
-import { fetchEmployees } from '~/composables/system/employee/employee.api';
-import { addPropertyFullName } from '~/composables/system/employee/employee';
-import type { Department } from '~/composables/system/department/department';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
+import type { Department } from '~/composables/hr/department/department';
 import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';
 
 definePageMeta({
