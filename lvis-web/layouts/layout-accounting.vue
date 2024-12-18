@@ -28,10 +28,10 @@
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
                         <li v-if="canView('canManageAccount', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/accounting/account' }" class="nav-link text-white" to="/accounting/account">Account</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/accounting/account') }" class="nav-link text-white" to="/accounting/account">Account</nuxt-link>
                         </li>
                         <li v-if="canView('canManageClassification', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/accounting/classification' }" class="nav-link text-white" to="/accounting/classification">Classification</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/accounting/classification') }" class="nav-link text-white" to="/accounting/classification">Classification</nuxt-link>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">

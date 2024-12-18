@@ -28,13 +28,13 @@
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
                         <li v-if="canView('canManageTripTicket', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/motorpool/trip-ticket' }" class="nav-link text-white" to="/motorpool/trip-ticket">Trip Ticket</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/motorpool/trip-ticket') }" class="nav-link text-white" to="/motorpool/trip-ticket">Trip Ticket</nuxt-link>
                         </li>
                         <li v-if="canView('canManageGasSlip', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/motorpool/gas-slip' }" class="nav-link text-white" to="/motorpool/gas-slip">Gas Slip</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/motorpool/gas-slip') }" class="nav-link text-white" to="/motorpool/gas-slip">Gas Slip</nuxt-link>
                         </li>
                         <li v-if="canView('canManageVehicle', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/motorpool/vehicle' }" class="nav-link text-white" to="/motorpool/vehicle">Vehicle</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/motorpool/vehicle') }" class="nav-link text-white" to="/motorpool/vehicle">Vehicle</nuxt-link>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">

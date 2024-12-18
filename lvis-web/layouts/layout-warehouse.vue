@@ -243,20 +243,20 @@ const totalPendings = computed(() => {
 })
 
 const isActiveWarehouse = computed(() => 
-    route.path === '/warehouse/rr' || 
-    route.path === '/warehouse/osriv' || 
-    route.path === '/warehouse/seriv' || 
-    route.path === '/warehouse/mrv' || 
-    route.path === '/warehouse/mct' ||
-    route.path === '/warehouse/mcrt' ||
-    route.path === '/warehouse/mst'
+    route.path.startsWith('/warehouse/rr') || 
+    route.path.startsWith('/warehouse/osriv') || 
+    route.path.startsWith('/warehouse/seriv') || 
+    route.path.startsWith('/warehouse/mrv') || 
+    route.path.startsWith('/warehouse/mct') ||
+    route.path.startsWith('/warehouse/mcrt') ||
+    route.path.startsWith('/warehouse/mst')
 )
 
 const isActiveDataManagement = computed(() => 
-    route.path === '/warehouse/item' || 
-    route.path === '/warehouse/supplier' || 
-    route.path === '/warehouse/project' || 
-    route.path === '/warehouse/unit'
+    route.path.startsWith('/warehouse/item') || 
+    route.path.startsWith('/warehouse/supplier') || 
+    route.path.startsWith('/warehouse/project') || 
+    route.path.startsWith('/warehouse/unit')
 )
 
 watch(isInactive, async (val) => {

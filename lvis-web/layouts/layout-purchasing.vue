@@ -28,22 +28,22 @@
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
                         <li v-if="canView('canManageCanvass', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/purchase/canvass' }" class="nav-link text-white" to="/purchase/canvass">Canvass</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/purchase/canvass') }" class="nav-link text-white" to="/purchase/canvass">Canvass</nuxt-link>
                         </li>
                         <li v-if="canView('canManageRV', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/purchase/rv' }" class="nav-link text-white" to="/purchase/rv">RV</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/purchase/rv') }" class="nav-link text-white" to="/purchase/rv">RV</nuxt-link>
                         </li>
                         <li v-if="canView('canManageSPR', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/purchase/spr' }" class="nav-link text-white" to="/purchase/spr">SPR</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/purchase/spr') }" class="nav-link text-white" to="/purchase/spr">SPR</nuxt-link>
                         </li>
                         <li v-if="canView('canManageJO', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/purchase/jo' }" class="nav-link text-white" to="/purchase/jo">JO</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/purchase/jo') }" class="nav-link text-white" to="/purchase/jo">JO</nuxt-link>
                         </li>
                         <li v-if="canView('canManageMEQS', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/purchase/meqs' }" class="nav-link text-white" to="/purchase/meqs">MEQS</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/purchase/meqs') }" class="nav-link text-white" to="/purchase/meqs">MEQS</nuxt-link>
                         </li>
                         <li v-if="canView('canManagePO', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/purchase/po' }" class="nav-link text-white" to="/purchase/po">PO</nuxt-link>
+                            <nuxt-link :class="{ active: $route.path.startsWith('/purchase/po') }" class="nav-link text-white" to="/purchase/po">PO</nuxt-link>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">
