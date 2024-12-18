@@ -45,13 +45,13 @@ a:hover {
 }
 
 
-.nav-link {
+.navbar .nav-link {
     position: relative;
     text-decoration: none; /* Remove default underline */
     color: white;
 }
 
-.nav-link::before {
+.navbar .nav-link::before {
     content: '';
     position: absolute;
     bottom: 0;
@@ -62,10 +62,11 @@ a:hover {
     transition: width 0.3s ease; /* Smooth animation for width */
 }
 
-.nav-link.active::before {
+.navbar .nav-link.active::before {
     width: 100%; /* Expand underline on active state */
 }
 
-.nav-link:hover::before {
+.navbar .nav-link:hover::before {
     width: 100%; /* Expand underline on hover */
 }
+
