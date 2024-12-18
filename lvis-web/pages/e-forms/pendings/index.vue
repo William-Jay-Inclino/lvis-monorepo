@@ -199,7 +199,15 @@ const isFinanceManager = computed(() => {
 
 function getLink(entity: DB_ENTITY, reference_number: string) {
     const module = MODULE_MAPPER[entity]
-    return `/warehouse/${module}/view/` + reference_number
+
+    const is_motorpool = entity === DB_ENTITY.GAS_SLIP || entity === DB_ENTITY.TRIP_TICKET
+
+    if(is_motorpool) {
+        return `/motorpool/${module}/view/` + reference_number
+    } else {
+        return `/warehouse/${module}/view/` + reference_number
+    }
+
 }
 
 function isDefaultApproval(pending: Pending) {
