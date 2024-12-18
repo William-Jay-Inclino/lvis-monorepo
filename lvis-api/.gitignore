@@ -40,3 +40,6 @@ lerna-debug.log*
 /uploads
 
 /backup
+
+/apps/system/prisma/generated/client/
+/apps/warehouse/prisma/generated/client/

@@ -1,6 +1,7 @@
 generator client {
   output   = "./generated/client"
   provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
@@ -74,7 +75,7 @@ model Station {
 }
 
 model Project {
-  id   String @id @default(uuid())
+  id   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name String
 
   
@@ -123,7 +124,7 @@ model MwoSequenceTracker {
 // ========================= STOCK ITEM INVENTORY ========================= 
 
 model Item {
-  id               String  @id @default(uuid())
+  id               String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   item_type_id     Int
   unit_id          String
   code             String  @unique
@@ -160,8 +161,8 @@ model Item {
 
 model ProjectItem {
   id         Int     @id @default(autoincrement())
-  project_id String 
-  item_id String? @unique
+  project_id String @db.Uuid
+  item_id String? @unique @db.Uuid
 
   item Item? @relation(fields: [item_id], references: [id], onDelete: Cascade)
   project Project @relation(fields: [project_id], references: [id], onDelete: Cascade)
@@ -172,7 +173,7 @@ model ProjectItem {
 
 model ItemLocation {
   id               String @id @default(uuid())
-  item_id          String
+  item_id          String @db.Uuid
   station_id       String
   quantity_on_hand Int
 
@@ -204,7 +205,7 @@ model ItemMovement {
 
 model ItemTransaction {
   id         Int     @id @default(autoincrement())
-  item_id    String
+  item_id    String @db.Uuid
   rr_item_id String? @unique
   osriv_item_id String? @unique
   seriv_item_id String? @unique
@@ -275,7 +276,7 @@ model CanvassItem {
   id          String  @id @default(uuid())
   canvass_id  String
   unit_id     String?
-  item_id     String?
+  item_id     String? @db.Uuid
   description String
   quantity    Int
 
@@ -693,7 +694,7 @@ model OSRIVApprover {
 model OSRIVItem {
   id            String    @id @default(uuid())
   osriv_id         String
-  item_id         String
+  item_id         String @db.Uuid
   quantity     Int
   price      Float @default(0)
 
@@ -770,7 +771,7 @@ model SERIVApprover {
 model SERIVItem {
   id            String    @id @default(uuid())
   seriv_id         String
-  item_id         String
+  item_id         String @db.Uuid
   quantity     Int
   price      Float @default(0)
 
@@ -785,7 +786,7 @@ model SERIVItem {
 
 model MRV {
   id                String    @id @default(uuid())
-  project_id                String?
+  project_id                String? @db.Uuid
   mrv_number         String    @unique
   date_requested    DateTime
   exp_date    DateTime
@@ -849,7 +850,7 @@ model MRVApprover {
 model MRVItem {
   id            String    @id @default(uuid())
   mrv_id         String
-  item_id         String
+  item_id         String @db.Uuid
   quantity     Int
   price      Float @default(0)
 
@@ -958,7 +959,7 @@ model MCRTApprover {
 model MCRTItem {
   id            String    @id @default(uuid())
   mcrt_id         String
-  item_id         String
+  item_id         String @db.Uuid
   quantity     Int
   price      Float @default(0)
 
@@ -1021,7 +1022,7 @@ model MSTApprover {
 model MSTItem {
   id            String    @id @default(uuid())
   mst_id         String
-  item_id         String
+  item_id         String @db.Uuid
   quantity     Int
   price      Float @default(0)
   status        Int @default(0)
@@ -1247,4 +1248,6 @@ model VehicleMaintenanceDetail {
   service VehicleService @relation(fields: [service_id], references: [id], onDelete: Restrict)
 
   @@map("vehicle_maintenance_detail")
+
+
 }
