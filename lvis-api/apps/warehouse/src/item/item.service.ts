@@ -61,7 +61,6 @@ export class ItemService {
 			},
 			code: itemCode,
 			description: input.description,
-			initial_quantity: input.initial_quantity,
 			total_quantity: input.initial_quantity,
 			alert_level: input.alert_level,
 			created_by: createdBy,

@@ -12,7 +12,6 @@ export interface Item {
 	description: string;
 	total_quantity: number;
 	quantity_on_queue: number;
-	initial_quantity: number;
 	item_transactions: ItemTransaction[];
 	rr_items: RrItem[];
 	unit: Unit;

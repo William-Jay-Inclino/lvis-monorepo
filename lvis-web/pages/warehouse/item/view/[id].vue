@@ -73,10 +73,6 @@
                                                 <td> {{ formatToPhpCurrency(item.GWAPrice) }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Initial Quantity</td>
-                                                <td> {{ item.initial_quantity }} </td>
-                                            </tr>
-                                            <tr>
                                                 <td class="text-muted">Initial Price</td>
                                                 <td> {{ initialPrice }} </td>
                                             </tr>

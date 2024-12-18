@@ -953,7 +953,7 @@ export class PendingService {
 				},
 				code: itemCode,
 				description: NSU_Item.item.description,
-				initial_quantity: NSU_Item.quantity,
+				// initial_quantity: NSU_Item.quantity,
 				total_quantity: NSU_Item.quantity,
 				alert_level: 20,
 				created_by: 'System-generated',

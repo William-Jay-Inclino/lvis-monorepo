@@ -187,7 +187,6 @@ export async function findOne(id: string): Promise<Item | undefined> {
                 description
                 total_quantity
                 quantity_on_queue
-                initial_quantity
                 GWAPrice
                 alert_level
                 item_type {

@@ -28,8 +28,8 @@ export class Item {
   @Field(() => Int)
   quantity_on_queue: number;
 
-  @Field(() => Int)
-  initial_quantity: number;
+  // @Field(() => Int)
+  // initial_quantity: number;
 
   @Field(() => Int)
   alert_level: number;

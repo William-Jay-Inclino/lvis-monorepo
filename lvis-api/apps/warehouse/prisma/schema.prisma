@@ -131,7 +131,7 @@ model Item {
   description      String?
   total_quantity   Int
   quantity_on_queue   Int @default(0)
-  initial_quantity Int
+  // initial_quantity Int
   alert_level      Int     @default(20)
 
   created_by String
