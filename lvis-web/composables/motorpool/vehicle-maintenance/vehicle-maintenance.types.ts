@@ -15,7 +15,7 @@ export interface VehicleMaintenance {
     // derived / resolvers 
     vehicle: Vehicle
     service_center: ServiceCenter
-    services: VehicleService[]
+    services: VehicleMaintenanceDetail[]
 }
 
 export interface CreateVehicleMaintenance {
@@ -28,7 +28,7 @@ export interface CreateVehicleMaintenance {
     cost: number 
     remarks: string 
     performed_by: string
-    services: VehicleService[]
+    services: CreateVehicleMaintenanceDetail[]
 }
 
 export interface UpdateVehicleMaintenance {
@@ -41,7 +41,7 @@ export interface UpdateVehicleMaintenance {
     cost: number 
     remarks: string 
     performed_by: string
-    services: VehicleService[]
+    services: CreateVehicleMaintenanceDetail[]
 }
 
 export interface MutationResponse {
@@ -57,3 +57,16 @@ export interface FindAllResponse {
 	currentPage: number
 	totalPages: number
 }
+
+export interface VehicleMaintenanceDetail {
+    id: string 
+    service: VehicleService 
+    maintenance: VehicleMaintenance
+    note: string 
+}
+
+export interface CreateVehicleMaintenanceDetail {
+    service: VehicleService | null  
+    note: string 
+}
+
