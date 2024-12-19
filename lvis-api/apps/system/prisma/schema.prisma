@@ -47,8 +47,8 @@ model Division {
   status        DivisionStatus        @default(ACTIVE)
   permissions Json?
 
-  created_at DateTime  @default(now())
-  deleted_at DateTime?
+  created_at DateTime  @default(now()) @db.Timestamptz
+  deleted_at DateTime? @db.Timestamptz
 
   Employee Employee[]
 
@@ -62,8 +62,8 @@ model Department {
   status DepartmentStatus    @default(ACTIVE)
   permissions Json?
 
-  created_at DateTime  @default(now())
-  deleted_at DateTime?
+  created_at DateTime  @default(now()) @db.Timestamptz
+  deleted_at DateTime? @db.Timestamptz
 
   divisions Division[]
 
@@ -76,8 +76,8 @@ model Account {
   code        String @unique
   name        String
 
-  created_at DateTime  @default(now())
-  deleted_at DateTime?
+  created_at DateTime  @default(now()) @db.Timestamptz
+  deleted_at DateTime? @db.Timestamptz
 
   @@map("account")
 }
@@ -110,8 +110,8 @@ model Employee {
   created_by String
   updated_by String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  created_at DateTime  @default(now()) @db.Timestamptz
+  updated_at DateTime  @updatedAt @db.Timestamptz
 
   user_employee UserEmployee?
 
@@ -125,8 +125,8 @@ model Classification {
   id   String @id @default(uuid())
   name String
 
-  created_at DateTime  @default(now())
-  deleted_at DateTime?
+  created_at DateTime  @default(now()) @db.Timestamptz
+  deleted_at DateTime? @db.Timestamptz
 
   @@map("classification")
 }
@@ -145,8 +145,8 @@ model User {
   created_by String
   updated_by String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  created_at DateTime  @default(now()) @db.Timestamptz
+  updated_at DateTime  @updatedAt @db.Timestamptz
 
   // user_permissions UserPermission[]
   user_employee UserEmployee?
@@ -161,7 +161,7 @@ model UserGroup {
   name        String                                     
   members     UserGroupMembers[]   
 
-  created_at DateTime  @default(now())
+  created_at DateTime  @default(now()) @db.Timestamptz
 
   @@map("user_group")
 }
@@ -173,7 +173,7 @@ model UserGroupMembers {
   user       User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_group      UserGroup   @relation(fields: [user_group_id], references: [id], onDelete: Cascade)
 
-  created_at DateTime  @default(now())
+  created_at DateTime  @default(now()) @db.Timestamptz
 
   @@id([user_id, user_group_id])
   @@map("user_group_member")
@@ -187,7 +187,7 @@ model UserEmployee {
   employee    Employee @relation(fields: [employee_id], references: [id], onDelete: Cascade)
 
   created_by String
-  created_at DateTime @default(now())
+  created_at DateTime @default(now()) @db.Timestamptz
 
   @@map("user_employee")
 }
@@ -196,7 +196,7 @@ model UserAuditLog {
   id             Int      @id @default(autoincrement())
   user_id         String
   event_type      UserLogEventType
-  event_timestamp DateTime @default(now())
+  event_timestamp DateTime @default(now()) @db.Timestamptz
   ip_address      String
   device_info     Json?
 
@@ -212,7 +212,7 @@ model JOApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_at DateTime @default(now())
+  created_at DateTime @default(now()) @db.Timestamptz
 
   approver Employee @relation("JOApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 
@@ -225,7 +225,7 @@ model RVApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_at DateTime @default(now())
+  created_at DateTime @default(now()) @db.Timestamptz
 
   approver Employee @relation("RVApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 
@@ -238,7 +238,7 @@ model SPRApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_at DateTime @default(now())
+  created_at DateTime @default(now()) @db.Timestamptz
 
   approver Employee @relation("SPRApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 
@@ -251,7 +251,7 @@ model MEQSApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_at DateTime @default(now())
+  created_at DateTime @default(now()) @db.Timestamptz
 
   approver Employee @relation("MEQSApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 
@@ -264,7 +264,7 @@ model POApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_at DateTime @default(now())
+  created_at DateTime @default(now()) @db.Timestamptz
 
   approver Employee @relation("POApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 
@@ -277,7 +277,7 @@ model RRApproverSetting {
   order       Int    @unique
   approver_id String @unique
 
-  created_at DateTime @default(now())
+  created_at DateTime @default(now()) @db.Timestamptz
 
   approver Employee @relation("RRApproverSetting", fields: [approver_id], references: [id], onDelete: Restrict)
 

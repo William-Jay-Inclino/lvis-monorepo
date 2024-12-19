@@ -64,10 +64,15 @@ import { TripTicketApproverModule } from './trip-ticket-approver/trip-ticket-app
 import { GasStationModule } from './gas-station/gas-station.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { SettingModule } from './setting/setting.module';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
   imports: [
+
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
 
     // ============================= SHARED ============================= 
 

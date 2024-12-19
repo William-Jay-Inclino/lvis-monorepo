@@ -18,7 +18,7 @@ model ItemType {
 
   items Item[]
 
-  created_at DateTime  @default(now())
+  created_at DateTime  @default(now()) @db.Timestamptz
 
   @@map("item_type")
 }
@@ -37,9 +37,9 @@ model Supplier {
   created_by String
   updated_by String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
+  created_at DateTime  @default(now()) @db.Timestamptz
+  updated_at DateTime  @updatedAt @db.Timestamptz
+  deleted_at DateTime? @db.Timestamptz
 
   MEQSSupplier MEQSSupplier[]
 
@@ -55,7 +55,7 @@ model Unit {
   canvass_items CanvassItem[]
   items         Item[]
 
-  created_at DateTime  @default(now())
+  created_at DateTime  @default(now()) @db.Timestamptz
 
   @@map("unit")
 }
@@ -69,7 +69,7 @@ model Station {
   mrvs MRV[]
   serivs SERIV[]
 
-  created_at DateTime  @default(now())
+  created_at DateTime  @default(now()) @db.Timestamptz
 
   @@map("station")
 }
@@ -82,8 +82,8 @@ model Project {
   mrv MRV[]
   project_items ProjectItem[]
 
-  created_at DateTime  @default(now())
-  deleted_at DateTime?
+  created_at DateTime  @default(now()) @db.Timestamptz
+  deleted_at DateTime? @db.Timestamptz
 
   @@map("project")
 }
@@ -94,7 +94,7 @@ model Pending {
   reference_number      String
   reference_table   String
   description      String
-  transaction_date  DateTime @default(now())
+  transaction_date  DateTime @default(now()) @db.Timestamptz
   approver_notes String?
 
 
@@ -115,8 +115,8 @@ model MwoSequenceTracker {
   id        Int      @id @default(autoincrement())
   yearMonth String   @unique 
   sequence  Int      @default(0) 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
 
   @@map("mwo_sequence_tracker")
 }
@@ -137,9 +137,9 @@ model Item {
   created_by String
   updated_by String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
+  created_at DateTime  @default(now()) @db.Timestamptz
+  updated_at DateTime  @updatedAt @db.Timestamptz
+  deleted_at DateTime? @db.Timestamptz
 
   item_type         ItemType          @relation(fields: [item_type_id], references: [id], onDelete: Restrict)
   item_transactions ItemTransaction[]
@@ -177,7 +177,7 @@ model ItemLocation {
   station_id       String
   quantity_on_hand Int
 
-  created_at DateTime  @default(now())
+  created_at DateTime  @default(now()) @db.Timestamptz
 
   item                  Item           @relation(fields: [item_id], references: [id], onDelete: Cascade)
   station               Station        @relation(fields: [station_id], references: [id], onDelete: Cascade)
@@ -194,7 +194,7 @@ model ItemMovement {
   destination_id String
   quantity_moved Int
 
-  created_at DateTime  @default(now())
+  created_at DateTime  @default(now()) @db.Timestamptz
 
   origin      ItemLocation @relation("Origin", fields: [origin_id], references: [id], onDelete: Cascade)
   destination ItemLocation @relation("Destination", fields: [destination_id], references: [id], onDelete: Cascade)
@@ -226,7 +226,7 @@ model ItemTransaction {
   mcrt_item MCRTItem? @relation(fields: [mcrt_item_id], references: [id], onDelete: Cascade)
   mst_item MSTItem? @relation(fields: [mst_item_id], references: [id], onDelete: Cascade)
 
-  created_at DateTime @default(now())
+  created_at DateTime @default(now()) @db.Timestamptz
   created_by String   @default("admin")
 
 
@@ -251,7 +251,7 @@ model ItemCodeTracker {
 model Canvass {
   id              String   @id @default(uuid())
   rc_number       String   @unique
-  date_requested  DateTime 
+  date_requested  DateTime @db.Timestamptz
   purpose         String
   notes           String?
   requested_by_id String
@@ -259,8 +259,8 @@ model Canvass {
   created_by String
   updated_by String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  created_at DateTime  @default(now()) @db.Timestamptz
+  updated_at DateTime  @updatedAt @db.Timestamptz
 
   canvass_items CanvassItem[]
   jo            JO?
@@ -296,9 +296,9 @@ model RV {
   canvass_number String
   canvass_id        String?    @unique
   classification_id String?
-  date_requested    DateTime
+  date_requested    DateTime @db.Timestamptz
   work_order_no     String?
-  work_order_date   DateTime?
+  work_order_date   DateTime? @db.Timestamptz
   notes             String
   approval_status Int?
 
@@ -306,9 +306,9 @@ model RV {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
 
   canvass      Canvass?      @relation(fields: [canvass_id], references: [id], onDelete: Restrict)
   meqs         MEQS?
@@ -323,7 +323,7 @@ model RVApprover {
   id            String    @id @default(uuid())
   rv_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime?@db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -340,8 +340,8 @@ model RVApprover {
 model JO {
   id                String   @id @default(uuid())
   jo_number         String   @unique
-  canvass_number String
-  date_requested    DateTime
+  canvass_number String 
+  date_requested    DateTime @db.Timestamptz
   canvass_id        String?   @unique
   equipment         String @default("")
   classification_id String?
@@ -353,9 +353,9 @@ model JO {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
 
   canvass      Canvass?      @relation(fields: [canvass_id], references: [id], onDelete: Restrict)
   meqs         MEQS?
@@ -370,7 +370,7 @@ model JOApprover {
   id            String    @id @default(uuid())
   jo_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -388,7 +388,7 @@ model SPR {
   id                String   @id @default(uuid())
   canvass_number String
   spr_number        String   @unique
-  date_requested    DateTime
+  date_requested    DateTime @db.Timestamptz
   canvass_id        String?   @unique
   vehicle_id        String
   classification_id String?
@@ -399,9 +399,9 @@ model SPR {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
 
   canvass       Canvass?       @relation(fields: [canvass_id], references: [id], onDelete: Restrict)
   meqs          MEQS?
@@ -417,7 +417,7 @@ model SPRApprover {
   id            String    @id @default(uuid())
   spr_id        String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -440,7 +440,7 @@ model MEQS {
   spr_id      String?  @unique
   spr_number       String?
   meqs_number String   @unique
-  meqs_date   DateTime
+  meqs_date   DateTime @db.Timestamptz
   notes       String
   approval_status Int?
 
@@ -448,9 +448,9 @@ model MEQS {
   updated_by   String?
   cancelled_by String?
 
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
-  cancelled_at DateTime?
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
+  cancelled_at DateTime? @db.Timestamptz
 
   jo             JO?            @relation(fields: [jo_id], references: [id], onDelete: Restrict)
   rv             RV?            @relation(fields: [rv_id], references: [id], onDelete: Restrict)
@@ -517,7 +517,7 @@ model MEQSApprover {
   id            String    @id @default(uuid())
   meqs_id       String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -536,7 +536,7 @@ model PO {
   meqs_number        String   
   po_number        String   @unique
   fund_source_id   String?
-  po_date          DateTime
+  po_date          DateTime @db.Timestamptz
   notes            String
   approval_status Int?
 
@@ -544,9 +544,9 @@ model PO {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
 
   meqs_supplier MEQSSupplier? @relation(fields: [meqs_supplier_id], references: [id], onDelete: Restrict)
   rrs           RR[]
@@ -561,7 +561,7 @@ model POApprover {
   id            String    @id @default(uuid())
   po_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String?
   status        Int
   label         String
@@ -579,7 +579,7 @@ model RR {
   po_id           String?
   po_number       String 
   rr_number       String   @unique
-  rr_date         DateTime
+  rr_date         DateTime @db.Timestamptz
   received_by_id  String
   invoice_number  String @unique
   delivery_number String?
@@ -592,9 +592,9 @@ model RR {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime?  @db.Timestamptz
+  created_at   DateTime  @default(now())  @db.Timestamptz
+  updated_at   DateTime  @updatedAt  @db.Timestamptz
 
   po           PO?           @relation(fields: [po_id], references: [id], onDelete: Restrict)
   rr_approvers RRApprover[]
@@ -609,7 +609,7 @@ model RRApprover {
   id            String    @id @default(uuid())
   rr_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -647,8 +647,8 @@ model RRItem {
 model OSRIV {
   id                String    @id @default(uuid())
   osriv_number         String    @unique
-  date_requested    DateTime
-  exp_date    DateTime
+  date_requested    DateTime @db.Timestamptz
+  exp_date    DateTime @db.Timestamptz
   purpose             String
   note             String @default("")
   is_completed    Boolean  @default(false)
@@ -661,9 +661,9 @@ model OSRIV {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
 
   item_from      Station      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
   osriv_approvers OSRIVApprover[]
@@ -678,7 +678,7 @@ model OSRIVApprover {
   id            String    @id @default(uuid())
   osriv_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -710,8 +710,8 @@ model OSRIVItem {
 model SERIV {
   id                String    @id @default(uuid())
   seriv_number         String    @unique
-  date_requested    DateTime
-  exp_date    DateTime
+  date_requested    DateTime @db.Timestamptz
+  exp_date    DateTime @db.Timestamptz
   purpose             String
   note             String @default("")
   is_completed    Boolean  @default(false)
@@ -735,9 +735,9 @@ model SERIV {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
 
   item_from      Station      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
   seriv_approvers SERIVApprover[]
@@ -753,7 +753,7 @@ model SERIVApprover {
   id            String    @id @default(uuid())
   seriv_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -788,8 +788,8 @@ model MRV {
   id                String    @id @default(uuid())
   project_id                String? @db.Uuid
   mrv_number         String    @unique
-  date_requested    DateTime
-  exp_date    DateTime
+  date_requested    DateTime @db.Timestamptz
+  exp_date    DateTime @db.Timestamptz
   purpose             String
   note             String @default("")
   is_completed    Boolean  @default(false)
@@ -813,9 +813,9 @@ model MRV {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
 
   item_from      Station      @relation(fields: [item_from_id], references: [id], onDelete: Restrict)
   mrv_approvers MRVApprover[]
@@ -832,7 +832,7 @@ model MRVApprover {
   id            String    @id @default(uuid())
   mrv_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -868,7 +868,7 @@ model MCT {
   mrv_id                String? @unique
   mrv_number         String   
   mct_number         String    @unique
-  mct_date    DateTime
+  mct_date    DateTime @db.Timestamptz
   is_completed    Boolean  @default(false)
   approval_status Int?
 
@@ -876,9 +876,9 @@ model MCT {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
 
   mrv      MRV?      @relation(fields: [mrv_id], references: [id], onDelete: Restrict)
   mct_approvers MCTApprover[]
@@ -893,7 +893,7 @@ model MCTApprover {
   id            String    @id @default(uuid())
   mct_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -913,7 +913,7 @@ model MCRT {
   seriv_id                String?
   seriv_number String?
   mcrt_number         String    @unique
-  mcrt_date    DateTime
+  mcrt_date    DateTime @db.Timestamptz
   is_completed    Boolean  @default(false)
   approval_status Int?
 
@@ -925,9 +925,9 @@ model MCRT {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
 
   mct      MCT?      @relation(fields: [mct_id], references: [id], onDelete: Restrict)
   seriv      SERIV?      @relation(fields: [seriv_id], references: [id], onDelete: Restrict)
@@ -943,7 +943,7 @@ model MCRTApprover {
   id            String    @id @default(uuid())
   mcrt_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -974,7 +974,7 @@ model MCRTItem {
 model MST {
   id                String    @id @default(uuid())
   mst_number         String    @unique
-  mst_date    DateTime
+  mst_date    DateTime @db.Timestamptz
   is_completed    Boolean  @default(false)
   approval_status Int?
 
@@ -990,9 +990,9 @@ model MST {
   created_by   String
   updated_by   String?
 
-  cancelled_at DateTime?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at   DateTime  @default(now()) @db.Timestamptz
+  updated_at   DateTime  @updatedAt @db.Timestamptz
 
   mst_approvers MSTApprover[]
   mst_items MSTItem[]
@@ -1006,7 +1006,7 @@ model MSTApprover {
   id            String    @id @default(uuid())
   mst_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -1047,15 +1047,15 @@ model Vehicle {
   classification_id Int 
   assignee_id String 
   name String 
-  date_acquired DateTime
+  date_acquired DateTime @db.Timestamptz
   status Int 
 
   created_by String
   updated_by String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
+  created_at DateTime  @default(now()) @db.Timestamptz
+  updated_at DateTime  @updatedAt @db.Timestamptz
+  deleted_at DateTime? @db.Timestamptz
 
   trip_tickets TripTicket[]
   gas_slips GasSlip[]
@@ -1075,10 +1075,10 @@ model TripTicket {
   passengers String?
   destination String 
   purpose String 
-  start_time DateTime
-  end_time DateTime
-  actual_start_time DateTime?  
-  actual_end_time DateTime?
+  start_time DateTime @db.Timestamptz
+  end_time DateTime @db.Timestamptz
+  actual_start_time DateTime? @db.Timestamptz
+  actual_end_time DateTime? @db.Timestamptz
 
   is_operation Boolean   
   is_stay_in Boolean   
@@ -1092,9 +1092,9 @@ model TripTicket {
   created_by String
   updated_by String?
 
-  cancelled_at DateTime?
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at DateTime  @default(now()) @db.Timestamptz
+  updated_at DateTime  @updatedAt @db.Timestamptz
 
   vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Restrict)
   trip_ticket_approvers TripTicketApprover[]
@@ -1107,7 +1107,7 @@ model TripTicketApprover {
   id            String    @id @default(uuid())
   trip_ticket_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -1143,9 +1143,9 @@ model GasSlip {
   created_by String
   updated_by String?
 
-  cancelled_at DateTime?
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  cancelled_at DateTime? @db.Timestamptz
+  created_at DateTime  @default(now()) @db.Timestamptz
+  updated_at DateTime  @updatedAt @db.Timestamptz
 
   vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Restrict)
   gas_station GasStation @relation(fields: [gas_station_id], references: [id], onDelete: Restrict)
@@ -1160,7 +1160,7 @@ model GasSlipApprover {
   id            String    @id @default(uuid())
   gas_slip_id         String
   approver_id   String
-  date_approval DateTime?
+  date_approval DateTime? @db.Timestamptz
   notes         String
   status        Int
   label         String
@@ -1216,9 +1216,9 @@ model VehicleMaintenance {
   ref_number String @unique
   vehicle_id String 
   service_center_id String 
-  service_date DateTime
+  service_date DateTime @db.Timestamptz
   service_mileage Int 
-  next_service_date DateTime
+  next_service_date DateTime @db.Timestamptz
   next_service_mileage Int 
   cost Float @default(0)
   remarks String 
@@ -1227,8 +1227,8 @@ model VehicleMaintenance {
   created_by String
   updated_by String?
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  created_at DateTime  @default(now()) @db.Timestamptz
+  updated_at DateTime  @updatedAt @db.Timestamptz
 
   vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Restrict)
   service_center ServiceCenter @relation(fields: [service_center_id], references: [id], onDelete: Restrict)

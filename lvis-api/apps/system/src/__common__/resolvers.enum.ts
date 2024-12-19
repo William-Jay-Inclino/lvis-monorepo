@@ -229,10 +229,12 @@ export enum RESOLVERS {
 
     // ========= VEHICLE ========= 
     createVehicle = 'createVehicle',
+    createVehicleMaintenance = 'createVehicleMaintenance',
     vehicles = 'vehicles',
     vehicle = 'vehicle',
     updateVehicle = 'updateVehicle',
     removeVehicle = 'removeVehicle',
+
 
 
     // ========= FUEL TYPE ========= 

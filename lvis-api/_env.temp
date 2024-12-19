@@ -1,6 +1,8 @@
 
 NODE_ENV=development
 
+TZ=Asia/Manila
+
 # API
 API_GATEWAY_PORT=4000
 SYSTEM_PORT=4001
@@ -40,3 +42,6 @@ BACKUP_SYSTEM_DIR=/home/jay/Documents/projects/leyeco/lvis-monorepo/backup/syste
 BACKUP_SYSTEM_LOG=/home/jay/Documents/projects/leyeco/lvis-monorepo/backup/logs/system_db_backup.log
 BACKUP_WAREHOUSE_DIR=/home/jay/Documents/projects/leyeco/lvis-monorepo/backup/warehouse_db
 BACKUP_WAREHOUSE_LOG=/home/jay/Documents/projects/leyeco/lvis-monorepo/backup/logs/warehouse_db_backup.log
+
+
+

@@ -14,10 +14,9 @@ async function bootstrap() {
 
   const app = await NestFactory.create(WarehouseModule);
   const winstonLogger = app.get(WinstonLoggerService);
-  app.useLogger(winstonLogger);
   
+  app.useLogger(winstonLogger);
   app.setGlobalPrefix('/lvis/warehouse-api');
-
   app.enableCors();
 
   const port = process.env.WAREHOUSE_PORT || 4002;
