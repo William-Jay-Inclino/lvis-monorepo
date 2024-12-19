@@ -10,7 +10,7 @@ import { DB_ENTITY } from '../__common__/constants';
 import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
 import { VEHICLE_STATUS } from '../vehicle/entities/vehicle.enums';
 import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
-import { getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -351,8 +351,29 @@ export class TripTicketService {
 		const filters: any = {};
 		if (vehicle_id) filters.vehicle_id = vehicle_id;
 		if (driver_id) filters.driver_id = driver_id;
-		if (date_prepared) filters.created_at = { gte: new Date(date_prepared) };
-		if (estimated_departure) filters.start_time = { gte: new Date(estimated_departure) };
+		// if (date_prepared) filters.created_at = { gte: new Date(date_prepared) };
+
+		if (date_prepared) {
+            const { startDate, endDate } = getDateRange(date_prepared);
+
+            filters.created_at = {
+                gte: startDate,
+                lte: endDate,
+            };
+
+        }
+
+		if (estimated_departure) {
+            const { startDate, endDate } = getDateRange(estimated_departure);
+
+            filters.start_time = {
+                gte: startDate,
+                lte: endDate,
+            };
+
+        }
+
+		// if (estimated_departure) filters.start_time = { gte: new Date(estimated_departure) };
 
 		if (trip_status) {
             filters.status = trip_status;

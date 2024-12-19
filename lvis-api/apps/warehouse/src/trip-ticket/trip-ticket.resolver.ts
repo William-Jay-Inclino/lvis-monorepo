@@ -101,7 +101,11 @@ export class TripTicketResolver {
     @Args('estimated_departure', { type: () => String, nullable: true }) estimated_departure?: string,
     @Args('trip_status', { nullable: true }) trip_status?: number
   ): Promise<TripTicketsResponse> {
-    return this.tripTicketService.findAll(page, pageSize, vehicle_id, driver_id, date_prepared, estimated_departure, trip_status);
+    try {
+      return this.tripTicketService.findAll(page, pageSize, vehicle_id, driver_id, date_prepared, estimated_departure, trip_status);
+    } catch (error) {
+      this.logger.error('Error in getting trip tickets', error)
+    }
   }
 
   @Query(() => TripTicket)

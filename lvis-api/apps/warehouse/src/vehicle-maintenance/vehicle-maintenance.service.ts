@@ -1,8 +1,12 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { BadRequestException, Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { AuthUser } from "apps/system/src/__common__/auth-user.entity";
 import { PrismaService } from "../__prisma__/prisma.service";
 import { CreateVehicleMaintenanceInput } from "../vehicle-maintenance/dto/create-vehicle-maintenance.input";
 import { Prisma, VehicleMaintenance } from "apps/warehouse/prisma/generated/client";
+import { VehicleMaintenanceResponse } from "./entities/vehicles-response.entity";
+import { getDateRange } from "../__common__/helpers";
+import { UpdateVehicleMaintenanceInput } from "./dto/update-vehicle-maintenance.input";
+import { WarehouseRemoveResponse } from "../__common__/classes";
 
 @Injectable()
 export class VehicleMaintenanceService {
@@ -61,6 +65,159 @@ export class VehicleMaintenanceService {
         }
 
 	}
+
+    async findAll(
+		page: number, 
+		pageSize: number, 
+		vehicle_id?: string,
+		service_center_id?: string,
+		service_date?: string,
+	): Promise<VehicleMaintenanceResponse> {
+	
+		const skip = (page - 1) * pageSize;
+	
+		let whereCondition: any = {
+			deleted_at: null,
+		};
+	
+		if (vehicle_id) {
+			whereCondition.vehicle_id = {
+				equals: vehicle_id,
+			};
+		}
+
+        if (service_center_id) {
+			whereCondition.service_center_id = {
+				equals: service_center_id,
+			};
+		}
+
+        if (service_date) {
+            const { startDate, endDate } = getDateRange(service_date);
+
+            whereCondition.service_date = {
+                gte: startDate,
+                lte: endDate,
+            };
+
+        }
+	
+		const [items, totalItems] = await this.prisma.$transaction([
+			this.prisma.vehicleMaintenance.findMany({
+				where: whereCondition,
+				orderBy: {
+					ref_number: 'asc',
+				},
+				skip,
+				take: pageSize,
+			}),
+			this.prisma.vehicleMaintenance.count({
+				where: whereCondition,
+			}),
+		]);
+	
+		return {
+			data: items,
+			totalItems,
+			currentPage: page,
+			totalPages: Math.ceil(totalItems / pageSize),
+		};
+	}
+
+    async findBy(payload: { id?: string; ref_number?: string }): Promise<VehicleMaintenance | null> {
+        if (!payload.id && !payload.ref_number) {
+            throw new BadRequestException('Either id or ref_number must be provided');
+        }
+    
+        const where: Prisma.VehicleMaintenanceWhereUniqueInput = payload.id
+            ? { id: payload.id }
+            : { ref_number: payload.ref_number };
+    
+        const item = await this.prisma.vehicleMaintenance.findUnique({
+            where,
+            include: {
+                vehicle: true,
+                service_center: true,
+            },
+        });
+    
+        if (!item) {
+            throw new NotFoundException('Vehicle Maintenance not found');
+        }
+    
+        return item;
+    }
+
+    async update(id: string, input: UpdateVehicleMaintenanceInput): Promise<VehicleMaintenance> {
+
+		const existingItem = await this.prisma.vehicleMaintenance.findUnique({ where: { id } })
+
+        if(!existingItem) {
+            throw new NotFoundException('Vehicle Maintenance not found')
+        }
+
+        return this.prisma.$transaction(async(tx) => {
+
+            // delete all vehicle maintenance detail -> services
+            await tx.vehicleMaintenanceDetail.deleteMany({
+                where: {
+                    maintenance_id: id
+                }
+            })
+
+            const data: Prisma.VehicleMaintenanceUpdateInput = {
+                vehicle: {
+                    connect: { id: input.vehicle_id ?? existingItem.vehicle_id },
+                },
+                service_center: {
+                    connect: { id: input.service_center_id ?? existingItem.service_center_id },
+                },
+                service_date: input.service_date ? new Date(input.service_date) : existingItem.service_date,
+                service_mileage: input.service_mileage ?? existingItem.service_mileage,
+                next_service_date: input.next_service_date ? new Date(input.next_service_date) : existingItem.next_service_date,
+                next_service_mileage: input.next_service_mileage ?? existingItem.next_service_mileage,
+                cost: input.cost ?? existingItem.cost,
+                remarks: input.remarks ?? existingItem.remarks,
+                performed_by: input.performed_by ?? existingItem.performed_by,
+                services: input.services?.length
+                ? {
+                      create: input.services.map((service) => ({
+                          service_id: service.service_id,
+                          note: service.note,
+                      })),
+                  }
+                : undefined,
+            };
+        
+            return await tx.vehicleMaintenance.update({
+                data,
+                where: { id },
+            });
+        
+        })
+	
+	}
+
+    async remove(id: string): Promise<WarehouseRemoveResponse> {
+
+		const existingItem = await this.prisma.vehicleMaintenance.findUnique({ where: { id } })
+
+        if(!existingItem) {
+            throw new NotFoundException('Vehicle Maintenance not found')
+        }
+
+		await this.prisma.vehicleMaintenance.update({
+			where: { id },
+			data: { deleted_at: new Date() }
+		})
+
+		return {
+			success: true,
+			msg: "Vehicle Maintenance successfully deleted"
+		}
+
+	}
+    
 
     private async getLatestRefNumber(): Promise<string> {
         const currentYear = new Date().getFullYear().toString().slice(-2);

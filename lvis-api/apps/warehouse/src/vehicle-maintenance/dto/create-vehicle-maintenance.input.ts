@@ -1,4 +1,4 @@
-import { InputType, Field, Float } from '@nestjs/graphql';
+import { InputType, Field, Float, Int } from '@nestjs/graphql';
 import { IsArray, IsDateString, IsInt, IsNotEmpty, IsNumber, IsString, Min, ValidateNested } from 'class-validator';
 import { CreateVehicleMaintenanceDetailSubInput } from './create-vehicle-maintenance-detail.sub.input';
 import { Type } from 'class-transformer';
@@ -21,7 +21,7 @@ export class CreateVehicleMaintenanceInput {
     @IsDateString()
     service_date: Date;
 
-    @Field()
+    @Field(() => Int)
     @IsNotEmpty()
     @IsInt()
     @Min(0)
@@ -32,7 +32,7 @@ export class CreateVehicleMaintenanceInput {
     @IsDateString()
     next_service_date: Date;
 
-    @Field()
+    @Field(() => Int)
     @IsNotEmpty()
     @IsInt()
     @Min(0)

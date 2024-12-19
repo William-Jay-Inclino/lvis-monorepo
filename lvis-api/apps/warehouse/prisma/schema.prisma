@@ -1229,6 +1229,7 @@ model VehicleMaintenance {
 
   created_at DateTime  @default(now()) @db.Timestamptz
   updated_at DateTime  @updatedAt @db.Timestamptz
+  deleted_at DateTime? @db.Timestamptz
 
   vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Restrict)
   service_center ServiceCenter @relation(fields: [service_center_id], references: [id], onDelete: Restrict)

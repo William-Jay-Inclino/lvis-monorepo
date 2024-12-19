@@ -4,6 +4,7 @@ import type { GasSlip } from "../gas-slip/gas-slip.types"
 import type { ServiceCenter } from "../service-center/service-center.types"
 import type { VehicleService } from "../vehicle-service/vehicle-service.types"
 import type { TripTicket } from "../trip-ticket/trip-ticket.types"
+import type { VehicleMaintenance } from "../vehicle-maintenance/vehicle-maintenance.types"
 
 export interface Vehicle {
     id: string
@@ -66,24 +67,4 @@ export interface FindAllResponse {
 	totalItems: number
 	currentPage: number
 	totalPages: number
-}
-
-export interface VehicleMaintenance {
-    id: string 
-    ref_number: string 
-    vehicle_id: string 
-    service_center_id: string 
-    service_date: string 
-    service_mileage: string 
-    next_service_date: string 
-    next_service_mileage: string 
-    cost: string 
-    remarks: string 
-    performed_by: string 
-    created_at: string 
-
-    // derived / resolvers
-    vehicle: Vehicle 
-    service_center: ServiceCenter 
-    services: VehicleService[]
 }
