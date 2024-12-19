@@ -39,7 +39,7 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td width="50%"> Status </td>
+                                    <td class="text-muted" width="50%"> Status </td>
                                     <td>
                                         <div :class="{ [`badge bg-${tripTicketStatus[trip_ticket.status].color}`]: true }">
                                             {{ tripTicketStatus[trip_ticket.status].label }}
@@ -47,35 +47,35 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td> Trip No. </td>
+                                    <td class="text-muted"> Trip No. </td>
                                     <td> {{ trip_ticket.trip_number }} </td>
                                 </tr>
                                 <tr>
-                                    <td> Vehicle No. </td>
+                                    <td class="text-muted"> Vehicle No. </td>
                                     <td> {{ trip_ticket.vehicle.vehicle_number + ' ' +  trip_ticket.vehicle.name }} </td>
                                 </tr>
                                 <tr>
-                                    <td> Vehicle Plate No. </td>
+                                    <td class="text-muted"> Vehicle Plate No. </td>
                                     <td> {{ trip_ticket.vehicle.plate_number }} </td>
                                 </tr>
                                 <tr>
-                                    <td> Driver </td>
+                                    <td class="text-muted"> Driver </td>
                                     <td> {{ getFullname(trip_ticket.driver.firstname, trip_ticket.driver.middlename, trip_ticket.driver.lastname) }} </td>
                                 </tr>
                                 <tr>
-                                    <td class="align-middle"> Passengers </td>
+                                    <td class="align-middle text-muted"> Passengers </td>
                                     <td>
                                         <textarea :value="trip_ticket.passengers" class="form-control form-control-sm" rows="3" readonly> </textarea>
                                     </td> 
                                 </tr>
                                 <tr>
-                                    <td class="align-middle"> Destination </td>
+                                    <td class="align-middle text-muted"> Destination </td>
                                     <td>
                                         <textarea :value="trip_ticket.destination" class="form-control form-control-sm" rows="3" readonly> </textarea>
                                     </td> 
                                 </tr>
                                 <tr>
-                                    <td class="align-middle"> Purpose </td>
+                                    <td class="align-middle text-muted"> Purpose </td>
                                     <td>
                                         <textarea :value="trip_ticket.purpose" class="form-control form-control-sm" rows="3" readonly> </textarea>
                                     </td> 
@@ -98,20 +98,49 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td width="50%"> Departure Time </td>
+                                    <td class="text-muted" width="50%"> Departure Time </td>
                                     <td> {{ formatDate(trip_ticket.start_time, true) }} </td>
                                 </tr>
                                 <tr>
-                                    <td> Arrival Time </td>
+                                    <td class="text-muted"> Arrival Time </td>
                                     <td> {{ formatDate(trip_ticket.end_time, true) }} </td>
                                 </tr>
                                 <tr>
-                                    <td> Actual Departure Time </td>
+                                    <td class="text-muted"> Actual Departure Time </td>
                                     <td> {{ formatDate(trip_ticket.actual_start_time, true) }} </td>
                                 </tr>
                                 <tr>
-                                    <td> Actual Arrival Time </td>
+                                    <td class="text-muted"> Actual Arrival Time </td>
                                     <td> {{ formatDate(trip_ticket.actual_end_time, true) }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="h5wrapper mb-3">
+                        <hr class="result">
+                        <h5 class="text-warning fst-italic">
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'users']" />
+                            </client-only> Signatories
+                        </h5>
+                        <hr class="result">
+                    </div>
+
+                    <div class="responsive">
+                        <table class="table table-sm" style="font-size: 0.9rem; width: 100%; text-align: left;">
+                            <tbody>
+                                <tr v-for="tripApprover of trip_ticket.trip_ticket_approvers">
+                                    <td class="text-muted align-middle"> {{ tripApprover.label }} </td>
+                                    <td class="align-middle"> {{ getFullname(tripApprover.approver!.firstname, tripApprover.approver!.middlename, tripApprover.approver!.lastname) }} </td>
+                                    <td class="align-middle">
+                                        <div :class="{ [`badge bg-${approvalStatus[tripApprover.status].color}`]: true }">
+                                            {{ approvalStatus[tripApprover.status].label }}
+                                        </div>
+                                        <div class="fst-italic" v-if="tripApprover.date_approval">
+                                            <small> {{ formatDate(tripApprover.date_approval, true) }} </small>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -133,6 +162,7 @@
     import { useToast } from "vue-toastification";
     import Swal from 'sweetalert2'
     import { tripTicketStatus } from '~/composables/motorpool/trip-ticket/trip-ticket.enums';
+    import { approvalStatus } from '~/utils/constants'
 
     const toast = useToast();
 

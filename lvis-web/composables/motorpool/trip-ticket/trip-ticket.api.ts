@@ -950,6 +950,19 @@ export async function updateActualTime(rf_id: string): Promise<MutationResponse>
                     actual_start_time 
                     actual_end_time 
                     status
+                    trip_ticket_approvers{
+                        approver {
+                            id
+                            firstname
+                            middlename
+                            lastname
+                        }
+                        status
+                        label
+                        order
+                        notes
+                        date_approval
+                    }
                 }
             }
         }`;
