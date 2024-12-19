@@ -234,12 +234,29 @@ export enum RESOLVERS {
     updateVehicle = 'updateVehicle',
     removeVehicle = 'removeVehicle',
 
+
+    // ========= VEHICLE SERVICE ========= 
+    createVehicleService = 'createVehicleService',
+    vehicle_services = 'vehicle_services',
+    vehicle_service = 'vehicle_service',
+    updateVehicleService = 'updateVehicleService',
+    removeVehicleService = 'removeVehicleService',
+
+    
     // ========= VEHICLE MAINTENANCE ========= 
     createVehicleMaintenance = 'createVehicleMaintenance',
     vehicle_maintenances = 'vehicle_maintenances',
     vehicle_maintenance = 'vehicle_maintenance',
     updateVehicleMaintenance = 'updateVehicleMaintenance',
     removeVehicleMaintenance = 'removeVehicleMaintenance',
+
+
+    // ========= SERVICE CENTER ========= 
+    createServiceCenter = 'createServiceCenter',
+    service_centers = 'service_centers',
+    service_center = 'service_center',
+    updateServiceCenter = 'updateServiceCenter',
+    removeServiceCenter = 'removeServiceCenter',
 
 
     // ========= FUEL TYPE ========= 

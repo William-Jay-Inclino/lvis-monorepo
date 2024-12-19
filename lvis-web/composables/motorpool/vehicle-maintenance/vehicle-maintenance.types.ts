@@ -21,9 +21,9 @@ export interface VehicleMaintenance {
 export interface CreateVehicleMaintenance {
     vehicle: Vehicle | null
     service_center: ServiceCenter | null
-    service_date: Date | null 
+    service_date: string 
     service_mileage: number 
-    next_service_date: Date | null 
+    next_service_date: string 
     next_service_mileage: number 
     cost: number 
     remarks: string 
@@ -34,9 +34,9 @@ export interface CreateVehicleMaintenance {
 export interface UpdateVehicleMaintenance {
     vehicle: Vehicle
     service_center: ServiceCenter
-    service_date: Date | null 
+    service_date: string 
     service_mileage: number 
-    next_service_date: Date | null 
+    next_service_date: string 
     next_service_mileage: number 
     cost: number 
     remarks: string 

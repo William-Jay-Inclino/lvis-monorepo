@@ -151,6 +151,7 @@ export async function findByVehicleNumber(vehicle_number: string): Promise<Vehic
         return undefined
     }
 }
+
 export async function findOne(id: string): Promise<Vehicle | undefined> {
     const query = `
         query {

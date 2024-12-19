@@ -65,6 +65,9 @@ import { GasStationModule } from './gas-station/gas-station.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { SettingModule } from './setting/setting.module';
 import { ConfigModule } from '@nestjs/config';
+import { ServiceCenterModule } from './service-center/service-center.module';
+import { VehicleMaintenanceModule } from './vehicle-maintenance/vehicle-maintenance.module';
+import { VehicleServiceModule } from './vehicle-service/vehicle-service.module';
 
 
 @Module({
@@ -152,6 +155,9 @@ import { ConfigModule } from '@nestjs/config';
     TripTicketModule,
     TripTicketApproverModule,
     SettingModule,
+    ServiceCenterModule,
+    VehicleMaintenanceModule,
+    VehicleServiceModule,
   ],
   controllers: [],
   providers: [

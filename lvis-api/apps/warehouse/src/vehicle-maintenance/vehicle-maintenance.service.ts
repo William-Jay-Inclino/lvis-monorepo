@@ -148,6 +148,39 @@ export class VehicleMaintenanceService {
         return item;
     }
 
+    async findRefNumbersByInput(input: string, includeDetails: boolean = false) {
+
+		const trimmedInput = input.trim(); 
+
+        let selectClause;
+        if (includeDetails) {
+            selectClause = { 
+                id: true,
+                ref_number: true, 
+                vehicle: true,
+                service_center:true,
+            }; 
+        } else {
+            selectClause = { ref_number: true };
+        }
+
+        const items = await this.prisma.vehicleMaintenance.findMany({
+            select: selectClause,
+            where: {
+                ref_number: {
+                    startsWith: trimmedInput
+                },
+                deleted_at: null
+            },
+            orderBy: {
+                ref_number: 'desc'
+            },
+            take: 10,
+        });
+
+        return items;
+    }
+
     async update(id: string, input: UpdateVehicleMaintenanceInput): Promise<VehicleMaintenance> {
 
 		const existingItem = await this.prisma.vehicleMaintenance.findUnique({ where: { id } })
@@ -218,7 +251,6 @@ export class VehicleMaintenanceService {
 
 	}
     
-
     private async getLatestRefNumber(): Promise<string> {
         const currentYear = new Date().getFullYear().toString().slice(-2);
 

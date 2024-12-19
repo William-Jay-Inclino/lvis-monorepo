@@ -33,8 +33,25 @@
                         <li v-if="canView('canManageGasSlip', authUser)" class="nav-item">
                             <nuxt-link :class="{ active: $route.path.startsWith('/motorpool/gas-slip') }" class="nav-link text-white" to="/motorpool/gas-slip">Gas Slip</nuxt-link>
                         </li>
-                        <li v-if="canView('canManageVehicle', authUser)" class="nav-item">
+                        <!-- <li v-if="canView('canManageVehicle', authUser)" class="nav-item">
                             <nuxt-link :class="{ active: $route.path.startsWith('/motorpool/vehicle') }" class="nav-link text-white" to="/motorpool/vehicle">Vehicle</nuxt-link>
+                        </li> -->
+                        <li v-if="canViewVehicle(authUser)" class="nav-item dropdown">
+                            <a :class="{ active: isActiveVehicle }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Vehicle
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li v-if="canView('canManageVehicle', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/motorpool/vehicle">Vehicle Management</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageVehicleMaintenance', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/motorpool/vehicle-maintenance">PMS</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageServices', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/motorpool/services">Services</nuxt-link>
+                                </li>
+                            </ul>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">
@@ -137,6 +154,7 @@ import { logout } from '~/utils/helpers';
 
 const authUser = ref()
 const router = useRouter()
+const route = useRoute()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
@@ -162,6 +180,12 @@ const totalPendings = computed(() => {
     }
     return 0
 })
+
+const isActiveVehicle = computed(() => 
+    route.path.startsWith('/motorpool/vehicle') ||
+    route.path.startsWith('/motorpool/vehicle-maintenance') ||
+    route.path.startsWith('/motorpool/services')
+)
 
 
 watch(isInactive, async (val) => {
@@ -258,6 +282,22 @@ function canView(module: string, authUser: AuthUser) {
 
 
     return false
+}
+
+function canViewVehicle(authUser: AuthUser) {
+
+    if (isAdmin(authUser)) return true
+
+    if (!authUser.user.permissions) return false
+
+    const warehousePermissions = authUser.user.permissions.warehouse
+
+
+    return (
+        (!!warehousePermissions.canManageVehicle && warehousePermissions.canManageVehicle.read) || 
+        (!!warehousePermissions.canManageVehicleMaintenance && warehousePermissions.canManageVehicleMaintenance.read) || 
+        (!!warehousePermissions.canManageServices && warehousePermissions.canManageServices.read)
+    )
 }
 
 

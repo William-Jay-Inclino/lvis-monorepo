@@ -6,7 +6,7 @@ import type { ServiceCenter } from "../service-center/service-center.types";
 
 
 export async function fetchDataInSearchFilters(): Promise<{
-    vehicles: VehicleService[],
+    vehicles: Vehicle[],
     service_centers: ServiceCenter[],
 }> {
     const query = `
@@ -18,11 +18,9 @@ export async function fetchDataInSearchFilters(): Promise<{
                     vehicle_number
                 }
             }
-            service_centers(page: 1, pageSize: 10) {
-                data {
-                    id
-                    name
-                }
+            service_centers {
+                id
+                name
             }
         }
     `;
@@ -43,8 +41,8 @@ export async function fetchDataInSearchFilters(): Promise<{
             vehicles = data.vehicles.data
         }
 
-        if (data.service_centers && data.service_centers.data) {
-            service_centers = data.service_centers.data
+        if (data.service_centers) {
+            service_centers = data.service_centers
         }
 
         return {
@@ -164,6 +162,7 @@ export async function findByRefNumber(ref_number: string): Promise<VehicleMainte
         return undefined
     }
 }
+
 export async function findOne(id: string): Promise<VehicleMaintenance | undefined> {
     const query = `
         query {
@@ -373,17 +372,13 @@ export async function fetchFormDataInCreate(): Promise<{
                     }
                 }
             }
-            services(page: 1, pageSize: 200) {
-                data {
-                    id 
-                    name
-                }
+            vehicle_services {
+                id 
+                name
             }
-            service_centers(page: 1, pageSize: 200) {
-                data {
-                    id 
-                    name
-                }
+            service_centers {
+                id 
+                name
             }
         }
     `;
@@ -406,12 +401,12 @@ export async function fetchFormDataInCreate(): Promise<{
             vehicles = response.data.data.vehicles.data
         }
 
-        if (data.services && data.services.data) {
-            services = response.data.data.services.data
+        if (data.services) {
+            services = data.services
         }
 
-        if (data.service_centers && data.service_centers.data) {
-            service_centers = response.data.data.service_centers.data
+        if (data.service_centers) {
+            service_centers = data.service_centers
         }
 
         return {
@@ -548,4 +543,28 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
     }
 
 
+}
+
+export async function fetchRefNumbers(payload: string): Promise<VehicleMaintenance[]> {
+    const query = `
+        query {
+            vehicle_maintenances_by_ref_number(input: "${payload}") {
+                ref_number
+            },
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+        return response.data.data.vehicle_maintenances_by_ref_number
+
+    } catch (error) {
+        console.error(error);
+        return []
+    }
 }

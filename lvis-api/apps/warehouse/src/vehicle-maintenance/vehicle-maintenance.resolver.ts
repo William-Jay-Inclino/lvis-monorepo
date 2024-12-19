@@ -69,7 +69,7 @@ export class VehicleMaintenanceResolver {
 	}
 
 	@Query(() => VehicleMaintenance)
-	async vehicle(
+	async vehicle_maintenance(
 	  	@Args('id', { nullable: true }) id?: string,
 	  	@Args('ref_number', { nullable: true }) ref_number?: string
 	) {
@@ -87,6 +87,14 @@ export class VehicleMaintenanceResolver {
 		}
 
 	}
+
+	@Query(() => [VehicleMaintenance])
+    vehicle_maintenances_by_ref_number(
+        @Args('ref_number') ref_number: string,
+        @Args('is_detail_included', { nullable: true }) is_detail_included?: boolean,
+    ){
+        return this.vehicleMaintenanceService.findRefNumbersByInput(ref_number, is_detail_included);
+    }
 
 	@Mutation(() => VehicleMaintenance)
 	@UseGuards(AccessGuard)

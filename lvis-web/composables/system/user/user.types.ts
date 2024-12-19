@@ -246,6 +246,18 @@ export interface WarehousePermissions {
         update?: boolean,
         delete?: boolean,
     },
+    canManageVehicleMaintenance?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+    canManageServices?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
     canManageFuelType?: {
         create?: boolean,
         read?: boolean,
