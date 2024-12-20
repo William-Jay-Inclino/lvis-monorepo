@@ -49,9 +49,9 @@
                                 <th style="width: 15%;" class="text-muted"> Service Date </th>
                                 <th style="width: 25%;" class="text-muted"> Vehicle </th>
                                 <th style="width: 10%;" class="text-muted"> Ref. No. </th>
-                                <th style="width: 20%;" class="text-muted"> Last Service Date </th>
-                                <th style="width: 15%;" class="text-muted"> Last Service Mileage </th>
-                                <th style="width: 15%;" class="text-muted"> Cost </th>
+                                <th style="width: 20%;" class="text-muted"> Prev. Service Date </th>
+                                <th style="width: 15%;" class="text-muted"> Prev. Service Mileage </th>
+                                <th style="width: 15%;" class="text-muted"> Prev. Cost </th>
                             </tr>
                         </thead>
                         <tbody>
