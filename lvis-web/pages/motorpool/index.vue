@@ -46,12 +46,12 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th style="width: 12%;" class="text-muted"> Service Date </th>
-                                <th class="text-muted"> Vehicle </th>
-                                <th class="text-muted"> Reference No. </th>
-                                <th class="text-muted"> Last Service Date </th>
-                                <th class="text-muted"> Last Service Mileage </th>
-                                <th class="text-muted"> Cost </th>
+                                <th style="width: 15%;" class="text-muted"> Service Date </th>
+                                <th style="width: 25%;" class="text-muted"> Vehicle </th>
+                                <th style="width: 10%;" class="text-muted"> Ref. No. </th>
+                                <th style="width: 20%;" class="text-muted"> Last Service Date </th>
+                                <th style="width: 15%;" class="text-muted"> Last Service Mileage </th>
+                                <th style="width: 15%;" class="text-muted"> Cost </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -100,12 +100,12 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th style="width: 12%;" class="text-muted"> Est. Departure </th>
-                                <th class="text-muted"> Vehicle </th>
-                                <th class="text-muted"> Trip No. </th>
-                                <th class="text-muted"> Driver </th>
-                                <th class="text-muted"> Destination </th>
-                                <th class="text-muted"> Status </th>
+                                <th style="width: 15%;" class="text-muted"> Est. Departure </th>
+                                <th style="width: 25%;" class="text-muted"> Vehicle </th>
+                                <th style="width: 10%;" class="text-muted"> Trip No. </th>
+                                <th style="width: 20%;" class="text-muted"> Driver </th>
+                                <th style="width: 15%;" class="text-muted"> Destination </th>
+                                <th style="width: 15%;" class="text-muted"> Status </th>
                             </tr>
                         </thead>
                         <tbody>
