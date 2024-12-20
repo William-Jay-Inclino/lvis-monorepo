@@ -5,11 +5,11 @@
             <div v-if="!isLoadingPage && authUser" class="card">
                 <div class="card-body">
     
-                    <h2 class="text-warning mb-4">Create Vehicle Maintenance</h2>
+                    <h2 class="text-warning mb-4">Create Vehicle PMS</h2>
                     <hr>
             
                     <div class="row justify-content-center pt-5 pb-3">
-                        <div class="col-lg-6">
+                        <div class="col-lg-8">
 
                             <div class="alert alert-info" role="alert">
                                 <div>
@@ -70,6 +70,69 @@
                             </div>
 
                             <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">
+                                            Service Date <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="datetime-local" class="form-control" v-model="vmData.service_date">
+                                        <small class="text-danger fst-italic" v-if="vmDataErrors.service_date"> {{ errorMsg }}
+                                        </small>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">
+                                            Next Service Date <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="datetime-local" class="form-control" v-model="vmData.next_service_date">
+                                        <small class="text-danger fst-italic" v-if="vmDataErrors.next_service_date"> {{ errorMsg }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">
+                                            Service Mileage <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" v-model="vmData.service_mileage">
+                                        <small class="text-danger fst-italic" v-if="vmDataErrors.service_mileage"> {{ errorMsg }}
+                                        </small>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">
+                                            Next Service Mileage <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="form" class="form-control" v-model="vmData.next_service_mileage">
+                                        <small class="text-danger fst-italic" v-if="vmDataErrors.next_service_mileage"> {{ errorMsg }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Cost <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">₱</span>
+                                    <input type="number" v-model="vmData.cost" class="form-control" rows="3">
+                                </div>
+                                <small class="text-danger fst-italic" v-if="vmDataErrors.cost"> {{ errorMsg }}
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Performed By <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" v-model="vmData.performed_by" class="form-control" rows="3">
+                                <small class="text-danger fst-italic" v-if="vmDataErrors.performed_by"> {{ errorMsg }}
+                                </small>
+                            </div>
+
+                            <div class="mb-4">
                                 <label class="form-label">
                                     Remarks <span class="text-danger">*</span>
                                 </label>
@@ -78,19 +141,40 @@
                                 </small>
                             </div>
 
-                            <div class="d-flex justify-content-between">
-                                <nuxt-link class="btn btn-secondary" to="/motorpool/vehicle-maintenance">
+                            <div class="h5wrapper mb-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                                </client-only> 
-                                    Search PMS
-                                </nuxt-link>
-                                <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
-                                    <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
-                                </button>
+                                        <font-awesome-icon :icon="['fas', 'wrench']"/>
+                                    </client-only> Services
+                                </h5>
+                                <hr class="result">
                             </div>
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <MotorpoolServices :services="create_services" />
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <div class="d-flex justify-content-between">
+                                        <nuxt-link class="btn btn-secondary" to="/motorpool/vehicle-maintenance">
+                                            <client-only>
+                                        <font-awesome-icon :icon="['fas', 'search']" />
+                                        </client-only> 
+                                            Search PMS
+                                        </nuxt-link>
+                                        <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'save']"/>
+                                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     
@@ -113,7 +197,7 @@
 import Swal from 'sweetalert2'
 import { getFullname } from '~/utils/helpers'
 import * as vmApi from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.api'
-import type { CreateVehicleMaintenance } from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.types';
+import type { CreateVehicleMaintenance, CreateVehicleMaintenanceDetail } from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.types';
 import { fetchVehicles } from '~/composables/motorpool/vehicle/vehicle.api';
 import type { ServiceCenter } from '~/composables/motorpool/service-center/service-center.types';
 import { VehicleClassificationMapper } from '~/composables/motorpool/vehicle/vehicle.enums';
@@ -167,6 +251,7 @@ const vmDataErrors = ref({ ..._vmDataErrorsInitial })
 const vehicles = ref<Vehicle[]>([])
 const service_centers = ref<ServiceCenter[]>([])
 const services = ref<VehicleService[]>([])
+const create_services = ref<CreateVehicleMaintenanceDetail[]>([])
 
 
 // ======================== LIFECYCLE HOOKS ========================  
@@ -178,6 +263,13 @@ onMounted(async () => {
     vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
     service_centers.value = response.service_centers 
     services.value = response.services
+    create_services.value = response.services.map(i => {
+        return {
+            service: i,
+            note: '',
+            isChecked: false
+        }
+    })
 
     isLoadingPage.value = false
     

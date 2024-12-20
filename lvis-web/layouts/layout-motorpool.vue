@@ -46,7 +46,7 @@
                                     to="/motorpool/vehicle">Vehicle Management</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageVehicleMaintenance', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/motorpool/vehicle-maintenance">PMS</nuxt-link>
+                                    to="/motorpool/vehicle-maintenance">Vehicle PMS</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageServices', authUser)"><nuxt-link class="dropdown-item"
                                     to="/motorpool/services">Services</nuxt-link>
@@ -116,23 +116,20 @@
                     <li class="nav-item">
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
                     </li>
-                    <li v-if="canView('canManageCanvass', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/purchase/canvass">Canvass</nuxt-link>
+                    <li v-if="canView('canManageTripTicket', authUser)" class="nav-item">
+                        <nuxt-link class="nav-link" to="/motorpool/trip-ticket">Trip Ticket</nuxt-link>
                     </li>
-                    <li v-if="canView('canManageRV', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/purchase/rv">RV</nuxt-link>
+                    <li v-if="canView('canManageGasSlip', authUser)" class="nav-item">
+                        <nuxt-link class="nav-link" to="/motorpool/gas-slip">Gas Slip</nuxt-link>
                     </li>
-                    <li v-if="canView('canManageSPR', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/purchase/spr">SPR</nuxt-link>
+                    <li v-if="canView('canManageVehicle', authUser)" class="nav-item">
+                        <nuxt-link class="nav-link" to="/motorpool/vehicle">Vehicle Management</nuxt-link>
                     </li>
-                    <li v-if="canView('canManageJO', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/purchase/jo">JO</nuxt-link>
+                    <li v-if="canView('canManageVehicleMaintenance', authUser)" class="nav-item">
+                        <nuxt-link class="nav-link" to="/motorpool/vehicle-maintenance">Vehicle PMS</nuxt-link>
                     </li>
-                    <li v-if="canView('canManageMEQS', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/purchase/meqs">MEQS</nuxt-link>
-                    </li>
-                    <li v-if="canView('canManagePO', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/purchase/po">PO</nuxt-link>
+                    <li v-if="canView('canManageServices', authUser)" class="nav-item">
+                        <nuxt-link class="nav-link" to="/motorpool/services">Services</nuxt-link>
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">

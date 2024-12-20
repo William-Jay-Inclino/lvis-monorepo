@@ -401,8 +401,8 @@ export async function fetchFormDataInCreate(): Promise<{
             vehicles = response.data.data.vehicles.data
         }
 
-        if (data.services) {
-            services = data.services
+        if (data.vehicle_services) {
+            services = data.vehicle_services
         }
 
         if (data.service_centers) {

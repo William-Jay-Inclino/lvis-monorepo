@@ -66,7 +66,8 @@ export interface VehicleMaintenanceDetail {
 }
 
 export interface CreateVehicleMaintenanceDetail {
-    service: VehicleService | null  
+    service: VehicleService
     note: string 
+    isChecked: boolean
 }
 
