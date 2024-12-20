@@ -137,7 +137,7 @@ export class ProjectService {
 			where: {
 				deleted_at: null,
 				OR: [
-					{ name: { startsWith: input } },
+					{ name: { startsWith: input, mode: 'insensitive' } },
 				],
 			},
 			take: 10,

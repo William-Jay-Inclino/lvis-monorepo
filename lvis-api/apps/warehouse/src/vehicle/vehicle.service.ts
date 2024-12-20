@@ -216,8 +216,8 @@ export class VehicleService {
 			where: {
 				deleted_at: null,
 				OR: [
-					{ name: { startsWith: input } },
-					{ vehicle_number: { startsWith: input } },
+					{ name: { startsWith: input, mode: 'insensitive' } },
+					{ vehicle_number: { startsWith: input, mode: 'insensitive' } },
 				],
 			},
 			take: 10,

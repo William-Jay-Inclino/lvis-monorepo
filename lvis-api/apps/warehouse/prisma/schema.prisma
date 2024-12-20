@@ -45,6 +45,9 @@ model Supplier {
 
 
   @@index([name])
+  @@index([vat_type])
+  @@index([is_vat_registered])
+  @@index([deleted_at])
   @@map("supplier")
 }
 
@@ -99,7 +102,8 @@ model Pending {
 
 
   @@unique([approver_id, reference_number, reference_table])
-  @@index([reference_number, approver_id, reference_table, transaction_date])
+  @@index([approver_id])
+  @@index([transaction_date])
   @@map("pending")
 }
 
@@ -155,7 +159,10 @@ model Item {
 
   project_item ProjectItem?
 
-  @@index([item_type_id, unit_id, created_by])
+  @@index([item_type_id])
+  @@index([deleted_at])
+  @@index([description])
+  @@index([created_by])
   @@map("item")
 }
 
@@ -269,6 +276,8 @@ model Canvass {
 
   
   @@index([date_requested, requested_by_id])
+  @@index([requested_by_id])
+  @@index([date_requested])
   @@map("canvass")
 }
 
@@ -286,7 +295,8 @@ model CanvassItem {
   item                Item?              @relation(fields: [item_id], references: [id], onDelete: Restrict)
 
 
-  @@index([canvass_id, unit_id, item_id])
+  @@index([canvass_id])
+  @@index([item_id])
   @@map("canvass_item")
 }
 
@@ -316,6 +326,8 @@ model RV {
 
 
   @@index([date_requested])
+  @@index([approval_status])
+  @@index([created_by])
   @@map("request_voucher")
 }
 
@@ -333,6 +345,7 @@ model RVApprover {
 
 
   @@unique([rv_id, order]) // para pag update sa specific approver
+  @@index([approver_id])
   @@index([rv_id])
   @@map("rv_approver")
 }
@@ -363,6 +376,8 @@ model JO {
 
 
   @@index([date_requested])
+  @@index([approval_status])
+  @@index([created_by])
   @@map("job_order")
 }
 
@@ -380,6 +395,7 @@ model JOApprover {
 
 
   @@unique([jo_id, order]) // para pag update sa specific approver
+  @@index([approver_id])
   @@index([jo_id])
   @@map("jo_approver")
 }
@@ -410,6 +426,8 @@ model SPR {
 
 
   @@index([date_requested])
+  @@index([approval_status])
+  @@index([created_by])
   @@map("spare_parts_request")
 }
 
@@ -427,6 +445,7 @@ model SPRApprover {
 
 
   @@unique([spr_id, order]) // para pag update sa specific approver
+  @@index([approver_id])
   @@index([spr_id])
   @@map("spr_approver")
 }
@@ -460,6 +479,8 @@ model MEQS {
 
 
   @@index([meqs_date])
+  @@index([approval_status])
+  @@index([created_by])
   @@map("material_equipment_quotation_summary")
 }
 
@@ -477,7 +498,8 @@ model MEQSSupplier {
 
 
   @@unique([meqs_id, supplier_id])
-  @@index([meqs_id, supplier_id])
+  @@index([meqs_id])
+  @@index([supplier_id])
   @@map("meqs_supplier")
 }
 
@@ -496,7 +518,8 @@ model MEQSSupplierItem {
   rr_items       RRItem[]  
 
 
-  @@index([meqs_supplier_id, canvass_item_id])
+  @@index([meqs_supplier_id])
+  @@index([canvass_item_id])
   @@map("meqs_supplier_item")
 }
 
@@ -527,6 +550,7 @@ model MEQSApprover {
 
 
   @@index([meqs_id])
+  @@index([approver_id])
   @@map("meqs_approver")
 }
 
@@ -554,6 +578,8 @@ model PO {
 
 
   @@index([po_date])
+  @@index([created_by])
+  @@index([approval_status])
   @@map("purchase_order")
 }
 
@@ -570,6 +596,7 @@ model POApprover {
   po PO @relation(fields: [po_id], references: [id], onDelete: Cascade)
 
 
+  @@index([approver_id])
   @@index([po_id])
   @@map("po_approver")
 }
@@ -601,7 +628,10 @@ model RR {
   rr_items     RRItem[]
 
 
-  @@index([po_id, rr_date])
+  @@index([po_id])
+  @@index([approval_status])
+  @@index([rr_date])
+  @@index([created_by])
   @@map("receiving_report")
 }
 
@@ -618,6 +648,7 @@ model RRApprover {
   rr RR @relation(fields: [rr_id], references: [id], onDelete: Cascade)
 
 
+  @@index([approver_id])
   @@index([rr_id])
   @@map("rr_approver")
 }
@@ -634,7 +665,8 @@ model RRItem {
   meqs_supplier_item MEQSSupplierItem @relation(fields: [meqs_supplier_item_id], references: [id], onDelete: Restrict)
 
 
-  @@index([rr_id, meqs_supplier_item_id])
+  @@index([rr_id])
+  @@index([meqs_supplier_item_id])
   @@map("rr_item")
 }
 
@@ -671,6 +703,10 @@ model OSRIV {
 
 
   @@index([date_requested])
+  @@index([requested_by_id])
+  @@index([item_from_id])
+  @@index([approval_status])
+  @@index([created_by])
   @@map("osriv")
 }
 
@@ -688,6 +724,7 @@ model OSRIVApprover {
 
   @@unique([osriv_id, order]) // para pag update sa specific approver
   @@index([osriv_id])
+  @@index([approver_id])
   @@map("osriv_approver")
 }
 
@@ -703,7 +740,8 @@ model OSRIVItem {
   item_transaction   ItemTransaction?
 
 
-  @@index([osriv_id, item_id])
+  @@index([osriv_id])
+  @@index([item_id])
   @@map("osriv_item")
 }
 
@@ -745,7 +783,11 @@ model SERIV {
   mcrts MCRT[]
 
 
+  @@index([approval_status])
   @@index([date_requested])
+  @@index([requested_by_id])
+  @@index([item_from_id])
+  @@index([created_by])
   @@map("seriv")
 }
 
@@ -765,6 +807,7 @@ model SERIVApprover {
 
   @@unique([seriv_id, order]) // para pag update sa specific approver
   @@index([seriv_id])
+  @@index([approver_id])
   @@map("seriv_approver")
 }
 
@@ -780,7 +823,8 @@ model SERIVItem {
   item_transaction   ItemTransaction?
 
 
-  @@index([seriv_id, item_id])
+  @@index([seriv_id])
+  @@index([item_id])
   @@map("seriv_item")
 }
 
@@ -825,6 +869,12 @@ model MRV {
 
 
   @@index([date_requested])
+  @@index([project_id])
+  @@index([approval_status])
+  @@index([request_type])
+  @@index([requested_by_id])
+  @@index([item_from_id])
+  @@index([created_by])
   @@map("mrv")
 }
 
@@ -844,6 +894,7 @@ model MRVApprover {
 
   @@unique([mrv_id, order]) // para pag update sa specific approver
   @@index([mrv_id])
+  @@index([approver_id])
   @@map("mrv_approver")
 }
 
@@ -859,7 +910,8 @@ model MRVItem {
   item_transaction   ItemTransaction?
 
 
-  @@index([mrv_id, item_id])
+  @@index([mrv_id])
+  @@index([item_id])
   @@map("mrv_item")
 }
 
@@ -885,7 +937,10 @@ model MCT {
   mcrts MCRT[]
 
 
-  @@index([mrv_id, mct_date])
+  @@index([mrv_id])
+  @@index([mct_date])
+  @@index([approval_status])
+  @@index([created_by])
   @@map("mct")
 }
 
@@ -903,6 +958,7 @@ model MCTApprover {
 
   @@unique([mct_id, order]) // para pag update sa specific approver
   @@index([mct_id])
+  @@index([approver_id])
   @@map("mct_approver")
 }
 
@@ -936,6 +992,10 @@ model MCRT {
 
 
   @@index([mcrt_date])
+  @@index([seriv_id])
+  @@index([mct_id])
+  @@index([approval_status])
+  @@index([created_by])
   @@map("mcrt")
 }
 
@@ -953,6 +1013,7 @@ model MCRTApprover {
 
   @@unique([mcrt_id, order]) // para pag update sa specific approver
   @@index([mcrt_id])
+  @@index([approver_id])
   @@map("mcrt_approver")
 }
 
@@ -967,7 +1028,8 @@ model MCRTItem {
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
   item_transaction   ItemTransaction?
 
-  @@index([mcrt_id, item_id])
+  @@index([mcrt_id])
+  @@index([item_id])
   @@map("mcrt_item")
 }
 
@@ -999,6 +1061,9 @@ model MST {
 
 
   @@index([mst_date])
+  @@index([approval_status])
+  @@index([returned_by_id])
+  @@index([created_at])
   @@map("mst")
 }
 
@@ -1016,6 +1081,7 @@ model MSTApprover {
 
   @@unique([mst_id, order]) // para pag update sa specific approver
   @@index([mst_id])
+  @@index([approver_id])
   @@map("mst_approver")
 }
 
@@ -1031,7 +1097,8 @@ model MSTItem {
   item      Item      @relation(fields: [item_id], references: [id], onDelete: Restrict)
   item_transaction   ItemTransaction?
 
-  @@index([mst_id, item_id])
+  @@index([mst_id])
+  @@index([item_id])
   @@map("mst_item")
 }
 
@@ -1063,7 +1130,13 @@ model Vehicle {
 
   service_history VehicleMaintenance[]
 
-  @@index([assignee_id, classification_id, status]) 
+  @@index([assignee_id]) 
+  @@index([classification_id]) 
+  @@index([deleted_at]) 
+  @@index([date_acquired]) 
+  @@index([name]) 
+  @@index([status]) 
+  @@index([created_by]) 
   @@map("vehicle")
 }
 
@@ -1099,7 +1172,14 @@ model TripTicket {
   vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Restrict)
   trip_ticket_approvers TripTicketApprover[]
 
-  @@index([start_time, end_time, actual_start_time, actual_end_time, status])
+  @@index([start_time, end_time])
+  @@index([vehicle_id])
+  @@index([driver_id])
+  @@index([prepared_by_id])
+  @@index([status])
+  @@index([created_by])
+  @@index([cancelled_at])
+  @@index([start_time])
   @@map("trip_ticket")
 }
 
@@ -1117,6 +1197,7 @@ model TripTicketApprover {
 
   @@unique([trip_ticket_id, order])
   @@index([trip_ticket_id])
+  @@index([approver_id])
   @@map("trip_ticket_approver")
 }
 
@@ -1152,7 +1233,14 @@ model GasSlip {
   fuel_type FuelType @relation(fields: [fuel_type_id], references: [id], onDelete: Restrict)
   gas_slip_approvers GasSlipApprover[]
 
-  @@index([vehicle_id, driver_id, gas_station_id, requested_by_id]) 
+  @@index([vehicle_id]) 
+  @@index([driver_id]) 
+  @@index([gas_station_id]) 
+  @@index([requested_by_id]) 
+  @@index([fuel_type_id]) 
+  @@index([approval_status]) 
+  @@index([is_posted]) 
+  @@index([created_by]) 
   @@map("gas_slip")
 }
 
@@ -1170,6 +1258,7 @@ model GasSlipApprover {
 
   @@unique([gas_slip_id, order])
   @@index([gas_slip_id])
+  @@index([approver_id])
   @@map("gas_slip_approver")
 }
 
@@ -1236,6 +1325,9 @@ model VehicleMaintenance {
   services VehicleMaintenanceDetail[]
 
   @@index([vehicle_id])
+  @@index([service_center_id])
+  @@index([created_by])
+  @@index([service_date])
   @@map("vehicle_maintenance")
 }
 
@@ -1248,7 +1340,7 @@ model VehicleMaintenanceDetail {
   vehicle_maintanance VehicleMaintenance @relation(fields: [maintenance_id], references: [id], onDelete: Cascade)
   service VehicleService @relation(fields: [service_id], references: [id], onDelete: Restrict)
 
+  @@index([maintenance_id])
+  @@index([service_id])
   @@map("vehicle_maintenance_detail")
-
-
 }
