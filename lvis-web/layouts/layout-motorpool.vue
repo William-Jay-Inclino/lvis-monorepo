@@ -27,6 +27,9 @@
                         <li class="nav-item">
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
+                        <li class="nav-item">
+                            <nuxt-link :class="{ active: $route.path === '/motorpool' }" class="nav-link text-white" to="/motorpool">Dashboard</nuxt-link>
+                        </li>
                         <li v-if="canView('canManageTripTicket', authUser)" class="nav-item">
                             <nuxt-link :class="{ active: $route.path.startsWith('/motorpool/trip-ticket') }" class="nav-link text-white" to="/motorpool/trip-ticket">Trip Ticket</nuxt-link>
                         </li>

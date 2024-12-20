@@ -78,6 +78,20 @@ export function formatTimeTo12Hour(date: Date | string): string {
     return `${hours}:${minutesStr} ${ampm}`;
 }
 
+export function get_day_and_time(d: any) {
+
+    if (!d) {
+        return ""
+    }
+
+    let date = d;
+    if (!isNaN(d)) {
+        date = Number(d) < 10000000000 ? Number(d) * 1000 : Number(d);
+    }
+
+    return moment(d).format('h:mm A ddd');
+}
+
 export function formatToValidHtmlDate(d: any, hasTime: boolean = false): string {
 
     let date = d;

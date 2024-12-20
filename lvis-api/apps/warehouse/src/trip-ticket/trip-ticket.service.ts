@@ -445,19 +445,20 @@ export class TripTicketService {
 
 	}
 
-	async getScheduledTrips(d: {start: Date, end: Date}) {
+	async getScheduledTrips(d: { start: Date, end: Date }) {
 
 		return this.prisma.tripTicket.findMany({
+			include: {
+					vehicle: true,
+			},
 			where: {
 				start_time: {
-					gte: d.start,
-				},
-				end_time: {
-					lte: d.end,
+					gte: d.start, 
+					lte: d.end,   
 				},
 			},
 			orderBy: {
-			  	start_time: 'asc',
+				start_time: 'asc',
 			},
 		});
 	}

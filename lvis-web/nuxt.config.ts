@@ -7,6 +7,7 @@ export default defineNuxtConfig({
           warehouseApiUrl: process.env.WAREHOUSE_API_URL,
           graphqlApiUrl: process.env.GRAPHQL_API_URL,
           appVersion: process.env.APP_VERSION,
+          TZ: process.env.TZ,
       }
   },
 

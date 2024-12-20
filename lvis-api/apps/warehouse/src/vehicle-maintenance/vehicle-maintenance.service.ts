@@ -7,6 +7,7 @@ import { VehicleMaintenanceResponse } from "./entities/vehicles-response.entity"
 import { getDateRange } from "../__common__/helpers";
 import { UpdateVehicleMaintenanceInput } from "./dto/update-vehicle-maintenance.input";
 import { WarehouseRemoveResponse } from "../__common__/classes";
+import { endOfWeek, startOfWeek } from "date-fns";
 
 @Injectable()
 export class VehicleMaintenanceService {
@@ -259,6 +260,26 @@ export class VehicleMaintenanceService {
 		}
 
 	}
+
+    async get_maintenance_schedule(d: {start: Date, end: Date}) {
+      
+        const maintenanceRecords = await this.prisma.vehicleMaintenance.findMany({
+            where: {
+                next_service_date: {
+                    gte: d.start,
+                    lte: d.end,
+                },
+            },
+            include: {
+                vehicle: true
+            },
+            orderBy: {
+                next_service_date: 'asc'
+            }
+        });
+      
+        return maintenanceRecords;
+    }
     
     private async getLatestRefNumber(): Promise<string> {
         const currentYear = new Date().getFullYear().toString().slice(-2);

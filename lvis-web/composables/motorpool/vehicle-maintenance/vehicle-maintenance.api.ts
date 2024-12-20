@@ -2,7 +2,7 @@ import { sendRequest } from "~/utils/api"
 import type { VehicleMaintenance, CreateVehicleMaintenance, MutationResponse, UpdateVehicleMaintenance, FindAllResponse } from "./vehicle-maintenance.types";
 import type { VehicleService } from "../vehicle-service/vehicle-service.types";
 import type { ServiceCenter } from "../service-center/service-center.types";
-
+import type { TripTicket } from "../trip-ticket/trip-ticket.types";
 
 
 export async function fetchDataInSearchFilters(): Promise<{
@@ -582,5 +582,81 @@ export async function fetchRefNumbers(payload: string): Promise<VehicleMaintenan
     } catch (error) {
         console.error(error);
         return []
+    }
+}
+
+export async function fetch_dashboard_data(d: { startDate: string, endDate: string }): Promise<{
+    this_week_pms_schedules: VehicleMaintenance[],
+    this_week_trips: TripTicket[]
+}> {
+
+    const query = `
+        query {
+            maintenance_schedule(startDate: "${d.startDate}", endDate: "${d.endDate}") {
+                id
+                ref_number
+                vehicle {
+                    id 
+                    name
+                    vehicle_number
+                }
+                service_date
+                next_service_date
+                service_mileage
+                cost
+            }
+            scheduled_trips(startDate: "${d.startDate}", endDate: "${d.endDate}") {
+                id 
+                trip_number
+                vehicle {
+                    id 
+                    name 
+                    vehicle_number
+                }
+                driver {
+                    id 
+                    firstname
+                    middlename 
+                    lastname
+                }
+                destination
+                start_time
+                status
+            }   
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let this_week_pms_schedules = []
+        let this_week_trips = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if(data.maintenance_schedule) {
+            this_week_pms_schedules = data.maintenance_schedule
+        }
+
+        if(data.scheduled_trips) {
+            this_week_trips = data.scheduled_trips
+        }
+
+        return {
+            this_week_pms_schedules,
+            this_week_trips,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            this_week_pms_schedules: [],
+            this_week_trips: [],
+        }
     }
 }

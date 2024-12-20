@@ -96,6 +96,18 @@ export class VehicleMaintenanceResolver {
         return this.vehicleMaintenanceService.findRefNumbersByInput(ref_number, is_detail_included);
     }
 
+	@Query(() => [VehicleMaintenance])
+    maintenance_schedule(
+		@Args('startDate', { type: () => String }) startDate: string,
+		@Args('endDate', { type: () => String }) endDate: string,
+	){
+
+		const start = new Date(startDate);
+		const end = new Date(endDate);
+
+        return this.vehicleMaintenanceService.get_maintenance_schedule({ start, end });
+    }
+
 	@Mutation(() => VehicleMaintenance)
 	@UseGuards(AccessGuard)
 	@CheckAccess(MODULES.VEHICLE_MAINTENANCE, RESOLVERS.updateVehicleMaintenance)
