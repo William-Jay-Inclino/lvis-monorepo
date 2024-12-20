@@ -56,7 +56,7 @@
                                   </div>
 
                                   <div class="col-12 mt-3">
-                                      <button :disabled="isLoggingIn" type="submit" class="btn btn-primary btn-sm px-4 float-end mt-4">
+                                      <button :disabled="isLoggingIn" type="submit" class="btn btn-primary px-4 mt-4 w-100">
                                           {{ isLoggingIn ? 'Logging in...' : 'Login' }}
                                       </button>
                                   </div>
@@ -77,19 +77,19 @@
                               <div class="row fs-8">
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
                                     <client-only>
-                                        <font-awesome-icon :icon="['fas', 'bolt']" class="me-1"/>
+                                        <font-awesome-icon :icon="['fas', 'money-bill-wave']" class="me-1"/>
                                     </client-only>
-                                        Powerserve
+                                        Purchasing
+                                  </div>
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'warehouse']"  class="me-1"/>
+                                    </client-only> Warehousing
                                   </div>
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'gear']"  class="me-1"/>
                                     </client-only> System
-                                  </div>
-                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                    <client-only>
-                                        <font-awesome-icon :icon="['fas', 'clipboard']"  class="me-1"/>
-                                    </client-only> E-forms
                                   </div>
                               </div>
 
@@ -97,27 +97,8 @@
                               <div class="row fs-8">
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
                                     <client-only>
-                                        <font-awesome-icon :icon="['fas', 'link']"  class="me-1"/>
-                                    </client-only> E-connect
-                                  </div>
-                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                    <client-only>
-                                        <font-awesome-icon :icon="['fas', 'file-invoice']"  class="me-1"/>
-                                    </client-only> Powerbill
-                                  </div>
-                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                    <client-only>
-                                        <font-awesome-icon :icon="['fas', 'money-bill-wave']"  class="me-1"/>
-                                    </client-only> LPS
-                                  </div>
-                              </div>
-
-                              <!-- Third Row -->
-                              <div class="row fs-8">
-                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
-                                    <client-only>
-                                        <font-awesome-icon :icon="['fas', 'warehouse']"  class="me-1"/>
-                                    </client-only> Powerhouse
+                                        <font-awesome-icon :icon="['fas', 'car']"  class="me-1"/>
+                                    </client-only> Motorpool
                                   </div>
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
                                     <client-only>
@@ -127,7 +108,26 @@
                                   <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'users']"  class="me-1"/>
-                                    </client-only> Powerpay
+                                    </client-only> HR
+                                  </div>
+                              </div>
+
+                              <!-- Third Row -->
+                              <div class="row fs-8">
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'bolt']"  class="me-1"/>
+                                    </client-only> Powerserve
+                                  </div>
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'house']"  class="me-1"/>
+                                    </client-only> Housewiring
+                                  </div>
+                                  <div class="col btn-bg-warning fw-bold d-flex justify-content-center align-items-center m-1">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'coins']"  class="me-1"/>
+                                    </client-only> Billing
                                   </div>
                               </div>
                           </div>

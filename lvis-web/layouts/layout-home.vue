@@ -5,10 +5,10 @@
                 <div class="container">
                     <a class="navbar-brand" href="#">
                         <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
-                        Welcome, {{ authUser.user.username }}! <span v-if="!isMobile"> Have a productive day </span> 
+                        Welcome, {{ authUser.user.username }}! 
                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'smile']" />
-                            </client-only>
+                            <font-awesome-icon :icon="['fas', 'smile']" />
+                        </client-only>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -105,7 +105,6 @@ import { fetchTotalNotifications } from '~/composables/system/user/user.api';
 
 const authUser = ref<AuthUser >()
 const router = useRouter()
-const isMobile = ref(false)
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
@@ -202,21 +201,5 @@ async function handleLogOut() {
     }
 
 }
-
-function checkMobile() {
-    isMobile.value = window.innerWidth < MOBILE_WIDTH
-}
-
 </script>
 
-
-<style scoped>
-/* .bg-container {
-  background-image: url('~/assets/img/homebg2.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  width: 100%;
-} */
-</style>

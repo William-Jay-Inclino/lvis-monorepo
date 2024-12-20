@@ -79,7 +79,7 @@
                             </ul>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
-                            <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">
+                            <nuxt-link @click="closeOffcanvas" class="nav-link text-white position-relative" to="/e-forms/pendings">
                                 <client-only>
                                     <font-awesome-icon :icon="['fas', 'bell']" />
                                 </client-only>
@@ -128,7 +128,7 @@
 
         <div v-if="authUser" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button ref="offCanvassCloseBtn" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="offcanvas-header">
                 <img src="/avatar.jpg" alt="Profile Picture" class="img-fluid">
             </div>
@@ -148,22 +148,22 @@
                             Warehouse
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li v-if="canView('canManageOSRIV', authUser)"><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageOSRIV', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                 to="/warehouse/osriv">OSRIV</nuxt-link>
                             </li>
-                            <li v-if="canView('canManageSERIV', authUser)"><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageSERIV', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                 to="/warehouse/seriv">SERIV</nuxt-link>
                             </li>
-                            <li v-if="canView('canManageMRV', authUser)"><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageMRV', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                 to="/warehouse/mrv">MRV</nuxt-link>
                             </li>
-                            <li v-if="canView('canManageMCT', authUser)"><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageMCT', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                 to="/warehouse/mct">MCT</nuxt-link>
                             </li>
-                            <li v-if="canView('canManageMCRT', authUser)"><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageMCRT', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                 to="/warehouse/mcrt">MCRT</nuxt-link>
                             </li>
-                            <li v-if="canView('canManageMST', authUser)"><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageMST', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                 to="/warehouse/mst">MST</nuxt-link>
                             </li>
                         </ul>
@@ -174,18 +174,18 @@
                             Data Management
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li v-if="canView('canManageItem', authUser)"><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageItem', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                 to="/warehouse/item">Item</nuxt-link></li>
                             <li v-if="canView('canManageSupplier', authUser)">
-                                <nuxt-link class="dropdown-item"
+                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                     to="/warehouse/supplier">Supplier</nuxt-link>
                             </li>
                             <li v-if="canView('canManageProject', authUser)">
-                                <nuxt-link class="dropdown-item"
+                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                     to="/warehouse/project">Project</nuxt-link>
                             </li>
                             <li v-if="canView('canManageUnit', authUser)">
-                                <nuxt-link class="dropdown-item"
+                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                     to="/warehouse/unit">Unit</nuxt-link>
                             </li>
                         </ul>
@@ -216,6 +216,7 @@ const route = useRoute()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
+const offCanvassCloseBtn = ref<HTMLButtonElement>()
 
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
@@ -328,26 +329,6 @@ const isApprover = (authUser: AuthUser) => {
 
 }
 
-// function canViewPurchasing(authUser: AuthUser) {
-
-//     if (isAdmin(authUser)) return true
-
-//     if (!authUser.user.permissions) return false
-
-//     const warehousePermissions = authUser.user.permissions.warehouse
-
-
-//     return (
-//         (!!warehousePermissions.canManageCanvass && warehousePermissions.canManageCanvass.search) ||
-//         (!!warehousePermissions.canManageRV && warehousePermissions.canManageRV.search) ||
-//         (!!warehousePermissions.canManageSPR && warehousePermissions.canManageSPR.search) ||
-//         (!!warehousePermissions.canManageJO && warehousePermissions.canManageJO.search) ||
-//         (!!warehousePermissions.canManageMEQS && warehousePermissions.canManageMEQS.search) ||
-//         (!!warehousePermissions.canManagePO && warehousePermissions.canManagePO.search) ||
-//         (!!warehousePermissions.canManageRR && warehousePermissions.canManageRR.search)
-//     )
-// }
-
 function canViewWarehousing(authUser: AuthUser) {
 
     if (isAdmin(authUser)) return true
@@ -367,22 +348,6 @@ function canViewWarehousing(authUser: AuthUser) {
         (!!warehousePermissions.canManageMST && warehousePermissions.canManageMST.search)
     )
 }
-
-// function canViewMotorpool(authUser: AuthUser) {
-
-//     if (isAdmin(authUser)) return true
-
-//     if (!authUser.user.permissions) return false
-
-//     const warehousePermissions = authUser.user.permissions.warehouse
-
-
-//     return (
-//         (!!warehousePermissions.canManageVehicle && warehousePermissions.canManageVehicle.read) || 
-//         (!!warehousePermissions.canManageTripTicket && warehousePermissions.canManageTripTicket.search) || 
-//         (!!warehousePermissions.canManageGasSlip && warehousePermissions.canManageGasSlip.search)
-//     )
-// }
 
 function canViewDataManagement(authUser: AuthUser) {
 
@@ -421,6 +386,11 @@ function canView(module: string, authUser: AuthUser) {
 
     return false
 }
+
+
+const closeOffcanvas = () => {
+  offCanvassCloseBtn.value?.click()
+};
 
 </script>
 

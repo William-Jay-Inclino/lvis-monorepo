@@ -102,7 +102,7 @@
 
         <div v-if="authUser" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button ref="offCanvassCloseBtn" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="offcanvas-header">
                 <img src="/avatar.jpg" alt="Profile Picture" class="img-fluid">
             </div>
@@ -117,19 +117,19 @@
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
                     </li>
                     <li v-if="canView('canManageTripTicket', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/motorpool/trip-ticket">Trip Ticket</nuxt-link>
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/motorpool/trip-ticket">Trip Ticket</nuxt-link>
                     </li>
                     <li v-if="canView('canManageGasSlip', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/motorpool/gas-slip">Gas Slip</nuxt-link>
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/motorpool/gas-slip">Gas Slip</nuxt-link>
                     </li>
                     <li v-if="canView('canManageVehicle', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/motorpool/vehicle">Vehicle Management</nuxt-link>
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/motorpool/vehicle">Vehicle Management</nuxt-link>
                     </li>
                     <li v-if="canView('canManageVehicleMaintenance', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/motorpool/vehicle-maintenance">Vehicle PMS</nuxt-link>
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/motorpool/vehicle-maintenance">Vehicle PMS</nuxt-link>
                     </li>
                     <li v-if="canView('canManageServices', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/motorpool/services">PMS Services</nuxt-link>
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/motorpool/services">PMS Services</nuxt-link>
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">
@@ -155,6 +155,7 @@ const route = useRoute()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
+const offCanvassCloseBtn = ref<HTMLButtonElement>()
 
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
@@ -296,6 +297,11 @@ function canViewVehicle(authUser: AuthUser) {
         (!!warehousePermissions.canManageServices && warehousePermissions.canManageServices.read)
     )
 }
+
+
+const closeOffcanvas = () => {
+  offCanvassCloseBtn.value?.click()
+};
 
 
 </script>

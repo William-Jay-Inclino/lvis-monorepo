@@ -82,7 +82,7 @@
 
         <div v-if="authUser" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button ref="offCanvassCloseBtn" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="offcanvas-header">
                 <img src="/avatar.jpg" alt="Profile Picture" class="img-fluid">
             </div>
@@ -97,10 +97,10 @@
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
                     </li>
                     <li v-if="canView('canManageAccount', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/accounting/account">Account</nuxt-link>
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/accounting/account">Account</nuxt-link>
                     </li>
                     <li v-if="canView('canManageClassification', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/accounting/classification">Classification</nuxt-link>
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/accounting/classification">Classification</nuxt-link>
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">
@@ -125,6 +125,7 @@ const router = useRouter()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
+const offCanvassCloseBtn = ref<HTMLButtonElement>()
 
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
@@ -245,6 +246,10 @@ function canView(module: string, authUser: AuthUser) {
     return false
 }
 
+
+const closeOffcanvas = () => {
+  offCanvassCloseBtn.value?.click()
+};
 
 </script>
 

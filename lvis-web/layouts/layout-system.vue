@@ -88,7 +88,7 @@
 
         <div v-if="authUser" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button ref="offCanvassCloseBtn" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="offcanvas-header">
                 <img src="/avatar.jpg" alt="Profile Picture" class="img-fluid">
             </div>
@@ -103,7 +103,7 @@
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
                     </li>
                     <li v-if="isAdmin(authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/system/user">Users</nuxt-link>
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/system/user">Users</nuxt-link>
                     </li><li v-if="isAdmin(authUser)" class="nav-item">
                         <a class="nav-link" href="javascript:void()"> Settings </a>
                     </li>
@@ -130,6 +130,7 @@ const router = useRouter()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
+const offCanvassCloseBtn = ref<HTMLButtonElement>()
 
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
@@ -225,6 +226,10 @@ const isApprover = (authUser: AuthUser) => {
 
 }
 
+
+const closeOffcanvas = () => {
+  offCanvassCloseBtn.value?.click()
+};
 
 </script>
 
