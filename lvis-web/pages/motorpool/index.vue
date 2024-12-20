@@ -23,7 +23,7 @@
 
         <div class="card mt-5">
             <div class="card-header d-flex justify-content-between align-items-center mt-2">
-                <h4 class="text-warning">Preventive Maintenance Schedule for This Week</h4>
+                <h4 class="text-warning">Preventive Maintenance Schedules for This Week</h4>
                 <button 
                     class="btn btn-light text-primary" 
                     @click="is_expanded_pms_sched = !is_expanded_pms_sched"
