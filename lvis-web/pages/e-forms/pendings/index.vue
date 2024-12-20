@@ -132,7 +132,6 @@ import type { Classification } from '~/composables/accounting/classification/cla
 import { MODULE_MAPPER } from '~/utils/constants';
 import { fetchTotalNotifications } from '~/composables/system/user/user.api';
 import { useToast } from "vue-toastification";
-import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
 
 const isLoadingPage = ref(true)
 const isApproving = ref(false)

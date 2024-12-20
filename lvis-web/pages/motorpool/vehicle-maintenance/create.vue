@@ -5,7 +5,7 @@
             <div v-if="!isLoadingPage && authUser" class="card">
                 <div class="card-body">
     
-                    <h2 class="text-warning mb-4">Create Vehicle PMS</h2>
+                    <h2 class="text-warning mb-4">Create PMS Record</h2>
                     <hr>
             
                     <div class="row justify-content-center pt-5 pb-3">
@@ -75,7 +75,7 @@
                                         <label class="form-label">
                                             Service Date <span class="text-danger">*</span>
                                         </label>
-                                        <input type="datetime-local" class="form-control" v-model="vmData.service_date">
+                                        <input type="date" class="form-control" v-model="vmData.service_date">
                                         <small class="text-danger fst-italic" v-if="vmDataErrors.service_date"> {{ errorMsg }}
                                         </small>
                                     </div>
@@ -83,7 +83,7 @@
                                         <label class="form-label">
                                             Next Service Date <span class="text-danger">*</span>
                                         </label>
-                                        <input type="datetime-local" class="form-control" v-model="vmData.next_service_date">
+                                        <input type="date" class="form-control" v-model="vmData.next_service_date">
                                         <small class="text-danger fst-italic" v-if="vmDataErrors.next_service_date"> {{ errorMsg }}
                                         </small>
                                     </div>
@@ -153,8 +153,44 @@
 
                             <div class="row mb-3">
                                 <div class="col">
-                                    <MotorpoolServices :services="create_services" />
+                                    <div class="alert alert-info" role="alert">
+                                        <small class="fst-italic">
+                                            <div>
+                                                - Check the box if it is included in the PMS services.
+                                            </div>
+                                            <div>
+                                                - If the service is not on the list, click the <b>Add Service button</b> to add a new service.
+                                            </div>
+                                            <div class="text-danger ms-3">
+                                                Note: This service will be added to the database.
+                                            </div>
+                                            <div class="ms-3 mt-2">
+                                                <button @click="onClickAddService()" class="btn btn-sm btn-success">Add Service</button>
+                                            </div>
+                                        </small>
+                                    </div>
+                                    <MotorpoolServices :services="vmData.services" />
+
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <label class="label mb-3">Services checked:</label>
+                                            <ul class="list-group">
+                                                <li v-for="item in checked_services" class="list-group-item fs-6 py-1">
+                                                    {{ item.service.name }}
+                                                    <span class="badge bg-success rounded-pill float-end">
+                                                        <client-only>
+                                                            <font-awesome-icon :icon="['fas', 'check']" />
+                                                        </client-only>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+
+                            <div v-if="checked_services.length === 0" class="alert alert-danger" role="alert">
+                                No services selected! Please check at least one.
                             </div>
 
                             <div class="row mt-4">
@@ -197,14 +233,14 @@
 import Swal from 'sweetalert2'
 import { getFullname } from '~/utils/helpers'
 import * as vmApi from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.api'
-import type { CreateVehicleMaintenance, CreateVehicleMaintenanceDetail } from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.types';
+import type { CreateVehicleMaintenance } from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.types';
 import { fetchVehicles } from '~/composables/motorpool/vehicle/vehicle.api';
 import type { ServiceCenter } from '~/composables/motorpool/service-center/service-center.types';
 import { VehicleClassificationMapper } from '~/composables/motorpool/vehicle/vehicle.enums';
-import type { VehicleService } from '~/composables/motorpool/vehicle-service/vehicle-service.types';
+import * as vehicleServiceApi from '~/composables/motorpool/vehicle-service/vehicle-service.api'
 
 definePageMeta({
-    name: ROUTES.VEHICLE_SERVICE_INDEX,
+    name: ROUTES.VEHICLE_MAINTENANCE_CREATE,
     layout: "layout-motorpool",
     middleware: ['auth'],
 })
@@ -229,7 +265,6 @@ const _vmDataErrorsInitial = {
     cost: false,
     remarks: false,
     performed_by: false,
-    services: false,
 }
 
 // FORM DATA
@@ -250,8 +285,6 @@ const vmDataErrors = ref({ ..._vmDataErrorsInitial })
 // DROPDOWNS
 const vehicles = ref<Vehicle[]>([])
 const service_centers = ref<ServiceCenter[]>([])
-const services = ref<VehicleService[]>([])
-const create_services = ref<CreateVehicleMaintenanceDetail[]>([])
 
 
 // ======================== LIFECYCLE HOOKS ========================  
@@ -262,8 +295,7 @@ onMounted(async () => {
 
     vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
     service_centers.value = response.service_centers 
-    services.value = response.services
-    create_services.value = response.services.map(i => {
+    vmData.value.services = response.services.map(i => {
         return {
             service: i,
             note: '',
@@ -279,6 +311,10 @@ onMounted(async () => {
 
 
 // ======================== COMPUTED ========================  
+
+const checked_services = computed( () => {
+    return vmData.value.services.filter(i => i.isChecked)
+})
 
 // ======================== FUNCTIONS ========================  
 
@@ -296,10 +332,23 @@ async function save() {
         return
     }
 
-    console.log('saving...', vmData.value)
+    const data: CreateVehicleMaintenance = {
+        vehicle: vmData.value.vehicle,
+        service_center: vmData.value.service_center,
+        service_date: vmData.value.service_date,
+        service_mileage: vmData.value.service_mileage,
+        next_service_date: vmData.value.next_service_date,
+        next_service_mileage: vmData.value.next_service_mileage,
+        cost: vmData.value.cost,
+        remarks: vmData.value.remarks,
+        performed_by: vmData.value.performed_by,
+        services: checked_services.value,
+    }
+
+    console.log('data', data);
 
     isSaving.value = true
-    const response = await vmApi.create(vmData.value)
+    const response = await vmApi.create(data)
     isSaving.value = false
 
     if (response.success && response.data) {
@@ -323,6 +372,65 @@ async function save() {
 
 }
 
+function onClickAddService() {
+
+    Swal.fire({
+        title: "Add Service",
+        text: `Note: This service will be added to the database.`,
+        input: 'text',
+        inputValue: '',
+        inputPlaceholder: 'Enter service name...',
+        position: "top",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: "Add",
+        reverseButtons: true,
+        showLoaderOnConfirm: true,
+        inputValidator: (value) => {
+            if (!value) {
+                return 'You need to enter a name!';
+            }
+        },
+        preConfirm: async (confirm) => {
+
+            const inputValue = Swal.getInput()?.value;
+            const name = inputValue || '';
+
+            const response = await vehicleServiceApi.create({ name })
+
+            if (response.success) {
+
+                Swal.fire({
+                    text: response.msg,
+                    icon: 'success',
+                    position: 'top',
+                });
+
+                vmData.value.services.unshift({
+                    service: response.data!,
+                    note: '',
+                    isChecked: true
+                })
+
+            } else {
+
+                Swal.fire({
+                    title: 'Error!',
+                    text: response.msg,
+                    icon: 'error',
+                    position: 'top',
+                })
+
+            }
+
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    })
+
+}
+
 // ======================== UTILS ========================  
 
 function isValid(): boolean {
@@ -341,7 +449,7 @@ function isValid(): boolean {
         vmDataErrors.value.service_date = true
     }
 
-    if(!vmData.value.service_mileage || vmData.value.service_mileage <= 0) {
+    if(vmData.value.service_mileage <= 0) {
         vmDataErrors.value.service_mileage = true
     }
 
@@ -349,11 +457,11 @@ function isValid(): boolean {
         vmDataErrors.value.next_service_date = true
     }
 
-    if(!vmData.value.next_service_mileage || vmData.value.next_service_mileage <= 0) {
+    if(vmData.value.next_service_mileage <= 0) {
         vmDataErrors.value.next_service_mileage = true
     }
 
-    if(!vmData.value.cost || vmData.value.cost <= 0) {
+    if(vmData.value.cost < 0) {
         vmDataErrors.value.cost = true
     }
 
@@ -364,15 +472,10 @@ function isValid(): boolean {
     if(vmData.value.performed_by.trim() === '') {
         vmDataErrors.value.performed_by = true
     }
-
-    if(vmData.value.services.length === 0) {
-        vmDataErrors.value.services = true
-    }
     
-
     const hasError = Object.values(vmDataErrors.value).includes(true);
 
-    if (hasError) {
+    if (hasError || checked_services.value.length === 0) {
         return false
     }
 

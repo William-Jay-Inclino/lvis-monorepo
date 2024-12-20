@@ -24,7 +24,7 @@ export interface Vehicle {
     total_unposted_gas_slips: number
     gas_slips: GasSlip[]
     trip_tickets: TripTicket[]
-    service_history: VehicleMaintenance
+    service_history: VehicleMaintenance[]
 }
 
 export interface CreateVehicleInput {

@@ -88,29 +88,34 @@
                             <div class="col">
                                 <ul class="nav nav-tabs nav-fill">
                                     <li class="nav-item">
-                                        <a @click="onClickTab('gas-slip')" class="nav-link" :class="{'active': tab_selected === 'gas-slip'}" href="javascript:void(0)">Gas Slips</a>
+                                        <a @click="onClickTab('gas-slip')" class="nav-link" :class="{'active': tab_selected === 'gas-slip'}" href="javascript:void(0)">
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'gas-pump']"/>
+                                            </client-only>
+                                            Gas Slips
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a @click="onClickTab('trip-ticket')" class="nav-link" :class="{'active': tab_selected === 'trip-ticket'}" href="javascript:void(0)">Trips</a>
+                                        <a @click="onClickTab('trip-ticket')" class="nav-link" :class="{'active': tab_selected === 'trip-ticket'}" href="javascript:void(0)">
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'car']"/>
+                                            </client-only>    
+                                            Trips
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a @click="onClickTab('service-history')" class="nav-link" :class="{'active': tab_selected === 'service-history'}" href="javascript:void(0)">Service History</a>
+                                        <a @click="onClickTab('service-history')" class="nav-link" :class="{'active': tab_selected === 'service-history'}" href="javascript:void(0)">
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'wrench']"/>
+                                            </client-only>      
+                                            PMS History
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
                         <div v-show="tab_selected === 'gas-slip'">
-
-                            <div class="h5wrapper mb-3 pt-3">
-                                <hr class="result">
-                                <h5 class="text-warning fst-italic">
-                                    <client-only>
-                                    <font-awesome-icon :icon="['fas', 'gas-pump']"/>
-                                </client-only> Gas Slips
-                                </h5>
-                                <hr class="result">
-                            </div>
     
                             <div class="row pt-3">
 
@@ -163,15 +168,6 @@
                         </div>
 
                         <div v-show="tab_selected === 'trip-ticket'">
-                            <div class="h5wrapper mb-3 pt-3">
-                                <hr class="result">
-                                <h5 class="text-warning fst-italic">
-                                    <client-only>
-                                    <font-awesome-icon :icon="['fas', 'car']"/>
-                                </client-only> Trips
-                                </h5>
-                                <hr class="result">
-                            </div>
     
                             <div class="row pt-3">
 
@@ -215,20 +211,41 @@
                         </div>
                         
                         <div v-show="tab_selected === 'service-history'">
-                            <div class="h5wrapper mb-3 pt-3">
-                                <hr class="result">
-                                <h5 class="text-warning fst-italic">
-                                    <client-only>
-                                    <font-awesome-icon :icon="['fas', 'history']"/>
-                                </client-only> Service History
-                                </h5>
-                                <hr class="result">
-                            </div>
     
                             <div class="row pt-3">
-                                <div class="col text-center">
+                                <div v-if="item.service_history.length === 0" class="col text-center">
                                     <span class="text-muted fst-italic"> ----------------- No Record ----------------- </span>
                                 </div>
+
+                                <div v-else class="col">
+                                    <div style="max-height: 300px; overflow-y: auto;">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-muted">Ref No.</th>
+                                                    <th class="text-muted">Service Center</th>
+                                                    <th class="text-muted">Date</th>
+                                                    <th class="text-muted">Cost</th>
+                                                    <th class="text-muted">Remarks</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="item in item.service_history">
+                                                    <td class="align-middle">
+                                                        <nuxt-link :to="'/motorpool/vehicle-maintenance/view/' + item.id">{{ item.ref_number }}</nuxt-link>
+                                                    </td>
+                                                    <td class="align-middle"> {{ item.service_center.name }} </td>
+                                                    <td class="align-middle"> {{ formatDate(item.service_date) }} </td>
+                                                    <td class="align-middle"> {{ formatToPhpCurrency(item.cost) }} </td>
+                                                    <td>
+                                                        <textarea class="form-control form-control-sm" rows="3" :value="item.remarks || 'No remarks'" readonly></textarea>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 

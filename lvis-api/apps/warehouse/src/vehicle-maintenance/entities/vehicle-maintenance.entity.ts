@@ -1,7 +1,7 @@
 import { ObjectType, Field, ID, Int, Float } from '@nestjs/graphql';
 import { Vehicle } from '../../vehicle/entities/vehicle.entity';
 import { ServiceCenter } from '../../service-center/entities/service-center.entity';
-import { VehicleService } from '../../vehicle-service/entities/vehicle-service.entity';
+import { VehicleMaintenanceDetail } from './vehicle-maintenance-detail.entity';
 
 @ObjectType()
 export class VehicleMaintenance {
@@ -63,7 +63,7 @@ export class VehicleMaintenance {
     @Field(() => ServiceCenter)
     service_center: ServiceCenter
 
-    @Field(() => [VehicleService])
-    services: VehicleService[]
+    @Field(() => [VehicleMaintenanceDetail])
+    services: VehicleMaintenanceDetail[]
 
 }

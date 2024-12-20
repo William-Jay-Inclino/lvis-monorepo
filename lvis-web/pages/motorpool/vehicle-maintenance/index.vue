@@ -4,7 +4,7 @@
         <div class="card-body">
 
             <div v-if="!isLoadingPage">
-                <h2 class="text-warning">Search PMS</h2>
+                <h2 class="text-warning">Search PMS Records</h2>
                 <hr>
         
                 <div class="row pt-3">
@@ -251,6 +251,7 @@ onMounted(async () => {
     const response = await api.fetchDataInSearchFilters()
     vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
     service_centers.value = response.service_centers
+    vehicle_maintenances.value = response.vehicle_maintenances
 
     isLoadingPage.value = false
 

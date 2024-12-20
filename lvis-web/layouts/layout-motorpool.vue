@@ -5,7 +5,7 @@
             <div class="container">
                 <nuxt-link class="navbar-brand" to="/home">
                     <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
-                    Leyeco V - PURCHASING
+                    Leyeco V - MOTORPOOL
                 </nuxt-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -49,7 +49,7 @@
                                     to="/motorpool/vehicle-maintenance">Vehicle PMS</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageServices', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/motorpool/services">Services</nuxt-link>
+                                    to="/motorpool/services">PMS Services</nuxt-link>
                                 </li>
                             </ul>
                         </li>
@@ -129,7 +129,7 @@
                         <nuxt-link class="nav-link" to="/motorpool/vehicle-maintenance">Vehicle PMS</nuxt-link>
                     </li>
                     <li v-if="canView('canManageServices', authUser)" class="nav-item">
-                        <nuxt-link class="nav-link" to="/motorpool/services">Services</nuxt-link>
+                        <nuxt-link class="nav-link" to="/motorpool/services">PMS Services</nuxt-link>
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">

@@ -8,9 +8,15 @@ import type { ServiceCenter } from "../service-center/service-center.types";
 export async function fetchDataInSearchFilters(): Promise<{
     vehicles: Vehicle[],
     service_centers: ServiceCenter[],
+    vehicle_maintenances: VehicleMaintenance[],
 }> {
     const query = `
         query {
+            vehicle_maintenances(page: 1, pageSize: 10) {
+                data {
+                    ref_number
+                }
+            }
             vehicles(page: 1, pageSize: 10) {
                 data {
                     id
@@ -27,15 +33,21 @@ export async function fetchDataInSearchFilters(): Promise<{
 
     try {
         const response = await sendRequest(query);
+
         console.log('response', response)
         let vehicles = []
         let service_centers = []
+        let vehicle_maintenances = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
         }
 
         const data = response.data.data
+
+        if (data.vehicle_maintenances && data.vehicle_maintenances.data) {
+            vehicle_maintenances = data.vehicle_maintenances.data
+        }
 
         if (data.vehicles && data.vehicles.data) {
             vehicles = data.vehicles.data
@@ -46,6 +58,7 @@ export async function fetchDataInSearchFilters(): Promise<{
         }
 
         return {
+            vehicle_maintenances,
             vehicles,
             service_centers,
         }
@@ -53,6 +66,7 @@ export async function fetchDataInSearchFilters(): Promise<{
     } catch (error) {
         console.error(error);
         return {
+            vehicle_maintenances: [],
             vehicles: [],
             service_centers: [],
         }
@@ -187,7 +201,9 @@ export async function findOne(id: string): Promise<VehicleMaintenance | undefine
                 performed_by
                 services {
                     id
-                    name 
+                    service {
+                        name
+                    } 
                     note
                 }
             }
@@ -548,7 +564,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
 export async function fetchRefNumbers(payload: string): Promise<VehicleMaintenance[]> {
     const query = `
         query {
-            vehicle_maintenances_by_ref_number(input: "${payload}") {
+            vehicle_maintenances_by_ref_number(ref_number: "${payload}") {
                 ref_number
             },
         }

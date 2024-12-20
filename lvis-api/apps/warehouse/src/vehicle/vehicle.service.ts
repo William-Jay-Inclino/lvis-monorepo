@@ -112,6 +112,11 @@ export class VehicleService {
 					}
 				},
 				trip_tickets: true,
+				service_history: {
+					include: {
+						service_center: true
+					}
+				}
 			}
 		})
 

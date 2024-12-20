@@ -105,6 +105,10 @@ export class VehicleMaintenanceService {
 		const [items, totalItems] = await this.prisma.$transaction([
 			this.prisma.vehicleMaintenance.findMany({
 				where: whereCondition,
+                include: {
+                    vehicle: true,
+                    service_center: true,
+                },
 				orderBy: {
 					ref_number: 'asc',
 				},
@@ -138,6 +142,11 @@ export class VehicleMaintenanceService {
             include: {
                 vehicle: true,
                 service_center: true,
+                services: {
+                    include: {
+                        service: true
+                    }
+                }
             },
         });
     

@@ -206,6 +206,16 @@ export async function findOne(id: string): Promise<Vehicle | undefined> {
                     status
                     cancelled_at
                 }
+                service_history {
+                    id 
+                    ref_number 
+                    service_center {
+                        name
+                    }
+                    service_date
+                    cost 
+                    remarks
+                }
             }
         }
     `;
