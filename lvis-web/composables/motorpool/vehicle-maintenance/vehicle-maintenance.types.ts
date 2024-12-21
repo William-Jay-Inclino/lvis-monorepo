@@ -11,6 +11,7 @@ export interface VehicleMaintenance {
     cost: number
     remarks: string
     performed_by: string
+    is_completed: boolean
 
     // derived / resolvers 
     vehicle: Vehicle
@@ -50,6 +51,11 @@ export interface MutationResponse {
     data?: VehicleMaintenance
 }
 
+export interface UpdateCompletionResponse {
+    success: boolean
+    msg: string
+    is_completed: boolean
+}
 
 export interface FindAllResponse {
 	data: VehicleMaintenance[]
@@ -70,4 +76,3 @@ export interface CreateVehicleMaintenanceDetail {
     note: string 
     isChecked: boolean
 }
-

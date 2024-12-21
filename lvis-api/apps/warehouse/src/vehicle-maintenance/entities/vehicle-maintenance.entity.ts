@@ -39,6 +39,9 @@ export class VehicleMaintenance {
     @Field()
     performed_by: string;
 
+    @Field(() => Boolean)
+    is_completed: boolean
+
 
     // =========== audit fields ===========
 
@@ -55,7 +58,7 @@ export class VehicleMaintenance {
     updated_at: Date;
 
 
-    // =========== resolves ===========
+    // =========== resolvers ===========
 
     @Field(() => Vehicle)
     vehicle: Vehicle
@@ -65,5 +68,6 @@ export class VehicleMaintenance {
 
     @Field(() => [VehicleMaintenanceDetail])
     services: VehicleMaintenanceDetail[]
+
 
 }

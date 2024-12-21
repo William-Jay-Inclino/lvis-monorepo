@@ -22,7 +22,7 @@
         </div> -->
 
         <div class="card mt-5">
-            <div class="card-header d-flex justify-content-between align-items-center mt-2">
+            <div class="card-header d-flex justify-content-between align-items-center pt-3">
                 <h4 class="text-warning">Preventive Maintenance Schedules for This Week</h4>
                 <button 
                     class="btn btn-light text-primary" 
@@ -51,11 +51,11 @@
                                 <th style="width: 10%;" class="text-muted"> Ref. No. </th>
                                 <th style="width: 20%;" class="text-muted"> Prev. Service Date </th>
                                 <th style="width: 15%;" class="text-muted"> Prev. Service Mileage </th>
-                                <th style="width: 15%;" class="text-muted"> Prev. Cost </th>
+                                <th style="width: 15%;" class="text-muted text-center"> Mark as Completed </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in pms_schedules">
+                            <tr :class="{'table-warning': item.is_completed}" v-for="item in pms_schedules">
                                 <td> {{ get_day_and_time(item.next_service_date) }} </td>
                                 <td> 
                                     <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
@@ -67,7 +67,9 @@
                                 </td>
                                 <td> {{ formatDate(item.service_date) }} </td>
                                 <td> {{ item.service_mileage }} </td>
-                                <td> {{ formatToPhpCurrency(item.cost) }} </td>
+                                <td class="text-center">  
+                                    <input @click="update_vehicle_maintenance_status(item.id)" class="form-check-input big-checkbox" type="checkbox" v-model="item.is_completed" />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -76,7 +78,7 @@
         </div>
 
         <div class="card mt-5">
-            <div class="card-header d-flex justify-content-between align-items-center mt-2">
+            <div class="card-header d-flex justify-content-between align-items-center pt-3">
                 <h4 class="text-warning">Trip Schedules for This Week</h4>
                 <button 
                     class="btn btn-light text-primary" 
@@ -109,7 +111,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in trips">
+                            <tr :class="{'table-warning': item.status === TRIP_TICKET_STATUS.COMPLETED}" v-for="item in trips">
                                 <td> {{ get_day_and_time(item.start_time) }} </td>
                                 <td> 
                                     <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
@@ -156,14 +158,16 @@
     import type { VehicleMaintenance } from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.types';
     import * as vmApi from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.api'
     import type { TripTicket } from '~/composables/motorpool/trip-ticket/trip-ticket.types';
-    import { tripTicketStatus } from '~/composables/motorpool/trip-ticket/trip-ticket.enums';
+    import { TRIP_TICKET_STATUS, tripTicketStatus } from '~/composables/motorpool/trip-ticket/trip-ticket.enums';
     import moment from 'moment';
+    import { useToast } from 'vue-toastification';
 
     definePageMeta({
         layout: "layout-motorpool"
     })
 
     const authUser = ref<AuthUser>()
+    const toast = useToast();
 
     const is_expanded_pms_sched = ref(true)
     const is_expanded_trip_sched = ref(true)
@@ -193,6 +197,26 @@
         };
     }
 
+    async function update_vehicle_maintenance_status(vm_id: string) {
+
+        const item = pms_schedules.value.find(i => i.id === vm_id)
+
+        if(!item) {
+            console.error('Item in pms schedule not found with id of ' + vm_id);
+            return 
+        }
+
+        const response = await vmApi.update_completion(vm_id, !item.is_completed)
+        item.is_completed = response.is_completed
+
+        if(response.success) {
+            toast.success(response.msg)
+        } else {
+            toast.error(response.msg)
+        }
+
+    }
+
 
 </script>
 
@@ -217,4 +241,10 @@
             opacity: 1;
         }
     }
+
+    .big-checkbox {
+        width: 25px;
+        height: 25px;
+    }
+
 </style>

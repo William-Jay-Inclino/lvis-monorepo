@@ -13,6 +13,8 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { VehicleMaintenanceResponse } from './entities/vehicles-response.entity';
 import { UpdateVehicleMaintenanceInput } from './dto/update-vehicle-maintenance.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
+import { UpdateCompletionResponse } from './entities/update-completion-response';
+import { UpdateVehicleMaintenanceCompletionInput } from './dto/update-vehicle-maintenance-completion.input';
 
 @UseGuards(GqlAuthGuard)
 @Resolver( () => VehicleMaintenance)
@@ -25,7 +27,7 @@ export class VehicleMaintenanceResolver {
 
 	@Mutation(() => VehicleMaintenance)
 	@UseGuards(AccessGuard)
-	@CheckAccess(MODULES.VEHICLE, RESOLVERS.createVehicleMaintenance)
+	@CheckAccess(MODULES.VEHICLE_MAINTENANCE, RESOLVERS.createVehicleMaintenance)
 	async createVehicleMaintenance(
 		@Args('input') input: CreateVehicleMaintenanceInput,
 		@CurrentAuthUser() authUser: AuthUser
@@ -48,6 +50,34 @@ export class VehicleMaintenanceResolver {
 	
 		} catch (error) {
 			this.logger.error('Error in creating Vehicle Maintenance', error)
+		}
+	}
+
+	@Mutation(() => UpdateCompletionResponse)
+	@UseGuards(AccessGuard)
+	@CheckAccess(MODULES.VEHICLE_MAINTENANCE, RESOLVERS.updateVehicleMaintenance)
+	async updateVehicleMaintenanceCompletion(
+		@Args('input') input: UpdateVehicleMaintenanceCompletionInput,
+		@CurrentAuthUser() authUser: AuthUser
+	) {
+		try {
+			this.logger.log({
+				username: authUser.user.username,
+				filename: this.filename,
+				function: 'updateVehicleMaintenanceCompletion',
+				input: JSON.stringify(input)
+			})
+			
+			this.vehicleMaintenanceService.setAuthUser(authUser)
+	
+			const x = await this.vehicleMaintenanceService.update_field_is_completed(input.vehicle_maintenance_id, input.is_completed);
+			
+			this.logger.log(`Updated Vehicle Maintenance completion. Value: ${input.is_completed} `)
+	
+			return x
+	
+		} catch (error) {
+			this.logger.error('Error in updating Vehicle Maintenance field: is_completed', error)
 		}
 	}
 

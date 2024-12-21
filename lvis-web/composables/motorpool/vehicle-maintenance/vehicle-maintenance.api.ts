@@ -1,5 +1,5 @@
 import { sendRequest } from "~/utils/api"
-import type { VehicleMaintenance, CreateVehicleMaintenance, MutationResponse, UpdateVehicleMaintenance, FindAllResponse } from "./vehicle-maintenance.types";
+import type { VehicleMaintenance, CreateVehicleMaintenance, MutationResponse, UpdateVehicleMaintenance, FindAllResponse, UpdateCompletionResponse } from "./vehicle-maintenance.types";
 import type { VehicleService } from "../vehicle-service/vehicle-service.types";
 import type { ServiceCenter } from "../service-center/service-center.types";
 import type { TripTicket } from "../trip-ticket/trip-ticket.types";
@@ -199,6 +199,7 @@ export async function findOne(id: string): Promise<VehicleMaintenance | undefine
                 cost 
                 remarks
                 performed_by
+                is_completed
                 services {
                     id
                     service {
@@ -603,7 +604,7 @@ export async function fetch_dashboard_data(d: { startDate: string, endDate: stri
                 service_date
                 next_service_date
                 service_mileage
-                cost
+                is_completed
             }
             scheduled_trips(startDate: "${d.startDate}", endDate: "${d.endDate}") {
                 id 
@@ -658,5 +659,45 @@ export async function fetch_dashboard_data(d: { startDate: string, endDate: stri
             this_week_pms_schedules: [],
             this_week_trips: [],
         }
+    }
+}
+
+export async function update_completion(id: string, is_completed: boolean): Promise<UpdateCompletionResponse> {
+
+    console.log('update_completion', is_completed);
+
+    const mutation = `
+        mutation {
+            updateVehicleMaintenanceCompletion(
+                input: {
+                    vehicle_maintenance_id: "${id}",
+                    is_completed: ${is_completed},
+                }
+            ) {
+                success
+                msg 
+                is_completed
+            }
+    }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateVehicleMaintenanceCompletion) {
+            return response.data.data.updateVehicleMaintenanceCompletion
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update status. Please contact system administrator',
+            is_completed: !is_completed
+        }
+
     }
 }

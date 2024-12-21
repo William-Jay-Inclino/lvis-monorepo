@@ -8,6 +8,8 @@ import { getDateRange } from "../__common__/helpers";
 import { UpdateVehicleMaintenanceInput } from "./dto/update-vehicle-maintenance.input";
 import { WarehouseRemoveResponse } from "../__common__/classes";
 import { endOfWeek, startOfWeek } from "date-fns";
+import { UpdateVehicleMaintenanceCompletionInput } from "./dto/update-vehicle-maintenance-completion.input";
+import { UpdateCompletionResponse } from "./entities/update-completion-response";
 
 @Injectable()
 export class VehicleMaintenanceService {
@@ -260,6 +262,30 @@ export class VehicleMaintenanceService {
 		}
 
 	}
+
+    async update_field_is_completed(id: string, is_completed: boolean): Promise<UpdateCompletionResponse> {
+
+        try {
+
+            const x = await this.prisma.vehicleMaintenance.update({
+                select: {
+                    is_completed: true,
+                },
+                where: { id },
+                data: { is_completed }
+            })
+    
+            return {
+                success: true,
+                msg: "Successfully updated status",
+                is_completed: x.is_completed
+            }
+            
+        } catch (error) {
+            throw error
+        }
+
+    }
 
     async get_maintenance_schedule(d: {start: Date, end: Date}) {
       

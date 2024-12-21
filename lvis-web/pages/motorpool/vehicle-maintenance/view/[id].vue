@@ -64,6 +64,12 @@
                                             <td class="text-muted">Remarks</td>
                                             <td> {{ item.remarks }} </td>
                                         </tr>
+                                        <tr>
+                                            <td class="text-muted">Mark as Completed</td>
+                                            <td> 
+                                                <input @click="update_vehicle_maintenance_status()" class="form-check-input big-checkbox" type="checkbox" v-model="item.is_completed" />
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -147,6 +153,7 @@
 
 
 <script setup lang="ts">
+import { useToast } from 'vue-toastification';
 import * as api from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.api'
 import type { VehicleMaintenance } from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.types';
 
@@ -156,6 +163,7 @@ definePageMeta({
     middleware: ['auth'],
 })
 
+const toast = useToast()
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 const router = useRouter()
@@ -169,9 +177,39 @@ onMounted(async () => {
 })
 
 
+async function update_vehicle_maintenance_status() {
+
+    if(!item.value) {
+        console.error('item.value is undefined');
+        return 
+    }
+
+    const response = await api.update_completion(item.value.id, !item.value.is_completed)
+    item.value.is_completed = response.is_completed
+
+    if(response.success) {
+        toast.success(response.msg)
+    } else {
+        toast.error(response.msg)
+    }
+
+}
+
+
 const onClickGoToList = () => router.push(`/motorpool/vehicle-maintenance`);
 const onClickAddNew = () => router.push(`/motorpool/vehicle-maintenance/create`);
 const onClickUpdate = () => router.push(`/motorpool/vehicle-maintenance/${item.value?.id}`);
 
 
 </script>
+
+
+
+<style scoped>
+
+    .big-checkbox {
+        width: 25px;
+        height: 25px;
+    }
+
+</style>
