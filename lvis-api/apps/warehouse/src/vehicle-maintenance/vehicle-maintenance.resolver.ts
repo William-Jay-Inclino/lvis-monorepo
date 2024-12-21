@@ -88,10 +88,11 @@ export class VehicleMaintenanceResolver {
 		@Args('vehicle_id', { nullable: true }) vehicle_id?: string,
 		@Args('service_center_id', { nullable: true }) service_center_id?: string,
 		@Args('service_date', { nullable: true }) service_date?: string,
+		@Args('is_completed', { nullable: true }) is_completed?: boolean,
 	) {
 
 		try {
-			return this.vehicleMaintenanceService.findAll(page, pageSize, vehicle_id, service_center_id, service_date);
+			return this.vehicleMaintenanceService.findAll(page, pageSize, vehicle_id, service_center_id, service_date, is_completed);
 		} catch (error) {
 			this.logger.error('Error in getting all Vehicle Maintenance', error)
 		}

@@ -64,7 +64,7 @@
                                             <td class="text-muted">Remarks</td>
                                             <td> {{ item.remarks }} </td>
                                         </tr>
-                                        <tr>
+                                        <tr v-if="canEdit(authUser, 'canManageVehicleMaintenance')">
                                             <td class="text-muted">Mark as Completed</td>
                                             <td> 
                                                 <input @click="update_vehicle_maintenance_status()" class="form-check-input big-checkbox" type="checkbox" v-model="item.is_completed" />
@@ -113,19 +113,19 @@
                             <div class="col">
                                 <div class="d-flex justify-content-end gap-2">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <button v-if="canRead(authUser, 'canManageVehicle')" class="btn btn-secondary"
+                                        <button v-if="canRead(authUser, 'canManageVehicleMaintenance')" class="btn btn-secondary"
                                             @click="onClickGoToList">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'list']"/>
                             </client-only> Go to List
                                         </button>
-                                        <button v-if="canEdit(authUser, 'canManageVehicle')" class="btn btn-success"
+                                        <button v-if="canEdit(authUser, 'canManageVehicleMaintenance')" class="btn btn-success"
                                             @click="onClickUpdate" disabled>
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'sync']"/>
                             </client-only> Update (In development)
                                         </button>
-                                        <button v-if="canCreate(authUser, 'canManageVehicle')" class="btn btn-primary"
+                                        <button v-if="canCreate(authUser, 'canManageVehicleMaintenance')" class="btn btn-primary"
                                             @click="onClickAddNew">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'plus']"/>

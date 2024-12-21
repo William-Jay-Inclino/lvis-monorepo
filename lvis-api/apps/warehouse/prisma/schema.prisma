@@ -1329,6 +1329,7 @@ model VehicleMaintenance {
   @@index([service_center_id])
   @@index([created_by])
   @@index([service_date])
+  @@index([is_completed])
   @@map("vehicle_maintenance")
 }
 

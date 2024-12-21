@@ -149,6 +149,10 @@
 
     </div>
 
+    <div v-else>
+        <LoaderSpinner />
+    </div>
+
 
 </template>
 

@@ -79,9 +79,10 @@ export async function findAll(payload: {
     vehicle_id: string | null, 
     service_center_id: string | null, 
     service_date: Date | null, 
+    is_completed: Boolean | null, 
 }): Promise<FindAllResponse> {
 
-    const { page, pageSize, vehicle_id, service_center_id, service_date } = payload;
+    const { page, pageSize, vehicle_id, service_center_id, service_date, is_completed } = payload;
 
     let vehicle_id2 = null
     let service_center_id2 = null
@@ -107,6 +108,7 @@ export async function findAll(payload: {
                 vehicle_id: ${vehicle_id2},
                 service_center_id: ${service_center_id2},
                 service_date: ${service_date2},
+                 ${is_completed !== null && is_completed !== undefined ? `, is_completed: ${is_completed}` : ""}
             ) {
                 data {
                     id
@@ -121,7 +123,7 @@ export async function findAll(payload: {
                         name
                     }
                     service_date
-                    next_service_date
+                    is_completed
                 }
                 totalItems
                 currentPage
@@ -156,7 +158,8 @@ export async function findByRefNumber(ref_number: string): Promise<VehicleMainte
                     name
                 }
                 service_date
-                next_service_date
+                is_completed
+
             }
         }
     `;

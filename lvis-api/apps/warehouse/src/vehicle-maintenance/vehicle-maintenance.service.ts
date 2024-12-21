@@ -7,7 +7,7 @@ import { VehicleMaintenanceResponse } from "./entities/vehicles-response.entity"
 import { getDateRange } from "../__common__/helpers";
 import { UpdateVehicleMaintenanceInput } from "./dto/update-vehicle-maintenance.input";
 import { WarehouseRemoveResponse } from "../__common__/classes";
-import { endOfWeek, startOfWeek } from "date-fns";
+import { endOfWeek, endOfYear, startOfWeek, startOfYear } from "date-fns";
 import { UpdateVehicleMaintenanceCompletionInput } from "./dto/update-vehicle-maintenance-completion.input";
 import { UpdateCompletionResponse } from "./entities/update-completion-response";
 
@@ -75,6 +75,7 @@ export class VehicleMaintenanceService {
 		vehicle_id?: string,
 		service_center_id?: string,
 		service_date?: string,
+        is_completed?: boolean,
 	): Promise<VehicleMaintenanceResponse> {
 	
 		const skip = (page - 1) * pageSize;
@@ -95,6 +96,14 @@ export class VehicleMaintenanceService {
 			};
 		}
 
+        console.log('is_completed', is_completed);
+
+        if (is_completed !== undefined) {
+            whereCondition.is_completed = {
+                equals: is_completed,
+            };
+        }
+
         if (service_date) {
             const { startDate, endDate } = getDateRange(service_date);
 
@@ -103,6 +112,16 @@ export class VehicleMaintenanceService {
                 lte: endDate,
             };
 
+        }
+
+        if(!vehicle_id && !service_center_id && is_completed === undefined && !service_date) {
+            const startOfYearDate = startOfYear(new Date());
+            const endOfYearDate = endOfYear(new Date());
+
+            whereCondition.created_at = {
+                gte: startOfYearDate,
+                lte: endOfYearDate,
+            };
         }
 	
 		const [items, totalItems] = await this.prisma.$transaction([

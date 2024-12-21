@@ -34,6 +34,17 @@
                             </client-only>
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <client-only>
+                                <v-select 
+                                :options="['Completed', 'Pending']" 
+                                v-model="vehicle_status"
+                            ></v-select>
+                            </client-only>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row pt-3">
@@ -102,8 +113,8 @@
                                                 <th class="bg-secondary text-white">Vehicle</th>
                                                 <th class="bg-secondary text-white">Service Center</th>
                                                 <th class="bg-secondary text-white">Service Date</th>
-                                                <th class="bg-secondary text-white">Next Service Date</th>
-                                                <th width="15%" class="text-center bg-secondary text-white">
+                                                <th class="bg-secondary text-white text-center">Status</th>
+                                                <th class="text-center bg-secondary text-white">
                                                     <client-only>
                                                         <font-awesome-icon :icon="['fas', 'cog']" />
                                                     </client-only>
@@ -116,7 +127,11 @@
                                                 <td class="text-muted align-middle"> {{ i.vehicle.vehicle_number + ' ' + i.vehicle.name }} </td>
                                                 <td class="text-muted align-middle"> {{ i.service_center.name }} </td>
                                                 <td class="text-muted align-middle"> {{ formatDate(i.service_date) }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.next_service_date) }} </td>
+                                                <td class="text-center">
+                                                    <div class="badge" :class="{'bg-primary': i.is_completed, 'bg-orange': !i.is_completed}">
+                                                        {{ i.is_completed ? 'Completed' : 'Pending' }}
+                                                    </div>
+                                                </td>
                                                 <td class="align-middle text-center">
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
                                                         :class="{ 'text-primary': canRead(authUser, 'canManageVehicleMaintenance') }"
@@ -231,6 +246,7 @@ const pagination = ref({ ..._paginationInitial })
 
 // search filters
 const vehicle_maintenance = ref<VehicleMaintenance | null>(null)
+const vehicle_status = ref<'Completed' | 'Pending' | null>(null)
 const vehicle_maintenances = ref<VehicleMaintenance[]>([])
 const vehicles = ref<Vehicle[]>([])
 const service_centers = ref<ServiceCenter[]>([])
@@ -292,6 +308,7 @@ async function changePage(page: number) {
         service_center_id: selected_service_center.value ? selected_service_center.value.id : null,
         vehicle_id: selected_vehicle.value ? selected_vehicle.value.id : null,
         service_date: service_date.value || null, 
+        is_completed: vehicle_status.value ? (vehicle_status.value === 'Completed' ? true : false) : null, 
     })
 
     isSearching.value = false
@@ -330,6 +347,7 @@ async function search() {
         service_center_id: selected_service_center.value ? selected_service_center.value.id : null,
         vehicle_id: selected_vehicle.value ? selected_vehicle.value.id : null,
         service_date: service_date.value || null, 
+        is_completed: vehicle_status.value ? (vehicle_status.value === 'Completed' ? true : false) : null, 
     })
 
     isSearching.value = false
