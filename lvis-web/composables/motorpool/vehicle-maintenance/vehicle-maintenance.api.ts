@@ -608,6 +608,7 @@ export async function fetch_dashboard_data(d: { startDate: string, endDate: stri
                 next_service_date
                 service_mileage
                 is_completed
+                cost
             }
             scheduled_trips(startDate: "${d.startDate}", endDate: "${d.endDate}") {
                 id 
