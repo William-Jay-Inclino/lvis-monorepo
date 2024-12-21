@@ -236,7 +236,7 @@
                     </tr>
                     <tr>
                         <th colspan="3" class="fst-italic text-warning">
-                            <h5> WAREHOUSE </h5>
+                            <h5> PURCHASING </h5>
                         </th>
                     </tr>
                     <tr v-if="permissions.warehouse.canManageCanvass">
@@ -490,6 +490,11 @@
                                 </label>
                             </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <th colspan="3" class="fst-italic text-warning">
+                            <h5> WAREHOUSE </h5>
+                        </th>
                     </tr>
                     <tr v-if="permissions.warehouse.canManageRR">
                         <td class="text-muted align-middle">RR</td>
