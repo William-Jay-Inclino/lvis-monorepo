@@ -240,6 +240,10 @@ export interface WarehousePermissions {
 
 
     // ========= MOTORPOOL ========= 
+    canManageMotorpoolDashboard?: {
+        viewPMS?: boolean,
+        viewTrips?: boolean,
+    },
     canManageVehicle?: {
         create?: boolean,
         read?: boolean,
@@ -252,7 +256,7 @@ export interface WarehousePermissions {
         update?: boolean,
         delete?: boolean,
     },
-    canManageServices?: {
+    canManageVehicleService?: {
         create?: boolean,
         read?: boolean,
         update?: boolean,

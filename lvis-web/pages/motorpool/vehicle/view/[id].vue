@@ -70,7 +70,7 @@
                                             <td class="text-muted">Total Unposted Gaslips</td>
                                             <td class="text-danger fw-bold"> {{ item.total_unposted_gas_slips }} </td>
                                         </tr>
-                                        <tr>
+                                        <tr v-if="canEdit(authUser, 'canManageVehicle')">
                                             <td class="text-muted">RFID</td>
                                             <td>
                                                 <div v-if="!item.rf_id"> N/A </div>

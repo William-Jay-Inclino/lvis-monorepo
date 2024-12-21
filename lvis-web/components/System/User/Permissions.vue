@@ -2,7 +2,7 @@
     <div>
 
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table">
                 <tbody>
                     <tr>
                         <td colspan="3" class="fst-italic text-warning">
@@ -965,6 +965,34 @@
                             <h5> MOTORPOOL </h5>
                         </th>
                     </tr>
+                    <tr v-if="permissions.warehouse.canManageMotorpoolDashboard">
+                        <td class="text-muted align-middle">Dashboard</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.motorpoolDashboard" @click="grant_or_revoke_all_module_access('motorpoolDashboard', permissions.warehouse.canManageMotorpoolDashboard)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMotorpoolDashboard.viewPMS">
+                                <label class="form-check-label">
+                                    View PMS
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageMotorpoolDashboard.viewTrips">
+                                <label class="form-check-label">
+                                    View Trip Schedules
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
                     <tr v-if="permissions.warehouse.canManageTripTicket">
                         <td class="text-muted align-middle">Trip Ticket</td>
                         <td class="text-muted align-middle">
@@ -1077,6 +1105,90 @@
                             </div>
                         </td>
                     </tr>
+                    <tr v-if="permissions.warehouse.canManageVehicleMaintenance">
+                        <td class="text-muted align-middle">Vehicle PMS</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.vehicleMaintenance" @click="grant_or_revoke_all_module_access('vehicleMaintenance', permissions.warehouse.canManageVehicleMaintenance)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageVehicleMaintenance.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageVehicleMaintenance.read">
+                                <label class="form-check-label">
+                                    Read
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageVehicleMaintenance.update">
+                                <label class="form-check-label">
+                                    Update
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageVehicleMaintenance.delete">
+                                <label class="form-check-label">
+                                    Delete
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.warehouse.canManageVehicleService">
+                        <td class="text-muted align-middle">PMS Services</td>
+                        <td class="text-muted align-middle">
+                            <div class="form-check form-switch">
+                                <input v-model="module_access.vehicleServices" @click="grant_or_revoke_all_module_access('vehicleServices', permissions.warehouse.canManageVehicleService)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
+                        <td class="text-muted">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageVehicleService.create">
+                                <label class="form-check-label">
+                                    Create
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageVehicleService.read">
+                                <label class="form-check-label">
+                                    Read
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageVehicleService.update">
+                                <label class="form-check-label">
+                                    Update
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }" type="checkbox"
+                                    v-model="permissions.warehouse.canManageVehicleService.delete">
+                                <label class="form-check-label">
+                                    Delete
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -1132,6 +1244,9 @@ const module_access = ref<ModuleAccess>({
     tripTicket: false,
     gasSlip: false,
     vehicle: false,
+    motorpoolDashboard: false,
+    vehicleMaintenance: false,
+    vehicleServices: false,
 })
 
 function grant_or_revoke_all_module_access(module: string, permission: any) {

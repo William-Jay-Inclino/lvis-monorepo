@@ -12,6 +12,9 @@ const ROUTE_EXEMPTIONS = [
     ROUTES.RR_UPDATE,
 ]
 
+// sometimes there will be module name conflict. Common module name should be put below.
+// For ex. VEHICLE AND VEHICLE_MAINTENANCE. VEHICLE_MAINTENANCE SHOULD COMES FIRST
+
 export default defineNuxtRouteMiddleware( async(to, from) => {
 
     if(import.meta.client) {
@@ -107,6 +110,8 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             const isUnitModule = to.name?.toString().includes(MODULES.UNIT)
             
             // motorpool
+            const isVehicleMaintenanceModule = to.name?.toString().includes(MODULES.VEHICLE_MAINTENANCE)
+            const isVehicleServiceModule = to.name?.toString().includes(MODULES.VEHICLE_SERVICE)
             const isVehicleModule = to.name?.toString().includes(MODULES.VEHICLE)
             const isTripTicketModule = to.name?.toString().includes(MODULES.TRIP_TICKET)
             const isGasSlipModule = to.name?.toString().includes(MODULES.GAS_SLIP)
@@ -215,6 +220,17 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             }
 
             // =========================== MOTORPOOL =========================== 
+
+            if (isVehicleMaintenanceModule) {
+                if (!canAccessVehicleMaintenance(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+            }
+
+            if (isVehicleServiceModule) {
+                if (!canAccessVehicleService(to.name as ROUTES, permissions)) return redirectTo401Page()
+                return
+            }
+
             if (isVehicleModule) {
                 if (!canAccessVehicle(to.name as ROUTES, permissions)) return redirectTo401Page()
                 return
@@ -666,6 +682,36 @@ function canAccessVehicle(route: ROUTES, permissions: WarehousePermissions) {
     if (route === ROUTES.VEHICLE_INDEX) return !!permissions.canManageVehicle.read
     if (route === ROUTES.VEHICLE_CREATE) return !!permissions.canManageVehicle.create
     if (route === ROUTES.VEHICLE_UPDATE) return !!permissions.canManageVehicle.update
+
+
+    return true
+
+}
+
+function canAccessVehicleMaintenance(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessVehicleMaintenance', route, permissions)
+
+    if (!permissions.canManageVehicleMaintenance) return false
+
+    if (route === ROUTES.VEHICLE_MAINTENANCE_INDEX || route === ROUTES.VEHICLE_MAINTENANCE_VIEW) return !!permissions.canManageVehicleMaintenance.read
+    if (route === ROUTES.VEHICLE_MAINTENANCE_CREATE) return !!permissions.canManageVehicleMaintenance.create
+    if (route === ROUTES.VEHICLE_MAINTENANCE_UPDATE) return !!permissions.canManageVehicleMaintenance.update
+
+
+    return true
+
+}
+
+function canAccessVehicleService(route: ROUTES, permissions: WarehousePermissions) {
+
+    console.log('canAccessVehicleService', route, permissions)
+
+    if (!permissions.canManageVehicleService) return false
+
+    if (route === ROUTES.VEHICLE_SERVICE_INDEX || route === ROUTES.VEHICLE_SERVICE_VIEW) return !!permissions.canManageVehicleService.read
+    if (route === ROUTES.VEHICLE_SERVICE_CREATE) return !!permissions.canManageVehicleService.create
+    if (route === ROUTES.VEHICLE_SERVICE_UPDATE) return !!permissions.canManageVehicleService.update
 
 
     return true

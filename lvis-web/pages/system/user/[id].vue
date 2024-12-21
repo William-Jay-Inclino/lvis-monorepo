@@ -123,7 +123,7 @@
         
                 <div v-else-if="formType === FORM_TYPE.USER_PERMISSIONS" class="row justify-content-center pt-5">
         
-                    <div class="col-lg-6">
+                    <div class="col-lg-9">
                         
                         <div class="mb-3" v-if="item.user_employee">
                             <div>

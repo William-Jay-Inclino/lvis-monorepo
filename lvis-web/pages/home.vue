@@ -222,8 +222,10 @@ const canViewMotorpool = computed(() => {
     const canReadVehicle = warehousePermission.canManageVehicle && warehousePermission.canManageVehicle.read === true
     const canReadGasSlip = warehousePermission.canManageGasSlip && warehousePermission.canManageGasSlip.search === true
     const canReadTripTicket = warehousePermission.canManageTripTicket && warehousePermission.canManageTripTicket.search === true
+    const canViewTripSchedulesInDashboard = warehousePermission.canManageMotorpoolDashboard && warehousePermission.canManageMotorpoolDashboard.viewTrips === true
+    const canViewPmsSchedulesInDashboard = warehousePermission.canManageMotorpoolDashboard && warehousePermission.canManageMotorpoolDashboard.viewPMS === true
 
-    if(canReadVehicle || canReadGasSlip || canReadTripTicket ) {
+    if(canReadVehicle || canReadGasSlip || canReadTripTicket || canViewTripSchedulesInDashboard || canViewPmsSchedulesInDashboard) {
         return true
     }
 

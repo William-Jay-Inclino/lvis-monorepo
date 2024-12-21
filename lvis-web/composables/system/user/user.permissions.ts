@@ -159,7 +159,23 @@ export const warehousePermissions: WarehousePermissions = {
 
 
     // ========= MOTORPOOL ========= 
+    canManageMotorpoolDashboard: {
+        viewPMS: false,
+        viewTrips: false,
+    },
     canManageVehicle: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+    canManageVehicleMaintenance: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+    canManageVehicleService: {
         create: false,
         read: false,
         update: false,

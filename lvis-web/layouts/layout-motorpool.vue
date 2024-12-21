@@ -51,7 +51,7 @@
                                 <li v-if="canView('canManageVehicleMaintenance', authUser)"><nuxt-link class="dropdown-item"
                                     to="/motorpool/vehicle-maintenance">Vehicle PMS</nuxt-link>
                                 </li>
-                                <li v-if="canView('canManageServices', authUser)"><nuxt-link class="dropdown-item"
+                                <li v-if="canView('canManageVehicleService', authUser)"><nuxt-link class="dropdown-item"
                                     to="/motorpool/services">PMS Services</nuxt-link>
                                 </li>
                             </ul>
@@ -131,7 +131,7 @@
                     <li v-if="canView('canManageVehicleMaintenance', authUser)" class="nav-item">
                         <nuxt-link @click="closeOffcanvas" class="nav-link" to="/motorpool/vehicle-maintenance">Vehicle PMS</nuxt-link>
                     </li>
-                    <li v-if="canView('canManageServices', authUser)" class="nav-item">
+                    <li v-if="canView('canManageVehicleService', authUser)" class="nav-item">
                         <nuxt-link @click="closeOffcanvas" class="nav-link" to="/motorpool/services">PMS Services</nuxt-link>
                     </li>
                 </ul>
@@ -297,7 +297,7 @@ function canViewVehicle(authUser: AuthUser) {
     return (
         (!!warehousePermissions.canManageVehicle && warehousePermissions.canManageVehicle.read) || 
         (!!warehousePermissions.canManageVehicleMaintenance && warehousePermissions.canManageVehicleMaintenance.read) || 
-        (!!warehousePermissions.canManageServices && warehousePermissions.canManageServices.read)
+        (!!warehousePermissions.canManageVehicleService && warehousePermissions.canManageVehicleService.read)
     )
 }
 

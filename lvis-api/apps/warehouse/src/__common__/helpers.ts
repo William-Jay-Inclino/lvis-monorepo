@@ -216,10 +216,25 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.updateVehicle]: warehousePermissions.canManageVehicle?.update ?? false,
             [RESOLVERS.removeVehicle]: warehousePermissions.canManageVehicle?.delete ?? false,
         },
+        [MODULES.VEHICLE_MAINTENANCE]: {
+            [RESOLVERS.createVehicleMaintenance]: warehousePermissions.canManageVehicleMaintenance?.create ?? false,
+            [RESOLVERS.updateVehicleMaintenance]: warehousePermissions.canManageVehicleMaintenance?.update ?? false,
+            [RESOLVERS.removeVehicleMaintenance]: warehousePermissions.canManageVehicleMaintenance?.delete ?? false,
+        },
         [MODULES.FUEL_TYPE]: {
             [RESOLVERS.createFuelType]: warehousePermissions.canManageFuelType?.create ?? false,
             [RESOLVERS.updateFuelType]: warehousePermissions.canManageFuelType?.update ?? false,
             [RESOLVERS.removeFuelType]: warehousePermissions.canManageFuelType?.delete ?? false,
+        },
+        [MODULES.VEHICLE_SERVICE]: {
+            [RESOLVERS.createVehicleService]: warehousePermissions.canManageVehicleService?.create ?? false,
+            [RESOLVERS.updateVehicleService]: warehousePermissions.canManageVehicleService?.update ?? false,
+            [RESOLVERS.removeVehicleService]: warehousePermissions.canManageVehicleService?.delete ?? false,
+        },
+        [MODULES.SERVICE_CENTER]: {
+            [RESOLVERS.createServiceCenter]: warehousePermissions.canManageServiceCenter?.create ?? false,
+            [RESOLVERS.updateServiceCenter]: warehousePermissions.canManageServiceCenter?.update ?? false,
+            [RESOLVERS.removeServiceCenter]: warehousePermissions.canManageServiceCenter?.delete ?? false,
         },
         [MODULES.TRIP_TICKET]: {
             [RESOLVERS.createTripTicket]: warehousePermissions.canManageTripTicket?.create ?? false,

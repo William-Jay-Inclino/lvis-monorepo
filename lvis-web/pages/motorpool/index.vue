@@ -2,7 +2,7 @@
     
     <div v-if="authUser">
         
-        <!-- <div class="card">
+        <div v-if="!show_pms_schedules && !show_trip_schedules" class="card">
             <div class="card-body">
                 <div class="container">
                     <h1 class="text-warning mt-5"> WELCOME TO MOTORPOOL MANAGEMENT </h1>
@@ -19,9 +19,9 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
-        <div class="card mt-5">
+        <div v-if="show_pms_schedules" class="card mt-5">
             <div class="card-header d-flex justify-content-between align-items-center pt-3">
                 <h4 class="text-warning">Preventive Maintenance Schedules for This Week</h4>
                 <button 
@@ -68,7 +68,7 @@
                                 <td> {{ formatDate(item.service_date) }} </td>
                                 <td> {{ item.service_mileage }} </td>
                                 <td class="text-center">  
-                                    <input @click="update_vehicle_maintenance_status(item.id)" class="form-check-input big-checkbox" type="checkbox" v-model="item.is_completed" />
+                                    <input :disabled="!can_update_pms_status" @click="update_vehicle_maintenance_status(item.id)" class="form-check-input big-checkbox" type="checkbox" v-model="item.is_completed" />
                                 </td>
                             </tr>
                         </tbody>
@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <div class="card mt-5">
+        <div v-if="show_trip_schedules" class="card mt-5">
             <div class="card-header d-flex justify-content-between align-items-center pt-3">
                 <h4 class="text-warning">Trip Schedules for This Week</h4>
                 <button 
@@ -107,7 +107,7 @@
                                 <th style="width: 10%;" class="text-muted"> Trip No. </th>
                                 <th style="width: 20%;" class="text-muted"> Driver </th>
                                 <th style="width: 15%;" class="text-muted"> Destination </th>
-                                <th style="width: 15%;" class="text-muted"> Status </th>
+                                <th style="width: 15%;" class="text-muted text-center"> Status </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,7 +125,7 @@
                                 </td>
                                 <td> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
                                 <td> {{ item.destination }} </td>
-                                <td>
+                                <td class="text-center">
                                     <div :class="{ [`badge bg-${tripTicketStatus[item.status].color}`]: true }">
                                         {{ tripTicketStatus[item.status].label }}
                                     </div>
@@ -137,7 +137,7 @@
             </div>
         </div>
 
-        <!-- <div class="container">
+        <div v-if="!show_pms_schedules && !show_trip_schedules" class="container">
             <div class="row">
                 <div class="col-12 text-center">
                     <div class="faded-text">
@@ -145,7 +145,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
     </div>
 
@@ -185,6 +185,36 @@
         pms_schedules.value = response.this_week_pms_schedules
         trips.value = response.this_week_trips
         
+    })
+
+    const show_pms_schedules = computed(() => {
+        if (!authUser.value) return false;
+
+        if (isAdmin(authUser.value)) return true;
+
+        const permissions = authUser.value.user?.permissions?.warehouse?.canManageMotorpoolDashboard;
+
+        return permissions?.viewPMS || false;
+    })
+
+    const show_trip_schedules = computed(() => {
+        if (!authUser.value) return false;
+
+        if (isAdmin(authUser.value)) return true;
+
+        const permissions = authUser.value.user?.permissions?.warehouse?.canManageMotorpoolDashboard;
+
+        return permissions?.viewTrips || false;
+    })
+
+    const can_update_pms_status = computed(() => {
+        if (!authUser.value) return false;
+
+        if (isAdmin(authUser.value)) return true;
+
+        const permissions = authUser.value.user?.permissions?.warehouse?.canManageVehicleMaintenance;
+
+        return permissions?.update || false;
     })
 
     function get_start_and_end_of_week() {

@@ -249,6 +249,7 @@ export enum RESOLVERS {
     vehicle_maintenance = 'vehicle_maintenance',
     updateVehicleMaintenance = 'updateVehicleMaintenance',
     removeVehicleMaintenance = 'removeVehicleMaintenance',
+    updateVehicleMaintenanceCompletion = 'updateVehicleMaintenanceCompletion',
 
 
     // ========= SERVICE CENTER ========= 

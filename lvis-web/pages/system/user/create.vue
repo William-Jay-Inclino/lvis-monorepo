@@ -166,7 +166,7 @@
     
             <div v-show="currentStep === 3" class="row justify-content-center pt-3">
     
-                <div class="col-lg-6">
+                <div class="col-lg-9">
 
                     <div v-if="formData.employee">
                         <div class="alert alert-info" role="alert">
