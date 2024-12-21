@@ -6,6 +6,7 @@ Ang last nahinumdoman ni database kay di naman mao kay nag populate naman ka. So
 Execute this command in the pgadmin query tool:
 
 SELECT setval(pg_get_serial_sequence('item_transaction', 'id'), (SELECT MAX(id) FROM item_transaction));
+SELECT setval(pg_get_serial_sequence('project_item', 'id'), (SELECT MAX(id) FROM project_item));
 
 
 change 'item_transaction' sa table na imu gusto nga mag start ang id og aut increment
