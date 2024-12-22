@@ -52,7 +52,7 @@ export class ItemService {
 		  }
 	  
 		  // Generate the item code within the transaction
-		  const itemCode = await this.generateItemCode(itemType.code as ITEM_TYPE_CODE, prisma);
+		  const itemCode = await this.generateItemCode(itemType.code as ITEM_TYPE_CODE, prisma as Prisma.TransactionClient);
 	  
 		  const data: Prisma.ItemCreateInput = {
 			item_type: { connect: { id: input.item_type_id } },
@@ -400,7 +400,6 @@ export class ItemService {
 	}
 
 	getGWAPrice(itemTransactions: ItemTransaction[]): number {
-		console.log('itemTransactions', itemTransactions);
 	
 		// Return 0 if no transactions exist
 		if (!itemTransactions || itemTransactions.length === 0) {

@@ -322,6 +322,8 @@ export class VehicleMaintenanceService {
                 next_service_date: 'asc'
             }
         });
+
+        console.log('maintenanceRecords', maintenanceRecords);
       
         return maintenanceRecords;
     }

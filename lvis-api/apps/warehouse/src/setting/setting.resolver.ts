@@ -15,7 +15,7 @@ export class SettingResolver {
 
 		try {
 		  
-		  return await this.settingService.get_osriv_expiration()
+		  return await this.settingService.get_default_exp_days(SETTINGS.OSRIV_EXP_PERIOD_IN_DAYS)
 	
 		} catch (error) {
 		  this.logger.error("Error in getting osriv_expiration", error)
@@ -28,7 +28,7 @@ export class SettingResolver {
 
 		try {
 		  
-		  return await this.settingService.get_seriv_expiration()
+			return await this.settingService.get_default_exp_days(SETTINGS.SERIV_EXP_PERIOD_IN_DAYS)
 	
 		} catch (error) {
 		  this.logger.error("Error in getting seriv_expiration", error)
@@ -41,7 +41,7 @@ export class SettingResolver {
 
 		try {
 		  
-		  return await this.settingService.get_mrv_expiration()
+			return await this.settingService.get_default_exp_days(SETTINGS.MRV_EXP_PERIOD_IN_DAYS)
 	
 		} catch (error) {
 		  this.logger.error("Error in getting mrv_expiration", error)

@@ -41,94 +41,96 @@
                 </button>
             </div>
 
-            <div v-show="is_expanded_pms_sched" class="card-body">
-
-                <div id="pms-schedules-accordion" class="accordion">
-                    <div v-for="(dayGroup, index) in pms_schedules_by_day" :key="dayGroup.day" class="accordion-item">
-                        <h2 class="accordion-header" :id="`heading-${index}`">
-                            <button
-                                ref="pmsAccordionBtn"
-                                class="accordion-button"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                :data-bs-target="`#collapse-${index}`"
-                                aria-expanded="false"
-                                :aria-controls="`collapse-${index}`"
-                            >
-                                <div class="d-flex justify-content-between w-100">
-                                    <span class="fst-italic">
-                                        {{ dayGroup.day }}
-                                    </span>
-                                    <div class="d-flex">
-                                        <span class="badge bg-primary ms-2">
-                                            Completed {{ dayGroup.schedules.filter(i => i.is_completed).length }}
+            <transition name="accordion" @before-enter="beforeEnter" @enter="enter" @leave="leave">
+                <div v-show="is_expanded_pms_sched" class="card-body">
+    
+                    <div id="pms-schedules-accordion" class="accordion">
+                        <div v-for="(dayGroup, index) in pms_schedules_by_day" :key="dayGroup.day" class="accordion-item">
+                            <h2 class="accordion-header" :id="`heading-${index}`">
+                                <button
+                                    ref="pmsAccordionBtn"
+                                    class="accordion-button"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    :data-bs-target="`#collapse-${index}`"
+                                    aria-expanded="false"
+                                    :aria-controls="`collapse-${index}`"
+                                >
+                                    <div class="d-flex justify-content-between w-100">
+                                        <span class="fst-italic">
+                                            {{ dayGroup.day }}
                                         </span>
-                                        <span class="badge bg-orange ms-2">
-                                            Pending {{ dayGroup.schedules.filter(i => !i.is_completed).length }}
-                                        </span>
-                                        <span class="me-5"></span>
+                                        <div class="d-flex">
+                                            <span class="badge bg-orange ms-2">
+                                                Pending {{ dayGroup.schedules.filter(i => !i.is_completed).length }}
+                                            </span>
+                                            <span class="badge bg-primary ms-2">
+                                                Completed {{ dayGroup.schedules.filter(i => i.is_completed).length }}
+                                            </span>
+                                            <span class="me-5"></span>
+                                        </div>
                                     </div>
-                                </div>
-                            </button>
-                        </h2>
-                        <div
-                            :id="`collapse-${index}`"
-                            class="accordion-collapse collapse"
-                            :aria-labelledby="`heading-${index}`"
-                            data-bs-parent="#pms-schedules-accordion"
-                        >
-                            <div class="accordion-body">
-                                <div v-if="dayGroup.schedules.length === 0" class="text-center">
-                                    <small class="text-muted fst-italic">No schedule for this day</small>
-                                </div>
-                                <div v-else class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead class="table-light">
-                                            <tr class="table-warning">
-                                                <th class="text-muted">Vehicle</th>
-                                                <th class="text-muted">Ref. No.</th>
-                                                <th class="text-muted">Prev. Service Date</th>
-                                                <th class="text-muted">Prev. Service Mileage</th>
-                                                <th class="text-muted">Cost</th>
-                                                <th class="text-muted text-center">Mark as Completed</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="item in dayGroup.schedules" :key="item.id">
-                                                <td>
-                                                    <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
-                                                        {{ item.vehicle.vehicle_number + ' ' + item.vehicle.name }}
-                                                    </nuxt-link>
-                                                </td>
-                                                <td>
-                                                    <nuxt-link :to="'/motorpool/vehicle-maintenance/view/' + item.id">
-                                                        {{ item.ref_number }}
-                                                    </nuxt-link>
-                                                </td>
-                                                <td>{{ formatDate(item.service_date) }}</td>
-                                                <td>{{ item.service_mileage }}</td>
-                                                <td>{{ formatToPhpCurrency(item.cost) }}</td>
-                                                <td class="text-center">
-                                                    <input
-                                                        :disabled="!can_update_pms_status"
-                                                        @click="update_vehicle_maintenance_status(item.id)"
-                                                        class="form-check-input big-checkbox"
-                                                        type="checkbox"
-                                                        v-model="item.is_completed"
-                                                    />
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                </button>
+                            </h2>
+                            <div
+                                :id="`collapse-${index}`"
+                                class="accordion-collapse collapse"
+                                :aria-labelledby="`heading-${index}`"
+                                data-bs-parent="#pms-schedules-accordion"
+                            >
+                                <div class="accordion-body">
+                                    <div v-if="dayGroup.schedules.length === 0" class="text-center">
+                                        <small class="text-muted fst-italic">No schedule for this day</small>
+                                    </div>
+                                    <div v-else class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead class="table-light">
+                                                <tr class="table-warning">
+                                                    <th class="text-muted">Vehicle</th>
+                                                    <th class="text-muted">Ref. No.</th>
+                                                    <th class="text-muted">Prev. Service Date</th>
+                                                    <th class="text-muted">Prev. Service Mileage</th>
+                                                    <th class="text-muted">Cost</th>
+                                                    <th class="text-muted text-center">Mark as Completed</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="item in dayGroup.schedules" :key="item.id">
+                                                    <td>
+                                                        <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
+                                                            {{ item.vehicle.vehicle_number + ' ' + item.vehicle.name }}
+                                                        </nuxt-link>
+                                                    </td>
+                                                    <td>
+                                                        <nuxt-link :to="'/motorpool/vehicle-maintenance/view/' + item.id">
+                                                            {{ item.ref_number }}
+                                                        </nuxt-link>
+                                                    </td>
+                                                    <td>{{ formatDate(item.service_date) }}</td>
+                                                    <td>{{ item.service_mileage }}</td>
+                                                    <td>{{ formatToPhpCurrency(item.cost) }}</td>
+                                                    <td class="text-center">
+                                                        <input
+                                                            :disabled="!can_update_pms_status"
+                                                            @click="update_vehicle_maintenance_status(item.id)"
+                                                            class="form-check-input big-checkbox"
+                                                            type="checkbox"
+                                                            v-model="item.is_completed"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </transition>
 
         </div>
-
+        
         <div v-if="show_trip_schedules" class="card mt-5">
             <div class="card-header d-flex justify-content-between align-items-center pt-3">
                 <h4 class="text-warning">Trip Schedules for This Week</h4>
@@ -149,99 +151,101 @@
                 </button>
             </div>
 
-            <div v-show="is_expanded_trip_sched" class="card-body">
-
-                <div id="trip-schedules-accordion" class="accordion">
-                    <div v-for="(dayGroup, index) in trip_schedules_by_day" :key="dayGroup.day" class="accordion-item">
-                        <h2 class="accordion-header" :id="`trip-heading-${index}`">
-                            <button
-                                ref="tripAccordionBtn"
-                                class="accordion-button"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                :data-bs-target="`#trip-collapse-${index}`"
-                                aria-expanded="false"
-                                :aria-controls="`trip-collapse-${index}`"
-                            >
-                                <div class="d-flex justify-content-between w-100">
-                                    <span class="fst-italic">
-                                        {{ dayGroup.day }}
-                                    </span>
-                                    <div class="d-flex">
-                                        <span class="badge bg-orange ms-2">
-                                            Pending {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.PENDING).length }}
+            <transition name="accordion" @before-enter="beforeEnter" @enter="enter" @leave="leave">
+                <div v-show="is_expanded_trip_sched" class="card-body">
+    
+                    <div id="trip-schedules-accordion" class="accordion">
+                        <div v-for="(dayGroup, index) in trip_schedules_by_day" :key="dayGroup.day" class="accordion-item">
+                            <h2 class="accordion-header" :id="`trip-heading-${index}`">
+                                <button
+                                    ref="tripAccordionBtn"
+                                    class="accordion-button"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    :data-bs-target="`#trip-collapse-${index}`"
+                                    aria-expanded="false"
+                                    :aria-controls="`trip-collapse-${index}`"
+                                >
+                                    <div class="d-flex justify-content-between w-100">
+                                        <span class="fst-italic">
+                                            {{ dayGroup.day }}
                                         </span>
-                                        <span class="badge bg-success ms-2">
-                                            Approved {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.APPROVED).length }}
-                                        </span>
-                                        <span class="badge bg-danger ms-2">
-                                            Disapproved {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.DISAPPROVED).length }}
-                                        </span>
-                                        <span class="badge bg-warning ms-2">
-                                            Cancelled {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.CANCELLED).length }}
-                                        </span>
-                                        <span class="badge bg-info ms-2">
-                                            In Progress {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.IN_PROGRESS).length }}
-                                        </span>
-                                        <span class="badge bg-primary ms-2">
-                                            Completed {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.COMPLETED).length }}
-                                        </span>
-                                        <span class="me-5"></span>
+                                        <div class="d-flex">
+                                            <span class="badge bg-orange ms-2">
+                                                Pending {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.PENDING).length }}
+                                            </span>
+                                            <span class="badge bg-success ms-2">
+                                                Approved {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.APPROVED).length }}
+                                            </span>
+                                            <span class="badge bg-danger ms-2">
+                                                Disapproved {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.DISAPPROVED).length }}
+                                            </span>
+                                            <span class="badge bg-warning ms-2">
+                                                Cancelled {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.CANCELLED).length }}
+                                            </span>
+                                            <span class="badge bg-info ms-2">
+                                                In Progress {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.IN_PROGRESS).length }}
+                                            </span>
+                                            <span class="badge bg-primary ms-2">
+                                                Completed {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.COMPLETED).length }}
+                                            </span>
+                                            <span class="me-5"></span>
+                                        </div>
                                     </div>
-                                </div>
-                            </button>
-                        </h2>
-                        <div
-                            :id="`trip-collapse-${index}`"
-                            class="accordion-collapse collapse"
-                            :aria-labelledby="`trip-heading-${index}`"
-                            data-bs-parent="#trip-schedules-accordion"
-                        >
-                            <div class="accordion-body">
-                                <div v-if="dayGroup.tickets.length === 0" class="text-center">
-                                    <small class="text-muted fst-italic">No schedule for this day</small>
-                                </div>
-                                <div v-else class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead class="table-light">
-                                            <tr class="table-warning">
-                                                <th class="text-muted"> Time </th>
-                                                <th class="text-muted"> Vehicle </th>
-                                                <th class="text-muted"> Trip No. </th>
-                                                <th class="text-muted"> Driver </th>
-                                                <th class="text-muted"> Destination </th>
-                                                <th class="text-muted text-center"> Status </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="item in dayGroup.tickets" :key="item.id">
-                                                <td> {{ moment(item.start_time).format('h:mm A') }} </td>
-                                                    <td> 
-                                                        <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
-                                                            {{ item.vehicle.vehicle_number + ' ' + item.vehicle.name }} 
-                                                        </nuxt-link>
-                                                    </td>
-                                                    <td> 
-                                                        <nuxt-link :to="'/motorpool/trip-ticket/view/' + item.id">
-                                                            {{ item.trip_number }} 
-                                                        </nuxt-link>
-                                                    </td>
-                                                    <td> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
-                                                    <td> {{ item.destination }} </td>
-                                                    <td class="text-center">
-                                                        <div :class="{ [`badge bg-${tripTicketStatus[item.status].color}`]: true }">
-                                                            {{ tripTicketStatus[item.status].label }}
-                                                        </div>
-                                                    </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                </button>
+                            </h2>
+                            <div
+                                :id="`trip-collapse-${index}`"
+                                class="accordion-collapse collapse"
+                                :aria-labelledby="`trip-heading-${index}`"
+                                data-bs-parent="#trip-schedules-accordion"
+                            >
+                                <div class="accordion-body">
+                                    <div v-if="dayGroup.tickets.length === 0" class="text-center">
+                                        <small class="text-muted fst-italic">No schedule for this day</small>
+                                    </div>
+                                    <div v-else class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead class="table-light">
+                                                <tr class="table-warning">
+                                                    <th class="text-muted"> Time </th>
+                                                    <th class="text-muted"> Vehicle </th>
+                                                    <th class="text-muted"> Trip No. </th>
+                                                    <th class="text-muted"> Driver </th>
+                                                    <th class="text-muted"> Destination </th>
+                                                    <th class="text-muted text-center"> Status </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="item in dayGroup.tickets" :key="item.id">
+                                                    <td> {{ moment(item.start_time).format('h:mm A') }} </td>
+                                                        <td> 
+                                                            <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
+                                                                {{ item.vehicle.vehicle_number + ' ' + item.vehicle.name }} 
+                                                            </nuxt-link>
+                                                        </td>
+                                                        <td> 
+                                                            <nuxt-link :to="'/motorpool/trip-ticket/view/' + item.id">
+                                                                {{ item.trip_number }} 
+                                                            </nuxt-link>
+                                                        </td>
+                                                        <td> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
+                                                        <td> {{ item.destination }} </td>
+                                                        <td class="text-center">
+                                                            <div :class="{ [`badge bg-${tripTicketStatus[item.status].color}`]: true }">
+                                                                {{ tripTicketStatus[item.status].label }}
+                                                            </div>
+                                                        </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </transition>
 
         </div>
 
@@ -305,8 +309,6 @@
         await nextTick(); // Ensure DOM is updated
         open_todays_accordion(today, pmsAccordionBtn.value)
         open_todays_accordion(today, tripAccordionBtn.value)
-        // pmsAccordionBtn.value[1].click() 
-        // tripAccordionBtn.value[1].click() 
 
     })
 
@@ -317,7 +319,7 @@
         }));
 
         pms_schedules.value.forEach(schedule => {
-            const serviceDate = new Date(schedule.service_date);
+            const serviceDate = new Date(schedule.next_service_date);
             const dayIndex = serviceDate.getDay(); 
             scheduleByDay[dayIndex].schedules.push(schedule); 
         });
@@ -413,6 +415,34 @@
     }
 
 
+
+    // ======================= UTILS ======================= 
+
+    const beforeEnter = (el: Element) => {
+        const element = el as HTMLElement;
+        element.style.height = '0';
+        element.style.opacity = '0';
+        element.style.overflow = 'hidden'; 
+    };
+
+    const enter = (el: Element, done: () => void) => {
+        const element = el as HTMLElement;
+        nextTick(() => {
+            element.style.transition = 'height 0.5s ease, opacity 0.5s ease'; 
+            element.style.height = `${element.scrollHeight}px`;
+            element.style.opacity = '1';
+            done(); 
+        });
+    };
+
+    const leave = (el: Element, done: () => void) => {
+        const element = el as HTMLElement;
+        element.style.transition = 'height 0.5s ease, opacity 0.5s ease';
+        element.style.height = '0'; 
+        done(); 
+    };
+
+
 </script>
 
 
@@ -442,4 +472,13 @@
         height: 25px;
     }
 
+    .accordion-enter-active, .accordion-leave-active {
+        transition: height 0.5s ease, opacity 0.5s ease;
+    }
+
+    .accordion-enter, .accordion-leave-to {
+        height: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
 </style>

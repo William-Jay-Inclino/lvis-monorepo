@@ -67,8 +67,16 @@ export class CommonService {
     async validateItems(items: CreateOsrivItemSubInput[] | CreateSerivItemSubInput[] | CreateMrvItemSubInput[]) {
 
         for (const item of items) {
+            // use this if id is text
+            // const _item = await this.prisma.$queryRaw<Item[]>`
+            //     SELECT total_quantity, quantity_on_queue FROM "item" WHERE id = ${item.item_id} FOR UPDATE
+            // `;
+
+            // use this if id is uuid
             const _item = await this.prisma.$queryRaw<Item[]>`
-                SELECT total_quantity, quantity_on_queue FROM "item" WHERE id = ${item.item_id} FOR UPDATE
+                SELECT total_quantity, quantity_on_queue 
+                FROM "item" 
+                WHERE id = CAST(${item.item_id} AS uuid) FOR UPDATE
             `;
 
             if (!_item || _item.length === 0) {

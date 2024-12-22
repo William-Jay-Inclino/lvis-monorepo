@@ -140,7 +140,7 @@ export class MrvService {
                 throw new ForbiddenException('Only Admin and Owner can update this record!')
             }
     
-            if (!(await this.canUpdate(input, existingItem, tx))) {
+            if (!(await this.canUpdate(input, existingItem, tx as Prisma.TransactionClient))) {
                 throw new Error('Failed to update MRV. Please try again')
             }
 

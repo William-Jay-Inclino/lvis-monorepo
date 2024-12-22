@@ -74,10 +74,10 @@ export class PendingService {
         return await this.prisma.$transaction( async(tx) => {
 
             let is_last_approver = false
-            const pending = await this.get_pending(tx, id)
+            const pending = await this.get_pending(tx as Prisma.TransactionClient, id)
             const module = getModule(pending.reference_table as DB_ENTITY)
-            const model = await this.get_model(tx, module, pending)
-            const approverModel = await this.get_approver_model(tx, module, model.id, pending.approver_id)
+            const model = await this.get_model(tx as Prisma.TransactionClient, module, pending)
+            const approverModel = await this.get_approver_model(tx as Prisma.TransactionClient, module, model.id, pending.approver_id)
 
             // update approver status and notes
             await tx[module.approverModel].update({
@@ -199,33 +199,33 @@ export class PendingService {
 
             if(status === APPROVAL_STATUS.APPROVED && is_last_approver === true) {
 
-                if(module.model === 'rV') await this.handle_RV_completion_of_approvals(tx, model.id) 
+                if(module.model === 'rV') await this.handle_RV_completion_of_approvals(tx as Prisma.TransactionClient, model.id) 
 
-                else if(module.model === 'sPR') await this.handle_SPR_completion_of_approvals(tx, model.id)
+                else if(module.model === 'sPR') await this.handle_SPR_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
-                else if(module.model === 'jO')  await this.handle_JO_completion_of_approvals(tx, model.id)
+                else if(module.model === 'jO')  await this.handle_JO_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
-                else if(module.model === 'mEQS') await this.handle_MEQS_completion_of_approvals(tx, model.id) 
+                else if(module.model === 'mEQS') await this.handle_MEQS_completion_of_approvals(tx as Prisma.TransactionClient, model.id) 
 
-                else if(module.model === 'pO') await this.handle_PO_completion_of_approvals(tx, model.id)
+                else if(module.model === 'pO') await this.handle_PO_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
-                else if(module.model === 'rR') await this.handle_RR_completion_of_approvals(tx, model.id) 
+                else if(module.model === 'rR') await this.handle_RR_completion_of_approvals(tx as Prisma.TransactionClient, model.id) 
 
-                else if(module.model === 'oSRIV') await this.handle_OSRIV_completion_of_approvals(tx, model.id)
+                else if(module.model === 'oSRIV') await this.handle_OSRIV_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
-                else if(module.model === 'sERIV') await this.handle_SERIV_completion_of_approvals(tx, model.id)
+                else if(module.model === 'sERIV') await this.handle_SERIV_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
-                else if(module.model === 'mRV') await this.handle_MRV_completion_of_approvals(tx, model.id)
+                else if(module.model === 'mRV') await this.handle_MRV_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
-                else if(module.model === 'mCT') await this.handle_MCT_completion_of_approvals(tx, model.id)
+                else if(module.model === 'mCT') await this.handle_MCT_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
-                else if(module.model === 'mCRT') await this.handle_MCRT_completion_of_approvals(tx, model.id)
+                else if(module.model === 'mCRT') await this.handle_MCRT_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
-                else if(module.model === 'mST') await this.handle_MST_completion_of_approvals(tx, model.id)
+                else if(module.model === 'mST') await this.handle_MST_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
-                else if(module.model === 'gasSlip') await this.handle_gas_slip_completion_of_approvals(tx, model.id)
+                else if(module.model === 'gasSlip') await this.handle_gas_slip_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
                     
-                else if(module.model === 'tripTicket') await this.handle_trip_ticket_completion_of_approvals(tx, model.id)
+                else if(module.model === 'tripTicket') await this.handle_trip_ticket_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
             }
 
