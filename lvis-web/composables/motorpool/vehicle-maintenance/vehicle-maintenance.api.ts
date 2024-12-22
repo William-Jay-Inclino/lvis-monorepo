@@ -322,7 +322,11 @@ export async function update(id: string, input: UpdateVehicleMaintenance): Promi
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.updateVehicleMaintenance) {
-            return response.data.data.updateVehicleMaintenance
+            return {
+                success: true,
+                msg: 'Successfully updated PMS Record!',
+                data: response.data.data.updateVehicleMaintenance
+            }
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -460,9 +464,19 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 id
                 ref_number
                 vehicle {
-                    id 
-                    name
+                    id
                     vehicle_number
+                    plate_number
+                    name
+                    classification_id
+                    date_acquired
+                    status
+                    assignee {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
                 }
                 service_center {
                     id 
@@ -477,7 +491,10 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 performed_by
                 services {
                     id
-                    name 
+                    service {
+                        id 
+                        name
+                    }
                     note
                 }
             }
@@ -498,17 +515,13 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     }
                 }
             }
-            services(page: 1, pageSize: 200) {
-                data {
-                    id 
-                    name
-                }
+            vehicle_services {
+                id 
+                name
             }
-            service_centers(page: 1, pageSize: 200) {
-                data {
-                    id 
-                    name
-                }
+            service_centers {
+                id 
+                name
             }
         }
     `;
@@ -537,12 +550,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             vehicles = response.data.data.vehicles.data
         }
 
-        if (data.services && data.services.data) {
-            services = response.data.data.services.data
+        if (data.vehicle_services) {
+            services = data.vehicle_services
         }
 
-        if (data.service_centers && data.service_centers.data) {
-            service_centers = response.data.data.service_centers.data
+        if (data.service_centers) {
+            service_centers = data.service_centers
         }
 
         return {

@@ -120,10 +120,10 @@
                             </client-only> Go to List
                                         </button>
                                         <button v-if="canEdit(authUser, 'canManageVehicleMaintenance')" class="btn btn-success"
-                                            @click="onClickUpdate" disabled>
+                                            @click="onClickUpdate">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'sync']"/>
-                            </client-only> Update (In development)
+                            </client-only> Update
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageVehicleMaintenance')" class="btn btn-primary"
                                             @click="onClickAddNew">

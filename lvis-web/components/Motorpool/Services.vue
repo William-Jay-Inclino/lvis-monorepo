@@ -35,7 +35,7 @@
                     </td>
                     <td class="align-middle text-center">{{ item.service.name }}</td>
                     <td>
-                        <textarea class="form-control form-control-sm" rows="3" v-model="item.note"></textarea>
+                        <textarea class="form-control form-control-sm" rows="3" v-model="item.note" :disabled="!item.isChecked"></textarea>
                     </td>
                     </tr>
                 </tbody>
