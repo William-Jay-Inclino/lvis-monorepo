@@ -1,13 +1,18 @@
 import { toZonedTime, format } from 'date-fns-tz'; // Assuming you're using these methods
 
-// Helper function to check and convert datetime fields
+const timeZone = process.env.TZ || 'Asia/Manila'; 
+
 const convertDate = (date: any) => {
-    try {
-      const zonedDate = toZonedTime(new Date(date), 'Asia/Manila');
-      return format(zonedDate, 'yyyy-MM-dd HH:mm:ssXXX', { timeZone: 'Asia/Manila' });
+  try {
+        if (!timeZone) {
+            console.warn('Warning: TZ is not set in .env, defaulting to Asia/Manila');
+        }
+
+        const zonedDate = toZonedTime(new Date(date), timeZone);
+        return format(zonedDate, 'yyyy-MM-dd HH:mm:ssXXX', { timeZone });
     } catch (error) {
-      console.error(`Error converting date: ${date}`, error);
-      return date;  // Return the original date if an error occurs
+        console.error(`Error converting date: ${date}`, error);
+        return date;  
     }
 };
 

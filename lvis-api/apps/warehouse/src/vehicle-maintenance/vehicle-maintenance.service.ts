@@ -323,8 +323,6 @@ export class VehicleMaintenanceService {
             }
         });
 
-        console.log('maintenanceRecords', maintenanceRecords);
-      
         return maintenanceRecords;
     }
     
