@@ -281,6 +281,7 @@
     const authUser = ref<AuthUser>()
     const toast = useToast();
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const today = new Date()
 
     const is_expanded_pms_sched = ref(true)
     const is_expanded_trip_sched = ref(true)
@@ -302,8 +303,10 @@
         trips.value = response.this_week_trips
         
         await nextTick(); // Ensure DOM is updated
-        pmsAccordionBtn.value[1].click() 
-        tripAccordionBtn.value[1].click() 
+        open_todays_accordion(today, pmsAccordionBtn.value)
+        open_todays_accordion(today, tripAccordionBtn.value)
+        // pmsAccordionBtn.value[1].click() 
+        // tripAccordionBtn.value[1].click() 
 
     })
 
@@ -392,6 +395,19 @@
             toast.success(response.msg)
         } else {
             toast.error(response.msg)
+        }
+
+    }
+
+    function open_todays_accordion(today: Date, accordionBtns: HTMLButtonElement[]) {
+
+        const todayIndex = today.getDay();
+
+        console.log('todayIndex', todayIndex);
+
+        const todayButton = accordionBtns[todayIndex];
+        if (todayButton) {
+            todayButton.click();
         }
 
     }
