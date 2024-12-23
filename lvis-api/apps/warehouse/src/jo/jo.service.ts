@@ -88,7 +88,8 @@ export class JoService {
             date_requested: new Date(),
             classification_id: input.classification_id ?? null,
             equipment: input.equipment ?? null,
-            department_id: input.department_id ?? null,
+            department_id: input.department_id,
+            division_id: input.division_id ?? null,
             notes: input.notes ?? null,
             canvass: { connect: { id: input.canvass_id } },
             approval_status: APPROVAL_STATUS.PENDING,
@@ -157,6 +158,7 @@ export class JoService {
             updated_by: this.authUser.user.username,
             classification_id: input.classification_id ?? null,
             department_id: input.department_id ?? existingItem.department_id,
+            division_id: input.division_id ?? existingItem.division_id,
             equipment: input.equipment ?? existingItem.equipment,
             notes: input.notes ?? existingItem.notes,
         }

@@ -116,9 +116,28 @@
                                         Department <span class="text-danger">*</span>
                                     </label>
                                     <client-only>
-                                        <v-select :options="departments" label="code" v-model="joData.department"></v-select>
+                                        <v-select @option:selected="onChangeDepartment" :options="departments" label="code" v-model="joData.department"></v-select>
                                     </client-only>
                                     <small class="text-danger fst-italic" v-if="joDataErrors.department"> This field is required
+                                    </small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        Division / Section
+                                    </label>
+                                    <client-only>
+                                        <v-select :options="divisions_by_department" label="name" v-model="joData.division">
+                                            <template #search="{attributes, events}">
+                                                <input
+                                                    class="vs__search"
+                                                    v-bind="attributes"
+                                                    v-on="events"
+                                                />
+                                            </template>
+                                        </v-select>
+                                    </client-only>
+                                    <small class="text-danger fst-italic" v-if="joDataErrors.division"> This field is required
                                     </small>
                                 </div>
         
@@ -206,6 +225,7 @@ const _joDataErrorsInitial = {
     canvass: false,
     supervisor: false,
     department: false,
+    division: false,
     equipment: false,
 }
 
@@ -215,6 +235,7 @@ const joData = ref<CreateJoInput>({
     supervisor: null,
     classification: null,
     department: null,
+    division: null,
     equipment: '',
     notes: '',
     approvers: []
@@ -263,6 +284,14 @@ const canvassId = computed(() => {
 
 const supervisors = computed(() => {
     return employees.value.filter(i => i.rank_number >= SUPERVISOR_MIN_RANK)
+})
+
+const divisions_by_department = computed( () => {
+
+    if(!joData.value.department) return []
+
+    return joData.value.department.divisions
+
 })
 
 // ======================== WATCHERS ========================  
@@ -319,6 +348,10 @@ async function save() {
         })
     }
 
+}
+
+function onChangeDepartment() {
+    joData.value.division = null 
 }
 
 // check if canvass is_referenced. If true then rollback to previous canvass else set new current canvass
@@ -433,6 +466,10 @@ function isValid(): boolean {
 
     if (!joData.value.department) {
         joDataErrors.value.department = true
+    }
+
+    if(joData.value.department && joData.value.department.divisions.length > 0 && !joData.value.division) {
+        joDataErrors.value.division = true
     }
 
     const hasError = Object.values(joDataErrors.value).includes(true);

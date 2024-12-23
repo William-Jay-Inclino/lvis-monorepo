@@ -1007,7 +1007,7 @@ export async function uploadAttachments(attachments: any[], apiUrl: string): Pro
         formData.append('files', img)
     }
 
-    const fileUploadApi = apiUrl + '/api/v1/file-upload/purchase/meqs/multiple'
+    const fileUploadApi = apiUrl + '/api/v1/file-upload/warehouse/meqs/multiple'
 
     try {
         const response = await axios.post(fileUploadApi, formData, {

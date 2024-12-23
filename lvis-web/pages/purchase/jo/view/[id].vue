@@ -101,6 +101,10 @@
                                                 <td> {{ `${item.department.code} - ${item.department.name}` }} </td>
                                             </tr>
                                             <tr>
+                                                <td class="text-muted">Division</td>
+                                                <td> {{ item.division ? `${item.division.code} - ${item.division.name}` : 'N/A' }} </td>
+                                            </tr>
+                                            <tr>
                                                 <td class="text-muted">Equipment</td>
                                                 <td> {{ item.equipment }} </td>
                                             </tr>

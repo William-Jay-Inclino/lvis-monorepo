@@ -36,8 +36,10 @@ export class CanvassPdfService {
         const watermark = getImageAsBase64('lvis-watermark-v2.png')
         const logo = getImageAsBase64('leyeco-logo.png')
 
-        const requisitioner = await this.getEmployee(canvass.requested_by_id, this.authUser)
-        const notedBy = await this.getGM(this.authUser)
+        const [requisitioner, notedBy] = await Promise.all([
+            this.getEmployee(canvass.requested_by_id, this.authUser),
+            this.getGM(this.authUser)
+        ])
 
         // Set content of the PDF
         const content = `
@@ -315,7 +317,7 @@ export class CanvassPdfService {
 
         await page.setContent(content);
         
-        const pdfBuffer = await page.pdf({
+        const pdfArrayBuffer = await page.pdf({
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
@@ -333,6 +335,9 @@ export class CanvassPdfService {
             // this is needed to prevent content from being placed over the footer
             margin: { bottom: '70px' },
           });
+
+        // Convert Uint8Array (ArrayBuffer) to Buffer
+        const pdfBuffer = Buffer.from(pdfArrayBuffer);
 
         await browser.close();
 

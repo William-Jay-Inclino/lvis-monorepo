@@ -59,8 +59,6 @@ export class RrPdfService {
             purpose = rr.po.meqs_supplier.meqs.jo.canvass.purpose
         }
 
-        const requisitioner = await this.getEmployee(requested_by_id, this.authUser)
-
         const poApprovers = await Promise.all(rr.po.po_approvers.map(async (i) => {
             // @ts-ignore
             i.approver = await this.getEmployee(i.approver_id, this.authUser);
@@ -92,8 +90,11 @@ export class RrPdfService {
             rc_number = rr.po.meqs_supplier.meqs.jo.canvass.rc_number
         }
 
-        const classification = await this.getClassification(classification_id, this.authUser)
-        const fundSource = await this.getFundSource(rr.po.fund_source_id, this.authUser)
+        const [requisitioner, classification, fundSource] = await Promise.all([
+            this.getEmployee(requested_by_id, this.authUser),
+            this.getClassification(classification_id, this.authUser),
+            this.getFundSource(rr.po.fund_source_id, this.authUser)
+        ])
 
         // Set content of the PDF
         const content = `
@@ -405,7 +406,7 @@ export class RrPdfService {
 
         await page.setContent(content);
 
-        const pdfBuffer = await page.pdf({
+        const pdfArrayBuffer = await page.pdf({
             landscape: true,
             printBackground: true,
             format: 'A4',
@@ -425,6 +426,7 @@ export class RrPdfService {
             margin: { bottom: '70px' },
         });
 
+        const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
 
         return pdfBuffer;

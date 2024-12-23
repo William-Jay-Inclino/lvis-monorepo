@@ -50,16 +50,19 @@ export class SerivController {
             const pdfBuffer = await this.serivPdfService.generateGatePassPdf(seriv)
     
             // @ts-ignore
-            res.setHeader('Content-Type', 'application/pdf');
-            // @ts-ignore
-            res.setHeader('Content-Disposition', 'inline; filename="example.pdf"');
-    
-            // Send PDF buffer to client
+            res.set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename=seriv_gatepass.pdf',
+            });
+
             // @ts-ignore
             res.send(pdfBuffer);
 
         } catch (error) {
             this.logger.error('Error in generating Gate Pass PDF in SERIV', error)
+            // @ts-ignore
+            res.status(500).json({ message: 'Failed to generate canvass PDF', error: error.message });
+
         }
 
 

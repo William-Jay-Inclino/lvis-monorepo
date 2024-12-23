@@ -28,6 +28,8 @@ export class JoPdfService {
 
     async generatePdf(jo: JO) {
 
+        console.log('jo', jo);
+
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
         });
@@ -41,10 +43,13 @@ export class JoPdfService {
             return i;
         }));
 
-        const classification = await this.getClassification(jo.classification_id, this.authUser)
-        const department = await this.getDepartment(jo.department_id, this.authUser)
-        const requisitioner = await this.getEmployee(jo.canvass.requested_by_id, this.authUser)
-
+        const [classification, department, division, requisitioner] = await Promise.all([
+            this.getClassification(jo.classification_id, this.authUser),
+            this.getDepartment(jo.department_id, this.authUser),
+            this.getDivision(jo.division_id, this.authUser),
+            this.getEmployee(jo.canvass.requested_by_id, this.authUser),
+        ]);
+        
         // Set content of the PDF
         const content = `
 
@@ -165,7 +170,7 @@ export class JoPdfService {
                     </tr>
                     <tr>
                         <td> Division: </td>
-                        <td> <b>${ department.name } </b> </td>
+                        <td> <b>${ !!division ? division.name : 'N/A' }</b> </td>
                     </tr>
                 </table>
         
@@ -256,7 +261,7 @@ export class JoPdfService {
 
         await page.setContent(content);
 
-        const pdfBuffer = await page.pdf({
+        const pdfArrayBuffer = await page.pdf({
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
@@ -275,6 +280,7 @@ export class JoPdfService {
             margin: { bottom: '70px' },
         });
 
+        const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
 
         return pdfBuffer;
@@ -334,6 +340,7 @@ export class JoPdfService {
             query {
                 department(id: "${ departmentId }") {
                     id 
+                    code
                     name
                 }
             }
@@ -362,6 +369,47 @@ export class JoPdfService {
             }
 
             return data.data.department;
+
+        } catch (error) {
+            return undefined;
+        }
+    }
+
+    private async getDivision(divisionId: string, authUser: AuthUser) {
+
+        const query = `
+            query {
+                division(id: "${ divisionId }") {
+                    id 
+                    code
+                    name
+                }
+            }
+        `;
+
+        try {
+            const { data } = await firstValueFrom(
+                this.httpService.post(
+                    process.env.API_GATEWAY_URL,
+                    { query },
+                    {
+                        headers: {
+                            Authorization: authUser.authorization,
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                ).pipe(
+                    catchError((error) => {
+                        throw error;
+                    }),
+                ),
+            );
+
+            if (!data || !data.data) {
+                return undefined;
+            }
+
+            return data.data.division;
 
         } catch (error) {
             return undefined;

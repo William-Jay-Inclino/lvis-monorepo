@@ -1,14 +1,18 @@
-import { Controller, Get, InternalServerErrorException, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Controller, Get, InternalServerErrorException, Logger, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { GasSlipPdfService } from './gas-slip.pdf.service';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { GasSlipService } from './gas-slip.service';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 
 @UseGuards(JwtAuthGuard)
 @Controller('gas-slip')
 export class GasSlipController {
+
+    private readonly logger = new Logger(GasSlipController.name);
+    private filename = 'gas-slip.controller.ts'
 
     constructor(
         private readonly gasSlipPdfService: GasSlipPdfService,
@@ -24,17 +28,23 @@ export class GasSlipController {
         @CurrentAuthUser() authUser: AuthUser
     ) {
 
-        this.gasSlipService.setAuthUser(authUser)
-
-        const can_print = await this.gasSlipService.canPrint(id)
-
-        if(!can_print) {
-            throw new UnauthorizedException("User is not allowed to print gas slip")
-        }
-
-        this.gasSlipPdfService.setAuthUser(authUser)
-
         try {
+            this.logger.log({
+                username: authUser.user.username,
+                filename: this.filename,
+                function: RESOLVERS.printGasSlip,
+                gas_slip_id: id
+            })
+
+            this.gasSlipService.setAuthUser(authUser)
+    
+            const can_print = await this.gasSlipService.canPrint(id)
+    
+            if(!can_print) {
+                throw new UnauthorizedException("User is not allowed to print gas slip")
+            }
+    
+            this.gasSlipPdfService.setAuthUser(authUser)
 
             // Increment the print count only after successful PDF generation
             await this.gasSlipPdfService.increment_print_count(id);
@@ -44,10 +54,11 @@ export class GasSlipController {
             const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip);
         
             // @ts-ignore
-            res.setHeader('Content-Type', 'application/pdf');
-            // @ts-ignore
-            res.setHeader('Content-Disposition', 'inline; filename="example.pdf"');
-        
+            res.set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename=gas_slip.pdf',
+            });
+
             // @ts-ignore
             res.send(pdfBuffer);
             
@@ -55,7 +66,9 @@ export class GasSlipController {
 
             await this.gasSlipPdfService.decrement_print_count(id);
 
-            throw new InternalServerErrorException("Failed to generate PDF");
+            this.logger.error(`Failed to generate PDF: gas-slip`, error)
+            // @ts-ignore
+            res.status(500).json({ message: 'Failed to generate gas slip PDF', error: error.message });
         }
 
     }

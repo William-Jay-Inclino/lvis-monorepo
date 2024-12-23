@@ -1,11 +1,12 @@
 // file-upload.controller.ts
 
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Logger, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Logger, Param, Post, Res, UploadedFile, UseInterceptors, UsePipes } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
-import { SingleFileTypeValidationPipe } from './pipes/single-file-type-validation.pipe';
+// import { SingleFileTypeValidationPipe } from '../__common__/pipes/single-file-type-validation.pipe';
 import { MAX_FILE_SIZE, EMPLOYEE_UPLOAD_PATH } from '../__common__/config';
 import { FileUploadSystemService } from './file-upload-system.service';
+import { FileValidationPipe } from '../__common__/pipes/file-validation.pipe';
 
 @Controller('/api/v1/file-upload/system')
 export class FileUploadSystemController {
@@ -40,8 +41,9 @@ export class FileUploadSystemController {
 
     @Post('/employee/single')
     @UseInterceptors(FileInterceptor('file'))
+    @UsePipes(new FileValidationPipe()) 
     async uploadSingleFileEmployee(
-        @UploadedFile(new SingleFileTypeValidationPipe(MAX_FILE_SIZE)) file: Express.Multer.File,
+        @UploadedFile() file: Express.Multer.File,
     ) {
         try {
             const destination = EMPLOYEE_UPLOAD_PATH;

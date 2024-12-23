@@ -199,14 +199,24 @@ const isFinanceManager = computed(() => {
 function getLink(entity: DB_ENTITY, reference_number: string) {
     const module = MODULE_MAPPER[entity]
 
+    const is_purchasing = entity === DB_ENTITY.RV || entity === DB_ENTITY.SPR || entity === DB_ENTITY.JO || entity === DB_ENTITY.MEQS || entity === DB_ENTITY.PO
+    const is_warehousing = entity === DB_ENTITY.RR || entity === DB_ENTITY.OSRIV || entity === DB_ENTITY.SERIV || entity === DB_ENTITY.MRV || entity === DB_ENTITY.MCT || entity === DB_ENTITY.MCRT || entity === DB_ENTITY.MST
     const is_motorpool = entity === DB_ENTITY.GAS_SLIP || entity === DB_ENTITY.TRIP_TICKET
 
-    if(is_motorpool) {
-        return `/motorpool/${module}/view/` + reference_number
-    } else {
+    if(is_purchasing) {
+        return `/purchase/${module}/view/` + reference_number
+    }
+
+    if(is_warehousing) {
         return `/warehouse/${module}/view/` + reference_number
     }
 
+    if(is_motorpool) {
+        return `/motorpool/${module}/view/` + reference_number
+    }
+
+    console.error('Route undefined');
+    return 'javascript:void(0)'
 }
 
 function isDefaultApproval(pending: Pending) {

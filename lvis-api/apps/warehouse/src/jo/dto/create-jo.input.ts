@@ -24,7 +24,12 @@ export class CreateJoInput {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
-  classification_id: string;
+  division_id: string | null;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  classification_id: string | null;
 
   @Field(() => String)
   @IsString()

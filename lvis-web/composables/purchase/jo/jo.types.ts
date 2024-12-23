@@ -13,7 +13,8 @@ export interface JO {
   canvass_id?: string | null;
   equipment: string;
   classification_id: string | null;
-  department_id: string | null;
+  department_id: string;
+  division_id: string | null;
   notes: string;
 
 
@@ -37,6 +38,7 @@ export interface JO {
   status: APPROVAL_STATUS
   classification: Classification | null;
   department: Department
+  division: Division | null
   supervisor: Employee
   is_referenced: boolean;
   can_update?: boolean;
@@ -63,6 +65,7 @@ export interface CreateJoInput {
   canvass: Canvass | null;
   equipment: string;
   department: Department | null;
+  division: Division | null;
   classification: Classification | null;
   supervisor: Employee | null;
   notes: string;
@@ -71,6 +74,7 @@ export interface CreateJoInput {
 
 export interface UpdateJoInput {
   department: Department | null;
+  division: Division | null;
   classification: Classification | null;
   supervisor: Employee | null;
   equipment: string;

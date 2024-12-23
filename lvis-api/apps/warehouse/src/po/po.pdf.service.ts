@@ -78,10 +78,11 @@ export class PoPdfService {
             purpose = po.meqs_supplier.meqs.jo.canvass.purpose
         }
 
-        const classification = await this.getClassification(classification_id, this.authUser)
-        const fundSource = await this.getFundSource(po.fund_source_id, this.authUser)
-
-        const items = this.getAwardedItems(po.meqs_supplier.meqs_supplier_items, po.meqs_supplier.supplier)
+        const [classification, fundSource, items] = await Promise.all([
+            this.getClassification(classification_id, this.authUser),
+            this.getFundSource(po.fund_source_id, this.authUser),
+            this.getAwardedItems(po.meqs_supplier.meqs_supplier_items, po.meqs_supplier.supplier)
+        ])
 
         // Set content of the PDF
         const content = `
@@ -414,7 +415,7 @@ export class PoPdfService {
 
         await page.setContent(content);
 
-        const pdfBuffer = await page.pdf({
+        const pdfArrayBuffer = await page.pdf({
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
@@ -433,6 +434,7 @@ export class PoPdfService {
             margin: { bottom: '70px' },
         });
 
+        const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
 
         return pdfBuffer;

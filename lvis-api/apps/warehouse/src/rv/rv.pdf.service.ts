@@ -40,8 +40,11 @@ export class RvPdfService {
             return i;
         }));
 
-        const requisitioner = await this.getEmployee(rv.canvass.requested_by_id, this.authUser)
-        const classification = await this.getClassification(rv.classification_id, this.authUser)
+
+        const [requisitioner, classification] = await Promise.all([
+            this.getEmployee(rv.canvass.requested_by_id, this.authUser),
+            this.getClassification(rv.classification_id, this.authUser)
+        ])
 
         // Set content of the PDF
         const content = `
@@ -243,7 +246,7 @@ export class RvPdfService {
 
         await page.setContent(content);
 
-        const pdfBuffer = await page.pdf({
+        const pdfArrayBuffer = await page.pdf({
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
@@ -262,6 +265,7 @@ export class RvPdfService {
             margin: { bottom: '70px' },
         });
 
+        const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
 
         return pdfBuffer;

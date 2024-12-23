@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { SprPdfService } from './spr.pdf.service';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -14,6 +14,9 @@ import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 @Controller('spr')
 export class SprController {
 
+    private readonly logger = new Logger(SprController.name);
+    private filename = 'spr.controller.ts'
+
     constructor(
         private readonly sprPdfService: SprPdfService,
         private readonly sprService: SprService,
@@ -28,27 +31,43 @@ export class SprController {
         @Res() res: Response,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.sprPdfService.setAuthUser(authUser)
 
-        const status = await this.sprService.getStatus(id)
+        try {
 
-        if(status !== APPROVAL_STATUS.APPROVED) {
-            throw new UnauthorizedException('Cannot generate pdf. Status is not approvedf')
+            this.logger.log({
+                username: authUser.user.username,
+                filename: this.filename,
+                function: RESOLVERS.printSpr,
+                spr_id: id
+            })
+            
+            this.sprPdfService.setAuthUser(authUser)
+    
+            const status = await this.sprService.getStatus(id)
+    
+            if(status !== APPROVAL_STATUS.APPROVED) {
+                throw new UnauthorizedException('Cannot generate pdf. Status is not approvedf')
+            }
+    
+            const spr = await this.sprPdfService.findSpr(id)
+            // @ts-ignore
+            const pdfBuffer = await this.sprPdfService.generatePdf(spr)
+    
+            // @ts-ignore
+            res.set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename=spr.pdf',
+            });
+
+            // @ts-ignore
+            res.send(pdfBuffer);
+
+        } catch (error) {
+            this.logger.error(`Failed to generate PDF: SPR`, error)
+            // @ts-ignore
+            res.status(500).json({ message: 'Failed to generate SPR PDF', error: error.message });
         }
 
-        const spr = await this.sprPdfService.findSpr(id)
-        // @ts-ignore
-        const pdfBuffer = await this.sprPdfService.generatePdf(spr)
-
-        // Set response headers
-        // @ts-ignore
-        res.setHeader('Content-Type', 'application/pdf');
-        // @ts-ignore
-        res.setHeader('Content-Disposition', 'inline; filename="example.pdf"');
-
-        // Send PDF buffer to client
-        // @ts-ignore
-        res.send(pdfBuffer);
 
     }
 

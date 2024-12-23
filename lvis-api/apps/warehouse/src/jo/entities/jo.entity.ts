@@ -30,6 +30,9 @@ export class JO {
   @Field(() => String)
   department_id: string;
 
+  @Field(() => String, { nullable: true })
+  division_id: string | null;
+
   @Field(() => String)
   notes: string;
 

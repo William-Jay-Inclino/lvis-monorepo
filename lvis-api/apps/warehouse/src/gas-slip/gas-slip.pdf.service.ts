@@ -36,7 +36,6 @@ export class GasSlipPdfService {
         });
         const page = await browser.newPage();
 
-        const watermark = getImageAsBase64('lvis-watermark-v2.png')
         const logo = getImageAsBase64('leyeco-logo.png')
 
         const approvers = await Promise.all(gasSlip.gas_slip_approvers.map(async (i) => {
@@ -44,8 +43,10 @@ export class GasSlipPdfService {
             return i;
         }));
 
-        const vehicle_assignee = await this.getEmployee(gasSlip.vehicle.assignee_id, this.authUser)
-        const requested_by = await this.getEmployee(gasSlip.requested_by_id, this.authUser)
+        const [vehicle_assignee, requested_by] = await Promise.all([
+            this.getEmployee(gasSlip.vehicle.assignee_id, this.authUser),
+            this.getEmployee(gasSlip.requested_by_id, this.authUser)
+        ])
 
         const immediate_superior = approvers.find(i => i.order === 1)
         const department_head = approvers.find(i => i.order === 2)
@@ -381,7 +382,7 @@ export class GasSlipPdfService {
 
         await page.setContent(content);
         
-        const pdfBuffer = await page.pdf({
+        const pdfArrayBuffer = await page.pdf({
             printBackground: true,
             format: 'A4',
             // displayHeaderFooter: true,
@@ -400,6 +401,7 @@ export class GasSlipPdfService {
             margin: { bottom: '70px' },
           });
 
+        const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
 
         return pdfBuffer;

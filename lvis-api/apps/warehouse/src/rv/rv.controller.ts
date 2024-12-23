@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { RvPdfService } from './rv.pdf.service';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -13,6 +13,9 @@ import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 @UseGuards(JwtAuthGuard)
 @Controller('rv')
 export class RvController {
+
+    private readonly logger = new Logger(RvController.name);
+    private filename = 'rv.controller.ts'
 
     constructor(
         private readonly rvPdfService: RvPdfService,
@@ -29,27 +32,41 @@ export class RvController {
         @CurrentAuthUser() authUser: AuthUser
     ) {
 
-        this.rvPdfService.setAuthUser(authUser)
+        try {
+            this.logger.log({
+                username: authUser.user.username,
+                filename: this.filename,
+                function: RESOLVERS.printRv,
+                rv_id: id
+            })
 
-        const status = await this.rvService.getStatus(id)
+            this.rvPdfService.setAuthUser(authUser)
+            const status = await this.rvService.getStatus(id)
+    
+            if(status !== APPROVAL_STATUS.APPROVED) {
+                throw new UnauthorizedException('Cannot generate pdf. Status is not approvedf')
+            }
+    
+            const rv = await this.rvPdfService.findRv(id)
+            // @ts-ignore
+            const pdfBuffer = await this.rvPdfService.generatePdf(rv)
+    
+            // @ts-ignore
+            res.set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename=rv.pdf',
+            });
 
-        if(status !== APPROVAL_STATUS.APPROVED) {
-            throw new UnauthorizedException('Cannot generate pdf. Status is not approvedf')
+            // @ts-ignore
+            res.send(pdfBuffer);
+
+        } catch (error) {
+            // @ts-ignore
+            this.logger.error(`Failed to generate PDF: RV`, error)
+            // @ts-ignore
+            res.status(500).json({ message: 'Failed to generate RV PDF', error: error.message });
         }
 
-        const rv = await this.rvPdfService.findRv(id)
-        // @ts-ignore
-        const pdfBuffer = await this.rvPdfService.generatePdf(rv)
-
-        // Set response headers
-        // @ts-ignore
-        res.setHeader('Content-Type', 'application/pdf');
-        // @ts-ignore
-        res.setHeader('Content-Disposition', 'inline; filename="example.pdf"');
-
-        // Send PDF buffer to client
-        // @ts-ignore
-        res.send(pdfBuffer);
 
     }
 

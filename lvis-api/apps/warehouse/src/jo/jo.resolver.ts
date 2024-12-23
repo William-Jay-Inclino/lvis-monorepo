@@ -20,6 +20,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { Division } from '../__division__/entities/division.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => JO)
@@ -197,9 +198,14 @@ export class JoResolver {
         return { __typename: 'Classification', id: jo.classification_id }
     }
 
-    @ResolveField(() => Department, { nullable: true })
+    @ResolveField(() => Department)
     department(@Parent() jo: JO): any {
         return { __typename: 'Department', id: jo.department_id }
+    }
+
+    @ResolveField(() => Division, { nullable: true })
+    division(@Parent() jo: JO): any {
+        return { __typename: 'Division', id: jo.division_id }
     }
 
     @ResolveField(() => [JOApprover])

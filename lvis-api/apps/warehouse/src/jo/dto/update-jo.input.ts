@@ -12,6 +12,11 @@ export class UpdateJoInput {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
+  division_id?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
   classification_id?: string;
 
   @Field(() => String, { nullable: true })

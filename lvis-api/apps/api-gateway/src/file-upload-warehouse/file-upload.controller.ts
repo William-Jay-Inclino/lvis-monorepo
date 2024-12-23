@@ -1,12 +1,12 @@
 // file-upload.controller.ts
 
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Logger, Param, Post, Res, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Logger, Param, Post, Res, UploadedFile, UploadedFiles, UseInterceptors, UsePipes } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
-import { SingleFileTypeValidationPipe } from './pipes/single-file-type-validation.pipe';
-import { MultipleFileTypeValidationPipe } from './pipes/multiple-file-type-validation.pipe';
-import { MAX_FILE_SIZE, MEQS_UPLOAD_PATH } from '../__common__/config';
+import { MEQS_UPLOAD_PATH } from '../__common__/config';
 import { FileUploadService } from './file-upload.service';
+import { FileValidationPipe } from '../__common__/pipes/file-validation.pipe';
+import { MultipleFileValidationPipe } from '../__common__/pipes/multiple-file-validation.pipe';
 
 @Controller('/api/v1/file-upload/warehouse')
 export class FileUploadController {
@@ -41,8 +41,9 @@ export class FileUploadController {
 
     @Post('/meqs/single')
     @UseInterceptors(FileInterceptor('file'))
+    @UsePipes(new FileValidationPipe()) 
     async uploadSingleFileMEQS(
-        @UploadedFile(new SingleFileTypeValidationPipe(MAX_FILE_SIZE)) file: Express.Multer.File,
+        @UploadedFile() file: Express.Multer.File,
     ) {
         try {
             const destination = MEQS_UPLOAD_PATH;
@@ -57,8 +58,9 @@ export class FileUploadController {
 
     @Post('/meqs/multiple')
     @UseInterceptors(FilesInterceptor('files'))
+    @UsePipes(new MultipleFileValidationPipe())
     async uploadMultipleFileMEQS(
-        @UploadedFiles(new MultipleFileTypeValidationPipe(MAX_FILE_SIZE)) files: Express.Multer.File[],
+        @UploadedFiles() files: Express.Multer.File[],
     ) {
         try {
             const destination = MEQS_UPLOAD_PATH;

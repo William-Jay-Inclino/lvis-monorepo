@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { MeqsPdfService } from './meqs.pdf.service';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -13,6 +13,9 @@ import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 @UseGuards(JwtAuthGuard)
 @Controller('meqs')
 export class MeqsController {
+
+    private readonly logger = new Logger(MeqsController.name);
+    private filename = 'meqs.controller.ts'
 
     constructor(
         private readonly meqsPdfService: MeqsPdfService,
@@ -29,27 +32,41 @@ export class MeqsController {
         @CurrentAuthUser() authUser: AuthUser
     ) {
 
-        this.meqsPdfService.setAuthUser(authUser)
+        try {
+            this.logger.log({
+                username: authUser.user.username,
+                filename: this.filename,
+                function: RESOLVERS.printMeqs,
+                meqs_id: id
+            })
 
-        const status = await this.meqsService.getStatus(id)
+            this.meqsPdfService.setAuthUser(authUser)
+    
+            const status = await this.meqsService.getStatus(id)
+    
+            if(status !== APPROVAL_STATUS.APPROVED) {
+                throw new UnauthorizedException('Cannot generate pdf. Status is not approvedf')
+            }
+    
+            const meqs = await this.meqsPdfService.findMeqs(id)
+            // @ts-ignore
+            const pdfBuffer = await this.meqsPdfService.generatePdf(meqs)
+    
+            // @ts-ignore
+            res.set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename=meqs.pdf',
+            });
 
-        if(status !== APPROVAL_STATUS.APPROVED) {
-            throw new UnauthorizedException('Cannot generate pdf. Status is not approvedf')
+            // @ts-ignore
+            res.send(pdfBuffer);
+
+        } catch (error) {
+            this.logger.error(`Failed to generate PDF: MEQS`, error)
+            // @ts-ignore
+            res.status(500).json({ message: 'Failed to generate meqs PDF', error: error.message });
         }
 
-        const meqs = await this.meqsPdfService.findMeqs(id)
-        // @ts-ignore
-        const pdfBuffer = await this.meqsPdfService.generatePdf(meqs)
-
-        // Set response headers
-        // @ts-ignore
-        res.setHeader('Content-Type', 'application/pdf');
-        // @ts-ignore
-        res.setHeader('Content-Disposition', 'inline; filename="example.pdf"');
-
-        // Send PDF buffer to client
-        // @ts-ignore
-        res.send(pdfBuffer);
 
     }
 

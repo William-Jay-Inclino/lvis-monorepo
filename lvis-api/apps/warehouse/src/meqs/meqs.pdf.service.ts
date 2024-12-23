@@ -3,16 +3,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
 import { formatDate, formatToPhpCurrency, getFullnameWithTitles, getImageAsBase64 } from '../__common__/helpers';
-import * as moment from 'moment';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { Employee } from '../__employee__/entities/employee.entity';
 import { MEQS } from './entities/meq.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CanvassItem } from '../canvass-item/entities/canvass-item.entity';
 import { UPLOADS_PATH } from '../__common__/config';
-import { MeqsSupplierItem } from '../meqs-supplier-item/entities/meqs-supplier-item.entity';
-import { Supplier } from '../supplier/entities/supplier.entity';
 import { MeqsSupplier } from '../meqs-supplier/entities/meqs-supplier.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
@@ -73,9 +69,11 @@ export class MeqsPdfService {
             return i;
         }));
 
-        const requisitioner = await this.getEmployee(requested_by_id, this.authUser)
+        const [requisitioner, awardedSuppliers] = await Promise.all([
+            this.getEmployee(requested_by_id, this.authUser),
+            this.getAwardedSuppliers(meqs.meqs_suppliers, canvassItems)
+        ])
 
-        const awardedSuppliers = this.getAwardedSuppliers(meqs.meqs_suppliers, canvassItems)
 
         // Set content of the PDF
         const content = `
@@ -307,7 +305,7 @@ export class MeqsPdfService {
 
         await page.setContent(content);
 
-        const pdfBuffer = await page.pdf({
+        const pdfArrayBuffer = await page.pdf({
             landscape: true,
             printBackground: true,
             format: 'A4',
@@ -327,6 +325,7 @@ export class MeqsPdfService {
             margin: { bottom: '70px' },
         });
 
+        const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
 
         return pdfBuffer;

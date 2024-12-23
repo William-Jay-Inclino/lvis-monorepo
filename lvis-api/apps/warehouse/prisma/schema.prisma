@@ -359,6 +359,7 @@ model JO {
   equipment         String @default("")
   classification_id String?
   department_id     String
+  division_id     String?
   notes             String
   approval_status Int?
 

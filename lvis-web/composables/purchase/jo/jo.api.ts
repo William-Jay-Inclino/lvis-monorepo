@@ -180,6 +180,11 @@ export async function findOne(id: string): Promise<JO | undefined> {
                     code 
                     name
                 }
+                division {
+                    id 
+                    code 
+                    name
+                }
                 notes
                 created_by
                 cancelled_at
@@ -386,6 +391,11 @@ export async function fetchFormDataInCreate(): Promise<{
                 id
                 code
                 name
+                divisions {
+                    id 
+                    code 
+                    name
+                }
             }
         }
     `;
@@ -482,6 +492,11 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     id 
                     code 
                     name
+                    divisions {
+                        id 
+                        code 
+                        name
+                    }
                 }
                 supervisor {
                     id
@@ -530,6 +545,11 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 id
                 code
                 name
+                divisions {
+                    id
+                    code 
+                    name
+                }
             }
         }
     `;
@@ -616,6 +636,7 @@ export async function create(input: CreateJoInput): Promise<MutationResponse> {
                 input: {
                     canvass_id: "${input.canvass?.id}"
                     department_id: "${input.department?.id}"
+                    division_id: "${input.division?.id}"
                     equipment: "${input.equipment}"
                     classification_id: ${classification_id}
                     notes: "${input.notes}"
@@ -665,6 +686,7 @@ export async function update(id: string, input: UpdateJoInput): Promise<Mutation
                 input: {
                     supervisor_id: "${input.supervisor?.id}"
                     department_id: "${input.department?.id}"
+                    division_id: "${input.division?.id}"
                     equipment: "${input.equipment}"
                     classification_id: ${classification_id}
                     notes: "${input.notes}"

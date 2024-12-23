@@ -102,9 +102,28 @@
                                 Department <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="departments" label="name" v-model="joData.department"></v-select>
+                                <v-select @option:selected="onChangeDepartment" :options="departments" label="name" v-model="joData.department"></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-if="joDataErrors.department"> This field is required
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Division / Section
+                            </label>
+                            <client-only>
+                                <v-select :options="divisions_by_department" label="name" v-model="joData.division">
+                                    <template #search="{attributes, events}">
+                                        <input
+                                        class="vs__search"
+                                        v-bind="attributes"
+                                        v-on="events"
+                                        />
+                                    </template>
+                                </v-select>
+                            </client-only>
+                            <small class="text-danger fst-italic" v-if="joDataErrors.division"> This field is required
                             </small>
                         </div>
         
@@ -205,6 +224,7 @@ const isUpdating = ref(false)
 const _joDataErrorsInitial = {
     supervisor: false,
     department: false,
+    division: false,
     equipment: false,
 }
 
@@ -281,6 +301,22 @@ const supervisors = computed(() => {
     return employees.value.filter(i => i.rank_number >= SUPERVISOR_MIN_RANK)
 })
 
+const divisions_by_department = computed( () => {
+
+    if(!joData.value) return []
+
+    if(!joData.value.department) return []
+
+    const department = departments.value.find(i => i.id === joData.value?.department?.id)
+
+    if(!department) {
+        console.error('department not found in departments with id of ', joData.value.department.id);
+        return 
+    }
+
+    return department?.divisions
+
+})
 
 // ======================== FUNCTIONS ========================  
 
@@ -414,6 +450,10 @@ function isValidJoInfo(): boolean {
         joDataErrors.value.department = true
     }
 
+    if(joData.value.department && joData.value.department.divisions.length > 0 && !joData.value.division) {
+        joDataErrors.value.division = true
+    }
+
     const hasError = Object.values(joDataErrors.value).includes(true);
 
     if (hasError) {
@@ -422,6 +462,14 @@ function isValidJoInfo(): boolean {
 
     return true
 
+}
+
+
+function onChangeDepartment() {
+
+    if(!joData.value) return 
+
+    joData.value.division = null 
 }
 
 const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {

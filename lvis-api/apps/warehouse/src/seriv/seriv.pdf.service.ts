@@ -36,14 +36,11 @@ export class SerivPdfService {
         const watermark = getImageAsBase64('lvis-watermark-v2.png')
         const logo = getImageAsBase64('leyeco-logo.png')
 
-        const approvers = await Promise.all(seriv.seriv_approvers.map(async (i) => {
-            i.approver = await this.getEmployee(i.approver_id, this.authUser);
-            return i;
-        }));
-
-        const requisitioner = await this.getEmployee(seriv.requested_by_id, this.authUser)
-        const isd_manager = await this.get_ISD_Manager(this.authUser)
-        const warehouse_custodian = await this.get_warehouse_custodian(this.authUser)
+        const [requisitioner, isd_manager, warehouse_custodian] = await Promise.all([
+            this.getEmployee(seriv.requested_by_id, this.authUser),
+            this.get_ISD_Manager(this.authUser),
+            await this.get_warehouse_custodian(this.authUser)
+        ])
 
         // Set content of the PDF
         const content = `
@@ -269,7 +266,7 @@ export class SerivPdfService {
 
         await page.setContent(content);
 
-        const pdfBuffer = await page.pdf({
+        const pdfArrayBuffer = await page.pdf({
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
@@ -288,6 +285,7 @@ export class SerivPdfService {
             margin: { bottom: '70px' },
         });
 
+        const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
 
         return pdfBuffer;
