@@ -32,8 +32,8 @@ export const convertDatesToPhTime = (data: any): any => {
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
                 const fieldValue = data[key];
-                // Check if the field is a Date object or a valid date string
-                if (fieldValue instanceof Date || (typeof fieldValue === 'string' && isValidDateString(fieldValue))) {
+                // Check if the field is a Date object
+                if (fieldValue instanceof Date) {
                     // If it's a datetime field, convert it
                     convertedObject[key] = convertDate(fieldValue);
                 } else if (fieldValue && typeof fieldValue === 'object') {
