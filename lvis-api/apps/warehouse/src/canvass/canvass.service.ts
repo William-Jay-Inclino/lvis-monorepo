@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateCanvassInput } from './dto/create-canvass.input';
 import { Canvass, Prisma } from 'apps/warehouse/prisma/generated/client';
@@ -17,7 +17,6 @@ import { startOfYear, endOfYear } from 'date-fns';
 @Injectable()
 export class CanvassService {
 
-    private readonly logger = new Logger(CanvassService.name);
     private authUser: AuthUser
     private includedFields = {
         canvass_items: {

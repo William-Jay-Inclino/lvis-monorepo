@@ -1,7 +1,7 @@
 generator client {
   output   = "./generated/client"
   provider = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions"]
+  previewFeatures = ["postgresqlExtensions", "fullTextSearchPostgres"]
 }
 
 datasource db {
@@ -44,9 +44,9 @@ model Supplier {
   MEQSSupplier MEQSSupplier[]
 
 
-  @@index([name])
   @@index([vat_type])
   @@index([deleted_at])
+  @@index([created_by])
   @@map("supplier")
 }
 
@@ -134,7 +134,6 @@ model Item {
   description      String?
   total_quantity   Int
   quantity_on_queue   Int @default(0)
-  // initial_quantity Int
   alert_level      Int     @default(20)
 
   created_by String
@@ -160,7 +159,6 @@ model Item {
 
   @@index([item_type_id])
   @@index([deleted_at])
-  @@index([description])
   @@index([created_by])
   @@map("item")
 }
@@ -174,6 +172,7 @@ model ProjectItem {
   project Project @relation(fields: [project_id], references: [id], onDelete: Cascade)
 
   @@index([project_id]) 
+  @@index([item_id]) 
   @@map("project_item")
 }
 
@@ -377,6 +376,8 @@ model JO {
 
   @@index([date_requested])
   @@index([approval_status])
+  @@index([department_id])
+  @@index([division_id])
   @@index([created_by])
   @@map("job_order")
 }
@@ -426,6 +427,7 @@ model SPR {
 
 
   @@index([date_requested])
+  @@index([vehicle_id])
   @@index([approval_status])
   @@index([created_by])
   @@map("spare_parts_request")
@@ -578,6 +580,7 @@ model PO {
 
 
   @@index([po_date])
+  @@index([fund_source_id])
   @@index([created_by])
   @@index([approval_status])
   @@map("purchase_order")
@@ -629,6 +632,7 @@ model RR {
 
 
   @@index([po_id])
+  @@index([received_by_id])
   @@index([approval_status])
   @@index([rr_date])
   @@index([created_by])
@@ -706,6 +710,7 @@ model OSRIV {
   @@index([requested_by_id])
   @@index([item_from_id])
   @@index([approval_status])
+  @@index([exp_date])
   @@index([created_by])
   @@map("osriv")
 }
@@ -783,10 +788,12 @@ model SERIV {
   mcrts MCRT[]
 
 
-  @@index([approval_status])
   @@index([date_requested])
   @@index([requested_by_id])
+  @@index([approval_status])
+  @@index([request_type])
   @@index([item_from_id])
+  @@index([exp_date])
   @@index([created_by])
   @@map("seriv")
 }
@@ -869,10 +876,12 @@ model MRV {
 
 
   @@index([date_requested])
+  @@index([requested_by_id])
   @@index([project_id])
   @@index([approval_status])
+  @@index([withdrawn_by_id])
   @@index([request_type])
-  @@index([requested_by_id])
+  @@index([exp_date])
   @@index([item_from_id])
   @@index([created_by])
   @@map("mrv")
@@ -937,7 +946,6 @@ model MCT {
   mcrts MCRT[]
 
 
-  @@index([mrv_id])
   @@index([mct_date])
   @@index([approval_status])
   @@index([created_by])
@@ -995,6 +1003,7 @@ model MCRT {
   @@index([seriv_id])
   @@index([mct_id])
   @@index([approval_status])
+  @@index([returned_by_id])
   @@index([created_by])
   @@map("mcrt")
 }
@@ -1064,6 +1073,7 @@ model MST {
   @@index([approval_status])
   @@index([returned_by_id])
   @@index([created_at])
+  @@index([created_by])
   @@map("mst")
 }
 
@@ -1134,7 +1144,6 @@ model Vehicle {
   @@index([classification_id]) 
   @@index([deleted_at]) 
   @@index([date_acquired]) 
-  @@index([name]) 
   @@index([status]) 
   @@index([created_by]) 
   @@map("vehicle")
@@ -1172,14 +1181,14 @@ model TripTicket {
   vehicle Vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Restrict)
   trip_ticket_approvers TripTicketApprover[]
 
+  @@index([start_time])
   @@index([start_time, end_time])
+  @@index([actual_start_time, actual_end_time])
   @@index([vehicle_id])
   @@index([driver_id])
   @@index([prepared_by_id])
   @@index([status])
   @@index([created_by])
-  @@index([cancelled_at])
-  @@index([start_time])
   @@map("trip_ticket")
 }
 
@@ -1239,7 +1248,6 @@ model GasSlip {
   @@index([requested_by_id]) 
   @@index([fuel_type_id]) 
   @@index([approval_status]) 
-  @@index([is_posted]) 
   @@index([created_by]) 
   @@map("gas_slip")
 }
@@ -1326,10 +1334,10 @@ model VehicleMaintenance {
   services VehicleMaintenanceDetail[]
 
   @@index([vehicle_id])
+  @@index([next_service_date])
+  @@index([service_date])
   @@index([service_center_id])
   @@index([created_by])
-  @@index([service_date])
-  @@index([is_completed])
   @@map("vehicle_maintenance")
 }
 
