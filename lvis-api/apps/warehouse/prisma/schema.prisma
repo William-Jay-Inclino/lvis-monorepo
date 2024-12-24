@@ -46,7 +46,6 @@ model Supplier {
 
   @@index([name])
   @@index([vat_type])
-  @@index([is_vat_registered])
   @@index([deleted_at])
   @@map("supplier")
 }

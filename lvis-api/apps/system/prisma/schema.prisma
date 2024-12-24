@@ -52,6 +52,7 @@ model Division {
 
   Employee Employee[]
 
+  @@index([department_id])
   @@map("division")
 }
 
@@ -79,6 +80,7 @@ model Account {
   created_at DateTime  @default(now()) @db.Timestamptz
   deleted_at DateTime? @db.Timestamptz
 
+  @@index([deleted_at])
   @@map("account")
 }
 
@@ -116,8 +118,13 @@ model Employee {
   user_employee UserEmployee?
 
 
-  @@index([firstname, lastname])
-
+  @@index([lastname])
+  @@index([firstname])
+  @@index([middlename])
+  @@index([rank_number])
+  @@index([department_id])
+  @@index([division_id])
+  @@index([status])
   @@map("employee")
 }
 
@@ -128,6 +135,7 @@ model Classification {
   created_at DateTime  @default(now()) @db.Timestamptz
   deleted_at DateTime? @db.Timestamptz
 
+  @@index([deleted_at])
   @@map("classification")
 }
 
@@ -148,10 +156,13 @@ model User {
   created_at DateTime  @default(now()) @db.Timestamptz
   updated_at DateTime  @updatedAt @db.Timestamptz
 
-  // user_permissions UserPermission[]
   user_employee UserEmployee?
   groups      UserGroupMembers[]  
 
+  @@index([lastname])
+  @@index([firstname])
+  @@index([middlename])
+  @@index([status])
   @@map("user")
   user_audit_logs UserAuditLog[]
 }
@@ -189,6 +200,8 @@ model UserEmployee {
   created_by String
   created_at DateTime @default(now()) @db.Timestamptz
 
+  @@index([employee_id])
+  @@index([user_id])
   @@map("user_employee")
 }
 

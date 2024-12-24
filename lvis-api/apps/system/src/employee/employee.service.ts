@@ -1,7 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateEmployeeInput } from './dto/create-employee.input';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Employee, Prisma } from 'apps/system/prisma/generated/client';
+import { Employee, EmployeeStatus, Prisma } from 'apps/system/prisma/generated/client';
 import { UpdateEmployeeInput } from './dto/update-employee.input';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { EmployeesResponse } from './entities/employees-response.entity';
@@ -62,14 +62,16 @@ export class EmployeeService {
 
 		const skip = (page - 1) * pageSize;
 
-		let whereCondition: any = {};
+		let whereCondition: any = {
+			status: EmployeeStatus.ACTIVE
+		};
 
 		if (!!searchValue) {
 			whereCondition = {
 				OR: [
-					{ lastname: { contains: searchValue.trim(), mode: 'insensitive' } },
-					{ firstname: { contains: searchValue.trim(), mode: 'insensitive' } },
-					{ middlename: { contains: searchValue.trim(), mode: 'insensitive' } },
+					{ lastname: { startsWith: searchValue.trim(), mode: 'insensitive' } },
+					{ firstname: { startsWith: searchValue.trim(), mode: 'insensitive' } },
+					{ middlename: { startsWith: searchValue.trim(), mode: 'insensitive' } },
 				],
 			};
 		}
@@ -164,7 +166,7 @@ export class EmployeeService {
 		const employees = user_group_members
 			.flatMap(member => member.user.user_employee)
 			.map(userEmployee => userEmployee.employee)
-			.filter(employee => employee !== null); // Filter to ensure only non-null employees are included
+			.filter(employee => employee !== null && employee.status === EmployeeStatus.ACTIVE); // Filter to ensure only non-null employees are included
 
 		return employees;
 
@@ -254,7 +256,8 @@ export class EmployeeService {
 
 		return await this.prisma.employee.findMany({
 			where: {
-				id: { in: ids }
+				id: { in: ids },
+				status: EmployeeStatus.ACTIVE
 			}
 		})
 
@@ -288,6 +291,7 @@ export class EmployeeService {
 					{ lastname: { startsWith: trimmedName, mode: 'insensitive' } },
 					{ firstname: { startsWith: trimmedName, mode: 'insensitive' } },
 				],
+				status: EmployeeStatus.ACTIVE
 			},
 			take: 10,
 		});
@@ -306,11 +310,11 @@ export class EmployeeService {
 
 	}
 
-	async findAllBudgetOfficers(): Promise<Employee[]> {
+	async findAllEmployeesByUserGroup(group: USER_GROUP): Promise<Employee[]> {
 
 		const user_group_members = await this.prisma.userGroupMembers.findMany({
 			where: {
-				user_group_id: USER_GROUP.BUDGET_OFFICER,
+				user_group_id: group,
 			},
 			include: {
 				user: {
@@ -332,71 +336,7 @@ export class EmployeeService {
 		const employees = user_group_members
 			.flatMap(member => member.user.user_employee)
 			.map(userEmployee => userEmployee.employee)
-			.filter(employee => employee !== null); // Filter to ensure only non-null employees are included
-
-		return employees;
-
-	}
-
-	async findAllFinanceManagers(): Promise<Employee[]> {
-
-		const user_group_members = await this.prisma.userGroupMembers.findMany({
-			where: {
-				user_group_id: USER_GROUP.FINANCE_MANAGER,
-			},
-			include: {
-				user: {
-					include: {
-						user_employee: {
-							include: {
-								employee: true
-							}
-						}
-					}
-				}
-			}
-		})
-
-		if(user_group_members.length === 0) {
-			return []
-		}
-
-		const employees = user_group_members
-			.flatMap(member => member.user.user_employee)
-			.map(userEmployee => userEmployee.employee)
-			.filter(employee => employee !== null); // Filter to ensure only non-null employees are included
-
-		return employees;
-
-	}
-
-	async findAllAuditors(): Promise<Employee[]> {
-
-		const user_group_members = await this.prisma.userGroupMembers.findMany({
-			where: {
-				user_group_id: USER_GROUP.AUDITOR,
-			},
-			include: {
-				user: {
-					include: {
-						user_employee: {
-							include: {
-								employee: true
-							}
-						}
-					}
-				}
-			}
-		})
-
-		if(user_group_members.length === 0) {
-			return []
-		}
-
-		const employees = user_group_members
-			.flatMap(member => member.user.user_employee)
-			.map(userEmployee => userEmployee.employee)
-			.filter(employee => employee !== null); 
+			.filter(employee => employee !== null && employee.status === EmployeeStatus.ACTIVE); // Filter to ensure only non-null employees are included
 
 		return employees;
 
