@@ -1,6 +1,6 @@
 
 import { expect, Page } from '@playwright/test'
-import * as x from './tests/shared/utils'
+import * as x from './utils'
 import dotenv from 'dotenv';
 
 dotenv.config();

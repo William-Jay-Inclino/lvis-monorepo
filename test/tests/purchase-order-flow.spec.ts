@@ -1,5 +1,5 @@
 import test from "@playwright/test";
-import { login } from "../login";
+import { login } from "./functions/login";
 
 
 test("Purchase Order Flow", async ({ page }) => {
