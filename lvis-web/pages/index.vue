@@ -26,7 +26,7 @@
                                                     <font-awesome-icon :icon="['fas', 'user']" />
                                                 </client-only>
                                             </div>
-                                          <input v-model="username" type="text" class="form-control form-control-sm" autocomplete="current-password">
+                                          <input v-model="username" data-test-id="username" type="text" class="form-control form-control-sm" autocomplete="current-password">
                                       </div>
                                   </div>
 
@@ -38,7 +38,7 @@
                                                     <font-awesome-icon :icon="['fas', 'key']" />
                                                 </client-only>
                                             </div>
-                                          <input v-model="password" type="password" class="form-control form-control-sm" autocomplete="current-password">
+                                          <input v-model="password" data-test-id="password" type="password" class="form-control form-control-sm" autocomplete="current-password">
                                       </div>
                                   </div>
 
@@ -56,7 +56,7 @@
                                   </div>
 
                                   <div class="col-12 mt-3">
-                                      <button :disabled="isLoggingIn" type="submit" class="btn btn-primary px-4 mt-4 w-100">
+                                      <button :disabled="isLoggingIn" type="submit" data-test-id="login" class="btn btn-primary px-4 mt-4 w-100">
                                           {{ isLoggingIn ? 'Logging in...' : 'Login' }}
                                       </button>
                                   </div>
