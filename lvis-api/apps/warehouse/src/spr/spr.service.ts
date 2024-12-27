@@ -627,7 +627,7 @@ export class SprService {
             return newRcNumber;
         } else {
             // If no existing rc_number with the current year prefix, start with '00001'
-            return `${currentYear}-00001`;
+            return `${currentYear}-00030`;
         }
     }
 
