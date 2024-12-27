@@ -13,14 +13,14 @@
                 </button>
                 <!-- Notification icon for small screen -->
                 <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-3 position-relative">
-                    <nuxt-link class="text-white position-relative" to="/e-forms/pendings">
-                        <client-only>
+                    <client-only>
+                        <nuxt-link class="text-white position-relative" to="/e-forms/pendings">
                             <font-awesome-icon :icon="['fas', 'bell']" />
-                        </client-only>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {{ totalPendings }}
-                        </span>
-                    </nuxt-link>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ totalPendings }}
+                            </span>
+                        </nuxt-link>
+                    </client-only>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -40,15 +40,15 @@
                             <a class="nav-link text-white"> Settings </a>
                         </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
-                            <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">
-                                <client-only>
-                                    <font-awesome-icon :icon="['fas', 'bell']" />
-                                </client-only>
-                                <span
-                                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
-                                    {{ totalPendings }}
-                                </span>
-                            </nuxt-link>
+                            <client-only>
+                                <nuxt-link class="nav-link text-white position-relative" to="/e-forms/pendings">
+                                        <font-awesome-icon :icon="['fas', 'bell']" />
+                                        <span
+                                        class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ totalPendings }}
+                                    </span>
+                                </nuxt-link>
+                            </client-only>
                         </li>
                         <li v-if="authUser" class="nav-item dropdown">
                             <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
