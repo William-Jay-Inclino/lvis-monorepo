@@ -3,7 +3,7 @@
 
         <div class="card-body">
 
-            <div v-if="!isLoadingPage">
+            <div v-if="!isLoadingPage && authUser">
 
                 <h2 class="text-warning">Create Division</h2>
         
@@ -57,7 +57,7 @@
                                 </client-only>
                             </div>
     
-                            <div class="mb-3">
+                            <div v-if="isAdmin(authUser)" class="mb-3">
                                 <SystemUserPermissions :permissions="formData.permissions" />
                             </div>
     
@@ -115,6 +115,7 @@ definePageMeta({
 })
 
 const isLoadingPage = ref(true)
+const authUser = ref<AuthUser>({} as AuthUser)
 
 const router = useRouter()
 const isSaving = ref(false)
@@ -132,6 +133,7 @@ const departments = ref<Department[]>([])
 
 
 onMounted( async () => {
+    authUser.value = getAuthUser()
 
     const response = await api.fetchFormDataInCreate()
     departments.value = response.departments

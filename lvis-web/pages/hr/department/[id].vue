@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-body">
 
-            <div v-if="!isLoadingPage">
+            <div v-if="!isLoadingPage && authUser">
         
                 <h2 class="text-warning">Update Department</h2>
         
@@ -37,7 +37,7 @@
                                 </label>
                                 <input type="text" class="form-control" v-model="item.name" required>
                             </div>
-                            <div class="mb-3">
+                            <div v-if="isAdmin(authUser)" class="mb-3">
                                 <SystemUserPermissions :permissions="item.permissions" />
                             </div>
                         </div>
@@ -93,10 +93,12 @@ const isLoadingPage = ref(true)
 const route = useRoute()
 const router = useRouter()
 const isSaving = ref(false)
+const authUser = ref<AuthUser>({} as AuthUser)
 
 const item = ref<Department>()
 
 onMounted(async () => {
+    authUser.value = getAuthUser()
 
     const response = await api.findOne(route.params.id as string)
 
