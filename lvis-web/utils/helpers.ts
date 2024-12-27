@@ -244,7 +244,7 @@ export async function logout(authUser: AuthUser, apiUrl: string) {
     } catch (error) {
         console.error('Error during logout:', error);
     } finally {
-        localStorage.removeItem('authUser');
+        localStorage.removeItem(LOCAL_STORAGE_AUTH_USER_KEY);
     }
 }
 
