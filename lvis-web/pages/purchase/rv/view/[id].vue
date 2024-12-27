@@ -13,10 +13,10 @@
                             <div class="col">
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
-                                    <h5 class="text-warning fst-italic">
+                                    <h5 data-test-id="rv-info" class="text-warning fst-italic">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                            </client-only> RV Info
+                                            <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                        </client-only> RV Info
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -40,7 +40,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">RV Number</td>
-                                                <td> {{ item.rv_number }} </td>
+                                                <td data-test-id="rv-number"> {{ item.rv_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">MEQS Number</td>

@@ -31,7 +31,7 @@
                                         RC Number <span class="text-danger">*</span>
                                     </label>
                                     <client-only>
-                                        <v-select @search="handleSearchRcNumber" @option:selected="onRcNumberSelected" :options="canvasses" label="rc_number"
+                                        <v-select data-test-id="rc-number" @search="handleSearchRcNumber" @option:selected="onRcNumberSelected" :options="canvasses" label="rc_number"
                                             v-model="rvData.canvass" :clearable=false>
                                             <template v-slot:option="option">
                                                 <div v-if="option.is_referenced" class="row">
@@ -95,7 +95,7 @@
                                         Imd. Sup. <span class="text-danger">*</span>
                                     </label>
                                     <client-only>
-                                        <v-select @search="handleSearchEmployees" :options="supervisors" label="fullname" v-model="rvData.supervisor"></v-select>
+                                        <v-select data-test-id="supervisor" @search="handleSearchEmployees" :options="supervisors" label="fullname" v-model="rvData.supervisor"></v-select>
                                     </client-only>
                                     <small class="text-danger fst-italic" v-if="rvDataErrors.supervisor"> This field is required
                                     </small>
@@ -139,7 +139,7 @@
                             </client-only> 
                             Search RV
                                     </nuxt-link>
-                                    <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
+                                    <button data-test-id="save" @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
                                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'save']"/>
                             </client-only> {{ isSaving ? 'Saving...' : 'Save' }}

@@ -57,7 +57,7 @@
                             </client-only>
                         </li>
                         <li v-if="authUser" class="nav-item dropdown">
-                            <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            <a data-test-id="username-dropdown" style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <client-only>
                                 <font-awesome-icon :icon="['fas', 'user-circle']"/>
@@ -71,7 +71,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
                                 <li>
-                                    <a @click="handleLogOut" class="dropdown-item"> Logout </a>
+                                    <a data-test-id="logout" @click="handleLogOut" class="dropdown-item"> Logout </a>
                                 </li>
                             </ul>
                         </li>

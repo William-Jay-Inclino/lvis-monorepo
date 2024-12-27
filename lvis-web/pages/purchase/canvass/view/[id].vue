@@ -25,7 +25,7 @@
                                         <tbody>
                                             <tr>
                                                 <td class="text-muted">RC Number</td>
-                                                <td> {{ item.rc_number }} </td>
+                                                <td data-test-id="rc-number"> {{ item.rc_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">RV Number</td>

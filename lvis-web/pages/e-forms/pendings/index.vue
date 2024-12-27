@@ -72,7 +72,7 @@
                                         </td>
                                         <td v-else class="text-center align-middle">
                                             <div class="d-flex w-100">
-                                                <button @click="handleCommonApprove(i)" class="btn btn-light text-success w-50 me-2">
+                                                <button :data-test-id="`test-${item.reference_table}-${item.reference_number}`" @click="handleCommonApprove(i)" class="btn btn-light text-success w-50 me-2">
                                                 <client-only>
                                                     <font-awesome-icon :icon="['fas', 'check-circle']" />
                                                 </client-only> Approve

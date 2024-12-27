@@ -1,21 +1,11 @@
 
 import { expect, Page } from '@playwright/test'
 import * as x from './utils'
-import dotenv from 'dotenv';
+import { DB_ENTITY } from '../tests/rv'
 
-dotenv.config();
-
-export const login = async(payload: { page: Page }) => {
-
-    const username = process.env.TEST_USER;
-    const password = process.env.TEST_PASSWORD;
-    const url = process.env.TEST_URL;
-
-    if (!username || !password || !url) {
-        throw new Error('Env variables are not defined in .env file');
-    }
+export const login = async(payload: { page: Page, username: string, password: string, url: string }) => {
     
-    const { page } = payload
+    const { page, username, password, url } = payload
 
     await x.goto({ page, url })
 
@@ -34,4 +24,29 @@ export const login = async(payload: { page: Page }) => {
     await x.click({ page, test_id: 'login' })
 
     await expect(page).toHaveURL(`${url}/home`, { timeout: 5000 });
+}
+
+
+export const logout = async(payload: { page: Page, url: string }) => {
+    
+    const { page, url } = payload
+
+    await x.click({ page, test_id: 'username-dropdown' })
+    await x.click({ page, test_id: 'logout' })
+
+    await expect(page).toHaveURL(`${url}`, { timeout: 5000 });
+}
+
+export const approve_notifications = async(payload: { page: Page, ref_number: string, db_entity: DB_ENTITY }) => {
+    const { page, ref_number, db_entity } = payload
+
+    await x.click({ page, test_id: 'notification' })
+
+    await x.click({ page, test_id: `test-${db_entity}-${ref_number}` })
+
+    await x.click_if_exists({
+        page,
+        selector: '.swal2-popup .swal2-confirm' 
+      });
+
 }

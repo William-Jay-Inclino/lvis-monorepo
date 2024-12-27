@@ -1,18 +1,13 @@
 import { expect, Page } from "@playwright/test";
 import * as x from '../../shared/utils'
 import { CanvassData } from "./canvass.types";
-import dotenv from 'dotenv';
 
-dotenv.config();
-const url = process.env.TEST_URL;
+export const goto_create_canvass_page = async(payload: { page: Page, url: string }) => {
 
-export const goto_create_canvass_page = async(payload: {page: Page}) => {
-
-    const { page } = payload
+    const { page, url } = payload
 
 
     await x.click({ page, test_id: 'purchasing' })
-    await x.click({ page, test_id: 'canvass-menu' })
     await x.click({ page, test_id: 'canvass-menu' })
     await x.click({ page, test_id: 'create-canvass' })
 
@@ -20,8 +15,8 @@ export const goto_create_canvass_page = async(payload: {page: Page}) => {
     
 }
 
-export const create_canvass = async(payload: { page: Page, data: CanvassData }) => {
-    const { page, data } = payload
+export const create_canvass = async(payload: { page: Page, data: CanvassData, url: string }): Promise<{ rc_number: string }> => {
+    const { page, data, url } = payload
 
     await x.custom_select({
         page,
@@ -80,5 +75,9 @@ export const create_canvass = async(payload: { page: Page, data: CanvassData }) 
     });
 
     await x.toContainText({ page, test_id: 'canvass-info', value: 'Canvass Info' })
+
+    const rc_number = await x.getText({ page, test_id: 'rc-number' })
+
+    return { rc_number }
 
 }

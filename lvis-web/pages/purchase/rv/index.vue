@@ -59,7 +59,7 @@
                             </client-only> 
                              {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageRV')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button data-test-id="create-rv" v-if="canCreate(authUser, 'canManageRV')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
