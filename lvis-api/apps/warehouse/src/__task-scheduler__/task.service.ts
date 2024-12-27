@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../__prisma__/prisma.service';
 import * as moment from 'moment';
@@ -10,22 +10,49 @@ export class TasksService {
 
 constructor(private readonly prisma: PrismaService) { }
 
+    private readonly logger = new Logger(TasksService.name);
+    private filename = 'task.service.ts'
+
     // @Cron(CronExpression.EVERY_10_SECONDS)
     @Cron(CronExpression.EVERY_DAY_AT_2AM)
     async handle_osriv_expiration() {
-        await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.OSRIV])
+        try {
+            this.logger.log({
+                filename: this.filename,
+                function: 'handle_osriv_expiration',
+            })
+            await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.OSRIV])
+        } catch (error) {
+            this.logger.error('Error in handle_osriv_expiration', error)
+        }
     }
 
     // @Cron(CronExpression.EVERY_10_SECONDS)
     @Cron(CronExpression.EVERY_DAY_AT_2AM)
     async handle_seriv_expiration() {
-        await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.SERIV])
+        try {
+            this.logger.log({
+                filename: this.filename,
+                function: 'handle_osriv_expiration',
+            })
+            await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.SERIV])
+        } catch (error) {
+            this.logger.error('Error in handle_seriv_expiration', error)
+        }
     }
 
     // @Cron(CronExpression.EVERY_10_SECONDS)
     @Cron(CronExpression.EVERY_DAY_AT_2AM)
     async handle_mrv_expiration() {
-        await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.MRV])
+        try {
+            this.logger.log({
+                filename: this.filename,
+                function: 'handle_osriv_expiration',
+            })
+            await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.MRV])
+        } catch (error) {
+            this.logger.error('Error in handle_mrv_expiration', error)
+        }
     }
 
     private async handle_expiration(module: ModuleMapping) {
@@ -50,6 +77,13 @@ constructor(private readonly prisma: PrismaService) { }
         const queries: Prisma.PrismaPromise<any>[] = []
 
         for(let record of expiringRecords) {
+
+            this.logger.log({
+                filename: this.filename,
+                function: 'handle_expiration',
+                data: JSON.stringify(record),
+                msg: `Cancelling osriv/seriv/mrv... Removing associated pendings ... Decrementing quantity_on_queue on each item...`
+            })
 
             // cancel model
             const cancelQuery = this.prisma[module.model].update({
