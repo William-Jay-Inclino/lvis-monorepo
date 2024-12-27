@@ -1,6 +1,7 @@
 import { sendRequest } from "~/utils/api"
 import type { Department, CreateDepartmentInput, MutationResponse } from "./department";
 import { permissions } from "~/composables/system/user/user.permissions";
+import { mergeUserPermissions } from "~/composables/system/user/user.helpers";
 
 
 
@@ -51,7 +52,9 @@ export async function findOne(id: string): Promise<Department | undefined> {
             if(!department.permissions) {
                 department.permissions = JSON.parse(JSON.stringify(permissions))
             } else {
-                department.permissions = JSON.parse(department.permissions)
+                // department.permissions = JSON.parse(department.permissions)
+                department.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), JSON.parse(department.permissions))
+                
             }
 
             return department

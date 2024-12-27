@@ -2,6 +2,7 @@ import { sendRequest } from "~/utils/api"
 import type { Division, CreateDivisionInput, MutationResponse } from "./division.ts";
 import { permissions } from '~/composables/system/user/user.permissions'
 import type { Department } from "../department/department.js";
+import { mergeUserPermissions } from "~/composables/system/user/user.helpers.js";
 
 
 export async function findAll(): Promise<Division[]> {
@@ -278,7 +279,8 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         if(!division.permissions) {
             division.permissions = JSON.parse(JSON.stringify(permissions))
         } else {
-            division.permissions = JSON.parse(division.permissions)
+            // division.permissions = JSON.parse(division.permissions)
+            division.permissions = mergeUserPermissions(JSON.parse(JSON.stringify(permissions)), JSON.parse(division.permissions))
         }
 
         if(data.departments) {
