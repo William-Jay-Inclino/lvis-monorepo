@@ -3,6 +3,7 @@
         <div class="error-heading">401</div>
         <div class="error-message">Unauthorized Access</div>
         <p class="lead mt-4">You don't have permission to access this page.</p>
+        <NuxtLink to="/">Please login</NuxtLink>
     </div>
 </template>
 
