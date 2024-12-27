@@ -13,10 +13,10 @@
                             <div class="col">
                                 <div class="h5wrapper mb-3">
                                     <hr class="result">
-                                    <h5 class="text-warning fst-italic">
+                                    <h5 data-test-id="canvass-info" class="text-warning fst-italic">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                            </client-only> Canvass Info
+                                            <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                        </client-only> Canvass Info
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -240,7 +240,7 @@
                             </client-only> 
                             Search Canvass
                                         </nuxt-link>
-                                        <button v-if="canPrint(authUser, 'canManageCanvass')" @click="onClickPrint" class="btn btn-danger" data-bs-toggle="modal"
+                                        <button data-test-id="print" v-if="canPrint(authUser, 'canManageCanvass')" @click="onClickPrint" class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'print']"/>

@@ -28,7 +28,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li v-if="isApprover(authUser)" class="nav-item">
-                                <nuxt-link class="nav-link me-3 text-white position-relative" to="/e-forms/pendings">
+                                <nuxt-link data-test-id="notification" class="nav-link me-3 text-white position-relative" to="/e-forms/pendings">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'bell']" />
                                     </client-only>

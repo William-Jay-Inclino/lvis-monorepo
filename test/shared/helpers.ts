@@ -33,5 +33,5 @@ export const login = async(payload: { page: Page }) => {
 
     await x.click({ page, test_id: 'login' })
 
-    await expect(page).toHaveURL(/home/);
+    await expect(page).toHaveURL(`${url}/home`, { timeout: 5000 });
 }

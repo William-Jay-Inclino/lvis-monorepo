@@ -7,7 +7,7 @@
                 <div class="card shadow mx-auto" style="max-width: 13rem;">
                     <img src="/img/settings.png" class="card-img-top img-fluid" alt="Settings Image" style="height: 180px; object-fit: cover;">
                     <div class="card-footer text-center">
-                        <button @click="goToSystem" class="btn" :class="{'btn-primary': canViewSystem, 'btn-secondary': !canViewSystem}" :disabled="!canViewSystem"> SYSTEM {{ !canViewSystem ? '(Restricted)' : ''  }} </button>
+                        <button data-test-id="system" @click="goToSystem" class="btn" :class="{'btn-primary': canViewSystem, 'btn-secondary': !canViewSystem}" :disabled="!canViewSystem"> SYSTEM {{ !canViewSystem ? '(Restricted)' : ''  }} </button>
                     </div>
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <div class="card shadow mx-auto" style="max-width: 13rem;">
                     <img src="/img/purchasing.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
                     <div class="card-footer text-center">
-                        <button @click="goToPurchasing" class="btn" :class="{'btn-primary': canViewPurchasing, 'btn-secondary': !canViewPurchasing}" :disabled="!canViewPurchasing"> PURCHASING {{ !canViewPurchasing ? '(Restricted)' : ''  }}</button>
+                        <button data-test-id="purchasing" @click="goToPurchasing" class="btn" :class="{'btn-primary': canViewPurchasing, 'btn-secondary': !canViewPurchasing}" :disabled="!canViewPurchasing"> PURCHASING {{ !canViewPurchasing ? '(Restricted)' : ''  }}</button>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="card shadow mx-auto" style="max-width: 13rem;">
                     <img src="/img/warehouse.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
                     <div class="card-footer text-center">
-                        <button @click="goToWarehouse" class="btn" :class="{'btn-primary': canViewWarehouse, 'btn-secondary': !canViewWarehouse}" :disabled="!canViewWarehouse"> WAREHOUSE {{ !canViewWarehouse ? '(Restricted)' : ''  }}</button>
+                        <button data-test-id="warehouse" @click="goToWarehouse" class="btn" :class="{'btn-primary': canViewWarehouse, 'btn-secondary': !canViewWarehouse}" :disabled="!canViewWarehouse"> WAREHOUSE {{ !canViewWarehouse ? '(Restricted)' : ''  }}</button>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 <div class="card shadow mx-auto" style="max-width: 13rem;">
                     <img src="/img/motorpool.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
                     <div class="card-footer text-center">
-                        <button @click="goToMotorpool" class="btn" :class="{'btn-primary': canViewMotorpool, 'btn-secondary': !canViewMotorpool}" :disabled="!canViewMotorpool"> MOTORPOOL {{ !canViewMotorpool ? '(Restricted)' : ''  }}</button>
+                        <button data-test-id="motorpool" @click="goToMotorpool" class="btn" :class="{'btn-primary': canViewMotorpool, 'btn-secondary': !canViewMotorpool}" :disabled="!canViewMotorpool"> MOTORPOOL {{ !canViewMotorpool ? '(Restricted)' : ''  }}</button>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <div class="card shadow mx-auto" style="max-width: 13rem;">
                     <img src="/img/accounting2.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
                     <div class="card-footer text-center">
-                        <button @click="goToAccounting" class="btn" :class="{'btn-primary': canViewAccounting, 'btn-secondary': !canViewAccounting}" :disabled="!canViewAccounting"> ACCOUNTING {{ !canViewAccounting ? '(Restricted)' : ''  }}</button>
+                        <button data-test-id="accounting" @click="goToAccounting" class="btn" :class="{'btn-primary': canViewAccounting, 'btn-secondary': !canViewAccounting}" :disabled="!canViewAccounting"> ACCOUNTING {{ !canViewAccounting ? '(Restricted)' : ''  }}</button>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="card shadow mx-auto" style="max-width: 13rem;">
                     <img src="/img/HR.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
                     <div class="card-footer text-center">
-                        <button @click="goToHR" class="btn" :class="{'btn-primary': canViewHR, 'btn-secondary': !canViewHR}" :disabled="!canViewHR"> HR {{ !canViewHR ? '(Restricted)' : ''  }}</button>
+                        <button data-test-id="hr" @click="goToHR" class="btn" :class="{'btn-primary': canViewHR, 'btn-secondary': !canViewHR}" :disabled="!canViewHR"> HR {{ !canViewHR ? '(Restricted)' : ''  }}</button>
                     </div>
                 </div>
             </div>

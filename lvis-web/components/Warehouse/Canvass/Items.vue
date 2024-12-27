@@ -50,7 +50,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="7" class="text-center">
-                            <button @click="onCLickAdd()" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            <button data-test-id="add-item" @click="onCLickAdd()" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#canvassItemModal">
                                 <client-only>
                                     <font-awesome-icon :icon="['fas', 'plus-circle']" />
@@ -90,12 +90,12 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" :value="true" v-model="itemIsStock"
+                                        <input data-test-id="item-class-stock" class="form-check-input" type="radio" :value="true" v-model="itemIsStock"
                                             @change="onChangeItemClass">
                                         <label class="form-check-label" for="inlineRadio1">Stock</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" :value="false"
+                                        <input data-test-id="item-class-non-stock" class="form-check-input" type="radio" :value="false"
                                             v-model="itemIsStock" @change="onChangeItemClass">
                                         <label class="form-check-label" for="inlineRadio2">Non-Stock</label>
                                     </div>
@@ -121,7 +121,7 @@
                             <label class="form-label">
                                 Description <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="canvassItem.description" class="form-control" rows="3"
+                            <textarea data-test-id="description" v-model="canvassItem.description" class="form-control" rows="3"
                                 :disabled="itemIsStock"></textarea>
                             <small class="text-danger fst-italic" v-if="canvassItemErrors.description">
                                 This field is required
@@ -132,11 +132,11 @@
                             <label class="form-label">Unit</label>
                             <div v-if="!itemIsStock">
                                 <client-only>
-                                    <v-select :options="units" label="name" v-model="canvassItem.unit"></v-select>
+                                    <v-select data-test-id="unit" :options="units" label="name" v-model="canvassItem.unit"></v-select>
                                 </client-only>
                             </div>
                             <div v-else>
-                                <input type="text" class="form-control" disabled
+                                <input data-test-id="unit" type="text" class="form-control" disabled
                                     :value="canvassItem.unit ? canvassItem.unit.name : ''">
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                             <label class="form-label">
                                 Quantity <span class="text-danger">*</span>
                             </label>
-                            <input type="number" class="form-control"
+                            <input data-test-id="quantity" type="number" class="form-control"
                                 v-model="canvassItem.quantity">
                             <small class="text-danger fst-italic" v-if="canvassItemErrors.quantity">
                                 This field is required and quantity must be greater than 0
@@ -159,7 +159,7 @@
                                 <font-awesome-icon :icon="['fas', 'close']"/>
                             </client-only> Close
                         </button>
-                        <button v-if="formIsAdd" @click="addItem" class="btn btn-primary" :disabled="isAdding">
+                        <button data-test-id="modal-add-item" v-if="formIsAdd" @click="addItem" class="btn btn-primary" :disabled="isAdding">
                             <client-only>
                                     <font-awesome-icon :icon="['fas', 'plus-circle']"/>
                                 </client-only> {{ isAdding ? 'Adding...' : 'Add' }} Item

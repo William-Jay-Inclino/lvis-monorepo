@@ -467,140 +467,140 @@ export const users: User[] = [
     {
         id: u_analou,
         username: 'anamarialourdes.pastor',
-        password: 'anamarialourdes.pastor',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_ricaflor,
         username: 'ricaflor.suan',
-        password: 'ricaflor.suan',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_marlon,
         username: 'marlon.sanico',
-        password: 'marlon.sanico',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_jannie,
         username: 'jannieann.dayandayan',
-        password: 'jannieann.dayandayan',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_jhunrey,
         username: 'jhunrey.nahine',
-        password: 'jhunrey.nahine',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_gretchen,
         username: 'gretchen.tagalog',
-        password: 'gretchen.tagalog',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_dionic,
         username: 'dionic.delapena',
-        password: 'dionic.delapena',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_anthony,
         username: 'anthony.cecilio',
-        password: 'anthony.cecilio',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_paula,
         username: 'francespaula.lumacang',
-        password: 'francespaula.lumacang',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_joshua,
         username: 'joshua.tayag',
-        password: 'joshua.tayag',
+        password: '123',
         role: Role.ADMIN,
         created_by: 'admin'
     },
     {
         id: u_jessa_pelones,
         username: 'jessa.pelones',
-        password: 'jessa.pelones',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_joseph_ken,
         username: 'josephken.estrera',
-        password: 'josephken.estrera',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_hannah_grace,
         username: 'hannahgrace.tudio',
-        password: 'hannahgrace.tudio',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_jessa_valida,
         username: 'jessa.valida',
-        password: 'jessa.valida',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_adam,
         username: 'adam.estremos',
-        password: 'adam.estremos',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_sam,
         username: 'samantha.ablen',
-        password: 'samantha.ablen',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_gene,
         username: 'genevieve.salgarino',
-        password: 'genevieve.salgarino',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_monroe,
         username: 'monroe.magdadaro',
-        password: 'monroe.magdadaro',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_ricardo,
         username: 'ricardo.lequin',
-        password: 'ricardo.lequin',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     },
     {
         id: u_michael,
         username: 'michael.guinarez',
-        password: 'michael.guinarez',
+        password: '123',
         role: Role.USER,
         created_by: 'admin'
     }

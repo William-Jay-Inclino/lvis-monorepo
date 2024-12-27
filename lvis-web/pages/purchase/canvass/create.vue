@@ -31,7 +31,7 @@
                                 Requisitioner <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="formData.requested_by"></v-select>
+                                <v-select data-test-id="requisitioner" @search="handleSearchEmployees" :options="employees" label="fullname" v-model="formData.requested_by"></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-show="formDataErrors.requested_by"> This field is required
                             </small>
@@ -41,14 +41,14 @@
                             <label class="form-label">
                                 Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="formData.purpose" class="form-control" rows="3"></textarea>
+                            <textarea data-test-id="purpose" v-model="formData.purpose" class="form-control" rows="3"></textarea>
                             <small class="text-danger fst-italic" v-show="formDataErrors.purpose"> This field is required
                             </small>
                         </div>
         
                         <div class="mb-3">
                             <label class="form-label">Notes</label>
-                            <textarea v-model="formData.notes" class="form-control" rows="3"></textarea>
+                            <textarea data-test-id="notes" v-model="formData.notes" class="form-control" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                                 <font-awesome-icon :icon="['fas', 'chevron-left']"/>
                             </client-only> Back to Search
                             </nuxt-link>
-                            <button @click="onClickNextStep1()" type="button" class="btn btn-primary">
+                            <button data-test-id="next" @click="onClickNextStep1()" type="button" class="btn btn-primary">
                                 <client-only>
                                 <font-awesome-icon :icon="['fas', 'chevron-right']"/>
                             </client-only> Next
@@ -89,7 +89,7 @@
                                 <font-awesome-icon :icon="['fas', 'chevron-left']"/>
                             </client-only> Back
                             </button>
-                            <button @click="save()" :disabled="formData.canvass_items.length === 0 || isSaving" type="button"
+                            <button data-test-id="save" @click="save()" :disabled="formData.canvass_items.length === 0 || isSaving" type="button"
                                 class="btn btn-primary">
                                 <client-only>
                                 <font-awesome-icon :icon="['fas', 'save']"/>
