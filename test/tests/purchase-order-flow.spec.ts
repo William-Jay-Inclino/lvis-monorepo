@@ -1,7 +1,7 @@
 import test from "@playwright/test";
-import { login } from "../shared/helpers";
+import { approve_signatory, login } from "../shared/helpers";
 import { canvass_data, create_canvass, goto_create_canvass_page } from "./canvass";
-import { create_rv, goto_create_rv_page, rv_data } from "./rv";
+import { create_rv, DB_ENTITY, goto_create_rv_page, rv_approvers, rv_data } from "./rv";
 import dotenv from 'dotenv';
 import { logout } from "../shared/helpers";
 
@@ -36,7 +36,21 @@ test("Purchase Order Flow", async ({ page }) => {
     await logout({ page, url })
 
     // approve signatories
+    for(let approver of rv_approvers) {
 
-    
+        const username = approver.username
+        const password = approver.password
+
+        await login({ page, url, username, password })
+
+        await approve_signatory({
+            page,
+            ref_number: rv.rv_number,
+            db_entity: DB_ENTITY.RV,
+            popup: approver.popup,
+        })
+
+        await logout({ page, url })
+    }
 
 });

@@ -25,7 +25,7 @@
                     <div class="mb-3" v-if="employee.is_budget_officer">
                         <label class="form-label"> Classification </label>
                         <client-only>
-                            <v-select @search="handleSearchClassifications" :options="classifications" label="name" v-model="classification"></v-select>
+                            <v-select data-test-id="classification" @search="handleSearchClassifications" :options="classifications" label="name" v-model="classification"></v-select>
                         </client-only>
                         <small class="text-danger fst-italic" v-if="formErrors.classification">
                             This field is required </small>
@@ -33,7 +33,7 @@
                     <div class="mb-3" v-if="employee.is_finance_manager">
                         <label class="form-label"> Fund Source </label>
                         <client-only>
-                            <v-select @search="handleSearchAccounts" :options="accounts" label="name" v-model="fundSource"></v-select>
+                            <v-select data-test-id="fund-source" @search="handleSearchAccounts" :options="accounts" label="name" v-model="fundSource"></v-select>
                         </client-only>
                         <small class="text-danger fst-italic" v-if="formErrors.fundSource">
                             This field is required </small>
@@ -44,7 +44,7 @@
                         data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button @click="approve"
+                    <button data-test-id="approve" @click="approve"
                         class="btn btn-success" :disabled="isApproving">
                         {{ isApproving ? 'Approving...' : 'Approve' }}
                     </button>

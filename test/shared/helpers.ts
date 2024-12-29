@@ -37,16 +37,22 @@ export const logout = async(payload: { page: Page, url: string }) => {
     await expect(page).toHaveURL(`${url}`, { timeout: 5000 });
 }
 
-export const approve_notifications = async(payload: { page: Page, ref_number: string, db_entity: DB_ENTITY }) => {
-    const { page, ref_number, db_entity } = payload
+export const approve_signatory = async(payload: { page: Page, ref_number: string, db_entity: DB_ENTITY, popup: 'swal' | 'modal' }) => {
+    const { page, ref_number, db_entity, popup } = payload
 
+    // click notification icon
     await x.click({ page, test_id: 'notification' })
 
+    // approve the item in the table
     await x.click({ page, test_id: `test-${db_entity}-${ref_number}` })
 
-    await x.click_if_exists({
-        page,
-        selector: '.swal2-popup .swal2-confirm' 
-      });
+    if(popup === 'modal') {
+        await x.custom_select({ page, test_id: 'classification' })
+        await x.click({ page, test_id: 'approve' })
+    }
+
+    // close swal is a loop. It wil always click ok or confirm
+    await x.close_swal({ page })
+
 
 }

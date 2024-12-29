@@ -68,11 +68,7 @@ export const create_canvass = async(payload: { page: Page, data: CanvassData, ur
     const dynamicUrlPattern = new RegExp(`${url}/purchase/canvass/view/[a-zA-Z0-9-]+`)
     await expect(page).toHaveURL(dynamicUrlPattern, { timeout: 5000 });
 
-    // click ok on success msg SWAL
-    await x.click_if_exists({
-        page,
-        selector: '.swal2-confirm.swal2-styled',
-    });
+    await x.close_swal({ page })
 
     await x.toContainText({ page, test_id: 'canvass-info', value: 'Canvass Info' })
 

@@ -51,36 +51,46 @@
                                         <td v-if="!isDefaultApproval(item)" class="text-center align-middle">
                                             <div class="d-flex w-100">
                                                 <button 
-                                                @click="onClickApprove(i)" 
-                                                class="btn btn-light text-success w-50 me-2" 
-                                                data-bs-toggle="modal" 
-                                                data-bs-target="#pendingModal">
-                                                <client-only>
-                                                    <font-awesome-icon :icon="['fas', 'check-circle']" />
-                                                </client-only> 
-                                                Approve
+                                                    :data-test-id="`test-${item.reference_table}-${item.reference_number}`"
+                                                    @click="onClickApprove(i)" 
+                                                    class="btn btn-light text-success w-50 me-2" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#pendingModal">
+                                                    <client-only>
+                                                        <font-awesome-icon :icon="['fas', 'check-circle']" />
+                                                    </client-only> 
+                                                    Approve
                                                 </button>
                                                 <button 
-                                                @click="handleCommonDisapprove(i)" 
-                                                class="btn btn-light text-danger w-50">
-                                                <client-only>
-                                                    <font-awesome-icon :icon="['fas', 'times-circle']" />
-                                                </client-only> 
-                                                Disapprove
+                                                    @click="handleCommonDisapprove(i)" 
+                                                    class="btn btn-light text-danger w-50"
+                                                >
+                                                    <client-only>
+                                                        <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                                    </client-only> 
+                                                    Disapprove
                                                 </button>
                                             </div>
                                         </td>
                                         <td v-else class="text-center align-middle">
                                             <div class="d-flex w-100">
-                                                <button :data-test-id="`test-${item.reference_table}-${item.reference_number}`" @click="handleCommonApprove(i)" class="btn btn-light text-success w-50 me-2">
-                                                <client-only>
-                                                    <font-awesome-icon :icon="['fas', 'check-circle']" />
-                                                </client-only> Approve
+                                                <button
+                                                    :data-test-id="`test-${item.reference_table}-${item.reference_number}`"
+                                                    @click="handleCommonApprove(i)"
+                                                    class="btn btn-light text-success w-50 me-2"
+                                                >
+                                                    <client-only>
+                                                        <font-awesome-icon :icon="['fas', 'check-circle']" />
+                                                    </client-only> Approve
                                                 </button>
-                                                <button @click="handleCommonDisapprove(i)" class="btn btn-light text-danger w-50">
-                                                <client-only>
-                                                    <font-awesome-icon :icon="['fas', 'times-circle']" />
-                                                </client-only> Disapprove
+                                                <button 
+                                                    @click="handleCommonDisapprove(i)" 
+                                                    class="btn btn-light text-danger w-50"
+                                                >
+                                                    <client-only>
+                                                        <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                                    </client-only> 
+                                                    Disapprove
                                                 </button>
                                             </div>
                                         </td>
