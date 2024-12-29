@@ -301,7 +301,7 @@ export class ItemService {
 			where: {
 				deleted_at: null,
 				OR: [
-					{ code: { startsWith: input } },
+					{ code: { contains: input } },
 				],
 			},
 			take: 10,

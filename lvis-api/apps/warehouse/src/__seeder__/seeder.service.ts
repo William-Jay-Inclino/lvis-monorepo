@@ -27,6 +27,7 @@ export class SeederService {
 
             );
         } catch (error) {
+            console.error('Error in seeding tables');
         }
     }
 
@@ -36,6 +37,7 @@ export class SeederService {
         try {
             return this.prisma.supplier.createMany({ data: data.suppliers })
         } catch (error) {
+            console.error('Error in seeding supplier table');
         }
     }
 
@@ -44,6 +46,7 @@ export class SeederService {
         try {
             return this.prisma.station.createMany({ data: data.stations })
         } catch (error) {
+            console.error('Error in seeding station table');
         }
     }
 
@@ -52,6 +55,7 @@ export class SeederService {
         try {
             return this.prisma.project.createMany({ data: data.projects })
         } catch (error) {
+            console.error('Error in seeding project table');
         }
     }
 
@@ -60,6 +64,7 @@ export class SeederService {
         try {
             return this.prisma.unit.createMany({ data: data.units })
         } catch (error) {
+            console.error('Error in seeding unit table');
         }
     }
 
@@ -68,6 +73,7 @@ export class SeederService {
         try {
             return this.prisma.itemType.createMany({ data: data.itemTypes })
         } catch (error) {
+            console.error('Error in seeding item type table');
         }
     }
 
@@ -76,6 +82,7 @@ export class SeederService {
         try {
             return this.prisma.gasStation.createMany({ data: data.gasStations })
         } catch (error) {
+            console.error('Error in seeding gas station table');
         }
     }
 
@@ -84,6 +91,7 @@ export class SeederService {
         try {
             return this.prisma.fuelType.createMany({ data: data.fuelTypes })
         } catch (error) {
+            console.error('Error in seeding fuel type table');
         }
     }
 
@@ -92,6 +100,7 @@ export class SeederService {
         try {
             return this.prisma.itemCodeTracker.createMany({ data: data.itemCodeTracker })
         } catch (error) {
+            console.error('Error in seeding item code tracker table');
         }
     }
 
@@ -100,6 +109,7 @@ export class SeederService {
         try {
             return this.prisma.vehicleService.createMany({ data: data.services })
         } catch (error) {
+            console.error('Error in seeding vehicle table');
         }
     }
 
@@ -108,6 +118,7 @@ export class SeederService {
         try {
             return this.prisma.serviceCenter.createMany({ data: data.serviceCenters })
         } catch (error) {
+            console.error('Error in seeding service center table');
         }
     }
 
@@ -132,10 +143,19 @@ export class SeederService {
                     {
                         key: SETTINGS.DEFAULT_STATION,
                         value: data.main_office_id,
+                    },
+                    {
+                        key: SETTINGS.MIN_SUPPLIER_IN_MEQS,
+                        value: "3",
+                    },
+                    {
+                        key: SETTINGS.MAX_SUPPLIER_IN_MEQS,
+                        value: "5",
                     }
                 ]
             });
         } catch (error) {
+            console.error('Error in seeding setting table');
         }
     }
 
