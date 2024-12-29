@@ -29,7 +29,7 @@
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li v-if="isApprover(authUser)" class="nav-item">
                             <client-only>
-                                <nuxt-link data-test-id="notification" class="nav-link me-3 text-white position-relative" to="/e-forms/pendings">
+                                <nuxt-link data-testid="notification" class="nav-link me-3 text-white position-relative" to="/e-forms/pendings">
                                     <font-awesome-icon :icon="['fas', 'bell']" />
                                     <span
                                         class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">

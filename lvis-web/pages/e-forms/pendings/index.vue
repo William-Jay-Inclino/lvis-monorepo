@@ -51,7 +51,7 @@
                                         <td v-if="!isDefaultApproval(item)" class="text-center align-middle">
                                             <div class="d-flex w-100">
                                                 <button 
-                                                    :data-test-id="`test-${item.reference_table}-${item.reference_number}`"
+                                                    :data-testid="`test-${item.reference_table}-${item.reference_number}`"
                                                     @click="onClickApprove(i)" 
                                                     class="btn btn-light text-success w-50 me-2" 
                                                     data-bs-toggle="modal" 
@@ -75,7 +75,7 @@
                                         <td v-else class="text-center align-middle">
                                             <div class="d-flex w-100">
                                                 <button
-                                                    :data-test-id="`test-${item.reference_table}-${item.reference_number}`"
+                                                    :data-testid="`test-${item.reference_table}-${item.reference_number}`"
                                                     @click="handleCommonApprove(i)"
                                                     class="btn btn-light text-success w-50 me-2"
                                                 >

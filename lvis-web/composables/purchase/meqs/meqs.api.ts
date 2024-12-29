@@ -785,7 +785,6 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 cancelled_at
                 notes
                 created_by
-                is_rr_completed
                 can_update
                 rv {
                     id

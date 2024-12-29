@@ -1,7 +1,8 @@
 
 import { expect, Page } from '@playwright/test'
 import * as x from './utils'
-import { DB_ENTITY } from '../tests/rv'
+import { DB_ENTITY } from './enums'
+import { Approver } from './types'
 
 export const login = async(payload: { page: Page, username: string, password: string, url: string }) => {
     
@@ -51,8 +52,38 @@ export const approve_signatory = async(payload: { page: Page, ref_number: string
         await x.click({ page, test_id: 'approve' })
     }
 
-    // close swal is a loop. It wil always click ok or confirm
-    await x.close_swal({ page })
+    // close popup is a loop. It wil always click ok or confirm
+    await x.close_popup({ page })
 
+}
+
+
+export const approve_signatories = async(
+    payload: { 
+        page: Page,
+        url: string,
+        approvers: Approver[],
+        ref_number: string, 
+        db_entity: DB_ENTITY, 
+    }) => {
+
+    const { page, url, approvers, ref_number, db_entity } = payload
+
+    for(let approver of approvers) {
+
+        const username = approver.username
+        const password = approver.password
+
+        await login({ page, url, username, password })
+
+        await approve_signatory({
+            page,
+            ref_number: ref_number,
+            db_entity: db_entity,
+            popup: approver.popup,
+        })
+
+        await logout({ page, url })
+    }
 
 }

@@ -33,11 +33,7 @@ export const create_rv = async(payload: { page: Page, data: RvData, url: string 
     const dynamicUrlPattern = new RegExp(`${url}/purchase/rv/view/[a-zA-Z0-9-]+`)
     await expect(page).toHaveURL(dynamicUrlPattern, { timeout: 5000 });
 
-    // click ok on success msg SWAL
-    await x.click_if_exists({
-        page,
-        selector: '.swal2-confirm.swal2-styled',
-    });
+    await x.close_popup({ page })
 
     await x.toContainText({ page, test_id: 'rv-info', value: 'RV Info' })
 

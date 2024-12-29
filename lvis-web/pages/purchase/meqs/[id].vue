@@ -117,7 +117,6 @@
                             :is-editing-supplier="isEditingSupplier" 
                             :is-page-create="false" @add-supplier="addSupplier"
                             :is-adding-attachment="isAddingAttachment" 
-                            :is-rr-completed="meqsData.is_rr_completed"
                             :min_no_of_supplier="min_no_of_supplier"
                             :max_no_of_supplier="max_no_of_supplier"
                             @edit-supplier="editSupplier"

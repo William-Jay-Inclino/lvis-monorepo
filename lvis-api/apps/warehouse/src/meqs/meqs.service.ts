@@ -578,27 +578,27 @@ export class MeqsService {
         })
     }
 
-    async isRrCompleted(meqsId: string): Promise<boolean> {
+    // async isRrCompleted(meqsId: string): Promise<boolean> {
 
-        const rr = await this.prisma.rR.findFirst({
-            select: {
-                id: true,
-                is_completed: true
-            },
-            where: {
-                po: {
-                    meqs_supplier: {
-                        meqs_id: meqsId
-                    }
-                }
-            }
-        })
+    //     const rr = await this.prisma.rR.findFirst({
+    //         select: {
+    //             id: true,
+    //             is_completed: true
+    //         },
+    //         where: {
+    //             po: {
+    //                 meqs_supplier: {
+    //                     meqs_id: meqsId
+    //                 }
+    //             }
+    //         }
+    //     })
 
-        if (!rr) return false
+    //     if (!rr) return false
 
-        return rr.is_completed
+    //     return rr.is_completed
 
-    }
+    // }
 
     async canUpdateForm(meqsId: string): Promise<Boolean> {
 

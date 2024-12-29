@@ -32,7 +32,7 @@
                     <td class="text-muted align-middle nowrap">{{ item.description }}</td>
                     <td class="text-muted align-middle nowrap">{{ item.unit ? item.unit.name : 'N/A' }}</td>
                     <td class="text-muted align-middle nowrap">{{ item.quantity }}</td>
-                    <td v-for="meqsSupplier in meqs_suppliers">
+                    <td v-for="meqsSupplier, meqsSupplierIndx in meqs_suppliers">
                         <div class="d-flex justify-content-center align-items-center">
 
                             <div v-for="supplierItem, indx in meqsSupplier.meqs_supplier_items">
@@ -40,12 +40,10 @@
                                     <input type="text"
                                         :value="(supplierItem.price === -1) ? 'N/A' : formatToPhpCurrency(supplierItem.price)"
                                         class="form-control me-2" style="width: 100px" disabled>
-                                    <!-- <i class="fas fa-star clickable-icon fs-5"
-                                        @click="onAward(meqsSupplier, item.id, supplierItem, indx)"
-                                        :class="{ 'text-warning': supplierItem.is_awarded }"></i> -->
 
                                         <client-only>
                                             <font-awesome-icon 
+                                                :data-testid="`award-icon-${ i }-${ meqsSupplierIndx }`"
                                                 :icon="['fas', 'star']" 
                                                 class="clickable-icon fs-5" 
                                                 @click="onAward(meqsSupplier, item.id, supplierItem, indx)" 

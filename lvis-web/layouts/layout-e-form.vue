@@ -21,7 +21,7 @@
                             <nuxt-link class="nav-link text-white" to="/e-forms/pendings">Pending Forms</nuxt-link>
                         </li> -->
                         <li v-if="authUser" class="nav-item dropdown">
-                            <a data-test-id="username-dropdown" style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            <a data-testid="username-dropdown" style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <client-only>
                                 <font-awesome-icon :icon="['fas', 'user-circle']"/>
@@ -37,7 +37,7 @@
                                 <!-- <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><a class="dropdown-item" href="#">Activity log</a></li> -->
                                 <li>
-                                    <a data-test-id="logout" @click="handleLogOut" class="dropdown-item"> Logout </a>
+                                    <a data-testid="logout" @click="handleLogOut" class="dropdown-item"> Logout </a>
                                 </li>
                             </ul>
                         </li>

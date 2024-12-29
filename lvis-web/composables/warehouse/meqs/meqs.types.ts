@@ -1,12 +1,12 @@
 import type { APPROVAL_STATUS, Approver, VAT_TYPE } from "~/composables/common.types";
 import type { RV } from "../rv/rv.types";
-import type { CanvassItem } from "../canvass/canvass-item.types";
-import type { MeqsSupplier } from "./meqs-supplier";
-import type { MeqsSupplierItem } from "./meqs-supplier-item";
 import type { SPR } from "../spr/spr.types";
-import type { JO } from "../jo/jo.types";
 import type { Supplier } from "../../warehouse/supplier/supplier";
 import type { Employee } from "~/composables/hr/employee/employee.types";
+import type { JO } from "~/composables/purchase/jo/jo.types";
+import type { MeqsSupplier } from "~/composables/purchase/meqs/meqs-supplier";
+import type { CanvassItem } from "~/composables/purchase/canvass/canvass-item.types";
+import type { MeqsSupplierItem } from "~/composables/purchase/meqs/meqs-supplier-item";
 
 
 export interface MEQS {
@@ -40,7 +40,6 @@ export interface MEQS {
   meqs_approvers: Approver[];
   meqs_suppliers: MeqsSupplier[];
   status: APPROVAL_STATUS
-  is_rr_completed?: boolean
   can_update?: boolean
   requested_by: Employee
 

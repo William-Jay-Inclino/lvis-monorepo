@@ -11,10 +11,10 @@
                         <div class="col">
                             <div class="h5wrapper mb-3">
                                 <hr class="result">
-                                <h5 class="text-warning fst-italic">
+                                <h5 data-testid="meqs-info" class="text-warning fst-italic">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                            </client-only> MEQS Info
+                                        <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                    </client-only> MEQS Info
                                 </h5>
                                 <hr class="result">
                             </div>
@@ -57,7 +57,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-muted">MEQS Number</td>
-                                            <td> {{ item?.meqs_number }} </td>
+                                            <td data-testid="meqs-number"> {{ item.meqs_number }} </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted align-middle">PO Number/s</td>

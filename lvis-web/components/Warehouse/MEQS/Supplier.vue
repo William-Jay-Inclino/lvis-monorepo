@@ -24,8 +24,8 @@
                         <th class="bg-secondary text-white"> Attachments </th>
                         <th width="15%" class="bg-secondary text-white text-center">
                             <client-only>
-                                                    <font-awesome-icon :icon="['fas', 'cog']" />
-                                                </client-only>
+                                <font-awesome-icon :icon="['fas', 'cog']" />
+                            </client-only>
                         </th>
                     </tr>
                 </thead>
@@ -88,7 +88,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="5" class="text-center">
-                            <button @click="onClickAdd()" type="button" class="btn btn-primary btn-sm"
+                            <button data-testid="add-supplier" @click="onClickAdd()" type="button" class="btn btn-primary btn-sm"
                                 data-bs-toggle="modal" data-bs-target="#addSupplierModal">
                                 <client-only>
                                     <font-awesome-icon :icon="['fas', 'plus-circle']"/>
@@ -102,7 +102,7 @@
 
 
         <!-- Supplier Modal -->
-        <div class="modal fade" id="addSupplierModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div data-testid="supplier-modal" class="modal fade" id="addSupplierModal" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -128,7 +128,7 @@
                                         v-if="formIsAdd">*</span>
                                     <div v-if="formIsAdd">
                                         <client-only>
-                                            <v-select @search="handleSearchSuppliers" @option:selected="onChangeSupplier" :options="availableSuppliers"
+                                            <v-select data-testid="supplier" @search="handleSearchSuppliers" @option:selected="onChangeSupplier" :options="availableSuppliers"
                                                 v-model="formData.supplier" label="name_with_address"></v-select>
                                         </client-only>
                                     </div>
@@ -146,7 +146,7 @@
                                     <label class="form-label">
                                         Payment Terms <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" class="form-control" v-model="formData.payment_terms">
+                                    <input data-testid="payment-terms" type="text" class="form-control" v-model="formData.payment_terms">
                                 </div>
                             </div>
                         </div>
@@ -155,8 +155,8 @@
                             <hr class="result">
                             <h6 class="text-warning fst-italic">
                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
-                            </client-only> Items
+                                    <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                                </client-only> Items
                             </h6>
                             <hr class="result">
                         </div>
@@ -165,11 +165,8 @@
                             <div class="col">
 
                                 <div class="alert alert-info" role="alert">
-                                    <small v-if="!isRrCompleted" class="fst-italic">
+                                    <small class="fst-italic">
                                         If the item is unavailable set the price to -1
-                                    </small>
-                                    <small v-else class="fst-italic">
-                                        Unable to update the price as the receiving report has already been approved.
                                     </small>
                                 </div>
 
@@ -185,16 +182,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="item in formData.meqs_supplier_items">
+                                            <tr v-for="item, indx in formData.meqs_supplier_items">
                                                 <td class="text-muted"> {{ item.canvass_item.description }} </td>
                                                 <td class="text-muted">
-                                                    <input v-if="!isRrCompleted" type="number"
+                                                    <input type="number"
+                                                        :data-testid="`item-price-${ indx }`"
                                                         class="form-control border border-2"
                                                         @input="onUpdatePrice(item)"
                                                         :class="{ 'border-danger': item.invalidPrice, 'border-success': !item.invalidPrice }"
                                                         v-model="item.price">
-                                                    <input v-else type="number" class="form-control" :value="item.price"
-                                                        disabled>
                                                 </td>
                                                 <td class="text-muted">
                                                     <select class="form-select" v-model="item.vat" :disabled="!formData.supplier.is_vat_registered">
@@ -219,7 +215,7 @@
                                 <font-awesome-icon :icon="['fas', 'close']"/>
                             </client-only> Close
                         </button>
-                        <button v-if="formIsAdd" @click="addSupplier()" type="button" class="btn btn-primary"
+                        <button data-testid="modal-add-supplier" v-if="formIsAdd" @click="addSupplier()" type="button" class="btn btn-primary"
                             :disabled="!canAddSupplier || isAddingSupplier">
                             <client-only>
                                     <font-awesome-icon :icon="['fas', 'plus-circle']"/>
@@ -356,10 +352,6 @@ const props = defineProps({
     isPageCreate: {
         type: Boolean,
         default: true
-    },
-    isRrCompleted: {
-        type: Boolean,
-        default: false
     },
     min_no_of_supplier: {
         type: Number,

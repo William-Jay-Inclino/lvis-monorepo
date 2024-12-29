@@ -2,7 +2,7 @@
     <div>
 
         <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="requiredNotesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div data-testid="required-notes-modal" class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-warning" id="exampleModalLabel">
@@ -28,21 +28,23 @@
                             <span class="text-danger">*</span>
                         </label>
                         <textarea
-                          rows="3"
-                          class="form-control"
-                          :value="item.awardedItem.notes"
-                          @input="updateNotes(item.awardedItem.canvass_item.id, $event)"
+                            rows="3"
+                            class="form-control test-item"
+                            :value="item.awardedItem.notes"
+                            @input="updateNotes(item.awardedItem.canvass_item.id, $event)"
                         >
                         </textarea>
                         <small class="text-muted fst-italic">
                             Why choose
                             <span class="fw-bold">
-                                {{ item.awardedItem.meqsSupplier?.supplier?.name }} at
+                                <!-- {{ item.awardedItem.meqsSupplier?.supplier?.name }} at -->
+                                {{ item.awardedItem.meqs_supplier?.supplier?.name }} at
                                 <span class="text-danger"> {{ formatToPhpCurrency(item.awardedItem.price) }} </span> PHP
                             </span> 
                             over the lowest price item
                             <span class="fw-bold">
-                                {{ item.lowestPriceItem.meqsSupplier?.supplier?.name }} at
+                                <!-- {{ item.lowestPriceItem.meqsSupplier?.supplier?.name }} at -->
+                                {{ item.lowestPriceItem.meqs_supplier?.supplier?.name }} at
                                 <span class="text-danger"> {{ formatToPhpCurrency(item.lowestPriceItem.price) }} </span> PHP ?
                             </span>
                         </small>
@@ -54,10 +56,10 @@
                                 <font-awesome-icon :icon="['fas', 'close']"/>
                             </client-only> Close
                     </button>
-                    <button @click="save" class="btn btn-primary" :disabled="!canSave || isSavingMeqs">
+                    <button data-testid="modal-notes-save-meqs" @click="save" class="btn btn-primary" :disabled="!canSave || isSavingMeqs">
                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSavingMeqs ? 'Saving...' : 'Save' }}
+                            <font-awesome-icon :icon="['fas', 'save']"/>
+                        </client-only> {{ isSavingMeqs ? 'Saving...' : 'Save' }}
                     </button>
                 </div>
                 </div>

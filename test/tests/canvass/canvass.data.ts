@@ -7,6 +7,11 @@ export const canvass_items: CanvassItems[] = [
         description: 'Office Chair',
         unit: 'pcs',
         quantity: 5
+    },
+    {
+        description: 'Mouse',
+        unit: 'pcs',
+        quantity: 15
     }
 ]
 

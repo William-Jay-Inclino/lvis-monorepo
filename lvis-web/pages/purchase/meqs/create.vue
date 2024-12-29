@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="col-8" v-if="transactionType === 'RV'">
                                             <client-only>
-                                                <v-select @search="handleSearchRvNumber" @option:selected="onRvNumberSelected" :options="rvs" label="rv_number"
+                                                <v-select data-testid="rv-number" @search="handleSearchRvNumber" @option:selected="onRvNumberSelected" :options="rvs" label="rv_number"
                                                     v-model="meqsData.rv">
                                                     <template v-slot:option="option">
                                                         <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
@@ -205,15 +205,15 @@
                                 <div class="d-flex justify-content-between">
                                     <nuxt-link class="btn btn-secondary" to="/purchase/meqs">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search MEQS
+                                            <font-awesome-icon :icon="['fas', 'search']" />
+                                        </client-only> 
+                                        Search MEQS
                                     </nuxt-link>
-                                    <button @click="goToStep2()" type="button" class="btn btn-primary"
+                                    <button data-testid="step1-next" @click="goToStep2()" type="button" class="btn btn-primary"
                                         :disabled="!canProceedStep2">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
-                            </client-only> Next
+                                            <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                                        </client-only> Next
                                     </button>
                                 </div>
                             </div>
@@ -242,14 +242,16 @@
                                     <button @click="goToStep1()" type="button" class="btn btn-secondary"
                                         :disabled="!hasReference">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
-                            </client-only> Back
+                                            <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                                        </client-only> 
+                                        Back
                                     </button>
-                                    <button @click="goToStep3()" type="button" class="btn btn-primary"
+                                    <button data-testid="step2-next" @click="goToStep3()" type="button" class="btn btn-primary"
                                         :disabled="!canProceedStep3">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
-                            </client-only> Next
+                                            <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                                        </client-only> 
+                                        Next
                                     </button>
                                 </div>
         
@@ -269,14 +271,16 @@
                                     <button @click="goToStep2()" type="button" class="btn btn-secondary"
                                         :disabled="!hasReference">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
-                            </client-only> Back
+                                            <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                                        </client-only> 
+                                        Back
                                     </button>
-                                    <button @click="onSaveMeqs()" type="button" class="btn btn-primary"
+                                    <button data-testid="save-meqs" @click="onSaveMeqs()" type="button" class="btn btn-primary"
                                         :disabled="isSavingMeqs">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSavingMeqs ? 'Saving MEQS...' : 'Save MEQS' }}
+                                            <font-awesome-icon :icon="['fas', 'save']"/>
+                                        </client-only> 
+                                        {{ isSavingMeqs ? 'Saving MEQS...' : 'Save MEQS' }}
                                     </button>
                                 </div>
         

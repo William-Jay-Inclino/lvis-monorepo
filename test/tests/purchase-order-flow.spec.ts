@@ -1,9 +1,11 @@
 import test from "@playwright/test";
-import { approve_signatory, login } from "../shared/helpers";
+import { approve_signatories, login } from "../shared/helpers";
 import { canvass_data, create_canvass, goto_create_canvass_page } from "./canvass";
-import { create_rv, DB_ENTITY, goto_create_rv_page, rv_approvers, rv_data } from "./rv";
+import { create_rv, goto_create_rv_page, rv_approvers, rv_data } from "./rv";
 import dotenv from 'dotenv';
 import { logout } from "../shared/helpers";
+import { DB_ENTITY } from "../shared/enums";
+import { create_meqs, goto_create_meqs_page, meqs_approvers, meqs_data } from "./meqs";
 
 dotenv.config();
 
@@ -35,22 +37,34 @@ test("Purchase Order Flow", async ({ page }) => {
 
     await logout({ page, url })
 
-    // approve signatories
-    for(let approver of rv_approvers) {
+    // approve RV signatories
+    await approve_signatories({
+        page,
+        url,
+        approvers: rv_approvers,
+        ref_number: rv.rv_number,
+        db_entity: DB_ENTITY.RV
+    })
 
-        const username = approver.username
-        const password = approver.password
+    // create meqs
+    await login({ page, url, username, password })
+    await goto_create_meqs_page({ page, url })
+    const meqs = await create_meqs({
+        page,
+        url,
+        data: { ...meqs_data, rv_number: rv.rv_number },
+        total_canvass_items: 2,
+    })
 
-        await login({ page, url, username, password })
+    await logout({ page, url })
 
-        await approve_signatory({
-            page,
-            ref_number: rv.rv_number,
-            db_entity: DB_ENTITY.RV,
-            popup: approver.popup,
-        })
-
-        await logout({ page, url })
-    }
+    // approve MEQS signatories
+    await approve_signatories({
+        page,
+        url,
+        approvers: meqs_approvers,
+        ref_number: meqs.meqs_number,
+        db_entity: DB_ENTITY.MEQS
+    })
 
 });

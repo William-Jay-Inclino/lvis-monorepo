@@ -209,10 +209,10 @@ export class MeqsResolver {
 
     }
 
-    @ResolveField(() => Boolean)
-    async is_rr_completed(@Parent() meqs: MEQS) {
-        return await this.meqsService.isRrCompleted(meqs.id)
-    }
+    // @ResolveField(() => Boolean)
+    // async is_rr_completed(@Parent() meqs: MEQS) {
+    //     return await this.meqsService.isRrCompleted(meqs.id)
+    // }
 
     @ResolveField(() => Boolean)
     can_update(
