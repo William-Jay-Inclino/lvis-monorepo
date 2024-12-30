@@ -67,7 +67,7 @@
                                             <span class="badge bg-primary ms-2">
                                                 Completed {{ dayGroup.schedules.filter(i => i.is_completed).length }}
                                             </span>
-                                            <span class="me-5"></span>
+                                            <span class="me-3"></span>
                                         </div>
                                     </div>
                                 </button>
@@ -170,7 +170,7 @@
                                         <span class="fst-italic">
                                             {{ dayGroup.day }}
                                         </span>
-                                        <div class="d-flex">
+                                        <div class="d-flex flex-wrap badge-container">
                                             <span class="badge bg-orange ms-2">
                                                 Pending {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.PENDING).length }}
                                             </span>
@@ -189,7 +189,7 @@
                                             <span class="badge bg-primary ms-2">
                                                 Completed {{ dayGroup.tickets.filter(i => i.status === TRIP_TICKET_STATUS.COMPLETED).length }}
                                             </span>
-                                            <span class="me-5"></span>
+                                            <span class="me-3"></span>
                                         </div>
                                     </div>
                                 </button>
@@ -480,5 +480,16 @@
         height: 0;
         opacity: 0;
         overflow: hidden;
+    }
+
+    .badge-container {
+        flex-wrap: wrap;
+        gap: 0.5rem; /* Adds spacing between badges */
+    }
+
+    .badge {
+        flex: 1 1 auto; /* Allows badges to shrink and grow within the container */
+        text-align: center; /* Centers the text inside badges */
+        min-width: 80px; /* Optional: Ensures badges have a readable minimum size */
     }
 </style>
