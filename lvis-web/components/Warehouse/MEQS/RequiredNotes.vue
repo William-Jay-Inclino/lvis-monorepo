@@ -28,8 +28,9 @@
                             <span class="text-danger">*</span>
                         </label>
                         <textarea
+                            data-test="test-item"
                             rows="3"
-                            class="form-control test-item"
+                            class="form-control"
                             :value="item.awardedItem.notes"
                             @input="updateNotes(item.awardedItem.canvass_item.id, $event)"
                         >

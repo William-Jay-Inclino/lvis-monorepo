@@ -104,11 +104,17 @@ export const toContainText = async (payload: { page: Page, test_id: string, valu
     await expect(element).toContainText(value);
 }
 
-export const getText = async(payload: { page: Page, test_id: string }): Promise<string> => {
-    const { page, test_id } = payload 
+export const getText = async(payload: { page: Page, test_id?: string, el?: Locator }): Promise<string> => {
+    const { page, test_id, el } = payload 
 
     console.log('test_id', test_id);
-    const element = page.getByTestId(test_id)
+
+    const element = test_id ? page.getByTestId(test_id) : el;
+
+    if(!element) {
+        console.error('Element not found');
+        return '' 
+    }
 
     await element.scrollIntoViewIfNeeded({ timeout: 5000 });
     await expect(element).toBeVisible({ timeout: 5000 }); 

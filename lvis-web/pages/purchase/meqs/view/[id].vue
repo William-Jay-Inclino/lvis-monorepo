@@ -239,7 +239,7 @@
                                             <th class="bg-secondary text-white"> Item </th>
                                             <th class="bg-secondary text-white"> Unit Price </th>
                                             <th class="bg-secondary text-white"> Qty </th>
-                                            <th class="bg-secondary text-white text-center"
+                                            <th data-test="awarded-supplier" class="bg-secondary text-white text-center"
                                                 v-for="meqsSupplier in item.meqs_suppliers">
                                                 {{ `${meqsSupplier.supplier?.name}` }}
                                             </th>
@@ -255,8 +255,13 @@
                                             <td class="text-muted text-center" v-for="meqsSupplier in item.meqs_suppliers">
                                                 <template v-for="supplierItem in meqsSupplier.meqs_supplier_items">
                                                     <span v-if="supplierItem.canvass_item.id === canvassItem.id">
-                                                        {{ supplierItem.price === -1 ? 'N/A' :
-                formatToPhpCurrency(supplierItem.price) }}
+                                                        {{ 
+                                                            supplierItem.price === -1 
+                                                                ? 
+                                                                    'N/A' 
+                                                                :
+                                                                    formatToPhpCurrency(supplierItem.price) 
+                                                        }}
                                                        
                                                             <client-only>
                                                                 <font-awesome-icon 

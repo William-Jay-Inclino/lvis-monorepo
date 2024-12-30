@@ -6,10 +6,9 @@ import dotenv from 'dotenv';
 import { logout } from "../shared/helpers";
 import { DB_ENTITY } from "../shared/enums";
 import { create_meqs, goto_create_meqs_page, meqs_approvers, meqs_data } from "./meqs";
+import { goto } from "../shared/utils";
 
 dotenv.config();
-
-
 
 test("Purchase Order Flow", async ({ page }) => {
 
@@ -17,9 +16,11 @@ test("Purchase Order Flow", async ({ page }) => {
     const username = process.env.TEST_USER || '';
     const password = process.env.TEST_PASSWORD || '';
 
+    await goto({ page, url })
+
     await login({ page, url, username, password })
 
-    // create canvass
+    // create Canvass
     await goto_create_canvass_page({ page, url })
     const canvass = await create_canvass({ 
         page, 
@@ -27,7 +28,7 @@ test("Purchase Order Flow", async ({ page }) => {
         url
     })
 
-    // create rv
+    // create RV
     await goto_create_rv_page({ page, url })
     const rv = await create_rv({ 
         page, 
@@ -46,7 +47,7 @@ test("Purchase Order Flow", async ({ page }) => {
         db_entity: DB_ENTITY.RV
     })
 
-    // create meqs
+    // create MEQS
     await login({ page, url, username, password })
     await goto_create_meqs_page({ page, url })
     const meqs = await create_meqs({
@@ -66,5 +67,8 @@ test("Purchase Order Flow", async ({ page }) => {
         ref_number: meqs.meqs_number,
         db_entity: DB_ENTITY.MEQS
     })
+
+    // TODO: create POs
+
 
 });

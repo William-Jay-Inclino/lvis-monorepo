@@ -9,10 +9,10 @@
                     <div class="col-lg-11">
                         <div class="h5wrapper mb-3">
                             <hr class="result">
-                            <h5 class="text-warning fst-italic">
+                            <h5 data-testid="po-info" class="text-warning fst-italic">
                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                            </client-only> PO Info
+                                    <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                </client-only> PO Info
                             </h5>
                             <hr class="result">
                         </div>
@@ -36,7 +36,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-muted">PO Number</td>
+                                        <td data-testid="po-number" class="text-muted">PO Number</td>
                                         <td> {{ item.po_number }} </td>
                                     </tr>
                                     <tr>

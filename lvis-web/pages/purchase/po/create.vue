@@ -25,7 +25,7 @@
                                         MEQS Number <span class="text-danger">*</span>
                                     </label>
                                     <client-only>
-                                        <v-select @search="handleSearchMeqsNumber" @option:selected="onMeqsSelected" :options="filteredMeqs" label="meqs_number"
+                                        <v-select data-testid="meqs-number" @search="handleSearchMeqsNumber" @option:selected="onMeqsSelected" :options="filteredMeqs" label="meqs_number"
                                             v-model="selectedMeqs" :clearable=false>
                                             <template v-slot:option="option">
                                                 <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
@@ -72,7 +72,7 @@
                                         Supplier <span class="text-danger">*</span>
                                     </label>
                                     <client-only>
-                                        <v-select @option:selected="onSupplierSelected" :options="suppliers" label="label"
+                                        <v-select data-testid="supplier" @option:selected="onSupplierSelected" :options="suppliers" label="label"
                                             v-model="poData.meqs_supplier">
                                             <template v-slot:option="option">
                                                 <div v-if="option.is_referenced" class="row">

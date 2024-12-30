@@ -8,8 +8,6 @@ export const login = async(payload: { page: Page, username: string, password: st
     
     const { page, username, password, url } = payload
 
-    await x.goto({ page, url })
-
     await x.input({
         page,
         test_id: 'username',

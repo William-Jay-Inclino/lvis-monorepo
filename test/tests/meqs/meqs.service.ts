@@ -1,6 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
 import * as x from '../../shared/utils'
-import { MeqsData, MeqsSupplier } from "./meqs.types";
+import { AwardedSupplier, MeqsData, MeqsSupplier } from "./meqs.types";
 
 
 
@@ -23,7 +23,7 @@ export const create_meqs = async(
         data: MeqsData, 
         url: string,
         total_canvass_items: number, 
-    }): Promise<{ meqs_number: string }> => {
+    }): Promise<{ meqs_number: string, awarded_suppliers: AwardedSupplier[] }> => {
     
         const { page, data, url, total_canvass_items } = payload
 
@@ -44,11 +44,7 @@ export const create_meqs = async(
     await x.click({ page, test_id: 'save-meqs' })
 
     if(await x.is_visible({ page, selector: '[data-testid="required-notes-modal"]' })) {
-
-        console.log('required-notes-modal is visible');
-        
-        const items_needed_justification = await x.get_elements_by_selector({ page, selector: '.test-item' })
-        console.log('items_needed_justification', items_needed_justification);
+        const items_needed_justification = await x.get_elements_by_selector({ page, selector: '[data-test="test-item"]' })
         await add_justification_on_items({ items: items_needed_justification })
         await x.click({ page, test_id: 'modal-notes-save-meqs' })
 
@@ -64,7 +60,11 @@ export const create_meqs = async(
 
     const meqs_number = await x.getText({ page, test_id: 'meqs-number' })
 
-    return { meqs_number }
+    const el_awarded_suppliers = await x.get_elements_by_selector({ page, selector: '[data-test="awarded-supplier"]' })
+
+    const awarded_suppliers = await get_awarded_suppliers({ page, items: el_awarded_suppliers })
+
+    return { meqs_number, awarded_suppliers }
 
 }
 
@@ -125,5 +125,19 @@ const add_justification_on_items = async(payload: { items: Locator[] }) => {
         await x.fill({ element: item, value: 'Tested and proven' })
 
     }
+
+}
+
+const get_awarded_suppliers = async(payload: { page: Page, items: Locator[] }): Promise<AwardedSupplier[]> => {
+    const { page, items } = payload 
+
+    const awarded_suppliers = []
+
+    for(let item of items) {
+        const supplier_name = await x.getText({ page, el: item })
+        awarded_suppliers.push({ supplier_name })
+    }
+
+    return awarded_suppliers
 
 }
