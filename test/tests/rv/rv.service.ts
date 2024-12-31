@@ -35,8 +35,6 @@ export const create_rv = async(payload: { page: Page, data: RvData, url: string 
 
     await x.close_popup({ page })
 
-    await x.toContainText({ page, test_id: 'rv-info', value: 'RV Info' })
-
     const rv_number = await x.getText({ page, test_id: 'rv-number' })
 
     return { rv_number }

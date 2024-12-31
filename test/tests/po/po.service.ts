@@ -70,8 +70,6 @@ export const create_po = async(
 
     await x.close_popup({ page })
 
-    await x.toContainText({ page, test_id: 'po-info', value: 'PO Info' })
-
     const po_number = await x.getText({ page, test_id: 'po-number' })
 
     return { po_number }

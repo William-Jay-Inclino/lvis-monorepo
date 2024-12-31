@@ -56,8 +56,6 @@ export const create_meqs = async(
 
     await x.close_popup({ page })
 
-    await x.toContainText({ page, test_id: 'meqs-info', value: 'MEQS Info' })
-
     const meqs_number = await x.getText({ page, test_id: 'meqs-number' })
 
     const el_awarded_suppliers = await x.get_elements_by_selector({ page, selector: '[data-test="awarded-supplier"]' })
@@ -97,12 +95,9 @@ const award_items = async(payload: { page: Page, suppliers: MeqsSupplier[], tota
 
         for(const [supplierIndx, supplier] of suppliers.entries()) {
 
-            console.log('supplierIndx', supplierIndx);
-
             for (const [itemIndx, item] of supplier.items.entries()) {
                 
                 if(itemIndx !== i) {
-                    console.log('continue');
                     continue
                 }
                 

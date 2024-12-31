@@ -9,10 +9,10 @@
                     <div class="col-lg-12">
                         <div class="h5wrapper mb-3">
                             <hr class="result">
-                            <h5 class="text-warning fst-italic">
+                            <h5 data-testid="rr-info" class="text-warning fst-italic">
                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                            </client-only> RR Info
+                                    <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                </client-only> RR Info
                             </h5>
                             <hr class="result">
                         </div>
@@ -97,7 +97,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">RR Number</td>
-                                        <td> {{ item.rr_number }} </td>
+                                        <td data-testid="rr-number"> {{ item.rr_number }} </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Date</td>
@@ -436,34 +436,34 @@
                                 <nuxt-link v-if="canSearch(authUser, 'canManageRR')" class="btn btn-secondary me-2"
                                     to="/warehouse/rr">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search RR
+                                        <font-awesome-icon :icon="['fas', 'search']" />
+                                    </client-only> 
+                                    Search RR
                                 </nuxt-link>
                                 <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageRR')" @click="onClickPrint" class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#purchasingPdfModal">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'print']"/>
-                            </client-only> Print RR
+                                        <font-awesome-icon :icon="['fas', 'print']"/>
+                                    </client-only> Print RR
                                 </button>
                             </div>
                             <div v-if="!item.cancelled_at">
                                 <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
                                     @click="onCancelRr()">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Cancel RR
+                                        <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                    </client-only> Cancel RR
                                 </button>
                                 <button v-if="!!item.can_update" class="btn btn-success me-2" @click="onClickUpdate(item.id)">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']"/>
-                            </client-only> Edit Form
+                                        <font-awesome-icon :icon="['fas', 'edit']"/>
+                                    </client-only> Edit Form
                                 </button>
-                                <button v-if="canCreate(authUser, 'canManageRR')" class="btn btn-primary me-2"
+                                <button data-testid="add-new-rr" v-if="canCreate(authUser, 'canManageRR')" class="btn btn-primary me-2"
                                     @click="onClickAdd">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New RR
+                                            <font-awesome-icon :icon="['fas', 'plus']"/>
+                                    </client-only> Add New RR
                                 </button>
                             </div>
                         </div>

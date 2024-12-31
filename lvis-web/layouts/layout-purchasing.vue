@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
+                            <nuxt-link data-testid="home-menu" class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
                         <li v-if="canView('canManageCanvass', authUser)" class="nav-item">
                             <nuxt-link data-testid="canvass-menu" :class="{ active: $route.path.startsWith('/purchase/canvass') }" class="nav-link text-white" to="/purchase/canvass">Canvass</nuxt-link>

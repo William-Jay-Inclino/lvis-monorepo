@@ -46,8 +46,6 @@ export const approve_signatory = async(
     }) => {
     const { page, ref_number, db_entity, popup, dropdown_testid } = payload
     
-    console.log('dropdown_testid', dropdown_testid);
-
     // click notification icon
     await x.click({ page, test_id: 'notification' })
 
@@ -103,3 +101,10 @@ export const approve_signatories = async(
     }
 
 }
+
+export const generate_invoice_number = (): string => {
+    const prefix = "INV";
+    const datePart = new Date().toISOString().slice(0, 10).replace(/-/g, ""); // Format: YYYYMMDD
+    const randomPart = Math.floor(1000 + Math.random() * 9000); // Random 4-digit number
+    return `${prefix}-${datePart}-${randomPart}`;
+};

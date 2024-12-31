@@ -25,33 +25,33 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
+                            <nuxt-link data-testid="home-menu" class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
                         <li v-if="canViewWarehousing(authUser)" class="nav-item dropdown">
-                            <a :class="{ active: isActiveWarehouse }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                            <a data-testid="warehouse-dropdown" :class="{ active: isActiveWarehouse }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Warehouse
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li v-if="canView('canManageRR', authUser)"><nuxt-link class="dropdown-item"
+                                <li data-testid="rr-menu" v-if="canView('canManageRR', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/rr">RR</nuxt-link>
                                 </li>
-                                <li v-if="canView('canManageOSRIV', authUser)"><nuxt-link class="dropdown-item"
+                                <li data-testid="osriv-menu" v-if="canView('canManageOSRIV', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/osriv">OSRIV</nuxt-link>
                                 </li>
-                                <li v-if="canView('canManageSERIV', authUser)"><nuxt-link class="dropdown-item"
+                                <li data-testid="seriv-menu" v-if="canView('canManageSERIV', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/seriv">SERIV</nuxt-link>
                                 </li>
-                                <li v-if="canView('canManageMRV', authUser)"><nuxt-link class="dropdown-item"
+                                <li data-testid="mrv-menu" v-if="canView('canManageMRV', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/mrv">MRV</nuxt-link>
                                 </li>
-                                <li v-if="canView('canManageMCT', authUser)"><nuxt-link class="dropdown-item"
+                                <li data-testid="mct-menu" v-if="canView('canManageMCT', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/mct">MCT</nuxt-link>
                                 </li>
-                                <li v-if="canView('canManageMCRT', authUser)"><nuxt-link class="dropdown-item"
+                                <li data-testid="mcrt-menu" v-if="canView('canManageMCRT', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/mcrt">MCRT</nuxt-link>
                                 </li>
-                                <li v-if="canView('canManageMST', authUser)"><nuxt-link class="dropdown-item"
+                                <li data-testid="mst-menu" v-if="canView('canManageMST', authUser)"><nuxt-link class="dropdown-item"
                                     to="/warehouse/mst">MST</nuxt-link>
                                 </li>
                             </ul>
@@ -90,7 +90,7 @@
                             </client-only>
                         </li>
                         <li class="nav-item dropdown">
-                            <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            <a data-testid="username-dropdown" style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <client-only>
                                     <font-awesome-icon :icon="['fas', 'user-circle']" />
@@ -104,7 +104,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
                                 <li>
-                                    <a @click="handleLogOut" class="dropdown-item"> Logout </a>
+                                    <a data-testid="logout" @click="handleLogOut" class="dropdown-item"> Logout </a>
                                 </li>
                             </ul>
                         </li>
@@ -148,6 +148,9 @@
                             Warehouse
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li v-if="canView('canManageRR', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                to="/warehouse/rr">RR</nuxt-link>
+                            </li>
                             <li v-if="canView('canManageOSRIV', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                 to="/warehouse/osriv">OSRIV</nuxt-link>
                             </li>

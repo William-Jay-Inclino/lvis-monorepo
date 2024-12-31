@@ -9,6 +9,8 @@ import { create_meqs, goto_create_meqs_page, meqs_approvers, meqs_data } from ".
 import { goto } from "../shared/utils";
 import { create_pos, goto_create_po_page } from "./po/po.service";
 import { po_approvers, po_data } from "./po/po.data";
+import { create_rrs, goto_create_rr_page } from "./rr/rr.service";
+import { rr_approvers, rr_data } from "./rr/rr.data";
 
 dotenv.config();
 
@@ -70,10 +72,10 @@ test("Purchase Order Flow", async ({ page }) => {
         db_entity: DB_ENTITY.MEQS
     })
 
-    // create PO
+    // create PO for each awarded supplier
     await login({ page, url, username, password })
     await goto_create_po_page({ page, url })
-    const pos = await create_pos({
+    const po = await create_pos({
         page,
         url,
         data: {...po_data, supplier_names: meqs.awarded_suppliers}
@@ -82,7 +84,7 @@ test("Purchase Order Flow", async ({ page }) => {
     await logout({ page, url })
     
     // approve PO signatories for each PO
-    for(let po_number of pos.po_numbers) {
+    for(let po_number of po.po_numbers) {
         await approve_signatories({
             page,
             url,
@@ -92,6 +94,27 @@ test("Purchase Order Flow", async ({ page }) => {
         })
     }
 
-    // TODO: Create RR for each PO
+    // Create RR for each PO
+    await login({ page, url, username, password })
+    await goto_create_rr_page({ page, url })
+
+    const rr = await create_rrs({
+        page,
+        url,
+        data: rr_data,
+        po_numbers: po.po_numbers,
+    })
+
+    await logout({ page, url })
+
+    for(let rr_number of rr.rr_numbers) {
+        await approve_signatories({
+            page,
+            url,
+            approvers: rr_approvers,
+            ref_number: rr_number,
+            db_entity: DB_ENTITY.RR
+        })
+    }
 
 });

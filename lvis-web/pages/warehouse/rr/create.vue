@@ -32,7 +32,7 @@
                                 PO Number <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select @search="handleSearchPoNumber" @option:selected="onPoSelected" :options="pos" label="po_number" v-model="rrData.po"
+                                <v-select data-testid="po-number" @search="handleSearchPoNumber" @option:selected="onPoSelected" :options="pos" label="po_number" v-model="rrData.po"
                                     :clearable="false">
                                     <template v-slot:option="option">
                                         <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
@@ -97,7 +97,7 @@
                             <label class="form-label">
                                 Invoice <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" v-model="rrData.invoice_number">
+                            <input data-testid="invoice" type="text" class="form-control" v-model="rrData.invoice_number">
                             <small class="text-danger fst-italic" v-if="rrDataErrors.invoice_number"> This field is required
                             </small>
                         </div>
@@ -107,7 +107,7 @@
                                 Received By <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="rrData.received_by"></v-select>
+                                <v-select data-testid="received-by" @search="handleSearchEmployees" :options="employees" label="fullname" v-model="rrData.received_by"></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-if="rrDataErrors.received_by"> This field is required
                             </small>
@@ -167,28 +167,28 @@
                             <div>
                                 <nuxt-link v-show="currentStep === 1" class="btn btn-secondary" to="/warehouse/rr">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search RR
+                                        <font-awesome-icon :icon="['fas', 'search']" />
+                                    </client-only> 
+                                    Search RR
                                 </nuxt-link>
         
                                 <button v-show="currentStep === 2" @click="goToStep1" class="btn btn-secondary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
-                            </client-only> Back
+                                        <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                                    </client-only> Back
                                 </button>
         
                             </div>
         
-                            <button v-show="currentStep === 1" @click="goToStep2" class="btn btn-primary">
+                            <button data-testid="next" v-show="currentStep === 1" @click="goToStep2" class="btn btn-primary">
                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
-                            </client-only> Next
+                                    <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                                </client-only> Next
                             </button>
-                            <button @click="save()" v-show="currentStep === 2" class="btn btn-primary" :disabled="isSaving">
+                            <button data-testid="save" @click="save()" v-show="currentStep === 2" class="btn btn-primary" :disabled="isSaving">
                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                    <font-awesome-icon :icon="['fas', 'save']"/>
+                                </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                             </button>
                         </div>
                     </div>

@@ -136,7 +136,7 @@
                                 </td>
                                 <td v-show="showAccepted" class="text-muted align-middle">
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <input type="number" :class="{
+                                        <input data-test="qty-accepted" type="number" :class="{
                                                 'border-danger border border-2': rrItem.isInvalidQtyAccepted,
                                             }" class="form-control" v-model="rrItem.quantity_accepted"
                                             style="width: 80px">

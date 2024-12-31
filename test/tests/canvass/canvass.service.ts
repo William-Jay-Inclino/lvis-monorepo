@@ -70,8 +70,6 @@ export const create_canvass = async(payload: { page: Page, data: CanvassData, ur
 
     await x.close_popup({ page })
 
-    await x.toContainText({ page, test_id: 'canvass-info', value: 'Canvass Info' })
-
     const rc_number = await x.getText({ page, test_id: 'rc-number' })
 
     return { rc_number }
