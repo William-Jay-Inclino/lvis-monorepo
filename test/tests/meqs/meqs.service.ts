@@ -1,6 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
 import * as x from '../../shared/utils'
-import { AwardedSupplier, MeqsData, MeqsSupplier } from "./meqs.types";
+import { MeqsData, MeqsSupplier } from "./meqs.types";
 
 
 
@@ -23,7 +23,7 @@ export const create_meqs = async(
         data: MeqsData, 
         url: string,
         total_canvass_items: number, 
-    }): Promise<{ meqs_number: string, awarded_suppliers: AwardedSupplier[] }> => {
+    }): Promise<{ meqs_number: string, awarded_suppliers: string[] }> => {
     
         const { page, data, url, total_canvass_items } = payload
 
@@ -128,14 +128,14 @@ const add_justification_on_items = async(payload: { items: Locator[] }) => {
 
 }
 
-const get_awarded_suppliers = async(payload: { page: Page, items: Locator[] }): Promise<AwardedSupplier[]> => {
+const get_awarded_suppliers = async(payload: { page: Page, items: Locator[] }): Promise<string[]> => {
     const { page, items } = payload 
 
     const awarded_suppliers = []
 
     for(let item of items) {
         const supplier_name = await x.getText({ page, el: item })
-        awarded_suppliers.push({ supplier_name })
+        awarded_suppliers.push(supplier_name)
     }
 
     return awarded_suppliers

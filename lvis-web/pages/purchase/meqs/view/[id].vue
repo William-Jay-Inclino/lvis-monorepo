@@ -98,7 +98,7 @@
                                             <td> {{ formatDate(item?.meqs_date) }} </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-muted">Notes</td>
+                                            <td class="text-muted">Recommendation Statement</td>
                                             <td> {{ item?.notes }} </td>
                                         </tr>
                                     </tbody>
@@ -217,8 +217,8 @@
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
-                            </client-only> Items
+                                        <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                                    </client-only> Items
                                 </h5>
                                 <hr class="result">
                             </div>
@@ -231,74 +231,96 @@
                                     <small class="text-muted fst-italic">2. The highlighted row needs some review.</small>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover table-sm table-bordered ">
-                                    <thead>
-                                        <tr>
-                                            <th class="bg-secondary text-white"> No </th>
-                                            <th class="bg-secondary text-white"> Item </th>
-                                            <th class="bg-secondary text-white"> Unit Price </th>
-                                            <th class="bg-secondary text-white"> Qty </th>
-                                            <th data-test="awarded-supplier" class="bg-secondary text-white text-center"
-                                                v-for="meqsSupplier in item.meqs_suppliers">
-                                                {{ `${meqsSupplier.supplier?.name}` }}
-                                            </th>
-                                            <th class="bg-secondary text-white text-center">Remarks</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody v-if="referenceData?.canvass">
-                                        <tr :class="{'table-danger': hasRemarks(canvassItem.id, item.meqs_suppliers)}" v-for="canvassItem, i in referenceData.canvass.canvass_items">
-                                            <td class="text-muted"> {{ i + 1 }} </td>
-                                            <td class="text-muted"> {{ canvassItem.description }} </td>
-                                            <td class="text-muted"> {{ canvassItem.unit ? canvassItem.unit.name : 'N/A' }} </td>
-                                            <td class="text-muted"> {{ canvassItem.quantity }} </td>
-                                            <td class="text-muted text-center" v-for="meqsSupplier in item.meqs_suppliers">
-                                                <template v-for="supplierItem in meqsSupplier.meqs_supplier_items">
-                                                    <span v-if="supplierItem.canvass_item.id === canvassItem.id">
-                                                        {{ 
-                                                            supplierItem.price === -1 
-                                                                ? 
-                                                                    'N/A' 
-                                                                :
-                                                                    formatToPhpCurrency(supplierItem.price) 
-                                                        }}
-                                                       
-                                                            <client-only>
-                                                                <font-awesome-icon 
-                                                                :icon="['fas', 'star']" 
-                                                                class="fs-5" 
-                                                                :class="{ 'text-warning': supplierItem.is_awarded }" 
-                                                                />
 
+                            <div class="row">
+                                <div class="col">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-sm table-bordered ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="bg-secondary text-white"> No </th>
+                                                    <th class="bg-secondary text-white"> Item </th>
+                                                    <th class="bg-secondary text-white"> Unit Price </th>
+                                                    <th class="bg-secondary text-white"> Qty </th>
+                                                    <th class="bg-secondary text-white text-center"
+                                                        v-for="meqsSupplier in item.meqs_suppliers">
+                                                        {{ `${meqsSupplier.supplier?.name}` }}
+                                                    </th>
+                                                    <th class="bg-secondary text-white text-center">Remarks</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody v-if="referenceData?.canvass">
+                                                <tr :class="{'table-danger': hasRemarks(canvassItem.id, item.meqs_suppliers)}" v-for="canvassItem, i in referenceData.canvass.canvass_items">
+                                                    <td class="text-muted"> {{ i + 1 }} </td>
+                                                    <td class="text-muted"> {{ canvassItem.description }} </td>
+                                                    <td class="text-muted"> {{ canvassItem.unit ? canvassItem.unit.name : 'N/A' }} </td>
+                                                    <td class="text-muted"> {{ canvassItem.quantity }} </td>
+                                                    <td class="text-muted text-center" v-for="meqsSupplier in item.meqs_suppliers">
+                                                        <template v-for="supplierItem in meqsSupplier.meqs_supplier_items">
+                                                            <span v-if="supplierItem.canvass_item.id === canvassItem.id">
+                                                                {{ 
+                                                                    supplierItem.price === -1 
+                                                                        ? 
+                                                                            'N/A' 
+                                                                        :
+                                                                            formatToPhpCurrency(supplierItem.price) 
+                                                                }}
+                                                               
+                                                                    <client-only>
+                                                                        <font-awesome-icon 
+                                                                        :icon="['fas', 'star']" 
+                                                                        class="fs-5" 
+                                                                        :class="{ 'text-warning': supplierItem.is_awarded }" 
+                                                                        />
+        
+                                                                    </client-only>
+                                                            </span>
+                                                        </template>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button @click="onClickNote(canvassItem.id)" class="btn btn-secondary btn-sm"
+                                                            data-bs-toggle="modal" data-bs-target="#myModal">
+                                                            <client-only>
+                                                                <font-awesome-icon :icon="['fas', 'book']" />
                                                             </client-only>
-                                                    </span>
-                                                </template>
-                                            </td>
-                                            <td class="text-center">
-                                                <button @click="onClickNote(canvassItem.id)" class="btn btn-secondary btn-sm"
-                                                    data-bs-toggle="modal" data-bs-target="#myModal">
-                                                    <client-only>
-                                                        <font-awesome-icon :icon="['fas', 'book']" />
-                                                    </client-only>
-                                                    View
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody v-else>
-                                        <tr>
-                                            <td :colspan="5 + item.meqs_suppliers.length" class="text-center">N/A</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                            View
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody v-else>
+                                                <tr>
+                                                    <td :colspan="5 + item.meqs_suppliers.length" class="text-center">N/A</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
+
         
                         </div>
                     </div>
-        
-                    <hr>
-        
-                    <div class="row mb-3 pt-3">
+                    
+                    <div class="row pt-3 mb-5">
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item text-center bg-warning text-white fw-bold">AWARDED SUPPLIERS</li>
+                                <li v-for="awarded_supplier in awarded_suppliers" class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span data-test="awarded-supplier" class="fw-bold">
+                                        {{ awarded_supplier.supplier?.name }}
+                                    </span>
+                                    <span class="badge bg-warning rounded-pill">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'star']"/>
+                                        </client-only>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row pt-3">
                         <div class="col">
                             <div class="d-flex justify-content-end">
                                 <div class="me-2">
@@ -339,7 +361,6 @@
                             </div>
                         </div>
                     </div>
-        
         
                 </div>
         
@@ -389,6 +410,7 @@ import { useToast } from "vue-toastification";
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import { hasRemarks } from '~/composables/purchase/meqs/meqs';
+import type { MeqsSupplier } from '~/composables/purchase/meqs/meqs-supplier';
 
 definePageMeta({
     name: ROUTES.MEQS_VIEW,
@@ -446,6 +468,43 @@ const referenceLabel = computed(() => {
 
 })
 
+const hasPO = computed(() => {
+
+    if (!item.value) return false
+
+    if (item.value.meqs_suppliers) {
+
+        const po = item.value.meqs_suppliers.find(i => !!i.po)
+
+        if (po) {
+            return true
+        }
+
+        return false
+
+    } else {
+        return false
+    }
+
+})
+
+const awarded_suppliers = computed( (): MeqsSupplier[] => {
+    
+    if(!item.value) return []
+
+    const awarded_suppliers = []
+
+    for(let meqs_supplier of item.value.meqs_suppliers) {
+        const awarded_item = meqs_supplier.meqs_supplier_items.find(i => i.is_awarded === true)
+        if(awarded_item) {
+            awarded_suppliers.push(meqs_supplier)
+        }
+    }
+
+    return awarded_suppliers
+
+})
+
 function getUploadsPath(src: string) {
 
     const path = src.replace(UPLOADS_PATH, '')
@@ -478,26 +537,6 @@ function onClickNote(canvass_item_id: string) {
     }
 
 }
-
-const hasPO = computed(() => {
-
-    if (!item.value) return false
-
-    if (item.value.meqs_suppliers) {
-
-        const po = item.value.meqs_suppliers.find(i => !!i.po)
-
-        if (po) {
-            return true
-        }
-
-        return false
-
-    } else {
-        return false
-    }
-
-})
 
 async function onCancelMeqs() {
 

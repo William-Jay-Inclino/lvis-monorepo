@@ -145,20 +145,6 @@ export const close_popup = async (payload: { page: Page }) => {
     await page.waitForTimeout(200);
 };
 
-// export const is_popup_visibile = async(payload: { page: Page }): Promise<boolean> => {
-//     const { page } = payload 
-//     const swalSelector = '.swal2-popup';
-
-//     await page.waitForTimeout(500);
-
-//     if(await is_visible({ page, selector: swalSelector })) {
-//         return true 
-//     }
-
-//     return false 
-
-// }
-
 export const is_visible = async(payload: { page: Page, selector: string }): Promise<boolean> => {
 
     const { page, selector } = payload

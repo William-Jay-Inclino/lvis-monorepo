@@ -196,7 +196,7 @@
         
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Notes
+                                        Recommendation Statement
                                     </label>
                                     <textarea v-model="meqsData.notes" class="form-control" rows="3"></textarea>
                                     <small class="text-muted fst-italic">This note will be use during print out</small>

@@ -124,14 +124,14 @@
                                 <div class="d-flex justify-content-between">
                                     <nuxt-link class="btn btn-secondary" to="/purchase/po">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
-                            </client-only> Back to Search
+                                            <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                                        </client-only> Back to Search
                                     </nuxt-link>
-                                    <button @click="save()" type="button" class="btn btn-primary"
+                                    <button data-testid="save" @click="save()" type="button" class="btn btn-primary"
                                         :disabled="isSaving || !canSave">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                            <font-awesome-icon :icon="['fas', 'save']"/>
+                                        </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                     </button>
                                 </div>
         

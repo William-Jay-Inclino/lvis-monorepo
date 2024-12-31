@@ -36,8 +36,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td data-testid="po-number" class="text-muted">PO Number</td>
-                                        <td> {{ item.po_number }} </td>
+                                        <td class="text-muted">PO Number</td>
+                                        <td data-testid="po-number"> {{ item.po_number }} </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted align-middle">RR Number/s</td>
@@ -218,8 +218,8 @@
                                 </nuxt-link>
                                 <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManagePO')" @click="onClickPrint" class="btn btn-danger">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'print']"/>
-                            </client-only> Print PO
+                                        <font-awesome-icon :icon="['fas', 'print']"/>
+                                    </client-only> Print PO
                                 </button>
                                 <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                     data-bs-target="#purchasingPdfModal">print</button>
@@ -228,19 +228,19 @@
                                 <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
                                     @click="onCancelPo()" :disabled="item.rrs.length >= 1">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Cancel PO
+                                        <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                    </client-only> Cancel PO
                                 </button>
                                 <button v-if="!!item.can_update" class="btn btn-success me-2" @click="onClickUpdate(item.id)">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']"/>
-                            </client-only> Edit Form
+                                        <font-awesome-icon :icon="['fas', 'edit']"/>
+                                    </client-only> Edit Form
                                 </button>
-                                <button v-if="canCreate(authUser, 'canManagePO')" class="btn btn-primary me-2"
+                                <button data-testid="add-new-po" v-if="canCreate(authUser, 'canManagePO')" class="btn btn-primary me-2"
                                     @click="onClickAdd">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New PO
+                                            <font-awesome-icon :icon="['fas', 'plus']"/>
+                                    </client-only> Add New PO
                                 </button>
                             </div>
                         </div>

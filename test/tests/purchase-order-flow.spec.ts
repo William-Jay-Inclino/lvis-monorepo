@@ -7,6 +7,8 @@ import { logout } from "../shared/helpers";
 import { DB_ENTITY } from "../shared/enums";
 import { create_meqs, goto_create_meqs_page, meqs_approvers, meqs_data } from "./meqs";
 import { goto } from "../shared/utils";
+import { create_pos, goto_create_po_page } from "./po/po.service";
+import { po_approvers, po_data } from "./po/po.data";
 
 dotenv.config();
 
@@ -68,7 +70,28 @@ test("Purchase Order Flow", async ({ page }) => {
         db_entity: DB_ENTITY.MEQS
     })
 
-    // TODO: create POs
+    // create PO
+    await login({ page, url, username, password })
+    await goto_create_po_page({ page, url })
+    const pos = await create_pos({
+        page,
+        url,
+        data: {...po_data, supplier_names: meqs.awarded_suppliers}
+    })
 
+    await logout({ page, url })
+    
+    // approve PO signatories for each PO
+    for(let po_number of pos.po_numbers) {
+        await approve_signatories({
+            page,
+            url,
+            approvers: po_approvers,
+            ref_number: po_number,
+            db_entity: DB_ENTITY.PO
+        })
+    }
+
+    // TODO: Create RR for each PO
 
 });

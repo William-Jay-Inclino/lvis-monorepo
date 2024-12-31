@@ -16,7 +16,3 @@ export interface MeqsSupplierItem {
     price: number
     is_awarded: boolean
 }
-
-export interface AwardedSupplier {
-    supplier_name: string
-}

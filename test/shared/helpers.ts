@@ -36,8 +36,17 @@ export const logout = async(payload: { page: Page, url: string }) => {
     await expect(page).toHaveURL(`${url}`, { timeout: 5000 });
 }
 
-export const approve_signatory = async(payload: { page: Page, ref_number: string, db_entity: DB_ENTITY, popup: 'swal' | 'modal' }) => {
-    const { page, ref_number, db_entity, popup } = payload
+export const approve_signatory = async(
+    payload: { 
+        page: Page, 
+        ref_number: string, 
+        db_entity: DB_ENTITY, 
+        popup: 'swal' | 'modal',
+        dropdown_testid?: string, 
+    }) => {
+    const { page, ref_number, db_entity, popup, dropdown_testid } = payload
+    
+    console.log('dropdown_testid', dropdown_testid);
 
     // click notification icon
     await x.click({ page, test_id: 'notification' })
@@ -45,8 +54,8 @@ export const approve_signatory = async(payload: { page: Page, ref_number: string
     // approve the item in the table
     await x.click({ page, test_id: `test-${db_entity}-${ref_number}` })
 
-    if(popup === 'modal') {
-        await x.custom_select({ page, test_id: 'classification' })
+    if(popup === 'modal' && dropdown_testid) {
+        await x.custom_select({ page, test_id: dropdown_testid })
         await x.click({ page, test_id: 'approve' })
     }
 
@@ -74,11 +83,20 @@ export const approve_signatories = async(
 
         await login({ page, url, username, password })
 
+        let dropdown_testid = undefined
+
+        if(approver.is_budget_officer) {
+            dropdown_testid = 'classification'
+        } else if(approver.is_finance_manager) {
+            dropdown_testid = 'fund-source'
+        }
+
         await approve_signatory({
             page,
             ref_number: ref_number,
             db_entity: db_entity,
             popup: approver.popup,
+            dropdown_testid,
         })
 
         await logout({ page, url })
