@@ -9,4 +9,7 @@ SELECT setval(pg_get_serial_sequence('item_transaction', 'id'), (SELECT MAX(id) 
 SELECT setval(pg_get_serial_sequence('project_item', 'id'), (SELECT MAX(id) FROM project_item));
 
 
+// if new year
+SELECT setval(pg_get_serial_sequence('item_code_tracker', 'id'), (SELECT MAX(id) FROM item_code_tracker));
+
 change 'item_transaction' sa table na imu gusto nga mag start ang id og aut increment

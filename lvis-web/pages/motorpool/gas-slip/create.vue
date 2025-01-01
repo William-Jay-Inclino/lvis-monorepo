@@ -71,6 +71,15 @@
                                 </div>
 
                             </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Date <span class="text-danger">*</span>
+                                </label>
+                                <input type="date" class="form-control" v-model="gsData.used_on">
+                                <small class="text-danger fst-italic" v-if="gsDataErrors.used_on"> {{ errorMsg }}
+                                </small>
+                            </div>
                             
                             <div class="mb-3">
                                 <label class="form-label">
@@ -234,6 +243,7 @@ const _gsDataErrorsInitial = {
     requested_by: false,
     liter_in_text: false,
     purpose: false,
+    used_on: false,
 }
 
 // FORM DATA
@@ -246,6 +256,7 @@ const gsData = ref<CreateGasSlip>({
     with_container: false,
     liter_in_text: '',
     purpose: '',
+    used_on: '',
     approvers: [],
 })
 const gsDataErrors = ref({ ..._gsDataErrorsInitial })
@@ -374,6 +385,9 @@ function isValid(): boolean {
         gsDataErrors.value.purpose = true
     }
     
+    if(!gsData.value.used_on || gsData.value.used_on.trim() === '') {
+        gsDataErrors.value.used_on = true
+    }
 
     for(let i of gsData.value.approvers) {
         if(!i.approver) {

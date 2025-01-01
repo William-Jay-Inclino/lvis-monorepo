@@ -51,6 +51,11 @@ export class GasSlip {
 
   @Field(() => Int, { nullable: true })
   approval_status: number | null;
+
+  @Field(() => Date, { nullable: true })
+  used_on: Date | null;
+
+
   
   // =============== audit fields ===============
 

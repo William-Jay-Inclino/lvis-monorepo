@@ -17,7 +17,7 @@ export interface GasSlip {
     price_per_liter: number 
     purpose: string 
     is_posted: boolean | null
-
+    used_on: Date | null;
 
 
     // =============== audit fields =============== 
@@ -52,6 +52,7 @@ export interface CreateGasSlip {
     with_container: boolean 
     liter_in_text: string 
     purpose: string 
+    used_on: string 
     approvers: CreateGasSlipApprover[]
 }
 
@@ -64,6 +65,7 @@ export interface UpdateGasSlip {
     with_container: boolean 
     liter_in_text: string 
     purpose: string 
+    used_on: string 
 }
 
 export interface PostGasSlip {

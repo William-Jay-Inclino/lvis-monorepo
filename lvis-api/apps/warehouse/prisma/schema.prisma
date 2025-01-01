@@ -241,11 +241,11 @@ model ItemTransaction {
 
 model ItemCodeTracker {
   id         Int     @id @default(autoincrement())
-  item_code      String @unique
+  item_code      String 
   year Int
   last_incremental Int
   
-
+  @@unique([item_code, year])
   @@map("item_code_tracker")
 }
 
@@ -1219,6 +1219,7 @@ model GasSlip {
   fuel_type_id Int 
   requested_by_id String 
   approval_status Int?
+  used_on DateTime? @db.Timestamptz
   
   with_container Boolean 
   liter_in_text String 

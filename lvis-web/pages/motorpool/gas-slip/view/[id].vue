@@ -42,6 +42,10 @@
                                             <td> {{ item.gas_slip_number }} </td>
                                         </tr>
                                         <tr>
+                                            <td class="text-muted">Date</td>
+                                            <td> {{ formatDate(item.used_on) }} </td>
+                                        </tr>
+                                        <tr>
                                             <td class="text-muted">Driver</td>
                                             <td> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
                                         </tr>

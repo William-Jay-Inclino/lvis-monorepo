@@ -1,0 +1,5 @@
+
+
+// run this command
+
+SELECT setval(pg_get_serial_sequence('item_code_tracker', 'id'), (SELECT MAX(id) FROM item_code_tracker));

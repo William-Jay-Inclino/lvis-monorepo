@@ -1,4 +1,4 @@
-import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsDateString, IsInt, IsOptional, IsString } from 'class-validator';
 import { CreateGasSlipInput } from './create-gas-slip.input';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
@@ -44,5 +44,10 @@ export class UpdateGasSlipInput extends PartialType(CreateGasSlipInput) {
   @IsString()
   @IsOptional()
   purpose?: string | null;
+
+  @Field({ nullable: true })
+  @IsDateString()
+  @IsOptional()
+  used_on?: string | null;
 
 }

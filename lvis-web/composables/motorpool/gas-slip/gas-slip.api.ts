@@ -178,6 +178,7 @@ export async function findOne(id: string): Promise<GasSlip | undefined> {
                 actual_liter
                 price_per_liter
                 purpose 
+                used_on
                 is_posted
                 status
                 cancelled_at
@@ -625,6 +626,7 @@ export async function create(input: CreateGasSlip): Promise<MutationResponse> {
                     with_container: ${input.with_container}
                     liter_in_text: "${input.liter_in_text}"
                     purpose: "${input.purpose}"
+                    used_on: "${input.used_on}"
                     approvers: [${approvers}]
                 }
             ) {

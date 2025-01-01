@@ -53,6 +53,8 @@ export class ItemService {
 	  
 		  // Generate the item code within the transaction
 		  const itemCode = await this.generateItemCode(itemType.code as ITEM_TYPE_CODE, prisma as Prisma.TransactionClient);
+
+		  console.log('itemCode', itemCode);
 	  
 		  const data: Prisma.ItemCreateInput = {
 			item_type: { connect: { id: input.item_type_id } },
@@ -101,11 +103,14 @@ export class ItemService {
 			year: currentYear,
 		  },
 		});
+
+		console.log('itemCodeTracker', itemCodeTracker);
 	  
 		let lastIncremental = 1;
 	  
 		// If no entry found for the current year, create one
 		if (!itemCodeTracker) {
+			console.log('1');
 		  itemCodeTracker = await prisma.itemCodeTracker.create({
 			data: {
 			  item_code: itemTypeCode,
@@ -113,6 +118,7 @@ export class ItemService {
 			  last_incremental: lastIncremental,
 			},
 		  });
+		  console.log('itemCodeTracker2', itemCodeTracker);
 		} else {
 		  // Increment the last incremental value
 		  lastIncremental = itemCodeTracker.last_incremental + 1;

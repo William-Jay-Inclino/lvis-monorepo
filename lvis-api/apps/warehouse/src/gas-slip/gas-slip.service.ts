@@ -70,6 +70,7 @@ export class GasSlipService {
 			with_container: input.with_container,
 			liter_in_text: input.liter_in_text,
 			purpose: input.purpose,
+			used_on: new Date(input.used_on),
 			created_by: this.authUser.user.username,
             approval_status: APPROVAL_STATUS.PENDING,
 			gas_slip_approvers: {
@@ -132,6 +133,8 @@ export class GasSlipService {
             throw new Error('Failed to update Gas Slip. Please try again')
         }
 
+        const used_on = input.used_on ? new Date(input.used_on) : existingItem.used_on
+
 		const data: Prisma.GasSlipUpdateInput = {
             updated_by: this.authUser.user.username,
 			vehicle: input.vehicle_id ? 
@@ -151,6 +154,7 @@ export class GasSlipService {
 			with_container: input.with_container ?? existingItem.with_container,
 			liter_in_text: input.liter_in_text ?? existingItem.liter_in_text,
 			purpose: input.purpose ?? existingItem.purpose,
+			used_on,
 		}
 
 		const updated = await this.prisma.gasSlip.update({

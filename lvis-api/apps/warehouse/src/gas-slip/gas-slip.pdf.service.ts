@@ -146,7 +146,7 @@ export class GasSlipPdfService {
                                 </tr>     
                                 <tr>
                                     <td> Date: </td>
-                                    <td style="border-bottom: 1px solid black;"> ${ formatDate(new Date()) } </td>
+                                    <td style="border-bottom: 1px solid black;"> ${ formatDate(gasSlip.used_on) } </td>
                                 </tr>     
                             </table>
                         </div>
