@@ -1,7 +1,20 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 export const goto = async ({ page, url }: { page: Page; url: string }) => {
+
+    console.log('goto', url);
+    console.log('NODE_ENV', process.env.NODE_ENV);
+    
+    if (process.env.NODE_ENV === 'production') {
+        await page.waitForTimeout(2000); 
+    }
+
     const response = await page.goto(url);
+
+    if (process.env.NODE_ENV === 'production') {
+        await page.waitForTimeout(2000);
+    }
+
     expect(response?.status()).toBe(200);
 };
 

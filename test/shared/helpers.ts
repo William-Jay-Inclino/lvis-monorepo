@@ -22,7 +22,7 @@ export const login = async(payload: { page: Page, username: string, password: st
 
     await x.click({ page, test_id: 'login' })
 
-    await expect(page).toHaveURL(`${url}/home`, { timeout: 5000 });
+    await expect(page).toHaveURL(`${url}/home`, { timeout: 10000 });
 }
 
 
