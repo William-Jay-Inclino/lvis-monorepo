@@ -136,7 +136,7 @@ export class GasSlipPdfService {
                             </div>
                         </div>
     
-                        <div style="display: flex; justify-content: flex-end;">
+                        <div style="display: flex; justify-content: flex-end; margin-top: 20px; margin-bottom: 10px;">
                             <table style="font-size: 9pt">
                                 <tr>
                                     <td> GS No.: </td>
@@ -146,7 +146,7 @@ export class GasSlipPdfService {
                                 </tr>     
                                 <tr>
                                     <td> Date: </td>
-                                    <td style="border-bottom: 1px solid black;"> ${ formatDate(gasSlip.used_on) } </td>
+                                    <td style="border-bottom: 1px solid black; font-weight: bold"> ${ formatDate(gasSlip.used_on) } </td>
                                 </tr>     
                             </table>
                         </div>
