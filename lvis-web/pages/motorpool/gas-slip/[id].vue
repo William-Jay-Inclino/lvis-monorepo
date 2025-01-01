@@ -105,6 +105,15 @@
 
                         <div class="mb-3">
                             <label class="form-label">
+                                Date <span class="text-danger">*</span>
+                            </label>
+                            <input type="date" class="form-control" v-model="gsData.used_on">
+                            <small class="text-danger fst-italic" v-if="gsDataErrors.used_on"> {{ errorMsg }}
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
                                 Requisitioner <span class="text-danger">*</span>
                             </label>
                             <client-only>
@@ -291,6 +300,7 @@ const _gsDataErrorsInitial = {
     requested_by: false,
     liter_in_text: false,
     purpose: false,
+    used_on: false,
 }
 
 const form = ref<FORM>(FORM.UPDATE_INFO)
@@ -344,6 +354,7 @@ onMounted(async () => {
         with_container: response.gas_slip.with_container,
         liter_in_text: response.gas_slip.liter_in_text,
         purpose: response.gas_slip.purpose,
+        used_on: formatToValidHtmlDate(response.gas_slip.used_on),
     }
 
     isLoadingPage.value = false
@@ -528,6 +539,10 @@ function isValidGsInfo(): boolean {
 
     if(gsData.value.purpose.trim() === '') {
         gsDataErrors.value.purpose = true
+    }
+
+    if(!gsData.value.used_on || gsData.value.used_on.trim() === '') {
+        gsDataErrors.value.used_on = true
     }
 
     const hasError = Object.values(gsDataErrors.value).includes(true);

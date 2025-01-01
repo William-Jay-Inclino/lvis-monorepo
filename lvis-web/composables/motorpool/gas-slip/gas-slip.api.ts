@@ -450,6 +450,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 with_container
                 liter_in_text
                 purpose 
+                used_on
                 status
                 cancelled_at
                 can_update
@@ -679,6 +680,7 @@ export async function update(id: string, input: UpdateGasSlip): Promise<Mutation
                     with_container: ${input.with_container}
                     liter_in_text: "${input.liter_in_text}"
                     purpose: "${input.purpose}"
+                    used_on: "${input.used_on}"
                 }
             ) {
                 id
