@@ -66,7 +66,7 @@ export class GasSlipPdfService {
                     justify-content: space-between;
                     padding-left: 25px;
                     padding-right: 25px;
-                    font-size: 10pt;
+                    font-size: 9pt;
                 }
                 .column {
                     position: relative;
@@ -127,8 +127,8 @@ export class GasSlipPdfService {
                                 <div style="display: flex; align-items: center;">
                                     <img src="data:image/jpeg;base64,${logo}" alt="Logo">
                                     <div>
-                                        <span style="font-size: 10pt; font-weight: bold;">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
-                                        <div style="font-size: 9pt;">
+                                        <span style="font-size: 9pt; font-weight: bold;">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
+                                        <div style="font-size: 8pt;">
                                             <span>Brgy. San Pablo, Ormoc City, Leyte</span><br />
                                         </div>
                                     </div>
@@ -151,7 +151,7 @@ export class GasSlipPdfService {
                             </table>
                         </div>
     
-                        <div style="font-size: 10pt; font-weight: bold; text-align: center">GAS SLIP</div>
+                        <div style="font-size: 9pt; font-weight: bold; text-align: center">GAS SLIP</div>
     
                         <br />
     
@@ -233,7 +233,7 @@ export class GasSlipPdfService {
     
                         <br />
     
-                        <table style="font-size: 9pt; width: 100%">
+                        <table style="font-size: 8pt; width: 100%">
                             <tr>
                                 <td style="width: 30%;"> Previous Reading: </td>
                                 <td style="border-bottom: 1px solid black;">
@@ -274,7 +274,7 @@ export class GasSlipPdfService {
                                             <td> ${formatDate(immediate_superior.date_approval, true)} </td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: center; position: relative; font-size: 10pt; padding: 5px 5px;">
+                                            <th style="text-align: center; position: relative; font-size: 9pt; padding: 5px 5px;">
                                                 <u style="position: relative; z-index: 1; margin-bottom: 9px;">
                                                     ${
                                                         // @ts-ignore
@@ -308,7 +308,7 @@ export class GasSlipPdfService {
                                             <td> ${formatDate(department_head.date_approval, true)} </td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: center; position: relative; font-size: 10pt; padding: 5px 5px;">
+                                            <th style="text-align: center; position: relative; font-size: 9pt; padding: 5px 5px;">
                                                 <u style="position: relative; z-index: 1; margin-bottom: 9px;">
                                                     ${
                                                         // @ts-ignore
@@ -339,7 +339,7 @@ export class GasSlipPdfService {
                                             <td> &nbsp; </td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: center; position: relative; font-size: 10pt;">
+                                            <th style="text-align: center; position: relative; font-size: 9pt;">
                                                 <u style="display: inline-block; width: 100%; height: 1px; background-color: black; margin-top: 10px;"></u>
                                             </th>
                                         </tr>
