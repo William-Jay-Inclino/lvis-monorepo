@@ -34,6 +34,7 @@
                     <td class="text-muted align-middle text-center"> {{ formatToPhpCurrency(i.GWAPrice) }} </td>
                     <td class="text-muted align-middle text-center">
                         <input
+                            data-test="item-qty"
                             type="number"
                             class="form-control form-control-sm text-center"
                             :class="{'border-danger': !isValidQty(i)}"

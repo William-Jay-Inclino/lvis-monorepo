@@ -5,12 +5,14 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "pnpm playwright test"
+    "test": "pnpm playwright test",
+    "test:osriv": "pnpm exec playwright test tests/osriv-flow.spec.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^9.3.0",
     "@playwright/test": "^1.49.1",
     "@types/node": "^22.10.2"
   },

@@ -25,7 +25,7 @@
                                         <tbody>
                                             <tr>
                                                 <td class="text-muted">Item Code</td>
-                                                <td> {{ item.code }} </td>
+                                                <td data-testid="item-code"> {{ item.code }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Description</td>

@@ -57,13 +57,14 @@
                             </ul>
                         </li>
                         <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
-                            <a :class="{ active: isActiveDataManagement }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
+                            <a data-testid="data-management" :class="{ active: isActiveDataManagement }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Data Management
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li v-if="canView('canManageItem', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/warehouse/item">Item</nuxt-link></li>
+                                <li v-if="canView('canManageItem', authUser)">
+                                    <nuxt-link data-testid="item-menu" class="dropdown-item" to="/warehouse/item">Item</nuxt-link>
+                                </li>
                                 <li v-if="canView('canManageSupplier', authUser)">
                                     <nuxt-link class="dropdown-item"
                                         to="/warehouse/supplier">Supplier</nuxt-link>

@@ -47,7 +47,7 @@
                             </client-only> 
                              {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageItem')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button data-testid="create-item" v-if="canCreate(authUser, 'canManageItem')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'plus']"/>
                          </client-only> Add

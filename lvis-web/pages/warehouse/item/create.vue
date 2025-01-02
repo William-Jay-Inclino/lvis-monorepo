@@ -24,7 +24,7 @@
                                 <label class="form-label">
                                     Description <span class="text-danger">*</span>
                                 </label>
-                                <textarea rows="3" class="form-control" v-model="formData.description"></textarea>
+                                <textarea data-testid="description" rows="3" class="form-control" v-model="formData.description"></textarea>
                                 <small v-if="formDataErrors.description" class="text-danger fst-italic"> This field is required
                                 </small>
                             </div>
@@ -32,7 +32,7 @@
                                 <label class="form-label">
                                     Initial Quantity <span class="text-danger">*</span>
                                 </label>
-                                <input type="number" class="form-control" v-model="formData.initial_quantity">
+                                <input data-testid="initial-qty" type="number" class="form-control" v-model="formData.initial_quantity">
                                 <small v-if="formDataErrors.initial_quantity" class="text-danger fst-italic"> Must be greater
                                     than or equal to 0 </small>
                             </div>
@@ -41,6 +41,7 @@
                                     Initial Average Price <span class="text-danger">*</span>
                                 </label>
                                 <input 
+                                    data-testid="initial-price"
                                     type="number" 
                                     class="form-control" 
                                     v-model="formData.initial_average_price" 
@@ -53,16 +54,16 @@
                             <div class="mb-3">
                                 <label class="form-label">Unit</label>  <span class="text-danger">*</span>
                                 <client-only>
-                                    <v-select :options="units" label="name" v-model="formData.unit"
+                                    <v-select data-testid="unit" :options="units" label="name" v-model="formData.unit"
                                         :clearable="false"></v-select>
                                 </client-only>
                                 <small v-if="formDataErrors.unit" class="text-danger fst-italic"> This field is required
                                 </small>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Item Types</label>
+                                <label class="form-label">Item Type</label>
                                 <client-only>
-                                    <v-select :options="itemTypes" label="name" v-model="formData.item_type"
+                                    <v-select data-testid="item-type" :options="itemTypes" label="name" v-model="formData.item_type"
                                         :clearable="false"></v-select>
                                 </client-only>
                                 <small v-if="formDataErrors.item_type" class="text-danger fst-italic"> This field is required
@@ -71,7 +72,7 @@
                             <div v-if="show_project_field" class="mb-3">
                                 <label class="form-label">Project</label>
                                 <client-only>
-                                    <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="formData.project"></v-select>
+                                    <v-select data-testid="project" @search="handleSearchProjects" :options="projects" label="name" v-model="formData.project"></v-select>
                                 </client-only>
                             </div>
                             <div class="mb-3">
@@ -92,13 +93,13 @@
                             <div class="d-flex justify-content-between">
                                 <button type="button" @click="onClickGoToList" class="btn btn-secondary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'list']"/>
-                            </client-only> Go to list
+                                        <font-awesome-icon :icon="['fas', 'list']"/>
+                                    </client-only> Go to list
                                 </button>
-                                <button type="submit" class="btn btn-primary" :disabled="isSaving">
+                                <button data-testid="save" type="submit" class="btn btn-primary" :disabled="isSaving">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                        <font-awesome-icon :icon="['fas', 'save']"/>
+                                    </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
                         </div>

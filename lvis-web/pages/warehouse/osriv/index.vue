@@ -43,12 +43,12 @@
         
                 <div class="d-flex justify-content-end gap-2">
                     <button @click="search()" class="btn btn-primary" :disabled="isSearching">
-                        <client-only>
+                            <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
                              {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageOSRIV')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button data-testid="create-osriv" v-if="canCreate(authUser, 'canManageOSRIV')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 

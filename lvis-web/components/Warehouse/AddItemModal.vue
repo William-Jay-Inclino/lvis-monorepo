@@ -5,7 +5,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-warning">Add Item</h5>
-                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button data-testid="close-modal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
@@ -41,13 +41,13 @@
                                 </tr>
                             </thead>
                             <tbody> 
-                                <tr v-for="item in filteredItems">
+                                <tr v-for="item, indx in filteredItems">
                                     <td class="align-middle text-muted"> {{ item.code }} </td>
                                     <td class="align-middle text-muted"> {{ item.description }} </td>
                                     <!-- <td class="align-middle text-muted"> {{ item.description }} {{ item.project_item ? `(${item.project_item.project.name})` : '' }} </td> -->
                                     <td class="align-middle text-muted"> {{ item.unit.name }} </td>
                                     <td class="align-middle text-center">
-                                        <button @click="emits('add-item', item.id)" v-if="!item.isAdded" class="btn btn-primary btn-sm">
+                                        <button data-test="modal-item" @click="emits('add-item', item.id)" v-if="!item.isAdded" class="btn btn-primary btn-sm">
                                             Add
                                         </button>
                                         <span class="text-success fw-bold" v-else> Added </span>

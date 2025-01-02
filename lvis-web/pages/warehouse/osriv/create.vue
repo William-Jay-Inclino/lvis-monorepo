@@ -46,7 +46,7 @@
                                     Item From <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="stations" label="name" v-model="osrivData.item_from" :clearable="false" :disabled="!!default_station"></v-select>
+                                    <v-select data-testid="item-from" :options="stations" label="name" v-model="osrivData.item_from" :clearable="false" :disabled="!!default_station"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="osrivDataErrors.item_from"> {{ errorMsg }} </small>
                             </div>
@@ -55,7 +55,7 @@
                                 <label class="form-label">
                                     Purpose <span class="text-danger">*</span>
                                 </label>
-                                <textarea v-model="osrivData.purpose" class="form-control"
+                                <textarea data-testid="purpose" v-model="osrivData.purpose" class="form-control"
                                     rows="3"> </textarea>
                                 <small class="text-danger fst-italic" v-show="osrivDataErrors.purpose"> {{ errorMsg }} </small>
                             </div>
@@ -65,17 +65,18 @@
                                     Requested By <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="employees" label="fullname" v-model="osrivData.requested_by" :clearable="false"></v-select>
+                                    <v-select data-testid="requested-by" :options="employees" label="fullname" v-model="osrivData.requested_by" :clearable="false"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="osrivDataErrors.requested_by"> {{ errorMsg }} </small>
                             </div>
     
-                            <div v-for="approver in osrivData.approvers" class="mb-3">
+                            <div v-for="approver, indx in osrivData.approvers" class="mb-3">
                                 <label class="form-label">
                                     {{ approver.label }} <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
                                     <v-select
+                                        :data-test-id="`approver-${ indx }`"
                                         :options="approver.order === 1 ? supervisors : employees"
                                         label="fullname"
                                         v-model="approver.approver"
@@ -96,6 +97,7 @@
                             
                             <div class="text-end mb-3">
                                 <button
+                                    data-testid="add-item"
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#addItemModal">
@@ -119,28 +121,28 @@
                             <div v-if="currentStep === 1" class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/osriv">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search OSRIV
+                                        <font-awesome-icon :icon="['fas', 'search']" />
+                                    </client-only> 
+                                    Search OSRIV
                                 </nuxt-link>
-                                <button @click="onClickNextStep1()" class="btn btn-primary">
+                                <button data-testid="next" @click="onClickNextStep1()" class="btn btn-primary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
-                            </client-only> Next
+                                        <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                                    </client-only> Next
                                 </button>
                             </div>
             
                             <div v-else class="d-flex justify-content-between">
                                 <button @click="currentStep--" type="button" class="btn btn-secondary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
-                            </client-only> Back
+                                        <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                                    </client-only> Back
                                 </button>
-                                <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
+                                <button data-testid="save" @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                     class="btn btn-primary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                        <font-awesome-icon :icon="['fas', 'save']"/>
+                                    </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
             

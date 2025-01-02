@@ -7,10 +7,8 @@ import { logout } from "../shared/helpers";
 import { DB_ENTITY } from "../shared/enums";
 import { create_meqs, goto_create_meqs_page, meqs_approvers, meqs_data } from "./meqs";
 import { goto } from "../shared/utils";
-import { create_pos, goto_create_po_page } from "./po/po.service";
-import { po_approvers, po_data } from "./po/po.data";
-import { create_rrs, goto_create_rr_page } from "./rr/rr.service";
-import { rr_approvers, rr_data } from "./rr/rr.data";
+import { create_pos, goto_create_po_page, po_approvers, po_data } from "./po";
+import { create_rrs, goto_create_rr_page, rr_approvers, rr_data } from "./rr";
 
 dotenv.config();
 

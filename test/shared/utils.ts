@@ -70,6 +70,12 @@ export const custom_select = async (payload: { page: Page, test_id: string, valu
     await element.scrollIntoViewIfNeeded({ timeout: 5000 });
     await expect(element).toBeVisible({ timeout: 5000 });
 
+     const isDisabled = await element.isDisabled();
+     if (isDisabled) {
+         console.log(`Element with test_id "${test_id}" is disabled. Skipping input.`);
+         return; 
+     }
+
     // Open the dropdown
     await element.click();
 
