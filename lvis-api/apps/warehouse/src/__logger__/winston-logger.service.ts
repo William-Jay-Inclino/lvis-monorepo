@@ -1,16 +1,27 @@
 import { Injectable, LoggerService } from '@nestjs/common';
 import * as winston from 'winston';
 import * as WinstonDailyRotateFile from 'winston-daily-rotate-file';
+import { format, toZonedTime } from 'date-fns-tz';
+
 
 @Injectable()
 export class WinstonLoggerService implements LoggerService {
     private readonly logger: winston.Logger;
 
     constructor() {
+
+        const timeZone = process.env.TZ || 'UTC';
+
         this.logger = winston.createLogger({
             level: 'info', // Default log level
             format: winston.format.combine(
-                winston.format.timestamp(),
+                winston.format.timestamp({
+                    format: () => {
+                        const now = new Date();
+                        const zonedDate = toZonedTime(now, timeZone);
+                        return format(zonedDate, 'yyyy-MM-dd HH:mm:ss', { timeZone });
+                    },
+                }),
                 winston.format.printf(
                     ({ timestamp, level, message, context }) =>
                         `${timestamp} [${level}]: ${message} - Context: ${context || 'N/A'}`
@@ -23,7 +34,13 @@ export class WinstonLoggerService implements LoggerService {
                     datePattern: 'YYYY-MM-DD',
                     maxSize: '20m',
                     format: winston.format.combine(
-                        winston.format.timestamp(),
+                        winston.format.timestamp({
+                            format: () => {
+                                const now = new Date();
+                                const zonedDate = toZonedTime(now, timeZone);
+                                return format(zonedDate, 'yyyy-MM-dd HH:mm:ss', { timeZone });
+                            },
+                        }),
                         winston.format.prettyPrint({ colorize: false }) // Formats JSON nicely with indentation
                     ),
                 }),
@@ -34,7 +51,13 @@ export class WinstonLoggerService implements LoggerService {
                     datePattern: 'YYYY-MM-DD',
                     maxSize: '20m',
                     format: winston.format.combine(
-                        winston.format.timestamp(),
+                        winston.format.timestamp({
+                            format: () => {
+                                const now = new Date();
+                                const zonedDate = toZonedTime(now, timeZone);
+                                return format(zonedDate, 'yyyy-MM-dd HH:mm:ss', { timeZone });
+                            },
+                        }),
                         winston.format.prettyPrint({ colorize: false }) // Formats JSON nicely
                     ),
                 }),

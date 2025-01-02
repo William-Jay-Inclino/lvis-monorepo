@@ -5,10 +5,7 @@ import { UserService } from "./user.service";
 @Controller('user')
 export class UserController {
 
-    constructor(private readonly userService: UserService) {
-
-        console.log('User resolver');
-      }
+    constructor(private readonly userService: UserService) {}
 
     @Get('get-user-by-username/:username')
     async getUserByUsername(@Param('username') username: string): Promise<User> {

@@ -33,7 +33,7 @@ constructor(private readonly prisma: PrismaService) { }
         try {
             this.logger.log({
                 filename: this.filename,
-                function: 'handle_osriv_expiration',
+                function: 'handle_seriv_expiration',
             })
             await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.SERIV])
         } catch (error) {
@@ -47,7 +47,7 @@ constructor(private readonly prisma: PrismaService) { }
         try {
             this.logger.log({
                 filename: this.filename,
-                function: 'handle_osriv_expiration',
+                function: 'handle_mrv_expiration',
             })
             await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.MRV])
         } catch (error) {
