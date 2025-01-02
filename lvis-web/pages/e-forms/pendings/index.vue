@@ -1,13 +1,23 @@
 <template>
     <div v-if="!isLoadingPage && authUser && authUser.user.user_employee">
 
-        <div class="card">
+        <div class="row mb-3 mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-warning"> Search Transaction </h4>
+                    </div>
+                    <div class="card-body">
+                        <input type="text" v-model="searchValue" class="form-control">
+                        <small class="text-muted fst-italic">Enter transaction details above</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="!isMobile" class="card">
 
             <div class="card-body">
-
-                <h3 class="text-warning">Pending for Approval/Disapproval</h3>
-                
-                <hr>
 
                 <div class="row justify-content-center pt-3">
                     <div class="col-lg-12">
@@ -27,7 +37,7 @@
                                 </thead>
         
                                 <tbody>
-                                    <tr v-for="item, i in pendings" :key="i">
+                                    <tr v-for="item, i in filteredItems" :key="i">
                                         <td class="text-muted align-middle"> {{ i + 1 }} </td>
                                         <td class="text-muted align-middle">
                                             {{ item.description }}
@@ -119,6 +129,92 @@
 
         </div>
 
+        <div v-else class="pt-2">
+            
+            <div class="card mb-3" v-for="item, i in filteredItems" :key="i">
+                <div class="card-header bg-secondary text-white fw-bold">
+                    Pending # {{ i + 1 }}
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Transaction:</td>
+                                <td class="text-primary">
+                                    <nuxt-link
+                                        :to="getLink(item.reference_table, item.reference_number)" target="_blank">
+                                        {{ item.description }}
+                                    </nuxt-link>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Date:</td>
+                                <td class="text-muted">
+                                    {{ formatDate(item.transaction_date, true) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Comment:</td>
+                                <td class="text-muted">
+                                    <EformsComment
+                                        :pending_id="item.id"
+                                        :is_editing="item.is_editing"
+                                        :is_saving="item.is_saving"
+                                        :notes="item.approver_notes" 
+                                        @start-edit="handleStartEditComment"
+                                        @cancel="handleCancelEditComment"
+                                        @save="handleSaveComment"
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div v-if="!isDefaultApproval(item)" class="card-footer d-flex justify-content-between">
+                    <button 
+                        :data-testid="`test-${item.reference_table}-${item.reference_number}`"
+                        @click="onClickApprove(i)" 
+                        class="btn btn-primary text-success" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#pendingModal">
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'check-circle']" />
+                        </client-only> 
+                        Approve
+                    </button>
+                    <button 
+                        @click="handleCommonDisapprove(i)" 
+                        class="btn btn-light text-danger"
+                    >
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'times-circle']" />
+                        </client-only> 
+                        Disapprove
+                    </button>
+                </div>
+                <div v-else class="card-footer d-flex justify-content-between">
+                    <button
+                        :data-testid="`test-${item.reference_table}-${item.reference_number}`"
+                        @click="handleCommonApprove(i)"
+                        class="btn btn-light text-success"
+                    >
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'check-circle']" />
+                        </client-only> Approve
+                    </button>
+                    <button 
+                        @click="handleCommonDisapprove(i)" 
+                        class="btn btn-light text-danger"
+                    >
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'times-circle']" />
+                        </client-only> 
+                        Disapprove
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div v-else>
@@ -148,12 +244,14 @@ const isApproving = ref(false)
 const config = useRuntimeConfig()
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 
-
 const authUser = ref<AuthUser>()
 const pendings = ref<Pending[]>([])
 const classifications = ref<Classification[]>([])
 const accounts = ref<Account[]>([])
 const toast = useToast();
+
+const screenWidth = ref(0);
+const searchValue = ref('')
 
 type ModalData = {
     pendingApproval: Pending | null,
@@ -181,6 +279,12 @@ onMounted(async () => {
     authUser.value = getAuthUser()
     console.log('authUser', authUser)
 
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
+
     if (authUser.value.user.user_employee) {
 
         const response = await pendingsApi.getPendingsByEmployeeId(authUser.value.user.user_employee.employee.id)
@@ -194,6 +298,11 @@ onMounted(async () => {
 
 })
 
+
+// ================================== COMPUTED ================================== 
+
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
+
 const isBudgetOfficer = computed(() => {
     if (!authUser.value) return
     if (!authUser.value.user.user_employee) return
@@ -205,6 +314,16 @@ const isFinanceManager = computed(() => {
     if (!authUser.value.user.user_employee) return
     return !!authUser.value.user.user_employee.employee.is_finance_manager
 })
+
+const filteredItems = computed(() => {
+
+    if (searchValue.value.trim() === '') return pendings.value
+
+    return pendings.value.filter(i => i.description.toLowerCase().includes(searchValue.value.toLowerCase()))
+
+})
+
+// ================================== FUNCTIONS ================================== 
 
 function getLink(entity: DB_ENTITY, reference_number: string) {
     const module = MODULE_MAPPER[entity]

@@ -11,7 +11,7 @@
         
         <!-- Buttons inside the textarea bottom-right -->
         <div v-if="is_editing" class="position-absolute bottom-0 end-0 p-2">
-            <button @click="cancelEdit" class="btn btn-light btn-sm text-danger me-3">
+            <button @click="cancelEdit" class="btn btn-light btn-sm text-danger me-4">
                 <client-only>
                     <font-awesome-icon :icon="['fas', 'times-circle']" />
                 </client-only>
