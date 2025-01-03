@@ -1,3 +1,4 @@
+import { Page } from "@playwright/test"
 
 export interface Approver {
     username: string
@@ -5,4 +6,11 @@ export interface Approver {
     popup: 'swal' | 'modal'
     is_budget_officer?: boolean
     is_finance_manager?: boolean
+}
+
+
+export interface ToastPayload {
+    page: Page;
+    containerSelector?: string; 
+    delay?: number; 
 }

@@ -1,4 +1,5 @@
 import { Locator, Page, expect } from '@playwright/test';
+import { ToastPayload } from './types';
 
 export const goto = async ({ page, url }: { page: Page; url: string }) => {
 
@@ -40,15 +41,21 @@ export const fill = async (payload: { element: Locator, value: string }) => {
 
 };
 
-export const click = async (payload: { page: Page, test_id: string }) => {
+export const click = async (payload: { page: Page, test_id?: string, element?: Locator }) => {
 
-    const { page, test_id } = payload
+    const { page, test_id, element } = payload
     console.log('test_id', test_id);
 
-    const element = page.getByTestId(test_id)
-    await element.scrollIntoViewIfNeeded({ timeout: 5000 });
-    await expect(element).toBeVisible({ timeout: 5000 }); 
-    await element.click();
+    const el = test_id ? page.getByTestId(test_id) : element
+
+    if(!el) {
+        console.error('Element not found');
+        return 
+    }
+
+    await el.scrollIntoViewIfNeeded({ timeout: 5000 });
+    await expect(el).toBeVisible({ timeout: 5000 }); 
+    await el.click();
 };
 
 export const click_if_exists = async (payload: { page: Page, selector: string }) => {
@@ -177,17 +184,70 @@ export const is_visible = async(payload: { page: Page, selector: string }): Prom
     return false
 }
 
-export const get_elements_by_selector = async(payload: { page: Page, selector: string }): Promise<Locator[]> => {
+export const get_elements_by_selector = async (payload: { page: Page, selector: string }): Promise<Locator[]> => {
+    const { page, selector } = payload;
 
-    const { page, selector } = payload
+    // Wait for the selector to be visible
+    await page.waitForSelector(selector, { timeout: 5000 });
 
+    // Get the locator for the elements matching the selector
     const elements = page.locator(selector);
     const count = await elements.count();
-  
+
     const elementArray: Locator[] = [];
+
+    // Loop through each element
     for (let i = 0; i < count; i++) {
-      elementArray.push(elements.nth(i));
+        const element = elements.nth(i);
+
+        // Scroll the element into view
+        await element.scrollIntoViewIfNeeded();
+
+        // Push the element into the array
+        elementArray.push(element);
+    }
+
+    return elementArray;
+};
+
+export async function close_all_toasts({
+    page,
+    containerSelector = '.Vue-Toastification__container.top-right',
+    delay = 0, 
+}: ToastPayload): Promise<void> {
+    const container = page.locator(containerSelector);
+  
+    if (!(await container.isVisible())) {
+      console.log('Toast container is not visible.');
+      return;
     }
   
-    return elementArray;
+    const closeButtons = container.getByLabel('close', { exact: true });
+    const closeButtonCount = await closeButtons.count();
+  
+    if (closeButtonCount === 0) {
+      console.log('No visible toasts to close.');
+      return;
+    }
+  
+    console.log(`Found ${closeButtonCount} toasts to close.`);
+  
+    for (let i = 0; i < closeButtonCount; i++) {
+      const closeButton = closeButtons.nth(i);
+  
+      if (await closeButton.isVisible()) {
+        await closeButton.click();
+        console.log(`Closed toast ${i + 1}.`);
+  
+        await page.waitForTimeout(delay);
+      } else {
+        console.log(`Close button ${i + 1} is not visible.`);
+      }
+    }
+}
+
+export const go_back = async(payload: { page: Page }) => {
+    const { page } = payload 
+    await page.goBack()
+
 }

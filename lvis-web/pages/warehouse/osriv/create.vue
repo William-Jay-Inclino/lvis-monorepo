@@ -76,7 +76,7 @@
                                 </label>
                                 <client-only>
                                     <v-select
-                                        :data-test-id="`approver-${ indx }`"
+                                        :data-testid="`approver-${ indx }`"
                                         :options="approver.order === 1 ? supervisors : employees"
                                         label="fullname"
                                         v-model="approver.approver"

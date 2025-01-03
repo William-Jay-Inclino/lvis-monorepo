@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "pnpm playwright test",
-    "test:osriv": "pnpm exec playwright test tests/osriv-flow.spec.ts"
+    "test:purchase-flow": "pnpm exec playwright test tests/purchase-order-flow.spec.ts",
+    "test:osriv-flow": "pnpm exec playwright test tests/osriv-flow.spec.ts"
   },
   "keywords": [],
   "author": "",

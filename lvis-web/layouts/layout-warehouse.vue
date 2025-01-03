@@ -57,7 +57,7 @@
                             </ul>
                         </li>
                         <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
-                            <a data-testid="data-management" :class="{ active: isActiveDataManagement }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
+                            <a data-testid="data-management-dropdown" :class="{ active: isActiveDataManagement }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Data Management
                             </a>

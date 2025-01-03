@@ -41,6 +41,8 @@ export const create_meqs = async(
     
     await award_items({ page, suppliers: data.suppliers, total_canvass_items })
 
+    await x.close_all_toasts({ page })
+
     await x.click({ page, test_id: 'save-meqs' })
 
     if(await x.is_visible({ page, selector: '[data-testid="required-notes-modal"]' })) {

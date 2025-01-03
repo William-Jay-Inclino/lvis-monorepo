@@ -122,7 +122,7 @@
         
                                                     </div>
                                                     <div v-else-if="i.osriv_item">
-                                                        <nuxt-link :to="'/warehouse/osriv/view/' + i.osriv_item.osriv!.id"
+                                                        <nuxt-link :data-testid="`osriv-${ i.osriv_item.osriv.osriv_number }`" :to="'/warehouse/osriv/view/' + i.osriv_item.osriv!.id"
                                                             target="_blank">
                                                             {{ `OSRIV#${i.osriv_item.osriv?.osriv_number}` }}
                                                         </nuxt-link>

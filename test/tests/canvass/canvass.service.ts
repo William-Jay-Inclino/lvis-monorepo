@@ -63,6 +63,8 @@ export const create_canvass = async(payload: { page: Page, data: CanvassData, ur
         await x.click({ page, test_id: 'modal-add-item' })
     }
 
+    await x.close_all_toasts({ page })
+
     await x.click({ page, test_id: 'save' })
 
     const dynamicUrlPattern = new RegExp(`${url}/purchase/canvass/view/[a-zA-Z0-9-]+`)

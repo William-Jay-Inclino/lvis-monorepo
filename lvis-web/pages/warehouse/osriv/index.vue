@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">OSRIV Number</label>
                             <client-only>
-                                <v-select @search="handleSearchOsrivNumber" :options="osrivs" label="osriv_number" v-model="osriv"></v-select>
+                                <v-select data-testid="search-osriv-number" @search="handleSearchOsrivNumber" :options="osrivs" label="osriv_number" v-model="osriv"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -42,11 +42,11 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search()" class="btn btn-primary" :disabled="isSearching">
-                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                             {{ isSearching ? 'Searching...' : 'Search' }}
+                    <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'search']" />
+                        </client-only> 
+                            {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
                     <button data-testid="create-osriv" v-if="canCreate(authUser, 'canManageOSRIV')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
@@ -111,11 +111,11 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageOSRIV') }"
+                                                    <button :data-testid="`view-details-${ i.osriv_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageOSRIV') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageOSRIV')">
                                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']" />
-                            </client-only>
+                                                            <font-awesome-icon :icon="['fas', 'info-circle']" />
+                                                        </client-only>
                                                         View details
                                                     </button>
                                                 </td>

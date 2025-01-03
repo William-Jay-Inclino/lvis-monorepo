@@ -10,7 +10,7 @@ export const goto_create_item_page = async(payload: { page: Page, url: string })
 
 
     await x.click({ page, test_id: 'warehouse' })
-    await x.click({ page, test_id: 'data-management' })
+    await x.click({ page, test_id: 'data-management-dropdown' })
     await x.click({ page, test_id: 'item-menu' })
     await x.click({ page, test_id: 'create-item' })
 

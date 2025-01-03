@@ -39,7 +39,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-muted">OSRIV Number</td>
-                                            <td> {{ item.osriv_number }} </td>
+                                            <td data-testid="osriv-number"> {{ item.osriv_number }} </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Date Requested</td>
@@ -157,7 +157,7 @@
                                             <tr v-for="i, count in item.osriv_items">
                                                 <td> {{ count + 1 }} </td>
                                                 <td>
-                                                    <nuxt-link :to="'/warehouse/item/view/' + i.item.id">
+                                                    <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
                                                         {{ i.item.code + ' - ' + i.item.description }} 
                                                     </nuxt-link> 
                                                 </td>
