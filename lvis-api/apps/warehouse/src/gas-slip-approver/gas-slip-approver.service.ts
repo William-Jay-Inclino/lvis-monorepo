@@ -109,6 +109,7 @@ export class GasSlipApproverService {
         );
     
         const pendingResults = await Promise.all(pendingPromises);
+        const added_notes_approver = []
 
         for(let approver of approvers) {
             const pending = pendingResults.find(i => {
@@ -119,6 +120,13 @@ export class GasSlipApproverService {
 
             // if approver has current pending. Use the pending note 
             if(pending && approver.status === APPROVAL_STATUS.PENDING) {
+
+                if(added_notes_approver.includes(approver.approver_id)) {
+                    continue
+                }
+
+                added_notes_approver.push(approver.approver_id)
+                
                 approver.notes = pending.approver_notes
             }
         }
