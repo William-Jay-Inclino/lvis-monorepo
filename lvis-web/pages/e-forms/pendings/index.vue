@@ -62,7 +62,7 @@
                                             <div class="d-flex w-100">
                                                 <button 
                                                     :data-testid="`test-${item.reference_table}-${item.reference_number}`"
-                                                    @click="onClickApprove(i)" 
+                                                    @click="onClickApprove(item.id)" 
                                                     class="btn btn-light text-success w-50 me-2" 
                                                     data-bs-toggle="modal" 
                                                     data-bs-target="#pendingModal">
@@ -72,7 +72,7 @@
                                                     Approve
                                                 </button>
                                                 <button 
-                                                    @click="handleCommonDisapprove(i)" 
+                                                    @click="handleCommonDisapprove(item.id)" 
                                                     class="btn btn-light text-danger w-50"
                                                 >
                                                     <client-only>
@@ -86,7 +86,7 @@
                                             <div class="d-flex w-100">
                                                 <button
                                                     :data-testid="`test-${item.reference_table}-${item.reference_number}`"
-                                                    @click="handleCommonApprove(i)"
+                                                    @click="handleCommonApprove(item.id)"
                                                     class="btn btn-light text-success w-50 me-2"
                                                 >
                                                     <client-only>
@@ -94,7 +94,7 @@
                                                     </client-only> Approve
                                                 </button>
                                                 <button 
-                                                    @click="handleCommonDisapprove(i)" 
+                                                    @click="handleCommonDisapprove(item.id)" 
                                                     class="btn btn-light text-danger w-50"
                                                 >
                                                     <client-only>
@@ -112,18 +112,6 @@
         
                     </div>
                 </div>
-        
-                <EformsPendingModal v-if="isBudgetOfficer || isFinanceManager" 
-                    :employee="authUser.user.user_employee.employee"
-                    :pending-approval="modalData.pendingApproval"
-                    :accounts="accounts" 
-                    :classifications="classifications" 
-                    :is-approving="isApproving"
-                    @approve-budget-officer="handleApproveBudgetOfficer" 
-                    @approve-finance-manager="handleApproveFinanceManager"
-                    @search-accounts="handleSearchedAccounts"
-                    @search-classifications="handleSearchedClassifications"
-                    />
     
             </div>
 
@@ -173,7 +161,7 @@
                 <div v-if="!isDefaultApproval(item)" class="card-footer d-flex justify-content-between">
                     <button 
                         :data-testid="`test-${item.reference_table}-${item.reference_number}`"
-                        @click="onClickApprove(i)" 
+                        @click="onClickApprove(item.id)" 
                         class="btn btn-primary text-success" 
                         data-bs-toggle="modal" 
                         data-bs-target="#pendingModal">
@@ -183,7 +171,7 @@
                         Approve
                     </button>
                     <button 
-                        @click="handleCommonDisapprove(i)" 
+                        @click="handleCommonDisapprove(item.id)" 
                         class="btn btn-light text-danger"
                     >
                         <client-only>
@@ -195,7 +183,7 @@
                 <div v-else class="card-footer d-flex justify-content-between">
                     <button
                         :data-testid="`test-${item.reference_table}-${item.reference_number}`"
-                        @click="handleCommonApprove(i)"
+                        @click="handleCommonApprove(item.id)"
                         class="btn btn-light text-success"
                     >
                         <client-only>
@@ -203,7 +191,7 @@
                         </client-only> Approve
                     </button>
                     <button 
-                        @click="handleCommonDisapprove(i)" 
+                        @click="handleCommonDisapprove(item.id)" 
                         class="btn btn-light text-danger"
                     >
                         <client-only>
@@ -214,6 +202,18 @@
                 </div>
             </div>
         </div>
+
+        <EformsPendingModal v-if="isBudgetOfficer || isFinanceManager" 
+            :employee="authUser.user.user_employee.employee"
+            :pending-approval="modalData.pendingApproval"
+            :accounts="accounts" 
+            :classifications="classifications" 
+            :is-approving="isApproving"
+            @approve-budget-officer="handleApproveBudgetOfficer" 
+            @approve-finance-manager="handleApproveFinanceManager"
+            @search-accounts="handleSearchedAccounts"
+            @search-classifications="handleSearchedClassifications"
+        />
 
     </div>
 
@@ -383,16 +383,27 @@ async function updateTotalNotifications() {
 
 }
 
-function onClickApprove(indx: number) {
-    console.log('onClickApprove', indx)
-    const item = pendings.value[indx]
+function onClickApprove(id: number) {
+    console.log('onClickApprove', id)
+
+    const item = pendings.value.find(i => i.id === id)
+
+    if(!item) {
+        console.error('Item not found in pendings', id);
+        return 
+    }
 
     modalData.value.pendingApproval = item
 }
 
-function handleCommonApprove(indx: number) {
+function handleCommonApprove(id: number) {
 
-    const item = pendings.value[indx]
+    const item = pendings.value.find(i => i.id === id)
+
+    if(!item) {
+        console.error('Item not found in pendings', id);
+        return 
+    }
 
     Swal.fire({
         title: "Approve Confirmation",
@@ -427,7 +438,9 @@ function handleCommonApprove(indx: number) {
                 });
 
                 await updateTotalNotifications()
-                pendings.value.splice(indx, 1)
+
+                removePending(item.id)
+                // pendings.value.splice(indx, 1)
 
                 // updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
 
@@ -448,9 +461,14 @@ function handleCommonApprove(indx: number) {
 
 }
 
-function handleCommonDisapprove(indx: number) {
+function handleCommonDisapprove(id: number) {
 
-    const item = pendings.value[indx]
+    const item = pendings.value.find(i => i.id === id)
+
+    if(!item) {
+        console.error('Item not found in pendings', id);
+        return 
+    }
 
     Swal.fire({
         title: "Disapprove Confirmation",
@@ -491,7 +509,9 @@ function handleCommonDisapprove(indx: number) {
 
                 await updateTotalNotifications()
 
-                pendings.value.splice(indx, 1)
+                removePending(item.id)
+
+                // pendings.value.splice(indx, 1)
 
                 // updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
 
@@ -655,5 +675,14 @@ function handleStartEditComment(pending_id: number) {
     pending.is_editing = true
 }
 
+
+// =============================== Utils =============================== 
+
+function removePending(id: number) {
+    const indx = pendings.value.findIndex(i => i.id === id);
+    if (indx !== -1) {
+        pendings.value.splice(indx, 1);
+    }
+}
 
 </script>
