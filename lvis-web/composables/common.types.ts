@@ -155,3 +155,6 @@ export interface IApprovalStatus {
     id: number 
     label: string
 }
+
+
+export type ServerType = keyof typeof SERVER_OBJECT;

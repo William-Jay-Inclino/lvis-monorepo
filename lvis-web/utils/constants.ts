@@ -502,3 +502,23 @@ export const approvalStatusArray = [
     { id: APPROVAL_STATUS.DISAPPROVED, label: approvalStatus[APPROVAL_STATUS.DISAPPROVED].label },
     { id: APPROVAL_STATUS.CANCELLED, label: approvalStatus[APPROVAL_STATUS.CANCELLED].label }
 ]
+
+
+export const SERVER_OBJECT = {
+    local: {
+        label: 'LOCAL',
+        color: 'text-primary',
+    },
+    test: {
+        label: 'TEST',
+        color: 'text-info',
+    },
+    staging: {
+        label: 'STAGING',
+        color: 'text-warning',
+    },
+    production: {
+        label: 'PRODUCTION',
+        color: 'text-success',
+    }
+}

@@ -1,6 +1,16 @@
 <template>
 
     <div id="wrapper">
+
+        <!-- Top bar -->
+        <div v-if="SERVER !== 'production'" class="topbar bg-dark text-white py-1">
+            <div class="container">
+                <div>
+                    Server: <span :class="SERVER_OBJECT[SERVER].color"> {{ SERVER_OBJECT[SERVER].label }} </span> 
+                </div>
+            </div>
+        </div>
+
         <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
             <div class="container">
                 <nuxt-link class="navbar-brand" to="/home">
@@ -150,6 +160,7 @@ const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 const offCanvassCloseBtn = ref<HTMLButtonElement>()
+const SERVER: ServerType = config.public.SERVER as ServerType
 
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 

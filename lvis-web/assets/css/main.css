@@ -77,3 +77,8 @@ a:hover {
     width: 100%; /* Expand underline on hover */
 }
 
+
+.topbar {
+    font-size: 14px;
+    line-height: 1.5;
+}
