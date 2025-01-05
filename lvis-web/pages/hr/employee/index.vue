@@ -21,7 +21,7 @@
                 </div>
         
                 <div class="row justify-content-center pt-5">
-                    <div class="col-lg-10">
+                    <div class="col-lg-11">
                         <div class="input-group mb-3">
                             <!-- Dropdown for selecting searchBy -->
                             <select class="form-select" v-model="searchBy" aria-label="Search By" style="max-width: 250px;">
@@ -53,7 +53,7 @@
                         Loading please wait...
                     </div>
         
-                    <div v-show="items.length > 0 && !isSearching" class="col-lg-10">
+                    <div v-show="items.length > 0 && !isSearching" class="col-lg-11">
         
                         <div class="row">
                             <div class="col">
@@ -61,11 +61,12 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
+                                                <th class="bg-secondary text-white">Employee Name</th>
                                                 <th class="bg-secondary text-white">Employee No.</th>
-                                                <th class="bg-secondary text-white">Firstname</th>
-                                                <th class="bg-secondary text-white">Middlename</th>
-                                                <th class="bg-secondary text-white">Lastname</th>
-                                                <!-- <th class="bg-secondary text-white">Status</th> -->
+                                                <th class="bg-secondary text-white">Position</th>
+                                                <th class="bg-secondary text-white">Rank</th>
+                                                <th class="bg-secondary text-white">Department</th>
+                                                <th class="bg-secondary text-white">Division</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
                                                     <font-awesome-icon :icon="['fas', 'cog']" />
@@ -75,15 +76,12 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in items">
+                                                <td class="text-muted"> {{ getFullname(i.firstname, i.middlename, i.lastname) }} </td>
                                                 <td class="text-muted"> {{ i.employee_number }} </td>
-                                                <td class="text-muted"> {{ i.firstname }} </td>
-                                                <td class="text-muted"> {{ i.middlename }} </td>
-                                                <td class="text-muted"> {{ i.lastname }} </td>
-                                                <!-- <td class="text-center align-middle">
-                                                    <div :class="{ [`badge bg-${employeeStatus[i.status].color}`]: true }">
-                                                        {{ employeeStatus[i.status].label }}
-                                                    </div>
-                                                </td> -->
+                                                <td class="text-muted"> {{ i.position }} </td>
+                                                <td class="text-muted"> {{ i.rank_number }} </td>
+                                                <td class="text-muted"> {{ i.department.code }} </td>
+                                                <td class="text-muted"> {{ i.division ? i.division.code : 'N/A' }} </td>
                                                 <td class="align-middle text-center">
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm text-primary">
                                                         <client-only>
@@ -175,9 +173,6 @@ const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 
 const router = useRouter()
-const config = useRuntimeConfig()
-
-
 
 const items = ref<Employee[]>([])
 const _paginationInitial = {

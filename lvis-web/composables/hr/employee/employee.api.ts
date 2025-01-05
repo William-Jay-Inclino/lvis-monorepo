@@ -29,7 +29,19 @@ export async function findAll(payload: {
                       firstname
                       middlename
                       lastname
-                      status
+                      position
+                      rank_number
+                      department {
+                        id 
+                        code
+                        name
+                      }
+                      division {
+                        id 
+                        code
+                        name
+                      }
+                    status
                   }
                   totalItems
                   currentPage

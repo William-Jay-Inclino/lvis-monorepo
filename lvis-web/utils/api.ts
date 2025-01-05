@@ -1,5 +1,6 @@
 import axios, { type AxiosResponse } from 'axios';
 import type { AuthUser } from '~/composables/common.types';
+import Swal from 'sweetalert2'
 
 
 export const sendRequest = async (
@@ -31,8 +32,21 @@ export const sendRequest = async (
   
       return await axios.post(GRAPHQL_API_URL, requestData, { headers });
     } catch (error) {
-      console.error('Error in sendRequest:', error);
-      throw error;
+
+        console.error('Error in sendRequest:', error);
+        
+        Swal.fire({
+            title: 'Token expired!',
+            text: 'Please login again.',
+            icon: 'warning',
+            position: 'top',
+        }).then(() => {
+            localStorage.removeItem(LOCAL_STORAGE_AUTH_USER_KEY); 
+            window.location.href = '/'
+        });
+
+        throw error
+
     }
 };
 
