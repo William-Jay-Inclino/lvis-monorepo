@@ -596,6 +596,13 @@ export async function findOne(id: string): Promise<RR | undefined> {
                                 canvass {
                                     id
                                     rc_number
+                                    purpose
+                                    requested_by {
+                                        id
+                                        firstname
+                                        middlename
+                                        lastname
+                                    }
                                 }
                             }
                             spr {
@@ -604,6 +611,12 @@ export async function findOne(id: string): Promise<RR | undefined> {
                                 canvass {
                                     id
                                     rc_number
+                                    requested_by {
+                                        id
+                                        firstname
+                                        middlename
+                                        lastname
+                                    }
                                 }
                             }
                             jo {
@@ -612,6 +625,12 @@ export async function findOne(id: string): Promise<RR | undefined> {
                                 canvass {
                                     id
                                     rc_number
+                                    requested_by {
+                                        id
+                                        firstname
+                                        middlename
+                                        lastname
+                                    }
                                 }
                             }
                         }

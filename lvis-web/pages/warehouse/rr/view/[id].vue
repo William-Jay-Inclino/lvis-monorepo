@@ -32,6 +32,14 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    <tr v-if="canvass">
+                                        <td class="text-muted"> Requisitioner </td>
+                                        <td> {{ getFullname(canvass.requested_by!.firstname, canvass.requested_by!.middlename, canvass.requested_by!.lastname) }} </td>
+                                    </tr>
+                                    <tr v-if="canvass">
+                                        <td class="text-muted"> Purpose </td>
+                                        <td> {{ canvass.purpose }} </td>
+                                    </tr>
                                     <tr>
                                         <td class="text-muted"> RC Number </td>
                                         <td v-if="meqs">
@@ -551,7 +559,6 @@ const grossTotalSummary = computed(() => {
 
 const totalPriceSummary = computed(() => grossTotalSummary.value + item.value!.delivery_charge)
 
-const isApproved = computed( () => item.value && item.value.status === APPROVAL_STATUS.APPROVED)
 
 const meqs = computed(() => {
 
@@ -560,6 +567,17 @@ const meqs = computed(() => {
 
     const meqs = item.value!.po.meqs_supplier.meqs
     return meqs
+
+})
+
+const canvass = computed(() => {
+    if(!meqs.value) return 
+    
+    if(meqs.value.rv && meqs.value.rv.canvass) return meqs.value.rv.canvass 
+    
+    if(meqs.value.spr && meqs.value.spr.canvass) return meqs.value.spr.canvass
+
+    if(meqs.value.jo && meqs.value.jo.canvass) meqs.value.jo.canvass
 
 })
 

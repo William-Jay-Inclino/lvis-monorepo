@@ -28,6 +28,14 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    <tr v-if="canvass">
+                                        <td class="text-muted"> Requisitioner </td>
+                                        <td> {{ getFullname(canvass.requested_by!.firstname, canvass.requested_by!.middlename, canvass.requested_by!.lastname) }} </td>
+                                    </tr>
+                                    <tr v-if="canvass">
+                                        <td class="text-muted"> Purpose </td>
+                                        <td> {{ canvass.purpose }} </td>
+                                    </tr>
                                     <tr>
                                         <td class="text-muted">MEQS Number</td>
                                         <td>
@@ -314,6 +322,17 @@ const meqs = computed(() => {
 
 })
 
+const canvass = computed(() => {
+    if(!meqs.value) return 
+    
+    if(meqs.value.rv && meqs.value.rv.canvass) return meqs.value.rv.canvass 
+    
+    if(meqs.value.spr && meqs.value.spr.canvass) return meqs.value.spr.canvass
+
+    if(meqs.value.jo && meqs.value.jo.canvass) meqs.value.jo.canvass
+
+})
+
 const supplierItems = computed(() => {
 
     if (!item.value || !item.value.meqs_supplier) return []
@@ -336,16 +355,6 @@ const totalPriceOfAllItems = computed(() => {
     let totalPrice = 0
 
     for (let item of supplierItems.value) {
-
-        // const totalPriceOfItem = getTotalNetPrice(item.price, item.canvass_item.quantity, getVatAmount(item.price, item.vat_type))
-        // const totalPriceOfItem = getTotalNetPrice({
-        //     vatType: item.vat_type,
-        //     pricePerUnit: item.price,
-        //     vatPerUnit: getVatAmount(item.price, item.vat_type),
-        //     quantity: item.canvass_item.quantity
-        // })
-
-        // totalPrice += totalPriceOfItem
 
         totalPrice += item.price * item.canvass_item.quantity
 

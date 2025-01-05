@@ -31,6 +31,18 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <tr v-if="item.canvass">
+                                                <td class="text-muted">Requisitioner</td>
+                                                <td>
+                                                    {{ getFullname(item.canvass.requested_by!.firstname, item.canvass.requested_by!.middlename, item.canvass.requested_by!.lastname) }}
+                                                </td>
+                                            </tr>
+                                            <tr v-if="item.canvass">
+                                                <td class="text-muted">Purpose</td>
+                                                <td>
+                                                    {{ item.canvass.purpose }}
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td class="text-muted">RC Number</td>
                                                 <td>
