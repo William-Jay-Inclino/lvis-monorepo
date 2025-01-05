@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEmployeeInput } from './dto/create-employee.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Employee, EmployeeStatus, Prisma } from 'apps/system/prisma/generated/client';
@@ -12,7 +12,6 @@ import { USER_GROUP } from '../__common__/constants';
 @Injectable()
 export class EmployeeService {
 
-	private readonly logger = new Logger(EmployeeService.name);
 	private authUser: AuthUser
 
 	constructor(private readonly prisma: PrismaService) { }
@@ -57,6 +56,7 @@ export class EmployeeService {
 	async findAll(
 		page: number,
 		pageSize: number,
+		searchBy: 'name' | 'employee_number' = 'name',
 		searchValue?: string
 	): Promise<EmployeesResponse> {
 
@@ -67,13 +67,21 @@ export class EmployeeService {
 		};
 
 		if (!!searchValue) {
-			whereCondition = {
-				OR: [
-					{ lastname: { startsWith: searchValue.trim(), mode: 'insensitive' } },
-					{ firstname: { startsWith: searchValue.trim(), mode: 'insensitive' } },
-					{ middlename: { startsWith: searchValue.trim(), mode: 'insensitive' } },
-				],
-			};
+			if (searchBy === 'name') {
+				whereCondition = {
+					...whereCondition,
+					OR: [
+						{ lastname: { startsWith: searchValue.trim(), mode: 'insensitive' } },
+						{ firstname: { startsWith: searchValue.trim(), mode: 'insensitive' } },
+						{ middlename: { startsWith: searchValue.trim(), mode: 'insensitive' } },
+					],
+				};
+			} else if (searchBy === 'employee_number') {
+				whereCondition = {
+					...whereCondition,
+					employee_number: { startsWith: searchValue.trim(), mode: 'insensitive' },
+				};
+			}
 		}
 
 		const items = await this.prisma.employee.findMany({

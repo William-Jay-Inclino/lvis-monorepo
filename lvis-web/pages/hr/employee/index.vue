@@ -23,13 +23,25 @@
                 <div class="row justify-content-center pt-5">
                     <div class="col-lg-10">
                         <div class="input-group mb-3">
-                            <input @keyup.enter="search()" type="text" class="form-control" placeholder="Enter name..."
-                                v-model="searchValue">
+                            <!-- Dropdown for selecting searchBy -->
+                            <select class="form-select" v-model="searchBy" aria-label="Search By" style="max-width: 250px;">
+                                <option value="name">Name</option>
+                                <option value="employee_number">Employee Number</option>
+                            </select>
+                            <!-- Input for search value -->
+                            <input 
+                                @keyup.enter="search()" 
+                                type="text" 
+                                class="form-control" 
+                                :placeholder="`Enter ${searchBy.replace('_', ' ')}...`"
+                                v-model="searchValue" 
+                            />
+                            <!-- Search button -->
                             <button class="btn btn-primary" @click="search()">
                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search 
+                                    <font-awesome-icon :icon="['fas', 'search']" />
+                                </client-only>
+                                Search
                             </button>
                         </div>
                     </div>
@@ -152,7 +164,6 @@
 import * as api from '~/composables/hr/employee/employee.api'
 import type { Employee } from '~/composables/hr/employee/employee.types';
 import { PAGINATION_SIZE } from '~/utils/config'
-import { useToast } from "vue-toastification";
 
 definePageMeta({
     name: ROUTES.EMPLOYEE_INDEX,
@@ -163,11 +174,9 @@ definePageMeta({
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 
-const toast = useToast();
 const router = useRouter()
 const config = useRuntimeConfig()
 
-const API_FILE_ENDPOINT = config.public.apiUrl + '/api/v1/file-upload'
 
 
 const items = ref<Employee[]>([])
@@ -183,6 +192,7 @@ const isSearching = ref(false)
 
 
 const searchValue = ref(null)
+const searchBy = ref<'name' | 'employee_number'>('name')
 const pagination = ref({ ..._paginationInitial })
 
 onMounted(async () => {
@@ -192,7 +202,8 @@ onMounted(async () => {
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page: 1,
         pageSize: pagination.value.pageSize,
-        searchValue: searchValue.value
+        searchValue: searchValue.value,
+        searchBy: searchBy.value
     })
     isSearching.value = false
 
@@ -233,7 +244,6 @@ async function changePage(page: number) {
         page,
         pageSize: pagination.value.pageSize,
         searchValue: null
-
     })
     isSearching.value = false
     items.value = data
@@ -247,8 +257,8 @@ async function search() {
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page: 1,
         pageSize: pagination.value.pageSize,
-        searchValue: searchValue.value
-
+        searchValue: searchValue.value,
+        searchBy: searchBy.value
     })
     isSearching.value = false
     items.value = data

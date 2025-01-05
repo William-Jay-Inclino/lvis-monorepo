@@ -54,11 +54,12 @@ export class EmployeeResolver {
 
   @Query(() => EmployeesResponse)
   employees(
-    @Args('page') page?: number,
-    @Args('pageSize') pageSize?: number,
+    @Args('page', { type: () => Number, nullable: true }) page: number = 1,
+    @Args('pageSize', { type: () => Number, nullable: true }) pageSize: number = 10,
+    @Args('searchBy', { type: () => String, nullable: true }) searchBy: 'name' | 'employee_number' = 'name',
     @Args('searchValue', { nullable: true }) searchValue?: string,
   ) {
-    return this.employeeService.findAll(page, pageSize, searchValue);
+    return this.employeeService.findAll(page, pageSize, searchBy, searchValue);
   }
 
   @Query(() => [Employee])

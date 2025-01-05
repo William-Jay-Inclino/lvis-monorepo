@@ -4,48 +4,49 @@ import axios from "axios";
 import type { Department } from "../department/department";
 
 
-export async function findAll(payload: { page: number, pageSize: number, searchValue: string | null }): Promise<FindAllResponse> {
-
-    const { page, pageSize, searchValue } = payload;
-
-    let value = null
-
-    if (searchValue) {
-        value = `"${searchValue}"`
-    }
-
-
-    const query = `
-        query {
-            employees(
-                page: ${page},
-                pageSize: ${pageSize},
-                searchValue: ${value},
-            ) {
-                data {
-                    id
-                    employee_number
-                    firstname
-                    middlename
-                    lastname
-                    status
-                }
-                totalItems
-                currentPage
-                totalPages
-            }
-        }
-    `;
-
-    try {
-        const response = await sendRequest(query);
-        console.log('response', response)
-        return response.data.data.employees;
-    } catch (error) {
-        console.error(error);
-        throw error
-    }
-}
+export async function findAll(payload: { 
+    page: number, 
+    pageSize: number, 
+    searchValue: string | null, 
+    searchBy?: 'name' | 'employee_number' 
+  }): Promise<FindAllResponse> {
+  
+      const { page, pageSize, searchValue, searchBy = 'name' } = payload;
+  
+      let value = searchValue ? `"${searchValue}"` : null;
+  
+      const query = `
+          query {
+              employees(
+                  page: ${page},
+                  pageSize: ${pageSize},
+                  searchBy: "${searchBy}",
+                  searchValue: ${value},
+              ) {
+                  data {
+                      id
+                      employee_number
+                      firstname
+                      middlename
+                      lastname
+                      status
+                  }
+                  totalItems
+                  currentPage
+                  totalPages
+              }
+          }
+      `;
+  
+      try {
+          const response = await sendRequest(query);
+          console.log('response', response);
+          return response.data.data.employees;
+      } catch (error) {
+          console.error(error);
+          throw error;
+      }
+  }
 
 export async function findOne(id: string): Promise<Employee | undefined> {
     const query = `
