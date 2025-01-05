@@ -121,7 +121,11 @@ export async function create(input: CreateEmployeeInput): Promise<MutationRespon
                 department_id: "${input.department?.id}",
                 division_id: ${division_id},
             }) {
-                id
+                success
+                msg
+                data {
+                    id
+                }
             }
         }`;
 
@@ -130,11 +134,7 @@ export async function create(input: CreateEmployeeInput): Promise<MutationRespon
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.createEmployee) {
-            return {
-                success: true,
-                msg: 'Employee created successfully!',
-                data: response.data.data.createEmployee
-            }
+            return response.data.data.createEmployee
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -175,7 +175,11 @@ export async function update(id: string, input: CreateEmployeeInput): Promise<Mu
                 department_id: "${input.department?.id}",
                 division_id: ${division_id},
             }) {
-                id
+                success
+                msg
+                data {
+                    id
+                }
             }
         }`;
 
@@ -184,11 +188,7 @@ export async function update(id: string, input: CreateEmployeeInput): Promise<Mu
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.updateEmployee) {
-            return {
-                success: true,
-                msg: 'Employee updated successfully!',
-                data: response.data.data.updateEmployee
-            }
+            return response.data.data.updateEmployee
         }
 
         throw new Error(JSON.stringify(response.data.errors));

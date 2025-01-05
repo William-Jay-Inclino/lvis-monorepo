@@ -14,6 +14,7 @@ import { MODULES } from '../__common__/modules.enum';
 import { RESOLVERS } from '../__common__/resolvers.enum';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { USER_GROUP } from '../__common__/constants';
+import { EmployeeMutationResponse } from './entities/employee-mutation-response.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Employee)
@@ -24,7 +25,7 @@ export class EmployeeResolver {
 
   constructor(private readonly employeeService: EmployeeService) { }
 
-  @Mutation(() => Employee)
+  @Mutation(() => EmployeeMutationResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.EMPLOYEE, RESOLVERS.createEmployee)
   async createEmployee(
@@ -43,7 +44,7 @@ export class EmployeeResolver {
 
       const x = await this.employeeService.create(createEmployeeInput);
       
-      this.logger.log('Employee created successfully')
+      this.logger.log(x.msg)
 
       return x
 
@@ -94,7 +95,7 @@ export class EmployeeResolver {
     return this.employeeService.findOne(id);
   }
 
-  @Mutation(() => Employee)
+  @Mutation(() => EmployeeMutationResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.EMPLOYEE, RESOLVERS.updateEmployee)
   async updateEmployee(
@@ -115,7 +116,7 @@ export class EmployeeResolver {
       this.employeeService.setAuthUser(authUser)
       const x = await this.employeeService.update(id, updateEmployeeInput);
 
-      this.logger.log('Employee updated successfully')
+      this.logger.log(x.msg)
 
       return x
     } catch (error) {

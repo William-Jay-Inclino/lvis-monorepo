@@ -20,7 +20,18 @@ export class EmployeeService {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateEmployeeInput): Promise<Employee> {
+	async create(input: CreateEmployeeInput): Promise<{success: boolean, msg: string, data?: Employee}> {
+
+		const existingEmployee = await this.prisma.employee.findUnique({
+			where: { employee_number: input.employee_number },
+		});
+	
+		if (existingEmployee) {
+			return {
+				success: false,
+				msg: `Employee with employee number ${input.employee_number} already exists.`
+			}
+		}
 
 		const data: Prisma.EmployeeCreateInput = {
 			employee_number: input.employee_number,
@@ -49,7 +60,11 @@ export class EmployeeService {
 			created.division.permissions = !!created.division.permissions ? JSON.stringify(created.division.permissions) : null
 		}
 
-		return created
+		return {
+			success: true,
+			msg: 'Employee successfully created.',
+			data: created
+		}
 
 	}
 
@@ -180,9 +195,23 @@ export class EmployeeService {
 
 	}
 
-	async update(id: string, input: UpdateEmployeeInput): Promise<Employee> {
+	async update(id: string, input: UpdateEmployeeInput): Promise<{success: boolean, msg: string, data?: Employee}> {
 
 		const existingItem = await this.findOne(id)
+
+		// Check if the employee_number exists and belongs to another employee
+		if (input.employee_number && input.employee_number !== existingItem.employee_number) {
+			const existingEmployee = await this.prisma.employee.findUnique({
+				where: { employee_number: input.employee_number },
+			});
+	
+			if (existingEmployee && existingEmployee.id !== id) {
+				return {
+					success: false,
+					msg: `Employee with employee number ${input.employee_number} already exists.`
+				}
+			}
+		}
 
 		const data: Prisma.EmployeeUpdateInput = {
 			updated_by: this.authUser.user.username,
@@ -227,7 +256,11 @@ export class EmployeeService {
 		updated.department.permissions = !!updated.department.permissions ? JSON.stringify(updated.department.permissions) : null
 
 
-		return updated
+		return {
+			success: true,
+			msg: 'Employee successfully created.',
+			data: updated
+		}
 
 	}
 
