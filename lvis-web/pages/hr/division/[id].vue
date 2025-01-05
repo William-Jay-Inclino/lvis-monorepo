@@ -17,7 +17,7 @@
                                 <div>
                                     <small> - Fields with * are required </small>
                                 </div>
-                                <div>
+                                <div v-if="isAdmin(authUser)">
                                     <small>
                                         - User Permissions are assigned based on the division, so when creating a user account, default permissions will be applied according to the employee's division. If no division is specified, default department permissions will be used.
                                     </small>
