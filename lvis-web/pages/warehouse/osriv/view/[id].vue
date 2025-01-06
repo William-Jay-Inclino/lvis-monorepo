@@ -15,8 +15,8 @@
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                            </client-only> OSRIV Info
+                                            <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                        </client-only> OSRIV Info
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -79,8 +79,8 @@
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'users']"/>
-                            </client-only> Signatories
+                                            <font-awesome-icon :icon="['fas', 'users']"/>
+                                        </client-only> Signatories
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -135,8 +135,8 @@
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
-                            </client-only> Items
+                                            <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                                        </client-only> Items
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -183,29 +183,29 @@
                                         <nuxt-link v-if="canSearch(authUser, 'canManageOSRIV')" class="btn btn-secondary me-2"
                                             to="/warehouse/OSRIV">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search OSRIV
+                                                <font-awesome-icon :icon="['fas', 'search']" />
+                                            </client-only> 
+                                            Search OSRIV
                                         </nuxt-link>
                                     </div>
                                     <div v-if="!item.cancelled_at">
                                         <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
                                             @click="onCancelOsriv()">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Cancel OSRIV
+                                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                            </client-only> Cancel OSRIV
                                         </button>
                                         <button v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']"/>
-                            </client-only> Edit Form
+                                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                                            </client-only> Edit Form
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageOSRIV')" class="btn btn-primary me-2"
                                             @click="onClickAdd">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New OSRIV
+                                                    <font-awesome-icon :icon="['fas', 'plus']"/>
+                                            </client-only> Add New OSRIV
                                         </button>
                                     </div>
                                 </div>

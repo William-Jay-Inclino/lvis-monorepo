@@ -41,7 +41,7 @@
                                     Request Type <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="request_types" label="name" v-model="serivData.request_type" :clearable="false"></v-select>
+                                    <v-select data-testid="request-type" :options="request_types" label="name" v-model="serivData.request_type" :clearable="false"></v-select>
                                 </client-only>
                                 <small v-if="showMwoNumber" class="text-muted fst-italic">
                                     Note: The MWO number is automatically assigned when approved.
@@ -78,7 +78,7 @@
                                     Item From <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="stations" label="name" v-model="serivData.item_from" :clearable="false" :disabled="!!default_station"></v-select>
+                                    <v-select data-testid="item-from" :options="stations" label="name" v-model="serivData.item_from" :clearable="false" :disabled="!!default_station"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="serivDataErrors.item_from"> {{ errorMsg }} </small>
                             </div>
@@ -87,7 +87,7 @@
                                 <label class="form-label">
                                     Consumer Name <span class="text-danger">*</span>
                                 </label>
-                                <textarea v-model="serivData.consumer_name" class="form-control"
+                                <textarea data-testid="consumer-name" v-model="serivData.consumer_name" class="form-control"
                                     rows="3"> </textarea>
                                 <small class="text-danger fst-italic" v-show="serivDataErrors.consumer_name"> {{ errorMsg }}
                                 </small>
@@ -97,7 +97,7 @@
                                 <label class="form-label">
                                     Location <span class="text-danger">*</span>
                                 </label>
-                                <textarea v-model="serivData.location" class="form-control"
+                                <textarea data-testid="location" v-model="serivData.location" class="form-control"
                                     rows="3"> </textarea>
                                 <small class="text-danger fst-italic" v-show="serivDataErrors.location"> {{ errorMsg }}
                                 </small>
@@ -107,7 +107,7 @@
                                 <label class="form-label">
                                     Purpose <span class="text-danger">*</span>
                                 </label>
-                                <textarea v-model="serivData.purpose" class="form-control"
+                                <textarea data-testid="purpose" v-model="serivData.purpose" class="form-control"
                                     rows="3"> </textarea>
                                 <small class="text-danger fst-italic" v-show="serivDataErrors.purpose"> {{ errorMsg }}
                                 </small>
@@ -118,7 +118,7 @@
                                     Requested By <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="employees" label="fullname" v-model="serivData.requested_by" :clearable="false"></v-select>
+                                    <v-select data-testid="requested-by" :options="employees" label="fullname" v-model="serivData.requested_by" :clearable="false"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="serivDataErrors.requested_by"> {{ errorMsg }} </small>
                             </div>
@@ -128,7 +128,7 @@
                                     Withdrawn By <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="employees" label="fullname" v-model="serivData.withdrawn_by" :clearable="false"></v-select>
+                                    <v-select data-testid="withdrawn-by" :options="employees" label="fullname" v-model="serivData.withdrawn_by" :clearable="false"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="serivDataErrors.withdrawn_by"> {{ errorMsg }} </small>
                             </div>
@@ -143,12 +143,13 @@
                                 <hr class="result">
                             </div>
     
-                            <div v-for="approver in serivData.approvers" class="mb-3">
+                            <div v-for="approver, indx in serivData.approvers" class="mb-3">
                                 <label class="form-label">
                                     {{ approver.label }} <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
                                     <v-select
+                                        :data-testid="`approver-${ indx }`"
                                         :options="approver.order === 3 ? auditors : employees"
                                         label="fullname"
                                         v-model="approver.approver"
@@ -168,6 +169,7 @@
 
                             <div class="text-end mb-3">
                                 <button
+                                    data-testid="add-item"
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#addItemModal">
@@ -191,28 +193,28 @@
                             <div v-if="currentStep === 1" class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/seriv">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search SERIV
+                                        <font-awesome-icon :icon="['fas', 'search']" />
+                                    </client-only> 
+                                    Search SERIV
                                 </nuxt-link>
-                                <button @click="onClickNextStep1()" class="btn btn-primary">
+                                <button data-testid="next" @click="onClickNextStep1()" class="btn btn-primary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
-                            </client-only> Next
+                                        <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                                    </client-only> Next
                                 </button>
                             </div>
             
                             <div v-else class="d-flex justify-content-between">
                                 <button @click="currentStep--" type="button" class="btn btn-secondary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
-                            </client-only> Back
+                                        <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                                    </client-only> Back
                                 </button>
-                                <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
+                                <button data-testid="save" @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                     class="btn btn-primary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                        <font-awesome-icon :icon="['fas', 'save']"/>
+                                    </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
             

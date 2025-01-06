@@ -115,7 +115,7 @@
                                                 <td class="text-muted"> TXN-{{ formatTxnNumber(i.id) }} </td>
                                                 <td class="text-muted">
                                                     <div v-if="i.rr_item">
-                                                        <nuxt-link :to="'/warehouse/rr/view/' + i.rr_item.rr!.id"
+                                                        <nuxt-link :data-testid="`rr-${ i.rr_item.rr?.rr_number }`" :to="'/warehouse/rr/view/' + i.rr_item.rr!.id"
                                                             target="_blank">
                                                             {{ `RR#${i.rr_item.rr?.rr_number}` }}
                                                         </nuxt-link>
@@ -129,28 +129,28 @@
         
                                                     </div>
                                                     <div v-else-if="i.seriv_item">
-                                                        <nuxt-link :to="'/warehouse/seriv/view/' + i.seriv_item.seriv!.id"
+                                                        <nuxt-link :data-testid="`seriv-${ i.seriv_item.seriv.seriv_number }`" :to="'/warehouse/seriv/view/' + i.seriv_item.seriv!.id"
                                                             target="_blank">
                                                             {{ `SERIV#${i.seriv_item.seriv?.seriv_number}` }}
                                                         </nuxt-link>
         
                                                     </div>
                                                     <div v-else-if="i.mrv_item && i.mrv_item.mrv.mct">
-                                                        <nuxt-link :to="'/warehouse/mct/view/' + i.mrv_item.mrv.mct.id"
+                                                        <nuxt-link :data-testid="`mct-${ i.mrv_item.mrv.mct.mct_number }`" :to="'/warehouse/mct/view/' + i.mrv_item.mrv.mct.id"
                                                             target="_blank">
                                                             {{ `MCT#${i.mrv_item.mrv?.mct.mct_number}` }}
                                                         </nuxt-link>
         
                                                     </div>
                                                     <div v-else-if="i.mcrt_item">
-                                                        <nuxt-link :to="'/warehouse/mcrt/view/' + i.mcrt_item.mcrt!.id"
+                                                        <nuxt-link :data-testid="`mcrt-${ i.mcrt_item.mcrt.mcrt_number }`" :to="'/warehouse/mcrt/view/' + i.mcrt_item.mcrt!.id"
                                                             target="_blank">
                                                             {{ `MCRT#${i.mcrt_item.mcrt?.mcrt_number}` }}
                                                         </nuxt-link>
         
                                                     </div>
                                                     <div v-else-if="i.mst_item">
-                                                        <nuxt-link :to="'/warehouse/mst/view/' + i.mst_item!.mst!.id"
+                                                        <nuxt-link :data-testid="`mst-${ i.mst_item.mst.mst_number }`" :to="'/warehouse/mst/view/' + i.mst_item!.mst!.id"
                                                             target="_blank">
                                                             {{ `MST#${i.mst_item!.mst?.mst_number}` }}
                                                         </nuxt-link>

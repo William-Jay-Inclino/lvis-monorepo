@@ -188,7 +188,7 @@
                         <div class="row pt-3">
                             <div class="col">
         
-                                <div v-if="!isMobile">
+                                <div>
         
                                     <div class="h5wrapper mb-3">
                                         <hr class="result">

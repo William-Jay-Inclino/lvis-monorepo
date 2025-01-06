@@ -15,8 +15,8 @@
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                            </client-only> SERIV Info
+                                            <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                        </client-only> SERIV Info
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -41,7 +41,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">SERIV Number</td>
-                                                <td> {{ item.seriv_number }} </td>
+                                                <td data-testid="seriv-number"> {{ item.seriv_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">MCRT Number/s</td>
@@ -132,8 +132,8 @@
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'users']"/>
-                            </client-only> Signatories
+                                            <font-awesome-icon :icon="['fas', 'users']"/>
+                                        </client-only> Signatories
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -142,7 +142,6 @@
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white"> Order </th>
                                                 <th class="bg-secondary text-white"> Label </th>
                                                 <th class="bg-secondary text-white"> Approver </th>
                                                 <th class="bg-secondary text-white"> Status </th>
@@ -151,7 +150,6 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.seriv_approvers">
-                                                <td class="align-middle"> {{ i.order }} </td>
                                                 <td class="align-middle"> {{ i.label }} </td>
                                                 <td class="align-middle"> {{ getFullname(i.approver!.firstname,
                 i.approver!.middlename, i.approver!.lastname) }} </td>
@@ -191,8 +189,8 @@
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
-                            </client-only> Items
+                                            <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                                        </client-only> Items
                                     </h5>
                                     <hr class="result">
                                 </div>
@@ -203,7 +201,6 @@
                                             <tr>
                                                 <th class="bg-secondary text-white"> No. </th>
                                                 <th class="bg-secondary text-white"> Description </th>
-                                                <!-- <th class="bg-secondary text-white"> Available Qty </th> -->
                                                 <th class="bg-secondary text-white"> Unit </th>
                                                 <th class="bg-secondary text-white"> Quantity </th>
                                                 <th class="bg-secondary text-white"> Unit Price </th>
@@ -214,13 +211,12 @@
                                             <tr v-for="i, count in item.seriv_items">
                                                 <td> {{ count + 1 }} </td>
                                                 <td>
-                                                    <nuxt-link :to="'/warehouse/item/view/' + i.item.id">
+                                                    <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
                                                         {{ i.item.code + ' - ' + i.item.description }} 
                                                     </nuxt-link> 
                                                 </td>
                                                 <td> {{ i.item.unit.name }} </td>
                                                 <td> {{ i.quantity }} </td>
-                                                <!-- <td> {{ i.item.total_quantity - i.item.quantity_on_queue }} </td> -->
                                                 <td> {{ formatToPhpCurrency(i.price) }} </td>
                                                 <td> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                                             </tr>
@@ -240,17 +236,10 @@
                                         <nuxt-link v-if="canSearch(authUser, 'canManageSERIV')"
                                             class="btn btn-secondary me-2" to="/warehouse/SERIV">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search SERIV
+                                                <font-awesome-icon :icon="['fas', 'search']" />
+                                            </client-only> 
+                                            Search SERIV
                                         </nuxt-link>
-                                        <!-- <button disabled
-                                            v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')"
-                                            @click="onClickPrint" class="btn btn-danger">
-                                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'print']"/>
-                            </client-only> Print SERIV
-                                        </button> -->
                                         <button
                                             v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')"
                                             @click="onClickPrint({is_gate_pass: true})"
@@ -267,20 +256,20 @@
                                         <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING"
                                             class="btn btn-warning me-2" @click="onCancelSERIV()">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Cancel SERIV
+                                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                            </client-only> Cancel SERIV
                                         </button>
                                         <button v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']"/>
-                            </client-only> Edit Form
+                                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                                            </client-only> Edit Form
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageSERIV')"
                                             class="btn btn-primary me-2" @click="onClickAdd">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New SERIV
+                                                    <font-awesome-icon :icon="['fas', 'plus']"/>
+                                            </client-only> Add New SERIV
                                         </button>
                                     </div>
                                 </div>

@@ -68,6 +68,12 @@ export async function findBySerivNumber(serivNumber: string): Promise<SERIV | un
             seriv(seriv_number: "${serivNumber}") {
                 id
                 seriv_number
+                requested_by {
+                    id
+                    firstname
+                    middlename 
+                    lastname
+                }
                 created_by
                 status
                 can_update

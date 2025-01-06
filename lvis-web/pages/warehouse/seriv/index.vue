@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">SERIV Number</label>
                             <client-only>
-                                <v-select @search="handleSearchSerivNumber" :options="serivs" label="seriv_number" v-model="seriv"></v-select>
+                                <v-select data-testid="search-seriv-number" @search="handleSearchSerivNumber" :options="serivs" label="seriv_number" v-model="seriv"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -42,13 +42,13 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search()" class="btn btn-primary" :disabled="isSearching">
+                    <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
                              {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageSERIV')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button data-testid="create-seriv" v-if="canCreate(authUser, 'canManageSERIV')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
@@ -109,7 +109,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageSERIV') }"
+                                                    <button :data-testid="`view-details-${ i.seriv_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageSERIV') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageSERIV')">
                                                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'info-circle']" />
