@@ -99,8 +99,8 @@ export class CanvassPdfService {
 
                 <div style="display: flex; justify-content: space-between;">
 
-                    <div>
-                        <table style="font-size: 10pt">
+                    <div style="width: 50%;">
+                        <table style="font-size: 10pt; width: 100%;">
                             <tr>
                                 <td style="white-space: pre-line;"><b>Purpose:</b> ${canvass.purpose}</td>
                             </tr>     
@@ -110,8 +110,8 @@ export class CanvassPdfService {
                         </table>
                     </div>
 
-                    <div>
-                        <table style="font-size: 10pt">
+                    <div style="margin-left: auto; text-align: right;">
+                        <table style="font-size: 10pt;">
                             <tr>
                                 <td style="font-weight: bold;"> RC No.: </td>
                                 <td style="border-bottom: 1px solid black;">
@@ -126,8 +126,9 @@ export class CanvassPdfService {
                             </tr>
                         </table>
                     </div>
-                
+
                 </div>
+
 
                 <br />
         

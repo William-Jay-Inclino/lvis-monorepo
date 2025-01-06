@@ -104,8 +104,8 @@ export class RvPdfService {
 
                 <div style="display: flex; justify-content: space-between;">
 
-                    <div>
-                        <table style="font-size: 10pt">
+                    <div style="width: 50%;">
+                        <table style="font-size: 10pt; width: 100%;">
                             <tr>
                                 <td style="white-space: pre-line;"><b>Purpose:</b> ${rv.canvass.purpose}</td>
                             </tr>     
@@ -115,7 +115,7 @@ export class RvPdfService {
                         </table>
                     </div>
 
-                    <div>
+                    <div style="margin-left: auto; text-align: right;">
                         <table style="font-size: 10pt">
                             <tr>
                                 <td style="font-weight: bold;"> RV No.: </td>

@@ -106,8 +106,8 @@ export class JoPdfService {
 
                 <div style="display: flex; justify-content: space-between;">
 
-                    <div>
-                        <table style="font-size: 10pt">
+                    <div style="width: 50%;">
+                        <table style="font-size: 10pt; width: 100%;">
                             <tr>
                                 <td style="white-space: pre-line;"><b>Purpose:</b> ${jo.canvass.purpose}</td>
                             </tr>     
@@ -117,7 +117,7 @@ export class JoPdfService {
                         </table>
                     </div>
 
-                    <div>
+                    <div style="margin-left: auto; text-align: right;">
                         <table style="font-size: 10pt">
                             <tr>
                                 <td style="font-weight: bold;"> JO No.: </td>
