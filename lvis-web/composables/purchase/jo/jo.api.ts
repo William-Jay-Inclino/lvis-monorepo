@@ -639,7 +639,7 @@ export async function create(input: CreateJoInput): Promise<MutationResponse> {
                     division_id: "${input.division?.id}"
                     equipment: "${input.equipment}"
                     classification_id: ${classification_id}
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                     approvers: [${approvers}]
                 }
             ) {
@@ -689,7 +689,7 @@ export async function update(id: string, input: UpdateJoInput): Promise<Mutation
                     division_id: "${input.division?.id}"
                     equipment: "${input.equipment}"
                     classification_id: ${classification_id}
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                 }
             ) {
                 id

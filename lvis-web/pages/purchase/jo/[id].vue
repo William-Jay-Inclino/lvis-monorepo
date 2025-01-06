@@ -67,13 +67,13 @@
                             <label class="form-label">
                                 Purpose
                             </label>
-                            <textarea :value="joData.canvass.purpose" class="form-control" rows="3" disabled> </textarea>
+                            <textarea :value="joData.canvass.purpose" class="form-control form-control-sm" rows="5" readonly> </textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">
                                 Requisitioner Notes
                             </label>
-                            <textarea :value="joData.canvass.notes" class="form-control" rows="3" disabled> </textarea>
+                            <textarea :value="joData.canvass.notes" class="form-control form-control-sm" rows="5" readonly> </textarea>
                         </div>
         
                         <div class="mb-3">
@@ -139,7 +139,7 @@
                             <label class="form-label">
                                 Notes
                             </label>
-                            <textarea class="form-control" rows="3" v-model="joData.notes"></textarea>
+                            <textarea class="form-control form-control-sm" rows="5" v-model="joData.notes"></textarea>
                         </div>
         
         
