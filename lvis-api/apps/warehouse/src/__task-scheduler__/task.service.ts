@@ -4,6 +4,7 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import * as moment from 'moment';
 import { Prisma } from 'apps/warehouse/prisma/generated/client';
 import { DB_ENTITY, MODULE_MAPPER, ModuleMapping } from '../__common__/constants';
+import { APPROVAL_STATUS } from '../__common__/types';
 
 @Injectable()
 export class TasksService {
@@ -68,6 +69,7 @@ constructor(private readonly prisma: PrismaService) { }
                 },
                 cancelled_at: null,
                 is_completed: false,
+                approval_status: APPROVAL_STATUS.PENDING
             },
             include: {
                 [module.items]: true,
