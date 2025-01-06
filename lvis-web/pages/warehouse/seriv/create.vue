@@ -339,7 +339,7 @@ import { fetchProjectsByName } from '~/composables/warehouse/project/project.api
                 id: i.id,
                 code: i.code,
                 label: i.code + ' - ' + i.description,
-                description: i.description,
+                description: `${i.description} ${i.project_item ? `(${i.project_item.project.name})` : ''}`,
                 available_quantity: i.total_quantity - i.quantity_on_queue,
                 unit: i.unit,
                 qty_request: 0,
