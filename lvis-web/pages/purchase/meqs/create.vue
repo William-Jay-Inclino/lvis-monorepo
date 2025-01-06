@@ -184,21 +184,21 @@
                                     <label class="form-label">
                                         Requisitioner Purpose
                                     </label>
-                                    <textarea :value="purpose" class="form-control" rows="3" disabled></textarea>
+                                    <textarea :value="purpose" class="form-control form-control-sm" rows="5" readonly></textarea>
                                 </div>
         
                                 <div class="mb-3">
                                     <label class="form-label">
                                         Requisitioner Notes
                                     </label>
-                                    <textarea :value="requisitionerNotes" class="form-control" rows="3" disabled></textarea>
+                                    <textarea :value="requisitionerNotes" class="form-control form-control-sm" rows="5" readonly></textarea>
                                 </div>
         
                                 <div class="mb-3">
                                     <label class="form-label">
                                         Recommendation Statement
                                     </label>
-                                    <textarea v-model="meqsData.notes" class="form-control" rows="3"></textarea>
+                                    <textarea v-model="meqsData.notes" class="form-control form-control-sm" rows="5"></textarea>
                                     <small class="text-muted fst-italic">This note will be use during print out</small>
                                 </div>
         

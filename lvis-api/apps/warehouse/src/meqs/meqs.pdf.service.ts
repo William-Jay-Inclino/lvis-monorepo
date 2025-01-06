@@ -133,12 +133,12 @@ export class MeqsPdfService {
                     <div>
                         <table style="font-size: 10pt">
                             <tr>
-                                <td>Purpose:</td>
-                                <td> ${ purpose } </td>
+                                <td style="font-weight: bold;">Purpose:</td>
+                                <td style="white-space: pre-line;"> ${ purpose } </td>
                             </tr>  
                             <tr>
-                                <td>Requisitioner Notes: </td>
-                                <td> ${ requisitioner_notes } </td>
+                                <td style="font-weight: bold;">Requisitioner Notes: </td>
+                                <td style="white-space: pre-line;"> ${ requisitioner_notes } </td>
                             </tr> 
                         </table>
                     </div>
@@ -146,13 +146,13 @@ export class MeqsPdfService {
                     <div>
                         <table style="font-size: 10pt">
                             <tr>
-                                <td> MEQS No.: </td>
+                                <td style="font-weight: bold;"> MEQS No.: </td>
                                 <td style="border-bottom: 1px solid black;">
                                     ${meqs.meqs_number}
                                 </td>
                             </tr>   
                             <tr>
-                                <td>Date Prepared: </td>
+                                <td style="font-weight: bold;">Date Prepared: </td>
                                 <td style="border-bottom: 1px solid black;">
                                     ${formatDate(meqs.meqs_date)}
                                 </td>
@@ -199,9 +199,7 @@ export class MeqsPdfService {
                     
                             return `
                             <tr style="border: 1px solid black;">
-                                <td>
-                                    ${index + 1}. ${canvassItem.description}
-                                </td>
+                                <td style="white-space: pre-line;">${index + 1}. ${canvassItem.description}</td>
                                 <td align="center">${canvassItem.unit ? canvassItem.unit.name : 'N/A'}</td>
                                 <td align="center">${canvassItem.quantity}</td>
                                 ${tdElements}

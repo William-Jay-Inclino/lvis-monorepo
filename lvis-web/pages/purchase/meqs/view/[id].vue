@@ -37,9 +37,9 @@
                                             </td>
                                         </tr>
                                         <tr v-if="referenceData?.canvass">
-                                            <td class="text-muted">Purpose</td>
+                                            <td class="text-muted align-middle">Purpose</td>
                                             <td>
-                                                {{ referenceData?.canvass.purpose }}
+                                                <textarea rows="5" class="form-control form-control-sm" :value="referenceData.canvass.purpose" readonly/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -110,8 +110,10 @@
                                             <td> {{ formatDate(item?.meqs_date) }} </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-muted">Recommendation Statement</td>
-                                            <td> {{ item?.notes }} </td>
+                                            <td class="text-muted align-middle">Recommendation Statement</td>
+                                            <td> 
+                                                <textarea rows="5" class="form-control form-control-sm" :value="item.notes" readonly/>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -138,16 +140,14 @@
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="bg-secondary text-white"> Order </th>
                                             <th class="bg-secondary text-white"> Label </th>
                                             <th class="bg-secondary text-white"> Approver </th>
                                             <th class="bg-secondary text-white"> Status </th>
-                                            <th class="bg-secondary text-white"> Notes </th>
+                                            <th class="bg-secondary text-white"> Comment </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="i, count in item.meqs_approvers">
-                                            <td class="align-middle"> {{ i.order }} </td>
                                             <td class="align-middle"> {{ i.label }} </td>
                                             <td class="align-middle"> {{ getFullname(i.approver!.firstname,
                 i.approver!.middlename, i.approver!.lastname) }} </td>
@@ -163,7 +163,7 @@
                                                 N/A
                                             </td>
                                             <td>
-                                                <textarea rows="3" class="form-control" disabled :value="i.notes"></textarea>
+                                                <textarea rows="3" class="form-control form-control-sm" readonly :value="i.notes || 'N/A'"></textarea>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -263,11 +263,13 @@
                                             </thead>
                                             <tbody v-if="referenceData?.canvass">
                                                 <tr :class="{'table-danger': hasRemarks(canvassItem.id, item.meqs_suppliers)}" v-for="canvassItem, i in referenceData.canvass.canvass_items">
-                                                    <td class="text-muted"> {{ i + 1 }} </td>
-                                                    <td class="text-muted"> {{ canvassItem.description }} </td>
-                                                    <td class="text-muted"> {{ canvassItem.unit ? canvassItem.unit.name : 'N/A' }} </td>
-                                                    <td class="text-muted"> {{ canvassItem.quantity }} </td>
-                                                    <td class="text-muted text-center" v-for="meqsSupplier in item.meqs_suppliers">
+                                                    <td class="text-muted align-middle"> {{ i + 1 }} </td>
+                                                    <td class="text-muted align-middle">
+                                                        <textarea class="form-control form-control-sm" rows="5" readonly>{{ canvassItem.description }} </textarea>
+                                                    </td>
+                                                    <td class="text-muted align-middle"> {{ canvassItem.unit ? canvassItem.unit.name : 'N/A' }} </td>
+                                                    <td class="text-muted align-middle"> {{ canvassItem.quantity }} </td>
+                                                    <td class="text-muted text-center align-middle" v-for="meqsSupplier in item.meqs_suppliers">
                                                         <template v-for="supplierItem in meqsSupplier.meqs_supplier_items">
                                                             <span v-if="supplierItem.canvass_item.id === canvassItem.id">
                                                                 {{ 
@@ -289,7 +291,7 @@
                                                             </span>
                                                         </template>
                                                     </td>
-                                                    <td class="text-center">
+                                                    <td class="text-center align-middle">
                                                         <button @click="onClickNote(canvassItem.id)" class="btn btn-secondary btn-sm"
                                                             data-bs-toggle="modal" data-bs-target="#myModal">
                                                             <client-only>

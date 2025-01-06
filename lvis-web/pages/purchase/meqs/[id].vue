@@ -87,17 +87,17 @@
         
                         <div class="mb-3">
                             <label class="form-label">Requisitioner Purpose</label>
-                            <input type="text" class="form-control" :value="reference.canvass!.purpose" disabled>
+                            <textarea class="form-control form-control-sm" rows="5" readonly>{{ reference.canvass!.purpose }}</textarea>
                         </div>
         
                         <div class="mb-3">
                             <label class="form-label">Requisitioner Notes</label>
-                            <input type="text" class="form-control" :value="reference.canvass!.notes" disabled>
+                            <textarea class="form-control form-control-sm" rows="5" readonly>{{ reference.canvass!.notes }}</textarea>
                         </div>
         
                         <div class="mb-3">
                             <label class="form-label">Recommendation Statement</label>
-                            <textarea v-model="meqsData.notes" class="form-control" rows="3"></textarea>
+                            <textarea v-model="meqsData.notes" class="form-control form-control-sm" rows="5"></textarea>
                             <small class="text-muted fst-italic">This note will be use during print out</small>
                         </div>
         
@@ -185,7 +185,6 @@ import { getFullname, formatToValidHtmlDate, redirectTo401Page } from '~/utils/h
 import { useToast } from "vue-toastification";
 import type { MEQS } from '~/composables/purchase/meqs/meqs.types';
 import * as meqsApi from '~/composables/purchase/meqs/meqs.api'
-import * as meqsApproverApi from '~/composables/purchase/meqs/meqs-approver.api'
 import * as meqsSupplierApi from '~/composables/purchase/meqs/meqs-supplier.api'
 import * as meqsSupplierAttachmentApi from '~/composables/purchase/meqs/meqs-supplier-attachment.api'
 import type { CreateMeqsSupplierAttachmentSubInput, CreateMeqsSupplierInput, CreateMeqsSupplierItemInput, MeqsSupplier, UpdateMeqsSupplierInput, UpdateMeqsSupplierItemInput } from '~/composables/purchase/meqs/meqs-supplier';

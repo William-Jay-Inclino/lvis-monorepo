@@ -104,7 +104,7 @@
         <!-- Supplier Modal -->
         <div data-testid="supplier-modal" class="modal fade" id="addSupplierModal" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-warning" id="exampleModalLabel">{{ formIsAdd ? 'Add' : 'Edit' }}
@@ -174,16 +174,18 @@
                                     <table class="table table-hover table-sm">
                                         <thead>
                                             <tr>
-                                                <th width="40%" class="bg-secondary text-white">Item</th>
-                                                <th width="30%" class="bg-secondary text-white">
+                                                <th width="60%" class="bg-secondary text-white">Item</th>
+                                                <th width="20%" class="bg-secondary text-white">
                                                     Price <span class="text-danger"> * </span>
                                                 </th>
-                                                <th width="30%" class="bg-secondary text-white">Vat</th>
+                                                <th width="20%" class="bg-secondary text-white">Vat</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="item, indx in formData.meqs_supplier_items">
-                                                <td class="text-muted"> {{ item.canvass_item.description }} </td>
+                                                <td class="text-muted">
+                                                    <textarea class="form-control form-control-sm" rows="5" readonly>{{ item.canvass_item.description }}</textarea>
+                                                </td>
                                                 <td class="text-muted">
                                                     <input type="number"
                                                         :data-testid="`item-price-${ indx }`"

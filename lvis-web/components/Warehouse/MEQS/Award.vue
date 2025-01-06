@@ -29,10 +29,12 @@
                 <tr v-for="item, i in canvass_items"
                     :class="{ 'table-danger': !item.hasAwardedSupplier && !isInitial }">
                     <td class="text-muted align-middle"> {{ i + 1 }} </td>
-                    <td class="text-muted align-middle nowrap">{{ item.description }}</td>
+                    <td class="text-muted align-middle nowrap">
+                        <textarea class="form-control form-control-sm" rows="5" readonly>{{ item.description }}</textarea>
+                    </td>
                     <td class="text-muted align-middle nowrap">{{ item.unit ? item.unit.name : 'N/A' }}</td>
                     <td class="text-muted align-middle nowrap">{{ item.quantity }}</td>
-                    <td v-for="meqsSupplier, meqsSupplierIndx in meqs_suppliers">
+                    <td class="align-middle" v-for="meqsSupplier, meqsSupplierIndx in meqs_suppliers">
                         <div class="d-flex justify-content-center align-items-center">
 
                             <div v-for="supplierItem, indx in meqsSupplier.meqs_supplier_items">

@@ -2,7 +2,7 @@
     <div>
 
         <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="requiredNotesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div data-testid="required-notes-modal" class="modal-dialog">
+            <div data-testid="required-notes-modal" class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-warning" id="exampleModalLabel">
@@ -23,32 +23,42 @@
                     <hr>
 
                     <div class="mb-3" v-for="item, i in itemsNeedingJustification">
-                        <label class="form-label">
-                            {{ i + 1 }}. <span class="fw-bold">{{ item.canvassItem.description }}</span> 
-                            <span class="text-danger">*</span>
-                        </label>
-                        <textarea
-                            data-test="test-item"
-                            rows="3"
-                            class="form-control"
-                            :value="item.awardedItem.notes"
-                            @input="updateNotes(item.awardedItem.canvass_item.id, $event)"
-                        >
-                        </textarea>
-                        <small class="text-muted fst-italic">
-                            Why choose
-                            <span class="fw-bold">
-                                <!-- {{ item.awardedItem.meqsSupplier?.supplier?.name }} at -->
-                                {{ item.awardedItem.meqs_supplier?.supplier?.name }} at
-                                <span class="text-danger"> {{ formatToPhpCurrency(item.awardedItem.price) }} </span> PHP
-                            </span> 
-                            over the lowest price item
-                            <span class="fw-bold">
-                                <!-- {{ item.lowestPriceItem.meqsSupplier?.supplier?.name }} at -->
-                                {{ item.lowestPriceItem.meqs_supplier?.supplier?.name }} at
-                                <span class="text-danger"> {{ formatToPhpCurrency(item.lowestPriceItem.price) }} </span> PHP ?
-                            </span>
-                        </small>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label class="form-label fw-bold"> Item # {{ i + 1 }} </label>
+                                <textarea class="form-control form-control-sm" rows="5" readonly>{{ item.canvassItem.description }}</textarea> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label class="form-label fw-bold"> Reason: </label>
+                                <textarea
+                                    data-test="test-item"
+                                    rows="5"
+                                    class="form-control form-control-sm"
+                                    :value="item.awardedItem.notes"
+                                    @input="updateNotes(item.awardedItem.canvass_item.id, $event)"
+                                >
+                                </textarea>
+                                <small class="text-muted fst-italic">
+                                    Why choose
+                                    <span class="fw-bold">
+                                        <!-- {{ item.awardedItem.meqsSupplier?.supplier?.name }} at -->
+                                        {{ item.awardedItem.meqs_supplier?.supplier?.name }} at
+                                        <span class="text-danger"> {{ formatToPhpCurrency(item.awardedItem.price) }} </span> PHP
+                                    </span> 
+                                    over the lowest price item
+                                    <span class="fw-bold">
+                                        <!-- {{ item.lowestPriceItem.meqsSupplier?.supplier?.name }} at -->
+                                        {{ item.lowestPriceItem.meqs_supplier?.supplier?.name }} at
+                                        <span class="text-danger"> {{ formatToPhpCurrency(item.lowestPriceItem.price) }} </span> PHP ?
+                                    </span>
+                                </small>
+                            </div>
+                        </div>
+
+                        <hr class="bg-primary" style="height: 5px; border: none;">
+
                     </div>
                 </div>
                 <div class="modal-footer">

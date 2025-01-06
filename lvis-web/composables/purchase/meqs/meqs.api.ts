@@ -1102,7 +1102,7 @@ export async function create(input: CreateMeqsInput): Promise<MutationResponse> 
             {
               canvass_item_id: "${item.canvass_item.id}"
               price: ${item.price}
-              notes: "${item.notes}"
+              notes: "${item.notes.replace(/\n/g, '\\n')}"
               is_awarded: ${item.is_awarded}
               vat_type: ${item.vat!.value}
             }`;
