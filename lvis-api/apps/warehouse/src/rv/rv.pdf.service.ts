@@ -107,7 +107,7 @@ export class RvPdfService {
                     <div>
                         <table style="font-size: 10pt">
                             <tr>
-                                <td>Purpose: ${rv.canvass.purpose}</td>
+                                <td style="white-space: pre-line;">Purpose: ${rv.canvass.purpose}</td>
                             </tr>     
                             <tr>
                                 <td>Listed below are the list of Item/s needed:</td>
@@ -147,7 +147,7 @@ export class RvPdfService {
                         ${rv.canvass.canvass_items.map((item, index) => `
                         <tr style="border: 1px solid black;">
                             <td align="center">${index + 1}</td>
-                            <td>${item.description}</td>
+                            <td style="white-space: pre-line;">${item.description}</td>
                             <td align="center">${item.unit ? item.unit.name : 'N/A'}</td>
                             <td align="center">${item.quantity}</td>
                         </tr>

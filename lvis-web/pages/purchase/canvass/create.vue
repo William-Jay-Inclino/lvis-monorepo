@@ -41,14 +41,14 @@
                             <label class="form-label">
                                 Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea data-testid="purpose" v-model="formData.purpose" class="form-control" rows="3"></textarea>
+                            <textarea data-testid="purpose" v-model="formData.purpose" class="form-control form-control-sm" rows="5"></textarea>
                             <small class="text-danger fst-italic" v-show="formDataErrors.purpose"> This field is required
                             </small>
                         </div>
         
                         <div class="mb-3">
                             <label class="form-label">Notes</label>
-                            <textarea data-testid="notes" v-model="formData.notes" class="form-control" rows="3"></textarea>
+                            <textarea data-testid="notes" v-model="formData.notes" class="form-control form-control-sm" rows="5"></textarea>
                         </div>
                     </div>
                 </div>

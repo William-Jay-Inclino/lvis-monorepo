@@ -49,7 +49,7 @@ function handleAuth({ req }) {
     }
 
   } catch (error) {
-    throw new UnauthorizedException('Invalid token', error);
+    throw new UnauthorizedException('Invalid token');
   }
 
 }

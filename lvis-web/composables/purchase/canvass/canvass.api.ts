@@ -498,19 +498,22 @@ export async function create(input: CreateCanvassInput): Promise<MutationRespons
 
         return `
         {
-          description: "${item.description}"
+          description: "${item.description.replace(/\n/g, '\\n')}"
           unit_id: ${unitId}
           item_id: ${itemId}
           quantity: ${item.quantity}
         }`;
     }).join(', ');
 
+    const formattedPurpose = input.purpose.replace(/\n/g, '\\n');
+    const formattedNotes = input.notes.replace(/\n/g, '\\n');
+
     const mutation = `
         mutation {
             createCanvass(
                 input: {
-                    purpose: "${input.purpose}"
-                    notes: "${input.notes}"
+                    purpose: "${formattedPurpose}"
+                    notes: "${formattedNotes}"
                     requested_by_id: "${input.requested_by?.id}"
                     canvass_items: [${canvassItems}]
                 }
@@ -545,14 +548,17 @@ export async function create(input: CreateCanvassInput): Promise<MutationRespons
 
 export async function update(id: string, input: UpdateCanvassInput): Promise<MutationResponse> {
 
+    const formattedPurpose = input.purpose.replace(/\n/g, '\\n');
+    const formattedNotes = input.notes.replace(/\n/g, '\\n');
+
     const mutation = `
 
         mutation {
             updateCanvass(
                 id: "${id}",
                 input: {
-                    purpose: "${input.purpose}"
-                    notes: "${input.notes}"
+                    purpose: "${formattedPurpose}"
+                    notes: "${formattedNotes}"
                     requested_by_id: "${input.requested_by?.id}"
                 }
             ) {

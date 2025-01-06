@@ -595,7 +595,7 @@ export async function create(input: CreateRvInput): Promise<MutationResponse> {
                     work_order_no: ${work_order_no}
                     work_order_date: ${work_order_date}
                     classification_id: ${classification_id}
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                     approvers: [${approvers}]
                 }
             ) {
@@ -654,7 +654,7 @@ export async function update(id: string, input: UpdateRvInput): Promise<Mutation
                     work_order_no: ${work_order_no}
                     work_order_date: ${work_order_date}
                     classification_id: ${classification_id}
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                 }
             ) {
                 id

@@ -38,9 +38,9 @@
                                                 </td>
                                             </tr>
                                             <tr v-if="item.canvass">
-                                                <td class="text-muted">Purpose</td>
+                                                <td class="text-muted align-middle">Purpose</td>
                                                 <td>
-                                                    {{ item.canvass.purpose }}
+                                                    <textarea rows="5" class="form-control form-control-sm" :value="item.canvass.purpose" readonly/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -116,8 +116,10 @@
                                                 <td> {{ formatDate(item.work_order_date) }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Notes</td>
-                                                <td> {{ item.notes }} </td>
+                                                <td class="text-muted align-middle">Notes</td>
+                                                <td>
+                                                    <textarea rows="5" class="form-control form-control-sm" :value="item.notes" readonly/>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -148,16 +150,14 @@
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white"> Order </th>
                                                 <th class="bg-secondary text-white"> Label </th>
                                                 <th class="bg-secondary text-white"> Approver </th>
                                                 <th class="bg-secondary text-white"> Status </th>
-                                                <th class="bg-secondary text-white"> Notes </th>
+                                                <th class="bg-secondary text-white"> Comment </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.rv_approvers">
-                                                <td class="align-middle"> {{ i.order }} </td>
                                                 <td class="align-middle"> {{ i.label }} </td>
                                                 <td class="align-middle"> {{ getFullname(i.approver!.firstname,
                 i.approver!.middlename, i.approver!.lastname) }} </td>
@@ -173,8 +173,8 @@
                                                     N/A
                                                 </td>
                                                 <td>
-                                                    <textarea rows="3" class="form-control" disabled
-                                                        :value="i.notes"></textarea>
+                                                    <textarea rows="3" class="form-control form-control-sm" readonly
+                                                        :value="i.notes || 'N/A'"></textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -214,11 +214,13 @@
                                         </thead>
                                         <tbody v-if="item.canvass">
                                             <tr v-for="i, count in item.canvass.canvass_items">
-                                                <td> {{ count + 1 }} </td>
-                                                <td> {{ i.item ? `${ i.item.code } - ${ i.description }` : i.description }} </td>
-                                                <td> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
-                                                <td> {{ i.unit ? i.unit.name : 'N/A' }} </td>
-                                                <td> {{ i.quantity }} </td>
+                                                <td class="align-middle"> {{ count + 1 }} </td>
+                                                <td class="align-middle"> 
+                                                    <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.item ? `${ i.item.code } - ${ i.description }` : i.description }}</textarea>
+                                                </td>
+                                                <td class="align-middle"> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
+                                                <td class="align-middle"> {{ i.unit ? i.unit.name : 'N/A' }} </td>
+                                                <td class="align-middle"> {{ i.quantity }} </td>
                                             </tr>
                                         </tbody>
                                     </table>

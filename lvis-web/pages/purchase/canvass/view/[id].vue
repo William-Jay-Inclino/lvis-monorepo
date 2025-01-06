@@ -162,12 +162,16 @@
                                                 <td> {{ formatDate(item.date_requested) }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Purpose</td>
-                                                <td> {{ item.purpose }} </td>
+                                                <td class="text-muted align-middle">Purpose</td>
+                                                <td>
+                                                    <textarea rows="5" class="form-control form-control-sm" :value="item.purpose" readonly/>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Notes</td>
-                                                <td> {{ item.notes }} </td>
+                                                <td class="text-muted align-middle">Notes</td>
+                                                <td>
+                                                    <textarea rows="5" class="form-control form-control-sm" :value="item.notes" readonly/>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Requisitioner</td>
@@ -213,11 +217,13 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="i, count in item.canvass_items">
-                                                    <td> {{ count + 1 }} </td>
-                                                    <td> {{ i.item ? `${ i.item.code } - ${ i.item.description }` : i.description }} </td>
-                                                    <td> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
-                                                    <td> {{ i.unit ? i.unit.name : 'N/A' }} </td>
-                                                    <td> {{ i.quantity }} </td>
+                                                    <td class="align-middle"> {{ count + 1 }} </td>
+                                                    <td class="align-middle"> 
+                                                        <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.item ? `${ i.item.code } - ${ i.item.description }` : i.description }}</textarea>
+                                                    </td>
+                                                    <td class="align-middle"> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
+                                                    <td class="align-middle"> {{ i.unit ? i.unit.name : 'N/A' }} </td>
+                                                    <td class="align-middle"> {{ i.quantity }} </td>
                                                 </tr>
                                             </tbody>
                                         </table>

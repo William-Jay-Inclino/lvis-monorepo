@@ -23,12 +23,14 @@
 
                 <tbody>
                     <tr v-for="item, i in canvassItems">
-                        <td class="text-muted"> {{ i + 1 }} </td>
-                        <td class="text-muted"> {{ item.description }} </td>
-                        <td class="text-muted"> {{ item.item ? 'Stock' : 'Non-Stock' }} </td>
-                        <td class="text-muted"> {{ item.unit ? item.unit.name : 'N/A' }} </td>
-                        <td class="text-muted"> {{ item.quantity }} </td>
-                        <td class="text-muted text-center">
+                        <td class="text-muted align-middle"> {{ i + 1 }} </td>
+                        <td class="text-muted">
+                            <textarea :value="item.description" class="form-control form-control-sm" rows="5" readonly></textarea>
+                        </td>
+                        <td class="text-muted align-middle"> {{ item.item ? 'Stock' : 'Non-Stock' }} </td>
+                        <td class="text-muted align-middle"> {{ item.unit ? item.unit.name : 'N/A' }} </td>
+                        <td class="text-muted align-middle"> {{ item.quantity }} </td>
+                        <td class="text-muted text-center align-middle">
                             <div class="d-flex w-100">
                                 <button @click="removeItem(i)"
                                     class="btn btn-sm btn-light w-50 me-2">
@@ -121,8 +123,8 @@
                             <label class="form-label">
                                 Description <span class="text-danger">*</span>
                             </label>
-                            <textarea data-testid="description" v-model="canvassItem.description" class="form-control" rows="3"
-                                :disabled="itemIsStock"></textarea>
+                            <textarea data-testid="description" v-model="canvassItem.description" class="form-control form-control-sm" rows="5"
+                                :readonly="itemIsStock"></textarea>
                             <small class="text-danger fst-italic" v-if="canvassItemErrors.description">
                                 This field is required
                             </small>

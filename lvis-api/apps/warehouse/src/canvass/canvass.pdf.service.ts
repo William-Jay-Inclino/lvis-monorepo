@@ -102,10 +102,10 @@ export class CanvassPdfService {
                     <div>
                         <table style="font-size: 10pt">
                             <tr>
-                                <td>Purpose: ${canvass.purpose}</td>
+                                <td style="white-space: pre-line;"><b>Purpose:</b> ${canvass.purpose}</td>
                             </tr>     
                             <tr>
-                                <td>Requisitioner Notes: ${canvass.notes} </td>
+                                <td style="white-space: pre-line;"><b>Requisitioner Notes:</b> ${canvass.notes} </td>
                             </tr>
                         </table>
                     </div>
@@ -113,13 +113,13 @@ export class CanvassPdfService {
                     <div>
                         <table style="font-size: 10pt">
                             <tr>
-                                <td> RC No.: </td>
+                                <td style="font-weight: bold;"> RC No.: </td>
                                 <td style="border-bottom: 1px solid black;">
                                     ${canvass.rc_number}
                                 </td>
                             </tr>     
                             <tr>
-                                <td>Date: </td>
+                                <td style="font-weight: bold;">Date: </td>
                                 <td style="border-bottom: 1px solid black;">
                                     ${formatDate(canvass.date_requested)}
                                 </td>
@@ -143,7 +143,7 @@ export class CanvassPdfService {
                         ${canvass.canvass_items.map((item, index) => `
                         <tr style="font-size: 10pt;" style="border: 1px solid black;">
                             <td align="center">${index + 1}</td>
-                            <td>${item.description}</td>
+                            <td style="white-space: pre-line;">${item.description}</td>
                             <td align="center">${item.unit ? item.unit.name : 'N/A'}</td>
                             <td align="center">${item.quantity}</td>
                         </tr>

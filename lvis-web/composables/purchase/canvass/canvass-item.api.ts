@@ -19,7 +19,7 @@ export async function create(input: CreateCanvassItemInput): Promise<MutationRes
             createCanvassItem(
                 input: {
                     canvass_id: "${input.canvass_id}"
-                    description: "${input.description}"
+                    description: "${input.description.replace(/\n/g, '\\n')}"
                     unit_id: ${unitId}
                     item_id: ${itemId}
                     quantity: ${input.quantity}
@@ -86,7 +86,7 @@ export async function update(id: string, input: UpdateCanvassItemInput): Promise
             updateCanvassItem(
                 id: "${id}",
                 input: {
-                    description: "${input.description}"
+                    description: "${input.description.replace(/\n/g, '\\n')}"
                     unit_id: ${unitId}
                     item_id: ${itemId}
                     quantity: ${input.quantity}

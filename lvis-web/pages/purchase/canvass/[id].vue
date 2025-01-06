@@ -71,14 +71,14 @@
                             <label class="form-label">
                                 Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea class="form-control" rows="3" v-model="canvass.purpose"></textarea>
+                            <textarea class="form-control form-control-sm" rows="5" v-model="canvass.purpose"></textarea>
                             <small class="text-danger fst-italic" v-show="canvassErrors.purpose"> This field is required
                             </small>
                         </div>
         
                         <div class="mb-3">
                             <label class="form-label">Notes</label>
-                            <textarea class="form-control" rows="3" v-model="canvass.notes"></textarea>
+                            <textarea class="form-control form-control-sm" rows="5" v-model="canvass.notes"></textarea>
                         </div>
         
                     </div>
