@@ -619,7 +619,7 @@ export async function create(input: CreateSprInput): Promise<MutationResponse> {
                     canvass_id: "${input.canvass?.id}"
                     vehicle_id: "${input.vehicle?.id}"
                     classification_id: ${classification_id}
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                     approvers: [${approvers}]
                 }
             ) {
@@ -667,7 +667,7 @@ export async function update(id: string, input: UpdateSprInput): Promise<Mutatio
                     supervisor_id: "${input.supervisor?.id}"
                     vehicle_id: "${input.vehicle?.id}"
                     classification_id: ${classification_id}
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                 }
             ) {
                 id

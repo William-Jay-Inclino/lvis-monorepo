@@ -107,10 +107,10 @@ export class RvPdfService {
                     <div>
                         <table style="font-size: 10pt">
                             <tr>
-                                <td style="white-space: pre-line;">Purpose: ${rv.canvass.purpose}</td>
+                                <td style="white-space: pre-line;"><b>Purpose:</b> ${rv.canvass.purpose}</td>
                             </tr>     
                             <tr>
-                                <td>Listed below are the list of Item/s needed:</td>
+                                <td style="font-weight: bold;">Listed below are the list of Item/s needed:</td>
                             </tr>
                         </table>
                     </div>
@@ -118,13 +118,13 @@ export class RvPdfService {
                     <div>
                         <table style="font-size: 10pt">
                             <tr>
-                                <td> RV No.: </td>
+                                <td style="font-weight: bold;"> RV No.: </td>
                                 <td style="border-bottom: 1px solid black;">
                                     ${rv.rv_number}
                                 </td>
                             </tr>   
                             <tr>
-                                <td>Date: </td>
+                                <td style="font-weight: bold;">Date: </td>
                                 <td style="border-bottom: 1px solid black;">
                                     ${formatDate(rv.date_requested)}
                                 </td>
