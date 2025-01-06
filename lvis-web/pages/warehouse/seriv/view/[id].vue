@@ -91,6 +91,10 @@
                                                 <td> {{ item.item_from.name }} </td>
                                             </tr>
                                             <tr>
+                                                <td class="text-muted">Project Name</td>
+                                                <td> {{ item.project ? item.project.name : 'N/A' }} </td>
+                                            </tr>
+                                            <tr>
                                                 <td class="text-muted">Consumer Name</td>
                                                 <td> {{ item.consumer_name }} </td>
                                             </tr>

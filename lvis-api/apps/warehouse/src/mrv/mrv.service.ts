@@ -3,14 +3,13 @@ import { CreateMrvInput } from './dto/create-mrv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { MRV, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
-import { DB_ENTITY, SETTINGS, WAREHOUSE_REQUEST_TYPE } from '../__common__/constants';
+import { DB_ENTITY, SETTINGS } from '../__common__/constants';
 import { UpdateMrvInput } from './dto/update-mrv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
 import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MRVsResponse } from './entities/mrvs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { CreateMrvItemSubInput } from './dto/create-mrv-item.sub.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 
@@ -155,12 +154,12 @@ export class MrvService {
     
             const data: Prisma.MRVUpdateInput = {
                 project: input.project_id
-                ? { connect: { id: input.project_id } } // Connect new project_id if provided
+                ? { connect: { id: input.project_id } } 
                 : input.project_id === null
-                ? { disconnect: true } // Disconnect if explicitly set to null
+                ? { disconnect: true }
                 : existingItem.project_id
-                ? { connect: { id: existingItem.project_id } } // Keep the existing project_id if it exists
-                : undefined, // If no project_id exists, leave it undefined
+                ? { connect: { id: existingItem.project_id } } 
+                : undefined, 
                 purpose: input.purpose ?? existingItem.purpose,
                 request_type: input.request_type ?? existingItem.request_type,
                 or_number: input.or_number ?? undefined,

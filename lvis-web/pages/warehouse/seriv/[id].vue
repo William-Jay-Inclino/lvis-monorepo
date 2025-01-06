@@ -122,6 +122,16 @@
 
                         <div class="mb-3">
                             <label class="form-label">
+                                Project Name
+                            </label>
+                            <client-only>
+                                <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="serivData.project"></v-select>
+                            </client-only>
+                            <small class="fst-italic text-danger">Note: Updating the project will remove all items.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
                                 Consumer Name <span class="text-danger">*</span>
                             </label>
                             <textarea v-model="serivData.consumer_name" class="form-control"
@@ -273,6 +283,8 @@ import type { Employee } from '~/composables/hr/employee/employee.types';
 import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import type { Station } from '~/composables/warehouse/station/station';
 import type { AddItem, Item } from '~/composables/warehouse/item/item.type';
+import type { Project } from '~/composables/warehouse/project/project.types';
+import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';
 
 definePageMeta({
     name: ROUTES.SERIV_UPDATE,
@@ -316,10 +328,12 @@ const form = ref<FORM>(FORM.UPDATE_INFO)
 const employees = ref<Employee[]>([])
 const auditors = ref<Employee[]>([])
 const stations = ref<Station[]>([])
+const projects = ref<Project[]>([])
 const items = ref<Item[]>([])
 const request_types = ref<WarehouseRequestType[]>([])
 
 // FORM DATA
+const previous_data = ref<SERIV>({} as SERIV)
 const serivDataErrors = ref({ ..._serivDataErrorsInitial })
 const serivData = ref<SERIV>({} as SERIV)
 
@@ -340,9 +354,12 @@ onMounted(async () => {
         return redirectTo401Page()
     }
 
+    previous_data.value = {...response.seriv}
+
     populateForm(response.seriv)
 
     stations.value = response.stations
+    projects.value = response.projects
     employees.value = addPropertyFullName(response.employees)
     auditors.value = addPropertyFullName(response.auditors)
     items.value = response.items
@@ -412,6 +429,7 @@ const itemsInTable = computed( (): AddItem[] => {
                 qty_request: i.quantity,
                 GWAPrice: i.item.GWAPrice,
                 item_type: i.item.item_type,
+                project_item: i.item.project_item,
             }
 
             return x
@@ -419,21 +437,38 @@ const itemsInTable = computed( (): AddItem[] => {
 })
 
 const itemsInModal = computed( (): AddItem[] => {
-    return items.value.map(i => {
-            const x: AddItem = {
-                id: i.id,
-                code: i.code,
-                description: i.description,
-                label: i.code + ' - ' + i.description,
-                available_quantity: i.total_quantity - i.quantity_on_queue,
-                unit: i.unit,
-                qty_request: 0,
-                GWAPrice: i.GWAPrice,
-                item_type: i.item_type,
-            }
 
-            return x
+    const _items = items.value.map(i => {
+        const x: AddItem = {
+            id: i.id,
+            code: i.code,
+            description: `${i.description} ${i.project_item ? `(${i.project_item.project.name})` : ''}`,
+            label: i.code + ' - ' + i.description,
+            available_quantity: i.total_quantity - i.quantity_on_queue,
+            unit: i.unit,
+            qty_request: 0,
+            GWAPrice: i.GWAPrice,
+            item_type: i.item_type,
+            project_item: i.project_item,
+        }
+
+        return x
+    })
+
+    if(!previous_data.value.project) {
+        return _items.filter(i => {
+            if(!i.project_item) {
+                return i
+            }
         })
+    }
+
+    return _items.filter(i => {
+        if(i.project_item && i.project_item.project.id === previous_data.value.project?.id) {
+            return i
+        }
+    })
+
 })
 
 const isDisabledUpdateItemsBtn = computed( () => {
@@ -529,6 +564,7 @@ async function updateSerivInfo() {
     console.log('updating...')
 
     const data: UpdateSerivInput = {
+        project: serivData.value.project,
         purpose: serivData.value.purpose,
         request_type: {
             id: serivData.value.request_type_object.id,
@@ -586,11 +622,6 @@ async function updateSerivItems() {
 
         router.push(`/warehouse/seriv/view/${serivData.value.id}`);
 
-
-        // serivData.value.seriv_items = response.seriv_items
-
-        // await fetchItems()
-
     } else {
         Swal.fire({
             title: 'Error!',
@@ -599,16 +630,6 @@ async function updateSerivItems() {
             position: 'top',
         })
     }
-
-}
-
-async function fetchItems() {
-
-    isFetchingItems.value = true
-    const response = await serivItemApi.fetchItems()
-    isFetchingItems.value = false
-
-    items.value = response.items
 
 }
 
@@ -724,14 +745,6 @@ function isValidSerivInfo(): boolean {
         serivDataErrors.value.purpose = true
     }
 
-    // if (!serivData.value.requested_by) {
-    //     serivDataErrors.value.requested_by = true
-    // }
-
-    // if (!serivData.value.item_from) {
-    //     serivDataErrors.value.item_from = true
-    // }
-
     const hasError = Object.values(serivDataErrors.value).includes(true);
 
     if (hasError) {
@@ -741,6 +754,39 @@ function isValidSerivInfo(): boolean {
     return true
 
 }
+
+
+
+
+async function handleSearchProjects(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        projects.value = []
+        return 
+    } 
+
+    debouncedSearchProjects(input, loading)
+
+}
+
+
+async function searchProjects(input: string, loading: (status: boolean) => void) {
+
+    loading(true)
+
+    try {
+        const response = await fetchProjectsByName(input);
+        projects.value = response
+    } catch (error) {
+        console.error('Error fetching Projects:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+const debouncedSearchProjects = debounce((input: string, loading: (status: boolean) => void) => {
+    searchProjects(input, loading);
+}, 500);
 
 
 </script>

@@ -82,6 +82,15 @@
                                 </client-only>
                                 <small class="text-danger fst-italic" v-show="serivDataErrors.item_from"> {{ errorMsg }} </small>
                             </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Project Name
+                                </label>
+                                <client-only>
+                                    <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="serivData.project"></v-select>
+                                </client-only>
+                            </div>
     
                             <div class="mb-3">
                                 <label class="form-label">
@@ -231,7 +240,7 @@
             </div>
         </div>
 
-        <WarehouseAddItemModal @add-item="handleAddItem" :items="items" :added-item-ids="serivItemIds"/>
+        <WarehouseAddItemModal @add-item="handleAddItem" :items="available_items" :added-item-ids="serivItemIds"/>
 
     </div>
 
@@ -251,6 +260,8 @@
     import { SERIV_DEFAULT_APPROVERS } from '~/composables/warehouse/seriv/seriv.constants';
     import { showCWOnumber, showMWOnumber, showORnumber } from '~/utils/helpers';
     import { useToast } from 'vue-toastification';
+    import type { Project } from '~/composables/warehouse/project/project.types';
+import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';
 
     definePageMeta({
         name: ROUTES.SERIV_CREATE,
@@ -284,6 +295,7 @@
     // FORM DATA
     const serivData = ref<CreateSerivInput>({
         request_type: null,
+        project: null,
         purpose: "",
         or_number: "",
         cwo_number: "",
@@ -304,6 +316,7 @@
     // DROPDOWNS
     const employees = ref<Employee[]>([])
     const auditors = ref<Employee[]>([])
+    const projects = ref<Project[]>([])
     const stations = ref<Station[]>([])
     const items = ref<AddItem[]>([])
     const request_types = ref<WarehouseRequestType[]>([])
@@ -318,6 +331,7 @@
         employees.value = addPropertyFullName(response.employees)
         auditors.value = addPropertyFullName(response.auditors)
         stations.value = response.stations
+        projects.value = response.projects
         request_types.value = WAREHOUSE_REQUEST_TYPES.map(i => ({...i}))
 
         items.value = response.items.map(i => {
@@ -331,6 +345,7 @@
                 qty_request: 0,
                 GWAPrice: i.GWAPrice,
                 item_type: i.item_type,
+                project_item: i.project_item,
             }
 
             return x
@@ -403,6 +418,45 @@
     })
 
     const serivItemIds = computed( () => serivData.value.items.map(i => i.id))
+
+    const available_items = computed( (): AddItem[] => {
+
+        if(!serivData.value.project) {
+            return items.value.filter(i => {
+                if(!i.project_item) {
+                    return i
+                }
+            })
+        }
+
+        return items.value.filter(i => {
+            if(i.project_item && i.project_item.project.id === serivData.value.project?.id) {
+                return i
+            }
+        })
+
+    })  
+
+    const project = computed( () => serivData.value.project)
+
+
+
+
+
+
+    // ======================== WATCHERS ========================  
+
+    watch(project, (val) => {
+
+        console.log('project is updated. Clearing items...');
+
+        serivData.value.items = []
+
+    })
+
+
+
+
 
 
     // ======================== FUNCTIONS ========================  
@@ -591,6 +645,37 @@
     }
 
 
+
+
+    async function handleSearchProjects(input: string, loading: (status: boolean) => void ) {
+
+        if(input.trim() === ''){
+            projects.value = []
+            return 
+        } 
+
+        debouncedSearchProjects(input, loading)
+
+    }
+
+
+    async function searchProjects(input: string, loading: (status: boolean) => void) {
+
+        loading(true)
+
+        try {
+            const response = await fetchProjectsByName(input);
+            projects.value = response
+        } catch (error) {
+            console.error('Error fetching Projects:', error);
+        } finally {
+            loading(false);
+        }
+    }
+
+    const debouncedSearchProjects = debounce((input: string, loading: (status: boolean) => void) => {
+        searchProjects(input, loading);
+    }, 500);
 
 
 

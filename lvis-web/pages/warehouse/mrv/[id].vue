@@ -113,14 +113,14 @@
                         </div>
 
                         <div class="mb-3">
-                                <label class="form-label">
-                                    Project Name
-                                </label>
-                                <client-only>
-                                    <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="mrvData.project"></v-select>
-                                </client-only>
-                                <small class="fst-italic text-danger">Note: Updating the project will remove all items.</small>
-                            </div>
+                            <label class="form-label">
+                                Project Name
+                            </label>
+                            <client-only>
+                                <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="mrvData.project"></v-select>
+                            </client-only>
+                            <small class="fst-italic text-danger">Note: Updating the project will remove all items.</small>
+                        </div>
 
                         <div class="mb-3">
                             <label class="form-label">
@@ -614,10 +614,6 @@ async function updateMrvItems() {
 
         router.push(`/warehouse/mrv/view/${mrvData.value.id}`);
 
-        // mrvData.value.mrv_items = response.mrv_items
-
-        // await fetchItems()
-
     } else {
         Swal.fire({
             title: 'Error!',
@@ -628,16 +624,6 @@ async function updateMrvItems() {
     }
 
 }
-
-// async function fetchItems() {
-
-//     isFetchingItems.value = true
-//     const response = await mrvItemApi.fetchItems()
-//     isFetchingItems.value = false
-
-//     items.value = response.items
-
-// }
 
 // ======================== CHILD EVENTS: <WarehouseUpdateApprovers> ========================  
 

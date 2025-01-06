@@ -152,8 +152,8 @@
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'users']"/>
-                            </client-only> Signatories
+                                        <font-awesome-icon :icon="['fas', 'users']"/>
+                                    </client-only> Signatories
                                 </h5>
                                 <hr class="result">
                             </div>
@@ -264,7 +264,7 @@
     import { showCWOnumber, showMWOnumber, showORnumber } from '~/utils/helpers';
     import { useToast } from 'vue-toastification';
     import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';
-import type { Project } from '~/composables/warehouse/project/project.types';
+    import type { Project } from '~/composables/warehouse/project/project.types';
 
     definePageMeta({
         name: ROUTES.MRV_CREATE,

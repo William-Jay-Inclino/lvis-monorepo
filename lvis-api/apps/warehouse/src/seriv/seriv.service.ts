@@ -59,6 +59,7 @@ export class SerivService {
                     id: input.item_from_id
                 }
             },
+            project: input.project_id ? { connect: { id: input.project_id } } : undefined,
             seriv_approvers: {
                 create: input.approvers.map(i => {
                     return {
@@ -80,6 +81,8 @@ export class SerivService {
                 })
             }
         }
+
+        console.log('data', data);
         
         const result = await this.prisma.$transaction(async (tx) => {
 
@@ -121,49 +124,65 @@ export class SerivService {
 
     async update(id: string, input: UpdateSerivInput) {
 
-        const existingItem = await this.prisma.sERIV.findUnique({
-            where: { id },
-            include: {
-                seriv_approvers: true
+        return await this.prisma.$transaction(async(tx) => {
+
+            const existingItem = await this.prisma.sERIV.findUnique({
+                where: { id },
+                include: {
+                    seriv_approvers: true
+                }
+            })
+    
+            if (!existingItem) {
+                throw new NotFoundException('SERIV not found')
             }
+    
+            if (!this.canAccess(existingItem)) {
+                throw new ForbiddenException('Only Admin and Owner can update this record!')
+            }
+    
+            if (!(await this.canUpdate(input, existingItem))) {
+                throw new Error('Failed to update SERIV. Please try again')
+            }
+
+            // new project so delete all mrv_items
+            if(input.project_id !== existingItem.project_id) {
+                await tx.sERIVItem.deleteMany({
+                    where: {
+                        seriv_id: id
+                    }
+                })
+            }
+    
+            const data: Prisma.SERIVUpdateInput = {
+                project: input.project_id
+                ? { connect: { id: input.project_id } } 
+                : input.project_id === null
+                ? { disconnect: true }
+                : existingItem.project_id
+                ? { connect: { id: existingItem.project_id } } 
+                : undefined, 
+                purpose: input.purpose ?? existingItem.purpose,
+                request_type: input.request_type ?? existingItem.request_type,
+                or_number: input.or_number ?? existingItem.or_number,
+                cwo_number: input.cwo_number ?? existingItem.cwo_number,
+                jo_number: input.jo_number ?? existingItem.jo_number,
+                consumer_name: input.consumer_name ?? existingItem.consumer_name,
+                location: input.location ?? existingItem.location,
+                requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
+                withdrawn_by_id: input.withdrawn_by_id ?? existingItem.withdrawn_by_id,
+                item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
+                updated_by: this.authUser.user.username,
+            }
+    
+    
+            const result = await this.prisma.sERIV.update({
+                data,
+                where: { id }
+            })
+            return result
+
         })
-
-        if (!existingItem) {
-            throw new NotFoundException('SERIV not found')
-        }
-
-        if (!this.canAccess(existingItem)) {
-            throw new ForbiddenException('Only Admin and Owner can update this record!')
-        }
-
-        if (!(await this.canUpdate(input, existingItem))) {
-            throw new Error('Failed to update SERIV. Please try again')
-        }
-
-        const data: Prisma.SERIVUpdateInput = {
-            purpose: input.purpose ?? existingItem.purpose,
-            request_type: input.request_type ?? existingItem.request_type,
-
-            or_number: input.or_number ?? existingItem.or_number,
-            cwo_number: input.cwo_number ?? existingItem.cwo_number,
-            jo_number: input.jo_number ?? existingItem.jo_number,
-
-            consumer_name: input.consumer_name ?? existingItem.consumer_name,
-            location: input.location ?? existingItem.location,
-
-            requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
-            withdrawn_by_id: input.withdrawn_by_id ?? existingItem.withdrawn_by_id,
-            item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
-
-            updated_by: this.authUser.user.username,
-        }
-
-
-        const result = await this.prisma.sERIV.update({
-            data,
-            where: { id }
-        })
-        return result
 
     }
 
@@ -238,6 +257,7 @@ export class SerivService {
     async findBy(payload: { id?: string, seriv_number?: string }): Promise<SERIV | null> {
         const item = await this.prisma.sERIV.findFirst({
             include: {
+                project: true,
                 seriv_items: {
                     include: {
                         item: {

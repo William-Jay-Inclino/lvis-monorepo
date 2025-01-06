@@ -7,6 +7,11 @@ import { CreateSerivItemSubInput } from './create-seriv-item.sub.input';
 @InputType()
 export class CreateSerivInput {
 
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  project_id?: string;
+  
   @Field(() => Int)
   @IsString()
   request_type: number;

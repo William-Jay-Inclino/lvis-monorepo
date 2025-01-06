@@ -6,10 +6,12 @@ import type { SERIVItem } from "./seriv-item.types";
 import type { Station } from "../station/station";
 import { WAREHOUSE_REQUEST_TYPE } from "#imports";
 import type { MCRT } from "../mcrt/mcrt.types";
+import type { Project } from "../project/project.types";
 
 
 export interface SERIV {
     id: string;
+    project_id: string | null;
     seriv_number: string;
     date_requested: string;
     purpose: string;
@@ -47,6 +49,7 @@ export interface SERIV {
     withdrawn_by: Employee | null;
     is_referenced: boolean;
     item_from: Station;
+    project: Project | null
     seriv_approvers: SERIVApprover[]
     seriv_items: SERIVItem[]
     status: APPROVAL_STATUS
@@ -87,6 +90,7 @@ export interface SERIV {
   
   export interface CreateSerivInput {
     request_type: WarehouseRequestType | null
+    project: Project | null
     purpose: string 
     or_number: string | null
     cwo_number: string | null 
@@ -101,6 +105,7 @@ export interface SERIV {
   }
   
   export interface UpdateSerivInput {
+    project: Project | null
     purpose: string 
     request_type: WarehouseRequestType | null 
     requested_by: Employee | null 

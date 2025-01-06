@@ -8,6 +8,11 @@ export class UpdateSerivInput {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
+  project_id?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
   purpose?: string;
 
   @Field(() => Int, { nullable: true })

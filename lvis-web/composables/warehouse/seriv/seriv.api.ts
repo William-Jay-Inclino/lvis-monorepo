@@ -4,6 +4,7 @@ import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { Station } from "../station/station";
 import type { Item } from "../item/item.type";
 import { ITEM_TYPE } from "~/utils/constants";
+import type { Project } from "../project/project.types";
 
 export async function fetchDataInSearchFilters(): Promise<{
     serivs: SERIV[],
@@ -133,6 +134,11 @@ export async function findOne(id: string): Promise<SERIV | undefined> {
                     mcrt_number
                 }
                 item_from {
+                    id
+                    name
+                }
+                project {
+                    id
                     name
                 }
                 requested_by {
@@ -267,25 +273,32 @@ export async function fetchFormDataInCreate(): Promise<{
     stations: Station[],
     items: Item[],
     default_station: Station | null,
+    projects: Project[],
     warehouse_custodian: Employee | null,
     seriv_expiration: number | null,
 }> {
 
     const query = `
         query {
-            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.HOUSE_WIRING},${ITEM_TYPE.SPARE_PARTS}") {
                 data{
                     id
                     code
                     description
                     item_type {
-                        id 
+                        id
                         code 
                         name
                     }
                     unit {
                         id 
                         name
+                    }
+                    project_item {
+                        project {
+                            id 
+                            name
+                        }
                     }
                     total_quantity
                     quantity_on_queue
@@ -304,6 +317,12 @@ export async function fetchFormDataInCreate(): Promise<{
             stations {
                 id 
                 name
+            },
+            projects(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
             },
             default_station {
                 id 
@@ -332,6 +351,7 @@ export async function fetchFormDataInCreate(): Promise<{
         let employees = []
         let auditors = []
         let stations = []
+        let projects = []
         let items = []
         let warehouse_custodian = undefined
         let default_station = undefined
@@ -355,6 +375,10 @@ export async function fetchFormDataInCreate(): Promise<{
             stations = response.data.data.stations
         }
 
+        if (data.projects && data.projects.data) {
+            projects = response.data.data.projects.data
+        }
+
         if(data.warehouse_custodian) {
             warehouse_custodian = data.warehouse_custodian
         }
@@ -375,6 +399,7 @@ export async function fetchFormDataInCreate(): Promise<{
             employees,
             stations,
             items,
+            projects,
             warehouse_custodian,
             default_station,
             auditors,
@@ -388,6 +413,7 @@ export async function fetchFormDataInCreate(): Promise<{
             auditors: [],
             stations: [],
             items: [],
+            projects: [],
             warehouse_custodian: null,
             default_station: null,
             seriv_expiration: null,
@@ -402,6 +428,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
     auditors: Employee[],
     stations: Station[],
     items: Item[],
+    projects: Project[],
     seriv: SERIV | undefined
 }> {
     const query = `
@@ -436,6 +463,10 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     id 
                     name
                 }
+                project{
+                    id
+                    name
+                }
                 seriv_approvers {
                     id
                     approver {
@@ -466,6 +497,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                             id 
                             name
                         }
+                        project_item {
+                            project {
+                                id 
+                                name
+                            }
+                        }
                         total_quantity
                         quantity_on_queue
                         GWAPrice
@@ -481,7 +518,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.HOUSE_WIRING},${ITEM_TYPE.SPARE_PARTS}") {
                 data{
                     id
                     code
@@ -495,6 +532,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                         id 
                         name
                     }
+                    project_item {
+                        project {
+                            id 
+                            name
+                        }
+                    }
                     total_quantity
                     quantity_on_queue
                     GWAPrice
@@ -503,6 +546,12 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             stations {
                 id 
                 name
+            },
+            projects(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
             },
             auditors {
                 id 
@@ -521,6 +570,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
         let auditors: Employee[] = []
         let stations: Station[] = []
         let items: Item[] = []
+        let projects: Project[] = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -546,6 +596,10 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             stations = data.stations
         }
 
+        if (data.projects && data.projects.data) {
+            projects = response.data.data.projects.data
+        }
+
         if (data.auditors && data.auditors) {
             auditors = data.auditors
         }
@@ -555,6 +609,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             employees,
             stations,
             items,
+            projects,
             auditors,
         }
 
@@ -566,6 +621,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
             auditors: [],
             stations: [],
             items: [],
+            projects: [],
         }
     }
 }
@@ -577,6 +633,7 @@ export async function create(input: CreateSerivInput): Promise<MutationResponse>
     const or_number = input.or_number?.trim() === '' ? null : `"${input.or_number}"`
     const cwo_number = input.cwo_number?.trim() === '' ? null : `"${input.cwo_number}"`
     const jo_number = input.jo_number?.trim() === '' ? null : `"${input.jo_number}"`
+    const project_id = input.project ? `"${input.project.id}"` : null
 
     const approvers = input.approvers.map(i => {
         return `
@@ -600,6 +657,7 @@ export async function create(input: CreateSerivInput): Promise<MutationResponse>
         mutation {
             createSeriv(
                 input: {
+                    project_id: ${project_id}
                     request_type: ${input.request_type?.id}
                     purpose: "${input.purpose}"
                     or_number: ${or_number}
@@ -647,12 +705,14 @@ export async function update(id: string, input: UpdateSerivInput): Promise<Mutat
     const or_number = input.or_number?.trim() === '' || !input.or_number ? null : `"${input.or_number}"`
     const cwo_number = input.cwo_number?.trim() === '' || !input.cwo_number ? null : `"${input.cwo_number}"`
     const jo_number = input.jo_number?.trim() === '' || !input.jo_number ? null : `"${input.jo_number}"`
+    const project_id = input.project ? `"${input.project.id}"` : null
 
     const mutation = `
         mutation {
             updateSeriv(
                 id: "${id}",
                 input: {
+                    project_id: ${ project_id }
                     purpose: "${input.purpose}"
                     request_type: ${input.request_type?.id}
                     requested_by_id: "${input.requested_by?.id}"

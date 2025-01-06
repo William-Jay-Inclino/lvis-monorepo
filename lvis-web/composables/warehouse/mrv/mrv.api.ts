@@ -123,9 +123,11 @@ export async function findOne(id: string): Promise<MRV | undefined> {
                 can_update
                 exp_date
                 item_from {
+                    id
                     name
                 }
                 project {
+                    id
                     name
                 }
                 requested_by {
@@ -272,7 +274,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.HOUSE_WIRING},${ITEM_TYPE.SPARE_PARTS}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.HOUSE_WIRING},${ITEM_TYPE.SPARE_PARTS}") {
                 data{
                     id
                     code
@@ -297,7 +299,7 @@ export async function fetchFormDataInCreate(): Promise<{
                     GWAPrice
                 }
             },
-            employees(page: 1, pageSize: 300) {
+            employees(page: 1, pageSize: 500) {
                 data{
                     id
                     firstname
@@ -497,7 +499,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.HOUSE_WIRING},${ITEM_TYPE.SPARE_PARTS}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.HOUSE_WIRING},${ITEM_TYPE.SPARE_PARTS}") {
                 data{
                     id
                     code

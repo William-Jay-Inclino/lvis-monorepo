@@ -5,12 +5,16 @@ import { SERIVItem } from '../../seriv-item/entities/seriv-item.entity';
 import { WAREHOUSE_REQUEST_TYPE } from '../../__common__/constants';
 import { MCRT } from '../../mcrt/entities/mcrt.entity';
 import { APPROVAL_STATUS } from '../../__common__/types';
+import { Project } from '../../project/entities/project.entity';
 
 @ObjectType()
 export class SERIV {
 
   @Field(() => ID)
   id: string;
+
+  @Field(() => String, { nullable: true })
+  project_id: string | null;
 
   @Field(() => String)
   seriv_number: string;
@@ -87,6 +91,9 @@ export class SERIV {
 
   @Field(() => Station)
   item_from: Station;
+
+  @Field(() => Project, { nullable: true })
+  project: Project | null;
 
   @Field(() => [SERIVApprover])
   seriv_approvers: SERIVApprover[]
