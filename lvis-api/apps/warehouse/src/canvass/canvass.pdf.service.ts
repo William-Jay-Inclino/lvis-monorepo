@@ -140,9 +140,9 @@ export class CanvassPdfService {
                         <th style="border: 1px solid black;"> QTY. </th>
                         <th style="border: 1px solid black;"> UNIT COST </th>
                     </thead>
-                    <tbody style="border: 1px solid black;">
+                    <tbody>
                         ${canvass.canvass_items.map((item, index) => `
-                        <tr style="font-size: 10pt;" style="border: 1px solid black;">
+                        <tr style="border: 1px solid black; font-size: 10pt;">
                             <td align="center">${index + 1}</td>
                             <td style="white-space: pre-line;">${item.description}</td>
                             <td align="center">${item.unit ? item.unit.name : 'N/A'}</td>
