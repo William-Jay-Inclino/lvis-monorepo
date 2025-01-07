@@ -218,7 +218,7 @@ export class MeqsPdfService {
 
                 <table style="font-size: 10pt;">
                     <tr>
-                        <td>${ meqs.notes }</td>
+                        <td style="white-space: pre-line;">${ meqs.notes }</td>
                     </tr>
                     <tr>
                         <td>

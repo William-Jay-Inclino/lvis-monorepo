@@ -175,6 +175,11 @@ export async function findOne(id: string): Promise<SERIV | undefined> {
                         unit {
                             name 
                         }
+                        project_item {
+                            project {
+                                name
+                            }
+                        }
                         total_quantity
                         quantity_on_queue
                     }

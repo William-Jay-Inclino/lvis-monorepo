@@ -262,6 +262,11 @@ export class SerivService {
                     include: {
                         item: {
                             include: {
+                                project_item: {
+                                    include: {
+                                        project: true,
+                                    }
+                                },
                                 unit: true,
                                 item_transactions: true,
                                 item_type: true,

@@ -162,7 +162,7 @@ export class MctPdfService {
                         <tr>
                             <td style="width: 20%">Consumer Name</td>
                             <td style="text-align: right">:</td>
-                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold;"> ${ mct.mrv.consumer_name } </td>
+                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; white-space: pre-line;"> ${ mct.mrv.consumer_name } </td>
                         </tr>
                         <tr>
                             <td style="width: 20%">Requested By: </td>
@@ -177,7 +177,7 @@ export class MctPdfService {
                         <tr>
                             <td style="width: 20%">Purpose</td>
                             <td style="text-align: right">:</td>
-                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; word-wrap: break-word; word-break: break-word;"> ${ mct.mrv.purpose }</td>
+                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; white-space: pre-line;"> ${ mct.mrv.purpose }</td>
                         </tr>
                     </tbody>
                 </table>
@@ -199,7 +199,7 @@ export class MctPdfService {
                         <tr style="border: 1px solid black;">
                             <td align="center">${index + 1}</td>
                             <td>${mrv_item.item.code}</td>
-                            <td align="center">${mrv_item.item.description}</td>
+                            <td style="white-space: pre-line;" align="center">${mrv_item.item.description} ${ mrv_item.item.project_item ? `(${ mrv_item.item.project_item.project.name })` : '' }</td>
                             <td align="center">${mrv_item.quantity}</td>
                             <td align="center">${mrv_item.item.unit.name}</td>
                             <td align="center">${formatToPhpCurrency(mrv_item.price)}</td>
@@ -397,15 +397,11 @@ export class MctPdfService {
                         </tr>
                         <tr>
                             <td style="font-weight: bold; padding-bottom: 8px;">PURPOSE:</td>
-                            <td style="padding-bottom: 8px;">
-                                ${mct.mrv.purpose }
-                            </td>
+                            <td style="padding-bottom: 8px; white-space: pre-line;">${mct.mrv.purpose }</td>
                         </tr>
                         <tr>
                             <td style="font-weight: bold; padding-bottom: 8px;">LOCATION:</td>
-                            <td style="padding-bottom: 8px;">
-                                ${mct.mrv.location }
-                            </td>
+                            <td style="padding-bottom: 8px; white-space: pre-line;">${mct.mrv.location }</td>
                         </tr>
                     </tbody>
                 </table>
@@ -427,7 +423,7 @@ export class MctPdfService {
                         <tr style="border: 1px solid black;">
                             <td align="center">${index + 1}</td>
                             <td>${mrv_item.item.code}</td>
-                            <td align="center">${mrv_item.item.description}</td>
+                            <td style="white-space: pre-line;" align="center">${mrv_item.item.description} ${ mrv_item.item.project_item ? `(${ mrv_item.item.project_item.project.name })` : '' }</td>
                             <td align="center">${mrv_item.quantity}</td>
                             <td align="center">${mrv_item.item.unit.name}</td>
                             <td align="center">${formatToPhpCurrency(mrv_item.price)}</td>
@@ -734,6 +730,11 @@ export class MctPdfService {
                                 price: true,
                                 item: {
                                     select: {
+                                        project_item: {
+                                            include: {
+                                                project: true
+                                            }
+                                        },
                                         code: true,
                                         unit: true,
                                         description: true,

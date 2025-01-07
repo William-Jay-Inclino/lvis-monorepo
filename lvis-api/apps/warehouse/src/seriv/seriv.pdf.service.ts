@@ -132,15 +132,11 @@ export class SerivPdfService {
                         </tr>
                         <tr>
                             <td style="font-weight: bold; padding-bottom: 8px;">PURPOSE:</td>
-                            <td style="padding-bottom: 8px;">
-                                ${seriv.purpose }
-                            </td>
+                            <td style="padding-bottom: 8px; white-space: pre-line;">${seriv.purpose }</td>
                         </tr>
                         <tr>
                             <td style="font-weight: bold; padding-bottom: 8px;">LOCATION:</td>
-                            <td style="padding-bottom: 8px;">
-                                ${seriv.location }
-                            </td>
+                            <td style="padding-bottom: 8px; white-space: pre-line;">${seriv.location }</td>
                         </tr>
                     </tbody>
                 </table>
@@ -162,7 +158,7 @@ export class SerivPdfService {
                         <tr style="border: 1px solid black;">
                             <td align="center">${index + 1}</td>
                             <td>${seriv_item.item.code}</td>
-                            <td align="center">${seriv_item.item.description}</td>
+                            <td align="center" style="white-space: pre-line;">${seriv_item.item.description} ${ seriv_item.item.project_item ? `(${ seriv_item.item.project_item.project.name })` : '' }</td>
                             <td align="center">${seriv_item.quantity}</td>
                             <td align="center">${seriv_item.item.unit.name}</td>
                             <td align="center">${formatToPhpCurrency(seriv_item.price)}</td>
@@ -468,6 +464,11 @@ export class SerivPdfService {
                         price: true,
                         item: {
                             select: {
+                                project_item: {
+                                    include: {
+                                        project: true
+                                    }
+                                },
                                 code: true,
                                 unit: true,
                                 description: true,

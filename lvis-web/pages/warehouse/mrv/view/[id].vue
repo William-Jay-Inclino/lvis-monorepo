@@ -222,7 +222,7 @@
                                                 <td class="align-middle" style="white-space: pre-line;">
                                                     <nuxt-link :to="'/warehouse/item/view/' + i.item.id">
                                                         <small>
-                                                            {{ i.item.code + ' - ' + i.item.description }} 
+                                                            {{ i.item.code + ' - ' + i.item.description +  (i.item.project_item ? `(${i.item.project_item?.project.name})` : '') }} 
                                                         </small>
                                                     </nuxt-link> 
                                                 </td>
@@ -252,13 +252,13 @@
                             </client-only> 
                             Search MRV
                                         </nuxt-link>
-                                        <button disabled
+                                        <!-- <button disabled
                                             v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMRV')"
                                             @click="onClickPrint" class="btn btn-danger">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'print']"/>
                             </client-only> Print MRV
-                                        </button>
+                                        </button> -->
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>

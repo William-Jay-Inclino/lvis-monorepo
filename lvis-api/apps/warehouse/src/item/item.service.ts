@@ -275,6 +275,11 @@ export class ItemService {
 						}
 					}
 				},
+				project_item: {
+					include: {
+						project: true,
+					}
+				},
 				item_type: true,
 				unit: true,
 			},

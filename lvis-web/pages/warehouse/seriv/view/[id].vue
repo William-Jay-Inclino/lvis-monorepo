@@ -223,7 +223,7 @@
                                                 <td style="white-space: pre-line;">
                                                     <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
                                                         <small>
-                                                            {{ i.item.code + ' - ' + i.item.description }} 
+                                                            {{ i.item.code + ' - ' + i.item.description +  (i.item.project_item ? `(${i.item.project_item?.project.name})` : '') }} 
                                                         </small>
                                                     </nuxt-link> 
                                                 </td>

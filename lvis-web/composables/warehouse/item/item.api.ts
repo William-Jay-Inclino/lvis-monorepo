@@ -158,6 +158,11 @@ export async function findByCode(code: string): Promise<Item | undefined> {
                 total_quantity
                 quantity_on_queue
                 GWAPrice
+                project_item {
+                    project {
+                        name
+                    }
+                }
             }
         }
     `;
