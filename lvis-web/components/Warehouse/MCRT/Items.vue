@@ -18,7 +18,9 @@
             <tbody>
                 <tr v-for="i, count in items">
                     <td class="text-muted align-middle"> {{ count + 1 }} </td>
-                    <td class="text-muted align-middle"> {{ i.item.code + ' - ' + i.item.description }} </td>
+                    <td class="text-muted align-middle">
+                        <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.item.code + ' - ' + i.item.description }}</textarea>
+                    </td>
                     <td class="text-muted align-middle"> {{ i.item.unit.name }} </td>
                     <td class="text-muted align-middle"> {{ i.reference_qty }} </td>
                     <td class="text-muted align-middle"> {{ i.qty_returned }} </td>

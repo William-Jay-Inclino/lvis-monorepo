@@ -43,7 +43,12 @@
                             <tbody> 
                                 <tr v-for="item, indx in filteredItems">
                                     <td class="align-middle text-muted"> {{ item.code }} </td>
-                                    <td class="align-middle text-muted"> {{ item.description }} </td>
+                                    <td style="white-space: pre-line;" class="align-middle text-muted">
+                                        <small>
+                                            {{ item.description }}
+                                        </small>
+                                        <!-- <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.description }}</textarea> -->
+                                    </td>
                                     <!-- <td class="align-middle text-muted"> {{ item.description }} {{ item.project_item ? `(${item.project_item.project.name})` : '' }} </td> -->
                                     <td class="align-middle text-muted"> {{ item.unit.name }} </td>
                                     <td class="align-middle text-center">

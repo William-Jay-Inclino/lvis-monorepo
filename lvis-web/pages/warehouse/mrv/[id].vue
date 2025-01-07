@@ -126,7 +126,7 @@
                             <label class="form-label">
                                 Consumer Name <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="mrvData.consumer_name" class="form-control"
+                            <textarea v-model="mrvData.consumer_name" class="form-control form-control-sm"
                                 rows="3"> </textarea>
                             <small class="text-danger fst-italic" v-show="mrvDataErrors.consumer_name"> {{ errorMsg }}
                             </small>
@@ -136,7 +136,7 @@
                             <label class="form-label">
                                 Location <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="mrvData.location" class="form-control"
+                            <textarea v-model="mrvData.location" class="form-control form-control-sm"
                                 rows="3"> </textarea>
                             <small class="text-danger fst-italic" v-show="mrvDataErrors.location"> {{ errorMsg }}
                             </small>
@@ -146,7 +146,7 @@
                             <label class="form-label">
                                 Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="mrvData.purpose" class="form-control" rows="3"> </textarea>
+                            <textarea v-model="mrvData.purpose" class="form-control form-control-sm" rows="3"> </textarea>
                             <small v-if="mrvDataErrors.purpose" class="text-danger fst-italic"> {{ errorMsg }} </small>
                         </div>
 

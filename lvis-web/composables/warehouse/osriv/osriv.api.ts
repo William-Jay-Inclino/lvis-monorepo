@@ -267,7 +267,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 200, item_codes: "${ITEM_TYPE.OFFICE_SUPPLY}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.OFFICE_SUPPLY}") {
                 data{
                     id
                     code
@@ -452,7 +452,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     rank_number
                 }
             },
-            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.OFFICE_SUPPLY}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.OFFICE_SUPPLY}") {
                 data{
                     id
                     code
@@ -554,7 +554,7 @@ export async function create(input: CreateOsrivInput): Promise<MutationResponse>
         mutation {
             createOsriv(
                 input: {
-                    purpose: "${input.purpose}"
+                    purpose: "${input.purpose.replace(/\n/g, '\\n')}"
                     requested_by_id: "${input.requested_by?.id}"
                     item_from_id: "${input.item_from?.id}"
                     approvers: [${approvers}]
@@ -596,7 +596,7 @@ export async function update(id: string, input: UpdateOsrivInput): Promise<Mutat
             updateOsriv(
                 id: "${id}",
                 input: {
-                    purpose: "${input.purpose}"
+                    purpose: "${input.purpose.replace(/\n/g, '\\n')}"
                     requested_by_id: "${input.requested_by?.id}"
                     item_from_id: "${input.item_from?.id}"
                 }

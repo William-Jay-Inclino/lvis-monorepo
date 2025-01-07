@@ -134,7 +134,7 @@
                             <label class="form-label">
                                 Consumer Name <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="serivData.consumer_name" class="form-control"
+                            <textarea v-model="serivData.consumer_name" class="form-control form-control-sm"
                                 rows="3"> </textarea>
                             <small class="text-danger fst-italic" v-show="serivDataErrors.consumer_name"> {{ errorMsg }}
                             </small>
@@ -144,7 +144,7 @@
                             <label class="form-label">
                                 Location <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="serivData.location" class="form-control"
+                            <textarea v-model="serivData.location" class="form-control form-control-sm"
                                 rows="3"> </textarea>
                             <small class="text-danger fst-italic" v-show="serivDataErrors.location"> {{ errorMsg }}
                             </small>
@@ -154,7 +154,7 @@
                             <label class="form-label">
                                 Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="serivData.purpose" class="form-control" rows="3"> </textarea>
+                            <textarea v-model="serivData.purpose" class="form-control form-control-sm" rows="3"> </textarea>
                             <small v-if="serivDataErrors.purpose" class="text-danger fst-italic"> {{ errorMsg }} </small>
                         </div>
 

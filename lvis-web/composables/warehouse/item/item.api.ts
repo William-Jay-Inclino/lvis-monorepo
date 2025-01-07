@@ -452,7 +452,7 @@ export async function create(input: CreateItemInput): Promise<MutationResponse> 
                 item_type_id: ${input.item_type?.id},
                 unit_id: "${input.unit?.id}",
                 project_id: ${input.project ? `"${input.project.id}"` : null},
-                description: "${input.description}",
+                description: "${input.description.replace(/\n/g, '\\n')}",
                 initial_quantity: ${input.initial_quantity ?? 0},
                 initial_average_price: ${input.initial_average_price ?? 0},
                 alert_level: ${input.alert_level},
@@ -503,7 +503,7 @@ export async function update(id: string, input: UpdateItemInput): Promise<Mutati
                 item_type_id: ${input.item_type.id},
                 unit_id: "${input.unit?.id}",
                 project_id: ${input.project ? `"${input.project.id}"` : null},
-                description: "${input.description}",
+                description: "${input.description.replace(/\n/g, '\\n')}",
                 alert_level: ${input.alert_level},
             }) {
                 id 

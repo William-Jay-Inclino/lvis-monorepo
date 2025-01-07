@@ -30,7 +30,7 @@
                                 <label class="form-label">
                                     Description <span class="text-danger">*</span>
                                 </label>
-                                <textarea rows="3" class="form-control" v-model="formData.description"></textarea>
+                                <textarea rows="5" class="form-control form-control-sm" v-model="formData.description"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Unit</label> <span class="text-danger">*</span>

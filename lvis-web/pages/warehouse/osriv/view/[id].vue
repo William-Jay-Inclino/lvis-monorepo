@@ -59,7 +59,9 @@
                                         </tr>
                                         <tr>
                                             <td class="text-muted align-middle">Purpose</td>
-                                            <td> {{ item.purpose }} </td>
+                                            <td>
+                                                <textarea class="form-control form-control-sm" rows="5" readonly>{{ item.purpose }} </textarea>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -92,7 +94,7 @@
                                                 <th class="bg-secondary text-white"> Label </th>
                                                 <th class="bg-secondary text-white"> Approver </th>
                                                 <th class="bg-secondary text-white"> Status </th>
-                                                <th class="bg-secondary text-white"> Notes </th>
+                                                <th class="bg-secondary text-white"> Comment </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -113,8 +115,8 @@
                                                     N/A
                                                 </td>
                                                 <td>
-                                                    <textarea rows="3" class="form-control" disabled
-                                                        :value="i.notes"></textarea>
+                                                    <textarea rows="3" class="form-control form-control-sm" readonly
+                                                        :value="i.notes || 'N/A'"></textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -156,9 +158,11 @@
                                         <tbody>
                                             <tr v-for="i, count in item.osriv_items">
                                                 <td> {{ count + 1 }} </td>
-                                                <td>
+                                                <td style="white-space: pre-line;">
                                                     <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
-                                                        {{ i.item.code + ' - ' + i.item.description }} 
+                                                        <small>
+                                                            {{ i.item.code + ' - ' + i.item.description }}
+                                                        </small> 
                                                     </nuxt-link> 
                                                 </td>
                                                 <td> {{ i.item.unit.name }} </td>

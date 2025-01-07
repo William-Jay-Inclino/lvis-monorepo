@@ -659,12 +659,12 @@ export async function create(input: CreateSerivInput): Promise<MutationResponse>
                 input: {
                     project_id: ${project_id}
                     request_type: ${input.request_type?.id}
-                    purpose: "${input.purpose}"
+                    purpose: "${input.purpose.replace(/\n/g, '\\n')}"
                     or_number: ${or_number}
                     cwo_number: ${cwo_number}
                     jo_number: ${jo_number}
-                    consumer_name: "${input.consumer_name}"
-                    location: "${input.location}"
+                    consumer_name: "${input.consumer_name.replace(/\n/g, '\\n')}"
+                    location: "${input.location.replace(/\n/g, '\\n')}"
                     requested_by_id: "${input.requested_by?.id}"
                     withdrawn_by_id: "${input.withdrawn_by?.id}"
                     item_from_id: "${input.item_from?.id}"

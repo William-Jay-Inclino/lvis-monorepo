@@ -55,8 +55,8 @@
                                 <label class="form-label">
                                     Purpose <span class="text-danger">*</span>
                                 </label>
-                                <textarea data-testid="purpose" v-model="osrivData.purpose" class="form-control"
-                                    rows="3"> </textarea>
+                                <textarea data-testid="purpose" v-model="osrivData.purpose" class="form-control form-control-sm"
+                                    rows="5"> </textarea>
                                 <small class="text-danger fst-italic" v-show="osrivDataErrors.purpose"> {{ errorMsg }} </small>
                             </div>
     

@@ -29,7 +29,9 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Description</td>
-                                                <td> {{ item.description }} </td>
+                                                <td>
+                                                    <textarea class="form-control form-control-sm" rows="5" readonly>{{ item.description }}</textarea>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Item Type</td>

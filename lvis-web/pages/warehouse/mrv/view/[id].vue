@@ -93,16 +93,22 @@
                                                 <td> {{ item.project ? item.project.name : 'N/A' }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Consumer Name</td>
-                                                <td> {{ item.consumer_name }} </td>
+                                                <td class="text-muted align-middle">Consumer Name</td>
+                                                <td> 
+                                                    <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.consumer_name }}</textarea>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Location</td>
-                                                <td> {{ item.location }} </td>
+                                                <td class="text-muted align-middle">Location</td>
+                                                <td> 
+                                                    <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.location }}</textarea>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Purpose</td>
-                                                <td> {{ item.purpose }} </td>
+                                                <td class="text-muted align-middle">Purpose</td>
+                                                <td> 
+                                                    <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.purpose }}</textarea>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Requested by</td>
@@ -144,16 +150,14 @@
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white"> Order </th>
                                                 <th class="bg-secondary text-white"> Label </th>
                                                 <th class="bg-secondary text-white"> Approver </th>
                                                 <th class="bg-secondary text-white"> Status </th>
-                                                <th class="bg-secondary text-white"> Notes </th>
+                                                <th class="bg-secondary text-white"> Comment </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.mrv_approvers">
-                                                <td class="align-middle"> {{ i.order }} </td>
                                                 <td class="align-middle"> {{ i.label }} </td>
                                                 <td class="align-middle"> {{ getFullname(i.approver!.firstname,
                 i.approver!.middlename, i.approver!.lastname) }} </td>
@@ -171,8 +175,8 @@
                                                     N/A
                                                 </td>
                                                 <td>
-                                                    <textarea rows="3" class="form-control" disabled
-                                                        :value="i.notes"></textarea>
+                                                    <textarea rows="3" class="form-control form-control-sm" readonly
+                                                        :value="i.notes || 'N/A'"></textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -214,17 +218,19 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.mrv_items">
-                                                <td> {{ count + 1 }} </td>
-                                                <td>
+                                                <td class="align-middle"> {{ count + 1 }} </td>
+                                                <td class="align-middle" style="white-space: pre-line;">
                                                     <nuxt-link :to="'/warehouse/item/view/' + i.item.id">
-                                                        {{ i.item.code + ' - ' + i.item.description }} 
+                                                        <small>
+                                                            {{ i.item.code + ' - ' + i.item.description }} 
+                                                        </small>
                                                     </nuxt-link> 
                                                 </td>
-                                                <td> {{ i.item.unit.name }} </td>
-                                                <td> {{ i.quantity }} </td>
+                                                <td class="align-middle"> {{ i.item.unit.name }} </td>
+                                                <td class="align-middle"> {{ i.quantity }} </td>
                                                 <!-- <td> {{ i.item.total_quantity - i.item.quantity_on_queue }} </td> -->
-                                                <td> {{ formatToPhpCurrency(i.price) }} </td>
-                                                <td> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
+                                                <td class="align-middle"> {{ formatToPhpCurrency(i.price) }} </td>
+                                                <td class="align-middle"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                                             </tr>
                                         </tbody>
                                     </table>

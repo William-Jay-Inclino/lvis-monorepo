@@ -24,7 +24,7 @@
                                 <label class="form-label">
                                     Description <span class="text-danger">*</span>
                                 </label>
-                                <textarea data-testid="description" rows="3" class="form-control" v-model="formData.description"></textarea>
+                                <textarea data-testid="description" rows="5" class="form-control form-control-sm" v-model="formData.description"></textarea>
                                 <small v-if="formDataErrors.description" class="text-danger fst-italic"> This field is required
                                 </small>
                             </div>

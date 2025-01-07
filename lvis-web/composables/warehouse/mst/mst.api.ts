@@ -353,7 +353,7 @@ export async function create(input: CreateMstInput): Promise<MutationResponse> {
                     cwo_number: ${cwo_number}
                     mwo_number: ${mwo_number}
                     jo_number: ${jo_number}
-                    remarks: "${input.remarks}"
+                    remarks: "${input.remarks.replace(/\n/g, '\\n')}"
                     approvers: [${approvers}]
                     items: [${items}]
                 }
@@ -397,7 +397,7 @@ export async function update(id: string, input: UpdateMstInput): Promise<Mutatio
             updateMst(
                 id: "${id}",
                 input: {
-                    remarks: "${input.remarks}"
+                    remarks: "${input.remarks.replace(/\n/g, '\\n')}"
                     returned_by_id: "${input.returned_by?.id}"
                     cwo_number: ${cwo_number}
                     mwo_number: ${mwo_number}
@@ -503,7 +503,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
                 data{
                     id
                     code

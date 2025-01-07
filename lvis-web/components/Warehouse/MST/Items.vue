@@ -16,7 +16,9 @@
             <tbody>
                 <tr v-for="i, count in items">
                     <td class="text-muted align-middle"> {{ count + 1 }} </td>
-                    <td class="text-muted align-middle"> {{ i.item.code + ' - ' + i.item.description }} </td>
+                    <td class="text-muted align-middle">
+                        <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.item.code + ' - ' + i.item.description }}</textarea>
+                    </td>
                     <td class="text-muted text-center align-middle">
                         <input type="number" :class="{'border border-danger': i.showQtyError}" class="form-control form-control-sm" :value="i.quantity" @input="handleQtyUpdate(i, $event)">
                         <small v-show="i.showQtyError" class="fst-italic text-danger">Invalid Quantity</small>

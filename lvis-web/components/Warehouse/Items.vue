@@ -28,7 +28,9 @@
             </thead>
             <tbody>
                 <tr v-for="i, indx in items">
-                    <td class="text-muted align-middle"> {{ i.label }} {{ i.project_item ? `(${i.project_item.project.name})` : '' }} </td>
+                    <td class="text-muted align-middle">
+                        <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.label }} {{ i.project_item ? `(${i.project_item.project.name})` : '' }}</textarea>
+                    </td>
                     <td class="text-muted align-middle text-center"> {{ i.unit.name }} </td>
                     <td class="text-muted align-middle text-center"> {{ i.available_quantity }} </td>
                     <td class="text-muted align-middle text-center"> {{ formatToPhpCurrency(i.GWAPrice) }} </td>

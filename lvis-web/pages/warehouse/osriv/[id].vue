@@ -80,7 +80,7 @@
                             <label class="form-label">
                                 Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="osrivData.purpose" class="form-control" rows="3"> </textarea>
+                            <textarea v-model="osrivData.purpose" class="form-control form-control" rows="5"> </textarea>
                             <small v-if="osrivDataErrors.purpose" class="text-danger fst-italic"> {{ errorMsg }} </small>
                         </div>
 

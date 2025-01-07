@@ -237,7 +237,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 500, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
                 data{
                     id
                     code
@@ -502,7 +502,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 5000, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS}") {
                 data{
                     id
                     code
@@ -623,7 +623,7 @@ export async function create(input: CreateMcrtInput): Promise<MutationResponse> 
                     mct_id: ${mct_id}
                     seriv_id: ${seriv_id}
                     returned_by_id: "${input.returned_by?.id}"
-                    note: "${input.note}"
+                    note: "${input.note.replace(/\n/g, '\\n')}"
                     approvers: [${approvers}]
                     items: [${items}]
                 }
@@ -663,7 +663,7 @@ export async function update(id: string, input: UpdateMcrtInput): Promise<Mutati
             updateMcrt(
                 id: "${id}",
                 input: {
-                    note: "${input.note}"
+                    note: "${input.note.replace(/\n/g, '\\n')}"
                     returned_by_id: "${input.returned_by?.id}"
                 }
             ) {

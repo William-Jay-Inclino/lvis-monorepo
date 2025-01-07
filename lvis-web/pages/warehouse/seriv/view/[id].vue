@@ -91,20 +91,26 @@
                                                 <td> {{ item.item_from.name }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Project Name</td>
+                                                <td class="text-muted align-middle">Project Name</td>
                                                 <td> {{ item.project ? item.project.name : 'N/A' }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Consumer Name</td>
-                                                <td> {{ item.consumer_name }} </td>
+                                                <td class="text-muted align-middle">Consumer Name</td>
+                                                <td>
+                                                    <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.consumer_name }} </textarea>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Location</td>
-                                                <td> {{ item.location }} </td>
+                                                <td class="text-muted align-middle">Location</td>
+                                                <td>
+                                                    <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.location }} </textarea>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Purpose</td>
-                                                <td> {{ item.purpose }} </td>
+                                                <td class="text-muted align-middle">Purpose</td>
+                                                <td>
+                                                    <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.purpose }} </textarea>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Requested by</td>
@@ -149,7 +155,7 @@
                                                 <th class="bg-secondary text-white"> Label </th>
                                                 <th class="bg-secondary text-white"> Approver </th>
                                                 <th class="bg-secondary text-white"> Status </th>
-                                                <th class="bg-secondary text-white"> Notes </th>
+                                                <th class="bg-secondary text-white"> Comment </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -171,8 +177,8 @@
                                                     N/A
                                                 </td>
                                                 <td>
-                                                    <textarea rows="3" class="form-control" disabled
-                                                        :value="i.notes"></textarea>
+                                                    <textarea rows="3" class="form-control form-control-sm" readonly
+                                                        :value="i.notes || 'N/A'"></textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -214,9 +220,11 @@
                                         <tbody>
                                             <tr v-for="i, count in item.seriv_items">
                                                 <td> {{ count + 1 }} </td>
-                                                <td>
+                                                <td style="white-space: pre-line;">
                                                     <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
-                                                        {{ i.item.code + ' - ' + i.item.description }} 
+                                                        <small>
+                                                            {{ i.item.code + ' - ' + i.item.description }} 
+                                                        </small>
                                                     </nuxt-link> 
                                                 </td>
                                                 <td> {{ i.item.unit.name }} </td>

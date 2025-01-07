@@ -92,7 +92,7 @@
                             <label class="form-label">
                                 Remarks <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="mstData.remarks" class="form-control" rows="3"> </textarea>
+                            <textarea v-model="mstData.remarks" class="form-control form-control-sm" rows="5"> </textarea>
                             <small v-if="mstDataErrors.remarks" class="text-danger fst-italic"> {{ errorMsg }} </small>
                         </div>
 

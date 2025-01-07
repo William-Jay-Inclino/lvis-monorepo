@@ -52,7 +52,9 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Remarks</td>
-                                                <td> {{ item.remarks }} </td>
+                                                <td>
+                                                    <textarea class="form-control form-control-sm" rows="5" readonly>{{ item.remarks }}</textarea>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Returned by</td>
@@ -87,16 +89,14 @@
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white"> Order </th>
                                                 <th class="bg-secondary text-white"> Label </th>
                                                 <th class="bg-secondary text-white"> Approver </th>
                                                 <th class="bg-secondary text-white"> Status </th>
-                                                <th class="bg-secondary text-white"> Notes </th>
+                                                <th class="bg-secondary text-white"> Comment </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.mst_approvers">
-                                                <td class="align-middle"> {{ i.order }} </td>
                                                 <td class="align-middle"> {{ i.label }} </td>
                                                 <td class="align-middle"> {{ getFullname(i.approver!.firstname,
                 i.approver!.middlename, i.approver!.lastname) }} </td>
@@ -112,8 +112,8 @@
                                                     N/A
                                                 </td>
                                                 <td>
-                                                    <textarea rows="3" class="form-control" disabled
-                                                        :value="i.notes"></textarea>
+                                                    <textarea rows="3" class="form-control form-control-sm" readonly
+                                                        :value="i.notes || 'N/A'"></textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -155,17 +155,19 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.mst_items">
-                                                <td> {{ count + 1 }} </td>
-                                                <td>
+                                                <td class="align-middle"> {{ count + 1 }} </td>
+                                                <td class="align-middle" style="white-space: pre-line;">
                                                     <nuxt-link :to="'/warehouse/item/view/' + i.item.id">
-                                                        {{ i.item.code + ' - ' + i.item.description }} 
+                                                        <small>
+                                                            {{ i.item.code + ' - ' + i.item.description }} 
+                                                        </small>
                                                     </nuxt-link> 
                                                 </td>
-                                                <td> {{ i.item.unit.name }} </td>
-                                                <td> {{ i.quantity }} </td>
-                                                <td> {{ formatToPhpCurrency(i.price) }} </td>
-                                                <td> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
-                                                <td>
+                                                <td class="align-middle"> {{ i.item.unit.name }} </td>
+                                                <td class="align-middle"> {{ i.quantity }} </td>
+                                                <td class="align-middle"> {{ formatToPhpCurrency(i.price) }} </td>
+                                                <td class="align-middle"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
+                                                <td class="align-middle">
                                                     <span
                                                     :class="{'text-success': i.status === ITEM_STATUS.USABLE, 'text-danger': i.status === ITEM_STATUS.NOT_USABLE}">
                                                         {{ itemStatusMapper[i.status] }}
