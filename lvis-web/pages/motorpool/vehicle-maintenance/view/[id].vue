@@ -62,7 +62,9 @@
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Remarks</td>
-                                            <td> {{ item.remarks }} </td>
+                                            <td>
+                                                <textarea class="form-control form-control-sm" rows="5" readonly>{{ item.remarks }}</textarea>
+                                            </td>
                                         </tr>
                                         <tr v-if="canEdit(authUser, 'canManageVehicleMaintenance')">
                                             <td class="text-muted">Mark as Completed</td>

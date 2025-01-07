@@ -236,7 +236,7 @@ export async function create(input: CreateVehicleMaintenance): Promise<MutationR
         return `
         {
           service_id: "${i.service?.id}"
-          note: "${i.note}"
+          note: "${i.note.replace(/\n/g, '\\n')}"
         }`;
     }).join(', ');
 
@@ -251,7 +251,7 @@ export async function create(input: CreateVehicleMaintenance): Promise<MutationR
                     next_service_date: "${input.next_service_date}",
                     next_service_mileage: ${input.next_service_mileage},
                     cost: ${input.cost},
-                    remarks: "${input.remarks}",
+                    remarks: "${input.remarks.replace(/\n/g, '\\n')}",
                     performed_by: "${input.performed_by}",
                     services: [${services}]
                 }
@@ -292,7 +292,7 @@ export async function update(id: string, input: UpdateVehicleMaintenance): Promi
         return `
         {
           service_id: "${i.service?.id}"
-          note: "${i.note}"
+          note: "${i.note.replace(/\n/g, '\\n')}"
         }`;
     }).join(', ');
 
@@ -308,7 +308,7 @@ export async function update(id: string, input: UpdateVehicleMaintenance): Promi
                     next_service_date: "${input.next_service_date}",
                     next_service_mileage: ${input.next_service_mileage},
                     cost: ${input.cost},
-                    remarks: "${input.remarks}",
+                    remarks: "${input.remarks.replace(/\n/g, '\\n')}",
                     performed_by: "${input.performed_by}",
                     services: [${services}]
                 }
