@@ -48,9 +48,26 @@ export class SerivPdfService {
 
         <style>
             body {
+                font-family: Arial, sans-serif; 
+                font-size: 8pt;
                 margin: 0;
                 padding: 0;
             }
+                
+            .content {
+                font-family: 'Verdana', sans-serif; 
+                display: flex;
+                flex-direction: column;
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+
+            .heading {
+                font-family: 'Georgia', serif; 
+                font-size: 11pt;
+                font-weight: bold;
+            }
+
             .watermark {
                 position: fixed;
                 top: 50%;
@@ -63,10 +80,6 @@ export class SerivPdfService {
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: contain;
-            }
-            .content {
-                display: flex; flex-direction: column;
-                padding-left: 25px; padding-right: 25px; font-size: 10pt; 
             }
         </style>
 
@@ -82,7 +95,7 @@ export class SerivPdfService {
                         <div style="display: flex; align-items: center;">
                             <img src="data:image/jpeg;base64,${logo}" alt="Logo" style="height: 50px; width: 50px; margin-right: 10px;">
                             <div style="text-align: center;">
-                                <span style="font-size: 11pt; font-weight: bold;">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
+                                <span class="heading">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
                                 <div style="font-size: 9pt;">
                                     <span>Brgy. San Pablo, Ormoc City, Leyte</span>
                                     <br />
@@ -100,7 +113,7 @@ export class SerivPdfService {
 
                 <div style="display: flex; justify-content: flex-end;">
                     <div>
-                        <table style="font-size: 10pt; width: 200px;">
+                        <table style="font-size: 8pt; width: 200px;">
                             <tr>
                                 <td style="width: 30%">Date:</td>
                                 <td style="border-bottom: 1px solid black; font-weight: bold; text-align: center">
@@ -113,11 +126,12 @@ export class SerivPdfService {
 
 
                 <br />
-                <div style="font-size: 12pt; font-weight: bold; text-align: center;">GATE PASS</div>
+                <br />
+                <div class="heading" style="text-align: center;">GATE PASS</div>
                 <br />
                 <br />
 
-                <table border="0" style="width: 100%; font-size: 11pt; border-collapse: collapse; ">
+                <table border="0" style="width: 100%; font-size: 9pt; border-collapse: collapse; ">
                     <tbody>
                         <tr>
                             <td style="width: 15%; font-weight: bold; padding-bottom: 8px;">ATTENTION:</td>
@@ -144,7 +158,7 @@ export class SerivPdfService {
                 <br />
                 <br />
 
-                <table style="width: 100%; font-size: 10pt; border: 1px solid black; border-collapse: collapse;">
+                <table style="width: 100%; font-size: 8pt; border: 1px solid black; border-collapse: collapse;">
                     <thead>
                         <th style="border: 1px solid black;"> No. </th>
                         <th style="border: 1px solid black;"> Item Code </th>
@@ -176,16 +190,16 @@ export class SerivPdfService {
         
             </div>
         
-            <div style="font-size: 10pt; padding-top: 20px;">
+            <div style="padding-top: 20px;">
 
                     
                 <div style="padding: 10px; width: 40%">
-                    <table border="0" style="width: 100%; font-size: 10pt;">
+                    <table border="0" style="width: 100%; font-size: 8pt;">
                         <tr>
                             <td> Issued By </td>
                         </tr>
                         <tr>
-                            <th style="text-align: center; position: relative; font-size: 12pt;">
+                            <th style="font-size: 10pt; text-align: center; position: relative;">
                                 <u style="position: relative; z-index: 1; margin-bottom: 10px;">
                                     ${
                                         // @ts-ignore
@@ -213,7 +227,7 @@ export class SerivPdfService {
                 
                 <div style="padding-top: 50px;">
                 
-                    <table border="0" style="width: 100%; font-size: 10pt; border-collapse: collapse;">
+                    <table border="0" style="width: 100%; font-size: 8pt; border-collapse: collapse;">
                         <tr>
                             <td style="width: 45%; padding: 10px; vertical-align: top;">Inspected By:</td>
                             <td style="width: 10%"></td>
@@ -224,7 +238,7 @@ export class SerivPdfService {
                             
                             </td>
                             <td></td>
-                            <td style="padding-top: 10px; border-bottom: 1px solid black; text-align: center; font-weight: bold; font-size: 12pt; position: relative; z-index: 1; ">
+                            <td style="padding-top: 10px; border-bottom: 1px solid black; text-align: center; font-weight: bold; font-size: 10pt; position: relative; z-index: 1; ">
                             ${
                                 // @ts-ignore
                                 getFullnameWithTitles(isd_manager.firstname, isd_manager.lastname, isd_manager.middlename, isd_manager.name_prefix, isd_manager.name_suffix)
@@ -240,7 +254,7 @@ export class SerivPdfService {
                                 <div>
                                     SECURITY GUARD ON DUTY
                                 </div>
-                                <div style="font-size: 10pt;">
+                                <div style="font-size: 7pt;">
                                     <i>Signature Over Printed Name</i>
                                 </div>
                             </td>

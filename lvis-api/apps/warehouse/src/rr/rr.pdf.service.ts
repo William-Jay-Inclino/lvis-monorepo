@@ -101,9 +101,26 @@ export class RrPdfService {
 
         <style>
             body {
+                font-family: Arial, sans-serif; 
+                font-size: 8pt;
                 margin: 0;
                 padding: 0;
             }
+                
+            .content {
+                font-family: 'Verdana', sans-serif; 
+                display: flex;
+                flex-direction: column;
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+
+            .heading {
+                font-family: 'Georgia', serif; 
+                font-size: 11pt;
+                font-weight: bold;
+            }
+
             .watermark {
                 position: fixed;
                 top: 63%;
@@ -116,10 +133,6 @@ export class RrPdfService {
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: contain;
-            }
-            .content {
-                display: flex; flex-direction: column;
-                padding-left: 25px; padding-right: 25px; font-size: 10pt; 
             }
         </style>
 
@@ -136,7 +149,7 @@ export class RrPdfService {
                         <div style="display: flex; align-items: center;">
                             <img src="data:image/jpeg;base64,${logo}" alt="Logo" style="height: 50px; width: 50px; margin-right: 10px;">
                             <div style="text-align: center;">
-                                <span style="font-size: 11pt; font-weight: bold;">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
+                                <span class="heading">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
                                 <div style="font-size: 9pt;">
                                     <span>Brgy. San Pablo, Ormoc City, Leyte</span>
                                     <br />
@@ -146,12 +159,12 @@ export class RrPdfService {
                         </div>
                         <br />
                         <br />
-                        <div style="font-size: 11pt; font-weight: bold;">RECEIVING REPORT</div>
+                        <div class="heading">RECEIVING REPORT</div>
                     </div>
                 </div>
 
                 <div style="display: flex; justify-content: end;">
-                    <table style="font-size: 10pt;">
+                    <table style="font-size: 8pt;">
                         <tr>
                             <td style="font-weight: bold;"> RR No.: </td>
                             <td style="border-bottom: 1px solid black;"> ${ rr.rr_number } </td>
@@ -163,7 +176,7 @@ export class RrPdfService {
                     </table>
                 </div>
 
-                <table border="1" style="width: 100%; font-size: 10pt; border-collapse: collapse; border-color: black; margin-top: 10px;">
+                <table border="1" style="width: 100%; font-size: 8pt; border-collapse: collapse; border-color: black; margin-top: 10px;">
                     <tr>
                         <td rowspan="5" style="width: 50%; vertical-align: top;">
                             <div style="display: flex; justify-content: space-between; padding-left: 10px; padding-right: 10px;">
@@ -171,7 +184,7 @@ export class RrPdfService {
                             </div>
 
                             <div style="text-align: center;">
-                                <div style="font-size: 12pt; font-weight: bold;">
+                                <div style="font-size: 10pt; font-weight: bold;">
                                     ${ rr.po.meqs_supplier.supplier.name.toUpperCase() }
                                 </div>
                                 <div>
@@ -198,7 +211,7 @@ export class RrPdfService {
                 </table>
 
                 <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-                    <thead style="font-size: 10pt;">
+                    <thead style="font-size: 8pt;">
                         <tr>
                             <th style="border: 1px solid black;"> Code </th>
                             <th style="border: 1px solid black;"> Description </th>
@@ -222,7 +235,7 @@ export class RrPdfService {
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody style="font-size: 9pt;">
+                    <tbody style="font-size: 8pt;">
 
                         ${rr.rr_items.map((item, index) => `
                         <tr style="border: 1px solid black;">
@@ -286,7 +299,7 @@ export class RrPdfService {
         
             </div>
         
-            <div style="padding-left: 25px; padding-right: 25px; font-size: 10pt; padding-top: 50px; min-height: 35vh;">
+            <div style="padding-left: 25px; padding-right: 25px; font-size: 8pt; padding-top: 50px; min-height: 35vh;">
                 
                 <div style="display: flex; justify-content: center;">
                         
@@ -296,7 +309,7 @@ export class RrPdfService {
                                 // @ts-ignore 
                                 item.approver.is_budget_officer || item.approver.is_finance_manager ? `
                                     <div style="padding: 10px;">
-                                        <table border="0" style="font-size: 11pt; width: 400px;">
+                                        <table border="0" style="font-size: 8pt; width: 400px;">
                                             <tr>
                                                 <td style="font-size: 10pt; text-align: left; white-space: nowrap;"> ${ item.label }: </td>
                                                 ${ 
@@ -309,12 +322,12 @@ export class RrPdfService {
                                                 }
                                             </tr>
                                             <tr>
-                                                <td colspan="2" style="font-size: 10pt; text-align: left; white-space: nowrap;"> 
+                                                <td colspan="2" style="font-size: 8pt; text-align: left; white-space: nowrap;"> 
                                                     ${ item.date_approval ? formatDate(item.date_approval, true) : '&nbsp;' } 
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th style="text-align: center; position: relative; white-space: nowrap; border-bottom: 1px solid black;">
+                                                <th style="font-size: 10pt; text-align: center; position: relative; white-space: nowrap; border-bottom: 1px solid black;">
                                                     <span style="position: relative; z-index: 1; margin-bottom: 10px;">
                                                         ${
                                                             // @ts-ignore
@@ -353,17 +366,17 @@ export class RrPdfService {
                     
                      ${rrApprovers.map((item, index) => `
                     
-                        <table border="0" style="font-size: 11pt;">
+                        <table border="0" style="font-size: 8pt;">
                             <tr>
-                                <td style="font-size: 10pt; text-align: left;"> ${ item.label }: </td>
+                                <td style="text-align: left;"> ${ item.label }: </td>
                             </tr>
                             <tr>
-                                <td style="font-size: 10pt; text-align: left;"> 
+                                <td style="text-align: left;"> 
                                     ${ item.date_approval ? formatDate(item.date_approval, true) : '&nbsp;' } 
                                 </td>
                             </tr>
                             <tr>
-                                <th style="text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom;">
+                                <th style="font-size: 10pt; text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom;">
                                     <span style="position: relative; z-index: 1;">
                                         ${
                                             // @ts-ignore
@@ -392,7 +405,7 @@ export class RrPdfService {
 
                 </div>
 
-                <div style="font-size: 8pt; margin-top: 5px;"> 
+                <div style="font-size: 7pt; margin-top: 5px;"> 
                     <div> PO No.: ${ rr.po.po_number } &nbsp;&nbsp;&nbsp;&nbsp; MEQS No.: ${ rr.po.meqs_supplier.meqs.meqs_number }  </div>
                     <div> ${ refType } No.: ${ refNumber } &nbsp;&nbsp;&nbsp;&nbsp; RC No.: ${ rc_number }  </div>
                 </div>

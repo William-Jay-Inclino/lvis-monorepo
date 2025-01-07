@@ -46,9 +46,25 @@ export class CanvassPdfService {
 
         <style>
             body {
+                font-family: Arial, sans-serif; 
+                font-size: 8pt;
                 margin: 0;
                 padding: 0;
             }
+                
+            .content {
+                font-family: 'Verdana', sans-serif; 
+                display: flex;
+                flex-direction: column;
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+            .heading {
+                font-family: 'Georgia', serif; 
+                font-size: 11pt;
+                font-weight: bold;
+            }
+
             .watermark {
                 position: fixed;
                 top: 50%;
@@ -62,10 +78,7 @@ export class CanvassPdfService {
                 background-position: center;
                 background-size: contain;
             }
-            .content {
-                display: flex; flex-direction: column;
-                padding-left: 25px; padding-right: 25px; font-size: 10pt; 
-            }
+
         </style>
 
         
@@ -73,14 +86,14 @@ export class CanvassPdfService {
 
         <div class="content">
 
-            <div style="flex-grow: 1; min-height: 60vh;">
+            <div style="flex-grow: 1; min-height: 55vh;">
         
                 <div style="text-align: center; margin-top: 35px;">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <div style="display: flex; align-items: center;">
                             <img src="data:image/jpeg;base64,${logo}" alt="Logo" style="height: 50px; width: 50px; margin-right: 10px;">
                             <div style="text-align: center;">
-                                <span style="font-size: 11pt; font-weight: bold;">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
+                                <span class="heading">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
                                 <div style="font-size: 9pt;">
                                     <span>Brgy. San Pablo, Ormoc City, Leyte</span>
                                     <br />
@@ -90,7 +103,7 @@ export class CanvassPdfService {
                         </div>
                         <br />
                         <br />
-                        <div style="font-size: 11pt; font-weight: bold;">OFFICIAL CANVASS SHEET</div>
+                        <div class="heading">OFFICIAL CANVASS SHEET</div>
                     </div>
                 </div>
 
@@ -100,7 +113,7 @@ export class CanvassPdfService {
                 <div style="display: flex; justify-content: space-between;">
 
                     <div style="width: 50%;">
-                        <table style="font-size: 10pt; width: 100%;">
+                        <table style="font-size: 8pt; width: 100%;">
                             <tr>
                                 <td style="white-space: pre-line;"><b>Purpose:</b> ${canvass.purpose}</td>
                             </tr>     
@@ -111,7 +124,7 @@ export class CanvassPdfService {
                     </div>
 
                     <div style="margin-left: auto; text-align: right;">
-                        <table style="font-size: 10pt;">
+                        <table style="font-size: 8pt;">
                             <tr>
                                 <td style="font-weight: bold;"> RC No.: </td>
                                 <td style="border-bottom: 1px solid black;">
@@ -132,7 +145,7 @@ export class CanvassPdfService {
 
                 <br />
         
-                <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 8pt;">
                     <thead>
                         <th style="border: 1px solid black;"> NO. </th>
                         <th style="border: 1px solid black;"> ITEM DESCRIPTION AND SPECIFICATIONS </th>
@@ -142,11 +155,11 @@ export class CanvassPdfService {
                     </thead>
                     <tbody>
                         ${canvass.canvass_items.map((item, index) => `
-                        <tr style="border: 1px solid black; font-size: 10pt;">
-                            <td align="center">${index + 1}</td>
-                            <td style="white-space: pre-line;">${item.description}</td>
-                            <td align="center">${item.unit ? item.unit.name : 'N/A'}</td>
-                            <td align="center">${item.quantity}</td>
+                        <tr style="border: 1px solid black;">
+                            <td align="center" style="padding: 8px 4px;">${index + 1}</td>
+                            <td style="white-space: pre-line; padding: 8px 4px;">${item.description}</td>
+                            <td align="center" style="padding: 8px 4px;">${item.unit ? item.unit.name : 'N/A'}</td>
+                            <td align="center" style="padding: 8px 4px;">${item.quantity}</td>
                         </tr>
                     `).join('')}
                     </tbody>
@@ -158,7 +171,7 @@ export class CanvassPdfService {
         
             </div>
         
-            <div style="padding-left: 25px; padding-right: 25px; font-size: 10pt; padding-top: 70px; min-height: 32vh;">
+            <div style="padding-left: 25px; padding-right: 25px; font-size: 9pt; padding-top: 50px; min-height: 32vh;">
 
                 <div style="display: flex; justify-content: space-between;">
                 
@@ -186,14 +199,12 @@ export class CanvassPdfService {
 
                 <div style="display: flex; justify-content: space-between;">
                     <div style="flex: 1;">
-                        <table style="font-size: 10pt; width: 100%">
+                        <table style="font-size: 8pt; width: 90%">
                             <tr>
                                 <td width="30%">Prepared By:</td>
-                                <td></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td style="text-align: center; border-bottom: 1px solid black">
+                                <td style="text-align: center; border-bottom: 1px solid black; font-size: 10pt;">
                                     <div style="margin-top: 20px; ">
                                         <b> 
                                             ${
@@ -206,7 +217,6 @@ export class CanvassPdfService {
                                 </td>
                             </tr>
                             <tr>
-                                <td></td>
                                 <td style="text-align: center">
                                     <div>
                                         ${
@@ -219,27 +229,24 @@ export class CanvassPdfService {
                         </table>
                     </div>
                     <div style="flex: 1;">
-                        <table style="font-size: 10pt; width: 100%">
+                        <table style="font-size: 8pt; width: 90%">
                             <tr>
                                 <td width="30%">Noted By:</td>
-                                <td></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td style="text-align: center; border-bottom: 1px solid black">
+                                <td style="text-align: center; border-bottom: 1px solid black; font-size: 10pt;">
                                     <div style="margin-top: 20px; ">
-                                    <b> 
-                                    ${
-                                        // @ts-ignore
-                                        // notedBy.firstname + ' ' + notedBy.lastname
-                                        getFullnameWithTitles(notedBy.firstname, notedBy.lastname, notedBy.middlename, notedBy.name_prefix, notedBy.name_suffix)
-                                    } 
-                                </b>
+                                        <b> 
+                                            ${
+                                                // @ts-ignore
+                                                // notedBy.firstname + ' ' + notedBy.lastname
+                                                getFullnameWithTitles(notedBy.firstname, notedBy.lastname, notedBy.middlename, notedBy.name_prefix, notedBy.name_suffix)
+                                            } 
+                                        </b>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td></td>
                                 <td style="text-align: center">
                                     <div>
                                     ${
@@ -257,18 +264,18 @@ export class CanvassPdfService {
                 <br />
 
                 <div style="text-align: center;">
-                    <table border="0" style="width: 75%; margin: 0 auto;">
+                    <table border="0" style="width: 75%; margin: 0 auto; font-size: 10pt; border-spacing: 0 10px;">
                         <tr>
-                            <td style="width: 20%; margin-bottom: 10px;">
+                            <td style="width: 20%;">
                                 <div style="display: flex; justify-content: space-between; ">
                                     <span>Supplier</span>
                                     <span>:</span>
                                 </div>
                             </td>
-                            <td style="border-bottom: 1px solid black; margin-bottom: 10px;"></td>
+                            <td style="border-bottom: 1px solid black;"></td>
                         </tr>
                         <tr>
-                            <td style="margin-bottom: 10px;">
+                            <td>
                                 <div style="display: flex; justify-content: space-between; ">
                                     <span>TIN No.</span>
                                     <span>:</span>
@@ -277,7 +284,7 @@ export class CanvassPdfService {
                             <td style="border-bottom: 1px solid black"></td>
                         </tr>
                         <tr>
-                            <td style="margin-bottom: 10px;">
+                            <td>
                                 <div style="display: flex; justify-content: space-between; ">
                                     <span>Address</span>
                                     <span>:</span>

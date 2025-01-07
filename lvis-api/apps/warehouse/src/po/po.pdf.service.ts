@@ -89,9 +89,26 @@ export class PoPdfService {
 
         <style>
             body {
+                font-family: Arial, sans-serif; 
+                font-size: 8pt;
                 margin: 0;
                 padding: 0;
             }
+                
+            .content {
+                font-family: 'Verdana', sans-serif; 
+                display: flex;
+                flex-direction: column;
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+
+            .heading {
+                font-family: 'Georgia', serif; 
+                font-size: 11pt;
+                font-weight: bold;
+            }
+
             .watermark {
                 position: fixed;
                 top: 50%;
@@ -105,24 +122,20 @@ export class PoPdfService {
                 background-position: center;
                 background-size: contain;
             }
-            .content {
-                display: flex; flex-direction: column;
-                padding-left: 25px; padding-right: 25px; font-size: 10pt; 
-            }
         </style>
 
         <div class="watermark"></div>
 
         <div class="content">
 
-            <div style="flex-grow: 1; min-height: 65vh;">
+            <div style="flex-grow: 1; min-height: 60vh;">
         
                 <div style="text-align: center; margin-top: 35px;">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <div style="display: flex; align-items: center;">
                             <img src="data:image/jpeg;base64,${logo}" alt="Logo" style="height: 50px; width: 50px; margin-right: 10px;">
                             <div style="text-align: center;">
-                                <span style="font-size: 11pt; font-weight: bold;">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
+                                <span class="heading">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
                                 <div style="font-size: 9pt;">
                                     <span>Brgy. San Pablo, Ormoc City, Leyte</span>
                                     <br />
@@ -132,12 +145,12 @@ export class PoPdfService {
                         </div>
                         <br />
                         <br />
-                        <div style="font-size: 11pt; font-weight: bold;">PURCHASE ORDER</div>
+                        <div class="heading">PURCHASE ORDER</div>
                     </div>
                 </div>
 
                 <div style="display: flex; justify-content: end;">
-                    <table style="font-size: 10pt;">
+                    <table style="font-size: 8pt;">
                         <tr>
                             <td style="font-weight: bold;"> PO No.: </td>
                             <td style="border-bottom: 1px solid black;"> ${ po.po_number } </td>
@@ -149,7 +162,7 @@ export class PoPdfService {
                     </table>
                 </div>
 
-                <table border="1" style="width: 100%; font-size: 10pt; border-collapse: collapse; border-color: black; margin-top: 10px;">
+                <table border="1" style="width: 100%; font-size: 8pt; border-collapse: collapse; border-color: black; margin-top: 10px;">
                     <tr>
                         <td rowspan="4" style="width: 50%; vertical-align: top;">
                             <div style="display: flex; justify-content: space-between; padding-left: 10px; padding-right: 10px;">
@@ -171,7 +184,7 @@ export class PoPdfService {
                     </tr>
                     <tr>
                         <td>
-                            <table style="font-size: 10pt; width: 100%;">
+                            <table style="font-size: 8pt; width: 100%;">
                                 <tr>
                                     <td style="width: 50%; font-weight: bold;"> RR No.: </td>
                                     <td style="font-weight: bold;"> Date: </td>
@@ -181,7 +194,7 @@ export class PoPdfService {
                     </tr>
                     <tr>
                         <td>
-                            <table style="font-size: 10pt; width: 100%;">
+                            <table style="font-size: 8pt; width: 100%;">
                                 <tr>
                                     <td style="width: 50%;"> <b>${refType} No.:</b> ${ refNumber } </td>
                                     <td> <b>Date:</b> ${ formatDate(refDate) } </td>
@@ -191,7 +204,7 @@ export class PoPdfService {
                     </tr>
                     <tr>
                         <td>
-                            <table style="font-size: 10pt; width: 100%;">
+                            <table style="font-size: 8pt; width: 100%;">
                                 <tr>
                                     <td rowspan="3" style="width: 40%;">
                                         <div style="font-weight: bold;"> Terms of Payment: </div>
@@ -239,7 +252,7 @@ export class PoPdfService {
                     quotation. </i> 
                 </div>  
 
-                <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 10pt;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 8pt;">
                     <thead>
                         <th style="border: 1px solid black;"> NO. </th>
                         <th style="border: 1px solid black;"> DESCRIPTION </th>
@@ -277,7 +290,7 @@ export class PoPdfService {
 
                 <br />
 
-                <table style="font-size: 10pt;">
+                <table style="font-size: 8pt;">
                     <tr>
                         <td> Classification: </td>
                         <td> <b>${ classification.name }</b> </td>
@@ -291,24 +304,24 @@ export class PoPdfService {
             </div>
 
 
-            <div style="padding-left: 25px; padding-right: 25px; font-size: 10pt; padding-top: 60px; min-height: 20vh;">
+            <div style="padding-left: 25px; padding-right: 25px; font-size: 10pt; padding-top: 50px; min-height: 20vh;">
 
                 <div style="display: flex; justify-content: center;">
 
                     ${approvers.map((item, index) => `
                         
                         <div style="padding: 10px;">
-                            <table border="0" style="width: 220px; font-size: 11pt;">
+                            <table border="0" style="width: 220px; font-size: 8pt;">
                                 <tr>
-                                    <td style="font-size: 10pt;"> ${ item.label }: </td>
+                                    <td> ${ item.label }: </td>
                                 </tr>
                                 <tr>
-                                    <td style="font-size: 10pt;"> 
+                                    <td> 
                                         ${ item.date_approval ? formatDate(item.date_approval, true) : '&nbsp;' } 
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom;">
+                                    <th style="font-size: 9pt; text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom;">
                                         <span style="position: relative; z-index: 1; margin-bottom: 10px;">
                                             ${
                                                 // @ts-ignore
@@ -332,11 +345,11 @@ export class PoPdfService {
                                 </tr>
                                 ${
                                     // @ts-ignore
-                                    item.approver.is_budget_officer ? `<tr style="font-size: 9pt;"> <td> Classification: ${ classification.name }  </td> </tr>` : '<tr><td></td></tr>'
+                                    item.approver.is_budget_officer ? `<tr style="font-size: 8pt;"> <td> Classification: ${ classification.name }  </td> </tr>` : '<tr><td></td></tr>'
                                 }
                                 ${
                                     // @ts-ignore
-                                    item.approver.is_finance_manager ? `<tr style="font-size: 9pt;"> <td> Fund Available: ${ fundSource.name }  </td> </tr>` : '<tr><td></td></tr>'
+                                    item.approver.is_finance_manager ? `<tr style="font-size: 8pt;"> <td> Fund Available: ${ fundSource.name }  </td> </tr>` : '<tr><td></td></tr>'
                                 }
                             
                             </table>
@@ -348,7 +361,7 @@ export class PoPdfService {
 
                 <br />
 
-                <table border="1" style="border-collapse: collapse; border-color: black; width: 100%; font-size: 10pt;">
+                <table border="1" style="border-collapse: collapse; border-color: black; width: 100%; font-size: 8pt;">
                     <tr>
                         <td style="padding: 5px;"> <b> DELIVERY DATE:</b> </td>
                         <td style="padding: 5px;"> <b> SHIPPING INSTRUCTION </b> </td>
@@ -362,12 +375,11 @@ export class PoPdfService {
                                 ${ formatDate(generalManager.date_approval, true) }
                             </div>
                             <br />
-                            <div style="text-align: center; position: relative; font-size: 11pt">
+                            <div style="text-align: center; position: relative; font-size: 10pt; padding-top: 20px;">
                                 <u style="position: relative; z-index: 1; margin-bottom: 10px;"> 
                                     <b>
                                     ${
                                         // @ts-ignore
-                                        // generalManager.approver.firstname + ' ' + generalManager.approver.lastname
                                         getFullnameWithTitles(generalManager.approver.firstname, generalManager.approver.lastname, generalManager.approver.middlename, generalManager.approver.name_prefix, generalManager.approver.name_suffix)
                                     }
                                     </b>
@@ -388,12 +400,12 @@ export class PoPdfService {
                             <div>
                                 ORDER ISSUED AND AUTHORIZED:
                             </div>
-                            <div style="text-align: center; font-size: 11pt;">
+                            <div style="text-align: center; font-size: 10pt;">
                                 <b> ${ po.meqs_supplier.supplier.name } </b>
                             </div>
                             <br />
-                            <div style="font-size: 11pt;">
-                            By: <b>____________________________________ </b>
+                            <div style="font-size: 10pt; padding-top: 20px;">
+                                <b>____________________________________ </b>
                             </div>
                             <div>
                                 Manager/Representative
@@ -402,7 +414,7 @@ export class PoPdfService {
                     </tr>
                 </table>
 
-                <div style="font-size: 8pt; margin-top: 5px;"> 
+                <div style="font-size: 7pt; margin-top: 5px;"> 
                     RC No.: ${rc_number} &nbsp;&nbsp;&nbsp;&nbsp; 
                     MEQS No.: ${ po.meqs_supplier.meqs.meqs_number } 
                 </div>

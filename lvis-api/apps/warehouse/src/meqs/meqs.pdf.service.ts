@@ -80,9 +80,26 @@ export class MeqsPdfService {
 
         <style>
             body {
+                font-family: Arial, sans-serif; 
+                font-size: 8pt;
                 margin: 0;
                 padding: 0;
             }
+                
+            .content {
+                font-family: 'Verdana', sans-serif; 
+                display: flex;
+                flex-direction: column;
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+
+            .heading {
+                font-family: 'Georgia', serif; 
+                font-size: 11pt;
+                font-weight: bold;
+            }
+
             .watermark {
                 position: fixed;
                 top: 63%;
@@ -95,10 +112,6 @@ export class MeqsPdfService {
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: contain;
-            }
-            .content {
-                display: flex; flex-direction: column;
-                padding-left: 25px; padding-right: 25px; font-size: 10pt; 
             }
         </style>
 
@@ -114,7 +127,7 @@ export class MeqsPdfService {
                         <div style="display: flex; align-items: center;">
                             <img src="data:image/jpeg;base64,${logo}" alt="Logo" style="height: 50px; width: 50px; margin-right: 10px;">
                             <div style="text-align: center;">
-                                <span style="font-size: 11pt; font-weight: bold;">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
+                                <span class="heading">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
                                 <div style="font-size: 9pt;">
                                     <span>Brgy. San Pablo, Ormoc City, Leyte</span>
                                     <br />
@@ -124,27 +137,25 @@ export class MeqsPdfService {
                         </div>
                         <br />
                         <br />
-                        <div style="font-size: 11pt; font-weight: bold;">MATERIALS / EQUIPMENT QUOTATION SUMMARY</div>
+                        <div class="heading">MATERIALS / EQUIPMENT QUOTATION SUMMARY</div>
                     </div>
                 </div>
 
-                <div style="display: flex; justify-content: space-between;">
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
 
                     <div style="width: 50%;">
-                        <table style="font-size: 10pt; width: 100%;">
+                        <table border="0" style="font-size: 8pt; width: 100%;">
                             <tr>
-                                <td style="font-weight: bold;">Purpose:</td>
-                                <td style="white-space: pre-line;"> ${ purpose } </td>
+                                <td style="white-space: pre-line;"><b>Purpose:</b> ${ purpose } </td>
                             </tr>  
                             <tr>
-                                <td style="font-weight: bold;">Requisitioner Notes: </td>
-                                <td style="white-space: pre-line;"> ${ requisitioner_notes } </td>
+                                <td style="white-space: pre-line;"><b>Requisitioner Notes:</b> ${ requisitioner_notes }</td>
                             </tr> 
                         </table>
                     </div>
 
                     <div style="margin-left: auto; text-align: right;">
-                        <table style="font-size: 10pt">
+                        <table style="font-size: 8pt">
                             <tr>
                                 <td style="font-weight: bold;"> MEQS No.: </td>
                                 <td style="border-bottom: 1px solid black;">
@@ -164,7 +175,7 @@ export class MeqsPdfService {
 
                 <br />
 
-                <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 8pt;">
                     <caption style="text-align: left;"> <i>Note: The price with star in the 'Supplier' column indicates the awarded supplier </i></caption>
                     <thead>
                         <th style="border: 1px solid black;"> MATERIALS / EQUIPMENT DESCRIPTION </th>
@@ -216,7 +227,7 @@ export class MeqsPdfService {
 
                 <br />
 
-                <table style="font-size: 10pt;">
+                <table style="font-size: 8pt;">
                     <tr>
                         <td style="white-space: pre-line;">${ meqs.notes }</td>
                     </tr>
@@ -247,7 +258,7 @@ export class MeqsPdfService {
         
             </div>
         
-            <div style="padding-left: 25px; padding-right: 25px; font-size: 10pt; padding-top: 50px; min-height: 18vh;">
+            <div style="padding-left: 25px; padding-right: 25px; font-size: 9pt; padding-top: 50px; min-height: 18vh;">
                 
                 <div style="text-align: center; margin-bottom: 10px;"> <b>COOP PROCUREMENT COMMITTEE: </b></div>
 
@@ -257,15 +268,15 @@ export class MeqsPdfService {
                 
                     ${approvers.map((item, index) => `
                         
-                        <div style="padding: 10px; margin-right: 30px;">
-                            <table border="0" style="width: 100%; font-size: 10pt;">
+                        <div style="padding: 10px; margin-right: 5px;">
+                            <table border="0" style="width: 100%; font-size: 8pt;">
                                 <tr>
-                                    <td style="font-size: 9pt;"> 
+                                    <td style="font-size: 8pt;"> 
                                         ${ item.date_approval ? formatDate(item.date_approval, true) : '&nbsp;' } 
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: center; position: relative; font-size: 10.5pt; border-bottom: 1px solid black;">
+                                    <th style="font-size: 9pt; text-align: center; position: relative; border-bottom: 1px solid black;">
                                         <span style="position: relative; z-index: 1; margin-bottom: 10px;">
                                             ${
                                                 // @ts-ignore
@@ -291,7 +302,7 @@ export class MeqsPdfService {
 
                 </div>
                 
-                <div style="font-size: 8pt; margin-top: 10px;"> 
+                <div style="font-size: 7pt; margin-top: 10px;"> 
                     ${ refType } No.: ${ refNumber } 
                 </div>
             

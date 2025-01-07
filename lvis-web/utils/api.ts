@@ -34,7 +34,7 @@ const handleSessionExpiration = (errors: any[]): void => {
   
 	console.log('GRAPHQL_API_URL', GRAPHQL_API_URL);
 	console.log('sendRequest()', queryOrMutation);
-	console.log('=== variables ===', JSON.stringify(variables));
+	// console.log('=== variables ===', JSON.stringify(variables));
   
 	const authUser = getAuthUser();
   
