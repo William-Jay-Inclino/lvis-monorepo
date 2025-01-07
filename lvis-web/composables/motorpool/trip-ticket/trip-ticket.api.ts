@@ -659,8 +659,8 @@ export async function update(id: string, input: UpdateTripTicket): Promise<Mutat
                     vehicle_id: "${input.vehicle?.id}"
                     driver_id: "${input.driver?.id}"
                     passengers: ${passengers}
-                    destination: "${input.destination}"
-                    purpose: "${input.purpose}"
+                    destination: "${input.destination.replace(/\n/g, '\\n')}"
+                    purpose: "${input.purpose.replace(/\n/g, '\\n')}"
                     start_time: "${input.start_time}"
                     end_time: "${input.end_time}"
                     is_operation: ${input.is_operation}
