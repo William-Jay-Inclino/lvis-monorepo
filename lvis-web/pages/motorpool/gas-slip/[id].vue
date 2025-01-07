@@ -178,7 +178,7 @@
                             <label class="form-label">
                                 Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="gsData.purpose" class="form-control" rows="3"> </textarea>
+                            <textarea v-model="gsData.purpose" class="form-control form-control-sm" rows="3"> </textarea>
                             <small class="text-danger fst-italic" v-if="gsDataErrors.purpose"> {{ errorMsg }}
                             </small>
                         </div>

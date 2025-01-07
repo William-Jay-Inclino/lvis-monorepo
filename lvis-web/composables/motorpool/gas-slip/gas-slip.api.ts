@@ -626,7 +626,7 @@ export async function create(input: CreateGasSlip): Promise<MutationResponse> {
                     requested_by_id: "${input.requested_by?.id}"
                     with_container: ${input.with_container}
                     liter_in_text: "${input.liter_in_text}"
-                    purpose: "${input.purpose}"
+                    purpose: "${input.purpose.replace(/\n/g, '\\n')}"
                     used_on: "${input.used_on}"
                     approvers: [${approvers}]
                 }
@@ -679,7 +679,7 @@ export async function update(id: string, input: UpdateGasSlip): Promise<Mutation
                     requested_by_id: "${input.requested_by?.id}"
                     with_container: ${input.with_container}
                     liter_in_text: "${input.liter_in_text}"
-                    purpose: "${input.purpose}"
+                    purpose: "${input.purpose.replace(/\n/g, '\\n')}"
                     used_on: "${input.used_on}"
                 }
             ) {

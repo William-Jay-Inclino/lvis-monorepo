@@ -78,8 +78,10 @@
                                             <td> {{ item.price_per_liter || 'N/A' }} </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-muted">Purpose</td>
-                                            <td> {{ item.purpose }} </td>
+                                            <td class="text-muted align-middle">Purpose</td>
+                                            <td>
+                                                <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.purpose }}</textarea>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -160,7 +162,7 @@
                                                 <th class="bg-secondary text-white"> Label </th>
                                                 <th class="bg-secondary text-white"> Approver </th>
                                                 <th class="bg-secondary text-white"> Status </th>
-                                                <th class="bg-secondary text-white"> Notes </th>
+                                                <th class="bg-secondary text-white"> Comment </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -181,8 +183,8 @@
                                                     N/A
                                                 </td>
                                                 <td>
-                                                    <textarea rows="3" class="form-control" disabled
-                                                        :value="i.notes"></textarea>
+                                                    <textarea rows="3" class="form-control form-control-sm" readonly
+                                                        :value="i.notes || 'N/A'"></textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
