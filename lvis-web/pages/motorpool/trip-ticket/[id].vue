@@ -115,19 +115,19 @@
                         </div>
 
                         <div class="mb-3">
-                                <label class="form-label">
-                                    Destination <span class="text-danger">*</span>
-                                </label>
-                                <textarea v-model="tripData.destination" class="form-control" rows="3"> </textarea>
-                                <small class="text-danger fst-italic" v-if="tripDataErrors.destination"> {{ errorMsg }}
-                                </small>
-                            </div>
+                            <label class="form-label">
+                                Destination <span class="text-danger">*</span>
+                            </label>
+                            <textarea v-model="tripData.destination" class="form-control form-control-sm" rows="3"> </textarea>
+                            <small class="text-danger fst-italic" v-if="tripDataErrors.destination"> {{ errorMsg }}
+                            </small>
+                        </div>
     
                         <div class="mb-3">
                             <label class="form-label">
                                 Purpose <span class="text-danger">*</span>
                             </label>
-                            <textarea v-model="tripData.purpose" class="form-control" rows="3"> </textarea>
+                            <textarea v-model="tripData.purpose" class="form-control form-control-sm" rows="3"> </textarea>
                             <small v-if="tripDataErrors.purpose" class="text-danger fst-italic"> {{ errorMsg }} </small>
                         </div>
 

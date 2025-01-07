@@ -52,12 +52,16 @@
                                             <td> {{ item.passengers }} </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-muted">Destination</td>
-                                            <td> {{ item.destination }} </td>
+                                            <td class="text-muted align-middle">Destination</td>
+                                            <td>
+                                                <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.destination }}</textarea>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-muted">Purpose</td>
-                                            <td> {{ item.purpose }} </td>
+                                            <td class="text-muted align-middle">Purpose</td>
+                                            <td>
+                                                <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.purpose }}</textarea>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Prepared By</td>
@@ -81,14 +85,9 @@
                                                     <div v-if="isAdmin(authUser)">
                                                         <button @click="onRemoveActualDepartureTime" v-if="!item.actual_end_time && !!item.actual_start_time" class="btn btn-light btn-sm me-3">
                                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
-                            </client-only>
+                                                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                                                            </client-only>
                                                         </button>
-                                                        <!-- <button @click="onClickEditActualDepartureTime" class="btn btn-light btn-sm">
-                                                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
-                            </client-only>
-                                                        </button> -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -103,14 +102,9 @@
                                                     <div v-if="isAdmin(authUser)">
                                                         <button v-if="!!item.actual_end_time" @click="onRemoveActualArrivalTime" class="btn btn-light btn-sm me-3">
                                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
-                            </client-only>
+                                                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                                                            </client-only>
                                                         </button>
-                                                        <!-- <button @click="onClickEditActualArrivalTime" class="btn btn-light btn-sm">
-                                                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
-                            </client-only>
-                                                        </button> -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -183,8 +177,8 @@
                                                     N/A
                                                 </td>
                                                 <td>
-                                                    <textarea rows="3" class="form-control" disabled
-                                                        :value="i.notes"></textarea>
+                                                    <textarea rows="3" class="form-control form-control-sm" readonly
+                                                        :value="i.notes || 'N/A'"></textarea>
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">MCRT Number</label>
                             <client-only>
-                                <v-select @search="handleSearchMcrtNumber" :options="mcrts" label="mcrt_number" v-model="mcrt"></v-select>
+                                <v-select data-testid="search-mcrt-number" @search="handleSearchMcrtNumber" :options="mcrts" label="mcrt_number" v-model="mcrt"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -34,13 +34,13 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search()" class="btn btn-primary" :disabled="isSearching">
+                    <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
                              {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageMCRT')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button data-testid="create-mcrt" v-if="canCreate(authUser, 'canManageMCRT')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
@@ -97,11 +97,11 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageMCRT') }"
+                                                    <button :data-testid="`view-details-${ i.mcrt_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageMCRT') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageMCRT')">
                                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']" />
-                            </client-only>
+                                                            <font-awesome-icon :icon="['fas', 'info-circle']" />
+                                                        </client-only>
                                                         View details
                                                     </button>
                                                 </td>
