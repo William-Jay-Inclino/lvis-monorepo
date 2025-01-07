@@ -78,18 +78,19 @@ export async function findOne(id: string): Promise<Supplier | undefined> {
 }
 
 export async function create(input: CreateSupplierInput): Promise<MutationResponse> {
-
-    const inputFields = Object.keys(input)
-        .map(field => {
-            const value = input[field as keyof CreateSupplierInput];
-            const formattedValue = typeof value !== 'string' ? value : `"${value}"`;
-            return `${field}: ${formattedValue}`;
-        })
-        .join(', ');
-
+    
     const mutation = `
         mutation {
-            createSupplier(input: { ${inputFields} }) {
+            createSupplier(
+                input: {
+                    name: "${input.name}"
+                    contact: "${input.contact}"
+                    address: "${input.address.replace(/\n/g, '\\n')}"
+                    tin: "${input.tin}"
+                    is_vat_registered: ${input.is_vat_registered}
+                    vat_type: ${input.vat_type}
+                }
+            ) {
                 id
                 name
                 contact
@@ -128,17 +129,19 @@ export async function create(input: CreateSupplierInput): Promise<MutationRespon
 
 export async function update(id: string, input: CreateSupplierInput): Promise<MutationResponse> {
 
-    const inputFields = Object.keys(input)
-        .map(field => {
-            const value = input[field as keyof CreateSupplierInput];
-            const formattedValue = typeof value !== 'string' ? value : `"${value}"`;
-            return `${field}: ${formattedValue}`;
-        })
-        .join(', ');
-
     const mutation = `
         mutation {
-            updateSupplier(id: "${id}", input: { ${inputFields} }) {
+            updateSupplier(
+                id: "${id}",
+                input: {
+                    name: "${input.name}"
+                    contact: "${input.contact}"
+                    address: "${input.address.replace(/\n/g, '\\n')}"
+                    tin: "${input.tin}"
+                    is_vat_registered: ${input.is_vat_registered}
+                    vat_type: ${input.vat_type}
+                }
+            ) {
                 id
                 name
                 contact

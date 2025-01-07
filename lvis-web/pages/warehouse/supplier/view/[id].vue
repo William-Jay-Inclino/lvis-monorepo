@@ -33,7 +33,9 @@
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Address</td>
-                                            <td> {{ item.address }} </td>
+                                            <td>
+                                                <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.address }}</textarea>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">TIN</td>

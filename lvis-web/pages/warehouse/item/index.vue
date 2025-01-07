@@ -96,7 +96,7 @@
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.code }} </td>
                                                 <td class="text-muted align-middle"> 
-                                                    {{ i.description }} {{ i.project_item ? `(${i.project_item.project.name})` : '' }} 
+                                                    <textarea class="form-control form-control-sm" rows="3" readonly>{{ i.description }} {{ i.project_item ? `(${i.project_item.project.name})` : '' }}</textarea>                                                     
                                                 </td>
                                                 <td class="text-muted align-middle"> {{ i.item_type.name }} </td>
                                                 <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.GWAPrice) }}

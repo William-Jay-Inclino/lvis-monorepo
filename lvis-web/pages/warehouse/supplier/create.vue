@@ -34,7 +34,7 @@
                             <label class="form-label">
                                 Address <span class="text-danger">*</span>
                             </label>
-                            <textarea class="form-control" v-model="formData.address" rows="3" required />
+                            <textarea class="form-control form-control-sm" v-model="formData.address" rows="3" required />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">
