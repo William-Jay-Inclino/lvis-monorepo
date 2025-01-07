@@ -68,6 +68,19 @@ export async function findByMctNumber(mctNumber: string): Promise<MCT | undefine
             mct(mct_number: "${mctNumber}") {
                 id
                 mct_number
+                requested_by {
+                    firstname 
+                    middlename 
+                    lastname
+                }
+                mrv {
+                    requested_by {
+                        id
+                        firstname
+                        middlename 
+                        lastname
+                    }
+                }
                 created_by
                 status
                 can_update

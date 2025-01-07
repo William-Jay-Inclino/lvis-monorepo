@@ -12,7 +12,7 @@ export interface Item {
 export const enum ITEM_TYPE {
     OS = 'Office Supply',
     SE = 'Special Equipment',
-    LM = 'Line Materials',
+    LM = 'Line Material',
     SP = 'Spare Parts',
     HW = 'House Wiring',
 }

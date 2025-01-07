@@ -68,6 +68,12 @@ export async function findByMrvNumber(mrvNumber: string): Promise<MRV | undefine
             mrv(mrv_number: "${mrvNumber}") {
                 id
                 mrv_number
+                requested_by {
+                    id
+                    firstname
+                    middlename 
+                    lastname
+                }
                 created_by
                 status
                 can_update

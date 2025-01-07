@@ -33,16 +33,14 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">MCT Number</td>
-                                                <td> {{ item.mct_number }} </td>
+                                                <td data-testid="mct-number"> {{ item.mct_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">MRV Number</td>
                                                 <td>
-                                                    <nuxt-link
-                                                      :to="'/warehouse/mrv/view/' + item.mrv_number">{{
-                                                      item.mrv_number
-                                                      }}
-                                                      </nuxt-link>
+                                                    <nuxt-link data-testid="mrv-number" :to="'/warehouse/mrv/view/' + item.mrv_number">
+                                                        {{ item.mrv_number }}
+                                                    </nuxt-link>
                                                 </td>
                                             </tr>
                                             <tr>

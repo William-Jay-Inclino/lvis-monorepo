@@ -41,7 +41,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">MRV Number</td>
-                                                <td> {{ item.mrv_number }} </td>
+                                                <td data-testid="mrv-number"> {{ item.mrv_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">MCT Number</td>
@@ -220,7 +220,7 @@
                                             <tr v-for="i, count in item.mrv_items">
                                                 <td class="align-middle"> {{ count + 1 }} </td>
                                                 <td class="align-middle" style="white-space: pre-line;">
-                                                    <nuxt-link :to="'/warehouse/item/view/' + i.item.id">
+                                                    <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
                                                         <small>
                                                             {{ i.item.code + ' - ' + i.item.description +  (i.item.project_item ? `(${i.item.project_item?.project.name})` : '') }} 
                                                         </small>
@@ -248,9 +248,9 @@
                                         <nuxt-link v-if="canSearch(authUser, 'canManageMRV')"
                                             class="btn btn-secondary me-2" to="/warehouse/MRV">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search MRV
+                                                <font-awesome-icon :icon="['fas', 'search']" />
+                                            </client-only> 
+                                            Search MRV
                                         </nuxt-link>
                                         <!-- <button disabled
                                             v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMRV')"
@@ -266,20 +266,20 @@
                                         <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING"
                                             class="btn btn-warning me-2" @click="onCancelMRV()">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Cancel MRV
+                                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                            </client-only> Cancel MRV
                                         </button>
                                         <button v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']"/>
-                            </client-only> Edit Form
+                                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                                            </client-only> Edit Form
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageMRV')" class="btn btn-primary me-2"
                                             @click="onClickAdd">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New MRV
+                                                    <font-awesome-icon :icon="['fas', 'plus']"/>
+                                            </client-only> Add New MRV
                                         </button>
                                     </div>
                                 </div>

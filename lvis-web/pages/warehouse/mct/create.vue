@@ -22,7 +22,7 @@
                                 MRV Number <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select @search="handleSearchMrvNumber" @option:selected="onMrvNumberSelected" :options="mrvs" label="mrv_number"
+                                <v-select data-testid="mrv-number" @search="handleSearchMrvNumber" @option:selected="onMrvNumberSelected" :options="mrvs" label="mrv_number"
                                     v-model="mctData.mrv">
                                     <template v-slot:option="option">
                                         <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
@@ -185,15 +185,15 @@
                         <div class="d-flex justify-content-between">
                             <nuxt-link class="btn btn-secondary" to="/warehouse/mct">
                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search MCT 
+                                    <font-awesome-icon :icon="['fas', 'search']" />
+                                </client-only> 
+                                Search MCT 
                             </nuxt-link>
-                            <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
+                            <button data-testid="save" @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                 class="btn btn-primary">
                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                    <font-awesome-icon :icon="['fas', 'save']"/>
+                                </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                             </button>
                         </div>
         

@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">MRV Number</label>
                             <client-only>
-                                <v-select @search="handleSearchMrvNumber" :options="mrvs" label="mrv_number" v-model="mrv"></v-select>
+                                <v-select data-testid="search-mrv-number" @search="handleSearchMrvNumber" :options="mrvs" label="mrv_number" v-model="mrv"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -42,13 +42,13 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search()" class="btn btn-primary" :disabled="isSearching">
+                    <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
                              {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageMRV')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button data-testid="create-mrv" v-if="canCreate(authUser, 'canManageMRV')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
@@ -109,7 +109,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageMRV') }"
+                                                    <button :data-testid="`view-details-${ i.mrv_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageMRV') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageMRV')">
                                                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'info-circle']" />
