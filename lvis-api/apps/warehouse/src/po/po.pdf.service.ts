@@ -139,11 +139,11 @@ export class PoPdfService {
                 <div style="display: flex; justify-content: end;">
                     <table style="font-size: 10pt;">
                         <tr>
-                            <td> PO No.: </td>
+                            <td style="font-weight: bold;"> PO No.: </td>
                             <td style="border-bottom: 1px solid black;"> ${ po.po_number } </td>
                         </tr>
                         <tr>
-                            <td> Date: </td>
+                            <td style="font-weight: bold;"> Date: </td>
                             <td style="border-bottom: 1px solid black;"> ${ formatDate(po.po_date) } </td>
                         </tr>
                     </table>
@@ -153,7 +153,7 @@ export class PoPdfService {
                     <tr>
                         <td rowspan="4" style="width: 50%; vertical-align: top;">
                             <div style="display: flex; justify-content: space-between; padding-left: 10px; padding-right: 10px;">
-                                <div> Supplier: </div>
+                                <div> <b>Supplier:</b> </div>
                             </div>
 
                             <div style="text-align: center;">
@@ -173,8 +173,8 @@ export class PoPdfService {
                         <td>
                             <table style="font-size: 10pt; width: 100%;">
                                 <tr>
-                                    <td style="width: 50%;"> RR No.: </td>
-                                    <td> Date: </td>
+                                    <td style="width: 50%; font-weight: bold;"> RR No.: </td>
+                                    <td style="font-weight: bold;"> Date: </td>
                                 </tr>
                             </table>
                         </td>
@@ -183,8 +183,8 @@ export class PoPdfService {
                         <td>
                             <table style="font-size: 10pt; width: 100%;">
                                 <tr>
-                                    <td style="width: 50%;"> ${refType} No.: ${ refNumber } </td>
-                                    <td> Date: ${ formatDate(refDate) } </td>
+                                    <td style="width: 50%;"> <b>${refType} No.:</b> ${ refNumber } </td>
+                                    <td> <b>Date:</b> ${ formatDate(refDate) } </td>
                                 </tr>
                             </table>
                         </td>
@@ -194,7 +194,7 @@ export class PoPdfService {
                             <table style="font-size: 10pt; width: 100%;">
                                 <tr>
                                     <td rowspan="3" style="width: 40%;">
-                                        <div> Terms of Payment: </div>
+                                        <div style="font-weight: bold;"> Terms of Payment: </div>
                                         <div> ${ po.meqs_supplier.payment_terms } </div>
                                     </td>
                                 </tr>
@@ -225,9 +225,9 @@ export class PoPdfService {
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 5px;"> Purpose: ${ purpose } </td>
+                        <td style="padding: 5px; white-space: pre-line;"> <b>Purpose:</b> ${ purpose } </td>
                         <td style="padding: 5px;">
-                            Requisitioner: ${ requisitioner.firstname + ' ' + requisitioner.lastname } 
+                            <b>Requisitioner:</b> ${ requisitioner.firstname + ' ' + requisitioner.lastname } 
                         </td>
                     </tr>
                 </table>
@@ -253,7 +253,7 @@ export class PoPdfService {
                         ${items.map((item, index) => `
                         <tr style="border: 1px solid black;">
                             <td align="center">${index + 1}</td>
-                            <td>${item.canvass_item.description}</td>
+                            <td style="white-space: pre-line;">${item.canvass_item.description}</td>
                             <td align="center">${item.canvass_item.unit ? item.canvass_item.unit.name : 'N/A'}</td>
                             <td align="center">${ VAT[item.vat_type].label }</td>
                             <td align="center">${item.canvass_item.quantity}</td>

@@ -118,7 +118,7 @@
                                     <label class="form-label">
                                         Notes
                                     </label>
-                                    <textarea v-model="poData.notes" class="form-control" rows="3"></textarea>
+                                    <textarea v-model="poData.notes" class="form-control form-control-sm" rows="5"></textarea>
                                 </div>
         
                                 <div class="d-flex justify-content-between">

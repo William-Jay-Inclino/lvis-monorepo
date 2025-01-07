@@ -708,7 +708,7 @@ export async function create(input: CreateRrInput): Promise<MutationResponse> {
                     received_by_id: "${input.received_by?.id}"
                     invoice_number: "${input.invoice_number}"
                     delivery_number: "${input.delivery_number}"
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                     delivery_charge: ${input.delivery_charge}
                     approvers: [${approvers}]
                     rr_items: [${rrItems}]
@@ -753,7 +753,7 @@ export async function update(id: string, input: UpdateRrInput): Promise<Mutation
                     received_by_id: "${input.received_by?.id}"
                     invoice_number: "${input.invoice_number}"
                     delivery_number: "${input.delivery_number}"
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                     delivery_charge: ${input.delivery_charge}
                 }
             ) {

@@ -38,9 +38,15 @@
                                                 </td>
                                             </tr>
                                             <tr v-if="item.canvass">
-                                                <td class="text-muted align-middle">Purpose</td>
+                                                <td class="text-muted align-middle">Requisitioner Purpose</td>
                                                 <td>
                                                     <textarea rows="5" class="form-control form-control-sm" :value="item.canvass.purpose" readonly/>
+                                                </td>
+                                            </tr>
+                                            <tr v-if="item.canvass">
+                                                <td class="text-muted align-middle">Requisitioner Notes</td>
+                                                <td>
+                                                    <textarea rows="5" class="form-control form-control-sm" :value="item.canvass.notes" readonly/>
                                                 </td>
                                             </tr>
                                             <tr>

@@ -117,7 +117,7 @@
                             <label class="form-label">
                                 Notes
                             </label>
-                            <textarea class="form-control" rows="3" v-model="rrData.notes"></textarea>
+                            <textarea class="form-control form-control-sm" rows="5" v-model="rrData.notes"></textarea>
                         </div>
         
                     </div>

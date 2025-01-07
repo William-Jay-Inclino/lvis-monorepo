@@ -37,8 +37,16 @@
                                         <td> {{ getFullname(canvass.requested_by!.firstname, canvass.requested_by!.middlename, canvass.requested_by!.lastname) }} </td>
                                     </tr>
                                     <tr v-if="canvass">
-                                        <td class="text-muted"> Purpose </td>
-                                        <td> {{ canvass.purpose }} </td>
+                                        <td class="text-muted align-middle">Requisitioner Purpose</td>
+                                        <td>
+                                            <textarea rows="5" class="form-control form-control-sm" :value="canvass.purpose" readonly/>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="canvass">
+                                        <td class="text-muted align-middle">Requisitioner Notes</td>
+                                        <td>
+                                            <textarea rows="5" class="form-control form-control-sm" :value="canvass.notes" readonly/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted"> RC Number </td>
@@ -129,8 +137,10 @@
                 item.received_by.lastname) }} </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-muted">Notes</td>
-                                        <td> {{ item.notes }} </td>
+                                        <td class="text-muted align-middle">Notes</td>
+                                        <td>
+                                            <textarea rows="5" class="form-control form-control-sm" :value="item.notes" readonly/>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -156,16 +166,14 @@
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th class="bg-secondary text-white"> Order </th>
                                         <th class="bg-secondary text-white"> Label </th>
                                         <th class="bg-secondary text-white"> Approver </th>
                                         <th class="bg-secondary text-white"> Status </th>
-                                        <th class="bg-secondary text-white"> Notes </th>
+                                        <th class="bg-secondary text-white"> Comment </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="i, count in item.rr_approvers">
-                                        <td class="align-middle"> {{ i.order }} </td>
                                         <td class="align-middle"> {{ i.label }} </td>
                                         <td class="align-middle"> {{ getFullname(i.approver!.firstname, i.approver!.middlename,
                 i.approver!.lastname) }} </td>
@@ -181,7 +189,7 @@
                                             N/A
                                         </td>
                                         <td>
-                                            <textarea rows="3" class="form-control" disabled :value="i.notes"></textarea>
+                                            <textarea rows="3" class="form-control form-control-sm" readonly :value="i.notes || 'N/A'"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -331,12 +339,12 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="rrItem, i in item.rr_items" :key="i">
-                                                <td v-show="showDescription" class="text-muted">
+                                                <td v-show="showDescription" class="text-muted align-middle">
                                                     <div class="input-group input-group-sm">
                                                         {{ i + 1 }}.
-                                                        <textarea class="form-control ms-2" rows="3"
+                                                        <textarea class="form-control form-control-sm ms-2" rows="5"
                                                             :value="rrItem.meqs_supplier_item.canvass_item.item ? rrItem.meqs_supplier_item.canvass_item.item.code + ' - ' + rrItem.meqs_supplier_item.canvass_item.item.description : rrItem.meqs_supplier_item.canvass_item.description"
-                                                            disabled></textarea>
+                                                            readonly></textarea>
                                                     </div>
                                                 </td>
                                                 <td v-show="showClass" class="text-muted align-middle text-center">

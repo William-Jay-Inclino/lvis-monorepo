@@ -549,7 +549,7 @@ export async function create(input: CreatePoInput): Promise<MutationResponse> {
                 input: {
                     meqs_supplier_id: "${input.meqs_supplier?.id}"
                     fund_source_id: ${input.fund_source ? `"${input.fund_source.id}"` : null}
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                     approvers: [${approvers}]
                 }
             ) {
@@ -739,7 +739,7 @@ export async function update(id: string, input: UpdatePoInput): Promise<Mutation
                 id: "${id}",
                 input: {
                     fund_source_id: ${input.fund_source ? `"${input.fund_source.id}"` : null}
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                 }
             ) {
                 id

@@ -153,11 +153,11 @@ export class RrPdfService {
                 <div style="display: flex; justify-content: end;">
                     <table style="font-size: 10pt;">
                         <tr>
-                            <td> RR No.: </td>
+                            <td style="font-weight: bold;"> RR No.: </td>
                             <td style="border-bottom: 1px solid black;"> ${ rr.rr_number } </td>
                         </tr>
                         <tr>
-                            <td> Date: </td>
+                            <td style="font-weight: bold;"> Date: </td>
                             <td style="border-bottom: 1px solid black;"> ${ formatDate(rr.rr_date) } </td>
                         </tr>
                     </table>
@@ -167,7 +167,7 @@ export class RrPdfService {
                     <tr>
                         <td rowspan="5" style="width: 50%; vertical-align: top;">
                             <div style="display: flex; justify-content: space-between; padding-left: 10px; padding-right: 10px;">
-                                <div> Supplier: </div>
+                                <div> <b>Supplier:</b> </div>
                             </div>
 
                             <div style="text-align: center;">
@@ -184,16 +184,16 @@ export class RrPdfService {
                         </td>
                     </tr>
                     <tr>
-                        <td> Purpose: ${ purpose }</td>
+                        <td style="white-space: pre-line;"> <b>Purpose:</b> ${ purpose }</td>
                     </tr>
                     <tr>
-                        <td> Requisitioner: ${ requisitioner.firstname + ' ' + requisitioner.lastname }</td>
+                        <td> <b>Requisitioner:</b> ${ requisitioner.firstname + ' ' + requisitioner.lastname }</td>
                     </tr>
                     <tr>
-                        <td> Invoice No.: ${ rr.invoice_number }</td>
+                        <td> <b>Invoice No.:</b> ${ rr.invoice_number }</td>
                     </tr>
                     <tr>
-                        <td> Delivery Report: ${ rr.notes } </td>
+                        <td style="white-space: pre-line;"> <b>Delivery Report:</b> ${ rr.notes } </td>
                     </tr>
                 </table>
 
@@ -227,7 +227,7 @@ export class RrPdfService {
                         ${rr.rr_items.map((item, index) => `
                         <tr style="border: 1px solid black;">
                             <td align="center">${ item.meqs_supplier_item.canvass_item.item ? item.meqs_supplier_item.canvass_item.item.code : 'N/A' }</td>
-                            <td>${item.meqs_supplier_item.canvass_item.description}</td>
+                            <td style="white-space: pre-line;">${item.meqs_supplier_item.canvass_item.description}</td>
                             <td align="center">${item.meqs_supplier_item.canvass_item.unit ? item.meqs_supplier_item.canvass_item.unit.name : 'N/A'}</td>
                             <td align="center">${ item.meqs_supplier_item.canvass_item.quantity }</td>
                             <td align="center">${ item.quantity_accepted }</td>

@@ -33,8 +33,16 @@
                                         <td> {{ getFullname(canvass.requested_by!.firstname, canvass.requested_by!.middlename, canvass.requested_by!.lastname) }} </td>
                                     </tr>
                                     <tr v-if="canvass">
-                                        <td class="text-muted"> Purpose </td>
-                                        <td> {{ canvass.purpose }} </td>
+                                        <td class="text-muted align-middle"> Requisitioner Purpose </td>
+                                        <td>
+                                            <textarea rows="5" class="form-control form-control-sm" :value="canvass.purpose" readonly/>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="canvass">
+                                        <td class="text-muted align-middle"> Requisitioner Notes </td>
+                                        <td>
+                                            <textarea rows="5" class="form-control form-control-sm" :value="canvass.notes" readonly/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">MEQS Number</td>
@@ -77,7 +85,9 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Notes</td>
-                                        <td> {{ item.notes }} </td>
+                                        <td>
+                                            <textarea rows="5" class="form-control form-control-sm" :value="item.notes" readonly/>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -103,16 +113,14 @@
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th class="bg-secondary text-white"> Order </th>
                                         <th class="bg-secondary text-white"> Label </th>
                                         <th class="bg-secondary text-white"> Approver </th>
                                         <th class="bg-secondary text-white"> Status </th>
-                                        <th class="bg-secondary text-white"> Notes </th>
+                                        <th class="bg-secondary text-white"> Comment </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="i, count in item.po_approvers">
-                                        <td class="align-middle"> {{ i.order }} </td>
                                         <td class="align-middle"> {{ i.label }} </td>
                                         <td class="align-middle"> {{ getFullname(i.approver!.firstname, i.approver!.middlename,
                 i.approver!.lastname) }} </td>
@@ -128,7 +136,7 @@
                                             N/A
                                         </td>
                                         <td>
-                                            <textarea rows="3" class="form-control" disabled :value="i.notes"></textarea>
+                                            <textarea rows="3" class="form-control form-control-sm" readonly :value="i.notes || 'N/A'"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -170,15 +178,17 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="item, i in supplierItems">
-                                        <td class="text-muted"> {{ i + 1 }} </td>
-                                        <td class="text-muted"> {{ item.canvass_item.description }} </td>
-                                        <td class="text-muted"> {{ item.canvass_item.item ? 'Stock' : 'Non-Stock' }} </td>
-                                        <td class="text-muted"> {{ item.canvass_item.unit ? item.canvass_item.unit.name : 'N/A'
+                                        <td class="text-muted align-middle"> {{ i + 1 }} </td>
+                                        <td class="align-middle"> 
+                                            <textarea class="form-control form-control-sm" rows="5" readonly>{{ item.canvass_item.description }}</textarea>
+                                        </td>
+                                        <td class="text-muted align-middle"> {{ item.canvass_item.item ? 'Stock' : 'Non-Stock' }} </td>
+                                        <td class="text-muted align-middle"> {{ item.canvass_item.unit ? item.canvass_item.unit.name : 'N/A'
                                             }} </td>
-                                        <td class="text-muted"> {{ item.canvass_item.quantity }} </td>
-                                        <td class="text-muted"> {{ VAT[item.vat_type].label }} </td>
-                                        <td class="text-muted"> {{ formatToPhpCurrency(item.price) }} </td>
-                                        <td class="text-muted">
+                                        <td class="text-muted align-middle"> {{ item.canvass_item.quantity }} </td>
+                                        <td class="text-muted align-middle"> {{ VAT[item.vat_type].label }} </td>
+                                        <td class="text-muted align-middle"> {{ formatToPhpCurrency(item.price) }} </td>
+                                        <td class="text-muted align-middle">
                                             {{
                 formatToPhpCurrency(
                     getTotalNetPrice({
@@ -190,9 +200,9 @@
                 )
                                             }}
                                         </td>
-                                        <td class="text-muted"> {{ formatToPhpCurrency(getVatAmount(item.price * item.canvass_item.quantity, item.vat_type))
+                                        <td class="text-muted align-middle"> {{ formatToPhpCurrency(getVatAmount(item.price * item.canvass_item.quantity, item.vat_type))
                                             }} </td>
-                                        <td class="text-muted"> {{ formatToPhpCurrency(item.price * item.canvass_item.quantity) }} </td>
+                                        <td class="text-muted align-middle"> {{ formatToPhpCurrency(item.price * item.canvass_item.quantity) }} </td>
                                     </tr>
                                     <tr>
                                         <td colspan="9" class="text-end fw-bold">
