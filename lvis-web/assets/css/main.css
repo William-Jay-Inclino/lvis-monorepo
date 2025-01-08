@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Orbitron:wght@400;500&display=swap');
+
 html, body {
     height: 100%;
     margin: 0;
@@ -83,8 +85,6 @@ a:hover {
     line-height: 1.5;
 }
 
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Orbitron:wght@400;500&display=swap');
 
 .brand-text {
     font-family: 'Orbitron', sans-serif; /* Cool futuristic font */
