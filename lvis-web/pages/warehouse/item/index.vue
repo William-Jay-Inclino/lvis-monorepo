@@ -19,7 +19,7 @@
                     <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <input type="text" class="form-control" v-model="searchDesc">
+                            <input data-testid="search-item-desc" type="text" class="form-control" v-model="searchDesc">
                         </div>
                     </div>
                     <div class="col">
@@ -41,11 +41,11 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search" class="btn btn-primary" :disabled="isSearching">
+                    <button data-testid="search" @click="search" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                             {{ isSearching ? 'Searching...' : 'Search' }}
+                            <font-awesome-icon :icon="['fas', 'search']" />
+                        </client-only> 
+                            {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
                     <button data-testid="create-item" v-if="canCreate(authUser, 'canManageItem')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
@@ -94,7 +94,7 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in items">
-                                                <td class="text-muted align-middle"> {{ i.code }} </td>
+                                                <td :data-test="`test-${i.description}`" class="text-muted align-middle"> {{ i.code }} </td>
                                                 <td class="text-muted align-middle"> 
                                                     <textarea class="form-control form-control-sm" rows="3" readonly>{{ i.description }} {{ i.project_item ? `(${i.project_item.project.name})` : '' }}</textarea>                                                     
                                                 </td>

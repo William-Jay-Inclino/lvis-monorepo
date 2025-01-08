@@ -27,7 +27,7 @@
                     <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.price) }} </td>
                     <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                     <td class="text-muted align-middle">
-                        <select @change="handleStatusChange(i, $event)" class="form-select form-select-sm" :value="i.status">
+                        <select data-test="item-status" @change="handleStatusChange(i, $event)" class="form-select form-select-sm" :value="i.status">
                             <option :value="i.id" v-for="i in mstStatusArray"> {{ i.name }} </option>
                         </select>
                     </td>

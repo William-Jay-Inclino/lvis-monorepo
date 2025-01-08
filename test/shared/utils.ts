@@ -105,20 +105,22 @@ export const custom_select = async (payload: { page: Page, test_id: string, valu
     }
 };
 
-export const select = async (payload: { page: Page, test_id: string, value: string }) => {
+export const select = async (payload: { page: Page, test_id?: string, value: string, el?: Locator }) => {
 
-    const { page, test_id, value } = payload
+    const { page, test_id, value, el } = payload
     console.log('test_id', test_id);
 
-    const element = page.getByTestId(test_id)
+    const element = test_id ? page.getByTestId(test_id) : el 
+
+    if(!element) {
+        console.log('Element not found');
+        return 
+    }
+
     await element.scrollIntoViewIfNeeded({ timeout: 5000 });
     await expect(element).toBeVisible({ timeout: 5000 }); 
     
-    await element.click()
-    
-    await element.fill(value);
-    await element.press('Enter');
-
+    await element.selectOption({ value });
 };
 
 export const toContainText = async (payload: { page: Page, test_id: string, value: string }) => {

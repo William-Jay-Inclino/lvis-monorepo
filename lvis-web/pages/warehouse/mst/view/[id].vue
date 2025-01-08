@@ -32,7 +32,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">MST Number</td>
-                                                <td> {{ item.mst_number }} </td>
+                                                <td data-testid="mst-number"> {{ item.mst_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Date</td>
@@ -157,7 +157,7 @@
                                             <tr v-for="i, count in item.mst_items">
                                                 <td class="align-middle"> {{ count + 1 }} </td>
                                                 <td class="align-middle" style="white-space: pre-line;">
-                                                    <nuxt-link :to="'/warehouse/item/view/' + i.item.id">
+                                                    <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
                                                         <small>
                                                             {{ i.item.code + ' - ' + i.item.description }} 
                                                         </small>

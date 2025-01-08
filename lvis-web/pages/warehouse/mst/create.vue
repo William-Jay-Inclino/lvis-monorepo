@@ -56,7 +56,7 @@
                                 <label class="form-label">
                                     Remarks <span class="text-danger">*</span>
                                 </label>
-                                <textarea v-model="mstData.remarks" class="form-control form-control-sm"
+                                <textarea data-testid="remarks" v-model="mstData.remarks" class="form-control form-control-sm"
                                     rows="5"> </textarea>
                                 <small class="text-danger fst-italic" v-show="mstDataErrors.note"> {{ errorMsg }}
                                 </small>
@@ -67,6 +67,7 @@
                                 </label>
                                 <client-only>
                                     <v-select
+                                         data-testid="returned-by"
                                         :options="employees"
                                         label="fullname"
                                         v-model="mstData.returned_by"
@@ -86,12 +87,13 @@
                                 <hr class="result">
                             </div>
 
-                            <div v-for="approver in mstData.approvers" class="mb-3">
+                            <div v-for="approver, indx in mstData.approvers" class="mb-3">
                                 <label class="form-label">
                                     {{ approver.label }} <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
                                     <v-select
+                                        :data-testid="`approver-${ indx }`"
                                         :options="employees"
                                         label="fullname"
                                         v-model="approver.approver"
@@ -110,6 +112,7 @@
                             
                             <div class="text-end mb-3">
                                 <button
+                                    data-testid="add-item"
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
                                     data-bs-target="#addItemModal">
@@ -134,28 +137,28 @@
                             <div v-if="currentStep === 1" class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/mst">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search MST
+                                        <font-awesome-icon :icon="['fas', 'search']" />
+                                    </client-only> 
+                                    Search MST
                                 </nuxt-link>
-                                <button @click="onClickNextStep1()" class="btn btn-primary">
+                                <button data-testid="next" @click="onClickNextStep1()" class="btn btn-primary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
-                            </client-only> Next
+                                        <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                                    </client-only> Next
                                 </button>
                             </div>
             
                             <div v-else class="d-flex justify-content-between">
                                 <button @click="currentStep--" type="button" class="btn btn-secondary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
-                            </client-only> Back
+                                        <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                                    </client-only> Back
                                 </button>
-                                <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
+                                <button data-testid="save" @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                     class="btn btn-primary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                        <font-awesome-icon :icon="['fas', 'save']"/>
+                                    </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
             

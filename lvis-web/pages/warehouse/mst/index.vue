@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">MST Number</label>
                             <client-only>
-                                <v-select @search="handleSearchMstNumber" :options="msts" label="mst_number" v-model="mst"></v-select>
+                                <v-select data-testid="search-mst-number" @search="handleSearchMstNumber" :options="msts" label="mst_number" v-model="mst"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -42,13 +42,13 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search()" class="btn btn-primary" :disabled="isSearching">
+                    <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                             {{ isSearching ? 'Searching...' : 'Search' }}
+                            <font-awesome-icon :icon="['fas', 'search']" />
+                        </client-only> 
+                        {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageMST')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button data-testid="create-mst" v-if="canCreate(authUser, 'canManageMST')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
@@ -109,7 +109,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageMST') }"
+                                                    <button :data-testid="`view-details-${ i.mst_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageMST') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageMST')">
                                                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'info-circle']" />
