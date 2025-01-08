@@ -41,7 +41,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <client-only>
-                                                    <v-select @search="handleSearchMctNumber" @option:selected="onMctNumberSelected" :options="mcts" label="mct_number"
+                                                    <v-select data-testid="mct-number" @search="handleSearchMctNumber" @option:selected="onMctNumberSelected" :options="mcts" label="mct_number"
                                                         v-model="mcrtData.mct">
                                                         <template v-slot:option="option">
                                                             <div v-if="option.status !== APPROVAL_STATUS.APPROVED" class="row">
@@ -180,7 +180,7 @@
                                 <label class="form-label">
                                     Note <span class="text-danger">*</span>
                                 </label>
-                                <textarea v-model="mcrtData.note" class="form-control form-control-sm"
+                                <textarea data-testid="note" v-model="mcrtData.note" class="form-control form-control-sm"
                                     rows="5"> </textarea>
                                 <small class="text-danger fst-italic" v-show="mcrtDataErrors.note"> {{ errorMsg }}
                                 </small>
@@ -191,6 +191,7 @@
                                 </label>
                                 <client-only>
                                     <v-select
+                                        data-testid="returned-by"
                                         :options="employees"
                                         label="fullname"
                                         v-model="mcrtData.returned_by"
@@ -210,12 +211,13 @@
                                 <hr class="result">
                             </div>
 
-                            <div v-for="approver in mcrtData.approvers" class="mb-3">
+                            <div v-for="approver, indx in mcrtData.approvers" class="mb-3">
                                 <label class="form-label">
                                     {{ approver.label }} <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
                                     <v-select
+                                        :data-testid="`approver-${ indx }`"
                                         :options="approver.order === 4 ? auditors : employees"
                                         label="fullname"
                                         v-model="approver.approver"
@@ -253,28 +255,28 @@
                             <div v-if="currentStep === 1" class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/warehouse/mcrt">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search MCRT 
+                                        <font-awesome-icon :icon="['fas', 'search']" />
+                                    </client-only> 
+                                    Search MCRT 
                                 </nuxt-link>
-                                <button @click="onClickNextStep1()" class="btn btn-primary">
+                                <button data-testid="next" @click="onClickNextStep1()" class="btn btn-primary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-right']"/>
-                            </client-only> Next
+                                        <font-awesome-icon :icon="['fas', 'chevron-right']"/>
+                                    </client-only> Next
                                 </button>
                             </div>
             
                             <div v-else class="d-flex justify-content-between">
                                 <button @click="currentStep--" type="button" class="btn btn-secondary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'chevron-left']"/>
-                            </client-only> Back
+                                        <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                                    </client-only> Back
                                 </button>
-                                <button @click="save()" :disabled="isSaving || isDisabledSave" type="button"
+                                <button data-testid="save" @click="save()" :disabled="isSaving || isDisabledSave" type="button"
                                     class="btn btn-primary">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                        <font-awesome-icon :icon="['fas', 'save']"/>
+                                    </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
             

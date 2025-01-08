@@ -292,7 +292,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            employees(page: 1, pageSize: 300) {
+            employees(page: 1, pageSize: 1000) {
                 data{
                     id
                     firstname

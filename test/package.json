@@ -9,7 +9,8 @@
     "test:purchase-flow": "pnpm exec playwright test tests/purchase-order-flow.spec.ts",
     "test:osriv-flow": "pnpm exec playwright test tests/osriv-flow.spec.ts",
     "test:seriv-flow": "pnpm exec playwright test tests/seriv-flow.spec.ts",
-    "test:mct-flow": "pnpm exec playwright test tests/mct-flow.spec.ts"
+    "test:mct-flow": "pnpm exec playwright test tests/mct-flow.spec.ts",
+    "test:mcrt-flow": "pnpm exec playwright test tests/mcrt-flow.spec.ts"
   },
   "keywords": [],
   "author": "",

@@ -286,7 +286,7 @@ export async function fetchFormDataInCreate(): Promise<{
                     GWAPrice
                 }
             },
-            employees(page: 1, pageSize: 300) {
+            employees(page: 1, pageSize: 1000) {
                 data{
                     id
                     firstname
@@ -443,7 +443,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 }
 
             },
-            employees(page: 1, pageSize: 500) {
+            employees(page: 1, pageSize: 1000) {
                 data {
                     id
                     firstname

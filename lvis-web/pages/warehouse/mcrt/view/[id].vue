@@ -33,12 +33,13 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">MCRT Number</td>
-                                                <td> {{ item.mcrt_number }} </td>
+                                                <td data-testid="mcrt-number"> {{ item.mcrt_number }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">MCT Number</td>
                                                 <td>
                                                     <nuxt-link
+                                                        data-testid="mct-number"
                                                         v-if="item.mct_number"
                                                         :to="'/warehouse/mct/view/' + item.mct_number">{{
                                                         item.mct_number
@@ -179,7 +180,7 @@
                                             <tr v-for="i, count in item.mcrt_items">
                                                 <td class="align-middle"> {{ count + 1 }} </td>
                                                 <td class="align-middle" style="white-space: pre-line;">
-                                                    <nuxt-link :to="'/warehouse/item/view/' + i.item.id">
+                                                    <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
                                                         <small>
                                                             {{ i.item.code + ' - ' + i.item.description }} 
                                                         </small>
@@ -206,29 +207,29 @@
                                         <nuxt-link v-if="canSearch(authUser, 'canManageMCRT')" class="btn btn-secondary me-2"
                                             to="/warehouse/MCRT">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search MCRT
+                                                <font-awesome-icon :icon="['fas', 'search']" />
+                                            </client-only> 
+                                            Search MCRT
                                         </nuxt-link>
                                     </div>
                                     <div v-if="!item.cancelled_at">
                                         <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
                                             @click="onCancelMCRT()">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Cancel MCRT
+                                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                            </client-only> Cancel MCRT
                                         </button>
                                         <button v-if="!!item.can_update" class="btn btn-success me-2"
                                             @click="onClickUpdate(item.id)">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']"/>
-                            </client-only> Edit Form
+                                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                                            </client-only> Edit Form
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageMCRT')" class="btn btn-primary me-2"
                                             @click="onClickAdd">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New MCRT
+                                                    <font-awesome-icon :icon="['fas', 'plus']"/>
+                                            </client-only> Add New MCRT
                                         </button>
                                     </div>
                                 </div>

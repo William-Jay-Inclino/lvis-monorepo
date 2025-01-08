@@ -353,7 +353,7 @@ export async function fetchFormDataInCreate(): Promise<{
                 id
                 name
             },
-            employees(page: 1, pageSize: 500) {
+            employees(page: 1, pageSize: 1000) {
                 data {
                     id
                     firstname
@@ -493,7 +493,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     po_number
                 }
             },
-            employees(page: 1, pageSize: 500) {
+            employees(page: 1, pageSize: 1000) {
                 data {
                     id
                     firstname

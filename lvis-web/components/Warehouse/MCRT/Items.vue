@@ -26,7 +26,7 @@
                     <td class="text-muted align-middle"> {{ i.qty_returned }} </td>
                     <td class="text-muted align-middle"> {{ i.qty_on_queue }} </td>
                     <td class="text-muted text-center align-middle">
-                        <input type="number" :class="{'border border-danger': i.showQtyError}" class="form-control form-control-sm" :value="i.quantity" @input="handleQtyUpdate(i, $event)">
+                        <input data-test="item-qty" type="number" :class="{'border border-danger': i.showQtyError}" class="form-control form-control-sm" :value="i.quantity" @input="handleQtyUpdate(i, $event)">
                         <small v-show="i.showQtyError" class="fst-italic text-danger">Invalid Quantity</small>
                     </td>
                     <td class="text-muted align-middle"> {{ formatToPhpCurrency(i.price) }} </td>
