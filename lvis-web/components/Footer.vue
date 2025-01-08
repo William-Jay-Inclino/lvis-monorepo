@@ -9,6 +9,9 @@
 				Developed by 
 				<a class="developer-link" target="_blank" href="https://www.facebook.com/jewell.inclino">
 					W.J.I
+					<client-only>
+						<font-awesome-icon :icon="['fas', 'bolt']" class="text-warning"/>
+					</client-only>
 				</a>
 			</p>
 		</div>
@@ -55,7 +58,6 @@
 		text-decoration: none;
 		position: relative;
 		transition: all 0.3s ease-in-out;
-		font-size: 1rem;
 	}
 
 	.developer-link:hover {
