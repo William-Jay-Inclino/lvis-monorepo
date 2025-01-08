@@ -2,7 +2,7 @@
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import puppeteer from 'puppeteer';
-import { formatDate, getImageAsBase64 } from '../__common__/helpers';
+import { formatDate, getImageAsBase64, getFullnameWithTitles } from '../__common__/helpers';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { Employee } from '../__employee__/entities/employee.entity';
@@ -56,9 +56,18 @@ export class GasSlipPdfService {
         // Set content of the PDF
         const content = `
             <style>
+
                 body {
+                    font-family: Arial, sans-serif; 
+                    font-size: 8pt;
                     margin: 0;
                     padding: 0;
+                }
+
+                .heading {
+                    font-family: 'Georgia', serif; 
+                    font-size: 11pt;
+                    font-weight: bold;
                 }
                 .container {
                     display: flex;
@@ -127,8 +136,8 @@ export class GasSlipPdfService {
                                 <div style="display: flex; align-items: center;">
                                     <img src="data:image/jpeg;base64,${logo}" alt="Logo">
                                     <div>
-                                        <span style="font-size: 9pt; font-weight: bold;">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
-                                        <div style="font-size: 8pt;">
+                                        <span class="heading">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
+                                        <div style="font-size: 9pt;">
                                             <span>Brgy. San Pablo, Ormoc City, Leyte</span><br />
                                         </div>
                                     </div>
@@ -137,7 +146,7 @@ export class GasSlipPdfService {
                         </div>
     
                         <div style="display: flex; justify-content: flex-end; margin-top: 20px; margin-bottom: 10px;">
-                            <table style="font-size: 9pt">
+                            <table style="font-size: 8pt">
                                 <tr>
                                     <td> GS No.: </td>
                                     <td style="border-bottom: 1px solid black; font-weight: bold">
@@ -151,11 +160,11 @@ export class GasSlipPdfService {
                             </table>
                         </div>
     
-                        <div style="font-size: 9pt; font-weight: bold; text-align: center">GAS SLIP</div>
+                        <div class="heading" style="text-align: center;">GAS SLIP</div>
     
                         <br />
     
-                        <table style="font-size: 9pt; width: 100%">
+                        <table style="font-size: 8pt; width: 100%">
                             <tr>
                                 <td style="width: 10%;"> To: </td>
                                 <td style="border-bottom: 1px solid black;">
@@ -173,7 +182,7 @@ export class GasSlipPdfService {
                         <br />
                         <br />
     
-                        <table style="font-size: 9pt; width: 100%">
+                        <table style="font-size: 8pt; width: 100%">
                             <tr>
                                 <td style="width: 30%;"> Vehicle Class: </td>
                                 <td style="border-bottom: 1px solid black;">
@@ -194,7 +203,7 @@ export class GasSlipPdfService {
                                 <td style="border-bottom: 1px solid black;">
                                     ${
                                         // @ts-ignore
-                                        this.formatName(requested_by.firstname, requested_by.middlename, requested_by.lastname)
+                                        getFullnameWithTitles(requested_by.firstname, requested_by.lastname, requested_by.middlename, requested_by.name_prefix, requested_by.name_suffix)
                                     }
                                 </td>
                             </tr>    
@@ -214,7 +223,7 @@ export class GasSlipPdfService {
     
                         <br />
     
-                        <table style="font-size: 9pt; width: 100%; border-collapse: collapse; border: 1px solid;">
+                        <table style="font-size: 8pt; width: 100%; border-collapse: collapse; border: 1px solid;">
                             <thead>
                                 <tr>
                                     <th style="border: 1px solid; text-align: center;">Type of Fuel</th>
@@ -246,7 +255,7 @@ export class GasSlipPdfService {
                             </tr>    
                         </table>
     
-                        <table style="font-size: 9pt; width: 100%">
+                        <table style="font-size: 8pt; width: 100%">
                             <tr>
                                 <td style="width: 15%;"> Purpose: </td>
                                 <td style="border-bottom: 1px solid black;">
@@ -257,7 +266,7 @@ export class GasSlipPdfService {
     
                         <br />
     
-                        <div style="font-size: 9pt;">
+                        <div style="font-size: 8pt;">
                             <b> Note: </b> Conversion of type of fuel is not allowed
                         </div>
     
@@ -265,8 +274,8 @@ export class GasSlipPdfService {
                         <div style="margin-top: 25px;">
     
                             <div style="display: flex; justify-content: flex-end;">
-                                <div style="padding: 10px; width: 50%;">
-                                    <table border="0" style="width: 100%; font-size: 9pt;">
+                                <div style="padding: 10px; width: 70%;">
+                                    <table border="0" style="width: 100%; font-size: 8pt;">
                                         <tr>
                                             <td> Noted By: </td>
                                         </tr>
@@ -274,11 +283,11 @@ export class GasSlipPdfService {
                                             <td> ${formatDate(immediate_superior.date_approval, true)} </td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: center; position: relative; font-size: 9pt; padding: 5px 5px;">
+                                            <th style="text-align: center; position: relative; font-size: 9pt; padding-top: 15px;">
                                                 <u style="position: relative; z-index: 1; margin-bottom: 9px;">
                                                     ${
                                                         // @ts-ignore
-                                                        this.formatName(immediate_superior.approver.firstname, immediate_superior.approver.middlename, immediate_superior.approver.lastname)
+                                                        getFullnameWithTitles(immediate_superior.approver.firstname, immediate_superior.approver.lastname, immediate_superior.approver.middlename, immediate_superior.approver.name_prefix, immediate_superior.approver.name_suffix)
                                                     }
                                                 </u>
                                                 <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
@@ -296,11 +305,10 @@ export class GasSlipPdfService {
                                     <br />
                                 </div>
                             </div>
-    
+
                             <div style="display: flex; justify-content: flex-start;">
-    
-                                <div style="padding: 10px; width: 50%;">
-                                    <table border="0" style="width: 100%; font-size: 9pt;">
+                                <div style="padding: 10px; width: 70%;">
+                                    <table border="0" style="width: 100%; font-size: 8pt;">
                                         <tr>
                                             <td> Order Authorized By: </td>
                                         </tr>
@@ -308,11 +316,11 @@ export class GasSlipPdfService {
                                             <td> ${formatDate(department_head.date_approval, true)} </td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: center; position: relative; font-size: 9pt; padding: 5px 5px;">
+                                            <th style="text-align: center; position: relative; font-size: 9pt; padding-top: 15px;">
                                                 <u style="position: relative; z-index: 1; margin-bottom: 9px;">
                                                     ${
                                                         // @ts-ignore
-                                                        this.formatName(department_head.approver.firstname, department_head.approver.middlename, department_head.approver.lastname)
+                                                        getFullnameWithTitles(department_head.approver.firstname, department_head.approver.lastname, department_head.approver.middlename, department_head.approver.name_prefix, department_head.approver.name_suffix)
                                                     }
                                                 </u>
                                                 <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
@@ -329,17 +337,19 @@ export class GasSlipPdfService {
                                     </table>
                                     <br />
                                 </div>
-    
-                                <div style="padding: 10px; width: 50%;">
-                                    <table border="0" style="width: 100%; font-size: 9pt;">
+                            </div>
+
+                            <div style="display: flex; justify-content: flex-end;">
+                                <div style="padding: 10px; width: 70%;">
+                                    <table border="0" style="width: 100%; font-size: 8pt;">
                                         <tr>
-                                            <td style="padding-bottom: 5px;"> Order Issued By: </td>
+                                            <td style="padding-bottom: 15px;"> Order Issued By: </td>
                                         </tr>
                                         <tr>
                                             <td> &nbsp; </td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: center; position: relative; font-size: 9pt;">
+                                            <th style="text-align: center; position: relative; font-size: 8pt;">
                                                 <u style="display: inline-block; width: 100%; height: 1px; background-color: black; margin-top: 10px;"></u>
                                             </th>
                                         </tr>
@@ -349,13 +359,12 @@ export class GasSlipPdfService {
                                             </td>
                                         </tr>
                                     </table>
-    
                                     <br />
                                 </div>
-                                
                             </div>
 
-                            <div style="font-size: 8pt;">
+
+                            <div style="font-size: 7pt;">
                                 <div>
                                     ${ indx === 0 ? 'Original Copy' : 'Duplicate Copy' }
                                 </div>
@@ -463,6 +472,8 @@ export class GasSlipPdfService {
                     middlename 
                     lastname
                     position 
+                    name_prefix
+                    name_suffix
                     department {
                         name
                     }
@@ -512,15 +523,5 @@ export class GasSlipPdfService {
         const uploadsPath = this.API_FILE_ENDPOINT + path
         return uploadsPath
     }
-
-    private formatName(firstName: string, middleName: string | null, lastName: string ) {
-        // Check if the middle name is provided and format accordingly
-        const middleInitial = middleName ? middleName.charAt(0) + '. ' : '';
-        
-        // Construct the formatted name
-        const formattedName = `${firstName} ${middleInitial}${lastName}`;
-        
-        return formattedName;
-    }    
 
 }
