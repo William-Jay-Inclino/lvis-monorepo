@@ -111,7 +111,7 @@ export class GasSlipPdfService {
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%) rotate(-30deg); /* Slanting the watermark */
-                    font-size: 60pt; /* Large font size to cover the column */
+                    font-size: 55pt; /* Large font size to cover the column */
                     font-weight: bold;
                     color: rgba(0, 0, 0, 0.1); /* More transparent */
                     white-space: nowrap;
