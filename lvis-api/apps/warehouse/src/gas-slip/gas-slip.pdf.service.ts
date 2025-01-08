@@ -43,9 +43,10 @@ export class GasSlipPdfService {
             return i;
         }));
 
-        const [vehicle_assignee, requested_by] = await Promise.all([
+        const [vehicle_assignee, requested_by, driver] = await Promise.all([
             this.getEmployee(gasSlip.vehicle.assignee_id, this.authUser),
-            this.getEmployee(gasSlip.requested_by_id, this.authUser)
+            this.getEmployee(gasSlip.requested_by_id, this.authUser),
+            this.getEmployee(gasSlip.driver_id, this.authUser),
         ])
 
         const immediate_superior = approvers.find(i => i.order === 1)
@@ -203,7 +204,7 @@ export class GasSlipPdfService {
                                 <td style="border-bottom: 1px solid black;">
                                     ${
                                         // @ts-ignore
-                                        getFullnameWithTitles(requested_by.firstname, requested_by.lastname, requested_by.middlename, requested_by.name_prefix, requested_by.name_suffix)
+                                        getFullnameWithTitles(driver.firstname, driver.lastname, driver.middlename, driver.name_prefix, driver.name_suffix)
                                     }
                                 </td>
                             </tr>    
