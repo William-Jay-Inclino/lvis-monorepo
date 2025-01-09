@@ -145,6 +145,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="bg-secondary text-white"> No. </th>
+                                                <th class="bg-secondary text-white"> Item Code </th>
                                                 <th class="bg-secondary text-white"> Description </th>
                                                 <th class="bg-secondary text-white"> Unit </th>
                                                 <th class="bg-secondary text-white"> Quantity </th>
@@ -156,12 +157,13 @@
                                         <tbody>
                                             <tr v-for="i, count in item.mst_items">
                                                 <td class="align-middle"> {{ count + 1 }} </td>
-                                                <td class="align-middle" style="white-space: pre-line;">
+                                                <td class="align-middle">
                                                     <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
-                                                        <small>
-                                                            {{ i.item.code + ' - ' + i.item.description }} 
-                                                        </small>
+                                                        {{ i.item.code }}
                                                     </nuxt-link> 
+                                                </td>
+                                                <td class="align-middle">
+                                                    <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.item.description }}</textarea>
                                                 </td>
                                                 <td class="align-middle"> {{ i.item.unit.name }} </td>
                                                 <td class="align-middle"> {{ i.quantity }} </td>

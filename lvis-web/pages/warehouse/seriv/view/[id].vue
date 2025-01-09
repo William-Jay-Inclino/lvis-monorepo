@@ -210,6 +210,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="bg-secondary text-white"> No. </th>
+                                                <th class="bg-secondary text-white"> Item Code </th>
                                                 <th class="bg-secondary text-white"> Description </th>
                                                 <th class="bg-secondary text-white"> Unit </th>
                                                 <th class="bg-secondary text-white"> Quantity </th>
@@ -219,18 +220,19 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.seriv_items">
-                                                <td> {{ count + 1 }} </td>
-                                                <td style="white-space: pre-line;">
+                                                <td class="align-middle"> {{ count + 1 }} </td>
+                                                <td class="align-middle">
                                                     <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
-                                                        <small>
-                                                            {{ i.item.code + ' - ' + i.item.description +  (i.item.project_item ? `(${i.item.project_item?.project.name})` : '') }} 
-                                                        </small>
-                                                    </nuxt-link> 
+                                                        {{ i.item.code }}
+                                                    </nuxt-link>
                                                 </td>
-                                                <td> {{ i.item.unit.name }} </td>
-                                                <td> {{ i.quantity }} </td>
-                                                <td> {{ formatToPhpCurrency(i.price) }} </td>
-                                                <td> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
+                                                <td class="align-middle">
+                                                    <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.item.description +  (i.item.project_item ? `(${i.item.project_item?.project.name})` : '') }}</textarea>
+                                                </td>
+                                                <td class="align-middle"> {{ i.item.unit.name }} </td>
+                                                <td class="align-middle"> {{ i.quantity }} </td>
+                                                <td class="align-middle"> {{ formatToPhpCurrency(i.price) }} </td>
+                                                <td class="align-middle"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                                             </tr>
                                         </tbody>
                                     </table>
