@@ -5,7 +5,7 @@
 
             <div class="col-12 col-sm-6 col-md-4 pb-5">
                 <div class="card shadow mx-auto" style="max-width: 13rem;">
-                    <img src="/img/settings.png" class="card-img-top img-fluid" alt="Settings Image" style="height: 180px; object-fit: cover;">
+                    <img src="/img/system3.png" class="card-img-top img-fluid" alt="Settings Image" style="height: 180px; object-fit: cover;">
                     <div class="card-footer text-center">
                         <button data-testid="system" @click="goToSystem" class="btn" :class="{'btn-primary': canViewSystem, 'btn-secondary': !canViewSystem}" :disabled="!canViewSystem"> SYSTEM {{ !canViewSystem ? '(Restricted)' : ''  }} </button>
                     </div>
@@ -32,7 +32,7 @@
 
             <div class="col-12 col-sm-6 col-md-4 pb-5">
                 <div class="card shadow mx-auto" style="max-width: 13rem;">
-                    <img src="/img/motorpool.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
+                    <img src="/img/cars.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
                     <div class="card-footer text-center">
                         <button data-testid="motorpool" @click="goToMotorpool" class="btn" :class="{'btn-primary': canViewMotorpool, 'btn-secondary': !canViewMotorpool}" :disabled="!canViewMotorpool"> MOTORPOOL {{ !canViewMotorpool ? '(Restricted)' : ''  }}</button>
                     </div>
