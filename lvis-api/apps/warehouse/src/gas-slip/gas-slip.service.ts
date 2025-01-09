@@ -220,6 +220,7 @@ export class GasSlipService {
 		vehicle_id?: string, 
         approval_status?: number,
         is_posted?: boolean,
+        used_on?: Date,
 	  ): Promise<GasSlipsResponse> {
 		const skip = (page - 1) * pageSize;
 		const take = pageSize;
@@ -229,12 +230,26 @@ export class GasSlipService {
         if (approval_status) {
             filters.approval_status = approval_status;
         }
-        if(is_posted) {
+        if(is_posted !== undefined) {
             filters.is_posted = is_posted
         }
 
+        if (used_on) {
+            const startOfDay = new Date(used_on);
+            startOfDay.setHours(0, 0, 0, 0);
+        
+            const endOfDay = new Date(used_on);
+            endOfDay.setHours(23, 59, 59, 999);
+        
+            filters.used_on = {
+              gte: startOfDay,
+              lte: endOfDay,
+            };
+        }
+
 		// Default to current year's records if neither filter is provided
-		if (!vehicle_id && !approval_status) {
+		if (!vehicle_id && !approval_status && used_on === undefined) {
+            console.log('1');
 			const startOfYearDate = startOfYear(new Date());
 			const endOfYearDate = endOfYear(new Date());
 
@@ -243,6 +258,8 @@ export class GasSlipService {
 				lte: endOfYearDate,
 			};
 		}
+
+        console.log('filters', filters);
 	  
 		const [totalItems, gasSlips] = await this.prisma.$transaction([
 		  this.prisma.gasSlip.count({ where: filters }),

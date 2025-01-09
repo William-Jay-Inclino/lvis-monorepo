@@ -100,7 +100,7 @@ export async function findByGasSlipNumber(gasSlipNumber: string): Promise<GasSli
                     middlename
                     lastname
                 }
-                created_at
+                used_on
                 status
                 cancelled_at
             }
@@ -224,16 +224,21 @@ export async function findAll(payload: {
     vehicle_id?: string, 
     approval_status: APPROVAL_STATUS | null, 
     is_posted: boolean | null, 
+    used_on_date: string | null, 
     }): Promise<FindAllResponse> {
 
         console.log('payload', payload);
     
     let approval_status2 = null
+    let used_on_date2 = null
 
     if (payload.approval_status) {
         approval_status2 = payload.approval_status
     }
 
+    if (payload.used_on_date) {
+        used_on_date2 = `"${payload.used_on_date}"`
+    }
 
     const query = `
       query {
@@ -243,12 +248,13 @@ export async function findAll(payload: {
           ${payload.vehicle_id ? `vehicle_id: "${payload.vehicle_id}",` : ""}
           ${payload.is_posted !== null && payload.is_posted !== undefined ? `is_posted: ${payload.is_posted},` : ""}
             approval_status: ${approval_status2},
+            used_on: ${used_on_date2},
         ) {
           data {
             id
             gas_slip_number
             status
-            created_at
+            used_on
             is_posted
             cancelled_at
             vehicle {

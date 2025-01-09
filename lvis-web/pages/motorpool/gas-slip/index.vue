@@ -25,6 +25,12 @@
                             </client-only>
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Date</label>
+                            <input v-model="used_on_date" type="date" class="form-control">
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="row">
@@ -104,7 +110,7 @@
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.gas_slip_number }} </td>
                                                 <td class="text-muted align-middle"> {{ i.vehicle.vehicle_number }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.created_at) }} </td>
+                                                <td class="text-muted align-middle"> {{ formatDate(i.used_on) }} </td>
                                                 <td class="text-center align-middle">
 
                                                     <div v-if="i.cancelled_at" :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
@@ -245,6 +251,7 @@ const pagination = ref({ ..._paginationInitial })
 // search filters
 const gas_slip = ref<GasSlip | null>(null)
 const vehicle = ref<Vehicle | null>(null)
+const used_on_date = ref(null)
 const gas_slips = ref<GasSlip[]>([])
 const employees = ref<Employee[]>([])
 const vehicles = ref<Vehicle[]>([])
@@ -317,6 +324,7 @@ async function changePage(page: number) {
         vehicle_id: vehicle.value ? vehicle.value.id : undefined,
         approval_status: approval_status.value ? approval_status.value.id : null,
         is_posted: post_status.value ? post_status.value.id : null,
+        used_on_date: used_on_date.value,
     })
     isSearching.value = false
 
@@ -351,6 +359,7 @@ async function search() {
         vehicle_id: vehicle.value ? vehicle.value.id : undefined,
         approval_status: approval_status.value ? approval_status.value.id : null,
         is_posted: post_status.value ? post_status.value.id : null,
+        used_on_date: used_on_date.value,
     })
     isSearching.value = false
     items.value = data

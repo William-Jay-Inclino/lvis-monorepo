@@ -151,8 +151,12 @@ export class GasSlipResolver {
     @Args('vehicle_id', { type: () => String, nullable: true }) vehicle_id?: string,
     @Args('approval_status', { nullable: true }) approval_status?: number,
     @Args('is_posted', { nullable: true }) is_posted?: boolean,
+    @Args('used_on', { nullable: true }) used_on?: string,
   ): Promise<GasSlipsResponse> {
-    return this.gasSlipService.findAll(page, pageSize, vehicle_id, approval_status, is_posted);
+
+    const usedOnDate = used_on ? new Date(used_on) : undefined;
+
+    return this.gasSlipService.findAll(page, pageSize, vehicle_id, approval_status, is_posted, usedOnDate);
   }
 
   @Query(() => [GasSlip])
