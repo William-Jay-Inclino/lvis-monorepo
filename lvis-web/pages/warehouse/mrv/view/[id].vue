@@ -252,13 +252,13 @@
                                             </client-only> 
                                             Search MRV
                                         </nuxt-link>
-                                        <!-- <button disabled
+                                        <button 
                                             v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMRV')"
                                             @click="onClickPrint" class="btn btn-danger">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'print']"/>
-                            </client-only> Print MRV
-                                        </button> -->
+                                                <font-awesome-icon :icon="['fas', 'print']"/>
+                                            </client-only> Print MRV
+                                        </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>
