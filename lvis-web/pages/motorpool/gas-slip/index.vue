@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">Gas Slip Number</label>
                             <client-only>
-                                <v-select @search="handleSearchGasSlipNumber" :options="gas_slips" label="gas_slip_number" v-model="gas_slip"></v-select>
+                                <v-select data-testid="search-gas-slip-number" @search="handleSearchGasSlipNumber" :options="gas_slips" label="gas_slip_number" v-model="gas_slip"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -47,13 +47,13 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search()" class="btn btn-primary" :disabled="isSearching">
+                    <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                             {{ isSearching ? 'Searching...' : 'Search' }}
+                            <font-awesome-icon :icon="['fas', 'search']" />
+                        </client-only> 
+                        {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button v-if="canCreate(authUser, 'canManageGasSlip')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button data-testid="create" v-if="canCreate(authUser, 'canManageGasSlip')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 
@@ -123,7 +123,7 @@
 
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageGasSlip') }"
+                                                    <button :data-testid="`view-details-${ i.gas_slip_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageGasSlip') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageGasSlip')">
                                                         <client-only>
                                                             <font-awesome-icon :icon="['fas', 'info-circle']" />
