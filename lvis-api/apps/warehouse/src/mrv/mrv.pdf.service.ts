@@ -141,48 +141,48 @@ export class MrvPdfService {
                 <br />
                 <br />
 
-                <table style="width: 100%; font-size: 9pt; border-collapse: collapse; ">
+                <table border="0" style="width: 100%; font-size: 9pt; border-collapse: collapse; ">
                     <tbody>
                         <tr>
-                            <td style="width: 20%"> Requested By </td>
-                            <td style="text-align: right">:</td>
-                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold;"> ${ getFullnameWithTitles(requisitioner.firstname, requisitioner.lastname, requisitioner.middlename, requisitioner.name_prefix, requisitioner.name_suffix) } </td>
+                            <td style="width: 20%; padding-top: 10px;"> Requested By </td>
+                            <td style="text-align: right; padding-top: 10px;">:</td>
+                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; padding-top: 10px; padding-left: 10px;"> ${ getFullnameWithTitles(requisitioner.firstname, requisitioner.lastname, requisitioner.middlename, requisitioner.name_prefix, requisitioner.name_suffix) } </td>
                         </tr>
                         <tr>
-                            <td style="width: 20%"> Department </td>
-                            <td style="text-align: right">:</td>
-                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold;">
+                            <td style="width: 20%; padding-top: 10px;"> Department </td>
+                            <td style="text-align: right; padding-top: 10px;">:</td>
+                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; padding-top: 10px; padding-left: 10px;">
                                 ${ requisitioner.department.name }
                             </td>
                         </tr>
                         <tr>
-                            <td style="width: 20%"> Consumer Name </td>
-                            <td style="text-align: right">:</td>
-                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; white-space: pre-line;">${ mrv.consumer_name }</td>
+                            <td style="width: 20%; padding-top: 10px;"> Consumer Name </td>
+                            <td style="text-align: right; padding-top: 10px;">:</td>
+                            <td style="width: 78%; padding-top: 10px; border-bottom: 1px solid black; font-weight: bold; white-space: pre-line; padding-left: 10px;">${ mrv.consumer_name }</td>
                         </tr>
                         <tr>
-                            <td style="width: 20%"> Purpose </td>
-                            <td style="text-align: right">:</td>
-                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; white-space: pre-line;">${ mrv.purpose }</td>
+                            <td style="width: 20%;"> Purpose </td>
+                            <td style="text-align: right; padding-top: 10px;">:</td>
+                            <td style="width: 78%; padding-top: 10px; border-bottom: 1px solid black; font-weight: bold; white-space: pre-line; padding-left: 10px;">${ mrv.purpose }</td>
                         </tr>
                         <tr>
-                            <td style="width: 20%"> Request Type </td>
-                            <td style="text-align: right">:</td>
-                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold;">
+                            <td style="width: 20%; padding-top: 10px;"> Request Type </td>
+                            <td style="text-align: right; padding-top: 10px;">:</td>
+                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; padding-top: 10px; padding-left: 10px;">
                                 ${ warehouseRequestTypeMapper[mrv.request_type] }
                             </td>
                         </tr>
                         <tr>
-                            <td style="width: 20%"> Item From </td>
-                            <td style="text-align: right">:</td>
-                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold;">
+                            <td style="width: 20%; padding-top: 10px;"> Item From </td>
+                            <td style="text-align: right"; padding-top: 10px;>:</td>
+                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; padding-top: 10px; padding-left: 10px;">
                                 ${ mrv.item_from.name }
                             </td>
                         </tr>
                         <tr>
-                            <td style="width: 20%"> Project Location </td>
-                            <td style="text-align: right">:</td>
-                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; white-space: pre-line;">${ mrv.location }</td>
+                            <td style="width: 20%; padding-top: 10px;"> Project Location </td>
+                            <td style="text-align: right; padding-top: 10px;">:</td>
+                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; white-space: pre-line; padding-top: 10px; padding-left: 10px;">${ mrv.location }</td>
                         </tr>
                     </tbody>
                 </table>
