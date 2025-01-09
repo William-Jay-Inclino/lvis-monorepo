@@ -254,6 +254,11 @@
                                             </client-only> 
                                             Search SERIV
                                         </nuxt-link>
+                                        <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')" @click="onClickPrint()" class="btn btn-danger me-2">
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'print']"/>
+                                            </client-only> Print SERIV
+                                        </button>
                                         <button
                                             v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')"
                                             @click="onClickPrint({is_gate_pass: true})"

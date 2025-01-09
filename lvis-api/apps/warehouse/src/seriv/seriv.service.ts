@@ -2,8 +2,8 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateSerivInput } from './dto/create-seriv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { SERIV, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { APPROVAL_STATUS, REQUEST_TYPE } from '../__common__/types';
-import { DB_ENTITY, SETTINGS, WAREHOUSE_REQUEST_TYPE } from '../__common__/constants';
+import { APPROVAL_STATUS } from '../__common__/types';
+import { DB_ENTITY, SETTINGS} from '../__common__/constants';
 import { UpdateSerivInput } from './dto/update-seriv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
 import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';

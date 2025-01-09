@@ -134,9 +134,9 @@
                                         <nuxt-link v-if="canSearch(authUser, 'canManageMCT')" class="btn btn-secondary me-2"
                                             to="/warehouse/MCT">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search MCT
+                                                <font-awesome-icon :icon="['fas', 'search']" />
+                                            </client-only> 
+                                            Search MCT
                                         </nuxt-link>
                                         <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMCT')" @click="onClickPrint()" class="btn btn-danger me-2">
                                             <client-only>
@@ -159,14 +159,14 @@
                                         <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
                                             @click="onCancelMCT()">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Cancel MCT
+                                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                            </client-only> Cancel MCT
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageMCT')" class="btn btn-primary me-2"
                                             @click="onClickAdd">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New MCT
+                                                    <font-awesome-icon :icon="['fas', 'plus']"/>
+                                            </client-only> Add New MCT
                                         </button>
                                     </div>
                                 </div>

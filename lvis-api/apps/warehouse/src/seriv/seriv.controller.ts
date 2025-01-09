@@ -20,6 +20,52 @@ export class SerivController {
         private readonly serivPdfService: SerivPdfService,
     ) { }
 
+    @Get('pdf/:id')
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.SERIV, RESOLVERS.printSeriv)
+    async generatePdf(
+        @Param('id') id: string, 
+        @Res() res: Response,
+        @CurrentAuthUser() authUser: AuthUser
+    ) {
+
+        try {
+
+            this.logger.log({
+                username: authUser.user.username,
+                filename: this.filename,
+                function: 'generatePdf',
+                seriv_id: id
+            })
+            
+            this.serivPdfService.setAuthUser(authUser)
+    
+            const seriv = await this.serivPdfService.findSeriv(id)
+
+            if(seriv.approval_status !== APPROVAL_STATUS.APPROVED) {
+                throw new UnauthorizedException('Cannot generate pdf. Status is not approved')
+            }
+    
+            // @ts-ignore
+            const pdfBuffer = await this.serivPdfService.generatePdf(seriv)
+    
+            // @ts-ignore
+            res.set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename=seriv.pdf',
+            });
+
+            // @ts-ignore
+            res.send(pdfBuffer);
+        } catch (error) {
+            this.logger.error('Error in generating PDF in SERIV', error)
+            // @ts-ignore
+            res.status(500).json({ message: 'Failed to generate SERIV PDF', error: error.message });
+        }
+
+
+    }
+
     @Get('pdf-gate-pass/:id')
     @UseGuards(AccessGuard)
     @CheckAccess(MODULES.SERIV, RESOLVERS.printSeriv)
