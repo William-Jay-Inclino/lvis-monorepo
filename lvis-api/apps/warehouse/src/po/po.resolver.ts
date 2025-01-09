@@ -71,9 +71,10 @@ export class PoResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
+        @Args('supplier_id', { nullable: true }) supplier_id?: string,
         @Args('approval_status', { nullable: true }) approval_status?: number
     ) {
-        return this.poService.findAll(page, pageSize, date_requested, requested_by_id, approval_status);
+        return this.poService.findAll(page, pageSize, date_requested, requested_by_id, approval_status, supplier_id);
     }
 
     @Query(() => [PO])

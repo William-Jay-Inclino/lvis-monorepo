@@ -3,6 +3,7 @@ import type { MEQS } from "../meqs/meqs.types";
 import type { PoApproverSettings } from "./po-approver.types";
 import type { CreatePoInput, FindAllResponse, MutationResponse, PO, UpdatePoInput } from "./po.types";
 import type { Employee } from "~/composables/hr/employee/employee.types";
+import type { Supplier } from "~/composables/warehouse/supplier/supplier";
 
 export async function findByRefNumber(payload: { po_number?: string, meqs_number?: string }): Promise<PO | undefined> {
 
@@ -100,13 +101,15 @@ export async function findAll(payload: {
     date_requested: string | null, 
     requested_by_id: string | null, 
     approval_status: APPROVAL_STATUS | null, 
+    supplier_id: string | null, 
 }): Promise<FindAllResponse> {
 
-    const { page, pageSize, date_requested, requested_by_id, approval_status } = payload;
+    const { page, pageSize, date_requested, requested_by_id, approval_status, supplier_id } = payload;
 
     let date_requested2 = null
     let requested_by_id2 = null
     let approval_status2 = null
+    let supplier_id2 = null
 
     if (date_requested) {
         date_requested2 = `"${date_requested}"`
@@ -120,6 +123,10 @@ export async function findAll(payload: {
         approval_status2 = approval_status
     }
 
+    if (supplier_id) {
+        supplier_id2 = `"${supplier_id}"`
+    }
+
     const query = `
         query {
             pos(
@@ -128,6 +135,7 @@ export async function findAll(payload: {
                 date_requested: ${date_requested2},
                 requested_by_id: ${requested_by_id2},
                 approval_status: ${approval_status2},
+                supplier_id: ${supplier_id2},
             ) {
                 data {
                     id
@@ -207,6 +215,7 @@ export async function fetchDataInSearchFilters(): Promise<{
     pos: PO[],
     employees: Employee[],
     meqs: MEQS[],
+    suppliers: Supplier[],
 }> {
     const query = `
         query {
@@ -228,6 +237,12 @@ export async function fetchDataInSearchFilters(): Promise<{
                     lastname
                 }
             }
+            suppliers(page: 1, pageSize: 10) {
+                data {
+                    id
+                    name
+                }
+            }
         }
     `;
 
@@ -238,6 +253,7 @@ export async function fetchDataInSearchFilters(): Promise<{
         let pos = []
         let employees = []
         let meqs = []
+        let suppliers = []
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -257,10 +273,15 @@ export async function fetchDataInSearchFilters(): Promise<{
             meqs = data.meqs.data
         }
 
+        if (data.suppliers && data.suppliers.data) {
+            suppliers = data.suppliers.data
+        }
+
         return {
             pos,
             employees,
             meqs,
+            suppliers,
         }
 
     } catch (error) {
@@ -269,6 +290,7 @@ export async function fetchDataInSearchFilters(): Promise<{
             pos: [],
             employees: [],
             meqs: [],
+            suppliers: [],
         }
     }
 }

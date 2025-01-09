@@ -244,7 +244,14 @@ export class PoService {
 
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<POsResponse> {
+    async findAll(
+        page: number, 
+        pageSize: number, 
+        date_requested?: string, 
+        requested_by_id?: string, 
+        approval_status?: number,
+        supplier_id?: string,
+    ): Promise<POsResponse> {
 
         const skip = (page - 1) * pageSize;
 
@@ -270,8 +277,16 @@ export class PoService {
             whereCondition.approval_status = approval_status;
         }
 
+        if (supplier_id) {
+            whereCondition.meqs_supplier = {
+                supplier: {
+                    id: supplier_id,
+                },
+            };
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !requested_by_id && !approval_status) {
+        if (!date_requested && !requested_by_id && !approval_status && !supplier_id) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 

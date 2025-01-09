@@ -45,6 +45,14 @@
                     </div>
                     <div class="col">
                         <div class="mb-3">
+                            <label class="form-label">Supplier</label>
+                            <client-only>
+                                <v-select @search="handleSearchSuppliers" :options="suppliers" label="name" v-model="supplier"></v-select>
+                            </client-only>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
                             <label class="form-label">Status</label>
                             <client-only>
                                 <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
@@ -211,6 +219,8 @@ import type { Employee } from '~/composables/hr/employee/employee.types';
 import { fetchEmployees } from '~/composables/hr/employee/employee.api';
 import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { fetchMeqsNumbers } from '~/composables/purchase/meqs/meqs.api';
+import type { Supplier } from '~/composables/warehouse/supplier/supplier';
+import { fetchSuppliers } from '~/composables/warehouse/supplier/supplier.api';
 
 
 definePageMeta({
@@ -243,9 +253,11 @@ const meq = ref<MEQS | null>(null)
 const date_requested = ref(null)
 const requested_by = ref<Employee | null>(null)
 const employees = ref<Employee[]>([])
+const suppliers = ref<Supplier[]>([])
 const pos = ref<PO[]>([])
 const meqs = ref<MEQS[]>([])
 const approval_status = ref<IApprovalStatus | null>(null)
+const supplier = ref<Supplier | null>(null)
 
 
 // container for search result
@@ -261,6 +273,7 @@ onMounted(async () => {
 
     pos.value = response.pos
     meqs.value = response.meqs
+    suppliers.value = response.suppliers
     employees.value = addPropertyFullName(response.employees)
 
     isLoadingPage.value = false
@@ -300,7 +313,8 @@ async function changePage(page: number) {
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
         requested_by_id: requested_by.value ? requested_by.value.id : null,
-        approval_status: approval_status.value ? approval_status.value.id : null
+        approval_status: approval_status.value ? approval_status.value.id : null,
+        supplier_id: supplier.value ? supplier.value.id : null,
     })
 
     isSearching.value = false
@@ -354,7 +368,8 @@ async function search() {
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
         requested_by_id: requested_by.value ? requested_by.value.id : null,
-        approval_status: approval_status.value ? approval_status.value.id : null
+        approval_status: approval_status.value ? approval_status.value.id : null,
+        supplier_id: supplier.value ? supplier.value.id : null,
     })
 
     isSearching.value = false
@@ -395,6 +410,17 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
     } 
 
     debouncedSearchEmployees(input, loading)
+
+}
+
+async function handleSearchSuppliers(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        suppliers.value = []
+        return 
+    } 
+
+    debouncedSearchSuppliers(input, loading)
 
 }
 
@@ -449,18 +475,26 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
     }
 }
 
+async function searchSuppliers(input: string, loading: (status: boolean) => void) {
+    console.log('searchSuppliers');
+    console.log('input', input);
 
+    loading(true)
 
-// ======================== UTILS ======================== 
-function getRequisitionerFullname(employee?: Employee | null) {
-    console.log('employee', employee)
-    if (!employee) return ''
-    return getFullname(employee.firstname, employee.middlename, employee.lastname)
+    try {
+        const response = await fetchSuppliers(input);
+        suppliers.value = response
+    } catch (error) {
+        console.error('Error fetching Suppliers:', error);
+    } finally {
+        loading(false);
+    }
 }
 
 
+// ======================== UTILS ======================== 
+
 const onClickViewDetails = (id: string) => router.push('/purchase/po/view/' + id)
-const onClickEdit = (id: string) => router.push('/purchase/po/' + id)
 const onClickAdd = () => router.push('/purchase/po/create')
 
 const debouncedSearchPoNumbers = debounce((input: string, loading: (status: boolean) => void) => {
@@ -475,5 +509,8 @@ const debouncedSearchEmployees = debounce((input: string, loading: (status: bool
     searchEmployees(input, loading);
 }, 500);
 
+const debouncedSearchSuppliers = debounce((input: string, loading: (status: boolean) => void) => {
+    searchSuppliers(input, loading);
+}, 500);
 
 </script>
