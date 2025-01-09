@@ -131,11 +131,16 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Unit</label>
+                            <label class="form-label">
+                                Unit  <span class="text-danger">*</span>
+                            </label>
                             <div v-if="!itemIsStock">
                                 <client-only>
                                     <v-select data-testid="unit" :options="units" label="name" v-model="canvassItem.unit"></v-select>
                                 </client-only>
+                                <small class="text-danger fst-italic" v-if="canvassItemErrors.unit">
+                                    This field is required
+                                </small>
                             </div>
                             <div v-else>
                                 <input data-testid="unit" type="text" class="form-control" disabled
@@ -226,7 +231,8 @@ const closeBtnModal = ref<HTMLButtonElement>()
 const _canvassItemErrorsInitial = {
     item: false,
     description: false,
-    quantity: false
+    quantity: false,
+    unit: false,
 }
 
 const _canvassItemInitial: CanvassItem = {
@@ -378,6 +384,10 @@ function isValidCanvassItem(): boolean {
         canvassItemErrors.value.quantity = true
     } else if (canvassItem.value.quantity <= 0) {
         canvassItemErrors.value.quantity = true
+    }
+
+    if(!canvassItem.value.unit) {
+        canvassItemErrors.value.unit = true
     }
 
     // item is required if class is stock

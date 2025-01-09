@@ -10,6 +10,6 @@ export interface CanvassItems {
     item_class?: 'stock' | 'non-stock'
     item?: string
     description?: string
-    unit?: string
+    unit: string
     quantity: number
 }
