@@ -50,9 +50,9 @@ export class TripTicketService {
 			throw new NotFoundException('Vehicle not found with id of ' + input.vehicle_id)
 		}
 
-		if(vehicle.status !== VEHICLE_STATUS.AVAILABLE_FOR_TRIP) {
-			throw new BadRequestException("Vehicle not available for trip")
-		}
+		// if(vehicle.status !== VEHICLE_STATUS.AVAILABLE_FOR_TRIP) {
+		// 	throw new BadRequestException("Vehicle not available for trip")
+		// }
 
 		const validate_response = await this.validateTripScheduleConflict({
 			vehicleId: input.vehicle_id,
