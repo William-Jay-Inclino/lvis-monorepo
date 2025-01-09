@@ -155,6 +155,14 @@ export class GasSlipResolver {
     return this.gasSlipService.findAll(page, pageSize, vehicle_id, approval_status, is_posted);
   }
 
+  @Query(() => [GasSlip])
+  gas_slips_by_gas_slip_number(
+      @Args('gas_slip_number') gas_slip_number: string,
+      @Args('is_detail_included', { nullable: true }) is_detail_included?: boolean,
+  ){
+      return this.gasSlipService.findGasSlipsByGasSlipNumber(gas_slip_number, is_detail_included);
+  }
+
   @Query(() => GasSlip)
   async gas_slip(
       @Args('id', { nullable: true }) id?: string,

@@ -108,6 +108,14 @@ export class TripTicketResolver {
     }
   }
 
+  @Query(() => [TripTicket])
+  trip_tickets_by_trip_number(
+      @Args('trip_number') trip_number: string,
+      @Args('is_detail_included', { nullable: true }) is_detail_included?: boolean,
+  ){
+      return this.tripTicketService.findTripsByTripNumber(trip_number, is_detail_included);
+  }
+
   @Query(() => TripTicket)
   @UseGuards(GqlAuthGuard)
   trip_ticket(

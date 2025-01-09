@@ -269,6 +269,40 @@ export class GasSlipService {
 		};
 	}
 
+    async findGasSlipsByGasSlipNumber(gasSlipNumber: string, includeDetails: boolean = false) {
+
+		const trimmedGasSlipNumber = gasSlipNumber.trim(); 
+
+        let selectClause;
+        if (includeDetails) {
+            selectClause = { 
+                id: true,
+                gas_slip_number: true, 
+                vehicle: true,
+                used_on: true,
+                approval_status: true,
+            }; 
+        } else {
+            selectClause = { gas_slip_number: true };
+        }
+
+        const items = await this.prisma.gasSlip.findMany({
+            select: selectClause,
+            where: {
+                gas_slip_number: {
+                    startsWith: trimmedGasSlipNumber
+                },
+                cancelled_at: null
+            },
+            orderBy: {
+                gas_slip_number: 'desc'
+            },
+            take: 10,
+        });
+
+        return items;
+    }
+
 	async findOne(payload: { id?: string; gas_slip_number?: string }) {
 		const { id, gas_slip_number } = payload;
 	

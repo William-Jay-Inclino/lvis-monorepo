@@ -413,6 +413,42 @@ export class TripTicketService {
 		};
 	}
 
+	async findTripsByTripNumber(tripNumber: string, includeDetails: boolean = false) {
+
+		const trimmedTripNumber = tripNumber.trim(); 
+
+        let selectClause;
+        if (includeDetails) {
+            selectClause = { 
+                id: true,
+                trip_number: true, 
+                vehicle: true,
+                driver_id: true,
+                created_at: true,
+				start_time: true,
+				status: true,
+            }; 
+        } else {
+            selectClause = { trip_number: true };
+        }
+
+        const items = await this.prisma.tripTicket.findMany({
+            select: selectClause,
+            where: {
+                trip_number: {
+                    startsWith: trimmedTripNumber
+                },
+                cancelled_at: null
+            },
+            orderBy: {
+                trip_number: 'desc'
+            },
+            take: 10,
+        });
+
+        return items;
+    }
+
 	async findOne(payload: { id?: string; trip_number?: string }) {
 		const { id, trip_number } = payload;
 
