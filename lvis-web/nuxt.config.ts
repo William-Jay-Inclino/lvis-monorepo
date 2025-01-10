@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   app: {
     //   baseURL: '/lvis/',
       head: {
-          title: "Leyeco V Integrated System",
+          title: "PRISM",
           meta: [
               { charset: 'utf-8' },
               { name: 'author', content: 'William Jay Inclino' },
