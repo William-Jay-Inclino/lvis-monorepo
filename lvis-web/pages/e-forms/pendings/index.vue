@@ -47,7 +47,7 @@
                                             </nuxt-link>
                                         </td>
                                         <td class="text-muted align-middle"> {{ formatDate(item.transaction_date, true) }} </td>
-                                        <td>
+                                        <td width="30%" class="align-middle">
                                             <EformsComment
                                                 :pending_id="item.id"
                                                 :is_editing="item.is_editing"
@@ -410,7 +410,7 @@ function handleCommonApprove(id: number) {
         text: `Are you sure you want to approve transaction ${item.description}?`,
         input: 'text',
         inputValue: item.approver_notes || '', 
-        inputPlaceholder: 'Enter remarks (optional)...',
+        inputPlaceholder: 'Add Comment (optional)...',
         position: "top",
         icon: "warning",
         showCancelButton: true,
@@ -475,7 +475,7 @@ function handleCommonDisapprove(id: number) {
         text: `Are you sure you want to disapprove transaction ${item.description}?`,
         input: 'text',
         inputValue: item.approver_notes || '',
-        inputPlaceholder: 'Enter remarks...',
+        inputPlaceholder: 'Add Comment...',
         position: "top",
         icon: "warning",
         showCancelButton: true,
