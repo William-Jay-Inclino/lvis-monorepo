@@ -1,4 +1,10 @@
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { toZonedTime, format } from 'date-fns-tz'; // Assuming you're using these methods
+import axios from 'axios';
+import { DB_ENTITY } from './constants';
+import { getFullnameWithTitles, getModule } from './helpers';
+import { Employee } from './types';
+import { MEQS } from '../meqs/entities/meq.entity';
 
 const timeZone = process.env.TZ || 'Asia/Manila'; 
 
@@ -14,13 +20,6 @@ const convertDate = (date: any) => {
         console.error(`Error converting date: ${date}`, error);
         return date;  
     }
-};
-
-// Function to check if a string is a valid date string
-const isValidDateString = (str: string) => {
-  // Regular expression to check for a valid date string format
-  // (e.g., "YYYY-MM-DD" or ISO 8601-like formats)
-  return !isNaN(Date.parse(str)) && !/^\d+$/.test(str);
 };
 
 // Recursive function to traverse and convert datetime fields
@@ -50,3 +49,103 @@ export const convertDatesToPhTime = (data: any): any => {
         return data; // If it's not an object or array, return as is
     }
 };
+
+export const getEmployee = async(employeeId: string, authUser: AuthUser): Promise<Employee> => {
+    const query = `
+        query {
+            employee(id: "${employeeId}") {
+                id
+                firstname
+                middlename
+                lastname
+                name_prefix
+                name_suffix
+            }
+        }
+    `;
+
+    const headers = {
+        Authorization: authUser.authorization,
+        'Content-Type': 'application/json',
+    };
+
+    try {
+        const response = await axios.post(
+            process.env.API_GATEWAY_URL,
+            { query },
+            { headers }
+        );
+
+        if (!response.data || !response.data.data) {
+            return undefined;
+        }
+
+        if(response.data && response.data.data && response.data.data.employee) {
+            return response.data.data.employee;
+        }
+
+        throw new Error('Failed to fetch employee data.')
+
+        
+    } catch (error) {
+        throw new Error('Failed to fetch employee data.');
+    }
+}
+
+export const get_pending_description = (payload: {
+    db_entity: DB_ENTITY,
+    employee: Employee,
+    ref_number: string,
+    purpose: string,
+}): string => {
+
+    const { db_entity, employee, ref_number, purpose } = payload
+
+    const module = getModule(db_entity)
+    const fullname = getFullnameWithTitles(employee.firstname, employee.lastname, employee.middlename, employee.name_prefix, employee.name_suffix)
+
+    const description = [
+        `${module.description}: ${ref_number}`,
+        `------------------------------------------`,
+        `Requested by:`,
+        `\t${fullname}`,
+        `------------------------------------------`,
+        `${purpose}`
+    ].join('\n');
+
+    return description
+}
+
+export const get_canvass_info = (payload: { 
+    meqs: MEQS 
+}): { 
+    requested_by_id: string, 
+    purpose: string 
+} => {
+
+    const { meqs } = payload    
+
+    if(meqs.rv) {
+        return {
+            requested_by_id: meqs.rv.canvass.requested_by_id,
+            purpose: meqs.rv.canvass.purpose,
+        }
+    }
+
+    if(meqs.spr) {
+        return {
+            requested_by_id: meqs.spr.canvass.requested_by_id,
+            purpose: meqs.spr.canvass.purpose,
+        }
+    }
+
+    if(meqs.jo) {
+        return {
+            requested_by_id: meqs.jo.canvass.requested_by_id,
+            purpose: meqs.jo.canvass.purpose,
+        }
+    }
+
+    throw new Error('Payload has no RV, SPR, OR JO')
+
+}

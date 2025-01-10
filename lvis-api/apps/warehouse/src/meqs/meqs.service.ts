@@ -13,6 +13,7 @@ import { WarehouseCancelResponse } from '../__common__/classes';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class MeqsService {
@@ -103,11 +104,19 @@ export class MeqsService {
         let jo_number = undefined
         let rv_number = undefined
         let spr_number = undefined
+        let requisitioner = undefined
+        let purpose = ''
 
         if(input.jo_id) {
             const jo = await this.prisma.jO.findUnique({
                 select: {
-                    jo_number: true
+                    jo_number: true,
+                    canvass: {
+                        select: {
+                            requested_by_id: true,
+                            purpose: true,
+                        }
+                    }
                 },
                 where: { id: input.jo_id }
             })
@@ -117,11 +126,19 @@ export class MeqsService {
             }
 
             jo_number = jo.jo_number
+            purpose = jo.canvass.purpose
+            requisitioner = await getEmployee(jo.canvass.requested_by_id, this.authUser)
 
         } else if(input.rv_id) {
             const rv = await this.prisma.rV.findUnique({
                 select: {
-                    rv_number: true
+                    rv_number: true,
+                    canvass: {
+                        select: {
+                            requested_by_id: true,
+                            purpose: true,
+                        }
+                    }
                 },
                 where: { id: input.rv_id }
             })
@@ -131,11 +148,20 @@ export class MeqsService {
             }
 
             rv_number = rv.rv_number
+            purpose = rv.canvass.purpose
+            requisitioner = await getEmployee(rv.canvass.requested_by_id, this.authUser)
+
 
         } else if(input.spr_id) {
             const spr = await this.prisma.sPR.findUnique({
                 select: {
-                    spr_number: true
+                    spr_number: true,
+                    canvass: {
+                        select: {
+                            requested_by_id: true,
+                            purpose: true,
+                        }
+                    }
                 },
                 where: { id: input.spr_id }
             })
@@ -145,7 +171,8 @@ export class MeqsService {
             }
 
             spr_number = spr.spr_number
-
+            purpose = spr.canvass.purpose
+            requisitioner = await getEmployee(spr.canvass.requested_by_id, this.authUser)
         }
 
         const meqsNumber = await this.getLatestMeqsNumber()
@@ -214,7 +241,7 @@ export class MeqsService {
             meqs_suppliers
         }
 
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
             const meqs_created = await tx.mEQS.create({ data })
 
@@ -222,13 +249,21 @@ export class MeqsService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.MEQS)
+            
+            const db_entity = DB_ENTITY.MEQS
+
+            const description = get_pending_description({
+                db_entity,
+                employee: requisitioner,
+                ref_number: meqsNumber,
+                purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: meqsNumber,
-                reference_table: DB_ENTITY.MEQS,
-                description: `${ module.description } no. ${meqsNumber}`
+                reference_table: db_entity,
+                description
             }
 
             await tx.pending.create({ data: pendingData })
@@ -237,8 +272,6 @@ export class MeqsService {
             return meqs_created
         });
     
-        return result;
-
     }
 
     async update(id: string, input: UpdateMeqsInput): Promise<MEQS> {

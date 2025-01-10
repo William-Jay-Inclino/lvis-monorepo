@@ -1,7 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreatePoInput } from './dto/create-po.input';
-import { PO, POApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
+import { PO, POApprover, Prisma, } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { HttpService } from '@nestjs/axios';
@@ -14,6 +14,11 @@ import { UpdatePoByFinanceManagerInput } from './dto/update-po-by-finance-manage
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { RV } from '../rv/entities/rv.entity';
+import { SPR } from '../spr/entities/spr.entity';
+import { JO } from '../jo/entities/jo.entity';
+import { MEQS } from '../meqs/entities/meq.entity';
+import { get_canvass_info, get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class PoService {
@@ -82,7 +87,37 @@ export class PoService {
             select: {
                 meqs: {
                     select: {
-                        meqs_number: true
+                        meqs_number: true,
+                        rv: {
+                            select: {
+                                canvass: {
+                                    select: {
+                                        requested_by_id: true,
+                                        purpose: true,
+                                    }
+                                }
+                            }
+                        },
+                        spr: {
+                            select: {
+                                canvass: {
+                                    select: {
+                                        requested_by_id: true,
+                                        purpose: true,
+                                    }
+                                }
+                            }
+                        },
+                        jo: {
+                            select: {
+                                canvass: {
+                                    select: {
+                                        requested_by_id: true,
+                                        purpose: true,
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -125,7 +160,7 @@ export class PoService {
             }
         }
 
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
             const po_created = await tx.pO.create({ data })
 
@@ -133,13 +168,22 @@ export class PoService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.PO)
+            const { requested_by_id, purpose } = get_canvass_info({ meqs: meqsSupplier.meqs as MEQS })
+            const requisitioner = await getEmployee(requested_by_id, this.authUser)
+            const db_entity = DB_ENTITY.PO
+
+            const description = get_pending_description({
+                db_entity,
+                employee: requisitioner,
+                ref_number: poNumber,
+                purpose: purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: poNumber,
-                reference_table: DB_ENTITY.PO,
-                description: `${ module.description } no. ${poNumber}`
+                reference_table: db_entity,
+                description
             }
 
             await tx.pending.create({ data: pendingData })
@@ -148,7 +192,6 @@ export class PoService {
             return po_created
         });
     
-        return result;
 
     }
 

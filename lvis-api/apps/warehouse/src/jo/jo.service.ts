@@ -14,6 +14,7 @@ import { UpdateJoByBudgetOfficerInput } from './dto/update-jo-by-budget-officer.
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class JoService {
@@ -71,7 +72,9 @@ export class JoService {
                 id: input.canvass_id
             },
             select: {
-                rc_number: true
+                rc_number: true,
+                requested_by_id: true,
+                purpose: true,
             }
         })
 
@@ -106,7 +109,7 @@ export class JoService {
             }
         }
 
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
             const jo_created = await tx.jO.create({ data })
 
@@ -114,22 +117,27 @@ export class JoService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.JO)
+            const requisitioner = await getEmployee(canvass.requested_by_id, this.authUser)
+            const db_entity = DB_ENTITY.JO
+
+            const description = get_pending_description({
+                db_entity,
+                employee: requisitioner,
+                ref_number: joNumber,
+                purpose: canvass.purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: joNumber,
-                reference_table: DB_ENTITY.JO,
-                description: `${ module.description } no. ${joNumber}`
+                reference_table: db_entity,
+                description
             }
 
             await tx.pending.create({ data: pendingData })
 
-
             return jo_created
         });
-    
-        return result;
         
     }
 

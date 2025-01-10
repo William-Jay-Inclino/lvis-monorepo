@@ -56,6 +56,15 @@ export interface ItemCodeTracker {
     last_incremental: number
 }
 
+export interface Employee {
+    id: string
+    firstname: string
+    middlename: string
+    lastname: string
+    name_prefix: string
+    name_suffix: string
+}
+
 export enum APPROVAL_STATUS {
     PENDING = 1,
     APPROVED = 2,

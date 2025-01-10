@@ -6,6 +6,5 @@ export class Employee {
 
   @Field(() => ID)
   id: string;
-
-
+  
 }

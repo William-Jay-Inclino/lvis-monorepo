@@ -14,6 +14,7 @@ import { UpdateSprByBudgetOfficerInput } from './dto/update-spr-by-budget-office
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class SprService {
@@ -72,7 +73,9 @@ export class SprService {
                 id: input.canvass_id
             },
             select: {
-                rc_number: true
+                rc_number: true,
+                requested_by_id: true,
+                purpose: true,
             }
         })
 
@@ -105,7 +108,7 @@ export class SprService {
             }
         }
 
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
             const spr_created = await tx.sPR.create({ data })
 
@@ -113,23 +116,28 @@ export class SprService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.SPR)
+            const requisitioner = await getEmployee(canvass.requested_by_id, this.authUser)
+            const db_entity = DB_ENTITY.SPR
+
+            const description = get_pending_description({
+                db_entity,
+                employee: requisitioner,
+                ref_number: sprNumber,
+                purpose: canvass.purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: sprNumber,
-                reference_table: DB_ENTITY.SPR,
-                description: `${ module.description } no. ${sprNumber}`
+                reference_table: db_entity,
+                description
             }
 
             await tx.pending.create({ data: pendingData })
 
-
             return spr_created
         });
     
-        return result;
-        
     }
 
     async update(id: string, input: UpdateSprInput): Promise<SPR> {

@@ -9,11 +9,12 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { RVsResponse } from './entities/rvs-response.entity';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, getFullnameWithTitles, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateRvByBudgetOfficerInput } from './dto/update-rv-by-budget-officer.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class RvService {
@@ -71,7 +72,9 @@ export class RvService {
                 id: input.canvass_id
             },
             select: {
-                rc_number: true
+                rc_number: true,
+                requested_by_id: true,
+                purpose: true,
             }
         })
 
@@ -79,6 +82,7 @@ export class RvService {
             throw new NotFoundException(`Canvass not found with id of ${input.canvass_id}`)
         }
 
+        
         const createdBy = this.authUser.user.username
 
         const data: Prisma.RVCreateInput = {
@@ -105,30 +109,38 @@ export class RvService {
             }
         }
 
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
-            const rv_created = await tx.rV.create({ data })
+            const rv_created = await tx.rV.create({
+                data
+            })
 
             const firstApprover = input.approvers.reduce((min, obj) => {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.RV)
+            const requisitioner = await getEmployee(canvass.requested_by_id, this.authUser)
+            const db_entity = DB_ENTITY.RV
+
+            const description = get_pending_description({
+                db_entity,
+                employee: requisitioner,
+                ref_number: rvNumber,
+                purpose: canvass.purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: rvNumber,
-                reference_table: DB_ENTITY.RV,
-                description: `${ module.description } no. ${rvNumber}`
+                reference_table: db_entity,
+                description
             }
 
             await tx.pending.create({ data: pendingData })
 
-
             return rv_created
         });
     
-        return result;
         
     }
 

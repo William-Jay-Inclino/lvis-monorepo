@@ -122,12 +122,13 @@ export class PendingService {
 
                 // add new pending if there is next in line approver. Otherwise approver is last
                 if(newPending) {
+
                     await tx.pending.create({
                         data: {
                             approver_id: newPending.approver_id,
                             reference_number: pending.reference_number,
                             reference_table: pending.reference_table,
-                            description: `${module.description} no. ${pending.reference_number}`
+                            description: pending.description,
                         }
                     })
 
@@ -466,7 +467,6 @@ export class PendingService {
         })
 
     }
-
 
     private async handle_RR_completion_of_approvals(tx: Prisma.TransactionClient, rr_id: string): Promise<void> {
 

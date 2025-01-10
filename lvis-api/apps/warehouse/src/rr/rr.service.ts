@@ -13,6 +13,8 @@ import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/he
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { MEQS } from '../meqs/entities/meq.entity';
+import { get_canvass_info, get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class RrService {
@@ -110,7 +112,45 @@ export class RrService {
 
         const po = await this.prisma.pO.findUnique({
             select: {
-                po_number: true
+                po_number: true,
+                meqs_supplier: {
+                    select: {
+                        meqs: {
+                            select: {
+                                rv: {
+                                    select: {
+                                        canvass: {
+                                            select: {
+                                                requested_by_id: true,
+                                                purpose: true,
+                                            }
+                                        }
+                                    }
+                                },
+                                spr: {
+                                    select: {
+                                        canvass: {
+                                            select: {
+                                                requested_by_id: true,
+                                                purpose: true,
+                                            }
+                                        }
+                                    }
+                                },
+                                jo: {
+                                    select: {
+                                        canvass: {
+                                            select: {
+                                                requested_by_id: true,
+                                                purpose: true,
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             },
             where: { id: input.po_id }
         })
@@ -167,13 +207,22 @@ export class RrService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.RR)
+            const { requested_by_id, purpose } = get_canvass_info({ meqs: po.meqs_supplier.meqs as MEQS })
+            const requisitioner = await getEmployee(requested_by_id, this.authUser)
+            const db_entity = DB_ENTITY.RR
+
+            const description = get_pending_description({
+                db_entity,
+                employee: requisitioner,
+                ref_number: rrNumber,
+                purpose: purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: rrNumber,
-                reference_table: DB_ENTITY.RR,
-                description: `${ module.description } no. ${rrNumber}`
+                reference_table: db_entity,
+                description
             }
 
             await tx.pending.create({ data: pendingData })
