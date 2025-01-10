@@ -1,5 +1,5 @@
 import test from "@playwright/test";
-import { approve_signatories, login, logout } from "../shared/helpers";
+import { approve_signatories, login, logout, verify_status } from "../shared/helpers";
 import dotenv from 'dotenv';
 import { goto } from "../shared/utils";
 import { create_item, goto_create_item_page, item_data, ITEM_TYPE } from "./item";
@@ -55,6 +55,8 @@ test("OSRIV Flow", async ({ page }) => {
     await login({ page, url, username, password })
 
     await goto_osriv_view_page({ page, url, osriv_number: osriv.osriv_number })
+
+    await verify_status({ page, status: 'Approved' })
 
     await verify_items_to_be_transacted({ page, url, osriv_number: osriv.osriv_number })
 

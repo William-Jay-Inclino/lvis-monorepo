@@ -44,18 +44,18 @@
                             <nuxt-link :class="{ active: $route.path.startsWith('/motorpool/trip-ticket') }" class="nav-link text-white" to="/motorpool/trip-ticket">Trip Ticket</nuxt-link>
                         </li>
                         <li v-if="canView('canManageGasSlip', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path.startsWith('/motorpool/gas-slip') }" class="nav-link text-white" to="/motorpool/gas-slip">Gas Slip</nuxt-link>
+                            <nuxt-link data-testid="gas-slip-menu" :class="{ active: $route.path.startsWith('/motorpool/gas-slip') }" class="nav-link text-white" to="/motorpool/gas-slip">Gas Slip</nuxt-link>
                         </li>
                         <!-- <li v-if="canView('canManageVehicle', authUser)" class="nav-item">
                             <nuxt-link :class="{ active: $route.path.startsWith('/motorpool/vehicle') }" class="nav-link text-white" to="/motorpool/vehicle">Vehicle</nuxt-link>
                         </li> -->
                         <li v-if="canViewVehicle(authUser)" class="nav-item dropdown">
-                            <a :class="{ active: isActiveVehicle }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                            <a data-testid="vehicle-dropdown" :class="{ active: isActiveVehicle }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Vehicle
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li v-if="canView('canManageVehicle', authUser)"><nuxt-link class="dropdown-item"
+                                <li data-testid="vehicle-management-menu" v-if="canView('canManageVehicle', authUser)"><nuxt-link class="dropdown-item"
                                     to="/motorpool/vehicle">Vehicle Management</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageVehicleMaintenance', authUser)"><nuxt-link class="dropdown-item"
@@ -78,7 +78,7 @@
                             </client-only>
                         </li>
                         <li v-if="authUser" class="nav-item dropdown">
-                            <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            <a data-testid="username-dropdown" style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <client-only>
                                 <font-awesome-icon :icon="['fas', 'user-circle']"/>
@@ -92,7 +92,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
                                 <li>
-                                    <a @click="handleLogOut" class="dropdown-item"> Logout </a>
+                                    <a data-testid="logout" @click="handleLogOut" class="dropdown-item"> Logout </a>
                                 </li>
                             </ul>
                         </li>

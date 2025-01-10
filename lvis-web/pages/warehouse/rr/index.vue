@@ -14,7 +14,7 @@
                         <div class="mb-3">
                             <label class="form-label">RR Number</label>
                             <client-only>
-                                <v-select @search="handleSearchRrNumber" :options="rrs" label="rr_number" v-model="rr"></v-select>
+                                <v-select data-testid="search-rr-number" @search="handleSearchRrNumber" :options="rrs" label="rr_number" v-model="rr"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search()" class="btn btn-primary" :disabled="isSearching">
+                    <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
@@ -102,8 +102,8 @@
                                                 <th class="bg-secondary text-white">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
-                                                    <font-awesome-icon :icon="['fas', 'cog']" />
-                                                </client-only>
+                                                        <font-awesome-icon :icon="['fas', 'cog']" />
+                                                    </client-only>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -121,7 +121,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
+                                                    <button :data-testid="`view-details-${ i.rr_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
                                                     :class="{ 'text-primary': (canViewDetails(authUser, 'canManageRR') && !isTransactionFailed(i) ), 'text-danger': isTransactionFailed(i) }"
                                                         :disabled="!canViewDetails(authUser, 'canManageRR')">
                                                         <client-only>

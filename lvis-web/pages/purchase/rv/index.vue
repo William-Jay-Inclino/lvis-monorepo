@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">RV Number</label>
                             <client-only>
-                                <v-select @search="handleSearchRvNumber" :options="rvs" label="rv_number" v-model="rv"></v-select>
+                                <v-select data-testid="search-rv-number" @search="handleSearchRvNumber" :options="rvs" label="rv_number" v-model="rv"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -53,11 +53,11 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search()" class="btn btn-primary" :disabled="isSearching">
+                    <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                             {{ isSearching ? 'Searching...' : 'Search' }}
+                            <font-awesome-icon :icon="['fas', 'search']" />
+                        </client-only> 
+                            {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
                     <button data-testid="create-rv" v-if="canCreate(authUser, 'canManageRV')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
@@ -123,7 +123,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageRV') }"
+                                                    <button :data-testid="`view-details-${ i.rv_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageRV') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageRV')">
                                                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'info-circle']" />

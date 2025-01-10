@@ -25,7 +25,7 @@
                                         <tbody>
                                             <tr>
                                                 <td class="text-muted">Status</td>
-                                                <td>
+                                                <td data-testid="status">
                                                     <div :class="{ [`badge bg-${approvalStatus[item.status].color}`]: true }">
                                                         {{ approvalStatus[item.status].label }}
                                                     </div>

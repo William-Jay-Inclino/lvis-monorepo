@@ -108,3 +108,19 @@ export const generate_invoice_number = (): string => {
     const randomPart = Math.floor(1000 + Math.random() * 9000); // Random 4-digit number
     return `${prefix}-${datePart}-${randomPart}`;
 };
+
+
+
+export const verify_status = async(payload: { page: Page, status: string }) => {
+
+    console.log('verify_status');
+
+    const { page, status } = payload
+
+    const txt = await x.getText({ page, test_id: 'status' })
+
+    console.log('txt', txt);
+
+    expect(txt.trim()).toBe(status)
+    
+}

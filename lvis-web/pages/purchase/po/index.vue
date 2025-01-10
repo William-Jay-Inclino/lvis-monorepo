@@ -14,7 +14,7 @@
                         <div class="mb-3">
                             <label class="form-label">PO Number</label>
                             <client-only>
-                                <v-select @search="handleSearchPoNumber" :options="pos" label="po_number" v-model="po"></v-select>
+                                <v-select data-testid="search-po-number" @search="handleSearchPoNumber" :options="pos" label="po_number" v-model="po"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -62,11 +62,11 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search()" class="btn btn-primary" :disabled="isSearching">
+                    <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            {{ isSearching ? 'Searching...' : 'Search' }}
+                            <font-awesome-icon :icon="['fas', 'search']" />
+                        </client-only> 
+                        {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
                     <button data-testid="create-po" v-if="canCreate(authUser, 'canManagePO')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
@@ -129,7 +129,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
+                                                    <button :data-testid="`view-details-${ i.po_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
                                                         :class="{ 'text-primary': canViewDetails(authUser, 'canManagePO') }"
                                                         :disabled="!canViewDetails(authUser, 'canManagePO')">
                                                         <client-only>

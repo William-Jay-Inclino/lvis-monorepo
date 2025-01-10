@@ -59,7 +59,7 @@
                         </client-only> 
                         {{ isSearching ? 'Searching...' : 'Search' }}
                     </button>
-                    <button data-testid="create" v-if="canCreate(authUser, 'canManageGasSlip')" @click="onClickAdd" class="btn btn-primary float-end">
+                    <button data-testid="create-gas-slip" v-if="canCreate(authUser, 'canManageGasSlip')" @click="onClickAdd" class="btn btn-primary float-end">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'plus']"/>
                         </client-only> 

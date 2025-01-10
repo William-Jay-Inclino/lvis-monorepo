@@ -1,7 +1,7 @@
 import test from "@playwright/test";
 import { test_mct } from "./mct";
 import dotenv from 'dotenv';
-import { approve_signatories, DB_ENTITY, goto, login, logout } from "../shared";
+import { approve_signatories, DB_ENTITY, goto, login, logout, verify_status } from "../shared";
 import { create_mcrt, goto_create_mcrt_page, goto_mcrt_view_page, mcrt_approvers, mcrt_data, verify_items_to_be_transacted } from "./mcrt";
 
 dotenv.config();
@@ -38,6 +38,8 @@ test("MCRT Flow", async ({ page }) => {
     await login({ page, url, username, password })
 
     await goto_mcrt_view_page({ page, url, mcrt_number: mcrt.mcrt_number })
+
+    await verify_status({ page, status: 'Approved' })
 
     await verify_items_to_be_transacted({ page, url, mcrt_number: mcrt.mcrt_number })
 

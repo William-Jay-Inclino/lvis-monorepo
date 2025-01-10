@@ -22,21 +22,21 @@
                             <label class="form-label">
                                 Name <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" v-model="formData.name" required>
+                            <input data-testid="name" type="text" class="form-control" v-model="formData.name" required>
                             <small class="text-danger fst-italic" v-show="formDataErrors.name"> {{ errorMsg }} </small>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">
                                 Vehicle Number <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" v-model="formData.vehicle_number" required style="text-transform: uppercase;">
+                            <input data-testid="vehicle-number" type="text" class="form-control" v-model="formData.vehicle_number" required style="text-transform: uppercase;">
                             <small class="text-danger fst-italic" v-show="formDataErrors.vehicle_number"> {{ errorMsg }} </small>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">
                                 Plate Number <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" v-model="formData.plate_number" required style="text-transform: uppercase;">
+                            <input data-testid="plate-number" type="text" class="form-control" v-model="formData.plate_number" required style="text-transform: uppercase;">
                             <small class="text-danger fst-italic" v-show="formDataErrors.plate_number"> {{ errorMsg }} </small>
                         </div>
                         <div class="mb-3">
@@ -44,7 +44,7 @@
                                 Classification <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="VEHICLE_CLASSIFICATIONS" label="name" v-model="formData.classification"></v-select>
+                                <v-select data-testid="classification" :options="VEHICLE_CLASSIFICATIONS" label="name" v-model="formData.classification"></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-show="formDataErrors.classification"> {{ errorMsg }} </small>
                         </div>
@@ -53,7 +53,7 @@
                                 Assignee <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="formData.assignee"></v-select>
+                                <v-select data-testid="assignee" :options="employees" label="fullname" v-model="formData.assignee"></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-show="formDataErrors.assignee"> {{ errorMsg }} </small>
                         </div>
@@ -61,7 +61,7 @@
                             <label class="form-label">
                                 Date Acquired <span class="text-danger">*</span>
                             </label>
-                            <input type="date" class="form-control" v-model="formData.date_acquired">
+                            <input data-testid="date-acquired" type="date" class="form-control" v-model="formData.date_acquired">
                             <small class="text-danger fst-italic" v-show="formDataErrors.date_acquired"> {{ errorMsg }} </small>
                         </div>
     
@@ -74,13 +74,13 @@
                         <div class="d-flex justify-content-between">
                             <button type="button" @click="onClickGoToList" class="btn btn-secondary">
                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'list']"/>
-                            </client-only> Go to list
+                                    <font-awesome-icon :icon="['fas', 'list']"/>
+                                </client-only> Go to list
                             </button>
-                            <button @click="onSubmit" class="btn btn-primary" :disabled="isSaving">
+                            <button data-testid="save" @click="onSubmit" class="btn btn-primary" :disabled="isSaving">
                                 <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                    <font-awesome-icon :icon="['fas', 'save']"/>
+                                </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                             </button>
                         </div>
                     </div>

@@ -15,6 +15,27 @@ export const goto_create_po_page = async(payload: {page: Page, url: string}) => 
     
 }
 
+export const goto_po_view_page = async(payload: { page: Page, url: string, po_number: string }) => {
+
+    const { page, url, po_number } = payload
+
+    await x.click({ page, test_id: 'purchasing' })
+    await x.click({ page, test_id: 'po-menu' })
+    
+    await x.custom_select({
+        page,
+        test_id: 'search-po-number',
+        value: po_number
+    })
+    
+    await x.click({ page, test_id: 'search' })
+    await x.click({ page, test_id: `view-details-${po_number}` })
+
+    const dynamicUrlPattern = new RegExp(`${url}/purchase/po/view/[a-zA-Z0-9-]+`)
+    await expect(page).toHaveURL(dynamicUrlPattern, { timeout: 5000 });
+    
+}
+
 
 export const create_pos = async(
     payload: { 

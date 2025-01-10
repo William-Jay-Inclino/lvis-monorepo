@@ -17,6 +17,28 @@ export const goto_create_meqs_page = async(payload: {page: Page, url: string}) =
 }
 
 
+export const goto_meqs_view_page = async(payload: { page: Page, url: string, meqs_number: string }) => {
+
+    const { page, url, meqs_number } = payload
+
+    await x.click({ page, test_id: 'purchasing' })
+    await x.click({ page, test_id: 'meqs-menu' })
+    
+    await x.custom_select({
+        page,
+        test_id: 'search-meqs-number',
+        value: meqs_number
+    })
+    
+    await x.click({ page, test_id: 'search' })
+    await x.click({ page, test_id: `view-details-${meqs_number}` })
+
+    const dynamicUrlPattern = new RegExp(`${url}/purchase/meqs/view/[a-zA-Z0-9-]+`)
+    await expect(page).toHaveURL(dynamicUrlPattern, { timeout: 5000 });
+    
+}
+
+
 export const create_meqs = async(
     payload: { 
         page: Page, 

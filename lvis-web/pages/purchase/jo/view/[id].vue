@@ -24,7 +24,7 @@
                                     <table class="table table-bordered table-hover">
                                         <tbody>
                                             <tr>
-                                                <td class="text-muted">Status</td>
+                                                <td data-testid="status" class="text-muted">Status</td>
                                                 <td>
                                                     <div :class="{ [`badge bg-${approvalStatus[item.status].color}`]: true }">
                                                         {{ approvalStatus[item.status].label }}

@@ -1,5 +1,5 @@
 import { DB_ENTITY } from "../../shared/enums";
-import { login, logout, approve_signatories } from "../../shared/helpers";
+import { login, logout, approve_signatories, verify_status } from "../../shared/helpers";
 import { faker } from '@faker-js/faker';
 import { goto } from "../../shared/utils";
 import { goto_create_item_page, create_item, item_data, ITEM_TYPE } from "../item";
@@ -76,6 +76,8 @@ export const test_mct = async(page: Page) => {
     await login({ page, url, username, password })
 
     await goto_mct_view_page({ page, url, mct_number: mct.mct_number })
+
+    await verify_status({ page, status: 'Approved' })
 
     await click_mrv_number_link({ page, url })
 

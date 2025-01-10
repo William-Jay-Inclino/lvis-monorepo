@@ -6,10 +6,32 @@ export const goto_create_rv_page = async(payload: {page: Page, url: string}) => 
 
     const { page, url } = payload
 
+    await x.click({ page, test_id: 'purchasing' })
     await x.click({ page, test_id: 'rv-menu' })
     await x.click({ page, test_id: 'create-rv' })
 
     await expect(page).toHaveURL(`${url}/purchase/rv/create`, { timeout: 5000 });
+    
+}
+
+export const goto_rv_view_page = async(payload: { page: Page, url: string, rv_number: string }) => {
+
+    const { page, url, rv_number } = payload
+
+    await x.click({ page, test_id: 'purchasing' })
+    await x.click({ page, test_id: 'rv-menu' })
+    
+    await x.custom_select({
+        page,
+        test_id: 'search-rv-number',
+        value: rv_number
+    })
+    
+    await x.click({ page, test_id: 'search' })
+    await x.click({ page, test_id: `view-details-${rv_number}` })
+
+    const dynamicUrlPattern = new RegExp(`${url}/purchase/rv/view/[a-zA-Z0-9-]+`)
+    await expect(page).toHaveURL(dynamicUrlPattern, { timeout: 5000 });
     
 }
 

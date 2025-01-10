@@ -34,7 +34,7 @@
                                     Vehicle <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select @search="handleSearchVehicles" :options="vehicles" label="label" v-model="gsData.vehicle" :clearable="false"></v-select>
+                                    <v-select data-testid="vehicle" @search="handleSearchVehicles" :options="vehicles" label="label" v-model="gsData.vehicle" :clearable="false"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.vehicle"> {{ errorMsg }}
                                 </small>
@@ -76,7 +76,7 @@
                                 <label class="form-label">
                                     Date <span class="text-danger">*</span>
                                 </label>
-                                <input type="date" class="form-control" v-model="gsData.used_on">
+                                <input data-testid="date" type="date" class="form-control" v-model="gsData.used_on">
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.used_on"> {{ errorMsg }}
                                 </small>
                             </div>
@@ -86,7 +86,7 @@
                                     Requisitioner <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="employees" label="fullname" v-model="gsData.requested_by"></v-select>
+                                    <v-select data-testid="requisitioner" :options="employees" label="fullname" v-model="gsData.requested_by"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.requested_by"> {{ errorMsg }}
                                 </small>
@@ -97,7 +97,7 @@
                                     Authorized Driver <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="employees" label="fullname" v-model="gsData.driver"></v-select>
+                                    <v-select data-testid="driver" :options="employees" label="fullname" v-model="gsData.driver"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.vehicle"> {{ errorMsg }}
                                 </small>
@@ -108,7 +108,7 @@
                                     Gas Station <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="gas_stations" label="name" v-model="gsData.gas_station"></v-select>
+                                    <v-select data-testid="gas-station" :options="gas_stations" label="name" v-model="gsData.gas_station"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.gas_station"> {{ errorMsg }}
                                 </small>
@@ -119,7 +119,7 @@
                                     Type of Fuel <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="fuel_types" label="name" v-model="gsData.fuel_type"></v-select>
+                                    <v-select data-testid="fuel-type" :options="fuel_types" label="name" v-model="gsData.fuel_type"></v-select>
                                 </client-only>
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.fuel_type"> {{ errorMsg }}
                                 </small>
@@ -129,7 +129,7 @@
                                 <label class="form-label">
                                     No. of Liters: <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" v-model="gsData.liter_in_text">
+                                <input data-testid="no-of-liters" type="text" class="form-control" v-model="gsData.liter_in_text">
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.liter_in_text"> {{ errorMsg }}
                                 </small>
                             </div>
@@ -147,7 +147,7 @@
                                 <label class="form-label">
                                     Purpose <span class="text-danger">*</span>
                                 </label>
-                                <textarea v-model="gsData.purpose" class="form-control form-control-sm" rows="3"> </textarea>
+                                <textarea data-testid="purpose" v-model="gsData.purpose" class="form-control form-control-sm" rows="3"> </textarea>
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.purpose"> {{ errorMsg }}
                                 </small>
                             </div>
@@ -162,12 +162,13 @@
                                 <hr class="result">
                             </div>
 
-                            <div v-for="approver in gsData.approvers" class="mb-4">
+                            <div v-for="approver, indx in gsData.approvers" class="mb-4">
                                 <label class="form-label">
                                     {{ approver.label }} <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
                                     <v-select
+                                        :data-testid="`approver-${ indx }`"
                                         :options="getApproverOptions(approver.order)"
                                         label="fullname"
                                         v-model="approver.approver"
@@ -180,14 +181,14 @@
                             <div class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/motorpool/gas-slip">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search Gas Slip
+                                        <font-awesome-icon :icon="['fas', 'search']" />
+                                    </client-only> 
+                                    Search Gas Slip
                                 </nuxt-link>
-                                <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaveDisabled || isSaving">
+                                <button data-testid="save" @click="save()" type="button" class="btn btn-primary" :disabled="isSaveDisabled || isSaving">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                        <font-awesome-icon :icon="['fas', 'save']"/>
+                                    </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
                         </div>

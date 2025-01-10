@@ -36,7 +36,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="text-muted">Vehicle Number</td>
-                                            <td> {{ item.vehicle_number }} </td>
+                                            <td data-testid="vehicle-number"> {{ item.vehicle_number }} </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">Name</td>

@@ -1,9 +1,9 @@
 import test from "@playwright/test";
-import { approve_signatories, login, logout } from "../shared/helpers";
+import { approve_signatories, login, logout, verify_status } from "../shared/helpers";
 import dotenv from 'dotenv';
 import { goto } from "../shared/utils";
 import { DB_ENTITY } from "../shared/enums";
-import { create_mst, goto_create_mst_page, mst_approvers, mst_data } from "./mst";
+import { create_mst, goto_create_mst_page, goto_mst_view_page, mst_approvers, mst_data } from "./mst";
 import { create_item, expect_salvaged_item_created, goto_create_item_page, goto_search_item_page, item_data, ITEM_TYPE } from "./item";
 import { faker } from '@faker-js/faker';
 
@@ -54,6 +54,13 @@ test("MST Flow", async ({ page }) => {
         db_entity: DB_ENTITY.MST
     })
 
+    await login({ page, url, username, password })
+
+    await goto_mst_view_page({ page, url, mst_number: mst.mst_number })
+
+    await verify_status({ page, status: 'Approved' })
+
+    await logout({ page, url })
     await login({ page, url, username, password })
 
     await goto_search_item_page({ page, url })

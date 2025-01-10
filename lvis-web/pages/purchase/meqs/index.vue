@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">MEQS Number</label>
                             <client-only>
-                                <v-select @search="handleSearchMeqsNumber" :options="meqsArray" label="meqs_number" v-model="meqs"></v-select>
+                                <v-select data-testid="search-meqs-number" @search="handleSearchMeqsNumber" :options="meqsArray" label="meqs_number" v-model="meqs"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
-                    <button @click="search()" class="btn btn-primary" :disabled="isSearching">
+                    <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
                             </client-only> 
@@ -156,7 +156,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
+                                                    <button :data-testid="`view-details-${ i.meqs_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
                                                         :class="{ 'text-primary': canViewDetails(authUser, 'canManageMEQS') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageMEQS')">
                                                         <client-only>

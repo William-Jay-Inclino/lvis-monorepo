@@ -18,6 +18,28 @@ export const goto_create_rr_page = async(payload: {page: Page, url: string}) => 
     
 }
 
+export const goto_rr_view_page = async(payload: { page: Page, url: string, rr_number: string }) => {
+
+    const { page, url, rr_number } = payload
+
+    await x.click({ page, test_id: 'warehouse' })
+    await x.click({ page, test_id: 'warehouse-dropdown' })
+    await x.click({ page, test_id: 'rr-menu' })
+    
+    await x.custom_select({
+        page,
+        test_id: 'search-rr-number',
+        value: rr_number
+    })
+    
+    await x.click({ page, test_id: 'search' })
+    await x.click({ page, test_id: `view-details-${rr_number}` })
+
+    const dynamicUrlPattern = new RegExp(`${url}/warehouse/rr/view/[a-zA-Z0-9-]+`)
+    await expect(page).toHaveURL(dynamicUrlPattern, { timeout: 5000 });
+    
+}
+
 export const create_rrs = async(
     payload: { 
         page: Page, 
