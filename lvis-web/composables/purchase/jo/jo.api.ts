@@ -197,6 +197,8 @@ export async function findOne(id: string): Promise<JO | undefined> {
                         lastname
                     }
                     purpose
+                    date_requested
+                    notes
                     canvass_items {
                         description
                         unit {
@@ -229,20 +231,6 @@ export async function findOne(id: string): Promise<JO | undefined> {
                     order
                     notes
                     date_approval
-                }
-                meqs {
-                    id
-                    meqs_number
-                    meqs_suppliers {
-                        po {
-                            id
-                            po_number
-                            rrs {
-                                id 
-                                rr_number
-                            }
-                        }
-                    }
                 }
             }
         }

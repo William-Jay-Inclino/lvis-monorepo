@@ -10,7 +10,6 @@ body {
     overflow-y: auto;
     background: rgb(142,207,255);
     background: linear-gradient(141deg, rgba(142,207,255,1) 0%, rgba(255,255,255,1) 100%);
-    /* background-color: whitesmoke; */
 }
 
 #wrapper {

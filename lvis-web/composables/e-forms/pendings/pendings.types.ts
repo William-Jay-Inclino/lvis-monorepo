@@ -8,10 +8,6 @@ export interface Pending {
     description: string
     transaction_date: Date
     approver_notes: string | null
-
-    // set programmatically
-    is_editing: boolean
-    is_saving: boolean
 }
 
 

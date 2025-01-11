@@ -198,8 +198,8 @@
                                         <hr class="result">
                                         <h5 class="text-warning fst-italic">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
-                            </client-only> Canvass Items
+                                                <font-awesome-icon :icon="['fas', 'shopping-cart']"/>
+                                            </client-only> Canvass Items
                                         </h5>
                                         <hr class="result">
                                     </div>

@@ -5,35 +5,47 @@
         <div class="row pt-3">
             <div v-for="item, i in filteredItems" :key="i" class="col-lg-3 col-md-6 col-sm-12 pt-3">
                 <div class="card">
-                    <div class="card-header bg-secondary text-white">
-                        <div>
-                            {{ formatDate(item.transaction_date, true) }}
+                    <div class="card-header">
+                        <div class="small">
+                            Pending #{{ i + 1 }}
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                       <td>
-                                            <textarea class="form-control form-control-sm" rows="6" readonly>{{ item.description }}</textarea>
-                                       </td> 
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="mb-2">
+                            <textarea class="form-control form-control-sm" rows="6" readonly>{{ item.description }}</textarea>
                         </div>
+                        <span class="small text-muted fst-italic">{{ formatDate(item.transaction_date, true) }}</span>
+
                     </div>
-                    <div class="card-footer">
-                        <button class="btn btn-light text-primary w-100">
-                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']" />
-                            </client-only> 
+                    <div class="card-footer text-center">
+                        <button 
+                            @click="on_click_view_details(item)"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#pendingModal2" 
+                            class="btn pending-btn"
+                        >
                             View Details
+                            <client-only>
+                                <font-awesome-icon class="ms-1" :icon="['fas', 'paper-plane']" />
+                            </client-only> 
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <PendingModal
+            :pending-data="pending_selected"
+            :is-loading-modal="isLoadingModal"
+            :is-approving="isApproving"
+            :is-disapproving="isDisapproving"
+            :is-adding-comment="isAddingComment"
+            :current-tab="currentTab"
+            @approve="handle_approval"
+            @disapprove="handle_approval"
+            @addComment="handle_add_comment"
+            @change-tab="handle_change_tab"
+        />
 
     </div>
 
@@ -47,94 +59,61 @@
 <script setup lang="ts">
 
     definePageMeta({
-        layout: "layout-e-form"
+        layout: "layout-notifications"
     })
 
-    import { type Pending } from '~/composables/e-forms/pendings/pendings.types';
-    import * as pendingsApi from '~/composables/e-forms/pendings/pendings.api'
+    import * as noticationApi from '~/composables/notification/notification.api'
+    import { findOne as findRvDetails } from '~/composables/purchase/rv/rv.api'
+    import { findOne as findSprDetails } from '~/composables/purchase/spr/spr.api'
+    import { findOne as findJoDetails } from '~/composables/purchase/jo/jo.api'
+    import { findOne as findMeqsDetails } from '~/composables/purchase/meqs/meqs.api'
     import Swal from 'sweetalert2'
     import { DB_ENTITY, type AuthUser } from '#imports';
     import type { Account } from '~/composables/accounting/account/account';
     import type { Classification } from '~/composables/accounting/classification/classification';
-    import { MODULE_MAPPER } from '~/utils/constants';
-    import { fetchTotalNotifications } from '~/composables/system/user/user.api';
     import { useToast } from "vue-toastification";
+    import type { Pending } from '~/composables/notification/notification.types';
+    import { PENDING_MODAL_TABS } from '~/composables/notification/notifications.enums';
+    import PendingModal from '~/components/Purchase/PendingModal.vue';
 
-    const isLoadingPage = ref(true)
-    const isApproving = ref(false)
+    // Constants
     const config = useRuntimeConfig()
     const WAREHOUSE_API_URL = config.public.warehouseApiUrl
+    const toast = useToast();
 
+
+    // Flags
+    const isLoadingPage = ref(true)
+    const isLoadingModal = ref(false)
+    const isApproving = ref(false)
+    const isDisapproving = ref(false)
+    const isAddingComment = ref(false)
+
+    const searchValue = ref('')
     const authUser = ref<AuthUser>()
+    const currentTab = ref<PENDING_MODAL_TABS>(PENDING_MODAL_TABS.RV)
+
     const pendings = ref<Pending[]>([])
     const classifications = ref<Classification[]>([])
     const accounts = ref<Account[]>([])
-    const toast = useToast();
 
-    const screenWidth = ref(0);
-    const searchValue = ref('')
-
-    type ModalData = {
-        pendingApproval: Pending | null,
-        accounts: Account[],
-        classifications: Classification[]
-    }
-
-    interface ApprovalProps {
-        pendingApproval: Pending,
-        classification?: Classification,
-        fundSource?: Account,
-        remarks: string,
-        closeBtnModal: HTMLButtonElement
-        status: 'approve' | 'disapprove'
-        approvePending: () => Promise<{success: boolean, msg: string}>
-    }
-
-    const modalData = ref<ModalData>({
-        pendingApproval: null,
-        accounts: [],
-        classifications: []
-    })
+    const pending_selected = ref<Pending | null>(null)
 
     onMounted(async () => {
         authUser.value = getAuthUser()
-        console.log('authUser', authUser)
-
-        screenWidth.value = window.innerWidth;
-
-        window.addEventListener('resize', () => {
-            screenWidth.value = window.innerWidth;
-        });
 
         if (authUser.value.user.user_employee) {
-
-            const response = await pendingsApi.getPendingsByEmployeeId(authUser.value.user.user_employee.employee.id)
-            pendings.value = response.pendings.map(i => ({...i, is_editing: false, is_saving: false}))
+            const response = await noticationApi.getPendingsByEmployeeId(authUser.value.user.user_employee.employee.id)
+            pendings.value = response.pendings
             classifications.value = response.classifications
             accounts.value = response.accounts
-            // updateTotalPendingsOfUser(authUser.value, pendings.value.length)
             isLoadingPage.value = false
         }
-
 
     })
 
 
     // ================================== COMPUTED ================================== 
-
-    const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
-
-    const isBudgetOfficer = computed(() => {
-        if (!authUser.value) return
-        if (!authUser.value.user.user_employee) return
-        return !!authUser.value.user.user_employee.employee.is_budget_officer
-    })
-
-    const isFinanceManager = computed(() => {
-        if (!authUser.value) return
-        if (!authUser.value.user.user_employee) return
-        return !!authUser.value.user.user_employee.employee.is_finance_manager
-    })
 
     const filteredItems = computed(() => {
 
@@ -146,364 +125,137 @@
 
     // ================================== FUNCTIONS ================================== 
 
-    function getLink(entity: DB_ENTITY, reference_number: string) {
-        const module = MODULE_MAPPER[entity]
 
-        const is_purchasing = entity === DB_ENTITY.RV || entity === DB_ENTITY.SPR || entity === DB_ENTITY.JO || entity === DB_ENTITY.MEQS || entity === DB_ENTITY.PO
-        const is_warehousing = entity === DB_ENTITY.RR || entity === DB_ENTITY.OSRIV || entity === DB_ENTITY.SERIV || entity === DB_ENTITY.MRV || entity === DB_ENTITY.MCT || entity === DB_ENTITY.MCRT || entity === DB_ENTITY.MST
-        const is_motorpool = entity === DB_ENTITY.GAS_SLIP || entity === DB_ENTITY.TRIP_TICKET
+    async function on_click_view_details(pendingData: Pending) {
+        isLoadingModal.value = true
 
-        if(is_purchasing) {
-            return `/purchase/${module}/view/` + reference_number
-        }
+        if(pendingData.reference_table === DB_ENTITY.RV) {
+            const rv = await findRvDetails(pendingData.reference_number)
 
-        if(is_warehousing) {
-            return `/warehouse/${module}/view/` + reference_number
-        }
-
-        if(is_motorpool) {
-            return `/motorpool/${module}/view/` + reference_number
-        }
-
-        console.error('Route undefined');
-        return 'javascript:void(0)'
-    }
-
-    function isDefaultApproval(pending: Pending) {
-
-        const pendingIsJO = pending.reference_table === DB_ENTITY.JO
-        const pendingIsRV = pending.reference_table === DB_ENTITY.RV
-        const pendingIsSPR = pending.reference_table === DB_ENTITY.SPR
-        const pendingIsPO = pending.reference_table === DB_ENTITY.PO
-
-        if (isBudgetOfficer.value && (pendingIsJO || pendingIsRV || pendingIsSPR)) {
-            return false
-        }
-
-        if (isFinanceManager.value && pendingIsPO) {
-            return false
-        }
-
-        return true
-
-    }
-
-    async function updateTotalNotifications() {
-        console.log('updateTotalNotifications');
-        
-        if(!authUser.value) return 
-
-        if(authUser.value.user.user_employee) {
-            const response = await fetchTotalNotifications(authUser.value.user.user_employee.employee_id, WAREHOUSE_API_URL)
-            if(response !== undefined) {
-                authUser.value.user.user_employee.employee.total_pending_approvals = response
-                const newAuthUser = JSON.stringify(authUser.value);
-                localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
+            if(!rv || !rv.canvass) {
+                console.error('rv or rv.canvass is undefined');
+                return 
             }
+
+            pending_selected.value = {...pendingData, rv, canvass: rv.canvass }
+            currentTab.value = PENDING_MODAL_TABS.RV
         }
+
+        else if(pendingData.reference_table === DB_ENTITY.SPR) {
+            const spr = await findSprDetails(pendingData.reference_number)
+            
+            if(!spr || !spr.canvass) {
+                console.error('spr or spr.canvass is undefined');
+                return 
+            }
+
+            pending_selected.value = {...pendingData, spr, canvass: spr.canvass }
+            currentTab.value = PENDING_MODAL_TABS.SPR
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.JO) {
+            const jo = await findJoDetails(pendingData.reference_number)
+
+            if(!jo || !jo.canvass) {
+                console.error('jo or jo.canvass is undefined');
+                return 
+            }
+
+            pending_selected.value = {...pendingData, jo, canvass: jo.canvass }
+            currentTab.value = PENDING_MODAL_TABS.SPR
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.MEQS) {
+            const meqs = await findMeqsDetails(pendingData.reference_number)
+
+            if(!meqs) {
+                console.error('meqs is undefined');
+                return 
+            }
+
+            let canvass = null
+
+            if(meqs.rv) canvass = meqs.rv.canvass
+            if(meqs.spr) canvass = meqs.spr.canvass
+            if(meqs.jo) canvass = meqs.jo.canvass
+
+            if(!canvass) {
+                console.error('Canvass is undefined');
+                return 
+            }
+
+            pending_selected.value = {
+                ...pendingData, 
+                meqs, 
+                rv: meqs.rv || undefined, 
+                spr: meqs.spr || undefined, 
+                jo: meqs.jo || undefined,
+                canvass
+            }
+
+            currentTab.value = PENDING_MODAL_TABS.MEQS
+
+        }
+
+        isLoadingModal.value = false
 
     }
 
-    function onClickApprove(id: number) {
-        console.log('onClickApprove', id)
+    // ================================== Pending Modal Handlers ================================== 
 
-        const item = pendings.value.find(i => i.id === id)
-
-        if(!item) {
-            console.error('Item not found in pendings', id);
-            return 
-        }
-
-        modalData.value.pendingApproval = item
+    async function handle_approval(payload: { pending_data: Pending, action: 'approve' | 'disapprove' }) {
+        console.log('handle_approval', payload);
     }
 
-    function handleCommonApprove(id: number) {
-
-        const item = pendings.value.find(i => i.id === id)
-
-        if(!item) {
-            console.error('Item not found in pendings', id);
-            return 
-        }
-
-        Swal.fire({
-            title: "Approve Confirmation",
-            text: `Are you sure you want to approve transaction ${item.description}?`,
-            input: 'text',
-            inputValue: item.approver_notes || '', 
-            inputPlaceholder: 'Add Comment (optional)...',
-            position: "top",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#198754",
-            cancelButtonColor: "#6c757d",
-            confirmButtonText: "Approve!",
-            reverseButtons: true,
-            showLoaderOnConfirm: true,
-            preConfirm: async (confirm) => {
-
-                const inputValue = Swal.getInput()?.value;
-                const notes = inputValue || '';
-
-                const response = await pendingsApi.approvePending({
-                    id: item.id,
-                    remarks: notes,
-                })
-
-                if (response.success) {
-
-                    Swal.fire({
-                        text: response.msg,
-                        icon: 'success',
-                        position: 'top',
-                    });
-
-                    await updateTotalNotifications()
-
-                    removePending(item.id)
-                    // pendings.value.splice(indx, 1)
-
-                    // updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
-
-                    } else {
-
-                    Swal.fire({
-                        title: 'Error!',
-                        text: response.msg,
-                        icon: 'error',
-                        position: 'top',
-                    })
-
-                }
-
-            },
-            allowOutsideClick: () => !Swal.isLoading()
-        })
-
+    async function handle_add_comment(payload: { pending_data: Pending, comment: string }) {
+        console.log('handle_add_comment', payload);
     }
 
-    function handleCommonDisapprove(id: number) {
-
-        const item = pendings.value.find(i => i.id === id)
-
-        if(!item) {
-            console.error('Item not found in pendings', id);
-            return 
-        }
-
-        Swal.fire({
-            title: "Disapprove Confirmation",
-            text: `Are you sure you want to disapprove transaction ${item.description}?`,
-            input: 'text',
-            inputValue: item.approver_notes || '',
-            inputPlaceholder: 'Add Comment...',
-            position: "top",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#e74a3b",
-            cancelButtonColor: "#6c757d",
-            confirmButtonText: "Disapprove!",
-            reverseButtons: true,
-            showLoaderOnConfirm: true,
-            inputValidator: (value) => {
-                if (!value) {
-                    return 'You need to enter a remark!';
-                }
-            },
-            preConfirm: async (confirm) => {
-
-                const inputValue = Swal.getInput()?.value;
-                const notes = inputValue || '';
-
-                const response = await pendingsApi.disapprovePending({
-                    id: item.id,
-                    remarks: notes,
-                })
-
-                if (response.success) {
-
-                    Swal.fire({
-                        text: response.msg,
-                        icon: 'success',
-                        position: 'top',
-                    });
-
-                    await updateTotalNotifications()
-
-                    removePending(item.id)
-
-                    // pendings.value.splice(indx, 1)
-
-                    // updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
-
-                    } else {
-
-                    Swal.fire({
-                        title: 'Error!',
-                        text: response.msg,
-                        icon: 'error',
-                        position: 'top',
-                    })
-
-                }
-
-            },
-            allowOutsideClick: () => !Swal.isLoading()
-        })
-
+    function handle_change_tab(payload: { tab: PENDING_MODAL_TABS }) {
+        currentTab.value = payload.tab
     }
-
-    async function handleApproveBudgetOfficer(payload: {
-        pendingApproval: Pending,
-        classification: Classification,
-        remarks: string
-    }, closeBtnModal: HTMLButtonElement) {
-        console.log('handleApproveBudgetOfficer', payload)
-
-        const data: ApprovalProps = {
-            pendingApproval: payload.pendingApproval,
-            classification: payload.classification,
-            remarks: payload.remarks,
-            closeBtnModal,
-            status: 'approve',
-            approvePending: () => pendingsApi.approvePending({
-                id: payload.pendingApproval.id,
-                remarks: payload.remarks,
-                classification_id: payload.classification.id
-            })
-        }
-
-        await handleApproveWithUpdates(data)
-
-    }
-
-    async function handleApproveFinanceManager(payload: {
-        pendingApproval: Pending,
-        fundSource: Account,
-        remarks: string
-    }, closeBtnModal: HTMLButtonElement) {
-        console.log('handleApproveFinanceManager', payload)
-
-        const data: ApprovalProps = {
-            pendingApproval: payload.pendingApproval,
-            fundSource: payload.fundSource,
-            remarks: payload.remarks,
-            closeBtnModal,
-            status: 'approve',
-            approvePending: () => pendingsApi.approvePending({
-                id: payload.pendingApproval.id,
-                remarks: payload.remarks,
-                fund_source_id: payload.fundSource.id
-            })
-        }
-
-        await handleApproveWithUpdates(data)
-
-    }
-
-    // this is for approval of budget officer & finance manager
-    async function handleApproveWithUpdates(payload: ApprovalProps) {
-        console.log('onApproveBudgetOfficer', payload)
-
-
-        const indx = pendings.value.findIndex(i => i.id === payload.pendingApproval.id)
-
-        if (indx === -1) {
-            console.error('pending approval not found with id of ', payload.pendingApproval.id)
-            return
-        }
-
-        isApproving.value = true
-        const response = await payload.approvePending()
-        isApproving.value = false
-
-        if (response.success) {
-
-            Swal.fire({
-                text: response.msg,
-                icon: 'success',
-                position: 'top',
-            });
-
-            await updateTotalNotifications()
-
-            pendings.value.splice(indx, 1)
-            // updateTotalPendingsOfUser(authUser.value!, pendings.value.length)
-
-        } else {
-            Swal.fire({
-                title: 'Error!',
-                text: `Failed to ${payload.status}. Please reload the page and then try again`,
-                icon: 'error',
-                position: 'top',
-            })
-        }
-
-        payload.closeBtnModal.click()
-    }
-
-    async function handleSearchedAccounts(searchedAccounts: Account[]) {
-        accounts.value = searchedAccounts.map(i => ({...i}))
-    }
-
-    async function handleSearchedClassifications(searchedClassifications: Classification[]) {
-        classifications.value = searchedClassifications.map(i => ({...i}))
-    }
-
-    // =============================== Comment.vue Handlers =============================== 
-
-    async function handleSaveComment(pending_id: number, comment: string) {
-        
-        const pending = pendings.value.find(i => i.id === pending_id) 
-        if(!pending) {
-            console.error('Pending not found with id of', pending_id);
-            return 
-        }
-
-        const sanitizedComment = comment
-        .trim()  // Remove leading/trailing spaces
-        .replace(/\s+/g, ' '); // Replace multiple spaces with a single space
-
-        pending.is_saving = true 
-        const response = await pendingsApi.saveComment(pending_id, sanitizedComment)
-        pending.is_saving = false 
-        pending.is_editing = false
-
-        if(response.success) {
-            toast.success(response.msg)
-            pending.approver_notes = comment 
-        } else {
-            toast.error(response.msg)
-        }
-
-    }
-
-    function handleCancelEditComment(pending_id: number) {
-        const pending = pendings.value.find(i => i.id === pending_id) 
-        if(!pending) {
-            console.error('Pending not found with id of', pending_id);
-            return 
-        }
-        pending.is_editing = false
-    }
-
-    function handleStartEditComment(pending_id: number) {
-        const pending = pendings.value.find(i => i.id === pending_id) 
-        if(!pending) {
-            console.error('Pending not found with id of', pending_id);
-            return 
-        }
-        pending.is_editing = true
-    }
-
 
     // =============================== Utils =============================== 
 
-    function removePending(id: number) {
-        const indx = pendings.value.findIndex(i => i.id === id);
-        if (indx !== -1) {
-            pendings.value.splice(indx, 1);
-        }
-    }
 
 </script>
+
+
+
+<style scoped>
+    .card-header {
+        background-color: #FFFACD; /* Soft Yellow - Lemon Chiffon */
+        color: #333333; 
+    }
+
+    .pending-btn {
+        background-color: #4A90E2; /* Bright and vibrant blue */
+        color: #ffffff; /* Clear and contrasting white text */
+        border: none; /* Clean border */
+        border-radius: 0.375rem; /* Rounded corners for a soft look */
+        padding: 0.5rem 1rem; /* Adequate spacing */
+        font-size: 0.8rem; /* Readable text size */
+        font-weight: 500; /* Slightly bolder text for emphasis */
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .pending-btn:hover {
+        background-color: #357ABD; /* Slightly darker shade for hover */
+        transform: translateY(-1px); /* Slight lift effect */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        color: #ffffff; /* Ensure the text is still visible */
+    }
+
+    .pending-btn:focus {
+        outline: none; /* Remove default outline */
+        background-color: #357ABD; /* Keep the hover color for focus */
+        box-shadow: 0 0 0 0.25rem rgba(74, 144, 226, 0.5); /* Glow effect */
+    }
+
+    .pending-btn:active {
+        background-color: #2C6AA5; /* Even darker blue for active state */
+        transform: scale(0.98); /* Pressed-in effect */
+        box-shadow: none; /* Remove shadow for active state */
+    }
+
+</style>

@@ -186,8 +186,8 @@
                                 <hr class="result">
                                 <h5 class="text-warning fst-italic">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'truck']" />
-                            </client-only> Suppliers
+                                        <font-awesome-icon :icon="['fas', 'truck']" />
+                                    </client-only> Suppliers
                                 </h5>
                                 <hr class="result">
                             </div>
