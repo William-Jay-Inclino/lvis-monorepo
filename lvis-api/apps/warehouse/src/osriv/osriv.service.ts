@@ -12,6 +12,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class OsrivService {
@@ -86,13 +87,18 @@ export class OsrivService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.OSRIV)
+            const requisitioner = await getEmployee(osriv_created.requested_by_id, this.authUser)
+            
+            const description = get_pending_description({
+                employee: requisitioner,
+                purpose: osriv_created.purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: osrivNumber,
                 reference_table: DB_ENTITY.OSRIV,
-                description: `${ module.description } no. ${osrivNumber}`
+                description
             }
 
             await tx.pending.create({ data: pendingData })

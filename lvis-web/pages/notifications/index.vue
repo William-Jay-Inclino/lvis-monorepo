@@ -82,6 +82,7 @@
     import { findOne as findMeqsDetails } from '~/composables/purchase/meqs/meqs.api'
     import { findOne as findPoDetails } from '~/composables/purchase/po/po.api'
     import { findOne as findRrDetails } from '~/composables/warehouse/rr/rr.api'
+    import { findOne as findOsrivDetails } from '~/composables/warehouse/osriv/osriv.api'
     import Swal from 'sweetalert2'
     import { DB_ENTITY, type AuthUser } from '#imports';
     import type { Account } from '~/composables/accounting/account/account';
@@ -298,6 +299,18 @@
 
             currentTab.value = PENDING_MODAL_TABS.RR
 
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.OSRIV) {
+            const osriv = await findOsrivDetails(pendingData.reference_number)
+            
+            if(!osriv) {
+                console.error('osriv is undefined');
+                return 
+            }
+
+            pending_selected.value = {...pendingData, osriv }
+            currentTab.value = PENDING_MODAL_TABS.OSRIV
         }
 
         isLoadingModal.value = false

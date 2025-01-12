@@ -14,7 +14,8 @@
                 </div>
                 <div class="modal-body">
                     <div v-if="!isLoadingModal">
-                        <ul class="nav nav-tabs nav-fill bg-secondary">
+
+                        <ul v-if="is_purchasing" class="nav nav-tabs nav-fill bg-secondary">
                             <li v-show="showCanvass" class="nav-item">
                                 <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.CANVASS })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.CANVASS }" href="javascript:void(0)">
                                     Canvass
@@ -55,27 +56,35 @@
                         <div class="row">
                             <div class="col">
                                 <div class="modal-body-content">
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.CANVASS">
-                                        <CanvassDetail :canvass="pendingData?.canvass" />
+
+                                    <div v-if="is_purchasing">
+                                        <div v-if="currentTab === PENDING_MODAL_TABS.CANVASS">
+                                            <CanvassDetail :canvass="pendingData?.canvass" />
+                                        </div>
+                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.RV">
+                                            <RvDetail :rv="pendingData?.rv"/>
+                                        </div>
+                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.SPR">
+                                            <SprDetail :spr="pendingData?.spr"/>
+                                        </div>
+                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.JO">
+                                            <JoDetail :jo="pendingData?.jo"/>
+                                        </div>
+                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.MEQS">
+                                            <MeqsDetail :meqs="pendingData?.meqs"/>
+                                        </div>
+                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.PO">
+                                            <PoDetail :po="pendingData?.po"/>
+                                        </div>
+                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.RR">
+                                            <RrDetail :rr="pendingData?.rr"/>
+                                        </div>
                                     </div>
-                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.RV">
-                                        <RvDetail :rv="pendingData?.rv"/>
+                                    
+                                    <div v-if="!is_purchasing">
+                                        <OsrivDetail v-if="currentTab === PENDING_MODAL_TABS.OSRIV" />
                                     </div>
-                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.SPR">
-                                        <SprDetail :spr="pendingData?.spr"/>
-                                    </div>
-                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.JO">
-                                        <JoDetail :jo="pendingData?.jo"/>
-                                    </div>
-                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.MEQS">
-                                        <MeqsDetail :meqs="pendingData?.meqs"/>
-                                    </div>
-                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.PO">
-                                        <PoDetail :po="pendingData?.po"/>
-                                    </div>
-                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.RR">
-                                        <RrDetail :rr="pendingData?.rr"/>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -145,6 +154,7 @@
     import MeqsDetail from './MeqsDetail.vue';
     import PoDetail from './PoDetail.vue';
     import RrDetail from './RrDetail.vue';
+    import OsrivDetail from './OsrivDetail.vue';
     import type { Account } from '~/composables/accounting/account/account';
     import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
     import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';
@@ -282,6 +292,25 @@
         return false 
     })
 
+    const is_purchasing = computed( () => {
+        const purchasing_modules = [
+            PENDING_MODAL_TABS.CANVASS,
+            PENDING_MODAL_TABS.RV,
+            PENDING_MODAL_TABS.SPR,
+            PENDING_MODAL_TABS.JO,
+            PENDING_MODAL_TABS.MEQS,
+            PENDING_MODAL_TABS.PO,
+            PENDING_MODAL_TABS.RR,
+        ]
+
+        if(purchasing_modules.includes(props.currentTab)) {
+            return true 
+        } else {
+            return false
+        }
+
+    })
+
     // ACTIONS
     function onClickApprove() {
         emits('approve', { 
@@ -296,8 +325,6 @@
     function onClickDisapprove() {
         emits('disapprove', { pending_data: props.pendingData, action: 'disapprove', close_btn: pending_modal_close_btn.value })
     }
-
-
 
 
     // API SEARCH
