@@ -15,6 +15,7 @@ import { catchError, filter, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { UpdateGasSlipInput } from './dto/update-gas-slip.input';
 import { endOfYear, startOfYear } from 'date-fns';
+import { get_pending_description_for_motorpool, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class GasSlipService {
@@ -86,31 +87,39 @@ export class GasSlipService {
 			}
 		}
 
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
-            const gas_slip_created = await tx.gasSlip.create({ data })
+            const gas_slip_created = await tx.gasSlip.create({
+                data,
+                include: {
+                    vehicle: true,
+                }
+            })
 
             const firstApprover = input.approvers.reduce((min, obj) => {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.GAS_SLIP)
+            const requisitioner = await getEmployee(gas_slip_created.requested_by_id, this.authUser)
+            
+            const description = get_pending_description_for_motorpool({
+                vehicle: gas_slip_created.vehicle,
+                employee: requisitioner,
+                purpose: gas_slip_created.purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: gasSlipNumber,
                 reference_table: DB_ENTITY.GAS_SLIP,
-                description: `${ module.description } no. ${gasSlipNumber}`
+                description
             }
 
             await tx.pending.create({ data: pendingData })
 
-
             return gas_slip_created
         });
     
-        return result;
-
 	}
 
 	async update(id: string, input: UpdateGasSlipInput) {

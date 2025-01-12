@@ -1,10 +1,10 @@
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { toZonedTime, format } from 'date-fns-tz'; // Assuming you're using these methods
 import axios from 'axios';
-import { DB_ENTITY } from './constants';
-import { getFullnameWithTitles, getModule } from './helpers';
+import { getFullnameWithTitles } from './helpers';
 import { Employee } from './types';
 import { MEQS } from '../meqs/entities/meq.entity';
+import { Vehicle } from 'apps/warehouse/prisma/generated/client';
 
 const timeZone = process.env.TZ || 'Asia/Manila'; 
 
@@ -94,16 +94,41 @@ export const getEmployee = async(employeeId: string, authUser: AuthUser): Promis
 
 export const get_pending_description = (payload: {
     employee: Employee,
-    purpose: string,
+    purpose: string, 
+    label?: string,
 }): string => {
 
-    const { employee, purpose } = payload
+    const { employee, purpose, label = 'Requested by' } = payload
 
     const fullname = getFullnameWithTitles(employee.firstname, employee.lastname, employee.middlename, employee.name_prefix, employee.name_suffix)
 
     const description = [
-        `Requested by:`,
+        `${label}:`,
         `\t${fullname}`,
+        `------------------------------------------`,
+        `${purpose}`
+    ].join('\n');
+
+    return description
+}
+
+export const get_pending_description_for_motorpool = (payload: {
+    vehicle: Vehicle,
+    employee: Employee,
+    purpose: string, 
+    label?: string,
+}): string => {
+
+    const { employee, purpose, label = 'Requested by', vehicle } = payload
+
+    const fullname = getFullnameWithTitles(employee.firstname, employee.lastname, employee.middlename, employee.name_prefix, employee.name_suffix)
+
+    const description = [
+        `${label}:`,
+        `\t${fullname}`,
+        `------------------------------------------`,
+        `Vehicle No: ${ vehicle.vehicle_number }`,
+        `Vehicle Name: ${ vehicle.name }`,
         `------------------------------------------`,
         `${purpose}`
     ].join('\n');

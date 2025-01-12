@@ -12,6 +12,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class MctService {
@@ -66,31 +67,43 @@ export class MctService {
             },
         }
 
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
-            const mct_created = await tx.mCT.create({ data })
+            const mct_created = await tx.mCT.create({
+                data,
+                include: {
+                    mrv: {
+                        select: {
+                            requested_by_id: true,
+                            purpose: true,
+                        }
+                    }
+                }
+            })
 
             const firstApprover = input.approvers.reduce((min, obj) => {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.MCT)
+            const requisitioner = await getEmployee(mct_created.mrv.requested_by_id, this.authUser)
+            
+            const description = get_pending_description({
+                employee: requisitioner,
+                purpose: mct_created.mrv.purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: mctNumber,
                 reference_table: DB_ENTITY.MCT,
-                description: `${ module.description } no. ${mctNumber}`
+                description
             }
 
             await tx.pending.create({ data: pendingData })
 
-
             return mct_created
         });
     
-        return result;
-
     }
 
 

@@ -12,6 +12,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class SerivService {
@@ -84,7 +85,7 @@ export class SerivService {
 
         console.log('data', data);
         
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
             const seriv_created = await tx.sERIV.create({ data })
 
@@ -104,13 +105,18 @@ export class SerivService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.SERIV)
+            const requisitioner = await getEmployee(seriv_created.requested_by_id, this.authUser)
+            
+            const description = get_pending_description({
+                employee: requisitioner,
+                purpose: seriv_created.purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: serivNumber,
                 reference_table: DB_ENTITY.SERIV,
-                description: `${ module.description } no. ${serivNumber}`
+                description
             }
 
             await tx.pending.create({ data: pendingData })
@@ -119,7 +125,6 @@ export class SerivService {
             return seriv_created
         });
     
-        return result;
     }
 
     async update(id: string, input: UpdateSerivInput) {

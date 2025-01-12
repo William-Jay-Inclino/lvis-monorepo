@@ -12,6 +12,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class MrvService {
@@ -82,9 +83,9 @@ export class MrvService {
             }
         }
     
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
-            const osriv_created = await tx.mRV.create({ data })
+            const mrv_created = await tx.mRV.create({ data })
 
             for(let item of input.items) {
 
@@ -102,22 +103,26 @@ export class MrvService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.MRV)
+            const requisitioner = await getEmployee(mrv_created.requested_by_id, this.authUser)
+            
+            const description = get_pending_description({
+                employee: requisitioner,
+                purpose: mrv_created.purpose,
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: mrvNumber,
                 reference_table: DB_ENTITY.MRV,
-                description: `${ module.description } no. ${mrvNumber}`
+                description
             }
 
             await tx.pending.create({ data: pendingData })
 
 
-            return osriv_created
+            return mrv_created
         });
     
-        return result;
     }
 
     async update(id: string, input: UpdateMrvInput) {

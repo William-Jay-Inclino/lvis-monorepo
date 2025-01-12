@@ -13,6 +13,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
+import { get_pending_description, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class MstService {
@@ -69,7 +70,7 @@ export class MstService {
             }
         }
 
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
             const mst_created = await tx.mST.create({ data })
 
@@ -77,22 +78,26 @@ export class MstService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.MST)
+            const returned_by = await getEmployee(mst_created.returned_by_id, this.authUser)
+            
+            const description = get_pending_description({
+                employee: returned_by,
+                purpose: mst_created.remarks,
+                label: 'Returned by'
+            })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: mstNumber,
                 reference_table: DB_ENTITY.MST,
-                description: `${ module.description } no. ${mstNumber}`
+                description 
             }
 
             await tx.pending.create({ data: pendingData })
 
-
             return mst_created
         });
     
-        return result;
 
     }
 

@@ -67,7 +67,7 @@ export class OsrivService {
             }
         };
     
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
             const osriv_created = await tx.oSRIV.create({ data })
 
@@ -107,7 +107,6 @@ export class OsrivService {
             return osriv_created
         });
     
-        return result;
     }
 
     async update(id: string, input: UpdateOsrivInput) {

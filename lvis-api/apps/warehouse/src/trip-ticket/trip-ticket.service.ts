@@ -18,6 +18,7 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { CreateTripResponse } from './entities/create-trip-response.entity';
 import * as moment from 'moment';
+import { get_pending_description_for_motorpool, getEmployee } from '../__common__/utils';
 
 @Injectable()
 export class TripTicketService {
@@ -99,34 +100,43 @@ export class TripTicketService {
             }
 		}
 
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
-            const trip_created = await tx.tripTicket.create({ data })
+            const trip_created = await tx.tripTicket.create({
+				data,
+				include: {
+					vehicle: true
+				}
+			})
 
             const firstApprover = input.approvers.reduce((min, obj) => {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const module = getModule(DB_ENTITY.TRIP_TICKET)
+			const requisitioner = await getEmployee(trip_created.prepared_by_id, this.authUser)
+			
+			const description = get_pending_description_for_motorpool({
+				vehicle: trip_created.vehicle,
+				employee: requisitioner,
+				purpose: trip_created.purpose,
+				label: 'Prepared by'
+			})
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: tripNumber,
                 reference_table: DB_ENTITY.TRIP_TICKET,
-                description: `${ module.description } no. ${tripNumber}`
+                description
             }
 
             await tx.pending.create({ data: pendingData })
 
-
-            return trip_created
+            return {
+				success: true,
+				msg: 'Trip Ticket created successfully!',
+				data: trip_created
+			}
         });
-    
-        return {
-			success: true,
-			msg: 'Trip Ticket created successfully!',
-			data: result
-		}
 
 	}
 
