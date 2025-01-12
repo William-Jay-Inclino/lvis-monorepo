@@ -96,10 +96,10 @@ export class MeqsResolver {
         @Args('jo_number', { nullable: true }) jo_number?: string,
     ) {
         if (id) {
-            return this.meqsService.findOne(id);
+            return this.meqsService.findBy({ id })
         }
         if (meqs_number) {
-            return this.meqsService.findByMeqsNumber(meqs_number)
+            return this.meqsService.findBy({ meqs_number })
         }
         if (rv_number) {
             return this.meqsService.findByReference({ rv_number })

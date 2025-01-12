@@ -360,8 +360,8 @@ export class PoService {
 
     }
 
-    async findOne(id: string): Promise<PO | null> {
-        const item = await this.prisma.pO.findUnique({
+    async findBy(payload: { id?: string, po_number?: string }): Promise<PO | null> {
+        const item = await this.prisma.pO.findFirst({
             include: {
                 meqs_supplier: {
                     include: {
@@ -409,6 +409,22 @@ export class PoService {
                                         }
                                     }
                                 },
+                                meqs_suppliers: {
+                                    include: {
+                                        supplier: true,
+                                        attachments: true,
+                                        meqs_supplier_items: {
+                                            include: {
+                                                canvass_item: {
+                                                    include: {
+                                                        unit: true,
+                                                        item: true
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         },
                         supplier: true,
@@ -427,20 +443,12 @@ export class PoService {
                 },
                 rrs: true
             },
-            where: { id }
-        })
-
-        if (!item) {
-            throw new NotFoundException('PO not found')
-        }
-
-        return item
-    }
-
-    async findByPoNumber(po_number: string): Promise<PO | null> {
-        const item = await this.prisma.pO.findUnique({
-            include: this.includedFields,
-            where: { po_number }
+            where: {
+                OR: [
+                    { id: payload.id },
+                    { po_number: payload.po_number },
+                ]
+            }
         })
 
         if (!item) {

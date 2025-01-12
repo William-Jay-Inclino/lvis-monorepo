@@ -165,7 +165,7 @@ export class RrResolver {
     @ResolveField(() => Employee)
     async requested_by(@Parent() rr: RR) {
 
-        const po = await this.poService.findByPoNumber(rr.po_number) as unknown as PO
+        const po = await this.poService.findBy({ po_number: rr.po_number }) as unknown as PO
 
         if(!po) {
             throw new NotFoundException(`po number: ${rr.po_number} not found in po table`)

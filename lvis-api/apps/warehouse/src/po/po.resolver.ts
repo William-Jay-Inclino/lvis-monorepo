@@ -92,10 +92,10 @@ export class PoResolver {
         @Args('meqs_number', { nullable: true }) meqs_number?: string | null,
     ) {
         if (id) {
-            return this.poService.findOne(id);
+            return this.poService.findBy({ id });
         }
         if (po_number) {
-            return this.poService.findByPoNumber(po_number)
+            return this.poService.findBy({ po_number })
         }
         if (meqs_number) {
             return this.poService.findByMeqsNumber(meqs_number)
@@ -206,7 +206,7 @@ export class PoResolver {
     @ResolveField(() => Employee)
     async requested_by(@Parent() po: PO) {
 
-        const meqs = await this.meqsService.findByMeqsNumber(po.meqs_number) as unknown as MEQS
+        const meqs = await this.meqsService.findBy({ meqs_number: po.meqs_number }) as unknown as MEQS
         
         if(!meqs) {
             throw new NotFoundException(`meqs number: ${po.meqs_number} not found in meqs table`)

@@ -430,10 +430,15 @@ export class MeqsService {
 
     }
 
-    async findOne(id: string): Promise<MEQS | null> {
+    async findBy(payload: { id?: string, meqs_number?: string }): Promise<MEQS | null> {
 
-        const item = await this.prisma.mEQS.findUnique({
-            where: { id },
+        const item = await this.prisma.mEQS.findFirst({
+            where: {
+                OR: [
+                    { id: payload.id },
+                    { meqs_number: payload.meqs_number },
+                ]
+            },
             include: {
                 rv: {
                     include: {
@@ -499,21 +504,6 @@ export class MeqsService {
                     }
                 }
             }
-        })
-
-        if (!item) {
-            throw new NotFoundException('MEQS not found')
-        }
-
-        return item
-
-    }
-
-    async findByMeqsNumber(meqs_number: string): Promise<MEQS | null> {
-
-        const item = await this.prisma.mEQS.findUnique({
-            where: { meqs_number },
-            include: this.includedFields
         })
 
         if (!item) {

@@ -223,6 +223,20 @@ export async function findOne(id: string): Promise<RV | undefined> {
                     notes
                     date_approval
                 }
+                meqs {
+                    id
+                    meqs_number
+                    meqs_suppliers {
+                        po {
+                            id
+                            po_number
+                            rrs {
+                                id
+                                rr_number
+                            }
+                        }
+                    }
+                }
             }
         }
     `;
