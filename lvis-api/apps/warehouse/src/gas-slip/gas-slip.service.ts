@@ -166,12 +166,46 @@ export class GasSlipService {
 			used_on,
 		}
 
-		const updated = await this.prisma.gasSlip.update({
-			where: { id },
-			data
-		})
+		return await this.prisma.$transaction(async(tx) => {
+        
+            const gas_slip_updated = await tx.gasSlip.update({
+                data,
+				include: {
+					vehicle: true
+				},
+                where: { id }
+            })
 
-		return updated
+            const pending = await tx.pending.findFirst({
+				where: {
+					reference_number: gas_slip_updated.gas_slip_number,
+					reference_table: DB_ENTITY.GAS_SLIP,
+				}
+			})
+
+			if(pending) {
+
+				const driver = await getEmployee(gas_slip_updated.driver_id, this.authUser)
+			
+				const description = get_pending_description_for_motorpool({
+					vehicle: gas_slip_updated.vehicle,
+					employee: driver,
+					purpose: gas_slip_updated.purpose,
+				})
+
+				await tx.pending.update({
+					where: {
+						id: pending.id
+					},
+					data: {
+						description
+					}
+				})
+			}
+            
+            return gas_slip_updated
+
+        })
 		
 	}
 

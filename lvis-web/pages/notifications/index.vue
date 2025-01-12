@@ -14,11 +14,12 @@
                         <div class="mb-2">
                             <textarea class="form-control form-control-sm text-muted" rows="5" readonly>{{ item.description }}</textarea>
                         </div>
-                        <span class="small text-muted fst-italic">{{ formatDate(item.transaction_date, true) }}</span>
+                        <span class="small text-muted fst-italic">Created: {{ formatDate(item.transaction_date, true) }}</span>
 
                     </div>
                     <div class="card-footer text-center">
                         <button 
+                            :data-testid="`test-${ item.reference_table }-${ item.reference_number }`"
                             @click="on_click_view_details(item)"
                             class="btn pending-btn"
                         >

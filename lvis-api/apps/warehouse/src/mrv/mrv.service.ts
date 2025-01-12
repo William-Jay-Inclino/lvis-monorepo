@@ -178,11 +178,42 @@ export class MrvService {
                 updated_by: this.authUser.user.username,
             }
     
-            const result = await tx.mRV.update({
-                data,
-                where: { id }
+            return await this.prisma.$transaction(async(tx) => {
+
+                const mrv_updated = await tx.mRV.update({
+                    data,
+                    where: { id }
+                })
+    
+                const pending = await tx.pending.findFirst({
+                    where: {
+                        reference_number: mrv_updated.mrv_number,
+                        reference_table: DB_ENTITY.MRV,
+                    }
+                })
+    
+                if(pending) {
+    
+                    const requisitioner = await getEmployee(mrv_updated.requested_by_id, this.authUser)
+                
+                    const description = get_pending_description({
+                        employee: requisitioner,
+                        purpose: mrv_updated.purpose,
+                    })
+    
+                    await tx.pending.update({
+                        where: {
+                            id: pending.id
+                        },
+                        data: {
+                            description
+                        }
+                    })
+                }
+                
+                return mrv_updated
+    
             })
-            return result
 
         })
 

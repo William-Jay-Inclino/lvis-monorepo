@@ -137,12 +137,43 @@ export class OsrivService {
             updated_by: this.authUser.user.username,
         }
 
+        return await this.prisma.$transaction(async(tx) => {
 
-        const result = await this.prisma.oSRIV.update({
-            data,
-            where: { id }
+            const osriv_updated = await tx.oSRIV.update({
+                data,
+                where: { id }
+            })
+
+            const pending = await tx.pending.findFirst({
+                where: {
+                    reference_number: osriv_updated.osriv_number,
+                    reference_table: DB_ENTITY.OSRIV,
+                }
+            })
+
+            if(pending) {
+
+                const requisitioner = await getEmployee(osriv_updated.requested_by_id, this.authUser)
+            
+                const description = get_pending_description({
+                    employee: requisitioner,
+                    purpose: osriv_updated.purpose,
+                })
+
+                await tx.pending.update({
+                    where: {
+                        id: pending.id
+                    },
+                    data: {
+                        description
+                    }
+                })
+            }
+            
+            return osriv_updated
+
         })
-        return result
+
 
     }
 

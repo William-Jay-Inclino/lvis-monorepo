@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { RVApprover } from 'apps/warehouse/prisma/generated/client';
 import { DB_ENTITY } from '../__common__/constants';

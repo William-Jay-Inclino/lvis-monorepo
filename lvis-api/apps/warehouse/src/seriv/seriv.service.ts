@@ -181,11 +181,42 @@ export class SerivService {
             }
     
     
-            const result = await this.prisma.sERIV.update({
-                data,
-                where: { id }
+            return await this.prisma.$transaction(async(tx) => {
+
+                const seriv_updated = await tx.sERIV.update({
+                    data,
+                    where: { id }
+                })
+    
+                const pending = await tx.pending.findFirst({
+                    where: {
+                        reference_number: seriv_updated.seriv_number,
+                        reference_table: DB_ENTITY.SERIV,
+                    }
+                })
+    
+                if(pending) {
+    
+                    const requisitioner = await getEmployee(seriv_updated.requested_by_id, this.authUser)
+                
+                    const description = get_pending_description({
+                        employee: requisitioner,
+                        purpose: seriv_updated.purpose,
+                    })
+    
+                    await tx.pending.update({
+                        where: {
+                            id: pending.id
+                        },
+                        data: {
+                            description
+                        }
+                    })
+                }
+                
+                return seriv_updated
+    
             })
-            return result
 
         })
 

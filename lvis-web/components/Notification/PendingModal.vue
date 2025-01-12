@@ -184,7 +184,7 @@
                         <div class="mb-3">
                             <label class="label small">Select Fund Source</label>
                             <client-only>
-                                <v-select class="bg-white text-dark" data-testid="classification" @search="handleSearchAccounts" :options="accounts" label="name" v-model="fundSource"></v-select>
+                                <v-select class="bg-white text-dark" data-testid="fund-source" @search="handleSearchAccounts" :options="accounts" label="name" v-model="fundSource"></v-select>
                             </client-only>
                             <span class="text-danger fst-italic small">Please select a classification</span>
                         </div>
@@ -203,7 +203,7 @@
                             </client-only>
                             {{ isDisapproving ? 'Disapproving...' : 'Disapprove' }}
                         </button>
-                        <button @click="onClickApprove" :disabled="disable_approve_btn" class="btn btn-success flex-fill">
+                        <button data-testid="approve" @click="onClickApprove" :disabled="disable_approve_btn" class="btn btn-success flex-fill">
                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'check-circle']" />
                             </client-only>

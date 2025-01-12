@@ -187,8 +187,6 @@ export class TripTicketService {
 
 		}
 
-		const queries = []
-
 		const data: Prisma.TripTicketUpdateInput = {
             updated_by: this.authUser.user.username,
 			vehicle: input.vehicle_id ? 
@@ -208,94 +206,279 @@ export class TripTicketService {
 			prepared_by_id: input.prepared_by_id ?? existingItem.prepared_by_id,
 		}
 
-		const updateTripQ = this.prisma.tripTicket.update({
-			where: { id },
-			data
+		return await this.prisma.$transaction(async(tx) => {
+
+			const trip_ticket_updated = await tx.tripTicket.update({
+				where: { id },
+				data,
+				include: {
+					vehicle: true
+				}
+			})
+	
+			// change vehicle so change also the 1st approver or the vehicle assignee
+			if(input.vehicle_id && input.vehicle_id !== existingItem.vehicle_id) {
+	
+				const existingAssignee = existingItem.trip_ticket_approvers.find(i => i.order === 1)
+	
+				if(!existingAssignee) {
+					throw new NotFoundException(`Trip ticket approver not found with trip number of ${existingItem.trip_number} and order is 1`)
+				}
+	
+				const vehicle = await tx.vehicle.findUnique({
+					where: {
+						id: input.vehicle_id
+					},
+					select: {
+						id: true,
+						assignee_id: true,
+					}
+				})
+	
+				await tx.tripTicketApprover.update({
+					where: {
+						id: existingAssignee.id
+					},
+					data: {
+						approver_id: vehicle.assignee_id
+					}
+				})
+	
+			}
+	
+			// is_operation is truthy and needs to change the approver GM
+			if(input.is_operation !== undefined && input.is_operation !== existingItem.is_operation) {
+	
+				const existingGM = existingItem.trip_ticket_approvers.find(i => i.order === 4)
+	
+				// remove
+				if(existingGM) {
+					await tx.tripTicketApprover.delete({
+						where: {
+							id: existingGM.id
+						}
+					})
+				}
+	
+				// add gm as approver
+				if(input.is_operation === false) {
+	
+					const general_manager = await this.get_general_manager(this.authUser)
+	
+					if(!general_manager) {
+						throw new NotFoundException("General manager is not found or undefined")
+					}
+	
+					await tx.tripTicketApprover.create({
+						data: {
+							trip_ticket_id: id,
+							approver_id: general_manager.id,
+							label: 'GM / OIC',
+							order: 4,
+							notes: '',
+							status: TRIP_TICKET_STATUS.PENDING,
+						}
+					})
+	
+				}
+	
+			}
+
+			const pending = await tx.pending.findFirst({
+				where: {
+					reference_number: trip_ticket_updated.trip_number,
+					reference_table: DB_ENTITY.TRIP_TICKET,
+				}
+			})
+
+			if(pending) {
+
+				const driver = await getEmployee(trip_ticket_updated.driver_id, this.authUser)
+			
+				const description = get_pending_description_for_motorpool({
+					vehicle: trip_ticket_updated.vehicle,
+					employee: driver,
+					purpose: trip_ticket_updated.purpose,
+				})
+
+				await tx.pending.update({
+					where: {
+						id: pending.id
+					},
+					data: {
+						description
+					}
+				})
+			}
+	
+			return {
+				success: true,
+				msg: 'Trip Ticket updated successfully!',
+				data: trip_ticket_updated
+			}
+
 		})
 
-		queries.push(updateTripQ)
-		
-		// change vehicle so change also the 1st approver or the vehicle assignee
-		if(input.vehicle_id && input.vehicle_id !== existingItem.vehicle_id) {
-
-			const existingAssignee = existingItem.trip_ticket_approvers.find(i => i.order === 1)
-
-			if(!existingAssignee) {
-				throw new NotFoundException(`Trip ticket approver not found with trip number of ${existingItem.trip_number} and order is 1`)
-			}
-
-			const vehicle = await this.prisma.vehicle.findUnique({
-				where: {
-					id: input.vehicle_id
-				},
-				select: {
-					id: true,
-					assignee_id: true,
-				}
-			})
-
-			const updateAssigneeQ = this.prisma.tripTicketApprover.update({
-				where: {
-					id: existingAssignee.id
-				},
-				data: {
-					approver_id: vehicle.assignee_id
-				}
-			})
-
-			queries.push(updateAssigneeQ)
-		}
-
-		// is_operation is truthy and needs to change the approver GM
-		if(input.is_operation !== undefined && input.is_operation !== existingItem.is_operation) {
-
-			const existingGM = existingItem.trip_ticket_approvers.find(i => i.order === 4)
-
-			// remove
-			if(existingGM) {
-				const removeGmQ = this.prisma.tripTicketApprover.delete({
-					where: {
-						id: existingGM.id
-					}
-				})
-				queries.push(removeGmQ)
-			}
-
-			// add gm as approver
-			if(input.is_operation === false) {
-
-				const general_manager = await this.get_general_manager(this.authUser)
-
-				if(!general_manager) {
-					throw new NotFoundException("General manager is not found or undefined")
-				}
-
-				const updateGmQ = this.prisma.tripTicketApprover.create({
-					data: {
-						trip_ticket_id: id,
-						approver_id: general_manager.id,
-						label: 'GM / OIC',
-						order: 4,
-						notes: '',
-						status: TRIP_TICKET_STATUS.PENDING,
-					}
-				})
-
-				queries.push(updateGmQ)
-				
-			}
-
-		}
-
-		const result = await this.prisma.$transaction(queries)
-
-		return {
-			success: true,
-			msg: 'Trip Ticket updated successfully!',
-			data: result[0]
-		}
 
 	}
+
+	// async update(id: string, input: UpdateTripTicketInput): Promise<CreateTripResponse> {
+    //     const existingItem = await this.prisma.tripTicket.findUnique({
+    //         where: { id },
+    //         include: {
+    //             trip_ticket_approvers: true
+    //         }
+    //     })
+
+    //     if (!existingItem) {
+    //         throw new NotFoundException('Trip ticket not found')
+    //     }
+
+	// 	if (!this.canAccess(existingItem)) {
+    //         throw new ForbiddenException('Only Admin and Owner can update this record!')
+    //     }
+
+	// 	if (!(await this.canUpdate(input, existingItem))) {
+    //         throw new Error('Failed to update Trip Ticket. Please try again')
+    //     }
+
+	// 	let startTime = null
+	// 	let endTime = null
+
+	// 	if ((input.start_time && !input.end_time) || (!input.start_time && input.end_time)) {
+	// 		throw new BadRequestException('Start time and End time are both required');
+	// 	}
+		  
+	// 	if (input.start_time && input.end_time) {
+	// 		startTime = new Date(input.start_time);
+	// 		endTime = new Date(input.end_time);
+		  
+	// 		const validate_response = await this.validateTripScheduleConflict({
+	// 			tripId: id,
+	// 			vehicleId: input.vehicle_id,
+	// 			driverId: input.driver_id,
+	// 			startTime,
+	// 			endTime
+	// 		});
+
+	// 		if(validate_response.success === false) {
+	// 			return {
+	// 				success: false,
+	// 				msg: validate_response.msg,
+	// 			}
+	// 		}
+
+	// 	}
+
+	// 	const queries = []
+
+	// 	const data: Prisma.TripTicketUpdateInput = {
+    //         updated_by: this.authUser.user.username,
+	// 		vehicle: input.vehicle_id ? 
+	// 			{ connect: { id: input.vehicle_id } }
+	// 			: 
+	// 			{ connect: { id: existingItem.vehicle_id } },
+	// 		driver_id: input.driver_id ?? existingItem.driver_id,
+	// 		passengers: input.passengers ?? existingItem.passengers,
+	// 		destination: input.destination ?? existingItem.destination,
+	// 		purpose: input.purpose ?? existingItem.purpose,
+	// 		start_time: startTime ?? existingItem.start_time,
+	// 		end_time: endTime ?? existingItem.end_time,
+	// 		is_operation: input.is_operation ?? existingItem.is_operation,
+	// 		is_stay_in: input.is_stay_in ?? existingItem.is_stay_in,
+	// 		is_personal: input.is_personal ?? existingItem.is_personal,
+	// 		is_out_of_coverage: input.is_out_of_coverage ?? existingItem.is_out_of_coverage,
+	// 		prepared_by_id: input.prepared_by_id ?? existingItem.prepared_by_id,
+	// 	}
+
+	// 	const updateTripQ = this.prisma.tripTicket.update({
+	// 		where: { id },
+	// 		data
+	// 	})
+
+	// 	queries.push(updateTripQ)
+		
+	// 	// change vehicle so change also the 1st approver or the vehicle assignee
+	// 	if(input.vehicle_id && input.vehicle_id !== existingItem.vehicle_id) {
+
+	// 		const existingAssignee = existingItem.trip_ticket_approvers.find(i => i.order === 1)
+
+	// 		if(!existingAssignee) {
+	// 			throw new NotFoundException(`Trip ticket approver not found with trip number of ${existingItem.trip_number} and order is 1`)
+	// 		}
+
+	// 		const vehicle = await this.prisma.vehicle.findUnique({
+	// 			where: {
+	// 				id: input.vehicle_id
+	// 			},
+	// 			select: {
+	// 				id: true,
+	// 				assignee_id: true,
+	// 			}
+	// 		})
+
+	// 		const updateAssigneeQ = this.prisma.tripTicketApprover.update({
+	// 			where: {
+	// 				id: existingAssignee.id
+	// 			},
+	// 			data: {
+	// 				approver_id: vehicle.assignee_id
+	// 			}
+	// 		})
+
+	// 		queries.push(updateAssigneeQ)
+	// 	}
+
+	// 	// is_operation is truthy and needs to change the approver GM
+	// 	if(input.is_operation !== undefined && input.is_operation !== existingItem.is_operation) {
+
+	// 		const existingGM = existingItem.trip_ticket_approvers.find(i => i.order === 4)
+
+	// 		// remove
+	// 		if(existingGM) {
+	// 			const removeGmQ = this.prisma.tripTicketApprover.delete({
+	// 				where: {
+	// 					id: existingGM.id
+	// 				}
+	// 			})
+	// 			queries.push(removeGmQ)
+	// 		}
+
+	// 		// add gm as approver
+	// 		if(input.is_operation === false) {
+
+	// 			const general_manager = await this.get_general_manager(this.authUser)
+
+	// 			if(!general_manager) {
+	// 				throw new NotFoundException("General manager is not found or undefined")
+	// 			}
+
+	// 			const updateGmQ = this.prisma.tripTicketApprover.create({
+	// 				data: {
+	// 					trip_ticket_id: id,
+	// 					approver_id: general_manager.id,
+	// 					label: 'GM / OIC',
+	// 					order: 4,
+	// 					notes: '',
+	// 					status: TRIP_TICKET_STATUS.PENDING,
+	// 				}
+	// 			})
+
+	// 			queries.push(updateGmQ)
+				
+	// 		}
+
+	// 	}
+
+	// 	const result = await this.prisma.$transaction(queries)
+
+	// 	return {
+	// 		success: true,
+	// 		msg: 'Trip Ticket updated successfully!',
+	// 		data: result[0]
+	// 	}
+
+	// }
 
 	async cancel(id: string): Promise<WarehouseCancelResponse> {
 

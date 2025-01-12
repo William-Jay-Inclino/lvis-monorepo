@@ -163,11 +163,43 @@ export class McrtService {
         }
 
 
-        const result = await this.prisma.mCRT.update({
-            data,
-            where: { id }
+        return await this.prisma.$transaction(async(tx) => {
+
+            const mcrt_updated = await tx.mCRT.update({
+                data,
+                where: { id }
+            })
+
+            const pending = await tx.pending.findFirst({
+                where: {
+                    reference_number: mcrt_updated.mcrt_number,
+                    reference_table: DB_ENTITY.MCRT,
+                }
+            })
+
+            if(pending) {
+
+                const returned_by = await getEmployee(mcrt_updated.returned_by_id, this.authUser)
+            
+                const description = get_pending_description({
+                    employee: returned_by,
+                    purpose: mcrt_updated.note,
+                    label: 'Returned by'
+                })
+
+                await tx.pending.update({
+                    where: {
+                        id: pending.id
+                    },
+                    data: {
+                        description
+                    }
+                })
+            }
+            
+            return mcrt_updated
+
         })
-        return result
 
     }
 

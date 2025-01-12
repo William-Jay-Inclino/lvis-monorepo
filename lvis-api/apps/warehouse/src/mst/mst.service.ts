@@ -136,11 +136,43 @@ export class MstService {
         }
 
 
-        const result = await this.prisma.mST.update({
-            data,
-            where: { id }
+        return await this.prisma.$transaction(async(tx) => {
+
+            const mst_updated = await tx.mST.update({
+                data,
+                where: { id }
+            })
+
+            const pending = await tx.pending.findFirst({
+                where: {
+                    reference_number: mst_updated.mst_number,
+                    reference_table: DB_ENTITY.MST,
+                }
+            })
+
+            if(pending) {
+
+                const returned_by = await getEmployee(mst_updated.returned_by_id, this.authUser)
+            
+                const description = get_pending_description({
+                    employee: returned_by,
+                    purpose: mst_updated.remarks,
+                    label: 'Returned by'
+                })
+
+                await tx.pending.update({
+                    where: {
+                        id: pending.id
+                    },
+                    data: {
+                        description
+                    }
+                })
+            }
+            
+            return mst_updated
+
         })
-        return result
 
     }
 

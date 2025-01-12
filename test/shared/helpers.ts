@@ -43,19 +43,24 @@ export const approve_signatory = async(
         db_entity: DB_ENTITY, 
         popup: 'swal' | 'modal',
         dropdown_testid?: string, 
+        url: string,
     }) => {
-    const { page, ref_number, db_entity, popup, dropdown_testid } = payload
+    const { page, ref_number, db_entity, popup, dropdown_testid, url } = payload
     
     // click notification icon
     await x.click({ page, test_id: 'notification' })
 
+    await expect(page).toHaveURL(`${url}/notifications`, { timeout: 5000 });
+
     // approve the item in the table
     await x.click({ page, test_id: `test-${db_entity}-${ref_number}` })
 
-    if(popup === 'modal' && dropdown_testid) {
+    if(dropdown_testid) {
+        console.log('dropdown_testid', dropdown_testid);
         await x.custom_select({ page, test_id: dropdown_testid })
-        await x.click({ page, test_id: 'approve' })
     }
+
+    await x.click({ page, test_id: 'approve' })
 
     // close popup is a loop. It wil always click ok or confirm
     await x.close_popup({ page })
@@ -95,6 +100,7 @@ export const approve_signatories = async(
             db_entity: db_entity,
             popup: approver.popup,
             dropdown_testid,
+            url,
         })
 
         await logout({ page, url })
