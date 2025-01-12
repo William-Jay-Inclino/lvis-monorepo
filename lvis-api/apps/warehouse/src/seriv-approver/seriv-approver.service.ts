@@ -28,6 +28,11 @@ export class SerivApproverService {
                     seriv: {
                         select: {
                             seriv_number: true,
+                            seriv_approvers: {
+                                orderBy: {
+                                    order: 'asc'
+                                }
+                            }
                         },
                     },
                 },
@@ -41,13 +46,6 @@ export class SerivApproverService {
                 throw new BadRequestException('Can only change approver if status is pending')
             }
     
-            const updateSerivApprover = await prisma.sERIVApprover.update({
-                where: { id },
-                data: {
-                    approver_id: input.new_approver_id,
-                },
-            });
-    
             const pending = await prisma.pending.findUnique({
                 where: {
                     approver_id_reference_number_reference_table: {
@@ -59,21 +57,58 @@ export class SerivApproverService {
             });
     
             if (pending) {
-                // delete previous approver's pending
-                await prisma.pending.delete({
-                    where: { id: pending.id },
-                });
 
-                // add pending for new approver
-                await prisma.pending.create({
-                    data: {
-                        approver_id: input.new_approver_id,
-                        reference_number: pending.reference_number,
-                        reference_table: pending.reference_table,
-                        description: pending.description,
-                    },
-                });
+                const approvers = item.seriv.seriv_approvers.filter(i => i.approver_id === item.approver_id)
+
+                // check if approver to update has duplicates
+                if(approvers.length > 1) {
+
+                    const leastOrder = approvers.reduce((min, obj) => {
+                        return obj.order < min.order ? obj : min
+                    }, approvers[0])
+
+                    // can update since approver to update has the least order. Meaning first on the queue
+                    if(item.id === leastOrder.id) {
+
+                        // delete previous approver's pending
+                        await prisma.pending.delete({
+                            where: { id: pending.id },
+                        });
+        
+                        // add pending for new approver
+                        await prisma.pending.create({
+                            data: {
+                                approver_id: input.new_approver_id,
+                                reference_number: pending.reference_number,
+                                reference_table: pending.reference_table,
+                                description: pending.description,
+                            },
+                        });
+                    }
+                } else {
+                    // delete previous approver's pending
+                    await prisma.pending.delete({
+                        where: { id: pending.id },
+                    });
+    
+                    // add pending for new approver
+                    await prisma.pending.create({
+                        data: {
+                            approver_id: input.new_approver_id,
+                            reference_number: pending.reference_number,
+                            reference_table: pending.reference_table,
+                            description: pending.description,
+                        },
+                    });
+                }
             }
+
+            const updateSerivApprover = await prisma.sERIVApprover.update({
+                where: { id },
+                data: {
+                    approver_id: input.new_approver_id,
+                },
+            });
     
             return updateSerivApprover;
         });

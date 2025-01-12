@@ -20,6 +20,20 @@ export class TripTicketApproverService {
         this.authUser = authUser
     }
 
+    /*
+        Problem: 2 the same approvers then update 2nd approver. The pending of the first approver is affected
+
+        Solution: 
+        1. Should only update pending if 1st approver is selected
+
+        Algorithm:
+        1. Get all approvers
+        2. Get order of the approver to update
+        3. Check if approver to update has duplicates
+        4. If has duplicate then check if it's not 1st. Only update pending if first 
+
+    */
+
     async changeApprover(id: string, input: ChangeTripTicketApproverInput) {
         return this.prisma.$transaction(async (prisma) => {
             const item = await prisma.tripTicketApprover.findUnique({
@@ -28,6 +42,11 @@ export class TripTicketApproverService {
                     trip_ticket: {
                         select: {
                             trip_number: true,
+                            trip_ticket_approvers: {
+                                orderBy: {
+                                    order: 'asc'
+                                }
+                            }
                         },
                     },
                 },
@@ -37,16 +56,11 @@ export class TripTicketApproverService {
                 throw new NotFoundException('trip ticket approver not found with id of ' + id);
             }
 
+            console.log('item', item);
+
             if(item.status !== APPROVAL_STATUS.PENDING) {
                 throw new BadRequestException('Can only change approver if status is pending')
             }
-    
-            const updateApprover = await prisma.tripTicketApprover.update({
-                where: { id },
-                data: {
-                    approver_id: input.new_approver_id,
-                },
-            });
     
             const pending = await prisma.pending.findUnique({
                 where: {
@@ -59,21 +73,58 @@ export class TripTicketApproverService {
             });
     
             if (pending) {
-                // delete previous approver's pending
-                await prisma.pending.delete({
-                    where: { id: pending.id },
-                });
 
-                // add pending for new approver
-                await prisma.pending.create({
-                    data: {
-                        approver_id: input.new_approver_id,
-                        reference_number: pending.reference_number,
-                        reference_table: pending.reference_table,
-                        description: pending.description,
-                    },
-                });
+                const approvers = item.trip_ticket.trip_ticket_approvers.filter(i => i.approver_id === item.approver_id)
+
+                // check if approver to update has duplicates
+                if(approvers.length > 1) {
+
+                    const leastOrder = approvers.reduce((min, obj) => {
+                        return obj.order < min.order ? obj : min
+                    }, approvers[0])
+
+                    // can update since approver to update has the least order. Meaning first on the queue
+                    if(item.id === leastOrder.id) {
+
+                        // delete previous approver's pending
+                        await prisma.pending.delete({
+                            where: { id: pending.id },
+                        });
+        
+                        // add pending for new approver
+                        await prisma.pending.create({
+                            data: {
+                                approver_id: input.new_approver_id,
+                                reference_number: pending.reference_number,
+                                reference_table: pending.reference_table,
+                                description: pending.description,
+                            },
+                        });
+                    }
+                } else {
+                    // delete previous approver's pending
+                    await prisma.pending.delete({
+                        where: { id: pending.id },
+                    });
+    
+                    // add pending for new approver
+                    await prisma.pending.create({
+                        data: {
+                            approver_id: input.new_approver_id,
+                            reference_number: pending.reference_number,
+                            reference_table: pending.reference_table,
+                            description: pending.description,
+                        },
+                    });
+                }
             }
+
+            const updateApprover = await prisma.tripTicketApprover.update({
+                where: { id },
+                data: {
+                    approver_id: input.new_approver_id,
+                },
+            });
     
             return updateApprover;
         });
