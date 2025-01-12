@@ -68,7 +68,7 @@
                             <td class="text-muted"> {{ po.fund_source ? po.fund_source.name : 'N/A' }} </td>
                         </tr>
                         <tr>
-                            <td class="text-white align-middle">PO Notes</td>
+                            <td class="align-middle">PO Notes</td>
                             <td class="text-muted">
                                 <textarea rows="2" class="form-control form-control-sm text-muted" :value="po.notes" readonly/>
                             </td>
@@ -148,16 +148,16 @@
                     <table class="table table-sm table-bordered small">
                         <thead>
                             <tr>
-                                <th class="bg-secondary text-white">No</th>
-                                <th class="bg-secondary text-white">Description</th>
-                                <th class="bg-secondary text-white">Item Class</th>
-                                <th class="bg-secondary text-white">Unit</th>
-                                <th class="bg-secondary text-white">Qty</th>
-                                <th class="bg-secondary text-white">VAT Type</th>
-                                <th class="bg-secondary text-white">Unit Cost</th>
-                                <th class="bg-secondary text-white">Vatable Amount</th>
-                                <th class="bg-secondary text-white">VAT</th>
-                                <th class="bg-secondary text-white">Total Cost</th>
+                                <th class="bg-secondary text-white align-middle">No</th>
+                                <th class="bg-secondary text-white align-middle">Description</th>
+                                <th class="bg-secondary text-white align-middle">Item Class</th>
+                                <th class="bg-secondary text-white align-middle">Unit</th>
+                                <th class="bg-secondary text-white align-middle">Qty</th>
+                                <th class="bg-secondary text-white align-middle">VAT Type</th>
+                                <th class="bg-secondary text-white align-middle">Unit Cost</th>
+                                <th class="bg-secondary text-white align-middle">Vatable Amount</th>
+                                <th class="bg-secondary text-white align-middle">VAT</th>
+                                <th class="bg-secondary text-white align-middle">Total Cost</th>
                             </tr>
                         </thead>
                         <tbody>

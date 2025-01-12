@@ -196,15 +196,15 @@
                     <table class="table table-sm table-bordered small">
                         <thead>
                             <tr>
-                                <th class="bg-secondary text-white"> No </th>
-                                <th class="bg-secondary text-white"> Item </th>
-                                <th class="bg-secondary text-white"> Unit Price </th>
-                                <th class="bg-secondary text-white"> Qty </th>
-                                <th class="bg-secondary text-white text-center"
+                                <th class="bg-secondary text-white align-middle"> No </th>
+                                <th class="bg-secondary text-white align-middle"> Item </th>
+                                <th class="bg-secondary text-white align-middle"> Unit Price </th>
+                                <th class="bg-secondary text-white align-middle"> Qty </th>
+                                <th class="bg-secondary text-white text-center align-middle"
                                     v-for="meqsSupplier in meqs.meqs_suppliers">
                                     {{ `${meqsSupplier.supplier?.name}` }}
                                 </th>
-                                <th class="bg-secondary text-white text-center">Remarks</th>
+                                <th class="bg-secondary text-white text-center align-middle">Remarks</th>
                             </tr>
                         </thead>
                         <tbody v-if="referenceData?.canvass">
