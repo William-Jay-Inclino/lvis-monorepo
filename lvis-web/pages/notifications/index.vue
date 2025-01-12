@@ -88,6 +88,8 @@
     import { findOne as findMctDetails } from '~/composables/warehouse/mct/mct.api'
     import { findOne as findMcrtDetails } from '~/composables/warehouse/mcrt/mcrt.api'
     import { findOne as findMstDetails } from '~/composables/warehouse/mst/mst.api'
+    import { findOne as findTripDetails } from '~/composables/motorpool/trip-ticket/trip-ticket.api'
+    import { findOne as findGasSlipDetails } from '~/composables/motorpool/gas-slip/gas-slip.api'
     import Swal from 'sweetalert2'
     import type { Account } from '~/composables/accounting/account/account';
     import type { Classification } from '~/composables/accounting/classification/classification';
@@ -374,6 +376,30 @@
 
             pending_selected.value = {...pendingData, mst }
             currentTab.value = PENDING_MODAL_TABS.MST
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.TRIP_TICKET) {
+            const tripTicket = await findTripDetails(pendingData.reference_number)
+            
+            if(!tripTicket) {
+                console.error('tripTicket is undefined');
+                return 
+            }
+
+            pending_selected.value = {...pendingData, tripTicket }
+            currentTab.value = PENDING_MODAL_TABS.TRIP_TICKET
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.GAS_SLIP) {
+            const gasSlip = await findGasSlipDetails(pendingData.reference_number)
+            
+            if(!gasSlip) {
+                console.error('gasSlip is undefined');
+                return 
+            }
+
+            pending_selected.value = {...pendingData, gasSlip }
+            currentTab.value = PENDING_MODAL_TABS.GAS_SLIP
         }
 
         isLoadingModal.value = false

@@ -152,6 +152,12 @@
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.MST">
                                         <NotificationMstDetail :mst="pendingData?.mst" />
                                     </div>
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.TRIP_TICKET">
+                                        <NotificationTripTicketDetail :trip_ticket="pendingData?.tripTicket" />
+                                    </div>
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.GAS_SLIP">
+                                        <NotificationGasSlipDetail :gas_slip="pendingData?.gasSlip" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

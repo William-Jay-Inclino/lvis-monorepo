@@ -100,11 +100,11 @@ export class GasSlipService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const requisitioner = await getEmployee(gas_slip_created.requested_by_id, this.authUser)
+            const driver = await getEmployee(gas_slip_created.driver_id, this.authUser)
             
             const description = get_pending_description_for_motorpool({
                 vehicle: gas_slip_created.vehicle,
-                employee: requisitioner,
+                employee: driver,
                 purpose: gas_slip_created.purpose,
             })
     

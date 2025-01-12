@@ -113,13 +113,12 @@ export class TripTicketService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-			const requisitioner = await getEmployee(trip_created.prepared_by_id, this.authUser)
+			const driver = await getEmployee(trip_created.driver_id, this.authUser)
 			
 			const description = get_pending_description_for_motorpool({
 				vehicle: trip_created.vehicle,
-				employee: requisitioner,
+				employee: driver,
 				purpose: trip_created.purpose,
-				label: 'Prepared by'
 			})
     
             const pendingData = {

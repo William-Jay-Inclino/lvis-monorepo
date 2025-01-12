@@ -119,7 +119,7 @@ export const get_pending_description_for_motorpool = (payload: {
     label?: string,
 }): string => {
 
-    const { employee, purpose, label = 'Requested by', vehicle } = payload
+    const { employee, purpose, label = 'Driver', vehicle } = payload
 
     const fullname = getFullnameWithTitles(employee.firstname, employee.lastname, employee.middlename, employee.name_prefix, employee.name_suffix)
 
