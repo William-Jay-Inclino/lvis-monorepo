@@ -64,15 +64,13 @@ export class SerivApproverService {
                     where: { id: pending.id },
                 });
 
-                const module = getModule(DB_ENTITY.SERIV)
-    
                 // add pending for new approver
                 await prisma.pending.create({
                     data: {
                         approver_id: input.new_approver_id,
-                        reference_number: item.seriv.seriv_number,
-                        reference_table: DB_ENTITY.SERIV,
-                        description: `${ module.description } no. ${item.seriv.seriv_number}`,
+                        reference_number: pending.reference_number,
+                        reference_table: pending.reference_table,
+                        description: pending.description,
                     },
                 });
             }

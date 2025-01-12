@@ -79,6 +79,9 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr v-if="isAdmin(authUser)">
+                                            <td colspan="2" class="text-muted">RFID: {{ item.rf_id }}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

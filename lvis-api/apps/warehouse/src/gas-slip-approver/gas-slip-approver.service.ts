@@ -66,15 +66,13 @@ export class GasSlipApproverService {
                     where: { id: pending.id },
                 });
 
-                const module = getModule(DB_ENTITY.GAS_SLIP)
-
                 // add pending for new approver
                 await prisma.pending.create({
                     data: {
                         approver_id: input.new_approver_id,
-                        reference_number: item.gas_slip.gas_slip_number,
-                        reference_table: DB_ENTITY.GAS_SLIP,
-                        description: `${ module.description } no. ${item.gas_slip.gas_slip_number}`,
+                        reference_number: pending.reference_number,
+                        reference_table: pending.reference_table,
+                        description: pending.description,
                     },
                 });
             } 

@@ -64,15 +64,13 @@ export class MrvApproverService {
                     where: { id: pending.id },
                 });
 
-                const module = getModule(DB_ENTITY.MRV)
-    
                 // add pending for new approver
                 await prisma.pending.create({
                     data: {
                         approver_id: input.new_approver_id,
-                        reference_number: item.mrv.mrv_number,
-                        reference_table: DB_ENTITY.MRV,
-                        description: `${ module.description } no. ${item.mrv.mrv_number}`,
+                        reference_number: pending.reference_number,
+                        reference_table: pending.reference_table,
+                        description: pending.description,
                     },
                 });
             }

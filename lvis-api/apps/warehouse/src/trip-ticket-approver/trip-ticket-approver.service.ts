@@ -64,15 +64,13 @@ export class TripTicketApproverService {
                     where: { id: pending.id },
                 });
 
-                const module = getModule(DB_ENTITY.TRIP_TICKET)
-    
                 // add pending for new approver
                 await prisma.pending.create({
                     data: {
                         approver_id: input.new_approver_id,
-                        reference_number: item.trip_ticket.trip_number,
-                        reference_table: DB_ENTITY.TRIP_TICKET,
-                        description: `${ module.description } no. ${item.trip_ticket.trip_number}`,
+                        reference_number: pending.reference_number,
+                        reference_table: pending.reference_table,
+                        description: pending.description,
                     },
                 });
             }

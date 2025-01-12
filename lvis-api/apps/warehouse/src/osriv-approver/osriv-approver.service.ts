@@ -64,15 +64,13 @@ export class OsrivApproverService {
                     where: { id: pending.id },
                 });
 
-                const module = getModule(DB_ENTITY.OSRIV)
-    
                 // add pending for new approver
                 await prisma.pending.create({
                     data: {
                         approver_id: input.new_approver_id,
-                        reference_number: item.osriv.osriv_number,
-                        reference_table: DB_ENTITY.OSRIV,
-                        description: `${ module.description } no. ${item.osriv.osriv_number}`,
+                        reference_number: pending.reference_number,
+                        reference_table: pending.reference_table,
+                        description: pending.description,
                     },
                 });
             }
