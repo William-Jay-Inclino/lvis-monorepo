@@ -33,6 +33,13 @@ h5 {
     margin: 0;
 }
 
+textarea.form-control {
+    resize: none;
+    min-width: 120px;
+    max-width: 100%;
+    white-space: normal;
+}
+
 .h5wrapper {
     display: flex;
     align-items: center;
