@@ -31,17 +31,65 @@ export class PoService {
                     include: {
                         rv: {
                             include: {
-                                canvass: true
+                                canvass: {
+                                    include: {
+                                        canvass_items: {
+                                            include: {
+                                                unit: true,
+                                                item: true
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         },
                         spr: {
                             include: {
-                                canvass: true
+                                canvass: {
+                                    include: {
+                                        canvass_items: {
+                                            include: {
+                                                unit: true,
+                                                item: true
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         },
                         jo: {
                             include: {
-                                canvass: true
+                                canvass: {
+                                    include: {
+                                        canvass_items: {
+                                            include: {
+                                                unit: true,
+                                                item: true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        meqs_suppliers: {
+                            include: {
+                                po: {
+                                    include: {
+                                        rrs: true
+                                    }
+                                },
+                                supplier: true,
+                                attachments: true,
+                                meqs_supplier_items: {
+                                    include: {
+                                        canvass_item: {
+                                            include: {
+                                                unit: true,
+                                                item: true
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

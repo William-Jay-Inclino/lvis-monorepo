@@ -38,13 +38,13 @@
                         <tr>
                             <td class="align-middle">Requisitioner Purpose</td>
                             <td class="text-muted">
-                                <textarea rows="2" class="form-control form-control-sm" :value="spr.canvass.purpose" readonly/>
+                                <textarea rows="2" class="form-control form-control-sm text-muted" :value="spr.canvass.purpose" readonly/>
                             </td>
                         </tr>
                         <tr>
                             <td class="align-middle">Requisitioner Notes</td>
                             <td class="text-muted">
-                                <textarea rows="2" class="form-control form-control-sm" :value="spr.canvass.notes" readonly/>
+                                <textarea rows="2" class="form-control form-control-sm text-muted" :value="spr.canvass.notes" readonly/>
                             </td>
                         </tr>
                         <tr>
@@ -62,7 +62,7 @@
                         <tr>
                             <td class="align-middle">SPR Notes</td>
                             <td class="text-muted">
-                                <textarea rows="2" class="form-control form-control-sm" :value="spr.notes" readonly/>
+                                <textarea rows="2" class="form-control form-control-sm text-muted" :value="spr.notes" readonly/>
                             </td>
                         </tr>
                     </tbody>

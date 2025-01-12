@@ -30,8 +30,8 @@
                             <li v-show="showMEQS" class="nav-item">
                                 <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.MEQS })" class="nav-link" :class="{'active': currentTab === PENDING_MODAL_TABS.MEQS }" href="javascript:void(0)">MEQS</a>
                             </li>
-                            <li v-show="showPO" class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)">PO</a>
+                            <li v-show="showMEQS" class="nav-item">
+                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.PO })" class="nav-link" :class="{'active': currentTab === PENDING_MODAL_TABS.PO }" href="javascript:void(0)">PO</a>
                             </li>
                             <li v-show="showRR" class="nav-item">
                                 <a class="nav-link" href="javascript:void(0)">RR</a>
@@ -58,6 +58,9 @@
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.MEQS">
                                         <MeqsDetail :meqs="pendingData?.meqs"/>
                                     </div>
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.PO">
+                                        <PoDetail :po="pendingData?.po"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -69,12 +72,22 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <!-- Select Account Field -->
-                    <div v-if="isBudgetOfficer" class="w-100">
+                    <!-- Select Classification Field -->
+                    <div v-if="show_classification_field" class="w-100">
                         <div class="mb-3">
                             <label class="label small">Select Classification</label>
                             <client-only>
                                 <v-select class="bg-white text-dark" data-testid="classification" @search="handleSearchClassifications" :options="classifications" label="name" v-model="classification"></v-select>
+                            </client-only>
+                            <span class="text-danger fst-italic small">Please select a classification</span>
+                        </div>
+                    </div>
+                    <!-- Select Classification Field -->
+                    <div v-if="show_fund_source_field" class="w-100">
+                        <div class="mb-3">
+                            <label class="label small">Select Fund Source</label>
+                            <client-only>
+                                <v-select class="bg-white text-dark" data-testid="classification" @search="handleSearchAccounts" :options="accounts" label="name" v-model="fundSource"></v-select>
                             </client-only>
                             <span class="text-danger fst-italic small">Please select a classification</span>
                         </div>
@@ -87,13 +100,13 @@
                             </client-only>
                             Close
                          </button>
-                        <button @click="onClickDisapprove" :disabled="isLoadingModal || isDisapproving" class="btn btn-danger flex-fill me-2">
+                        <button @click="onClickDisapprove" :disabled="disable_disapprove_btn" class="btn btn-danger flex-fill me-2">
                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'times-circle']" />
                             </client-only>
                             {{ isDisapproving ? 'Disapproving...' : 'Disapprove' }}
                         </button>
-                        <button @click="onClickApprove" :disabled="isLoadingModal || isApproving" class="btn btn-success flex-fill">
+                        <button @click="onClickApprove" :disabled="disable_approve_btn" class="btn btn-success flex-fill">
                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'check-circle']" />
                             </client-only>
@@ -115,6 +128,7 @@
     import SprDetail from './SprDetail.vue';
     import JoDetail from './JoDetail.vue';
     import MeqsDetail from './MeqsDetail.vue';
+    import PoDetail from './PoDetail.vue';
     import type { Account } from '~/composables/accounting/account/account';
     import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
     import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';
@@ -214,7 +228,43 @@
         return false  
     })
 
+    const disable_disapprove_btn = computed( () => {
+        if(props.isLoadingModal || props.isDisapproving) return true 
+        return false 
+    })
 
+    const disable_approve_btn = computed( () => {
+        if(props.isLoadingModal || props.isApproving) return true 
+        if(show_classification_field.value && !classification.value) return true 
+        if(show_fund_source_field.value && !fundSource.value) return true 
+
+        return false 
+
+    })
+
+    const show_classification_field = computed( () => {
+
+        if(!props.pendingData) return 
+
+        const x = props.pendingData.reference_table
+
+        if(props.isBudgetOfficer && (x === DB_ENTITY.RV || x === DB_ENTITY.SPR || x === DB_ENTITY.JO) ) {
+            return true 
+        }
+        return false 
+    })
+
+    const show_fund_source_field = computed( () => {
+
+        if(!props.pendingData) return 
+
+        const x = props.pendingData.reference_table
+
+        if(props.isFinanceManager && x === DB_ENTITY.PO) {
+            return true 
+        }
+        return false 
+    })
 
     // ACTIONS
     function onClickApprove() {

@@ -80,6 +80,7 @@
     import { findOne as findSprDetails } from '~/composables/purchase/spr/spr.api'
     import { findOne as findJoDetails } from '~/composables/purchase/jo/jo.api'
     import { findOne as findMeqsDetails } from '~/composables/purchase/meqs/meqs.api'
+    import { findOne as findPoDetails } from '~/composables/purchase/po/po.api'
     import Swal from 'sweetalert2'
     import { DB_ENTITY, type AuthUser } from '#imports';
     import type { Account } from '~/composables/accounting/account/account';
@@ -228,6 +229,39 @@
             }
 
             currentTab.value = PENDING_MODAL_TABS.MEQS
+
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.PO) {
+            const po = await findPoDetails(pendingData.reference_number)
+
+            if(!po || !po.meqs_supplier || !po.meqs_supplier.meqs) {
+                console.error('po/po.meqs_supplier/po.meqs_supplier.meqs is undefined');
+                return 
+            }
+
+            let canvass = null
+
+            if(po.meqs_supplier.meqs.rv) canvass = po.meqs_supplier.meqs.rv.canvass
+            if(po.meqs_supplier.meqs.spr) canvass = po.meqs_supplier.meqs.spr.canvass
+            if(po.meqs_supplier.meqs.jo) canvass = po.meqs_supplier.meqs.jo.canvass
+
+            if(!canvass) {
+                console.error('Canvass is undefined');
+                return 
+            }
+
+            pending_selected.value = {
+                ...pendingData, 
+                po,
+                meqs: po.meqs_supplier.meqs, 
+                rv: po.meqs_supplier.meqs.rv || undefined, 
+                spr: po.meqs_supplier.meqs.spr || undefined, 
+                jo: po.meqs_supplier.meqs.jo || undefined,
+                canvass
+            }
+
+            currentTab.value = PENDING_MODAL_TABS.PO
 
         }
 

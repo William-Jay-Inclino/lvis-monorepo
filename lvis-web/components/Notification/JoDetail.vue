@@ -38,13 +38,13 @@
                         <tr>
                             <td class="align-middle">Requisitioner Purpose</td>
                             <td class="text-muted">
-                                <textarea rows="2" class="form-control form-control-sm" :value="jo.canvass.purpose" readonly/>
+                                <textarea rows="2" class="form-control form-control-sm text-muted" :value="jo.canvass.purpose" readonly/>
                             </td>
                         </tr>
                         <tr>
                             <td class="align-middle">Requisitioner Notes</td>
                             <td class="text-muted">
-                                <textarea rows="2" class="form-control form-control-sm" :value="jo.canvass.notes" readonly/>
+                                <textarea rows="2" class="form-control form-control-sm text-muted" :value="jo.canvass.notes" readonly/>
                             </td>
                         </tr>
                         <tr>
@@ -70,7 +70,7 @@
                         <tr>
                             <td class="align-middle">JO Notes</td>
                             <td class="text-muted">
-                                <textarea rows="2" class="form-control form-control-sm" :value="jo.notes" readonly/>
+                                <textarea rows="2" class="form-control form-control-sm text-muted" :value="jo.notes" readonly/>
                             </td>
                         </tr>
                     </tbody>
