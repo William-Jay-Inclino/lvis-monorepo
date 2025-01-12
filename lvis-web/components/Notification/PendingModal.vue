@@ -15,39 +15,95 @@
                 <div class="modal-body">
                     <div v-if="!isLoadingModal">
 
-                        <ul v-if="is_purchasing" class="nav nav-tabs nav-fill bg-secondary">
+                        <ul v-if="is_purchasing" class="nav nav-tabs nav-fill bg-light">
                             <li v-show="showCanvass" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.CANVASS })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.CANVASS }" href="javascript:void(0)">
+                                <a 
+                                    @click="emits('changeTab', { tab: PENDING_MODAL_TABS.CANVASS })" 
+                                    class="nav-link fw-bold" 
+                                    :class="{
+                                        'active': currentTab === PENDING_MODAL_TABS.CANVASS, 
+                                        'text-warning': currentTab === PENDING_MODAL_TABS.CANVASS 
+                                    }" 
+                                    href="javascript:void(0)"
+                                >
                                     Canvass
                                 </a>
                             </li>
                             <li v-show="showRV" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.RV })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.RV }" href="javascript:void(0)">
+                                <a 
+                                    @click="emits('changeTab', { tab: PENDING_MODAL_TABS.RV })" 
+                                    class="nav-link fw-bold" 
+                                    :class="{
+                                        'active': currentTab === PENDING_MODAL_TABS.RV, 
+                                        'text-warning': currentTab === PENDING_MODAL_TABS.RV 
+                                    }" 
+                                    href="javascript:void(0)"
+                                >
                                     RV
                                 </a>
                             </li>
                             <li v-show="showSPR" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.SPR })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.SPR }" href="javascript:void(0)">
+                                <a 
+                                    @click="emits('changeTab', { tab: PENDING_MODAL_TABS.SPR })" 
+                                    class="nav-link fw-bold" 
+                                    :class="{
+                                        'active': currentTab === PENDING_MODAL_TABS.SPR, 
+                                        'text-warning': currentTab === PENDING_MODAL_TABS.SPR 
+                                    }" 
+                                    href="javascript:void(0)"
+                                >
                                     SPR
                                 </a>
                             </li>
                             <li v-show="showJO" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.JO })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.JO }" href="javascript:void(0)">
+                                <a 
+                                    @click="emits('changeTab', { tab: PENDING_MODAL_TABS.JO })" 
+                                    class="nav-link fw-bold" 
+                                    :class="{
+                                        'active': currentTab === PENDING_MODAL_TABS.JO, 
+                                        'text-warning': currentTab === PENDING_MODAL_TABS.JO 
+                                    }" 
+                                    href="javascript:void(0)"
+                                >
                                     JO
                                 </a>
                             </li>
                             <li v-show="showMEQS" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.MEQS })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.MEQS }" href="javascript:void(0)">
+                                <a 
+                                    @click="emits('changeTab', { tab: PENDING_MODAL_TABS.MEQS })" 
+                                    class="nav-link fw-bold" 
+                                    :class="{
+                                        'active': currentTab === PENDING_MODAL_TABS.MEQS, 
+                                        'text-warning': currentTab === PENDING_MODAL_TABS.MEQS 
+                                    }" 
+                                    href="javascript:void(0)"
+                                >
                                     MEQS
                                 </a>
                             </li>
                             <li v-show="showPO" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.PO })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.PO }" href="javascript:void(0)">
+                                <a 
+                                    @click="emits('changeTab', { tab: PENDING_MODAL_TABS.PO })" 
+                                    class="nav-link fw-bold" 
+                                    :class="{
+                                        'active': currentTab === PENDING_MODAL_TABS.PO, 
+                                        'text-warning': currentTab === PENDING_MODAL_TABS.PO 
+                                    }" 
+                                    href="javascript:void(0)"
+                                >
                                     PO
                                 </a>
                             </li>
                             <li v-show="showRR" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.RR })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.RR }" href="javascript:void(0)">
+                                <a 
+                                    @click="emits('changeTab', { tab: PENDING_MODAL_TABS.RR })" 
+                                    class="nav-link fw-bold" 
+                                    :class="{
+                                        'active': currentTab === PENDING_MODAL_TABS.RR, 
+                                        'text-warning': currentTab === PENDING_MODAL_TABS.RR 
+                                    }" 
+                                    href="javascript:void(0)"
+                                >
                                     RR
                                 </a>
                             </li>
@@ -57,33 +113,14 @@
                             <div class="col">
                                 <div class="modal-body-content">
 
-                                    <div v-if="is_purchasing">
-                                        <div v-if="currentTab === PENDING_MODAL_TABS.CANVASS">
-                                            <CanvassDetail :canvass="pendingData?.canvass" />
-                                        </div>
-                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.RV">
-                                            <RvDetail :rv="pendingData?.rv"/>
-                                        </div>
-                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.SPR">
-                                            <SprDetail :spr="pendingData?.spr"/>
-                                        </div>
-                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.JO">
-                                            <JoDetail :jo="pendingData?.jo"/>
-                                        </div>
-                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.MEQS">
-                                            <MeqsDetail :meqs="pendingData?.meqs"/>
-                                        </div>
-                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.PO">
-                                            <PoDetail :po="pendingData?.po"/>
-                                        </div>
-                                        <div v-else-if="currentTab === PENDING_MODAL_TABS.RR">
-                                            <RrDetail :rr="pendingData?.rr"/>
-                                        </div>
-                                    </div>
-                                    
-                                    <div v-if="!is_purchasing">
-                                        <OsrivDetail v-if="currentTab === PENDING_MODAL_TABS.OSRIV" />
-                                    </div>
+                                    <CanvassDetail v-if="currentTab === PENDING_MODAL_TABS.CANVASS" :canvass="pendingData?.canvass" />
+                                    <RvDetail v-else-if="currentTab === PENDING_MODAL_TABS.RV" :rv="pendingData?.rv"/>
+                                    <SprDetail v-else-if="currentTab === PENDING_MODAL_TABS.SPR" :spr="pendingData?.spr"/>
+                                    <JoDetail v-else-if="currentTab === PENDING_MODAL_TABS.JO" :jo="pendingData?.jo"/>
+                                    <MeqsDetail v-else-if="currentTab === PENDING_MODAL_TABS.MEQS" :meqs="pendingData?.meqs"/>
+                                    <PoDetail v-else-if="currentTab === PENDING_MODAL_TABS.PO" :po="pendingData?.po"/>
+                                    <RrDetail v-else-if="currentTab === PENDING_MODAL_TABS.RR" :rr="pendingData?.rr"/>
+                                    <OsrivDetail v-else-if="currentTab === PENDING_MODAL_TABS.OSRIV" :osriv="pendingData?.osriv"/>
 
                                 </div>
                             </div>
