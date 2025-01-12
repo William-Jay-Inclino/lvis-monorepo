@@ -31,65 +31,17 @@ export class PoService {
                     include: {
                         rv: {
                             include: {
-                                canvass: {
-                                    include: {
-                                        canvass_items: {
-                                            include: {
-                                                unit: true,
-                                                item: true
-                                            }
-                                        }
-                                    }
-                                }
+                                canvass: true
                             }
                         },
                         spr: {
                             include: {
-                                canvass: {
-                                    include: {
-                                        canvass_items: {
-                                            include: {
-                                                unit: true,
-                                                item: true
-                                            }
-                                        }
-                                    }
-                                }
+                                canvass: true
                             }
                         },
                         jo: {
                             include: {
-                                canvass: {
-                                    include: {
-                                        canvass_items: {
-                                            include: {
-                                                unit: true,
-                                                item: true
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        meqs_suppliers: {
-                            include: {
-                                po: {
-                                    include: {
-                                        rrs: true
-                                    }
-                                },
-                                supplier: true,
-                                attachments: true,
-                                meqs_supplier_items: {
-                                    include: {
-                                        canvass_item: {
-                                            include: {
-                                                unit: true,
-                                                item: true
-                                            }
-                                        }
-                                    }
-                                }
+                                canvass: true
                             }
                         }
                     }
@@ -410,7 +362,71 @@ export class PoService {
 
     async findOne(id: string): Promise<PO | null> {
         const item = await this.prisma.pO.findUnique({
-            include: this.includedFields,
+            include: {
+                meqs_supplier: {
+                    include: {
+                        meqs: {
+                            include: {
+                                rv: {
+                                    include: {
+                                        canvass: {
+                                            include: {
+                                                canvass_items: {
+                                                    include: {
+                                                        unit: true,
+                                                        item: true
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                spr: {
+                                    include: {
+                                        canvass: {
+                                            include: {
+                                                canvass_items: {
+                                                    include: {
+                                                        unit: true,
+                                                        item: true
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                jo: {
+                                    include: {
+                                        canvass: {
+                                            include: {
+                                                canvass_items: {
+                                                    include: {
+                                                        unit: true,
+                                                        item: true
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        supplier: true,
+                        attachments: true,
+                        meqs_supplier_items: {
+                            include: {
+                                canvass_item: {
+                                    include: {
+                                        unit: true,
+                                        item: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                rrs: true
+            },
             where: { id }
         })
 

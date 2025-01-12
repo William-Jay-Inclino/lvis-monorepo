@@ -81,6 +81,7 @@
     import { findOne as findJoDetails } from '~/composables/purchase/jo/jo.api'
     import { findOne as findMeqsDetails } from '~/composables/purchase/meqs/meqs.api'
     import { findOne as findPoDetails } from '~/composables/purchase/po/po.api'
+    import { findOne as findRrDetails } from '~/composables/warehouse/rr/rr.api'
     import Swal from 'sweetalert2'
     import { DB_ENTITY, type AuthUser } from '#imports';
     import type { Account } from '~/composables/accounting/account/account';
@@ -236,7 +237,7 @@
             const po = await findPoDetails(pendingData.reference_number)
 
             if(!po || !po.meqs_supplier || !po.meqs_supplier.meqs) {
-                console.error('po/po.meqs_supplier/po.meqs_supplier.meqs is undefined');
+                console.error('po / po.meqs_supplier / po.meqs_supplier.meqs is undefined');
                 return 
             }
 
@@ -262,6 +263,40 @@
             }
 
             currentTab.value = PENDING_MODAL_TABS.PO
+
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.RR) {
+            const rr = await findRrDetails(pendingData.reference_number)
+
+            if(!rr || !rr.po || !rr.po.meqs_supplier || !rr.po.meqs_supplier.meqs) {
+                console.error('rr / rr.po / rr.po.meqs_supplier / rr.po.meqs_supplier.meqs is undefined');
+                return 
+            }
+
+            let canvass = null
+
+            if(rr.po.meqs_supplier.meqs.rv) canvass = rr.po.meqs_supplier.meqs.rv.canvass
+            if(rr.po.meqs_supplier.meqs.spr) canvass = rr.po.meqs_supplier.meqs.spr.canvass
+            if(rr.po.meqs_supplier.meqs.jo) canvass = rr.po.meqs_supplier.meqs.jo.canvass
+
+            if(!canvass) {
+                console.error('Canvass is undefined');
+                return 
+            }
+
+            pending_selected.value = {
+                ...pendingData,
+                rr, 
+                po: rr.po,
+                meqs: rr.po.meqs_supplier.meqs, 
+                rv: rr.po.meqs_supplier.meqs.rv || undefined, 
+                spr: rr.po.meqs_supplier.meqs.spr || undefined, 
+                jo: rr.po.meqs_supplier.meqs.jo || undefined,
+                canvass
+            }
+
+            currentTab.value = PENDING_MODAL_TABS.RR
 
         }
 

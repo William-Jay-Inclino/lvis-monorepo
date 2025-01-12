@@ -585,52 +585,281 @@ export async function findOne(id: string): Promise<RR | undefined> {
                 }
                 po {
                     id
-                    po_number 
+                    po_number
+                    status
+                    po_date
+                    notes
+                    created_by
+                    requested_by {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    fund_source {
+                        id 
+                        name 
+                    }
+                    po_approvers{
+                        approver {
+                            firstname
+                            middlename
+                            lastname
+                        }
+                        status
+                        label
+                        order
+                        notes
+                        date_approval
+                    }
                     meqs_supplier {
+                        id
+                        payment_terms
+                        supplier{
+                            id
+                            name 
+                            is_vat_registered
+                        }
                         meqs {
                             id
                             meqs_number
+                            created_by
+                            notes
                             rv {
                                 id
                                 rv_number
+                                status
+                                date_requested 
+                                work_order_no
+                                work_order_date
+                                notes
+                                created_by
                                 canvass {
                                     id
                                     rc_number
-                                    purpose
                                     requested_by {
-                                        id
-                                        firstname
-                                        middlename
+                                        firstname 
+                                        middlename 
                                         lastname
+                                    }
+                                    purpose
+                                    date_requested
+                                    notes
+                                    canvass_items {
+                                        id
+                                        description
+                                        unit {
+                                            name
+                                        }
+                                        quantity
+                                        item {
+                                            id
+                                            code 
+                                            description
+                                        }
                                     }
                                 }
-                            }
-                            spr {
-                                id
-                                spr_number
-                                canvass {
-                                    id
-                                    rc_number
-                                    requested_by {
-                                        id
+                                supervisor {
+                                    firstname 
+                                    middlename 
+                                    lastname
+                                }
+                                classification{
+                                    name
+                                }
+                                rv_approvers{
+                                    approver {
                                         firstname
                                         middlename
                                         lastname
                                     }
+                                    status
+                                    label
+                                    order
+                                    notes
+                                    date_approval
                                 }
                             }
                             jo {
                                 id
                                 jo_number
+                                status
+                                date_requested 
+                                equipment
+                                department {
+                                    id 
+                                    code 
+                                    name
+                                }
+                                division {
+                                    id 
+                                    code 
+                                    name
+                                }
+                                notes
+                                created_by
                                 canvass {
                                     id
                                     rc_number
                                     requested_by {
+                                        firstname 
+                                        middlename 
+                                        lastname
+                                    }
+                                    purpose
+                                    date_requested
+                                    notes
+                                    canvass_items {
                                         id
+                                        description
+                                        unit {
+                                            name
+                                        }
+                                        quantity
+                                        item {
+                                            id
+                                            code 
+                                            description
+                                        }
+                                    }
+                                }
+                                supervisor {
+                                    firstname 
+                                    middlename 
+                                    lastname
+                                }
+                                classification{
+                                    name
+                                }
+                                jo_approvers{
+                                    approver {
                                         firstname
                                         middlename
                                         lastname
                                     }
+                                    status
+                                    label
+                                    order
+                                    notes
+                                    date_approval
+                                }
+                            }
+                            spr {
+                                id
+                                spr_number
+                                status
+                                date_requested 
+                                vehicle {
+                                    id 
+                                    name 
+                                    vehicle_number
+                                }
+                                created_by
+                                notes
+                                canvass {
+                                    id
+                                    rc_number
+                                    requested_by {
+                                        firstname 
+                                        middlename 
+                                        lastname
+                                    }
+                                    purpose
+                                    date_requested
+                                    notes
+                                    canvass_items {
+                                        id
+                                        description
+                                        unit {
+                                            name
+                                        }
+                                        quantity
+                                        item {
+                                            id
+                                            code 
+                                            description
+                                        }
+                                    }
+                                }
+                                supervisor {
+                                    firstname 
+                                    middlename 
+                                    lastname
+                                }
+                                classification{
+                                    name
+                                }
+                                spr_approvers{
+                                    approver {
+                                        firstname
+                                        middlename
+                                        lastname
+                                    }
+                                    status
+                                    label
+                                    order
+                                    notes
+                                    date_approval
+                                }
+                            }
+                            meqs_date
+                            status
+                            meqs_approvers{
+                                approver_id
+                                approver{
+                                    firstname
+                                    lastname
+                                }
+                                label
+                                order
+                                status
+                                notes
+                                notes
+                                date_approval
+                            }
+                            meqs_suppliers{
+                                id
+                                supplier_id
+                                supplier{
+                                    name
+                                }
+                                payment_terms 
+                                meqs_supplier_items{
+                                    canvass_item{
+                                        id
+                                        description
+                                        unit{
+                                            name
+                                        }
+                                        quantity
+                                    }
+                                    price
+                                    notes
+                                    is_awarded
+                                }
+                                attachments{
+                                    src
+                                }
+                            }
+                        }
+                        meqs_supplier_items {
+                            id 
+                            price 
+                            notes 
+                            is_awarded
+                            vat_type
+                            canvass_item {
+                                id 
+                                description
+                                unit {
+                                    id 
+                                    name 
+                                }
+                                quantity
+                                item {
+                                    id
+                                    code 
+                                    description
                                 }
                             }
                         }

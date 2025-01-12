@@ -89,13 +89,13 @@ export class RrResolver {
         @Args('po_number', { nullable: true }) po_number?: string,
     ) {
         if (id) {
-            return this.rrService.findOne(id);
+            return this.rrService.findBy({ id });
         }
         if (rr_number) {
-            return this.rrService.findByRrNumber(rr_number)
+            return this.rrService.findBy({ rr_number })
         }
         if (po_number) {
-            return this.rrService.findByPoNumber(po_number)
+            return this.rrService.findBy({ po_number })
         }
     }
 

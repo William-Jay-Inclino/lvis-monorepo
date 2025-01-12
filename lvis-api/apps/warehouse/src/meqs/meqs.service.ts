@@ -22,44 +22,17 @@ export class MeqsService {
     private includedFields = {
         rv: {
             include: {
-                canvass: {
-                    include: {
-                        canvass_items: {
-                            include: {
-                                unit: true,
-                                item: true
-                            }
-                        }
-                    }
-                }
+                canvass: true
             }
         },
         spr: {
             include: {
-                canvass: {
-                    include: {
-                        canvass_items: {
-                            include: {
-                                unit: true,
-                                item: true
-                            }
-                        }
-                    }
-                }
+                canvass: true
             }
         },
         jo: {
             include: {
-                canvass: {
-                    include: {
-                        canvass_items: {
-                            include: {
-                                unit: true,
-                                item: true
-                            }
-                        }
-                    }
-                }
+                canvass: true
             }
         },
         meqs_suppliers: {
@@ -461,7 +434,71 @@ export class MeqsService {
 
         const item = await this.prisma.mEQS.findUnique({
             where: { id },
-            include: this.includedFields
+            include: {
+                rv: {
+                    include: {
+                        canvass: {
+                            include: {
+                                canvass_items: {
+                                    include: {
+                                        unit: true,
+                                        item: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                spr: {
+                    include: {
+                        canvass: {
+                            include: {
+                                canvass_items: {
+                                    include: {
+                                        unit: true,
+                                        item: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                jo: {
+                    include: {
+                        canvass: {
+                            include: {
+                                canvass_items: {
+                                    include: {
+                                        unit: true,
+                                        item: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                meqs_suppliers: {
+                    include: {
+                        po: {
+                            include: {
+                                rrs: true
+                            }
+                        },
+                        supplier: true,
+                        attachments: true,
+                        meqs_supplier_items: {
+                            include: {
+                                canvass_item: {
+                                    include: {
+                                        unit: true,
+                                        item: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         })
 
         if (!item) {

@@ -661,12 +661,8 @@ export async function findOne(id: string): Promise<PO | undefined> {
                     meqs {
                         id
                         meqs_number
-                        rv_number
-                        spr_number
-                        jo_number
                         created_by
                         notes
-                        can_update
                         rv {
                             id
                             rv_number
@@ -882,16 +878,6 @@ export async function findOne(id: string): Promise<PO | undefined> {
                             }
                             attachments{
                                 src
-                            }
-                        }
-                        meqs_suppliers {
-                            po {
-                                id
-                                po_number
-                                rrs {
-                                    id
-                                    rr_number
-                                }
                             }
                         }
                     }

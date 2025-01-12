@@ -293,8 +293,8 @@ export class RrService {
 
     }
 
-    async findOne(id: string): Promise<RR | null> {
-        const item = await this.prisma.rR.findUnique({
+    async findBy(payload: { id?: string, rr_number?: string, po_number?: string }) {
+        const item = await this.prisma.rR.findFirst({
             include: {
                 po: {
                     include: {
@@ -304,17 +304,60 @@ export class RrService {
                                     include: {
                                         rv: {
                                             include: {
-                                                canvass: true
+                                                canvass: {
+                                                    include: {
+                                                        canvass_items: {
+                                                            include: {
+                                                                unit: true,
+                                                                item: true
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         },
                                         spr: {
                                             include: {
-                                                canvass: true
+                                                canvass: {
+                                                    include: {
+                                                        canvass_items: {
+                                                            include: {
+                                                                unit: true,
+                                                                item: true
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         },
                                         jo: {
                                             include: {
-                                                canvass: true
+                                                canvass: {
+                                                    include: {
+                                                        canvass_items: {
+                                                            include: {
+                                                                unit: true,
+                                                                item: true
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        meqs_suppliers: {
+                                            include: {
+                                                supplier: true,
+                                                attachments: true,
+                                                meqs_supplier_items: {
+                                                    include: {
+                                                        canvass_item: {
+                                                            include: {
+                                                                unit: true,
+                                                                item: true
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -355,36 +398,12 @@ export class RrService {
                     }
                 }
             },
-            where: { id }
-        })
-
-        if (!item) {
-            throw new NotFoundException('RR not found')
-        }
-
-        return item
-    }
-
-    async findByRrNumber(rr_number: string): Promise<RR | null> {
-        const item = await this.prisma.rR.findUnique({
-            include: this.includedFields,
-            where: { rr_number }
-        })
-
-        if (!item) {
-            throw new NotFoundException('RR not found')
-        }
-
-        return item
-    }
-
-    async findByPoNumber(po_number: string): Promise<RR | null> {
-        const item = await this.prisma.rR.findFirst({
-            include: this.includedFields,
             where: {
-                po: {
-                    po_number
-                }
+                OR: [
+                    { id: payload.id },
+                    { rr_number: payload.rr_number },
+                    { po_number: payload.po_number },
+                ]
             }
         })
 
@@ -392,7 +411,7 @@ export class RrService {
             throw new NotFoundException('RR not found')
         }
 
-        return item
+        return item  
     }
 
     async findRRsByRrNumber(rrNumber: string, includeDetails: boolean = false) {

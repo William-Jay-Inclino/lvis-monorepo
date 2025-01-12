@@ -14,31 +14,43 @@
                 </div>
                 <div class="modal-body">
                     <div v-if="!isLoadingModal">
-                        <ul class="nav nav-tabs nav-fill bg-white">
+                        <ul class="nav nav-tabs nav-fill bg-secondary">
                             <li v-show="showCanvass" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.CANVASS })" class="nav-link" :class="{'active': currentTab === PENDING_MODAL_TABS.CANVASS }" href="javascript:void(0)">Canvass</a>
+                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.CANVASS })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.CANVASS }" href="javascript:void(0)">
+                                    Canvass
+                                </a>
                             </li>
                             <li v-show="showRV" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.RV })" class="nav-link" :class="{'active': currentTab === PENDING_MODAL_TABS.RV }" href="javascript:void(0)">RV</a>
+                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.RV })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.RV }" href="javascript:void(0)">
+                                    RV
+                                </a>
                             </li>
                             <li v-show="showSPR" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.SPR })" class="nav-link" :class="{'active': currentTab === PENDING_MODAL_TABS.SPR }" href="javascript:void(0)">SPR</a>
+                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.SPR })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.SPR }" href="javascript:void(0)">
+                                    SPR
+                                </a>
                             </li>
                             <li v-show="showJO" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.JO })" class="nav-link" :class="{'active': currentTab === PENDING_MODAL_TABS.JO }" href="javascript:void(0)">JO</a>
+                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.JO })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.JO }" href="javascript:void(0)">
+                                    JO
+                                </a>
                             </li>
                             <li v-show="showMEQS" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.MEQS })" class="nav-link" :class="{'active': currentTab === PENDING_MODAL_TABS.MEQS }" href="javascript:void(0)">MEQS</a>
+                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.MEQS })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.MEQS }" href="javascript:void(0)">
+                                    MEQS
+                                </a>
                             </li>
-                            <li v-show="showMEQS" class="nav-item">
-                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.PO })" class="nav-link" :class="{'active': currentTab === PENDING_MODAL_TABS.PO }" href="javascript:void(0)">PO</a>
+                            <li v-show="showPO" class="nav-item">
+                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.PO })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.PO }" href="javascript:void(0)">
+                                    PO
+                                </a>
                             </li>
                             <li v-show="showRR" class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)">RR</a>
+                                <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.RR })" class="nav-link text-warning fw-bold" :class="{'active': currentTab === PENDING_MODAL_TABS.RR }" href="javascript:void(0)">
+                                    RR
+                                </a>
                             </li>
                         </ul>
-
-                        <hr>
 
                         <div class="row">
                             <div class="col">
@@ -60,6 +72,9 @@
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.PO">
                                         <PoDetail :po="pendingData?.po"/>
+                                    </div>
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.RR">
+                                        <RrDetail :rr="pendingData?.rr"/>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +109,7 @@
                     </div>
                     <!-- Action Buttons -->
                      <div class="d-flex w-100">
-                         <button @click="onCloseModal()" class="btn btn-secondary flex-fill me-2">
+                         <button @click="onCloseModal()" data-bs-dismiss="modal" class="btn btn-secondary flex-fill me-2">
                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'times']" />
                             </client-only>
@@ -129,6 +144,7 @@
     import JoDetail from './JoDetail.vue';
     import MeqsDetail from './MeqsDetail.vue';
     import PoDetail from './PoDetail.vue';
+    import RrDetail from './RrDetail.vue';
     import type { Account } from '~/composables/accounting/account/account';
     import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
     import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';
@@ -363,7 +379,7 @@
     }
 
     .modal-body-content {
-        max-height: 50vh; /* Set the maximum height of the modal content */
+        max-height: 70vh; /* Set the maximum height of the modal content */
         overflow-y: auto; /* Enable vertical scrolling */
         overflow-x: hidden; /* Disable horizontal scrolling */
         padding-bottom: 20px; /* Optional: Add space for footer if content is large */
