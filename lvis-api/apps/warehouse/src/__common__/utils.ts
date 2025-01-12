@@ -96,16 +96,21 @@ export const get_pending_description = (payload: {
     employee: Employee,
     purpose: string, 
     label?: string,
+    desc_label?: string,
 }): string => {
 
-    const { employee, purpose, label = 'Requested by' } = payload
+    const { 
+        employee, 
+        purpose, 
+        label = 'Requested by',
+        desc_label = 'Purpose',
+    } = payload
 
     const fullname = getFullnameWithTitles(employee.firstname, employee.lastname, employee.middlename, employee.name_prefix, employee.name_suffix)
 
     const description = [
         `${label}: ${fullname}`,
-        `------------------------------------------`,
-        `${purpose}`
+        `${desc_label}: ${purpose}`
     ].join('\n');
 
     return description
@@ -116,19 +121,24 @@ export const get_pending_description_for_motorpool = (payload: {
     employee: Employee,
     purpose: string, 
     label?: string,
+    desc_label?: string,
 }): string => {
 
-    const { employee, purpose, label = 'Driver', vehicle } = payload
+    const { 
+        employee, 
+        purpose, 
+        label = 'Driver', 
+        vehicle,
+        desc_label = 'Purpose',
+    } = payload
 
     const fullname = getFullnameWithTitles(employee.firstname, employee.lastname, employee.middlename, employee.name_prefix, employee.name_suffix)
 
     const description = [
         `${label}: ${fullname}`,
-        `------------------------------------------`,
         `Vehicle No: ${ vehicle.vehicle_number }`,
         `Vehicle Name: ${ vehicle.name }`,
-        `------------------------------------------`,
-        `${purpose}`
+        `${desc_label}: ${purpose}`
     ].join('\n');
 
     return description

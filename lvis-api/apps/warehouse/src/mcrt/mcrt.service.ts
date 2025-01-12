@@ -114,7 +114,8 @@ export class McrtService {
             const description = get_pending_description({
                 employee: returned_by,
                 purpose: mcrt_created.note,
-                label: 'Returned by'
+                label: 'Returned by',
+                desc_label: 'Notes'
             })
     
             const pendingData = {
@@ -184,7 +185,8 @@ export class McrtService {
                 const description = get_pending_description({
                     employee: returned_by,
                     purpose: mcrt_updated.note,
-                    label: 'Returned by'
+                    label: 'Returned by',
+                    desc_label: 'Notes'
                 })
 
                 await tx.pending.update({

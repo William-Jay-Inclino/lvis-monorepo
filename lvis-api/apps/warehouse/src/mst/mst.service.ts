@@ -83,7 +83,8 @@ export class MstService {
             const description = get_pending_description({
                 employee: returned_by,
                 purpose: mst_created.remarks,
-                label: 'Returned by'
+                label: 'Returned by',
+                desc_label: 'Remarks'
             })
     
             const pendingData = {
@@ -157,7 +158,8 @@ export class MstService {
                 const description = get_pending_description({
                     employee: returned_by,
                     purpose: mst_updated.remarks,
-                    label: 'Returned by'
+                    label: 'Returned by',
+                    desc_label: 'Remarks'
                 })
 
                 await tx.pending.update({

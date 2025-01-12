@@ -43,7 +43,7 @@
                             <tbody> 
                                 <tr v-for="item, indx in filteredItems">
                                     <td class="align-middle text-muted"> {{ item.code }} </td>
-                                    <td style="white-space: pre-line;" class="align-middle text-muted">
+                                    <td class="align-middle text-muted">
                                         <small>
                                             {{ item.description }}
                                         </small>

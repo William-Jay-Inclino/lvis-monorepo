@@ -56,10 +56,6 @@
                             <td class="text-muted"> {{ formatDate(po.po_date) }} </td>
                         </tr>
                         <tr>
-                            <td>Supplier</td>
-                            <td class="text-muted"> {{ po.meqs_supplier ? po.meqs_supplier.supplier!.name : 'N/A' }} </td>
-                        </tr>
-                        <tr>
                             <td>VAT Status</td>
                             <td class="text-muted"> {{ po.meqs_supplier ? po.meqs_supplier.supplier?.is_vat_registered ? 'VAT Registered' : 'Non-VAT Registered' : 'N/A' }} </td>
                         </tr>

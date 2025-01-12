@@ -56,10 +56,6 @@
                             <td class="text-muted"> {{ formatDate(rr.rr_date) }} </td>
                         </tr>
                         <tr>
-                            <td>Supplier</td>
-                            <td class="text-muted"> {{ rr.po?.meqs_supplier ? rr.po?.meqs_supplier.supplier!.name : 'N/A' }} </td>
-                        </tr>
-                        <tr>
                             <td>VAT Status</td>
                             <td class="text-muted"> {{ rr.po?.meqs_supplier ? rr.po?.meqs_supplier.supplier?.is_vat_registered ? 'VAT Registered' : 'Non-VAT Registered' : 'N/A' }} </td>
                         </tr>
