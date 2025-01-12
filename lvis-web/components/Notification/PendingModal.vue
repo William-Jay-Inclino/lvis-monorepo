@@ -149,6 +149,9 @@
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.MCRT">
                                         <NotificationMcrtDetail :mcrt="pendingData?.mcrt" />
                                     </div>
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.MST">
+                                        <NotificationMstDetail :mst="pendingData?.mst" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

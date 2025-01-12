@@ -87,6 +87,7 @@
     import { findOne as findMrvDetails } from '~/composables/warehouse/mrv/mrv.api'
     import { findOne as findMctDetails } from '~/composables/warehouse/mct/mct.api'
     import { findOne as findMcrtDetails } from '~/composables/warehouse/mcrt/mcrt.api'
+    import { findOne as findMstDetails } from '~/composables/warehouse/mst/mst.api'
     import Swal from 'sweetalert2'
     import type { Account } from '~/composables/accounting/account/account';
     import type { Classification } from '~/composables/accounting/classification/classification';
@@ -361,6 +362,18 @@
 
             pending_selected.value = {...pendingData, mcrt }
             currentTab.value = PENDING_MODAL_TABS.MCRT
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.MST) {
+            const mst = await findMstDetails(pendingData.reference_number)
+            
+            if(!mst) {
+                console.error('mst is undefined');
+                return 
+            }
+
+            pending_selected.value = {...pendingData, mst }
+            currentTab.value = PENDING_MODAL_TABS.MST
         }
 
         isLoadingModal.value = false
