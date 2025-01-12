@@ -1,4 +1,13 @@
 <template>
+    <div>Outdated</div>
+</template>
+
+
+<script setup lang="ts">
+
+</script>
+
+<!-- <template>
     <div v-if="!isLoadingPage && authUser && authUser.user.user_employee">
 
         <div class="row mb-3 mt-3">
@@ -684,4 +693,4 @@ function removePending(id: number) {
     }
 }
 
-</script>
+</script> -->
