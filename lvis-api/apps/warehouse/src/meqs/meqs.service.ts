@@ -249,20 +249,15 @@ export class MeqsService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            
-            const db_entity = DB_ENTITY.MEQS
-
             const description = get_pending_description({
-                db_entity,
                 employee: requisitioner,
-                ref_number: meqsNumber,
                 purpose,
             })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: meqsNumber,
-                reference_table: db_entity,
+                reference_table: DB_ENTITY.MEQS,
                 description
             }
 

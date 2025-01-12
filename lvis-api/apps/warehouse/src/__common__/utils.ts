@@ -93,20 +93,15 @@ export const getEmployee = async(employeeId: string, authUser: AuthUser): Promis
 }
 
 export const get_pending_description = (payload: {
-    db_entity: DB_ENTITY,
     employee: Employee,
-    ref_number: string,
     purpose: string,
 }): string => {
 
-    const { db_entity, employee, ref_number, purpose } = payload
+    const { employee, purpose } = payload
 
-    const module = getModule(db_entity)
     const fullname = getFullnameWithTitles(employee.firstname, employee.lastname, employee.middlename, employee.name_prefix, employee.name_suffix)
 
     const description = [
-        `${module.description}: ${ref_number}`,
-        `------------------------------------------`,
         `Requested by:`,
         `\t${fullname}`,
         `------------------------------------------`,

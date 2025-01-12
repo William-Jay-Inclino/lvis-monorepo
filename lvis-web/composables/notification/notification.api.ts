@@ -1,17 +1,21 @@
 import type { Account } from "../accounting/account/account";
+import type { Employee } from "../hr/employee/employee.types";
 import type { ApproveOrDisapprovePayload, Pending } from "./notification.types";
 
 
 
 export async function getPendingsByEmployeeId(employeeId: string): Promise<{
     pendings: Pending[],
-    classifications: Classification[]
-    accounts: Account[]
+    classifications: Classification[],
+    accounts: Account[],
+    employee: Employee | undefined,
 }> {
 
     const query = `
         query {
             employee(id: "${employeeId}") {
+                is_budget_officer
+                is_finance_manager
                 pending_approvals {
                     id
                     approver_id
@@ -45,12 +49,17 @@ export async function getPendingsByEmployeeId(employeeId: string): Promise<{
         let pendings = []
         let accounts = []
         let classifications = []
+        let employee
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
         }
 
         const data = response.data.data
+
+        if(data.employee) {
+            employee = data.employee
+        }
 
         if (data.employee && data.employee.pending_approvals) {
             pendings = data.employee.pending_approvals
@@ -71,7 +80,8 @@ export async function getPendingsByEmployeeId(employeeId: string): Promise<{
         return {
             pendings,
             accounts,
-            classifications
+            classifications,
+            employee,
         }
 
     } catch (error) {
@@ -80,6 +90,7 @@ export async function getPendingsByEmployeeId(employeeId: string): Promise<{
             pendings: [],
             accounts: [],
             classifications: [],
+            employee: undefined,
         }
     }
 
@@ -87,6 +98,8 @@ export async function getPendingsByEmployeeId(employeeId: string): Promise<{
 }
 
 export async function approvePending(payload: ApproveOrDisapprovePayload): Promise<{success: boolean, msg: string}> {
+
+    console.log('approvePending', payload);
 
     const {
         id,

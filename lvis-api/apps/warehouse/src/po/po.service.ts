@@ -170,19 +170,16 @@ export class PoService {
 
             const { requested_by_id, purpose } = get_canvass_info({ meqs: meqsSupplier.meqs as MEQS })
             const requisitioner = await getEmployee(requested_by_id, this.authUser)
-            const db_entity = DB_ENTITY.PO
 
             const description = get_pending_description({
-                db_entity,
                 employee: requisitioner,
-                ref_number: poNumber,
                 purpose: purpose,
             })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: poNumber,
-                reference_table: db_entity,
+                reference_table: DB_ENTITY.PO,
                 description
             }
 

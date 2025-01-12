@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="pendingModal2" tabindex="-1"
+    <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="pendingModal2" tabindex="-1"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -10,11 +10,11 @@
                         </client-only>
                         Details
                     </h5>
-                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button @click="onCloseModal()" ref="pending_modal_close_btn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div v-if="!isLoadingModal">
-                        <ul class="nav nav-pills nav-fill bg-white">
+                        <ul class="nav nav-tabs nav-fill bg-white">
                             <li v-show="showCanvass" class="nav-item">
                                 <a @click="emits('changeTab', { tab: PENDING_MODAL_TABS.CANVASS })" class="nav-link" :class="{'active': currentTab === PENDING_MODAL_TABS.CANVASS }" href="javascript:void(0)">Canvass</a>
                             </li>
@@ -62,24 +62,44 @@
                             </div>
                         </div>
 
+
                     </div>
                     <div v-show="isLoadingModal">
                         <LoaderSpinner />
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button :disabled="isLoadingModal" class="btn btn-danger me-2">
-                        <client-only>
-                            <font-awesome-icon :icon="['fas', 'times-circle']" />
-                        </client-only> 
-                        Disapprove
-                    </button>
-                    <button :disabled="isLoadingModal" class="btn btn-success">
-                        <client-only>
-                            <font-awesome-icon :icon="['fas', 'check-circle']" />
-                        </client-only> 
-                        Approve
-                    </button>
+                    <!-- Select Account Field -->
+                    <div v-if="isBudgetOfficer" class="w-100">
+                        <div class="mb-3">
+                            <label class="label small">Select Classification</label>
+                            <client-only>
+                                <v-select class="bg-white text-dark" data-testid="classification" @search="handleSearchClassifications" :options="classifications" label="name" v-model="classification"></v-select>
+                            </client-only>
+                            <span class="text-danger fst-italic small">Please select a classification</span>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                     <div class="d-flex w-100">
+                         <button @click="onCloseModal()" class="btn btn-secondary flex-fill me-2">
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'times']" />
+                            </client-only>
+                            Close
+                         </button>
+                        <button @click="onClickDisapprove" :disabled="isLoadingModal || isDisapproving" class="btn btn-danger flex-fill me-2">
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                            </client-only>
+                            {{ isDisapproving ? 'Disapproving...' : 'Disapprove' }}
+                        </button>
+                        <button @click="onClickApprove" :disabled="isLoadingModal || isApproving" class="btn btn-success flex-fill">
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'check-circle']" />
+                            </client-only>
+                            {{ isApproving ? 'Approving...' : 'Approve' }}
+                        </button>
+                     </div>
                 </div>
             </div>
         </div>
@@ -95,12 +115,17 @@
     import SprDetail from './SprDetail.vue';
     import JoDetail from './JoDetail.vue';
     import MeqsDetail from './MeqsDetail.vue';
+    import type { Account } from '~/composables/accounting/account/account';
+    import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
+    import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';
 
     const emits = defineEmits([
         'approve',
         'disapprove',
         'addComment',
         'changeTab',
+        'search-accounts',
+        'search-classifications',
     ])
 
     const props = defineProps({
@@ -108,9 +133,25 @@
             type: Object as () => Pending | null,
             default: null,
         },
+        classifications: {
+            type: Array as () => Classification[],
+            default: []
+        },
+        accounts: {
+            type: Array as () => Account[],
+            default: []
+        },
         currentTab: {
             type: String as () => PENDING_MODAL_TABS,
             required: true,
+        },
+        isBudgetOfficer: {
+            type: Boolean,
+            default: false,
+        },
+        isFinanceManager: {
+            type: Boolean,
+            default: false,
         },
         isLoadingModal: {
             type: Boolean,
@@ -130,6 +171,13 @@
         },
     });
 
+    const pending_modal_close_btn = ref<HTMLButtonElement>()
+    const classification = ref<Classification>()
+    const fundSource = ref<Account>()
+
+
+
+    // COMPUTED
     const showCanvass = computed( () => {
         if(props.pendingData && props.pendingData.canvass) return true 
         return false  
@@ -167,6 +215,93 @@
     })
 
 
+
+    // ACTIONS
+    function onClickApprove() {
+        emits('approve', { 
+            pending_data: props.pendingData, 
+            action: 'approve', 
+            close_btn: pending_modal_close_btn.value,
+            classification_id: classification.value ? classification.value.id : undefined, 
+            fund_source_id: fundSource.value ? fundSource.value.id : undefined, 
+        })
+    }
+
+    function onClickDisapprove() {
+        emits('disapprove', { pending_data: props.pendingData, action: 'disapprove', close_btn: pending_modal_close_btn.value })
+    }
+
+
+
+
+    // API SEARCH
+    async function handleSearchAccounts(input: string, loading: (status: boolean) => void ) {
+
+        if(input.trim() === ''){
+            emits('search-accounts', [])
+            return 
+        } 
+
+        debouncedSearchAccounts(input, loading)
+
+    }
+
+    async function handleSearchClassifications(input: string, loading: (status: boolean) => void ) {
+
+        if(input.trim() === ''){
+            emits('search-accounts', [])
+            return 
+        } 
+
+        debouncedSearchClassifications(input, loading)
+
+    }
+
+    async function searchAccounts(input: string, loading: (status: boolean) => void) {
+
+        loading(true)
+
+        try {
+            const response = await fetchAccountsByName(input);
+            emits('search-accounts', response)
+        } catch (error) {
+            console.error('Error fetching Accounts:', error);
+        } finally {
+            loading(false);
+        }
+    }
+
+    async function searchClassifications(input: string, loading: (status: boolean) => void) {
+
+        loading(true)
+
+        try {
+            const response = await fetchClassificationsByName(input);
+            emits('search-classifications', response)
+        } catch (error) {
+            console.error('Error fetching Classifications:', error);
+        } finally {
+            loading(false);
+        }
+    }
+
+
+
+    // UTILS
+    const onCloseModal = () => {
+        classification.value = undefined
+        fundSource.value = undefined
+    }
+
+    const debouncedSearchAccounts = debounce((input: string, loading: (status: boolean) => void) => {
+        searchAccounts(input, loading);
+    }, 500);
+
+    const debouncedSearchClassifications = debounce((input: string, loading: (status: boolean) => void) => {
+        searchClassifications(input, loading);
+    }, 500);
+
+
 </script>
 
 
@@ -178,7 +313,7 @@
     }
 
     .modal-body-content {
-        max-height: 70vh; /* Set the maximum height of the modal content */
+        max-height: 50vh; /* Set the maximum height of the modal content */
         overflow-y: auto; /* Enable vertical scrolling */
         overflow-x: hidden; /* Disable horizontal scrolling */
         padding-bottom: 20px; /* Optional: Add space for footer if content is large */

@@ -48,3 +48,21 @@ export interface ApproveOrDisapprovePayload {
     classification_id?: string | null,
     fund_source_id?: string | null,
 }
+
+
+export const db_entity_mapper = {
+    [DB_ENTITY.RV]: 'RV',
+    [DB_ENTITY.SPR]: 'SPR',
+    [DB_ENTITY.JO]: 'JO',
+    [DB_ENTITY.MEQS]: 'MEQS',
+    [DB_ENTITY.PO]: 'PO',
+    [DB_ENTITY.RR]: 'RR',
+    [DB_ENTITY.OSRIV]: 'OSRIV',
+    [DB_ENTITY.SERIV]: 'SERIV',
+    [DB_ENTITY.MRV]: 'MRV',
+    [DB_ENTITY.MCT]: 'MCT',
+    [DB_ENTITY.MCRT]: 'MCRT',
+    [DB_ENTITY.MST]: 'MST',
+    [DB_ENTITY.GAS_SLIP]: 'Gas Slip',
+    [DB_ENTITY.TRIP_TICKET]: 'Trip Ticket',
+}

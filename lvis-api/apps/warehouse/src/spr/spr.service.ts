@@ -117,19 +117,16 @@ export class SprService {
             }, input.approvers[0]);
 
             const requisitioner = await getEmployee(canvass.requested_by_id, this.authUser)
-            const db_entity = DB_ENTITY.SPR
 
             const description = get_pending_description({
-                db_entity,
                 employee: requisitioner,
-                ref_number: sprNumber,
                 purpose: canvass.purpose,
             })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: sprNumber,
-                reference_table: db_entity,
+                reference_table: DB_ENTITY.SPR,
                 description
             }
 

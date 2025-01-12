@@ -209,19 +209,16 @@ export class RrService {
 
             const { requested_by_id, purpose } = get_canvass_info({ meqs: po.meqs_supplier.meqs as MEQS })
             const requisitioner = await getEmployee(requested_by_id, this.authUser)
-            const db_entity = DB_ENTITY.RR
 
             const description = get_pending_description({
-                db_entity,
                 employee: requisitioner,
-                ref_number: rrNumber,
                 purpose: purpose,
             })
     
             const pendingData = {
                 approver_id: firstApprover.approver_id,
                 reference_number: rrNumber,
-                reference_table: db_entity,
+                reference_table: DB_ENTITY.RR,
                 description
             }
 

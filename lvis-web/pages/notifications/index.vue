@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="small">
-                            Pending #{{ i + 1 }}
+                            {{ get_module_label(item) }}
                         </div>
                     </div>
                     <div class="card-body">
@@ -20,8 +20,6 @@
                     <div class="card-footer text-center">
                         <button 
                             @click="on_click_view_details(item)"
-                            data-bs-toggle="modal" 
-                            data-bs-target="#pendingModal2" 
                             class="btn pending-btn"
                         >
                             View Details
@@ -34,6 +32,15 @@
             </div>
         </div>
 
+        <button
+            ref="pending_modal_btn"
+            v-show="false" 
+            data-bs-toggle="modal" 
+            data-bs-target="#pendingModal2"
+        >
+            
+        </button>
+
         <PendingModal
             :pending-data="pending_selected"
             :is-loading-modal="isLoadingModal"
@@ -41,10 +48,16 @@
             :is-disapproving="isDisapproving"
             :is-adding-comment="isAddingComment"
             :current-tab="currentTab"
+            :classifications="classifications"
+            :accounts="accounts"
+            :is-budget-officer="is_budget_officer"
+            :is-finance-manager="is_finance_manager"
             @approve="handle_approval"
             @disapprove="handle_approval"
             @addComment="handle_add_comment"
             @change-tab="handle_change_tab"
+            @search-classifications="handleSearchedClassifications"
+            @search-accounts="handleSearchedAccounts"
         />
 
     </div>
@@ -72,14 +85,17 @@
     import type { Account } from '~/composables/accounting/account/account';
     import type { Classification } from '~/composables/accounting/classification/classification';
     import { useToast } from "vue-toastification";
-    import type { Pending } from '~/composables/notification/notification.types';
+    import { db_entity_mapper, type Pending } from '~/composables/notification/notification.types';
     import { PENDING_MODAL_TABS } from '~/composables/notification/notifications.enums';
-    import PendingModal from '~/components/Purchase/PendingModal.vue';
+    import PendingModal from '~/components/Notification/PendingModal.vue';
+    import type { Employee } from '~/composables/hr/employee/employee.types'
+    import { fetchTotalNotifications } from '~/composables/system/user/user.api'
 
     // Constants
     const config = useRuntimeConfig()
     const WAREHOUSE_API_URL = config.public.warehouseApiUrl
     const toast = useToast();
+    const pending_modal_btn = ref<HTMLButtonElement>()
 
 
     // Flags
@@ -98,6 +114,7 @@
     const accounts = ref<Account[]>([])
 
     const pending_selected = ref<Pending | null>(null)
+    const login_employee = ref<Employee>()
 
     onMounted(async () => {
         authUser.value = getAuthUser()
@@ -107,6 +124,7 @@
             pendings.value = response.pendings
             classifications.value = response.classifications
             accounts.value = response.accounts
+            login_employee.value = response.employee
             isLoadingPage.value = false
         }
 
@@ -123,14 +141,30 @@
 
     })
 
+    const is_budget_officer = computed((): boolean => {
+        if(!login_employee.value) return false 
+        if(login_employee.value.is_budget_officer === true) return true
+        return false 
+    })
+
+    const is_finance_manager = computed((): boolean => {
+        if(!login_employee.value) return false 
+        if(login_employee.value.is_finance_manager === true) return true
+        return false 
+    })
+
     // ================================== FUNCTIONS ================================== 
 
 
     async function on_click_view_details(pendingData: Pending) {
+        console.log('on_click_view_details', pendingData);
         isLoadingModal.value = true
+        open_pending_modal(pendingData)
 
         if(pendingData.reference_table === DB_ENTITY.RV) {
             const rv = await findRvDetails(pendingData.reference_number)
+
+            console.log('rv', rv?.rv_number);
 
             if(!rv || !rv.canvass) {
                 console.error('rv or rv.canvass is undefined');
@@ -203,8 +237,25 @@
 
     // ================================== Pending Modal Handlers ================================== 
 
-    async function handle_approval(payload: { pending_data: Pending, action: 'approve' | 'disapprove' }) {
+    async function handle_approval(payload: { 
+        pending_data: Pending, 
+        action: 'approve' | 'disapprove',
+        classification_id?: string,
+        fund_source_id?: string,
+        close_btn: HTMLButtonElement 
+    }) {
+
         console.log('handle_approval', payload);
+        const { pending_data, action, close_btn, classification_id, fund_source_id } = payload
+
+        close_btn.click()
+
+        if(action === 'approve') {
+            await handleApproval({ item: pending_data, classification_id, fund_source_id })
+        } else {
+            await handleDisapproval({ item: pending_data })
+        }
+
     }
 
     async function handle_add_comment(payload: { pending_data: Pending, comment: string }) {
@@ -215,8 +266,178 @@
         currentTab.value = payload.tab
     }
 
+    async function handleApproval(payload: { item: Pending, classification_id?: string, fund_source_id?: string }) {
+
+        const { item, classification_id, fund_source_id } = payload
+
+        Swal.fire({
+            title: "Approve Confirmation",
+            text: `Are you sure you want to approve transaction ${ get_module_label(item) }?`,
+            input: 'text',
+            inputValue: item.approver_notes || '', 
+            inputPlaceholder: 'Add Comment (optional)...',
+            position: "top",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#198754",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Approve!",
+            reverseButtons: true,
+            showLoaderOnConfirm: true,
+            preConfirm: async (confirm) => {
+
+                const inputValue = Swal.getInput()?.value;
+                const notes = inputValue || '';
+
+                const response = await noticationApi.approvePending({
+                    id: item.id,
+                    classification_id,
+                    fund_source_id,
+                    remarks: notes,
+                })
+
+                if (response.success) {
+
+                    Swal.fire({
+                        text: response.msg,
+                        icon: 'success',
+                        position: 'top',
+                    });
+
+                    await updateTotalNotifications()
+                    removePending(item.id)
+                    } else {
+
+                    Swal.fire({
+                        title: 'Error!',
+                        text: response.msg,
+                        icon: 'error',
+                        position: 'top',
+                    })
+
+                }
+
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then( () => {
+            open_pending_modal(item)
+        })
+
+    }
+
+    async function handleDisapproval(payload: {item: Pending }) {
+
+        const { item } = payload
+
+        Swal.fire({
+            title: "Disapprove Confirmation",
+            text: `Are you sure you want to disapprove transaction ${ get_module_label(item) }?`,
+            input: 'text',
+            inputValue: item.approver_notes || '',
+            inputPlaceholder: 'Add Comment...',
+            position: "top",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e74a3b",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Disapprove!",
+            reverseButtons: true,
+            showLoaderOnConfirm: true,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to enter a comment!';
+                }
+            },
+            preConfirm: async (confirm) => {
+
+                const inputValue = Swal.getInput()?.value;
+                const notes = inputValue || '';
+
+                const response = await noticationApi.disapprovePending({
+                    id: item.id,
+                    remarks: notes,
+                })
+
+                if (response.success) {
+
+                    Swal.fire({
+                        text: response.msg,
+                        icon: 'success',
+                        position: 'top',
+                    })
+
+                    await updateTotalNotifications()
+                    removePending(item.id)
+
+                    } else {
+
+                    Swal.fire({
+                        title: 'Error!',
+                        text: response.msg,
+                        icon: 'error',
+                        position: 'top',
+                    })
+
+                }
+
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then(() => {
+            open_pending_modal(item)
+        })
+
+    }
+
+    async function handleSearchedAccounts(searchedAccounts: Account[]) {
+        accounts.value = searchedAccounts.map(i => ({...i}))
+    }
+
+    async function handleSearchedClassifications(searchedClassifications: Classification[]) {
+        classifications.value = searchedClassifications.map(i => ({...i}))
+    }
+
     // =============================== Utils =============================== 
 
+    async function updateTotalNotifications() {
+        console.log('updateTotalNotifications');
+        
+        if(!authUser.value) return 
+
+        if(authUser.value.user.user_employee) {
+            const response = await fetchTotalNotifications(authUser.value.user.user_employee.employee_id, WAREHOUSE_API_URL)
+            if(response !== undefined) {
+                authUser.value.user.user_employee.employee.total_pending_approvals = response
+                const newAuthUser = JSON.stringify(authUser.value);
+                localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
+            }
+        }
+
+    }
+
+    function removePending(id: number) {
+        const indx = pendings.value.findIndex(i => i.id === id);
+        if (indx !== -1) {
+            pendings.value.splice(indx, 1);
+        }
+    }
+
+    function get_module_label(pending: Pending) {
+        return db_entity_mapper[pending.reference_table] + ': ' + pending.reference_number
+    }
+
+    function open_pending_modal(pending: Pending) {
+        console.log('open_pending_modal');
+
+        const item = pendings.value.find(i => i.id === pending.id)
+
+        if(item) {
+            console.log('Item found in pendings. Opening modal...');
+            pending_modal_btn.value?.click()
+        } else {
+            console.log('Item not found in pendings. Will not open modal');
+        }
+
+    }
 
 </script>
 
