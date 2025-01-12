@@ -9,7 +9,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { JOsResponse } from './entities/jos-response.entity';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateJoByBudgetOfficerInput } from './dto/update-jo-by-budget-officer.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
@@ -59,7 +59,7 @@ export class JoService {
     }
 
     // When creating jo, pendings should also be created for each approver
-    async create(input: CreateJoInput): Promise<JO> {
+    async create(input: CreateJoInput) {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create JO. Please try again')
@@ -138,7 +138,7 @@ export class JoService {
         
     }
 
-    async update(id: string, input: UpdateJoInput): Promise<JO> {
+    async update(id: string, input: UpdateJoInput) {
 
         const existingItem = await this.prisma.jO.findUnique({
             where: { id },
@@ -168,99 +168,79 @@ export class JoService {
             notes: input.notes ?? existingItem.notes,
         }
 
-        const queries = []
+        return await this.prisma.$transaction(async(tx) => {
 
-        const updateJoQuery = this.prisma.jO.update({
-            data,
-            where: { id },
-            include: this.includedFields
-        })
-
-        queries.push(updateJoQuery)
-
-        // if supervisor is updated
-        if(input.supervisor_id) {
-
-            const existing_supervisor_id = await this.get_supervisor_id(id)
-
-            if(existing_supervisor_id !== input.supervisor_id) {
-
-                // update supervisor in rv approver
-
-                const update_jo_approver_query = this.prisma.jOApprover.update({
-                    where: {
-                        jo_id_order: {
-                            jo_id: id,
-                            order: 1,
-                        },
-                    },
-                    data: {
-                        approver_id: input.supervisor_id,
-                    }
-                })
-
-                queries.push(update_jo_approver_query)
-
-
-                // ================ UPDATE PENDINGS ================
-    
-                // check first if existing supervisor is in pendings table
-                const pending_existing_supervisor = await this.prisma.pending.findUnique({
-                    where: {
-                        approver_id_reference_number_reference_table: {
-                            approver_id: existing_supervisor_id,
-                            reference_number: existingItem.jo_number,
-                            reference_table: DB_ENTITY.JO,
+            const jo_updated = await tx.jO.update({
+                data,
+                where: { id },
+                select: {
+                    id: true,
+                    canvass: {
+                        select: {
+                            requested_by_id: true,
+                            purpose: true,
                         }
                     }
-                })
-
-                // remove pending approval of previous supervisor
-                if(pending_existing_supervisor) {
-                    const removePendingQuery = this.prisma.pending.delete({
-                        where: { id: pending_existing_supervisor.id }
-                    })
-
-                    queries.push(removePendingQuery)
                 }
-
-                
-                // check first if new supervisor is in pendings table
-                const pending_new_supervisor = await this.prisma.pending.findUnique({
-                    where: {
-                        approver_id_reference_number_reference_table: {
-                            approver_id: input.supervisor_id,
-                            reference_number: existingItem.jo_number,
-                            reference_table: DB_ENTITY.JO,
-                        }
-                    }
-                })
-
-                // create pending approval of new supervisor
-                if(!pending_new_supervisor) {
-                    const module = getModule(DB_ENTITY.JO)
-                    const createPendingQuery = this.prisma.pending.create({
+            })
+    
+            // if supervisor is updated
+            if(input.supervisor_id) {
+    
+                const existing_supervisor_id = await this.get_supervisor_id(id)
+    
+                if(existing_supervisor_id !== input.supervisor_id) {
+    
+                    // update supervisor in rv approver
+    
+                    await tx.jOApprover.update({
+                        where: {
+                            jo_id_order: {
+                                jo_id: id,
+                                order: 1,
+                            },
+                        },
                         data: {
                             approver_id: input.supervisor_id,
-                            reference_number: existingItem.jo_number,
-                            reference_table: DB_ENTITY.JO,
-                            description: `${ module.description } no. ${existingItem.jo_number}`
                         }
                     })
+    
+                    // ================ UPDATE PENDINGS ================
         
-                    queries.push(createPendingQuery)
+                    // check first if existing supervisor is in pendings table
+                    const pending_existing_supervisor = await tx.pending.findUnique({
+                        where: {
+                            approver_id_reference_number_reference_table: {
+                                approver_id: existing_supervisor_id,
+                                reference_number: existingItem.jo_number,
+                                reference_table: DB_ENTITY.JO,
+                            }
+                        }
+                    })
+    
+                    // remove pending approval of previous supervisor
+                    if(pending_existing_supervisor) {
+                        
+                        await tx.pending.delete({
+                            where: { id: pending_existing_supervisor.id }
+                        })
 
+                        await tx.pending.create({
+                            data: {
+                                approver_id: input.supervisor_id,
+                                reference_number: pending_existing_supervisor.reference_number,
+                                reference_table: pending_existing_supervisor.reference_table,
+                                description: pending_existing_supervisor.description,
+                            }
+                        })
+                    }
                 }
-
-
+    
             }
 
+            return jo_updated
 
-        }
-
-        const result = await this.prisma.$transaction(queries)
-
-        return result[0]
+        })
 
     }
 

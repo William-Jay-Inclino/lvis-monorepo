@@ -2,7 +2,7 @@
 
     <div v-if="!isLoadingPage && authUser && authUser.user.user_employee">
 
-        <div class="row pt-3">
+        <div class="row">
             <div v-for="item, i in filteredItems" :key="i" class="col-lg-3 col-md-6 col-sm-12 pt-3">
                 <div class="card">
                     <div class="card-header">
@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-2">
-                            <textarea class="form-control form-control-sm text-muted" rows="5" readonly>{{ item.description }}</textarea>
+                            <textarea class="form-control form-control-sm text-muted" rows="4" readonly>{{ item.description }}</textarea>
                         </div>
                         <span class="small text-muted fst-italic">Created: {{ formatDate(item.transaction_date, true) }}</span>
 

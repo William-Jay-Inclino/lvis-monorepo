@@ -137,7 +137,7 @@ export class SprService {
     
     }
 
-    async update(id: string, input: UpdateSprInput): Promise<SPR> {
+    async update(id: string, input: UpdateSprInput) {
 
         const existingItem = await this.prisma.sPR.findUnique({
             where: { id },
@@ -165,99 +165,79 @@ export class SprService {
             notes: input.notes ?? existingItem.notes,
         }
 
-        const queries = []
+        return await this.prisma.$transaction(async(tx) => {
 
-        const updateSprQuery = this.prisma.sPR.update({
-            data,
-            where: { id },
-            include: this.includedFields
-        })
-
-        queries.push(updateSprQuery)
-
-        // if supervisor is updated
-        if(input.supervisor_id) {
-
-            const existing_supervisor_id = await this.get_supervisor_id(id)
-
-            if(existing_supervisor_id !== input.supervisor_id) {
-
-                // update supervisor in rv approver
-
-                const update_spr_approver_query = this.prisma.sPRApprover.update({
-                    where: {
-                        spr_id_order: {
-                            spr_id: id,
-                            order: 1,
-                        },
-                    },
-                    data: {
-                        approver_id: input.supervisor_id,
-                    }
-                })
-
-                queries.push(update_spr_approver_query)
-
-
-                // ================ UPDATE PENDINGS ================
-    
-                // check first if existing supervisor is in pendings table
-                const pending_existing_supervisor = await this.prisma.pending.findUnique({
-                    where: {
-                        approver_id_reference_number_reference_table: {
-                            approver_id: existing_supervisor_id,
-                            reference_number: existingItem.spr_number,
-                            reference_table: DB_ENTITY.SPR,
+            const spr_updated = await tx.sPR.update({
+                data,
+                where: { id },
+                select: {
+                    id: true,
+                    canvass: {
+                        select: {
+                            requested_by_id: true,
+                            purpose: true,
                         }
                     }
-                })
-
-                // remove pending approval of previous supervisor
-                if(pending_existing_supervisor) {
-                    const removePendingQuery = this.prisma.pending.delete({
-                        where: { id: pending_existing_supervisor.id }
-                    })
-
-                    queries.push(removePendingQuery)
                 }
-
-                
-                // check first if new supervisor is in pendings table
-                const pending_new_supervisor = await this.prisma.pending.findUnique({
-                    where: {
-                        approver_id_reference_number_reference_table: {
-                            approver_id: input.supervisor_id,
-                            reference_number: existingItem.spr_number,
-                            reference_table: DB_ENTITY.SPR,
-                        }
-                    }
-                })
-
-                // create pending approval of new supervisor
-                if(!pending_new_supervisor) {
-                    const module = getModule(DB_ENTITY.SPR)
-                    const createPendingQuery = this.prisma.pending.create({
+            })
+    
+            // if supervisor is updated
+            if(input.supervisor_id) {
+    
+                const existing_supervisor_id = await this.get_supervisor_id(id)
+    
+                if(existing_supervisor_id !== input.supervisor_id) {
+    
+                    // update supervisor in rv approver
+    
+                    await tx.sPRApprover.update({
+                        where: {
+                            spr_id_order: {
+                                spr_id: id,
+                                order: 1,
+                            },
+                        },
                         data: {
                             approver_id: input.supervisor_id,
-                            reference_number: existingItem.spr_number,
-                            reference_table: DB_ENTITY.SPR,
-                            description: `${ module.description } no. ${existingItem.spr_number}`
                         }
                     })
+    
+                    // ================ UPDATE PENDINGS ================
         
-                    queries.push(createPendingQuery)
+                    // check first if existing supervisor is in pendings table
+                    const pending_existing_supervisor = await tx.pending.findUnique({
+                        where: {
+                            approver_id_reference_number_reference_table: {
+                                approver_id: existing_supervisor_id,
+                                reference_number: existingItem.spr_number,
+                                reference_table: DB_ENTITY.SPR,
+                            }
+                        }
+                    })
+    
+                    // remove pending approval of previous supervisor
+                    if(pending_existing_supervisor) {
+                        
+                        await tx.pending.delete({
+                            where: { id: pending_existing_supervisor.id }
+                        })
 
+                        await tx.pending.create({
+                            data: {
+                                approver_id: input.supervisor_id,
+                                reference_number: pending_existing_supervisor.reference_number,
+                                reference_table: pending_existing_supervisor.reference_table,
+                                description: pending_existing_supervisor.description,
+                            }
+                        })
+                    }
                 }
-
-
+    
             }
 
+            return spr_updated
 
-        }
-
-        const result = await this.prisma.$transaction(queries)
-
-        return result[0]
+        })
 
     }
 

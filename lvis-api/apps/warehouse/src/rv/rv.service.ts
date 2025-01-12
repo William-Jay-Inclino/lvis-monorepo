@@ -141,7 +141,7 @@ export class RvService {
         
     }
 
-    async update(id: string, input: UpdateRvInput): Promise<RV> {
+    async update(id: string, input: UpdateRvInput) {
 
         const existingItem = await this.prisma.rV.findUnique({
             where: { id },
@@ -170,103 +170,207 @@ export class RvService {
             work_order_date: input.work_order_date ? new Date(input.work_order_date) : existingItem.work_order_date,
         }
 
-        const queries = []
+        return await this.prisma.$transaction(async(tx) => {
 
-        const updateRvQuery = this.prisma.rV.update({
-            data,
-            where: { id },
-            select: {
-                id: true
-            }
-        })
-
-        queries.push(updateRvQuery)
-
-        // if supervisor is updated
-        if(input.supervisor_id) {
-
-            const existing_supervisor_id = await this.get_supervisor_id(id)
-
-            if(existing_supervisor_id !== input.supervisor_id) {
-
-                // update supervisor in rv approver
-
-                const update_rv_approver_query = this.prisma.rVApprover.update({
-                    where: {
-                        rv_id_order: {
-                            rv_id: id,
-                            order: 1,
-                        },
-                    },
-                    data: {
-                        approver_id: input.supervisor_id,
-                    }
-                })
-
-                queries.push(update_rv_approver_query)
-
-
-                // ================ UPDATE PENDINGS ================
-    
-                // check first if existing supervisor is in pendings table
-                const pending_existing_supervisor = await this.prisma.pending.findUnique({
-                    where: {
-                        approver_id_reference_number_reference_table: {
-                            approver_id: existing_supervisor_id,
-                            reference_number: existingItem.rv_number,
-                            reference_table: DB_ENTITY.RV,
+            const rv_updated = await tx.rV.update({
+                data,
+                where: { id },
+                select: {
+                    id: true,
+                    canvass: {
+                        select: {
+                            requested_by_id: true,
+                            purpose: true,
                         }
                     }
-                })
-
-                // remove pending approval of previous supervisor
-                if(pending_existing_supervisor) {
-                    const removePendingQuery = this.prisma.pending.delete({
-                        where: { id: pending_existing_supervisor.id }
-                    })
-
-                    queries.push(removePendingQuery)
                 }
-
-                
-                // check first if new supervisor is in pendings table
-                const pending_new_supervisor = await this.prisma.pending.findUnique({
-                    where: {
-                        approver_id_reference_number_reference_table: {
-                            approver_id: input.supervisor_id,
-                            reference_number: existingItem.rv_number,
-                            reference_table: DB_ENTITY.RV,
-                        }
-                    }
-                })
-
-                // create pending approval of new supervisor
-                if(!pending_new_supervisor) {
-                    const module = getModule(DB_ENTITY.RV)
-                    const createPendingQuery = this.prisma.pending.create({
+            })
+    
+            // if supervisor is updated
+            if(input.supervisor_id) {
+    
+                const existing_supervisor_id = await this.get_supervisor_id(id)
+    
+                if(existing_supervisor_id !== input.supervisor_id) {
+    
+                    // update supervisor in rv approver
+    
+                    await tx.rVApprover.update({
+                        where: {
+                            rv_id_order: {
+                                rv_id: id,
+                                order: 1,
+                            },
+                        },
                         data: {
                             approver_id: input.supervisor_id,
-                            reference_number: existingItem.rv_number,
-                            reference_table: DB_ENTITY.RV,
-                            description: `${ module.description } no. ${existingItem.rv_number}`
                         }
                     })
+    
+                    // ================ UPDATE PENDINGS ================
         
-                    queries.push(createPendingQuery)
+                    // check first if existing supervisor is in pendings table
+                    const pending_existing_supervisor = await tx.pending.findUnique({
+                        where: {
+                            approver_id_reference_number_reference_table: {
+                                approver_id: existing_supervisor_id,
+                                reference_number: existingItem.rv_number,
+                                reference_table: DB_ENTITY.RV,
+                            }
+                        }
+                    })
+    
+                    // remove pending approval of previous supervisor
+                    if(pending_existing_supervisor) {
+                        
+                        await tx.pending.delete({
+                            where: { id: pending_existing_supervisor.id }
+                        })
 
+                        await tx.pending.create({
+                            data: {
+                                approver_id: input.supervisor_id,
+                                reference_number: pending_existing_supervisor.reference_number,
+                                reference_table: pending_existing_supervisor.reference_table,
+                                description: pending_existing_supervisor.description,
+                            }
+                        })
+                    }
                 }
-
-
+    
             }
 
+            return rv_updated
 
-        }
-
-        const result = await this.prisma.$transaction(queries)
-
-        return result[0]
-
+        })
     }
+
+    // async update(id: string, input: UpdateRvInput): Promise<RV> {
+
+    //     const existingItem = await this.prisma.rV.findUnique({
+    //         where: { id },
+    //         include: {
+    //             rv_approvers: true
+    //         }
+    //     })
+
+    //     if (!existingItem) {
+    //         throw new NotFoundException('RV not found')
+    //     }
+
+    //     if (!this.canAccess(existingItem)) {
+    //         throw new ForbiddenException('Only Admin and Owner can update this record!')
+    //     }
+
+    //     if (!(await this.canUpdate(input, existingItem))) {
+    //         throw new Error('Failed to update RV. Please try again')
+    //     }
+
+    //     const data: Prisma.RVUpdateInput = {
+    //         updated_by: this.authUser.user.username,
+    //         classification_id: input.classification_id ?? null,
+    //         work_order_no: input.work_order_no ?? existingItem.work_order_no,
+    //         notes: input.notes ?? existingItem.notes,
+    //         work_order_date: input.work_order_date ? new Date(input.work_order_date) : existingItem.work_order_date,
+    //     }
+
+    //     const queries = []
+
+    //     const updateRvQuery = this.prisma.rV.update({
+    //         data,
+    //         where: { id },
+    //         select: {
+    //             id: true
+    //         }
+    //     })
+
+    //     queries.push(updateRvQuery)
+
+    //     // if supervisor is updated
+    //     if(input.supervisor_id) {
+
+    //         const existing_supervisor_id = await this.get_supervisor_id(id)
+
+    //         if(existing_supervisor_id !== input.supervisor_id) {
+
+    //             // update supervisor in rv approver
+
+    //             const update_rv_approver_query = this.prisma.rVApprover.update({
+    //                 where: {
+    //                     rv_id_order: {
+    //                         rv_id: id,
+    //                         order: 1,
+    //                     },
+    //                 },
+    //                 data: {
+    //                     approver_id: input.supervisor_id,
+    //                 }
+    //             })
+
+    //             queries.push(update_rv_approver_query)
+
+
+    //             // ================ UPDATE PENDINGS ================
+    
+    //             // check first if existing supervisor is in pendings table
+    //             const pending_existing_supervisor = await this.prisma.pending.findUnique({
+    //                 where: {
+    //                     approver_id_reference_number_reference_table: {
+    //                         approver_id: existing_supervisor_id,
+    //                         reference_number: existingItem.rv_number,
+    //                         reference_table: DB_ENTITY.RV,
+    //                     }
+    //                 }
+    //             })
+
+    //             // remove pending approval of previous supervisor
+    //             if(pending_existing_supervisor) {
+    //                 const removePendingQuery = this.prisma.pending.delete({
+    //                     where: { id: pending_existing_supervisor.id }
+    //                 })
+
+    //                 queries.push(removePendingQuery)
+    //             }
+
+                
+    //             // check first if new supervisor is in pendings table
+    //             const pending_new_supervisor = await this.prisma.pending.findUnique({
+    //                 where: {
+    //                     approver_id_reference_number_reference_table: {
+    //                         approver_id: input.supervisor_id,
+    //                         reference_number: existingItem.rv_number,
+    //                         reference_table: DB_ENTITY.RV,
+    //                     }
+    //                 }
+    //             })
+
+    //             // create pending approval of new supervisor
+    //             if(!pending_new_supervisor) {
+    //                 const module = getModule(DB_ENTITY.RV)
+    //                 const createPendingQuery = this.prisma.pending.create({
+    //                     data: {
+    //                         approver_id: input.supervisor_id,
+    //                         reference_number: existingItem.rv_number,
+    //                         reference_table: DB_ENTITY.RV,
+    //                         description: `${ module.description } no. ${existingItem.rv_number}`
+    //                     }
+    //                 })
+        
+    //                 queries.push(createPendingQuery)
+
+    //             }
+
+
+    //         }
+
+
+    //     }
+
+    //     const result = await this.prisma.$transaction(queries)
+
+    //     return result[0]
+
+    // }
 
     async cancel(id: string): Promise<WarehouseCancelResponse> {
 

@@ -224,7 +224,8 @@ export class TripTicketService {
 				if(!existingAssignee) {
 					throw new NotFoundException(`Trip ticket approver not found with trip number of ${existingItem.trip_number} and order is 1`)
 				}
-	
+
+				// get vehicle assignee
 				const vehicle = await tx.vehicle.findUnique({
 					where: {
 						id: input.vehicle_id
@@ -234,7 +235,36 @@ export class TripTicketService {
 						assignee_id: true,
 					}
 				})
-	
+
+				// update pendings 
+				const pending = await tx.pending.findUnique({
+					where: {
+						approver_id_reference_number_reference_table: {
+							approver_id: existingAssignee.approver_id,
+							reference_number: trip_ticket_updated.trip_number,
+							reference_table: DB_ENTITY.TRIP_TICKET,
+						},
+					},
+				}); 
+
+				if(pending) {
+					// delete previous approver's pending
+					await tx.pending.delete({
+                        where: { id: pending.id },
+                    });
+    
+                    // add pending for new approver
+                    await tx.pending.create({
+                        data: {
+                            approver_id: vehicle.assignee_id,
+                            reference_number: pending.reference_number,
+                            reference_table: pending.reference_table,
+                            description: pending.description,
+                        },
+                    });
+				}
+
+				// change approver
 				await tx.tripTicketApprover.update({
 					where: {
 						id: existingAssignee.id
