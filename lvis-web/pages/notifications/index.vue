@@ -6,7 +6,7 @@
             <div v-for="item, i in filteredItems" :key="i" class="col-lg-3 col-md-6 col-sm-12 pt-3">
                 <div class="card">
                     <div class="card-header">
-                        <div class="small">
+                        <div class="small fw-bold">
                             {{ get_module_label(item) }}
                         </div>
                     </div>
