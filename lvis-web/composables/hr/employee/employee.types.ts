@@ -1,4 +1,4 @@
-import type { Pending } from "~/composables/e-forms/pendings/pendings.types"
+import type { Pending } from "~/composables/notifications/pendings.types"
 import type { Division } from "~/composables/common.types"
 import type { UserEmployee } from "~/composables/system/user/user.types"
 import type { Department } from "../department/department"

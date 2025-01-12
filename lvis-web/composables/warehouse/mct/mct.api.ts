@@ -131,18 +131,43 @@ export async function findOne(id: string): Promise<MCT | undefined> {
                 mrv {
                     id
                     mrv_number
+                    status
+                    date_requested 
                     purpose
-                    date_requested
+                    request_type
+                    or_number
+                    mwo_number
+                    cwo_number
+                    jo_number
+                    consumer_name
                     location
+                    cancelled_at
+                    created_by
+                    can_update
+                    exp_date
+                    item_from {
+                        id
+                        name
+                    }
+                    project {
+                        id
+                        name
+                    }
                     requested_by {
+                        id
                         firstname 
                         middlename 
                         lastname
                     }
                     withdrawn_by {
+                        id
                         firstname 
                         middlename 
                         lastname
+                    }
+                    mct {
+                        id
+                        mct_number
                     }
                     mrv_approvers{
                         approver {
@@ -167,6 +192,11 @@ export async function findOne(id: string): Promise<MCT | undefined> {
                             description
                             unit {
                                 name 
+                            }
+                            project_item {
+                                project {
+                                    name
+                                }
                             }
                             total_quantity
                             quantity_on_queue

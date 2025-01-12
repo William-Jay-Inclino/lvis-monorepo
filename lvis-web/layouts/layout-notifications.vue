@@ -28,7 +28,7 @@
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
                         <!-- <li class="nav-item">
-                            <nuxt-link class="nav-link text-white" to="/e-forms/pendings">Pending Forms</nuxt-link>
+                            <nuxt-link class="nav-link text-white" to="/notifications">Pending Forms</nuxt-link>
                         </li> -->
                         <li v-if="authUser" class="nav-item dropdown">
                             <a data-testid="username-dropdown" style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"

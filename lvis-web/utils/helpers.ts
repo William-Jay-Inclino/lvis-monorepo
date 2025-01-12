@@ -1,6 +1,4 @@
 import moment from "moment";
-import { VAT_TYPE } from "#imports";
-import { APPROVAL_STATUS } from "#imports";
 import type { TRIP_TICKET_STATUS } from "~/composables/motorpool/trip-ticket/trip-ticket.enums";
 import axios from "axios";
 import Swal from "sweetalert2";

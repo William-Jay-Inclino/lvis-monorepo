@@ -261,7 +261,6 @@ import { useToast } from "vue-toastification";
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import { canPrint } from '~/utils/permissions';
-import { isBlankStatus } from '#imports';
 
 definePageMeta({
     name: ROUTES.TRIP_TICKET_VIEW,

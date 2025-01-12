@@ -113,15 +113,39 @@
                             <div class="col">
                                 <div class="modal-body-content">
 
-                                    <CanvassDetail v-if="currentTab === PENDING_MODAL_TABS.CANVASS" :canvass="pendingData?.canvass" />
-                                    <RvDetail v-else-if="currentTab === PENDING_MODAL_TABS.RV" :rv="pendingData?.rv"/>
-                                    <SprDetail v-else-if="currentTab === PENDING_MODAL_TABS.SPR" :spr="pendingData?.spr"/>
-                                    <JoDetail v-else-if="currentTab === PENDING_MODAL_TABS.JO" :jo="pendingData?.jo"/>
-                                    <MeqsDetail v-else-if="currentTab === PENDING_MODAL_TABS.MEQS" :meqs="pendingData?.meqs"/>
-                                    <PoDetail v-else-if="currentTab === PENDING_MODAL_TABS.PO" :po="pendingData?.po"/>
-                                    <RrDetail v-else-if="currentTab === PENDING_MODAL_TABS.RR" :rr="pendingData?.rr"/>
-                                    <OsrivDetail v-else-if="currentTab === PENDING_MODAL_TABS.OSRIV" :osriv="pendingData?.osriv"/>
-
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.CANVASS">
+                                        <NotificationCanvassDetail :canvass="pendingData?.canvass" />
+                                    </div>
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.RV">
+                                        <NotificationRvDetail :rv="pendingData?.rv" />
+                                    </div>
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.SPR">
+                                        <NotificationSprDetail :spr="pendingData?.spr" />
+                                    </div>
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.JO">
+                                        <NotificationJoDetail :jo="pendingData?.jo" />
+                                    </div>
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.MEQS">
+                                        <NotificationMeqsDetail :meqs="pendingData?.meqs" />
+                                    </div>
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.PO">
+                                        <NotificationPoDetail :po="pendingData?.po" />
+                                    </div>
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.RR">
+                                        <NotificationRrDetail :rr="pendingData?.rr" />
+                                    </div>
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.OSRIV">
+                                        <NotificationOsrivDetail :osriv="pendingData?.osriv" />
+                                    </div>
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.SERIV">
+                                        <NotificationSerivDetail :seriv="pendingData?.seriv" />
+                                    </div>
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.MRV">
+                                        <NotificationMrvDetail :mrv="pendingData?.mrv" />
+                                    </div>
+                                    <div v-if="currentTab === PENDING_MODAL_TABS.MCT">
+                                        <NotificationMctDetail :mct="pendingData?.mct" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -184,14 +208,6 @@
 <script setup lang="ts">
     import type { Pending } from '~/composables/notification/notification.types';
     import { PENDING_MODAL_TABS } from '~/composables/notification/notifications.enums';
-    import CanvassDetail from './CanvassDetail.vue';
-    import RvDetail from './RvDetail.vue';
-    import SprDetail from './SprDetail.vue';
-    import JoDetail from './JoDetail.vue';
-    import MeqsDetail from './MeqsDetail.vue';
-    import PoDetail from './PoDetail.vue';
-    import RrDetail from './RrDetail.vue';
-    import OsrivDetail from './OsrivDetail.vue';
     import type { Account } from '~/composables/accounting/account/account';
     import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
     import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';

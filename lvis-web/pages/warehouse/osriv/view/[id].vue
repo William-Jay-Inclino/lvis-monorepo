@@ -242,7 +242,6 @@ import { approvalStatus } from '~/utils/constants'
 import { useToast } from "vue-toastification";
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import { APPROVAL_STATUS, isBlankStatus } from '#imports';
 
 definePageMeta({
     name: ROUTES.OSRIV_VIEW,

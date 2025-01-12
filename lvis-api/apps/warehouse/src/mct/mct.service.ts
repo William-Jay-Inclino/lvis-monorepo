@@ -164,16 +164,25 @@ export class MctService {
                 mcrts: true,
                 mrv: {
                     include: {
-                    mrv_items: {
-                        include: {
-                            item: {
-                                include: {
-                                    unit: true,
-                                    item_transactions: true
+                        mrv_items: {
+                            include: {
+                                item: {
+                                    include: {
+                                        unit: true,
+                                        item_transactions: true,
+                                        item_type: true,
+                                        project_item: {
+                                            include: {
+                                                project: true,
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    },
+                        },
+                        item_from: true,
+                        project: true,
+                        mct: true,
                     }
                 }
             },

@@ -1,4 +1,3 @@
-import type { VAT_TYPE } from "#imports";
 
 export interface Supplier {
     id: string;

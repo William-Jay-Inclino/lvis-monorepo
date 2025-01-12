@@ -1,8 +1,6 @@
-import type { ITEM_TYPE } from "#imports";
 import type { Project } from "../project/project.types";
 import type { CreateItemInput, FindAllResponse, Item, ItemType, MutationResponse, UpdateItemInput } from "./item.type";
-
-
+import { ITEM_TYPE } from '~/utils/constants'
 
 export async function fetchDataInSearchFilters(): Promise<{
     items: Item[],

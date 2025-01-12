@@ -57,7 +57,7 @@
 
 
 <script setup lang="ts">
-import { type Pending } from '~/composables/e-forms/pendings/pendings.types';
+import { type Pending } from '~/composables/notifications/pendings.types';
 import type { Account } from '~/composables/accounting/account/account';
 import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
 import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';

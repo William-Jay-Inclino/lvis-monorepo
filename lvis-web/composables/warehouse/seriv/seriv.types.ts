@@ -4,10 +4,9 @@ import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateSERIVApprover, SERIVApprover } from "./seriv-approver.types";
 import type { SERIVItem } from "./seriv-item.types";
 import type { Station } from "../station/station";
-import { WAREHOUSE_REQUEST_TYPE } from "#imports";
 import type { MCRT } from "../mcrt/mcrt.types";
 import type { Project } from "../project/project.types";
-
+import { WAREHOUSE_REQUEST_TYPE } from "~/utils/constants";
 
 export interface SERIV {
     id: string;

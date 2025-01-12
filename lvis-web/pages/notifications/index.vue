@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-2">
-                            <textarea class="form-control form-control-sm" rows="6" readonly>{{ item.description }}</textarea>
+                            <textarea class="form-control form-control-sm text-muted" rows="5" readonly>{{ item.description }}</textarea>
                         </div>
                         <span class="small text-muted fst-italic">{{ formatDate(item.transaction_date, true) }}</span>
 
@@ -41,7 +41,7 @@
             
         </button>
 
-        <PendingModal
+        <NotificationPendingModal
             :pending-data="pending_selected"
             :is-loading-modal="isLoadingModal"
             :is-approving="isApproving"
@@ -83,14 +83,15 @@
     import { findOne as findPoDetails } from '~/composables/purchase/po/po.api'
     import { findOne as findRrDetails } from '~/composables/warehouse/rr/rr.api'
     import { findOne as findOsrivDetails } from '~/composables/warehouse/osriv/osriv.api'
+    import { findOne as findSerivDetails } from '~/composables/warehouse/seriv/seriv.api'
+    import { findOne as findMrvDetails } from '~/composables/warehouse/mrv/mrv.api'
+    import { findOne as findMctDetails } from '~/composables/warehouse/mct/mct.api'
     import Swal from 'sweetalert2'
-    import { DB_ENTITY, type AuthUser } from '#imports';
     import type { Account } from '~/composables/accounting/account/account';
     import type { Classification } from '~/composables/accounting/classification/classification';
     import { useToast } from "vue-toastification";
     import { db_entity_mapper, type Pending } from '~/composables/notification/notification.types';
     import { PENDING_MODAL_TABS } from '~/composables/notification/notifications.enums';
-    import PendingModal from '~/components/Notification/PendingModal.vue';
     import type { Employee } from '~/composables/hr/employee/employee.types'
     import { fetchTotalNotifications } from '~/composables/system/user/user.api'
 
@@ -311,6 +312,42 @@
 
             pending_selected.value = {...pendingData, osriv }
             currentTab.value = PENDING_MODAL_TABS.OSRIV
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.SERIV) {
+            const seriv = await findSerivDetails(pendingData.reference_number)
+            
+            if(!seriv) {
+                console.error('seriv is undefined');
+                return 
+            }
+
+            pending_selected.value = {...pendingData, seriv }
+            currentTab.value = PENDING_MODAL_TABS.SERIV
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.MRV) {
+            const mrv = await findMrvDetails(pendingData.reference_number)
+            
+            if(!mrv) {
+                console.error('mrv is undefined');
+                return 
+            }
+
+            pending_selected.value = {...pendingData, mrv }
+            currentTab.value = PENDING_MODAL_TABS.MRV
+        }
+
+        else if(pendingData.reference_table === DB_ENTITY.MCT) {
+            const mct = await findMctDetails(pendingData.reference_number)
+            
+            if(!mct) {
+                console.error('mct is undefined');
+                return 
+            }
+
+            pending_selected.value = {...pendingData, mct }
+            currentTab.value = PENDING_MODAL_TABS.MCT
         }
 
         isLoadingModal.value = false

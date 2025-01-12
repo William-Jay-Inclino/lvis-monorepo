@@ -1,4 +1,3 @@
-import { USER_STATUS, ROLE } from "#imports"
 import type { Employee } from "~/composables/hr/employee/employee.types"
 
 export interface User {

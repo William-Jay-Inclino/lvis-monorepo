@@ -4,9 +4,9 @@ import type { APPROVAL_STATUS } from "~/composables/common.types";
 import type { CreateMRVApprover, MRVApprover } from "./mrv-approver.types";
 import type { MRVItem } from "./mrv-item.types";
 import type { Station } from "../station/station";
-import { WAREHOUSE_REQUEST_TYPE } from "#imports";
 import type { MCT } from "../mct/mct.types";
 import type { Project } from "../project/project.types";
+import { WAREHOUSE_REQUEST_TYPE } from "#build/imports";
 
 
 export interface MRV {

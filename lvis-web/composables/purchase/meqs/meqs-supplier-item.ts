@@ -1,4 +1,3 @@
-import type { VAT_TYPE } from "#imports";
 import type { CanvassItem } from "../canvass/canvass-item.types";
 import type { MeqsSupplier } from "./meqs-supplier";
 

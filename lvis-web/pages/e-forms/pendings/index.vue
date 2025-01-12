@@ -229,10 +229,9 @@ definePageMeta({
     layout: "layout-e-form"
 })
 
-import { type Pending } from '~/composables/e-forms/pendings/pendings.types';
-import * as pendingsApi from '~/composables/e-forms/pendings/pendings.api'
+import { type Pending } from '~/composables/notifications/pendings.types';
+import * as pendingsApi from '~/composables/notifications/pendings.api'
 import Swal from 'sweetalert2'
-import { DB_ENTITY, type AuthUser } from '#imports';
 import type { Account } from '~/composables/accounting/account/account';
 import type { Classification } from '~/composables/accounting/classification/classification';
 import { MODULE_MAPPER } from '~/utils/constants';
