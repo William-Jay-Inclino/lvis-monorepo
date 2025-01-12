@@ -116,35 +116,38 @@
                                     <div v-if="currentTab === PENDING_MODAL_TABS.CANVASS">
                                         <NotificationCanvassDetail :canvass="pendingData?.canvass" />
                                     </div>
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.RV">
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.RV">
                                         <NotificationRvDetail :rv="pendingData?.rv" />
                                     </div>
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.SPR">
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.SPR">
                                         <NotificationSprDetail :spr="pendingData?.spr" />
                                     </div>
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.JO">
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.JO">
                                         <NotificationJoDetail :jo="pendingData?.jo" />
                                     </div>
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.MEQS">
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.MEQS">
                                         <NotificationMeqsDetail :meqs="pendingData?.meqs" />
                                     </div>
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.PO">
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.PO">
                                         <NotificationPoDetail :po="pendingData?.po" />
                                     </div>
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.RR">
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.RR">
                                         <NotificationRrDetail :rr="pendingData?.rr" />
                                     </div>
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.OSRIV">
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.OSRIV">
                                         <NotificationOsrivDetail :osriv="pendingData?.osriv" />
                                     </div>
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.SERIV">
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.SERIV">
                                         <NotificationSerivDetail :seriv="pendingData?.seriv" />
                                     </div>
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.MRV">
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.MRV">
                                         <NotificationMrvDetail :mrv="pendingData?.mrv" />
                                     </div>
-                                    <div v-if="currentTab === PENDING_MODAL_TABS.MCT">
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.MCT">
                                         <NotificationMctDetail :mct="pendingData?.mct" />
+                                    </div>
+                                    <div v-else-if="currentTab === PENDING_MODAL_TABS.MCRT">
+                                        <NotificationMcrtDetail :mcrt="pendingData?.mcrt" />
                                     </div>
                                 </div>
                             </div>
