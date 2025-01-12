@@ -205,7 +205,7 @@
             }
 
             pending_selected.value = {...pendingData, jo, canvass: jo.canvass }
-            currentTab.value = PENDING_MODAL_TABS.SPR
+            currentTab.value = PENDING_MODAL_TABS.JO
         }
 
         else if(pendingData.reference_table === DB_ENTITY.MEQS) {
