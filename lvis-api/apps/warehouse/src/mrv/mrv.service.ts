@@ -417,23 +417,46 @@ export class MrvService {
         };
     }
 
-    async findMrvsByMrvNumber(mrvNumber: string, includeDetails: boolean = false) {
+    async findMrvsByMrvNumber(mrvNumber: string) {
 
 		const trimmedMrvNumber = mrvNumber.trim(); 
 
-        let selectClause;
-        if (includeDetails) {
-            selectClause = { 
-                id: true,
-                mrv_number: true, 
-                item_from: true
-            }; 
-        } else {
-            selectClause = { mrv_number: true };
-        }
-
         const items = await this.prisma.mRV.findMany({
-            select: selectClause,
+            include: {
+                item_from: true,
+                mrv_approvers: true,
+                mct: {
+                    select: {
+                        mcrts: true
+                    }
+                },
+                mrv_items: {
+                    include: {
+                        mrv: {
+                            select: {
+                                mct: {
+                                    select: {
+                                        mcrts: {
+                                            select: {
+                                                id: true,
+                                                cancelled_at: true,
+                                                is_completed: true,
+                                                mcrt_items: true
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                        },
+                        item: {
+                            include: {
+                                unit: true,
+                                item_transactions: true,
+                            }
+                        }
+                    }
+                },
+            },
             where: {
                 mrv_number: {
                     startsWith: trimmedMrvNumber

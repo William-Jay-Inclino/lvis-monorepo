@@ -6,7 +6,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Apply Filters</h5>
+                        <h5 class="card-title text-warning">Trip Ticket Summary</h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">

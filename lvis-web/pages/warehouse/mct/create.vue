@@ -91,7 +91,9 @@
                                         </tr>
                                         <tr>
                                             <td>Purpose</td>
-                                            <td class="text-muted"> {{mctData.mrv?.purpose}} </td>
+                                            <td class="text-muted">
+                                                <textarea class="form-control form-control-sm text-muted" rows="3" readonly>{{mctData.mrv?.purpose}}</textarea>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Location</td>

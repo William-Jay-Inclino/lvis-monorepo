@@ -74,7 +74,7 @@ export class MrvResolver {
         @Args('mrv_number') mrv_number: string,
         @Args('is_detail_included', { nullable: true }) is_detail_included?: boolean,
     ){
-        return this.mrvService.findMrvsByMrvNumber(mrv_number, is_detail_included);
+        return this.mrvService.findMrvsByMrvNumber(mrv_number);
     }
 
     @Query(() => MRV)

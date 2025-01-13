@@ -810,8 +810,52 @@ export async function fetchMRVsByMrvNumber(payload: string): Promise<MRV[]> {
             mrvs_by_mrv_number(mrv_number: "${payload}", is_detail_included: true) {
                 id
                 mrv_number
-                status
+                date_requested
                 is_referenced
+                status
+                item_from {
+                    name
+                }
+                purpose
+                location
+                requested_by {
+                    firstname 
+                    middlename 
+                    lastname
+                }
+                withdrawn_by {
+                    firstname 
+                    middlename 
+                    lastname
+                }
+                mrv_approvers{
+                    approver {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    status
+                    label
+                    order
+                    notes
+                    date_approval
+                }
+                mrv_items {
+                    id 
+                    quantity
+                    price
+                    item {
+                        id 
+                        code
+                        description
+                        unit {
+                            name 
+                        }
+                        total_quantity
+                        quantity_on_queue
+                    }
+                }
             },
         }
     `;
