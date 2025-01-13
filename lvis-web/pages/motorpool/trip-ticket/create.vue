@@ -225,14 +225,14 @@
                             <div class="d-flex justify-content-between">
                                 <nuxt-link class="btn btn-secondary" to="/motorpool/trip-ticket">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search Trip Ticket
+                                        <font-awesome-icon :icon="['fas', 'search']" />
+                                    </client-only> 
+                                    Search Trip Ticket
                                 </nuxt-link>
                                 <button @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'save']"/>
-                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                        <font-awesome-icon :icon="['fas', 'save']"/>
+                                    </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
                                 </button>
                             </div>
             

@@ -66,6 +66,17 @@
                                 </li>
                             </ul>
                         </li>
+                        <li v-if="canViewVehicle(authUser)" class="nav-item dropdown">
+                            <a data-testid="vehicle-dropdown" :class="{ active: isActiveReports }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Reports
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><nuxt-link class="dropdown-item"
+                                    to="/motorpool/reports/trip-ticket-summary">Trip Ticket Summary</nuxt-link>
+                                </li>
+                            </ul>
+                        </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <client-only>
                                 <nuxt-link class="nav-link text-white position-relative" to="/notifications">
@@ -197,6 +208,10 @@ const isActiveVehicle = computed(() =>
     route.path.startsWith('/motorpool/vehicle') ||
     route.path.startsWith('/motorpool/vehicle-maintenance') ||
     route.path.startsWith('/motorpool/services')
+)
+
+const isActiveReports = computed(() => 
+    route.path.startsWith('/motorpool/reports')
 )
 
 
