@@ -88,6 +88,17 @@ export class SerivPdfService {
                 background-position: center;
                 background-size: contain;
             }
+            .responsive-signature {
+                width: auto;
+                height: auto;
+                max-width: 150px;
+                max-height: 150px;
+                position: absolute;
+                top: -30px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 2;
+            }
         </style>
 
         
@@ -261,7 +272,7 @@ export class SerivPdfService {
                                             getFullnameWithTitles(requisitioner.firstname, requisitioner.lastname, requisitioner.middlename, requisitioner.name_prefix, requisitioner.name_suffix)
                                         }
                                     </u>
-                                    <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                                    <img class="responsive-signature" src="${ 
                                         // @ts-ignore
                                         this.getUploadsPath(requisitioner.signature_src)
                                     }" />
@@ -296,7 +307,7 @@ export class SerivPdfService {
                                             getFullnameWithTitles(withdrawn_by.firstname, withdrawn_by.lastname, withdrawn_by.middlename, withdrawn_by.name_prefix, withdrawn_by.name_suffix)
                                         }
                                     </u>
-                                    <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                                    <img class="responsive-signature" src="${ 
                                         // @ts-ignore
                                         this.getUploadsPath(withdrawn_by.signature_src)
                                     }" />
@@ -332,7 +343,7 @@ export class SerivPdfService {
                                             getFullnameWithTitles(item.approver.firstname, item.approver.lastname, item.approver.middlename, item.approver.name_prefix, item.approver.name_suffix)
                                         }
                                     </u>
-                                    <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                                    <img class="responsive-signature" src="${ 
                                         // @ts-ignore
                                         this.getUploadsPath(item.approver.signature_src)
                                     }" />
@@ -442,6 +453,18 @@ export class SerivPdfService {
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: contain;
+            }
+
+            .responsive-signature {
+                width: auto;
+                height: auto;
+                max-width: 150px;
+                max-height: 150px;
+                position: absolute;
+                top: -30px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 2;
             }
         </style>
 
@@ -568,7 +591,7 @@ export class SerivPdfService {
                                         getFullnameWithTitles(warehouse_custodian.firstname, warehouse_custodian.lastname, warehouse_custodian.middlename, warehouse_custodian.name_prefix, warehouse_custodian.name_suffix)
                                     }
                                 </u>
-                                <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                                <img class="responsive-signature" z-index: 2;" src="${ 
                                     // @ts-ignore
                                     this.getUploadsPath(warehouse_custodian.signature_src)
                                 }" />
@@ -605,7 +628,7 @@ export class SerivPdfService {
                                 // @ts-ignore
                                 getFullnameWithTitles(isd_manager.firstname, isd_manager.lastname, isd_manager.middlename, isd_manager.name_prefix, isd_manager.name_suffix)
                             }
-                            <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                            <img class="responsive-signature" src="${ 
                                 // @ts-ignore
                                 this.getUploadsPath(isd_manager.signature_src)
                             }" />

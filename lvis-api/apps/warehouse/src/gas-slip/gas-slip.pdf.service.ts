@@ -120,6 +120,18 @@ export class GasSlipPdfService {
                     user-select: none; 
                     pointer-events: none; 
                 }
+
+                .responsive-signature {
+                    width: auto;
+                    height: auto;
+                    max-width: 150px;
+                    max-height: 150px;
+                    position: absolute;
+                    top: -30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    z-index: 2;
+                }
             </style>
         
             <div class="container">
@@ -291,7 +303,7 @@ export class GasSlipPdfService {
                                                         getFullnameWithTitles(immediate_superior.approver.firstname, immediate_superior.approver.lastname, immediate_superior.approver.middlename, immediate_superior.approver.name_prefix, immediate_superior.approver.name_suffix)
                                                     }
                                                 </u>
-                                                <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                                                <img class="responsive-signature" src="${ 
                                                     // @ts-ignore
                                                     this.getUploadsPath(immediate_superior.approver.signature_src)
                                                 }" />
@@ -324,7 +336,7 @@ export class GasSlipPdfService {
                                                         getFullnameWithTitles(department_head.approver.firstname, department_head.approver.lastname, department_head.approver.middlename, department_head.approver.name_prefix, department_head.approver.name_suffix)
                                                     }
                                                 </u>
-                                                <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                                                <img class="responsive-signature" src="${ 
                                                     // @ts-ignore
                                                     this.getUploadsPath(department_head.approver.signature_src)
                                                 }" />

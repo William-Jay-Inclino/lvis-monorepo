@@ -88,6 +88,19 @@ export class MrvPdfService {
                 background-position: center;
                 background-size: contain;
             }
+
+            .responsive-signature {
+                width: auto;
+                height: auto;
+                max-width: 150px;
+                max-height: 150px;
+                position: absolute;
+                top: -30px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 2;
+            }
+
         </style>
 
         
@@ -257,7 +270,7 @@ export class MrvPdfService {
                                             getFullnameWithTitles(requisitioner.firstname, requisitioner.lastname, requisitioner.middlename, requisitioner.name_prefix, requisitioner.name_suffix)
                                         }
                                     </u>
-                                    <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                                    <img class="responsive-signature" src="${ 
                                         // @ts-ignore
                                         this.getUploadsPath(requisitioner.signature_src)
                                     }" />
@@ -292,7 +305,7 @@ export class MrvPdfService {
                                             getFullnameWithTitles(withdrawn_by.firstname, withdrawn_by.lastname, withdrawn_by.middlename, withdrawn_by.name_prefix, withdrawn_by.name_suffix)
                                         }
                                     </u>
-                                    <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                                    <img class="responsive-signature" src="${ 
                                         // @ts-ignore
                                         this.getUploadsPath(withdrawn_by.signature_src)
                                     }" />
@@ -328,7 +341,7 @@ export class MrvPdfService {
                                             getFullnameWithTitles(item.approver.firstname, item.approver.lastname, item.approver.middlename, item.approver.name_prefix, item.approver.name_suffix)
                                         }
                                     </u>
-                                    <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                                    <img class="responsive-signature" src="${ 
                                         // @ts-ignore
                                         this.getUploadsPath(item.approver.signature_src)
                                     }" />

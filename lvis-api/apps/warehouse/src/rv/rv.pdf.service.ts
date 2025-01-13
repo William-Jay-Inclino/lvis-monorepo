@@ -85,6 +85,18 @@ export class RvPdfService {
                 background-position: center;
                 background-size: contain;
             }
+
+            .responsive-signature {
+                width: auto;
+                height: auto;
+                max-width: 150px;
+                max-height: 150px;
+                position: absolute;
+                top: -30px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 2;
+            }
         </style>
 
         
@@ -222,7 +234,7 @@ export class RvPdfService {
                                                 getFullnameWithTitles(item.approver.firstname, item.approver.lastname, item.approver.middlename, item.approver.name_prefix, item.approver.name_suffix)
                                             }
                                         </u>
-                                        <img style="width: 100px; height: 100px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ 
+                                        <img class="responsive-signature" src="${ 
                                             // @ts-ignore
                                             this.getUploadsPath(item.approver.signature_src)
                                         }" />
