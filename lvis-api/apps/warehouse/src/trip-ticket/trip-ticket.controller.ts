@@ -24,11 +24,6 @@ export class TripTicketController {
         @Query('allVehicles') allVehicles?: boolean,
     ) {
 
-        console.log('generate_trip_ticket_summary_report');
-        console.log('startDate', startDate);
-        console.log('endDate', endDate);
-        console.log('vehicleNumber', vehicleNumber);
-
         try {
             this.logger.log({
                 username: authUser.user.username,
@@ -53,7 +48,11 @@ export class TripTicketController {
 
             console.log('report_data', report_data);
 
-            const pdfBuffer = await this.tripReportService.generate_trip_ticket_summary_pdf(report_data)
+            const pdfBuffer = await this.tripReportService.generate_trip_ticket_summary_pdf({
+                report_data,
+                startDate,
+                endDate
+            })
 
             // @ts-ignore
             res.set({

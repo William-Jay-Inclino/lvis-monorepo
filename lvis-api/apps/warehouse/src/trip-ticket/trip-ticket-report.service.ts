@@ -2,9 +2,10 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { HttpService } from '@nestjs/axios';
-import { TripTicket } from 'apps/warehouse/prisma/generated/client';
 import puppeteer from 'puppeteer';
-import { getImageAsBase64 } from '../__common__/helpers';
+import { formatDate, getFullnameWithTitles, getImageAsBase64 } from '../__common__/helpers';
+import { formatDateToMMDDYY, formatDateToTime } from '../__common__/utils';
+import { catchError, firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class TripTicketReportService {
@@ -21,8 +22,9 @@ export class TripTicketReportService {
         this.authUser = authUser
     }
 
-    async generate_trip_ticket_summary_pdf(report_data: any) {
-        // const browser = await puppeteer.launch();
+    async generate_trip_ticket_summary_pdf(payload: {report_data: any, startDate: string, endDate: string}) {
+
+        const { report_data, startDate, endDate } = payload 
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -39,7 +41,7 @@ export class TripTicketReportService {
         <style>
             body {
                 font-family: Arial, sans-serif; 
-                font-size: 8pt;
+                font-size: 9pt;
                 margin: 0;
                 padding: 0;
             }
@@ -48,20 +50,18 @@ export class TripTicketReportService {
                 font-family: 'Verdana', sans-serif; 
                 display: flex;
                 flex-direction: column;
-                padding-left: 25px;
-                padding-right: 25px;
             }
 
             .heading {
                 font-family: 'Georgia', serif; 
-                font-size: 11pt;
+                font-size: 12pt;
                 font-weight: bold;
             }
 
             .watermark {
                 position: fixed;
                 top: 50%;
-                left: 60%;
+                left: 57%;
                 transform: translate(-50%, -50%);
                 width: 70%;
                 height: 70%;
@@ -71,6 +71,37 @@ export class TripTicketReportService {
                 background-position: center;
                 background-size: contain;
             }
+
+            .logo {
+                height: 50px;
+                width: 50px;
+                margin-right: 10px;
+            }
+
+            .header-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .header-text {
+                text-align: center;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 9pt;
+            }
+
+            th, td {
+                border: 1px solid black;
+                padding: 5px;
+                text-align: center;
+                font-weight: normal;
+                vertical-align: middle;
+            }
+
         </style>
 
         
@@ -79,23 +110,84 @@ export class TripTicketReportService {
         <div class="content">
 
             <div style="flex-grow: 1;">
-        
-                <div style="text-align: center; margin-top: 35px;">
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <div style="display: flex; align-items: center;">
-                            <img src="data:image/jpeg;base64,${logo}" alt="Logo" style="height: 50px; width: 50px; margin-right: 10px;">
-                            <div style="text-align: center;">
-                                <span class="heading">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
-                                <div style="font-size: 9pt;">
-                                    <span>Brgy. San Pablo, Ormoc City, Leyte</span>
-                                    <br />
-                                    <span>VAT REG. TIN 001-383-331-000</span>
-                                </div>
+
+                <div style="text-align: center; margin-top: 15px;">
+                    <div class="header-container">
+                        <img src="data:image/jpeg;base64,${logo}" alt="Logo" class="logo">
+                        <div class="header-text">
+                            <span class="heading">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
+                            <div style="font-size: 9pt;">
+                                <span>Brgy. San Pablo, Ormoc City, Leyte</span>
                             </div>
                         </div>
-                        <br />
-                        
                     </div>
+                    <br />
+
+                    <div class="heading" style="text-align: center; font-size: 10pt;"> SUMMARY OF TRIP TICKET </div>
+                    <span style="font-size: 9pt;"> From ${ formatDate(startDate) } to ${ formatDate(endDate) } </span>
+
+                    <br />
+                    <br />
+
+                    <table style="font-size: 10pt;">
+                        <thead>
+                            <tr>
+                                <th width="2%" rowspan="2">No.</th>
+                                <th width="5%" rowspan="2">Vehicle Number</th>
+                                <th width="5%" rowspan="2">Plate Number</th>
+                                <th width="11%" rowspan="2">Driver</th>
+                                <th width="8%" rowspan="2">Vehicle Name</th>
+                                <th width="12%" colspan="2">Estimated Departure</th>
+                                <th width="12%" colspan="2">Actual Departure</th>
+                                <th width="12%" colspan="2">Arrival</th>
+                                <th width="11%" rowspan="2">Destination</th>
+                                <th width="11%" rowspan="2">Purpose</th>
+                                <th width="11" rowspan="2">Passengers</th>
+                            </tr>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+
+                        <tbody style="font-size: 8pt;">
+                            
+                        ${Object.keys(report_data).map(date => {
+                            return report_data[date].map((trip: any, indx: number) => `
+                            
+                            <tr>
+                                <td colspan="14" style="text-align: left; font-weight: bold;"> ${ date } </td>
+                            </tr>
+                            
+                            <tr>
+                                <td> ${ indx + 1 } </td>
+                                <td> ${ trip.vehicle.vehicle_number } </td>
+                                <td> ${ trip.vehicle.plate_number } </td>
+                                <td> ${ getFullnameWithTitles(trip.driver.firstname, trip.driver.lastname, trip.driver.middlename) } </td>
+                                <td> ${ trip.vehicle.name } </td>
+                                <td> ${ formatDateToMMDDYY(trip.start_time) } </td>
+                                <td> ${ formatDateToTime(trip.start_time) } </td>
+                                <td> ${ formatDateToMMDDYY(trip.actual_start_time) } </td>
+                                <td> ${ formatDateToTime(trip.actual_start_time) } </td>
+                                <td> ${ formatDateToMMDDYY(trip.actual_end_time) } </td>
+                                <td> ${ formatDateToTime(trip.actual_end_time) } </td>
+                                <td style="white-space: pre-line;"> ${ trip.destination } </td>
+                                <td style="white-space: pre-line;"> ${ trip.purpose } </td>
+                                <td> ${ trip.passengers } </td>
+                            </tr>
+
+                            `).join('');
+                        }).join('')}
+
+                        </tbody>
+
+                    </table>
+
                 </div>
             </div>
         </div>
@@ -105,6 +197,7 @@ export class TripTicketReportService {
         await page.setContent(content);
 
         const pdfArrayBuffer = await page.pdf({
+            landscape: true,
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
@@ -169,8 +262,6 @@ export class TripTicketReportService {
             delete where.vehicle; 
         }
 
-        console.log('where', where);
-
         // Fetch the data
         const tripTickets = await this.prisma.tripTicket.findMany({
             where,
@@ -182,13 +273,16 @@ export class TripTicketReportService {
             },
         });
 
-        console.log('tripTickets', tripTickets);
+        const _tripTickets = await Promise.all(tripTickets.map(async (i) => {
+            i['driver'] = await this.getEmployee(i.driver_id, this.authUser);
+            return i;
+        }));
+        
+        console.log('_tripTickets', _tripTickets);
 
-        const groupedByDay = tripTickets.reduce((acc, ticket) => {
+        const groupedByDay = _tripTickets.reduce((acc, ticket) => {
 
             const startTime = ticket.start_time as unknown as string
-
-            console.log('startTime', startTime);
 
             const date = startTime.split(' ')[0]; // Split at space and take the first part (date)
             if (!acc[date]) {
@@ -198,8 +292,48 @@ export class TripTicketReportService {
             return acc;
         }, {} as Record<string, any[]>);
         
-        console.log('Grouped By Day:', groupedByDay);
-
         return groupedByDay;
+    }
+
+
+    private async getEmployee(employeeId: string, authUser: AuthUser) {
+
+        const query = `
+            query {
+                employee(id: "${ employeeId }") {
+                    firstname 
+                    middlename 
+                    lastname
+                }
+            }
+        `;
+
+        try {
+            const { data } = await firstValueFrom(
+                this.httpService.post(
+                    process.env.API_GATEWAY_URL,
+                    { query },
+                    {
+                        headers: {
+                            Authorization: authUser.authorization,
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                ).pipe(
+                    catchError((error) => {
+                        throw error;
+                    }),
+                ),
+            );
+
+            if (!data || !data.data) {
+                return undefined;
+            }
+
+            return data.data.employee;
+
+        } catch (error) {
+            return undefined;
+        }
     }
 }

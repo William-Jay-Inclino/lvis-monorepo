@@ -5,6 +5,7 @@ import { getFullnameWithTitles } from './helpers';
 import { Employee } from './types';
 import { MEQS } from '../meqs/entities/meq.entity';
 import { Vehicle } from 'apps/warehouse/prisma/generated/client';
+import { isValid, parse } from 'date-fns';
 
 const timeZone = process.env.TZ || 'Asia/Manila'; 
 
@@ -177,3 +178,37 @@ export const get_canvass_info = (payload: {
     throw new Error('Payload has no RV, SPR, OR JO')
 
 }
+
+export const formatDateToMMDDYY = (date: string): string => {
+    if (!date || typeof date !== 'string' || date.trim() === '') {
+        return 'N/A'
+    }
+
+    const isoDateString = date.replace(' ', 'T');
+
+    const parsedDate = parse(isoDateString, "yyyy-MM-dd'T'HH:mm:ssXXX", new Date());
+
+    if (!isValid(parsedDate)) {
+        return 'N/A'
+    }
+
+    return format(parsedDate, 'MM/dd/yy');
+    
+};
+
+export const formatDateToTime = (date: string): string => {
+    if (!date || typeof date !== 'string' || date.trim() === '') {
+        return 'N/A'
+    }
+
+    const isoDateString = date.replace(' ', 'T');
+
+    const parsedDate = parse(isoDateString, "yyyy-MM-dd'T'HH:mm:ssXXX", new Date());
+
+    if (!isValid(parsedDate)) {
+        return 'N/A'
+    }
+
+    return format(parsedDate, 'h:mm a');
+    
+};

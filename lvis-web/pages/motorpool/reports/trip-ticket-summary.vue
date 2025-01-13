@@ -42,7 +42,7 @@
                 <div class="pdf-container" v-show="pdfUrl && !isLoadingPdf">
                     <iframe
                         :src="pdfUrl" 
-                        style="border: none; width: 100%; height: 100%;"
+                        style="border: none; width: 100%; height: 60%;"
                     ></iframe>
                 </div>
                 <div v-show="isLoadingPdf">
