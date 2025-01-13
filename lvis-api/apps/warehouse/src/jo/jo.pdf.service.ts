@@ -217,7 +217,7 @@ export class JoPdfService {
                                 <th style="text-align: center; position: relative; font-size: 9pt;">
                                     <u style="position: relative; z-index: 1; margin-bottom: 10px;">${ requisitioner.firstname + ' ' + requisitioner.lastname }</u>
 
-                                    <img style="width: 100px; height: 100px; position: absolute; top: -50px; left: 50%; transform: translateX(-50%); z-index: 2;" src="${ this.getUploadsPath(requisitioner.signature_src) }" />
+                                    <img class="responsive-signature" src="${ this.getUploadsPath(requisitioner.signature_src) }" />
                                 </th>
                             </tr>
                             <tr>
