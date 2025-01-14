@@ -60,13 +60,14 @@ export async function fetchFilterData(): Promise<{
 export async function get_trip_ticket_summary_report(payload: {
     startDate: string,
     endDate: string,
-    vehicleType: VehicleType,
-    allVehicles: boolean,
+    vehicleNumber?: string,
+    vehicleType?: VehicleType,
+    allVehicles?: boolean,
     authUser: AuthUser,
     apiUrl: string
 }): Promise<{ pdfUrl: string }> {
 
-    const { startDate, endDate, vehicleType, allVehicles, authUser, apiUrl } = payload
+    const { startDate, endDate, vehicleNumber, vehicleType, allVehicles, authUser, apiUrl } = payload
 
     console.log('payload', payload);
 
@@ -79,6 +80,7 @@ export async function get_trip_ticket_summary_report(payload: {
             endDate: endDate,
             vehicleType: vehicleType,
             allVehicles: allVehicles,
+            vehicleNumber: vehicleNumber,
         }
 
         console.log('_filters', _filters);

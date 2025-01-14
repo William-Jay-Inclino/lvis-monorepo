@@ -22,9 +22,15 @@ export class TripTicketReportService {
         this.authUser = authUser
     }
 
-    async generate_trip_ticket_summary_pdf(payload: {report_data: any, startDate: string, endDate: string, title: string}) {
+    async generate_trip_ticket_summary_pdf(payload: {
+        report_data: any, 
+        startDate: string, 
+        endDate: string, 
+        title: string,
+        vehicleNumber?: string,
+    }) {
 
-        const { report_data, startDate, endDate, title } = payload 
+        const { report_data, startDate, endDate, title, vehicleNumber } = payload 
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -112,6 +118,10 @@ export class TripTicketReportService {
                 font-weight: bold;
             }
 
+            .text-muted {
+                color: #6c757d;
+            }
+
         </style>
 
         
@@ -133,7 +143,7 @@ export class TripTicketReportService {
                     </div>
                     <br />
 
-                    <div class="heading" style="text-align: center; font-size: 10pt;"> ${ title } </div>
+                    <div style="text-align: center; font-size: 10pt; font-weight: bold;"> ${ title } </div>
                     <span style="font-size: 9pt;"> From ${ formatDate(startDate) } to ${ formatDate(endDate) } </span>
 
                     <br />
@@ -147,8 +157,8 @@ export class TripTicketReportService {
                                 <th rowspan="2">Plate Number</th>
                                 <th rowspan="2">Driver</th>
                                 <th rowspan="2">Vehicle Name</th>
-                                <th colspan="2">Estimated Departure</th>
-                                <th colspan="2">Actual Departure</th>
+                                <th style="white-space: nowrap;" colspan="2">Estimated Departure</th>
+                                <th style="white-space: nowrap;" colspan="2">Actual Departure</th>
                                 <th colspan="2">Arrival</th>
                                 <th rowspan="2">Destination</th>
                                 <th rowspan="2">Purpose</th>
@@ -168,7 +178,9 @@ export class TripTicketReportService {
                         ${Object.keys(report_data).map(date => {
                             return `
                             <tr>
-                                <td colspan="14" style="text-align: left; font-weight: bold;">${date}</td>
+                                <td colspan="14" style="text-align: left;">
+                                    ${ !!vehicleNumber ? `<span class="text-muted">Date Prepared:</span> <b>${ date }</b>` : `<span class="text-muted">Estimated Departure: </span> <b>${ date }</b>` } 
+                                </td>
                             </tr>
                             ${report_data[date].map((trip: any, indx: number) => `
                             <tr>
@@ -285,20 +297,42 @@ export class TripTicketReportService {
             i['driver'] = await this.getEmployee(i.driver_id, this.authUser);
             return i;
         }));
-        
-        const groupedByDay = _tripTickets.reduce((acc, ticket) => {
 
-            const startTime = ticket.start_time as unknown as string
 
-            const date = startTime.split(' ')[0]; // Split at space and take the first part (date)
-            if (!acc[date]) {
-                acc[date] = [];
-            }
-            acc[date].push(ticket);
-            return acc;
-        }, {} as Record<string, any[]>);
+        if(vehicleNumber) {
+
+            const groupedByCreatedAt = _tripTickets.reduce((acc, ticket) => {
+    
+                const createdAt = ticket.created_at as unknown as string
+    
+                const date = createdAt.split(' ')[0]; 
+                if (!acc[date]) {
+                    acc[date] = [];
+                }
+                acc[date].push(ticket);
+                return acc;
+            }, {} as Record<string, any[]>);
+            
+            return groupedByCreatedAt;
+            
+        } else {
+
+            const groupedByDay = _tripTickets.reduce((acc, ticket) => {
+    
+                const startTime = ticket.start_time as unknown as string
+    
+                const date = startTime.split(' ')[0]; 
+                if (!acc[date]) {
+                    acc[date] = [];
+                }
+                acc[date].push(ticket);
+                return acc;
+            }, {} as Record<string, any[]>);
+            
+            return groupedByDay;
+
+        }
         
-        return groupedByDay;
     }
 
 

@@ -137,50 +137,17 @@
 
         }
 
-        try {
-
-            const accessToken = authUser.value.access_token
-            isLoadingPdf.value = true
-
-            console.log('filters.value', filters.value);
-
-            const _filters = {
-                startDate: filters.value.startDate,
-                endDate: filters.value.endDate,
-                vehicleNumber: filters.value.vehicle?.vehicle_number
-            }
-
-            // Convert filters to query parameters
-            const queryParams = new URLSearchParams(
-                Object.entries(_filters).reduce((acc: Record<string, string>, [key, value]) => {
-                    if (value !== undefined && value !== null) {
-                        acc[key] = String(value);
-                    }
-                    return acc;
-                }, {})
-            );
-
-            console.log('queryParams', queryParams);
-
-            const response = await axios.get(
-                `${WAREHOUSE_API_URL}/trip-ticket/summary-report/?${queryParams}`,
-                {
-                    responseType: 'blob',
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                }
-            );
-
-            console.log('response', response);
-
-            isLoadingPdf.value = false
-
-            const blob = new Blob([response.data], { type: 'application/pdf' });
-            pdfUrl.value = window.URL.createObjectURL(blob);
-        } catch (error) {
-            console.error('Error loading PDF:', error);
-        }
+        isLoadingPdf.value = true 
+        const response = await tripReportApi.get_trip_ticket_summary_report({
+            startDate: filters.value.startDate,
+            endDate: filters.value.endDate,
+            authUser: authUser.value,
+            apiUrl: WAREHOUSE_API_URL,
+            vehicleNumber: filters.value.vehicle?.vehicle_number,
+        })
+        isLoadingPdf.value = false 
+        pdfUrl.value = response.pdfUrl
+        
     }
 
     function isValidFilters(filters: Filters): boolean {
@@ -191,7 +158,7 @@
             filterErrors.value.startDate = true 
         }
 
-        if(!filters.startDate || filters.startDate.trim() === '') {
+        if(!filters.endDate || filters.endDate.trim() === '') {
             filterErrors.value.endDate = true 
         }
 

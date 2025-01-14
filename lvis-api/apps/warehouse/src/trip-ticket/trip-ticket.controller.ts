@@ -53,6 +53,8 @@ export class TripTicketController {
                 title += ' (All Vehicles)'
             } else if(vehicleType) {
                 title += ` (${ vehicleType })`
+            } else if(vehicleNumber) {
+                title += ` (${ vehicleNumber.toUpperCase() })`
             }
 
             const pdfBuffer = await this.tripReportService.generate_trip_ticket_summary_pdf({
@@ -60,6 +62,7 @@ export class TripTicketController {
                 startDate,
                 endDate,
                 title,
+                vehicleNumber,
             })
 
             // @ts-ignore
