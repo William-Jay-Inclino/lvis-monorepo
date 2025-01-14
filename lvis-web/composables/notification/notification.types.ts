@@ -39,6 +39,9 @@ export interface Pending {
     mst?: MST
     tripTicket?: TripTicket
     gasSlip?: GasSlip
+
+    is_editing?: boolean
+    is_saving?: boolean
 }
 
 

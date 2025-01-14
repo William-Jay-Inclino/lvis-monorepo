@@ -25,7 +25,6 @@ export const login = async(payload: { page: Page, username: string, password: st
     await expect(page).toHaveURL(`${url}/home`, { timeout: 10000 });
 }
 
-
 export const logout = async(payload: { page: Page, url: string }) => {
     
     const { page, url } = payload
@@ -53,7 +52,12 @@ export const approve_signatory = async(
     await expect(page).toHaveURL(`${url}/notifications`, { timeout: 5000 });
 
     // approve the item in the table
-    await x.click({ page, test_id: `test-${db_entity}-${ref_number}` })
+
+    if(await x.is_visible({ page, selector: `[data-testid="view-${db_entity}-${ref_number}"]` })) {
+        await x.click({ page, test_id: `view-${db_entity}-${ref_number}` })
+    } else {
+        await x.click({ page, test_id: `view2-${db_entity}-${ref_number}` })
+    }
 
     if(dropdown_testid) {
         console.log('dropdown_testid', dropdown_testid);
@@ -66,7 +70,6 @@ export const approve_signatory = async(
     await x.close_popup({ page })
 
 }
-
 
 export const approve_signatories = async(
     payload: { 
@@ -114,8 +117,6 @@ export const generate_invoice_number = (): string => {
     const randomPart = Math.floor(1000 + Math.random() * 9000); // Random 4-digit number
     return `${prefix}-${datePart}-${randomPart}`;
 };
-
-
 
 export const verify_status = async(payload: { page: Page, status: string }) => {
 

@@ -2,35 +2,46 @@
 
     <div v-if="!isLoadingPage && authUser && authUser.user.user_employee">
 
-        <div class="row">
-            <div v-for="item, i in filteredItems" :key="i" class="col-lg-3 col-md-6 col-sm-12 pt-3">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="small fw-bold">
-                            {{ get_module_label(item) }}
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-2">
-                            <textarea class="form-control form-control-sm text-muted" rows="4" readonly>{{ item.description }}</textarea>
-                        </div>
-                        <span class="small text-muted fst-italic">Created: {{ formatDate(item.transaction_date, true) }}</span>
-
-                    </div>
-                    <div class="card-footer text-center">
-                        <button 
-                            :data-testid="`test-${ item.reference_table }-${ item.reference_number }`"
-                            @click="on_click_view_details(item)"
-                            class="btn pending-btn"
-                        >
-                            View Details
-                            <client-only>
-                                <font-awesome-icon class="ms-1" :icon="['fas', 'paper-plane']" />
-                            </client-only> 
-                        </button>
-                    </div>
-                </div>
+        <div v-if="!isMobile" class="row">
+            <div class="col d-flex justify-content-end">
+                <button 
+                    @click="view_type = 'list'" 
+                    :class="['btn me-2', view_type === 'list' ? 'btn-primary text-white' : 'btn-light text-warning']"
+                >
+                    <client-only>
+                        <font-awesome-icon :icon="['fas', 'list']" />
+                    </client-only>
+                </button>
+                <button 
+                    @click="view_type = 'tile'" 
+                    :class="['btn me-2', view_type === 'tile' ? 'btn-primary text-white' : 'btn-light text-warning']"
+                >
+                    <client-only>
+                        <font-awesome-icon :icon="['fas', 'th-large']" />
+                    </client-only>
+                </button>
             </div>
+        </div>
+
+        <div v-if="view_type === 'tile'">
+            <NotificationTileView 
+                :items="filteredItems" 
+                @view-details="handle_click_view_details" 
+            /> 
+        </div>
+
+        <div v-if="view_type === 'list'">
+            <NotificationListView 
+                :items="filteredItems" 
+                :is-budget-officer="is_budget_officer"
+                :is-finance-manager="is_finance_manager"
+                @view-details="handle_click_view_details"
+                @approve="handle_approval" 
+                @disapprove="handle_approval" 
+                @save-comment="handle_save_comment"
+                @start-edit-comment="handle_start_edit_comment"
+                @cancel-comment="handle_cancel_edit_comment"
+            />
         </div>
 
         <button
@@ -94,17 +105,17 @@
     import Swal from 'sweetalert2'
     import type { Account } from '~/composables/accounting/account/account';
     import type { Classification } from '~/composables/accounting/classification/classification';
-    import { useToast } from "vue-toastification";
     import { db_entity_mapper, type Pending } from '~/composables/notification/notification.types';
     import { PENDING_MODAL_TABS } from '~/composables/notification/notifications.enums';
     import type { Employee } from '~/composables/hr/employee/employee.types'
     import { fetchTotalNotifications } from '~/composables/system/user/user.api'
+    import { useToast } from 'vue-toastification'
 
     // Constants
     const config = useRuntimeConfig()
     const WAREHOUSE_API_URL = config.public.warehouseApiUrl
-    const toast = useToast();
     const pending_modal_btn = ref<HTMLButtonElement>()
+    const toast = useToast();
 
 
     // Flags
@@ -113,6 +124,9 @@
     const isApproving = ref(false)
     const isDisapproving = ref(false)
     const isAddingComment = ref(false)
+    const view_type = ref<'list' | 'tile'>('list')
+
+    const screenWidth = ref(0);
 
     const searchValue = ref('')
     const authUser = ref<AuthUser>()
@@ -128,9 +142,15 @@
     onMounted(async () => {
         authUser.value = getAuthUser()
 
+        screenWidth.value = window.innerWidth;
+
+        window.addEventListener('resize', () => {
+            screenWidth.value = window.innerWidth;
+        });
+
         if (authUser.value.user.user_employee) {
             const response = await noticationApi.getPendingsByEmployeeId(authUser.value.user.user_employee.employee.id)
-            pendings.value = response.pendings
+            pendings.value = response.pendings.map(i => ({...i, is_editing: false, is_saving: false}))
             classifications.value = response.classifications
             accounts.value = response.accounts
             login_employee.value = response.employee
@@ -141,6 +161,8 @@
 
 
     // ================================== COMPUTED ================================== 
+
+    const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
     const filteredItems = computed(() => {
 
@@ -162,11 +184,24 @@
         return false 
     })
 
+
+
+    // ================================== WATCHERS ================================== 
+
+    watch(isMobile, (val) => {
+
+        if(val) {
+            view_type.value = 'tile'
+        } else {
+            view_type.value = 'list'
+        }
+
+    })
+
     // ================================== FUNCTIONS ================================== 
 
 
-    async function on_click_view_details(pendingData: Pending) {
-        console.log('on_click_view_details', pendingData);
+    async function handle_click_view_details(pendingData: Pending) {
         isLoadingModal.value = true
         open_pending_modal(pendingData)
 
@@ -414,18 +449,20 @@
         action: 'approve' | 'disapprove',
         classification_id?: string,
         fund_source_id?: string,
-        close_btn: HTMLButtonElement 
+        close_btn?: HTMLButtonElement 
     }) {
 
         console.log('handle_approval', payload);
         const { pending_data, action, close_btn, classification_id, fund_source_id } = payload
 
-        close_btn.click()
+        if(close_btn) {
+            close_btn.click()
+        }
 
         if(action === 'approve') {
-            await handleApproval({ item: pending_data, classification_id, fund_source_id })
+            await approve_pending({ item: pending_data, classification_id, fund_source_id })
         } else {
-            await handleDisapproval({ item: pending_data })
+            await disapprove_pending({ item: pending_data })
         }
 
     }
@@ -438,9 +475,9 @@
         currentTab.value = payload.tab
     }
 
-    async function handleApproval(payload: { item: Pending, classification_id?: string, fund_source_id?: string }) {
+    async function approve_pending(payload: { item: Pending, classification_id?: string, fund_source_id?: string, closePendingModalBtn?: HTMLButtonElement }) {
 
-        const { item, classification_id, fund_source_id } = payload
+        const { item, classification_id, fund_source_id, closePendingModalBtn } = payload
 
         Swal.fire({
             title: "Approve Confirmation",
@@ -491,15 +528,13 @@
 
             },
             allowOutsideClick: () => !Swal.isLoading()
-        }).then( () => {
-            open_pending_modal(item)
         })
 
     }
 
-    async function handleDisapproval(payload: {item: Pending }) {
+    async function disapprove_pending(payload: {item: Pending, closePendingModalBtn?: HTMLButtonElement }) {
 
-        const { item } = payload
+        const { item, closePendingModalBtn } = payload
 
         Swal.fire({
             title: "Disapprove Confirmation",
@@ -554,8 +589,6 @@
 
             },
             allowOutsideClick: () => !Swal.isLoading()
-        }).then(() => {
-            open_pending_modal(item)
         })
 
     }
@@ -566,6 +599,58 @@
 
     async function handleSearchedClassifications(searchedClassifications: Classification[]) {
         classifications.value = searchedClassifications.map(i => ({...i}))
+    }
+
+    // =============================== Comment.vue Handlers =============================== 
+
+    async function handle_save_comment(payload: {pending_id: number, comment: string}) {
+
+        const { pending_id, comment } = payload
+
+        const pending = pendings.value.find(i => i.id === pending_id) 
+        if(!pending) {
+            console.error('Pending not found with id of', pending_id);
+            return 
+        }
+
+        const sanitizedComment = comment
+        .trim()  // Remove leading/trailing spaces
+        .replace(/\s+/g, ' '); // Replace multiple spaces with a single space
+
+        pending.is_saving = true 
+        const response = await noticationApi.saveComment(pending_id, sanitizedComment)
+        pending.is_saving = false 
+        pending.is_editing = false
+
+        if(response.success) {
+            toast.success(response.msg)
+            pending.approver_notes = comment 
+        } else {
+            toast.error(response.msg)
+        }
+
+    }
+
+    function handle_cancel_edit_comment(payload: {pending_id: number}) {
+        const { pending_id } = payload
+        
+        const pending = pendings.value.find(i => i.id === pending_id) 
+        if(!pending) {
+            console.error('Pending not found with id of', pending_id);
+            return 
+        }
+        pending.is_editing = false
+    }
+
+    function handle_start_edit_comment(payload: {pending_id: number}) {
+        const { pending_id } = payload
+
+        const pending = pendings.value.find(i => i.id === pending_id) 
+        if(!pending) {
+            console.error('Pending not found with id of', pending_id);
+            return 
+        }
+        pending.is_editing = true
     }
 
     // =============================== Utils =============================== 

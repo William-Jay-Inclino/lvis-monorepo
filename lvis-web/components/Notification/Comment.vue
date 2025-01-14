@@ -2,7 +2,7 @@
     <div class="textarea-container position-relative">
         <!-- Textarea for editing the comment -->
         <textarea
-            class="form-control form-control-sm"
+            class="form-control form-control-sm text-muted"
             rows="4"
             v-model="currentNote"
             :disabled="!is_editing || is_saving"
@@ -36,7 +36,7 @@
         <div v-else class="position-absolute bottom-0 end-0 p-2">
             <button @click="startEdit" class="btn btn-light btn-sm text-primary me-2 mb-2">
                 <client-only>
-                    <font-awesome-icon :icon="['fas', 'edit']" /> Comment
+                    <font-awesome-icon :icon="['fas', 'edit']" />
                 </client-only>
             </button>
         </div>
@@ -46,12 +46,24 @@
 <script lang="ts" setup>
     import { ref, watch } from 'vue';
 
-    const props = defineProps<{
-        pending_id: number,
-        notes: string | null; 
-        is_editing: boolean;
-        is_saving: boolean;
-    }>();
+    const props = defineProps({
+        pending_id: {
+            type: Number,
+            default: null,
+        },
+        notes: {
+            type: [String, null],
+            default: null
+        },
+        is_editing: {
+            type: Boolean,
+            default: false,
+        },
+        is_saving: {
+            type: Boolean,
+            default: false,
+        },
+    });
 
     const emits = defineEmits(['save', 'cancel', 'start-edit']);
 

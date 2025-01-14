@@ -111,7 +111,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <div class="modal-body-content">
+                                <div :style="{ maxHeight: isBudgetOfficer || isFinanceManager ? '50vh' : '70vh' }" class="modal-body-content">
 
                                     <div v-if="currentTab === PENDING_MODAL_TABS.CANVASS">
                                         <NotificationCanvassDetail :canvass="pendingData?.canvass" />
@@ -471,7 +471,7 @@
     }
 
     .modal-body-content {
-        max-height: 70vh; /* Set the maximum height of the modal content */
+        /* max-height: 50vh;  */
         overflow-y: auto; /* Enable vertical scrolling */
         overflow-x: hidden; /* Disable horizontal scrolling */
         padding-bottom: 20px; /* Optional: Add space for footer if content is large */
