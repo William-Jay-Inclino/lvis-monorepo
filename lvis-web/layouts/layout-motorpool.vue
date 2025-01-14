@@ -66,7 +66,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li v-if="canViewVehicle(authUser) && false" class="nav-item dropdown">
+                        <li v-if="canViewVehicle(authUser)" class="nav-item dropdown">
                             <a data-testid="vehicle-dropdown" :class="{ active: isActiveReports }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Reports
@@ -74,6 +74,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item"
                                     to="/motorpool/reports/trip-ticket-summary">Trip Ticket Summary</nuxt-link>
+                                </li><li><nuxt-link class="dropdown-item"
+                                    to="/motorpool/reports/trip-ticket-per-vehicle-type">Trip Ticket Per Vehicle Type</nuxt-link>
                                 </li>
                             </ul>
                         </li>

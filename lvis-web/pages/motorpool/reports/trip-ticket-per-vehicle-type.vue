@@ -6,7 +6,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title text-warning">Trip Ticket Summary</h5>
+                        <h5 class="card-title text-warning">Trip Ticket Per Vehicle Type</h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
@@ -20,11 +20,17 @@
                             <small v-if="filterErrors.endDate" class="fst-italic text-danger"> {{ errorMsg }} </small>
                         </div>
                         <div class="mb-3">
-                            <label class="label">Vehicle</label>
+                            <label class="label">Vehicle Type</label>
                             <client-only>
-                                <v-select @search="handleSearchVehicles" :options="vehicles" label="label" v-model="filters.vehicle" :clearable="false"></v-select>
+                                <v-select :options="vehicle_types" label="label" v-model="filters.vehicleType" :clearable="false" :disabled="filters.allVehicles === true"></v-select>
                             </client-only>
-                            <small v-if="filterErrors.vehicle" class="fst-italic text-danger"> {{ errorMsg }} </small>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" v-model="filters.allVehicles">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    All Vehicles
+                                </label>
+                            </div>
+                            <small v-if="filterErrors.vehicleType" class="fst-italic text-danger"> {{ errorMsg }} </small>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -66,11 +72,11 @@
 
     import Swal from 'sweetalert2'
     import * as tripReportApi from '~/composables/motorpool/trip-ticket/trip-ticket-reports.api'
-    import { fetchVehicles } from '~/composables/motorpool/vehicle/vehicle.api'
     import axios from 'axios';
+    import type { VehicleType } from '~/composables/motorpool/vehicle/vehicle.types';
 
     definePageMeta({
-        name: ROUTES.TRIP_TICKET_SUMMARY_REPORT,
+        name: ROUTES.TRIP_TICKET_PER_VEHICLE_TYPE_REPORT,
         layout: "layout-motorpool",
         middleware: ['auth'],
     })
@@ -78,7 +84,8 @@
     interface Filters {
         startDate: string,
         endDate: string,
-        vehicle: Vehicle | null
+        vehicleType: VehicleType,
+        allVehicles: boolean,
     }
 
     // CONFIGS
@@ -94,12 +101,12 @@
     const isLoadingPdf = ref(false)
 
     const pdfUrl = ref()
-    const vehicles = ref<Vehicle[]>([])
+    const vehicle_types = ref<VehicleType[]>(['SV', 'VH'])
 
     const _filterErrorsInitial = {
         startDate: false,
         endDate: false,
-        vehicle: false,
+        vehicleType: false,
     }
 
     const filterErrors = ref({..._filterErrorsInitial})
@@ -107,16 +114,13 @@
     const filters = ref<Filters>({
         startDate: '',
         endDate: '',
-        vehicle: null
+        vehicleType: 'SV',
+        allVehicles: false
     })
 
     onMounted( async() => {
 
         authUser.value = getAuthUser()
-
-        const response = await tripReportApi.fetchFilterData()
-        vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
-
         isLoadingPage.value = false
 
     })
@@ -137,53 +141,23 @@
 
         }
 
-        try {
-
-            const accessToken = authUser.value.access_token
-            isLoadingPdf.value = true
-
-            console.log('filters.value', filters.value);
-
-            const _filters = {
-                startDate: filters.value.startDate,
-                endDate: filters.value.endDate,
-                vehicleNumber: filters.value.vehicle?.vehicle_number
-            }
-
-            // Convert filters to query parameters
-            const queryParams = new URLSearchParams(
-                Object.entries(_filters).reduce((acc: Record<string, string>, [key, value]) => {
-                    if (value !== undefined && value !== null) {
-                        acc[key] = String(value);
-                    }
-                    return acc;
-                }, {})
-            );
-
-            console.log('queryParams', queryParams);
-
-            const response = await axios.get(
-                `${WAREHOUSE_API_URL}/trip-ticket/summary-report/?${queryParams}`,
-                {
-                    responseType: 'blob',
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                }
-            );
-
-            console.log('response', response);
-
-            isLoadingPdf.value = false
-
-            const blob = new Blob([response.data], { type: 'application/pdf' });
-            pdfUrl.value = window.URL.createObjectURL(blob);
-        } catch (error) {
-            console.error('Error loading PDF:', error);
-        }
+        isLoadingPdf.value = true 
+        const response = await tripReportApi.get_trip_ticket_summary_report({
+            startDate: filters.value.startDate,
+            endDate: filters.value.endDate,
+            vehicleType: filters.value.vehicleType,
+            allVehicles: filters.value.allVehicles,
+            authUser: authUser.value,
+            apiUrl: WAREHOUSE_API_URL,
+        })
+        isLoadingPdf.value = false 
+        pdfUrl.value = response.pdfUrl
+        
     }
 
     function isValidFilters(filters: Filters): boolean {
+
+        console.log('filters', filters);
 
         filterErrors.value = {..._filterErrorsInitial}
 
@@ -191,12 +165,12 @@
             filterErrors.value.startDate = true 
         }
 
-        if(!filters.startDate || filters.startDate.trim() === '') {
+        if(!filters.endDate || filters.endDate.trim() === '') {
             filterErrors.value.endDate = true 
         }
 
-        if(!filters.vehicle) {
-            filterErrors.value.vehicle = true 
+        if(!filters.vehicleType) {
+            filterErrors.value.vehicleType = true 
         }
 
         const hasError = Object.values(filterErrors.value).includes(true);
@@ -208,35 +182,6 @@
         return true
 
     }
-
-    async function handleSearchVehicles(input: string, loading: (status: boolean) => void ) {
-
-        if(input.trim() === ''){
-            vehicles.value = []
-            return 
-        } 
-
-        debouncedSearchVehicles(input, loading)
-
-    }
-
-    async function searchVehicles(input: string, loading: (status: boolean) => void) {
-
-        loading(true)
-
-        try {
-            const response = await fetchVehicles(input);
-            vehicles.value = response.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
-        } catch (error) {
-            console.error('Error fetching Employees:', error);
-        } finally {
-            loading(false);
-        }
-    }
-
-    const debouncedSearchVehicles = debounce((input: string, loading: (status: boolean) => void) => {
-        searchVehicles(input, loading);
-    }, 500);
 
 </script>
 

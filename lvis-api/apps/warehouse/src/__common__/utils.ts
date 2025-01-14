@@ -181,7 +181,7 @@ export const get_canvass_info = (payload: {
 
 export const formatDateToMMDDYY = (date: string): string => {
     if (!date || typeof date !== 'string' || date.trim() === '') {
-        return 'N/A'
+        return ''
     }
 
     const isoDateString = date.replace(' ', 'T');
@@ -189,7 +189,7 @@ export const formatDateToMMDDYY = (date: string): string => {
     const parsedDate = parse(isoDateString, "yyyy-MM-dd'T'HH:mm:ssXXX", new Date());
 
     if (!isValid(parsedDate)) {
-        return 'N/A'
+        return ''
     }
 
     return format(parsedDate, 'MM/dd/yy');
@@ -198,7 +198,7 @@ export const formatDateToMMDDYY = (date: string): string => {
 
 export const formatDateToTime = (date: string): string => {
     if (!date || typeof date !== 'string' || date.trim() === '') {
-        return 'N/A'
+        return ''
     }
 
     const isoDateString = date.replace(' ', 'T');
@@ -206,7 +206,7 @@ export const formatDateToTime = (date: string): string => {
     const parsedDate = parse(isoDateString, "yyyy-MM-dd'T'HH:mm:ssXXX", new Date());
 
     if (!isValid(parsedDate)) {
-        return 'N/A'
+        return ''
     }
 
     return format(parsedDate, 'h:mm a');

@@ -5,7 +5,7 @@ import { HttpService } from '@nestjs/axios';
 import puppeteer from 'puppeteer';
 import { formatDate, getFullnameWithTitles, getImageAsBase64 } from '../__common__/helpers';
 import { formatDateToMMDDYY, formatDateToTime } from '../__common__/utils';
-import { catchError, firstValueFrom } from 'rxjs';
+import { catchError, filter, firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class TripTicketReportService {
@@ -22,9 +22,9 @@ export class TripTicketReportService {
         this.authUser = authUser
     }
 
-    async generate_trip_ticket_summary_pdf(payload: {report_data: any, startDate: string, endDate: string}) {
+    async generate_trip_ticket_summary_pdf(payload: {report_data: any, startDate: string, endDate: string, title: string}) {
 
-        const { report_data, startDate, endDate } = payload 
+        const { report_data, startDate, endDate, title } = payload 
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -33,6 +33,8 @@ export class TripTicketReportService {
 
         const watermark = getImageAsBase64('lvis-watermark-v2.png')
         const logo = getImageAsBase64('leyeco-logo.png')
+
+        let ctr = 1
 
         // Set content of the PDF
         const content = `
@@ -50,6 +52,8 @@ export class TripTicketReportService {
                 font-family: 'Verdana', sans-serif; 
                 display: flex;
                 flex-direction: column;
+                padding-left: 10px;
+                padding-right: 10px;
             }
 
             .heading {
@@ -102,6 +106,12 @@ export class TripTicketReportService {
                 vertical-align: middle;
             }
 
+            thead th {
+                padding: 2.5px 5px; 
+                line-height: 1; 
+                font-weight: bold;
+            }
+
         </style>
 
         
@@ -123,28 +133,27 @@ export class TripTicketReportService {
                     </div>
                     <br />
 
-                    <div class="heading" style="text-align: center; font-size: 10pt;"> SUMMARY OF TRIP TICKET </div>
+                    <div class="heading" style="text-align: center; font-size: 10pt;"> ${ title } </div>
                     <span style="font-size: 9pt;"> From ${ formatDate(startDate) } to ${ formatDate(endDate) } </span>
 
                     <br />
                     <br />
 
-                    <table style="font-size: 10pt;">
+                    <table style="font-size: 8pt;">
                         <thead>
                             <tr>
-                                <th width="2%" rowspan="2">No.</th>
-                                <th width="5%" rowspan="2">Vehicle Number</th>
-                                <th width="5%" rowspan="2">Plate Number</th>
-                                <th width="11%" rowspan="2">Driver</th>
-                                <th width="8%" rowspan="2">Vehicle Name</th>
-                                <th width="12%" colspan="2">Estimated Departure</th>
-                                <th width="12%" colspan="2">Actual Departure</th>
-                                <th width="12%" colspan="2">Arrival</th>
-                                <th width="11%" rowspan="2">Destination</th>
-                                <th width="11%" rowspan="2">Purpose</th>
-                                <th width="11" rowspan="2">Passengers</th>
+                                <th rowspan="2">No.</th>
+                                <th rowspan="2">Vehicle Number</th>
+                                <th rowspan="2">Plate Number</th>
+                                <th rowspan="2">Driver</th>
+                                <th rowspan="2">Vehicle Name</th>
+                                <th colspan="2">Estimated Departure</th>
+                                <th colspan="2">Actual Departure</th>
+                                <th colspan="2">Arrival</th>
+                                <th rowspan="2">Destination</th>
+                                <th rowspan="2">Purpose</th>
+                                <th rowspan="2">Passengers</th>
                             </tr>
-
                             <tr>
                                 <th>Date</th>
                                 <th>Time</th>
@@ -156,35 +165,32 @@ export class TripTicketReportService {
                         </thead>
 
                         <tbody style="font-size: 8pt;">
-                            
                         ${Object.keys(report_data).map(date => {
-                            return report_data[date].map((trip: any, indx: number) => `
-                            
+                            return `
                             <tr>
-                                <td colspan="14" style="text-align: left; font-weight: bold;"> ${ date } </td>
+                                <td colspan="14" style="text-align: left; font-weight: bold;">${date}</td>
                             </tr>
-                            
+                            ${report_data[date].map((trip: any, indx: number) => `
                             <tr>
-                                <td> ${ indx + 1 } </td>
-                                <td> ${ trip.vehicle.vehicle_number } </td>
-                                <td> ${ trip.vehicle.plate_number } </td>
-                                <td> ${ getFullnameWithTitles(trip.driver.firstname, trip.driver.lastname, trip.driver.middlename) } </td>
-                                <td> ${ trip.vehicle.name } </td>
-                                <td> ${ formatDateToMMDDYY(trip.start_time) } </td>
-                                <td> ${ formatDateToTime(trip.start_time) } </td>
-                                <td> ${ formatDateToMMDDYY(trip.actual_start_time) } </td>
-                                <td> ${ formatDateToTime(trip.actual_start_time) } </td>
-                                <td> ${ formatDateToMMDDYY(trip.actual_end_time) } </td>
-                                <td> ${ formatDateToTime(trip.actual_end_time) } </td>
-                                <td style="white-space: pre-line;"> ${ trip.destination } </td>
-                                <td style="white-space: pre-line;"> ${ trip.purpose } </td>
-                                <td> ${ trip.passengers } </td>
+                                <td>${ ctr++ }</td>
+                                <td style="white-space: nowrap;">${trip.vehicle.vehicle_number}</td>
+                                <td style="white-space: nowrap;">${trip.vehicle.plate_number}</td>
+                                <td>${getFullnameWithTitles(trip.driver.firstname, trip.driver.lastname, trip.driver.middlename)}</td>
+                                <td>${trip.vehicle.name}</td>
+                                <td style="white-space: nowrap;">${ formatDateToMMDDYY(trip.start_time) }</td>
+                                <td style="white-space: nowrap;">${ formatDateToTime(trip.start_time) }</td>
+                                <td style="white-space: nowrap;">${ formatDateToMMDDYY(trip.actual_start_time) }</td>
+                                <td style="white-space: nowrap;">${ formatDateToTime(trip.actual_start_time) }</td>
+                                <td style="white-space: nowrap;">${ formatDateToMMDDYY(trip.actual_end_time) }</td>
+                                <td style="white-space: nowrap;">${ formatDateToTime(trip.actual_end_time) }</td>
+                                <td style="white-space: pre-line;">${trip.destination}</td>
+                                <td style="white-space: pre-line;">${trip.purpose}</td>
+                                <td>${trip.passengers && trip.passengers.trim() !== '' ? trip.passengers : ''}</td>
                             </tr>
-
-                            `).join('');
+                            `).join('')}
+                            `;
                         }).join('')}
-
-                        </tbody>
+                    </tbody>
 
                     </table>
 
@@ -230,6 +236,8 @@ export class TripTicketReportService {
         allVehicles?: boolean;
     }) {
         const { startDate, endDate, vehicleNumber, vehicleType, allVehicles } = filters;
+
+        console.log('filters', filters);
 
         // Validate required fields
         if (!startDate || !endDate) {
@@ -278,8 +286,6 @@ export class TripTicketReportService {
             return i;
         }));
         
-        console.log('_tripTickets', _tripTickets);
-
         const groupedByDay = _tripTickets.reduce((acc, ticket) => {
 
             const startTime = ticket.start_time as unknown as string

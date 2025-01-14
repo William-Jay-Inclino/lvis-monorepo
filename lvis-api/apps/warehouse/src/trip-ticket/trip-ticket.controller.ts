@@ -1,8 +1,9 @@
-import { Controller, Get, Logger, Query, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Logger, Query, Res, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TripTicketReportService } from './trip-ticket-report.service';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { TripTicketSummaryQueryDto } from './dto/trip-ticket-summary-query.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('trip-ticket')
@@ -14,15 +15,15 @@ export class TripTicketController {
     constructor(private tripReportService: TripTicketReportService) {}
 
     @Get('summary-report')
+    @UsePipes(new ValidationPipe())
     async generate_trip_ticket_summary_report(
         @Res() res: Response,
         @CurrentAuthUser() authUser: AuthUser,
-        @Query('startDate') startDate: string,
-        @Query('endDate') endDate: string,
-        @Query('vehicleNumber') vehicleNumber?: string,
-        @Query('vehicleType') vehicleType?: 'SV' | 'VH',
-        @Query('allVehicles') allVehicles?: boolean,
+        @Query() query: TripTicketSummaryQueryDto,
     ) {
+
+        const { startDate, endDate, vehicleNumber, vehicleType, allVehicles } = query;
+        console.log('query', query);
 
         try {
             this.logger.log({
@@ -43,15 +44,22 @@ export class TripTicketController {
                 endDate: new Date(endDate),
                 vehicleNumber,
                 vehicleType,
-                allVehicles,
+                allVehicles: allVehicles === 'true',
             });
 
-            console.log('report_data', report_data);
+            let title = 'SUMMARY OF TRIP TICKET'
+
+            if(allVehicles) {
+                title += ' (All Vehicles)'
+            } else if(vehicleType) {
+                title += ` (${ vehicleType })`
+            }
 
             const pdfBuffer = await this.tripReportService.generate_trip_ticket_summary_pdf({
                 report_data,
                 startDate,
-                endDate
+                endDate,
+                title,
             })
 
             // @ts-ignore

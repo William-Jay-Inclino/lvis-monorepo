@@ -68,3 +68,5 @@ export interface FindAllResponse {
 	currentPage: number
 	totalPages: number
 }
+
+export type VehicleType = 'SV' | 'VH'

@@ -1,3 +1,5 @@
+import axios from "axios";
+import type { VehicleType } from "../vehicle/vehicle.types";
 
 
 export async function fetchFilterData(): Promise<{
@@ -50,6 +52,68 @@ export async function fetchFilterData(): Promise<{
         return {
             vehicles: [],
         }
+    }
+
+}
+
+
+export async function get_trip_ticket_summary_report(payload: {
+    startDate: string,
+    endDate: string,
+    vehicleType: VehicleType,
+    allVehicles: boolean,
+    authUser: AuthUser,
+    apiUrl: string
+}): Promise<{ pdfUrl: string }> {
+
+    const { startDate, endDate, vehicleType, allVehicles, authUser, apiUrl } = payload
+
+    console.log('payload', payload);
+
+    try {
+
+        const accessToken = authUser.access_token
+
+        const _filters = {
+            startDate: startDate,
+            endDate: endDate,
+            vehicleType: vehicleType,
+            allVehicles: allVehicles,
+        }
+
+        console.log('_filters', _filters);
+
+        // Convert filters to query parameters
+        const queryParams = new URLSearchParams(
+            Object.entries(_filters).reduce((acc: Record<string, string>, [key, value]) => {
+                if (value !== undefined && value !== null) {
+                    acc[key] = String(value);
+                }
+                return acc;
+            }, {})
+        );
+
+        const response = await axios.get(
+            `${apiUrl}/trip-ticket/summary-report/?${queryParams}`,
+            {
+                responseType: 'blob',
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+
+        console.log('response', response);
+
+        const blob = new Blob([response.data], { type: 'application/pdf' });
+
+        return {
+            pdfUrl: window.URL.createObjectURL(blob)
+        }
+
+    } catch (error) {
+        console.error('Error loading PDF:', error);
+        return { pdfUrl: '' }
     }
 
 }
