@@ -7,9 +7,9 @@ export const seriv_data: SerivData = {
     consumer_name: 'Test Name',
     location: 'Test Location',
     purpose: 'Test Purpose',
-    requested_by: 'Estrera',
-    withdrawn_by: 'Ablen',
-    approvers: ['Ablen', 'Tayag', 'Tudio', 'Dayandayan']
+    requested_by: 'Estrera, Joseph',
+    withdrawn_by: 'Ablen, Samantha',
+    approvers: ['Ablen, Samantha', 'Tayag', 'Tudio', 'Dayandayan']
 }
 
 export const seriv_approvers: Approver[] = [

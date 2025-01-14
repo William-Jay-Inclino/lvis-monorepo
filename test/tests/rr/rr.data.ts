@@ -5,7 +5,7 @@ import { RrData } from "./rr.types";
 export const rr_data: RrData = {
     po_number: '',
     invoice: '',
-    received_by: 'Ablen'
+    received_by: 'Ablen, Samantha'
 }
 
 

@@ -6,7 +6,7 @@ export const gas_slip_data: GasSlipData = {
     date: new Date().toISOString().split('T')[0],
     requisitioner: 'Estrera',
     driver: 'Tayag',
-    gas_station: 'Leyeco',
+    gas_station: 'LEYTE V ELECTRIC COOPERATIVE',
     fuel_type: 'Unleaded',
     no_of_liters: 'fulltank',
     purpose: 'Test Purpose',

@@ -5,7 +5,7 @@ export const mcrt_data: McrtData = {
     mct_number: '',
     note: 'mcrt test note',
     returned_by: 'Estrera',
-    approvers: ['Ablen', 'Tayag', 'Salgarino', 'Tudio']
+    approvers: ['Ablen, Samantha', 'Tayag', 'Salgarino', 'Tudio']
 }
 
 export const mcrt_approvers: Approver[] = [

@@ -8,8 +8,8 @@ export const mrv_data: MrvData = {
     location: 'Test Location',
     purpose: 'Test Purpose',
     requested_by: 'Estrera',
-    withdrawn_by: 'Ablen',
-    approvers: ['Ablen', 'Tayag', 'Tudio', 'Dayandayan']
+    withdrawn_by: 'Ablen, Samantha',
+    approvers: ['Ablen, Samantha', 'Tayag', 'Tudio', 'Dayandayan']
 }
 
 export const mrv_approvers: Approver[] = [

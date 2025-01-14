@@ -26,15 +26,15 @@
                         <div class="row mb-2">
                             <div class="col">
                                 <label class="form-label fw-bold"> Item # {{ i + 1 }} </label>
-                                <textarea class="form-control form-control-sm" rows="5" readonly>{{ item.canvassItem.description }}</textarea> 
+                                <textarea class="form-control form-control-sm" rows="3" readonly>{{ item.canvassItem.description }}</textarea> 
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label class="form-label fw-bold"> Reason: </label>
+                                <label class="form-label text-danger"> Reason: </label>
                                 <textarea
                                     data-test="test-item"
-                                    rows="5"
+                                    rows="2"
                                     class="form-control form-control-sm"
                                     :value="item.awardedItem.notes"
                                     @input="updateNotes(item.awardedItem.canvass_item.id, $event)"

@@ -4,7 +4,7 @@ import { MstData } from "./mst.types";
 export const mst_data: MstData = {
     remarks: 'mst test remarks',
     returned_by: 'Estrera',
-    approvers: ['Ablen']
+    approvers: ['Ablen, Samantha']
 }
 
 export const mst_approvers: Approver[] = [

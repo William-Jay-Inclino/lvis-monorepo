@@ -198,7 +198,7 @@ export const vehicles: Vehicle[] = [
 export const gasStations: GasStation[] = [
     {
         id: 1,
-        name: "Leyeco Gas Station",
+        name: "LEYTE V ELECTRIC COOPERATIVE, INC.",
     },
     {
         id: 2,
