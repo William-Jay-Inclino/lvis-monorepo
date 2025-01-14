@@ -139,6 +139,8 @@
     const pending_selected = ref<Pending | null>(null)
     const login_employee = ref<Employee>()
 
+    const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
+
     onMounted(async () => {
         authUser.value = getAuthUser()
 
@@ -147,6 +149,10 @@
         window.addEventListener('resize', () => {
             screenWidth.value = window.innerWidth;
         });
+
+        if(isMobile.value) {
+            view_type.value = 'tile'
+        }
 
         if (authUser.value.user.user_employee) {
             const response = await noticationApi.getPendingsByEmployeeId(authUser.value.user.user_employee.employee.id)
@@ -162,7 +168,7 @@
 
     // ================================== COMPUTED ================================== 
 
-    const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
+    
 
     const filteredItems = computed(() => {
 
