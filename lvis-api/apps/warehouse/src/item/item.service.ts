@@ -307,7 +307,8 @@ export class ItemService {
 			where: {
 				deleted_at: null,
 				OR: [
-					{ code: { contains: input } },
+					{ code: { contains: input, mode: 'insensitive' } },
+					{ description: { contains: input, mode: 'insensitive' } },
 				],
 			},
 			take: 10,
