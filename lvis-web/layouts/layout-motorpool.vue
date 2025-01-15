@@ -55,7 +55,7 @@
                                 Vehicle
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li data-testid="vehicle-management-menu" v-if="canView('canManageVehicle', authUser)"><nuxt-link class="dropdown-item"
+                                <li v-if="canView('canManageVehicle', authUser)"><nuxt-link data-testid="vehicle-management-menu" class="dropdown-item"
                                     to="/motorpool/vehicle">Vehicle Management</nuxt-link>
                                 </li>
                                 <li v-if="canView('canManageVehicleMaintenance', authUser)"><nuxt-link class="dropdown-item"
