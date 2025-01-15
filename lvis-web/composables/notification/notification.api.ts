@@ -62,7 +62,12 @@ export async function getPendingsByEmployeeId(employeeId: string): Promise<{
         }
 
         if (data.employee && data.employee.pending_approvals) {
-            pendings = data.employee.pending_approvals
+            pendings = data.employee.pending_approvals.map((i: Pending) => {
+                if(isEmptyString(i.approver_notes)) {
+                    i.approver_notes = ''
+                }
+                return i
+            })
         }
 
         if (data.accounts) {

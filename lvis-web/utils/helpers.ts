@@ -251,7 +251,6 @@ export function isValidRcNumber(input: string) {
     return regex.test(input);
 }
 
-
 export function showORnumber(request_type_id: number): boolean { 
     const x = [
         WAREHOUSE_REQUEST_TYPE.TURN_ON_ORDER,
@@ -317,4 +316,11 @@ export function handleUserInactivity(handleLogOut: () => Promise<void>) {
             await handleLogOut(); // Log out the user after the timer expires
         }
     });
+}
+
+export function isEmptyString(text: string | null | undefined) {
+    if(!text || text.trim() === '' || text === 'NULL') {
+        return true 
+    }
+    return false
 }
