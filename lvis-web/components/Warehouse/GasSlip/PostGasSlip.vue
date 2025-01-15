@@ -87,11 +87,11 @@
 
         errors.value = { ..._errorsInitial }
 
-        if(actual_liter.value <= 0) {
+        if(actual_liter.value < 0) {
             errors.value.actual_liter = true 
         }
 
-        if(price_per_liter.value <= 0) {
+        if(price_per_liter.value < 0) {
             errors.value.price_per_liter = true 
         }
 
