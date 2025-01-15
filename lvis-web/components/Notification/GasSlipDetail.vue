@@ -129,7 +129,7 @@
                                 </td>
                                 <td>
                                     <textarea rows="2" class="form-control form-control-sm text-muted" readonly
-                                        :value="i.notes || 'N/A'"></textarea>
+                                        :value="!isEmptyString(i.notes) ? i.notes : 'N/A'"></textarea>
                                 </td>
                             </tr>
                         </tbody>

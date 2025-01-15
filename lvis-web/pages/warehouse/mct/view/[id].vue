@@ -113,8 +113,8 @@
                                                     N/A
                                                 </td>
                                                 <td>
-                                                    <textarea rows="3" class="form-control" disabled
-                                                        :value="i.notes"></textarea>
+                                                    <textarea rows="3" class="form-control form-control-sm" readonly
+                                                        :value="!isEmptyString(i.notes) ? i.notes : 'N/A'"></textarea>
                                                 </td>
                                             </tr>
                                         </tbody>

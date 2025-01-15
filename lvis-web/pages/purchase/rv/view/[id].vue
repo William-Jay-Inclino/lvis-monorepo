@@ -180,7 +180,7 @@
                                                 </td>
                                                 <td>
                                                     <textarea rows="3" class="form-control form-control-sm" readonly
-                                                        :value="i.notes || 'N/A'"></textarea>
+                                                        :value="!isEmptyString(i.notes) ? i.notes : 'N/A'"></textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
