@@ -54,7 +54,7 @@ import { MstApproverModule } from './mst-approver/mst-approver.module';
 import { MstItemModule } from './mst-item/mst-item.module';
 import { ItemTypeModule } from './item-type/item-type.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TasksService } from './__task-scheduler__/task.service';
+// import { TasksService } from './__task-scheduler__/task.service';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { FuelTypeModule } from './fuel-type/fuel-type.module';
 import { GasSlipModule } from './gas-slip/gas-slip.module';
@@ -160,8 +160,8 @@ import { VehicleServiceModule } from './vehicle-service/vehicle-service.module';
     VehicleServiceModule,
   ],
   controllers: [],
-  providers: [
-    TasksService,
-  ],
+  // providers: [
+  //   TasksService,
+  // ],
 })
 export class WarehouseModule { }

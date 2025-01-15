@@ -1,5 +1,5 @@
 import { VEHICLE_CLASSIFICATION, VehicleClassificationMapper } from "./vehicle.enums";
-import type { VehicleClassification } from "./vehicle.types";
+import type { VehicleClassification, VehicleType } from "./vehicle.types";
 
 
 export const VEHICLE_CLASSIFICATIONS: VehicleClassification[] = [
@@ -24,3 +24,6 @@ export const VEHICLE_CLASSIFICATIONS: VehicleClassification[] = [
         name: VehicleClassificationMapper[VEHICLE_CLASSIFICATION.V_HIRE]
     }
 ]
+
+
+export const VEHICLE_TYPES: VehicleType[] = ['BOD', 'GV', 'MU', 'OM', 'PV', 'SV', 'TR', 'VH']

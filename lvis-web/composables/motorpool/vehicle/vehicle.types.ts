@@ -1,8 +1,6 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { VEHICLE_CLASSIFICATION, VEHICLE_STATUS } from "./vehicle.enums"
 import type { GasSlip } from "../gas-slip/gas-slip.types"
-import type { ServiceCenter } from "../service-center/service-center.types"
-import type { VehicleService } from "../vehicle-service/vehicle-service.types"
 import type { TripTicket } from "../trip-ticket/trip-ticket.types"
 import type { VehicleMaintenance } from "../vehicle-maintenance/vehicle-maintenance.types"
 
@@ -69,4 +67,4 @@ export interface FindAllResponse {
 	totalPages: number
 }
 
-export type VehicleType = 'SV' | 'VH'
+export type VehicleType = 'BOD' | 'GV' | 'MU' | 'OM' | 'PV' | 'SV' | 'TR' | 'VH'

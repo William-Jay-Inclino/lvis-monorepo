@@ -72,7 +72,7 @@
 
     import Swal from 'sweetalert2'
     import * as tripReportApi from '~/composables/motorpool/trip-ticket/trip-ticket-reports.api'
-    import axios from 'axios';
+    import { VEHICLE_TYPES } from '~/composables/motorpool/vehicle/vehicle.constants';
     import type { VehicleType } from '~/composables/motorpool/vehicle/vehicle.types';
 
     definePageMeta({
@@ -101,7 +101,7 @@
     const isLoadingPdf = ref(false)
 
     const pdfUrl = ref()
-    const vehicle_types = ref<VehicleType[]>(['SV', 'VH'])
+    const vehicle_types = ref<VehicleType[]>([...VEHICLE_TYPES])
 
     const _filterErrorsInitial = {
         startDate: false,
