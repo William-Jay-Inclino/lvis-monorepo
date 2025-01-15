@@ -302,6 +302,7 @@ export class ItemService {
 				id: true,
 				code: true,
 				description: true,
+				unit: true,
 			},
 			where: {
 				deleted_at: null,

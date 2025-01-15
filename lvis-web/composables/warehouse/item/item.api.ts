@@ -581,6 +581,10 @@ export async function fetchItemsByCode(payload: string): Promise<Item[]> {
                 id
                 code 
                 description
+                unit {
+                    id 
+                    name
+                }
             },
         }
     `;
