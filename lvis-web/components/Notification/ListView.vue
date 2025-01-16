@@ -10,7 +10,7 @@
                             <thead>
                                 <tr>
                                     <th>Reference No.</th>
-                                    <th>Description</th>
+                                    <th style="width: 30%;">Description</th>
                                     <th>Date</th>
                                     <th>Comment</th>
                                     <th class="text-center">Action</th>
@@ -42,7 +42,7 @@
                                             @save="handleSaveComment"
                                         />
                                     </td>
-                                    <td class="align-middle text-center">
+                                    <td style="white-space: nowrap;" class="align-middle text-center">
                                         <div v-if="isBudgetOfficer || isFinanceManager">
                                             <button 
                                                 :data-testid="`view2-${ item.reference_table }-${ item.reference_number }`"
