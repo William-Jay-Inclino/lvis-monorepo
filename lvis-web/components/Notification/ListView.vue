@@ -18,7 +18,7 @@
                             </thead>
                             <tbody> 
                                 <tr v-for="item, i in items" :key="i">
-                                    <td class="text-muted align-middle">
+                                    <td style="white-space: nowrap;" class="text-muted align-middle">
                                         {{ get_module_label(item) }}
                                         <button 
                                             :data-testid="`view-${ item.reference_table }-${ item.reference_number }`"
@@ -30,7 +30,7 @@
                                         </button>
                                     </td>
                                     <td class="text-muted align-middle small" style="white-space: pre-line;">{{ item.description }}</td>
-                                    <td class="text-muted align-middle small">{{ formatDate(item.transaction_date, true) }}</td>
+                                    <td style="white-space: nowrap;" class="text-muted align-middle small">{{ formatDate(item.transaction_date, true) }}</td>
                                     <td>
                                         <NotificationComment
                                             :pending_id="item.id"

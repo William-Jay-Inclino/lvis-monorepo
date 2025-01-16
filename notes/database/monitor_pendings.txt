@@ -1,0 +1,50 @@
+
+
+CHECK IF ANG PENDINGS KAY NEED EH DELETE
+
+
+// view pendings (Select all records except today)
+
+SELECT reference_number, reference_table, approver_id, transaction_date 
+FROM pending
+WHERE reference_table = 'request_voucher'
+AND transaction_date < CURRENT_DATE AT TIME ZONE 'Asia/Manila'
+ORDER BY reference_number ASC;
+
+
+
+// view reference table 
+
+SELECT 
+    rv.rv_number, 
+    rv.created_at, 
+    rv.approval_status AS MODULE_STATUS, 
+    ra.approver_id,  
+    ra.status AS approver_status 
+FROM 
+    request_voucher rv
+INNER JOIN 
+    rv_approver ra ON rv.id = ra.rv_id
+WHERE 
+    rv.rv_number = '25-00060'
+ORDER BY ra.order ASC;
+
+
+
+
+// CHECK IF MODULE HAS PENDING 
+
+SELECT rv_number, approval_status, created_at
+FROM request_voucher
+WHERE created_at < CURRENT_DATE AT TIME ZONE 'Asia/Manila'
+AND approval_status = 1
+ORDER BY rv_number ASC;
+
+
+SELECT * FROM pending WHERE reference_table = 'request_voucher' AND reference_number = '25-00030';
+
+SELECT rv_id, approver_id, status, "order" 
+FROM rv_approver
+WHERE rv_id = '90a27758-e7c4-4303-a9eb-d5866f610f86'
+ORDER BY "order" ASC
+

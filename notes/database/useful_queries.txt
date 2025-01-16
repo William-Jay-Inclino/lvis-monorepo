@@ -1,0 +1,10 @@
+
+// SELECT employee fullname
+
+SELECT 
+    CONCAT(e.firstname, ' ', 
+           COALESCE(SUBSTRING(e.middlename FROM 1 FOR 1), ''), 
+           CASE WHEN e.middlename IS NOT NULL THEN '. ' ELSE '' END, 
+           e.lastname) AS fullname
+FROM employee e
+WHERE e.id = '18334e11-7b58-4088-bf72-7872c5e058a0';

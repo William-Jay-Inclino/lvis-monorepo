@@ -1,0 +1,1 @@
+docker cp docker-lvis-db-1:/var/lib/postgresql/data/pg_log/. /home/l5user01/database_logs
