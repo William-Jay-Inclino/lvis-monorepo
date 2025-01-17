@@ -23,14 +23,14 @@ function extendPrismaClient(config: ConfigService) {
     return prisma.$extends({
         query: {
             $allModels: {
-                async $allOperations({ operation, model, args, query }) {
-                    const start = performance.now();
-                    const result = await query(args);
-                    const end = performance.now();
-                    const time = end - start;
-                    Logger.log(`${model}.${operation} took ${time.toFixed(2)} ms`);
-                    return result;
-                },
+                // async $allOperations({ operation, model, args, query }) {
+                //     const start = performance.now();
+                //     const result = await query(args);
+                //     const end = performance.now();
+                //     const time = end - start;
+                //     Logger.log(`${model}.${operation} took ${time.toFixed(2)} ms`);
+                //     return result;
+                // },
                 async findMany({ args, query }) {
                     const result = await query(args);
                     return convertDatesToPhTime(result);

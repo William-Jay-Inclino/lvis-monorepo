@@ -8,8 +8,7 @@ export class WinstonLoggerService implements LoggerService {
     private readonly logger: winston.Logger;
 
     constructor() {
-
-        const timeZone = process.env.TZ || 'UTC';
+        const timeZone = process.env.TZ || 'Asia/Manila';
 
         this.logger = winston.createLogger({
             level: 'info', // Default log level
@@ -23,42 +22,22 @@ export class WinstonLoggerService implements LoggerService {
                 }),
                 winston.format.printf(
                     ({ timestamp, level, message, context }) =>
-                        `${timestamp} [${level}]: ${message} - Context: ${context || 'N/A'}`
+                        `${timestamp},${level.toUpperCase()},${message},${context || 'N/A'}`
                 )
             ),
             transports: [
-                // Log to a file with daily rotation in JSON format
+                // Log to a CSV file with daily rotation
                 new WinstonDailyRotateFile({
-                    filename: 'logs/combined-%DATE%.log',
+                    filename: 'logs/combined-%DATE%.csv',
                     datePattern: 'YYYY-MM-DD',
                     maxSize: '20m',
-                    format: winston.format.combine(
-                        winston.format.timestamp({
-                            format: () => {
-                                const now = new Date();
-                                const zonedDate = toZonedTime(now, timeZone);
-                                return format(zonedDate, 'yyyy-MM-dd HH:mm:ss', { timeZone });
-                            },
-                        }),
-                        winston.format.prettyPrint({ colorize: false }) // Formats JSON nicely with indentation
-                    ),
                 }),
-                // Error logs in a separate file with JSON format
+                // Error logs in a separate CSV file
                 new WinstonDailyRotateFile({
                     level: 'error',
-                    filename: 'logs/error-%DATE%.log',
+                    filename: 'logs/error-%DATE%.csv',
                     datePattern: 'YYYY-MM-DD',
                     maxSize: '20m',
-                    format: winston.format.combine(
-                        winston.format.timestamp({
-                            format: () => {
-                                const now = new Date();
-                                const zonedDate = toZonedTime(now, timeZone);
-                                return format(zonedDate, 'yyyy-MM-dd HH:mm:ss', { timeZone });
-                            },
-                        }),
-                        winston.format.prettyPrint({ colorize: false }) // Formats JSON nicely
-                    ),
                 }),
             ],
         });
@@ -66,23 +45,62 @@ export class WinstonLoggerService implements LoggerService {
         this.logger.info('Winston logger initialized successfully');
     }
 
-    log(message: any) {
-        this.logger.info(message);
+    log(message: any, context?: string) {
+
+        if(typeof message === 'string') {
+            this.logger.info(message, { context });
+            return
+        }
+
+        // Helper function to recursively handle nested objects and flatten them
+        const formatMessage = (obj: any): string => {
+            let output = '';
+            Object.keys(obj).forEach(key => {
+                const value = obj[key];
+
+                // If value is a stringified JSON, parse it and recursively format it
+                if (typeof value === 'string' && value.startsWith('{') && value.endsWith('}')) {
+                    try {
+                        const parsedValue = JSON.parse(value);  // Try to parse stringified JSON
+                        output += `${key}=${formatMessage(parsedValue)} `;
+                    } catch {
+                        // If JSON parsing fails, treat it as a normal string
+                        output += `${key}=${value} `;
+                    }
+                } else if (typeof value === 'object' && value !== null) {
+                    // Recursively handle nested objects
+                    output += `${key}=${formatMessage(value)} `;
+                } else {
+                    // If value is a primitive (string, number, etc.), log it directly
+                    output += `${key}=${value} `;
+                }
+            });
+            return output.trim();
+        };
+
+        // Format the message object into a string
+        const formattedMessage = formatMessage(message);
+
+        // Log the formatted message to Winston
+        this.logger.info(formattedMessage, { context });
+    }
+    // log(message: string, context?: string) {
+    //     this.logger.info(message, { context });
+    // }
+
+    error(message: string, trace?: string, context?: string) {
+        this.logger.error(`${message}${trace ? ` - Trace: ${trace}` : ''},${context || 'N/A'}`);
     }
 
-    error(message: string, trace: string) {
-        this.logger.error({ message, trace });
+    warn(message: string, context?: string) {
+        this.logger.warn(`${message},${context || 'N/A'}`);
     }
 
-    warn(message: string) {
-        this.logger.warn({ message });
+    debug(message: string, context?: string) {
+        this.logger.debug(`${message},${context || 'N/A'}`);
     }
 
-    debug(message: string) {
-        this.logger.debug({ message });
-    }
-
-    verbose(message: string) {
-        this.logger.verbose({ message });
+    verbose(message: string, context?: string) {
+        this.logger.verbose(`${message},${context || 'N/A'}`);
     }
 }
