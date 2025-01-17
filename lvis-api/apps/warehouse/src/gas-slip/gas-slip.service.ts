@@ -479,11 +479,11 @@ export class GasSlipService {
             }
         })
 
-        const hasPermission = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        // const hasPermission = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser);
 
-        if (!hasPermission) {
-            return false;
-        }
+        // if (!hasPermission) {
+        //     return false;
+        // }
 
         const status = await this.getStatus(gas_slip_id)
 

@@ -385,7 +385,17 @@ export class GasSlipPdfService {
                                     Reprinted: ${ gasSlip.print_count }
                                 </div>
                                 <div>
-                                    ${ this.authUser.user.username }
+                                    Printed by: ${ this.authUser.user.username }
+                                </div>
+                                <div>
+                                    Requested by: 
+                                    ${
+                                        // @ts-ignore 
+                                        getFullnameWithTitles(requested_by.firstname, requested_by.lastname, requested_by.middlename, requested_by.name_prefix, requested_by.name_suffix) 
+                                    }
+                                </div>
+                                <div>
+                                    Created by: ${ gasSlip.created_by }
                                 </div>
                             </div>
 

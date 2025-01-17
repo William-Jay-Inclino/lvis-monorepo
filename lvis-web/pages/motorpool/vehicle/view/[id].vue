@@ -140,7 +140,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="gs in item.gas_slips">
-                                                    <td>
+                                                    <td style="white-space: nowrap;">
                                                         <nuxt-link :to="'/motorpool/gas-slip/view/' + gs.id">{{ gs.gas_slip_number }}</nuxt-link>
                                                     </td>
                                                     <td> {{ getFullname(gs.driver.firstname, gs.driver.middlename, gs.driver.lastname) }} </td>
@@ -193,13 +193,13 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="trip in item.trip_tickets">
-                                                    <td>
+                                                    <td style="white-space: nowrap;">
                                                         <nuxt-link :to="'/motorpool/trip-ticket/view/' + trip.id">{{ trip.trip_number }}</nuxt-link>
                                                     </td>
                                                     <td> {{ getFullname(trip.driver.firstname, trip.driver.middlename, trip.driver.lastname) }} </td>
                                                     <td> {{ trip.destination }} </td>
                                                     <td> {{ trip.purpose }} </td>
-                                                    <td> {{ formatDate(trip.start_time) }} </td>
+                                                    <td style="white-space: nowrap;"> {{ formatDate(trip.start_time) }} </td>
                                                     <td class="text-center align-middle">
                                                         <div :class="{ [`badge bg-${tripTicketStatus[trip.status].color}`]: true }">
                                                             {{ tripTicketStatus[trip.status].label }}
@@ -234,12 +234,12 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="item in item.service_history">
-                                                    <td class="align-middle">
+                                                    <td style="white-space: nowrap;" class="align-middle">
                                                         <nuxt-link :to="'/motorpool/vehicle-maintenance/view/' + item.id">{{ item.ref_number }}</nuxt-link>
                                                     </td>
                                                     <td class="align-middle"> {{ item.service_center.name }} </td>
-                                                    <td class="align-middle"> {{ formatDate(item.service_date) }} </td>
-                                                    <td class="align-middle"> {{ formatToPhpCurrency(item.cost) }} </td>
+                                                    <td style="white-space: nowrap;" class="align-middle"> {{ formatDate(item.service_date) }} </td>
+                                                    <td style="white-space: nowrap;" class="align-middle"> {{ formatToPhpCurrency(item.cost) }} </td>
                                                     <td>
                                                         <textarea class="form-control form-control-sm" rows="3" :value="item.remarks || 'No remarks'" readonly></textarea>
                                                     </td>

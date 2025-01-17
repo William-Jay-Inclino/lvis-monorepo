@@ -98,8 +98,9 @@
                                                 <tr v-for="item in dayGroup.schedules" :key="item.id">
                                                     <td>
                                                         <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
-                                                            {{ item.vehicle.vehicle_number + ' ' + item.vehicle.name }}
+                                                            {{ item.vehicle.vehicle_number }}
                                                         </nuxt-link>
+                                                        {{ item.vehicle.name }}
                                                     </td>
                                                     <td>
                                                         <nuxt-link :to="'/motorpool/vehicle-maintenance/view/' + item.id">
@@ -219,23 +220,24 @@
                                             <tbody>
                                                 <tr v-for="item in dayGroup.tickets" :key="item.id">
                                                     <td> {{ moment(item.start_time).format('h:mm A') }} </td>
-                                                        <td> 
-                                                            <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
-                                                                {{ item.vehicle.vehicle_number + ' ' + item.vehicle.name }} 
-                                                            </nuxt-link>
-                                                        </td>
-                                                        <td> 
-                                                            <nuxt-link :to="'/motorpool/trip-ticket/view/' + item.id">
-                                                                {{ item.trip_number }} 
-                                                            </nuxt-link>
-                                                        </td>
-                                                        <td> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
-                                                        <td> {{ item.destination }} </td>
-                                                        <td class="text-center">
-                                                            <div :class="{ [`badge bg-${tripTicketStatus[item.status].color}`]: true }">
-                                                                {{ tripTicketStatus[item.status].label }}
-                                                            </div>
-                                                        </td>
+                                                    <td>
+                                                        <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
+                                                            {{ item.vehicle.vehicle_number }}
+                                                        </nuxt-link>
+                                                        {{ item.vehicle.name }}
+                                                    </td>
+                                                    <td> 
+                                                        <nuxt-link :to="'/motorpool/trip-ticket/view/' + item.id">
+                                                            {{ item.trip_number }} 
+                                                        </nuxt-link>
+                                                    </td>
+                                                    <td> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
+                                                    <td> {{ item.destination }} </td>
+                                                    <td class="text-center">
+                                                        <div :class="{ [`badge bg-${tripTicketStatus[item.status].color}`]: true }">
+                                                            {{ tripTicketStatus[item.status].label }}
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
