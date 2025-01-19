@@ -2,8 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../__prisma__/prisma.service';
 import * as moment from 'moment';
-import { OSRIV, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { DB_ENTITY, MODULE_MAPPER, ModuleMapping } from '../__common__/constants';
+import { MRV, MRVItem, OSRIV, OSRIVItem, Prisma, SERIV, SERIVItem } from 'apps/warehouse/prisma/generated/client';
+import { DB_ENTITY } from '../__common__/constants';
 import { APPROVAL_STATUS } from '../__common__/types';
 
 @Injectable()
@@ -44,6 +44,10 @@ constructor(private readonly prisma: PrismaService) { }
                     }
                 })
 
+                for(let expiring_record of expiring_records) {
+                    await this.process_osriv_cancellation(expiring_record, tx as Prisma.TransactionClient)
+                }
+
             })
 
             
@@ -52,7 +56,11 @@ constructor(private readonly prisma: PrismaService) { }
         }
     }
 
-    private async handle_expiration2(osriv: OSRIV, tx: Prisma.TransactionClient) {
+    private async process_osriv_cancellation(osriv: OSRIV & { osriv_items: OSRIVItem[] }, tx: Prisma.TransactionClient) {
+
+        this.logger.log(`Cancelling OSRIV no. ${ osriv.osriv_number }`)
+
+        // cancel 
 
         await tx.oSRIV.update({
             data: {
@@ -63,6 +71,40 @@ constructor(private readonly prisma: PrismaService) { }
             where: { id: osriv.id }
         })
         
+        // delete associated pending
+
+        const pending = await tx.pending.findUnique({
+            where: {
+                reference_number_reference_table: {
+                    reference_number: osriv.osriv_number,
+                    reference_table: DB_ENTITY.OSRIV
+                }
+            }
+        })
+
+        if(pending) {
+            await tx.pending.delete({
+                where: { id: pending.id }
+            })
+            this.logger.log(`pending deleted with fields: reference_table=${ pending.reference_table }, reference_number=${ pending.reference_number }, approver_id=${pending.approver_id}`);
+        }
+
+        // decrement item quantity base on osriv item qty 
+
+        for(let item of osriv.osriv_items) {
+
+            this.logger.log(`Decrementing item_id: ${ item.item_id } by ${ item.quantity } quantity`)
+
+            await tx.item.update({
+                where: { id: item.item_id },
+                data: {
+                    quantity_on_queue: {
+                        decrement: item.quantity
+                    }
+                }
+            })
+
+        }
 
     }
 
@@ -70,102 +112,189 @@ constructor(private readonly prisma: PrismaService) { }
     @Cron(CronExpression.EVERY_DAY_AT_2AM)
     async handle_seriv_expiration() {
         try {
+
             this.logger.log({
                 filename: this.filename,
                 function: 'handle_seriv_expiration',
             })
-            await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.SERIV])
+
+            console.log('handle_seriv_expiration');
+
+            return await this.prisma.$transaction(async(tx) => {
+
+                const todayStart = moment().startOf('day').toDate(); 
+                const todayEnd = moment().endOf('day').toDate();  
+
+                const expiring_records = await this.prisma.sERIV.findMany({
+                    where: {
+                        exp_date: {
+                            gte: todayStart, 
+                            lte: todayEnd,   
+                        },
+                        cancelled_at: null,
+                        is_completed: false,
+                        approval_status: APPROVAL_STATUS.PENDING
+                    },
+                    include: {
+                        seriv_items: true
+                    }
+                })
+
+                for(let expiring_record of expiring_records) {
+                    await this.process_seriv_cancellation(expiring_record, tx as Prisma.TransactionClient)
+                }
+
+            })
+
+            
         } catch (error) {
             this.logger.error('Error in handle_seriv_expiration', error)
         }
+    }
+
+    private async process_seriv_cancellation(seriv: SERIV & { seriv_items: SERIVItem[] }, tx: Prisma.TransactionClient) {
+
+        this.logger.log(`Cancelling SERIV no. ${ seriv.seriv_number }`)
+
+        // cancel 
+
+        await tx.sERIV.update({
+            data: {
+                cancelled_at: new Date(),
+                cancelled_by: 'task-scheduler',
+                note: 'Expired',
+            },
+            where: { id: seriv.id }
+        })
+        
+        // delete associated pending
+
+        const pending = await tx.pending.findUnique({
+            where: {
+                reference_number_reference_table: {
+                    reference_number: seriv.seriv_number,
+                    reference_table: DB_ENTITY.SERIV
+                }
+            }
+        })
+
+        if(pending) {
+            await tx.pending.delete({
+                where: { id: pending.id }
+            })
+            this.logger.log(`pending deleted with fields: reference_table=${ pending.reference_table }, reference_number=${ pending.reference_number }, approver_id=${pending.approver_id}`);
+        }
+
+        // decrement item quantity base on seriv item qty 
+
+        for(let item of seriv.seriv_items) {
+            this.logger.log(`Decrementing item_id: ${ item.item_id } by ${ item.quantity } quantity`)
+
+            await tx.item.update({
+                where: { id: item.item_id },
+                data: {
+                    quantity_on_queue: {
+                        decrement: item.quantity
+                    }
+                }
+            })
+
+        }
+
     }
 
     // @Cron(CronExpression.EVERY_10_SECONDS)
     @Cron(CronExpression.EVERY_DAY_AT_2AM)
     async handle_mrv_expiration() {
         try {
+
             this.logger.log({
                 filename: this.filename,
                 function: 'handle_mrv_expiration',
             })
-            await this.handle_expiration(MODULE_MAPPER[DB_ENTITY.MRV])
+
+            return await this.prisma.$transaction(async(tx) => {
+
+                const todayStart = moment().startOf('day').toDate(); 
+                const todayEnd = moment().endOf('day').toDate();  
+
+                const expiring_records = await this.prisma.mRV.findMany({
+                    where: {
+                        exp_date: {
+                            gte: todayStart, 
+                            lte: todayEnd,   
+                        },
+                        cancelled_at: null,
+                        is_completed: false,
+                        approval_status: APPROVAL_STATUS.PENDING
+                    },
+                    include: {
+                        mrv_items: true
+                    }
+                })
+
+                for(let expiring_record of expiring_records) {
+                    await this.process_mrv_cancellation(expiring_record, tx as Prisma.TransactionClient)
+                }
+
+            })
+
+            
         } catch (error) {
             this.logger.error('Error in handle_mrv_expiration', error)
         }
     }
 
-    private async handle_expiration(module: ModuleMapping) {
+    private async process_mrv_cancellation(mrv: MRV & { mrv_items: MRVItem[] }, tx: Prisma.TransactionClient) {
 
-        const todayStart = moment().startOf('day').toDate(); 
-        const todayEnd = moment().endOf('day').toDate();     
+        this.logger.log(`Cancelling MRV no. ${ mrv.mrv_number }`)
 
-        const expiringRecords = await this.prisma[module.model].findMany({
-            where: {
-                exp_date: {
-                    gte: todayStart, 
-                    lte: todayEnd,   
-                },
-                cancelled_at: null,
-                is_completed: false,
-                approval_status: APPROVAL_STATUS.PENDING
+        // cancel 
+
+        await tx.mRV.update({
+            data: {
+                cancelled_at: new Date(),
+                cancelled_by: 'task-scheduler',
+                note: 'Expired',
             },
-            include: {
-                [module.items]: true,
+            where: { id: mrv.id }
+        })
+        
+        // delete associated pending
+
+        const pending = await tx.pending.findUnique({
+            where: {
+                reference_number_reference_table: {
+                    reference_number: mrv.mrv_number,
+                    reference_table: DB_ENTITY.MRV
+                }
             }
-        });
-    
-        const queries: Prisma.PrismaPromise<any>[] = []
+        })
 
-        for(let record of expiringRecords) {
-
-            this.logger.log({
-                filename: this.filename,
-                function: 'handle_expiration',
-                data: JSON.stringify(record),
-                msg: `Cancelling osriv/seriv/mrv... Removing associated pendings ... Decrementing quantity_on_queue on each item...`
+        if(pending) {
+            await tx.pending.delete({
+                where: { id: pending.id }
             })
+            this.logger.log(`pending deleted with fields: reference_table=${ pending.reference_table }, reference_number=${ pending.reference_number }, approver_id=${pending.approver_id}`);
+        }
 
-            // cancel model
-            const cancelQuery = this.prisma[module.model].update({
+        // decrement item quantity base on osriv item qty 
+
+        for(let item of mrv.mrv_items) {
+
+            this.logger.log(`Decrementing item_id: ${ item.item_id } by ${ item.quantity } quantity`)
+
+            await tx.item.update({
+                where: { id: item.item_id },
                 data: {
-                    cancelled_at: new Date(),
-                    cancelled_by: 'task-scheduler',
-                    note: 'Expired',
-                },
-                where: { id: record.id }
-            })
-
-            queries.push(cancelQuery)
-
-            // delete all associated pendings
-            const deleteAssociatedPendings = this.prisma.pending.deleteMany({
-                where: {
-                    reference_number: record.osriv_number
+                    quantity_on_queue: {
+                        decrement: item.quantity
+                    }
                 }
             })
 
-            queries.push(deleteAssociatedPendings)
-
-            // update item qty (decrement based on model items qty) 
-
-            for(let moduleItem of record[module.items]) {
-
-                const updateItemQuery = this.prisma.item.update({
-                    where: { id: moduleItem.item_id },
-                    data: {
-                        quantity_on_queue: {
-                            decrement: moduleItem.quantity
-                        }
-                    }
-                })
-
-                queries.push(updateItemQuery)
-
-            }
-
-            const result = await this.prisma.$transaction(queries)
-
         }
+
     }
 
 }
