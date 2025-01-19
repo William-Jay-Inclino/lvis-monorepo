@@ -212,7 +212,7 @@ export class MctService {
         if (date_requested) {
             const { startDate, endDate } = getDateRange(date_requested);
 
-            whereCondition.date_requested = {
+            whereCondition.mct_date = {
                 gte: startDate,
                 lte: endDate,
             };
