@@ -239,8 +239,7 @@ export class TripTicketService {
 				// update pendings 
 				const pending = await tx.pending.findUnique({
 					where: {
-						approver_id_reference_number_reference_table: {
-							approver_id: existingAssignee.approver_id,
+						reference_number_reference_table: {
 							reference_number: trip_ticket_updated.trip_number,
 							reference_table: DB_ENTITY.TRIP_TICKET,
 						},
@@ -537,15 +536,18 @@ export class TripTicketService {
 
         queries.push(updateTripQuery)
 
-        // delete all associated pendings
+        // delete associated pending
 
-        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+        const deleteAssociatedPending = this.prisma.pending.delete({
             where: {
-                reference_number: existingItem.trip_number
+                reference_number_reference_table: {
+                    reference_number: existingItem.trip_number,
+                    reference_table: DB_ENTITY.TRIP_TICKET
+                }
             }
         })
 
-        queries.push(deleteAssociatedPendings)
+        queries.push(deleteAssociatedPending)
 
         const result = await this.prisma.$transaction(queries)
 

@@ -48,8 +48,7 @@ export class MrvApproverService {
     
             const pending = await prisma.pending.findUnique({
                 where: {
-                    approver_id_reference_number_reference_table: {
-                        approver_id: item.approver_id,
+                    reference_number_reference_table: {
                         reference_number: item.mrv.mrv_number,
                         reference_table: DB_ENTITY.MRV,
                     },
@@ -130,8 +129,7 @@ export class MrvApproverService {
                     approver_notes: true 
                 },
                 where: {
-                    approver_id_reference_number_reference_table: {
-                        approver_id: approver.approver_id,
+                    reference_number_reference_table: {
                         reference_number: mrv_number,
                         reference_table: DB_ENTITY.MRV
                     }

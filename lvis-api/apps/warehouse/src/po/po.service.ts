@@ -263,15 +263,18 @@ export class PoService {
 
         queries.push(updatePoQuery)
 
-        // delete all associated pendings
+        // delete associated pending
 
-        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+        const deleteAssociatedPending = this.prisma.pending.delete({
             where: {
-                reference_number: existingItem.po_number
+                reference_number_reference_table: {
+                    reference_number: existingItem.po_number,
+                    reference_table: DB_ENTITY.PO
+                }
             }
         })
 
-        queries.push(deleteAssociatedPendings)
+        queries.push(deleteAssociatedPending)
 
         const result = await this.prisma.$transaction(queries)
 

@@ -101,7 +101,8 @@ model Pending {
   approver_notes String?
 
 
-  @@unique([approver_id, reference_number, reference_table])
+  @@unique([reference_number, reference_table])
+  // @@unique([approver_id, reference_number, reference_table])
   @@index([approver_id])
   @@index([transaction_date])
   @@map("pending")

@@ -208,14 +208,18 @@ export class OsrivService {
 
         queries.push(updateOsrivQuery)
 
-        // delete all associated pendings
-        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+        // delete associated pending
+
+        const deleteAssociatedPending = this.prisma.pending.delete({
             where: {
-                reference_number: existingItem.osriv_number
+                reference_number_reference_table: {
+                    reference_number: existingItem.osriv_number,
+                    reference_table: DB_ENTITY.OSRIV
+                }
             }
         })
 
-        queries.push(deleteAssociatedPendings)
+        queries.push(deleteAssociatedPending)
 
 
         // update item qty (decrement based on osriv items qty) 

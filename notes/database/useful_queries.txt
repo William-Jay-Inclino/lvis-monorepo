@@ -8,3 +8,12 @@ SELECT
            e.lastname) AS fullname
 FROM employee e
 WHERE e.id = '18334e11-7b58-4088-bf72-7872c5e058a0';
+
+
+
+// view for duplicates
+
+SELECT reference_number, reference_table, COUNT(*)
+FROM pending
+GROUP BY reference_number, reference_table
+HAVING COUNT(*) > 1;

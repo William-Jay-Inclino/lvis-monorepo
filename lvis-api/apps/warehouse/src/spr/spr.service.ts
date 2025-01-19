@@ -207,8 +207,7 @@ export class SprService {
                     // check first if existing supervisor is in pendings table
                     const pending_existing_supervisor = await tx.pending.findUnique({
                         where: {
-                            approver_id_reference_number_reference_table: {
-                                approver_id: existing_supervisor_id,
+                            reference_number_reference_table: {
                                 reference_number: existingItem.spr_number,
                                 reference_table: DB_ENTITY.SPR,
                             }
@@ -278,15 +277,18 @@ export class SprService {
 
         queries.push(updateSprQuery)
 
-        // delete all associated pendings
+        // delete associated pending
 
-        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+        const deleteAssociatedPending = this.prisma.pending.delete({
             where: {
-                reference_number: existingItem.spr_number
+                reference_number_reference_table: {
+                    reference_number: existingItem.spr_number,
+                    reference_table: DB_ENTITY.SPR
+                }
             }
         })
 
-        queries.push(deleteAssociatedPendings)
+        queries.push(deleteAssociatedPending)
 
         const result = await this.prisma.$transaction(queries)
 

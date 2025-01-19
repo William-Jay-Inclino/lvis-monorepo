@@ -202,11 +202,11 @@
                             </client-only> 
                             Search Trip Ticket
                                         </nuxt-link>
-                                        <button disabled v-if="item.status === TRIP_TICKET_STATUS.APPROVED && canPrint(authUser, 'canManageTripTicket')" @click="onClickPrint" class="btn btn-danger">
+                                        <!-- <button disabled v-if="item.status === TRIP_TICKET_STATUS.APPROVED && canPrint(authUser, 'canManageTripTicket')" @click="onClickPrint" class="btn btn-danger">
                                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'print']"/>
                             </client-only> Print Trip Ticket
-                                        </button>
+                                        </button> -->
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
                                     </div>

@@ -210,8 +210,7 @@ export class JoService {
                     // check first if existing supervisor is in pendings table
                     const pending_existing_supervisor = await tx.pending.findUnique({
                         where: {
-                            approver_id_reference_number_reference_table: {
-                                approver_id: existing_supervisor_id,
+                            reference_number_reference_table: {
                                 reference_number: existingItem.jo_number,
                                 reference_table: DB_ENTITY.JO,
                             }
@@ -281,15 +280,18 @@ export class JoService {
 
         queries.push(updateJoQuery)
 
-        // delete all associated pendings
+        // delete associated pending
 
-        const deleteAssociatedPendings = this.prisma.pending.deleteMany({
+        const deleteAssociatedPending = this.prisma.pending.delete({
             where: {
-                reference_number: existingItem.jo_number
+                reference_number_reference_table: {
+                    reference_number: existingItem.jo_number,
+                    reference_table: DB_ENTITY.JO
+                }
             }
         })
 
-        queries.push(deleteAssociatedPendings)
+        queries.push(deleteAssociatedPending)
 
         const result = await this.prisma.$transaction(queries)
 

@@ -27,8 +27,7 @@ export class SprApproverService {
                             approver_notes: true 
                     },
                     where: {
-                            approver_id_reference_number_reference_table: {
-                                approver_id: approver.approver_id,
+                            reference_number_reference_table: {
                                 reference_number: spr_number,
                                 reference_table: DB_ENTITY.SPR
                         }

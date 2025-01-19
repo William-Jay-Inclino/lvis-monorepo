@@ -49,8 +49,7 @@ export class GasSlipApproverService {
 
             const pending = await prisma.pending.findUnique({
                 where: {
-                    approver_id_reference_number_reference_table: {
-                        approver_id: item.approver_id,
+                    reference_number_reference_table: {
                         reference_number: item.gas_slip.gas_slip_number,
                         reference_table: DB_ENTITY.GAS_SLIP,
                     },
@@ -131,8 +130,7 @@ export class GasSlipApproverService {
                     approver_notes: true 
                 },
                 where: {
-                    approver_id_reference_number_reference_table: {
-                        approver_id: approver.approver_id,
+                    reference_number_reference_table: {
                         reference_number: gas_number,
                         reference_table: DB_ENTITY.GAS_SLIP
                     }
