@@ -97,6 +97,21 @@ export class RvPdfService {
                 transform: translateX(-50%);
                 z-index: 2;
             }
+
+            .item-table {
+                width: 100%;
+                font-size: 8pt;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            .item-table th, 
+            .item-table td {
+                padding: 5px;
+                border: 1px solid black;
+                vertical-align: middle;
+            }
+
+
         </style>
 
         
@@ -161,7 +176,7 @@ export class RvPdfService {
 
                 <br />
 
-                <table style="width: 100%; border-collapse: collapse; font-size: 8pt;">
+                <table class="item-table">
                     <thead>
                         <th style="border: 1px solid black;"> NO. </th>
                         <th style="border: 1px solid black;"> DESCRIPTION AND SPECIFICATIONS </th>
@@ -201,7 +216,7 @@ export class RvPdfService {
                                 <td> ${formatDate(rv.date_requested, true)} </td>
                             </tr>
                             <tr>
-                                <th style="text-align: center; position: relative; font-size: 9pt;">
+                                <th style="text-align: center; position: relative; font-size: 9pt; white-space: nowrap;">
                                     <u style="position: relative; z-index: 1; margin-bottom: 10px;">${ requisitioner.firstname + ' ' + requisitioner.lastname }</u>
                                     <img class="responsive-signature" src="${ this.getUploadsPath(requisitioner.signature_src) }" />
                                 </th>
@@ -227,7 +242,7 @@ export class RvPdfService {
                                     <td> ${formatDate(item.date_approval, true)} </td>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: center; position: relative; font-size: 9pt;">
+                                    <th style="text-align: center; position: relative; font-size: 9pt; white-space: nowrap;">
                                         <u style="position: relative; z-index: 1; margin-bottom: 10px;">
                                             ${
                                                 // @ts-ignore

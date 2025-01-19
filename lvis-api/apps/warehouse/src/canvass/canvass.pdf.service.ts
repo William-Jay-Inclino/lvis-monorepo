@@ -204,7 +204,7 @@ export class CanvassPdfService {
                                 <td width="30%">Prepared By:</td>
                             </tr>
                             <tr>
-                                <td style="text-align: center; border-bottom: 1px solid black; font-size: 10pt;">
+                                <td style="text-align: center; border-bottom: 1px solid black; font-size: 10pt; white-space: nowrap;">
                                     <div style="margin-top: 20px; ">
                                         <b> 
                                             ${
@@ -234,7 +234,7 @@ export class CanvassPdfService {
                                 <td width="30%">Noted By:</td>
                             </tr>
                             <tr>
-                                <td style="text-align: center; border-bottom: 1px solid black; font-size: 10pt;">
+                                <td style="text-align: center; border-bottom: 1px solid black; font-size: 10pt; white-space: nowrap;">
                                     <div style="margin-top: 20px; ">
                                         <b> 
                                             ${

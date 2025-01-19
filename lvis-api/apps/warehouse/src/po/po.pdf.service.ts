@@ -134,6 +134,20 @@ export class PoPdfService {
                 transform: translateX(-50%);
                 z-index: 2;
             }
+
+            .item-table {
+                width: 100%;
+                font-size: 8pt;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            .item-table th, 
+            .item-table td {
+                padding: 5px;
+                border: 1px solid black;
+                vertical-align: middle;
+            }
+
         </style>
 
         <div class="watermark"></div>
@@ -264,15 +278,15 @@ export class PoPdfService {
                     quotation. </i> 
                 </div>  
 
-                <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 8pt;">
+                <table class="item-table">
                     <thead>
                         <th style="border: 1px solid black;"> NO. </th>
                         <th style="border: 1px solid black;"> DESCRIPTION </th>
                         <th style="border: 1px solid black;"> UNIT </th>
                         <th style="border: 1px solid black;"> VAT </th>
                         <th style="border: 1px solid black;"> QTY. </th>
-                        <th style="border: 1px solid black;"> UNIT PRICE </th>
-                        <th style="border: 1px solid black;"> TOTAL PRICE </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> UNIT PRICE </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> TOTAL PRICE </th>
                     </thead>
                     <tbody>
                         ${items.map((item, index) => `
@@ -333,7 +347,7 @@ export class PoPdfService {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="font-size: 9pt; text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom;">
+                                    <th style="font-size: 9pt; text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom; white-space: nowrap;">
                                         <span style="position: relative; z-index: 1; margin-bottom: 10px;">
                                             ${
                                                 // @ts-ignore
@@ -387,7 +401,7 @@ export class PoPdfService {
                                 ${ formatDate(generalManager.date_approval, true) }
                             </div>
                             <br />
-                            <div style="text-align: center; position: relative; font-size: 10pt; padding-top: 20px;">
+                            <div style="text-align: center; position: relative; font-size: 10pt; padding-top: 20px; white-space: nowrap;">
                                 <u style="position: relative; z-index: 1; margin-bottom: 10px;"> 
                                     <b>
                                     ${
@@ -412,7 +426,7 @@ export class PoPdfService {
                             <div>
                                 ORDER ISSUED AND AUTHORIZED:
                             </div>
-                            <div style="text-align: center; font-size: 10pt;">
+                            <div style="text-align: center; font-size: 10pt; white-space: nowrap;">
                                 <b> ${ po.meqs_supplier.supplier.name } </b>
                             </div>
                             <br />

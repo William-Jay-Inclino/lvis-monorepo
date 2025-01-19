@@ -125,6 +125,20 @@ export class MeqsPdfService {
                 transform: translateX(-50%);
                 z-index: 2;
             }
+
+            .item-table {
+                width: 100%;
+                font-size: 8pt;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            .item-table th, 
+            .item-table td {
+                padding: 5px;
+                border: 1px solid black;
+                vertical-align: middle;
+            }
+
         </style>
 
         <div class="watermark"></div>
@@ -187,7 +201,7 @@ export class MeqsPdfService {
 
                 <br />
 
-                <table style="width: 100%; border-collapse: collapse; font-size: 8pt;">
+                <table class="item-table">
                     <caption style="text-align: left;"> <i>Note: The price with star in the 'Supplier' column indicates the awarded supplier </i></caption>
                     <thead>
                         <th style="border: 1px solid black;"> MATERIALS / EQUIPMENT DESCRIPTION </th>
@@ -254,7 +268,7 @@ export class MeqsPdfService {
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             Requisitioner: 
                             <b>
                             ${
@@ -288,7 +302,7 @@ export class MeqsPdfService {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="font-size: 9pt; text-align: center; position: relative; border-bottom: 1px solid black;">
+                                    <th style="font-size: 9pt; text-align: center; position: relative; border-bottom: 1px solid black; white-space: nowrap;">
                                         <span style="position: relative; z-index: 1; margin-bottom: 10px;">
                                             ${
                                                 // @ts-ignore

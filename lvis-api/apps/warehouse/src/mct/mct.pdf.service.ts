@@ -94,6 +94,20 @@ export class MctPdfService {
                 transform: translateX(-50%);
                 z-index: 2;
             }
+
+            .item-table {
+                width: 100%;
+                font-size: 8pt;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            .item-table th, 
+            .item-table td {
+                padding: 5px;
+                border: 1px solid black;
+                vertical-align: middle;
+            }
+
         </style>
 
         
@@ -210,20 +224,20 @@ export class MctPdfService {
                 <br />
                 <br />
 
-                <table style="width: 100%; font-size: 8pt; border: 1px solid black; border-collapse: collapse;">
+                <table class="item-table">
                     <thead>
                         <th style="border: 1px solid black;"> No. </th>
-                        <th style="border: 1px solid black;"> Item Code </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> Item Code </th>
                         <th style="border: 1px solid black;"> Description </th>
                         <th style="border: 1px solid black;"> Quantity </th>
                         <th style="border: 1px solid black;"> Unit </th>
-                        <th style="border: 1px solid black;"> Unit Cost </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> Unit Cost </th>
                     </thead>
                     <tbody>
                         ${mct.mrv.mrv_items.map((mrv_item, index) => `
                         <tr style="border: 1px solid black;">
                             <td align="center">${index + 1}</td>
-                            <td>${mrv_item.item.code}</td>
+                            <td style="white-space: nowrap;">${mrv_item.item.code}</td>
                             <td style="white-space: pre-line;" align="center">${mrv_item.item.description} ${ mrv_item.item.project_item ? `(${ mrv_item.item.project_item.project.name })` : '' }</td>
                             <td align="center">${mrv_item.quantity}</td>
                             <td align="center">${mrv_item.item.unit.name}</td>
@@ -383,6 +397,20 @@ export class MctPdfService {
                 transform: translateX(-50%);
                 z-index: 2;
             }
+
+            .item-table {
+                width: 100%;
+                font-size: 8pt;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            .item-table th, 
+            .item-table td {
+                padding: 5px;
+                border: 1px solid black;
+                vertical-align: middle;
+            }
+
         </style>
 
         
@@ -459,20 +487,20 @@ export class MctPdfService {
                 <br />
                 <br />
 
-                <table style="width: 100%; font-size: 8pt; border: 1px solid black; border-collapse: collapse;">
+                <table class="item-table">
                     <thead>
                         <th style="border: 1px solid black;"> No. </th>
-                        <th style="border: 1px solid black;"> Item Code </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> Item Code </th>
                         <th style="border: 1px solid black;"> Description </th>
                         <th style="border: 1px solid black;"> Quantity </th>
                         <th style="border: 1px solid black;"> Unit </th>
-                        <th style="border: 1px solid black;"> Unit Cost </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> Unit Cost </th>
                     </thead>
                     <tbody>
                         ${mct.mrv.mrv_items.map((mrv_item, index) => `
                         <tr style="border: 1px solid black;">
                             <td align="center">${index + 1}</td>
-                            <td>${mrv_item.item.code}</td>
+                            <td style="white-space: nowrap;">${mrv_item.item.code}</td>
                             <td style="white-space: pre-line;" align="center">${mrv_item.item.description} ${ mrv_item.item.project_item ? `(${ mrv_item.item.project_item.project.name })` : '' }</td>
                             <td align="center">${mrv_item.quantity}</td>
                             <td align="center">${mrv_item.item.unit.name}</td>

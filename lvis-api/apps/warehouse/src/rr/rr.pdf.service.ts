@@ -146,6 +146,19 @@ export class RrPdfService {
                 transform: translateX(-50%);
                 z-index: 2;
             }
+
+            .item-table {
+                width: 100%;
+                font-size: 8pt;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            .item-table th, 
+            .item-table td {
+                padding: 5px;
+                border: 1px solid black;
+                vertical-align: middle;
+            }
         </style>
 
         
@@ -222,16 +235,16 @@ export class RrPdfService {
                     </tr>
                 </table>
 
-                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <table class="item-table" style="margin-top: 10px;">
                     <thead style="font-size: 8pt;">
                         <tr>
                             <th style="border: 1px solid black;"> Code </th>
                             <th style="border: 1px solid black;"> Description </th>
                             <th style="border: 1px solid black;"> Unit </th>
                             <th colspan="2" style="border: 1px solid black;"> Qty </th>
-                            <th style="border: 1px solid black;"> Unit Cost </th>
-                            <th colspan="4" style="border: 1px solid black; text-align: center;"> Gross Amount </th>
-                            <th style="border: 1px solid black;"> Total Cost </th>
+                            <th style="border: 1px solid black; white-space: nowrap;"> Unit Cost </th>
+                            <th colspan="4" style="border: 1px solid black; text-align: center; white-space: nowrap;"> Gross Amount </th>
+                            <th style="border: 1px solid black; white-space: nowrap;"> Total Cost </th>
                         </tr>
                         <tr style="border: 1px solid black;">
                             <th></th>
@@ -240,10 +253,10 @@ export class RrPdfService {
                             <th>Request</th>
                             <th>Accept</th>
                             <th></th>
-                            <th>None VAT</th>
-                            <th>VAT Inc</th>
-                            <th>VAT Exc</th>
-                            <th>12% VAT</th>
+                            <th style="white-space: nowrap;">None VAT</th>
+                            <th style="white-space: nowrap;">VAT Inc</th>
+                            <th style="white-space: nowrap;">VAT Exc</th>
+                            <th style="white-space: nowrap;">12% VAT</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -251,7 +264,7 @@ export class RrPdfService {
 
                         ${rr.rr_items.map((item, index) => `
                         <tr style="border: 1px solid black;">
-                            <td align="center">${ item.meqs_supplier_item.canvass_item.item ? item.meqs_supplier_item.canvass_item.item.code : 'N/A' }</td>
+                            <td align="center" style="white-space: nowrap;">${ item.meqs_supplier_item.canvass_item.item ? item.meqs_supplier_item.canvass_item.item.code : 'N/A' }</td>
                             <td style="white-space: pre-line;">${item.meqs_supplier_item.canvass_item.description}</td>
                             <td align="center">${item.meqs_supplier_item.canvass_item.unit ? item.meqs_supplier_item.canvass_item.unit.name : 'N/A'}</td>
                             <td align="center">${ item.meqs_supplier_item.canvass_item.quantity }</td>
@@ -388,7 +401,7 @@ export class RrPdfService {
                                 </td>
                             </tr>
                             <tr>
-                                <th style="font-size: 10pt; text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom;">
+                                <th style="font-size: 10pt; text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom; white-space: nowrap;">
                                     <span style="position: relative; z-index: 1;">
                                         ${
                                             // @ts-ignore

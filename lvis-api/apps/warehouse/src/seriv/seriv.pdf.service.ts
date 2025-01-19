@@ -99,6 +99,19 @@ export class SerivPdfService {
                 transform: translateX(-50%);
                 z-index: 2;
             }
+
+            .item-table {
+                width: 100%;
+                font-size: 8pt;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            .item-table th, 
+            .item-table td {
+                padding: 5px;
+                border: 1px solid black;
+                vertical-align: middle;
+            }
         </style>
 
         
@@ -201,13 +214,13 @@ export class SerivPdfService {
                 <br />
                 <br />
 
-                <table style="width: 100%; font-size: 8pt; border: 1px solid black; border-collapse: collapse;">
+                <table border="0" class="item-table">
                     <thead>
                         <th style="border: 1px solid black;"> No. </th>
-                        <th style="border: 1px solid black;"> Item Code </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> Item Code </th>
                         <th style="border: 1px solid black;"> Description </th>
-                        <th style="border: 1px solid black;"> Brand Name </th>
-                        <th style="border: 1px solid black;"> Serial # </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> Brand Name </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> Serial # </th>
                         <th style="border: 1px solid black;"> Quantity </th>
                         <th style="border: 1px solid black;"> Unit </th>
                         <th style="border: 1px solid black;"> Price </th>
@@ -217,8 +230,8 @@ export class SerivPdfService {
                         ${seriv.seriv_items.map((seriv_item, index) => `
                         <tr style="border: 1px solid black;">
                             <td align="center" style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">${index + 1}</td>
-                            <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">${seriv_item.item.code}</td>
-                            <td style="white-space: pre-line; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;" align="center">${seriv_item.item.description} ${ seriv_item.item.project_item ? `(${ seriv_item.item.project_item.project.name })` : '' }</td>
+                            <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle; white-space: nowrap;">${seriv_item.item.code}</td>
+                            <td style="white-space: pre-line; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">${seriv_item.item.description} ${ seriv_item.item.project_item ? `(${ seriv_item.item.project_item.project.name })` : '' }</td>
                             <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;" align="center"></td>
                             <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;" align="center"></td>
                             <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;" align="center">${seriv_item.quantity}</td>
@@ -230,8 +243,8 @@ export class SerivPdfService {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="7" style="font-weight: bold; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">Total no. of records: ${ seriv.seriv_items.length }</td>
-                            <td style="font-weight: bold;  text-align: right; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">GRAND TOTAL:</td>
+                            <td colspan="5" style="font-weight: bold; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">Total no. of records: ${ seriv.seriv_items.length }</td>
+                            <td colspan="3" style="font-weight: bold;  text-align: right; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">GRAND TOTAL:</td>
                             <td style="font-weight: bold; text-align: center; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">${ this.get_grand_total_price(seriv.seriv_items) }</td>
                         </tr>
                     </tfoot>
@@ -466,6 +479,20 @@ export class SerivPdfService {
                 transform: translateX(-50%);
                 z-index: 2;
             }
+
+            .item-table {
+                width: 100%;
+                font-size: 8pt;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            .item-table th, 
+            .item-table td {
+                padding: 5px;
+                border: 1px solid black;
+                vertical-align: middle;
+            }
+
         </style>
 
         
@@ -543,20 +570,20 @@ export class SerivPdfService {
                 <br />
                 <br />
 
-                <table style="width: 100%; font-size: 8pt; border: 1px solid black; border-collapse: collapse;">
+                <table class="item-table">
                     <thead>
                         <th style="border: 1px solid black;"> No. </th>
-                        <th style="border: 1px solid black;"> Item Code </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> Item Code </th>
                         <th style="border: 1px solid black;"> Description </th>
                         <th style="border: 1px solid black;"> Quantity </th>
                         <th style="border: 1px solid black;"> Unit </th>
-                        <th style="border: 1px solid black;"> Unit Cost </th>
+                        <th style="border: 1px solid black; white-space: nowrap;"> Unit Cost </th>
                     </thead>
                     <tbody>
                         ${seriv.seriv_items.map((seriv_item, index) => `
                         <tr style="border: 1px solid black;">
                             <td align="center">${index + 1}</td>
-                            <td>${seriv_item.item.code}</td>
+                            <td style="white-space: nowrap;">${seriv_item.item.code}</td>
                             <td align="center" style="white-space: pre-line;">${seriv_item.item.description} ${ seriv_item.item.project_item ? `(${ seriv_item.item.project_item.project.name })` : '' }</td>
                             <td align="center">${seriv_item.quantity}</td>
                             <td align="center">${seriv_item.item.unit.name}</td>
