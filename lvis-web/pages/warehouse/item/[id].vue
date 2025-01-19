@@ -42,7 +42,7 @@
                                 <label class="form-label">Item Types</label> <span class="text-danger">*</span>
                                 <client-only>
                                     <v-select :options="itemTypes" label="name" v-model="formData.item_type"
-                                        :clearable="false"></v-select>
+                                        :clearable="false" disabled></v-select>
                                 </client-only>
                             </div>
                             <div v-if="show_project_field" class="mb-3">

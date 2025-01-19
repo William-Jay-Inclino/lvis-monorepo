@@ -95,7 +95,7 @@ export class JoPdfService {
                 max-width: 150px;
                 max-height: 150px;
                 position: absolute;
-                top: -30px;
+                top: -40px;
                 left: 50%;
                 transform: translateX(-50%);
                 z-index: 2;
