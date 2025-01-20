@@ -87,27 +87,27 @@
                                             <thead class="table-light">
                                                 <tr class="table-warning">
                                                     <th class="text-muted">Vehicle</th>
-                                                    <th class="text-muted">Ref. No.</th>
-                                                    <th class="text-muted">Prev. Service Date</th>
-                                                    <th class="text-muted">Prev. Service Mileage</th>
+                                                    <th style="white-space: nowrap;" class="text-muted">Ref. No.</th>
+                                                    <th style="white-space: nowrap;" class="text-muted">Prev. Service Date</th>
+                                                    <th style="white-space: nowrap;" class="text-muted">Prev. Service Mileage</th>
                                                     <th class="text-muted">Cost</th>
-                                                    <th class="text-muted text-center">Mark as Completed</th>
+                                                    <th style="white-space: nowrap;" class="text-muted text-center">Mark as Completed</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr v-for="item in dayGroup.schedules" :key="item.id">
-                                                    <td>
+                                                    <td style="white-space: nowrap;">
                                                         <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
                                                             {{ item.vehicle.vehicle_number }}
                                                         </nuxt-link>
                                                         {{ item.vehicle.name }}
                                                     </td>
-                                                    <td>
+                                                    <td style="white-space: nowrap;">
                                                         <nuxt-link :to="'/motorpool/vehicle-maintenance/view/' + item.id">
                                                             {{ item.ref_number }}
                                                         </nuxt-link>
                                                     </td>
-                                                    <td>{{ formatDate(item.service_date) }}</td>
+                                                    <td style="white-space: nowrap;">{{ formatDate(item.service_date) }}</td>
                                                     <td>{{ item.service_mileage }}</td>
                                                     <td>{{ formatToPhpCurrency(item.cost) }}</td>
                                                     <td class="text-center">
@@ -211,7 +211,7 @@
                                                 <tr class="table-warning">
                                                     <th class="text-muted"> Time </th>
                                                     <th class="text-muted"> Vehicle </th>
-                                                    <th class="text-muted"> Trip No. </th>
+                                                    <th style="white-space: nowrap;" class="text-muted"> Trip No. </th>
                                                     <th class="text-muted"> Driver </th>
                                                     <th class="text-muted"> Destination </th>
                                                     <th class="text-muted text-center"> Status </th>
@@ -219,19 +219,19 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="item in dayGroup.tickets" :key="item.id">
-                                                    <td> {{ moment(item.start_time).format('h:mm A') }} </td>
-                                                    <td>
+                                                    <td style="white-space: nowrap;"> {{ moment(item.start_time).format('h:mm A') }} </td>
+                                                    <td style="white-space: nowrap;">
                                                         <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
                                                             {{ item.vehicle.vehicle_number }}
                                                         </nuxt-link>
                                                         {{ item.vehicle.name }}
                                                     </td>
-                                                    <td> 
+                                                    <td style="white-space: nowrap;"> 
                                                         <nuxt-link :to="'/motorpool/trip-ticket/view/' + item.id">
                                                             {{ item.trip_number }} 
                                                         </nuxt-link>
                                                     </td>
-                                                    <td> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
+                                                    <td style="white-space: nowrap;"> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
                                                     <td> {{ item.destination }} </td>
                                                     <td class="text-center">
                                                         <div :class="{ [`badge bg-${tripTicketStatus[item.status].color}`]: true }">
