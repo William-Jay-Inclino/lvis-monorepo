@@ -86,10 +86,6 @@ function handleAuth({ req }) {
           return new RemoteGraphQLDataSource({
             url,
             willSendRequest({ request, context }) {
-              
-              console.log('request', request);
-              console.log('context', context);
-              
               const userAgent = context.req?.headers['user-agent'] || null;
               const ipAddress = context.req?.headers['x-forwarded-for'] || context.req?.connection.remoteAddress || null;
 
