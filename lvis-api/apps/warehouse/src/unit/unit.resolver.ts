@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UnitService } from './unit.service';
 import { Unit } from './entities/unit.entity';
 import { CreateUnitInput } from './dto/create-unit.input';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UpdateUnitInput } from './dto/update-unit.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
@@ -19,6 +19,10 @@ import { UserAgent } from '../__auth__/user-agent.decorator';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Unit)
 export class UnitResolver {
+
+  private readonly logger = new Logger(UnitResolver.name);
+  private filename = 'project.resolver.ts'
+
   constructor(
     private readonly unitService: UnitService,
     private readonly audit: WarehouseAuditService,
@@ -27,17 +31,32 @@ export class UnitResolver {
   @Mutation(() => Unit)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.UNIT, RESOLVERS.createUnit)
-  createUnit(
+  async createUnit(
     @Args('input') createUnitInput: CreateUnitInput,
     @CurrentAuthUser() authUser: AuthUser,
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
-    this.unitService.setAuthUser(authUser)
-    return this.unitService.create(createUnitInput, {
-      ip_address,
-      device_info: this.audit.getDeviceInfo(user_agent)
-    });
+
+    try {
+      
+      this.unitService.setAuthUser(authUser)
+  
+      console.log('user_agent', user_agent);
+      console.log('ip_address', ip_address);
+
+      this.logger.log('user_agent', user_agent)
+      this.logger.log('ip_address', ip_address)
+  
+      return await this.unitService.create(createUnitInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
+
+    } catch (error) {
+      this.logger.error('Error in creating unit', error)
+    }
+
   }
 
   @Query(() => [Unit])
