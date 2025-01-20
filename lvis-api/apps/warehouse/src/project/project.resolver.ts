@@ -13,6 +13,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { ProjectsResponse } from './entities/projects-response.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { UserAgent } from '../__auth__/user-agent.decorator';
+import { IpAddress } from '../__auth__/ip-address.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Project)
@@ -21,14 +24,19 @@ export class ProjectResolver {
   private readonly logger = new Logger(ProjectResolver.name);
   private filename = 'project.resolver.ts'
   
-  constructor(private readonly projectService: ProjectService) { }
+  constructor(
+    private readonly projectService: ProjectService,
+    private readonly audit: WarehouseAuditService,
+  ) { }
 
   @Mutation(() => Project)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.PROJECT, RESOLVERS.createProject)
   async createProject(
     @Args('input') createProjectInput: CreateProjectInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       this.logger.log({
@@ -39,7 +47,10 @@ export class ProjectResolver {
       })
       
       this.projectService.setAuthUser(authUser)
-      const x = await this.projectService.create(createProjectInput);
+      const x = await this.projectService.create(createProjectInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       this.logger.log('Project created successfully')
 
       return x
@@ -76,7 +87,9 @@ export class ProjectResolver {
   async updateProject(
     @Args('id') id: string,
     @Args('input') updateProjectInput: UpdateProjectInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       this.logger.log({
@@ -88,7 +101,10 @@ export class ProjectResolver {
       })
       
       this.projectService.setAuthUser(authUser)
-      const x = await this.projectService.update(id, updateProjectInput);
+      const x = await this.projectService.update(id, updateProjectInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       this.logger.log('Project updated successfully')
 
       return x
@@ -102,10 +118,15 @@ export class ProjectResolver {
   @CheckAccess(MODULES.PROJECT, RESOLVERS.removeProject)
   removeProject(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     this.projectService.setAuthUser(authUser)
-    return this.projectService.remove(id);
+    return this.projectService.remove(id, {
+      ip_address,
+      device_info: this.audit.getDeviceInfo(user_agent)
+    });
   }
 
 }

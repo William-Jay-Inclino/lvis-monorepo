@@ -6,35 +6,56 @@ import { UpdateSupplierInput } from './dto/update-supplier.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { SuppliersResponse } from './entities/suppliers-response.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class SupplierService {
 
 	private authUser: AuthUser
 
-	constructor(private readonly prisma: PrismaService) { }
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly audit: WarehouseAuditService,
+	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateSupplierInput): Promise<Supplier> {
+	async create(input: CreateSupplierInput, metadata: { ip_address: string, device_info: any }): Promise<Supplier> {
 
-		const data: Prisma.SupplierCreateInput = {
-			name: input.name,
-			contact: input.contact,
-			tin: input.tin,
-			address: input.address,
-			is_vat_registered: input.is_vat_registered,
-			vat_type: input.vat_type,
-			created_by: this.authUser.user.username
-		}
+		return await this.prisma.$transaction(async(tx) => {
 
-		const created = await this.prisma.supplier.create({
-			data
+			const data: Prisma.SupplierCreateInput = {
+				name: input.name,
+				contact: input.contact,
+				tin: input.tin,
+				address: input.address,
+				is_vat_registered: input.is_vat_registered,
+				vat_type: input.vat_type,
+				created_by: this.authUser.user.username
+			}
+	
+			const created = await this.prisma.supplier.create({
+				data
+			})
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.SUPPLIER,
+				action: 'CREATE-SUPPLIER',
+				reference_id: created.id,
+				metadata: created,
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+	
+			return created
+
 		})
 
-		return created
 
 	}
 
@@ -84,45 +105,83 @@ export class SupplierService {
 		return item
 	}
 
-	async update(id: string, input: UpdateSupplierInput): Promise<Supplier> {
+	async update(id: string, input: UpdateSupplierInput, metadata: { ip_address: string, device_info: any }): Promise<Supplier> {
 
-		const existingItem = await this.findOne(id)
+		return await this.prisma.$transaction(async(tx) => {
 
-		const data: Prisma.SupplierUpdateInput = {
-			name: input.name ?? existingItem.name,
-			contact: input.contact ?? existingItem.contact,
-			tin: input.tin ?? existingItem.tin,
-			address: input.address ?? existingItem.address,
-			is_vat_registered: input.is_vat_registered ?? existingItem.is_vat_registered,
-			vat_type: input.vat_type ?? existingItem.vat_type,
-			updated_by: this.authUser.user.username
-		}
-
-
-		const updated = await this.prisma.supplier.update({
-			data,
-			where: {
-				id
+			const existingItem = await this.findOne(id)
+	
+			const data: Prisma.SupplierUpdateInput = {
+				name: input.name ?? existingItem.name,
+				contact: input.contact ?? existingItem.contact,
+				tin: input.tin ?? existingItem.tin,
+				address: input.address ?? existingItem.address,
+				is_vat_registered: input.is_vat_registered ?? existingItem.is_vat_registered,
+				vat_type: input.vat_type ?? existingItem.vat_type,
+				updated_by: this.authUser.user.username
 			}
+	
+	
+			const updated = await this.prisma.supplier.update({
+				data,
+				where: {
+					id
+				}
+			})
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.SUPPLIER,
+				action: 'UPDATE-SUPPLIER',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+	
+			return updated
+
 		})
 
-		return updated
 
 	}
 
-	async remove(id: string): Promise<WarehouseRemoveResponse> {
+	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
 
-		const existingItem = await this.findOne(id)
+		return await this.prisma.$transaction(async(tx) => {
 
-		await this.prisma.supplier.update({
-			where: { id },
-			data: { deleted_at: new Date() }
+			const existingItem = await this.findOne(id)
+	
+			const updatedItem = await this.prisma.supplier.update({
+				where: { id },
+				data: { deleted_at: new Date() }
+			})
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.SUPPLIER,
+				action: 'SOFT-DELETE-SUPPLIER',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updatedItem
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+	
+			return {
+				success: true,
+				msg: "Supplier successfully deleted"
+			}
+
 		})
 
-		return {
-			success: true,
-			msg: "Supplier successfully deleted"
-		}
 
 	}
 

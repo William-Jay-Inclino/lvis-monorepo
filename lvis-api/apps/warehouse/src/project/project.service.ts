@@ -6,29 +6,49 @@ import { UpdateProjectInput } from './dto/update-project.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { ProjectsResponse } from './entities/projects-response.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class ProjectService {
 
 	private authUser: AuthUser
 
-	constructor(private readonly prisma: PrismaService) { }
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly audit: WarehouseAuditService,
+	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateProjectInput): Promise<Project> {
+	async create(input: CreateProjectInput, metadata: { ip_address: string, device_info: any }): Promise<Project> {
 
-		const data: Prisma.ProjectCreateInput = {
-			name: input.name,
-		}
+		return await this.prisma.$transaction(async(tx) => {
+	
+			const data: Prisma.ProjectCreateInput = {
+				name: input.name,
+			}
+	
+			const created = await this.prisma.project.create({
+				data
+			})
 
-		const created = await this.prisma.project.create({
-			data
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.PROJECT,
+				action: 'CREATE-PROJECT',
+				reference_id: created.id,
+				metadata: created,
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+	
+			return created
+
 		})
-
-		return created
 
 	}
 
@@ -92,41 +112,79 @@ export class ProjectService {
 		return item
 	}
 
-	async update(id: string, input: UpdateProjectInput): Promise<Project> {
+	async update(id: string, input: UpdateProjectInput, metadata: { ip_address: string, device_info: any }): Promise<Project> {
 
-		const existingItem = await this.findOne(id)
+		return this.prisma.$transaction(async(tx) => {
 
-		const data: Prisma.ProjectUpdateInput = {
-			name: input.name ?? existingItem.name,
-		}
-
-
-		const updated = await this.prisma.project.update({
-			data,
-			where: {
-				id
+			const existingItem = await this.findOne(id)
+	
+			const data: Prisma.ProjectUpdateInput = {
+				name: input.name ?? existingItem.name,
 			}
+	
+	
+			const updated = await this.prisma.project.update({
+				data,
+				where: {
+					id
+				}
+			})
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.PROJECT,
+				action: 'UPDATE-PROJECT',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+	
+			return updated
+
 		})
 
-		return updated
 
 	}
 
-	async remove(id: string): Promise<WarehouseRemoveResponse> {
+	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
 
-		const existingItem = await this.findOne(id)
+		return this.prisma.$transaction(async(tx) => {
 
-		await this.prisma.project.update({
-			where: { id },
-			data: {
-			  deleted_at: new Date()
+			const existingItem = await this.findOne(id)
+	
+			const updatedItem = await this.prisma.project.update({
+				where: { id },
+				data: {
+				  deleted_at: new Date()
+				}
+			})
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.PROJECT,
+				action: 'SOFT-DELETE-PROJECT',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updatedItem
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+	
+			return {
+				success: true,
+				msg: "Project successfully deleted"
 			}
+
 		})
 
-		return {
-			success: true,
-			msg: "Project successfully deleted"
-		}
 
 	}
 

@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ResolveField, Parent, Context } from '@nestjs/graphql';
 import { ItemService } from './item.service';
 import { Item } from './entities/item.entity';
 import { CreateItemInput } from './dto/create-item.input';
@@ -14,6 +14,9 @@ import { ITEM_TYPE_CODE } from '../__common__/constants';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { UserAgent } from '../__auth__/user-agent.decorator';
+import { IpAddress } from '../__auth__/ip-address.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Item)
@@ -22,14 +25,19 @@ export class ItemResolver {
     private readonly logger = new Logger(ItemResolver.name);
     private filename = 'item.resolver.ts'
 
-  constructor(private readonly itemService: ItemService) { }
+  constructor(
+    private readonly itemService: ItemService,
+    private readonly audit: WarehouseAuditService,
+  ) { }
 
   @Mutation(() => Item)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.ITEM, RESOLVERS.createItem)
   async createItem(
     @Args('input') createItemInput: CreateItemInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       this.logger.log({
@@ -38,10 +46,13 @@ export class ItemResolver {
         function: RESOLVERS.createItem,
         input: JSON.stringify(createItemInput)
       })
-      
+
       this.itemService.setAuthUser(authUser)
 
-      const x = await this.itemService.create(createItemInput);
+      const x = await this.itemService.create(createItemInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Item created successfully')
 
@@ -96,7 +107,9 @@ export class ItemResolver {
   async updateItem(
     @Args('id') id: string,
     @Args('input') updateItemInput: UpdateItemInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -110,7 +123,10 @@ export class ItemResolver {
       })
       
       this.itemService.setAuthUser(authUser)
-      const x = await this.itemService.update(id, updateItemInput);
+      const x = await this.itemService.update(id, updateItemInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Item updated successfully')
 
@@ -126,7 +142,9 @@ export class ItemResolver {
   @CheckAccess(MODULES.ITEM, RESOLVERS.removeItem)
   async removeItem(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
 
@@ -138,7 +156,10 @@ export class ItemResolver {
       })
 
       this.itemService.setAuthUser(authUser)
-      const x = await this.itemService.remove(id);
+      const x = await this.itemService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Item removed successfully')
       

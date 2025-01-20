@@ -31,8 +31,6 @@ export class WarehouseCancelResponse {
     cancelled_by: string;
 }
 
-
-
 @Injectable()
 export class CommonService {
 
@@ -126,7 +124,6 @@ export class CommonService {
           const paddedSequence = tracker.sequence.toString().padStart(3, '0');
           return `${yearMonth}-${paddedSequence}`; // e.g., "2412-001", "2412-1000", "2412-1001"
         });
-      }
-      
+    }
 
 }

@@ -100,6 +100,15 @@ export enum Role {
     ADMIN = 'ADMIN'
 }
 
+export enum DB_TABLE {
+    ITEM_TYPE = 'item_type',
+    SUPPLIER = 'supplier',
+    UNIT = 'unit',
+    STATION = 'station',
+    PROJECT = 'project',
+    ITEM = 'item',
+}
+
 // export enum MODULES {
 
 //     // ========= PURCHASING ========= 

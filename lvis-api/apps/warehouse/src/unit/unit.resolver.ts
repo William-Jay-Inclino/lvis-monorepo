@@ -12,21 +12,32 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Unit)
 export class UnitResolver {
-  constructor(private readonly unitService: UnitService) { }
+  constructor(
+    private readonly unitService: UnitService,
+    private readonly audit: WarehouseAuditService,
+  ) { }
 
   @Mutation(() => Unit)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.UNIT, RESOLVERS.createUnit)
   createUnit(
     @Args('input') createUnitInput: CreateUnitInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     this.unitService.setAuthUser(authUser)
-    return this.unitService.create(createUnitInput);
+    return this.unitService.create(createUnitInput, {
+      ip_address,
+      device_info: this.audit.getDeviceInfo(user_agent)
+    });
   }
 
   @Query(() => [Unit])
@@ -45,10 +56,15 @@ export class UnitResolver {
   updateUnit(
     @Args('id') id: string,
     @Args('input') updateUnitInput: UpdateUnitInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     this.unitService.setAuthUser(authUser)
-    return this.unitService.update(id, updateUnitInput);
+    return this.unitService.update(id, updateUnitInput, {
+      ip_address,
+      device_info: this.audit.getDeviceInfo(user_agent)
+    });
   }
 
   @Mutation(() => WarehouseRemoveResponse)
@@ -56,10 +72,15 @@ export class UnitResolver {
   @CheckAccess(MODULES.UNIT, RESOLVERS.removeUnit)
   removeUnit(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     this.unitService.setAuthUser(authUser)
-    return this.unitService.remove(id);
+    return this.unitService.remove(id, {
+      ip_address,
+      device_info: this.audit.getDeviceInfo(user_agent)
+    });
   }
 
 }

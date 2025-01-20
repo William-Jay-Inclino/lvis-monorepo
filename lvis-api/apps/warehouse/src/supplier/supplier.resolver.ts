@@ -13,6 +13,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { SuppliersResponse } from './entities/suppliers-response.entity';
+import { UserAgent } from '../__auth__/user-agent.decorator';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Supplier)
@@ -21,14 +24,19 @@ export class SupplierResolver {
   private readonly logger = new Logger(SupplierResolver.name);
   private filename = 'supplier.resolver.ts'
 
-  constructor(private readonly supplierService: SupplierService) { }
+  constructor(
+    private readonly supplierService: SupplierService,
+    private readonly audit: WarehouseAuditService,
+  ) { }
 
   @Mutation(() => Supplier)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.SUPPLIER, RESOLVERS.createSupplier)
   async createSupplier(
     @Args('input') createSupplierInput: CreateSupplierInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       this.logger.log({
@@ -40,7 +48,10 @@ export class SupplierResolver {
       
       this.supplierService.setAuthUser(authUser)
 
-      const x = await this.supplierService.create(createSupplierInput);
+      const x = await this.supplierService.create(createSupplierInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Supplier created successfully')
 
@@ -78,7 +89,9 @@ export class SupplierResolver {
   async updateSupplier(
     @Args('id') id: string,
     @Args('input') updateSupplierInput: UpdateSupplierInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -91,7 +104,10 @@ export class SupplierResolver {
       })
       
       this.supplierService.setAuthUser(authUser)
-      const x = await this.supplierService.update(id, updateSupplierInput);
+      const x = await this.supplierService.update(id, updateSupplierInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Supplier updated successfully')
 
@@ -106,7 +122,9 @@ export class SupplierResolver {
   @CheckAccess(MODULES.SUPPLIER, RESOLVERS.removeSupplier)
   async removeSupplier(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
 
@@ -118,7 +136,10 @@ export class SupplierResolver {
       })
 
       this.supplierService.setAuthUser(authUser)
-      const x = await this.supplierService.remove(id);
+      const x = await this.supplierService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Supplier removed successfully')
       

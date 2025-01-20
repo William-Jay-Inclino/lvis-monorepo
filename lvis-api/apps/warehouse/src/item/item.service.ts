@@ -3,12 +3,13 @@ import { CreateItemInput } from './dto/create-item.input';
 import { UpdateItemInput } from './dto/update-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Item, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { ITEM_TRANSACTION_TYPE } from '../__common__/types';
+import { DB_TABLE, ITEM_TRANSACTION_TYPE } from '../__common__/types';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { ItemsResponse } from './entities/items-response.entity';
 import { ItemTransaction } from './entities/item-transaction.entity';
 import { ITEM_TYPE_CODE } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class ItemService {
@@ -16,14 +17,15 @@ export class ItemService {
 	private authUser: AuthUser
 
 	constructor(
-		private readonly prisma: PrismaService
+		private readonly prisma: PrismaService,
+		private readonly audit: WarehouseAuditService,
 	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateItemInput): Promise<Item> {
+	async create(input: CreateItemInput, metadata: { ip_address: string, device_info: any }): Promise<Item> {
 	  
 		// Use a transaction to ensure atomicity
 		const result = await this.prisma.$transaction(async (prisma) => {
@@ -76,7 +78,7 @@ export class ItemService {
 			: undefined,
 		  };
 	  
-		  // Create the item
+		  // create the item
 		  const createdItem = await prisma.item.create({
 			data,
 			include: {
@@ -84,6 +86,17 @@ export class ItemService {
 				project_item: true,
 			},
 		  });
+
+		  // create audit
+		  await this.audit.createAuditEntry({
+			username: this.authUser.user.username,
+			table: DB_TABLE.ITEM,
+			action: 'CREATE-ITEM',
+			reference_id: createdItem.id,
+			metadata: createdItem,
+			ip_address: metadata.ip_address,
+			device_info: metadata.device_info
+		  }, prisma as Prisma.TransactionClient)
 	  
 		  return createdItem;
 		});
@@ -317,7 +330,7 @@ export class ItemService {
 		return items;
 	}
 
-	async update(id: string, input: UpdateItemInput): Promise<Item> {
+	async update(id: string, input: UpdateItemInput, metadata: { ip_address: string, device_info: any }): Promise<Item> {
 
 		return await this.prisma.$transaction(async(tx) => {
 
@@ -373,7 +386,8 @@ export class ItemService {
 				alert_level: input.alert_level ?? existingItem.alert_level,
 				updated_by: updatedBy,
 			}
-	
+			
+			// update item
 			const updated = await tx.item.update({
 				data,
 				include: {
@@ -384,7 +398,22 @@ export class ItemService {
 					id
 				}
 			})
-	
+
+			 // create audit
+			 await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.ITEM,
+				action: 'UPDATE-ITEM',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+			
+
 			return updated
 
 		})
@@ -392,18 +421,38 @@ export class ItemService {
 
 	}
 
-	async remove(id: string): Promise<WarehouseRemoveResponse> {
-		const existingItem = await this.findOne(id)
+	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
 
-		await this.prisma.item.update({
-			where: { id },
-			data: { deleted_at: new Date() }
+		return await this.prisma.$transaction(async(tx) => {
+
+			const existingItem = await this.findOne(id)
+	
+			const updatedItem = await this.prisma.item.update({
+				where: { id },
+				data: { deleted_at: new Date() }
+			})
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.ITEM,
+				action: 'SOFT-DELETE-ITEM',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updatedItem
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+	
+			return {
+				success: true,
+				msg: "Item successfully deleted"
+			}
+
 		})
 
-		return {
-			success: true,
-			msg: "Item successfully deleted"
-		}
 	}
 
 	getGWAPrice(itemTransactions: ItemTransaction[]): number {

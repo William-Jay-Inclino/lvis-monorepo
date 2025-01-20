@@ -68,6 +68,8 @@ import { ConfigModule } from '@nestjs/config';
 import { ServiceCenterModule } from './service-center/service-center.module';
 import { VehicleMaintenanceModule } from './vehicle-maintenance/vehicle-maintenance.module';
 import { VehicleServiceModule } from './vehicle-service/vehicle-service.module';
+import { WarehouseAuditService } from './warehouse_audit/warehouse_audit.service';
+import { WarehouseAuditModule } from './warehouse_audit/warehouse_audit.module';
 
 
 @Module({
@@ -158,10 +160,12 @@ import { VehicleServiceModule } from './vehicle-service/vehicle-service.module';
     ServiceCenterModule,
     VehicleMaintenanceModule,
     VehicleServiceModule,
+    WarehouseAuditModule,
   ],
   controllers: [],
   providers: [
     TasksService,
+    WarehouseAuditService,
   ],
 })
 export class WarehouseModule { }

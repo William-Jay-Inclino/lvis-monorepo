@@ -11,6 +11,23 @@ datasource db {
 
 // ========================= DATA MANAGEMENT ========================= 
 
+model Audit {
+  id           String   @id @default(cuid()) 
+  username     String 
+  table        String   
+  action       String   
+  reference_id String?  
+  metadata     Json?    
+  ip_address   String? 
+  device_info  Json?    
+  created_at   DateTime @default(now()) @db.Timestamptz
+  notes        String?  
+
+  @@index([username])
+  @@index([table])
+  @@map("warehouse_audit")
+}
+
 model ItemType {
   id         Int     @id @default(autoincrement())
   code             String  @unique 
