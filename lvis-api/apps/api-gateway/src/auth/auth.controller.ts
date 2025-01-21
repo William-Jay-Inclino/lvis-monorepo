@@ -5,6 +5,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { User } from './entities/user.entity';
 import * as DeviceDetector from 'device-detector-js';
 import { UserLogEventType } from 'apps/system/prisma/generated/client';
+import { normalizeIp } from '../__common__/helpers';
 
 @Controller('auth')
 export class AuthController {
@@ -26,10 +27,10 @@ export class AuthController {
         const device_info = this.getDeviceInfo(req);
 
         try {
-            
+
             this.logger.log({
                 username,
-                ip_address,
+                ip_address: normalizeIp(ip_address),
                 device_info,
                 filename: this.filename,
                 function: 'login'
@@ -53,7 +54,7 @@ export class AuthController {
 
             this.logger.log({
                 user_id,
-                ip_address,
+                ip_address: normalizeIp(ip_address),
                 device_info,
                 filename: this.filename,
                 function: 'logout'

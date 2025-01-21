@@ -28,3 +28,7 @@ export function decrypt_password(ciphertext: string, secretKey: string): string 
         throw new Error(`Decryption failed: ${error.message}`);
     }
 }
+
+
+export const normalizeIp = (ip: string) =>
+    ip?.startsWith('::ffff:') ? ip.substring(7) : ip;
