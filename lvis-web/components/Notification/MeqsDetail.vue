@@ -406,7 +406,18 @@
         transform: scale(1.2);
     }
 
-    .custom-offcanvas {
-        width: 50%; 
+    /* For large and up screens, set the off-canvas width to 50% */
+    @media (min-width: 992px) {
+        .custom-offcanvas {
+            width: 50% !important; /* 50% width for desktop screens */
+        }
     }
+
+    /* For small to medium screens, set the off-canvas width to 100% */
+    @media (max-width: 991px) {
+        .custom-offcanvas {
+            width: 100% !important; /* Full width for small and medium screens */
+        }
+    }
+
 </style>
