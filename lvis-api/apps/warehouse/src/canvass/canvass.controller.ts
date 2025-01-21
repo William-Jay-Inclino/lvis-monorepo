@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Req, Res, UseGuards } from '@nestjs/common';
 import { CanvassPdfService } from './canvass.pdf.service';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -7,6 +7,9 @@ import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
+import { Request } from 'express';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { normalizeIp } from '../__common__/utils';
 
 @UseGuards(JwtAuthGuard)
 @Controller('canvass')
@@ -16,18 +19,23 @@ export class CanvassController {
     private filename = 'canvass.controller.ts'
 
     constructor(
-        private readonly canvassPdfService: CanvassPdfService
+        private readonly canvassPdfService: CanvassPdfService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Get('pdf/:id')
     @UseGuards(JwtAuthGuard, AccessGuard)
     @CheckAccess(MODULES.CANVASS, RESOLVERS.printCanvass)
     async generatePdf(
+        @Req() req: Request,
         @Param('id') id: string, 
         @Res() res: Response,
         @CurrentAuthUser() authUser: AuthUser
     ) {
         try {
+
+            const ip_address = req.socket.remoteAddress || req.ip;
+            const userAgent = req.headers['user-agent'] || '';
 
             this.logger.log({
                 username: authUser.user.username,
@@ -39,7 +47,10 @@ export class CanvassController {
             this.canvassPdfService.setAuthUser(authUser)
             const canvass = await this.canvassPdfService.findCanvass(id)
             // @ts-ignore
-            const pdfBuffer = await this.canvassPdfService.generatePdf(canvass)
+            const pdfBuffer = await this.canvassPdfService.generatePdf(canvass, {
+                ip_address: normalizeIp(ip_address),
+                device_info: this.audit.getDeviceInfo(userAgent)
+            })
 
             // @ts-ignore
             res.set({

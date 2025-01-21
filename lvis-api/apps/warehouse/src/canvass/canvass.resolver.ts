@@ -8,7 +8,6 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { Logger, UseGuards } from '@nestjs/common';
 import { UpdateCanvassInput } from './dto/update-canvass.input';
-import { WarehouseRemoveResponse } from '../__common__/classes';
 import { CanvassesResponse } from './entities/canvasses-response.entity';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';

@@ -1,9 +1,6 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-
-const normalizeIp = (ip: string) =>
-  ip?.startsWith('::ffff:') ? ip.substring(7) : ip;
-
+import { normalizeIp } from '../__common__/utils';
 
 export const IpAddress = createParamDecorator(
   (_data: unknown, context: ExecutionContext): string | null => {
