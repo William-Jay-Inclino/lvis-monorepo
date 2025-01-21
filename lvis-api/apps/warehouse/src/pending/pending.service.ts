@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { MRVItem, MSTItem, OSRIVItem, Pending, Prisma, SERIVItem, MCRTItem as _MCRTItem } from 'apps/warehouse/prisma/generated/client';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE } from '../__common__/types';
@@ -16,6 +16,7 @@ import { PendingResponse } from './entities/pending-response.entity';
 @Injectable()
 export class PendingService {
 
+    private readonly logger = new Logger(PendingService.name);
     private authUser: AuthUser
 
     constructor(
@@ -164,6 +165,11 @@ export class PendingService {
 
                 }
 
+                const entities_with_queuing = [DB_ENTITY.OSRIV, DB_ENTITY.SERIV, DB_ENTITY.MRV, DB_ENTITY.MCT]
+
+                if(entities_with_queuing.includes(pending.reference_table as DB_ENTITY)) {
+                    await this.remove_queue_of_items(tx as Prisma.TransactionClient, pending)
+                }
 
             }
 
@@ -1065,5 +1071,138 @@ export class PendingService {
 		}
 
 	}
+
+    private async remove_queue_of_items(tx: Prisma.TransactionClient, pending: Pending): Promise<void> {
+
+        this.logger.log('removing queue items...')
+
+        const db_entity = pending.reference_table
+        const ref_number = pending.reference_number
+
+        if(db_entity === DB_ENTITY.OSRIV) {
+
+            const osriv = await tx.oSRIV.findUnique({ 
+                where: { osriv_number: ref_number },
+                select: {
+                    osriv_items: true,
+                }
+             })
+
+            if(!osriv) {
+                throw new NotFoundException(`OSRIV not found with reference number ${ ref_number }`)
+            }
+
+            for(let item of osriv.osriv_items) {
+
+                await tx.item.update({
+                    where: { id: item.item_id },
+                    data: {
+                        quantity_on_queue: {
+                            decrement: item.quantity
+                        }
+                    }
+                })
+
+                this.logger.log(`Item's quantity_on_queue with id=${item.item_id} decremented by ${ item.quantity }`)
+
+            }
+
+        }
+
+        else if(db_entity === DB_ENTITY.SERIV) {
+
+            const seriv = await tx.sERIV.findUnique({ 
+                where: { seriv_number: ref_number },
+                select: {
+                    seriv_items: true,
+                }
+             })
+
+            if(!seriv) {
+                throw new NotFoundException(`SERIV not found with reference number ${ ref_number }`)
+            }
+
+            for(let item of seriv.seriv_items) {
+
+                await tx.item.update({
+                    where: { id: item.item_id },
+                    data: {
+                        quantity_on_queue: {
+                            decrement: item.quantity
+                        }
+                    }
+                })
+
+                this.logger.log(`Item's quantity_on_queue with id=${item.item_id} decremented by ${ item.quantity }`)
+
+            }
+
+        } 
+
+        else if(db_entity === DB_ENTITY.MRV) {
+
+            const mrv = await tx.mRV.findUnique({ 
+                where: { mrv_number: ref_number },
+                select: {
+                    mrv_items: true,
+                }
+             })
+
+            if(!mrv) {
+                throw new NotFoundException(`MRV not found with reference number ${ ref_number }`)
+            }
+
+            for(let item of mrv.mrv_items) {
+
+                await tx.item.update({
+                    where: { id: item.item_id },
+                    data: {
+                        quantity_on_queue: {
+                            decrement: item.quantity
+                        }
+                    }
+                })
+
+                this.logger.log(`Item's quantity_on_queue with id=${item.item_id} decremented by ${ item.quantity }`)
+
+            }
+
+        } 
+
+        else if(db_entity === DB_ENTITY.MCT) {
+
+            const mct = await tx.mCT.findUnique({ 
+                where: { mct_number: ref_number },
+                select: {
+                    mrv: {
+                        select: {
+                            mrv_items: true
+                        }
+                    }
+                }
+             })
+
+            if(!mct) {
+                throw new NotFoundException(`MCT not found with reference number ${ ref_number }`)
+            }
+
+            for(let item of mct.mrv.mrv_items) {
+
+                await tx.item.update({
+                    where: { id: item.item_id },
+                    data: {
+                        quantity_on_queue: {
+                            decrement: item.quantity
+                        }
+                    }
+                })
+
+                this.logger.log(`Item's quantity_on_queue with id=${item.item_id} decremented by ${ item.quantity }`)
+
+            }
+
+        } 
+
+    }
 
 } 

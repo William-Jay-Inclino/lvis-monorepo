@@ -106,10 +106,16 @@ export class MctService {
     
     }
 
-
     async cancel(id: string): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.mCT.findUnique({
+            include: {
+                mrv: {
+                    include: {
+                        mrv_items: true,
+                    }
+                }
+            },
             where: { id },
         })
 
@@ -149,6 +155,23 @@ export class MctService {
         })
 
         queries.push(deleteAssociatedPending)
+
+        // update item qty (decrement based on mrv items qty) 
+
+        for(let mrvItem of existingItem.mrv.mrv_items) {
+
+            const updateItemQuery = this.prisma.item.update({
+                where: { id: mrvItem.item_id },
+                data: {
+                    quantity_on_queue: {
+                        decrement: mrvItem.quantity
+                    }
+                }
+            })
+
+            queries.push(updateItemQuery)
+
+        }
 
         const result = await this.prisma.$transaction(queries)
 
