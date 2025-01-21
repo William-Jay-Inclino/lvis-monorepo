@@ -283,17 +283,17 @@
 
 
         <!-- OFF CANVASS -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="myOffcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas offcanvas-end custom-offcanvas" tabindex="-1" id="myOffcanvas" aria-labelledby="offcanvasLabel">
             <div class="offcanvas-header">
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-            <div v-if="modalToShow === 'attachment'">
-                <img :src="selectedAttachment" class="img-fluid" :alt="selectedAttachment">
-            </div>
-            <div v-else>
-                <textarea rows="5" cols="50" class="form-control" :value="selectedNote" readonly></textarea>
-            </div>
+                <div v-if="modalToShow === 'attachment'" class="d-flex justify-content-center">
+                    <img :src="selectedAttachment" class="img-fluid" :alt="selectedAttachment">
+                </div>
+                <div v-else>
+                    <textarea rows="5" cols="50" class="form-control" :value="selectedNote" readonly></textarea>
+                </div>
             </div>
         </div>
         
@@ -404,5 +404,9 @@
 
     .image-container:hover img {
         transform: scale(1.2);
+    }
+
+    .custom-offcanvas {
+        width: 50%; 
     }
 </style>
