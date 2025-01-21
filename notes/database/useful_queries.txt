@@ -17,3 +17,94 @@ SELECT reference_number, reference_table, COUNT(*)
 FROM pending
 GROUP BY reference_number, reference_table
 HAVING COUNT(*) > 1;
+
+
+
+// SQL query to calculate the total sum of quantity for each item_id where the approval_status is pending and cancelled_at is null
+// Get the total qty on queue for each item
+
+SELECT 
+    oi.item_id,
+    SUM(oi.quantity) AS total_quantity
+FROM 
+    seriv_item oi
+INNER JOIN 
+    seriv o ON o.id = oi.seriv_id
+WHERE 
+    o.approval_status = 1 
+    AND (o.cancelled_at IS NULL OR o.cancelled_by IS NULL)
+GROUP BY 
+    oi.item_id;
+
+
+
+
+// FOR MRV 
+MRV records with approval_status = 1.
+MRV records with approval_status = 2:
+If the associated MCT has approval_status = 1.
+Or if there is no associated MCT.
+Ensures that neither MRV nor MCT is canceled (cancelled_at and cancelled_by are NULL).
+
+SELECT 
+    mi.item_id,
+    SUM(mi.quantity) AS total_quantity
+FROM 
+    mrv m
+INNER JOIN 
+    mrv_item mi ON m.id = mi.mrv_id
+LEFT JOIN 
+    mct t ON m.id = t.mrv_id
+WHERE 
+    (
+        m.approval_status = 1
+        OR (
+            m.approval_status = 2 
+            AND (t.approval_status = 1 OR t.mrv_id IS NULL)
+        )
+    )
+    AND m.cancelled_at IS NULL
+    AND m.cancelled_by IS NULL
+    AND (t.cancelled_at IS NULL OR t.cancelled_by IS NULL OR t.mrv_id IS NULL)
+GROUP BY 
+    mi.item_id
+ORDER BY 
+	mi.item_id ASC;
+
+
+
+
+
+
+This query will return:
+
+MRV records with approval_status = 1.
+MRV records with approval_status = 2:
+If the associated MCT has approval_status = 1.
+Or if there is no associated MCT.
+Ensures that neither MRV nor MCT is canceled (cancelled_at and cancelled_by are NULL).
+
+
+SELECT 
+    mrv.mrv_number, 
+    mrv.approval_status, 
+    mrv_item.item_id, 
+    mrv_item.quantity
+FROM 
+    mrv_item
+INNER JOIN 
+    mrv ON mrv.id = mrv_item.mrv_id
+LEFT JOIN 
+    mct ON mrv.id = mct.mrv_id
+WHERE 
+    mrv_item.item_id = '49a2fa4b-ff96-46d7-9991-9088d88f494d'
+    AND (
+        mrv.approval_status = 1
+        OR (
+            mrv.approval_status = 2 
+            AND (mct.approval_status = 1 OR mct.mrv_id IS NULL)
+        )
+    )
+    AND mrv.cancelled_at IS NULL
+    AND mrv.cancelled_by IS NULL
+    AND (mct.cancelled_at IS NULL OR mct.cancelled_by IS NULL OR mct.mrv_id IS NULL);
