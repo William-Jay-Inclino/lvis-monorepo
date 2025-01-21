@@ -26,7 +26,7 @@ async function bootstrap() {
   //   process.send && process.send('ready'); // Send ready signal to PM2
   // });
 
-  await app.listen(port, async () => {
+  await app.listen(port, '127.0.0.1', async () => {
     console.log(`Running API in NODE ${process.env.NODE_ENV} on ${await app.getUrl()}`);
   });
 

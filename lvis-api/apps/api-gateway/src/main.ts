@@ -23,7 +23,7 @@ async function bootstrap() {
 
   const port = process.env.API_GATEWAY_PORT || 4000;
 
-  await app.listen(port, async () => {
+  await app.listen(port, '127.0.0.1', async () => {
     console.log(`Running API in NODE ${process.env.NODE_ENV} on ${await app.getUrl()}`);
   });
 
