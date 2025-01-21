@@ -10,9 +10,10 @@ import { JoService } from '../jo/jo.service';
 import { SprService } from '../spr/spr.service';
 import { CanvassService } from '../canvass/canvass.service';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [
     MeqsResolver, 
     MeqsService, 

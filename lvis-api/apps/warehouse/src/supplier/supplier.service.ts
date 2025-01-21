@@ -37,7 +37,7 @@ export class SupplierService {
 				created_by: this.authUser.user.username
 			}
 	
-			const created = await this.prisma.supplier.create({
+			const created = await tx.supplier.create({
 				data
 			})
 
@@ -107,10 +107,10 @@ export class SupplierService {
 
 	async update(id: string, input: UpdateSupplierInput, metadata: { ip_address: string, device_info: any }): Promise<Supplier> {
 
+		const existingItem = await this.findOne(id)
+
 		return await this.prisma.$transaction(async(tx) => {
 
-			const existingItem = await this.findOne(id)
-	
 			const data: Prisma.SupplierUpdateInput = {
 				name: input.name ?? existingItem.name,
 				contact: input.contact ?? existingItem.contact,
@@ -122,7 +122,7 @@ export class SupplierService {
 			}
 	
 	
-			const updated = await this.prisma.supplier.update({
+			const updated = await tx.supplier.update({
 				data,
 				where: {
 					id
@@ -152,11 +152,11 @@ export class SupplierService {
 
 	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
 
-		return await this.prisma.$transaction(async(tx) => {
+		const existingItem = await this.findOne(id)
 
-			const existingItem = await this.findOne(id)
+		return await this.prisma.$transaction(async(tx) => {
 	
-			const updatedItem = await this.prisma.supplier.update({
+			const updatedItem = await tx.supplier.update({
 				where: { id },
 				data: { deleted_at: new Date() }
 			})

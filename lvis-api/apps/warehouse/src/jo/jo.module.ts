@@ -7,9 +7,10 @@ import { JoApproverService } from '../jo-approver/jo-approver.service';
 import { JoController } from './jo.controller';
 import { JoPdfService } from './jo.pdf.service';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [
     JoService, 
     JoResolver, 

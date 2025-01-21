@@ -423,11 +423,11 @@ export class ItemService {
 
 	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
 
-		return await this.prisma.$transaction(async(tx) => {
+		const existingItem = await this.findOne(id)
 
-			const existingItem = await this.findOne(id)
+		return await this.prisma.$transaction(async(tx) => {
 	
-			const updatedItem = await this.prisma.item.update({
+			const updatedItem = await tx.item.update({
 				where: { id },
 				data: { deleted_at: new Date() }
 			})

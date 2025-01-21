@@ -7,9 +7,10 @@ import { CanvassService } from '../canvass/canvass.service';
 import { RvController } from './rv.controller';
 import { RvPdfService } from './rv.pdf.service';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [
     RvResolver, 
     RvService, 

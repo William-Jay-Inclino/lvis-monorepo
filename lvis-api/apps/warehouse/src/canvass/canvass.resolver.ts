@@ -14,6 +14,9 @@ import { AccessGuard } from '../__auth__/guards/access.guard';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { UserAgent } from '../__auth__/user-agent.decorator';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 
 @UseGuards(GqlAuthGuard)
@@ -23,14 +26,19 @@ export class CanvassResolver {
     private readonly logger = new Logger(CanvassResolver.name);
     private filename = 'canvass.resolver.ts'
 
-  constructor(private readonly canvassService: CanvassService) { }
+  constructor(
+    private readonly canvassService: CanvassService,
+    private readonly audit: WarehouseAuditService,
+  ) { }
 
   @Mutation(() => Canvass)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.CANVASS, RESOLVERS.createCanvass)
   async createCanvass(
     @Args('input') createCanvassInput: CreateCanvassInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -43,7 +51,10 @@ export class CanvassResolver {
       
       this.canvassService.setAuthUser(authUser)
 
-      const x = await this.canvassService.create(createCanvassInput);
+      const x = await this.canvassService.create(createCanvassInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Canvass created successfully')
 
@@ -90,7 +101,9 @@ export class CanvassResolver {
   async updateCanvass(
     @Args('id') id: string,
     @Args('input') updateCanvassInput: UpdateCanvassInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -104,7 +117,10 @@ export class CanvassResolver {
       })
       
       this.canvassService.setAuthUser(authUser)
-      const x = await this.canvassService.update(id, updateCanvassInput);
+      const x = await this.canvassService.update(id, updateCanvassInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Canvass updated successfully')
 
@@ -115,33 +131,35 @@ export class CanvassResolver {
 
   }
 
-  @Mutation(() => WarehouseRemoveResponse)
-  async removeCanvass(
-    @Args('id', { type: () => String }) id: string,
-    @CurrentAuthUser() authUser: AuthUser
-  ) {
+  // @Mutation(() => WarehouseRemoveResponse)
+  // async removeCanvass(
+  //   @Args('id', { type: () => String }) id: string,
+  //   @CurrentAuthUser() authUser: AuthUser,
+  //   @UserAgent() user_agent: string,
+  //   @IpAddress() ip_address: string,
+  // ) {
 
-    try {
+  //   try {
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.removeCanvass,
-        canvass_id: id,
-      })
+  //     this.logger.log({
+  //       username: authUser.user.username,
+  //       filename: this.filename,
+  //       function: RESOLVERS.removeCanvass,
+  //       canvass_id: id,
+  //     })
 
-      this.canvassService.setAuthUser(authUser)
-      const x = await this.canvassService.remove(id);
+  //     this.canvassService.setAuthUser(authUser)
+  //     const x = await this.canvassService.remove(id);
       
-      this.logger.log('Canvass removed successfully')
+  //     this.logger.log('Canvass removed successfully')
       
-      return x 
+  //     return x 
 
-    } catch (error) {
-      this.logger.error('Error in removing canvass', error)
-    }
+  //   } catch (error) {
+  //     this.logger.error('Error in removing canvass', error)
+  //   }
 
-  }
+  // }
 
   @ResolveField(() => Employee)
   requested_by(@Parent() canvass: Canvass): any {

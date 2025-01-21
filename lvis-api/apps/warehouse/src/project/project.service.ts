@@ -31,7 +31,7 @@ export class ProjectService {
 				name: input.name,
 			}
 	
-			const created = await this.prisma.project.create({
+			const created = await tx.project.create({
 				data
 			})
 
@@ -114,16 +114,15 @@ export class ProjectService {
 
 	async update(id: string, input: UpdateProjectInput, metadata: { ip_address: string, device_info: any }): Promise<Project> {
 
-		return this.prisma.$transaction(async(tx) => {
+		const existingItem = await this.findOne(id)
 
-			const existingItem = await this.findOne(id)
+		return this.prisma.$transaction(async(tx) => {
 	
 			const data: Prisma.ProjectUpdateInput = {
 				name: input.name ?? existingItem.name,
 			}
 	
-	
-			const updated = await this.prisma.project.update({
+			const updated = await tx.project.update({
 				data,
 				where: {
 					id
@@ -153,11 +152,11 @@ export class ProjectService {
 
 	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
 
-		return this.prisma.$transaction(async(tx) => {
+		const existingItem = await this.findOne(id)
 
-			const existingItem = await this.findOne(id)
+		return this.prisma.$transaction(async(tx) => {
 	
-			const updatedItem = await this.prisma.project.update({
+			const updatedItem = await tx.project.update({
 				where: { id },
 				data: {
 				  deleted_at: new Date()

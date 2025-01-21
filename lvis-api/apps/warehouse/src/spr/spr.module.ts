@@ -7,9 +7,10 @@ import { SprApproverService } from '../spr-approver/spr-approver.service';
 import { SprController } from './spr.controller';
 import { SprPdfService } from './spr.pdf.service';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [
     SprService, 
     SprResolver, 

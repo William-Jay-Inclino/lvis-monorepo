@@ -30,7 +30,7 @@ export class UnitService {
 				name: input.name,
 			}
 	
-			const created = await this.prisma.unit.create({
+			const created = await tx.unit.create({
 				data
 			})
 
@@ -75,15 +75,15 @@ export class UnitService {
 
 	async update(id: string, input: UpdateUnitInput, metadata: { ip_address: string, device_info: any }): Promise<Unit> {
 
-		return await this.prisma.$transaction(async(tx) => {
+		const existingItem = await this.findOne(id)
 
-			const existingItem = await this.findOne(id)
+		return await this.prisma.$transaction(async(tx) => {
 	
 			const data: Prisma.UnitUpdateInput = {
 				name: input.name ?? existingItem.name,
 			}
 	
-			const updated = await this.prisma.unit.update({
+			const updated = await tx.unit.update({
 				data,
 				where: {
 					id
@@ -113,11 +113,11 @@ export class UnitService {
 
 	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
 
-		return await this.prisma.$transaction(async(tx) => {
+		const existingItem = await this.findOne(id)
 
-			const existingItem = await this.findOne(id)
+		return await this.prisma.$transaction(async(tx) => {
 	
-			await this.prisma.unit.delete({
+			await tx.unit.delete({
 				where: { id }
 			})
 

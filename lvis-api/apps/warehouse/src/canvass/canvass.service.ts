@@ -3,16 +3,16 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateCanvassInput } from './dto/create-canvass.input';
 import { Canvass, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { UpdateCanvassInput } from './dto/update-canvass.input';
-import { WarehouseRemoveResponse } from '../__common__/classes';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { CanvassesResponse } from './entities/canvasses-response.entity';
 import { FindOneResponse } from './entities/types';
 import * as moment from 'moment';
 import { getDateRange, isAdmin } from '../__common__/helpers';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { startOfYear, endOfYear } from 'date-fns';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class CanvassService {
@@ -81,13 +81,14 @@ export class CanvassService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async create(input: CreateCanvassInput): Promise<Canvass> {
+    async create(input: CreateCanvassInput, metadata: { ip_address: string, device_info: any }): Promise<Canvass> {
 
         const isValidRequestedById = await this.areEmployeesExist([input.requested_by_id], this.authUser)
 
@@ -119,43 +120,130 @@ export class CanvassService {
             }
         }
 
-        const created = await this.prisma.canvass.create({
-            data,
+        return await this.prisma.$transaction(async(tx) => {
+
+            const created = await tx.canvass.create({
+                data,
+            })
+
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.CANVASS,
+                action: 'CREATE-CANVASS',
+                reference_id: created.id,
+                metadata: created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return created
+
         })
 
-        return created
 
     }
 
-    async update(id: string, input: UpdateCanvassInput): Promise<Canvass> {
-        const existingItem = await this.findOne(id);
+    async update(id: string, input: UpdateCanvassInput, metadata: { ip_address: string, device_info: any }): Promise<Canvass> {
 
-        if (!(await this.canUpdate(existingItem.id))) {
-            throw new ForbiddenException('Only Admin and Owner can update this record. Cannot also update if rv/spr/jo has approval for owners only!')
-        }
+        return await this.prisma.$transaction(async(tx) => {
 
-        if (input.requested_by_id) {
-            const isValidRequestedById = await this.areEmployeesExist([input.requested_by_id], this.authUser);
-
-            if (!isValidRequestedById) {
-                throw new NotFoundException('Requested by ID not found');
+            const existingItem = await tx.canvass.findUnique({
+                where: { id }
+            })
+    
+            if (!(await this.canUpdate(existingItem.id, tx as Prisma.TransactionClient))) {
+                throw new ForbiddenException('Only Admin and Owner can update this record. Cannot also update if rv/spr/jo has approval for owners only!')
             }
-        }
+    
+            if (input.requested_by_id) {
+                const isValidRequestedById = await this.areEmployeesExist([input.requested_by_id], this.authUser);
+    
+                if (!isValidRequestedById) {
+                    throw new NotFoundException('Requested by ID not found');
+                }
+            }
+    
+            const data: Prisma.CanvassUpdateInput = {
+                purpose: input.purpose ?? existingItem.purpose,
+                notes: input.notes ?? existingItem.notes,
+                requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
+                updated_by: this.authUser.user.username,
+            };
+    
+            const updated = await tx.canvass.update({
+                data,
+                where: { id },
+            });
+    
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.CANVASS,
+                action: 'UPDATE-CANVASS',
+                reference_id: id,
+                metadata: {
+                    'old_value': existingItem,
+                    'new_value': updated
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
 
-        const data: Prisma.CanvassUpdateInput = {
-            purpose: input.purpose ?? existingItem.purpose,
-            notes: input.notes ?? existingItem.notes,
-            requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
-            updated_by: this.authUser.user.username,
-        };
+            return updated
 
-        const updated = await this.prisma.canvass.update({
-            data,
-            where: { id },
-        });
+        })
 
-        return updated
     }
+
+    // async update(id: string, input: UpdateCanvassInput, metadata: { ip_address: string, device_info: any }): Promise<Canvass> {
+    //     const existingItem = await this.findOne(id);
+
+    //     if (!(await this.canUpdate(existingItem.id))) {
+    //         throw new ForbiddenException('Only Admin and Owner can update this record. Cannot also update if rv/spr/jo has approval for owners only!')
+    //     }
+
+    //     if (input.requested_by_id) {
+    //         const isValidRequestedById = await this.areEmployeesExist([input.requested_by_id], this.authUser);
+
+    //         if (!isValidRequestedById) {
+    //             throw new NotFoundException('Requested by ID not found');
+    //         }
+    //     }
+
+    //     const data: Prisma.CanvassUpdateInput = {
+    //         purpose: input.purpose ?? existingItem.purpose,
+    //         notes: input.notes ?? existingItem.notes,
+    //         requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
+    //         updated_by: this.authUser.user.username,
+    //     };
+
+    //     return this.prisma.$transaction(async(tx) => {
+
+    //         const updated = await tx.canvass.update({
+    //             data,
+    //             where: { id },
+    //         });
+    
+    //         // create audit
+	// 		await this.audit.createAuditEntry({
+	// 			username: this.authUser.user.username,
+	// 			table: DB_TABLE.CANVASS,
+	// 			action: 'UPDATE-CANVASS',
+	// 			reference_id: id,
+	// 			metadata: {
+	// 				'old_value': existingItem,
+	// 				'new_value': updated
+	// 			},
+	// 			ip_address: metadata.ip_address,
+	// 			device_info: metadata.device_info
+	// 		}, tx as Prisma.TransactionClient)
+
+    //         return updated
+
+    //     })
+
+    // }
 
     async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<CanvassesResponse> {
 
@@ -302,24 +390,33 @@ export class CanvassService {
         })
     }
 
-    async remove(id: string): Promise<WarehouseRemoveResponse> {
+    // async remove(id: string): Promise<WarehouseRemoveResponse> {
 
-        const existingItem = await this.findOne(id)
+    //     return await this.prisma.$transaction(async(tx) => {
 
-        if (!this.canAccess(existingItem)) {
-            throw new ForbiddenException('Only Admin and Owner can remove this record!')
-        }
+    //         const existingItem = await tx.canvass.findUnique({ where: { id } })
 
-        await this.prisma.canvass.delete({
-            where: { id }
-        })
+    //         if(!existingItem) {
+    //             throw new NotFoundException('Canvass not found with id ' + id)
+    //         }
 
-        return {
-            success: true,
-            msg: "Canvass successfully deleted"
-        }
+    //         if (!this.canAccess(existingItem)) {
+    //             throw new ForbiddenException('Only Admin and Owner can remove this record!')
+    //         }
+    
+    //         await tx.canvass.delete({
+    //             where: { id }
+    //         })
+    
+    //         return {
+    //             success: true,
+    //             msg: "Canvass successfully deleted"
+    //         }
 
-    }
+    //     })
+
+
+    // }
 
     async isReferenced(canvassId: string): Promise<Boolean> {
 
@@ -385,33 +482,19 @@ export class CanvassService {
 
     // cannot update if not owner or admin
     // can only update canvass if admin AND if either rvApprovers, sprApprovers, or rvApprovers all pending 
-    async canUpdate(canvassId: string): Promise<Boolean> {
+    async canUpdate(canvassId: string, tx?: Prisma.TransactionClient): Promise<Boolean> {
 
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
+        const prismaClient = tx || this.prisma;
 
-        const canvass = await this.prisma.canvass.findUnique({
+        const canvass = await prismaClient.canvass.findUnique({
             where: { id: canvassId },
             select: {
                 created_by: true,
-                rv: {
-                    select: {
-                        rv_approvers: true
-                    }
-                },
-                spr: {
-                    select: {
-                        spr_approvers: true
-                    }
-                },
-                jo: {
-                    select: {
-                        jo_approvers: true
-                    }
-                }
+                rv: { select: { rv_approvers: true } },
+                spr: { select: { spr_approvers: true } },
+                jo: { select: { jo_approvers: true } }
             }
-        })
+        });
 
         if (!canvass) {
             throw new NotFoundException('Canvass not found with id of ' + canvassId)
@@ -487,18 +570,6 @@ export class CanvassService {
         } catch (error) {
 
         }
-    }
-
-    private canAccess(item: Canvass): boolean {
-
-        if (isAdmin(this.authUser)) return true
-
-        const isOwner = item.created_by === this.authUser.user.username
-
-        if (isOwner) return true
-
-        return false
-
     }
 
 }

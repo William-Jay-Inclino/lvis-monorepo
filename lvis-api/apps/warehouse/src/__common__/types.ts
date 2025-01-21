@@ -101,6 +101,32 @@ export enum Role {
 }
 
 export enum DB_TABLE {
+    // PURCHASING
+    CANVASS = 'canvass',
+    RV = 'request_voucher',
+    SPR = 'spare_parts_request',
+    JO = 'job_order',
+    MEQS = 'material_equipment_quotation_summary',
+    PO = 'purchase_order',
+    
+    // WAREHOUSE
+    RR = 'receiving_report',
+    OSRIV = 'osriv',
+    SERIV = 'seriv',
+    MRV = 'mrv',
+    MCT = 'mct',
+    MCRT = 'mcrt',
+    MST = 'mst',
+    
+    // MOTORPOOL
+    GAS_SLIP = 'gas_slip',
+    TRIP_TICKET = 'trip_ticket',
+    VEHICLE = 'vehicle',
+    VEHICLE_MAINTENANCE = 'vehicle_maintenance',
+    SERVICES = 'vehicle_maintenance_detail',
+
+
+    // DATA MANAGEMENT
     ITEM_TYPE = 'item_type',
     SUPPLIER = 'supplier',
     UNIT = 'unit',
