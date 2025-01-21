@@ -47,12 +47,14 @@ export class GasSlipApproverService {
                 throw new BadRequestException('Can only change approver if status is pending')
             }
 
-            const pending = await prisma.pending.findUnique({
+            // check if ang approver na ilisan kay naay pendings 
+            // if naay pendings then change the pending to the new approver
+            
+            const pending = await prisma.pending.findFirst({
                 where: {
-                    reference_number_reference_table: {
-                        reference_number: item.gas_slip.gas_slip_number,
-                        reference_table: DB_ENTITY.GAS_SLIP,
-                    },
+                    reference_number: item.gas_slip.gas_slip_number,
+                    reference_table: DB_ENTITY.GAS_SLIP,
+                    approver_id: item.approver_id,
                 },
             });
 
