@@ -10,6 +10,8 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { Request } from 'express';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 import { normalizeIp } from '../__common__/utils';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('canvass')
@@ -27,15 +29,13 @@ export class CanvassController {
     @UseGuards(JwtAuthGuard, AccessGuard)
     @CheckAccess(MODULES.CANVASS, RESOLVERS.printCanvass)
     async generatePdf(
-        @Req() req: Request,
         @Param('id') id: string, 
         @Res() res: Response,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
-
-            const ip_address = req.socket.remoteAddress || req.ip;
-            const userAgent = req.headers['user-agent'] || '';
 
             this.logger.log({
                 username: authUser.user.username,
@@ -48,8 +48,8 @@ export class CanvassController {
             const canvass = await this.canvassPdfService.findCanvass(id)
             // @ts-ignore
             const pdfBuffer = await this.canvassPdfService.generatePdf(canvass, {
-                ip_address: normalizeIp(ip_address),
-                device_info: this.audit.getDeviceInfo(userAgent)
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
             })
 
             // @ts-ignore

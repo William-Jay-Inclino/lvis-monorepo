@@ -8,6 +8,8 @@ import { RV } from './entities/rv.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { UPLOADS_PATH } from '../__common__/config';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class RvPdfService {
@@ -18,13 +20,14 @@ export class RvPdfService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async generatePdf(rv: RV) {
+    async generatePdf(rv: RV, metadata: { ip_address: string, device_info: any }) {
         // const browser = await puppeteer.launch();
 
         const browser = await puppeteer.launch({
@@ -307,6 +310,16 @@ export class RvPdfService {
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
+
+        // create audit
+        await this.audit.createAuditEntry({
+            username: this.authUser.user.username,
+            table: DB_TABLE.RV,
+            action: 'PRINT-RV',
+            reference_id: rv.id,
+            ip_address: metadata.ip_address,
+            device_info: metadata.device_info
+        })
 
         return pdfBuffer;
     }

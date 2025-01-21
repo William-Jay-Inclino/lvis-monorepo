@@ -3,7 +3,7 @@ import { CanvassService } from '../canvass/canvass.service';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, RV, RVApprover } from 'apps/warehouse/prisma/generated/client';
 import { CreateRvInput } from './dto/create-rv.input';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { UpdateRvInput } from './dto/update-rv.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -15,6 +15,7 @@ import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class RvService {
@@ -52,6 +53,7 @@ export class RvService {
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
         private readonly canvassService: CanvassService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
@@ -59,7 +61,10 @@ export class RvService {
     }
 
     // When creating rv, pendings should also be created for each approver
-    async create(input: CreateRvInput): Promise<RV> {
+    async create(
+        input: CreateRvInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<RV> {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create RV. Please try again')
@@ -135,13 +140,28 @@ export class RvService {
 
             await tx.pending.create({ data: pendingData })
 
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.RV,
+                action: 'CREATE-RV',
+                reference_id: rv_created.id,
+                metadata: rv_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
             return rv_created
         });
     
         
     }
 
-    async update(id: string, input: UpdateRvInput) {
+    async update(
+        id: string, 
+        input: UpdateRvInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         const existingItem = await this.prisma.rV.findUnique({
             where: { id },
@@ -175,8 +195,7 @@ export class RvService {
             const rv_updated = await tx.rV.update({
                 data,
                 where: { id },
-                select: {
-                    id: true,
+                include: {
                     canvass: {
                         select: {
                             requested_by_id: true,
@@ -239,12 +258,29 @@ export class RvService {
     
             }
 
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.RV,
+				action: 'UPDATE-RV',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': rv_updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+
             return rv_updated
 
         })
     }
 
-    async cancel(id: string): Promise<WarehouseCancelResponse> {
+    async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.rV.findUnique({
             where: { id },
@@ -265,43 +301,62 @@ export class RvService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-        
-        const updateRvQuery = this.prisma.rV.update({
-            data: {
-                cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username,
-                approval_status: APPROVAL_STATUS.CANCELLED,
-                canvass: {
-                    disconnect: true
+        return await this.prisma.$transaction(async(tx) => {
+
+            const rv_cancelled = await tx.rV.update({
+                data: {
+                    cancelled_at: new Date(),
+                    cancelled_by: this.authUser.user.username,
+                    approval_status: APPROVAL_STATUS.CANCELLED,
+                    canvass: {
+                        disconnect: true
+                    }
+                },
+                where: { id }
+            })
+    
+            // delete associated pending
+            
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.rv_number,
+                        reference_table: DB_ENTITY.RV
+                    }
                 }
-            },
-            where: { id }
-        })
+            })
 
-        queries.push(updateRvQuery)
+            if(pending) {
 
-        // delete associated pending
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
 
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.rv_number,
-                    reference_table: DB_ENTITY.RV
-                }
             }
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.RV,
+				action: 'CANCEL-RV',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': rv_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled RV',
+                cancelled_at: rv_cancelled.cancelled_at,
+                cancelled_by: rv_cancelled.cancelled_by
+            }
+
         })
 
-        queries.push(deleteAssociatedPending)
-
-        const result = await this.prisma.$transaction(queries)
-
-        return {
-            success: true,
-            msg: 'Successfully cancelled RV',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
 
     }
 

@@ -115,7 +115,11 @@ export class ProjectService {
 		return item
 	}
 
-	async update(id: string, input: UpdateProjectInput, metadata: { ip_address: string, device_info: any }): Promise<Project> {
+	async update(
+		id: string, 
+		input: UpdateProjectInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<Project> {
 
 		const existingItem = await this.findOne(id)
 

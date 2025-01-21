@@ -19,6 +19,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { UserAgent } from '../__auth__/user-agent.decorator';
+import { IpAddress } from '../__auth__/ip-address.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => RV)
@@ -29,7 +32,8 @@ export class RvResolver {
 
     constructor(
         private readonly rvService: RvService,
-        private readonly rvApproverService: RvApproverService
+        private readonly rvApproverService: RvApproverService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Mutation(() => RV)
@@ -37,7 +41,9 @@ export class RvResolver {
     @CheckAccess(MODULES.RV, RESOLVERS.createRv)
     async createRv(
         @Args('input') createRvInput: CreateRvInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
             this.logger.log({
@@ -49,7 +55,10 @@ export class RvResolver {
             
             this.rvService.setAuthUser(authUser)
       
-            const x = await this.rvService.create(createRvInput);
+            const x = await this.rvService.create(createRvInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('RV created successfully')
       
@@ -100,7 +109,9 @@ export class RvResolver {
     async updateRv(
         @Args('id') id: string,
         @Args('input') updateRvInput: UpdateRvInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
       
@@ -113,7 +124,10 @@ export class RvResolver {
             })
             
             this.rvService.setAuthUser(authUser)
-            const x = await this.rvService.update(id, updateRvInput);
+            const x = await this.rvService.update(id, updateRvInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
       
             this.logger.log('RV updated successfully')
       
@@ -153,7 +167,9 @@ export class RvResolver {
     @Mutation(() => WarehouseCancelResponse)
     async cancelRv(
         @Args('id') id: string,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
 
@@ -165,7 +181,10 @@ export class RvResolver {
             })
       
             this.rvService.setAuthUser(authUser)
-            const x = await this.rvService.cancel(id);
+            const x = await this.rvService.cancel(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('RV cancelled successfully')
             
