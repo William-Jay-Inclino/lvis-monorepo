@@ -103,6 +103,7 @@ export enum Role {
 export enum DB_TABLE {
     // PURCHASING
     CANVASS = 'canvass',
+    CANVASS_ITEM = 'canvass_item',
     RV = 'request_voucher',
     SPR = 'spare_parts_request',
     JO = 'job_order',

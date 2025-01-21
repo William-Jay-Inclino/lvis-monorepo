@@ -337,6 +337,7 @@ export class ItemService {
 			const existingItem = await tx.item.findUnique({
 				where: { id },
 				include: {
+					unit: true,
 					project_item: true,
 				}
 			})

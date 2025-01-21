@@ -6,46 +6,70 @@ import { UpdateCanvassItemInput } from './dto/update-canvass-item.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { isAdmin } from '../__common__/helpers';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class CanvassItemService {
 
 	private authUser: AuthUser
 
-	constructor(private readonly prisma: PrismaService) { }
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly audit: WarehouseAuditService,
+	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateCanvassItemInput): Promise<CanvassItem> {
+	async create(
+		input: CreateCanvassItemInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<CanvassItem> {
 
-		if (!this.canAccess(input.canvass_id)) {
-			throw new ForbiddenException('Only Admin and Owner can create canvass item!')
-		}
+		return await this.prisma.$transaction(async(tx) => {
 
-		const data: Prisma.CanvassItemCreateInput = {
-			canvass: { connect: { id: input.canvass_id } },
-			unit: input.unit_id ? { connect: { id: input.unit_id } } : undefined,
-			item: input.item_id ? { connect: { id: input.item_id } } : undefined,
-			description: input.description,
-			quantity: input.quantity,
-		}
-
-		const created = await this.prisma.canvassItem.create({
-			data,
-			include: {
-				unit: true,
+			if (!this.canAccess(input.canvass_id, tx as Prisma.TransactionClient)) {
+				throw new ForbiddenException('Only Admin and Owner can create canvass item!')
 			}
+	
+			const data: Prisma.CanvassItemCreateInput = {
+				canvass: { connect: { id: input.canvass_id } },
+				unit: input.unit_id ? { connect: { id: input.unit_id } } : undefined,
+				item: input.item_id ? { connect: { id: input.item_id } } : undefined,
+				description: input.description,
+				quantity: input.quantity,
+			}
+	
+			const created = await tx.canvassItem.create({
+				data,
+				include: {
+					unit: true,
+				}
+			})
+
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.CANVASS_ITEM,
+                action: 'CREATE-CANVASS-ITEM',
+                reference_id: created.id,
+                metadata: created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+	
+			return created
+
 		})
-
-		return created
-
-
 	}
 
-	async findOne(id: string): Promise<CanvassItem | null> {
-		const item = await this.prisma.canvassItem.findUnique({
+	async findOne(id: string, tx?: Prisma.TransactionClient): Promise<CanvassItem | null> {
+		
+        const prismaClient = tx || this.prisma;
+		
+		const item = await prismaClient.canvassItem.findUnique({
 			include: {
 				unit: true,
 				item: true
@@ -60,59 +84,105 @@ export class CanvassItemService {
 		return item
 	}
 
-	async update(id: string, input: UpdateCanvassItemInput): Promise<CanvassItem> {
+	async update(
+		id: string, 
+		input: UpdateCanvassItemInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<CanvassItem> {
 
-		const existingItem = await this.findOne(id)
+		return await this.prisma.$transaction(async(tx) => {
 
-		if (!this.canAccess(existingItem.canvass_id)) {
-			throw new ForbiddenException('Only Admin and Owner can update canvass item!')
-		}
-
-		const data: Prisma.CanvassItemUpdateInput = {
-			description: input.description ?? existingItem.description,
-			unit: input.unit_id ? { connect: { id: input.unit_id } } : { disconnect: true },
-			item: input.item_id ? { connect: { id: input.item_id } } : { disconnect: true },
-			quantity: input.quantity,
-		}
-
-		const updated = await this.prisma.canvassItem.update({
-			data,
-			where: {
-				id
-			},
-			include: {
-				unit: true,
-				item: true
+			const existingItem = await this.findOne(id, tx as Prisma.TransactionClient)
+	
+			if (!this.canAccess(existingItem.canvass_id, tx as Prisma.TransactionClient)) {
+				throw new ForbiddenException('Only Admin and Owner can update canvass item!')
 			}
+	
+			const data: Prisma.CanvassItemUpdateInput = {
+				description: input.description ?? existingItem.description,
+				unit: input.unit_id ? { connect: { id: input.unit_id } } : { disconnect: true },
+				item: input.item_id ? { connect: { id: input.item_id } } : { disconnect: true },
+				quantity: input.quantity,
+			}
+	
+			const updated = await tx.canvassItem.update({
+				data,
+				where: {
+					id
+				},
+				include: {
+					unit: true,
+					item: true
+				}
+			})
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.CANVASS_ITEM,
+				action: 'UPDATE-CANVASS-ITEM',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+	
+			return updated
+
 		})
 
-		return updated
 	}
 
-	async remove(id: string): Promise<WarehouseRemoveResponse> {
+	async remove(
+		id: string, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<WarehouseRemoveResponse> {
 
-		const existingItem = await this.findOne(id)
+		return this.prisma.$transaction(async(tx) => {
 
-		if (!this.canAccess(existingItem.canvass_id)) {
-			throw new ForbiddenException('Only Admin and Owner can remove canvass item!')
-		}
+			const existingItem = await this.findOne(id, tx as Prisma.TransactionClient)
+	
+			if (!this.canAccess(existingItem.canvass_id, tx as Prisma.TransactionClient)) {
+				throw new ForbiddenException('Only Admin and Owner can remove canvass item!')
+			}
+	
+			await tx.canvassItem.delete({
+				where: { id }
+			})
 
-		await this.prisma.canvassItem.delete({
-			where: { id }
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.CANVASS_ITEM,
+				action: 'DELETE-CANVASS-ITEM',
+				reference_id: id,
+				metadata: {
+					'deleted_value': existingItem,
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+	
+			return {
+				success: true,
+				msg: "Canvass Item successfully deleted"
+			}
+
 		})
 
-		return {
-			success: true,
-			msg: "Canvass Item successfully deleted"
-		}
 
 	}
 
-	private async canAccess(canvass_id: string): Promise<boolean> {
+	private async canAccess(canvass_id: string, tx?: Prisma.TransactionClient): Promise<boolean> {
 
 		if (isAdmin(this.authUser)) return true
 
-		const canvass = await this.prisma.canvass.findUnique({
+        const prismaClient = tx || this.prisma;
+
+		const canvass = await prismaClient.canvass.findUnique({
 			where: { id: canvass_id }
 		})
 

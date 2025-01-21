@@ -23,7 +23,10 @@ export class ProjectService {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateProjectInput, metadata: { ip_address: string, device_info: any }): Promise<Project> {
+	async create(
+		input: CreateProjectInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<Project> {
 
 		return await this.prisma.$transaction(async(tx) => {
 	
