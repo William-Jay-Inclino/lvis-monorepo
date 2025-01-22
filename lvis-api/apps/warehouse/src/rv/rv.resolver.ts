@@ -137,32 +137,32 @@ export class RvResolver {
         }
     }
 
-    @Mutation(() => WarehouseRemoveResponse)
-    async update_rv_classification_and_rv_approver(
-        @Args('id') id: string,
-        @Args('input') input: UpdateRvByBudgetOfficerInput,
-        @CurrentAuthUser() authUser: AuthUser
-    ) {
-        try {
+    // @Mutation(() => WarehouseRemoveResponse)
+    // async update_rv_classification_and_rv_approver(
+    //     @Args('id') id: string,
+    //     @Args('input') input: UpdateRvByBudgetOfficerInput,
+    //     @CurrentAuthUser() authUser: AuthUser
+    // ) {
+    //     try {
       
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'update_rv_classification_and_rv_approver',
-              rv_id: id,
-              input: JSON.stringify(input),
-            })
+    //         this.logger.log({
+    //           username: authUser.user.username,
+    //           filename: this.filename,
+    //           function: 'update_rv_classification_and_rv_approver',
+    //           rv_id: id,
+    //           input: JSON.stringify(input),
+    //         })
             
-            this.rvService.setAuthUser(authUser)
-            const x = await this.rvService.updateClassificationByBudgetOfficer(id, input);
+    //         this.rvService.setAuthUser(authUser)
+    //         const x = await this.rvService.updateClassificationByBudgetOfficer(id, input);
       
-            this.logger.log('RV Classification and RV Approval updated successfully')
+    //         this.logger.log('RV Classification and RV Approval updated successfully')
       
-            return x
-        } catch (error) {
-            this.logger.error('Error in updating RV Classification and RV Approval', error)
-        }
-    }
+    //         return x
+    //     } catch (error) {
+    //         this.logger.error('Error in updating RV Classification and RV Approval', error)
+    //     }
+    // }
 
     @Mutation(() => WarehouseCancelResponse)
     async cancelRv(

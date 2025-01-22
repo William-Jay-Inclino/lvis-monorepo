@@ -9,6 +9,8 @@ import { SPR } from './entities/spr.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { UPLOADS_PATH } from '../__common__/config';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class SprPdfService {
@@ -20,13 +22,14 @@ export class SprPdfService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async generatePdf(spr: SPR) {
+    async generatePdf(spr: SPR, metadata: { ip_address: string, device_info: any }) {
 
         // const browser = await puppeteer.launch();
 
@@ -311,6 +314,16 @@ export class SprPdfService {
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
+
+        // create audit
+        await this.audit.createAuditEntry({
+            username: this.authUser.user.username,
+            table: DB_TABLE.SPR,
+            action: 'PRINT-SPR',
+            reference_id: spr.id,
+            ip_address: metadata.ip_address,
+            device_info: metadata.device_info
+        })
 
         return pdfBuffer;
     }

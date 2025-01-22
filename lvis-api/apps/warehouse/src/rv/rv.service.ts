@@ -166,6 +166,12 @@ export class RvService {
         const existingItem = await this.prisma.rV.findUnique({
             where: { id },
             include: {
+                canvass: {
+                    select: {
+                        requested_by_id: true,
+                        purpose: true,
+                    }
+                },
                 rv_approvers: true
             }
         })
@@ -201,7 +207,8 @@ export class RvService {
                             requested_by_id: true,
                             purpose: true,
                         }
-                    }
+                    },
+                    rv_approvers: true
                 }
             })
     
@@ -356,7 +363,6 @@ export class RvService {
             }
 
         })
-
 
     }
 
@@ -536,75 +542,77 @@ export class RvService {
 
     }
 
-    async updateClassificationByBudgetOfficer(rvId: string, payload: UpdateRvByBudgetOfficerInput): Promise<WarehouseRemoveResponse> {
+    // async updateClassificationByBudgetOfficer(
+    //     rvId: string, 
+    //     payload: UpdateRvByBudgetOfficerInput, 
+	// 	metadata: { ip_address: string, device_info: any }
 
-        if (!this.authUser.user.user_employee) {
-            throw new BadRequestException('this.authUser.user.user_employee is undefined')
-        }
+    // ): Promise<WarehouseRemoveResponse> {
 
-        if (!this.authUser.user.user_employee.employee.is_budget_officer) {
-            throw new ForbiddenException('Only budget officer can update')
-        }
+    //     if (!this.authUser.user.user_employee) {
+    //         throw new BadRequestException('this.authUser.user.user_employee is undefined')
+    //     }
 
-        const { classification_id, notes, status } = payload
+    //     if (!this.authUser.user.user_employee.employee.is_budget_officer) {
+    //         throw new ForbiddenException('Only budget officer can update')
+    //     }
 
-        const item = await this.prisma.rV.findUnique({
-            where: { id: rvId }
-        })
+    //     const { classification_id, notes, status } = payload
 
-        if (!item) {
-            throw new NotFoundException('RV not found with ID ' + rvId)
-        }
+    //     const item = await this.prisma.rV.findUnique({
+    //         where: { id: rvId }
+    //     })
 
-        const isValidClassificationId = await this.isClassificationExist(classification_id, this.authUser)
+    //     if (!item) {
+    //         throw new NotFoundException('RV not found with ID ' + rvId)
+    //     }
 
-        if (!isValidClassificationId) {
-            throw new NotFoundException('Classification ID not valid')
-        }
+    //     const isValidClassificationId = await this.isClassificationExist(classification_id, this.authUser)
 
-        const queries = []
+    //     if (!isValidClassificationId) {
+    //         throw new NotFoundException('Classification ID not valid')
+    //     }
 
-        const updateRvClassificationIdQuery = this.prisma.rV.update({
-            where: { id: rvId },
-            data: {
-                classification_id
-            }
-        })
+    //     return await this.prisma.$transaction(async(tx) => {
 
-        queries.push(updateRvClassificationIdQuery)
+    //         await tx.rV.update({
+    //             where: { id: rvId },
+    //             data: {
+    //                 classification_id
+    //             }
+    //         })
+    
+    //         const approver_id = this.authUser.user.user_employee.employee.id
+    
+    //         const rvApprover = await tx.rVApprover.findFirst({
+    //             where: {
+    //                 rv_id: rvId,
+    //                 approver_id
+    //             }
+    //         })
+    
+    //         if (!rvApprover) {
+    //             throw new NotFoundException(`RV Approver not found with rv_id of ${rvId} and approver_id of ${approver_id} `)
+    //         }
+    
+    //         await tx.rVApprover.update({
+    //             where: { id: rvApprover.id },
+    //             data: {
+    //                 notes,
+    //                 status,
+    //                 date_approval: new Date(),
+    //             }
+    //         })
+    
+    //         return {
+    //             success: true,
+    //             msg: 'Successfully updated rv classification and rv approver'
+    //         }
 
-        const approver_id = this.authUser.user.user_employee.employee.id
+    //     })
 
-        const rvApprover = await this.prisma.rVApprover.findFirst({
-            where: {
-                rv_id: rvId,
-                approver_id
-            }
-        })
 
-        if (!rvApprover) {
-            throw new NotFoundException(`RV Approver not found with rv_id of ${rvId} and approver_id of ${approver_id} `)
-        }
-
-        const updateRvApproverQuery = this.prisma.rVApprover.update({
-            where: { id: rvApprover.id },
-            data: {
-                notes,
-                status,
-                date_approval: new Date(),
-            }
-        })
-
-        queries.push(updateRvApproverQuery)
-
-        const result = await this.prisma.$transaction(queries)
-
-        return {
-            success: true,
-            msg: 'Successfully updated rv classification and rv approver'
-        }
-
-    }
+    // }
 
     async canUpdateForm(rvId: string): Promise<Boolean> {
 

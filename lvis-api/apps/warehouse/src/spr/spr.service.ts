@@ -3,7 +3,7 @@ import { CanvassService } from '../canvass/canvass.service';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, SPR, SPRApprover } from 'apps/warehouse/prisma/generated/client';
 import { CreateSprInput } from './dto/create-spr.input';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { UpdateSprInput } from './dto/update-spr.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -15,6 +15,7 @@ import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class SprService {
@@ -52,7 +53,8 @@ export class SprService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
-        private readonly canvassService: CanvassService
+        private readonly canvassService: CanvassService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
@@ -60,7 +62,10 @@ export class SprService {
     }
 
     // When creating spr, pendings should also be created for each approver
-    async create(input: CreateSprInput): Promise<SPR> {
+    async create(
+        input: CreateSprInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<SPR> {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create SPR. Please try again')
@@ -132,17 +137,38 @@ export class SprService {
 
             await tx.pending.create({ data: pendingData })
 
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.SPR,
+                action: 'CREATE-SPR',
+                reference_id: spr_created.id,
+                metadata: spr_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
             return spr_created
         });
     
     }
 
-    async update(id: string, input: UpdateSprInput) {
+    async update(
+        id: string, 
+        input: UpdateSprInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         const existingItem = await this.prisma.sPR.findUnique({
             where: { id },
             include: {
-                spr_approvers: true
+                spr_approvers: true,
+                canvass: {
+                    select: {
+                        requested_by_id: true,
+                        purpose: true,
+                    }
+                }
             }
         })
 
@@ -170,8 +196,8 @@ export class SprService {
             const spr_updated = await tx.sPR.update({
                 data,
                 where: { id },
-                select: {
-                    id: true,
+                include: {
+                    spr_approvers: true,
                     canvass: {
                         select: {
                             requested_by_id: true,
@@ -234,13 +260,30 @@ export class SprService {
     
             }
 
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.SPR,
+				action: 'UPDATE-SPR',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': spr_updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+
             return spr_updated
 
         })
 
     }
 
-    async cancel(id: string): Promise<WarehouseCancelResponse> {
+    async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.sPR.findUnique({
             where: { id },
@@ -261,43 +304,61 @@ export class SprService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-        
-        const updateSprQuery = this.prisma.sPR.update({
-            data: {
-                cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username,
-                approval_status: APPROVAL_STATUS.CANCELLED,
-                canvass: {
-                    disconnect: true
+        return await this.prisma.$transaction(async(tx) => {
+
+            const spr_cancelled = await tx.sPR.update({
+                data: {
+                    cancelled_at: new Date(),
+                    cancelled_by: this.authUser.user.username,
+                    approval_status: APPROVAL_STATUS.CANCELLED,
+                    canvass: {
+                        disconnect: true
+                    }
+                },
+                where: { id }
+            })
+    
+            // delete associated pending
+            
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.spr_number,
+                        reference_table: DB_ENTITY.SPR
+                    }
                 }
-            },
-            where: { id }
-        })
+            })
 
-        queries.push(updateSprQuery)
+            if(pending) {
 
-        // delete associated pending
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
 
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.spr_number,
-                    reference_table: DB_ENTITY.SPR
-                }
             }
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.SPR,
+				action: 'CANCEL-SPR',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': spr_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled SPR',
+                cancelled_at: spr_cancelled.cancelled_at,
+                cancelled_by: spr_cancelled.cancelled_by
+            }
+
         })
-
-        queries.push(deleteAssociatedPending)
-
-        const result = await this.prisma.$transaction(queries)
-
-        return {
-            success: true,
-            msg: 'Successfully cancelled SPR',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
 
     }
 
@@ -480,75 +541,75 @@ export class SprService {
 
     }
 
-    async updateClassificationByBudgetOfficer(sprId: string, payload: UpdateSprByBudgetOfficerInput): Promise<WarehouseRemoveResponse> {
+    // async updateClassificationByBudgetOfficer(sprId: string, payload: UpdateSprByBudgetOfficerInput): Promise<WarehouseRemoveResponse> {
 
-        if (!this.authUser.user.user_employee) {
-            throw new BadRequestException('this.authUser.user.user_employee is undefined')
-        }
+    //     if (!this.authUser.user.user_employee) {
+    //         throw new BadRequestException('this.authUser.user.user_employee is undefined')
+    //     }
 
-        if (!this.authUser.user.user_employee.employee.is_budget_officer) {
-            throw new ForbiddenException('Only budget officer can update')
-        }
+    //     if (!this.authUser.user.user_employee.employee.is_budget_officer) {
+    //         throw new ForbiddenException('Only budget officer can update')
+    //     }
 
-        const { classification_id, notes, status } = payload
+    //     const { classification_id, notes, status } = payload
 
-        const item = await this.prisma.sPR.findUnique({
-            where: { id: sprId }
-        })
+    //     const item = await this.prisma.sPR.findUnique({
+    //         where: { id: sprId }
+    //     })
 
-        if (!item) {
-            throw new NotFoundException('SPR not found with ID ' + sprId)
-        }
+    //     if (!item) {
+    //         throw new NotFoundException('SPR not found with ID ' + sprId)
+    //     }
 
-        const isValidClassificationId = await this.isClassificationExist(classification_id, this.authUser)
+    //     const isValidClassificationId = await this.isClassificationExist(classification_id, this.authUser)
 
-        if (!isValidClassificationId) {
-            throw new NotFoundException('Classification ID not valid')
-        }
+    //     if (!isValidClassificationId) {
+    //         throw new NotFoundException('Classification ID not valid')
+    //     }
 
-        const queries = []
+    //     const queries = []
 
-        const updateSprClassificationIdQuery = this.prisma.sPR.update({
-            where: { id: sprId },
-            data: {
-                classification_id
-            }
-        })
+    //     const updateSprClassificationIdQuery = this.prisma.sPR.update({
+    //         where: { id: sprId },
+    //         data: {
+    //             classification_id
+    //         }
+    //     })
 
-        queries.push(updateSprClassificationIdQuery)
+    //     queries.push(updateSprClassificationIdQuery)
 
-        const approver_id = this.authUser.user.user_employee.employee.id
+    //     const approver_id = this.authUser.user.user_employee.employee.id
 
-        const sprApprover = await this.prisma.sPRApprover.findFirst({
-            where: {
-                spr_id: sprId,
-                approver_id
-            }
-        })
+    //     const sprApprover = await this.prisma.sPRApprover.findFirst({
+    //         where: {
+    //             spr_id: sprId,
+    //             approver_id
+    //         }
+    //     })
 
-        if (!sprApprover) {
-            throw new NotFoundException(`SPR Approver not found with spr_id of ${sprId} and approver_id of ${approver_id} `)
-        }
+    //     if (!sprApprover) {
+    //         throw new NotFoundException(`SPR Approver not found with spr_id of ${sprId} and approver_id of ${approver_id} `)
+    //     }
 
-        const updateSprApproverQuery = this.prisma.sPRApprover.update({
-            where: { id: sprApprover.id },
-            data: {
-                notes,
-                status,
-                date_approval: new Date(),
-            }
-        })
+    //     const updateSprApproverQuery = this.prisma.sPRApprover.update({
+    //         where: { id: sprApprover.id },
+    //         data: {
+    //             notes,
+    //             status,
+    //             date_approval: new Date(),
+    //         }
+    //     })
 
-        queries.push(updateSprApproverQuery)
+    //     queries.push(updateSprApproverQuery)
 
-        const result = await this.prisma.$transaction(queries)
+    //     const result = await this.prisma.$transaction(queries)
 
-        return {
-            success: true,
-            msg: 'Successfully updated spr classification and spr approver'
-        }
+    //     return {
+    //         success: true,
+    //         msg: 'Successfully updated spr classification and spr approver'
+    //     }
 
-    }
+    // }
 
     async canUpdateForm(sprId: string): Promise<Boolean> {
 

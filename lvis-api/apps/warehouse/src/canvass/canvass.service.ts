@@ -124,6 +124,9 @@ export class CanvassService {
 
             const created = await tx.canvass.create({
                 data,
+                include: {
+                    canvass_items: true
+                }
             })
 
             // create audit
@@ -149,7 +152,10 @@ export class CanvassService {
         return await this.prisma.$transaction(async(tx) => {
 
             const existingItem = await tx.canvass.findUnique({
-                where: { id }
+                where: { id },
+                include: {
+                    canvass_items: true,
+                }
             })
     
             if (!(await this.canUpdate(existingItem.id, tx as Prisma.TransactionClient))) {
@@ -174,6 +180,9 @@ export class CanvassService {
             const updated = await tx.canvass.update({
                 data,
                 where: { id },
+                include: {
+                    canvass_items: true,
+                }
             });
     
             // create audit
