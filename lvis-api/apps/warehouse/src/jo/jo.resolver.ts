@@ -11,16 +11,18 @@ import { Logger, UseGuards } from '@nestjs/common';
 import { JOApprover } from '../jo-approver/entities/jo-approver.entity';
 import { JoApproverService } from '../jo-approver/jo-approver.service';
 import { JOsResponse } from './entities/jos-response.entity';
-import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse } from '../__common__/classes';
 import { Department } from '../__department__ /entities/department.entity';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
-import { UpdateJoByBudgetOfficerInput } from './dto/update-jo-by-budget-officer.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
 import { Division } from '../__division__/entities/division.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => JO)
@@ -31,7 +33,8 @@ export class JoResolver {
 
     constructor(
         private readonly joService: JoService,
-        private readonly joApproverService: JoApproverService
+        private readonly joApproverService: JoApproverService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Mutation(() => JO)
@@ -39,7 +42,9 @@ export class JoResolver {
     @CheckAccess(MODULES.JO, RESOLVERS.createJo)
     async createJo(
         @Args('input') createJoInput: CreateJoInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
             this.logger.log({
@@ -51,7 +56,10 @@ export class JoResolver {
             
             this.joService.setAuthUser(authUser)
       
-            const x = await this.joService.create(createJoInput);
+            const x = await this.joService.create(createJoInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('JO created successfully')
       
@@ -102,7 +110,9 @@ export class JoResolver {
     async updateJo(
         @Args('id') id: string,
         @Args('input') updateJoInput: UpdateJoInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
       
@@ -115,7 +125,10 @@ export class JoResolver {
             })
             
             this.joService.setAuthUser(authUser)
-            const x = await this.joService.update(id, updateJoInput);
+            const x = await this.joService.update(id, updateJoInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
       
             this.logger.log('JO updated successfully')
       
@@ -125,39 +138,41 @@ export class JoResolver {
         }
     }
 
-    @Mutation(() => WarehouseRemoveResponse)
-    async update_jo_classification_and_jo_approver(
-        @Args('id') id: string,
-        @Args('input') input: UpdateJoByBudgetOfficerInput,
-        @CurrentAuthUser() authUser: AuthUser
-    ) {
+    // @Mutation(() => WarehouseRemoveResponse)
+    // async update_jo_classification_and_jo_approver(
+    //     @Args('id') id: string,
+    //     @Args('input') input: UpdateJoByBudgetOfficerInput,
+    //     @CurrentAuthUser() authUser: AuthUser
+    // ) {
 
-        try {
+    //     try {
       
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'update_jo_classification_and_jo_approver',
-              jo_id: id,
-              input: JSON.stringify(input),
-            })
+    //         this.logger.log({
+    //           username: authUser.user.username,
+    //           filename: this.filename,
+    //           function: 'update_jo_classification_and_jo_approver',
+    //           jo_id: id,
+    //           input: JSON.stringify(input),
+    //         })
             
-            this.joService.setAuthUser(authUser)
-            const x = await this.joService.updateClassificationByBudgetOfficer(id, input);
+    //         this.joService.setAuthUser(authUser)
+    //         const x = await this.joService.updateClassificationByBudgetOfficer(id, input);
       
-            this.logger.log('JO Classification and JO Approval updated successfully')
+    //         this.logger.log('JO Classification and JO Approval updated successfully')
       
-            return x
-        } catch (error) {
-            this.logger.error('Error in updating JO Classification and JO Approval', error)
-        }
+    //         return x
+    //     } catch (error) {
+    //         this.logger.error('Error in updating JO Classification and JO Approval', error)
+    //     }
 
-    }
+    // }
 
     @Mutation(() => WarehouseCancelResponse)
     async cancelJo(
         @Args('id') id: string,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -170,7 +185,10 @@ export class JoResolver {
             })
       
             this.joService.setAuthUser(authUser)
-            const x = await this.joService.cancel(id);
+            const x = await this.joService.cancel(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('JO cancelled successfully')
             

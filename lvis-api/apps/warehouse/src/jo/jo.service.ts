@@ -3,7 +3,7 @@ import { CanvassService } from '../canvass/canvass.service';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, JO, JOApprover } from 'apps/warehouse/prisma/generated/client';
 import { CreateJoInput } from './dto/create-jo.input';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { UpdateJoInput } from './dto/update-jo.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -15,6 +15,7 @@ import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class JoService {
@@ -51,7 +52,8 @@ export class JoService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
-        private readonly canvassService: CanvassService
+        private readonly canvassService: CanvassService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
@@ -59,7 +61,10 @@ export class JoService {
     }
 
     // When creating jo, pendings should also be created for each approver
-    async create(input: CreateJoInput) {
+    async create(
+        input: CreateJoInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create JO. Please try again')
@@ -111,7 +116,12 @@ export class JoService {
 
         return await this.prisma.$transaction(async (tx) => {
 
-            const jo_created = await tx.jO.create({ data })
+            const jo_created = await tx.jO.create({
+                data,
+                include: {
+                    jo_approvers: true,
+                }
+            })
 
             const firstApprover = input.approvers.reduce((min, obj) => {
                 return obj.order < min.order ? obj : min;
@@ -133,16 +143,37 @@ export class JoService {
 
             await tx.pending.create({ data: pendingData })
 
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.JO,
+                action: 'CREATE-JO',
+                reference_id: jo_created.id,
+                metadata: jo_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
             return jo_created
         });
         
     }
 
-    async update(id: string, input: UpdateJoInput) {
+    async update(
+        id: string, 
+        input: UpdateJoInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         const existingItem = await this.prisma.jO.findUnique({
             where: { id },
             include: {
+                canvass: {
+                    select: {
+                        requested_by_id: true,
+                        purpose: true,
+                    }
+                },
                 jo_approvers: true
             }
         })
@@ -173,14 +204,14 @@ export class JoService {
             const jo_updated = await tx.jO.update({
                 data,
                 where: { id },
-                select: {
-                    id: true,
+                include: {
                     canvass: {
                         select: {
                             requested_by_id: true,
                             purpose: true,
                         }
-                    }
+                    },
+                    jo_approvers: true
                 }
             })
     
@@ -237,13 +268,30 @@ export class JoService {
     
             }
 
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.JO,
+				action: 'UPDATE-JO',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': jo_updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+
             return jo_updated
 
         })
 
     }
 
-    async cancel(id: string): Promise<WarehouseCancelResponse> {
+    async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.jO.findUnique({
             where: { id },
@@ -264,43 +312,61 @@ export class JoService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-        
-        const updateJoQuery = this.prisma.jO.update({
-            data: {
-                cancelled_at: new Date(),
-                approval_status: APPROVAL_STATUS.CANCELLED,
-                cancelled_by: this.authUser.user.username,
-                canvass: {
-                    disconnect: true
+        return await this.prisma.$transaction(async(tx) => {
+
+            const jo_cancelled = await tx.jO.update({
+                data: {
+                    cancelled_at: new Date(),
+                    cancelled_by: this.authUser.user.username,
+                    approval_status: APPROVAL_STATUS.CANCELLED,
+                    canvass: {
+                        disconnect: true
+                    }
+                },
+                where: { id }
+            })
+    
+            // delete associated pending
+            
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.jo_number,
+                        reference_table: DB_ENTITY.JO
+                    }
                 }
-            },
-            where: { id }
-        })
+            })
 
-        queries.push(updateJoQuery)
+            if(pending) {
 
-        // delete associated pending
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
 
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.jo_number,
-                    reference_table: DB_ENTITY.JO
-                }
             }
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.JO,
+				action: 'CANCEL-JO',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': jo_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled JO',
+                cancelled_at: jo_cancelled.cancelled_at,
+                cancelled_by: jo_cancelled.cancelled_by
+            }
+
         })
-
-        queries.push(deleteAssociatedPending)
-
-        const result = await this.prisma.$transaction(queries)
-
-        return {
-            success: true,
-            msg: 'Successfully cancelled JO',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
 
     }
 
@@ -480,75 +546,75 @@ export class JoService {
 
     }
 
-    async updateClassificationByBudgetOfficer(joId: string, payload: UpdateJoByBudgetOfficerInput): Promise<WarehouseRemoveResponse> {
+    // async updateClassificationByBudgetOfficer(joId: string, payload: UpdateJoByBudgetOfficerInput): Promise<WarehouseRemoveResponse> {
 
-        if (!this.authUser.user.user_employee) {
-            throw new BadRequestException('this.authUser.user.user_employee is undefined')
-        }
+    //     if (!this.authUser.user.user_employee) {
+    //         throw new BadRequestException('this.authUser.user.user_employee is undefined')
+    //     }
 
-        if (!this.authUser.user.user_employee.employee.is_budget_officer) {
-            throw new ForbiddenException('Only budget officer can update')
-        }
+    //     if (!this.authUser.user.user_employee.employee.is_budget_officer) {
+    //         throw new ForbiddenException('Only budget officer can update')
+    //     }
 
-        const { classification_id, notes, status } = payload
+    //     const { classification_id, notes, status } = payload
 
-        const item = await this.prisma.jO.findUnique({
-            where: { id: joId }
-        })
+    //     const item = await this.prisma.jO.findUnique({
+    //         where: { id: joId }
+    //     })
 
-        if (!item) {
-            throw new NotFoundException('JO not found with ID ' + joId)
-        }
+    //     if (!item) {
+    //         throw new NotFoundException('JO not found with ID ' + joId)
+    //     }
 
-        const isValidClassificationId = await this.isClassificationExist(classification_id, this.authUser)
+    //     const isValidClassificationId = await this.isClassificationExist(classification_id, this.authUser)
 
-        if (!isValidClassificationId) {
-            throw new NotFoundException('Classification ID not valid')
-        }
+    //     if (!isValidClassificationId) {
+    //         throw new NotFoundException('Classification ID not valid')
+    //     }
 
-        const queries = []
+    //     const queries = []
 
-        const updateJoClassificationIdQuery = this.prisma.jO.update({
-            where: { id: joId },
-            data: {
-                classification_id
-            }
-        })
+    //     const updateJoClassificationIdQuery = this.prisma.jO.update({
+    //         where: { id: joId },
+    //         data: {
+    //             classification_id
+    //         }
+    //     })
 
-        queries.push(updateJoClassificationIdQuery)
+    //     queries.push(updateJoClassificationIdQuery)
 
-        const approver_id = this.authUser.user.user_employee.employee.id
+    //     const approver_id = this.authUser.user.user_employee.employee.id
 
-        const joApprover = await this.prisma.jOApprover.findFirst({
-            where: {
-                jo_id: joId,
-                approver_id
-            }
-        })
+    //     const joApprover = await this.prisma.jOApprover.findFirst({
+    //         where: {
+    //             jo_id: joId,
+    //             approver_id
+    //         }
+    //     })
 
-        if (!joApprover) {
-            throw new NotFoundException(`JO Approver not found with jo_id of ${joId} and approver_id of ${approver_id} `)
-        }
+    //     if (!joApprover) {
+    //         throw new NotFoundException(`JO Approver not found with jo_id of ${joId} and approver_id of ${approver_id} `)
+    //     }
 
-        const updateJoApproverQuery = this.prisma.jOApprover.update({
-            where: { id: joApprover.id },
-            data: {
-                notes,
-                status,
-                date_approval: new Date(),
-            }
-        })
+    //     const updateJoApproverQuery = this.prisma.jOApprover.update({
+    //         where: { id: joApprover.id },
+    //         data: {
+    //             notes,
+    //             status,
+    //             date_approval: new Date(),
+    //         }
+    //     })
 
-        queries.push(updateJoApproverQuery)
+    //     queries.push(updateJoApproverQuery)
 
-        const result = await this.prisma.$transaction(queries)
+    //     const result = await this.prisma.$transaction(queries)
 
-        return {
-            success: true,
-            msg: 'Successfully updated jo classification and jo approver'
-        }
+    //     return {
+    //         success: true,
+    //         msg: 'Successfully updated jo classification and jo approver'
+    //     }
 
-    }
+    // }
 
     async canUpdateForm(joId: string): Promise<Boolean> {
 

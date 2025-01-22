@@ -87,7 +87,6 @@ export class RvService {
             throw new NotFoundException(`Canvass not found with id of ${input.canvass_id}`)
         }
 
-        
         const createdBy = this.authUser.user.username
 
         const data: Prisma.RVCreateInput = {
@@ -117,7 +116,10 @@ export class RvService {
         return await this.prisma.$transaction(async (tx) => {
 
             const rv_created = await tx.rV.create({
-                data
+                data,
+                include: {
+                    rv_approvers: true,
+                }
             })
 
             const firstApprover = input.approvers.reduce((min, obj) => {

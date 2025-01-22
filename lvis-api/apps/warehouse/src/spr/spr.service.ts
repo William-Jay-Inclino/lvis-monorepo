@@ -115,7 +115,12 @@ export class SprService {
 
         return await this.prisma.$transaction(async (tx) => {
 
-            const spr_created = await tx.sPR.create({ data })
+            const spr_created = await tx.sPR.create({
+                data,
+                include: {
+                    spr_approvers: true,
+                }
+            })
 
             const firstApprover = input.approvers.reduce((min, obj) => {
                 return obj.order < min.order ? obj : min;

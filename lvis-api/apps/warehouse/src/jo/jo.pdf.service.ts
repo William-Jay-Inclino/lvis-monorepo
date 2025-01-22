@@ -9,6 +9,8 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { JO } from './entities/jo.entity';
 import { UPLOADS_PATH } from '../__common__/config';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class JoPdfService {
@@ -20,15 +22,14 @@ export class JoPdfService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async generatePdf(jo: JO) {
-
-        console.log('jo', jo);
+    async generatePdf(jo: JO, metadata: { ip_address: string, device_info: any }) {
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -321,6 +322,16 @@ export class JoPdfService {
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
+
+        // create audit
+        await this.audit.createAuditEntry({
+            username: this.authUser.user.username,
+            table: DB_TABLE.JO,
+            action: 'PRINT-JO',
+            reference_id: jo.id,
+            ip_address: metadata.ip_address,
+            device_info: metadata.device_info
+        })
 
         return pdfBuffer;
     }
