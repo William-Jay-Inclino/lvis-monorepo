@@ -10,17 +10,19 @@ import { Logger, NotFoundException, UseGuards } from '@nestjs/common';
 import { PoApproverService } from '../po-approver/po-approver.service';
 import { POsResponse } from './entities/pos-response.entity';
 import { POApprover } from '../po-approver/entities/po-approver.entity';
-import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { Account } from '../__account__ /entities/account.entity';
-import { UpdatePoByFinanceManagerInput } from './dto/update-po-by-finance-manager.input';
 import { MeqsService } from '../meqs/meqs.service';
 import { MEQS } from '../meqs/entities/meq.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => PO)
@@ -33,6 +35,7 @@ export class PoResolver {
         private readonly poService: PoService,
         private readonly poApproverService: PoApproverService,
         private readonly meqsService: MeqsService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Mutation(() => PO)
@@ -40,7 +43,9 @@ export class PoResolver {
     @CheckAccess(MODULES.PO, RESOLVERS.createPo)
     async createPo(
         @Args('input') createPoInput: CreatePoInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -53,7 +58,10 @@ export class PoResolver {
             
             this.poService.setAuthUser(authUser)
       
-            const x = await this.poService.create(createPoInput);
+            const x = await this.poService.create(createPoInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('PO created successfully')
       
@@ -106,7 +114,9 @@ export class PoResolver {
     async updatePo(
         @Args('id') id: string,
         @Args('input') updatePoInput: UpdatePoInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -119,7 +129,10 @@ export class PoResolver {
             })
             
             this.poService.setAuthUser(authUser)
-            const x = await this.poService.update(id, updatePoInput);
+            const x = await this.poService.update(id, updatePoInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
       
             this.logger.log('PO updated successfully')
       
@@ -129,38 +142,40 @@ export class PoResolver {
         }
     }
 
-    @Mutation(() => WarehouseRemoveResponse)
-    async update_po_fund_source_and_po_approver(
-        @Args('id') id: string,
-        @Args('input') input: UpdatePoByFinanceManagerInput,
-        @CurrentAuthUser() authUser: AuthUser
-    ) {
+    // @Mutation(() => WarehouseRemoveResponse)
+    // async update_po_fund_source_and_po_approver(
+    //     @Args('id') id: string,
+    //     @Args('input') input: UpdatePoByFinanceManagerInput,
+    //     @CurrentAuthUser() authUser: AuthUser
+    // ) {
 
-        try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'update_po_fund_source_and_po_approver',
-              po_id: id,
-              input: JSON.stringify(input),
-            })
+    //     try {
+    //         this.logger.log({
+    //           username: authUser.user.username,
+    //           filename: this.filename,
+    //           function: 'update_po_fund_source_and_po_approver',
+    //           po_id: id,
+    //           input: JSON.stringify(input),
+    //         })
             
-            this.poService.setAuthUser(authUser)
-            const x = await this.poService.updateFundSourceByFinanceManager(id, input);
+    //         this.poService.setAuthUser(authUser)
+    //         const x = await this.poService.updateFundSourceByFinanceManager(id, input);
       
-            this.logger.log('PO Fund Source and PO Approval updated successfully')
+    //         this.logger.log('PO Fund Source and PO Approval updated successfully')
       
-            return x
-        } catch (error) {
-            this.logger.error('Error in updating PO Fund Source and PO Approval', error)
-        }
+    //         return x
+    //     } catch (error) {
+    //         this.logger.error('Error in updating PO Fund Source and PO Approval', error)
+    //     }
 
-    }
+    // }
 
     @Mutation(() => WarehouseCancelResponse)
     async cancelPo(
         @Args('id') id: string,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
 
@@ -172,7 +187,10 @@ export class PoResolver {
             })
       
             this.poService.setAuthUser(authUser)
-            const x = await this.poService.cancel(id);
+            const x = await this.poService.cancel(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('PO cancelled successfully')
             

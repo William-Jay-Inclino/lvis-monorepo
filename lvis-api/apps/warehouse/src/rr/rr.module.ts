@@ -7,9 +7,10 @@ import { RrController } from './rr.controller';
 import { RrPdfService } from './rr.pdf.service';
 import { PoService } from '../po/po.service';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [
     RrResolver, 
     RrService, 

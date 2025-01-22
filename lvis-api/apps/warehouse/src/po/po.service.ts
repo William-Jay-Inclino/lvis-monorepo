@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreatePoInput } from './dto/create-po.input';
 import { PO, POApprover, Prisma, } from 'apps/warehouse/prisma/generated/client';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
@@ -19,6 +19,7 @@ import { SPR } from '../spr/entities/spr.entity';
 import { JO } from '../jo/entities/jo.entity';
 import { MEQS } from '../meqs/entities/meq.entity';
 import { get_canvass_info, get_pending_description, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class PoService {
@@ -67,6 +68,7 @@ export class PoService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
@@ -74,7 +76,10 @@ export class PoService {
     }
 
     // When creating po, pendings should also be created for each approver
-    async create(input: CreatePoInput): Promise<PO> {
+    async create(
+        input: CreatePoInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<PO> {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create PO. Please try again')
@@ -162,7 +167,22 @@ export class PoService {
 
         return await this.prisma.$transaction(async (tx) => {
 
-            const po_created = await tx.pO.create({ data })
+            const po_created = await tx.pO.create({
+                data,
+                include: {
+                    po_approvers: true,
+                    meqs_supplier: {
+                        include: {
+                            supplier: true,
+                            meqs_supplier_items: {
+                                include: {
+                                    canvass_item: true
+                                }
+                            }
+                        }
+                    },
+                }
+            })
 
             const firstApprover = input.approvers.reduce((min, obj) => {
                 return obj.order < min.order ? obj : min;
@@ -185,6 +205,16 @@ export class PoService {
 
             await tx.pending.create({ data: pendingData })
 
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.PO,
+                action: 'CREATE-PO',
+                reference_id: po_created.id,
+                metadata: po_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
 
             return po_created
         });
@@ -192,10 +222,15 @@ export class PoService {
 
     }
 
-    async update(id: string, input: UpdatePoInput): Promise<PO> {
+    async update(
+        id: string, 
+        input: UpdatePoInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<PO> {
 
         const existingItem = await this.prisma.pO.findUnique({
-            where: { id }
+            where: { id },
+            include: this.includedFields
         })
 
         if (!existingItem) {
@@ -216,17 +251,39 @@ export class PoService {
             updated_by: this.authUser.user.username
         }
 
-        const updated = await this.prisma.pO.update({
-            data,
-            where: { id },
-            include: this.includedFields
+        return await this.prisma.$transaction(async(tx) => {
+
+            const updated = await this.prisma.pO.update({
+                data,
+                where: { id },
+                include: this.includedFields
+            })
+
+            // create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.PO,
+				action: 'UPDATE-PO',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return updated
+
         })
 
-        return updated
 
     }
 
-    async cancel(id: string): Promise<WarehouseCancelResponse> {
+    async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.pO.findUnique({
             where: { id },
@@ -247,43 +304,62 @@ export class PoService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-        
-        const updatePoQuery = this.prisma.pO.update({
-            data: {
-                cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username,
-                approval_status: APPROVAL_STATUS.CANCELLED,
-                meqs_supplier: {
-                    disconnect: true
+        return await this.prisma.$transaction(async(tx) => {
+
+            const po_cancelled = await tx.pO.update({
+                data: {
+                    cancelled_at: new Date(),
+                    cancelled_by: this.authUser.user.username,
+                    approval_status: APPROVAL_STATUS.CANCELLED,
+                    meqs_supplier: {
+                        disconnect: true
+                    }
+                },
+                where: { id }
+            })
+    
+            // delete associated pending
+    
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.po_number,
+                        reference_table: DB_ENTITY.PO
+                    }
                 }
-            },
-            where: { id }
-        })
+            })
 
-        queries.push(updatePoQuery)
+            if(pending) {
 
-        // delete associated pending
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
 
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.po_number,
-                    reference_table: DB_ENTITY.PO
-                }
             }
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.PO,
+				action: 'CANCEL-PO',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': po_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled PO',
+                cancelled_at: po_cancelled.cancelled_at,
+                cancelled_by: po_cancelled.cancelled_by
+            }
+
         })
 
-        queries.push(deleteAssociatedPending)
-
-        const result = await this.prisma.$transaction(queries)
-
-        return {
-            success: true,
-            msg: 'Successfully cancelled PO',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
 
     }
 
@@ -551,75 +627,75 @@ export class PoService {
 
     }
 
-    async updateFundSourceByFinanceManager(poId: string, payload: UpdatePoByFinanceManagerInput): Promise<WarehouseRemoveResponse> {
+    // async updateFundSourceByFinanceManager(poId: string, payload: UpdatePoByFinanceManagerInput): Promise<WarehouseRemoveResponse> {
 
-        if (!this.authUser.user.user_employee) {
-            throw new BadRequestException('this.authUser.user.user_employee is undefined')
-        }
+    //     if (!this.authUser.user.user_employee) {
+    //         throw new BadRequestException('this.authUser.user.user_employee is undefined')
+    //     }
 
-        if (!this.authUser.user.user_employee.employee.is_finance_manager) {
-            throw new ForbiddenException('Only finance manager can update')
-        }
+    //     if (!this.authUser.user.user_employee.employee.is_finance_manager) {
+    //         throw new ForbiddenException('Only finance manager can update')
+    //     }
 
-        const { fund_source_id, notes, status } = payload
+    //     const { fund_source_id, notes, status } = payload
 
-        const item = await this.prisma.pO.findUnique({
-            where: { id: poId }
-        })
+    //     const item = await this.prisma.pO.findUnique({
+    //         where: { id: poId }
+    //     })
 
-        if (!item) {
-            throw new NotFoundException('PO not found with ID ' + poId)
-        }
+    //     if (!item) {
+    //         throw new NotFoundException('PO not found with ID ' + poId)
+    //     }
 
-        const isValidFundSourceId = await this.isFundSourceExist(fund_source_id, this.authUser)
+    //     const isValidFundSourceId = await this.isFundSourceExist(fund_source_id, this.authUser)
 
-        if (!isValidFundSourceId) {
-            throw new NotFoundException('Fund Source ID not valid')
-        }
+    //     if (!isValidFundSourceId) {
+    //         throw new NotFoundException('Fund Source ID not valid')
+    //     }
 
-        const queries = []
+    //     const queries = []
 
-        const updatePoFundSourceIdQuery = this.prisma.pO.update({
-            where: { id: poId },
-            data: {
-                fund_source_id
-            }
-        })
+    //     const updatePoFundSourceIdQuery = this.prisma.pO.update({
+    //         where: { id: poId },
+    //         data: {
+    //             fund_source_id
+    //         }
+    //     })
 
-        queries.push(updatePoFundSourceIdQuery)
+    //     queries.push(updatePoFundSourceIdQuery)
 
-        const approver_id = this.authUser.user.user_employee.employee.id
+    //     const approver_id = this.authUser.user.user_employee.employee.id
 
-        const poApprover = await this.prisma.pOApprover.findFirst({
-            where: {
-                po_id: poId,
-                approver_id
-            }
-        })
+    //     const poApprover = await this.prisma.pOApprover.findFirst({
+    //         where: {
+    //             po_id: poId,
+    //             approver_id
+    //         }
+    //     })
 
-        if (!poApprover) {
-            throw new NotFoundException(`PO Approver not found with po_id of ${poId} and approver_id of ${approver_id} `)
-        }
+    //     if (!poApprover) {
+    //         throw new NotFoundException(`PO Approver not found with po_id of ${poId} and approver_id of ${approver_id} `)
+    //     }
 
-        const updatePoApproverQuery = this.prisma.pOApprover.update({
-            where: { id: poApprover.id },
-            data: {
-                notes,
-                status,
-                date_approval: new Date(),
-            }
-        })
+    //     const updatePoApproverQuery = this.prisma.pOApprover.update({
+    //         where: { id: poApprover.id },
+    //         data: {
+    //             notes,
+    //             status,
+    //             date_approval: new Date(),
+    //         }
+    //     })
 
-        queries.push(updatePoApproverQuery)
+    //     queries.push(updatePoApproverQuery)
 
-        const result = await this.prisma.$transaction(queries)
+    //     const result = await this.prisma.$transaction(queries)
 
-        return {
-            success: true,
-            msg: 'Successfully updated po fund source and po approver'
-        }
+    //     return {
+    //         success: true,
+    //         msg: 'Successfully updated po fund source and po approver'
+    //     }
 
-    }
+    // }
 
     async canUpdateForm(poId: string): Promise<Boolean> {
 

@@ -12,6 +12,8 @@ import { UPLOADS_PATH } from '../__common__/config';
 import { MeqsSupplierItem } from '../meqs-supplier-item/entities/meqs-supplier-item.entity';
 import { Supplier } from '../supplier/entities/supplier.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class PoPdfService {
@@ -23,13 +25,14 @@ export class PoPdfService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async generatePdf(po: PO) {
+    async generatePdf(po: PO, metadata: { ip_address: string, device_info: any }) {
         // const browser = await puppeteer.launch();
 
         const browser = await puppeteer.launch({
@@ -474,6 +477,16 @@ export class PoPdfService {
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
+
+        // create audit
+        await this.audit.createAuditEntry({
+            username: this.authUser.user.username,
+            table: DB_TABLE.PO,
+            action: 'PRINT-PO',
+            reference_id: po.id,
+            ip_address: metadata.ip_address,
+            device_info: metadata.device_info
+        })
 
         return pdfBuffer;
     }

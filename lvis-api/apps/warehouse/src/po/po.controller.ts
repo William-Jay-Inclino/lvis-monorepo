@@ -9,6 +9,9 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('po')
@@ -20,6 +23,7 @@ export class PoController {
     constructor(
         private readonly poPdfService: PoPdfService,
         private readonly poService: PoService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
 
@@ -29,7 +33,9 @@ export class PoController {
     async generatePdf(
         @Param('id') id: string, 
         @Res() res: Response,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -51,7 +57,10 @@ export class PoController {
     
             const po = await this.poPdfService.findPo(id)
             // @ts-ignore
-            const pdfBuffer = await this.poPdfService.generatePdf(po)
+            const pdfBuffer = await this.poPdfService.generatePdf(po, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            })
     
             // @ts-ignore
             res.set({
