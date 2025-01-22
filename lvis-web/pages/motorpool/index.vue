@@ -1,6 +1,6 @@
 <template>
     
-    <div v-if="authUser">
+    <div v-if="authUser && !isLoading">
         
         <div v-if="!show_pms_schedules && !show_trip_schedules" class="card">
             <div class="card-body">
@@ -289,6 +289,7 @@
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const today = new Date()
 
+    const isLoading = ref(true)
     const is_expanded_pms_sched = ref(true)
     const is_expanded_trip_sched = ref(true)
 
@@ -307,6 +308,7 @@
 
         pms_schedules.value = response.this_week_pms_schedules
         trips.value = response.this_week_trips
+        isLoading.value = false
         
         await nextTick(); // Ensure DOM is updated
         open_todays_accordion(today, pmsAccordionBtn.value)
