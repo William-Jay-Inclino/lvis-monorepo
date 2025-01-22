@@ -9,6 +9,9 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('meqs')
@@ -20,6 +23,7 @@ export class MeqsController {
     constructor(
         private readonly meqsPdfService: MeqsPdfService,
         private readonly meqsService: MeqsService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
 
@@ -29,7 +33,9 @@ export class MeqsController {
     async generatePdf(
         @Param('id') id: string, 
         @Res() res: Response,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -50,7 +56,10 @@ export class MeqsController {
     
             const meqs = await this.meqsPdfService.findMeqs(id)
             // @ts-ignore
-            const pdfBuffer = await this.meqsPdfService.generatePdf(meqs)
+            const pdfBuffer = await this.meqsPdfService.generatePdf(meqs, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            })
     
             // @ts-ignore
             res.set({

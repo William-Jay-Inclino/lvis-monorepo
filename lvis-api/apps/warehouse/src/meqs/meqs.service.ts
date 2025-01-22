@@ -3,7 +3,7 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { HttpService } from '@nestjs/axios';
 import { CreateMeqsInput } from './dto/create-meqs.input';
 import { MEQS, MEQSApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { UpdateMeqsInput } from './dto/update-meqs.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { MEQSsResponse } from './entities/meqs-response.entity';
@@ -14,6 +14,7 @@ import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class MeqsService {
@@ -61,6 +62,7 @@ export class MeqsService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
@@ -68,7 +70,10 @@ export class MeqsService {
     }
 
     // When creating meqs, pendings should also be created for each approver
-    async create(input: CreateMeqsInput): Promise<MEQS> {
+    async create(
+        input: CreateMeqsInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<MEQS> {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Unable to create MEQS')
@@ -216,7 +221,23 @@ export class MeqsService {
 
         return await this.prisma.$transaction(async (tx) => {
 
-            const meqs_created = await tx.mEQS.create({ data })
+            const meqs_created = await tx.mEQS.create({
+                data,
+                include: {
+                    meqs_approvers: true,
+                    meqs_suppliers: {
+                        include: {
+                            supplier: true,
+                            attachments: true,
+                            meqs_supplier_items: {
+                                include: {
+                                    canvass_item: true
+                                }
+                            }
+                        }
+                    },
+                }
+            })
 
             const firstApprover = input.approvers.reduce((min, obj) => {
                 return obj.order < min.order ? obj : min;
@@ -236,16 +257,31 @@ export class MeqsService {
 
             await tx.pending.create({ data: pendingData })
 
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.MEQS,
+                action: 'CREATE-MEQS',
+                reference_id: meqs_created.id,
+                metadata: meqs_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
 
             return meqs_created
         });
     
     }
 
-    async update(id: string, input: UpdateMeqsInput): Promise<MEQS> {
+    async update(
+        id: string, 
+        input: UpdateMeqsInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<MEQS> {
 
         const existingItem = await this.prisma.mEQS.findUnique({
-            where: { id }
+            where: { id },
+            include: this.includedFields
         })
 
         if (!existingItem) {
@@ -266,17 +302,39 @@ export class MeqsService {
             updated_by: this.authUser.user.username
         }
 
-        const updated = await this.prisma.mEQS.update({
-            where: { id },
-            data,
-            include: this.includedFields
+        return await this.prisma.$transaction(async(tx) => {
+
+            const updated = await tx.mEQS.update({
+                where: { id },
+                data,
+                include: this.includedFields
+            })
+    
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.MEQS,
+                action: 'UPDATE-MEQS',
+                reference_id: id,
+                metadata: {
+                    'old_value': existingItem,
+                    'new_value': updated
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+                }, tx as Prisma.TransactionClient)
+    
+            return updated
+
         })
 
-        return updated
 
     }
 
-    async cancel(id: string): Promise<WarehouseCancelResponse> {
+    async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.mEQS.findUnique({
             where: { id },
@@ -323,36 +381,55 @@ export class MeqsService {
             }
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
+        return await this.prisma.$transaction(async(tx) => {
 
-        const updateMeqsQuery = this.prisma.mEQS.update({
-            data,
-            where: { id }
-        })
-
-        queries.push(updateMeqsQuery)
-
-        // delete associated pending
-
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.meqs_number,
-                    reference_table: DB_ENTITY.MEQS
+            const meqs_cancelled = await tx.mEQS.update({
+                data,
+                where: { id }
+            })
+    
+            // delete associated pending
+    
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.meqs_number,
+                        reference_table: DB_ENTITY.MEQS
+                    }
                 }
+            })
+
+            if(pending) {
+
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
+
             }
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MEQS,
+				action: 'CANCEL-MEQS',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': meqs_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled MEQS',
+                cancelled_at: meqs_cancelled.cancelled_at,
+                cancelled_by: meqs_cancelled.cancelled_by
+            }
+
         })
 
-        queries.push(deleteAssociatedPending)
-
-        const result = await this.prisma.$transaction(queries)
-
-        return {
-            success: true,
-            msg: 'Successfully cancelled MEQS',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
 
     }
 

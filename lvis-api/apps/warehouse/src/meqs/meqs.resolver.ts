@@ -23,6 +23,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MEQS)
@@ -37,6 +40,7 @@ export class MeqsResolver {
         private readonly rvService: RvService,
         private readonly sprService: SprService,
         private readonly joService: JoService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Mutation(() => MEQS)
@@ -44,7 +48,9 @@ export class MeqsResolver {
     @CheckAccess(MODULES.MEQS, RESOLVERS.createMeqs)
     async createMeqs(
         @Args('input') createMeqsInput: CreateMeqsInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
             this.logger.log({
@@ -56,7 +62,10 @@ export class MeqsResolver {
             
             this.meqsService.setAuthUser(authUser)
       
-            const x = await this.meqsService.create(createMeqsInput);
+            const x = await this.meqsService.create(createMeqsInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MEQS created successfully')
       
@@ -116,7 +125,9 @@ export class MeqsResolver {
     async updateMeqs(
         @Args('id') id: string,
         @Args('input') updateMeqsInput: UpdateMeqsInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
       
@@ -129,7 +140,10 @@ export class MeqsResolver {
             })
             
             this.meqsService.setAuthUser(authUser)
-            const x = await this.meqsService.update(id, updateMeqsInput);
+            const x = await this.meqsService.update(id, updateMeqsInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
       
             this.logger.log('MEQS updated successfully')
       
@@ -143,7 +157,9 @@ export class MeqsResolver {
     @Mutation(() => WarehouseCancelResponse)
     async cancelMeqs(
         @Args('id') id: string,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
 
@@ -155,7 +171,10 @@ export class MeqsResolver {
             })
       
             this.meqsService.setAuthUser(authUser)
-            const x = await this.meqsService.cancel(id);
+            const x = await this.meqsService.cancel(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MEQS cancelled successfully')
             
@@ -208,11 +227,6 @@ export class MeqsResolver {
         throw new NotFoundException(`MEQS has no rv_number, spr_number, and jo_number`)
 
     }
-
-    // @ResolveField(() => Boolean)
-    // async is_rr_completed(@Parent() meqs: MEQS) {
-    //     return await this.meqsService.isRrCompleted(meqs.id)
-    // }
 
     @ResolveField(() => Boolean)
     can_update(
