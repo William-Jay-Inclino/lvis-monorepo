@@ -6,7 +6,7 @@ import { HttpService } from '@nestjs/axios';
 import { Prisma, RR, RRApprover } from 'apps/warehouse/prisma/generated/client';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { catchError, firstValueFrom } from 'rxjs';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { RRsResponse } from './entities/rr-response.entity';
 import * as moment from 'moment';
 import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
@@ -15,6 +15,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { MEQS } from '../meqs/entities/meq.entity';
 import { get_canvass_info, get_pending_description, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class RrService {
@@ -79,6 +80,7 @@ export class RrService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
@@ -86,7 +88,10 @@ export class RrService {
     }
 
     // When creating rr, pendings should also be created for each approver
-    async create(input: CreateRrInput): Promise<RR> {
+    async create(
+        input: CreateRrInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<RR> {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create RR. Please try again')
@@ -199,9 +204,14 @@ export class RrService {
             }
         }
 
-        const result = await this.prisma.$transaction(async (tx) => {
+        return await this.prisma.$transaction(async (tx) => {
 
-            const rr_created = await tx.rR.create({ data })
+            const rr_created = await tx.rR.create({
+                data,
+                include: {
+                    rr_approvers: true
+                }
+            })
 
             const firstApprover = input.approvers.reduce((min, obj) => {
                 return obj.order < min.order ? obj : min;
@@ -224,12 +234,20 @@ export class RrService {
 
             await tx.pending.create({ data: pendingData })
 
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.RR,
+                action: 'CREATE-RR',
+                reference_id: rr_created.id,
+                metadata: rr_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
 
             return rr_created
         });
     
-        return result;
-
     }
 
     async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<RRsResponse> {
@@ -469,10 +487,15 @@ export class RrService {
 
     }
 
-    async update(id: string, input: UpdateRrInput): Promise<RR> {
+    async update(
+        id: string, 
+        input: UpdateRrInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<RR> {
 
         const existingItem = await this.prisma.rR.findUnique({
-            where: { id }
+            where: { id },
+            include: this.includedFields
         })
 
         if (!existingItem) {
@@ -496,17 +519,39 @@ export class RrService {
             updated_by: this.authUser.user.username
         }
 
-        const updated = await this.prisma.rR.update({
-            data,
-            where: { id },
-            include: this.includedFields
+        return await this.prisma.$transaction(async(tx) => {
+
+            const updated = await this.prisma.rR.update({
+                data,
+                where: { id },
+                include: this.includedFields
+            })
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.RR,
+				action: 'UPDATE-RR',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+    
+            return updated
+
         })
 
-        return updated
 
     }
 
-    async cancel(id: string): Promise<WarehouseCancelResponse> {
+    async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.rR.findUnique({
             where: { id },
@@ -527,43 +572,63 @@ export class RrService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
+        return await this.prisma.$transaction(async(tx) => {
 
-        const updateRrQuery = this.prisma.rR.update({
-            data: {
-                cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username,
-                approval_status: APPROVAL_STATUS.CANCELLED,
-                po: {
-                    disconnect: true
+            const rr_cancelled = await tx.rR.update({
+                data: {
+                    cancelled_at: new Date(),
+                    cancelled_by: this.authUser.user.username,
+                    approval_status: APPROVAL_STATUS.CANCELLED,
+                    po: {
+                        disconnect: true
+                    }
+                },
+                where: { id }
+            })
+    
+            // delete associated pending
+    
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.rr_number,
+                        reference_table: DB_ENTITY.RR
+                    }
                 }
-            },
-            where: { id }
-        })
+            })
 
-        queries.push(updateRrQuery)
+            if(pending) {
 
-        // delete associated pending
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
 
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.rr_number,
-                    reference_table: DB_ENTITY.RR
-                }
             }
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.RR,
+				action: 'CANCEL-RR',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': rr_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+              
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled RR',
+                cancelled_at: rr_cancelled.cancelled_at,
+                cancelled_by: rr_cancelled.cancelled_by
+            }
+
         })
 
-        queries.push(deleteAssociatedPending)
-
-        const result = await this.prisma.$transaction(queries)
-
-        return {
-            success: true,
-            msg: 'Successfully cancelled RR',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
 
     }
 

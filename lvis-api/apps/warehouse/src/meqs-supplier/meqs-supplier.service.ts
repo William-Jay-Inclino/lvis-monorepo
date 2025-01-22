@@ -8,6 +8,8 @@ import { MeqsSupplierAttachment } from '../meqs-supplier-attachment/entities/meq
 import axios from 'axios';
 import { isAdmin } from '../__common__/helpers';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class MeqsSupplierService {
@@ -16,13 +18,17 @@ export class MeqsSupplierService {
 
     constructor(
         private readonly prisma: PrismaService,
+                private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async create(input: CreateMeqsSupplierInput): Promise<MEQSSupplier> {
+    async create(
+        input: CreateMeqsSupplierInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<MEQSSupplier> {
 
         if (!this.canAccess(input.meqs_id)) {
             throw new ForbiddenException('Only Admin and Owner can create meqs supplier!')
@@ -52,25 +58,42 @@ export class MeqsSupplierService {
             }
         }
 
-        const created = await this.prisma.mEQSSupplier.create({
-            data,
-            include: {
-                supplier: true,
-                attachments: true,
-                meqs_supplier_items: {
-                    include: {
-                        canvass_item: {
-                            include: {
-                                unit: true,
-                                item: true
+        return await this.prisma.$transaction(async(tx) => {
+
+            const created = await tx.mEQSSupplier.create({
+                data,
+                include: {
+                    supplier: true,
+                    attachments: true,
+                    meqs_supplier_items: {
+                        include: {
+                            canvass_item: {
+                                include: {
+                                    unit: true,
+                                    item: true
+                                }
                             }
                         }
                     }
                 }
-            }
+            })
+            
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.MEQS_SUPPLIER,
+                action: 'CREATE-MEQS-SUPPLIER',
+                reference_id: created.id,
+                metadata: created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+            
+
+            return created
+
         })
 
-        return created
 
     }
 
@@ -94,42 +117,13 @@ export class MeqsSupplierService {
 
     }
 
-    async update(id: string, input: UpdateMeqsSupplierInput): Promise<MEQSSupplier> {
+    async update(
+        id: string, 
+        input: UpdateMeqsSupplierInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<MEQSSupplier> {
 
-        const existingItem = await this.findOne(id)
-
-        if (!this.canAccess(existingItem.meqs_id)) {
-            throw new ForbiddenException('Only Admin and Owner can update meqs supplier!')
-        }
-
-        const data: Prisma.MEQSSupplierUpdateInput = {
-            payment_terms: input.payment_terms ?? existingItem.payment_terms,
-        }
-
-        const queries = []
-
-        if (input.meqs_supplier_items) {
-
-            for (let item of input.meqs_supplier_items) {
-
-                const query = this.prisma.mEQSSupplierItem.update({
-                    where: {
-                        id: item.id
-                    },
-                    data: {
-                        price: item.price,
-                        vat_type: item.vat_type
-                    }
-                })
-
-                queries.push(query)
-
-            }
-
-        }
-
-        const updateMeqsSupplierQuery = this.prisma.mEQSSupplier.update({
-            data,
+        const existingItem = await this.prisma.mEQSSupplier.findUnique({
             where: { id },
             include: {
                 supplier: true,
@@ -147,15 +141,79 @@ export class MeqsSupplierService {
             }
         })
 
-        queries.push(updateMeqsSupplierQuery)
+        if (!this.canAccess(existingItem.meqs_id)) {
+            throw new ForbiddenException('Only Admin and Owner can update meqs supplier!')
+        }
 
-        const result = await this.prisma.$transaction(queries)
+        const data: Prisma.MEQSSupplierUpdateInput = {
+            payment_terms: input.payment_terms ?? existingItem.payment_terms,
+        }
 
-        return result[queries.length - 1]
+        return await this.prisma.$transaction(async(tx) => {
+
+            if (input.meqs_supplier_items) {
+    
+                for (let item of input.meqs_supplier_items) {
+    
+                    await tx.mEQSSupplierItem.update({
+                        where: {
+                            id: item.id
+                        },
+                        data: {
+                            price: item.price,
+                            vat_type: item.vat_type
+                        }
+                    })
+    
+                }
+    
+            }
+    
+            const meqs_supplier_updated = await tx.mEQSSupplier.update({
+                data,
+                where: { id },
+                include: {
+                    supplier: true,
+                    attachments: true,
+                    meqs_supplier_items: {
+                        include: {
+                            canvass_item: {
+                                include: {
+                                    unit: true,
+                                    item: true
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MEQS_SUPPLIER,
+				action: 'UPDATE-MEQS-SUPPLIER',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': meqs_supplier_updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+
+
+            return meqs_supplier_updated
+    
+        })
+
 
     }
 
-    async remove(id: string): Promise<WarehouseRemoveResponse> {
+    async remove(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseRemoveResponse> {
 
         const existingItem = await this.findOne(id)
 
@@ -172,15 +230,33 @@ export class MeqsSupplierService {
             this.deleteFiles(filePaths)
         }
 
+        return await this.prisma.$transaction(async(tx) => {
 
-        await this.prisma.mEQSSupplier.delete({
-            where: { id },
+            const deleted = await tx.mEQSSupplier.delete({
+                where: { id },
+            })
+
+            // create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MEQS_SUPPLIER,
+				action: 'DELETE-MEQS-SUPPLIER',
+				reference_id: id,
+				metadata: {
+					'deleted_value': deleted,
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+    
+
+            return {
+                success: true,
+                msg: "MEQS Supplier successfully deleted"
+            }
+
         })
 
-        return {
-            success: true,
-            msg: "MEQS Supplier successfully deleted"
-        }
 
     }
 

@@ -19,6 +19,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => RR)
@@ -31,6 +34,7 @@ export class RrResolver {
         private readonly rrService: RrService,
         private readonly rrApproverService: RrApproverService,
         private readonly poService: PoService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Mutation(() => RR)
@@ -38,7 +42,9 @@ export class RrResolver {
     @CheckAccess(MODULES.RR, RESOLVERS.createRr)
     async createRr(
         @Args('input') createRrInput: CreateRrInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -51,7 +57,10 @@ export class RrResolver {
             
             this.rrService.setAuthUser(authUser)
       
-            const x = await this.rrService.create(createRrInput);
+            const x = await this.rrService.create(createRrInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('RR created successfully')
       
@@ -103,7 +112,9 @@ export class RrResolver {
     async updateRr(
         @Args('id') id: string,
         @Args('input') updateRrInput: UpdateRrInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -116,7 +127,10 @@ export class RrResolver {
             })
             
             this.rrService.setAuthUser(authUser)
-            const x = await this.rrService.update(id, updateRrInput);
+            const x = await this.rrService.update(id, updateRrInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
       
             this.logger.log('RR updated successfully')
       
@@ -129,7 +143,9 @@ export class RrResolver {
     @Mutation(() => WarehouseCancelResponse)
     async cancelRr(
         @Args('id') id: string,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
 
@@ -141,7 +157,10 @@ export class RrResolver {
             })
       
             this.rrService.setAuthUser(authUser)
-            const x = await this.rrService.cancel(id);
+            const x = await this.rrService.cancel(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('RR cancelled successfully')
             

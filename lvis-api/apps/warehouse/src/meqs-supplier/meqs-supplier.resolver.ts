@@ -8,6 +8,9 @@ import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { Logger, UseGuards } from '@nestjs/common';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MeqsSupplier)
@@ -16,12 +19,17 @@ export class MeqsSupplierResolver {
   private readonly logger = new Logger(MeqsSupplierResolver.name);
   private filename = 'meqs-supplier.resolver.ts'
 
-  constructor(private readonly meqsSupplierService: MeqsSupplierService) { }
+  constructor(
+    private readonly meqsSupplierService: MeqsSupplierService,
+    private readonly audit: WarehouseAuditService,
+  ) { }
 
   @Mutation(() => MeqsSupplier)
   async createMeqsSupplier(
     @Args('input') createMeqsSupplierInput: CreateMeqsSupplierInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       this.logger.log({
@@ -33,7 +41,10 @@ export class MeqsSupplierResolver {
       
       this.meqsSupplierService.setAuthUser(authUser)
 
-      const x = await this.meqsSupplierService.create(createMeqsSupplierInput);
+      const x = await this.meqsSupplierService.create(createMeqsSupplierInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Meqs Supplier created successfully')
 
@@ -53,7 +64,9 @@ export class MeqsSupplierResolver {
   async updateMeqsSupplier(
     @Args('id') id: string,
     @Args('input') updateMeqsSupplierInput: UpdateMeqsSupplierInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -66,7 +79,10 @@ export class MeqsSupplierResolver {
       })
       
       this.meqsSupplierService.setAuthUser(authUser)
-      const x = await this.meqsSupplierService.update(id, updateMeqsSupplierInput);
+      const x = await this.meqsSupplierService.update(id, updateMeqsSupplierInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('MEQS Supplier updated successfully')
 
@@ -79,7 +95,9 @@ export class MeqsSupplierResolver {
   @Mutation(() => WarehouseRemoveResponse)
   async removeMeqsSupplier(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
       try {
@@ -92,7 +110,10 @@ export class MeqsSupplierResolver {
         })
 
         this.meqsSupplierService.setAuthUser(authUser)
-        const x = await this.meqsSupplierService.remove(id);
+        const x = await this.meqsSupplierService.remove(id, {
+          ip_address,
+          device_info: this.audit.getDeviceInfo(user_agent)
+        });
         
         this.logger.log('MEQS Supplier cancelled successfully')
         

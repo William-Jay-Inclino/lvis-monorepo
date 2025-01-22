@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMeqsSupplierItemInput } from './dto/create-meqs-supplier-item.input';
 import { UpdateMeqsSupplierItemInput } from './dto/update-meqs-supplier-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
@@ -6,14 +6,18 @@ import { MEQSSupplierItem, Prisma } from 'apps/warehouse/prisma/generated/client
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { isAdmin } from '../__common__/helpers';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class MeqsSupplierItemService {
 
-	private readonly logger = new Logger(MeqsSupplierItemService.name)
 	private authUser: AuthUser
 
-	constructor(private readonly prisma: PrismaService) { }
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly audit: WarehouseAuditService,
+	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
@@ -109,7 +113,12 @@ export class MeqsSupplierItemService {
 
 	}
 
-	async awardSupplier(id: string, meqs_supplier_id: string, canvass_item_id: string): Promise<WarehouseRemoveResponse> {
+	async awardSupplier(
+		id: string, 
+		meqs_supplier_id: string, 
+		canvass_item_id: string, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<WarehouseRemoveResponse> {
 
 		if (!this.canAccess(meqs_supplier_id)) {
 			throw new ForbiddenException('Only Admin and Owner can award meqs supplier item!')
@@ -144,50 +153,63 @@ export class MeqsSupplierItemService {
 			throw new NotFoundException("MEQS Supplier Item not found with ID of " + id)
 		}
 
-		const queries = []
+		return await this.prisma.$transaction(async(tx) => {
 
-		const suppliers = meqsSupplier.meqs.meqs_suppliers
+			const suppliers = meqsSupplier.meqs.meqs_suppliers
+	
+			for (let supplier of suppliers) {
+	
+				const item = supplier.meqs_supplier_items.find(i => i.canvass_item_id === canvass_item_id)
+	
+				if (item) {
+	
+					await tx.mEQSSupplierItem.update({
+						where: {
+							id: item.id
+						},
+						data: {
+							is_awarded: false,
+						}
+					})
+	
+				}
+	
+			}
+	
+			const updated = await tx.mEQSSupplierItem.update({
+				where: { id },
+				data: {
+					is_awarded: true,
+				}
+			})
 
-		for (let supplier of suppliers) {
-
-			const item = supplier.meqs_supplier_items.find(i => i.canvass_item_id === canvass_item_id)
-
-			if (item) {
-
-				const query = this.prisma.mEQSSupplierItem.update({
-					where: {
-						id: item.id
-					},
-					data: {
-						is_awarded: false,
-					}
-				})
-
-				queries.push(query)
-
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MEQS_SUPPLIER_ITEM,
+				action: 'AWARD-MEQS-SUPPLIER-ITEM',
+				reference_id: updated.id,
+				metadata: updated,
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+	
+			return {
+				success: true,
+				msg: 'Supplier awarded successfully!'
 			}
 
-		}
-
-		const awardSupplierQuery = this.prisma.mEQSSupplierItem.update({
-			where: { id },
-			data: {
-				is_awarded: true,
-			}
 		})
 
-		queries.push(awardSupplierQuery)
-
-		const result = await this.prisma.$transaction(queries)
-
-		return {
-			success: true,
-			msg: 'Supplier awarded successfully!'
-		}
 
 	}
 
-	async attachNote(meqs_id: string, canvass_item_id: string, notes: string): Promise<WarehouseRemoveResponse> {
+	async attachNote(
+		meqs_id: string, 
+		canvass_item_id: string, 
+		notes: string, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<WarehouseRemoveResponse> {
 
 
 		const meqs = await this.prisma.mEQS.findUnique({
@@ -214,37 +236,56 @@ export class MeqsSupplierItemService {
             throw new ForbiddenException('Only Admin and Owner can attach note!')
         }
 
-		const queries = []
+		return await this.prisma.$transaction(async(tx) => {
 
-		const suppliers = meqs.meqs_suppliers
+			const suppliers = meqs.meqs_suppliers
 
-		for (let supplier of suppliers) {
+			const items_noted: MEQSSupplierItem[] = []
 
-			const item = supplier.meqs_supplier_items.find(i => i.canvass_item_id === canvass_item_id)
+			for (let supplier of suppliers) {
+	
+				const item = supplier.meqs_supplier_items.find(i => i.canvass_item_id === canvass_item_id)
+	
+				if (item) {
+	
+					const meqs_supplier_item = await tx.mEQSSupplierItem.update({
+						where: {
+							id: item.id
+						},
+						data: {
+							notes,
+						}
+					})
 
-			if (item) {
+					items_noted.push(meqs_supplier_item)
+	
+				}
+	
+			}
 
-				const query = this.prisma.mEQSSupplierItem.update({
-					where: {
-						id: item.id
-					},
-					data: {
-						notes,
-					}
-				})
+			for(let item of items_noted) {
 
-				queries.push(query)
+				// create audit
+				await this.audit.createAuditEntry({
+					username: this.authUser.user.username,
+					table: DB_TABLE.MEQS_SUPPLIER_ITEM,
+					action: 'ATTACH-REMARKS-MEQS-SUPPLIER-ITEM',
+					reference_id: item.id,
+					metadata: item,
+					ip_address: metadata.ip_address,
+					device_info: metadata.device_info
+				}, tx as Prisma.TransactionClient)
 
 			}
 
-		}
+	
+			return {
+				success: true,
+				msg: 'Successfully attached note!'
+			}
 
-		const result = await this.prisma.$transaction(queries)
+		})
 
-		return {
-			success: true,
-			msg: 'Successfully attached note!'
-		}
 
 	}
 

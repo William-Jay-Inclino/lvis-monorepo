@@ -7,19 +7,27 @@ import { WarehouseRemoveResponse } from '../__common__/classes';
 import axios from 'axios';
 import { isAdmin } from '../__common__/helpers';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class MeqsSupplierAttachmentService {
 
     private authUser: AuthUser
 
-    constructor(private readonly prisma: PrismaService) { }
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly audit: WarehouseAuditService,
+    ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async create(input: CreateMeqsSupplierAttachmentInput): Promise<MEQSSupplierAttachment> {
+    async create(
+        input: CreateMeqsSupplierAttachmentInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<MEQSSupplierAttachment> {
 
         if (!this.canAccess(input.meqs_supplier_id)) {
             throw new ForbiddenException('Only Admin and Owner can create meqs supplier attachment!')
@@ -31,14 +39,30 @@ export class MeqsSupplierAttachmentService {
             filename: input.filename,
         }
 
-        const created = await this.prisma.mEQSSupplierAttachment.create({
-            data,
-            include: {
-                meqs_supplier: true
-            }
+        return await this.prisma.$transaction(async(tx) => {
+            
+            const created = await tx.mEQSSupplierAttachment.create({
+                data,
+                include: {
+                    meqs_supplier: true
+                }
+            })
+
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.MEQS_SUPPLIER_ATTACHMENT,
+                action: 'CREATE-MEQS-SUPPLIER-ATTACHMENT',
+                reference_id: created.id,
+                metadata: created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return created
+
         })
 
-        return created
 
 
     }
@@ -60,7 +84,11 @@ export class MeqsSupplierAttachmentService {
 
     }
 
-    async update(id: string, input: UpdateMeqsSupplierAttachmentInput): Promise<MEQSSupplierAttachment> {
+    async update(
+        id: string, 
+        input: UpdateMeqsSupplierAttachmentInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<MEQSSupplierAttachment> {
 
         const existingItem = await this.findOne(id)
 
@@ -72,20 +100,43 @@ export class MeqsSupplierAttachmentService {
             src: input.src ?? existingItem.src,
             filename: input.filename ?? existingItem.filename,
         }
+        
+        return await this.prisma.$transaction(async(tx) => {
 
-        const updated = await this.prisma.mEQSSupplierAttachment.update({
-            data,
-            where: { id },
-            include: {
-                meqs_supplier: true
-            }
+            const updated = await tx.mEQSSupplierAttachment.update({
+                data,
+                where: { id },
+                include: {
+                    meqs_supplier: true
+                }
+            })
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MEQS_SUPPLIER_ATTACHMENT,
+				action: 'UPDATE-MEQS-SUPPLIER-ATTACHMENT',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+
+    
+            return updated
+
         })
 
-        return updated
 
     }
 
-    async remove(id: string): Promise<WarehouseRemoveResponse> {
+    async remove(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseRemoveResponse> {
 
         const existingItem = await this.findOne(id)
 
@@ -93,16 +144,35 @@ export class MeqsSupplierAttachmentService {
             throw new ForbiddenException('Only Admin and Owner can remove meqs supplier!')
         }
 
-        await this.prisma.mEQSSupplierAttachment.delete({
-            where: { id },
+        return await this.prisma.$transaction(async(tx) => {
+
+            const deleted = await tx.mEQSSupplierAttachment.delete({
+                where: { id },
+            })
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MEQS_SUPPLIER_ATTACHMENT,
+				action: 'DELETE-MEQS-SUPPLIER-ATTACHMENT',
+				reference_id: id,
+				metadata: {
+					'deleted_value': deleted
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+
+    
+            this.deleteFiles([existingItem.src])
+    
+            return {
+                success: true,
+                msg: "MEQS Supplier Attachment successfully deleted"
+            }
+
         })
 
-        this.deleteFiles([existingItem.src])
-
-        return {
-            success: true,
-            msg: "MEQS Supplier Attachment successfully deleted"
-        }
 
     }
 

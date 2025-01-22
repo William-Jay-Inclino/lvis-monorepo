@@ -7,10 +7,11 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { RR } from './entities/rr.entity';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { VAT_TYPE } from '../__common__/types';
+import { DB_TABLE, VAT_TYPE } from '../__common__/types';
 import { RrItem } from '../rr-item/entities/rr-item.entity';
 import { UPLOADS_PATH } from '../__common__/config';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class RrPdfService {
@@ -21,14 +22,14 @@ export class RrPdfService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async generatePdf(rr: RR) {
-        // const browser = await puppeteer.launch();
+    async generatePdf(rr: RR, metadata: { ip_address: string, device_info: any }) {
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -466,6 +467,16 @@ export class RrPdfService {
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
+
+        // create audit
+        await this.audit.createAuditEntry({
+            username: this.authUser.user.username,
+            table: DB_TABLE.RR,
+            action: 'PRINT-RR',
+            reference_id: rr.id,
+            ip_address: metadata.ip_address,
+            device_info: metadata.device_info
+        })
 
         return pdfBuffer;
     }

@@ -108,6 +108,9 @@ export enum DB_TABLE {
     SPR = 'spare_parts_request',
     JO = 'job_order',
     MEQS = 'material_equipment_quotation_summary',
+    MEQS_SUPPLIER = 'meqs_supplier',
+    MEQS_SUPPLIER_ITEM = 'meqs_supplier_item',
+    MEQS_SUPPLIER_ATTACHMENT = 'meqs_supplier_attachment',
     PO = 'purchase_order',
     
     // WAREHOUSE

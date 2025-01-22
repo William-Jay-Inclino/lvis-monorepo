@@ -8,6 +8,9 @@ import { WarehouseRemoveResponse } from '../__common__/classes';
 import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MeqsSupplierItem)
@@ -16,12 +19,17 @@ export class MeqsSupplierItemResolver {
   private readonly logger = new Logger(MeqsSupplierItemResolver.name);
   private filename = 'meqs-supplier-item.resolver.ts'
   
-  constructor(private readonly meqsSupplierItemService: MeqsSupplierItemService) { }
+  constructor(
+    private readonly meqsSupplierItemService: MeqsSupplierItemService,
+    private readonly audit: WarehouseAuditService,
+  ) { }
 
   @Mutation(() => MeqsSupplierItem)
   async createMeqsSupplierItem(
     @Args('input') createMeqsSupplierItemInput: CreateMeqsSupplierItemInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -113,7 +121,9 @@ export class MeqsSupplierItemResolver {
     @Args('id') id: string,
     @Args('meqs_supplier_id') meqs_supplier_id: string,
     @Args('canvass_item_id') canvass_item_id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -128,7 +138,10 @@ export class MeqsSupplierItemResolver {
       })
 
       this.meqsSupplierItemService.setAuthUser(authUser)
-      const x = await this.meqsSupplierItemService.awardSupplier(id, meqs_supplier_id, canvass_item_id);
+      const x = await this.meqsSupplierItemService.awardSupplier(id, meqs_supplier_id, canvass_item_id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('MEQS Supplier Item awarded successfully')
       
@@ -145,7 +158,9 @@ export class MeqsSupplierItemResolver {
     @Args('meqs_id') meqs_id: string,
     @Args('canvass_item_id') canvass_item_id: string,
     @Args('notes') notes: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -160,7 +175,10 @@ export class MeqsSupplierItemResolver {
       })
 
       this.meqsSupplierItemService.setAuthUser(authUser)
-      const x = await this.meqsSupplierItemService.attachNote(meqs_id, canvass_item_id, notes);
+      const x = await this.meqsSupplierItemService.attachNote(meqs_id, canvass_item_id, notes, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('MEQS Supplier Item attached note successfully')
       

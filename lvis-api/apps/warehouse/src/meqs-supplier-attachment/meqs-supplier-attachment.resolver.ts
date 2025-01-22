@@ -8,6 +8,9 @@ import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { Logger, UseGuards } from '@nestjs/common';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { UserAgent } from '../__auth__/user-agent.decorator';
+import { IpAddress } from '../__auth__/ip-address.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MeqsSupplierAttachment)
@@ -16,12 +19,17 @@ export class MeqsSupplierAttachmentResolver {
   private readonly logger = new Logger(MeqsSupplierAttachmentResolver.name);
   private filename = 'meqs-supplier-attachment.resolver.ts'
   
-  constructor(private readonly meqsSupplierAttachmentService: MeqsSupplierAttachmentService) { }
+  constructor(
+    private readonly meqsSupplierAttachmentService: MeqsSupplierAttachmentService,
+    private readonly audit: WarehouseAuditService,
+  ) { }
 
   @Mutation(() => MeqsSupplierAttachment)
   async createMeqsSupplierAttachment(
     @Args('input') createMeqsSupplierAttachmentInput: CreateMeqsSupplierAttachmentInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -34,7 +42,10 @@ export class MeqsSupplierAttachmentResolver {
       
       this.meqsSupplierAttachmentService.setAuthUser(authUser)
 
-      const x = await this.meqsSupplierAttachmentService.create(createMeqsSupplierAttachmentInput);
+      const x = await this.meqsSupplierAttachmentService.create(createMeqsSupplierAttachmentInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('MEQS Supplier Attachment created successfully')
 
@@ -56,7 +67,9 @@ export class MeqsSupplierAttachmentResolver {
   async updateMeqsSupplierAttachment(
     @Args('id') id: string,
     @Args('input') updateMeqsSupplierAttachmentInput: UpdateMeqsSupplierAttachmentInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -70,7 +83,10 @@ export class MeqsSupplierAttachmentResolver {
       })
       
       this.meqsSupplierAttachmentService.setAuthUser(authUser)
-      const x = await this.meqsSupplierAttachmentService.update(id, updateMeqsSupplierAttachmentInput);
+      const x = await this.meqsSupplierAttachmentService.update(id, updateMeqsSupplierAttachmentInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('MEQS Supplier Attachment updated successfully')
 
@@ -84,7 +100,9 @@ export class MeqsSupplierAttachmentResolver {
   @Mutation(() => WarehouseRemoveResponse)
   async removeMeqsSupplierAttachment(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
 
@@ -96,7 +114,10 @@ export class MeqsSupplierAttachmentResolver {
       })
 
       this.meqsSupplierAttachmentService.setAuthUser(authUser)
-      const x = await this.meqsSupplierAttachmentService.remove(id);
+      const x = await this.meqsSupplierAttachmentService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('MEQS Supplier Attachment removed successfully')
       
