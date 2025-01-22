@@ -380,26 +380,25 @@ export class MeqsPdfService {
     }
 
     private getAwardedSuppliers(meqs_suppliers: MeqsSupplier[], canvass_items: CanvassItem[]): MeqsSupplier[] {
-
-        const awardedMeqsSupplier: MeqsSupplier[] = []
-
-        for(let canvassItem of canvass_items) {
-
-            for(let meqsSupplier of meqs_suppliers) {
-
-                for(let meqsSupplierItem of meqsSupplier.meqs_supplier_items) {
-
-                    if(meqsSupplierItem.canvass_item_id === canvassItem.id && meqsSupplierItem.is_awarded) {
-                        awardedMeqsSupplier.push(meqsSupplier)
+        const awardedMeqsSupplier: MeqsSupplier[] = [];
+        const supplierIds = new Set<string>(); // Track unique supplier IDs
+    
+        for (const canvassItem of canvass_items) {
+            for (const meqsSupplier of meqs_suppliers) {
+                for (const meqsSupplierItem of meqsSupplier.meqs_supplier_items) {
+                    if (
+                        meqsSupplierItem.canvass_item_id === canvassItem.id &&
+                        meqsSupplierItem.is_awarded &&
+                        !supplierIds.has(meqsSupplier.id) // Check for uniqueness
+                    ) {
+                        awardedMeqsSupplier.push(meqsSupplier);
+                        supplierIds.add(meqsSupplier.id); // Add supplier ID to the set
                     }
-
                 }
-
             }
-
         }
-
-        return awardedMeqsSupplier
+    
+        return awardedMeqsSupplier;
     }
     
     private async getEmployee(employeeId: string, authUser: AuthUser) {
