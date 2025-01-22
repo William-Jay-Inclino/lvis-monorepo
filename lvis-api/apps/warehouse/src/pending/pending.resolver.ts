@@ -8,6 +8,9 @@ import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { UpdateApproverNotesInput } from './entities/update-approver-notes.input';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Pending)
@@ -16,11 +19,16 @@ export class PendingResolver {
     private readonly logger = new Logger(PendingResolver.name);
     private filename = 'pending.resolver.ts'
 
-  constructor(private readonly pendingService: PendingService) {}
+  constructor(
+    private readonly pendingService: PendingService,
+    private readonly audit: WarehouseAuditService,
+  ) {}
 
   @Mutation(() => PendingResponse)
   async approve_pending(
     @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
     @Args('id', { type: () => Int }) id: number,
     @Args('remarks', { type: () => String }) remarks: string,
     @Args('classification_id', { type: () => String, nullable: true }) classification_id?: string | null,
@@ -46,6 +54,9 @@ export class PendingResolver {
           remarks,
           classification_id,
           fund_source_id
+        }, {
+          ip_address,
+          device_info: this.audit.getDeviceInfo(user_agent)
         })
         
         this.logger.log('Pending approved successfully')
@@ -61,6 +72,8 @@ export class PendingResolver {
   @Mutation(() => PendingResponse)
   async disapprove_pending(
     @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
     @Args('id', { type: () => Int }) id: number,
     @Args('remarks', { type: () => String }) remarks: string,
     @Args('classification_id', { type: () => String, nullable: true }) classification_id?: string | null,
@@ -86,6 +99,9 @@ export class PendingResolver {
           remarks,
           classification_id,
           fund_source_id
+        }, {
+          ip_address,
+          device_info: this.audit.getDeviceInfo(user_agent)
         })
         
         this.logger.log('Pending disapproved successfully')
@@ -101,6 +117,8 @@ export class PendingResolver {
   @Mutation(() => PendingResponse)
   async update_approver_notes(
     @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
     @Args('input') input: UpdateApproverNotesInput,
   ): Promise<PendingResponse> {
     const { pending_id, notes } = input;
@@ -115,7 +133,10 @@ export class PendingResolver {
       })
 
       this.pendingService.setAuthUser(authUser)
-      const x = await this.pendingService.update_approver_notes(pending_id, notes);
+      const x = await this.pendingService.update_approver_notes(pending_id, notes, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log(x.msg)
 

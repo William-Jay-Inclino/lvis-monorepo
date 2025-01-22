@@ -128,6 +128,7 @@ export enum DB_TABLE {
 
 
     // DATA MANAGEMENT
+    PENDING = 'pending',
     ITEM_TYPE = 'item_type',
     SUPPLIER = 'supplier',
     UNIT = 'unit',

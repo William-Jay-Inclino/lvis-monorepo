@@ -1,7 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { MRVItem, MSTItem, OSRIVItem, Pending, Prisma, SERIVItem, MCRTItem as _MCRTItem } from 'apps/warehouse/prisma/generated/client';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { APPROVAL_STATUS, ITEM_TRANSACTION_TYPE } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE, ITEM_TRANSACTION_TYPE } from '../__common__/types';
 import { DB_ENTITY, ITEM_TYPE_CODE, ModuleMapping, WAREHOUSE_REQUEST_TYPE } from '../__common__/constants';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -12,6 +12,7 @@ import { ItemService } from '../item/item.service';
 import { TRIP_TICKET_STATUS } from '../trip-ticket/entities/trip-ticket.enums';
 import { CommonService } from '../__common__/classes';
 import { PendingResponse } from './entities/pending-response.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class PendingService {
@@ -24,29 +25,50 @@ export class PendingService {
         private readonly httpService: HttpService,
         private readonly itemService: ItemService,
         private readonly commonService: CommonService,
+        private readonly audit: WarehouseAuditService,
     ) {}
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async update_approver_notes(pending_id: number, notes: string): Promise<PendingResponse> {
+    async update_approver_notes(
+        pending_id: number, 
+        notes: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<PendingResponse> {
 
         try {
 
-            await this.prisma.pending.update({
-                where: {
-                    id: pending_id
-                },
-                data: {
-                    approver_notes: notes
+            return await this.prisma.$transaction(async(tx) => {
+
+                const pending = await tx.pending.update({
+                    where: {
+                        id: pending_id
+                    },
+                    data: {
+                        approver_notes: notes
+                    }
+                })
+
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.PENDING,
+                action: 'COMMENT-PENDING',
+                reference_id: pending.id.toString(),
+                metadata: pending,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+                return {
+                    success: true,
+                    msg: 'Notes added successfully'
                 }
+
             })
 
-            return {
-                success: true,
-                msg: 'Notes added successfully'
-            }
             
         } catch (error) {
             throw new Error(`Error in updating pending. pending_id: ${pending_id}, notes: ${notes}`)
@@ -54,13 +76,16 @@ export class PendingService {
 
     }
 
-    async approveOrDisapprovePending(payload: {
-        id: number, 
-        status: APPROVAL_STATUS,
-        remarks: string,
-        classification_id?: string,
-        fund_source_id?: string
-    }) {
+    async approveOrDisapprovePending(
+        payload: {
+            id: number, 
+            status: APPROVAL_STATUS,
+            remarks: string,
+            classification_id?: string,
+            fund_source_id?: string
+        }, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         const {
             id,
@@ -79,6 +104,7 @@ export class PendingService {
             const module = getModule(pending.reference_table as DB_ENTITY)
             const model = await this.get_model(tx as Prisma.TransactionClient, module, pending)
             const approverModel = await this.get_approver_model(tx as Prisma.TransactionClient, module, model.id, pending.approver_id)
+            let audit_action: 'APPROVE-PENDING' | 'DISAPPROVE-PENDING'
 
             // update approver status and notes
             await tx[module.approverModel].update({
@@ -100,6 +126,8 @@ export class PendingService {
             })
 
             if(status === APPROVAL_STATUS.APPROVED) {
+
+                audit_action = 'APPROVE-PENDING'
 
                 // get the next in line approver
                 const newPending = await tx[module.approverModel].findFirst({
@@ -140,6 +168,8 @@ export class PendingService {
 
             } 
             else if(status === APPROVAL_STATUS.DISAPPROVED) {
+
+                audit_action = 'DISAPPROVE-PENDING'
 
                 if(module.model === 'tripTicket') {
                     await tx.tripTicket.update({
@@ -235,6 +265,17 @@ export class PendingService {
                 else if(module.model === 'tripTicket') await this.handle_trip_ticket_completion_of_approvals(tx as Prisma.TransactionClient, model.id)
 
             }
+
+            // create audit
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: pending.reference_table as DB_TABLE,
+                action: audit_action,
+                reference_id: pending.reference_number,
+                metadata: pending,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
 
             return {
                 success: true,
