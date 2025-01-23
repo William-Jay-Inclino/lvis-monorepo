@@ -3,9 +3,10 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { MSTApprover } from 'apps/warehouse/prisma/generated/client';
 import { ChangeMstApproverInput } from './dto/change-mst-approver.input';
 import { DB_ENTITY } from '../__common__/constants';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
-import { getModule } from '../__common__/helpers';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class MstApproverService {
@@ -14,13 +15,18 @@ export class MstApproverService {
 
     constructor(
         private readonly prisma: PrismaService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async changeApprover(id: string, input: ChangeMstApproverInput) {
+    async changeApprover(
+        id: string, 
+        input: ChangeMstApproverInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
         return this.prisma.$transaction(async (prisma) => {
             const item = await prisma.mSTApprover.findUnique({
                 where: { id },
@@ -110,6 +116,19 @@ export class MstApproverService {
                     approver_id: input.new_approver_id,
                 },
             });
+
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.MST_APPROVER,
+                action: 'CHANGE-MST-APPROVER',
+                reference_id: id,
+                metadata: {
+                    'old_approver_id': item.approver_id,
+                    'new_approver_id': input.new_approver_id,
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, prisma as Prisma.TransactionClient)
 
             return updateMstApprover;
         });

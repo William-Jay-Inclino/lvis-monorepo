@@ -4,9 +4,10 @@ import { MstResolver } from './mst.resolver';
 import { HttpModule } from '@nestjs/axios';
 import { MstApproverService } from '../mst-approver/mst-approver.service';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [MstResolver, MstService, MstApproverService, WinstonLoggerService],
 })
 export class MstModule {}

@@ -1,7 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateMstItemSubInput } from '../mst/dto/create-mst-item.sub.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class MstItemService {
@@ -10,15 +13,31 @@ export class MstItemService {
 
 	constructor(
 		private readonly prisma: PrismaService,
+		private readonly audit: WarehouseAuditService,
 	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async updateMstItems(mstId: string, items: CreateMstItemSubInput[]) {
+	async updateMstItems(
+		mstId: string, 
+		items: CreateMstItemSubInput[], 
+		metadata: { ip_address: string, device_info: any }
+	) {
 		return this.prisma.$transaction(async (prisma) => {
+
+			const existingMst = await prisma.mST.findUnique({
+				where: { id: mstId },
+				include: {
+					mst_items: true
+				}
+			})
 	
+			if(!existingMst) {
+				throw new NotFoundException('MST not found with id: ' + mstId)
+			}
+			
 			// Delete all previous mst items
 			await prisma.mSTItem.deleteMany({
 				where: { mst_id: mstId },
@@ -37,23 +56,28 @@ export class MstItemService {
 				});
 			}
 
-			// Return all mst items after update
-			const updatedMstItems = await prisma.mSTItem.findMany({
-				where: {
-					mst_id: mstId,
-				},
+			const updated_mst = await prisma.mST.findUnique({
+				where: { id: mstId },
 				include: {
-					item: {
-						include: {
-							item_type: true,
-							unit: true,
-							item_transactions: true,
-						}
-					} 
+					mst_items: true
 				}
-			});
+			})
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MST_ITEM,
+				action: 'UPDATE-MST-ITEMS',
+				reference_id: mstId,
+				metadata: {
+					'old_value': existingMst,
+					'new_value': updated_mst,
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, prisma as Prisma.TransactionClient)
 	
-			return updatedMstItems;
+
+			return updated_mst;
 
 		});
 	}

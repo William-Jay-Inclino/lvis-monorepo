@@ -7,6 +7,9 @@ import { ChangeMstApproverInput } from './dto/change-mst-approver.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { MstApproverService } from './mst-approver.service';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MSTApprover)
@@ -16,7 +19,8 @@ export class MstApproverResolver {
   private filename = 'mst-approver.resolver.ts'
 
   constructor(
-      private readonly mstApproverService: MstApproverService
+      private readonly mstApproverService: MstApproverService,
+      private readonly audit: WarehouseAuditService,
   ) { }
 
   @ResolveField(() => Employee)
@@ -28,7 +32,9 @@ export class MstApproverResolver {
   async changeMstApprover(
       @Args('id') id: string,
       @Args('input') changeMstApproverInput: ChangeMstApproverInput,
-      @CurrentAuthUser() authUser: AuthUser
+      @CurrentAuthUser() authUser: AuthUser,
+      @UserAgent() user_agent: string,
+      @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -42,7 +48,10 @@ export class MstApproverResolver {
       
       this.mstApproverService.setAuthUser(authUser)
 
-      const x = await this.mstApproverService.changeApprover(id, changeMstApproverInput);
+      const x = await this.mstApproverService.changeApprover(id, changeMstApproverInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('MST Approver changed successfully')
 

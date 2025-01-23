@@ -2,8 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateMstInput } from './dto/create-mst.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { MST, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { APPROVAL_STATUS } from '../__common__/types';
-import { CreateMstApproverSubInput } from './dto/create-mst-approver.sub.input';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
 import { UpdateMstInput } from './dto/update-mst.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
@@ -14,6 +13,7 @@ import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class MstService {
@@ -23,13 +23,17 @@ export class MstService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async create(input: CreateMstInput) {
+    async create(
+        input: CreateMstInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create MST. Please try again')
@@ -72,7 +76,13 @@ export class MstService {
 
         return await this.prisma.$transaction(async (tx) => {
 
-            const mst_created = await tx.mST.create({ data })
+            const mst_created = await tx.mST.create({
+                data,
+                include: {
+                    mst_approvers: true,
+                    mst_items: true,
+                }
+            })
 
             const firstApprover = input.approvers.reduce((min, obj) => {
                 return obj.order < min.order ? obj : min;
@@ -96,19 +106,30 @@ export class MstService {
 
             await tx.pending.create({ data: pendingData })
 
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.MST,
+                action: 'CREATE-MST',
+                reference_id: mst_created.id,
+                metadata: mst_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
             return mst_created
         });
     
 
     }
 
-    async update(id: string, input: UpdateMstInput) {
+    async update(
+        id: string, 
+        input: UpdateMstInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         const existingItem = await this.prisma.mST.findUnique({
             where: { id },
-            include: {
-                mst_approvers: true
-            }
         })
 
         if (!existingItem) {
@@ -171,6 +192,19 @@ export class MstService {
                     }
                 })
             }
+
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MST,
+				action: 'UPDATE-MST',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': mst_updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
             
             return mst_updated
 
@@ -178,7 +212,10 @@ export class MstService {
 
     }
 
-    async cancel(id: string): Promise<WarehouseCancelResponse> {
+    async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.mST.findUnique({
             where: { id },
@@ -192,40 +229,58 @@ export class MstService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-        
-        const updateMstQuery = this.prisma.mST.update({
-            data: {
-                cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username,
-                approval_status: APPROVAL_STATUS.CANCELLED,
-            },
-            where: { id }
-        })
+        return await this.prisma.$transaction(async(tx) => {
 
-        queries.push(updateMstQuery)
-
-        // delete associated pending
-
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.mst_number,
-                    reference_table: DB_ENTITY.MST
+            const mst_cancelled = await tx.mST.update({
+                data: {
+                    cancelled_at: new Date(),
+                    cancelled_by: this.authUser.user.username,
+                    approval_status: APPROVAL_STATUS.CANCELLED,
+                },
+                where: { id }
+            })
+    
+            // delete associated pending
+    
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.mst_number,
+                        reference_table: DB_ENTITY.MST
+                    }
                 }
+            })
+
+            if(pending) {
+
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
+
             }
+
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MST,
+				action: 'CANCEL-MST',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': mst_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled MST',
+                cancelled_at: mst_cancelled.cancelled_at,
+                cancelled_by: mst_cancelled.cancelled_by
+            }
+
         })
 
-        queries.push(deleteAssociatedPending)
-
-        const result = await this.prisma.$transaction(queries)
-
-        return {
-            success: true,
-            msg: 'Successfully cancelled MST',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
 
     }
 

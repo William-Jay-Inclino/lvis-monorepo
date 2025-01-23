@@ -112,6 +112,7 @@ export class McrtService {
                 data,
                 include: {
                     mcrt_items: true,
+                    mcrt_approvers: true,
                 }
             })
 

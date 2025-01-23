@@ -17,6 +17,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MST)
@@ -27,7 +30,8 @@ export class MstResolver {
 
     constructor(
         private readonly mstService: MstService,
-        private readonly mstApproverService: MstApproverService
+        private readonly mstApproverService: MstApproverService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Mutation(() => MST)
@@ -35,7 +39,9 @@ export class MstResolver {
     @CheckAccess(MODULES.MST, RESOLVERS.createMst)
     async createMst(
         @Args('input') createMstInput: CreateMstInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -48,7 +54,10 @@ export class MstResolver {
             
             this.mstService.setAuthUser(authUser)
       
-            const x = await this.mstService.create(createMstInput);
+            const x = await this.mstService.create(createMstInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MST created successfully')
       
@@ -96,7 +105,9 @@ export class MstResolver {
     async updateMst(
         @Args('id') id: string,
         @Args('input') updateMstInput: UpdateMstInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -110,7 +121,10 @@ export class MstResolver {
             })
             
             this.mstService.setAuthUser(authUser)
-            const x = await this.mstService.update(id, updateMstInput);
+            const x = await this.mstService.update(id, updateMstInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
       
             this.logger.log('MST updated successfully')
       
@@ -124,7 +138,9 @@ export class MstResolver {
     @Mutation(() => WarehouseCancelResponse)
     async cancelMst(
         @Args('id') id: string,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -137,7 +153,10 @@ export class MstResolver {
             })
       
             this.mstService.setAuthUser(authUser)
-            const x = await this.mstService.cancel(id);
+            const x = await this.mstService.cancel(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MST cancelled successfully')
             
