@@ -17,6 +17,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MCT)
@@ -29,6 +32,7 @@ export class MctResolver {
         private readonly mctService: MctService,
         private readonly mrvService: MrvService,
         private readonly mctApproverService: MctApproverService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Mutation(() => MCT)
@@ -36,7 +40,9 @@ export class MctResolver {
     @CheckAccess(MODULES.MCT, RESOLVERS.createMct)
     async createMct(
         @Args('input') createMctInput: CreateMctInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
             this.logger.log({
@@ -48,7 +54,10 @@ export class MctResolver {
             
             this.mctService.setAuthUser(authUser)
       
-            const x = await this.mctService.create(createMctInput);
+            const x = await this.mctService.create(createMctInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MCT created successfully')
       
@@ -94,7 +103,9 @@ export class MctResolver {
     @Mutation(() => WarehouseCancelResponse)
     async cancelMct(
         @Args('id') id: string,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
 
@@ -106,7 +117,10 @@ export class MctResolver {
             })
       
             this.mctService.setAuthUser(authUser)
-            const x = await this.mctService.cancel(id);
+            const x = await this.mctService.cancel(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MCT cancelled successfully')
             

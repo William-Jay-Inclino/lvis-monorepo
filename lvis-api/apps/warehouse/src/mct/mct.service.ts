@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateMctInput } from './dto/create-mct.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { MCT, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
 import { UpdateMctInput } from './dto/update-mct.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
@@ -13,6 +13,7 @@ import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class MctService {
@@ -22,13 +23,17 @@ export class MctService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async create(input: CreateMctInput) {
+    async create(
+        input: CreateMctInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create MCT. Please try again')
@@ -77,7 +82,8 @@ export class MctService {
                             requested_by_id: true,
                             purpose: true,
                         }
-                    }
+                    },
+                    mct_approvers: true,
                 }
             })
 
@@ -101,12 +107,25 @@ export class MctService {
 
             await tx.pending.create({ data: pendingData })
 
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.MCT,
+                action: 'CREATE-MCT',
+                reference_id: mct_created.id,
+                metadata: mct_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
             return mct_created
         });
     
     }
 
-    async cancel(id: string): Promise<WarehouseCancelResponse> {
+    async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.mCT.findUnique({
             include: {
@@ -127,60 +146,76 @@ export class MctService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-        
-        const updateMctQuery = this.prisma.mCT.update({
-            data: {
-                cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username,
-                approval_status: APPROVAL_STATUS.CANCELLED,
-                mrv: {
-                    disconnect: true
-                }
-            },
-            where: { id }
-        })
+        return await this.prisma.$transaction(async(tx) => {
 
-        queries.push(updateMctQuery)
-
-        // delete associated pending
-
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.mct_number,
-                    reference_table: DB_ENTITY.MCT
-                }
-            }
-        })
-
-        queries.push(deleteAssociatedPending)
-
-        // update item qty (decrement based on mrv items qty) 
-
-        for(let mrvItem of existingItem.mrv.mrv_items) {
-
-            const updateItemQuery = this.prisma.item.update({
-                where: { id: mrvItem.item_id },
+            const mct_cancelled = await tx.mCT.update({
                 data: {
-                    quantity_on_queue: {
-                        decrement: mrvItem.quantity
+                    cancelled_at: new Date(),
+                    cancelled_by: this.authUser.user.username,
+                    approval_status: APPROVAL_STATUS.CANCELLED,
+                    mrv: {
+                        disconnect: true
+                    }
+                },
+                where: { id }
+            })
+    
+            // delete associated pending
+    
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.mct_number,
+                        reference_table: DB_ENTITY.MCT
                     }
                 }
             })
 
-            queries.push(updateItemQuery)
+            if(pending) {
 
-        }
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
 
-        const result = await this.prisma.$transaction(queries)
+            }
+    
+            // update item qty (decrement based on mrv items qty) 
+    
+            for(let mrvItem of existingItem.mrv.mrv_items) {
+    
+                await tx.item.update({
+                    where: { id: mrvItem.item_id },
+                    data: {
+                        quantity_on_queue: {
+                            decrement: mrvItem.quantity
+                        }
+                    }
+                })
+    
+            }
 
-        return {
-            success: true,
-            msg: 'Successfully cancelled MCT',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MCT,
+				action: 'CANCEL-MCT',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': mct_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled MCT',
+                cancelled_at: mct_cancelled.cancelled_at,
+                cancelled_by: mct_cancelled.cancelled_by
+            }
+
+        })
+
 
     }
 

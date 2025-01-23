@@ -8,6 +8,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { MctPdfService } from './mct.pdf.service';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('mct')
@@ -18,6 +21,7 @@ export class MctController {
 
     constructor(
         private readonly mctPdfService: MctPdfService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
 
@@ -27,7 +31,9 @@ export class MctController {
     async generatePdf(
         @Param('id') id: string, 
         @Res() res: Response,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -50,7 +56,10 @@ export class MctController {
             }
     
             // @ts-ignore
-            const pdfBuffer = await this.mctPdfService.generatePdf(mct)
+            const pdfBuffer = await this.mctPdfService.generatePdf(mct, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            })
     
             // @ts-ignore
             res.set({
@@ -75,7 +84,9 @@ export class MctController {
     async generateGatePassPDF(
         @Param('id') id: string, 
         @Res() res: Response,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -98,7 +109,10 @@ export class MctController {
             }
     
             // @ts-ignore
-            const pdfBuffer = await this.mctPdfService.generateGatePassPdf(mct)
+            const pdfBuffer = await this.mctPdfService.generateGatePassPdf(mct, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            })
     
             // @ts-ignore
             res.set({
