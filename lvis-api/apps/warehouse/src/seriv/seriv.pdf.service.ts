@@ -10,6 +10,8 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { SERIV as S, SERIVItem } from 'apps/warehouse/prisma/generated/client';
 import { SERIV } from './entities/seriv.entity';
 import { warehouseRequestTypeMapper } from '../__common__/constants';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class SerivPdfService {
@@ -20,13 +22,14 @@ export class SerivPdfService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async generatePdf(seriv: SERIV) {
+    async generatePdf(seriv: SERIV, metadata: { ip_address: string, device_info: any }) {
         // const browser = await puppeteer.launch();
 
         const browser = await puppeteer.launch({
@@ -408,10 +411,20 @@ export class SerivPdfService {
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
 
+        // create audit
+        await this.audit.createAuditEntry({
+            username: this.authUser.user.username,
+            table: DB_TABLE.SERIV,
+            action: 'PRINT-SERIV',
+            reference_id: seriv.id,
+            ip_address: metadata.ip_address,
+            device_info: metadata.device_info
+        })
+
         return pdfBuffer;
     }
 
-    async generateGatePassPdf(seriv: SERIV) {
+    async generateGatePassPdf(seriv: SERIV, metadata: { ip_address: string, device_info: any }) {
         // const browser = await puppeteer.launch();
 
         const browser = await puppeteer.launch({
@@ -709,6 +722,16 @@ export class SerivPdfService {
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
+
+        // create audit
+        await this.audit.createAuditEntry({
+            username: this.authUser.user.username,
+            table: DB_TABLE.SERIV,
+            action: 'PRINT-SERIV-GATEPASS',
+            reference_id: seriv.id,
+            ip_address: metadata.ip_address,
+            device_info: metadata.device_info
+        })
 
         return pdfBuffer;
     }

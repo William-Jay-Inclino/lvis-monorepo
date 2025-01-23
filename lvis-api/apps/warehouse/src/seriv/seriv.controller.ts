@@ -8,6 +8,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { SerivPdfService } from './seriv.pdf.service';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('seriv')
@@ -18,6 +21,7 @@ export class SerivController {
 
     constructor(
         private readonly serivPdfService: SerivPdfService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Get('pdf/:id')
@@ -26,7 +30,9 @@ export class SerivController {
     async generatePdf(
         @Param('id') id: string, 
         @Res() res: Response,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -47,7 +53,10 @@ export class SerivController {
             }
     
             // @ts-ignore
-            const pdfBuffer = await this.serivPdfService.generatePdf(seriv)
+            const pdfBuffer = await this.serivPdfService.generatePdf(seriv, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            })
     
             // @ts-ignore
             res.set({
@@ -72,7 +81,9 @@ export class SerivController {
     async generateGatePassPDF(
         @Param('id') id: string, 
         @Res() res: Response,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -93,7 +104,10 @@ export class SerivController {
             }
     
             // @ts-ignore
-            const pdfBuffer = await this.serivPdfService.generateGatePassPdf(seriv)
+            const pdfBuffer = await this.serivPdfService.generateGatePassPdf(seriv, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            })
     
             // @ts-ignore
             res.set({
