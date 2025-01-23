@@ -4,7 +4,7 @@ import { CreateMstItemSubInput } from '../mst/dto/create-mst-item.sub.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 import { DB_TABLE } from '../__common__/types';
-import { Prisma } from '@prisma/client';
+import { Prisma } from 'apps/warehouse/prisma/generated/client';
 
 @Injectable()
 export class MstItemService {

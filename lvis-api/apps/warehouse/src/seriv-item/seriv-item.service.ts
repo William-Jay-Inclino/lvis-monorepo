@@ -7,7 +7,8 @@ import { McrtService } from '../mcrt/mcrt.service';
 import { MCRT } from '../mcrt/entities/mcrt.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
-import { Prisma } from '@prisma/client';
+import { Prisma } from 'apps/warehouse/prisma/generated/client';
+
 
 @Injectable()
 export class SerivItemService {

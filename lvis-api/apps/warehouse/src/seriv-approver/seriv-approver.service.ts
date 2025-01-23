@@ -1,12 +1,11 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { SERIVApprover } from 'apps/warehouse/prisma/generated/client';
+import { Prisma, SERIVApprover } from 'apps/warehouse/prisma/generated/client';
 import { ChangeSerivApproverInput } from './dto/change-seriv-approver.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
-import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class SerivApproverService {

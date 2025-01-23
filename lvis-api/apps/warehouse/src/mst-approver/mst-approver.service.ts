@@ -1,12 +1,11 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { MSTApprover } from 'apps/warehouse/prisma/generated/client';
+import { MSTApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { ChangeMstApproverInput } from './dto/change-mst-approver.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
-import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class MstApproverService {
