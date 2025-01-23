@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateSerivInput } from './dto/create-seriv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { SERIV, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY, SETTINGS} from '../__common__/constants';
 import { UpdateSerivInput } from './dto/update-seriv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
@@ -13,6 +13,7 @@ import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class SerivService {
@@ -23,13 +24,17 @@ export class SerivService {
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
         private readonly commonService: CommonService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async create(input: CreateSerivInput) {
+    async create(
+        input: CreateSerivInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create SERIV. Please try again')
@@ -87,7 +92,13 @@ export class SerivService {
         
         return await this.prisma.$transaction(async (tx) => {
 
-            const seriv_created = await tx.sERIV.create({ data })
+            const seriv_created = await tx.sERIV.create({
+                data,
+                include: {
+                    seriv_approvers: true,
+                    seriv_items: true,
+                }
+            })
 
             for(let item of input.items) {
 
@@ -121,21 +132,32 @@ export class SerivService {
 
             await tx.pending.create({ data: pendingData })
 
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.SERIV,
+                action: 'CREATE-SERIV',
+                reference_id: seriv_created.id,
+                metadata: seriv_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
 
             return seriv_created
         });
     
     }
 
-    async update(id: string, input: UpdateSerivInput) {
+    async update(
+        id: string, 
+        input: UpdateSerivInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         return await this.prisma.$transaction(async(tx) => {
 
-            const existingItem = await this.prisma.sERIV.findUnique({
-                where: { id },
-                include: {
-                    seriv_approvers: true
-                }
+            const existingItem = await tx.sERIV.findUnique({
+                where: { id }
             })
     
             if (!existingItem) {
@@ -146,7 +168,7 @@ export class SerivService {
                 throw new ForbiddenException('Only Admin and Owner can update this record!')
             }
     
-            if (!(await this.canUpdate(input, existingItem))) {
+            if (!(await this.canUpdate(input, existingItem, tx as Prisma.TransactionClient))) {
                 throw new Error('Failed to update SERIV. Please try again')
             }
 
@@ -180,49 +202,60 @@ export class SerivService {
                 updated_by: this.authUser.user.username,
             }
     
-    
-            return await this.prisma.$transaction(async(tx) => {
-
-                const seriv_updated = await tx.sERIV.update({
-                    data,
-                    where: { id }
-                })
-    
-                const pending = await tx.pending.findFirst({
-                    where: {
-                        reference_number: seriv_updated.seriv_number,
-                        reference_table: DB_ENTITY.SERIV,
-                    }
-                })
-    
-                if(pending) {
-    
-                    const requisitioner = await getEmployee(seriv_updated.requested_by_id, this.authUser)
-                
-                    const description = get_pending_description({
-                        employee: requisitioner,
-                        purpose: seriv_updated.purpose,
-                    })
-    
-                    await tx.pending.update({
-                        where: {
-                            id: pending.id
-                        },
-                        data: {
-                            description
-                        }
-                    })
-                }
-                
-                return seriv_updated
-    
+            const seriv_updated = await tx.sERIV.update({
+                data,
+                where: { id }
             })
 
+            const pending = await tx.pending.findFirst({
+                where: {
+                    reference_number: seriv_updated.seriv_number,
+                    reference_table: DB_ENTITY.SERIV,
+                }
+            })
+
+            if(pending) {
+
+                const requisitioner = await getEmployee(seriv_updated.requested_by_id, this.authUser)
+            
+                const description = get_pending_description({
+                    employee: requisitioner,
+                    purpose: seriv_updated.purpose,
+                })
+
+                await tx.pending.update({
+                    where: {
+                        id: pending.id
+                    },
+                    data: {
+                        description
+                    }
+                })
+            }
+            
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.SERIV,
+				action: 'UPDATE-SERIV',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': seriv_updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
+            return seriv_updated
+    
         })
 
     }
 
-    async cancel(id: string): Promise<WarehouseCancelResponse> {
+    async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.sERIV.findUnique({
             where: { id },
@@ -239,57 +272,72 @@ export class SerivService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-        
-        const updateSerivQuery = this.prisma.sERIV.update({
-            data: {
-                cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username,
-                approval_status: APPROVAL_STATUS.CANCELLED,
-            },
-            where: { id }
-        })
+        return await this.prisma.$transaction(async(tx) => {
 
-        queries.push(updateSerivQuery)
-
-        // delete associated pending
-
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.seriv_number,
-                    reference_table: DB_ENTITY.SERIV
-                }
-            }
-        })
-
-        queries.push(deleteAssociatedPending)
-
-        // update item qty (decrement based on osriv items qty) 
-
-        for(let serivItem of existingItem.seriv_items) {
-
-            const updateItemQuery = this.prisma.item.update({
-                where: { id: serivItem.item_id },
+            const seriv_cancelled = await tx.sERIV.update({
                 data: {
-                    quantity_on_queue: {
-                        decrement: serivItem.quantity
+                    cancelled_at: new Date(),
+                    cancelled_by: this.authUser.user.username,
+                    approval_status: APPROVAL_STATUS.CANCELLED,
+                },
+                where: { id }
+            })
+    
+            // delete associated pending
+    
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.seriv_number,
+                        reference_table: DB_ENTITY.SERIV
                     }
                 }
             })
 
-            queries.push(updateItemQuery)
+            if(pending) {
 
-        }
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
 
-        const result = await this.prisma.$transaction(queries)
+            }
+    
+            // update item qty (decrement based on seriv items qty) 
+    
+            for(let serivItem of existingItem.seriv_items) {
+    
+                await tx.item.update({
+                    where: { id: serivItem.item_id },
+                    data: {
+                        quantity_on_queue: {
+                            decrement: serivItem.quantity
+                        }
+                    }
+                })
+    
+            }
 
-        return {
-            success: true,
-            msg: 'Successfully cancelled SERIV',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.SERIV,
+				action: 'CANCEL-SERIV',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': seriv_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled SERIV',
+                cancelled_at: seriv_cancelled.cancelled_at,
+                cancelled_by: seriv_cancelled.cancelled_by
+            }
+
+        })
 
     }
 
@@ -613,12 +661,14 @@ export class SerivService {
 
     }
 
-    private async canUpdate(input: UpdateSerivInput, existingItem: SERIV): Promise<boolean> {
+    private async canUpdate(input: UpdateSerivInput, existingItem: SERIV, tx?: Prisma.TransactionClient): Promise<boolean> {
+
+        const prismaClient = tx || this.prisma
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
 
-            const approvers = await this.prisma.sERIVApprover.findMany({
+            const approvers = await prismaClient.sERIVApprover.findMany({
                 where: {
                     seriv_id: existingItem.id
                 }

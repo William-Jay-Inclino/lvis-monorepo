@@ -7,9 +7,10 @@ import { CommonService } from '../__common__/classes';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 import { SerivController } from './seriv.controller';
 import { SerivPdfService } from './seriv.pdf.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [
     SerivResolver, 
     SerivService, 
