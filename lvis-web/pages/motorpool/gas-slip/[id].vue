@@ -110,6 +110,9 @@
                             <input type="date" class="form-control" v-model="gsData.used_on">
                             <small class="text-danger fst-italic" v-if="gsDataErrors.used_on"> {{ errorMsg }}
                             </small>
+                            <small class="fst-italic" :class="{'text-danger': gsDataErrors.used_on_invalid_date, 'text-muted': !gsDataErrors.used_on_invalid_date}"> 
+                                The date cannot be in the past.
+                            </small>
                         </div>
 
                         <div class="mb-3">
@@ -255,7 +258,6 @@
 
 import Swal from 'sweetalert2'
 import { getFullname } from '~/utils/helpers'
-import { useToast } from "vue-toastification";
 import * as gsApi from '~/composables/motorpool/gas-slip/gas-slip.api'
 import * as gsApproverApi from '~/composables/motorpool/gas-slip/gas-slip-approver.api'
 import { type GasSlip, type UpdateGasSlip } from '~/composables/motorpool/gas-slip/gas-slip.types';
@@ -284,7 +286,6 @@ const router = useRouter()
 
 // DEPENDENCIES
 const route = useRoute()
-const toast = useToast();
 
 // FLAGS
 const isUpdating = ref(false)
@@ -301,6 +302,7 @@ const _gsDataErrorsInitial = {
     liter_in_text: false,
     purpose: false,
     used_on: false,
+    used_on_invalid_date: false,
 }
 
 const form = ref<FORM>(FORM.UPDATE_INFO)
@@ -543,6 +545,8 @@ function isValidGsInfo(): boolean {
 
     if(!gsData.value.used_on || gsData.value.used_on.trim() === '') {
         gsDataErrors.value.used_on = true
+    } else if(isPastDate(gsData.value.used_on)) {
+        gsDataErrors.value.used_on_invalid_date = true
     }
 
     const hasError = Object.values(gsDataErrors.value).includes(true);

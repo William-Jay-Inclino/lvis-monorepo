@@ -215,6 +215,7 @@ export async function findOne(id: string): Promise<Item | undefined> {
                     price 
                     remarks
                     created_at
+                    is_initial
                     rr_item {
                         rr {
                             id 

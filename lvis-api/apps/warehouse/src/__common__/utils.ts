@@ -215,3 +215,19 @@ export const formatDateToTime = (date: string): string => {
 
 export const normalizeIp = (ip: string) =>
     ip?.startsWith('::ffff:') ? ip.substring(7) : ip;
+
+export const isPastDate = (value: string) => {
+    const now = new Date();
+    const _inputDate = new Date(value);
+
+    // Normalize both dates to ignore the time portion
+    const nowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const inputDate = new Date(_inputDate.getFullYear(), _inputDate.getMonth(), _inputDate.getDate());
+
+    if(inputDate < nowDate) {
+        return true 
+    }
+
+    return false
+
+}

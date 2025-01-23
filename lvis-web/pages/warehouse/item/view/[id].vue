@@ -158,8 +158,11 @@
                                                         </nuxt-link>
         
                                                     </div>
-                                                    <div v-else>
+                                                    <div v-else-if="i.is_initial">
                                                         Initial Transaction
+                                                    </div>
+                                                    <div v-else>
+                                                        {{ i.remarks }}
                                                     </div>
                                                 </td>
                                                 <td>

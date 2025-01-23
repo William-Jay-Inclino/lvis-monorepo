@@ -20,6 +20,7 @@ export interface ItemTransaction {
 	quantity: number;
 	price: number;
 	remarks?: string | null;
+	is_initial: boolean;
 	
 	item: Item;
 	rr_item?: RrItem;

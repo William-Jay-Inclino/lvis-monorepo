@@ -205,7 +205,6 @@ export function debounce<T extends (...args: any[]) => void>(func: T, wait: numb
     };
 }
   
-
 // status should be blank if nay nag una nga approver nga ni disapproved. Meaning wala na abot sa ilaha ang document
 
 export function isBlankStatus(itemStatus: APPROVAL_STATUS | TRIP_TICKET_STATUS, approverStatus: APPROVAL_STATUS) {
@@ -323,4 +322,20 @@ export function isEmptyString(text: string | null | undefined) {
         return true 
     }
     return false
+}
+
+export function isPastDate(value: string) {
+    const now = new Date();
+    const _inputDate = new Date(value);
+
+    // Normalize both dates to ignore the time portion
+    const nowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const inputDate = new Date(_inputDate.getFullYear(), _inputDate.getMonth(), _inputDate.getDate());
+
+    if(inputDate < nowDate) {
+        return true 
+    }
+
+    return false
+
 }

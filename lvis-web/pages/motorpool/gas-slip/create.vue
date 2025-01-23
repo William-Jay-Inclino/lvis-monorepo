@@ -79,6 +79,9 @@
                                 <input data-testid="date" type="date" class="form-control" v-model="gsData.used_on">
                                 <small class="text-danger fst-italic" v-if="gsDataErrors.used_on"> {{ errorMsg }}
                                 </small>
+                                <small class="fst-italic" :class="{'text-danger': gsDataErrors.used_on_invalid_date, 'text-muted': !gsDataErrors.used_on_invalid_date}"> 
+                                    The date cannot be in the past.
+                                </small>
                             </div>
                             
                             <div class="mb-3">
@@ -245,6 +248,7 @@ const _gsDataErrorsInitial = {
     liter_in_text: false,
     purpose: false,
     used_on: false,
+    used_on_invalid_date: false,
 }
 
 // FORM DATA
@@ -388,6 +392,8 @@ function isValid(): boolean {
     
     if(!gsData.value.used_on || gsData.value.used_on.trim() === '') {
         gsDataErrors.value.used_on = true
+    } else if(isPastDate(gsData.value.used_on)) {
+        gsDataErrors.value.used_on_invalid_date = true
     }
 
     for(let i of gsData.value.approvers) {

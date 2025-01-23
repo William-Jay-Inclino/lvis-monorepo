@@ -34,7 +34,7 @@ export class CreateVehicleInput {
   @IsString()
   name: string;
 
-  @Field(() => Date)
+  @Field()
   @IsNotEmpty()
   @IsDateString()
   date_acquired: Date;

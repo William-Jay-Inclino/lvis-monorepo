@@ -96,21 +96,21 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="item in dayGroup.schedules" :key="item.id">
-                                                    <td style="white-space: nowrap;">
+                                                    <td class="align-middle" style="white-space: nowrap;">
                                                         <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
                                                             {{ item.vehicle.vehicle_number }}
                                                         </nuxt-link>
                                                         {{ item.vehicle.name }}
                                                     </td>
-                                                    <td style="white-space: nowrap;">
+                                                    <td class="align-middle" style="white-space: nowrap;">
                                                         <nuxt-link :to="'/motorpool/vehicle-maintenance/view/' + item.id">
                                                             {{ item.ref_number }}
                                                         </nuxt-link>
                                                     </td>
-                                                    <td style="white-space: nowrap;">{{ formatDate(item.service_date) }}</td>
-                                                    <td>{{ item.service_mileage }}</td>
-                                                    <td>{{ formatToPhpCurrency(item.cost) }}</td>
-                                                    <td class="text-center">
+                                                    <td class="align-middle" style="white-space: nowrap;">{{ formatDate(item.service_date) }}</td>
+                                                    <td class="align-middle">{{ item.service_mileage }}</td>
+                                                    <td class="align-middle">{{ formatToPhpCurrency(item.cost) }}</td>
+                                                    <td class="text-center align-middle">
                                                         <input
                                                             :disabled="!can_update_pms_status"
                                                             @click="update_vehicle_maintenance_status(item.id)"
@@ -219,21 +219,21 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="item in dayGroup.tickets" :key="item.id">
-                                                    <td style="white-space: nowrap;"> {{ moment(item.start_time).format('h:mm A') }} </td>
-                                                    <td style="white-space: nowrap;">
+                                                    <td class="align-middle" style="white-space: nowrap;"> {{ moment(item.start_time).format('h:mm A') }} </td>
+                                                    <td class="align-middle" style="white-space: nowrap;">
                                                         <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
                                                             {{ item.vehicle.vehicle_number }}
                                                         </nuxt-link>
                                                         {{ item.vehicle.name }}
                                                     </td>
-                                                    <td style="white-space: nowrap;"> 
+                                                    <td class="align-middle" style="white-space: nowrap;"> 
                                                         <nuxt-link :to="'/motorpool/trip-ticket/view/' + item.id">
                                                             {{ item.trip_number }} 
                                                         </nuxt-link>
                                                     </td>
-                                                    <td style="white-space: nowrap;"> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
-                                                    <td> {{ item.destination }} </td>
-                                                    <td class="text-center">
+                                                    <td class="align-middle" style="white-space: nowrap;"> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
+                                                    <td class="align-middle"> {{ item.destination }} </td>
+                                                    <td class="text-center align-middle">
                                                         <div :class="{ [`badge bg-${tripTicketStatus[item.status].color}`]: true }">
                                                             {{ tripTicketStatus[item.status].label }}
                                                         </div>

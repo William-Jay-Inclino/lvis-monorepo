@@ -1,4 +1,10 @@
 
+// audit logs
+SELECT created_at, username, "action", "table", metadata FROM public.warehouse_audit
+ORDER BY id DESC 
+
+
+
 // SELECT employee fullname
 
 SELECT 

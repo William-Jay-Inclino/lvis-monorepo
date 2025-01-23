@@ -15,7 +15,7 @@ import { catchError, filter, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { UpdateGasSlipInput } from './dto/update-gas-slip.input';
 import { endOfYear, startOfYear } from 'date-fns';
-import { get_pending_description_for_motorpool, getEmployee } from '../__common__/utils';
+import { get_pending_description_for_motorpool, getEmployee, isPastDate } from '../__common__/utils';
 
 @Injectable()
 export class GasSlipService {
@@ -32,6 +32,10 @@ export class GasSlipService {
 	}
 
 	async create(input: CreateGasSlipInput) {
+
+        if(isPastDate(input.used_on)) {
+            throw new BadRequestException('Date should not be in the past')
+        }
 
 		if (!(await this.canCreate(input))) {
             throw new Error('Failed to create Gas Slip. Please try again')
@@ -123,6 +127,11 @@ export class GasSlipService {
 	}
 
 	async update(id: string, input: UpdateGasSlipInput) {
+
+        if(isPastDate(input.used_on)) {
+            throw new BadRequestException('Date should not be in the past')
+        }
+
         const existingItem = await this.prisma.gasSlip.findUnique({
             where: { id },
             include: {
