@@ -115,6 +115,7 @@ export enum DB_TABLE {
     
     // WAREHOUSE
     RR = 'receiving_report',
+    RR_ITEMS = 'rr_item',
     OSRIV = 'osriv',
     SERIV = 'seriv',
     MRV = 'mrv',

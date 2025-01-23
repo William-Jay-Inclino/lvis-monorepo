@@ -2,11 +2,12 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { UpdateRrItemInput } from './dto/update-rr-item.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, RRApprover, RRItem } from 'apps/warehouse/prisma/generated/client';
-import { APPROVAL_STATUS, Role } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE, Role } from '../__common__/types';
 import { UpdateRrItemsInput } from './dto/update-rr-items.input';
 import { UpdateRrItemsResponse } from './entities/update-rr-items-response';
 import { isAdmin, isNormalUser } from '../__common__/helpers';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class RrItemService {
@@ -18,6 +19,7 @@ export class RrItemService {
 
 	constructor(
 		private readonly prisma: PrismaService,
+		private readonly audit: WarehouseAuditService,
 	) { }
 
 	setAuthUser(authUser: AuthUser) {
@@ -88,14 +90,21 @@ export class RrItemService {
 
 	}
 
-	async updateMultiple(inputs: UpdateRrItemsInput[]): Promise<UpdateRrItemsResponse> {
+	async updateMultiple(
+		inputs: UpdateRrItemsInput[], 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<UpdateRrItemsResponse> {
 
 		const firstInput = inputs[0]
 
 		const rrItem = await this.prisma.rRItem.findUnique({
 			where: { id: firstInput.id },
 			select: {
-				rr: true
+				rr: {
+					include: {
+						rr_items: true,
+					}
+				}
 			}
 		})
 
@@ -107,31 +116,50 @@ export class RrItemService {
 			throw new ForbiddenException('Only Admin and Owner can update multiple rr items!')
 		}
 
-		const queries = []
+		return await this.prisma.$transaction(async(tx) => {
 
+			for (let input of inputs) {
+	
+				await tx.rRItem.update({
+					where: {
+						id: input.id
+					},
+					data: {
+						quantity_accepted: input.quantity_accepted,
+					},
+				})
+	
+			}
 
-		for (let input of inputs) {
-
-			const updateRrItemQuery = this.prisma.rRItem.update({
-				where: {
-					id: input.id
-				},
-				data: {
-					quantity_accepted: input.quantity_accepted,
-				},
+			const updated_rr = await tx.rR.findUnique({
+				where: { id: rrItem.rr.id },
+				include: {
+					rr_items: true
+				}
 			})
 
-			queries.push(updateRrItemQuery)
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.RR_ITEMS,
+				action: 'UPDATE-RR-ITEMS',
+				reference_id: rrItem.rr.id,
+				metadata: {
+					'old_value': rrItem.rr,
+					'new_value': updated_rr
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+	
+			return {
+				success: true,
+				msg: 'RR Items updated!',
+				// data: result
+			}
 
-		}
+		})
 
-		const result = await this.prisma.$transaction(queries)
-
-		return {
-			success: true,
-			msg: 'RR Items updated!',
-			// data: result
-		}
 
 	}
 

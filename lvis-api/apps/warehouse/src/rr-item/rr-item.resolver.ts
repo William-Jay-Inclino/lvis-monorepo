@@ -8,6 +8,9 @@ import { Logger, UseGuards } from '@nestjs/common';
 import { UpdateRrItemsInput } from './dto/update-rr-items.input';
 import { UpdateRrItemsResponse } from './entities/update-rr-items-response';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => RrItem)
 export class RrItemResolver {
@@ -15,7 +18,10 @@ export class RrItemResolver {
   private readonly logger = new Logger(RrItemResolver.name);
   private filename = 'rr-item.resolver.ts'
 
-  constructor(private readonly rrItemService: RrItemService) { }
+  constructor(
+    private readonly rrItemService: RrItemService,
+    private readonly audit: WarehouseAuditService,
+  ) { }
 
   @Query(() => RrItem)
   async rr_item(
@@ -63,7 +69,9 @@ export class RrItemResolver {
   @Mutation(() => UpdateRrItemsResponse)
   async updateRrItems(
     @Args({ name: 'inputs', type: () => [UpdateRrItemsInput] }) inputs: UpdateRrItemsInput[],
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -76,7 +84,10 @@ export class RrItemResolver {
         
         this.rrItemService.setAuthUser(authUser)
 
-        const x = await this.rrItemService.updateMultiple(inputs);
+        const x = await this.rrItemService.updateMultiple(inputs, {
+          ip_address,
+          device_info: this.audit.getDeviceInfo(user_agent)
+        });
         
         this.logger.log('RR Items updated successfully')
 
