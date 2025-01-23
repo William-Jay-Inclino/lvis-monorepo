@@ -117,6 +117,7 @@ export enum DB_TABLE {
     RR = 'receiving_report',
     RR_ITEMS = 'rr_item',
     OSRIV = 'osriv',
+    OSRIV_APPROVER = 'osriv_approver',
     SERIV = 'seriv',
     MRV = 'mrv',
     MCT = 'mct',

@@ -3,9 +3,11 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { OSRIVApprover } from 'apps/warehouse/prisma/generated/client';
 import { ChangeOsrivApproverInput } from './dto/change-osriv-approver.input';
 import { DB_ENTITY } from '../__common__/constants';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { getModule } from '../__common__/helpers';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class OsrivApproverService {
@@ -14,13 +16,17 @@ export class OsrivApproverService {
 
     constructor(
         private readonly prisma: PrismaService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async changeApprover(id: string, input: ChangeOsrivApproverInput) {
+    async changeApprover(
+        id: string, input: ChangeOsrivApproverInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
         return this.prisma.$transaction(async (prisma) => {
             const item = await prisma.oSRIVApprover.findUnique({
                 where: { id },
@@ -110,6 +116,19 @@ export class OsrivApproverService {
                     approver_id: input.new_approver_id,
                 },
             });
+
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.OSRIV_APPROVER,
+                action: 'CHANGE-OSRIV-APPROVER',
+                reference_id: id,
+                metadata: {
+                    'old_approver_id': item.approver_id,
+                    'new_approver_id': input.new_approver_id,
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, prisma as Prisma.TransactionClient)
     
             return updateOsrivApprover;
         });

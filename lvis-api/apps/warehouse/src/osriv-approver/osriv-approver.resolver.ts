@@ -7,6 +7,9 @@ import { ChangeOsrivApproverInput } from './dto/change-osriv-approver.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { OsrivApproverService } from './osriv-approver.service';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => OSRIVApprover)
@@ -16,7 +19,8 @@ export class OsrivApproverResolver {
   private filename = 'osriv-approver.resolver.ts'
   
   constructor(
-      private readonly osrivApproverService: OsrivApproverService
+      private readonly osrivApproverService: OsrivApproverService,
+      private readonly audit: WarehouseAuditService,
   ) { }
 
   @ResolveField(() => Employee)
@@ -28,7 +32,9 @@ export class OsrivApproverResolver {
   async changeOsrivApprover(
       @Args('id') id: string,
       @Args('input') changeOsrivApproverInput: ChangeOsrivApproverInput,
-      @CurrentAuthUser() authUser: AuthUser
+      @CurrentAuthUser() authUser: AuthUser,
+      @UserAgent() user_agent: string,
+      @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -42,7 +48,10 @@ export class OsrivApproverResolver {
       
       this.osrivApproverService.setAuthUser(authUser)
 
-      const x = await this.osrivApproverService.changeApprover(id, changeOsrivApproverInput);
+      const x = await this.osrivApproverService.changeApprover(id, changeOsrivApproverInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('OSRIV Approver changed successfully')
 
