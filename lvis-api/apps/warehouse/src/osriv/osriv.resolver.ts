@@ -17,6 +17,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => OSRIV)
@@ -27,7 +30,8 @@ export class OsrivResolver {
 
     constructor(
         private readonly osrivService: OsrivService,
-        private readonly osrivApproverService: OsrivApproverService
+        private readonly osrivApproverService: OsrivApproverService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Mutation(() => OSRIV)
@@ -35,7 +39,9 @@ export class OsrivResolver {
     @CheckAccess(MODULES.OSRIV, RESOLVERS.createOsriv)
     async createOsriv(
         @Args('input') createOsrivInput: CreateOsrivInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -48,7 +54,10 @@ export class OsrivResolver {
             
             this.osrivService.setAuthUser(authUser)
       
-            const x = await this.osrivService.create(createOsrivInput);
+            const x = await this.osrivService.create(createOsrivInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('OSRIV created successfully')
       
@@ -96,7 +105,9 @@ export class OsrivResolver {
     async updateOsriv(
         @Args('id') id: string,
         @Args('input') updateOsrivInput: UpdateOsrivInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -110,7 +121,10 @@ export class OsrivResolver {
             })
             
             this.osrivService.setAuthUser(authUser)
-            const x = await this.osrivService.update(id, updateOsrivInput);
+            const x = await this.osrivService.update(id, updateOsrivInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
       
             this.logger.log('OSRIV updated successfully')
       
@@ -124,7 +138,9 @@ export class OsrivResolver {
     @Mutation(() => WarehouseCancelResponse)
     async cancelOsriv(
         @Args('id') id: string,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -137,7 +153,10 @@ export class OsrivResolver {
             })
       
             this.osrivService.setAuthUser(authUser)
-            const x = await this.osrivService.cancel(id);
+            const x = await this.osrivService.cancel(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('OSRIV cancelled successfully')
             
