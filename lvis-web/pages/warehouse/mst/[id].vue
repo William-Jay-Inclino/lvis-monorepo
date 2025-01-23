@@ -337,12 +337,16 @@ const itemsInModal = computed( (): AddItem[] => {
                 id: i.id,
                 code: i.code,
                 description: i.description,
-                label: i.code + ' - ' + i.description,
                 available_quantity: i.total_quantity - i.quantity_on_queue,
                 unit: i.unit,
-                qty_request: 0,
                 GWAPrice: i.GWAPrice,
+                qty_request: 0,
                 item_type: i.item_type,
+                label: i.code + ' - ' + i.description,
+                statusObject: {
+                    id: ITEM_STATUS.NOT_USABLE,
+                    name: itemStatusMapper[ITEM_STATUS.NOT_USABLE],
+                },
             }
 
             return x
@@ -576,11 +580,27 @@ function handleAddItem(itemId: string) {
     }
 
 
-    const mstItem = {
+    // const mstItem = {
+    //     id: '',
+    //     item,
+    //     price: item.GWAPrice,
+    //     quantity: 0,
+    // }
+
+    const mstItem: MSTItem = {
         id: '',
-        item,
+        mst_id: '',
+        item_id: itemId,
+        quantity: 1,
         price: item.GWAPrice,
-        quantity: 0,
+        status: ITEM_STATUS.NOT_USABLE,
+        mst: {} as MST,
+        item,
+        statusObject: {
+            id: ITEM_STATUS.NOT_USABLE,
+            name: itemStatusMapper[ITEM_STATUS.NOT_USABLE]
+        },
+        showQtyError: false,
     }
 
     // @ts-ignore
