@@ -4,6 +4,9 @@ import { CreateMcrtItemSubInput } from '../mcrt/dto/create-mcrt-item.sub.input';
 import { MCRT } from '../mcrt/entities/mcrt.entity';
 import { SerivItemService } from '../seriv-item/seriv-item.service';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class McrtItemService {
@@ -13,14 +16,30 @@ export class McrtItemService {
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly serivItemService: SerivItemService,
+		private readonly audit: WarehouseAuditService,
 	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async updateMcrtItems(mcrtId: string, items: CreateMcrtItemSubInput[]) {
+	async updateMcrtItems(
+		mcrtId: string, 
+		items: CreateMcrtItemSubInput[], 
+		metadata: { ip_address: string, device_info: any }
+	) {
 		return this.prisma.$transaction(async (prisma) => {
+
+			const existingMcrt = await prisma.mCRT.findUnique({
+				where: { id: mcrtId },
+				include: {
+					mcrt_items: true
+				}
+			})
+
+			if(!existingMcrt) {
+				throw new NotFoundException('MCRT not found with id: ' + mcrtId)
+			}
 	
 			// Delete all previous mcrt items
 			await prisma.mCRTItem.deleteMany({
@@ -39,23 +58,28 @@ export class McrtItemService {
 				});
 			}
 
-			// Return all mcrt items after update
-			const updatedMcrtItems = await prisma.mCRTItem.findMany({
-				where: {
-					mcrt_id: mcrtId,
-				},
+			const updated_mcrt = await prisma.mCRT.findUnique({
+				where: { id: mcrtId },
 				include: {
-					item: {
-						include: {
-							item_type: true,
-							unit: true,
-							item_transactions: true,
-						}
-					} 
+					mcrt_items: true
 				}
-			});
+			})
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MCRT_ITEM,
+				action: 'UPDATE-MCRT-ITEMS',
+				reference_id: mcrtId,
+				metadata: {
+					'old_value': existingMcrt,
+					'new_value': updated_mcrt,
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, prisma as Prisma.TransactionClient)
 	
-			return updatedMcrtItems;
+
+			return updated_mcrt;
 
 		});
 	}

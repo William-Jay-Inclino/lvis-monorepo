@@ -17,6 +17,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MCRT)
@@ -27,7 +30,8 @@ export class McrtResolver {
 
     constructor(
         private readonly mcrtService: McrtService,
-        private readonly mcrtApproverService: McrtApproverService
+        private readonly mcrtApproverService: McrtApproverService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Mutation(() => MCRT)
@@ -35,7 +39,9 @@ export class McrtResolver {
     @CheckAccess(MODULES.MCRT, RESOLVERS.createMcrt)
     async createMcrt(
         @Args('input') createMcrtInput: CreateMcrtInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
             this.logger.log({
@@ -47,7 +53,10 @@ export class McrtResolver {
             
             this.mcrtService.setAuthUser(authUser)
       
-            const x = await this.mcrtService.create(createMcrtInput);
+            const x = await this.mcrtService.create(createMcrtInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MCRT created successfully')
       
@@ -93,7 +102,9 @@ export class McrtResolver {
     async updateMcrt(
         @Args('id') id: string,
         @Args('input') updateMcrtInput: UpdateMcrtInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
       
@@ -106,7 +117,10 @@ export class McrtResolver {
             })
             
             this.mcrtService.setAuthUser(authUser)
-            const x = await this.mcrtService.update(id, updateMcrtInput);
+            const x = await this.mcrtService.update(id, updateMcrtInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
       
             this.logger.log('MCRT updated successfully')
       
@@ -119,7 +133,9 @@ export class McrtResolver {
     @Mutation(() => WarehouseCancelResponse)
     async cancelMcrt(
         @Args('id') id: string,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
 
@@ -131,7 +147,10 @@ export class McrtResolver {
             })
       
             this.mcrtService.setAuthUser(authUser)
-            const x = await this.mcrtService.cancel(id);
+            const x = await this.mcrtService.cancel(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MCRT cancelled successfully')
             

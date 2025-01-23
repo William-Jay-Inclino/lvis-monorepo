@@ -7,6 +7,9 @@ import { ChangeMcrtApproverInput } from './dto/change-mcrt-approver.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { McrtApproverService } from './mcrt-approver.service';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MCRTApprover)
@@ -16,7 +19,8 @@ export class McrtApproverResolver {
   private filename = 'mcrt-approver.resolver.ts'
 
   constructor(
-      private readonly mcrtApproverService: McrtApproverService
+      private readonly mcrtApproverService: McrtApproverService,
+      private readonly audit: WarehouseAuditService,
   ) { }
 
   @ResolveField(() => Employee)
@@ -28,7 +32,9 @@ export class McrtApproverResolver {
   async changeMcrtApprover(
       @Args('id') id: string,
       @Args('input') changeMcrtApproverInput: ChangeMcrtApproverInput,
-      @CurrentAuthUser() authUser: AuthUser
+      @CurrentAuthUser() authUser: AuthUser,
+      @UserAgent() user_agent: string,
+      @IpAddress() ip_address: string,
   ) {
     try {
         this.logger.log({
@@ -41,7 +47,10 @@ export class McrtApproverResolver {
         
         this.mcrtApproverService.setAuthUser(authUser)
   
-        const x = await this.mcrtApproverService.changeApprover(id, changeMcrtApproverInput);
+        const x = await this.mcrtApproverService.changeApprover(id, changeMcrtApproverInput, {
+          ip_address,
+          device_info: this.audit.getDeviceInfo(user_agent)
+        });
         
         this.logger.log('MCRT Approver changed successfully')
   

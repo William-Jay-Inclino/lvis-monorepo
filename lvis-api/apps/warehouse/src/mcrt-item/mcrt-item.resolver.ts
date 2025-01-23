@@ -3,24 +3,57 @@ import { McrtItemService } from './mcrt-item.service';
 import { MCRTItem } from './entities/mcrt-item.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { CreateMcrtItemSubInput } from '../mcrt/dto/create-mcrt-item.sub.input';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
+import { MCRT } from '../mcrt/entities/mcrt.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MCRTItem)
 export class McrtItemResolver {
 
-    constructor(private readonly mcrtItemService: McrtItemService) {}
+    private readonly logger = new Logger(McrtItemResolver.name);
+    private filename = 'mcrt-item.resolver.ts'
 
-    @Mutation(() => [MCRTItem])
+    constructor(
+        private readonly mcrtItemService: McrtItemService,
+        private readonly audit: WarehouseAuditService,
+    ) {}
+
+    @Mutation(() => MCRT)
     async updateMcrtItems(
         @Args('mcrt_id') mcrt_id: string,
         @Args({ name: 'items', type: () => [CreateMcrtItemSubInput] }) items: CreateMcrtItemSubInput[],
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
-        this.mcrtItemService.setAuthUser(authUser)
-        return await this.mcrtItemService.updateMcrtItems(mcrt_id, items);
+        try {
+            this.logger.log({
+              username: authUser.user.username,
+              filename: this.filename,
+              function: 'updateMcrtItems',
+              mcrt_id,
+              items: JSON.stringify(items)
+            })
+            
+            this.mcrtItemService.setAuthUser(authUser)
+      
+            const x = await this.mcrtItemService.updateMcrtItems(mcrt_id, items, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
+            
+            this.logger.log('MCRT Items updated successfully')
+      
+            return x
+      
+        } catch (error) {
+            this.logger.error('Error in updating MCRT Items', error)
+        }
     }
 
     @ResolveField(() => Number)
