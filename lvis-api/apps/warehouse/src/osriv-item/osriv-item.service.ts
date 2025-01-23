@@ -1,8 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateOsrivItemSubInput } from '../osriv/dto/create-osriv-item.sub.input';
 import { CommonService } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class OsrivItemService {
@@ -12,23 +15,35 @@ export class OsrivItemService {
 	constructor(
 		private readonly prisma: PrismaService,
         private readonly commonService: CommonService,
+		private readonly audit: WarehouseAuditService,
 	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async updateOsrivItems(osrivId: string, items: CreateOsrivItemSubInput[]) {
+	async updateOsrivItems(
+		osrivId: string, 
+		items: CreateOsrivItemSubInput[], 
+		metadata: { ip_address: string, device_info: any }
+	) {
 		return this.prisma.$transaction(async (prisma) => {
+
+			const existingOsriv = await prisma.oSRIV.findUnique({
+				where: { id: osrivId },
+				include: {
+					osriv_items: true
+				}
+			})
+
+			if(!existingOsriv) {
+				throw new NotFoundException('OSRIV not found with id: ' + osrivId)
+			}
+
 			// Validate items first
 			await this.commonService.validateItems(items);
 	
-			// Fetch all existing osriv items for the given osrivId
-			const osrivItems = await prisma.oSRIVItem.findMany({
-				where: {
-					osriv_id: osrivId,
-				},
-			});
+			const osrivItems = existingOsriv.osriv_items
 	
 			// Decrement `quantity_on_queue` on each item based on previous osriv_items' quantity
 			for (let osrivItem of osrivItems) {
@@ -68,23 +83,28 @@ export class OsrivItemService {
 				});
 			}
 
-			// Return all osriv items after update
-			const updatedOsrivItems = await prisma.oSRIVItem.findMany({
-				where: {
-					osriv_id: osrivId,
-				},
+			const updated_osriv = await prisma.oSRIV.findUnique({
+				where: { id: osrivId },
 				include: {
-					item: {
-						include: {
-							item_type: true,
-							unit: true,
-							item_transactions: true,
-						}
-					} 
+					osriv_items: true
 				}
-			});
+			})
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.OSRIV_ITEM,
+				action: 'UPDATE-OSRIV-ITEMS',
+				reference_id: osrivId,
+				metadata: {
+					'old_value': existingOsriv,
+					'new_value': updated_osriv,
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, prisma as Prisma.TransactionClient)
 	
-			return updatedOsrivItems;
+
+			return updated_osriv;
 
 		});
 	}
