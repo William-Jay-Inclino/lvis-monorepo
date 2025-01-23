@@ -7,6 +7,9 @@ import { ChangeSerivApproverInput } from './dto/change-seriv-approver.input';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { SerivApproverService } from './seriv-approver.service';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => SERIVApprover)
@@ -16,7 +19,8 @@ export class SerivApproverResolver {
   private filename = 'seriv-approver.resolver.ts'
 
   constructor(
-      private readonly serivApproverService: SerivApproverService
+      private readonly serivApproverService: SerivApproverService,
+      private readonly audit: WarehouseAuditService,
   ) { }
 
   @ResolveField(() => Employee)
@@ -28,7 +32,9 @@ export class SerivApproverResolver {
   async changeSerivApprover(
       @Args('id') id: string,
       @Args('input') changeSerivApproverInput: ChangeSerivApproverInput,
-      @CurrentAuthUser() authUser: AuthUser
+      @CurrentAuthUser() authUser: AuthUser,
+      @UserAgent() user_agent: string,
+      @IpAddress() ip_address: string,
   ) {
     try {
       this.logger.log({
@@ -41,7 +47,10 @@ export class SerivApproverResolver {
       
       this.serivApproverService.setAuthUser(authUser)
 
-      const x = await this.serivApproverService.changeApprover(id, changeSerivApproverInput);
+      const x = await this.serivApproverService.changeApprover(id, changeSerivApproverInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('SERIV Approver changed successfully')
 

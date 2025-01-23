@@ -120,10 +120,18 @@ export enum DB_TABLE {
     OSRIV_APPROVER = 'osriv_approver',
     OSRIV_ITEM = 'osriv_item',
     SERIV = 'seriv',
+    SERIV_APPROVER = 'seriv_approver',
+    SERIV_ITEM = 'seriv_item',
     MRV = 'mrv',
+    MRV_APPROVER = 'mrv_approver',
+    MRV_ITEM = 'mrv_item',
     MCT = 'mct',
     MCRT = 'mcrt',
+    MCRT_APPROVER = 'mcrt_approver',
+    MCRT_ITEM = 'mcrt_item',
     MST = 'mst',
+    MST_APPROVER = 'mst_approver',
+    MST_ITEM = 'mst_item',
     
     // MOTORPOOL
     GAS_SLIP = 'gas_slip',

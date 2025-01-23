@@ -1,11 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateSerivItemSubInput } from '../seriv/dto/create-seriv-item.sub.input';
 import { CommonService } from '../__common__/classes';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { McrtService } from '../mcrt/mcrt.service';
 import { MCRT } from '../mcrt/entities/mcrt.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class SerivItemService {
@@ -16,23 +18,34 @@ export class SerivItemService {
 		private readonly prisma: PrismaService,
         private readonly commonService: CommonService,
         private readonly mcrtService: McrtService,
+		private readonly audit: WarehouseAuditService,
 	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async updateSerivItems(serivId: string, items: CreateSerivItemSubInput[]) {
+	async updateSerivItems(
+		serivId: string, items: CreateSerivItemSubInput[], 
+		metadata: { ip_address: string, device_info: any }
+	) {
 		return this.prisma.$transaction(async (prisma) => {
+
+			const existingSeriv = await prisma.sERIV.findUnique({
+				where: { id: serivId },
+				include: {
+					seriv_items: true
+				}
+			})
+
+			if(!existingSeriv) {
+				throw new NotFoundException('SERIV not found with id: ' + serivId)
+			}
+
 			// Validate items first
 			await this.commonService.validateItems(items);
 	
-			// Fetch all existing seriv items for the given serivId
-			const serivItems = await prisma.sERIVItem.findMany({
-				where: {
-					seriv_id: serivId,
-				},
-			});
+			const serivItems = existingSeriv.seriv_items
 	
 			// Decrement `quantity_on_queue` on each item based on previous seriv_items' quantity
 			for (let serivItem of serivItems) {
@@ -72,23 +85,28 @@ export class SerivItemService {
 				});
 			}
 
-			// Return all seriv items after update
-			const updatedSerivItems = await prisma.sERIVItem.findMany({
-				where: {
-					seriv_id: serivId,
-				},
+			const updated_seriv = await prisma.sERIV.findUnique({
+				where: { id: serivId },
 				include: {
-					item: {
-						include: {
-							item_type: true,
-							unit: true,
-							item_transactions: true,
-						}
-					} 
+					seriv_items: true
 				}
-			});
+			})
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.SERIV_ITEM,
+				action: 'UPDATE-SERIV-ITEMS',
+				reference_id: serivId,
+				metadata: {
+					'old_value': existingSeriv,
+					'new_value': updated_seriv,
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, prisma as Prisma.TransactionClient)
 	
-			return updatedSerivItems;
+
+			return updated_seriv;
 
 		});
 	}

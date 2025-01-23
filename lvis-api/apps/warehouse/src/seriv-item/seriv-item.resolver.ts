@@ -6,6 +6,10 @@ import { CreateSerivItemSubInput } from '../seriv/dto/create-seriv-item.sub.inpu
 import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { SERIV } from '../seriv/entities/seriv.entity';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => SERIVItem)
@@ -16,13 +20,16 @@ export class SerivItemResolver {
 
     constructor(
         private readonly serivItemService: SerivItemService,
+        private readonly audit: WarehouseAuditService,
     ) {}
 
-    @Mutation(() => [SERIVItem])
+    @Mutation(() => SERIV)
     async updateSerivItems(
         @Args('seriv_id') seriv_id: string,
         @Args({ name: 'items', type: () => [CreateSerivItemSubInput] }) items: CreateSerivItemSubInput[],
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
             this.logger.log({
@@ -35,7 +42,10 @@ export class SerivItemResolver {
             
             this.serivItemService.setAuthUser(authUser)
       
-            const x = await this.serivItemService.updateSerivItems(seriv_id, items);
+            const x = await this.serivItemService.updateSerivItems(seriv_id, items, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('SERIV Items updated successfully')
       
