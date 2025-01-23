@@ -21,24 +21,6 @@ export async function updateMcrtItems(mcrt_id: string, mcrtItems: MCRTItem[]): P
                 items: [${items}] 
             ) {
                 id
-                quantity
-                price
-                item {
-                    id
-                    code
-                    description
-                    item_type {
-                        id 
-                        name
-                    }
-                    unit {
-                        id 
-                        name
-                    }
-                    total_quantity
-                    quantity_on_queue
-                    GWAPrice
-                }
             }
         }`;
 

@@ -10,6 +10,8 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MRV as M, MRVItem } from 'apps/warehouse/prisma/generated/client';
 import { MRV } from './entities/mrv.entity';
 import { warehouseRequestTypeMapper } from '../__common__/constants';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class MrvPdfService {
@@ -20,13 +22,14 @@ export class MrvPdfService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async generatePdf(mrv: MRV) {
+    async generatePdf(mrv: MRV, metadata: { ip_address: string, device_info: any }) {
         // const browser = await puppeteer.launch();
 
         const browser = await puppeteer.launch({
@@ -405,6 +408,16 @@ export class MrvPdfService {
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
+
+        // create audit
+        await this.audit.createAuditEntry({
+            username: this.authUser.user.username,
+            table: DB_TABLE.MRV,
+            action: 'PRINT-MRV',
+            reference_id: mrv.id,
+            ip_address: metadata.ip_address,
+            device_info: metadata.device_info
+        })
 
         return pdfBuffer;
     }

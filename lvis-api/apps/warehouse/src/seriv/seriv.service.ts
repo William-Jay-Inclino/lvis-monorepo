@@ -6,7 +6,7 @@ import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY, SETTINGS} from '../__common__/constants';
 import { UpdateSerivInput } from './dto/update-seriv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { SERIVsResponse } from './entities/serivs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -279,6 +279,9 @@ export class SerivService {
                     cancelled_at: new Date(),
                     cancelled_by: this.authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
+                },
+                include: {
+                    seriv_items: true,
                 },
                 where: { id }
             })

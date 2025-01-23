@@ -22,25 +22,6 @@ export async function updateMstItems(mst_id: string, mstItems: MSTItem[]): Promi
                 items: [${items}] 
             ) {
                 id
-                quantity
-                price
-                status
-                item {
-                    id
-                    code
-                    description
-                    item_type {
-                        id 
-                        name
-                    }
-                    unit {
-                        id 
-                        name
-                    }
-                    total_quantity
-                    quantity_on_queue
-                    GWAPrice
-                }
             }
         }`;
 

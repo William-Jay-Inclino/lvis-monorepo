@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateMrvInput } from './dto/create-mrv.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { MRV, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY, SETTINGS } from '../__common__/constants';
 import { UpdateMrvInput } from './dto/update-mrv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
@@ -13,6 +13,7 @@ import { HttpService } from '@nestjs/axios';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class MrvService {
@@ -23,13 +24,17 @@ export class MrvService {
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
         private readonly commonService: CommonService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async create(input: CreateMrvInput) {
+    async create(
+        input: CreateMrvInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         if (!(await this.canCreate(input))) {
             throw new Error('Failed to create MRV. Please try again')
@@ -85,7 +90,13 @@ export class MrvService {
     
         return await this.prisma.$transaction(async (tx) => {
 
-            const mrv_created = await tx.mRV.create({ data })
+            const mrv_created = await tx.mRV.create({
+                data,
+                include: {
+                    mrv_approvers: true,
+                    mrv_items: true,
+                }
+            })
 
             for(let item of input.items) {
 
@@ -119,21 +130,31 @@ export class MrvService {
 
             await tx.pending.create({ data: pendingData })
 
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.MRV,
+                action: 'CREATE-MRV',
+                reference_id: mrv_created.id,
+                metadata: mrv_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
 
             return mrv_created
         });
     
     }
 
-    async update(id: string, input: UpdateMrvInput) {
+    async update(
+        id: string, 
+        input: UpdateMrvInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         return await this.prisma.$transaction(async(tx) => {
 
             const existingItem = await tx.mRV.findUnique({
-                where: { id },
-                include: {
-                    mrv_approvers: true,
-                }
+                where: { id }
             })
     
             if (!existingItem) {
@@ -210,6 +231,19 @@ export class MrvService {
                         }
                     })
                 }
+
+                await this.audit.createAuditEntry({
+                    username: this.authUser.user.username,
+                    table: DB_TABLE.MRV,
+                    action: 'UPDATE-MRV',
+                    reference_id: id,
+                    metadata: {
+                        'old_value': existingItem,
+                        'new_value': mrv_updated
+                    },
+                    ip_address: metadata.ip_address,
+                    device_info: metadata.device_info
+                }, tx as Prisma.TransactionClient)
                 
                 return mrv_updated
     
@@ -220,7 +254,10 @@ export class MrvService {
 
     }
 
-    async cancel(id: string): Promise<WarehouseCancelResponse> {
+    async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.mRV.findUnique({
             where: { id },
@@ -237,57 +274,76 @@ export class MrvService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-        
-        const updateMrvQuery = this.prisma.mRV.update({
-            data: {
-                cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username,
-                approval_status: APPROVAL_STATUS.CANCELLED,
-            },
-            where: { id }
-        })
+        return await this.prisma.$transaction(async(tx) => {
 
-        queries.push(updateMrvQuery)
-
-        // delete associated pending
-
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.mrv_number,
-                    reference_table: DB_ENTITY.MRV
-                }
-            }
-        })
-
-        queries.push(deleteAssociatedPending)
-
-        // update item qty (decrement based on mrv items qty) 
-
-        for(let mrvItem of existingItem.mrv_items) {
-
-            const updateItemQuery = this.prisma.item.update({
-                where: { id: mrvItem.item_id },
+            const mrv_cancelled = await tx.mRV.update({
                 data: {
-                    quantity_on_queue: {
-                        decrement: mrvItem.quantity
+                    cancelled_at: new Date(),
+                    cancelled_by: this.authUser.user.username,
+                    approval_status: APPROVAL_STATUS.CANCELLED,
+                },
+                include: {
+                    mrv_items: true,
+                },
+                where: { id }
+            })
+    
+            // delete associated pending
+    
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.mrv_number,
+                        reference_table: DB_ENTITY.MRV
                     }
                 }
             })
 
-            queries.push(updateItemQuery)
+            if(pending) {
 
-        }
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
 
-        const result = await this.prisma.$transaction(queries)
+            }
+    
+            // update item qty (decrement based on mrv items qty) 
+    
+            for(let mrvItem of existingItem.mrv_items) {
+    
+                await tx.item.update({
+                    where: { id: mrvItem.item_id },
+                    data: {
+                        quantity_on_queue: {
+                            decrement: mrvItem.quantity
+                        }
+                    }
+                })
+    
+            }
 
-        return {
-            success: true,
-            msg: 'Successfully cancelled MRV',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.MRV,
+				action: 'CANCEL-MRV',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': mrv_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled MRV',
+                cancelled_at: mrv_cancelled.cancelled_at,
+                cancelled_by: mrv_cancelled.cancelled_by
+            }
+
+        })
+
 
     }
 
@@ -633,12 +689,14 @@ export class MrvService {
 
     }
 
-    private async canUpdate(input: UpdateMrvInput, existingItem: MRV, tx: Prisma.TransactionClient): Promise<boolean> {
+    private async canUpdate(input: UpdateMrvInput, existingItem: MRV, tx?: Prisma.TransactionClient): Promise<boolean> {
+
+        const prismaClient = tx || this.prisma
 
         // validates if there is already an approver who take an action
         if (isNormalUser(this.authUser)) {
 
-            const approvers = await tx.mRVApprover.findMany({
+            const approvers = await prismaClient.mRVApprover.findMany({
                 where: {
                     mrv_id: existingItem.id
                 }

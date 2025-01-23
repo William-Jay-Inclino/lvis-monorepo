@@ -26,7 +26,8 @@ export class SerivItemService {
 	}
 
 	async updateSerivItems(
-		serivId: string, items: CreateSerivItemSubInput[], 
+		serivId: string, 
+		items: CreateSerivItemSubInput[], 
 		metadata: { ip_address: string, device_info: any }
 	) {
 		return this.prisma.$transaction(async (prisma) => {

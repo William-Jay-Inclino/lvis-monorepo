@@ -7,9 +7,10 @@ import { CommonService } from '../__common__/classes';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 import { MrvController } from './mrv.controller';
 import { MrvPdfService } from './mrv.pdf.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [
     MrvResolver, 
     MrvService, 

@@ -496,15 +496,15 @@ async function updateMcrtItems() {
 
 }
 
-async function fetchItems(id: string) {
+// async function fetchItems(id: string) {
 
-    isFetchingItems.value = true
-    const response = await mcrtItemApi.fetchMcrtItems(id)
-    isFetchingItems.value = false
+//     isFetchingItems.value = true
+//     const response = await mcrtItemApi.fetchMcrtItems(id)
+//     isFetchingItems.value = false
 
-    mcrtData.value.mcrt_items = response.items.map(i => ({...i}))
+//     mcrtData.value.mcrt_items = response.items.map(i => ({...i}))
 
-}
+// }
 
 
 

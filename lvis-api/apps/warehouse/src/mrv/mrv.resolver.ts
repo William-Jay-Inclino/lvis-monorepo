@@ -17,6 +17,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { APPROVAL_STATUS } from '../__common__/types';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MRV)
@@ -27,7 +30,8 @@ export class MrvResolver {
 
     constructor(
         private readonly mrvService: MrvService,
-        private readonly mrvApproverService: MrvApproverService
+        private readonly mrvApproverService: MrvApproverService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     @Mutation(() => MRV)
@@ -35,7 +39,9 @@ export class MrvResolver {
     @CheckAccess(MODULES.MRV, RESOLVERS.createMrv)
     async createMrv(
         @Args('input') createMrvInput: CreateMrvInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
             this.logger.log({
@@ -47,7 +53,10 @@ export class MrvResolver {
             
             this.mrvService.setAuthUser(authUser)
       
-            const x = await this.mrvService.create(createMrvInput);
+            const x = await this.mrvService.create(createMrvInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MRV created successfully')
       
@@ -94,7 +103,9 @@ export class MrvResolver {
     async updateMrv(
         @Args('id') id: string,
         @Args('input') updateMrvInput: UpdateMrvInput,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
       
@@ -107,7 +118,10 @@ export class MrvResolver {
             })
             
             this.mrvService.setAuthUser(authUser)
-            const x = await this.mrvService.update(id, updateMrvInput);
+            const x = await this.mrvService.update(id, updateMrvInput, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
       
             this.logger.log('MRV updated successfully')
       
@@ -120,7 +134,9 @@ export class MrvResolver {
     @Mutation(() => WarehouseCancelResponse)
     async cancelMrv(
         @Args('id') id: string,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
         try {
 
@@ -132,7 +148,10 @@ export class MrvResolver {
             })
       
             this.mrvService.setAuthUser(authUser)
-            const x = await this.mrvService.cancel(id);
+            const x = await this.mrvService.cancel(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MRV cancelled successfully')
             

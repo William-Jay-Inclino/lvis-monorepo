@@ -7,6 +7,10 @@ import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { SerivItemService } from '../seriv-item/seriv-item.service';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
+import { MRV } from '../mrv/entities/mrv.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MRVItem)
@@ -18,13 +22,16 @@ export class MrvItemResolver {
     constructor(
         private readonly mrvItemService: MrvItemService,
         private readonly serivItemService: SerivItemService,
+        private readonly audit: WarehouseAuditService,
     ) {}
 
-    @Mutation(() => [MRVItem])
+    @Mutation(() => MRV)
     async updateMrvItems(
         @Args('mrv_id') mrv_id: string,
         @Args({ name: 'items', type: () => [CreateMrvItemSubInput] }) items: CreateMrvItemSubInput[],
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -38,7 +45,10 @@ export class MrvItemResolver {
             
             this.mrvItemService.setAuthUser(authUser)
       
-            const x = await this.mrvItemService.updateMrvItems(mrv_id, items);
+            const x = await this.mrvItemService.updateMrvItems(mrv_id, items, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
             
             this.logger.log('MRV Items updated successfully')
       

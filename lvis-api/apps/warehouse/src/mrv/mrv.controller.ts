@@ -8,6 +8,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { MrvPdfService } from './mrv.pdf.service';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('mrv')
@@ -18,6 +21,7 @@ export class MrvController {
 
     constructor(
         private readonly mrvPdfService: MrvPdfService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
 
@@ -27,7 +31,9 @@ export class MrvController {
     async generatePdf(
         @Param('id') id: string, 
         @Res() res: Response,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -50,7 +56,10 @@ export class MrvController {
             }
     
             // @ts-ignore
-            const pdfBuffer = await this.mrvPdfService.generatePdf(mrv)
+            const pdfBuffer = await this.mrvPdfService.generatePdf(mrv, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            })
     
             // @ts-ignore
             res.set({

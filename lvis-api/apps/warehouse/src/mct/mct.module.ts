@@ -8,9 +8,10 @@ import { CommonService } from '../__common__/classes';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 import { MctController } from './mct.controller';
 import { MctPdfService } from './mct.pdf.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [
     MctResolver, 
     MctService, 
