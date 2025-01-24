@@ -674,7 +674,7 @@ export class TripTicketService {
 				});
 
 				await this.audit.createAuditEntry({
-					username: this.authUser.user.username,
+					username: 'N/A',
 					table: DB_TABLE.TRIP_TICKET,
 					action: 'TRIP-RFID-SCAN: ARRIVAL',
 					reference_id: trip_updated.trip_number,
@@ -738,7 +738,7 @@ export class TripTicketService {
 				});
 
 				await this.audit.createAuditEntry({
-					username: this.authUser.user.username,
+					username: 'N/A',
 					table: DB_TABLE.TRIP_TICKET,
 					action: 'TRIP-RFID-SCAN: DEPARTURE',
 					reference_id: toDepartTrip.trip_number,
@@ -766,7 +766,7 @@ export class TripTicketService {
 		const vehicle_nearest_trip = await this.get_nearest_trip_of_vehicle(vehicle.id)
 
 		await this.audit.createAuditEntry({
-			username: this.authUser.user.username,
+			username: 'N/A',
 			table: DB_TABLE.TRIP_TICKET,
 			action: 'TRIP-RFID-SCAN: ERROR',
 			reference_id: vehicle_nearest_trip.trip_number,
