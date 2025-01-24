@@ -7,9 +7,10 @@ import { VehicleMaintenanceResponse } from "./entities/vehicles-response.entity"
 import { getDateRange } from "../__common__/helpers";
 import { UpdateVehicleMaintenanceInput } from "./dto/update-vehicle-maintenance.input";
 import { WarehouseRemoveResponse } from "../__common__/classes";
-import { endOfWeek, endOfYear, startOfWeek, startOfYear } from "date-fns";
-import { UpdateVehicleMaintenanceCompletionInput } from "./dto/update-vehicle-maintenance-completion.input";
+import { endOfYear, startOfYear } from "date-fns";
 import { UpdateCompletionResponse } from "./entities/update-completion-response";
+import { WarehouseAuditService } from "../warehouse_audit/warehouse_audit.service";
+import { DB_TABLE } from "../__common__/types";
 
 @Injectable()
 export class VehicleMaintenanceService {
@@ -17,13 +18,19 @@ export class VehicleMaintenanceService {
     private authUser: AuthUser
     private readonly logger = new Logger(VehicleMaintenanceService.name);
 
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly audit: WarehouseAuditService,
+    ) {}
 
     setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-    async create(input: CreateVehicleMaintenanceInput): Promise<VehicleMaintenance> {
+    async create(
+        input: CreateVehicleMaintenanceInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<VehicleMaintenance> {
 
         try {
             
@@ -56,12 +63,33 @@ export class VehicleMaintenanceService {
                     })
                 }
             }
-    
-            const created = await this.prisma.vehicleMaintenance.create({
-                data
+            
+            return await this.prisma.$transaction(async(tx) => {
+
+                const created = await tx.vehicleMaintenance.create({
+                    data,
+                    include: {
+                        vehicle: true,
+                        service_center: true,
+                        services: true,
+                    }
+                })
+
+                // create audit
+                await this.audit.createAuditEntry({
+                    username: this.authUser.user.username,
+                    table: DB_TABLE.VEHICLE_MAINTENANCE,
+                    action: 'CREATE-VEHICLE-MAINTENANCE',
+                    reference_id: created.id,
+                    metadata: created,
+                    ip_address: metadata.ip_address,
+                    device_info: metadata.device_info
+                }, tx as Prisma.TransactionClient)
+        
+                return created
+
             })
-    
-            return created
+
 
         } catch (error) {
             this.logger.error('Error in creating vehicle maintenance', error)
@@ -212,9 +240,20 @@ export class VehicleMaintenanceService {
         return items;
     }
 
-    async update(id: string, input: UpdateVehicleMaintenanceInput): Promise<VehicleMaintenance> {
+    async update(
+        id: string, 
+        input: UpdateVehicleMaintenanceInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<VehicleMaintenance> {
 
-		const existingItem = await this.prisma.vehicleMaintenance.findUnique({ where: { id } })
+		const existingItem = await this.prisma.vehicleMaintenance.findUnique({
+            where: { id },
+            include: {
+                vehicle: true,
+                service_center: true,
+                services: true,
+            }
+        })
 
         if(!existingItem) {
             throw new NotFoundException('Vehicle Maintenance not found')
@@ -252,17 +291,40 @@ export class VehicleMaintenanceService {
                   }
                 : undefined,
             };
-        
-            return await tx.vehicleMaintenance.update({
+            
+            const updated = await tx.vehicleMaintenance.update({
                 data,
                 where: { id },
+                include: {
+                    vehicle: true,
+                    service_center: true,
+                    services: true,
+                }
             });
+
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.VEHICLE_MAINTENANCE,
+				action: 'UPDATE-VEHICLE-MAINTENANCE',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
+            return updated
         
         })
 	
 	}
 
-    async remove(id: string): Promise<WarehouseRemoveResponse> {
+    async remove(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseRemoveResponse> {
 
 		const existingItem = await this.prisma.vehicleMaintenance.findUnique({ where: { id } })
 
@@ -270,35 +332,81 @@ export class VehicleMaintenanceService {
             throw new NotFoundException('Vehicle Maintenance not found')
         }
 
-		await this.prisma.vehicleMaintenance.update({
-			where: { id },
-			data: { deleted_at: new Date() }
-		})
+        return this.prisma.$transaction(async(tx) => {
 
-		return {
-			success: true,
-			msg: "Vehicle Maintenance successfully deleted"
-		}
-
-	}
-
-    async update_field_is_completed(id: string, is_completed: boolean): Promise<UpdateCompletionResponse> {
-
-        try {
-
-            const x = await this.prisma.vehicleMaintenance.update({
-                select: {
-                    is_completed: true,
-                },
+            const updated = await tx.vehicleMaintenance.update({
                 where: { id },
-                data: { is_completed }
+                data: { deleted_at: new Date() }
             })
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.VEHICLE_MAINTENANCE,
+				action: 'SOFT-DELETE-VEHICLE-MAINTENANCE',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
     
             return {
                 success: true,
-                msg: "Successfully updated status",
-                is_completed: x.is_completed
+                msg: "Vehicle Maintenance successfully deleted"
             }
+
+        })
+
+
+	}
+
+    async update_field_is_completed(
+        id: string, 
+        is_completed: boolean, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<UpdateCompletionResponse> {
+
+        try {
+
+            return this.prisma.$transaction(async(tx) => {
+
+                const existingItem = await tx.vehicleMaintenance.findUnique({ where: { id } })
+
+                if(!existingItem) {
+                    throw new NotFoundException('Vehicle Maintenance not found')
+                }
+
+                const x = await tx.vehicleMaintenance.update({
+                    select: {
+                        is_completed: true,
+                    },
+                    where: { id },
+                    data: { is_completed }
+                })
+
+                await this.audit.createAuditEntry({
+                    username: this.authUser.user.username,
+                    table: DB_TABLE.VEHICLE_MAINTENANCE,
+                    action: 'UPDATE-VEHICLE-MAINTENANCE',
+                    reference_id: id,
+                    metadata: {
+                        'old_value:field=is_completed': existingItem.is_completed,
+                        'new_value:field=is_completed': is_completed
+                    },
+                    ip_address: metadata.ip_address,
+                    device_info: metadata.device_info
+                }, tx as Prisma.TransactionClient)
+        
+                return {
+                    success: true,
+                    msg: "Successfully updated status",
+                    is_completed: x.is_completed
+                }
+
+            })
+
             
         } catch (error) {
             throw error

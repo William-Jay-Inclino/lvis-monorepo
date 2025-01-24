@@ -62,7 +62,7 @@ export class VehicleService {
 
 		return await this.prisma.$transaction(async(tx) => {
 
-			const created = await this.prisma.vehicle.create({
+			const created = await tx.vehicle.create({
 				data
 			})
 			
@@ -70,7 +70,7 @@ export class VehicleService {
 			await this.audit.createAuditEntry({
 				username: this.authUser.user.username,
 				table: DB_TABLE.VEHICLE,
-				action: 'CREATE-PROJECT',
+				action: 'CREATE-VEHICLE',
 				reference_id: created.id,
 				metadata: created,
 				ip_address: metadata.ip_address,
@@ -216,7 +216,7 @@ export class VehicleService {
 		
 		return await this.prisma.$transaction(async(tx) => {
 
-			const updated = await this.prisma.vehicle.update({
+			const updated = await tx.vehicle.update({
 				data,
 				where: { id },
 			});
@@ -260,7 +260,7 @@ export class VehicleService {
 
 		return await this.prisma.$transaction(async(tx) => {
 
-			const updatedItem = await this.prisma.vehicle.update({
+			const updatedItem = await tx.vehicle.update({
 				where: { id },
 				data: { deleted_at: new Date() }
 			})

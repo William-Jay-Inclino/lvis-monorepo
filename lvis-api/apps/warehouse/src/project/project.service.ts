@@ -157,7 +157,10 @@ export class ProjectService {
 
 	}
 
-	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
+	async remove(
+		id: string, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<WarehouseRemoveResponse> {
 
 		const existingItem = await this.findOne(id)
 

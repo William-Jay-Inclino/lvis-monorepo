@@ -15,6 +15,9 @@ import { UpdateVehicleMaintenanceInput } from './dto/update-vehicle-maintenance.
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { UpdateCompletionResponse } from './entities/update-completion-response';
 import { UpdateVehicleMaintenanceCompletionInput } from './dto/update-vehicle-maintenance-completion.input';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver( () => VehicleMaintenance)
@@ -23,14 +26,19 @@ export class VehicleMaintenanceResolver {
 	private readonly logger = new Logger(VehicleMaintenanceResolver.name);
 	private filename = 'vehicle-maintenance.resolver.ts'
 
-	constructor(private readonly vehicleMaintenanceService: VehicleMaintenanceService) {}
+	constructor(
+		private readonly vehicleMaintenanceService: VehicleMaintenanceService,
+		private readonly audit: WarehouseAuditService,
+	) {}
 
 	@Mutation(() => VehicleMaintenance)
 	@UseGuards(AccessGuard)
 	@CheckAccess(MODULES.VEHICLE_MAINTENANCE, RESOLVERS.createVehicleMaintenance)
 	async createVehicleMaintenance(
 		@Args('input') input: CreateVehicleMaintenanceInput,
-		@CurrentAuthUser() authUser: AuthUser
+		@CurrentAuthUser() authUser: AuthUser,
+		@UserAgent() user_agent: string,
+		@IpAddress() ip_address: string,
 	) {
 		try {
 			this.logger.log({
@@ -42,7 +50,10 @@ export class VehicleMaintenanceResolver {
 			
 			this.vehicleMaintenanceService.setAuthUser(authUser)
 	
-			const x = await this.vehicleMaintenanceService.create(input);
+			const x = await this.vehicleMaintenanceService.create(input, {
+				ip_address,
+				device_info: this.audit.getDeviceInfo(user_agent)
+			});
 			
 			this.logger.log('Vehicle Maintenance created successfully')
 	
@@ -58,7 +69,9 @@ export class VehicleMaintenanceResolver {
 	@CheckAccess(MODULES.VEHICLE_MAINTENANCE, RESOLVERS.updateVehicleMaintenance)
 	async updateVehicleMaintenanceCompletion(
 		@Args('input') input: UpdateVehicleMaintenanceCompletionInput,
-		@CurrentAuthUser() authUser: AuthUser
+		@CurrentAuthUser() authUser: AuthUser,
+		@UserAgent() user_agent: string,
+		@IpAddress() ip_address: string,
 	) {
 		try {
 			this.logger.log({
@@ -70,7 +83,10 @@ export class VehicleMaintenanceResolver {
 			
 			this.vehicleMaintenanceService.setAuthUser(authUser)
 	
-			const x = await this.vehicleMaintenanceService.update_field_is_completed(input.vehicle_maintenance_id, input.is_completed);
+			const x = await this.vehicleMaintenanceService.update_field_is_completed(input.vehicle_maintenance_id, input.is_completed, {
+				ip_address,
+				device_info: this.audit.getDeviceInfo(user_agent)
+			});
 			
 			this.logger.log(`Updated Vehicle Maintenance completion. Value: ${input.is_completed} `)
 	
@@ -145,7 +161,9 @@ export class VehicleMaintenanceResolver {
 	async updateVehicleMaintenance(
 	  @Args('id') id: string,
 	  @Args('input') input: UpdateVehicleMaintenanceInput,
-	  @CurrentAuthUser() authUser: AuthUser
+	  @CurrentAuthUser() authUser: AuthUser,
+	  @UserAgent() user_agent: string,
+	  @IpAddress() ip_address: string,
 	) {
 		try {
 			this.logger.log({
@@ -157,7 +175,10 @@ export class VehicleMaintenanceResolver {
 			})
 			
 			this.vehicleMaintenanceService.setAuthUser(authUser)
-			const x = await this.vehicleMaintenanceService.update(id, input);
+			const x = await this.vehicleMaintenanceService.update(id, input, {
+				ip_address,
+				device_info: this.audit.getDeviceInfo(user_agent)
+			});
 	
 			this.logger.log('Vehicle Maintenance updated successfully')
 	
@@ -172,7 +193,9 @@ export class VehicleMaintenanceResolver {
 	@CheckAccess(MODULES.VEHICLE_MAINTENANCE, RESOLVERS.removeVehicleMaintenance)
 	async removeVehicleMaintenance(
 	  @Args('id') id: string,
-	  @CurrentAuthUser() authUser: AuthUser
+	  @CurrentAuthUser() authUser: AuthUser,
+	  @UserAgent() user_agent: string,
+	  @IpAddress() ip_address: string,
 	) {
 	  try {
   
@@ -184,7 +207,10 @@ export class VehicleMaintenanceResolver {
 		})
   
 		this.vehicleMaintenanceService.setAuthUser(authUser)
-		const x = await this.vehicleMaintenanceService.remove(id);
+		const x = await this.vehicleMaintenanceService.remove(id, {
+			ip_address,
+			device_info: this.audit.getDeviceInfo(user_agent)
+		});
 		
 		this.logger.log('Vehicle Maintenance removed successfully')
 		
