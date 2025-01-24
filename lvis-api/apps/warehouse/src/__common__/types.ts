@@ -135,7 +135,9 @@ export enum DB_TABLE {
     
     // MOTORPOOL
     GAS_SLIP = 'gas_slip',
+    GAS_SLIP_APPROVER = 'gas_slip_approver',
     TRIP_TICKET = 'trip_ticket',
+    TRIP_TICKET_APPROVER = 'trip_ticket_approver',
     VEHICLE = 'vehicle',
     VEHICLE_MAINTENANCE = 'vehicle_maintenance',
     SERVICES = 'vehicle_maintenance_detail',

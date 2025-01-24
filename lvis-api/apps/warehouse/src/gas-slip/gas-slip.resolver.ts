@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args, ResolveField, Parent, Int } from '@nes
 import { GasSlipService } from './gas-slip.service';
 import { GasSlip } from './entities/gas-slip.entity';
 import { CreateGasSlipInput } from './dto/create-gas-slip.input';
-import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse } from '../__common__/classes';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
@@ -18,6 +18,9 @@ import { GasSlipApproverService } from '../gas-slip-approver/gas-slip-approver.s
 import { GasSlipApprover } from '../gas-slip-approver/entities/gas-slip-approver.entity';
 import { PostGasSlipInput } from './dto/post-gas-slip.input';
 import { UpdateGasSlipInput } from './dto/update-gas-slip.input';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => GasSlip)
@@ -29,6 +32,7 @@ export class GasSlipResolver {
   constructor(
     private readonly gasSlipService: GasSlipService,
     private readonly gasSlipApproverService: GasSlipApproverService,
+    private readonly audit: WarehouseAuditService,
   ) { }
 
   @Mutation(() => GasSlip)
@@ -36,7 +40,9 @@ export class GasSlipResolver {
   @CheckAccess(MODULES.GAS_SLIP, RESOLVERS.createGasSlip)
   async createGasSlip(
     @Args('input') createGasSlipInput: CreateGasSlipInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -49,7 +55,10 @@ export class GasSlipResolver {
       
       this.gasSlipService.setAuthUser(authUser)
 
-      const x = await this.gasSlipService.create(createGasSlipInput);
+      const x = await this.gasSlipService.create(createGasSlipInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Gas slip created successfully')
 
@@ -66,7 +75,9 @@ export class GasSlipResolver {
   async updateGasSlip(
       @Args('id') id: string,
       @Args('input') input: UpdateGasSlipInput,
-      @CurrentAuthUser() authUser: AuthUser
+      @CurrentAuthUser() authUser: AuthUser,
+      @UserAgent() user_agent: string,
+      @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -79,7 +90,10 @@ export class GasSlipResolver {
       })
       
       this.gasSlipService.setAuthUser(authUser)
-      const x = await this.gasSlipService.update(id, input);
+      const x = await this.gasSlipService.update(id, input, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Gas slip updated successfully')
 
@@ -94,7 +108,9 @@ export class GasSlipResolver {
   async postGasSlip(
     @Args('id') id: string,
     @Args('input') input: PostGasSlipInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -107,7 +123,10 @@ export class GasSlipResolver {
       })
       
       this.gasSlipService.setAuthUser(authUser)
-      const x = await this.gasSlipService.post_gas_slip(id, input);
+      const x = await this.gasSlipService.post_gas_slip(id, input, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Gas slip posted successfully')
 
@@ -120,7 +139,9 @@ export class GasSlipResolver {
   @Mutation(() => WarehouseCancelResponse)
   async cancelGasSlip(
       @Args('id') id: string,
-      @CurrentAuthUser() authUser: AuthUser
+      @CurrentAuthUser() authUser: AuthUser,
+      @UserAgent() user_agent: string,
+      @IpAddress() ip_address: string,
   ) {
       try {
 
@@ -132,7 +153,10 @@ export class GasSlipResolver {
           })
     
           this.gasSlipService.setAuthUser(authUser)
-          const x = await this.gasSlipService.cancel(id);
+          const x = await this.gasSlipService.cancel(id, {
+            ip_address,
+            device_info: this.audit.getDeviceInfo(user_agent)
+          });
           
           this.logger.log('Gas Slip cancelled successfully')
           
@@ -188,33 +212,33 @@ export class GasSlipResolver {
       return { __typename: 'Employee', id: gasSlip.requested_by_id }
   }
 
-  @Mutation(() => WarehouseRemoveResponse)
-  @UseGuards(AccessGuard)
-  @CheckAccess(MODULES.GAS_SLIP, RESOLVERS.removeGasSlip)
-  async removeGasSlip(
-    @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
-  ) {
-    try {
+  // @Mutation(() => WarehouseRemoveResponse)
+  // @UseGuards(AccessGuard)
+  // @CheckAccess(MODULES.GAS_SLIP, RESOLVERS.removeGasSlip)
+  // async removeGasSlip(
+  //   @Args('id') id: string,
+  //   @CurrentAuthUser() authUser: AuthUser
+  // ) {
+  //   try {
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.removeGasSlip,
-        gas_slip_id: id,
-      })
+  //     this.logger.log({
+  //       username: authUser.user.username,
+  //       filename: this.filename,
+  //       function: RESOLVERS.removeGasSlip,
+  //       gas_slip_id: id,
+  //     })
 
-      this.gasSlipService.setAuthUser(authUser)
-      const x = await this.gasSlipService.remove(id);
+  //     this.gasSlipService.setAuthUser(authUser)
+  //     const x = await this.gasSlipService.remove(id);
       
-      this.logger.log('Gas slip removed successfully')
+  //     this.logger.log('Gas slip removed successfully')
       
-      return x 
+  //     return x 
 
-    } catch (error) {
-      this.logger.error('Error in removing gas slip', error)
-    }
-  }
+  //   } catch (error) {
+  //     this.logger.error('Error in removing gas slip', error)
+  //   }
+  // }
 
   @ResolveField(() => [GasSlipApprover])
     gas_slip_approvers(@Parent() gasSlip: GasSlip): any {

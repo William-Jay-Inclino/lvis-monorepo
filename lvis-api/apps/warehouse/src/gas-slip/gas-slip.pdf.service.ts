@@ -11,6 +11,8 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { GasSlip } from './entities/gas-slip.entity';
 import { VehicleClassificationMapper } from '../vehicle/entities/vehicle.enums';
 import { UPLOADS_PATH } from '../__common__/config';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class GasSlipPdfService {
@@ -22,13 +24,14 @@ export class GasSlipPdfService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async generatePdf(gasSlip: GasSlip) {
+    async generatePdf(gasSlip: GasSlip, metadata: { ip_address: string, device_info: any }) {
         // const browser = await puppeteer.launch();
 
         const browser = await puppeteer.launch({
@@ -435,6 +438,16 @@ export class GasSlipPdfService {
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
+
+        // create audit
+        await this.audit.createAuditEntry({
+            username: this.authUser.user.username,
+            table: DB_TABLE.GAS_SLIP,
+            action: 'PRINT-GAS-SLIP',
+            reference_id: gasSlip.id,
+            ip_address: metadata.ip_address,
+            device_info: metadata.device_info
+        })
 
         return pdfBuffer;
     }

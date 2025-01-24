@@ -1,4 +1,4 @@
-import { Controller, Get, InternalServerErrorException, Logger, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { GasSlipPdfService } from './gas-slip.pdf.service';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
@@ -6,6 +6,9 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { GasSlipService } from './gas-slip.service';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('gas-slip')
@@ -17,6 +20,7 @@ export class GasSlipController {
     constructor(
         private readonly gasSlipPdfService: GasSlipPdfService,
         private readonly gasSlipService: GasSlipService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
 
@@ -25,7 +29,9 @@ export class GasSlipController {
     async generatePdf(
         @Param('id') id: string, 
         @Res() res: Response,
-        @CurrentAuthUser() authUser: AuthUser
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         try {
@@ -51,7 +57,10 @@ export class GasSlipController {
 
             const gasSlip = await this.gasSlipPdfService.findGasSlip(id);
             // @ts-ignore
-            const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip);
+            const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent)
+            });
         
             // @ts-ignore
             res.set({

@@ -7,6 +7,9 @@ import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => TripTicketApprover)
@@ -15,7 +18,10 @@ export class TripTicketApproverResolver {
   private readonly logger = new Logger(TripTicketApproverResolver.name);
   private filename = 'trip-ticket-approver.resolver.ts'
 
-  constructor(private readonly tripTicketApproverService: TripTicketApproverService) {}
+  constructor(
+    private readonly tripTicketApproverService: TripTicketApproverService,
+    private readonly audit: WarehouseAuditService,
+  ) {}
 
   @ResolveField(() => Employee)
   approver(@Parent() tripTicketApprover: TripTicketApprover): any {
@@ -26,7 +32,9 @@ export class TripTicketApproverResolver {
   async changeTripTicketApprover(
       @Args('id') id: string,
       @Args('input') input: ChangeTripTicketApproverInput,
-      @CurrentAuthUser() authUser: AuthUser
+      @CurrentAuthUser() authUser: AuthUser,
+      @UserAgent() user_agent: string,
+      @IpAddress() ip_address: string,
   ) {
     try {
       this.logger.log({
@@ -39,7 +47,10 @@ export class TripTicketApproverResolver {
       
       this.tripTicketApproverService.setAuthUser(authUser)
 
-      const x = await this.tripTicketApproverService.changeApprover(id, input);
+      const x = await this.tripTicketApproverService.changeApprover(id, input, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Trip Ticket Approver changed successfully')
 

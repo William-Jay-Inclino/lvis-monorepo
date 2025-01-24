@@ -4,9 +4,10 @@ import { VehicleResolver } from './vehicle.resolver';
 import { GasSlipService } from '../gas-slip/gas-slip.service';
 import { HttpModule } from '@nestjs/axios';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [VehicleResolver, VehicleService, GasSlipService, WinstonLoggerService],
 })
 export class VehicleModule {}

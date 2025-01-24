@@ -4,18 +4,19 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { GasSlip, GasSlipApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
-import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from 'apps/warehouse/src/__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
 import { GasSlipsResponse } from './entities/gas-slips-response.entity';
-import { getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { isAdmin, isNormalUser } from '../__common__/helpers';
 import { PostGasSlipInput } from './dto/post-gas-slip.input';
 import { MAX_UNPOSTED_GAS_SLIPS } from '../__common__/config';
 import { VEHICLE_CLASSIFICATION } from '../vehicle/entities/vehicle.enums';
-import { catchError, filter, firstValueFrom } from 'rxjs';
+import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { UpdateGasSlipInput } from './dto/update-gas-slip.input';
 import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description_for_motorpool, getEmployee, isPastDate } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class GasSlipService {
@@ -25,13 +26,17 @@ export class GasSlipService {
 	constructor(
 		private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
 	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateGasSlipInput) {
+	async create(
+        input: CreateGasSlipInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         if(isPastDate(input.used_on)) {
             throw new BadRequestException('Date should not be in the past')
@@ -97,6 +102,7 @@ export class GasSlipService {
                 data,
                 include: {
                     vehicle: true,
+                    gas_slip_approvers: true,
                 }
             })
 
@@ -121,12 +127,26 @@ export class GasSlipService {
 
             await tx.pending.create({ data: pendingData })
 
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.GAS_SLIP,
+                action: 'CREATE-GAS-SLIP',
+                reference_id: gas_slip_created.id,
+                metadata: gas_slip_created,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
             return gas_slip_created
         });
     
 	}
 
-	async update(id: string, input: UpdateGasSlipInput) {
+	async update(
+        id: string, 
+        input: UpdateGasSlipInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         if(isPastDate(input.used_on)) {
             throw new BadRequestException('Date should not be in the past')
@@ -135,6 +155,7 @@ export class GasSlipService {
         const existingItem = await this.prisma.gasSlip.findUnique({
             where: { id },
             include: {
+                vehicle: true,
                 gas_slip_approvers: true
             }
         })
@@ -180,7 +201,8 @@ export class GasSlipService {
             const gas_slip_updated = await tx.gasSlip.update({
                 data,
 				include: {
-					vehicle: true
+					vehicle: true,
+                    gas_slip_approvers: true,
 				},
                 where: { id }
             })
@@ -211,6 +233,19 @@ export class GasSlipService {
 					}
 				})
 			}
+
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.GAS_SLIP,
+				action: 'UPDATE-GAS-SLIP',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': gas_slip_updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
             
             return gas_slip_updated
 
@@ -218,10 +253,16 @@ export class GasSlipService {
 		
 	}
 
-	async cancel(id: string): Promise<WarehouseCancelResponse> {
+	async cancel(
+        id: string, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.gasSlip.findUnique({
-            where: { id }
+            where: { id },
+            include: {
+                vehicle: true,
+            }
         })
 
         if (!existingItem) {
@@ -232,40 +273,61 @@ export class GasSlipService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-        
-        const updateGasSlipQuery = this.prisma.gasSlip.update({
-            data: {
-                cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username,
-                approval_status: APPROVAL_STATUS.CANCELLED
-            },
-            where: { id }
-        })
+        return await this.prisma.$transaction(async(tx) => {
 
-        queries.push(updateGasSlipQuery)
-
-        // delete associated pending
-
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.gas_slip_number,
-                    reference_table: DB_ENTITY.GAS_SLIP
+            const gas_slip_cancelled = await tx.gasSlip.update({
+                data: {
+                    cancelled_at: new Date(),
+                    cancelled_by: this.authUser.user.username,
+                    approval_status: APPROVAL_STATUS.CANCELLED
+                },
+                where: { id },
+                include: {
+                    vehicle: true
                 }
+            })
+    
+            // delete associated pending
+    
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.gas_slip_number,
+                        reference_table: DB_ENTITY.GAS_SLIP
+                    }
+                }
+            })
+
+            if(pending) {
+
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
+
             }
+
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.GAS_SLIP,
+				action: 'CANCEL-GAS-SLIP',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': gas_slip_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: 'Successfully cancelled Gas Slip',
+                cancelled_at: gas_slip_cancelled.cancelled_at,
+                cancelled_by: gas_slip_cancelled.cancelled_by
+            }
+
         })
 
-        queries.push(deleteAssociatedPending)
-
-        const result = await this.prisma.$transaction(queries)
-
-        return {
-            success: true,
-            msg: 'Successfully cancelled Gas Slip',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
 
     }
 
@@ -394,20 +456,20 @@ export class GasSlipService {
 		return item;
 	}
 
-	async remove(id: string): Promise<WarehouseRemoveResponse> {
+	// async remove(id: string): Promise<WarehouseRemoveResponse> {
 
-		const existingItem = await this.findOne({ id })
+	// 	const existingItem = await this.findOne({ id })
 
-		await this.prisma.gasSlip.delete({
-			where: { id },
-		})
+	// 	await this.prisma.gasSlip.delete({
+	// 		where: { id },
+	// 	})
 
-		return {
-			success: true,
-			msg: "Gas Slip successfully deleted"
-		}
+	// 	return {
+	// 		success: true,
+	// 		msg: "Gas Slip successfully deleted"
+	// 	}
 
-	}
+	// }
 
 	async get_total_unposted_gas_slips(vehicle_id: string) {
 		const unpostedGasSlipsCount = await this.prisma.gasSlip.count({
@@ -420,10 +482,17 @@ export class GasSlipService {
 		  return unpostedGasSlipsCount;
 	}
 
-	async post_gas_slip(id: string, input: PostGasSlipInput) {
+	async post_gas_slip(
+        id: string, 
+        input: PostGasSlipInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
 		const existingGasSlip = await this.prisma.gasSlip.findUnique({
-			where: { id }
+			where: { id },
+            include: {
+                vehicle: true,
+            }
 		})
 
 		if(!existingGasSlip) {
@@ -438,16 +507,37 @@ export class GasSlipService {
 			throw new BadRequestException("Cannot post gas slip. Field is_posted is already set to true")
 		}
 
-		const updated = await this.prisma.gasSlip.update({
-			where: { id },
-			data: {
-				actual_liter: input.actual_liter,
-				price_per_liter: input.price_per_liter,
-				is_posted: true,
-			}
-		})
+        return await this.prisma.$transaction(async(tx) => {
 
-		return updated
+            const updated = await this.prisma.gasSlip.update({
+                where: { id },
+                data: {
+                    actual_liter: input.actual_liter,
+                    price_per_liter: input.price_per_liter,
+                    is_posted: true,
+                },
+                include: {
+                    vehicle: true,
+                }
+            })
+
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.GAS_SLIP,
+				action: 'POST-GAS-SLIP',
+				reference_id: id,
+				metadata: {
+					'old_value': existingGasSlip,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return updated
+
+        })
+
 
 	}
 

@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { GasSlipApprover } from 'apps/warehouse/prisma/generated/client';
+import { GasSlipApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { ChangeGasSlipApproverInput } from './dto/change-gas-slip-approver.input';
-import { APPROVAL_STATUS } from '../__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
-import { getModule } from '../__common__/helpers';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class GasSlipApproverService {
@@ -14,13 +14,18 @@ export class GasSlipApproverService {
 
     constructor(
         private readonly prisma: PrismaService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async changeApprover(id: string, input: ChangeGasSlipApproverInput) {
+    async changeApprover(
+        id: string, 
+        input: ChangeGasSlipApproverInput, 
+		metadata: { ip_address: string, device_info: any }
+    ) {
 
         return this.prisma.$transaction(async (prisma) => {
             const item = await prisma.gasSlipApprover.findUnique({
@@ -111,6 +116,19 @@ export class GasSlipApproverService {
                     approver_id: input.new_approver_id,
                 },
             });
+
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.GAS_SLIP_APPROVER,
+                action: 'CHANGE-GAS-SLIP-APPROVER',
+                reference_id: id,
+                metadata: {
+                    'old_approver_id': item.approver_id,
+                    'new_approver_id': input.new_approver_id,
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, prisma as Prisma.TransactionClient)
 
             return updateApprover;
         });
