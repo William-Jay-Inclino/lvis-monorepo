@@ -140,7 +140,7 @@ export enum DB_TABLE {
     TRIP_TICKET_APPROVER = 'trip_ticket_approver',
     VEHICLE = 'vehicle',
     VEHICLE_MAINTENANCE = 'vehicle_maintenance',
-    SERVICES = 'vehicle_maintenance_detail',
+    VEHICLE_MAINTENANCE_DETAIL = 'vehicle_maintenance_detail',
 
 
     // DATA MANAGEMENT
