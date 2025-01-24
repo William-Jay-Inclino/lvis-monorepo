@@ -88,3 +88,17 @@ export interface UserGroup {
     id: number
     name: string 
 }
+
+export enum DATABASE {
+    SYSTEM = 'lvis_system_db',
+    WAREHOUSE = 'lvis_warehouse_db',
+}
+
+export enum DB_TABLE {
+    EMPLOYEE = 'employee',
+    DEPARTMENT = 'department',
+    DIVISION = 'division',
+    ACCOUNT = 'account',
+    CLASSIFICATION = 'classification',
+    USER = 'user',
+}

@@ -38,6 +38,24 @@ enum UserLogEventType {
   LOGOUT
 }
 
+model Audit {
+  id           String   @id @default(cuid()) 
+  username     String 
+  database        String   
+  table        String   
+  action       String   
+  reference_id String?  
+  metadata     Json?    
+  ip_address   String? 
+  device_info  Json?    
+  created_at   DateTime @default(now()) @db.Timestamptz
+  notes        String?  
+
+  @@index([username])
+  @@index([database, table])
+  @@map("system_audit")
+}
+
 model Division {
   id            String     @id @default(uuid())
   department_id String

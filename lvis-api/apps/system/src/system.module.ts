@@ -23,7 +23,7 @@ import { SettingModule } from './setting/setting.module';
 import { DivisionModule } from './division/division.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { UserAuditLogModule } from './user-audit-log/user-audit-log.module';
-
+import { SystemAuditModule } from './system_audit/system_audit.module';
 
 @Module({
   imports: [
@@ -36,6 +36,7 @@ import { UserAuditLogModule } from './user-audit-log/user-audit-log.module';
         federation: 2,
       },
     }),
+    SystemAuditModule,
     DepartmentModule,
     EmployeeModule,
     UserModule,

@@ -18,26 +18,26 @@ export class SeederService {
             await this.prisma.$transaction(async (prisma) => {
 
                 // data mgmt
-                await this.seedClassification(prisma)
-                await this.seedAccount(prisma)
-                await this.seedDepartment(prisma)
-                await this.seedDivision(prisma)
+                await this.seedClassification(prisma as Prisma.TransactionClient)
+                await this.seedAccount(prisma as Prisma.TransactionClient)
+                await this.seedDepartment(prisma as Prisma.TransactionClient)
+                await this.seedDivision(prisma as Prisma.TransactionClient)
 
                 // users and employees
-                await this.seedEmployee(prisma)
-                await this.seedUserTable(prisma)
-                await this.seedUserEmployeeTable(prisma);
-                await this.seedUserGroupTable(prisma);
-                await this.seedUserGroupMembersTable(prisma);
+                await this.seedEmployee(prisma as Prisma.TransactionClient)
+                await this.seedUserTable(prisma as Prisma.TransactionClient)
+                await this.seedUserEmployeeTable(prisma as Prisma.TransactionClient);
+                await this.seedUserGroupTable(prisma as Prisma.TransactionClient);
+                await this.seedUserGroupMembersTable(prisma as Prisma.TransactionClient);
 
                 // settings
-                await this.seedSettingTable(prisma);
-                await this.seedJOApproverSetting(prisma);
-                await this.seedRVApproverSetting(prisma);
-                await this.seedSPRApproverSetting(prisma);
-                await this.seedMEQSApproverSetting(prisma);
-                await this.seedPOApproverSetting(prisma);
-                await this.seedRRApproverSetting(prisma);
+                await this.seedSettingTable(prisma as Prisma.TransactionClient);
+                await this.seedJOApproverSetting(prisma as Prisma.TransactionClient);
+                await this.seedRVApproverSetting(prisma as Prisma.TransactionClient);
+                await this.seedSPRApproverSetting(prisma as Prisma.TransactionClient);
+                await this.seedMEQSApproverSetting(prisma as Prisma.TransactionClient);
+                await this.seedPOApproverSetting(prisma as Prisma.TransactionClient);
+                await this.seedRRApproverSetting(prisma as Prisma.TransactionClient);
             });
         } catch (error) {
         }
