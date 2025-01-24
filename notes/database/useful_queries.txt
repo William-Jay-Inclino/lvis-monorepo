@@ -1,7 +1,10 @@
 
 // audit logs
-SELECT created_at, username, "action", "table", metadata FROM public.warehouse_audit
-ORDER BY id DESC 
+SELECT created_at, username, "action", "table", metadata
+FROM public.warehouse_audit
+WHERE DATE(created_at) = '2025-01-24'
+ORDER BY id DESC;
+
 
 
 
