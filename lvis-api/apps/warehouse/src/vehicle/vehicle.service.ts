@@ -8,19 +8,27 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { VEHICLE_STATUS } from './entities/vehicle.enums';
 import { UpdateVehicleResponse } from './entities/update-vehicle-response.entity';
 import { VehiclesResponse } from './entities/vehicles-response.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class VehicleService {
 
 	private authUser: AuthUser
 
-	constructor(private readonly prisma: PrismaService) { }
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly audit: WarehouseAuditService,
+	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateVehicleInput): Promise<Vehicle> {
+	async create(
+		input: CreateVehicleInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<Vehicle> {
 
 		// Check if the vehicle number already exists
 		const existingVehicle = await this.prisma.vehicle.findUnique({
@@ -52,11 +60,26 @@ export class VehicleService {
 			created_by: this.authUser.user.username
 		}
 
-		const created = await this.prisma.vehicle.create({
-			data
+		return await this.prisma.$transaction(async(tx) => {
+
+			const created = await this.prisma.vehicle.create({
+				data
+			})
+			
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.VEHICLE,
+				action: 'CREATE-PROJECT',
+				reference_id: created.id,
+				metadata: created,
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+
+			return created
 		})
 
-		return created
 
 	}
 
@@ -127,9 +150,19 @@ export class VehicleService {
 		return item
 	}
 
-	async update(id: string, input: UpdateVehicleInput): Promise<UpdateVehicleResponse> {
+	async update(
+		id: string, 
+		input: UpdateVehicleInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<UpdateVehicleResponse> {
 
-		const existingItem = await this.findOne(id);
+		const existingItem = await this.prisma.vehicle.findUnique({
+			where: { id }
+		})
+
+		if(!existingItem) {
+			throw new NotFoundException("Vehicle not found with id " + id)
+		}
 	
 		// Check for vehicle_number uniqueness
 		if (input.vehicle_number && input.vehicle_number !== existingItem.vehicle_number) {
@@ -180,32 +213,78 @@ export class VehicleService {
 			date_acquired: input.date_acquired ? new Date(input.date_acquired) : existingItem.date_acquired,
 			updated_by: this.authUser.user.username
 		};
-	
-		const updated = await this.prisma.vehicle.update({
-			data,
-			where: { id },
-		});
-	
-		return {
-			success: true,
-			msg: "Successfully updated Vehicle",
-			data: updated,
-		};
-	}
+		
+		return await this.prisma.$transaction(async(tx) => {
 
-	async remove(id: string): Promise<WarehouseRemoveResponse> {
+			const updated = await this.prisma.vehicle.update({
+				data,
+				where: { id },
+			});
+			
+			// create audit
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.VEHICLE,
+				action: 'UPDATE-VEHICLE',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
 
-		const existingItem = await this.findOne(id)
+			return {
+				success: true,
+				msg: "Successfully updated Vehicle",
+				data: updated,
+			};
 
-		await this.prisma.vehicle.update({
-			where: { id },
-			data: { deleted_at: new Date() }
 		})
 
-		return {
-			success: true,
-			msg: "Vehicle successfully deleted"
+	}
+
+	async remove(
+		id: string, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<WarehouseRemoveResponse> {
+
+		const existingItem = await this.prisma.vehicle.findUnique({
+			where: { id }
+		})
+
+		if(!existingItem) {
+			throw new NotFoundException("Vehicle not found with id " + id)
 		}
+
+		return await this.prisma.$transaction(async(tx) => {
+
+			const updatedItem = await this.prisma.vehicle.update({
+				where: { id },
+				data: { deleted_at: new Date() }
+			})
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.VEHICLE,
+				action: 'SOFT-DELETE-VEHICLE',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': updatedItem
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			  }, tx as Prisma.TransactionClient)
+	
+			return {
+				success: true,
+				msg: "Vehicle successfully deleted"
+			}
+
+		})
+
 
 	}
 

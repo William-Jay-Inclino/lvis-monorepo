@@ -16,6 +16,9 @@ import { Employee } from '../__employee__/entities/employee.entity';
 import { GasSlipService } from '../gas-slip/gas-slip.service';
 import { UpdateVehicleResponse } from './entities/update-vehicle-response.entity';
 import { VehiclesResponse } from './entities/vehicles-response.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Vehicle)
@@ -27,6 +30,7 @@ export class VehicleResolver {
   constructor(
     private readonly vehicleService: VehicleService,
     private readonly gasSlipService: GasSlipService,
+    private readonly audit: WarehouseAuditService,
   ) { }
 
   @Mutation(() => Vehicle)
@@ -34,7 +38,9 @@ export class VehicleResolver {
   @CheckAccess(MODULES.VEHICLE, RESOLVERS.createVehicle)
   async createVehicle(
     @Args('input') createVehicleInput: CreateVehicleInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       this.logger.log({
@@ -46,7 +52,10 @@ export class VehicleResolver {
       
       this.vehicleService.setAuthUser(authUser)
 
-      const x = await this.vehicleService.create(createVehicleInput);
+      const x = await this.vehicleService.create(createVehicleInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Vehicle created successfully')
 
@@ -92,7 +101,9 @@ export class VehicleResolver {
   async updateVehicle(
     @Args('id') id: string,
     @Args('input') updateVehicleInput: UpdateVehicleInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -105,7 +116,10 @@ export class VehicleResolver {
       })
       
       this.vehicleService.setAuthUser(authUser)
-      const x = await this.vehicleService.update(id, updateVehicleInput);
+      const x = await this.vehicleService.update(id, updateVehicleInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Vehicle updated successfully')
 
@@ -120,7 +134,9 @@ export class VehicleResolver {
   @CheckAccess(MODULES.VEHICLE, RESOLVERS.removeVehicle)
   async removeVehicle(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
 
@@ -132,7 +148,10 @@ export class VehicleResolver {
       })
 
       this.vehicleService.setAuthUser(authUser)
-      const x = await this.vehicleService.remove(id);
+      const x = await this.vehicleService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Vehicle removed successfully')
       
