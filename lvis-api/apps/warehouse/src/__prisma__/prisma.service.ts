@@ -42,6 +42,18 @@ function extendPrismaClient(config: ConfigService) {
                 async findFirst({ args, query }) {
                     const result = await query(args);
                     return convertDatesToPhTime(result);
+                },
+                async update({ args, query }) {
+                    const result = await query(args);
+                    return convertDatesToPhTime(result);
+                },
+                async create({ args, query }) {
+                    const result = await query(args);
+                    return convertDatesToPhTime(result);
+                },
+                async delete({ args, query }) {
+                    const result = await query(args);
+                    return convertDatesToPhTime(result);
                 }
             },
         },
