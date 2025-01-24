@@ -21,6 +21,9 @@ import { UpdateActualStartTimeInput } from './dto/update-actual-start-time.input
 import { UpdateActualEndTimeInput } from './dto/update-actual-end-time.input';
 import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
 import { CreateTripResponse } from './entities/create-trip-response.entity';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 // @UseGuards(GqlAuthGuard)
 @Resolver(() => TripTicket)
@@ -32,6 +35,7 @@ export class TripTicketResolver {
   constructor(
     private readonly tripTicketService: TripTicketService,
     private readonly tripTicketApproverService: TripTicketApproverService,
+    private readonly audit: WarehouseAuditService,
   ) { }
 
   @Mutation(() => CreateTripResponse)
@@ -39,19 +43,24 @@ export class TripTicketResolver {
   @CheckAccess(MODULES.TRIP_TICKET, RESOLVERS.createTripTicket)
   async createTripTicket(
     @Args('input') createTripTicketInput: CreateTripTicketInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ): Promise<CreateTripResponse> {
     try {
 		this.logger.log({
-		username: authUser.user.username,
-		filename: this.filename,
-		function: RESOLVERS.createTripTicket,
-		input: JSON.stringify(createTripTicketInput)
+      username: authUser.user.username,
+      filename: this.filename,
+      function: RESOLVERS.createTripTicket,
+      input: JSON.stringify(createTripTicketInput)
 		})
 		
 		this.tripTicketService.setAuthUser(authUser)
 
-		const x = await this.tripTicketService.create(createTripTicketInput);
+		const x = await this.tripTicketService.create(createTripTicketInput, {
+      ip_address,
+      device_info: this.audit.getDeviceInfo(user_agent)
+    });
 		
 		this.logger.log(x.msg)
 
@@ -67,7 +76,9 @@ export class TripTicketResolver {
   async updateTripTicket(
       @Args('id') id: string,
       @Args('input') input: UpdateTripTicketInput,
-      @CurrentAuthUser() authUser: AuthUser
+      @CurrentAuthUser() authUser: AuthUser,
+      @UserAgent() user_agent: string,
+      @IpAddress() ip_address: string,
   ): Promise<CreateTripResponse> {
       try {
         
@@ -80,7 +91,10 @@ export class TripTicketResolver {
           })
           
           this.tripTicketService.setAuthUser(authUser)
-          const x = await this.tripTicketService.update(id, input);
+          const x = await this.tripTicketService.update(id, input, {
+            ip_address,
+            device_info: this.audit.getDeviceInfo(user_agent)
+          });
 
           this.logger.log(x.msg)
 
@@ -132,7 +146,9 @@ export class TripTicketResolver {
   @UseGuards(GqlAuthGuard)
   async cancelTripTicket(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -144,7 +160,10 @@ export class TripTicketResolver {
       })
 
       this.tripTicketService.setAuthUser(authUser)
-      const x = await this.tripTicketService.cancel(id);
+      const x = await this.tripTicketService.cancel(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Trip Ticket cancelled successfully')
       
@@ -159,6 +178,8 @@ export class TripTicketResolver {
   @Mutation(() => UpdateActualTimeResponse)
   async updateActualTime(
     @Args('input') input: UpdateActualTimeInput,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ): Promise<UpdateActualTimeResponse> {
 
     try {
@@ -169,7 +190,10 @@ export class TripTicketResolver {
         rf_id: input.rf_id,
       })
 
-      const x = await this.tripTicketService.update_actual_time(input.rf_id);
+      const x = await this.tripTicketService.update_actual_time(input.rf_id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log(x.msg)
       
@@ -185,7 +209,9 @@ export class TripTicketResolver {
   @UseGuards(GqlAuthGuard, AccessGuard)
   async removeActualStartTime(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -197,7 +223,10 @@ export class TripTicketResolver {
       })
 
       this.tripTicketService.setAuthUser(authUser)
-      const x = await this.tripTicketService.remove_actual_start_time(id);
+      const x = await this.tripTicketService.remove_actual_start_time(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log(x.msg)
       
@@ -213,7 +242,9 @@ export class TripTicketResolver {
   @UseGuards(GqlAuthGuard, AccessGuard)
   async removeActualEndTime(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -225,7 +256,10 @@ export class TripTicketResolver {
       })
 
       this.tripTicketService.setAuthUser(authUser)
-      const x = await this.tripTicketService.remove_actual_end_time(id);
+      const x = await this.tripTicketService.remove_actual_end_time(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log(x.msg)
       
@@ -241,7 +275,9 @@ export class TripTicketResolver {
   @UseGuards(GqlAuthGuard, AccessGuard)
   async updateActualStartTime(
     @Args('input') input: UpdateActualStartTimeInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -253,7 +289,10 @@ export class TripTicketResolver {
       })
 
       this.tripTicketService.setAuthUser(authUser)
-      const x = await this.tripTicketService.update_actual_start_time(input.trip_ticket_id, input.actual_start_time);
+      const x = await this.tripTicketService.update_actual_start_time(input.trip_ticket_id, input.actual_start_time, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log(x.msg)
       
@@ -269,7 +308,9 @@ export class TripTicketResolver {
   @UseGuards(GqlAuthGuard, AccessGuard)
   async updateActualEndTime(
     @Args('input') input: UpdateActualEndTimeInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -281,7 +322,10 @@ export class TripTicketResolver {
       })
 
       this.tripTicketService.setAuthUser(authUser)
-      const x = await this.tripTicketService.update_actual_end_time(input.trip_ticket_id, input.actual_end_time);
+      const x = await this.tripTicketService.update_actual_end_time(input.trip_ticket_id, input.actual_end_time, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log(x.msg)
       

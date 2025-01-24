@@ -4,6 +4,9 @@ import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TripTicketSummaryQueryDto } from './dto/trip-ticket-summary-query.dto';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('trip-ticket')
@@ -12,14 +15,19 @@ export class TripTicketController {
     private readonly logger = new Logger(TripTicketController.name);
     private filename = 'trip-ticket.controller.ts'
 
-    constructor(private tripReportService: TripTicketReportService) {}
+    constructor(
+        private tripReportService: TripTicketReportService,
+        private readonly audit: WarehouseAuditService,
+    ) {}
 
     @Get('summary-report')
     @UsePipes(new ValidationPipe())
     async generate_trip_ticket_summary_report(
         @Res() res: Response,
-        @CurrentAuthUser() authUser: AuthUser,
         @Query() query: TripTicketSummaryQueryDto,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
     ) {
 
         const { startDate, endDate, vehicleNumber, vehicleType, allVehicles } = query;
@@ -57,13 +65,19 @@ export class TripTicketController {
                 title += ` (${ vehicleNumber.toUpperCase() })`
             }
 
-            const pdfBuffer = await this.tripReportService.generate_trip_ticket_summary_pdf({
-                report_data,
-                startDate,
-                endDate,
-                title,
-                vehicleNumber,
-            })
+            const pdfBuffer = await this.tripReportService.generate_trip_ticket_summary_pdf(
+                {
+                    report_data,
+                    startDate,
+                    endDate,
+                    title,
+                    vehicleNumber,
+                }, 
+                {
+                    ip_address,
+                    device_info: this.audit.getDeviceInfo(user_agent)
+                }
+            )
 
             // @ts-ignore
             res.set({

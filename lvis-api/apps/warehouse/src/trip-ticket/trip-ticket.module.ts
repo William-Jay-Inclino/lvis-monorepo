@@ -6,9 +6,10 @@ import { HttpModule } from '@nestjs/axios';
 import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 import { TripTicketController } from './trip-ticket.controller';
 import { TripTicketReportService } from './trip-ticket-report.service';
+import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, WarehouseAuditModule],
   providers: [
     TripTicketResolver, 
     TripTicketService, 

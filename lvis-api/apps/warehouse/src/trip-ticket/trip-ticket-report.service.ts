@@ -5,7 +5,9 @@ import { HttpService } from '@nestjs/axios';
 import puppeteer from 'puppeteer';
 import { formatDate, getFullnameWithTitles, getImageAsBase64 } from '../__common__/helpers';
 import { formatDateToMMDDYY, formatDateToTime } from '../__common__/utils';
-import { catchError, filter, firstValueFrom } from 'rxjs';
+import { catchError, firstValueFrom } from 'rxjs';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class TripTicketReportService {
@@ -16,19 +18,23 @@ export class TripTicketReportService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+        private readonly audit: WarehouseAuditService,
     ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async generate_trip_ticket_summary_pdf(payload: {
-        report_data: any, 
-        startDate: string, 
-        endDate: string, 
-        title: string,
-        vehicleNumber?: string,
-    }) {
+    async generate_trip_ticket_summary_pdf(
+        payload: {
+            report_data: any, 
+            startDate: string, 
+            endDate: string, 
+            title: string,
+            vehicleNumber?: string,
+        },
+        metadata: { ip_address: string, device_info: any }
+    ) {
 
         const { report_data, startDate, endDate, title, vehicleNumber } = payload 
 
@@ -236,6 +242,22 @@ export class TripTicketReportService {
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
         await browser.close();
+
+        // create audit
+        await this.audit.createAuditEntry({
+            username: this.authUser.user.username,
+            table: DB_TABLE.TRIP_TICKET,
+            action: 'PRINT-TRIP-TICKET-SUMMARY',
+            reference_id: 'N/A',
+            metadata: {
+                'start_date': startDate,
+                'end_date': endDate,
+                'report_title': title,
+                'vehicle_number': vehicleNumber || 'N/A'
+            },
+            ip_address: metadata.ip_address,
+            device_info: metadata.device_info
+        })
 
         return pdfBuffer;
     }

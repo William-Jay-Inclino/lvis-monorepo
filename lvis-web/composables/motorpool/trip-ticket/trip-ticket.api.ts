@@ -151,6 +151,7 @@ export async function findOne(id: string): Promise<TripTicket | undefined> {
                     middlename 
                     lastname
                 } 
+                created_by
                 passengers 
                 destination
                 purpose 

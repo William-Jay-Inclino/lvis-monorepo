@@ -5,7 +5,7 @@ import { Prisma, TripTicket, TripTicketApprover } from 'apps/warehouse/prisma/ge
 import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TRIP_TICKET_STATUS } from './entities/trip-ticket.enums';
-import { APPROVAL_STATUS } from 'apps/warehouse/src/__common__/types';
+import { APPROVAL_STATUS, DB_TABLE } from 'apps/warehouse/src/__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
 import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
 import { VEHICLE_STATUS } from '../vehicle/entities/vehicle.enums';
@@ -19,6 +19,7 @@ import { endOfYear, startOfYear } from 'date-fns';
 import { CreateTripResponse } from './entities/create-trip-response.entity';
 import * as moment from 'moment';
 import { get_pending_description_for_motorpool, getEmployee } from '../__common__/utils';
+import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 
 @Injectable()
 export class TripTicketService {
@@ -28,13 +29,17 @@ export class TripTicketService {
 	constructor(
 		private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
+		private readonly audit: WarehouseAuditService,
 	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateTripTicketInput): Promise<CreateTripResponse> {
+	async create(
+		input: CreateTripTicketInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<CreateTripResponse> {
 
 		if (!(await this.canCreate(input))) {
             throw new Error('Failed to create TripTicket. Please try again')
@@ -50,10 +55,6 @@ export class TripTicketService {
 		if(!vehicle) {
 			throw new NotFoundException('Vehicle not found with id of ' + input.vehicle_id)
 		}
-
-		// if(vehicle.status !== VEHICLE_STATUS.AVAILABLE_FOR_TRIP) {
-		// 	throw new BadRequestException("Vehicle not available for trip")
-		// }
 
 		const validate_response = await this.validateTripScheduleConflict({
 			vehicleId: input.vehicle_id,
@@ -105,7 +106,8 @@ export class TripTicketService {
             const trip_created = await tx.tripTicket.create({
 				data,
 				include: {
-					vehicle: true
+					vehicle: true,
+					trip_ticket_approvers: true,
 				}
 			})
 
@@ -130,6 +132,16 @@ export class TripTicketService {
 
             await tx.pending.create({ data: pendingData })
 
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.TRIP_TICKET,
+				action: 'CREATE-TRIP-TICKET',
+				reference_id: trip_created.id,
+				metadata: trip_created,
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+
             return {
 				success: true,
 				msg: 'Trip Ticket created successfully!',
@@ -139,11 +151,16 @@ export class TripTicketService {
 
 	}
 
-	async update(id: string, input: UpdateTripTicketInput): Promise<CreateTripResponse> {
+	async update(
+		id: string, 
+		input: UpdateTripTicketInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<CreateTripResponse> {
         const existingItem = await this.prisma.tripTicket.findUnique({
             where: { id },
             include: {
-                trip_ticket_approvers: true
+                trip_ticket_approvers: true,
+				vehicle: true,
             }
         })
 
@@ -212,6 +229,7 @@ export class TripTicketService {
 				where: { id },
 				data,
 				include: {
+					trip_ticket_approvers: true,
 					vehicle: true
 				}
 			})
@@ -339,6 +357,19 @@ export class TripTicketService {
 					}
 				})
 			}
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.TRIP_TICKET,
+				action: 'UPDATE-TRIP-TICKET',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': trip_ticket_updated
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
 	
 			return {
 				success: true,
@@ -351,165 +382,10 @@ export class TripTicketService {
 
 	}
 
-	// async update(id: string, input: UpdateTripTicketInput): Promise<CreateTripResponse> {
-    //     const existingItem = await this.prisma.tripTicket.findUnique({
-    //         where: { id },
-    //         include: {
-    //             trip_ticket_approvers: true
-    //         }
-    //     })
-
-    //     if (!existingItem) {
-    //         throw new NotFoundException('Trip ticket not found')
-    //     }
-
-	// 	if (!this.canAccess(existingItem)) {
-    //         throw new ForbiddenException('Only Admin and Owner can update this record!')
-    //     }
-
-	// 	if (!(await this.canUpdate(input, existingItem))) {
-    //         throw new Error('Failed to update Trip Ticket. Please try again')
-    //     }
-
-	// 	let startTime = null
-	// 	let endTime = null
-
-	// 	if ((input.start_time && !input.end_time) || (!input.start_time && input.end_time)) {
-	// 		throw new BadRequestException('Start time and End time are both required');
-	// 	}
-		  
-	// 	if (input.start_time && input.end_time) {
-	// 		startTime = new Date(input.start_time);
-	// 		endTime = new Date(input.end_time);
-		  
-	// 		const validate_response = await this.validateTripScheduleConflict({
-	// 			tripId: id,
-	// 			vehicleId: input.vehicle_id,
-	// 			driverId: input.driver_id,
-	// 			startTime,
-	// 			endTime
-	// 		});
-
-	// 		if(validate_response.success === false) {
-	// 			return {
-	// 				success: false,
-	// 				msg: validate_response.msg,
-	// 			}
-	// 		}
-
-	// 	}
-
-	// 	const queries = []
-
-	// 	const data: Prisma.TripTicketUpdateInput = {
-    //         updated_by: this.authUser.user.username,
-	// 		vehicle: input.vehicle_id ? 
-	// 			{ connect: { id: input.vehicle_id } }
-	// 			: 
-	// 			{ connect: { id: existingItem.vehicle_id } },
-	// 		driver_id: input.driver_id ?? existingItem.driver_id,
-	// 		passengers: input.passengers ?? existingItem.passengers,
-	// 		destination: input.destination ?? existingItem.destination,
-	// 		purpose: input.purpose ?? existingItem.purpose,
-	// 		start_time: startTime ?? existingItem.start_time,
-	// 		end_time: endTime ?? existingItem.end_time,
-	// 		is_operation: input.is_operation ?? existingItem.is_operation,
-	// 		is_stay_in: input.is_stay_in ?? existingItem.is_stay_in,
-	// 		is_personal: input.is_personal ?? existingItem.is_personal,
-	// 		is_out_of_coverage: input.is_out_of_coverage ?? existingItem.is_out_of_coverage,
-	// 		prepared_by_id: input.prepared_by_id ?? existingItem.prepared_by_id,
-	// 	}
-
-	// 	const updateTripQ = this.prisma.tripTicket.update({
-	// 		where: { id },
-	// 		data
-	// 	})
-
-	// 	queries.push(updateTripQ)
-		
-	// 	// change vehicle so change also the 1st approver or the vehicle assignee
-	// 	if(input.vehicle_id && input.vehicle_id !== existingItem.vehicle_id) {
-
-	// 		const existingAssignee = existingItem.trip_ticket_approvers.find(i => i.order === 1)
-
-	// 		if(!existingAssignee) {
-	// 			throw new NotFoundException(`Trip ticket approver not found with trip number of ${existingItem.trip_number} and order is 1`)
-	// 		}
-
-	// 		const vehicle = await this.prisma.vehicle.findUnique({
-	// 			where: {
-	// 				id: input.vehicle_id
-	// 			},
-	// 			select: {
-	// 				id: true,
-	// 				assignee_id: true,
-	// 			}
-	// 		})
-
-	// 		const updateAssigneeQ = this.prisma.tripTicketApprover.update({
-	// 			where: {
-	// 				id: existingAssignee.id
-	// 			},
-	// 			data: {
-	// 				approver_id: vehicle.assignee_id
-	// 			}
-	// 		})
-
-	// 		queries.push(updateAssigneeQ)
-	// 	}
-
-	// 	// is_operation is truthy and needs to change the approver GM
-	// 	if(input.is_operation !== undefined && input.is_operation !== existingItem.is_operation) {
-
-	// 		const existingGM = existingItem.trip_ticket_approvers.find(i => i.order === 4)
-
-	// 		// remove
-	// 		if(existingGM) {
-	// 			const removeGmQ = this.prisma.tripTicketApprover.delete({
-	// 				where: {
-	// 					id: existingGM.id
-	// 				}
-	// 			})
-	// 			queries.push(removeGmQ)
-	// 		}
-
-	// 		// add gm as approver
-	// 		if(input.is_operation === false) {
-
-	// 			const general_manager = await this.get_general_manager(this.authUser)
-
-	// 			if(!general_manager) {
-	// 				throw new NotFoundException("General manager is not found or undefined")
-	// 			}
-
-	// 			const updateGmQ = this.prisma.tripTicketApprover.create({
-	// 				data: {
-	// 					trip_ticket_id: id,
-	// 					approver_id: general_manager.id,
-	// 					label: 'GM / OIC',
-	// 					order: 4,
-	// 					notes: '',
-	// 					status: TRIP_TICKET_STATUS.PENDING,
-	// 				}
-	// 			})
-
-	// 			queries.push(updateGmQ)
-				
-	// 		}
-
-	// 	}
-
-	// 	const result = await this.prisma.$transaction(queries)
-
-	// 	return {
-	// 		success: true,
-	// 		msg: 'Trip Ticket updated successfully!',
-	// 		data: result[0]
-	// 	}
-
-	// }
-
-	async cancel(id: string): Promise<WarehouseCancelResponse> {
+	async cancel(
+		id: string, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<WarehouseCancelResponse> {
 
         const existingItem = await this.prisma.tripTicket.findUnique({
             where: { id }
@@ -523,40 +399,58 @@ export class TripTicketService {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
-        const queries: Prisma.PrismaPromise<any>[] = []
-        
-        const updateTripQuery = this.prisma.tripTicket.update({
-            data: {
-                cancelled_at: new Date(),
-                cancelled_by: this.authUser.user.username,
-				status: TRIP_TICKET_STATUS.CANCELLED,
-            },
-            where: { id }
-        })
+		return await this.prisma.$transaction(async(tx) => {
 
-        queries.push(updateTripQuery)
-
-        // delete associated pending
-
-        const deleteAssociatedPending = this.prisma.pending.delete({
-            where: {
-                reference_number_reference_table: {
-                    reference_number: existingItem.trip_number,
-                    reference_table: DB_ENTITY.TRIP_TICKET
+			const trip_cancelled = await tx.tripTicket.update({
+				data: {
+					cancelled_at: new Date(),
+					cancelled_by: this.authUser.user.username,
+					status: TRIP_TICKET_STATUS.CANCELLED,
+				},
+				where: { id }
+			})
+	
+			// delete associated pending
+	
+            const pending = await tx.pending.findUnique({
+                where: {
+                    reference_number_reference_table: {
+                        reference_number: existingItem.trip_number,
+                        reference_table: DB_ENTITY.TRIP_TICKET
+                    }
                 }
+            })
+
+            if(pending) {
+
+                await tx.pending.delete({
+                    where: { id: pending.id }
+                })
+
             }
-        })
 
-        queries.push(deleteAssociatedPending)
+            await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.TRIP_TICKET,
+				action: 'CANCEL-TRIP-TICKET',
+				reference_id: id,
+				metadata: {
+					'old_value': existingItem,
+					'new_value': trip_cancelled
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+	
+			return {
+				success: true,
+				msg: 'Successfully cancelled Trip Ticket',
+				cancelled_at: trip_cancelled.cancelled_at,
+				cancelled_by: trip_cancelled.cancelled_by
+			}
 
-        const result = await this.prisma.$transaction(queries)
+		})
 
-        return {
-            success: true,
-            msg: 'Successfully cancelled Trip Ticket',
-            cancelled_at: result[0].cancelled_at,
-            cancelled_by: result[0].cancelled_by
-        }
 
     }
 
@@ -690,20 +584,20 @@ export class TripTicketService {
 		return item
 	}
 
-	async remove(id: string): Promise<WarehouseRemoveResponse> {
+	// async remove(id: string): Promise<WarehouseRemoveResponse> {
 
-		const existingItem = await this.findOne({ id })
+	// 	const existingItem = await this.findOne({ id })
 
-		await this.prisma.tripTicket.delete({
-			where: { id },
-		})
+	// 	await this.prisma.tripTicket.delete({
+	// 		where: { id },
+	// 	})
 
-		return {
-			success: true,
-			msg: "Trip Ticket successfully deleted"
-		}
+	// 	return {
+	// 		success: true,
+	// 		msg: "Trip Ticket successfully deleted"
+	// 	}
 
-	}
+	// }
 
 	async getScheduledTrips(d: { start: Date, end: Date }) {
 
@@ -723,7 +617,11 @@ export class TripTicketService {
 		});
 	}
 
-	async update_actual_time(rf_id: string): Promise<UpdateActualTimeResponse> {
+	async update_actual_time(
+		rf_id: string, 
+		metadata: { ip_address: string, device_info: any }
+
+	): Promise<UpdateActualTimeResponse> {
 		
 		// get vehicle by RFID
 		const vehicle = await this.prisma.vehicle.findUnique({
@@ -747,18 +645,25 @@ export class TripTicketService {
 				status: TRIP_TICKET_STATUS.IN_PROGRESS,
 				actual_start_time: { not: null },
 				actual_end_time: null
+			},
+			include: {
+				vehicle: true,
 			}
 		})
 
 		if(inProgressTrip) {
 
 			await this.prisma.$transaction(async (prisma) => {
-				await prisma.tripTicket.update({
+
+				const trip_updated = await prisma.tripTicket.update({
 					where: { id: inProgressTrip.id },
 					data: {
 						actual_end_time: currentDateTime,
 						status: TRIP_TICKET_STATUS.COMPLETED
 					},
+					include: {
+						vehicle: true,
+					}
 				});
 		  
 				await prisma.vehicle.update({
@@ -767,9 +672,25 @@ export class TripTicketService {
 					status: VEHICLE_STATUS.AVAILABLE_FOR_TRIP,
 				  },
 				});
+
+				await this.audit.createAuditEntry({
+					username: this.authUser.user.username,
+					table: DB_TABLE.TRIP_TICKET,
+					action: 'TRIP-RFID-SCAN: ARRIVAL',
+					reference_id: trip_updated.trip_number,
+					metadata: {
+						'old_value': inProgressTrip,
+						'new_value': trip_updated
+					},
+					ip_address: metadata.ip_address,
+					device_info: metadata.device_info
+
+				}, prisma as Prisma.TransactionClient)
+
 			});
 
 			const updatedTripTicket = await this.findOne({ id: inProgressTrip.id });
+
 
 			return {
 				success: true,
@@ -788,19 +709,25 @@ export class TripTicketService {
 				status: TRIP_TICKET_STATUS.APPROVED,
 				actual_start_time: null,
 			},
+			include: {
+				vehicle: true,
+			}
 		});
-
 
 		// update actual_start_time 
 		if(toDepartTrip) {
 
 			await this.prisma.$transaction(async (prisma) => {
-				await prisma.tripTicket.update({
+
+				const trip_updated = await prisma.tripTicket.update({
 					where: { id: toDepartTrip.id },
 					data: {
 						actual_start_time: currentDateTime,
 						status: TRIP_TICKET_STATUS.IN_PROGRESS
 					},
+					include: {
+						vehicle: true,
+					}
 				});
 			
 				await prisma.vehicle.update({
@@ -809,6 +736,21 @@ export class TripTicketService {
 						status: VEHICLE_STATUS.IN_USE,
 					},
 				});
+
+				await this.audit.createAuditEntry({
+					username: this.authUser.user.username,
+					table: DB_TABLE.TRIP_TICKET,
+					action: 'TRIP-RFID-SCAN: DEPARTURE',
+					reference_id: toDepartTrip.trip_number,
+					metadata: {
+						'old_value': toDepartTrip,
+						'new_value': trip_updated
+					},
+					ip_address: metadata.ip_address,
+					device_info: metadata.device_info
+
+				}, prisma as Prisma.TransactionClient)
+
 			});
 
 			const updatedTripTicket = await this.findOne({ id: toDepartTrip.id });
@@ -822,6 +764,20 @@ export class TripTicketService {
 		}
 
 		const vehicle_nearest_trip = await this.get_nearest_trip_of_vehicle(vehicle.id)
+
+		await this.audit.createAuditEntry({
+			username: this.authUser.user.username,
+			table: DB_TABLE.TRIP_TICKET,
+			action: 'TRIP-RFID-SCAN: ERROR',
+			reference_id: vehicle_nearest_trip.trip_number,
+			metadata: {
+				'msg': 'No active trip ticket found for this vehicle at this time.',
+				'vehicle_nearest_trip': vehicle_nearest_trip
+			},
+			ip_address: metadata.ip_address,
+			device_info: metadata.device_info
+
+		})
 		
 		return {
 			success: false,
@@ -866,13 +822,19 @@ export class TripTicketService {
 		return nearestTrip;
 	}
 
-	async remove_actual_start_time(id: string): Promise<UpdateActualTimeResponse> {
+	async remove_actual_start_time(
+		id: string, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<UpdateActualTimeResponse> {
 
 		return await this.prisma.$transaction(async (prisma) => {
 			const existing_trip_ticket = await prisma.tripTicket.findUnique({
 				where: {
 					id,
 				},
+				include: {
+					vehicle: true
+				}
 			});
 
 			if(!existing_trip_ticket) {
@@ -901,6 +863,9 @@ export class TripTicketService {
 					actual_start_time: null,
 					status: TRIP_TICKET_STATUS.APPROVED,
 				},
+				include: {
+					vehicle: true
+				}
 			});
 		
 			await prisma.vehicle.update({
@@ -911,6 +876,19 @@ export class TripTicketService {
 					status: VEHICLE_STATUS.AVAILABLE_FOR_TRIP,
 				},
 			});
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.TRIP_TICKET,
+				action: 'REMOVE-ACTUAL-START-TIME',
+				reference_id: trip_ticket.trip_number,
+				metadata: {
+					'old_value': existing_trip_ticket,
+					'new_value': trip_ticket
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, prisma as Prisma.TransactionClient)
 		
 			return {
 				success: true,
@@ -920,13 +898,19 @@ export class TripTicketService {
 		});
 	}
 
-	async remove_actual_end_time(id: string): Promise<UpdateActualTimeResponse> {
+	async remove_actual_end_time(
+		id: string, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<UpdateActualTimeResponse> {
 		return await this.prisma.$transaction(async (prisma) => {
 
 			const existing_trip_ticket = await prisma.tripTicket.findUnique({
 				where: {
 					id,
 				},
+				include: {
+					vehicle: true
+				}
 			});
 
 			if(!existing_trip_ticket) {
@@ -948,6 +932,9 @@ export class TripTicketService {
 					actual_end_time: null,
 					status: TRIP_TICKET_STATUS.IN_PROGRESS,
 				},
+				include: {
+					vehicle: true
+				}
 			});
 		
 			await prisma.vehicle.update({
@@ -958,6 +945,19 @@ export class TripTicketService {
 					status: VEHICLE_STATUS.IN_USE,
 				},
 			});
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.TRIP_TICKET,
+				action: 'REMOVE-ACTUAL-END-TIME',
+				reference_id: trip_ticket.trip_number,
+				metadata: {
+					'old_value': existing_trip_ticket,
+					'new_value': trip_ticket
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, prisma as Prisma.TransactionClient)
 		
 			return {
 				success: true,
@@ -967,42 +967,51 @@ export class TripTicketService {
 		});
 	}
 
-	async update_actual_start_time(id: string, start_time: string): Promise<UpdateActualTimeResponse> {
+	async update_actual_start_time(
+		id: string, 
+		start_time: string, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<UpdateActualTimeResponse> {
 		return await this.prisma.$transaction(async (prisma) => {
 
 			const existing_trip_ticket = await prisma.tripTicket.findUnique({
 				where: {
 					id,
 				},
+				include: {
+					vehicle: true
+				}
 			});
 
 			if (!existing_trip_ticket) {
 				throw new NotFoundException('Trip ticket not found with id: ' + id);
 			}
 
+			let trip_ticket: TripTicket
+
 			if (!!existing_trip_ticket.actual_start_time) {
 
-				const trip_ticket = await prisma.tripTicket.update({
+				trip_ticket = await prisma.tripTicket.update({
 					where: { id },
 					data: {
-					actual_start_time: new Date(start_time),
-				},
+						actual_start_time: new Date(start_time),
+					},
+					include: {
+						vehicle: true,
+					}
 				});
-
-				return {
-					success: true,
-					msg: 'Actual departure time updated',
-					data: trip_ticket,
-				};
 
 			} else {
 				
-				const trip_ticket = await prisma.tripTicket.update({
+				trip_ticket = await prisma.tripTicket.update({
 					where: { id },
 					data: {
 						actual_start_time: new Date(start_time),
 						status: TRIP_TICKET_STATUS.IN_PROGRESS,
 					},
+					include: {
+						vehicle: true,
+					}
 				});
 
 				await prisma.vehicle.update({
@@ -1013,48 +1022,70 @@ export class TripTicketService {
 						status: VEHICLE_STATUS.IN_USE,
 					},
 				});
-
-				return {
-					success: true,
-					msg: 'Actual departure time updated',
-					data: trip_ticket,
-				};
 			}
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.TRIP_TICKET,
+				action: 'UPDATE-ACTUAL-START-TIME',
+				reference_id: trip_ticket.trip_number,
+				metadata: {
+					'old_value': existing_trip_ticket,
+					'new_value': trip_ticket
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, prisma as Prisma.TransactionClient)
+
+			return {
+				success: true,
+				msg: 'Actual departure time updated',
+				data: trip_ticket,
+			};
 		});
 	}
 
-	async update_actual_end_time(id: string, end_time: string): Promise<UpdateActualTimeResponse> {
+	async update_actual_end_time(
+		id: string, 
+		end_time: string, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<UpdateActualTimeResponse> {
 		return await this.prisma.$transaction(async (prisma) => {
 			const existing_trip_ticket = await prisma.tripTicket.findUnique({
 				where: {
 					id,
 				},
+				include: {
+					vehicle: true
+				}
 			});
 
 			if (!existing_trip_ticket) {
 				throw new NotFoundException('Trip ticket not found with id: ' + id);
 			}
 
+			let trip_ticket: TripTicket
+
 			if (existing_trip_ticket.actual_end_time) {
-				const trip_ticket = await prisma.tripTicket.update({
+				trip_ticket = await prisma.tripTicket.update({
 					where: { id },
 					data: {
 						actual_end_time: new Date(end_time),
 					},
+					include: {
+						vehicle: true
+					}
 				});
-
-				return {
-					success: true,
-					msg: 'Actual arrival time updated',
-					data: trip_ticket,
-				};
 			} else {
-				const trip_ticket = await prisma.tripTicket.update({
+				trip_ticket = await prisma.tripTicket.update({
 					where: { id },
 					data: {
 						actual_end_time: new Date(end_time),
 						status: TRIP_TICKET_STATUS.COMPLETED,
 					},
+					include: {
+						vehicle: true
+					}
 				});
 
 				await prisma.vehicle.update({
@@ -1065,13 +1096,27 @@ export class TripTicketService {
 						status: VEHICLE_STATUS.AVAILABLE_FOR_TRIP,
 					},
 				});
-
-				return {
-					success: true,
-					msg: 'Actual arrival time updated',
-					data: trip_ticket,
-				};
 			}
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.TRIP_TICKET,
+				action: 'UPDATE-ACTUAL-END-TIME',
+				reference_id: trip_ticket.trip_number,
+				metadata: {
+					'old_value': existing_trip_ticket,
+					'new_value': trip_ticket
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+            }, prisma as Prisma.TransactionClient)
+
+			return {
+				success: true,
+				msg: 'Actual arrival time updated',
+				data: trip_ticket,
+			};
+
 		});
 	}
 
