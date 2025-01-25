@@ -13,11 +13,6 @@ export class CreateSystemAuditInput {
   @Field()
   @IsNotEmpty()
   @IsString()
-  database: DATABASE;
-
-  @Field()
-  @IsNotEmpty()
-  @IsString()
   table: DB_TABLE;
 
   @Field()

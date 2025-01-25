@@ -8,6 +8,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { AuthResolver } from './auth.resolver';
 import { AuthController } from './auth.controller';
 import { ConfigModule } from '@nestjs/config';
+import { SystemAuditModule } from '../system_audit/system_audit.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { ConfigModule } from '@nestjs/config';
     JwtModule.register({
       secret: process.env.JWT_SECRET_KEY,
       signOptions: { expiresIn: '10h' }
-    })
+    }),
+    SystemAuditModule,
   ],
   controllers: [AuthController],
   providers: [AuthResolver, AuthService, UserService, JwtStrategy, LocalStrategy]

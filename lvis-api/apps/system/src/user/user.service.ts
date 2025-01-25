@@ -8,6 +8,8 @@ import { UsersResponse } from './entities/users-response.entity';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { decrypt_password, encrypt_password } from '../__common__/helpers';
 import { USER_GROUP } from '../__common__/constants';
+import { SystemAuditService } from '../system_audit/system_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class UserService {
@@ -28,13 +30,19 @@ export class UserService {
     }
   }
 
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly audit: SystemAuditService,
+  ) { }
 
   setAuthUser(authUser: AuthUser) {
     this.authUser = authUser
   }
 
-  async create(input: CreateUserInput): Promise<User> {
+  async create(
+    input: CreateUserInput, 
+		metadata: { ip_address: string, device_info: any }
+  ): Promise<User> {
 
     const created_by = this.authUser ? this.authUser.user.username : 'Initial'
     const encrypted_password = encrypt_password(input.password, this.secretKey)
@@ -64,9 +72,23 @@ export class UserService {
       }
     }
 
-    const created = await this.prisma.user.create({ data })
+    return await this.prisma.$transaction(async(tx) => {
 
-    return created
+      const created = await tx.user.create({ data })
+
+      await this.audit.createAuditEntry({
+        username: this.authUser.user.username,
+        table: DB_TABLE.USER,
+        action: 'CREATE-USER',
+        reference_id: created.id,
+        metadata: created,
+        ip_address: metadata.ip_address,
+        device_info: metadata.device_info
+      }, tx as Prisma.TransactionClient)
+  
+      return created
+    })
+
   }
 
   async findAll(
@@ -154,9 +176,19 @@ export class UserService {
 
   }
 
-  async update(id: string, input: UpdateUserInput): Promise<User> {
+  async update(
+    id: string, 
+    input: UpdateUserInput, 
+		metadata: { ip_address: string, device_info: any }
+  ): Promise<User> {
 
-    const existingUser = await this.findOne(id)
+    const existingUser = await this.prisma.user.findUnique({
+      where: { id }
+    })
+
+    if(!existingUser) {
+      throw new NotFoundException('User not found with id ' + id)
+    }
 
     const data: Prisma.UserUpdateInput = {
       updated_by: this.authUser.user.username,
@@ -172,59 +204,30 @@ export class UserService {
       data.permissions = JSON.parse(input.permissions)
     }
 
-    const updated = await this.prisma.user.update({
-      where: { id },
-      data,
-      include: this.includedFields
-    })
+    return await this.prisma.$transaction(async(tx) => {
 
-    return updated
-
-
-  }
-
-  async remove(id: string): Promise<SystemRemoveResponse> {
-
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        user_employee: true
-      }
-    })
-
-    // if user is not employee
-    if (!user.user_employee) {
-
-      const result = await this.prisma.user.delete({
-        where: { id }
+      const updated = await tx.user.update({
+        where: { id },
+        data
       })
 
-      return {
-        success: true,
-        msg: "User successfully deleted"
-      }
+      await this.audit.createAuditEntry({
+        username: this.authUser.user.username,
+        table: DB_TABLE.USER,
+        action: 'UPDATE-USER',
+        reference_id: id,
+        metadata: {
+            'old_value': existingUser,
+            'new_value': updated
+        },
+        ip_address: metadata.ip_address,
+        device_info: metadata.device_info
+    }, tx as Prisma.TransactionClient)
 
-    }
+      return updated
 
-    // if user is employee then delete record in user_employee table
-
-    const query1 = this.prisma.user.delete({
-      where: { id }
     })
 
-    const query2 = this.prisma.userEmployee.delete({
-      where: {
-        user_id: id
-      }
-    })
-
-    const result = await this.prisma.$transaction([query1, query2])
-
-    return {
-      success: true,
-      msg: "User successfully deleted"
-    }
 
   }
 
@@ -245,7 +248,11 @@ export class UserService {
 
   }
 
-  async change_password(user_id: string, new_password: string): Promise<{ success: boolean, msg: string}> {
+  async change_password(
+    user_id: string, 
+    new_password: string,
+    metadata: { ip_address: string, device_info: any }
+  ): Promise<{ success: boolean, msg: string}> {
 
     const user = await this.prisma.user.findUnique({
       where: { id: user_id }
@@ -257,21 +264,40 @@ export class UserService {
 
     const encrypted_pw = encrypt_password(new_password, this.secretKey)
 
-    const updated_user = await this.prisma.user.update({
-      where: { id: user_id },
-      data: {
-        password: encrypted_pw,
+    return this.prisma.$transaction(async(tx) => {
+
+      const updated_user = await tx.user.update({
+        where: { id: user_id },
+        data: {
+          password: encrypted_pw,
+        }
+      })
+
+      await this.audit.createAuditEntry({
+        username: this.authUser.user.username,
+        table: DB_TABLE.USER,
+        action: 'CHANGE-PASSWORD-OF-USER',
+        reference_id: user_id,
+        ip_address: metadata.ip_address,
+        device_info: metadata.device_info
+      }, tx as Prisma.TransactionClient)
+
+      return {
+        success: true,
+        msg: "Password changed successfully",
       }
+
     })
 
-    return {
-      success: true,
-      msg: "Password changed successfully",
-    }
+
 
   }
 
-  async change_own_password(new_pw: string, current_pw: string): Promise<{ success: boolean, msg: string}> {
+  async change_own_password(
+    new_pw: string, 
+    current_pw: string,
+    metadata: { ip_address: string, device_info: any }
+  ): Promise<{ success: boolean, msg: string}> {
 
     const user_id = this.authUser.user.id 
 
@@ -294,17 +320,31 @@ export class UserService {
 
     const encrypted_pw = encrypt_password(new_pw, this.secretKey)
 
-    const updated_user = await this.prisma.user.update({
-      where: { id: user_id },
-      data: {
-        password: encrypted_pw,
+    return this.prisma.$transaction(async(tx) => {
+
+      const updated_user = await tx.user.update({
+        where: { id: user_id },
+        data: {
+          password: encrypted_pw,
+        }
+      })
+
+      await this.audit.createAuditEntry({
+        username: this.authUser.user.username,
+        table: DB_TABLE.USER,
+        action: 'CHANGE-OWN-PASSWORD',
+        reference_id: user_id,
+        ip_address: metadata.ip_address,
+        device_info: metadata.device_info
+      }, tx as Prisma.TransactionClient)
+  
+      return {
+        success: true,
+        msg: "Password changed successfully",
       }
+
     })
 
-    return {
-      success: true,
-      msg: "Password changed successfully",
-    }
 
   }
 

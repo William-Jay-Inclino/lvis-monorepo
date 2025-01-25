@@ -1,7 +1,7 @@
 import { sendRequest } from "~/utils/api"
 import type { User, CreateUserInput, MutationResponse, FindAllResponse, UpdateUserInput, UserPermissions } from "./user.types";
-import type { Employee } from "../employee/employee.types";
 import axios from "axios";
+import type { Employee } from "~/composables/hr/employee/employee.types";
 
 
 
@@ -315,34 +315,34 @@ export async function updatePermissions(id: string, permissions: UserPermissions
     }
 }
 
-export async function remove(id: string): Promise<{ success: boolean, msg: string }> {
-    const mutation = `
-        mutation {
-            removeUser(id: "${id}"){
-                success
-                msg
-            }
-        }
-    `;
+// export async function remove(id: string): Promise<{ success: boolean, msg: string }> {
+//     const mutation = `
+//         mutation {
+//             removeUser(id: "${id}"){
+//                 success
+//                 msg
+//             }
+//         }
+//     `;
 
-    try {
-        const response = await sendRequest(mutation);
-        console.log('response', response)
+//     try {
+//         const response = await sendRequest(mutation);
+//         console.log('response', response)
 
-        if (response.data && response.data.data && response.data.data.removeUser) {
-            return response.data.data.removeUser
-        }
+//         if (response.data && response.data.data && response.data.data.removeUser) {
+//             return response.data.data.removeUser
+//         }
 
-        throw new Error(JSON.stringify(response.data.errors));
+//         throw new Error(JSON.stringify(response.data.errors));
 
-    } catch (error) {
-        console.error(error);
-        return {
-            success: false,
-            msg: 'Failed to remove User. Please contact system administrator'
-        }
-    }
-}
+//     } catch (error) {
+//         console.error(error);
+//         return {
+//             success: false,
+//             msg: 'Failed to remove User. Please contact system administrator'
+//         }
+//     }
+// }
 
 export async function fetchFormDataInCreate(): Promise<{
     employees: Employee[],

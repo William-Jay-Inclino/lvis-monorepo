@@ -13,6 +13,9 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from '../__common__/modules.enum';
 import { RESOLVERS } from '../__common__/resolvers.enum';
 import { ClassificationsResponse } from './entities/classifications-response.entity';
+import { SystemAuditService } from '../system_audit/system_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Classification)
@@ -21,14 +24,19 @@ export class ClassificationResolver {
     private readonly logger = new Logger(ClassificationResolver.name);
     private filename = 'classification.resolver.ts'
 
-  constructor(private readonly classificationService: ClassificationService) { }
+  constructor(
+    private readonly classificationService: ClassificationService,
+    private readonly audit: SystemAuditService,
+  ) { }
 
   @Mutation(() => Classification)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.CLASSIFICATION, RESOLVERS.createClassification)
   async createClassification(
     @Args('input') createClassificationInput: CreateClassificationInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -40,7 +48,10 @@ export class ClassificationResolver {
       })
       
       this.classificationService.setAuthUser(authUser)
-      const x = await this.classificationService.create(createClassificationInput);
+      const x = await this.classificationService.create(createClassificationInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Classification created successfully')
 
@@ -79,7 +90,9 @@ export class ClassificationResolver {
   async updateClassification(
     @Args('id') id: string,
     @Args('input') updateClassificationInput: UpdateClassificationInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -93,7 +106,10 @@ export class ClassificationResolver {
       })
       
       this.classificationService.setAuthUser(authUser)
-      const x = await this.classificationService.update(id, updateClassificationInput);
+      const x = await this.classificationService.update(id, updateClassificationInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Classification updated successfully')
 
@@ -109,7 +125,9 @@ export class ClassificationResolver {
   @CheckAccess(MODULES.CLASSIFICATION, RESOLVERS.removeClassification)
   async removeClassification(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
 
@@ -121,7 +139,10 @@ export class ClassificationResolver {
       })
 
       this.classificationService.setAuthUser(authUser)
-      const x = await this.classificationService.remove(id);
+      const x = await this.classificationService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Classification removed successfully')
       

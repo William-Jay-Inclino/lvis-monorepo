@@ -6,6 +6,8 @@ import { User } from './entities/user.entity';
 import * as DeviceDetector from 'device-detector-js';
 import { UserLogEventType } from 'apps/system/prisma/generated/client';
 import { normalizeIp } from '../__common__/helpers';
+import { IpAddress } from './ip-address.decorator';
+import { UserAgent } from './user-agent.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -19,12 +21,16 @@ export class AuthController {
 
     @UseGuards(LocalAuthGuard)
     @Post('login')
-    async login(@Req() req: Request) {
+    async login(
+        @Req() req: Request,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
 
         // @ts-ignore
         const username = req.user.username
-        const ip_address = req.socket.remoteAddress || req.ip;
-        const device_info = this.getDeviceInfo(req);
+        // const ip_address = req.socket.remoteAddress || req.ip;
+        const device_info = this.getDeviceInfo(user_agent);
 
         try {
 
@@ -45,10 +51,13 @@ export class AuthController {
     }
 
     @Post('logout')
-    async logout(@Req() req: Request, @Body('user_id') user_id: string) {
+    async logout(
+        @Req() req: Request, @Body('user_id') user_id: string,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
 
-        const ip_address = req.socket.remoteAddress || req.ip;
-        const device_info = this.getDeviceInfo(req);
+        const device_info = this.getDeviceInfo(user_agent);
 
         try {
 
@@ -68,8 +77,7 @@ export class AuthController {
 
     }
 
-    private getDeviceInfo(req: Request) {
-        const userAgent = req.headers['user-agent'] || '';
+    private getDeviceInfo(userAgent: any) {
         
         const deviceDetector = new DeviceDetector();
         const device = deviceDetector.parse(userAgent);

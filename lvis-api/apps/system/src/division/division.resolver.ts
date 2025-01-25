@@ -12,6 +12,9 @@ import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from '../__common__/modules.enum';
 import { RESOLVERS } from '../__common__/resolvers.enum';
+import { SystemAuditService } from '../system_audit/system_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Division)
@@ -20,14 +23,19 @@ export class DivisionResolver {
   private readonly logger = new Logger(DivisionResolver.name);
   private filename = 'division.resolver.ts'
 
-  constructor(private readonly divisionService: DivisionService) { }
+  constructor(
+    private readonly divisionService: DivisionService,
+    private readonly audit: SystemAuditService,
+  ) { }
 
   @Mutation(() => Division)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.DIVISION, RESOLVERS.createDivision)
   async createDivision(
     @Args('input') createDivisionInput: CreateDivisionInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -40,7 +48,10 @@ export class DivisionResolver {
       
       this.divisionService.setAuthUser(authUser)
 
-      const x = await this.divisionService.create(createDivisionInput);
+      const x = await this.divisionService.create(createDivisionInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Division created successfully')
 
@@ -69,7 +80,9 @@ export class DivisionResolver {
   async updateDivision(
     @Args('id') id: string,
     @Args('input') updateDivisionInput: UpdateDivisionInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -82,7 +95,10 @@ export class DivisionResolver {
       })
       
       this.divisionService.setAuthUser(authUser)
-      const x = await this.divisionService.update(id, updateDivisionInput);
+      const x = await this.divisionService.update(id, updateDivisionInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Division updated successfully')
 
@@ -97,7 +113,9 @@ export class DivisionResolver {
   @CheckAccess(MODULES.DIVISION, RESOLVERS.removeDivision)
   async removeDivision(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
 
@@ -109,7 +127,10 @@ export class DivisionResolver {
       })
 
       this.divisionService.setAuthUser(authUser)
-      const x = await this.divisionService.remove(id);
+      const x = await this.divisionService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Division removed successfully')
       

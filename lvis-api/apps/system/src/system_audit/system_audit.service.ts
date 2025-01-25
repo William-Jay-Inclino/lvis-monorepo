@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Prisma } from 'apps/warehouse/prisma/generated/client';
+import { Prisma } from 'apps/system/prisma/generated/client';
 import { CreateSystemAuditInput } from './dto/create-system-audit.input';
 import * as DeviceDetector from 'device-detector-js';
+import { DATABASE } from '../__common__/types';
 
 @Injectable()
 export class SystemAuditService {
@@ -13,9 +14,11 @@ export class SystemAuditService {
     async createAuditEntry(payload: CreateSystemAuditInput, tx?: Prisma.TransactionClient): Promise<void> {
         try {
             
+            const data: Prisma.AuditCreateInput = {...payload, database: DATABASE.SYSTEM}
+
             const result = tx
-                ? await tx.audit.create({ data: payload })
-                : await this.prisma.audit.create({ data: payload });
+                ? await tx.audit.create({ data })
+                : await this.prisma.audit.create({ data });
 
             const ctext = `audit_id=${result.id} username=${result.username} action=${result.action} table=${result.table}`;
 

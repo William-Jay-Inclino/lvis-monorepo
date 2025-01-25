@@ -6,19 +6,27 @@ import { UpdateAccountInput } from './dto/update-account.input';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { AuthUser } from '../__common__/auth-user.entity';
 import { AccountsResponse } from './entities/accounts-response.entity';
+import { SystemAuditService } from '../system_audit/system_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class AccountService {
 
     private authUser: AuthUser
 
-    constructor(private readonly prisma: PrismaService) { }
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly audit: SystemAuditService,
+    ) { }
 
     setAuthUser(authUser: AuthUser) {
         this.authUser = authUser
     }
 
-    async create(input: CreateAccountInput): Promise<Account> {
+    async create(
+        input: CreateAccountInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<Account> {
 
         const existingAccount = await this.prisma.account.findUnique({
             where: { code: input.code },
@@ -32,12 +40,27 @@ export class AccountService {
             code: input.code,
             name: input.name,
         }
+        
+        return await this.prisma.$transaction(async(tx) => {
 
-        const created = await this.prisma.account.create({
-            data
+            const created = await tx.account.create({
+                data
+            })
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.ACCOUNT,
+				action: 'CREATE-ACCOUNT',
+				reference_id: created.id,
+				metadata: created,
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+    
+            return created
+
         })
 
-        return created
 
     }
 
@@ -88,7 +111,11 @@ export class AccountService {
         return item
     }
 
-    async update(id: string, input: UpdateAccountInput): Promise<Account> {
+    async update(
+        id: string, 
+        input: UpdateAccountInput, 
+		metadata: { ip_address: string, device_info: any }
+    ): Promise<Account> {
 
         const existingItem = await this.findOne(id);
         
@@ -107,32 +134,72 @@ export class AccountService {
             name: input.name ?? existingItem.name,
         }
 
-        const updated = await this.prisma.account.update({
-            data,
-            where: {
-                id
-            }
+        return await this.prisma.$transaction(async(tx) => {
+
+            const updated = await tx.account.update({
+                data,
+                where: {
+                    id
+                }
+            })
+
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.ACCOUNT,
+                action: 'UPDATE-ACCOUNT',
+                reference_id: id,
+                metadata: {
+                    'old_value': existingItem,
+                    'new_value': updated
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+    
+            return updated
+
         })
 
-        return updated
 
     }
 
-    async remove(id: string): Promise<SystemRemoveResponse> {
+    async remove(
+        id: string,
+        metadata: { ip_address: string, device_info: any }
+    ): Promise<SystemRemoveResponse> {
 
         const existingItem = await this.findOne(id)
 
-        await this.prisma.account.update({
-            where: { id },
-            data: {
-                deleted_at: new Date()
+        return this.prisma.$transaction(async(tx) => {
+
+            const updatedItem = await tx.account.update({
+                where: { id },
+                data: {
+                    deleted_at: new Date()
+                }
+            })
+
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.ACCOUNT,
+                action: 'SOFT-DELETE-ACCOUNT',
+                reference_id: id,
+                metadata: {
+                    'old_value': existingItem,
+                    'new_value': updatedItem
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+              }, tx as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: "Account successfully deleted"
             }
+
         })
 
-        return {
-            success: true,
-            msg: "Account successfully deleted"
-        }
+
 
     }
 

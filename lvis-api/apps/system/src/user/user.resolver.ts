@@ -10,6 +10,9 @@ import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { UsersResponse } from './entities/users-response.entity';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { ChangePwResponse } from './entities/change-pw-response.entity';
+import { SystemAuditService } from '../system_audit/system_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 
 @Resolver(() => User)
@@ -18,7 +21,10 @@ export class UserResolver {
   private readonly logger = new Logger(UserResolver.name);
   private filename = 'user.resolver.ts'
 
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly audit: SystemAuditService,
+  ) {}
 
   @Query(() => User)
   async validateUserId(@Args('id') id: string) {
@@ -33,7 +39,9 @@ export class UserResolver {
   @Mutation(() => User)
   async createUser(
     @Args('input') input: CreateUserInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
 
@@ -49,7 +57,10 @@ export class UserResolver {
       
       this.userService.setAuthUser(authUser)
 
-      const x = await this.userService.create(input);
+      const x = await this.userService.create(input, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('User created successfully')
 
@@ -91,7 +102,9 @@ export class UserResolver {
   async updateUser(
     @Args('id') id: string,
     @Args('input') input: UpdateUserInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -104,7 +117,10 @@ export class UserResolver {
       })
       
       this.userService.setAuthUser(authUser)
-      const x = await this.userService.update(id, input);
+      const x = await this.userService.update(id, input, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('User updated successfully')
 
@@ -119,7 +135,9 @@ export class UserResolver {
   async change_password(
     @Args('user_id') user_id: string,
     @Args('password') password: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -132,7 +150,10 @@ export class UserResolver {
       })
       
       this.userService.setAuthUser(authUser)
-      const x = await this.userService.change_password(user_id, password);
+      const x = await this.userService.change_password(user_id, password, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Password changed successfully')
 
@@ -147,7 +168,9 @@ export class UserResolver {
   async change_own_password(
     @Args('current_pw') current_pw: string,
     @Args('new_pw') new_pw: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -160,7 +183,10 @@ export class UserResolver {
       })
       
       this.userService.setAuthUser(authUser)
-      const x = await this.userService.change_own_password(new_pw, current_pw);
+      const x = await this.userService.change_own_password(new_pw, current_pw, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       if(x.success){
         this.logger.log('Own Password changed successfully')
@@ -175,32 +201,32 @@ export class UserResolver {
     }
   }
 
-  @UseGuards(GqlAuthGuard)
-  @Mutation(() => SystemRemoveResponse)
-  async removeUser(
-    @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
-  ) {
-    try {
+  // @UseGuards(GqlAuthGuard)
+  // @Mutation(() => SystemRemoveResponse)
+  // async removeUser(
+  //   @Args('id') id: string,
+  //   @CurrentAuthUser() authUser: AuthUser
+  // ) {
+  //   try {
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'removeUser',
-        user_id: id,
-      })
+  //     this.logger.log({
+  //       username: authUser.user.username,
+  //       filename: this.filename,
+  //       function: 'removeUser',
+  //       user_id: id,
+  //     })
 
-      this.userService.setAuthUser(authUser)
-      const x = await this.userService.remove(id);
+  //     this.userService.setAuthUser(authUser)
+  //     const x = await this.userService.remove(id);
       
-      this.logger.log('User removed successfully')
+  //     this.logger.log('User removed successfully')
       
-      return x 
+  //     return x 
 
-    } catch (error) {
-      this.logger.error('Error in removing user', error)
-    }
-  }
+  //   } catch (error) {
+  //     this.logger.error('Error in removing user', error)
+  //   }
+  // }
 
   @Query(() => Boolean)
   isUsernameExist(

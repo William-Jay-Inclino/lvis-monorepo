@@ -15,6 +15,9 @@ import { RESOLVERS } from '../__common__/resolvers.enum';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { USER_GROUP } from '../__common__/constants';
 import { EmployeeMutationResponse } from './entities/employee-mutation-response.entity';
+import { SystemAuditService } from '../system_audit/system_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Employee)
@@ -23,14 +26,19 @@ export class EmployeeResolver {
   private readonly logger = new Logger(EmployeeResolver.name);
   private filename = 'employee.resolver.ts'
 
-  constructor(private readonly employeeService: EmployeeService) { }
+  constructor(
+    private readonly employeeService: EmployeeService,
+    private readonly audit: SystemAuditService,
+  ) { }
 
   @Mutation(() => EmployeeMutationResponse)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.EMPLOYEE, RESOLVERS.createEmployee)
   async createEmployee(
     @Args('input') createEmployeeInput: CreateEmployeeInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       this.logger.log({
@@ -42,7 +50,10 @@ export class EmployeeResolver {
       
       this.employeeService.setAuthUser(authUser)
 
-      const x = await this.employeeService.create(createEmployeeInput);
+      const x = await this.employeeService.create(createEmployeeInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log(x.msg)
 
@@ -101,7 +112,9 @@ export class EmployeeResolver {
   async updateEmployee(
     @Args('id') id: string,
     @Args('input') updateEmployeeInput: UpdateEmployeeInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -114,7 +127,10 @@ export class EmployeeResolver {
       })
       
       this.employeeService.setAuthUser(authUser)
-      const x = await this.employeeService.update(id, updateEmployeeInput);
+      const x = await this.employeeService.update(id, updateEmployeeInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log(x.msg)
 
@@ -129,7 +145,9 @@ export class EmployeeResolver {
   @CheckAccess(MODULES.EMPLOYEE, RESOLVERS.removeEmployee)
   async removeEmployee(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
 
@@ -141,7 +159,10 @@ export class EmployeeResolver {
       })
 
       this.employeeService.setAuthUser(authUser)
-      const x = await this.employeeService.remove(id);
+      const x = await this.employeeService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Employee removed successfully')
       

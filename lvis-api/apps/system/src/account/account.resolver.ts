@@ -13,6 +13,9 @@ import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from '../__common__/modules.enum';
 import { RESOLVERS } from '../__common__/resolvers.enum';
 import { AccountsResponse } from './entities/accounts-response.entity';
+import { SystemAuditService } from 'apps/system/src/system_audit/system_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Account)
@@ -22,7 +25,8 @@ export class AccountResolver {
   private filename = 'account.resolver.ts'
 
   constructor(
-    private readonly accountService: AccountService
+    private readonly accountService: AccountService,
+    private readonly audit: SystemAuditService,
   ) { }
 
   @Mutation(() => Account)
@@ -30,7 +34,9 @@ export class AccountResolver {
   @CheckAccess(MODULES.ACCOUNT, RESOLVERS.createAccount)
   async createAccount(
     @Args('input') createAccountInput: CreateAccountInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -43,7 +49,10 @@ export class AccountResolver {
       
       this.accountService.setAuthUser(authUser)
 
-      const x = await this.accountService.create(createAccountInput);
+      const x = await this.accountService.create(createAccountInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Account created successfully')
 
@@ -91,7 +100,9 @@ export class AccountResolver {
   async updateAccount(
     @Args('id') id: string,
     @Args('input') updateAccountInput: UpdateAccountInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -105,7 +116,10 @@ export class AccountResolver {
       })
       
       this.accountService.setAuthUser(authUser)
-      const x = await this.accountService.update(id, updateAccountInput);
+      const x = await this.accountService.update(id, updateAccountInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Account updated successfully')
 
@@ -121,7 +135,9 @@ export class AccountResolver {
   @CheckAccess(MODULES.ACCOUNT, RESOLVERS.removeAccount)
   async removeAccount(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
 
     try {
@@ -134,7 +150,10 @@ export class AccountResolver {
       })
 
       this.accountService.setAuthUser(authUser)
-      const x = await this.accountService.remove(id);
+      const x = await this.accountService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Account removed successfully')
       

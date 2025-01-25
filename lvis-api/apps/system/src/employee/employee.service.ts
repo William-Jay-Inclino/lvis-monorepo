@@ -8,19 +8,27 @@ import { EmployeesResponse } from './entities/employees-response.entity';
 import { AuthUser } from '../__common__/auth-user.entity';
 import axios from 'axios';
 import { USER_GROUP } from '../__common__/constants';
+import { SystemAuditService } from '../system_audit/system_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class EmployeeService {
 
 	private authUser: AuthUser
 
-	constructor(private readonly prisma: PrismaService) { }
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly audit: SystemAuditService,
+	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateEmployeeInput): Promise<{success: boolean, msg: string, data?: Employee}> {
+	async create(
+		input: CreateEmployeeInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<{success: boolean, msg: string, data?: Employee}> {
 
 		const existingEmployee = await this.prisma.employee.findUnique({
 			where: { employee_number: input.employee_number },
@@ -48,23 +56,34 @@ export class EmployeeService {
 			created_by: this.authUser.user.username,
 		}
 
-		const created = await this.prisma.employee.create({
-			data,
-			include: {
-				division: true,
-				department: true,
+		return await this.prisma.$transaction(async(tx) => {
+
+			const created = await tx.employee.create({
+				data
+			})
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.EMPLOYEE,
+				action: 'CREATE-EMPLOYEE',
+				reference_id: created.id,
+				metadata: created,
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+	
+			// if(created.division) {
+			// 	created.division.permissions = !!created.division.permissions ? JSON.stringify(created.division.permissions) : null
+			// }
+	
+			return {
+				success: true,
+				msg: 'Employee successfully created.',
+				data: created
 			}
+
 		})
 
-		if(created.division) {
-			created.division.permissions = !!created.division.permissions ? JSON.stringify(created.division.permissions) : null
-		}
-
-		return {
-			success: true,
-			msg: 'Employee successfully created.',
-			data: created
-		}
 
 	}
 
@@ -195,9 +214,19 @@ export class EmployeeService {
 
 	}
 
-	async update(id: string, input: UpdateEmployeeInput): Promise<{success: boolean, msg: string, data?: Employee}> {
+	async update(
+		id: string, 
+		input: UpdateEmployeeInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<{success: boolean, msg: string, data?: Employee}> {
 
-		const existingItem = await this.findOne(id)
+		const existingItem = await this.prisma.employee.findUnique({
+			where: { id },
+		})
+
+		if(!existingItem) {
+			throw new NotFoundException('Employee not found with id ' + id)
+		}
 
 		// Check if the employee_number exists and belongs to another employee
 		if (input.employee_number && input.employee_number !== existingItem.employee_number) {
@@ -232,50 +261,88 @@ export class EmployeeService {
 			signature_src: input.signature_src ?? existingItem.signature_src,
 		}
 
+		return await this.prisma.$transaction(async(tx) => {
 
-		const updated = await this.prisma.employee.update({
-			data,
-			where: {
-				id
-			},
-			include: {
-				division: true,
-				department: true,
+			const updated = await tx.employee.update({
+				data,
+				where: {
+					id
+				}
+			})
+	
+			if(!!input.signature_src && !!existingItem.signature_src && existingItem.signature_src.trim() !== '') {
+				this.deleteFiles([existingItem.signature_src])
 			}
+	
+			await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.EMPLOYEE,
+                action: 'UPDATE-EMPLOYEE',
+                reference_id: id,
+                metadata: {
+                    'old_value': existingItem,
+                    'new_value': updated
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
+			// if(updated.division) {
+			// 	updated.division.permissions = !!updated.division.permissions ? JSON.stringify(updated.division.permissions) : null
+			// }
+	
+			// updated.department.permissions = !!updated.department.permissions ? JSON.stringify(updated.department.permissions) : null
+	
+	
+			return {
+				success: true,
+				msg: 'Employee successfully updated.',
+				data: updated
+			}
+
 		})
 
-		if(!!input.signature_src && !!existingItem.signature_src && existingItem.signature_src.trim() !== '') {
-			this.deleteFiles([existingItem.signature_src])
-		}
-
-		
-		if(updated.division) {
-			updated.division.permissions = !!updated.division.permissions ? JSON.stringify(updated.division.permissions) : null
-		}
-
-		updated.department.permissions = !!updated.department.permissions ? JSON.stringify(updated.department.permissions) : null
-
-
-		return {
-			success: true,
-			msg: 'Employee successfully created.',
-			data: updated
-		}
 
 	}
 
-	async remove(id: string): Promise<SystemRemoveResponse> {
+	async remove(
+		id: string,
+        metadata: { ip_address: string, device_info: any }
+	): Promise<SystemRemoveResponse> {
 
-		const existingItem = await this.findOne(id)
-
-		await this.prisma.employee.delete({
-			where: { id }
+		const existingItem = await this.prisma.employee.findUnique({
+			where: { id },
 		})
 
-		return {
-			success: true,
-			msg: "Employee successfully deleted"
+		if(!existingItem) {
+			throw new NotFoundException('Employee not found with id ' + id)
 		}
+
+		return this.prisma.$transaction(async(tx) => {
+
+			const deleted = await tx.employee.delete({
+				where: { id }
+			})
+
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.EMPLOYEE,
+                action: 'DELETE-EMPLOYEE',
+                reference_id: id,
+                metadata: {
+                    'deleted_value': deleted,
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+              }, tx as Prisma.TransactionClient)
+	
+			return {
+				success: true,
+				msg: "Employee successfully deleted"
+			}
+
+		})
+
 
 	}
 

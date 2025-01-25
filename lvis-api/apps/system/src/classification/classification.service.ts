@@ -6,27 +6,52 @@ import { UpdateClassificationInput } from './dto/update-classification.input';
 import { SystemRemoveResponse } from '../__common__/classes';
 import { AuthUser } from '../__common__/auth-user.entity';
 import { ClassificationsResponse } from './entities/classifications-response.entity';
+import { SystemAuditService } from '../system_audit/system_audit.service';
+import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class ClassificationService {
 
 	private authUser: AuthUser
 
-	constructor(private readonly prisma: PrismaService) { }
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly audit: SystemAuditService,
+	) { }
 
 	setAuthUser(authUser: AuthUser) {
 		this.authUser = authUser
 	}
 
-	async create(input: CreateClassificationInput): Promise<Classification> {
+	async create(
+		input: CreateClassificationInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<Classification> {
 
 		const data: Prisma.ClassificationCreateInput = {
 			name: input.name,
 		}
 
-		const created = await this.prisma.classification.create({ data })
 
-		return created
+		return await this.prisma.$transaction(async(tx) => {
+
+			const created = await tx.classification.create({
+				data
+			})
+
+			await this.audit.createAuditEntry({
+				username: this.authUser.user.username,
+				table: DB_TABLE.CLASSIFICATION,
+				action: 'CREATE-CLASSIFICATION',
+				reference_id: created.id,
+				metadata: created,
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+	
+			return created
+
+		})
 	}
 
     async findAll(page: number, pageSize: number, name?: string): Promise<ClassificationsResponse> {
@@ -74,7 +99,11 @@ export class ClassificationService {
 		return item
 	}
 
-	async update(id: string, input: UpdateClassificationInput): Promise<Classification> {
+	async update(
+		id: string, 
+		input: UpdateClassificationInput, 
+		metadata: { ip_address: string, device_info: any }
+	): Promise<Classification> {
 
 		const existingItem = await this.findOne(id)
 
@@ -82,31 +111,70 @@ export class ClassificationService {
 			name: input.name ?? existingItem.name,
 		}
 
-		const updated = await this.prisma.classification.update({
-			data,
-			where: {
-				id
-			}
+		return await this.prisma.$transaction(async(tx) => {
+
+			const updated = await tx.classification.update({
+				data,
+				where: {
+					id
+				}
+			})
+
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.CLASSIFICATION,
+                action: 'UPDATE-CLASSIFICATION',
+                reference_id: id,
+                metadata: {
+                    'old_value': existingItem,
+                    'new_value': updated
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+	
+			return updated
+
 		})
 
-		return updated
 	}
 
-	async remove(id: string): Promise<SystemRemoveResponse> {
+	async remove(
+		id: string,
+        metadata: { ip_address: string, device_info: any }
+	): Promise<SystemRemoveResponse> {
 
 		const existingItem = await this.findOne(id)
 
-		await this.prisma.classification.update({
-			where: { id },
-			data: {
-			  deleted_at: new Date()
+		return this.prisma.$transaction(async(tx) => {
+
+			const updated = await tx.classification.update({
+				where: { id },
+				data: {
+				  deleted_at: new Date()
+				}
+			})
+
+            await this.audit.createAuditEntry({
+                username: this.authUser.user.username,
+                table: DB_TABLE.CLASSIFICATION,
+                action: 'SOFT-DELETE-CLASSIFICATION',
+                reference_id: id,
+                metadata: {
+                    'old_value': existingItem,
+                    'new_value': updated
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+              }, tx as Prisma.TransactionClient)
+	
+			return {
+				success: true,
+				msg: "Classification successfully deleted"
 			}
+
 		})
 
-		return {
-			success: true,
-			msg: "Classification successfully deleted"
-		}
 
 	}
 

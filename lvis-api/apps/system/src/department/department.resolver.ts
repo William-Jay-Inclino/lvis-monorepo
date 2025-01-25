@@ -12,6 +12,9 @@ import { AccessGuard } from '../__auth__/guards/access.guard';
 import { MODULES } from '../__common__/modules.enum';
 import { RESOLVERS } from '../__common__/resolvers.enum';
 import { CheckAccess } from '../__auth__/check-access.decorator';
+import { SystemAuditService } from '../system_audit/system_audit.service';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Department)
@@ -20,14 +23,19 @@ export class DepartmentResolver {
   private readonly logger = new Logger(DepartmentResolver.name);
   private filename = 'department.resolver.ts'
 
-  constructor(private readonly departmentService: DepartmentService) { }
+  constructor(
+    private readonly departmentService: DepartmentService,
+    private readonly audit: SystemAuditService,
+  ) { }
 
   @Mutation(() => Department)
   @UseGuards(AccessGuard)
   @CheckAccess(MODULES.DEPARTMENT, RESOLVERS.createDepartment)
   async createDepartment(
     @Args('input') createDepartmentInput: CreateDepartmentInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       this.logger.log({
@@ -39,7 +47,10 @@ export class DepartmentResolver {
       
       this.departmentService.setAuthUser(authUser)
 
-      const x = await this.departmentService.create(createDepartmentInput);
+      const x = await this.departmentService.create(createDepartmentInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Department created successfully')
 
@@ -66,7 +77,9 @@ export class DepartmentResolver {
   async updateDepartment(
     @Args('id') id: string,
     @Args('input') updateDepartmentInput: UpdateDepartmentInput,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
       
@@ -79,7 +92,10 @@ export class DepartmentResolver {
       })
       
       this.departmentService.setAuthUser(authUser)
-      const x = await this.departmentService.update(id, updateDepartmentInput);
+      const x = await this.departmentService.update(id, updateDepartmentInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
 
       this.logger.log('Department updated successfully')
 
@@ -94,7 +110,9 @@ export class DepartmentResolver {
   @CheckAccess(MODULES.DEPARTMENT, RESOLVERS.removeDepartment)
   async removeDepartment(
     @Args('id') id: string,
-    @CurrentAuthUser() authUser: AuthUser
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
   ) {
     try {
 
@@ -106,7 +124,10 @@ export class DepartmentResolver {
       })
 
       this.departmentService.setAuthUser(authUser)
-      const x = await this.departmentService.remove(id);
+      const x = await this.departmentService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
       
       this.logger.log('Department removed successfully')
       
