@@ -639,6 +639,9 @@ export async function fetch_dashboard_data(d: { startDate: string, endDate: stri
                 }
                 destination
                 start_time
+                end_time
+                actual_start_time
+                actual_end_time
                 status
             }   
         }

@@ -2,7 +2,8 @@ import moment from "moment";
 import type { TRIP_TICKET_STATUS } from "~/composables/motorpool/trip-ticket/trip-ticket.enums";
 import axios from "axios";
 import Swal from "sweetalert2";
-
+import { format, isToday } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
 
 export function getFullname(firstname: string, middlename: string | null, lastname: string) {
     if (middlename) {
@@ -88,6 +89,15 @@ export function get_day_and_time(d: any) {
     }
 
     return moment(d).format('h:mm A ddd');
+}
+
+export function get_time(d: any) {
+
+    if (!d) {
+        return ""
+    }
+
+    return moment(d).format('h:mm A')
 }
 
 export function formatToValidHtmlDate(d: any, hasTime: boolean = false): string {

@@ -209,17 +209,35 @@
                                         <table class="table table-bordered">
                                             <thead class="table-light">
                                                 <tr class="table-warning">
-                                                    <th class="text-muted"> Time </th>
-                                                    <th class="text-muted"> Vehicle </th>
-                                                    <th style="white-space: nowrap;" class="text-muted"> Trip No. </th>
-                                                    <th class="text-muted"> Driver </th>
-                                                    <th class="text-muted"> Destination </th>
-                                                    <th class="text-muted text-center"> Status </th>
+                                                    <th colspan="2" class="text-muted text-center" style="white-space: nowrap;"> Estimated Time </th>
+                                                    <th colspan="2" class="text-muted text-center" style="white-space: nowrap;"> Actual Time </th>
+                                                    <th rowspan="2" class="text-muted align-middle text-center"> Vehicle </th>
+                                                    <th rowspan="2" style="white-space: nowrap;" class="text-muted text-center align-middle"> Trip No. </th>
+                                                    <th rowspan="2" class="text-muted text-center align-middle"> Driver </th>
+                                                    <th rowspan="2" class="text-muted text-center align-middle"> Destination </th>
+                                                    <th rowspan="2" class="text-muted text-center text-center align-middle"> Status </th>
+                                                </tr>
+                                                <tr class="table-warning">
+                                                    <th class="text-muted text-center"> Departure </th>
+                                                    <th class="text-muted text-center"> Arrival </th>
+                                                    <th class="text-muted text-center"> Departure </th>
+                                                    <th class="text-muted text-center"> Arrival </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr v-for="item in dayGroup.tickets" :key="item.id">
-                                                    <td class="align-middle" style="white-space: nowrap;"> {{ moment(item.start_time).format('h:mm A') }} </td>
+                                                    <td class="align-middle" style="white-space: nowrap;"> {{ get_time(item.start_time) }} </td>
+                                                    <td class="align-middle" style="white-space: nowrap;"> {{ get_time(item.end_time) }} </td>
+                                                    <td class="align-middle" style="white-space: nowrap;"> 
+                                                        {{ 
+                                                            get_time_and_day({ actual: item.actual_start_time, estimated: item.start_time }) 
+                                                        }} 
+                                                    </td>
+                                                    <td class="align-middle" style="white-space: nowrap;"> 
+                                                        {{ 
+                                                            get_time_and_day({ actual: item.actual_end_time, estimated: item.end_time }) 
+                                                        }} 
+                                                    </td>
                                                     <td class="align-middle" style="white-space: nowrap;">
                                                         <nuxt-link :to="'/motorpool/vehicle/view/' + item.vehicle.id">
                                                             {{ item.vehicle.vehicle_number }}
@@ -231,8 +249,8 @@
                                                             {{ item.trip_number }} 
                                                         </nuxt-link>
                                                     </td>
-                                                    <td class="align-middle" style="white-space: nowrap;"> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
-                                                    <td class="align-middle"> {{ item.destination }} </td>
+                                                    <td class="align-middle small" style="white-space: nowrap;"> {{ getFullname(item.driver.firstname, item.driver.middlename, item.driver.lastname) }} </td>
+                                                    <td class="align-middle small"> {{ item.destination }} </td>
                                                     <td class="text-center align-middle">
                                                         <div :class="{ [`badge bg-${tripTicketStatus[item.status].color}`]: true }">
                                                             {{ tripTicketStatus[item.status].label }}
@@ -279,6 +297,7 @@
     import { TRIP_TICKET_STATUS, tripTicketStatus } from '~/composables/motorpool/trip-ticket/trip-ticket.enums';
     import moment from 'moment';
     import { useToast } from 'vue-toastification';
+    import { get_time_and_day } from '~/composables/motorpool/trip-ticket/trip-ticket.helpers'
 
     definePageMeta({
         layout: "layout-motorpool"
