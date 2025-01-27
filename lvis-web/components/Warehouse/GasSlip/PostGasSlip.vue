@@ -28,6 +28,14 @@
                         <small class="text-danger fst-italic" v-if="errors.price_per_liter"> {{ errorMsg }} </small>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Total Cost
+                        </label>
+                        <input type="text" class="form-control" :value="formatToPhpCurrency(total_cost)" disabled>
+                        <small class="text-danger fst-italic" v-if="errors.price_per_liter"> {{ errorMsg }} </small>
+                    </div>
+
                 </div>
 
                 <div class="modal-footer">
@@ -71,6 +79,17 @@
 
     const errors = ref({..._errorsInitial})
     const errorMsg = 'This field is invalid'
+
+    const total_cost = computed( () => {
+
+        if(actual_liter.value > 0 && price_per_liter.value > 0) {
+            const cost = actual_liter.value * price_per_liter.value
+            return parseFloat(cost.toFixed(2))
+        }
+
+        return 0.00
+
+    })
 
     function handlePost() {
 
