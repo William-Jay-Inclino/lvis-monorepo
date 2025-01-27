@@ -134,7 +134,7 @@ export class CanvassService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.CANVASS,
                 action: 'CREATE-CANVASS',
-                reference_id: created.id,
+                reference_id: created.rc_number,
                 metadata: created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -190,7 +190,7 @@ export class CanvassService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.CANVASS,
                 action: 'UPDATE-CANVASS',
-                reference_id: id,
+                reference_id: updated.rc_number,
                 metadata: {
                     'old_value': existingItem,
                     'new_value': updated
@@ -204,55 +204,6 @@ export class CanvassService {
         })
 
     }
-
-    // async update(id: string, input: UpdateCanvassInput, metadata: { ip_address: string, device_info: any }): Promise<Canvass> {
-    //     const existingItem = await this.findOne(id);
-
-    //     if (!(await this.canUpdate(existingItem.id))) {
-    //         throw new ForbiddenException('Only Admin and Owner can update this record. Cannot also update if rv/spr/jo has approval for owners only!')
-    //     }
-
-    //     if (input.requested_by_id) {
-    //         const isValidRequestedById = await this.areEmployeesExist([input.requested_by_id], this.authUser);
-
-    //         if (!isValidRequestedById) {
-    //             throw new NotFoundException('Requested by ID not found');
-    //         }
-    //     }
-
-    //     const data: Prisma.CanvassUpdateInput = {
-    //         purpose: input.purpose ?? existingItem.purpose,
-    //         notes: input.notes ?? existingItem.notes,
-    //         requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
-    //         updated_by: this.authUser.user.username,
-    //     };
-
-    //     return this.prisma.$transaction(async(tx) => {
-
-    //         const updated = await tx.canvass.update({
-    //             data,
-    //             where: { id },
-    //         });
-    
-    //         // create audit
-	// 		await this.audit.createAuditEntry({
-	// 			username: this.authUser.user.username,
-	// 			table: DB_TABLE.CANVASS,
-	// 			action: 'UPDATE-CANVASS',
-	// 			reference_id: id,
-	// 			metadata: {
-	// 				'old_value': existingItem,
-	// 				'new_value': updated
-	// 			},
-	// 			ip_address: metadata.ip_address,
-	// 			device_info: metadata.device_info
-	// 		}, tx as Prisma.TransactionClient)
-
-    //         return updated
-
-    //     })
-
-    // }
 
     async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string): Promise<CanvassesResponse> {
 

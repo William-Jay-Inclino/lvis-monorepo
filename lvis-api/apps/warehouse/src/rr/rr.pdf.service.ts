@@ -473,7 +473,7 @@ export class RrPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.RR,
             action: 'PRINT-RR',
-            reference_id: rr.id,
+            reference_id: rr.rr_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })

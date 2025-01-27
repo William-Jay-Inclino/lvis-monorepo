@@ -316,7 +316,7 @@ export class RvPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.RV,
             action: 'PRINT-RV',
-            reference_id: rv.id,
+            reference_id: rv.rv_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })

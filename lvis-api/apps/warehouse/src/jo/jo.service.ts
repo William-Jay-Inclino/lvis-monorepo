@@ -148,7 +148,7 @@ export class JoService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.JO,
                 action: 'CREATE-JO',
-                reference_id: jo_created.id,
+                reference_id: jo_created.jo_number,
                 metadata: jo_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -273,7 +273,7 @@ export class JoService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.JO,
 				action: 'UPDATE-JO',
-				reference_id: id,
+				reference_id: jo_updated.jo_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': jo_updated
@@ -350,7 +350,7 @@ export class JoService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.JO,
 				action: 'CANCEL-JO',
-				reference_id: id,
+				reference_id: jo_cancelled.jo_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': jo_cancelled

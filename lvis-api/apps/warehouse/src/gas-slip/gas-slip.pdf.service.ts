@@ -444,7 +444,7 @@ export class GasSlipPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.GAS_SLIP,
             action: 'PRINT-GAS-SLIP',
-            reference_id: gasSlip.id,
+            reference_id: gasSlip.gas_slip_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })

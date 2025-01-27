@@ -136,7 +136,7 @@ export class TripTicketService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.TRIP_TICKET,
 				action: 'CREATE-TRIP-TICKET',
-				reference_id: trip_created.id,
+				reference_id: trip_created.trip_number,
 				metadata: trip_created,
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
@@ -362,7 +362,7 @@ export class TripTicketService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.TRIP_TICKET,
 				action: 'UPDATE-TRIP-TICKET',
-				reference_id: id,
+				reference_id: trip_ticket_updated.trip_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': trip_ticket_updated
@@ -433,7 +433,7 @@ export class TripTicketService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.TRIP_TICKET,
 				action: 'CANCEL-TRIP-TICKET',
-				reference_id: id,
+				reference_id: trip_cancelled.trip_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': trip_cancelled

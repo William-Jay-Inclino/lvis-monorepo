@@ -239,7 +239,7 @@ export class RrService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.RR,
                 action: 'CREATE-RR',
-                reference_id: rr_created.id,
+                reference_id: rr_created.rr_number,
                 metadata: rr_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -532,7 +532,7 @@ export class RrService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.RR,
 				action: 'UPDATE-RR',
-				reference_id: id,
+				reference_id: updated.rr_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': updated
@@ -610,7 +610,7 @@ export class RrService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.RR,
 				action: 'CANCEL-RR',
-				reference_id: id,
+				reference_id: rr_cancelled.rr_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': rr_cancelled

@@ -143,7 +143,7 @@ export class RrItemService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.RR_ITEMS,
 				action: 'UPDATE-RR-ITEMS',
-				reference_id: rrItem.rr.id,
+				reference_id: rrItem.rr.rr_number,
 				metadata: {
 					'old_value': rrItem.rr,
 					'new_value': updated_rr

@@ -147,7 +147,7 @@ export class RvService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.RV,
                 action: 'CREATE-RV',
-                reference_id: rv_created.id,
+                reference_id: rv_created.rv_number,
                 metadata: rv_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -272,7 +272,7 @@ export class RvService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.RV,
 				action: 'UPDATE-RV',
-				reference_id: id,
+				reference_id: rv_updated.rv_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': rv_updated
@@ -348,7 +348,7 @@ export class RvService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.RV,
 				action: 'CANCEL-RV',
-				reference_id: id,
+				reference_id: rv_cancelled.rv_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': rv_cancelled

@@ -134,7 +134,7 @@ export class MrvService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.MRV,
                 action: 'CREATE-MRV',
-                reference_id: mrv_created.id,
+                reference_id: mrv_created.mrv_number,
                 metadata: mrv_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -236,7 +236,7 @@ export class MrvService {
                     username: this.authUser.user.username,
                     table: DB_TABLE.MRV,
                     action: 'UPDATE-MRV',
-                    reference_id: id,
+                    reference_id: mrv_updated.mrv_number,
                     metadata: {
                         'old_value': existingItem,
                         'new_value': mrv_updated
@@ -326,7 +326,7 @@ export class MrvService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.MRV,
 				action: 'CANCEL-MRV',
-				reference_id: id,
+				reference_id: mrv_cancelled.mrv_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': mrv_cancelled

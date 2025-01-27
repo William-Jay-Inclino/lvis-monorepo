@@ -147,7 +147,7 @@ export class SprService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.SPR,
                 action: 'CREATE-SPR',
-                reference_id: spr_created.id,
+                reference_id: spr_created.spr_number,
                 metadata: spr_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -273,7 +273,7 @@ export class SprService {
 				reference_id: id,
 				metadata: {
 					'old_value': existingItem,
-					'new_value': spr_updated
+					'new_value': spr_updated.spr_number
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
@@ -347,7 +347,7 @@ export class SprService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.SPR,
 				action: 'CANCEL-SPR',
-				reference_id: id,
+				reference_id: spr_cancelled.spr_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': spr_cancelled

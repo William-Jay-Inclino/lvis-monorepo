@@ -371,7 +371,7 @@ export class MeqsPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.MEQS,
             action: 'PRINT-MEQS',
-            reference_id: meqs.id,
+            reference_id: meqs.meqs_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })

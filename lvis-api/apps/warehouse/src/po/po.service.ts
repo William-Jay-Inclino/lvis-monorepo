@@ -206,7 +206,7 @@ export class PoService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.PO,
                 action: 'CREATE-PO',
-                reference_id: po_created.id,
+                reference_id: po_created.po_number,
                 metadata: po_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -260,7 +260,7 @@ export class PoService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.PO,
 				action: 'UPDATE-PO',
-				reference_id: id,
+				reference_id: updated.po_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': updated
@@ -338,7 +338,7 @@ export class PoService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.PO,
 				action: 'CANCEL-PO',
-				reference_id: id,
+				reference_id: po_cancelled.po_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': po_cancelled

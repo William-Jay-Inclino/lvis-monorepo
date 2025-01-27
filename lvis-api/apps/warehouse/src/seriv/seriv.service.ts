@@ -136,7 +136,7 @@ export class SerivService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.SERIV,
                 action: 'CREATE-SERIV',
-                reference_id: seriv_created.id,
+                reference_id: seriv_created.seriv_number,
                 metadata: seriv_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -237,7 +237,7 @@ export class SerivService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.SERIV,
 				action: 'UPDATE-SERIV',
-				reference_id: id,
+				reference_id: seriv_updated.seriv_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': seriv_updated
@@ -324,7 +324,7 @@ export class SerivService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.SERIV,
 				action: 'CANCEL-SERIV',
-				reference_id: id,
+				reference_id: seriv_cancelled.seriv_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': seriv_cancelled

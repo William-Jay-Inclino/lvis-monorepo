@@ -131,7 +131,7 @@ export class GasSlipService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.GAS_SLIP,
                 action: 'CREATE-GAS-SLIP',
-                reference_id: gas_slip_created.id,
+                reference_id: gas_slip_created.gas_slip_number,
                 metadata: gas_slip_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -238,7 +238,7 @@ export class GasSlipService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.GAS_SLIP,
 				action: 'UPDATE-GAS-SLIP',
-				reference_id: id,
+				reference_id: gas_slip_updated.gas_slip_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': gas_slip_updated
@@ -310,7 +310,7 @@ export class GasSlipService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.GAS_SLIP,
 				action: 'CANCEL-GAS-SLIP',
-				reference_id: id,
+				reference_id: gas_slip_cancelled.gas_slip_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': gas_slip_cancelled
@@ -525,7 +525,7 @@ export class GasSlipService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.GAS_SLIP,
 				action: 'POST-GAS-SLIP',
-				reference_id: id,
+				reference_id: updated.gas_slip_number,
 				metadata: {
 					'old_value': existingGasSlip,
 					'new_value': updated

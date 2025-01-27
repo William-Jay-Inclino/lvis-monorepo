@@ -142,7 +142,7 @@ export class McrtService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.MCRT,
                 action: 'CREATE-MCRT',
-                reference_id: mcrt_created.id,
+                reference_id: mcrt_created.mcrt_number,
                 metadata: mcrt_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -224,7 +224,7 @@ export class McrtService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.MCRT,
 				action: 'UPDATE-MCRT',
-				reference_id: id,
+				reference_id: mcrt_updated.mcrt_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': mcrt_updated
@@ -296,7 +296,7 @@ export class McrtService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.MCRT,
 				action: 'CANCEL-MCRT',
-				reference_id: id,
+				reference_id: mcrt_cancelled.mcrt_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': mcrt_cancelled

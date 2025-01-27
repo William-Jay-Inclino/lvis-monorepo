@@ -262,7 +262,7 @@ export class MeqsService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.MEQS,
                 action: 'CREATE-MEQS',
-                reference_id: meqs_created.id,
+                reference_id: meqs_created.meqs_number,
                 metadata: meqs_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -315,7 +315,7 @@ export class MeqsService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.MEQS,
                 action: 'UPDATE-MEQS',
-                reference_id: id,
+                reference_id: updated.meqs_number,
                 metadata: {
                     'old_value': existingItem,
                     'new_value': updated
@@ -412,7 +412,7 @@ export class MeqsService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.MEQS,
 				action: 'CANCEL-MEQS',
-				reference_id: id,
+				reference_id: meqs_cancelled.meqs_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': meqs_cancelled

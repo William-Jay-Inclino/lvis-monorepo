@@ -119,7 +119,7 @@ export class OsrivService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.OSRIV,
                 action: 'CREATE-OSRIV',
-                reference_id: osriv_created.id,
+                reference_id: osriv_created.osriv_number,
                 metadata: osriv_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -198,7 +198,7 @@ export class OsrivService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.OSRIV,
 				action: 'UPDATE-OSRIV',
-				reference_id: id,
+				reference_id: osriv_updated.osriv_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': osriv_updated
@@ -288,7 +288,7 @@ export class OsrivService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.OSRIV,
 				action: 'CANCEL-OSRIV',
-				reference_id: id,
+				reference_id: osriv_cancelled.osriv_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': osriv_cancelled

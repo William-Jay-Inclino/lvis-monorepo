@@ -320,7 +320,7 @@ export class SprPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.SPR,
             action: 'PRINT-SPR',
-            reference_id: spr.id,
+            reference_id: spr.spr_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })

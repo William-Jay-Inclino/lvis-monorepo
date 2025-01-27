@@ -328,7 +328,7 @@ export class JoPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.JO,
             action: 'PRINT-JO',
-            reference_id: jo.id,
+            reference_id: jo.jo_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })

@@ -111,7 +111,7 @@ export class MctService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.MCT,
                 action: 'CREATE-MCT',
-                reference_id: mct_created.id,
+                reference_id: mct_created.mct_number,
                 metadata: mct_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -198,7 +198,7 @@ export class MctService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.MCT,
 				action: 'CANCEL-MCT',
-				reference_id: id,
+				reference_id: mct_cancelled.mct_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': mct_cancelled

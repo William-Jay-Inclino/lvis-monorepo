@@ -483,7 +483,7 @@ export class PoPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.PO,
             action: 'PRINT-PO',
-            reference_id: po.id,
+            reference_id: po.po_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })

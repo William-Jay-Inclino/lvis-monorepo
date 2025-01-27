@@ -416,7 +416,7 @@ export class SerivPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.SERIV,
             action: 'PRINT-SERIV',
-            reference_id: seriv.id,
+            reference_id: seriv.seriv_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })
@@ -728,7 +728,7 @@ export class SerivPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.SERIV,
             action: 'PRINT-SERIV-GATEPASS',
-            reference_id: seriv.id,
+            reference_id: seriv.seriv_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })

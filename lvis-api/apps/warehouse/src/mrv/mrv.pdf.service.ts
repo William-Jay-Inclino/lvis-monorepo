@@ -414,7 +414,7 @@ export class MrvPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.MRV,
             action: 'PRINT-MRV',
-            reference_id: mrv.id,
+            reference_id: mrv.mrv_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })

@@ -357,7 +357,7 @@ export class CanvassPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.CANVASS,
             action: 'PRINT-CANVASS',
-            reference_id: canvass.id,
+            reference_id: canvass.rc_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })

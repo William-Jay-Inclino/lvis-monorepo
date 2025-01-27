@@ -110,7 +110,7 @@ export class MstService {
                 username: this.authUser.user.username,
                 table: DB_TABLE.MST,
                 action: 'CREATE-MST',
-                reference_id: mst_created.id,
+                reference_id: mst_created.mst_number,
                 metadata: mst_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
@@ -197,7 +197,7 @@ export class MstService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.MST,
 				action: 'UPDATE-MST',
-				reference_id: id,
+				reference_id: mst_updated.mst_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': mst_updated
@@ -263,7 +263,7 @@ export class MstService {
 				username: this.authUser.user.username,
 				table: DB_TABLE.MST,
 				action: 'CANCEL-MST',
-				reference_id: id,
+				reference_id: mst_cancelled.mst_number,
 				metadata: {
 					'old_value': existingItem,
 					'new_value': mst_cancelled
