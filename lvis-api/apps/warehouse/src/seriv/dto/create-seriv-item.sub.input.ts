@@ -9,15 +9,16 @@ export class CreateSerivItemSubInput {
   @IsString()
   item_id: string;
 
-  @Field(() => Int)
+  @Field(() => Float)
   @IsNotEmpty()
-  @IsInt()
-  @Min(1)
+  @IsNumber()
+  @Min(0.01, { message: 'Quantity must be greater than 0' })
   quantity: number;
 
   @Field(() => Float)
   @IsNotEmpty()
   @IsNumber()
+  @Min(0.01, { message: 'price must be greater than 0' })
   price: number;
 
 }

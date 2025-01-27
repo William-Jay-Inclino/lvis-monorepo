@@ -1,12 +1,12 @@
-import { IsInt, IsOptional } from 'class-validator';
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { IsInt, IsNumber, IsOptional } from 'class-validator';
+import { InputType, Field, Int, Float } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateRrItemInput {
 
-    @Field(() => Int, { nullable: true })
+    @Field(() => Float, { nullable: true })
     @IsOptional()
-    @IsInt()
+    @IsNumber()
     quantity_accepted?: number | null
 
 }

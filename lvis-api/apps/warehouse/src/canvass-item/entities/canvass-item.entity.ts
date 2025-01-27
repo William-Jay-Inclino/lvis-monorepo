@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID, Float } from '@nestjs/graphql';
 import { Unit } from '../../unit/entities/unit.entity';
 import { MeqsSupplierItem } from '../../meqs-supplier-item/entities/meqs-supplier-item.entity';
 import { Canvass } from '../../canvass/entities/canvass.entity';
@@ -22,8 +22,8 @@ export class CanvassItem {
   @Field(() => String)
   description: string;
 
-  @Field(() => Int)
-  quantity: string;
+  @Field(() => Float)
+  quantity: number;
 
 
   // =============== derived / resolvers =============== 

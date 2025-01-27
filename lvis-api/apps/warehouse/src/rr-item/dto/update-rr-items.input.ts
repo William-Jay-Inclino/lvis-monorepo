@@ -1,5 +1,5 @@
-import { IsInt, IsNotEmpty, Min } from 'class-validator';
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { IsInt, IsNotEmpty, IsNumber, Min } from 'class-validator';
+import { InputType, Field, Int, Float } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateRrItemsInput {
@@ -8,10 +8,10 @@ export class UpdateRrItemsInput {
     @IsNotEmpty()
     id: string
 
-    @Field(() => Int)
+    @Field(() => Float)
     @IsNotEmpty()
-    @IsInt()
-    @Min(0)
+    @IsNumber()
+    @Min(0.01, { message: 'Quantity must be greater than 0' })
     quantity_accepted: number
 
 }

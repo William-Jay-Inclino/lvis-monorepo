@@ -14,7 +14,7 @@ export class MCRTItem {
   @Field(() => String)
   item_id: string;
 
-  @Field(() => Int)
+  @Field(() => Float)
   quantity: number;
 
   @Field(() => Float)

@@ -151,8 +151,8 @@ model Item {
   unit_id          String
   code             String  @unique
   description      String?
-  total_quantity   Int
-  quantity_on_queue   Int @default(0)
+  total_quantity   Float
+  quantity_on_queue   Float @default(0)
   alert_level      Int     @default(20)
 
   created_by String
@@ -199,7 +199,7 @@ model ItemLocation {
   id               String @id @default(uuid())
   item_id          String @db.Uuid
   station_id       String
-  quantity_on_hand Int
+  quantity_on_hand Float
 
   created_at DateTime  @default(now()) @db.Timestamptz
 
@@ -216,7 +216,7 @@ model ItemMovement {
   id             String @id @default(uuid())
   origin_id      String
   destination_id String
-  quantity_moved Int
+  quantity_moved Float
 
   created_at DateTime  @default(now()) @db.Timestamptz
 
@@ -237,7 +237,7 @@ model ItemTransaction {
   mcrt_item_id String? @unique
   mst_item_id String? @unique
   type       Int
-  quantity   Int
+  quantity   Float
   price      Float
   remarks    String?
   is_initial Boolean @default(false)
@@ -304,7 +304,7 @@ model CanvassItem {
   unit_id     String?
   item_id     String? @db.Uuid
   description String
-  quantity    Int
+  quantity    Float
 
   meqs_supplier_items MEQSSupplierItem[]
   canvass             Canvass            @relation(fields: [canvass_id], references: [id], onDelete: Cascade)
@@ -680,7 +680,7 @@ model RRItem {
   id                    String  @id @default(uuid())
   rr_id                 String
   meqs_supplier_item_id String
-  quantity_accepted     Int
+  quantity_accepted     Float
 
   rr                 RR                @relation(fields: [rr_id], references: [id], onDelete: Cascade)
   item_transaction   ItemTransaction?
@@ -756,7 +756,7 @@ model OSRIVItem {
   id            String    @id @default(uuid())
   osriv_id         String
   item_id         String @db.Uuid
-  quantity     Int
+  quantity     Float
   price      Float @default(0)
 
   osriv OSRIV @relation(fields: [osriv_id], references: [id], onDelete: Cascade)
@@ -843,7 +843,7 @@ model SERIVItem {
   id            String    @id @default(uuid())
   seriv_id         String
   item_id         String @db.Uuid
-  quantity     Int
+  quantity     Float
   price      Float @default(0)
 
   seriv SERIV @relation(fields: [seriv_id], references: [id], onDelete: Cascade)
@@ -932,7 +932,7 @@ model MRVItem {
   id            String    @id @default(uuid())
   mrv_id         String
   item_id         String @db.Uuid
-  quantity     Int
+  quantity     Float
   price      Float @default(0)
 
   mrv MRV @relation(fields: [mrv_id], references: [id], onDelete: Cascade)
@@ -1051,7 +1051,7 @@ model MCRTItem {
   id            String    @id @default(uuid())
   mcrt_id         String
   item_id         String @db.Uuid
-  quantity     Int
+  quantity     Float
   price      Float @default(0)
 
   mcrt MCRT @relation(fields: [mcrt_id], references: [id], onDelete: Cascade)
@@ -1120,7 +1120,7 @@ model MSTItem {
   id            String    @id @default(uuid())
   mst_id         String
   item_id         String @db.Uuid
-  quantity     Int
+  quantity     Float
   price      Float @default(0)
   status        Int @default(0)
 

@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, Int, Float } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
 import { Item } from '../../item/entities/item.entity';
 import { MRV } from '../../mrv/entities/mrv.entity';
 
@@ -14,7 +14,7 @@ export class MRVItem {
   @Field(() => String)
   item_id: string;
 
-  @Field(() => Int)
+  @Field(() => Float)
   quantity: number;
 
   @Field(() => Float)

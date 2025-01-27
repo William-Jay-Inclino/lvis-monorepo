@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, Int, Float } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
 import { Item } from '../../item/entities/item.entity';
 import { OSRIV } from '../../osriv/entities/osriv.entity';
 
@@ -14,7 +14,7 @@ export class OSRIVItem {
   @Field(() => String)
   item_id: string;
 
-  @Field(() => Int)
+  @Field(() => Float)
   quantity: number;
 
   @Field(() => Float)

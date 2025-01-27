@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
 import { RR } from '../../rr/entities/rr.entity';
 import { MeqsSupplierItem } from '../../meqs-supplier-item/entities/meqs-supplier-item.entity';
 import { ItemTransaction } from '../../item/entities/item-transaction.entity';
@@ -15,7 +15,7 @@ export class RrItem {
   @Field()
   meqs_supplier_item_id: string
 
-  @Field(() => Int)
+  @Field(() => Float)
   quantity_accepted: number
 
 

@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID, Float } from '@nestjs/graphql';
 import { Unit } from '../../unit/entities/unit.entity';
 import { ItemTransaction } from './item-transaction.entity';
 import { ItemType } from '../../item-type/entities/item-type.entity';
@@ -22,14 +22,11 @@ export class Item {
   @Field({ nullable: true })
   description: string | null;
 
-  @Field(() => Int)
+  @Field(() => Float)
   total_quantity: number;
 
-  @Field(() => Int)
+  @Field(() => Float)
   quantity_on_queue: number;
-
-  // @Field(() => Int)
-  // initial_quantity: number;
 
   @Field(() => Int)
   alert_level: number;

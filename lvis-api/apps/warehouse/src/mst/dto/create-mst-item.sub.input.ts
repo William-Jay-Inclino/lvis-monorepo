@@ -1,5 +1,5 @@
 import { InputType, Int, Field, Float } from '@nestjs/graphql';
-import { IsInt, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
 
 @InputType()
 export class CreateMstItemSubInput {
@@ -9,14 +9,16 @@ export class CreateMstItemSubInput {
   @IsString()
   item_id: string;
 
-  @Field(() => Int)
+  @Field(() => Float)
   @IsNotEmpty()
-  @IsInt()
+  @IsNumber()
+  @Min(0.01, { message: 'Quantity must be greater than 0' })
   quantity: number;
 
   @Field(() => Float)
   @IsNotEmpty()
   @IsNumber()
+  @Min(0.01, { message: 'Price must be greater than 0' })
   price: number;
   
   @Field(() => Int)

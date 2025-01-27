@@ -24,10 +24,10 @@ export class CreateItemInput {
   @IsString()
   description?: string | null
 
-  @Field(() => Int)
+  @Field(() => Float)
   @IsNotEmpty()
-  @IsInt()
-  @Min(0)
+  @IsNumber()
+  @Min(0.01, { message: 'Price must be greater than 0' })
   initial_quantity: number
 
   @Field(() => Int)

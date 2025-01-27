@@ -37,7 +37,7 @@ export class ItemTransaction {
     @Field(() => Int)
     type: ITEM_TRANSACTION_TYPE;
 
-    @Field(() => Int)
+    @Field(() => Float)
     quantity: number;
 
     @Field(() => Float)

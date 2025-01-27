@@ -1,5 +1,5 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { InputType, Field, Float } from '@nestjs/graphql';
+import { IsInt, IsNumber, IsOptional, IsString, Min } from 'class-validator';
 
 @InputType()
 export class UpdateCanvassItemInput {
@@ -19,9 +19,10 @@ export class UpdateCanvassItemInput {
   @IsString()
   description?: string;
 
-  @Field(() => Int, { nullable: true })
+  @Field(() => Float, { nullable: true })
   @IsOptional()
-  @IsInt()
+  @IsNumber()
+  @Min(0.01, { message: 'Quantity must be greater than 0' })
   quantity?: number;
 
 }

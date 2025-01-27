@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "canvass_item" ALTER COLUMN "quantity" SET DATA TYPE DOUBLE PRECISION;
