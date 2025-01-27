@@ -334,7 +334,7 @@ export class MctPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.MCT,
             action: 'PRINT-MCT',
-            reference_id: mct.id,
+            reference_id: mct.mct_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })
@@ -643,7 +643,7 @@ export class MctPdfService {
             username: this.authUser.user.username,
             table: DB_TABLE.MCT,
             action: 'PRINT-MCT-GATEPASS',
-            reference_id: mct.id,
+            reference_id: mct.mct_number,
             ip_address: metadata.ip_address,
             device_info: metadata.device_info
         })
@@ -809,6 +809,7 @@ export class MctPdfService {
     async findMct(id: string): Promise<M> {
         const item = await this.prisma.mCT.findUnique({
             select: {
+                id: true,
                 mct_number: true,
                 mct_date: true,
                 created_by: true,
