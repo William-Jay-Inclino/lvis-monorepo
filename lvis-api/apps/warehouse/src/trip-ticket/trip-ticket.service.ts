@@ -769,10 +769,11 @@ export class TripTicketService {
 			username: 'N/A',
 			table: DB_TABLE.TRIP_TICKET,
 			action: 'TRIP-RFID-SCAN: ERROR',
-			reference_id: vehicle_nearest_trip.trip_number,
+			reference_id: vehicle_nearest_trip ? vehicle_nearest_trip.trip_number : rf_id,
 			metadata: {
 				'msg': 'No active trip ticket found for this vehicle at this time.',
-				'vehicle_nearest_trip': vehicle_nearest_trip
+				'note': 'Reference id can be trip number or rfid. If rfid meaning vehicle has no trip ticket',
+				'vehicle_nearest_trip': 'N/A'
 			},
 			ip_address: metadata.ip_address,
 			device_info: metadata.device_info
