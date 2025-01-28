@@ -273,14 +273,8 @@ export class TripTicketReportService {
 
         console.log('filters', filters);
 
-        // Validate required fields
-        if (!startDate || !endDate) {
-            throw new BadRequestException('Start date and end date are required.');
-        }
-
-        if (startDate > endDate) {
-            throw new BadRequestException('Start date cannot be later than end date.');
-        }
+        // Validate date range
+        this.validateDateRange(startDate, endDate, 365); // Max 1 year
 
         // Construct the query conditions
         const where: any = {
@@ -357,7 +351,6 @@ export class TripTicketReportService {
         
     }
 
-
     private async getEmployee(employeeId: string, authUser: AuthUser) {
 
         const query = `
@@ -398,4 +391,20 @@ export class TripTicketReportService {
             return undefined;
         }
     }
+
+    private validateDateRange(startDate: Date, endDate: Date, maxDays: number): void {
+        if (!startDate || !endDate) {
+            throw new BadRequestException('Start date and end date are required.');
+        }
+    
+        if (startDate > endDate) {
+            throw new BadRequestException('Start date cannot be later than end date.');
+        }
+    
+        const maxMilliseconds = maxDays * 24 * 60 * 60 * 1000; // Convert days to milliseconds
+        if (endDate.getTime() - startDate.getTime() > maxMilliseconds) {
+            throw new BadRequestException(`Date range cannot exceed ${maxDays} days.`);
+        }
+    }
+
 }
