@@ -17,3 +17,21 @@ export function normalizeIp(ip: string): string {
       return ip;  // If normalization fails, return the original IP
     }
 }
+
+
+export function getClientIp(req: any): string | null {
+    let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  
+    // If there are multiple IPs in the x-forwarded-for header, get the first one
+    if (Array.isArray(ip)) {
+      ip = ip[0]; 
+    }
+  
+    // If no x-forwarded-for header, use connection remote address
+    if (!ip && req.connection) {
+      ip = req.connection.remoteAddress;
+    }
+  
+    // Normalize the IP address (remove IPv6-mapped IPv4 addresses like ::ffff:192.168.1.1)
+    return ip ? normalizeIp(ip) : null;
+  }

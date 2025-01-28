@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { FileUploadModule } from './file-upload-warehouse/file-upload.module';
 import { FileUploadSystemModule } from './file-upload-system/file-upload-system.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { getClientIp } from './__common__/utils';
 // import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 const getToken = (authToken: string) => {
@@ -34,26 +35,52 @@ const decodeToken = (tokenString: string) => {
 }
 
 
-function handleAuth({ req }) {
+// function handleAuth({ req }) {
 
+//   try {
+
+//     if(req.headers.authorization) {
+//       const token = getToken(req.headers.authorization)
+//       const decoded = decodeToken(token)
+
+//       return {
+//         user: decoded,
+//         authorization: req.headers.authorization
+//       }
+//     }
+
+//   } catch (error) {
+//     throw new UnauthorizedException('Invalid token');
+//   }
+
+// }
+
+export function handleAuth({ req }) {
   try {
+    // Extract the client IP address
+    const ip = getClientIp(req);
 
-    if(req.headers.authorization) {
-      const token = getToken(req.headers.authorization)
-      const decoded = decodeToken(token)
+    // Extract and decode the authorization token if provided
+    let user = null;
+    let authorization = null;
 
-      return {
-        user: decoded,
-        authorization: req.headers.authorization
-      }
+    if (req.headers.authorization) {
+      authorization = req.headers.authorization;
+      const token = getToken(authorization);
+      user = decodeToken(token);
     }
 
+    // Return the context with the user, authorization, and IP
+    return {
+      user,
+      authorization,
+      ip, // Add IP to the context
+    };
   } catch (error) {
-    throw new UnauthorizedException('Invalid token');
+    console.error('Error in handleAuth:', error);
+    throw new UnauthorizedException('Invalid token or missing authorization');
   }
-
 }
-
 
 
 @Module({
@@ -88,6 +115,7 @@ function handleAuth({ req }) {
             willSendRequest({ request, context }) {
               request.http.headers.set('user', context.user ? context.user : null);
               request.http.headers.set('authorization', context.authorization ? context.authorization : null);
+              request.http.headers.set('X-Client-IP', context.ip || null);
             },
           });
         },
