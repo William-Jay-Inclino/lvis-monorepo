@@ -14,10 +14,10 @@
                 <div class="container">
                     <a class="navbar-brand" href="#">
                         <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
-                        Welcome, {{ authUser.user.username }}! 
-                        <client-only>
+                        Home
+                        <!-- <client-only>
                             <font-awesome-icon :icon="['fas', 'smile']" />
-                        </client-only>
+                        </client-only> -->
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
