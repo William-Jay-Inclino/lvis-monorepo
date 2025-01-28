@@ -227,7 +227,12 @@
                                             <tbody>
                                                 <tr v-for="item in dayGroup.tickets" :key="item.id">
                                                     <td class="align-middle" style="white-space: nowrap;"> {{ get_time(item.start_time) }} </td>
-                                                    <td class="align-middle" style="white-space: nowrap;"> {{ get_time(item.end_time) }} </td>
+                                                    <!-- <td class="align-middle" style="white-space: nowrap;"> {{ get_time(item.end_time) }} </td> -->
+                                                    <td class="align-middle" style="white-space: nowrap;"> 
+                                                        {{ 
+                                                            get_time_and_day({ actual: item.end_time, estimated: formattedDateToday }) 
+                                                        }} 
+                                                    </td>
                                                     <td class="align-middle" style="white-space: nowrap;"> 
                                                         {{ 
                                                             get_time_and_day({ actual: item.actual_start_time, estimated: item.start_time }) 
@@ -295,9 +300,10 @@
     import * as vmApi from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.api'
     import type { TripTicket } from '~/composables/motorpool/trip-ticket/trip-ticket.types';
     import { TRIP_TICKET_STATUS, tripTicketStatus } from '~/composables/motorpool/trip-ticket/trip-ticket.enums';
-    import moment from 'moment';
+    import { toZonedTime } from "date-fns-tz"
     import { useToast } from 'vue-toastification';
     import { get_time_and_day } from '~/composables/motorpool/trip-ticket/trip-ticket.helpers'
+    import { endOfWeek, format, formatISO, startOfWeek } from 'date-fns';
 
     definePageMeta({
         layout: "layout-motorpool"
@@ -307,6 +313,10 @@
     const toast = useToast();
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const today = new Date()
+    const config = useRuntimeConfig()
+    const TZ = config.public.TZ
+    const zonedTime = toZonedTime(today, TZ);
+    const formattedDateToday = format(zonedTime, 'yyyy-MM-dd HH:mm:ss')
 
     const isLoading = ref(true)
     const is_expanded_pms_sched = ref(true)
@@ -395,14 +405,28 @@
     })
 
     function get_start_and_end_of_week() {
-        const startOfWeek = moment().startOf('week');
-        const endOfWeek = moment().endOf('week');
+        const now = today
 
+        // Get the start and end of the week
+        const startOfWeekDate = startOfWeek(now, { weekStartsOn: 0 }); // Sunday as the start of the week
+        const endOfWeekDate = endOfWeek(now, { weekStartsOn: 0 });     // Saturday as the end of the week
+
+        // Format the dates to ISO string
         return {
-            startDate: startOfWeek.format(),
-            endDate: endOfWeek.format()
+            startDate: formatISO(startOfWeekDate),
+            endDate: formatISO(endOfWeekDate),
         };
     }
+
+    // function get_start_and_end_of_week() {
+    //     const startOfWeek = moment().startOf('week');
+    //     const endOfWeek = moment().endOf('week');
+
+    //     return {
+    //         startDate: startOfWeek.format(),
+    //         endDate: endOfWeek.format()
+    //     };
+    // }
 
     async function update_vehicle_maintenance_status(vm_id: string) {
 
