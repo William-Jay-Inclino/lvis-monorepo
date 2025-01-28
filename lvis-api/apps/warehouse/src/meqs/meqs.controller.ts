@@ -38,13 +38,13 @@ export class MeqsController {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Generating PDF in MEQS...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            meqs_id: id
+        })
+
         try {
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: RESOLVERS.printMeqs,
-                meqs_id: id
-            })
 
             this.meqsPdfService.setAuthUser(authUser)
     
@@ -60,6 +60,8 @@ export class MeqsController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+
+            this.logger.log('PDF in MEQS generated')
     
             // @ts-ignore
             res.set({

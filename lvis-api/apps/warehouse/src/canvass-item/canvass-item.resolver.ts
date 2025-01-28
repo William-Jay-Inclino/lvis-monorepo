@@ -32,13 +32,13 @@ export class CanvassItemResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Creating canvass item...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createCanvassItemInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'createCanvassItem',
-        input: JSON.stringify(createCanvassItemInput)
-      })
       
       this.canvassItemService.setAuthUser(authUser)
 
@@ -71,16 +71,14 @@ export class CanvassItemResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Updating canvass item...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      canvass_item_id: id,
+      input: JSON.stringify(updateCanvassItemInput),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'updateCanvassItem',
-        canvass_item_id: id,
-        input: JSON.stringify(updateCanvassItemInput),
-      })
-      
       this.canvassItemService.setAuthUser(authUser)
       const x = await this.canvassItemService.update(id, updateCanvassItemInput, {
         ip_address,
@@ -104,15 +102,13 @@ export class CanvassItemResolver {
     @IpAddress() ip_address: string,
   ) {
     
+    this.logger.log('Removing canvass item...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      canvass_item_id: id,
+    })
+
     try {
-
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'removeCanvassItem',
-        canvass_item_id: id,
-      })
-
       this.canvassItemService.setAuthUser(authUser)
       const x = await this.canvassItemService.remove(id, {
         ip_address,

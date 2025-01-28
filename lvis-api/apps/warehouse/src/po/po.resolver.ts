@@ -48,13 +48,13 @@ export class PoResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Creating PO...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createPoInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createPo,
-              input: JSON.stringify(createPoInput)
-            })
             
             this.poService.setAuthUser(authUser)
       
@@ -119,14 +119,14 @@ export class PoResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Updating PO...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          po_id: id,
+          input: JSON.stringify(updatePoInput),
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updatePo,
-              po_id: id,
-              input: JSON.stringify(updatePoInput),
-            })
             
             this.poService.setAuthUser(authUser)
             const x = await this.poService.update(id, updatePoInput, {
@@ -142,34 +142,6 @@ export class PoResolver {
         }
     }
 
-    // @Mutation(() => WarehouseRemoveResponse)
-    // async update_po_fund_source_and_po_approver(
-    //     @Args('id') id: string,
-    //     @Args('input') input: UpdatePoByFinanceManagerInput,
-    //     @CurrentAuthUser() authUser: AuthUser
-    // ) {
-
-    //     try {
-    //         this.logger.log({
-    //           username: authUser.user.username,
-    //           filename: this.filename,
-    //           function: 'update_po_fund_source_and_po_approver',
-    //           po_id: id,
-    //           input: JSON.stringify(input),
-    //         })
-            
-    //         this.poService.setAuthUser(authUser)
-    //         const x = await this.poService.updateFundSourceByFinanceManager(id, input);
-      
-    //         this.logger.log('PO Fund Source and PO Approval updated successfully')
-      
-    //         return x
-    //     } catch (error) {
-    //         this.logger.error('Error in updating PO Fund Source and PO Approval', error)
-    //     }
-
-    // }
-
     @Mutation(() => WarehouseCancelResponse)
     async cancelPo(
         @Args('id') id: string,
@@ -177,14 +149,13 @@ export class PoResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
-        try {
+        this.logger.log('Cancelling PO...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          po_id: id,
+        })
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelPo',
-              po_id: id,
-            })
+        try {
       
             this.poService.setAuthUser(authUser)
             const x = await this.poService.cancel(id, {

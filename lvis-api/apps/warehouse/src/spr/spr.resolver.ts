@@ -45,13 +45,13 @@ export class SprResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Creating SPR...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createSprInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createSpr,
-              input: JSON.stringify(createSprInput)
-            })
             
             this.sprService.setAuthUser(authUser)
       
@@ -113,16 +113,14 @@ export class SprResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Updating SPR...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          spr_id: id,
+          input: JSON.stringify(updateSprInput),
+        })
         try {
       
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updateSpr,
-              spr_id: id,
-              input: JSON.stringify(updateSprInput),
-            })
-            
             this.sprService.setAuthUser(authUser)
             const x = await this.sprService.update(id, updateSprInput, {
                 ip_address,
@@ -137,33 +135,6 @@ export class SprResolver {
         }
     }
 
-    // @Mutation(() => WarehouseRemoveResponse)
-    // async update_spr_classification_and_spr_approver(
-    //     @Args('id') id: string,
-    //     @Args('input') input: UpdateSprByBudgetOfficerInput,
-    //     @CurrentAuthUser() authUser: AuthUser
-    // ) {
-    //     try {
-      
-    //         this.logger.log({
-    //           username: authUser.user.username,
-    //           filename: this.filename,
-    //           function: 'update_spr_classification_and_spr_approver',
-    //           spr_id: id,
-    //           input: JSON.stringify(input),
-    //         })
-            
-    //         this.sprService.setAuthUser(authUser)
-    //         const x = await this.sprService.updateClassificationByBudgetOfficer(id, input);
-      
-    //         this.logger.log('SPR Classification and SPR Approval updated successfully')
-      
-    //         return x
-    //     } catch (error) {
-    //         this.logger.error('Error in updating SPR Classification and SPR Approval', error)
-    //     }
-    // }
-
     @Mutation(() => WarehouseCancelResponse)
     async cancelSpr(
         @Args('id') id: string,
@@ -171,15 +142,13 @@ export class SprResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Cancelling SPR...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          spr_id: id,
+        })
         try {
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelSpr',
-              spr_id: id,
-            })
-      
             this.sprService.setAuthUser(authUser)
             const x = await this.sprService.cancel(id, {
                 ip_address,

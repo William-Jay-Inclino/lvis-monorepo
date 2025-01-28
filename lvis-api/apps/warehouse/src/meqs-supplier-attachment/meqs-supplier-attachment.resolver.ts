@@ -32,13 +32,13 @@ export class MeqsSupplierAttachmentResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Adding attachment in MEQS supplier...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createMeqsSupplierAttachmentInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'createMeqsSupplierAttachment',
-        input: JSON.stringify(createMeqsSupplierAttachmentInput)
-      })
       
       this.meqsSupplierAttachmentService.setAuthUser(authUser)
 
@@ -72,15 +72,14 @@ export class MeqsSupplierAttachmentResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Updating attachment in MEQS supplier...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      meqs_supplier_attachment_id: id,
+      input: JSON.stringify(updateMeqsSupplierAttachmentInput),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'updateMeqsSupplierAttachment',
-        meqs_supplier_attachment_id: id,
-        input: JSON.stringify(updateMeqsSupplierAttachmentInput),
-      })
       
       this.meqsSupplierAttachmentService.setAuthUser(authUser)
       const x = await this.meqsSupplierAttachmentService.update(id, updateMeqsSupplierAttachmentInput, {
@@ -104,14 +103,13 @@ export class MeqsSupplierAttachmentResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
-    try {
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'removeMeqsSupplierAttachment',
-        meqs_supplier_attachment_id: id,
-      })
+    this.logger.log('Removing attachment in MEQS supplier...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      meqs_supplier_attachment_id: id,
+    })
+    try {
 
       this.meqsSupplierAttachmentService.setAuthUser(authUser)
       const x = await this.meqsSupplierAttachmentService.remove(id, {

@@ -43,13 +43,14 @@ export class McrtResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+
+        this.logger.log('Creating MCRT...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createMcrtInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createMcrt,
-              input: JSON.stringify(createMcrtInput)
-            })
             
             this.mcrtService.setAuthUser(authUser)
       
@@ -106,16 +107,16 @@ export class McrtResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+
+        this.logger.log('Updating MCRT...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          mcrt_id: id,
+          input: JSON.stringify(updateMcrtInput),
+        })
+
         try {
       
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updateMcrt,
-              mcrt_id: id,
-              input: JSON.stringify(updateMcrtInput),
-            })
-            
             this.mcrtService.setAuthUser(authUser)
             const x = await this.mcrtService.update(id, updateMcrtInput, {
                 ip_address,
@@ -137,15 +138,14 @@ export class McrtResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
-        try {
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelMcrt',
-              mcrt_id: id,
-            })
-      
+        this.logger.log('Cancelling MCRT...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          mcrt_id: id,
+        })
+
+        try {
             this.mcrtService.setAuthUser(authUser)
             const x = await this.mcrtService.cancel(id, {
                 ip_address,

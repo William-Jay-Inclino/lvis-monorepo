@@ -32,14 +32,14 @@ export class MstItemResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Updating MST items...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          mst_id,
+          items: JSON.stringify(items)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'updateMstItems',
-              mst_id,
-              items: JSON.stringify(items)
-            })
             
             this.mstItemService.setAuthUser(authUser)
       

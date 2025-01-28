@@ -47,13 +47,12 @@ export class TripTicketResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ): Promise<CreateTripResponse> {
-    try {
-		this.logger.log({
+		this.logger.log('Creating trip ticket...', {
       username: authUser.user.username,
       filename: this.filename,
-      function: RESOLVERS.createTripTicket,
       input: JSON.stringify(createTripTicketInput)
 		})
+    try {
 		
 		this.tripTicketService.setAuthUser(authUser)
 
@@ -80,16 +79,13 @@ export class TripTicketResolver {
       @UserAgent() user_agent: string,
       @IpAddress() ip_address: string,
   ): Promise<CreateTripResponse> {
+      this.logger.log('Updating trip ticket...', {
+        username: authUser.user.username,
+        filename: this.filename,
+        trip_ticket_id: id,
+        input: JSON.stringify(input),
+      })
       try {
-        
-          this.logger.log({
-            username: authUser.user.username,
-            filename: this.filename,
-            function: RESOLVERS.updateTripTicket,
-            trip_ticket_id: id,
-            input: JSON.stringify(input),
-          })
-          
           this.tripTicketService.setAuthUser(authUser)
           const x = await this.tripTicketService.update(id, input, {
             ip_address,
@@ -151,13 +147,12 @@ export class TripTicketResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Cancelling trip ticket...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      trip_ticket_id: id,
+    })
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'cancelTripTicket',
-        trip_ticket_id: id,
-      })
 
       this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.cancel(id, {
@@ -182,13 +177,13 @@ export class TripTicketResolver {
     @IpAddress() ip_address: string,
   ): Promise<UpdateActualTimeResponse> {
 
+    this.logger.log('Scanning RFID of trip ticket / Updating actual time...', {
+      username: 'N/A',
+      filename: this.filename,
+      rf_id: input.rf_id,
+    })
+
     try {
-      this.logger.log({
-        username: 'N/A',
-        filename: this.filename,
-        function: 'updateActualTime',
-        rf_id: input.rf_id,
-      })
 
       const x = await this.tripTicketService.update_actual_time(input.rf_id, {
         ip_address,
@@ -214,13 +209,12 @@ export class TripTicketResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Removing actual start time...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      trip_ticket_id: id,
+    })
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'removeActualStartTime',
-        trip_ticket_id: id,
-      })
 
       this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.remove_actual_start_time(id, {
@@ -247,13 +241,12 @@ export class TripTicketResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Removing actual end time...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      trip_ticket_id: id,
+    })
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'removeActualEndTime',
-        trip_ticket_id: id,
-      })
 
       this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.remove_actual_end_time(id, {
@@ -280,13 +273,12 @@ export class TripTicketResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Removing actual start time...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(input),
+    })
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'updateActualStartTime',
-        input: JSON.stringify(input),
-      })
 
       this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.update_actual_start_time(input.trip_ticket_id, input.actual_start_time, {
@@ -313,13 +305,13 @@ export class TripTicketResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Updating actual end time...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(input),
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'updateActualEndTime',
-        input: JSON.stringify(input),
-      })
 
       this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.update_actual_end_time(input.trip_ticket_id, input.actual_end_time, {

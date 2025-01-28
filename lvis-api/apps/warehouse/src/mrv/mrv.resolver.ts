@@ -43,13 +43,14 @@ export class MrvResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+
+        this.logger.log('Creating MRV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createMrvInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createMrv,
-              input: JSON.stringify(createMrvInput)
-            })
             
             this.mrvService.setAuthUser(authUser)
       
@@ -107,16 +108,13 @@ export class MrvResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Updating MRV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          mrv_id: id,
+          input: JSON.stringify(updateMrvInput),
+        })
         try {
-      
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updateMrv,
-              mrv_id: id,
-              input: JSON.stringify(updateMrvInput),
-            })
-            
             this.mrvService.setAuthUser(authUser)
             const x = await this.mrvService.update(id, updateMrvInput, {
                 ip_address,
@@ -138,15 +136,13 @@ export class MrvResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
-        try {
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelMrv',
-              mrv_id: id,
-            })
-      
+        this.logger.log('Cancelling MRV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          mrv_id: id,
+        })
+        try {
             this.mrvService.setAuthUser(authUser)
             const x = await this.mrvService.cancel(id, {
                 ip_address,

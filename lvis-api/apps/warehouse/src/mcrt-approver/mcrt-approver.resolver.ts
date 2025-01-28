@@ -36,14 +36,15 @@ export class McrtApproverResolver {
       @UserAgent() user_agent: string,
       @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Changing MCRT Approver...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      mcrt_approver_id: id,
+      input: JSON.stringify(changeMcrtApproverInput)
+    })
+
     try {
-        this.logger.log({
-          username: authUser.user.username,
-          filename: this.filename,
-          function: 'changeMcrtApprover',
-          mcrt_approver_id: id,
-          input: JSON.stringify(changeMcrtApproverInput)
-        })
         
         this.mcrtApproverService.setAuthUser(authUser)
   

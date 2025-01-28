@@ -31,14 +31,13 @@ export class SerivItemResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Updating SERIV items...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          seriv_id,
+          items: JSON.stringify(items)
+        })
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'updateSerivItems',
-              seriv_id,
-              items: JSON.stringify(items)
-            })
             
             this.serivItemService.setAuthUser(authUser)
       

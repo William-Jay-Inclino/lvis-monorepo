@@ -38,13 +38,12 @@ export class RvController {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Generating PDF in RV...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            rv_id: id
+        })
         try {
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: RESOLVERS.printRv,
-                rv_id: id
-            })
 
             this.rvPdfService.setAuthUser(authUser)
             const status = await this.rvService.getStatus(id)
@@ -59,6 +58,7 @@ export class RvController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+            this.logger.log('PDF in RV generated')
     
             // @ts-ignore
             res.set({

@@ -38,13 +38,14 @@ export class ProjectResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Creating project...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createProjectInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createProject,
-        input: JSON.stringify(createProjectInput)
-      })
       
       this.projectService.setAuthUser(authUser)
       const x = await this.projectService.create(createProjectInput, {
@@ -91,14 +92,15 @@ export class ProjectResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Updating project...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      project_id: id,
+      input: JSON.stringify(updateProjectInput),
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.updateProject,
-        project_id: id,
-        input: JSON.stringify(updateProjectInput),
-      })
       
       this.projectService.setAuthUser(authUser)
       const x = await this.projectService.update(id, updateProjectInput, {
@@ -122,11 +124,25 @@ export class ProjectResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
-    this.projectService.setAuthUser(authUser)
-    return this.projectService.remove(id, {
-      ip_address,
-      device_info: this.audit.getDeviceInfo(user_agent)
-    });
+
+    this.logger.log('Removing project...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      project_id: id,
+    })
+
+    try {
+      
+      this.projectService.setAuthUser(authUser)
+      return this.projectService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
+
+    } catch (error) {
+      this.logger.error('Error in removing project', error)
+    }
+
   }
 
 }

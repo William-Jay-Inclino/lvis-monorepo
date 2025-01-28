@@ -38,14 +38,13 @@ export class PoController {
         @IpAddress() ip_address: string,
     ) {
 
-        try {
+        this.logger.log('Generating PDF in PO...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            po_id: id
+        })
 
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: RESOLVERS.printPo,
-                po_id: id
-            })
+        try {
             
             this.poPdfService.setAuthUser(authUser)
     
@@ -61,6 +60,8 @@ export class PoController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+
+            this.logger.log('PDF in PO generated')
     
             // @ts-ignore
             res.set({

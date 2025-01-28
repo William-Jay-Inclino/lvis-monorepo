@@ -34,13 +34,13 @@ export class GasSlipController {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Generating PDF in Gas Slip...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            gas_slip_id: id
+        })
+
         try {
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: RESOLVERS.printGasSlip,
-                gas_slip_id: id
-            })
 
             this.gasSlipService.setAuthUser(authUser)
     
@@ -61,7 +61,9 @@ export class GasSlipController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             });
-        
+            
+            this.logger.log('PDF in gas slip generated')
+
             // @ts-ignore
             res.set({
                 'Content-Type': 'application/pdf',

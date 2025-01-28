@@ -36,21 +36,18 @@ export class MctController {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Generating PDF in MCT...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            mct_id: id
+        })
+
         try {
 
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: 'generatePdf',
-                mct_id: id
-            })
-            
             this.mctPdfService.setAuthUser(authUser)
     
             const mct = await this.mctPdfService.findMct(id)
 
-            console.log('mct', mct);
-    
             if(mct.approval_status !== APPROVAL_STATUS.APPROVED) {
                 throw new UnauthorizedException('Cannot generate pdf. Status is not approved')
             }
@@ -60,6 +57,8 @@ export class MctController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+
+            this.logger.log('PDF in MCT generated')
     
             // @ts-ignore
             res.set({
@@ -89,21 +88,19 @@ export class MctController {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Generating gatepass PDF in MCT...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            mct_id: id
+        })
+
         try {
 
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: 'generateGatePassPDF',
-                mct_id: id
-            })
             
             this.mctPdfService.setAuthUser(authUser)
     
             const mct = await this.mctPdfService.findMct(id)
 
-            console.log('mct', mct);
-    
             if(mct.approval_status !== APPROVAL_STATUS.APPROVED) {
                 throw new UnauthorizedException('Cannot generate gate pass pdf. Status is not approved')
             }
@@ -113,6 +110,8 @@ export class MctController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+
+            this.logger.log('Gatepass PDF in MCT generated')
     
             // @ts-ignore
             res.set({

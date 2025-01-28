@@ -34,14 +34,14 @@ export class MrvItemResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Updating MRV items...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          mrv_id,
+          items: JSON.stringify(items)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'updateMrvItems',
-              mrv_id,
-              items: JSON.stringify(items)
-            })
             
             this.mrvItemService.setAuthUser(authUser)
       

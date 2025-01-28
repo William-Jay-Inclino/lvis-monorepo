@@ -4,7 +4,7 @@ import { VehicleService } from './entities/vehicle-service.entity';
 import { CreateVehicleServiceInput } from './dto/create-vehicle-service.input';
 import { UpdateVehicleServiceInput } from './dto/update-vehicle-service.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
@@ -19,6 +19,10 @@ import { UserAgent } from '../__auth__/user-agent.decorator';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => VehicleService)
 export class VehicleServiceResolver {
+
+  private readonly logger = new Logger(VehicleServiceResolver.name);
+  private filename = 'vehicle-service.resolver.ts'
+
   constructor(
     private readonly vehicleServiceService: VehicleServiceService,
     private readonly audit: WarehouseAuditService,
@@ -33,11 +37,25 @@ export class VehicleServiceResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
-    this.vehicleServiceService.setAuthUser(authUser)
-    return this.vehicleServiceService.create(createVehicleServiceInput, {
-      ip_address,
-      device_info: this.audit.getDeviceInfo(user_agent)
-    });
+
+    this.logger.log('Creating vehicle service...', {
+			username: authUser.user.username,
+			filename: this.filename,
+			input: JSON.stringify(createVehicleServiceInput)
+		})
+
+    try {
+      
+      this.vehicleServiceService.setAuthUser(authUser)
+      return this.vehicleServiceService.create(createVehicleServiceInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
+
+    } catch (error) {
+			this.logger.error('Error in creating Vehicle Service', error)
+    }
+
   }
 
   @Query(() => [VehicleService])
@@ -60,11 +78,26 @@ export class VehicleServiceResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
-    this.vehicleServiceService.setAuthUser(authUser)
-    return this.vehicleServiceService.update(id, updateVehicleServiceInput, {
-      ip_address,
-      device_info: this.audit.getDeviceInfo(user_agent)
-    });
+
+    this.logger.log('Updating vehicle service...', {
+			username: authUser.user.username,
+			filename: this.filename,
+			vehicle_service_id: id,
+			input: JSON.stringify(updateVehicleServiceInput)
+		})
+
+    try {
+      
+      this.vehicleServiceService.setAuthUser(authUser)
+      return this.vehicleServiceService.update(id, updateVehicleServiceInput, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
+
+    } catch (error) {
+			this.logger.error('Error in updating Vehicle service', error)
+    }
+
   }
 
   @Mutation(() => WarehouseRemoveResponse)
@@ -76,10 +109,24 @@ export class VehicleServiceResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
-    this.vehicleServiceService.setAuthUser(authUser)
-    return this.vehicleServiceService.remove(id, {
-      ip_address,
-      device_info: this.audit.getDeviceInfo(user_agent)
-    });
+
+    this.logger.log('Removing vehicle maintenance...', {
+			username: authUser.user.username,
+			filename: this.filename,
+			vehicle_service_id: id,
+		})
+
+    try {
+      
+      this.vehicleServiceService.setAuthUser(authUser)
+      return this.vehicleServiceService.remove(id, {
+        ip_address,
+        device_info: this.audit.getDeviceInfo(user_agent)
+      });
+
+    } catch (error) {
+			this.logger.error('Error in removing Vehicle Maintenance', error)
+    }
+
   }
 }

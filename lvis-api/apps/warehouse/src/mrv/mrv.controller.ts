@@ -36,21 +36,18 @@ export class MrvController {
         @IpAddress() ip_address: string,
     ) {
 
-        try {
+        this.logger.log('Generating PDF in MRV...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            mrv_id: id
+        })
 
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: 'generatePdf',
-                mrv_id: id
-            })
+        try {
             
             this.mrvPdfService.setAuthUser(authUser)
     
             const mrv = await this.mrvPdfService.findMrv(id)
 
-            console.log('mrv', mrv);
-    
             if(mrv.approval_status !== APPROVAL_STATUS.APPROVED) {
                 throw new UnauthorizedException('Cannot generate pdf. Status is not approved')
             }
@@ -60,6 +57,8 @@ export class MrvController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+
+            this.logger.log('PDF in MRV generated')
     
             // @ts-ignore
             res.set({

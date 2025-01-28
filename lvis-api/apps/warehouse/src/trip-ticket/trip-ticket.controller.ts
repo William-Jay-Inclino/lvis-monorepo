@@ -33,17 +33,16 @@ export class TripTicketController {
         const { startDate, endDate, vehicleNumber, vehicleType, allVehicles } = query;
         console.log('query', query);
 
+        this.logger.log('Generating trip ticket summary report...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            startDate,
+            endDate,
+            vehicleNumber,
+            vehicleType,
+            allVehicles
+        })
         try {
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: 'generate_trip_ticket_summary_report',
-                startDate,
-                endDate,
-                vehicleNumber,
-                vehicleType,
-                allVehicles
-            })
             
             this.tripReportService.setAuthUser(authUser)
 
@@ -78,6 +77,7 @@ export class TripTicketController {
                     device_info: this.audit.getDeviceInfo(user_agent)
                 }
             )
+            this.logger.log('PDF in trip ticket summary report generated')
 
             // @ts-ignore
             res.set({

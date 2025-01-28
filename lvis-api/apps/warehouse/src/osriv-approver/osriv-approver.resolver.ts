@@ -37,14 +37,14 @@ export class OsrivApproverResolver {
       @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Changing OSRIV approver...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      osriv_approver_id: id,
+      input: JSON.stringify(ChangeOsrivApproverInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'changeOsrivApprover',
-        osriv_approver_id: id,
-        input: JSON.stringify(ChangeOsrivApproverInput)
-      })
       
       this.osrivApproverService.setAuthUser(authUser)
 

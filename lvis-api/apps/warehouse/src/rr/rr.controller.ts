@@ -38,15 +38,13 @@ export class RrController {
         @IpAddress() ip_address: string,
     ) {
 
-        try {
-            
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: RESOLVERS.printRr,
-                rr_id: id
-            })
+        this.logger.log("Generating PDF in RR...", {
+            username: authUser.user.username,
+            filename: this.filename,
+            rr_id: id
+        })
 
+        try {
             this.rrPdfService.setAuthUser(authUser)
             
             const status = await this.rrService.getStatus(id)
@@ -61,6 +59,7 @@ export class RrController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+            this.logger.log('PDF in RR generated')
     
             // @ts-ignore
             res.set({

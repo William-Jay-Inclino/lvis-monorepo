@@ -42,13 +42,13 @@ export class VehicleResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Creating vehicle...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createVehicleInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createVehicle,
-        input: JSON.stringify(createVehicleInput)
-      })
       
       this.vehicleService.setAuthUser(authUser)
 
@@ -105,15 +105,14 @@ export class VehicleResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Updating vehicle...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      vehicle_id: id,
+      input: JSON.stringify(updateVehicleInput),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.updateVehicle,
-        vehicle_id: id,
-        input: JSON.stringify(updateVehicleInput),
-      })
       
       this.vehicleService.setAuthUser(authUser)
       const x = await this.vehicleService.update(id, updateVehicleInput, {
@@ -138,14 +137,13 @@ export class VehicleResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
-    try {
+    this.logger.log('Removing vehicle...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      vehicle_id: id,
+    })
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.removeVehicle,
-        vehicle_id: id,
-      })
+    try {
 
       this.vehicleService.setAuthUser(authUser)
       const x = await this.vehicleService.remove(id, {

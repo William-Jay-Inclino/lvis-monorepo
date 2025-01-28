@@ -38,13 +38,13 @@ export class SupplierResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Creating Supplier...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createSupplierInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createSupplier,
-        input: JSON.stringify(createSupplierInput)
-      })
       
       this.supplierService.setAuthUser(authUser)
 
@@ -93,15 +93,13 @@ export class SupplierResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Updating supplier...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      supplier_id: id,
+      input: JSON.stringify(updateSupplierInput),
+    })
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.updateSupplier,
-        supplier_id: id,
-        input: JSON.stringify(updateSupplierInput),
-      })
       
       this.supplierService.setAuthUser(authUser)
       const x = await this.supplierService.update(id, updateSupplierInput, {
@@ -126,15 +124,12 @@ export class SupplierResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Removing supplier...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      supplier_id: id,
+    })
     try {
-
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.removeSupplier,
-        supplier_id: id,
-      })
-
       this.supplierService.setAuthUser(authUser)
       const x = await this.supplierService.remove(id, {
         ip_address,

@@ -52,14 +52,14 @@ export class MeqsResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+
+        this.logger.log('Creating MEQS...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createMeqsInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createMeqs,
-              input: JSON.stringify(createMeqsInput)
-            })
-            
             this.meqsService.setAuthUser(authUser)
       
             const x = await this.meqsService.create(createMeqsInput, {
@@ -129,16 +129,14 @@ export class MeqsResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Updating MEQS...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          meqs_id: id,
+          input: JSON.stringify(updateMeqsInput),
+        })
+
         try {
-      
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updateMeqs,
-              meqs_id: id,
-              input: JSON.stringify(updateMeqsInput),
-            })
-            
             this.meqsService.setAuthUser(authUser)
             const x = await this.meqsService.update(id, updateMeqsInput, {
                 ip_address,
@@ -161,15 +159,14 @@ export class MeqsResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
-        try {
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelMeqs',
-              meqs_id: id,
-            })
-      
+        this.logger.log('Cancelling MEQS...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          meqs_id: id,
+        })
+
+        try {
             this.meqsService.setAuthUser(authUser)
             const x = await this.meqsService.cancel(id, {
                 ip_address,

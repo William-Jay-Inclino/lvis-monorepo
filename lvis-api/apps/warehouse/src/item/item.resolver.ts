@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, ResolveField, Parent, Context } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
 import { ItemService } from './item.service';
 import { Item } from './entities/item.entity';
 import { CreateItemInput } from './dto/create-item.input';
@@ -39,14 +39,13 @@ export class ItemResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Creating item...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createItemInput)
+    })
+    
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createItem,
-        input: JSON.stringify(createItemInput)
-      })
-
       this.itemService.setAuthUser(authUser)
 
       const x = await this.itemService.create(createItemInput, {
@@ -112,16 +111,14 @@ export class ItemResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Updating item...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      item_id: id,
+      input: JSON.stringify(updateItemInput),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.updateItem,
-        item_id: id,
-        input: JSON.stringify(updateItemInput),
-      })
-      
       this.itemService.setAuthUser(authUser)
       const x = await this.itemService.update(id, updateItemInput, {
         ip_address,
@@ -146,15 +143,14 @@ export class ItemResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Removing item...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      item_id: id,
+    })
+
     try {
-
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.removeItem,
-        item_id: id,
-      })
-
       this.itemService.setAuthUser(authUser)
       const x = await this.itemService.remove(id, {
         ip_address,

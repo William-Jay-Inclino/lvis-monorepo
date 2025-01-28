@@ -44,13 +44,13 @@ export class RvResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Creating RV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createRvInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createRv,
-              input: JSON.stringify(createRvInput)
-            })
             
             this.rvService.setAuthUser(authUser)
       
@@ -112,15 +112,14 @@ export class RvResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Updating RV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          rv_id: id,
+          input: JSON.stringify(updateRvInput),
+        })
+
         try {
-      
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updateRv,
-              rv_id: id,
-              input: JSON.stringify(updateRvInput),
-            })
             
             this.rvService.setAuthUser(authUser)
             const x = await this.rvService.update(id, updateRvInput, {
@@ -136,33 +135,6 @@ export class RvResolver {
         }
     }
 
-    // @Mutation(() => WarehouseRemoveResponse)
-    // async update_rv_classification_and_rv_approver(
-    //     @Args('id') id: string,
-    //     @Args('input') input: UpdateRvByBudgetOfficerInput,
-    //     @CurrentAuthUser() authUser: AuthUser
-    // ) {
-    //     try {
-      
-    //         this.logger.log({
-    //           username: authUser.user.username,
-    //           filename: this.filename,
-    //           function: 'update_rv_classification_and_rv_approver',
-    //           rv_id: id,
-    //           input: JSON.stringify(input),
-    //         })
-            
-    //         this.rvService.setAuthUser(authUser)
-    //         const x = await this.rvService.updateClassificationByBudgetOfficer(id, input);
-      
-    //         this.logger.log('RV Classification and RV Approval updated successfully')
-      
-    //         return x
-    //     } catch (error) {
-    //         this.logger.error('Error in updating RV Classification and RV Approval', error)
-    //     }
-    // }
-
     @Mutation(() => WarehouseCancelResponse)
     async cancelRv(
         @Args('id') id: string,
@@ -170,15 +142,13 @@ export class RvResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
-        try {
+        this.logger.log('Cancelling RV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          rv_id: id,
+        })
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelRv',
-              rv_id: id,
-            })
-      
+        try {
             this.rvService.setAuthUser(authUser)
             const x = await this.rvService.cancel(id, {
                 ip_address,

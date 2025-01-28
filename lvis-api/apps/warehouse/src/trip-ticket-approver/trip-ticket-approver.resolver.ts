@@ -36,14 +36,14 @@ export class TripTicketApproverResolver {
       @UserAgent() user_agent: string,
       @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Changing trip ticket approver...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      trip_ticket_approver_id: id,
+      input: JSON.stringify(input)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'changeTripTicketApprover',
-        trip_ticket_approver_id: id,
-        input: JSON.stringify(input)
-      })
       
       this.tripTicketApproverService.setAuthUser(authUser)
 

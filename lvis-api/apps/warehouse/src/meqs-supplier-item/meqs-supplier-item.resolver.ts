@@ -28,17 +28,15 @@ export class MeqsSupplierItemResolver {
   async createMeqsSupplierItem(
     @Args('input') createMeqsSupplierItemInput: CreateMeqsSupplierItemInput,
     @CurrentAuthUser() authUser: AuthUser,
-    @UserAgent() user_agent: string,
-    @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Creating MEQS supplier item', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createMeqsSupplierItemInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'createMeqsSupplierItem',
-        input: JSON.stringify(createMeqsSupplierItemInput)
-      })
       
       this.meqsSupplierItemService.setAuthUser(authUser)
 
@@ -66,15 +64,14 @@ export class MeqsSupplierItemResolver {
     @CurrentAuthUser() authUser: AuthUser
   ) {
 
+    this.logger.log('Updating MEQS supplier item...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      meqs_supplier_item_id: id,
+      input: JSON.stringify(updateMeqsSupplierItemInput),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'updateMeqsSupplierItem',
-        meqs_supplier_item_id: id,
-        input: JSON.stringify(updateMeqsSupplierItemInput),
-      })
       
       this.meqsSupplierItemService.setAuthUser(authUser)
       const x = await this.meqsSupplierItemService.update(id, updateMeqsSupplierItemInput);
@@ -94,14 +91,12 @@ export class MeqsSupplierItemResolver {
     @CurrentAuthUser() authUser: AuthUser
   ) {
 
+    this.logger.log('Removing MEQS supplier item...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      meqs_supplier_item_id: id,
+    })
     try {
-
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'removeMeqsSupplierItem',
-        meqs_supplier_item_id: id,
-      })
 
       this.meqsSupplierItemService.setAuthUser(authUser)
       const x = await this.meqsSupplierItemService.remove(id);
@@ -126,16 +121,15 @@ export class MeqsSupplierItemResolver {
     @IpAddress() ip_address: string,
   ) {
 
-    try {
+    this.logger.log('Awarding supplier in MEQS...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      meqs_supplier_item_id: id,
+      meqs_supplier_id: meqs_supplier_id,
+      canvass_item_id: canvass_item_id,
+    })
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'awardMeqsSupplierItem',
-        meqs_supplier_item_id: id,
-        meqs_supplier_id: meqs_supplier_id,
-        canvass_item_id: canvass_item_id,
-      })
+    try {
 
       this.meqsSupplierItemService.setAuthUser(authUser)
       const x = await this.meqsSupplierItemService.awardSupplier(id, meqs_supplier_id, canvass_item_id, {
@@ -163,16 +157,15 @@ export class MeqsSupplierItemResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Attaching notes in MEQS supplier item...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      function: 'attachNoteMeqsSupplierItem',
+      meqs_id: meqs_id,
+      canvass_item_id: canvass_item_id,
+      notes: notes,
+    })
     try {
-
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'attachNoteMeqsSupplierItem',
-        meqs_id: meqs_id,
-        canvass_item_id: canvass_item_id,
-        notes: notes,
-      })
 
       this.meqsSupplierItemService.setAuthUser(authUser)
       const x = await this.meqsSupplierItemService.attachNote(meqs_id, canvass_item_id, notes, {

@@ -36,14 +36,13 @@ export class SerivApproverResolver {
       @UserAgent() user_agent: string,
       @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Changing SERIV approver...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      seriv_approver_id: id,
+      input: JSON.stringify(changeSerivApproverInput)
+    })
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'changeSerivApprover',
-        seriv_approver_id: id,
-        input: JSON.stringify(changeSerivApproverInput)
-      })
       
       this.serivApproverService.setAuthUser(authUser)
 

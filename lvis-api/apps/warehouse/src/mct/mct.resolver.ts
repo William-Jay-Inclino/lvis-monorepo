@@ -44,14 +44,13 @@ export class MctResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Creating MCT...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createMctInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createMct,
-              input: JSON.stringify(createMctInput)
-            })
-            
             this.mctService.setAuthUser(authUser)
       
             const x = await this.mctService.create(createMctInput, {
@@ -107,15 +106,14 @@ export class MctResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
-        try {
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelMct',
-              mct_id: id,
-            })
-      
+        this.logger.log('Cancelling MCT...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          mct_id: id,
+        })
+
+        try {
             this.mctService.setAuthUser(authUser)
             const x = await this.mctService.cancel(id, {
                 ip_address,

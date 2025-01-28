@@ -40,13 +40,13 @@ export class VehicleMaintenanceResolver {
 		@UserAgent() user_agent: string,
 		@IpAddress() ip_address: string,
 	) {
+		this.logger.log('Creating vehicle maintenance...', {
+			username: authUser.user.username,
+			filename: this.filename,
+			input: JSON.stringify(input)
+		})
+
 		try {
-			this.logger.log({
-				username: authUser.user.username,
-				filename: this.filename,
-				function: RESOLVERS.createVehicleMaintenance,
-				input: JSON.stringify(input)
-			})
 			
 			this.vehicleMaintenanceService.setAuthUser(authUser)
 	
@@ -73,13 +73,12 @@ export class VehicleMaintenanceResolver {
 		@UserAgent() user_agent: string,
 		@IpAddress() ip_address: string,
 	) {
+		this.logger.log('Updating vehicle maintenance completion...', {
+			username: authUser.user.username,
+			filename: this.filename,
+			input: JSON.stringify(input)
+		})
 		try {
-			this.logger.log({
-				username: authUser.user.username,
-				filename: this.filename,
-				function: 'updateVehicleMaintenanceCompletion',
-				input: JSON.stringify(input)
-			})
 			
 			this.vehicleMaintenanceService.setAuthUser(authUser)
 	
@@ -165,14 +164,14 @@ export class VehicleMaintenanceResolver {
 	  @UserAgent() user_agent: string,
 	  @IpAddress() ip_address: string,
 	) {
+		this.logger.log('Updating vehicle maintenance...', {
+			username: authUser.user.username,
+			filename: this.filename,
+			vehicle_maintenance_id: id,
+			input: JSON.stringify(input),
+		})
+
 		try {
-			this.logger.log({
-				username: authUser.user.username,
-				filename: this.filename,
-				function: RESOLVERS.updateVehicleMaintenance,
-				vehicle_maintenance_id: id,
-				input: JSON.stringify(input),
-			})
 			
 			this.vehicleMaintenanceService.setAuthUser(authUser)
 			const x = await this.vehicleMaintenanceService.update(id, input, {
@@ -197,28 +196,28 @@ export class VehicleMaintenanceResolver {
 	  @UserAgent() user_agent: string,
 	  @IpAddress() ip_address: string,
 	) {
-	  try {
-  
-		this.logger.log({
-		  username: authUser.user.username,
-		  filename: this.filename,
-		  function: RESOLVERS.removeVehicleMaintenance,
-		  vehicle_maintenance_id: id,
+		this.logger.log('Removing vehicle maintenance...', {
+			username: authUser.user.username,
+			filename: this.filename,
+			vehicle_maintenance_id: id,
 		})
-  
-		this.vehicleMaintenanceService.setAuthUser(authUser)
-		const x = await this.vehicleMaintenanceService.remove(id, {
-			ip_address,
-			device_info: this.audit.getDeviceInfo(user_agent)
-		});
-		
-		this.logger.log('Vehicle Maintenance removed successfully')
-		
-		return x 
-  
-	  } catch (error) {
-		this.logger.error('Error in removing Vehicle Maintenance', error)
-	  }
+
+		try {
+	
+	
+			this.vehicleMaintenanceService.setAuthUser(authUser)
+			const x = await this.vehicleMaintenanceService.remove(id, {
+				ip_address,
+				device_info: this.audit.getDeviceInfo(user_agent)
+			});
+			
+			this.logger.log('Vehicle Maintenance removed successfully')
+			
+			return x 
+	
+		} catch (error) {
+			this.logger.error('Error in removing Vehicle Maintenance', error)
+		}
 	}
 
 }

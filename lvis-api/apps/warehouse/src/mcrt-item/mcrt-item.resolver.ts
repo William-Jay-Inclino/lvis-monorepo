@@ -31,14 +31,15 @@ export class McrtItemResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+
+        this.logger.log('Updating MCRT items', {
+          username: authUser.user.username,
+          filename: this.filename,
+          mcrt_id,
+          items: JSON.stringify(items)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'updateMcrtItems',
-              mcrt_id,
-              items: JSON.stringify(items)
-            })
             
             this.mcrtItemService.setAuthUser(authUser)
       

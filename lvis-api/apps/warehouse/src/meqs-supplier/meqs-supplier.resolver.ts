@@ -31,14 +31,14 @@ export class MeqsSupplierResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Creating supplier in MEQS...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createMeqsSupplierInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'createMeqsSupplier',
-        input: JSON.stringify(createMeqsSupplierInput)
-      })
-      
       this.meqsSupplierService.setAuthUser(authUser)
 
       const x = await this.meqsSupplierService.create(createMeqsSupplierInput, {
@@ -68,16 +68,15 @@ export class MeqsSupplierResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Updating supplier in MEQS...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      meqs_supplier_id: id,
+      input: JSON.stringify(updateMeqsSupplierInput),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'updateMeqsSupplier',
-        meqs_supplier_id: id,
-        input: JSON.stringify(updateMeqsSupplierInput),
-      })
-      
       this.meqsSupplierService.setAuthUser(authUser)
       const x = await this.meqsSupplierService.update(id, updateMeqsSupplierInput, {
         ip_address,
@@ -100,15 +99,13 @@ export class MeqsSupplierResolver {
     @IpAddress() ip_address: string,
   ) {
 
+      this.logger.log('Removing supplier in MEQS...', {
+        username: authUser.user.username,
+        filename: this.filename,
+        meqs_supplier_id: id,
+      })
+
       try {
-
-        this.logger.log({
-          username: authUser.user.username,
-          filename: this.filename,
-          function: 'removeMeqsSupplier',
-          meqs_supplier_id: id,
-        })
-
         this.meqsSupplierService.setAuthUser(authUser)
         const x = await this.meqsSupplierService.remove(id, {
           ip_address,

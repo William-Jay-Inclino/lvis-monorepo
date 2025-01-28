@@ -47,13 +47,13 @@ export class RrResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Creating RR...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createRrInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createRr,
-              input: JSON.stringify(createRrInput)
-            })
             
             this.rrService.setAuthUser(authUser)
       
@@ -117,14 +117,14 @@ export class RrResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Updating RR...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          rr_id: id,
+          input: JSON.stringify(updateRrInput),
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updateRr,
-              rr_id: id,
-              input: JSON.stringify(updateRrInput),
-            })
             
             this.rrService.setAuthUser(authUser)
             const x = await this.rrService.update(id, updateRrInput, {
@@ -147,15 +147,13 @@ export class RrResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
-        try {
+        this.logger.log('Cancelling RR...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          rr_id: id,
+        })
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelRr',
-              rr_id: id,
-            })
-      
+        try {
             this.rrService.setAuthUser(authUser)
             const x = await this.rrService.cancel(id, {
                 ip_address,

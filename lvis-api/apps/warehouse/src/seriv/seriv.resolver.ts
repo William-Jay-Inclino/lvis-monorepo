@@ -43,13 +43,13 @@ export class SerivResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Creating SERIV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createSerivInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createSeriv,
-              input: JSON.stringify(createSerivInput)
-            })
             
             this.serivService.setAuthUser(authUser)
       
@@ -107,15 +107,13 @@ export class SerivResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+        this.logger.log('Updating SERIV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          seriv_id: id,
+          input: JSON.stringify(updateSerivInput),
+        })
         try {
-      
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updateSeriv,
-              seriv_id: id,
-              input: JSON.stringify(updateSerivInput),
-            })
             
             this.serivService.setAuthUser(authUser)
             const x = await this.serivService.update(id, updateSerivInput, {
@@ -138,15 +136,13 @@ export class SerivResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
-        try {
+        this.logger.log('Cancelling SERIV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          seriv_id: id,
+        })
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelSeriv',
-              seriv_id: id,
-            })
-      
+        try {
             this.serivService.setAuthUser(authUser)
             const x = await this.serivService.cancel(id, {
                 ip_address,

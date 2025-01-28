@@ -44,13 +44,13 @@ export class OsrivResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Creating OSRIV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(CreateOsrivInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createOsriv,
-              input: JSON.stringify(CreateOsrivInput)
-            })
             
             this.osrivService.setAuthUser(authUser)
       
@@ -110,15 +110,14 @@ export class OsrivResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Updating OSRIV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          osriv_id: id,
+          input: JSON.stringify(updateOsrivInput),
+        })
+
         try {
-      
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updateOsriv,
-              osriv_id: id,
-              input: JSON.stringify(updateOsrivInput),
-            })
             
             this.osrivService.setAuthUser(authUser)
             const x = await this.osrivService.update(id, updateOsrivInput, {
@@ -143,14 +142,13 @@ export class OsrivResolver {
         @IpAddress() ip_address: string,
     ) {
 
-        try {
+        this.logger.log('Cancelling OSRIV...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          osriv_id: id,
+        })
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelOsriv',
-              osriv_id: id,
-            })
+        try {
       
             this.osrivService.setAuthUser(authUser)
             const x = await this.osrivService.cancel(id, {

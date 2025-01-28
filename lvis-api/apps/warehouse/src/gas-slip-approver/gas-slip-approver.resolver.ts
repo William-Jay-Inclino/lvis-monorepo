@@ -37,15 +37,14 @@ export class GasSlipApproverResolver {
       @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Changing gas slip approver...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(input),
+      gas_slip_approver_id: id,
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'changeGasSlipApprover',
-        input: JSON.stringify(input),
-        gas_slip_approver_id: id,
-      })
-      
       this.gasSlipApproverService.setAuthUser(authUser)
 
       const x = await this.gasSlipApproverService.changeApprover(id, input, {

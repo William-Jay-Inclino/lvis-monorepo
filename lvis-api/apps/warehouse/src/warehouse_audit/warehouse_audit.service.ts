@@ -19,7 +19,7 @@ export class WarehouseAuditService {
 
             const ctext = `audit_id=${result.id} username=${result.username} action=${result.action} table=${result.table}`;
 
-            this.logger.log(`Audited successfully: ${ctext}`);
+            this.logger.log('Audited successfully', ctext);
         } catch (error) {
             this.logger.error('Error creating audit entry', error);
             throw error; 

@@ -46,13 +46,14 @@ export class JoResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+
+        this.logger.log('Creating JO...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createJoInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createJo,
-              input: JSON.stringify(createJoInput)
-            })
             
             this.joService.setAuthUser(authUser)
       
@@ -114,15 +115,15 @@ export class JoResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+
+        this.logger.log('Updating JO...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          jo_id: id,
+          input: JSON.stringify(updateJoInput),
+        })
+
         try {
-      
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updateJo,
-              jo_id: id,
-              input: JSON.stringify(updateJoInput),
-            })
             
             this.joService.setAuthUser(authUser)
             const x = await this.joService.update(id, updateJoInput, {
@@ -138,35 +139,6 @@ export class JoResolver {
         }
     }
 
-    // @Mutation(() => WarehouseRemoveResponse)
-    // async update_jo_classification_and_jo_approver(
-    //     @Args('id') id: string,
-    //     @Args('input') input: UpdateJoByBudgetOfficerInput,
-    //     @CurrentAuthUser() authUser: AuthUser
-    // ) {
-
-    //     try {
-      
-    //         this.logger.log({
-    //           username: authUser.user.username,
-    //           filename: this.filename,
-    //           function: 'update_jo_classification_and_jo_approver',
-    //           jo_id: id,
-    //           input: JSON.stringify(input),
-    //         })
-            
-    //         this.joService.setAuthUser(authUser)
-    //         const x = await this.joService.updateClassificationByBudgetOfficer(id, input);
-      
-    //         this.logger.log('JO Classification and JO Approval updated successfully')
-      
-    //         return x
-    //     } catch (error) {
-    //         this.logger.error('Error in updating JO Classification and JO Approval', error)
-    //     }
-
-    // }
-
     @Mutation(() => WarehouseCancelResponse)
     async cancelJo(
         @Args('id') id: string,
@@ -175,15 +147,13 @@ export class JoResolver {
         @IpAddress() ip_address: string,
     ) {
 
-        try {
+        this.logger.log('Cancelling JO...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          jo_id: id,
+        })
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'cancelJo',
-              jo_id: id,
-            })
-      
+        try {
             this.joService.setAuthUser(authUser)
             const x = await this.joService.cancel(id, {
                 ip_address,

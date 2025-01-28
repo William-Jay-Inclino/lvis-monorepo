@@ -35,14 +35,13 @@ export class SerivController {
         @IpAddress() ip_address: string,
     ) {
 
-        try {
+        this.logger.log('Generating PDF in SERIV...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            seriv_id: id
+        })
 
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: 'generatePdf',
-                seriv_id: id
-            })
+        try {
             
             this.serivPdfService.setAuthUser(authUser)
     
@@ -57,6 +56,7 @@ export class SerivController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+            this.logger.log('PDF in SERIV generated')
     
             // @ts-ignore
             res.set({
@@ -86,14 +86,12 @@ export class SerivController {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Generating gate pass PDF in SERIV...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            seriv_id: id
+        })
         try {
-
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: 'generateGatePassPDF',
-                seriv_id: id
-            })
             
             this.serivPdfService.setAuthUser(authUser)
     
@@ -108,6 +106,7 @@ export class SerivController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+            this.logger.log('Gatepass PDF in SERIV generated')
     
             // @ts-ignore
             res.set({

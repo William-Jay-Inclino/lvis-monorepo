@@ -43,14 +43,14 @@ export class RrItemResolver {
     @CurrentAuthUser() authUser: AuthUser
   ) {
 
+    this.logger.log('Updating RR item...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      rr_item_id: id,
+      input: JSON.stringify(updateRrItemInput)
+    })
+
     try {
-        this.logger.log({
-          username: authUser.user.username,
-          filename: this.filename,
-          function: 'updateRrItem',
-          rr_item_id: id,
-          input: JSON.stringify(updateRrItemInput)
-        })
         
         this.rrItemService.setAuthUser(authUser)
 
@@ -74,13 +74,13 @@ export class RrItemResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Updating RR items...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(inputs)
+    })
+
     try {
-        this.logger.log({
-          username: authUser.user.username,
-          filename: this.filename,
-          function: 'updateRrItems',
-          input: JSON.stringify(inputs)
-        })
         
         this.rrItemService.setAuthUser(authUser)
 

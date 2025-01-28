@@ -35,16 +35,16 @@ export class PendingResolver {
     @Args('fund_source_id', { type: () => String, nullable: true }) fund_source_id?: string | null,
   ) {
 
+    this.logger.log('Approving pending...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      pending_id: id,
+      remarks,
+      classification_id,
+      fund_source_id,
+    })
+
     try {
-        this.logger.log({
-          username: authUser.user.username,
-          filename: this.filename,
-          function: 'approve_pending',
-          pending_id: id,
-          remarks,
-          classification_id,
-          fund_source_id,
-        })
         
         this.pendingService.setAuthUser(authUser)
 
@@ -80,16 +80,16 @@ export class PendingResolver {
     @Args('fund_source_id', { type: () => String, nullable: true }) fund_source_id?: string | null,
   ) {
 
+    this.logger.log('Disapproving pending...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      pending_id: id,
+      remarks,
+      classification_id,
+      fund_source_id,
+    })
+
     try {
-        this.logger.log({
-          username: authUser.user.username,
-          filename: this.filename,
-          function: 'disapprove_pending',
-          pending_id: id,
-          remarks,
-          classification_id,
-          fund_source_id,
-        })
         
         this.pendingService.setAuthUser(authUser)
 
@@ -123,14 +123,13 @@ export class PendingResolver {
   ): Promise<PendingResponse> {
     const { pending_id, notes } = input;
 
+    this.logger.log('Updating approver notes/comment...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(input)
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'update_approver_notes',
-        input: JSON.stringify(input)
-      })
 
       this.pendingService.setAuthUser(authUser)
       const x = await this.pendingService.update_approver_notes(pending_id, notes, {

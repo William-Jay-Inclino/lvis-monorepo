@@ -44,13 +44,13 @@ export class MstResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Creating MST...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createMstInput)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.createMst,
-              input: JSON.stringify(createMstInput)
-            })
             
             this.mstService.setAuthUser(authUser)
       
@@ -110,16 +110,14 @@ export class MstResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Updating MST...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          mst_id: id,
+          input: JSON.stringify(updateMstInput),
+        })
+
         try {
-      
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.updateMst,
-              mst_id: id,
-              input: JSON.stringify(updateMstInput),
-            })
-            
             this.mstService.setAuthUser(authUser)
             const x = await this.mstService.update(id, updateMstInput, {
                 ip_address,
@@ -143,14 +141,13 @@ export class MstResolver {
         @IpAddress() ip_address: string,
     ) {
 
-        try {
+        this.logger.log('Cancelling MST...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          mst_id: id,
+        })
 
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: RESOLVERS.cancelMst,
-              mst_id: id,
-            })
+        try {
       
             this.mstService.setAuthUser(authUser)
             const x = await this.mstService.cancel(id, {

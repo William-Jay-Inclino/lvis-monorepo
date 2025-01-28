@@ -37,14 +37,14 @@ export class MstApproverResolver {
       @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Changing MST approver...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      mst_approver_id: id,
+      input: JSON.stringify(changeMstApproverInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'changeMstApprover',
-        mst_approver_id: id,
-        input: JSON.stringify(changeMstApproverInput)
-      })
       
       this.mstApproverService.setAuthUser(authUser)
 

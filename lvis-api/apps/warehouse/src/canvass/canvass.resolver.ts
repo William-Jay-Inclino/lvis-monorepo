@@ -40,13 +40,13 @@ export class CanvassResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Creating canvass...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createCanvassInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createCanvass,
-        input: JSON.stringify(createCanvassInput)
-      })
       
       this.canvassService.setAuthUser(authUser)
 
@@ -105,16 +105,14 @@ export class CanvassResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Updating canvass...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      canvass_id: id,
+      input: JSON.stringify(updateCanvassInput),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.updateCanvass,
-        canvass_id: id,
-        input: JSON.stringify(updateCanvassInput),
-      })
-      
       this.canvassService.setAuthUser(authUser)
       const x = await this.canvassService.update(id, updateCanvassInput, {
         ip_address,
@@ -129,36 +127,6 @@ export class CanvassResolver {
     }
 
   }
-
-  // @Mutation(() => WarehouseRemoveResponse)
-  // async removeCanvass(
-  //   @Args('id', { type: () => String }) id: string,
-  //   @CurrentAuthUser() authUser: AuthUser,
-  //   @UserAgent() user_agent: string,
-  //   @IpAddress() ip_address: string,
-  // ) {
-
-  //   try {
-
-  //     this.logger.log({
-  //       username: authUser.user.username,
-  //       filename: this.filename,
-  //       function: RESOLVERS.removeCanvass,
-  //       canvass_id: id,
-  //     })
-
-  //     this.canvassService.setAuthUser(authUser)
-  //     const x = await this.canvassService.remove(id);
-      
-  //     this.logger.log('Canvass removed successfully')
-      
-  //     return x 
-
-  //   } catch (error) {
-  //     this.logger.error('Error in removing canvass', error)
-  //   }
-
-  // }
 
   @ResolveField(() => Employee)
   requested_by(@Parent() canvass: Canvass): any {

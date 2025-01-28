@@ -38,15 +38,14 @@ export class JoController {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Generating PDF in JO...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            jo_id: id
+        })
+        
         try {
 
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: RESOLVERS.printJo,
-                jo_id: id
-            })
-            
             this.joPdfService.setAuthUser(authUser)
     
             const status = await this.joService.getStatus(id)
@@ -61,6 +60,8 @@ export class JoController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+
+            this.logger.log('PDF in JO generated')
     
             // @ts-ignore
             res.set({

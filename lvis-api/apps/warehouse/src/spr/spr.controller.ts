@@ -38,14 +38,12 @@ export class SprController {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Generating PDF in SPR...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            spr_id: id
+        })
         try {
-
-            this.logger.log({
-                username: authUser.user.username,
-                filename: this.filename,
-                function: RESOLVERS.printSpr,
-                spr_id: id
-            })
             
             this.sprPdfService.setAuthUser(authUser)
     
@@ -61,6 +59,7 @@ export class SprController {
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent)
             })
+            this.logger.log('PDF in SPR generated')
     
             // @ts-ignore
             res.set({

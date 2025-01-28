@@ -37,14 +37,14 @@ export class MrvApproverResolver {
       @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Changing MRV approver...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      mrv_approver_id: id,
+      input: JSON.stringify(changeMrvApproverInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'changeMrvApprover',
-        mrv_approver_id: id,
-        input: JSON.stringify(changeMrvApproverInput)
-      })
       
       this.mrvApproverService.setAuthUser(authUser)
 

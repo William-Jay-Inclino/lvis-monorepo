@@ -32,14 +32,14 @@ export class OsrivItemResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        this.logger.log('Updating OSRIV items...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          osriv_id,
+          items: JSON.stringify(items)
+        })
+
         try {
-            this.logger.log({
-              username: authUser.user.username,
-              filename: this.filename,
-              function: 'updateMrvItems',
-              osriv_id,
-              items: JSON.stringify(items)
-            })
             
             this.osrivItemService.setAuthUser(authUser)
       
