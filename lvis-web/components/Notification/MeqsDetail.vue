@@ -142,7 +142,7 @@
                         <thead>
                             <tr>
                                 <th class="bg-secondary text-white"> Supplier </th>
-                                <th class="bg-secondary text-white"> Payment Terms </th>
+                                <th class="bg-secondary text-white no-wrap"> Payment Terms </th>
                                 <th class="bg-secondary text-white"> Attachments </th>
                             </tr>
                         </thead>
@@ -198,7 +198,7 @@
                             <tr>
                                 <th class="bg-secondary text-white align-middle"> No </th>
                                 <th class="bg-secondary text-white align-middle"> Item </th>
-                                <th class="bg-secondary text-white align-middle"> Unit Price </th>
+                                <th class="bg-secondary text-white align-middle no-wrap"> Unit Price </th>
                                 <th class="bg-secondary text-white align-middle"> Qty </th>
                                 <th class="bg-secondary text-white text-center align-middle"
                                     v-for="meqsSupplier in meqs.meqs_suppliers">

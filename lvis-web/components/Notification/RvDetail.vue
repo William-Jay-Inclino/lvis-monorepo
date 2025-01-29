@@ -146,7 +146,7 @@
                             <tr>
                                 <th class="bg-secondary text-white"> No. </th>
                                 <th class="bg-secondary text-white"> Description </th>
-                                <th class="bg-secondary text-white"> Item Class </th>
+                                <th class="bg-secondary text-white no-wrap"> Item Class </th>
                                 <th class="bg-secondary text-white"> Unit </th>
                                 <th class="bg-secondary text-white"> Quantity </th>
                             </tr>

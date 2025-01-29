@@ -90,6 +90,9 @@ a:hover {
     line-height: 1.5;
 }
 
+.no-wrap {
+    white-space: nowrap;
+}
 
 .brand-text {
     font-family: 'Orbitron', sans-serif; /* Cool futuristic font */

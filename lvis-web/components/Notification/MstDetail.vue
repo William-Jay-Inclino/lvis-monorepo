@@ -133,11 +133,11 @@
                         <thead>
                             <tr>
                                 <th class="bg-secondary text-white align-middle"> No. </th>
-                                <th class="bg-secondary text-white align-middle"> Item Code </th>
+                                <th class="bg-secondary text-white align-middle no-wrap"> Item Code </th>
                                 <th class="bg-secondary text-white align-middle"> Description </th>
                                 <th class="bg-secondary text-white align-middle"> Unit </th>
                                 <th class="bg-secondary text-white align-middle"> Quantity </th>
-                                <th class="bg-secondary text-white align-middle"> Unit Price </th>
+                                <th class="bg-secondary text-white align-middle no-wrap"> Unit Price </th>
                                 <th class="bg-secondary text-white align-middle"> Amount </th>
                             </tr>
                         </thead>

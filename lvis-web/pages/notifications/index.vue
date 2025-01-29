@@ -26,7 +26,11 @@
         <div v-if="view_type === 'tile'">
             <NotificationTileView 
                 :items="filteredItems" 
+                :is-budget-officer="is_budget_officer"
+                :is-finance-manager="is_finance_manager"
                 @view-details="handle_click_view_details" 
+                @approve="handle_approval" 
+                @disapprove="handle_approval" 
             /> 
         </div>
 

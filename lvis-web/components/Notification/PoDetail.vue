@@ -146,14 +146,14 @@
                             <tr>
                                 <th class="bg-secondary text-white align-middle">No</th>
                                 <th class="bg-secondary text-white align-middle">Description</th>
-                                <th class="bg-secondary text-white align-middle">Item Class</th>
+                                <th class="bg-secondary text-white align-middle no-wrap">Item Class</th>
                                 <th class="bg-secondary text-white align-middle">Unit</th>
                                 <th class="bg-secondary text-white align-middle">Qty</th>
-                                <th class="bg-secondary text-white align-middle">VAT Type</th>
-                                <th class="bg-secondary text-white align-middle">Unit Cost</th>
-                                <th class="bg-secondary text-white align-middle">Vatable Amount</th>
+                                <th class="bg-secondary text-white align-middle no-wrap">VAT Type</th>
+                                <th class="bg-secondary text-white align-middle no-wrap">Unit Cost</th>
+                                <th class="bg-secondary text-white align-middle no-wrap">Vatable Amount</th>
                                 <th class="bg-secondary text-white align-middle">VAT</th>
-                                <th class="bg-secondary text-white align-middle">Total Cost</th>
+                                <th class="bg-secondary text-white align-middle no-wrap">Total Cost</th>
                             </tr>
                         </thead>
                         <tbody>
