@@ -37,13 +37,13 @@ export class DepartmentResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Creating department...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createDepartmentInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createDepartment,
-        input: JSON.stringify(createDepartmentInput)
-      })
       
       this.departmentService.setAuthUser(authUser)
 
@@ -81,15 +81,13 @@ export class DepartmentResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Updating department...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      department_id: id,
+      input: JSON.stringify(updateDepartmentInput),
+    })
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.updateDepartment,
-        department_id: id,
-        input: JSON.stringify(updateDepartmentInput),
-      })
       
       this.departmentService.setAuthUser(authUser)
       const x = await this.departmentService.update(id, updateDepartmentInput, {
@@ -114,15 +112,13 @@ export class DepartmentResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+    this.logger.log('Removing department...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      account_id: id,
+    })
+
     try {
-
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.removeDepartment,
-        account_id: id,
-      })
-
       this.departmentService.setAuthUser(authUser)
       const x = await this.departmentService.remove(id, {
         ip_address,

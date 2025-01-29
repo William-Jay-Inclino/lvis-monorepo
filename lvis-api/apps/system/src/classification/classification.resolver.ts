@@ -39,13 +39,13 @@ export class ClassificationResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Creating classification...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createClassificationInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createClassification,
-        input: JSON.stringify(createClassificationInput)
-      })
       
       this.classificationService.setAuthUser(authUser)
       const x = await this.classificationService.create(createClassificationInput, {
@@ -95,15 +95,14 @@ export class ClassificationResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Updating classification...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      classification_id: id,
+      input: JSON.stringify(updateClassificationInput),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.updateClassification,
-        classification_id: id,
-        input: JSON.stringify(updateClassificationInput),
-      })
       
       this.classificationService.setAuthUser(authUser)
       const x = await this.classificationService.update(id, updateClassificationInput, {
@@ -129,14 +128,13 @@ export class ClassificationResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
-    try {
+    this.logger.log('Removing account...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      classification_id: id,
+    })
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.removeClassification,
-        classification_id: id,
-      })
+    try {
 
       this.classificationService.setAuthUser(authUser)
       const x = await this.classificationService.remove(id, {

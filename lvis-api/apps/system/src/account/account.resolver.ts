@@ -39,14 +39,13 @@ export class AccountResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Creating account...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createAccountInput)
+    })
+    
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createAccount,
-        input: JSON.stringify(createAccountInput)
-      })
-      
       this.accountService.setAuthUser(authUser)
 
       const x = await this.accountService.create(createAccountInput, {
@@ -105,15 +104,14 @@ export class AccountResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Updating account...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      account_id: id,
+      input: JSON.stringify(updateAccountInput),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.updateAccount,
-        account_id: id,
-        input: JSON.stringify(updateAccountInput),
-      })
       
       this.accountService.setAuthUser(authUser)
       const x = await this.accountService.update(id, updateAccountInput, {
@@ -140,15 +138,13 @@ export class AccountResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Removing account...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      account_id: id,
+    })
+
     try {
-
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.removeAccount,
-        account_id: id,
-      })
-
       this.accountService.setAuthUser(authUser)
       const x = await this.accountService.remove(id, {
         ip_address,

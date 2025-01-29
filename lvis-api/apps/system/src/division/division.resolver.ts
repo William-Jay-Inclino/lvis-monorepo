@@ -38,13 +38,13 @@ export class DivisionResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Creating division...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createDivisionInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createDivision,
-        input: JSON.stringify(createDivisionInput)
-      })
       
       this.divisionService.setAuthUser(authUser)
 
@@ -84,16 +84,15 @@ export class DivisionResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Updating division...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      division_id: id,
+      input: JSON.stringify(updateDivisionInput),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.updateDivision,
-        division_id: id,
-        input: JSON.stringify(updateDivisionInput),
-      })
-      
       this.divisionService.setAuthUser(authUser)
       const x = await this.divisionService.update(id, updateDivisionInput, {
         ip_address,
@@ -117,15 +116,14 @@ export class DivisionResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Removing division...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      division_id: id,
+    })
+
     try {
-
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.removeDivision,
-        division_id: id,
-      })
-
       this.divisionService.setAuthUser(authUser)
       const x = await this.divisionService.remove(id, {
         ip_address,

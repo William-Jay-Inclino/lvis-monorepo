@@ -40,13 +40,14 @@ export class EmployeeResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Creating employee...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createEmployeeInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createEmployee,
-        input: JSON.stringify(createEmployeeInput)
-      })
       
       this.employeeService.setAuthUser(authUser)
 
@@ -118,10 +119,9 @@ export class EmployeeResolver {
   ) {
     try {
       
-      this.logger.log({
+      this.logger.log('Updating employee...', {
         username: authUser.user.username,
         filename: this.filename,
-        function: RESOLVERS.updateEmployee,
         employee_id: id,
         input: JSON.stringify(updateEmployeeInput),
       })
@@ -149,15 +149,15 @@ export class EmployeeResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Removing employee...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      function: RESOLVERS.removeEmployee,
+      employee_id: id,
+    })
+
     try {
-
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.removeEmployee,
-        employee_id: id,
-      })
-
       this.employeeService.setAuthUser(authUser)
       const x = await this.employeeService.remove(id, {
         ip_address,

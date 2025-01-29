@@ -43,18 +43,17 @@ export class UserResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    // Create a copy of the input object and mask the password
+    const sanitizedInput = { ...input, password: '***' };
+
+    this.logger.log('Creating user...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(sanitizedInput)
+    })
+
     try {
-
-      // Create a copy of the input object and mask the password
-      const sanitizedInput = { ...input, password: '***' };
-
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'createUser',
-        input: JSON.stringify(sanitizedInput)
-      })
-      
       this.userService.setAuthUser(authUser)
 
       const x = await this.userService.create(input, {
@@ -106,15 +105,15 @@ export class UserResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Updating user...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      user_id: id,
+      input: JSON.stringify(input),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'updateUser',
-        user_id: id,
-        input: JSON.stringify(input),
-      })
       
       this.userService.setAuthUser(authUser)
       const x = await this.userService.update(id, input, {
@@ -139,16 +138,15 @@ export class UserResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Changing password...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      user_id,
+      password: '***',
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'change_password',
-        user_id,
-        password: '***',
-      })
-      
       this.userService.setAuthUser(authUser)
       const x = await this.userService.change_password(user_id, password, {
         ip_address,
@@ -172,15 +170,15 @@ export class UserResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Changing own password...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      current_pw: '***',
+      new_pw: '***',
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'change_own_password',
-        current_pw: '***',
-        new_pw: '***',
-      })
       
       this.userService.setAuthUser(authUser)
       const x = await this.userService.change_own_password(new_pw, current_pw, {
@@ -200,33 +198,6 @@ export class UserResolver {
       this.logger.error('Error in changing own password', error)
     }
   }
-
-  // @UseGuards(GqlAuthGuard)
-  // @Mutation(() => SystemRemoveResponse)
-  // async removeUser(
-  //   @Args('id') id: string,
-  //   @CurrentAuthUser() authUser: AuthUser
-  // ) {
-  //   try {
-
-  //     this.logger.log({
-  //       username: authUser.user.username,
-  //       filename: this.filename,
-  //       function: 'removeUser',
-  //       user_id: id,
-  //     })
-
-  //     this.userService.setAuthUser(authUser)
-  //     const x = await this.userService.remove(id);
-      
-  //     this.logger.log('User removed successfully')
-      
-  //     return x 
-
-  //   } catch (error) {
-  //     this.logger.error('Error in removing user', error)
-  //   }
-  // }
 
   @Query(() => Boolean)
   isUsernameExist(

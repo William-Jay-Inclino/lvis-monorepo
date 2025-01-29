@@ -45,15 +45,10 @@ export class WinstonLoggerService implements LoggerService {
         this.logger.info('Winston logger initialized successfully');
     }
 
-    log(message: any, context?: string) {
-
-        if(typeof message === 'string') {
-            this.logger.info(message, { context });
-            return
-        }
+    log(message: string, context?: any) {
 
         // Helper function to recursively handle nested objects and flatten them
-        const formatMessage = (obj: any): string => {
+        const formatContext = (obj: any): string => {
             let output = '';
             Object.keys(obj).forEach(key => {
                 const value = obj[key];
@@ -62,14 +57,14 @@ export class WinstonLoggerService implements LoggerService {
                 if (typeof value === 'string' && value.startsWith('{') && value.endsWith('}')) {
                     try {
                         const parsedValue = JSON.parse(value);  // Try to parse stringified JSON
-                        output += `${key}=${formatMessage(parsedValue)} `;
+                        output += `${key}=${formatContext(parsedValue)} `;
                     } catch {
                         // If JSON parsing fails, treat it as a normal string
                         output += `${key}=${value} `;
                     }
                 } else if (typeof value === 'object' && value !== null) {
                     // Recursively handle nested objects
-                    output += `${key}=${formatMessage(value)} `;
+                    output += `${key}=${formatContext(value)} `;
                 } else {
                     // If value is a primitive (string, number, etc.), log it directly
                     output += `${key}=${value} `;
@@ -79,10 +74,10 @@ export class WinstonLoggerService implements LoggerService {
         };
 
         // Format the message object into a string
-        const formattedMessage = formatMessage(message);
+        const formattedContext = typeof context === 'string' ? context : formatContext(context)
 
         // Log the formatted message to Winston
-        this.logger.info(formattedMessage, { context });
+        this.logger.info(message, { context: formattedContext });
     }
 
     // log(message: string, context?: string) {
