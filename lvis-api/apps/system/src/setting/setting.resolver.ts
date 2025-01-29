@@ -20,11 +20,11 @@ export class SettingResolver {
 
     try {
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'general_manager',
-      })
+      // this.logger.log({
+      //   username: authUser.user.username,
+      //   filename: this.filename,
+      //   function: 'general_manager',
+      // })
       
       return this.settingService.find_employee_in_settings(SETTINGS.GENERAL_MANAGER);
 
@@ -38,11 +38,11 @@ export class SettingResolver {
   warehouse_custodian(@CurrentAuthUser() authUser: AuthUser) {
     try {
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'warehouse_custodian',
-      })
+      // this.logger.log({
+      //   username: authUser.user.username,
+      //   filename: this.filename,
+      //   function: 'warehouse_custodian',
+      // })
       
       return this.settingService.find_employee_in_settings(SETTINGS.WAREHOUSE_CUSTODIAN);
 
@@ -55,11 +55,11 @@ export class SettingResolver {
   fmsd_chief(@CurrentAuthUser() authUser: AuthUser) {
     try {
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'fmsd_chief',
-      })
+      // this.logger.log({
+      //   username: authUser.user.username,
+      //   filename: this.filename,
+      //   function: 'fmsd_chief',
+      // })
       
       return this.settingService.find_employee_in_settings(SETTINGS.FMSD_CHIEF);
 
@@ -72,11 +72,11 @@ export class SettingResolver {
   isd_manager(@CurrentAuthUser() authUser: AuthUser) {
     try {
 
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'isd_manager',
-      })
+      // this.logger.log({
+      //   username: authUser.user.username,
+      //   filename: this.filename,
+      //   function: 'isd_manager',
+      // })
       
       return this.settingService.find_employee_in_settings(SETTINGS.ISD_MANAGER);
 

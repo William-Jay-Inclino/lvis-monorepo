@@ -32,17 +32,17 @@ export class AuthController {
         // const ip_address = req.socket.remoteAddress || req.ip;
         const device_info = this.getDeviceInfo(user_agent);
 
+        this.logger.log('Logging in...', {
+            username,
+            ip_address: normalizeIp(ip_address),
+            device_info,
+            filename: this.filename,
+        })
+
         try {
-
-            this.logger.log({
-                username,
-                ip_address: normalizeIp(ip_address),
-                device_info,
-                filename: this.filename,
-                function: 'login'
-            })
-
-            return await this.authService.login(req.user as User, ip_address, device_info);
+            const x = await this.authService.login(req.user as User, ip_address, device_info);
+            this.logger.log('Login successfully')
+            return x
 
         } catch (error) {
             this.logger.error('Error in login', error)
@@ -59,18 +59,17 @@ export class AuthController {
 
         const device_info = this.getDeviceInfo(user_agent);
 
+        this.logger.log('Logging out...', {
+            user_id,
+            ip_address: normalizeIp(ip_address),
+            device_info,
+            filename: this.filename,
+        })
+
         try {
-
-            this.logger.log({
-                user_id,
-                ip_address: normalizeIp(ip_address),
-                device_info,
-                filename: this.filename,
-                function: 'logout'
-            })
-
-            return await this.authService.audit_log(user_id, ip_address, device_info, UserLogEventType.LOGOUT)
-            
+            const x = await this.authService.audit_log(user_id, ip_address, device_info, UserLogEventType.LOGOUT)
+            this.logger.log('Logout successfully')
+            return x
         } catch (error) {
             this.logger.error('Error in logout', error)
         }

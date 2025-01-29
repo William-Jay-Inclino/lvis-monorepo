@@ -4,7 +4,7 @@ import { Body, Controller, Delete, Get, HttpException, HttpStatus, Logger, Param
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 // import { SingleFileTypeValidationPipe } from '../__common__/pipes/single-file-type-validation.pipe';
-import { MAX_FILE_SIZE, EMPLOYEE_UPLOAD_PATH } from '../__common__/config';
+import { EMPLOYEE_UPLOAD_PATH } from '../__common__/config';
 import { FileUploadSystemService } from './file-upload-system.service';
 import { FileValidationPipe } from '../__common__/pipes/file-validation.pipe';
 

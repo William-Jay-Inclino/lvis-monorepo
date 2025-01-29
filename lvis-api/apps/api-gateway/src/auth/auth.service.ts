@@ -1,6 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { User } from './entities/user.entity';
-import { HttpService } from '@nestjs/axios';
 import { JwtService } from '@nestjs/jwt';
 import { USER_STATUS } from '../__common__/types';
 import axios from 'axios';
