@@ -45,13 +45,13 @@ export class GasSlipResolver {
     @IpAddress() ip_address: string,
   ) {
 
+    this.logger.log('Creating gas slip...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      input: JSON.stringify(createGasSlipInput)
+    })
+
     try {
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.createGasSlip,
-        input: JSON.stringify(createGasSlipInput)
-      })
       
       this.gasSlipService.setAuthUser(authUser)
 
@@ -79,15 +79,15 @@ export class GasSlipResolver {
       @UserAgent() user_agent: string,
       @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Updating gas slip...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      gas_slip_id: id,
+      input: JSON.stringify(input),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: RESOLVERS.updateGasSlip,
-        gas_slip_id: id,
-        input: JSON.stringify(input),
-      })
       
       this.gasSlipService.setAuthUser(authUser)
       const x = await this.gasSlipService.update(id, input, {
@@ -112,15 +112,15 @@ export class GasSlipResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Posting gas slip...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      gas_slip_id: id,
+      input: JSON.stringify(input),
+    })
+
     try {
-      
-      this.logger.log({
-        username: authUser.user.username,
-        filename: this.filename,
-        function: 'postGasSlip',
-        gas_slip_id: id,
-        input: JSON.stringify(input),
-      })
       
       this.gasSlipService.setAuthUser(authUser)
       const x = await this.gasSlipService.post_gas_slip(id, input, {
@@ -143,15 +143,14 @@ export class GasSlipResolver {
       @UserAgent() user_agent: string,
       @IpAddress() ip_address: string,
   ) {
-      try {
 
-          this.logger.log({
-            username: authUser.user.username,
-            filename: this.filename,
-            function: 'cancelGasSlip',
-            gas_slip_id: id,
-          })
-    
+    this.logger.log('Posting gas slip...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      gas_slip_id: id,
+    })
+
+      try {
           this.gasSlipService.setAuthUser(authUser)
           const x = await this.gasSlipService.cancel(id, {
             ip_address,
@@ -211,34 +210,6 @@ export class GasSlipResolver {
   requested_by(@Parent() gasSlip: GasSlip): any {
       return { __typename: 'Employee', id: gasSlip.requested_by_id }
   }
-
-  // @Mutation(() => WarehouseRemoveResponse)
-  // @UseGuards(AccessGuard)
-  // @CheckAccess(MODULES.GAS_SLIP, RESOLVERS.removeGasSlip)
-  // async removeGasSlip(
-  //   @Args('id') id: string,
-  //   @CurrentAuthUser() authUser: AuthUser
-  // ) {
-  //   try {
-
-  //     this.logger.log({
-  //       username: authUser.user.username,
-  //       filename: this.filename,
-  //       function: RESOLVERS.removeGasSlip,
-  //       gas_slip_id: id,
-  //     })
-
-  //     this.gasSlipService.setAuthUser(authUser)
-  //     const x = await this.gasSlipService.remove(id);
-      
-  //     this.logger.log('Gas slip removed successfully')
-      
-  //     return x 
-
-  //   } catch (error) {
-  //     this.logger.error('Error in removing gas slip', error)
-  //   }
-  // }
 
   @ResolveField(() => [GasSlipApprover])
     gas_slip_approvers(@Parent() gasSlip: GasSlip): any {
