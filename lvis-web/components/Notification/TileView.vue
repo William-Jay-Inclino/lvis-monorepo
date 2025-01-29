@@ -10,12 +10,14 @@
                         </div>
                         <div>
                             <button 
+                                v-if="!isBudgetOfficer && !isFinanceManager"
                                 :data-testid="`test-${ item.reference_table }-${ item.reference_number }`"
                                 @click="emits('view-details', item)"
                                 class="btn pending-btn"
                             >
+                                Details
                                 <client-only>
-                                    <font-awesome-icon :icon="['fas', 'circle-info']" />
+                                    <font-awesome-icon class="ms-1" :icon="['fas', 'magnifying-glass']" />
                                 </client-only> 
                             </button>
                         </div>
@@ -119,32 +121,32 @@
     }
 
     .pending-btn {
-        background-color: #4A90E2; 
-        color: #ffffff; 
-        border: none; 
-        border-radius: 0.375rem; 
-        padding: 0.25rem 0.5rem; 
-        font-size: 0.7rem; 
-        font-weight: 500; 
+        background-color: #4A90E2; /* Bright and vibrant blue */
+        color: #ffffff; /* Clear and contrasting white text */
+        border: none; /* Clean border */
+        border-radius: 0.375rem; /* Rounded corners for a soft look */
+        padding: 0.5rem 1rem; /* Adequate spacing */
+        font-size: 0.8rem; /* Readable text size */
+        font-weight: 500; /* Slightly bolder text for emphasis */
         transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     }
 
     .pending-btn:hover {
-        background-color: #357ABD; 
-        transform: translateY(-1px); 
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-        color: #ffffff; 
+        background-color: #357ABD; /* Slightly darker shade for hover */
+        transform: translateY(-1px); /* Slight lift effect */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        color: #ffffff; /* Ensure the text is still visible */
     }
 
     .pending-btn:focus {
-        outline: none;
-        background-color: #357ABD; 
-        box-shadow: 0 0 0 0.25rem rgba(74, 144, 226, 0.5); 
+        outline: none; /* Remove default outline */
+        background-color: #357ABD; /* Keep the hover color for focus */
+        box-shadow: 0 0 0 0.25rem rgba(74, 144, 226, 0.5); /* Glow effect */
     }
 
     .pending-btn:active {
-        background-color: #2C6AA5; 
-        transform: scale(0.98);
-        box-shadow: none; 
+        background-color: #2C6AA5; /* Even darker blue for active state */
+        transform: scale(0.98); /* Pressed-in effect */
+        box-shadow: none; /* Remove shadow for active state */
     }
 </style>

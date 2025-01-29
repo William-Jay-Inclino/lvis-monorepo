@@ -9,7 +9,7 @@ library.add(
   faStar, faStickyNote, faUserPlus, faPaperclip, faTimes, faGear, faClipboard, faLink, faEyeSlash,
   faFileInvoice, faMoneyBillWave, faWarehouse, faBook, faCalendarAlt, faCheckCircle, faHistory, faTruck, faCar,
   faMedal, faSmile, faCheck, faWarning, faDoorOpen, faShieldAlt, faGasPump, faHistory, faWrench, faHouse, faCoins,
-  faChevronDown, faChevronUp, faList, faThLarge, faCircleInfo
+  faChevronDown, faChevronUp, faList, faThLarge, faMagnifyingGlass
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
