@@ -185,7 +185,7 @@ export class ClassificationService {
 			where: {
 				deleted_at: null,
 				OR: [
-					{ name: { startsWith: input, mode: 'insensitive' } },
+					{ name: { contains: input, mode: 'insensitive' } },
 				],
 			},
 			take: 10,
