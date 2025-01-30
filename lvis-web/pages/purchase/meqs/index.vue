@@ -270,7 +270,7 @@ const isSearching = ref(false)
 
 // pagination
 const _paginationInitial = {
-    currentPage: 0,
+    currentPage: 1,
     totalPages: 0,
     totalItems: 0,
     pageSize: PAGINATION_SIZE,

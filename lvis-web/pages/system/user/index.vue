@@ -165,7 +165,7 @@ const router = useRouter()
 
 const items = ref<User[]>([])
 const _paginationInitial = {
-    currentPage: 0,
+    currentPage: 1,
     totalPages: 0,
     totalItems: 0,
     pageSize: PAGINATION_SIZE,
