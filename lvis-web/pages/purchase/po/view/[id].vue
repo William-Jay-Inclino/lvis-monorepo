@@ -340,7 +340,7 @@ const canvass = computed(() => {
     
     if(meqs.value.spr && meqs.value.spr.canvass) return meqs.value.spr.canvass
 
-    if(meqs.value.jo && meqs.value.jo.canvass) meqs.value.jo.canvass
+    if(meqs.value.jo && meqs.value.jo.canvass) return meqs.value.jo.canvass
 
 })
 
