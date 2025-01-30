@@ -19,7 +19,7 @@ constructor(private readonly prisma: PrismaService) { }
     async handle_osriv_expiration() {
         try {
 
-            this.logger.log({
+            this.logger.log('Executing cron job for handling osriv expiration...', {
                 filename: this.filename,
                 function: 'handle_osriv_expiration',
             })
@@ -87,7 +87,7 @@ constructor(private readonly prisma: PrismaService) { }
             await tx.pending.delete({
                 where: { id: pending.id }
             })
-            this.logger.log(`pending deleted with fields: reference_table=${ pending.reference_table }, reference_number=${ pending.reference_number }, approver_id=${pending.approver_id}`);
+            this.logger.log(`pending deleted`, `reference_table=${ pending.reference_table } reference_number=${ pending.reference_number } approver_id=${pending.approver_id}`);
         }
 
         // decrement item quantity base on osriv item qty 
@@ -114,12 +114,10 @@ constructor(private readonly prisma: PrismaService) { }
     async handle_seriv_expiration() {
         try {
 
-            this.logger.log({
+            this.logger.log('Executing cron job for handling seriv expiration...', {
                 filename: this.filename,
                 function: 'handle_seriv_expiration',
             })
-
-            console.log('handle_seriv_expiration');
 
             return await this.prisma.$transaction(async(tx) => {
 
@@ -184,7 +182,7 @@ constructor(private readonly prisma: PrismaService) { }
             await tx.pending.delete({
                 where: { id: pending.id }
             })
-            this.logger.log(`pending deleted with fields: reference_table=${ pending.reference_table }, reference_number=${ pending.reference_number }, approver_id=${pending.approver_id}`);
+            this.logger.log(`pending deleted`, `reference_table=${ pending.reference_table }, reference_number=${ pending.reference_number }, approver_id=${pending.approver_id}`);
         }
 
         // decrement item quantity base on seriv item qty 
@@ -210,7 +208,7 @@ constructor(private readonly prisma: PrismaService) { }
     async handle_mrv_expiration() {
         try {
 
-            this.logger.log({
+            this.logger.log('Executing cron job for handling mrv expiration...', {
                 filename: this.filename,
                 function: 'handle_mrv_expiration',
             })
@@ -278,7 +276,7 @@ constructor(private readonly prisma: PrismaService) { }
             await tx.pending.delete({
                 where: { id: pending.id }
             })
-            this.logger.log(`pending deleted with fields: reference_table=${ pending.reference_table }, reference_number=${ pending.reference_number }, approver_id=${pending.approver_id}`);
+            this.logger.log(`pending deleted`, `reference_table=${ pending.reference_table }, reference_number=${ pending.reference_number }, approver_id=${pending.approver_id}`);
         }
 
         // decrement item quantity base on osriv item qty 
