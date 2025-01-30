@@ -238,7 +238,8 @@ async function changePage(page: number) {
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page,
         pageSize: pagination.value.pageSize,
-        searchValue: null
+        searchValue: searchValue.value,
+        searchBy: searchBy.value,
     })
     isSearching.value = false
     items.value = data
@@ -250,7 +251,7 @@ async function changePage(page: number) {
 async function search() {
     isSearching.value = true
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
-        page: 1,
+        page: pagination.value.currentPage,
         pageSize: pagination.value.pageSize,
         searchValue: searchValue.value,
         searchBy: searchBy.value

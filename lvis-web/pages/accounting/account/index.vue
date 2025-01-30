@@ -246,7 +246,7 @@ async function search() {
     items.value = []
 
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
-        page: 1,
+        page: pagination.value.currentPage,
         pageSize: pagination.value.pageSize,
         name: searchName.value,
     })

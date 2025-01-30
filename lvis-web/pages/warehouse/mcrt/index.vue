@@ -301,7 +301,7 @@ async function search() {
 
     // find by DATE REQUESTED and/or REQUISITIONER
     const { data, currentPage, totalItems, totalPages } = await mcrtApi.findAll({
-        page: 1,
+        page: pagination.value.currentPage,
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
         approval_status: approval_status.value ? approval_status.value.id : null

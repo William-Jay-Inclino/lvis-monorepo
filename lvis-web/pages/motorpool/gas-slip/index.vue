@@ -354,7 +354,7 @@ async function search() {
 
 
     const { data, currentPage, totalItems, totalPages } = await gasSlipApi.findAll({
-        page: 1,
+        page: pagination.value.currentPage,
         pageSize: pagination.value.pageSize,
         vehicle_id: vehicle.value ? vehicle.value.id : undefined,
         approval_status: approval_status.value ? approval_status.value.id : null,

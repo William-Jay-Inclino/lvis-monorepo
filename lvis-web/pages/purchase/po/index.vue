@@ -364,7 +364,7 @@ async function search() {
     }
 
     const { data, currentPage, totalItems, totalPages } = await poApi.findAll({
-        page: 1,
+        page: pagination.value.currentPage,
         pageSize: pagination.value.pageSize,
         date_requested: date_requested.value,
         requested_by_id: requested_by.value ? requested_by.value.id : null,

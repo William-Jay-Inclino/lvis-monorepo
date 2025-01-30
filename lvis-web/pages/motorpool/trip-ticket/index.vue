@@ -351,7 +351,7 @@ async function search() {
 
     // find by DATE REQUESTED and/or REQUISITIONER
     const { data, currentPage, totalItems, totalPages } = await tripTicketApi.findAll({
-        page: 1,
+        page: pagination.value.currentPage,
         pageSize: pagination.value.pageSize,
         vehicle_id: vehicle.value ? vehicle.value.id : undefined,
         driver_id: driver.value ? driver.value.id : undefined,

@@ -312,7 +312,7 @@ async function search() {
     }
 
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
-        page: 1,
+        page: pagination.value.currentPage,
         pageSize: pagination.value.pageSize,
         description: searchDesc.value,
         itemTypeCode: searchItemType.value ? searchItemType.value.code : null,
