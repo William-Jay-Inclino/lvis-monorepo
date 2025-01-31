@@ -230,7 +230,7 @@
                                                     <!-- <td class="align-middle" style="white-space: nowrap;"> {{ get_time(item.end_time) }} </td> -->
                                                     <td class="align-middle" style="white-space: nowrap;"> 
                                                         {{ 
-                                                            get_time_and_day({ actual: item.end_time, estimated: formattedDateToday }) 
+                                                            get_time_and_day({ actual: item.end_time, estimated: item.start_time }) 
                                                         }} 
                                                     </td>
                                                     <td class="align-middle" style="white-space: nowrap;"> 
@@ -300,10 +300,9 @@
     import * as vmApi from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.api'
     import type { TripTicket } from '~/composables/motorpool/trip-ticket/trip-ticket.types';
     import { TRIP_TICKET_STATUS, tripTicketStatus } from '~/composables/motorpool/trip-ticket/trip-ticket.enums';
-    import { toZonedTime } from "date-fns-tz"
     import { useToast } from 'vue-toastification';
     import { get_time_and_day } from '~/composables/motorpool/trip-ticket/trip-ticket.helpers'
-    import { endOfWeek, format, formatISO, startOfWeek } from 'date-fns';
+    import { endOfWeek, formatISO, startOfWeek } from 'date-fns';
 
     definePageMeta({
         layout: "layout-motorpool"
@@ -313,10 +312,6 @@
     const toast = useToast();
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const today = new Date()
-    const config = useRuntimeConfig()
-    const TZ = config.public.TZ
-    const zonedTime = toZonedTime(today, TZ);
-    const formattedDateToday = format(zonedTime, 'yyyy-MM-dd HH:mm:ss')
 
     const isLoading = ref(true)
     const is_expanded_pms_sched = ref(true)
