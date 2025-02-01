@@ -60,6 +60,9 @@ export function handleAuth({ req }) {
     // Extract the client IP address
     const ip = getClientIp(req);
 
+     // Extract the User-Agent header
+     const userAgent = req.headers['user-agent'] || null;
+
     // Extract and decode the authorization token if provided
     let user = null;
     let authorization = null;
@@ -75,6 +78,7 @@ export function handleAuth({ req }) {
       user,
       authorization,
       ip, // Add IP to the context
+      userAgent,
     };
   } catch (error) {
     console.error('Error in handleAuth:', error);
@@ -116,6 +120,7 @@ export function handleAuth({ req }) {
               request.http.headers.set('user', context.user ? context.user : null);
               request.http.headers.set('authorization', context.authorization ? context.authorization : null);
               request.http.headers.set('X-Client-IP', context.ip || null);
+              request.http.headers.set('User-Agent', context.userAgent || null);
             },
           });
         },

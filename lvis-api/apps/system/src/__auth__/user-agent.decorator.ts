@@ -4,14 +4,18 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 export const UserAgent = createParamDecorator(
   (_data: unknown, context: ExecutionContext): string | null => {
     if (context.getType() === 'http') {
+      // For HTTP requests, extract User-Agent from headers
       const req = context.switchToHttp().getRequest();
-      // Extract User-Agent from HTTP headers, return null if not found
-      return req.headers['user-agent'] || null; 
+      return req.headers['user-agent'] || null;
     }
 
+    // For GraphQL requests, extract user-agent from the request headers in the context
     const gqlContext = GqlExecutionContext.create(context);
-    const req = gqlContext.getContext().req;
-    // Extract User-Agent from GraphQL context, return null if not found
-    return req.headers['user-agent'] || null;
+    const ctx = gqlContext.getContext();
+    const req = ctx.req; // Access the request object from the context
+
+    console.log('req.headers', req.headers); // Log headers for debugging
+
+    return req.headers['user-agent'] || null; // Extract user-agent from headers
   }
 );
