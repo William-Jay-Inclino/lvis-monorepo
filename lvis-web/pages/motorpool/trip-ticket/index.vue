@@ -130,13 +130,13 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageTripTicket') }"
+                                                    <a :href="`/motorpool/trip-ticket/view/${i.id}`" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageTripTicket') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageTripTicket')">
                                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']" />
-                            </client-only>
+                                                            <font-awesome-icon :icon="['fas', 'info-circle']" />
+                                                        </client-only>
                                                         View details
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </tbody>

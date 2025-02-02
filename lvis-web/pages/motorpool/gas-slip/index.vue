@@ -129,13 +129,13 @@
 
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <button :data-testid="`view-details-${ i.gas_slip_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageGasSlip') }"
+                                                    <a :href="`/motorpool/gas-slip/view/${ i.id }`" :data-testid="`view-details-${ i.gas_slip_number }`" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageGasSlip') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageGasSlip')">
                                                         <client-only>
                                                             <font-awesome-icon :icon="['fas', 'info-circle']" />
                                                         </client-only>
                                                         View details
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -12,7 +12,7 @@ SELECT u.username,
        COUNT(*) AS event_count -- Optional: To count events per user
 FROM user_audit_log log 
 INNER JOIN "user" u ON u.id = log.user_id
-WHERE DATE(event_timestamp) = '2025-01-28'
+WHERE DATE(event_timestamp) = '2025-02-01'
 GROUP BY u.username;
 
 // user login/logout details
@@ -25,7 +25,7 @@ SELECT
     device_info
 FROM user_audit_log log 
 INNER JOIN "user" u ON u.id = log.user_id
-WHERE DATE(event_timestamp) = '2025-01-28';
+WHERE DATE(event_timestamp) = '2025-02-01';
 
 
 
