@@ -9,7 +9,8 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col">
+
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">MEQS Number</label>
                             <client-only>
@@ -17,7 +18,8 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Transaction</label>
                             <div class="row g-0">
@@ -42,16 +44,14 @@
                     </div>
         
         
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="date_requested" type="date" class="form-control">
                         </div>
                     </div>
-                </div>
 
-                <div class="row pt-1">
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
@@ -59,7 +59,8 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Supplier</label>
                             <client-only>
@@ -67,7 +68,8 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Status</label>
                             <client-only>
@@ -119,43 +121,43 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white">MEQS Number</th>
+                                                <th class="bg-secondary text-white no-wrap">MEQS Number</th>
                                                 <th class="bg-secondary text-white">Reference</th>
                                                 <th class="bg-secondary text-white">Requisitioner</th>
                                                 <th class="bg-secondary text-white">Date</th>
                                                 <th class="bg-secondary text-white text-center">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
-                                <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                            </client-only>
+                                                        <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                                    </client-only>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in items">
-                                                <td class="text-muted align-middle"> {{ i.meqs_number }} </td>
-                                                <td class="text-muted align-middle" v-if="i.rv_number">
+                                                <td class="text-muted align-middle no-wrap"> {{ i.meqs_number }} </td>
+                                                <td class="text-muted align-middle no-wrap" v-if="i.rv_number">
                                                     RV#{{ i.rv_number }}
                                                 </td>
-                                                <td class="text-muted align-middle" v-else-if="i.jo_number">
+                                                <td class="text-muted align-middle no-wrap" v-else-if="i.jo_number">
                                                     JO#{{ i.jo_number }}
                                                 </td>
-                                                <td class="text-muted align-middle" v-else-if="i.spr_number">
+                                                <td class="text-muted align-middle no-wrap" v-else-if="i.spr_number">
                                                     SPR#{{ i.spr_number }}
                                                 </td>
                                                 <td v-else>
                                                     N/A
                                                 </td>
-                                                <td class="text-muted align-middle">
+                                                <td class="text-muted align-middle no-wrap">
                                                     {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
                                                 </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.meqs_date) }} </td>
-                                                <td class="text-center align-middle">
+                                                <td class="text-muted align-middle no-wrap"> {{ formatDate(i.meqs_date) }} </td>
+                                                <td class="text-center align-middle no-wrap">
                                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
                                                     </div>
                                                 </td>
-                                                <td class="text-center align-middle">
+                                                <td class="text-center align-middle no-wrap">
                                                     <button :data-testid="`view-details-${ i.meqs_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
                                                         :class="{ 'text-primary': canViewDetails(authUser, 'canManageMEQS') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageMEQS')">
@@ -173,7 +175,7 @@
                             </div>
                         </div>
         
-                        <div class="row">
+                        <div class="row pt-4">
                             <div class="col">
                                 <nav>
                                     <ul class="pagination justify-content-center">
@@ -331,7 +333,7 @@ onMounted(async () => {
 // ======================== COMPUTED ======================== 
 
 const visiblePages = computed(() => {
-    const maxVisible = 5; // Max pages to show
+    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
     const currentPage = pagination.value.currentPage;
     const totalPages = pagination.value.totalPages;
 

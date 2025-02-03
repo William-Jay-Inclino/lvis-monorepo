@@ -154,10 +154,10 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="i, count in item.meqs_approvers">
-                                            <td class="align-middle"> {{ i.label }} </td>
-                                            <td class="align-middle"> {{ getFullname(i.approver!.firstname,
+                                            <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                            <td class="align-middle no-wrap"> {{ getFullname(i.approver!.firstname,
                 i.approver!.middlename, i.approver!.lastname) }} </td>
-                                            <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle">
+                                            <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                                 <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                     {{ approvalStatus[i.status].label }}
                                                 </div>
@@ -165,7 +165,7 @@
                                                     <small> {{ formatDate(i.date_approval, true) }} </small>
                                                 </div>
                                             </td>
-                                            <td v-else class="text-muted text-center align-middle fst-italic">
+                                            <td v-else class="text-muted text-center align-middle fst-italic no-wrap">
                                                 N/A
                                             </td>
                                             <td>
@@ -202,7 +202,7 @@
                                     <thead>
                                         <tr>
                                             <th class="bg-secondary text-white"> Supplier </th>
-                                            <th class="bg-secondary text-white"> Payment Terms </th>
+                                            <th class="bg-secondary text-white no-wrap"> Payment Terms </th>
                                             <th class="bg-secondary text-white"> Attachments </th>
                                         </tr>
                                     </thead>
@@ -257,15 +257,15 @@
                                         <table class="table table-hover table-sm table-bordered ">
                                             <thead>
                                                 <tr>
-                                                    <th class="bg-secondary text-white"> No </th>
-                                                    <th class="bg-secondary text-white"> Item </th>
-                                                    <th class="bg-secondary text-white"> Unit Price </th>
-                                                    <th class="bg-secondary text-white"> Qty </th>
-                                                    <th class="bg-secondary text-white text-center"
+                                                    <th class="bg-secondary text-white align-middle"> No </th>
+                                                    <th class="bg-secondary text-white align-middle"> Item </th>
+                                                    <th class="bg-secondary text-white align-middle no-wrap"> Unit Price </th>
+                                                    <th class="bg-secondary text-white align-middle"> Qty </th>
+                                                    <th class="bg-secondary text-white text-center align-middle"
                                                         v-for="meqsSupplier in item.meqs_suppliers">
                                                         {{ `${meqsSupplier.supplier?.name}` }}
                                                     </th>
-                                                    <th class="bg-secondary text-white text-center">Remarks</th>
+                                                    <th class="bg-secondary text-white text-center align-middle">Remarks</th>
                                                 </tr>
                                             </thead>
                                             <tbody v-if="referenceData?.canvass">
@@ -274,9 +274,9 @@
                                                     <td class="text-muted align-middle">
                                                         <textarea class="form-control form-control-sm" rows="5" readonly>{{ canvassItem.description }} </textarea>
                                                     </td>
-                                                    <td class="text-muted align-middle"> {{ canvassItem.unit ? canvassItem.unit.name : 'N/A' }} </td>
+                                                    <td class="text-muted align-middle no-wrap"> {{ canvassItem.unit ? canvassItem.unit.name : 'N/A' }} </td>
                                                     <td class="text-muted align-middle"> {{ canvassItem.quantity }} </td>
-                                                    <td class="text-muted text-center align-middle" v-for="meqsSupplier in item.meqs_suppliers">
+                                                    <td class="text-muted text-center align-middle no-wrap" v-for="meqsSupplier in item.meqs_suppliers">
                                                         <template v-for="supplierItem in meqsSupplier.meqs_supplier_items">
                                                             <span v-if="supplierItem.canvass_item.id === canvassItem.id">
                                                                 {{ 
@@ -298,7 +298,7 @@
                                                             </span>
                                                         </template>
                                                     </td>
-                                                    <td class="text-center align-middle">
+                                                    <td class="text-center align-middle no-wrap">
                                                         <button @click="onClickNote(canvassItem.id)" class="btn btn-secondary btn-sm"
                                                             data-bs-toggle="modal" data-bs-target="#myModal">
                                                             <client-only>
@@ -343,42 +343,40 @@
 
                     <div class="row pt-3">
                         <div class="col">
-                            <div class="d-flex justify-content-end">
-                                <div class="me-2">
-                                    <nuxt-link v-if="canSearch(authUser, 'canManageMEQS')" class="btn btn-secondary me-2"
-                                        to="/purchase/meqs">
-                                        <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search MEQS
-                                    </nuxt-link>
-                                    <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMEQS')" @click="onClickPrint" class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#purchasingPdfModal">
-                                        <client-only>
-                                <font-awesome-icon :icon="['fas', 'print']"/>
-                            </client-only> Print MEQS
-                                    </button>
-                                </div>
-                                <div v-if="!item.cancelled_at">
-                                    <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
+                            <div class="d-flex justify-content-center flex-wrap gap-2">
+                                <nuxt-link v-if="canSearch(authUser, 'canManageMEQS')" class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}"
+                                    to="/purchase/meqs">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'search']" />
+                                    </client-only> 
+                                    Search MEQS
+                                </nuxt-link>
+                                <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMEQS')" @click="onClickPrint" class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}" data-bs-toggle="modal"
+                                    data-bs-target="#purchasingPdfModal">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'print']"/>
+                                    </client-only> Print MEQS
+                                </button>
+                                <template v-if="!item.cancelled_at">
+                                    <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
                                         @click="onCancelMeqs()">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Cancel MEQS
+                                            <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                        </client-only> Cancel MEQS
                                     </button>
-                                    <button v-if="!!item.can_update" class="btn btn-success me-2"
+                                    <button v-if="!!item.can_update" class="btn btn-success" :class="{'w-100 w-md-auto': isMobile}"
                                         @click="onClickUpdate(item.id)">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']"/>
-                            </client-only> Edit Form
+                                            <font-awesome-icon :icon="['fas', 'edit']"/>
+                                        </client-only> Edit Form
                                     </button>
-                                    <button v-if="canCreate(authUser, 'canManageMEQS')" class="btn btn-primary me-2"
+                                    <button v-if="canCreate(authUser, 'canManageMEQS')" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}"
                                         @click="onClickAdd">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New MEQS
+                                            <font-awesome-icon :icon="['fas', 'plus']"/>
+                                    </client-only> Add New MEQS
                                     </button>
-                                </div>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -441,26 +439,30 @@ definePageMeta({
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 const isLoadingPdf = ref(false)
-
 const config = useRuntimeConfig()
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
-
 const router = useRouter()
 const route = useRoute()
 const toast = useToast();
-
+const screenWidth = ref(0);
 const item = ref<MEQS | undefined>()
 const API_FILE_ENDPOINT = config.public.apiUrl + '/api/v1/file-upload'
-
 const selectedAttachment = ref('')
 const selectedNote = ref('')
 const modalToShow = ref<'attachment' | 'note'>('attachment')
-
 const pdfUrl = ref('')
+
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async () => {
 
     authUser.value = getAuthUser()
+
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
 
     item.value = await meqsApi.findOne(route.params.id as string)
 
