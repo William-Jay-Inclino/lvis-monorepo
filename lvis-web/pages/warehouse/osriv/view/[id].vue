@@ -99,11 +99,11 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.osriv_approvers">
-                                                <td class="align-middle"> {{ i.label }} </td>
-                                                <td class="align-middle"> 
+                                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                                <td class="align-middle no-wrap"> 
                                                     {{ getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname) }} 
                                                 </td>
-                                                <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle">
+                                                <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
                                                     </div>
@@ -148,18 +148,18 @@
                                         <thead>
                                             <tr>
                                                 <th class="bg-secondary text-white"> No. </th>
-                                                <th class="bg-secondary text-white"> Item Code </th>
+                                                <th class="bg-secondary text-white no-wrap"> Item Code </th>
                                                 <th class="bg-secondary text-white"> Description </th>
                                                 <th class="bg-secondary text-white"> Unit </th>
                                                 <th class="bg-secondary text-white"> Quantity </th>
-                                                <th class="bg-secondary text-white"> Unit Price </th>
+                                                <th class="bg-secondary text-white no-wrap"> Unit Price </th>
                                                 <th class="bg-secondary text-white"> Amount </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.osriv_items">
                                                 <td class="align-middle"> {{ count + 1 }} </td>
-                                                <td class="align-middle">
+                                                <td class="align-middle no-wrap">
                                                     <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
                                                         {{ i.item.code }}
                                                     </nuxt-link>
@@ -167,10 +167,10 @@
                                                 <td class="align-middle">
                                                     <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.item.description }}</textarea>
                                                 </td>
-                                                <td class="align-middle"> {{ i.item.unit.name }} </td>
+                                                <td class="align-middle no-wrap"> {{ i.item.unit.name }} </td>
                                                 <td class="align-middle"> {{ i.quantity }} </td>
-                                                <td class="align-middle"> {{ formatToPhpCurrency(i.price) }} </td>
-                                                <td class="align-middle"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
+                                                <td class="align-middle no-wrap"> {{ formatToPhpCurrency(i.price) }} </td>
+                                                <td class="align-middle no-wrap"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -183,36 +183,34 @@
         
                         <div class="row mb-3 pt-3">
                             <div class="col">
-                                <div class="d-flex justify-content-end">
-                                    <div class="me-2">
-                                        <nuxt-link v-if="canSearch(authUser, 'canManageOSRIV')" class="btn btn-secondary me-2"
-                                            to="/warehouse/OSRIV">
-                                            <client-only>
-                                                <font-awesome-icon :icon="['fas', 'search']" />
-                                            </client-only> 
-                                            Search OSRIV
-                                        </nuxt-link>
-                                    </div>
-                                    <div v-if="!item.cancelled_at">
-                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
+                                <div class="d-flex justify-content-center flex-wrap gap-2">
+                                    <nuxt-link v-if="canSearch(authUser, 'canManageOSRIV')" class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}"
+                                        to="/warehouse/OSRIV">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'search']" />
+                                        </client-only> 
+                                        Search OSRIV
+                                    </nuxt-link>
+                                    <template v-if="!item.cancelled_at">
+                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onCancelOsriv()">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'times-circle']" />
                                             </client-only> Cancel OSRIV
                                         </button>
-                                        <button v-if="!!item.can_update" class="btn btn-success me-2"
+                                        <button v-if="!!item.can_update" class="btn btn-success" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onClickUpdate(item.id)">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'edit']"/>
                                             </client-only> Edit Form
                                         </button>
-                                        <button v-if="canCreate(authUser, 'canManageOSRIV')" class="btn btn-primary me-2"
+                                        <button v-if="canCreate(authUser, 'canManageOSRIV')" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onClickAdd">
                                             <client-only>
                                                     <font-awesome-icon :icon="['fas', 'plus']"/>
                                             </client-only> Add New OSRIV
                                         </button>
-                                    </div>
+                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -258,6 +256,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 const router = useRouter()
 const route = useRoute()
 const toast = useToast();
+const screenWidth = ref(0);
 
 // FLAGS
 const isLoadingPage = ref(true)
@@ -268,11 +267,17 @@ const printBtn = ref<HTMLButtonElement>()
 const item = ref<OSRIV | undefined>()
 const pdfUrl = ref('')
 
-
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async () => {
 
     authUser.value = getAuthUser()
+
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
 
     const response = await api.findOne(route.params.id as string)
 

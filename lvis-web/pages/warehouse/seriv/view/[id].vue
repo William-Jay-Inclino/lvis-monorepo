@@ -160,11 +160,11 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.seriv_approvers">
-                                                <td class="align-middle"> {{ i.label }} </td>
-                                                <td class="align-middle"> {{ getFullname(i.approver!.firstname,
+                                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                                <td class="align-middle no-wrap"> {{ getFullname(i.approver!.firstname,
                 i.approver!.middlename, i.approver!.lastname) }} </td>
                                                 <td v-if="!isBlankStatus(item.status, i.status)"
-                                                    class="text-muted text-center align-middle">
+                                                    class="text-muted text-center align-middle no-wrap">
                                                     <div
                                                         :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
@@ -210,18 +210,18 @@
                                         <thead>
                                             <tr>
                                                 <th class="bg-secondary text-white"> No. </th>
-                                                <th class="bg-secondary text-white"> Item Code </th>
+                                                <th class="bg-secondary text-white no-wrap"> Item Code </th>
                                                 <th class="bg-secondary text-white"> Description </th>
                                                 <th class="bg-secondary text-white"> Unit </th>
                                                 <th class="bg-secondary text-white"> Quantity </th>
-                                                <th class="bg-secondary text-white"> Unit Price </th>
+                                                <th class="bg-secondary text-white no-wrap"> Unit Price </th>
                                                 <th class="bg-secondary text-white"> Amount </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.seriv_items">
                                                 <td class="align-middle"> {{ count + 1 }} </td>
-                                                <td class="align-middle">
+                                                <td class="align-middle no-wrap">
                                                     <nuxt-link data-test="item-link" :to="'/warehouse/item/view/' + i.item.id">
                                                         {{ i.item.code }}
                                                     </nuxt-link>
@@ -229,10 +229,10 @@
                                                 <td class="align-middle">
                                                     <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.item.description +  (i.item.project_item ? `(${i.item.project_item?.project.name})` : '') }}</textarea>
                                                 </td>
-                                                <td class="align-middle"> {{ i.item.unit.name }} </td>
+                                                <td class="align-middle no-wrap"> {{ i.item.unit.name }} </td>
                                                 <td class="align-middle"> {{ i.quantity }} </td>
-                                                <td class="align-middle"> {{ formatToPhpCurrency(i.price) }} </td>
-                                                <td class="align-middle"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
+                                                <td class="align-middle no-wrap"> {{ formatToPhpCurrency(i.price) }} </td>
+                                                <td class="align-middle no-wrap"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -245,52 +245,50 @@
 
                         <div class="row mb-3 pt-3">
                             <div class="col">
-                                <div class="d-flex justify-content-end">
-                                    <div class="me-2">
-                                        <nuxt-link v-if="canSearch(authUser, 'canManageSERIV')"
-                                            class="btn btn-secondary me-2" to="/warehouse/SERIV">
-                                            <client-only>
-                                                <font-awesome-icon :icon="['fas', 'search']" />
-                                            </client-only> 
-                                            Search SERIV
-                                        </nuxt-link>
-                                        <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')" @click="onClickPrint()" class="btn btn-danger me-2">
-                                            <client-only>
-                                                <font-awesome-icon :icon="['fas', 'print']"/>
-                                            </client-only> Print SERIV
-                                        </button>
-                                        <button
-                                            v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')"
-                                            @click="onClickPrint({is_gate_pass: true})"
-                                            class="btn btn-danger"
-                                        >
-                                            <client-only>
-                                                <font-awesome-icon :icon="['fas', 'shield-alt']"/>
-                                            </client-only> Print Gate Pass
-                                        </button>
-                                        <button ref="printBtn" v-show="false" data-bs-toggle="modal"
-                                            data-bs-target="#purchasingPdfModal">print</button>
-                                    </div>
-                                    <div v-if="!item.cancelled_at">
+                                <div class="d-flex justify-content-center flex-wrap gap-2">
+                                    <nuxt-link v-if="canSearch(authUser, 'canManageSERIV')"
+                                        class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}" to="/warehouse/SERIV">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'search']" />
+                                        </client-only> 
+                                        Search SERIV
+                                    </nuxt-link>
+                                    <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')" @click="onClickPrint()" class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'print']"/>
+                                        </client-only> Print SERIV
+                                    </button>
+                                    <button
+                                        v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageSERIV')"
+                                        @click="onClickPrint({is_gate_pass: true})"
+                                        class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}"
+                                    >
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'shield-alt']"/>
+                                        </client-only> Print Gate Pass
+                                    </button>
+                                    <button ref="printBtn" v-show="false" data-bs-toggle="modal"
+                                        data-bs-target="#purchasingPdfModal">print</button>
+                                    <template v-if="!item.cancelled_at">
                                         <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING"
-                                            class="btn btn-warning me-2" @click="onCancelSERIV()">
+                                            class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}" @click="onCancelSERIV()">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'times-circle']" />
                                             </client-only> Cancel SERIV
                                         </button>
-                                        <button v-if="!!item.can_update" class="btn btn-success me-2"
+                                        <button v-if="!!item.can_update" class="btn btn-success" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onClickUpdate(item.id)">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'edit']"/>
                                             </client-only> Edit Form
                                         </button>
                                         <button v-if="canCreate(authUser, 'canManageSERIV')"
-                                            class="btn btn-primary me-2" @click="onClickAdd">
+                                            class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}" @click="onClickAdd">
                                             <client-only>
                                                     <font-awesome-icon :icon="['fas', 'plus']"/>
                                             </client-only> Add New SERIV
                                         </button>
-                                    </div>
+                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -333,25 +331,27 @@ definePageMeta({
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 const isLoadingPdf = ref(false)
-
 const config = useRuntimeConfig()
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
-
 const router = useRouter()
 const route = useRoute()
-
 const toast = useToast();
-
+const screenWidth = ref(0);
 const printBtn = ref<HTMLButtonElement>()
-
 const item = ref<SERIV | undefined>()
-
 const pdfUrl = ref('')
 
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async () => {
 
     authUser.value = getAuthUser()
+
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
 
     item.value = await api.findOne(route.params.id as string)
 
