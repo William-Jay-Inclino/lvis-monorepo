@@ -1,6 +1,13 @@
 
 // audit logs
-SELECT created_at, username, "action", "table", ip_address, device_info, metadata
+SELECT 
+    TO_CHAR(created_at, 'HH12:MI AM') AS created_at, 
+    username, 
+    "action", 
+    "table", 
+    ip_address, 
+    device_info, 
+    metadata
 FROM public.warehouse_audit
 WHERE DATE(created_at) = '2025-02-01'
 ORDER BY id DESC;

@@ -8,7 +8,7 @@
 				</span>
 				Developed by 
 				<a class="developer-link" target="_blank" href="https://www.facebook.com/jewell.inclino">
-					W.J.I
+					{{ isMobile ? 'W.J.I' : 'William Jay Inclino' }}
 					<client-only>
 						<font-awesome-icon :icon="['fas', 'bolt']" class="text-warning"/>
 					</client-only>
@@ -23,19 +23,20 @@
 	const config = useRuntimeConfig()
 	const APP_VERSION = config.public.appVersion
 
-	const isMobile = ref(false)
+	const screenWidth = ref(0);
+
+	const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
+
 
 	onMounted(() => {
+		screenWidth.value = window.innerWidth;
 
-		isMobile.value = window.innerWidth < MOBILE_WIDTH
+		window.addEventListener('resize', () => {
+			screenWidth.value = window.innerWidth;
+		});
 
-		window.addEventListener('resize', checkMobile);
 	})
 
-
-	function checkMobile() {
-		isMobile.value = window.innerWidth < MOBILE_WIDTH
-	}
 
 
 </script>
