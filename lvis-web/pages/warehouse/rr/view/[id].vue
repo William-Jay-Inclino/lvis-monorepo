@@ -174,10 +174,10 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="i, count in item.rr_approvers">
-                                        <td class="align-middle"> {{ i.label }} </td>
-                                        <td class="align-middle"> {{ getFullname(i.approver!.firstname, i.approver!.middlename,
+                                        <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                        <td class="align-middle no-wrap"> {{ getFullname(i.approver!.firstname, i.approver!.middlename,
                 i.approver!.lastname) }} </td>
-                                        <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle">
+                                        <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                             <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                 {{ approvalStatus[i.status].label }}
                                             </div>
@@ -185,7 +185,7 @@
                                                 <small> {{ formatDate(i.date_approval, true) }} </small>
                                             </div>
                                         </td>
-                                        <td v-else class="text-muted text-center align-middle fst-italic">
+                                        <td v-else class="text-muted text-center align-middle fst-italic no-wrap">
                                             N/A
                                         </td>
                                         <td>
@@ -328,13 +328,13 @@
                                                 <th v-show="showDescription" class="bg-secondary text-white">Description</th>
                                                 <th v-show="showClass" class="bg-secondary text-white">Class</th>
                                                 <th v-show="showUnit" class="bg-secondary text-white">Unit</th>
-                                                <th v-show="showDelivered" class="bg-secondary text-white">Qty Request</th>
-                                                <th v-show="showAccepted" class="bg-secondary text-white">Qty Accepted</th>
-                                                <th v-show="showVat" class="bg-secondary text-white">VAT Type</th>
-                                                <th v-show="showGrossPrice" class="bg-secondary text-white">Unit Cost</th>
-                                                <th v-show="showNetTotal" class="bg-secondary text-white">Vatable Amount</th>
+                                                <th v-show="showDelivered" class="bg-secondary text-white no-wrap">Qty Request</th>
+                                                <th v-show="showAccepted" class="bg-secondary text-white no-wrap">Qty Accepted</th>
+                                                <th v-show="showVat" class="bg-secondary text-white no-wrap">VAT Type</th>
+                                                <th v-show="showGrossPrice" class="bg-secondary text-white no-wrap">Unit Cost</th>
+                                                <th v-show="showNetTotal" class="bg-secondary text-white no-wrap">Vatable Amount</th>
                                                 <th v-show="showVatTotal" class="bg-secondary text-white">VAT</th>
-                                                <th v-show="showGrossTotal" class="bg-secondary text-white">Total Cost</th>
+                                                <th v-show="showGrossTotal" class="bg-secondary text-white no-wrap">Total Cost</th>
                                                 <!-- <th v-show="showNetPrice" class="bg-secondary text-white">Net Amount</th> -->
                                             </tr>
                                         </thead>
@@ -348,7 +348,7 @@
                                                             readonly></textarea>
                                                     </div>
                                                 </td>
-                                                <td v-show="showClass" class="text-muted align-middle text-center">
+                                                <td v-show="showClass" class="text-muted align-middle text-center no-wrap">
                                                     <div v-if="rrItem.meqs_supplier_item.canvass_item.item">
                                                         <div> Stock </div>
                                                         <div v-if="rrItem.item_transaction">
@@ -362,7 +362,7 @@
                                                         Non-Stock
                                                     </div>
                                                 </td>
-                                                <td v-show="showUnit" class="text-muted align-middle">
+                                                <td v-show="showUnit" class="text-muted align-middle no-wrap">
                                                     {{ rrItem.meqs_supplier_item.canvass_item.unit ?
                 rrItem.meqs_supplier_item.canvass_item.unit.name : 'N/A' }}
                                                 </td>
@@ -372,13 +372,13 @@
                                                 <td v-show="showAccepted" class="text-muted text-center align-middle">
                                                     {{ rrItem.quantity_accepted }}
                                                 </td>
-                                                <td v-show="showVat" class="text-muted text-center align-middle">
+                                                <td v-show="showVat" class="text-muted text-center align-middle no-wrap">
                                                     {{ VAT[rrItem.meqs_supplier_item.vat_type].label }}
                                                 </td>
-                                                <td v-show="showGrossPrice" class="text-muted text-center align-middle">
+                                                <td v-show="showGrossPrice" class="text-muted text-center align-middle no-wrap">
                                                     {{ formatToPhpCurrency(rrItem.meqs_supplier_item.price) }}
                                                 </td>
-                                                <td v-show="showNetTotal" class="text-muted text-center align-middle">
+                                                <td v-show="showNetTotal" class="text-muted text-center align-middle no-wrap">
                                                     {{
                                                     formatToPhpCurrency(
                                                     getTotalNetPrice({
@@ -391,7 +391,7 @@
                                                     )
                                                     }}
                                                 </td>
-                                                <td v-show="showVatTotal" class="text-muted text-center align-middle">
+                                                <td v-show="showVatTotal" class="text-muted text-center align-middle no-wrap">
                                                     {{
                                                         formatToPhpCurrency(
                                                             getVatTotal({
@@ -402,7 +402,7 @@
                                                         )
                                                     }}
                                                 </td>
-                                                <td v-show="showGrossTotal" class="text-muted text-center align-middle">
+                                                <td v-show="showGrossTotal" class="text-muted text-center align-middle no-wrap">
                                                     {{
                                                         formatToPhpCurrency(
                                                         getGrossTotal({
@@ -422,22 +422,22 @@
                     </div>
                 </div>
         
-                <div class="row justify-content-end">
-                    <div class="col-4">
+                <div class="row pt-3 justify-content-end">
+                    <div class="col-lg-4 col-md-8 col-sm-12">
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered table-striped">
                                 <tbody>
                                     <tr>
-                                        <td class="fst-italic"> Summary (Gross Total) </td>
-                                        <td class="fw-bold"> {{ formatToPhpCurrency(grossTotalSummary) }} </td>
+                                        <td class="fst-italic no-wrap"> Summary (Gross Total) </td>
+                                        <td class="fw-bold no-wrap"> {{ formatToPhpCurrency(grossTotalSummary) }} </td>
                                     </tr>
                                     <tr>
-                                        <td class="fst-italic"> Delivery Charge </td>
-                                        <td class="fw-bold"> {{ formatToPhpCurrency(item.delivery_charge) }} </td>
+                                        <td class="fst-italic no-wrap"> Delivery Charge </td>
+                                        <td class="fw-bold no-wrap"> {{ formatToPhpCurrency(item.delivery_charge) }} </td>
                                     </tr>
                                     <tr>
-                                        <td class="fst-italic"> Total </td>
-                                        <td class="fw-bold"> {{ formatToPhpCurrency(totalPriceSummary) }} </td>
+                                        <td class="fst-italic no-wrap"> Total </td>
+                                        <td class="fw-bold no-wrap"> {{ formatToPhpCurrency(totalPriceSummary) }} </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -445,44 +445,43 @@
                     </div>
                 </div>
         
-                <div class="row mb-3 pt-3 justify-content-center">
-                    <div class="col-lg-12">
-                        <hr>
-                        <div class="d-flex justify-content-end">
-                            <div class="me-2">
-                                <nuxt-link v-if="canSearch(authUser, 'canManageRR')" class="btn btn-secondary me-2"
-                                    to="/warehouse/rr">
-                                    <client-only>
-                                        <font-awesome-icon :icon="['fas', 'search']" />
-                                    </client-only> 
-                                    Search RR
-                                </nuxt-link>
-                                <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageRR')" @click="onClickPrint" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#purchasingPdfModal">
-                                    <client-only>
-                                        <font-awesome-icon :icon="['fas', 'print']"/>
-                                    </client-only> Print RR
-                                </button>
-                            </div>
-                            <div v-if="!item.cancelled_at">
-                                <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
+                <hr>
+
+                <div class="row mb-3 pt-3">
+                    <div class="col">
+                        <div class="d-flex justify-content-center flex-wrap gap-2">
+                            <nuxt-link v-if="canSearch(authUser, 'canManageRR')" class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}"
+                                to="/warehouse/rr">
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'search']" />
+                                </client-only> 
+                                Search RR
+                            </nuxt-link>
+                            <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageRR')" @click="onClickPrint" class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}" data-bs-toggle="modal"
+                                data-bs-target="#purchasingPdfModal">
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'print']"/>
+                                </client-only> Print RR
+                            </button>
+                            <template v-if="!item.cancelled_at">
+                                <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
                                     @click="onCancelRr()">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'times-circle']" />
                                     </client-only> Cancel RR
                                 </button>
-                                <button v-if="!!item.can_update" class="btn btn-success me-2" @click="onClickUpdate(item.id)">
+                                <button v-if="!!item.can_update" class="btn btn-success" :class="{'w-100 w-md-auto': isMobile}" @click="onClickUpdate(item.id)">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'edit']"/>
                                     </client-only> Edit Form
                                 </button>
-                                <button data-testid="add-new-rr" v-if="canCreate(authUser, 'canManageRR')" class="btn btn-primary me-2"
+                                <button data-testid="add-new-rr" v-if="canCreate(authUser, 'canManageRR')" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}"
                                     @click="onClickAdd">
                                     <client-only>
                                             <font-awesome-icon :icon="['fas', 'plus']"/>
                                     </client-only> Add New RR
                                 </button>
-                            </div>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -521,14 +520,12 @@ definePageMeta({
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 const isLoadingPdf = ref(false)
-
 const config = useRuntimeConfig()
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
-
 const router = useRouter()
 const route = useRoute()
 const toast = useToast();
-
+const screenWidth = ref(0);
 const item = ref<RR | undefined>()
 
 const showDescription = ref(true)
@@ -539,15 +536,23 @@ const showDelivered = ref(true)
 const showAccepted = ref(true)
 const showVat = ref(true)
 const showGrossPrice = ref(true)
-const showNetPrice = ref(true)
 const showGrossTotal = ref(true)
 const showVatTotal = ref(true)
 const showNetTotal = ref(true)
 
 const pdfUrl = ref('')
 
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
+
 onMounted(async () => {
     authUser.value = getAuthUser()
+
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
+
     const rr = await rrApi.findOne(route.params.id as string)
     item.value = rr
     isLoadingPage.value = false

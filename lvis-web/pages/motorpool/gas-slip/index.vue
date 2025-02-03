@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Gas Slip Number</label>
                             <client-only>
@@ -17,7 +17,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
@@ -25,16 +25,13 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="used_on_date" type="date" class="form-control">
                         </div>
                     </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Approval Status</label>
                             <client-only>
@@ -42,7 +39,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Post Status</label>
                             <client-only>
@@ -96,7 +93,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="bg-secondary text-white no-wrap">Gas Slip No.</th>
-                                                <th class="bg-secondary text-white no-wrap">Vehicle No.</th>
+                                                <th class="bg-secondary text-white no-wrap">Vehicle</th>
                                                 <th class="bg-secondary text-white">Date</th>
                                                 <th class="bg-secondary text-white text-center">Status</th>
                                                 <th class="text-center bg-secondary text-white">
@@ -109,7 +106,7 @@
                                         <tbody>
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.gas_slip_number }} </td>
-                                                <td class="text-muted align-middle no-wrap"> {{ i.vehicle.vehicle_number }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ `${i.vehicle.vehicle_number} ${i.vehicle.name}` }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ formatDate(i.used_on) }} </td>
                                                 <td class="text-center align-middle">
 
