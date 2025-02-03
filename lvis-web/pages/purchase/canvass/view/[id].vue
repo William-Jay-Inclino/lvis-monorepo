@@ -210,7 +210,7 @@
                                                 <tr>
                                                     <th class="bg-secondary text-white"> No. </th>
                                                     <th class="bg-secondary text-white"> Description </th>
-                                                    <th class="bg-secondary text-white"> Item Class </th>
+                                                    <th class="bg-secondary text-white no-wrap"> Item Class </th>
                                                     <th class="bg-secondary text-white"> Unit </th>
                                                     <th class="bg-secondary text-white"> Quantity </th>
                                                 </tr>
@@ -221,8 +221,8 @@
                                                     <td class="align-middle"> 
                                                         <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.item ? `${ i.item.code } - ${ i.item.description }` : i.description }}</textarea>
                                                     </td>
-                                                    <td class="align-middle"> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
-                                                    <td class="align-middle"> {{ i.unit ? i.unit.name : 'N/A' }} </td>
+                                                    <td class="align-middle no-wrap"> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
+                                                    <td class="align-middle no-wrap"> {{ i.unit ? i.unit.name : 'N/A' }} </td>
                                                     <td class="align-middle"> {{ i.quantity }} </td>
                                                 </tr>
                                             </tbody>
@@ -237,36 +237,32 @@
         
                         <div class="row mb-3 pt-3">
                             <div class="col">
-                                <div class="d-flex justify-content-end">
-                                    <div class="me-2">
-                                        <nuxt-link v-if="canSearch(authUser, 'canManageCanvass')" class="btn btn-secondary me-2"
-                                            to="/purchase/canvass">
-                                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search Canvass
-                                        </nuxt-link>
-                                        <button data-testid="print" v-if="canPrint(authUser, 'canManageCanvass')" @click="onClickPrint" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#purchasingPdfModal">
-                                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'print']"/>
-                            </client-only> Print Canvass
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <nuxt-link v-if="!!item.can_update" class="btn btn-success me-2"
-                                            :to="`/purchase/canvass/${item.id}`">
-                                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'sync']"/>
-                            </client-only> Update Canvass
-                                        </nuxt-link>
-                                        <nuxt-link v-if="canCreate(authUser, 'canManageCanvass')" class="btn btn-primary"
-                                            to="/purchase/canvass/create">
-                                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New Canvass
-                                        </nuxt-link>
-                                    </div>
+                                <div class="d-flex justify-content-center flex-wrap gap-2">
+                                    <nuxt-link v-if="canSearch(authUser, 'canManageCanvass')" class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}"
+                                        to="/purchase/canvass">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'search']" />
+                                        </client-only> 
+                                        Search Canvass
+                                    </nuxt-link>
+                                    <button data-testid="print" v-if="canPrint(authUser, 'canManageCanvass')" @click="onClickPrint" :class="{'w-100 w-md-auto': isMobile}" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#purchasingPdfModal">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'print']"/>
+                                        </client-only> Print Canvass
+                                    </button>
+                                    <nuxt-link v-if="!!item.can_update" class="btn btn-success" :class="{'w-100 w-md-auto': isMobile}"
+                                        :to="`/purchase/canvass/${item.id}`">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'sync']"/>
+                                        </client-only> Update Canvass
+                                    </nuxt-link>
+                                    <nuxt-link v-if="canCreate(authUser, 'canManageCanvass')" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}"
+                                        to="/purchase/canvass/create">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'plus']"/>
+                                    </client-only> Add New Canvass
+                                    </nuxt-link>
                                 </div>
                             </div>
                         </div>
@@ -314,15 +310,19 @@ const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 const authUser = ref<AuthUser>({} as AuthUser)
 const route = useRoute()
 const item = ref<Canvass | undefined>()
-const isMobile = ref(false)
+const screenWidth = ref(0);
 
 const pdfUrl = ref('')
 
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
+
 onMounted(async () => {
 
-    isMobile.value = window.innerWidth < MOBILE_WIDTH
+    screenWidth.value = window.innerWidth;
 
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
 
     authUser.value = getAuthUser()
 
@@ -332,10 +332,6 @@ onMounted(async () => {
     isLoadingPage.value = false
 
 })
-
-function checkMobile() {
-    isMobile.value = window.innerWidth < MOBILE_WIDTH
-}
 
 const hasPO = computed(() => {
 

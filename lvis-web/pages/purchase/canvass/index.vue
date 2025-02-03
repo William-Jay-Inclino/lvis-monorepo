@@ -77,7 +77,7 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white">RC Number</th>
+                                                <th class="bg-secondary text-white no-wrap">RC Number</th>
                                                 <th class="bg-secondary text-white">Requisitioner</th>
                                                 <th class="bg-secondary text-white">Date</th>
                                                 <th class="bg-secondary text-center text-white">
@@ -89,12 +89,12 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in items">
-                                                <td class="text-muted align-middle"> {{ i.rc_number }} </td>
-                                                <td class="text-muted align-middle"> {{
+                                                <td class="text-muted align-middle no-wrap"> {{ i.rc_number }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{
                 getFullname(i.requested_by!.firstname, i.requested_by!.middlename,
                     i.requested_by!.lastname) }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.date_requested) }} </td>
-                                                <td class="align-middle text-center">
+                                                <td class="text-muted align-middle no-wrap"> {{ formatDate(i.date_requested) }} </td>
+                                                <td class="align-middle text-center no-wrap">
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageCanvass') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageCanvass')">
                                                         <client-only>
@@ -114,7 +114,7 @@
                             </div>
                         </div>
         
-                        <div class="row">
+                        <div class="row pt-4">
                             <div class="col">
                                 <nav>
                                     <ul class="pagination justify-content-center">
@@ -242,7 +242,7 @@ onMounted(async () => {
 
 
 const visiblePages = computed(() => {
-    const maxVisible = 5; // Max pages to show
+    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
     const currentPage = pagination.value.currentPage;
     const totalPages = pagination.value.totalPages;
 
