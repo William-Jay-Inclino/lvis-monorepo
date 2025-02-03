@@ -67,7 +67,7 @@ constructor(private readonly prisma: PrismaService) { }
                 cancelled_at: new Date(),
                 cancelled_by: 'task-scheduler',
                 note: 'Expired',
-                approval_status: APPROVAL_STATUS.PENDING
+                approval_status: APPROVAL_STATUS.CANCELLED
             },
             where: { id: osriv.id }
         })
@@ -162,7 +162,7 @@ constructor(private readonly prisma: PrismaService) { }
                 cancelled_at: new Date(),
                 cancelled_by: 'task-scheduler',
                 note: 'Expired',
-                approval_status: APPROVAL_STATUS.PENDING
+                approval_status: APPROVAL_STATUS.CANCELLED
             },
             where: { id: seriv.id }
         })
@@ -256,7 +256,7 @@ constructor(private readonly prisma: PrismaService) { }
                 cancelled_at: new Date(),
                 cancelled_by: 'task-scheduler',
                 note: 'Expired',
-                approval_status: APPROVAL_STATUS.PENDING
+                approval_status: APPROVAL_STATUS.CANCELLED
             },
             where: { id: mrv.id }
         })
