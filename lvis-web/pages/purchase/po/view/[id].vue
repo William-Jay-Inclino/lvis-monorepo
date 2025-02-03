@@ -121,10 +121,10 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="i, count in item.po_approvers">
-                                        <td class="align-middle"> {{ i.label }} </td>
-                                        <td class="align-middle"> {{ getFullname(i.approver!.firstname, i.approver!.middlename,
+                                        <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                        <td class="align-middle no-wrap"> {{ getFullname(i.approver!.firstname, i.approver!.middlename,
                 i.approver!.lastname) }} </td>
-                                        <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle">
+                                        <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                             <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                 {{ approvalStatus[i.status].label }}
                                             </div>
@@ -167,14 +167,14 @@
                                     <tr>
                                         <th class="bg-secondary text-white">No</th>
                                         <th class="bg-secondary text-white">Description</th>
-                                        <th class="bg-secondary text-white">Item Class</th>
+                                        <th class="bg-secondary text-white no-wrap">Item Class</th>
                                         <th class="bg-secondary text-white">Unit</th>
                                         <th class="bg-secondary text-white">Qty</th>
-                                        <th class="bg-secondary text-white">VAT Type</th>
-                                        <th class="bg-secondary text-white">Unit Cost</th>
-                                        <th class="bg-secondary text-white">Vatable Amount</th>
+                                        <th class="bg-secondary text-white no-wrap">VAT Type</th>
+                                        <th class="bg-secondary text-white no-wrap">Unit Cost</th>
+                                        <th class="bg-secondary text-white no-wrap">Vatable Amount</th>
                                         <th class="bg-secondary text-white">VAT</th>
-                                        <th class="bg-secondary text-white">Total Cost</th>
+                                        <th class="bg-secondary text-white no-wrap">Total Cost</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -183,13 +183,13 @@
                                         <td class="align-middle"> 
                                             <textarea class="form-control form-control-sm" rows="5" readonly>{{ item.canvass_item.description }}</textarea>
                                         </td>
-                                        <td class="text-muted align-middle"> {{ item.canvass_item.item ? 'Stock' : 'Non-Stock' }} </td>
-                                        <td class="text-muted align-middle"> {{ item.canvass_item.unit ? item.canvass_item.unit.name : 'N/A'
+                                        <td class="text-muted align-middle no-wrap"> {{ item.canvass_item.item ? 'Stock' : 'Non-Stock' }} </td>
+                                        <td class="text-muted align-middle no-wrap"> {{ item.canvass_item.unit ? item.canvass_item.unit.name : 'N/A'
                                             }} </td>
                                         <td class="text-muted align-middle"> {{ item.canvass_item.quantity }} </td>
-                                        <td class="text-muted align-middle"> {{ VAT[item.vat_type].label }} </td>
-                                        <td class="text-muted align-middle"> {{ formatToPhpCurrency(item.price) }} </td>
-                                        <td class="text-muted align-middle">
+                                        <td class="text-muted align-middle no-wrap"> {{ VAT[item.vat_type].label }} </td>
+                                        <td class="text-muted align-middle no-wrap"> {{ formatToPhpCurrency(item.price) }} </td>
+                                        <td class="text-muted align-middle no-wrap">
                                             {{
                 formatToPhpCurrency(
                     getTotalNetPrice({
@@ -201,15 +201,15 @@
                 )
                                             }}
                                         </td>
-                                        <td class="text-muted align-middle"> {{ formatToPhpCurrency(getVatAmount(item.price * item.canvass_item.quantity, item.vat_type))
+                                        <td class="text-muted align-middle no-wrap"> {{ formatToPhpCurrency(getVatAmount(item.price * item.canvass_item.quantity, item.vat_type))
                                             }} </td>
-                                        <td class="text-muted align-middle"> {{ formatToPhpCurrency(item.price * item.canvass_item.quantity) }} </td>
+                                        <td class="text-muted align-middle no-wrap"> {{ formatToPhpCurrency(item.price * item.canvass_item.quantity) }} </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="9" class="text-end fw-bold">
+                                        <td colspan="9" class="text-end fw-bold no-wrap">
                                             Summary Total
                                         </td>
-                                        <td class="fw-bold">
+                                        <td class="fw-bold no-wrap">
                                             {{ formatToPhpCurrency(totalPriceOfAllItems) }}
                                         </td>
                                     </tr>
@@ -221,47 +221,44 @@
                     </div>
                 </div>
         
+                <hr>
         
-        
-                <div class="row mb-3 pt-3 justify-content-center">
-                    <div class="col-lg-11">
-                        <hr>
-                        <div class="d-flex justify-content-end">
-                            <div class="me-2">
-                                <nuxt-link v-if="canSearch(authUser, 'canManagePO')" class="btn btn-secondary me-2"
-                                    to="/purchase/po">
-                                    <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search PO
-                                </nuxt-link>
-                                <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManagePO')" @click="onClickPrint" class="btn btn-danger">
-                                    <client-only>
-                                        <font-awesome-icon :icon="['fas', 'print']"/>
-                                    </client-only> Print PO
-                                </button>
-                                <button ref="printBtn" v-show="false" data-bs-toggle="modal"
-                                    data-bs-target="#purchasingPdfModal">print</button>
-                            </div>
-                            <div v-if="!item.cancelled_at">
-                                <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
+                <div class="row mb-3 pt-3">
+                    <div class="col">
+                        <div class="d-flex justify-content-center flex-wrap gap-2">
+                            <nuxt-link v-if="canSearch(authUser, 'canManagePO')" class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}"
+                                to="/purchase/po">
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'search']" />
+                                </client-only> 
+                                Search PO
+                            </nuxt-link>
+                            <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManagePO')" @click="onClickPrint" class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}">
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'print']"/>
+                                </client-only> Print PO
+                            </button>
+                            <button ref="printBtn" v-show="false" data-bs-toggle="modal"
+                                data-bs-target="#purchasingPdfModal">print</button>
+                            <template v-if="!item.cancelled_at">
+                                <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
                                     @click="onCancelPo()" :disabled="item.rrs.length >= 1">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'times-circle']" />
                                     </client-only> Cancel PO
                                 </button>
-                                <button v-if="!!item.can_update" class="btn btn-success me-2" @click="onClickUpdate(item.id)">
+                                <button v-if="!!item.can_update" class="btn btn-success" :class="{'w-100 w-md-auto': isMobile}" @click="onClickUpdate(item.id)">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'edit']"/>
                                     </client-only> Edit Form
                                 </button>
-                                <button data-testid="add-new-po" v-if="canCreate(authUser, 'canManagePO')" class="btn btn-primary me-2"
+                                <button data-testid="add-new-po" v-if="canCreate(authUser, 'canManagePO')" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}"
                                     @click="onClickAdd">
                                     <client-only>
                                             <font-awesome-icon :icon="['fas', 'plus']"/>
                                     </client-only> Add New PO
                                 </button>
-                            </div>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -301,23 +298,28 @@ definePageMeta({
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 const isLoadingPdf = ref(false)
-
 const config = useRuntimeConfig()
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
-
 const router = useRouter()
 const route = useRoute()
 const toast = useToast();
-
+const screenWidth = ref(0);
 const printBtn = ref<HTMLButtonElement>()
-
 const item = ref<PO | undefined>()
-
 const pdfUrl = ref('')
+
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async () => {
 
     authUser.value = getAuthUser()
+
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
+
     item.value = await poApi.findOne(route.params.id as string)
 
     isLoadingPage.value = false

@@ -10,7 +10,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">PO Number</label>
                             <client-only>
@@ -18,7 +18,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">MEQS Number</label>
                             <client-only>
@@ -26,16 +26,13 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="date_requested" type="date" class="form-control">
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
@@ -43,7 +40,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Supplier</label>
                             <client-only>
@@ -51,7 +48,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Status</label>
                             <client-only>
@@ -60,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-        
+
                 <div class="d-flex justify-content-end gap-2">
                     <button data-testid="search" @click="search()" class="btn btn-primary" :disabled="isSearching">
                         <client-only>
@@ -102,33 +99,33 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white">PO Number</th>
-                                                <th class="bg-secondary text-white">MEQS Number</th>
+                                                <th class="bg-secondary text-white no-wrap">PO Number</th>
+                                                <th class="bg-secondary text-white no-wrap">MEQS Number</th>
                                                 <th class="bg-secondary text-white">Requisitioner</th>
                                                 <th class="bg-secondary text-white">Date</th>
                                                 <th class="bg-secondary text-white">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
-                                                    <font-awesome-icon :icon="['fas', 'cog']" />
-                                                </client-only>
+                                                        <font-awesome-icon :icon="['fas', 'cog']" />
+                                                    </client-only>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in items">
-                                                <td class="text-muted align-middle"> {{ i.po_number }} </td>
-                                                <td class="text-muted align-middle"> {{ i.meqs_number }}
+                                                <td class="text-muted align-middle no-wrap"> {{ i.po_number }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ i.meqs_number }}
                                                 </td>
-                                                <td class="text-muted align-middle">
+                                                <td class="text-muted align-middle no-wrap">
                                                     {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
                                                 </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.po_date) }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ formatDate(i.po_date) }} </td>
                                                 <td>
                                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
                                                     </div>
                                                 </td>
-                                                <td class="text-center align-middle">
+                                                <td class="text-center align-middle no-wrap">
                                                     <button :data-testid="`view-details-${ i.po_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
                                                         :class="{ 'text-primary': canViewDetails(authUser, 'canManagePO') }"
                                                         :disabled="!canViewDetails(authUser, 'canManagePO')">
@@ -146,7 +143,7 @@
                             </div>
                         </div>
         
-                        <div class="row">
+                        <div class="row pt-4">
                             <div class="col">
                                 <nav>
                                     <ul class="pagination justify-content-center">
@@ -282,7 +279,7 @@ onMounted(async () => {
 
 
 const visiblePages = computed(() => {
-    const maxVisible = 5; // Max pages to show
+    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
     const currentPage = pagination.value.currentPage;
     const totalPages = pagination.value.totalPages;
 
