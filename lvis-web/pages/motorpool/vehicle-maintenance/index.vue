@@ -8,7 +8,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Reference No.</label>
                             <client-only>
@@ -21,7 +21,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
@@ -34,7 +34,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Status</label>
                             <client-only>
@@ -45,10 +45,7 @@
                             </client-only>
                         </div>
                     </div>
-                </div>
-
-                <div class="row pt-3">
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Service Center</label>
                             <client-only>
@@ -60,7 +57,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Service Date</label>
                             <input v-model="service_date" type="date" class="form-control">
@@ -109,10 +106,10 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white">Ref. Number</th>
+                                                <th class="bg-secondary text-white no-wrap">Ref. Number</th>
                                                 <th class="bg-secondary text-white">Vehicle</th>
-                                                <th class="bg-secondary text-white">Service Center</th>
-                                                <th class="bg-secondary text-white">Service Date</th>
+                                                <th class="bg-secondary text-white no-wrap">Service Center</th>
+                                                <th class="bg-secondary text-white no-wrap">Service Date</th>
                                                 <th class="bg-secondary text-white text-center">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
@@ -123,16 +120,16 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in items">
-                                                <td class="text-muted align-middle"> {{ i.ref_number }} </td>
-                                                <td class="text-muted align-middle"> {{ i.vehicle.vehicle_number + ' ' + i.vehicle.name }} </td>
-                                                <td class="text-muted align-middle"> {{ i.service_center.name }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.service_date) }} </td>
-                                                <td class="text-center">
+                                                <td class="text-muted align-middle no-wrap"> {{ i.ref_number }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ i.vehicle.vehicle_number + ' ' + i.vehicle.name }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ i.service_center.name }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ formatDate(i.service_date) }} </td>
+                                                <td class="text-center no-wrap">
                                                     <div class="badge" :class="{'bg-primary': i.is_completed, 'bg-orange': !i.is_completed}">
                                                         {{ i.is_completed ? 'Completed' : 'Pending' }}
                                                     </div>
                                                 </td>
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle text-center no-wrap">
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
                                                         :class="{ 'text-primary': canRead(authUser, 'canManageVehicleMaintenance') }"
                                                         :disabled="!canRead(authUser, 'canManageVehicleMaintenance')">
@@ -150,7 +147,7 @@
                             </div>
                         </div>
         
-                        <div class="row">
+                        <div class="row pt-4">
                             <div class="col">
                                 <nav>
                                     <ul class="pagination justify-content-center">
@@ -227,7 +224,6 @@ definePageMeta({
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 
-const toast = useToast();
 const router = useRouter()
 
 // flags
@@ -275,7 +271,7 @@ onMounted(async () => {
 
 
 const visiblePages = computed(() => {
-    const maxVisible = 5; // Max pages to show
+    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
     const currentPage = pagination.value.currentPage;
     const totalPages = pagination.value.totalPages;
 

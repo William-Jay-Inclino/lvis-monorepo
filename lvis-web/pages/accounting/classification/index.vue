@@ -83,7 +83,7 @@
                             </div>
                         </div>
         
-                        <div class="row">
+                        <div class="row pt-4">
                             <div class="col">
                                 <nav>
                                     <ul class="pagination justify-content-center">
@@ -195,7 +195,7 @@ onMounted(async () => {
 
 
 const visiblePages = computed(() => {
-    const maxVisible = 5; // Max pages to show
+    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
     const currentPage = pagination.value.currentPage;
     const totalPages = pagination.value.totalPages;
 
