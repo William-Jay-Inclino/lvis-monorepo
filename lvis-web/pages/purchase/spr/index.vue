@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">SPR Number</label>
                             <client-only>
@@ -17,7 +17,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">RC Number</label>
                             <client-only>
@@ -25,16 +25,13 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="date_requested" type="date" class="form-control">
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
@@ -42,7 +39,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Status</label>
                             <client-only>
@@ -95,34 +92,34 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white">SPR Number</th>
-                                                <th class="bg-secondary text-white">RC Number</th>
+                                                <th class="bg-secondary text-white no-wrap">SPR Number</th>
+                                                <th class="bg-secondary text-white no-wrap">RC Number</th>
                                                 <th class="bg-secondary text-white">Requisitioner</th>
                                                 <th class="bg-secondary text-white">Date</th>
                                                 <th class="bg-secondary text-white text-center">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
-                                                    <font-awesome-icon :icon="['fas', 'cog']" />
-                                                </client-only>
+                                                        <font-awesome-icon :icon="['fas', 'cog']" />
+                                                    </client-only>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="i in items">
-                                                <td class="text-muted align-middle"> {{ i.spr_number }} </td>
-                                                <td class="text-muted align-middle"> {{ i.canvass ? i.canvass.rc_number : 'N/A'  }} </td>
-                                                <td class="text-muted align-middle"> {{ i.canvass ?
+                                                <td class="text-muted align-middle no-wrap"> {{ i.spr_number }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ i.canvass ? i.canvass.rc_number : 'N/A'  }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ i.canvass ?
                 getFullname(i.canvass.requested_by!.firstname,
                     i.canvass.requested_by!.middlename, i.canvass.requested_by!.lastname) : 'N/A' }}
                                                 </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.date_requested) }}
+                                                <td class="text-muted align-middle no-wrap"> {{ formatDate(i.date_requested) }}
                                                 </td>
-                                                <td class="text-center align-middle">
+                                                <td class="text-center align-middle no-wrap">
                                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
                                                     </div>
                                                 </td>
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle text-center no-wrap">
                                                     <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm"
                                                         :class="{ 'text-primary': canViewDetails(authUser, 'canManageSPR') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageSPR')">
@@ -278,7 +275,7 @@ onMounted(async () => {
 // ======================== COMPUTED ======================== 
 
 const visiblePages = computed(() => {
-    const maxVisible = 5; // Max pages to show
+    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
     const currentPage = pagination.value.currentPage;
     const totalPages = pagination.value.totalPages;
 
