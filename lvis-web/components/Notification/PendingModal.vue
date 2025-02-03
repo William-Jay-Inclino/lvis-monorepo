@@ -186,7 +186,7 @@
                             <client-only>
                                 <v-select class="bg-white text-dark" data-testid="fund-source" @search="handleSearchAccounts" :options="accounts" label="name" v-model="fundSource"></v-select>
                             </client-only>
-                            <span class="text-danger fst-italic small">Please select a classification</span>
+                            <span class="text-danger fst-italic small">Please select a fund source</span>
                         </div>
                     </div>
                     <!-- Action Buttons -->
