@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Gas Slip Number</label>
                             <client-only>
@@ -17,7 +17,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
@@ -25,7 +25,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
                             <input v-model="used_on_date" type="date" class="form-control">
@@ -34,7 +34,7 @@
                 </div>
                 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-6">
                         <div class="mb-3">
                             <label class="form-label">Approval Status</label>
                             <client-only>
@@ -42,7 +42,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-6">
                         <div class="mb-3">
                             <label class="form-label">Post Status</label>
                             <client-only>
@@ -95,8 +95,8 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white">Gas Slip No.</th>
-                                                <th class="bg-secondary text-white">Vehicle No.</th>
+                                                <th class="bg-secondary text-white no-wrap">Gas Slip No.</th>
+                                                <th class="bg-secondary text-white no-wrap">Vehicle No.</th>
                                                 <th class="bg-secondary text-white">Date</th>
                                                 <th class="bg-secondary text-white text-center">Status</th>
                                                 <th class="text-center bg-secondary text-white">
@@ -109,8 +109,8 @@
                                         <tbody>
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.gas_slip_number }} </td>
-                                                <td class="text-muted align-middle"> {{ i.vehicle.vehicle_number }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.used_on) }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ i.vehicle.vehicle_number }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ formatDate(i.used_on) }} </td>
                                                 <td class="text-center align-middle">
 
                                                     <div v-if="i.cancelled_at" :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
@@ -128,7 +128,7 @@
 
 
                                                 </td>
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle text-center no-wrap">
                                                     <a :href="`/motorpool/gas-slip/view/${ i.id }`" :data-testid="`view-details-${ i.gas_slip_number }`" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageGasSlip') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageGasSlip')">
                                                         <client-only>
@@ -147,7 +147,7 @@
                             </div>
                         </div>
         
-                        <div class="row">
+                        <div class="row pt-4">
                             <div class="col">
                                 <nav>
                                     <ul class="pagination justify-content-center">
@@ -290,7 +290,7 @@ onMounted(async () => {
 
 
 const visiblePages = computed(() => {
-    const maxVisible = 5; // Max pages to show
+    const maxVisible = 3; // Max pages to show
     const currentPage = pagination.value.currentPage;
     const totalPages = pagination.value.totalPages;
 

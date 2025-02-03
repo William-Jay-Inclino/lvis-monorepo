@@ -167,11 +167,11 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.gas_slip_approvers">
-                                                <td class="align-middle"> {{ i.label }} </td>
-                                                <td class="align-middle"> 
+                                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                                <td class="align-middle no-wrap"> 
                                                     {{ getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname) }} 
                                                 </td>
-                                                <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle">
+                                                <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
                                                     </div>
@@ -199,37 +199,35 @@
         
                         <div class="row mb-3 pt-3">
                             <div class="col">
-                                <div class="d-flex justify-content-end">
-                                    <div class="me-2">
-                                        <nuxt-link v-if="canSearch(authUser, 'canManageGasSlip')" class="btn btn-secondary me-2"
+                                <div class="d-flex justify-content-center flex-wrap gap-2">
+                                        <nuxt-link v-if="canSearch(authUser, 'canManageGasSlip')" class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}"
                                             to="/motorpool/gas-slip">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'search']" />
                                             </client-only> 
                                             Search Gas Slip
                                         </nuxt-link>
-                                        <button v-if="!!item.can_print && !item.cancelled_at" @click="onClickPrint" class="btn btn-danger">
+                                        <button v-if="!!item.can_print && !item.cancelled_at" @click="onClickPrint" class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'print']"/>
                                             </client-only> Print Gas Slip
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
-                                    </div>
-                                    <div v-if="!item.cancelled_at">
-                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
+                                    <template v-if="!item.cancelled_at">
+                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onCancelGasSlip()">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'times-circle']" />
                                             </client-only> Cancel Gas Slip
                                         </button>
-                                        <button v-if="!!item.can_update" class="btn btn-success me-2"
+                                        <button v-if="!!item.can_update" class="btn btn-success"  :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onClickUpdate(item.id)">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'edit']"/>
                                             </client-only> Edit Form
                                         </button>
-                                        <button v-if="!!item.can_post" class="btn btn-info me-2"
+                                        <button v-if="!!item.can_post" class="btn btn-info" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onClickPostGasSlip(item.id)">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'edit']"/>
@@ -238,13 +236,13 @@
                                         <button ref="postGasSlipBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#post_gas_slip_modal">post</button>
 
-                                        <button v-if="canCreate(authUser, 'canManageGasSlip')" class="btn btn-primary me-2"
+                                        <button v-if="canCreate(authUser, 'canManageGasSlip')" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onClickAdd">
                                             <client-only>
                                                     <font-awesome-icon :icon="['fas', 'plus']"/>
                                             </client-only> Add New Gas Slip
                                         </button>
-                                    </div>
+                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -295,6 +293,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 const router = useRouter()
 const route = useRoute()
 const toast = useToast();
+const screenWidth = ref(0);
 
 // FLAGS
 const isLoadingPage = ref(true)
@@ -307,11 +306,17 @@ const postGasSlipBtn = ref<HTMLButtonElement>()
 const item = ref<GasSlip | undefined>()
 const pdfUrl = ref('')
 
-
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async () => {
 
     authUser.value = getAuthUser()
+
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
 
     const response = await api.findOne(route.params.id as string)
 
