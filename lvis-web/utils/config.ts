@@ -1,5 +1,6 @@
 
 export const PAGINATION_SIZE = 15
+export const PAGINATION_MAX_VISIBLE_PAGES = 3
 export const APPROVER_SUPERVISOR_LABEL = 'Imd. Sup.'
 export const MOBILE_WIDTH = 768
 export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB

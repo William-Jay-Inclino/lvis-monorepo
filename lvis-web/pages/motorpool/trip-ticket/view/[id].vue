@@ -161,15 +161,15 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.trip_ticket_approvers">
-                                                <td class="align-middle"> {{ i.label }} </td>
-                                                <td class="align-middle"> 
+                                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                                <td class="align-middle no-wrap"> 
                                                     {{ getFullname(i.approver!.firstname, i.approver!.middlename, i.approver!.lastname) }} 
                                                 </td>
-                                                <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle">
+                                                <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
                                                     </div>
-                                                    <div class="fst-italic" v-if="i.date_approval">
+                                                    <div class="fst-italic no-wrap" v-if="i.date_approval">
                                                         <small> {{ formatDate(i.date_approval, true) }} </small>
                                                     </div>
                                                 </td>
@@ -193,43 +193,36 @@
         
                         <div class="row mb-3 pt-3">
                             <div class="col">
-                                <div class="d-flex justify-content-end">
-                                    <div class="me-2">
-                                        <nuxt-link v-if="canSearch(authUser, 'canManageTripTicket')" class="btn btn-secondary me-2"
-                                            to="/motorpool/trip-ticket">
-                                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search Trip Ticket
-                                        </nuxt-link>
-                                        <!-- <button disabled v-if="item.status === TRIP_TICKET_STATUS.APPROVED && canPrint(authUser, 'canManageTripTicket')" @click="onClickPrint" class="btn btn-danger">
-                                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'print']"/>
-                            </client-only> Print Trip Ticket
-                                        </button> -->
-                                        <button ref="printBtn" v-show="false" data-bs-toggle="modal"
-                                            data-bs-target="#purchasingPdfModal">print</button>
-                                    </div>
-                                    <div v-if="!item.cancelled_at">
-                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && (item.status === TRIP_TICKET_STATUS.PENDING || item.status === TRIP_TICKET_STATUS.APPROVED)" class="btn btn-warning me-2"
+                                <div class="d-flex justify-content-center flex-wrap gap-2">
+                                    <nuxt-link v-if="canSearch(authUser, 'canManageTripTicket')" class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}"
+                                        to="/motorpool/trip-ticket">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'search']" />
+                                        </client-only> 
+                                        Search Trip Ticket
+                                    </nuxt-link>
+                                    <button ref="printBtn" v-show="false" data-bs-toggle="modal"
+                                        data-bs-target="#purchasingPdfModal">print</button>
+                                    <template v-if="!item.cancelled_at">
+                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && (item.status === TRIP_TICKET_STATUS.PENDING || item.status === TRIP_TICKET_STATUS.APPROVED)" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onCancelTripTicket()">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Cancel Trip Ticket
+                                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                            </client-only> Cancel Trip Ticket
                                         </button>
-                                        <button v-if="!!item.can_update" class="btn btn-success me-2"
+                                        <button v-if="!!item.can_update" class="btn btn-success" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onClickUpdate(item.id)">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']"/>
-                            </client-only> Edit Form
+                                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                                            </client-only> Edit Form
                                         </button>
-                                        <button v-if="canCreate(authUser, 'canManageTripTicket')" class="btn btn-primary me-2"
+                                        <button v-if="canCreate(authUser, 'canManageTripTicket')" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onClickAdd">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New Trip Ticket
+                                                    <font-awesome-icon :icon="['fas', 'plus']"/>
+                                            </client-only> Add New Trip Ticket
                                         </button>
-                                    </div>
+                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -260,7 +253,6 @@ import { approvalStatus } from '~/utils/constants'
 import { useToast } from "vue-toastification";
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import { canPrint } from '~/utils/permissions';
 
 definePageMeta({
     name: ROUTES.TRIP_TICKET_VIEW,
@@ -277,6 +269,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 const router = useRouter()
 const route = useRoute()
 const toast = useToast();
+const screenWidth = ref(0);
 
 // FLAGS
 const isLoadingPage = ref(true)
@@ -287,11 +280,17 @@ const printBtn = ref<HTMLButtonElement>()
 const item = ref<TripTicket | undefined>()
 const pdfUrl = ref('')
 
-
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async () => {
 
     authUser.value = getAuthUser()
+
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
 
     const response = await api.findOne(route.params.id as string)
 

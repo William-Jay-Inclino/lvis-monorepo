@@ -290,7 +290,7 @@ onMounted(async () => {
 
 
 const visiblePages = computed(() => {
-    const maxVisible = 3; // Max pages to show
+    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
     const currentPage = pagination.value.currentPage;
     const totalPages = pagination.value.totalPages;
 

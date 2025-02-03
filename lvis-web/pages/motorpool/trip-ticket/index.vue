@@ -9,7 +9,7 @@
                 <hr>
         
                 <div class="row pt-3">
-                    <div class="col">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Trip Number</label>
                             <client-only>
@@ -17,7 +17,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
@@ -25,7 +25,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Driver</label>
                             <client-only>
@@ -33,7 +33,7 @@
                             </client-only>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Status</label>
                             <client-only>
@@ -101,11 +101,11 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="bg-secondary text-white">Trip Number</th>
+                                                <th class="bg-secondary text-white no-wrap">Trip Number</th>
                                                 <th class="bg-secondary text-white">Vehicle</th>
                                                 <th class="bg-secondary text-white">Driver</th>
-                                                <th class="bg-secondary text-white">Date Prepared</th>
-                                                <th class="bg-secondary text-white">Est. Date Departure</th>
+                                                <th class="bg-secondary text-white no-wrap">Date Prepared</th>
+                                                <th class="bg-secondary text-white no-wrap">Est. Date Departure</th>
                                                 <th class="bg-secondary text-white">Status</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>
@@ -117,19 +117,19 @@
                                         <tbody>
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle"> {{ i.trip_number }} </td>
-                                                <td class="text-muted align-middle"> {{ i.vehicle.vehicle_number + ' ' + i.vehicle.name }} </td>
-                                                <td class="text-muted align-middle">
+                                                <td class="text-muted align-middle no-wrap"> {{ i.vehicle.vehicle_number + ' ' + i.vehicle.name }} </td>
+                                                <td class="text-muted align-middle no-wrap">
                                                     {{ getFullname(i.driver.firstname, i.driver.middlename, i.driver.lastname) }}
                                                 </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.created_at) }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(i.start_time, true) }}
+                                                <td class="text-muted align-middle no-wrap"> {{ formatDate(i.created_at) }} </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ formatDate(i.start_time, true) }}
                                                 </td>
                                                 <td class="text-center align-middle">
                                                     <div :class="{ [`badge bg-${tripTicketStatus[i.status].color}`]: true }">
                                                         {{ tripTicketStatus[i.status].label }}
                                                     </div>
                                                 </td>
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle text-center no-wrap">
                                                     <a :href="`/motorpool/trip-ticket/view/${i.id}`" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageTripTicket') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageTripTicket')">
                                                         <client-only>
@@ -148,7 +148,7 @@
                             </div>
                         </div>
         
-                        <div class="row">
+                        <div class="row pt-4">
                             <div class="col">
                                 <nav>
                                     <ul class="pagination justify-content-center">
@@ -286,7 +286,7 @@ onMounted(async () => {
 // ======================== COMPUTED ======================== 
 
 const visiblePages = computed(() => {
-    const maxVisible = 5; // Max pages to show
+    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
     const currentPage = pagination.value.currentPage;
     const totalPages = pagination.value.totalPages;
 
