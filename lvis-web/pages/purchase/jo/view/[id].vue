@@ -169,10 +169,10 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="i, count in item.jo_approvers">
-                                                <td class="align-middle"> {{ i.label }} </td>
-                                                <td class="align-middle"> {{ getFullname(i.approver!.firstname,
+                                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                                <td class="align-middle no-wrap"> {{ getFullname(i.approver!.firstname,
                 i.approver!.middlename, i.approver!.lastname) }} </td>
-                                                <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle">
+                                                <td v-if="!isBlankStatus(item.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
                                                     </div>
@@ -217,7 +217,7 @@
                                             <tr>
                                                 <th class="bg-secondary text-white"> No. </th>
                                                 <th class="bg-secondary text-white"> Description </th>
-                                                <th class="bg-secondary text-white"> Item Class </th>
+                                                <th class="bg-secondary text-white no-wrap"> Item Class </th>
                                                 <th class="bg-secondary text-white"> Unit </th>
                                                 <th class="bg-secondary text-white"> Quantity </th>
                                             </tr>
@@ -228,8 +228,8 @@
                                                 <td class="align-middle"> 
                                                     <textarea class="form-control form-control-sm" rows="5" readonly>{{ i.item ? `${ i.item.code } - ${ i.description }` : i.description }}</textarea>
                                                 </td>
-                                                <td class="align-middle"> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
-                                                <td class="align-middle"> {{ i.unit ? i.unit.name : 'N/A' }} </td>
+                                                <td class="align-middle no-wrap"> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
+                                                <td class="align-middle no-wrap"> {{ i.unit ? i.unit.name : 'N/A' }} </td>
                                                 <td class="align-middle"> {{ i.quantity }} </td>
                                             </tr>
                                         </tbody>
@@ -244,43 +244,41 @@
         
                         <div class="row mb-3 pt-3">
                             <div class="col">
-                                <div class="d-flex justify-content-end">
-                                    <div class="me-2">
-                                        <nuxt-link v-if="canSearch(authUser, 'canManageJO')" class="btn btn-secondary me-2"
+                                <div class="d-flex justify-content-center flex-wrap gap-2">
+                                        <nuxt-link v-if="canSearch(authUser, 'canManageJO')" class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}"
                                             to="/purchase/jo">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'search']" />
-                            </client-only> 
-                            Search JO
+                                                <font-awesome-icon :icon="['fas', 'search']" />
+                                            </client-only> 
+                                            Search JO
                                         </nuxt-link>
-                                        <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageJO')" @click="onClickPrint" class="btn btn-danger">
+                                        <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageJO')" @click="onClickPrint" class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'print']"/>
-                            </client-only> Print JO
+                                                <font-awesome-icon :icon="['fas', 'print']"/>
+                                            </client-only> Print JO
                                         </button>
                                         <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                             data-bs-target="#purchasingPdfModal">print</button>
-                                    </div>
-                                    <div v-if="!item.cancelled_at">
-                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning me-2"
+                                    <template v-if="!item.cancelled_at">
+                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onCancelJo()">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'times-circle']" />
-                            </client-only> Cancel JO
+                                                <font-awesome-icon :icon="['fas', 'times-circle']" />
+                                            </client-only> Cancel JO
                                         </button>
-                                        <button v-if="!!item.can_update" class="btn btn-success me-2"
+                                        <button v-if="!!item.can_update" class="btn btn-success" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onClickUpdate(item.id)">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']"/>
-                            </client-only> Edit Form
+                                                <font-awesome-icon :icon="['fas', 'edit']"/>
+                                            </client-only> Edit Form
                                         </button>
-                                        <button v-if="canCreate(authUser, 'canManageJO')" class="btn btn-primary me-2"
+                                        <button v-if="canCreate(authUser, 'canManageJO')" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onClickAdd">
                                             <client-only>
-                                <font-awesome-icon :icon="['fas', 'plus']"/>
-                         </client-only> Add New JO
+                                                    <font-awesome-icon :icon="['fas', 'plus']"/>
+                                            </client-only> Add New JO
                                         </button>
-                                    </div>
+                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -321,24 +319,27 @@ definePageMeta({
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 const isLoadingPdf = ref(false)
-
 const config = useRuntimeConfig()
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
-
 const router = useRouter()
 const toast = useToast();
-
+const screenWidth = ref(0);
 const route = useRoute()
-
 const printBtn = ref<HTMLButtonElement>()
-
 const item = ref<JO | undefined>()
-
 const pdfUrl = ref('')
+
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async () => {
 
     authUser.value = getAuthUser()
+
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
 
     item.value = await api.findOne(route.params.id as string)
 

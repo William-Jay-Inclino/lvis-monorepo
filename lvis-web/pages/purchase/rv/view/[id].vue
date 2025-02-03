@@ -243,8 +243,8 @@
                                     <nuxt-link v-if="canSearch(authUser, 'canManageRV')" class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}"
                                         to="/purchase/rv">
                                         <client-only>
-                                                <font-awesome-icon :icon="['fas', 'search']" />
-                                            </client-only> 
+                                            <font-awesome-icon :icon="['fas', 'search']" />
+                                        </client-only> 
                                         Search RV
                                     </nuxt-link>
                                     <button v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageRV')" @click="onClickPrint" class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}">
