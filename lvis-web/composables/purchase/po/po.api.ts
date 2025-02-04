@@ -153,6 +153,10 @@ export async function findAll(payload: {
                         lastname
                     }
                     meqs_supplier {
+                        supplier {
+                            id
+                            name
+                        }
                         meqs {
                             meqs_number
                             rv {

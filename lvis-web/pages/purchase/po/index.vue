@@ -101,6 +101,7 @@
                                             <tr>
                                                 <th class="bg-secondary text-white no-wrap">PO Number</th>
                                                 <th class="bg-secondary text-white no-wrap">MEQS Number</th>
+                                                <th width="25%" class="bg-secondary text-white">Supplier</th>
                                                 <th class="bg-secondary text-white">Requisitioner</th>
                                                 <th class="bg-secondary text-white">Date</th>
                                                 <th class="bg-secondary text-white">Status</th>
@@ -114,13 +115,13 @@
                                         <tbody>
                                             <tr v-for="i in items">
                                                 <td class="text-muted align-middle no-wrap"> {{ i.po_number }} </td>
-                                                <td class="text-muted align-middle no-wrap"> {{ i.meqs_number }}
-                                                </td>
+                                                <td class="text-muted align-middle no-wrap"> {{ i.meqs_number }} </td>
+                                                <td class="text-muted align-middle"> {{ i.meqs_supplier?.supplier?.name }} </td>
                                                 <td class="text-muted align-middle no-wrap">
                                                     {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
                                                 </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ formatDate(i.po_date) }} </td>
-                                                <td>
+                                                <td class="align-middle no-wrap">
                                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                                         {{ approvalStatus[i.status].label }}
                                                     </div>
