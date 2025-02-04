@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="small fw-bold">
+                        <div class="small fw-bold text-danger">
                             {{ get_module_label(item) }}
                         </div>
                         <div>
@@ -27,7 +27,9 @@
                     <div class="mb-2">
                         <textarea class="form-control form-control-sm text-muted" rows="4" readonly>{{ item.description }}</textarea>
                     </div>
-                    <span class="small text-muted fst-italic">Created: {{ formatDate(item.transaction_date, true) }}</span>
+                    <span class="small text-muted fst-italic">
+                        You were notified on: <span class="text-primary">{{ formatDate(item.transaction_date, true) }} </span>
+                     </span>
     
                 </div>
                 <div class="card-footer text-center">
