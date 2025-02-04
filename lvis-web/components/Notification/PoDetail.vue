@@ -99,13 +99,13 @@
                         </thead>
                         <tbody>
                             <tr v-for="i, count in po.po_approvers">
-                                <td class="align-middle"> {{ i.label }} </td>
-                                <td class="align-middle"> 
+                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                <td class="align-middle no-wrap"> 
                                     {{ 
                                         getFullname(i.approver!.firstname,i.approver!.middlename, i.approver!.lastname) 
                                     }} 
                                 </td>
-                                <td v-if="!isBlankStatus(po.status, i.status)" class="text-muted text-center align-middle">
+                                <td v-if="!isBlankStatus(po.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                         {{ approvalStatus[i.status].label }}
                                     </div>
@@ -113,7 +113,7 @@
                                         <small> {{ formatDate(i.date_approval, true) }} </small>
                                     </div>
                                 </td>
-                                <td v-else class="text-muted text-center align-middle fst-italic">
+                                <td v-else class="text-muted text-center align-middle fst-italic no-wrap">
                                     N/A
                                 </td>
                                 <td>
@@ -162,13 +162,13 @@
                                 <td class="align-middle"> 
                                     <textarea class="form-control form-control-sm text-muted" rows="2" readonly>{{ item.canvass_item.description }}</textarea>
                                 </td>
-                                <td class="text-muted align-middle"> {{ item.canvass_item.item ? 'Stock' : 'Non-Stock' }} </td>
-                                <td class="text-muted align-middle"> {{ item.canvass_item.unit ? item.canvass_item.unit.name : 'N/A'
+                                <td class="text-muted align-middle no-wrap"> {{ item.canvass_item.item ? 'Stock' : 'Non-Stock' }} </td>
+                                <td class="text-muted align-middle no-wrap"> {{ item.canvass_item.unit ? item.canvass_item.unit.name : 'N/A'
                                     }} </td>
                                 <td class="text-muted align-middle"> {{ item.canvass_item.quantity }} </td>
-                                <td class="text-muted align-middle"> {{ VAT[item.vat_type].label }} </td>
-                                <td class="text-muted align-middle"> {{ formatToPhpCurrency(item.price) }} </td>
-                                <td class="text-muted align-middle">
+                                <td class="text-muted align-middle no-wrap"> {{ VAT[item.vat_type].label }} </td>
+                                <td class="text-muted align-middle no-wrap"> {{ formatToPhpCurrency(item.price) }} </td>
+                                <td class="text-muted align-middle no-wrap">
                                     {{
         formatToPhpCurrency(
             getTotalNetPrice({
@@ -180,15 +180,15 @@
         )
                                     }}
                                 </td>
-                                <td class="text-muted align-middle"> {{ formatToPhpCurrency(getVatAmount(item.price * item.canvass_item.quantity, item.vat_type))
+                                <td class="text-muted align-middle no-wrap"> {{ formatToPhpCurrency(getVatAmount(item.price * item.canvass_item.quantity, item.vat_type))
                                     }} </td>
-                                <td class="text-muted align-middle"> {{ formatToPhpCurrency(item.price * item.canvass_item.quantity) }} </td>
+                                <td class="text-muted align-middle no-wrap"> {{ formatToPhpCurrency(item.price * item.canvass_item.quantity) }} </td>
                             </tr>
                             <tr>
-                                <td colspan="9" class="text-end fw-bold">
+                                <td colspan="9" class="text-end fw-bold no-wrap">
                                     Summary Total
                                 </td>
-                                <td class="fw-bold">
+                                <td class="fw-bold no-wrap">
                                     {{ formatToPhpCurrency(totalPriceOfAllItems) }}
                                 </td>
                             </tr>

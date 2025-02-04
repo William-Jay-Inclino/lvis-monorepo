@@ -103,13 +103,13 @@
                         </thead>
                         <tbody>
                             <tr v-for="i, count in jo.jo_approvers">
-                                <td class="align-middle"> {{ i.label }} </td>
-                                <td class="align-middle"> 
+                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                <td class="align-middle no-wrap"> 
                                     {{ 
                                         getFullname(i.approver!.firstname,i.approver!.middlename, i.approver!.lastname) 
                                     }} 
                                 </td>
-                                <td v-if="!isBlankStatus(jo.status, i.status)" class="text-muted text-center align-middle">
+                                <td v-if="!isBlankStatus(jo.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                         {{ approvalStatus[i.status].label }}
                                     </div>
@@ -117,7 +117,7 @@
                                         <small> {{ formatDate(i.date_approval, true) }} </small>
                                     </div>
                                 </td>
-                                <td v-else class="text-muted text-center align-middle fst-italic">
+                                <td v-else class="text-muted text-center align-middle fst-italic no-wrap">
                                     N/A
                                 </td>
                                 <td>
@@ -161,8 +161,8 @@
                                 <td class="align-middle"> 
                                     <textarea class="form-control form-control-sm" rows="2" readonly>{{ i.item ? `${ i.item.code } - ${ i.item.description }` : i.description }}</textarea>
                                 </td>
-                                <td class="align-middle"> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
-                                <td class="align-middle"> {{ i.unit ? i.unit.name : 'N/A' }} </td>
+                                <td class="align-middle no-wrap"> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
+                                <td class="align-middle no-wrap"> {{ i.unit ? i.unit.name : 'N/A' }} </td>
                                 <td class="align-middle"> {{ i.quantity }} </td>
                             </tr>
                         </tbody>

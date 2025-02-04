@@ -9,9 +9,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Reference No.</th>
+                                    <th class="no-wrap">Reference No.</th>
                                     <th style="width: 30%;">Description</th>
-                                    <th>Date</th>
+                                    <th class="no-wrap">Notification Date</th>
                                     <th>Comment</th>
                                     <th class="text-center">Action</th>
                                 </tr>

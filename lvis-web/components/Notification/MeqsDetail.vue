@@ -91,13 +91,13 @@
                         </thead>
                         <tbody>
                             <tr v-for="i, count in meqs.meqs_approvers">
-                                <td class="align-middle"> {{ i.label }} </td>
-                                <td class="align-middle"> 
+                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                <td class="align-middle no-wrap"> 
                                     {{ 
                                         getFullname(i.approver!.firstname,i.approver!.middlename, i.approver!.lastname) 
                                     }} 
                                 </td>
-                                <td v-if="!isBlankStatus(meqs.status, i.status)" class="text-muted text-center align-middle">
+                                <td v-if="!isBlankStatus(meqs.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                         {{ approvalStatus[i.status].label }}
                                     </div>
@@ -105,7 +105,7 @@
                                         <small> {{ formatDate(i.date_approval, true) }} </small>
                                     </div>
                                 </td>
-                                <td v-else class="text-muted text-center align-middle fst-italic">
+                                <td v-else class="text-muted text-center align-middle fst-italic no-wrap">
                                     N/A
                                 </td>
                                 <td>
@@ -149,7 +149,7 @@
                         <tbody>
                             <tr v-for="i, count in meqs.meqs_suppliers">
                                 <td class="text-muted align-middle"> {{ i.supplier!.name }} </td>
-                                <td class="text-muted align-middle"> {{ i.payment_terms }} </td>
+                                <td class="text-muted align-middle no-wrap"> {{ i.payment_terms }} </td>
                                 <td>
                                     <div class="d-flex flex-wrap">
                                         <div v-for="attachment in i.attachments" class="p-1 image-container">
@@ -196,10 +196,10 @@
                     <table class="table table-sm table-bordered small">
                         <thead>
                             <tr>
-                                <th class="bg-secondary text-white align-middle"> No </th>
-                                <th class="bg-secondary text-white align-middle"> Item </th>
-                                <th class="bg-secondary text-white align-middle no-wrap"> Unit Price </th>
-                                <th class="bg-secondary text-white align-middle"> Qty </th>
+                                <th class="bg-secondary text-white text-center align-middle"> No </th>
+                                <th class="bg-secondary text-white text-center align-middle"> Item </th>
+                                <th class="bg-secondary text-white text-center align-middle no-wrap"> Unit Price </th>
+                                <th class="bg-secondary text-white text-center align-middle"> Qty </th>
                                 <th class="bg-secondary text-white text-center align-middle"
                                     v-for="meqsSupplier in meqs.meqs_suppliers">
                                     {{ `${meqsSupplier.supplier?.name}` }}
@@ -213,7 +213,7 @@
                                 <td class="text-muted align-middle">
                                     <textarea class="form-control form-control-sm text-muted" rows="2" readonly>{{ canvassItem.description }} </textarea>
                                 </td>
-                                <td class="text-muted align-middle"> {{ canvassItem.unit ? canvassItem.unit.name : 'N/A' }} </td>
+                                <td class="text-muted align-middle no-wrap"> {{ canvassItem.unit ? canvassItem.unit.name : 'N/A' }} </td>
                                 <td class="text-muted align-middle"> {{ canvassItem.quantity }} </td>
                                 <td class="text-muted text-center align-middle" v-for="meqsSupplier in meqs.meqs_suppliers">
                                     <template v-for="supplierItem in meqsSupplier.meqs_supplier_items">
@@ -237,7 +237,7 @@
                                         </span>
                                     </template>
                                 </td>
-                                <td class="text-center align-middle">
+                                <td class="text-center align-middle no-wrap">
                                     <button @click="onClickNote(canvassItem.id)" class="btn btn-secondary btn-sm"
                                     data-bs-toggle="offcanvas" data-bs-target="#myOffcanvas">
                                         <client-only>

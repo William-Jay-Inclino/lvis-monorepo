@@ -71,13 +71,13 @@
                         </thead>
                         <tbody>
                             <tr v-for="i, count in mct.mct_approvers">
-                                <td class="align-middle"> {{ i.label }} </td>
-                                <td class="align-middle"> 
+                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                <td class="align-middle no-wrap"> 
                                     {{ 
                                         getFullname(i.approver!.firstname,i.approver!.middlename, i.approver!.lastname) 
                                     }} 
                                 </td>
-                                <td v-if="!isBlankStatus(mct.status, i.status)" class="text-muted text-center align-middle">
+                                <td v-if="!isBlankStatus(mct.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                         {{ approvalStatus[i.status].label }}
                                     </div>
@@ -85,7 +85,7 @@
                                         <small> {{ formatDate(i.date_approval, true) }} </small>
                                     </div>
                                 </td>
-                                <td v-else class="text-muted text-center align-middle fst-italic">
+                                <td v-else class="text-muted text-center align-middle fst-italic no-wrap">
                                     N/A
                                 </td>
                                 <td>
@@ -240,13 +240,13 @@
                         </thead>
                         <tbody>
                             <tr v-for="i, count in mct.mrv.mrv_approvers">
-                                <td class="align-middle"> {{ i.label }} </td>
-                                <td class="align-middle"> 
+                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                <td class="align-middle no-wrap"> 
                                     {{ 
                                         getFullname(i.approver!.firstname,i.approver!.middlename, i.approver!.lastname) 
                                     }} 
                                 </td>
-                                <td v-if="!isBlankStatus(mct.status, i.status)" class="text-muted text-center align-middle">
+                                <td v-if="!isBlankStatus(mct.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                         {{ approvalStatus[i.status].label }}
                                     </div>
@@ -254,7 +254,7 @@
                                         <small> {{ formatDate(i.date_approval, true) }} </small>
                                     </div>
                                 </td>
-                                <td v-else class="text-muted text-center align-middle fst-italic">
+                                <td v-else class="text-muted text-center align-middle fst-italic no-wrap">
                                     N/A
                                 </td>
                                 <td>
@@ -297,16 +297,16 @@
                         <tbody>
                             <tr v-for="i, count in mct.mrv.mrv_items">
                                 <td class="align-middle text-muted"> {{ count + 1 }} </td>
-                                <td class="align-middle text-muted">
+                                <td class="align-middle text-muted no-wrap">
                                     {{ i.item.code }}
                                 </td>
                                 <td class="align-middle">
                                     <textarea class="form-control form-control-sm text-muted" rows="2" readonly>{{ i.item.description }}</textarea>
                                 </td>
-                                <td class="align-middle text-muted"> {{ i.item.unit.name }} </td>
+                                <td class="align-middle text-muted no-wrap"> {{ i.item.unit.name }} </td>
                                 <td class="align-middle text-muted"> {{ i.quantity }} </td>
-                                <td class="align-middle text-muted"> {{ formatToPhpCurrency(i.price) }} </td>
-                                <td class="align-middle text-muted"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
+                                <td class="align-middle text-muted no-wrap"> {{ formatToPhpCurrency(i.price) }} </td>
+                                <td class="align-middle text-muted no-wrap"> {{ formatToPhpCurrency(i.quantity * i.price) }} </td>
                             </tr>
                         </tbody>
                     </table>

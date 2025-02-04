@@ -99,13 +99,13 @@
                         </thead>
                         <tbody>
                             <tr v-for="i, count in rr.rr_approvers">
-                                <td class="align-middle"> {{ i.label }} </td>
-                                <td class="align-middle"> 
+                                <td class="align-middle no-wrap"> {{ i.label }} </td>
+                                <td class="align-middle no-wrap"> 
                                     {{ 
                                         getFullname(i.approver!.firstname,i.approver!.middlename, i.approver!.lastname) 
                                     }} 
                                 </td>
-                                <td v-if="!isBlankStatus(rr.status, i.status)" class="text-muted text-center align-middle">
+                                <td v-if="!isBlankStatus(rr.status, i.status)" class="text-muted text-center align-middle no-wrap">
                                     <div :class="{ [`badge bg-${approvalStatus[i.status].color}`]: true }">
                                         {{ approvalStatus[i.status].label }}
                                     </div>
@@ -113,7 +113,7 @@
                                         <small> {{ formatDate(i.date_approval, true) }} </small>
                                     </div>
                                 </td>
-                                <td v-else class="text-muted text-center align-middle fst-italic">
+                                <td v-else class="text-muted text-center align-middle fst-italic no-wrap">
                                     N/A
                                 </td>
                                 <td>
@@ -168,7 +168,7 @@
                                                     readonly></textarea>
                                             </div>
                                         </td>
-                                        <td class="text-muted align-middle text-center">
+                                        <td class="text-muted align-middle text-center no-wrap">
                                             <div v-if="rrItem.meqs_supplier_item.canvass_item.item">
                                                 <div> Stock </div>
                                                 <div v-if="rrItem.item_transaction">
@@ -182,7 +182,7 @@
                                                 Non-Stock
                                             </div>
                                         </td>
-                                        <td class="text-muted align-middle">
+                                        <td class="text-muted align-middle no-wrap">
                                             {{ 
                                                 rrItem.meqs_supplier_item.canvass_item.unit ?
                                                 rrItem.meqs_supplier_item.canvass_item.unit.name : 'N/A' 
@@ -194,13 +194,13 @@
                                         <td class="text-muted text-center align-middle">
                                             {{ rrItem.quantity_accepted }}
                                         </td>
-                                        <td class="text-muted text-center align-middle">
+                                        <td class="text-muted text-center align-middle no-wrap">
                                             {{ VAT[rrItem.meqs_supplier_item.vat_type].label }}
                                         </td>
-                                        <td class="text-muted text-center align-middle">
+                                        <td class="text-muted text-center align-middle no-wrap">
                                             {{ formatToPhpCurrency(rrItem.meqs_supplier_item.price) }}
                                         </td>
-                                        <td class="text-muted text-center align-middle">
+                                        <td class="text-muted text-center align-middle no-wrap">
                                             {{
                                                 formatToPhpCurrency(
                                                     getTotalNetPrice({
@@ -213,7 +213,7 @@
                                                 )
                                             }}
                                         </td>
-                                        <td class="text-muted text-center align-middle">
+                                        <td class="text-muted text-center align-middle no-wrap">
                                             {{
                                                 formatToPhpCurrency(
                                                     getVatTotal({
@@ -224,7 +224,7 @@
                                                 )
                                             }}
                                         </td>
-                                        <td class="text-muted text-center align-middle">
+                                        <td class="text-muted text-center align-middle no-wrap">
                                             {{
                                                 formatToPhpCurrency(
                                                     getGrossTotal({
@@ -242,20 +242,20 @@
                 </div>
 
                 <div class="row justify-content-end pt-2">
-                    <div class="col-4">
+                    <div class="col-lg-4 col-md-8 col-sm-12">
                         <table class="table table-small table-bordered small">
                             <tbody>
                                 <tr>
-                                    <td class="fst-italic"> Summary (Gross Total) </td>
-                                    <td class="fw-bold"> {{ formatToPhpCurrency(grossTotalSummary) }} </td>
+                                    <td class="fst-italic no-wrap"> Summary (Gross Total) </td>
+                                    <td class="fw-bold no-wrap"> {{ formatToPhpCurrency(grossTotalSummary) }} </td>
                                 </tr>
                                 <tr>
-                                    <td class="fst-italic"> Delivery Charge </td>
-                                    <td class="fw-bold"> {{ formatToPhpCurrency(rr.delivery_charge) }} </td>
+                                    <td class="fst-italic no-wrap"> Delivery Charge </td>
+                                    <td class="fw-bold no-wrap"> {{ formatToPhpCurrency(rr.delivery_charge) }} </td>
                                 </tr>
                                 <tr>
-                                    <td class="fst-italic"> Total </td>
-                                    <td class="fw-bold"> {{ formatToPhpCurrency(totalPriceSummary) }} </td>
+                                    <td class="fst-italic no-wrap"> Total </td>
+                                    <td class="fw-bold no-wrap"> {{ formatToPhpCurrency(totalPriceSummary) }} </td>
                                 </tr>
                             </tbody>
                         </table>

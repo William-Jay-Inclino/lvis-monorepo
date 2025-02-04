@@ -80,8 +80,8 @@
                                 <td class="align-middle"> 
                                     <textarea class="form-control form-control-sm text-muted" rows="2" readonly>{{ i.item ? `${ i.item.code } - ${ i.item.description }` : i.description }}</textarea>
                                 </td>
-                                <td class="align-middle"> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
-                                <td class="align-middle"> {{ i.unit ? i.unit.name : 'N/A' }} </td>
+                                <td class="align-middle no-wrap"> {{ i.item ? 'Stock' : 'Non-Stock' }} </td>
+                                <td class="align-middle no-wrap"> {{ i.unit ? i.unit.name : 'N/A' }} </td>
                                 <td class="align-middle"> {{ i.quantity }} </td>
                             </tr>
                         </tbody>
