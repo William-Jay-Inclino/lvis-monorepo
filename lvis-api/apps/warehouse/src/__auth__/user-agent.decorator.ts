@@ -14,8 +14,6 @@ export const UserAgent = createParamDecorator(
     const ctx = gqlContext.getContext();
     const req = ctx.req; // Access the request object from the context
 
-    console.log('req.headers', req.headers); // Log headers for debugging
-
     return req.headers['user-agent'] || null; // Extract user-agent from headers
   }
 );
