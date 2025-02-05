@@ -178,20 +178,31 @@
             
                     </div>
             
-                    <div v-show="currentStep === 2" class="row justify-content-center pt-5">
+                    <div v-show="currentStep === 2" class="row justify-content-center pt-2">
                         <div class="col-lg-10">
 
-                            <div class="text-end mb-3">
-                                <button
-                                    data-testid="add-item"
-                                    class="btn btn-success btn-sm"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#addItemModal">
-                                    <i
-                                    class="fas fa-plus"></i>
-                                    Add Item
-                                </button>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="text-end mb-3">
+                                        <button
+                                            data-testid="add-item"
+                                            class="btn btn-success"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#addItemModal">
+                                            <i
+                                            class="fas fa-plus"></i>
+                                            Add Items
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <WarehouseAddItemSearch @add-item="handleAddItem" :items="available_items" :added-item-ids="mrvItemIds"/>
+                                </div>
+                            </div>
+
     
                             <WarehouseItems
                               :items="mrvData.items"

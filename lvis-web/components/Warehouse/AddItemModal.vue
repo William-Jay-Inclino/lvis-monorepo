@@ -121,8 +121,4 @@
         searchBy.value = payload
     }
 
-    // function handleFilterByChange(payload: ITEM_TYPE) {
-    //     filterBy.value = payload
-    // }
-
 </script>

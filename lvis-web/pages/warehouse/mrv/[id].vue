@@ -197,7 +197,30 @@
                         </div>
 
                         <div v-else>
-                            <div class="text-end mb-3">
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="text-end mb-3">
+                                        <button
+                                            data-testid="add-item"
+                                            class="btn btn-success"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#addItemModal">
+                                            <i
+                                            class="fas fa-plus"></i>
+                                            Add Items
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <WarehouseAddItemSearch @add-item="handleAddItem" :items="itemsInModal" :added-item-ids="mrvItemIds"/>
+                                </div>
+                            </div>
+
+                            <!-- <div class="text-end mb-3">
                                 <button
                                     class="btn btn-success btn-sm"
                                     data-bs-toggle="modal"
@@ -206,7 +229,7 @@
                                     class="fas fa-plus"></i>
                                     Add Item
                                 </button>
-                            </div>
+                            </div> -->
     
                             <WarehouseItems :items="itemsInTable" @remove-item="handleRemoveItem" @update-qty="handleUpdateItemQty"/>
                         </div>

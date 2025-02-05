@@ -145,3 +145,21 @@ WHERE
     AND mrv.cancelled_at IS NULL
     AND mrv.cancelled_by IS NULL
     AND (mct.cancelled_at IS NULL OR mct.cancelled_by IS NULL OR mct.mrv_id IS NULL);
+
+
+
+
+// TRIP TICKET SCAN 
+
+SELECT DISTINCT ON (ip_address) 
+    TO_CHAR(created_at, 'HH12:MI AM') AS created_at, 
+    username, 
+    "action", 
+    "table", 
+    ip_address, 
+    device_info, 
+    metadata
+FROM public.warehouse_audit
+WHERE DATE(created_at) = '2025-02-05'
+AND "action" LIKE 'TRIP-RFID-SCAN%'
+ORDER BY ip_address, id DESC;
