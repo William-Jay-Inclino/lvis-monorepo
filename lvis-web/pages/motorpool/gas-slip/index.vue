@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">Gas Slip Number</label>
                             <client-only>
-                                <v-select data-testid="search-gas-slip-number" @search="handleSearchGasSlipNumber" :options="gas_slips" label="gas_slip_number" v-model="gas_slip"></v-select>
+                                <v-select data-testid="search-gas-slip-number" @search="handleSearchGasSlipNumber" :options="store.gas_slips" label="gas_slip_number" v-model="store.search_filters.gas_slip"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -21,21 +21,21 @@
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
-                                <v-select @search="handleSearchVehicles" :options="vehicles" label="label" v-model="vehicle"></v-select>
+                                <v-select @search="handleSearchVehicles" :options="store.vehicles" label="label" v-model="store.search_filters.vehicle"></v-select>
                             </client-only>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
-                            <input v-model="used_on_date" type="date" class="form-control">
+                            <input v-model="store.search_filters.used_on_date" type="date" class="form-control">
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Approval Status</label>
                             <client-only>
-                                <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
+                                <v-select :options="approvalStatusArray" label="label" v-model="store.search_filters.approval_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                         <div class="mb-3">
                             <label class="form-label">Post Status</label>
                             <client-only>
-                                <v-select :options="post_status_array" label="label" v-model="post_status"></v-select>
+                                <v-select :options="store.post_status_array" label="label" v-model="store.search_filters.post_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -77,12 +77,12 @@
                     </div>
         
                     <div class="text-center text-muted fst-italic"
-                        v-show="items.length === 0 && (!isInitialLoad && !isSearching)">
+                        v-show="store.items.length === 0 && (!isInitialLoad && !isSearching)">
                         No results found
                     </div>
         
         
-                    <div v-show="items.length > 0 && !isSearching" class="col-lg">
+                    <div v-show="store.items.length > 0 && !isSearching" class="col-lg">
         
                         <div class="row">
                             <div class="col">
@@ -104,7 +104,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in items">
+                                            <tr v-for="i in store.items">
                                                 <td class="text-muted align-middle"> {{ i.gas_slip_number }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ `${i.vehicle.vehicle_number} ${i.vehicle.name}` }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ formatDate(i.used_on) }} </td>
@@ -126,13 +126,13 @@
 
                                                 </td>
                                                 <td class="align-middle text-center no-wrap">
-                                                    <a :href="`/motorpool/gas-slip/view/${ i.id }`" :data-testid="`view-details-${ i.gas_slip_number }`" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageGasSlip') }"
+                                                    <button :data-testid="`view-details-${ i.gas_slip_number }`" @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageGasSlip') }"
                                                         :disabled="!canViewDetails(authUser, 'canManageGasSlip')">
                                                         <client-only>
                                                             <font-awesome-icon :icon="['fas', 'info-circle']" />
                                                         </client-only>
                                                         View details
-                                                    </a>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -149,39 +149,39 @@
                                 <nav>
                                     <ul class="pagination justify-content-center">
                                         <!-- Previous Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage - 1)" href="#">Previous</a>
                                         </li>
 
                                         <!-- First Page -->
-                                        <li v-if="visiblePages[0] > 1" class="page-item">
+                                        <li v-if="store.visiblePages[0] > 1" class="page-item">
                                             <a class="page-link" @click="changePage(1)" href="#">1</a>
                                         </li>
-                                        <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                        <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
 
                                         <!-- Visible Pages -->
                                         <li
-                                            v-for="page in visiblePages"
+                                            v-for="page in store.visiblePages"
                                             :key="page"
                                             class="page-item"
-                                            :class="{ active: pagination.currentPage === page }"
+                                            :class="{ active: store.pagination.currentPage === page }"
                                             >
                                             <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                         </li>
 
                                         <!-- Last Page -->
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
-                                            <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePage(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
                                         </li>
 
                                         <!-- Next Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage + 1)" href="#">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -207,13 +207,10 @@
 
 <script setup lang="ts">
 
-import { type GasSlip } from '~/composables/motorpool/gas-slip/gas-slip.types';
 import * as gasSlipApi from '~/composables/motorpool/gas-slip/gas-slip.api'
-import { PAGINATION_SIZE } from '~/utils/config'
 import { ROUTES, approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/hr/employee/employee.types';
-import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { fetchVehicles } from '~/composables/motorpool/vehicle/vehicle.api';
+import { useGasSlipStore } from '~/composables/motorpool/gas-slip/gas-slip.store';
 
 definePageMeta({
     name: ROUTES.GAS_SLIP_INDEX,
@@ -221,13 +218,9 @@ definePageMeta({
     middleware: ['auth'],
 })
 
-interface PostStatus {
-    id: boolean,
-    label: string
-}
-
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
+const store = useGasSlipStore()
 
 const router = useRouter()
 
@@ -235,76 +228,18 @@ const router = useRouter()
 const isInitialLoad = ref(true)
 const isSearching = ref(false)
 
-// pagination
-const _paginationInitial = {
-    currentPage: 1,
-    totalPages: 0,
-    totalItems: 0,
-    pageSize: PAGINATION_SIZE,
-}
-const pagination = ref({ ..._paginationInitial })
-
-
-// search filters
-const gas_slip = ref<GasSlip | null>(null)
-const vehicle = ref<Vehicle | null>(null)
-const used_on_date = ref(null)
-const gas_slips = ref<GasSlip[]>([])
-const employees = ref<Employee[]>([])
-const vehicles = ref<Vehicle[]>([])
-const approval_status = ref<IApprovalStatus | null>(null)
-const post_status_array = ref<PostStatus[]>([
-    { id: false, label: 'Unposted' },
-    { id: true, label: 'Posted' },
-])
-const post_status = ref<PostStatus | null>(null)
-    // ----------------
-
-
-// table data
-const items = ref<GasSlip[]>([])
-
-
-
 // ======================== LIFECYCLE HOOKS ======================== 
 
 onMounted(async () => {
 
     authUser.value = getAuthUser()
 
-    const response = await gasSlipApi.fetchDataInSearchFilters()
+    const { vehicles, gas_slips, employees } = await gasSlipApi.fetchDataInSearchFilters()
 
-    vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
-    gas_slips.value = response.gas_slips
-    employees.value = addPropertyFullName(response.employees)
-
+    store.set_search_filters({ vehicles, gas_slips, employees })
     isLoadingPage.value = false
 
 })
-
-
-// ======================== COMPUTED ======================== 
-
-
-const visiblePages = computed(() => {
-    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
-    const currentPage = pagination.value.currentPage;
-    const totalPages = pagination.value.totalPages;
-
-    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let end = Math.min(totalPages, start + maxVisible - 1);
-
-    // Adjust start if we're near the end
-    if (end - start < maxVisible - 1) {
-        start = Math.max(1, end - maxVisible + 1);
-    }
-
-    const pages: number[] = [];
-    for (let i = start; i <= end; i++) {
-        pages.push(i);
-    }
-    return pages;
-});
 
 
 // ======================== FUNCTIONS ======================== 
@@ -317,18 +252,17 @@ async function changePage(page: number) {
 
     const { data, currentPage, totalItems, totalPages } = await gasSlipApi.findAll({
         page,
-        pageSize: pagination.value.pageSize,
-        vehicle_id: vehicle.value ? vehicle.value.id : undefined,
-        approval_status: approval_status.value ? approval_status.value.id : null,
-        is_posted: post_status.value ? post_status.value.id : null,
-        used_on_date: used_on_date.value,
+        pageSize: store.pagination.pageSize,
+        vehicle_id: store.search_filters.vehicle ? store.search_filters.vehicle.id : undefined,
+        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null,
+        is_posted: store.search_filters.post_status ? store.search_filters.post_status.id : null,
+        used_on_date: store.search_filters.used_on_date,
     })
     isSearching.value = false
 
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
+
 }
 
 async function search() {
@@ -336,14 +270,14 @@ async function search() {
     isInitialLoad.value = false
     isSearching.value = true
 
-    items.value = []
+    store.set_searched_results({ items: [] })
 
     // find by GAS SLIP NUMBER
-    if (gas_slip.value) {
-        const response = await gasSlipApi.findByGasSlipNumber(gas_slip.value.gas_slip_number)
+    if (store.search_filters.gas_slip) {
+        const response = await gasSlipApi.findByGasSlipNumber(store.search_filters.gas_slip.gas_slip_number)
         isSearching.value = false
         if (response) {
-            items.value.push(response)
+            store.set_searched_results({ items: [response] })
             return
         }
         return
@@ -351,25 +285,23 @@ async function search() {
 
 
     const { data, currentPage, totalItems, totalPages } = await gasSlipApi.findAll({
-        page: pagination.value.currentPage,
-        pageSize: pagination.value.pageSize,
-        vehicle_id: vehicle.value ? vehicle.value.id : undefined,
-        approval_status: approval_status.value ? approval_status.value.id : null,
-        is_posted: post_status.value ? post_status.value.id : null,
-        used_on_date: used_on_date.value,
+        page: store.pagination.currentPage,
+        pageSize: store.pagination.pageSize,
+        vehicle_id: store.search_filters.vehicle ? store.search_filters.vehicle.id : undefined,
+        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null,
+        is_posted: store.search_filters.post_status ? store.search_filters.post_status.id : null,
+        used_on_date: store.search_filters.used_on_date,
     })
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 
 }
 
 async function handleSearchGasSlipNumber(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === '') {
-        gas_slips.value = []
+        store.search_filters.gas_slips = []
         return
     } 
 
@@ -380,7 +312,7 @@ async function handleSearchGasSlipNumber(input: string, loading: (status: boolea
 async function handleSearchVehicles(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        vehicles.value = []
+        store.search_filters.vehicles = []
         return 
     } 
 
@@ -395,7 +327,7 @@ async function searchGasSlipNumbers(input: string, loading: (status: boolean) =>
     try {
         const response = await gasSlipApi.fetchGasSlipNumbers(input);
         console.log('response', response);
-        gas_slips.value = response;
+        store.set_search_filters({ gas_slips: response })
     } catch (error) {
         console.error('Error fetching Gas Slip numbers:', error);
     } finally {
@@ -409,9 +341,9 @@ async function searchVehicles(input: string, loading: (status: boolean) => void)
 
     try {
         const response = await fetchVehicles(input);
-        vehicles.value = response.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
+        store.set_search_filters({ vehicles: response })
     } catch (error) {
-        console.error('Error fetching Employees:', error);
+        console.error('Error fetching Vehicles:', error);
     } finally {
         loading(false);
     }
