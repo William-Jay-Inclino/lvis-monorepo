@@ -15,7 +15,6 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class JoPdfService {
 
-    private authUser: AuthUser
     private API_FILE_ENDPOINT = process.env.API_URL + '/api/v1/file-upload'
 
 
@@ -24,12 +23,12 @@ export class JoPdfService {
         private readonly httpService: HttpService,
         private readonly audit: WarehouseAuditService,
     ) { }
+    async generatePdf(
+        jo: JO, 
+        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+    ) {
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
-    async generatePdf(jo: JO, metadata: { ip_address: string, device_info: any }) {
+        const authUser = metadata.authUser
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -40,15 +39,15 @@ export class JoPdfService {
         const logo = getImageAsBase64('leyeco-logo.png')
 
         const approvers = await Promise.all(jo.jo_approvers.map(async (i) => {
-            i.approver = await this.getEmployee(i.approver_id, this.authUser);
+            i.approver = await this.getEmployee(i.approver_id, authUser);
             return i;
         }));
 
         const [classification, department, division, requisitioner] = await Promise.all([
-            this.getClassification(jo.classification_id, this.authUser),
-            this.getDepartment(jo.department_id, this.authUser),
-            this.getDivision(jo.division_id, this.authUser),
-            this.getEmployee(jo.canvass.requested_by_id, this.authUser),
+            this.getClassification(jo.classification_id, authUser),
+            this.getDepartment(jo.department_id, authUser),
+            this.getDivision(jo.division_id, authUser),
+            this.getEmployee(jo.canvass.requested_by_id, authUser),
         ]);
         
         // Set content of the PDF
@@ -310,7 +309,7 @@ export class JoPdfService {
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
                 <div style="position: absolute; left: 5px; top: 5px;">
-                    Note: System generated report | Created by: <b>${ jo.created_by }</b> | Printed by: <b>${this.authUser.user.username}</b> | 
+                    Note: System generated report | Created by: <b>${ jo.created_by }</b> | Printed by: <b>${authUser.user.username}</b> | 
                     Date & Time: <b><span class="date"></span></b>
                 </div>
                 <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
@@ -325,7 +324,7 @@ export class JoPdfService {
 
         // create audit
         await this.audit.createAuditEntry({
-            username: this.authUser.user.username,
+            username: authUser.user.username,
             table: DB_TABLE.JO,
             action: 'PRINT-JO',
             reference_id: jo.jo_number,

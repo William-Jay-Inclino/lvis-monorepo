@@ -7,10 +7,9 @@ import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { UpdateJoInput } from './dto/update-jo.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse } from '../__common__/classes';
 import { JOsResponse } from './entities/jos-response.entity';
 import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
-import { UpdateJoByBudgetOfficerInput } from './dto/update-jo-by-budget-officer.input';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
@@ -19,8 +18,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 
 @Injectable()
 export class JoService {
-
-    private authUser: AuthUser
 
     // fields that are included when returning a data from db
     private includedFields = {
@@ -56,17 +53,15 @@ export class JoService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     // When creating jo, pendings should also be created for each approver
     async create(
         input: CreateJoInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create JO. Please try again')
         }
 
@@ -87,10 +82,8 @@ export class JoService {
             throw new NotFoundException(`Canvass not found with id of ${input.canvass_id}`)
         }
 
-        const createdBy = this.authUser.user.username
-
         const data: Prisma.JOCreateInput = {
-            created_by: createdBy,
+            created_by: authUser.user.username,
             jo_number: joNumber,
             canvass_number: canvass.rc_number,
             date_requested: new Date(),
@@ -127,7 +120,7 @@ export class JoService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const requisitioner = await getEmployee(canvass.requested_by_id, this.authUser)
+            const requisitioner = await getEmployee(canvass.requested_by_id, authUser)
 
             const description = get_pending_description({
                 employee: requisitioner,
@@ -145,7 +138,7 @@ export class JoService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.JO,
                 action: 'CREATE-JO',
                 reference_id: jo_created.jo_number,
@@ -162,8 +155,10 @@ export class JoService {
     async update(
         id: string, 
         input: UpdateJoInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.jO.findUnique({
             where: { id },
@@ -182,16 +177,16 @@ export class JoService {
             throw new NotFoundException('JO not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-        if (!(await this.canUpdate(input, existingItem))) {
+        if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Failed to update JO. Please try again')
         }
 
         const data: Prisma.JOUpdateInput = {
-            updated_by: this.authUser.user.username,
+            updated_by: authUser.user.username,
             classification_id: input.classification_id ?? null,
             department_id: input.department_id ?? existingItem.department_id,
             division_id: input.division_id ?? existingItem.division_id,
@@ -270,7 +265,7 @@ export class JoService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.JO,
 				action: 'UPDATE-JO',
 				reference_id: jo_updated.jo_number,
@@ -290,8 +285,10 @@ export class JoService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.jO.findUnique({
             where: { id },
@@ -308,7 +305,7 @@ export class JoService {
             throw new Error('JO is not associated with a Canvass');
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -317,7 +314,7 @@ export class JoService {
             const jo_cancelled = await tx.jO.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                     canvass: {
                         disconnect: true
@@ -347,7 +344,7 @@ export class JoService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.JO,
 				action: 'CANCEL-JO',
 				reference_id: jo_cancelled.jo_number,
@@ -546,77 +543,9 @@ export class JoService {
 
     }
 
-    // async updateClassificationByBudgetOfficer(joId: string, payload: UpdateJoByBudgetOfficerInput): Promise<WarehouseRemoveResponse> {
+    async canUpdateForm(payload: { joId: string, authUser: AuthUser }): Promise<Boolean> {
 
-    //     if (!this.authUser.user.user_employee) {
-    //         throw new BadRequestException('this.authUser.user.user_employee is undefined')
-    //     }
-
-    //     if (!this.authUser.user.user_employee.employee.is_budget_officer) {
-    //         throw new ForbiddenException('Only budget officer can update')
-    //     }
-
-    //     const { classification_id, notes, status } = payload
-
-    //     const item = await this.prisma.jO.findUnique({
-    //         where: { id: joId }
-    //     })
-
-    //     if (!item) {
-    //         throw new NotFoundException('JO not found with ID ' + joId)
-    //     }
-
-    //     const isValidClassificationId = await this.isClassificationExist(classification_id, this.authUser)
-
-    //     if (!isValidClassificationId) {
-    //         throw new NotFoundException('Classification ID not valid')
-    //     }
-
-    //     const queries = []
-
-    //     const updateJoClassificationIdQuery = this.prisma.jO.update({
-    //         where: { id: joId },
-    //         data: {
-    //             classification_id
-    //         }
-    //     })
-
-    //     queries.push(updateJoClassificationIdQuery)
-
-    //     const approver_id = this.authUser.user.user_employee.employee.id
-
-    //     const joApprover = await this.prisma.jOApprover.findFirst({
-    //         where: {
-    //             jo_id: joId,
-    //             approver_id
-    //         }
-    //     })
-
-    //     if (!joApprover) {
-    //         throw new NotFoundException(`JO Approver not found with jo_id of ${joId} and approver_id of ${approver_id} `)
-    //     }
-
-    //     const updateJoApproverQuery = this.prisma.jOApprover.update({
-    //         where: { id: joApprover.id },
-    //         data: {
-    //             notes,
-    //             status,
-    //             date_approval: new Date(),
-    //         }
-    //     })
-
-    //     queries.push(updateJoApproverQuery)
-
-    //     const result = await this.prisma.$transaction(queries)
-
-    //     return {
-    //         success: true,
-    //         msg: 'Successfully updated jo classification and jo approver'
-    //     }
-
-    // }
-
-    async canUpdateForm(joId: string): Promise<Boolean> {
+        const { joId, authUser } = payload
 
         const jo = await this.prisma.jO.findUnique({
             where: {
@@ -628,7 +557,7 @@ export class JoService {
             }
         })
 
-        const hasPermission = jo.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = jo.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false;
@@ -785,10 +714,12 @@ export class JoService {
         }
     }
 
-    private async canCreate(input: CreateJoInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateJoInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         if (input.classification_id) {
-            const isValidClassificationId = await this.isClassificationExist(input.classification_id, this.authUser)
+            const isValidClassificationId = await this.isClassificationExist(input.classification_id, authUser)
 
             if (!isValidClassificationId) {
                 throw new NotFoundException('Classification ID not valid')
@@ -796,7 +727,7 @@ export class JoService {
         }
 
         if (input.department_id) {
-            const isValidDepartmentId = await this.isDepartmentExist(input.department_id, this.authUser)
+            const isValidDepartmentId = await this.isDepartmentExist(input.department_id, authUser)
 
             if (!isValidDepartmentId) {
                 throw new NotFoundException('Department ID not valid')
@@ -805,7 +736,7 @@ export class JoService {
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -829,11 +760,12 @@ export class JoService {
 
     }
 
-    private async canUpdate(input: UpdateJoInput, existingItem: JO): Promise<boolean> {
+    private async canUpdate(payload: { input: UpdateJoInput, existingItem: JO, authUser: AuthUser }): Promise<boolean> {
 
+        const { input, existingItem, authUser } = payload
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.jOApprover.findMany({
                 where: {
@@ -850,7 +782,7 @@ export class JoService {
         }
 
         if (input.classification_id) {
-            const isValidClassificationId = await this.isClassificationExist(input.classification_id, this.authUser)
+            const isValidClassificationId = await this.isClassificationExist(input.classification_id, authUser)
 
             if (!isValidClassificationId) {
                 throw new NotFoundException('Classification ID not valid')
@@ -858,7 +790,7 @@ export class JoService {
         }
 
         if (input.department_id) {
-            const isValidDepartmentId = await this.isDepartmentExist(input.department_id, this.authUser)
+            const isValidDepartmentId = await this.isDepartmentExist(input.department_id, authUser)
 
             if (!isValidDepartmentId) {
                 throw new NotFoundException('Department ID not valid')
@@ -873,7 +805,7 @@ export class JoService {
 
         if (employeeIds.length > 0) {
 
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new NotFoundException('One or more employee IDs is not valid')
@@ -902,11 +834,13 @@ export class JoService {
 
     }
 
-    private canAccess(item: JO): boolean {
+    private canAccess(payload: { item: JO, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 

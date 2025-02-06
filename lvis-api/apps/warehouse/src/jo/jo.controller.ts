@@ -46,8 +46,6 @@ export class JoController {
         
         try {
 
-            this.joPdfService.setAuthUser(authUser)
-    
             const status = await this.joService.getStatus(id)
     
             if(status !== APPROVAL_STATUS.APPROVED) {
@@ -58,7 +56,8 @@ export class JoController {
             // @ts-ignore
             const pdfBuffer = await this.joPdfService.generatePdf(jo, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser
             })
 
             this.logger.log('PDF in JO generated')

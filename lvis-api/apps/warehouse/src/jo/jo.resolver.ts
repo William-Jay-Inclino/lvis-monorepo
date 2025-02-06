@@ -55,11 +55,10 @@ export class JoResolver {
 
         try {
             
-            this.joService.setAuthUser(authUser)
-      
             const x = await this.joService.create(createJoInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('JO created successfully')
@@ -125,10 +124,10 @@ export class JoResolver {
 
         try {
             
-            this.joService.setAuthUser(authUser)
             const x = await this.joService.update(id, updateJoInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('JO updated successfully')
@@ -154,10 +153,10 @@ export class JoResolver {
         })
 
         try {
-            this.joService.setAuthUser(authUser)
             const x = await this.joService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('JO cancelled successfully')
@@ -227,8 +226,7 @@ export class JoResolver {
         @Parent() jo: JO,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.joService.setAuthUser(authUser)
-        return this.joService.canUpdateForm(jo.id)
+        return this.joService.canUpdateForm({ joId: jo.id, authUser })
     }
 
 }
