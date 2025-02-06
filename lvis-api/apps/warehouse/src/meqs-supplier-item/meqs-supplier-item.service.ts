@@ -12,20 +12,20 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class MeqsSupplierItemService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
+	async create(
+		input: CreateMeqsSupplierItemInput, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+		
+	): Promise<MEQSSupplierItem> {
 
-	async create(input: CreateMeqsSupplierItemInput): Promise<MEQSSupplierItem> {
+        const authUser = metadata.authUser
 
-		if (!this.canAccess(input.meqs_supplier_id)) {
+		if (!this.canAccess({ meqs_supplier_id: input.meqs_supplier_id, authUser })) {
 			throw new ForbiddenException('Only Admin and Owner can create meqs supplier item!')
 		}
 
@@ -66,11 +66,17 @@ export class MeqsSupplierItemService {
 		return item
 	}
 
-	async update(id: string, input: UpdateMeqsSupplierItemInput): Promise<MEQSSupplierItem> {
+	async update(
+		id: string, 
+		input: UpdateMeqsSupplierItemInput, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+	): Promise<MEQSSupplierItem> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
-		if (!this.canAccess(input.meqs_supplier_id)) {
+		if (!this.canAccess({ meqs_supplier_id: input.meqs_supplier_id, authUser })) {
 			throw new ForbiddenException('Only Admin and Owner can update meqs supplier item!')
 		}
 
@@ -94,11 +100,16 @@ export class MeqsSupplierItemService {
 
 	}
 
-	async remove(id: string): Promise<WarehouseRemoveResponse> {
+	async remove(
+		id: string, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+	): Promise<WarehouseRemoveResponse> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
-		if (!this.canAccess(existingItem.meqs_supplier_id)) {
+		if (!this.canAccess({ meqs_supplier_id: existingItem.meqs_supplier_id, authUser })) {
 			throw new ForbiddenException('Only Admin and Owner can remove meqs supplier item!')
 		}
 
@@ -117,10 +128,12 @@ export class MeqsSupplierItemService {
 		id: string, 
 		meqs_supplier_id: string, 
 		canvass_item_id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<WarehouseRemoveResponse> {
 
-		if (!this.canAccess(meqs_supplier_id)) {
+        const authUser = metadata.authUser
+
+		if (!this.canAccess({ meqs_supplier_id, authUser })) {
 			throw new ForbiddenException('Only Admin and Owner can award meqs supplier item!')
 		}
 
@@ -185,7 +198,7 @@ export class MeqsSupplierItemService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MEQS_SUPPLIER_ITEM,
 				action: 'AWARD-MEQS-SUPPLIER-ITEM',
 				reference_id: updated.id,
@@ -208,9 +221,10 @@ export class MeqsSupplierItemService {
 		meqs_id: string, 
 		canvass_item_id: string, 
 		notes: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<WarehouseRemoveResponse> {
 
+        const authUser = metadata.authUser
 
 		const meqs = await this.prisma.mEQS.findUnique({
 			where: {
@@ -230,7 +244,7 @@ export class MeqsSupplierItemService {
 			throw new NotFoundException("MEQS not found with ID of " + meqs_id)
 		}
 
-        const hasPermission = meqs.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = meqs.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             throw new ForbiddenException('Only Admin and Owner can attach note!')
@@ -267,7 +281,7 @@ export class MeqsSupplierItemService {
 
 				// create audit
 				await this.audit.createAuditEntry({
-					username: this.authUser.user.username,
+					username: authUser.user.username,
 					table: DB_TABLE.MEQS_SUPPLIER_ITEM,
 					action: 'ATTACH-REMARKS-MEQS-SUPPLIER-ITEM',
 					reference_id: item.id,
@@ -289,9 +303,11 @@ export class MeqsSupplierItemService {
 
 	}
 
-	private async canAccess(meqs_supplier_id: string): Promise<boolean> {
+	private async canAccess(payload: { meqs_supplier_id: string, authUser: AuthUser }): Promise<boolean> {
 
-		if (isAdmin(this.authUser)) return true
+		const { meqs_supplier_id, authUser } = payload
+
+		if (isAdmin(authUser)) return true
 
 		const meqsSupplier = await this.prisma.mEQSSupplier.findUnique({
 			where: {
@@ -306,7 +322,7 @@ export class MeqsSupplierItemService {
 			throw new NotFoundException('meqsSupplier not found with id of ' + meqs_supplier_id)
 		}
 
-		const isOwner = meqsSupplier.meqs.created_by === this.authUser.user.username
+		const isOwner = meqsSupplier.meqs.created_by === authUser.user.username
 
 		if (isOwner) return true
 

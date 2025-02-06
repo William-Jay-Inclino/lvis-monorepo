@@ -40,11 +40,10 @@ export class MeqsSupplierAttachmentResolver {
 
     try {
       
-      this.meqsSupplierAttachmentService.setAuthUser(authUser)
-
       const x = await this.meqsSupplierAttachmentService.create(createMeqsSupplierAttachmentInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser
       });
       
       this.logger.log('MEQS Supplier Attachment created successfully')
@@ -81,10 +80,10 @@ export class MeqsSupplierAttachmentResolver {
 
     try {
       
-      this.meqsSupplierAttachmentService.setAuthUser(authUser)
       const x = await this.meqsSupplierAttachmentService.update(id, updateMeqsSupplierAttachmentInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser
       });
 
       this.logger.log('MEQS Supplier Attachment updated successfully')
@@ -111,10 +110,10 @@ export class MeqsSupplierAttachmentResolver {
     })
     try {
 
-      this.meqsSupplierAttachmentService.setAuthUser(authUser)
       const x = await this.meqsSupplierAttachmentService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser
       });
       
       this.logger.log('MEQS Supplier Attachment removed successfully')

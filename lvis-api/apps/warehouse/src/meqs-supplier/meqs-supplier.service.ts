@@ -14,23 +14,19 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class MeqsSupplierService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
                 private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async create(
         input: CreateMeqsSupplierInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<MEQSSupplier> {
 
-        if (!this.canAccess(input.meqs_id)) {
+        const authUser = metadata.authUser
+
+        if (!this.canAccess({ meqs_id: input.meqs_id, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can create meqs supplier!')
         }
 
@@ -80,7 +76,7 @@ export class MeqsSupplierService {
             
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.MEQS_SUPPLIER,
                 action: 'CREATE-MEQS-SUPPLIER',
                 reference_id: created.id,
@@ -120,8 +116,10 @@ export class MeqsSupplierService {
     async update(
         id: string, 
         input: UpdateMeqsSupplierInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<MEQSSupplier> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.mEQSSupplier.findUnique({
             where: { id },
@@ -141,7 +139,7 @@ export class MeqsSupplierService {
             }
         })
 
-        if (!this.canAccess(existingItem.meqs_id)) {
+        if (!this.canAccess({ meqs_id: existingItem.meqs_id, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update meqs supplier!')
         }
 
@@ -190,7 +188,7 @@ export class MeqsSupplierService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MEQS_SUPPLIER,
 				action: 'UPDATE-MEQS-SUPPLIER',
 				reference_id: id,
@@ -212,12 +210,14 @@ export class MeqsSupplierService {
 
     async remove(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseRemoveResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.findOne(id)
 
-        if (!this.canAccess(existingItem.meqs_id)) {
+        if (!this.canAccess({ meqs_id: existingItem.meqs_id, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can remove meqs supplier!')
         }
 
@@ -238,7 +238,7 @@ export class MeqsSupplierService {
 
             // create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MEQS_SUPPLIER,
 				action: 'DELETE-MEQS-SUPPLIER',
 				reference_id: id,
@@ -296,9 +296,11 @@ export class MeqsSupplierService {
         return axios.delete(url, { data: filePaths });
     }
 
-    private async canAccess(meqs_id: string): Promise<boolean> {
+    private async canAccess(payload: { meqs_id: string, authUser: AuthUser }): Promise<boolean> {
 
-        if (isAdmin(this.authUser)) return true
+        const { meqs_id, authUser } = payload
+
+        if (isAdmin(authUser)) return true
 
         const meqs = await this.prisma.mEQS.findUnique({
             where: { id: meqs_id }
@@ -308,7 +310,7 @@ export class MeqsSupplierService {
             throw new NotFoundException('MEQS not found with id of ' + meqs_id)
         }
 
-        const isOwner = meqs.created_by === this.authUser.user.username
+        const isOwner = meqs.created_by === authUser.user.username
 
         if (isOwner) return true
 

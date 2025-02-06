@@ -13,23 +13,19 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class MeqsSupplierAttachmentService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async create(
         input: CreateMeqsSupplierAttachmentInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<MEQSSupplierAttachment> {
 
-        if (!this.canAccess(input.meqs_supplier_id)) {
+        const authUser = metadata.authUser
+
+        if (!this.canAccess({ meqs_supplier_id: input.meqs_supplier_id, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can create meqs supplier attachment!')
         }
 
@@ -50,7 +46,7 @@ export class MeqsSupplierAttachmentService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.MEQS_SUPPLIER_ATTACHMENT,
                 action: 'CREATE-MEQS-SUPPLIER-ATTACHMENT',
                 reference_id: created.id,
@@ -87,12 +83,14 @@ export class MeqsSupplierAttachmentService {
     async update(
         id: string, 
         input: UpdateMeqsSupplierAttachmentInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<MEQSSupplierAttachment> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.findOne(id)
 
-        if (!this.canAccess(existingItem.meqs_supplier_id)) {
+        if (!this.canAccess({ meqs_supplier_id: existingItem.meqs_supplier_id, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update meqs supplier!')
         }
 
@@ -113,7 +111,7 @@ export class MeqsSupplierAttachmentService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MEQS_SUPPLIER_ATTACHMENT,
 				action: 'UPDATE-MEQS-SUPPLIER-ATTACHMENT',
 				reference_id: id,
@@ -135,12 +133,14 @@ export class MeqsSupplierAttachmentService {
 
     async remove(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseRemoveResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.findOne(id)
 
-        if (!this.canAccess(existingItem.meqs_supplier_id)) {
+        if (!this.canAccess({ meqs_supplier_id: existingItem.meqs_supplier_id, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can remove meqs supplier!')
         }
 
@@ -152,7 +152,7 @@ export class MeqsSupplierAttachmentService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MEQS_SUPPLIER_ATTACHMENT,
 				action: 'DELETE-MEQS-SUPPLIER-ATTACHMENT',
 				reference_id: id,
@@ -189,9 +189,11 @@ export class MeqsSupplierAttachmentService {
 
     }
 
-    private async canAccess(meqs_supplier_id: string): Promise<boolean> {
+    private async canAccess(payload: { meqs_supplier_id: string, authUser: AuthUser }): Promise<boolean> {
 
-        if (isAdmin(this.authUser)) return true
+        const { meqs_supplier_id, authUser } = payload
+
+        if (isAdmin(authUser)) return true
 
         const meqsSupplier = await this.prisma.mEQSSupplier.findUnique({
             where: {
@@ -206,7 +208,7 @@ export class MeqsSupplierAttachmentService {
             throw new NotFoundException('meqsSupplier not found with id of ' + meqs_supplier_id)
         }
 
-        const isOwner = meqsSupplier.meqs.created_by === this.authUser.user.username
+        const isOwner = meqsSupplier.meqs.created_by === authUser.user.username
 
         if (isOwner) return true
 

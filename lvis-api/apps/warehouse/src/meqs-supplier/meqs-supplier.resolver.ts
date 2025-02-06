@@ -39,11 +39,11 @@ export class MeqsSupplierResolver {
     })
 
     try {
-      this.meqsSupplierService.setAuthUser(authUser)
 
       const x = await this.meqsSupplierService.create(createMeqsSupplierInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Meqs Supplier created successfully')
@@ -77,10 +77,11 @@ export class MeqsSupplierResolver {
     })
 
     try {
-      this.meqsSupplierService.setAuthUser(authUser)
+
       const x = await this.meqsSupplierService.update(id, updateMeqsSupplierInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('MEQS Supplier updated successfully')
@@ -106,10 +107,10 @@ export class MeqsSupplierResolver {
       })
 
       try {
-        this.meqsSupplierService.setAuthUser(authUser)
         const x = await this.meqsSupplierService.remove(id, {
           ip_address,
-          device_info: this.audit.getDeviceInfo(user_agent)
+          device_info: this.audit.getDeviceInfo(user_agent),
+          authUser,
         });
         
         this.logger.log('MEQS Supplier cancelled successfully')
