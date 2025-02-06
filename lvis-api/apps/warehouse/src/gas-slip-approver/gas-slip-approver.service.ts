@@ -10,24 +10,21 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class GasSlipApproverService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async changeApprover(
         id: string, 
         input: ChangeGasSlipApproverInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
         return this.prisma.$transaction(async (prisma) => {
+            
+            const authUser = metadata.authUser
+
             const item = await prisma.gasSlipApprover.findUnique({
                 where: { id },
                 include: {
@@ -118,7 +115,7 @@ export class GasSlipApproverService {
             });
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.GAS_SLIP_APPROVER,
                 action: 'CHANGE-GAS-SLIP-APPROVER',
                 reference_id: id,

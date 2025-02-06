@@ -14,93 +14,92 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class ItemService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
-	async create(input: CreateItemInput, metadata: { ip_address: string, device_info: any }): Promise<Item> {
-	  
+	async create(
+		input: CreateItemInput, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+	): Promise<Item> {
+		
 		// Use a transaction to ensure atomicity
 		const result = await this.prisma.$transaction(async (prisma) => {
-	  
-		  const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
-			type: ITEM_TRANSACTION_TYPE.STOCK_IN,
-			quantity: input.initial_quantity,
-			price: input.initial_average_price,
-			remarks: 'Initial item transaction',
-			created_by: this.authUser.user.username,
-			is_initial: true,
-		  };
-	  
-		  const createdBy = this.authUser.user.username;
-	  
-		  // Fetch the item type code
-		  const itemType = await prisma.itemType.findUnique({
-			select: {
-			  code: true,
-			},
-			where: { id: input.item_type_id },
-		  });
-	  
-		  if (!itemType) {
-			throw new NotFoundException('Item type code not found');
-		  }
-	  
-		  // Generate the item code within the transaction
-		  const itemCode = await this.generateItemCode(itemType.code as ITEM_TYPE_CODE, prisma as Prisma.TransactionClient);
+			
+			const authUser = metadata.authUser
 
-		  const data: Prisma.ItemCreateInput = {
-			item_type: { connect: { id: input.item_type_id } },
-			unit: {
-			  connect: { id: input.unit_id },
-			},
-			code: itemCode,
-			description: input.description,
-			total_quantity: input.initial_quantity,
-			alert_level: input.alert_level,
-			created_by: createdBy,
-			item_transactions: {
-			  create: item_transaction,
-			},
-			project_item: input.project_id
-			? {
-				create: {
-				project: { connect: { id: input.project_id } },
+			const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
+				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+				quantity: input.initial_quantity,
+				price: input.initial_average_price,
+				remarks: 'Initial item transaction',
+				created_by: authUser.user.username,
+				is_initial: true,
+			};
+		
+			const createdBy = authUser.user.username;
+		
+			// Fetch the item type code
+			const itemType = await prisma.itemType.findUnique({
+				select: {
+				code: true,
 				},
+				where: { id: input.item_type_id },
+			});
+		
+			if (!itemType) {
+				throw new NotFoundException('Item type code not found');
 			}
-			: undefined,
-		  };
-	  
-		  // create the item
-		  const createdItem = await prisma.item.create({
-			data,
-			include: {
-				unit: true,
-				project_item: true,
-			},
-		  });
+		
+			// Generate the item code within the transaction
+			const itemCode = await this.generateItemCode(itemType.code as ITEM_TYPE_CODE, prisma as Prisma.TransactionClient);
 
-		  // create audit
-		  await this.audit.createAuditEntry({
-			username: this.authUser.user.username,
-			table: DB_TABLE.ITEM,
-			action: 'CREATE-ITEM',
-			reference_id: createdItem.id,
-			metadata: createdItem,
-			ip_address: metadata.ip_address,
-			device_info: metadata.device_info
-		  }, prisma as Prisma.TransactionClient)
-	  
-		  return createdItem;
+			const data: Prisma.ItemCreateInput = {
+				item_type: { connect: { id: input.item_type_id } },
+				unit: {
+				connect: { id: input.unit_id },
+				},
+				code: itemCode,
+				description: input.description,
+				total_quantity: input.initial_quantity,
+				alert_level: input.alert_level,
+				created_by: createdBy,
+				item_transactions: {
+				create: item_transaction,
+				},
+				project_item: input.project_id
+				? {
+					create: {
+					project: { connect: { id: input.project_id } },
+					},
+				}
+				: undefined,
+			};
+		
+			// create the item
+			const createdItem = await prisma.item.create({
+				data,
+				include: {
+					unit: true,
+					project_item: true,
+				},
+			});
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: authUser.user.username,
+				table: DB_TABLE.ITEM,
+				action: 'CREATE-ITEM',
+				reference_id: createdItem.id,
+				metadata: createdItem,
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, prisma as Prisma.TransactionClient)
+		
+			return createdItem;
 		});
-	  
+	
 		return result;
 	}
 	  
@@ -330,9 +329,15 @@ export class ItemService {
 		return items;
 	}
 
-	async update(id: string, input: UpdateItemInput, metadata: { ip_address: string, device_info: any }): Promise<Item> {
+	async update(
+		id: string, 
+		input: UpdateItemInput, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+	): Promise<Item> {
 
 		return await this.prisma.$transaction(async(tx) => {
+
+			const authUser = metadata.authUser
 
 			const existingItem = await tx.item.findUnique({
 				where: { id },
@@ -372,8 +377,6 @@ export class ItemService {
 				})
 			}
 			
-			const updatedBy = this.authUser.user.username
-
 			const data: Prisma.ItemUpdateInput = {
 				item_type: input.item_type_id ? 
 					{ connect: { id: input.item_type_id } } 
@@ -385,7 +388,7 @@ export class ItemService {
 					{ connect: { id: existingItem.unit_id } },
 				description: input.description ?? existingItem.description,
 				alert_level: input.alert_level ?? existingItem.alert_level,
-				updated_by: updatedBy,
+				updated_by: authUser.user.username,
 			}
 			
 			// update item
@@ -402,7 +405,7 @@ export class ItemService {
 
 			 // create audit
 			 await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.ITEM,
 				action: 'UPDATE-ITEM',
 				reference_id: id,
@@ -422,7 +425,12 @@ export class ItemService {
 
 	}
 
-	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
+	async remove(
+		id: string, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+	): Promise<WarehouseRemoveResponse> {
+
+		const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
@@ -435,7 +443,7 @@ export class ItemService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.ITEM,
 				action: 'SOFT-DELETE-ITEM',
 				reference_id: id,

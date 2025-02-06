@@ -45,11 +45,11 @@ export class GasSlipApproverResolver {
     })
 
     try {
-      this.gasSlipApproverService.setAuthUser(authUser)
 
       const x = await this.gasSlipApproverService.changeApprover(id, input, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser
       });
       
       this.logger.log('Gas Slip Approver successfully')
