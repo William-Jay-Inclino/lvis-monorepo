@@ -41,12 +41,12 @@ export class CanvassController {
         })
 
         try {
-            this.canvassPdfService.setAuthUser(authUser)
             const canvass = await this.canvassPdfService.findCanvass(id)
             // @ts-ignore
             const pdfBuffer = await this.canvassPdfService.generatePdf(canvass, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser
             })
 
             this.logger.log('PDF in canvass generated')

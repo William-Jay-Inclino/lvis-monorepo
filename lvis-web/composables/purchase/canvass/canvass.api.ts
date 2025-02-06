@@ -314,7 +314,6 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 purpose
                 notes
                 created_by
-                is_reference_in_rr
                 can_update
                 requested_by {
                     id

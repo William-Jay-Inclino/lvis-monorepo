@@ -15,20 +15,22 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class CanvassPdfService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
-    async generatePdf(canvass: Canvass, metadata: { ip_address: string, device_info: any }) {
-        // const browser = await puppeteer.launch();
+    async generatePdf(
+        canvass: Canvass, 
+        metadata: { 
+            ip_address: string, 
+            device_info: any,
+            authUser: AuthUser,
+        }
+    ) {
+        
+        const authUser = metadata.authUser
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -40,8 +42,8 @@ export class CanvassPdfService {
         const logo = getImageAsBase64('leyeco-logo.png')
 
         const [requisitioner, notedBy] = await Promise.all([
-            this.getEmployee(canvass.requested_by_id, this.authUser),
-            this.getGM(this.authUser)
+            this.getEmployee(canvass.requested_by_id, authUser),
+            this.getGM(authUser)
         ])
 
         // Set content of the PDF
@@ -337,7 +339,7 @@ export class CanvassPdfService {
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
                 <div style="position: absolute; left: 5px; top: 5px;">
-                    Note: System generated report | Created by: <b>${ canvass.created_by }</b> | Printed by: <b>${this.authUser.user.username}</b> | 
+                    Note: System generated report | Created by: <b>${ canvass.created_by }</b> | Printed by: <b>${authUser.user.username}</b> | 
                     Date & Time: <b><span class="date"></span></b>
                 </div>
                 <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
@@ -354,7 +356,7 @@ export class CanvassPdfService {
 
         // create audit
         await this.audit.createAuditEntry({
-            username: this.authUser.user.username,
+            username: authUser.user.username,
             table: DB_TABLE.CANVASS,
             action: 'PRINT-CANVASS',
             reference_id: canvass.rc_number,

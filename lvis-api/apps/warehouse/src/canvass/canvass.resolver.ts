@@ -48,11 +48,10 @@ export class CanvassResolver {
 
     try {
       
-      this.canvassService.setAuthUser(authUser)
-
       const x = await this.canvassService.create(createCanvassInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Canvass created successfully')
@@ -113,10 +112,10 @@ export class CanvassResolver {
     })
 
     try {
-      this.canvassService.setAuthUser(authUser)
       const x = await this.canvassService.update(id, updateCanvassInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('Canvass updated successfully')
@@ -138,8 +137,7 @@ export class CanvassResolver {
     @Parent() canvass: Canvass,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.canvassService.setAuthUser(authUser)
-    return this.canvassService.canUpdate(canvass.id)
+    return this.canvassService.canUpdate({ canvassId: canvass.id, authUser })
   }
 
   @ResolveField(() => Boolean)
@@ -147,9 +145,9 @@ export class CanvassResolver {
     return await this.canvassService.isReferenced(canvass.id)
   }
 
-  @ResolveField(() => Boolean)
-  async is_reference_in_rr(@Parent() canvass: Canvass) {
-    return await this.canvassService.isReferencedInRR(canvass.id)
-  }
+  // @ResolveField(() => Boolean)
+  // async is_reference_in_rr(@Parent() canvass: Canvass) {
+  //   return await this.canvassService.isReferencedInRR(canvass.id)
+  // }
 
 }

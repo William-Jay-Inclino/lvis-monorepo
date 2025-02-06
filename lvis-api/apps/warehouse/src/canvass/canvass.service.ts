@@ -17,7 +17,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class CanvassService {
 
-    private authUser: AuthUser
     private includedFields = {
         canvass_items: {
             include: {
@@ -84,13 +83,16 @@ export class CanvassService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
+    async create(
+        input: CreateCanvassInput, 
+        metadata: { 
+            ip_address: string, 
+            device_info: any,
+            authUser: AuthUser,
+        }
+    ): Promise<Canvass> {
 
-    async create(input: CreateCanvassInput, metadata: { ip_address: string, device_info: any }): Promise<Canvass> {
-
-        const isValidRequestedById = await this.areEmployeesExist([input.requested_by_id], this.authUser)
+        const isValidRequestedById = await this.areEmployeesExist([input.requested_by_id], metadata.authUser)
 
         if (!isValidRequestedById) {
             throw new NotFoundException('Requested by ID not valid')
@@ -99,7 +101,7 @@ export class CanvassService {
         const rcNumber = await this.getLatestRcNumber()
         const today = moment().format('MM/DD/YYYY')
 
-        const createdBy = this.authUser.user.username
+        const authUser = metadata.authUser
 
         const data: Prisma.CanvassCreateInput = {
             rc_number: rcNumber,
@@ -107,7 +109,7 @@ export class CanvassService {
             purpose: input.purpose,
             notes: input.notes,
             requested_by_id: input.requested_by_id,
-            created_by: createdBy,
+            created_by: authUser.user.username,
             canvass_items: {
                 create: input.canvass_items.map((item) => {
                     return {
@@ -131,7 +133,7 @@ export class CanvassService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.CANVASS,
                 action: 'CREATE-CANVASS',
                 reference_id: created.rc_number,
@@ -147,9 +149,19 @@ export class CanvassService {
 
     }
 
-    async update(id: string, input: UpdateCanvassInput, metadata: { ip_address: string, device_info: any }): Promise<Canvass> {
+    async update(
+        id: string, 
+        input: UpdateCanvassInput, 
+        metadata: { 
+            ip_address: string, 
+            device_info: any,
+            authUser: AuthUser,
+        }
+    ): Promise<Canvass> {
 
         return await this.prisma.$transaction(async(tx) => {
+
+            const authUser = metadata.authUser
 
             const existingItem = await tx.canvass.findUnique({
                 where: { id },
@@ -158,12 +170,12 @@ export class CanvassService {
                 }
             })
     
-            if (!(await this.canUpdate(existingItem.id, tx as Prisma.TransactionClient))) {
+            if (!(await this.canUpdate({ canvassId: existingItem.id, tx: tx as Prisma.TransactionClient, authUser: authUser } ))) {
                 throw new ForbiddenException('Only Admin and Owner can update this record. Cannot also update if rv/spr/jo has approval for owners only!')
             }
     
             if (input.requested_by_id) {
-                const isValidRequestedById = await this.areEmployeesExist([input.requested_by_id], this.authUser);
+                const isValidRequestedById = await this.areEmployeesExist([input.requested_by_id], authUser);
     
                 if (!isValidRequestedById) {
                     throw new NotFoundException('Requested by ID not found');
@@ -174,7 +186,7 @@ export class CanvassService {
                 purpose: input.purpose ?? existingItem.purpose,
                 notes: input.notes ?? existingItem.notes,
                 requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
-                updated_by: this.authUser.user.username,
+                updated_by: authUser.user.username,
             };
     
             const updated = await tx.canvass.update({
@@ -187,7 +199,7 @@ export class CanvassService {
     
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.CANVASS,
                 action: 'UPDATE-CANVASS',
                 reference_id: updated.rc_number,
@@ -350,34 +362,6 @@ export class CanvassService {
         })
     }
 
-    // async remove(id: string): Promise<WarehouseRemoveResponse> {
-
-    //     return await this.prisma.$transaction(async(tx) => {
-
-    //         const existingItem = await tx.canvass.findUnique({ where: { id } })
-
-    //         if(!existingItem) {
-    //             throw new NotFoundException('Canvass not found with id ' + id)
-    //         }
-
-    //         if (!this.canAccess(existingItem)) {
-    //             throw new ForbiddenException('Only Admin and Owner can remove this record!')
-    //         }
-    
-    //         await tx.canvass.delete({
-    //             where: { id }
-    //         })
-    
-    //         return {
-    //             success: true,
-    //             msg: "Canvass successfully deleted"
-    //         }
-
-    //     })
-
-
-    // }
-
     async isReferenced(canvassId: string): Promise<Boolean> {
 
         const rv = await this.prisma.rV.findUnique({
@@ -403,46 +387,52 @@ export class CanvassService {
 
     }
 
-    async isReferencedInRR(canvassId: string): Promise<Boolean> {
+    // async isReferencedInRR(canvassId: string): Promise<Boolean> {
 
-        const rr = await this.prisma.rR.findFirst({
-            select: {
-                id: true
-            },
-            where: {
-                po: {
-                    meqs_supplier: {
-                        meqs: {
-                            OR: [
-                                {
-                                    rv: {
-                                        canvass_id: canvassId
-                                    }
-                                },
-                                {
-                                    spr: {
-                                        canvass_id: canvassId
-                                    }
-                                },
-                                {
-                                    jo: {
-                                        canvass_id: canvassId
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        })
+    //     const rr = await this.prisma.rR.findFirst({
+    //         select: {
+    //             id: true
+    //         },
+    //         where: {
+    //             po: {
+    //                 meqs_supplier: {
+    //                     meqs: {
+    //                         OR: [
+    //                             {
+    //                                 rv: {
+    //                                     canvass_id: canvassId
+    //                                 }
+    //                             },
+    //                             {
+    //                                 spr: {
+    //                                     canvass_id: canvassId
+    //                                 }
+    //                             },
+    //                             {
+    //                                 jo: {
+    //                                     canvass_id: canvassId
+    //                                 }
+    //                             }
+    //                         ]
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     })
 
-        return !!rr
+    //     return !!rr
 
-    }
+    // }
 
     // cannot update if not owner or admin
     // can only update canvass if admin AND if either rvApprovers, sprApprovers, or rvApprovers all pending 
-    async canUpdate(canvassId: string, tx?: Prisma.TransactionClient): Promise<Boolean> {
+    async canUpdate(payload: {
+        canvassId: string, 
+        tx?: Prisma.TransactionClient, 
+        authUser: AuthUser
+    }): Promise<Boolean> {
+
+        const { canvassId, tx, authUser } = payload
 
         const prismaClient = tx || this.prisma;
 
@@ -460,7 +450,7 @@ export class CanvassService {
             throw new NotFoundException('Canvass not found with id of ' + canvassId)
         }
 
-        const hasPermission = canvass.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = canvass.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false;

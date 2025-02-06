@@ -12,25 +12,25 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class CanvassItemService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async create(
 		input: CreateCanvassItemInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { 
+			ip_address: string, 
+			device_info: any,
+			authUser: AuthUser, 
+		}
 	): Promise<CanvassItem> {
 
 		return await this.prisma.$transaction(async(tx) => {
 
-			if (!this.canAccess(input.canvass_id, tx as Prisma.TransactionClient)) {
+			const authUser = metadata.authUser
+
+			if (!this.canAccess({ canvass_id: input.canvass_id, tx: tx as Prisma.TransactionClient, authUser })) {
 				throw new ForbiddenException('Only Admin and Owner can create canvass item!')
 			}
 	
@@ -51,7 +51,7 @@ export class CanvassItemService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.CANVASS_ITEM,
                 action: 'CREATE-CANVASS-ITEM',
                 reference_id: created.id,
@@ -87,14 +87,20 @@ export class CanvassItemService {
 	async update(
 		id: string, 
 		input: UpdateCanvassItemInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { 
+			ip_address: string, 
+			device_info: any,
+			authUser: AuthUser, 
+		}
 	): Promise<CanvassItem> {
 
 		return await this.prisma.$transaction(async(tx) => {
 
+			const authUser = metadata.authUser
+
 			const existingItem = await this.findOne(id, tx as Prisma.TransactionClient)
 	
-			if (!this.canAccess(existingItem.canvass_id, tx as Prisma.TransactionClient)) {
+			if (!this.canAccess({ canvass_id: existingItem.canvass_id, tx: tx as Prisma.TransactionClient, authUser })) {
 				throw new ForbiddenException('Only Admin and Owner can update canvass item!')
 			}
 	
@@ -118,7 +124,7 @@ export class CanvassItemService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.CANVASS_ITEM,
 				action: 'UPDATE-CANVASS-ITEM',
 				reference_id: id,
@@ -138,14 +144,20 @@ export class CanvassItemService {
 
 	async remove(
 		id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { 
+			ip_address: string, 
+			device_info: any,
+			authUser: AuthUser, 
+		}
 	): Promise<WarehouseRemoveResponse> {
 
 		return this.prisma.$transaction(async(tx) => {
 
+			const authUser = metadata.authUser
+
 			const existingItem = await this.findOne(id, tx as Prisma.TransactionClient)
 	
-			if (!this.canAccess(existingItem.canvass_id, tx as Prisma.TransactionClient)) {
+			if (!this.canAccess({ canvass_id: existingItem.canvass_id, tx: tx as Prisma.TransactionClient, authUser })) {
 				throw new ForbiddenException('Only Admin and Owner can remove canvass item!')
 			}
 	
@@ -155,7 +167,7 @@ export class CanvassItemService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.CANVASS_ITEM,
 				action: 'DELETE-CANVASS-ITEM',
 				reference_id: id,
@@ -176,9 +188,15 @@ export class CanvassItemService {
 
 	}
 
-	private async canAccess(canvass_id: string, tx?: Prisma.TransactionClient): Promise<boolean> {
+	private async canAccess(payload: {
+		canvass_id: string, 
+		tx?: Prisma.TransactionClient,
+		authUser: AuthUser,
+	}): Promise<boolean> {
 
-		if (isAdmin(this.authUser)) return true
+		const { canvass_id, tx, authUser } = payload
+
+		if (isAdmin(authUser)) return true
 
         const prismaClient = tx || this.prisma;
 
@@ -190,7 +208,7 @@ export class CanvassItemService {
 			throw new NotFoundException('Canvass not found with id of ' + canvass_id)
 		}
 
-		const isOwner = canvass.created_by === this.authUser.user.username
+		const isOwner = canvass.created_by === authUser.user.username
 
 		if (isOwner) return true
 

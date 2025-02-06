@@ -40,11 +40,10 @@ export class CanvassItemResolver {
 
     try {
       
-      this.canvassItemService.setAuthUser(authUser)
-
       const x = await this.canvassItemService.create(createCanvassItemInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Canvass Item created successfully')
@@ -79,10 +78,10 @@ export class CanvassItemResolver {
     })
 
     try {
-      this.canvassItemService.setAuthUser(authUser)
       const x = await this.canvassItemService.update(id, updateCanvassItemInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('Canvass Item updated successfully')
@@ -109,10 +108,10 @@ export class CanvassItemResolver {
     })
 
     try {
-      this.canvassItemService.setAuthUser(authUser)
       const x = await this.canvassItemService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Canvass Item removed successfully')
