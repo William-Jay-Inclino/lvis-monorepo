@@ -123,8 +123,8 @@
                                     </template>
                                 </v-select>
                             </client-only>
-                            <small class="text-danger fst-italic" v-if="joDataErrors.division"> This field is required
-                            </small>
+                            <!-- <small class="text-danger fst-italic" v-if="joDataErrors.division"> This field is required
+                            </small> -->
                         </div>
         
                         <div class="mb-3">
@@ -224,7 +224,7 @@ const isUpdating = ref(false)
 const _joDataErrorsInitial = {
     supervisor: false,
     department: false,
-    division: false,
+    // division: false,
     equipment: false,
 }
 
@@ -450,9 +450,9 @@ function isValidJoInfo(): boolean {
         joDataErrors.value.department = true
     }
 
-    if(joData.value.department && joData.value.department.divisions.length > 0 && !joData.value.division) {
-        joDataErrors.value.division = true
-    }
+    // if(joData.value.department && joData.value.department.divisions.length > 0 && !joData.value.division) {
+    //     joDataErrors.value.division = true
+    // }
 
     const hasError = Object.values(joDataErrors.value).includes(true);
 
