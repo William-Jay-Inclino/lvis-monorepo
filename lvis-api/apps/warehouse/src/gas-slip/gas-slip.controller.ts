@@ -42,15 +42,12 @@ export class GasSlipController {
 
         try {
 
-            this.gasSlipService.setAuthUser(authUser)
     
             const can_print = await this.gasSlipService.canPrint(id)
     
             if(!can_print) {
                 throw new UnauthorizedException("User is not allowed to print gas slip")
             }
-    
-            this.gasSlipPdfService.setAuthUser(authUser)
 
             // Increment the print count only after successful PDF generation
             await this.gasSlipPdfService.increment_print_count(id);
@@ -59,7 +56,8 @@ export class GasSlipController {
             // @ts-ignore
             const pdfBuffer = await this.gasSlipPdfService.generatePdf(gasSlip, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser
             });
             
             this.logger.log('PDF in gas slip generated')

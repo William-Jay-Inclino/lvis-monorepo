@@ -17,7 +17,6 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class GasSlipPdfService {
 
-    private authUser: AuthUser
     private API_FILE_ENDPOINT = process.env.API_URL + '/api/v1/file-upload'
 
 
@@ -27,12 +26,12 @@ export class GasSlipPdfService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
+    async generatePdf(
+        gasSlip: GasSlip, 
+        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+    ) {
 
-    async generatePdf(gasSlip: GasSlip, metadata: { ip_address: string, device_info: any }) {
-        // const browser = await puppeteer.launch();
+        const authUser = metadata.authUser
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -42,14 +41,14 @@ export class GasSlipPdfService {
         const logo = getImageAsBase64('leyeco-logo.png')
 
         const approvers = await Promise.all(gasSlip.gas_slip_approvers.map(async (i) => {
-            i.approver = await this.getEmployee(i.approver_id, this.authUser);
+            i.approver = await this.getEmployee(i.approver_id, authUser);
             return i;
         }));
 
         const [vehicle_assignee, requested_by, driver] = await Promise.all([
-            this.getEmployee(gasSlip.vehicle.assignee_id, this.authUser),
-            this.getEmployee(gasSlip.requested_by_id, this.authUser),
-            this.getEmployee(gasSlip.driver_id, this.authUser),
+            this.getEmployee(gasSlip.vehicle.assignee_id, authUser),
+            this.getEmployee(gasSlip.requested_by_id, authUser),
+            this.getEmployee(gasSlip.driver_id, authUser),
         ])
 
         const immediate_superior = approvers.find(i => i.order === 1)
@@ -388,7 +387,7 @@ export class GasSlipPdfService {
                                     Reprinted: ${ gasSlip.print_count }
                                 </div>
                                 <div>
-                                    Printed by: ${ this.authUser.user.username }
+                                    Printed by: ${ authUser.user.username }
                                 </div>
                                 <div>
                                     Requested by: 
@@ -420,19 +419,7 @@ export class GasSlipPdfService {
         const pdfArrayBuffer = await page.pdf({
             printBackground: true,
             format: 'A4',
-            // displayHeaderFooter: true,
             headerTemplate: ``,
-        //     footerTemplate: `
-        //     <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
-        //         padding: 5px 5px 0; color: #bbb; position: relative;">
-        //         <div style="position: absolute; left: 5px; top: 5px;">
-        //             Note: System generated report | Created by: <b>${ gasSlip.created_by }</b> | Printed by: <b>${ this.authUser.user.username }</b> | 
-        //             Date & Time: <b><span class="date"></span></b>
-        //         </div>
-        //         <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
-        //     </div>
-        //   `,
-            // this is needed to prevent content from being placed over the footer
             margin: { bottom: '70px' },
           });
 
@@ -441,7 +428,7 @@ export class GasSlipPdfService {
 
         // create audit
         await this.audit.createAuditEntry({
-            username: this.authUser.user.username,
+            username: authUser.user.username,
             table: DB_TABLE.GAS_SLIP,
             action: 'PRINT-GAS-SLIP',
             reference_id: gasSlip.gas_slip_number,

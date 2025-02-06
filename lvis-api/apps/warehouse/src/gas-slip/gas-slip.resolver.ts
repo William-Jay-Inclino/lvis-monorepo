@@ -53,11 +53,10 @@ export class GasSlipResolver {
 
     try {
       
-      this.gasSlipService.setAuthUser(authUser)
-
       const x = await this.gasSlipService.create(createGasSlipInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Gas slip created successfully')
@@ -89,10 +88,10 @@ export class GasSlipResolver {
 
     try {
       
-      this.gasSlipService.setAuthUser(authUser)
       const x = await this.gasSlipService.update(id, input, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('Gas slip updated successfully')
@@ -122,10 +121,10 @@ export class GasSlipResolver {
 
     try {
       
-      this.gasSlipService.setAuthUser(authUser)
       const x = await this.gasSlipService.post_gas_slip(id, input, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('Gas slip posted successfully')
@@ -151,10 +150,10 @@ export class GasSlipResolver {
     })
 
       try {
-          this.gasSlipService.setAuthUser(authUser)
           const x = await this.gasSlipService.cancel(id, {
             ip_address,
-            device_info: this.audit.getDeviceInfo(user_agent)
+            device_info: this.audit.getDeviceInfo(user_agent),
+            authUser,
           });
           
           this.logger.log('Gas Slip cancelled successfully')
@@ -236,8 +235,7 @@ export class GasSlipResolver {
     @Parent() gasSlip: GasSlip,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.gasSlipService.setAuthUser(authUser)
-    return this.gasSlipService.canUpdateForm(gasSlip.id)
+    return this.gasSlipService.canUpdateForm({ gas_slip_id: gasSlip.id, authUser })
   }
 
   @ResolveField(() => Boolean)
@@ -245,7 +243,6 @@ export class GasSlipResolver {
     @Parent() gasSlip: GasSlip,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.gasSlipService.setAuthUser(authUser)
     return this.gasSlipService.canPrint(gasSlip.id)
   }
 
@@ -254,8 +251,7 @@ export class GasSlipResolver {
     @Parent() gasSlip: GasSlip,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.gasSlipService.setAuthUser(authUser)
-    return this.gasSlipService.canPostGasSlip(gasSlip.id)
+    return this.gasSlipService.canPostGasSlip({ gas_slip_id: gasSlip.id, authUser })
   }
   
 }

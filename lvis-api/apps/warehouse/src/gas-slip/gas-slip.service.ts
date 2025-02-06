@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateGasSlipInput } from './dto/create-gas-slip.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { GasSlip, GasSlipApprover, Prisma } from 'apps/warehouse/prisma/generated/client';
-import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { APPROVAL_STATUS, DB_TABLE } from 'apps/warehouse/src/__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
@@ -21,28 +21,24 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class GasSlipService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
         private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async create(
         input: CreateGasSlipInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
+
+        const authUser = metadata.authUser
 
         if(isPastDate(input.used_on)) {
             throw new BadRequestException('Date should not be in the past')
         }
 
-		if (!(await this.canCreate(input))) {
+		if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create Gas Slip. Please try again')
         }
 
@@ -81,7 +77,7 @@ export class GasSlipService {
 			liter_in_text: input.liter_in_text,
 			purpose: input.purpose,
 			used_on: new Date(input.used_on),
-			created_by: this.authUser.user.username,
+			created_by: authUser.user.username,
             approval_status: APPROVAL_STATUS.PENDING,
 			gas_slip_approvers: {
 				create: input.approvers.map(i => {
@@ -110,7 +106,7 @@ export class GasSlipService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const driver = await getEmployee(gas_slip_created.driver_id, this.authUser)
+            const driver = await getEmployee(gas_slip_created.driver_id, authUser)
             
             const description = get_pending_description_for_motorpool({
                 vehicle: gas_slip_created.vehicle,
@@ -128,7 +124,7 @@ export class GasSlipService {
             await tx.pending.create({ data: pendingData })
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.GAS_SLIP,
                 action: 'CREATE-GAS-SLIP',
                 reference_id: gas_slip_created.gas_slip_number,
@@ -145,8 +141,10 @@ export class GasSlipService {
 	async update(
         id: string, 
         input: UpdateGasSlipInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
+        
+        const authUser = metadata.authUser
 
         if(isPastDate(input.used_on)) {
             throw new BadRequestException('Date should not be in the past')
@@ -164,18 +162,18 @@ export class GasSlipService {
             throw new NotFoundException('Gas Slip not found')
         }
 
-		if (!this.canAccess(existingItem)) {
+		if (!this.canAccess( { item: existingItem, authUser } )) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-		if (!(await this.canUpdate(input, existingItem))) {
+		if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Failed to update Gas Slip. Please try again')
         }
 
         const used_on = input.used_on ? new Date(input.used_on) : existingItem.used_on
 
 		const data: Prisma.GasSlipUpdateInput = {
-            updated_by: this.authUser.user.username,
+            updated_by: authUser.user.username,
 			vehicle: input.vehicle_id ? 
 				{ connect: { id: input.vehicle_id } }
 				: 
@@ -216,7 +214,7 @@ export class GasSlipService {
 
 			if(pending) {
 
-				const driver = await getEmployee(gas_slip_updated.driver_id, this.authUser)
+				const driver = await getEmployee(gas_slip_updated.driver_id, authUser)
 			
 				const description = get_pending_description_for_motorpool({
 					vehicle: gas_slip_updated.vehicle,
@@ -235,7 +233,7 @@ export class GasSlipService {
 			}
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.GAS_SLIP,
 				action: 'UPDATE-GAS-SLIP',
 				reference_id: gas_slip_updated.gas_slip_number,
@@ -255,8 +253,10 @@ export class GasSlipService {
 
 	async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.gasSlip.findUnique({
             where: { id },
@@ -269,7 +269,7 @@ export class GasSlipService {
             throw new NotFoundException('Gas Slip not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -278,7 +278,7 @@ export class GasSlipService {
             const gas_slip_cancelled = await tx.gasSlip.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED
                 },
                 where: { id },
@@ -307,7 +307,7 @@ export class GasSlipService {
             }
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.GAS_SLIP,
 				action: 'CANCEL-GAS-SLIP',
 				reference_id: gas_slip_cancelled.gas_slip_number,
@@ -456,21 +456,6 @@ export class GasSlipService {
 		return item;
 	}
 
-	// async remove(id: string): Promise<WarehouseRemoveResponse> {
-
-	// 	const existingItem = await this.findOne({ id })
-
-	// 	await this.prisma.gasSlip.delete({
-	// 		where: { id },
-	// 	})
-
-	// 	return {
-	// 		success: true,
-	// 		msg: "Gas Slip successfully deleted"
-	// 	}
-
-	// }
-
 	async get_total_unposted_gas_slips(vehicle_id: string) {
 		const unpostedGasSlipsCount = await this.prisma.gasSlip.count({
 			where: {
@@ -485,8 +470,10 @@ export class GasSlipService {
 	async post_gas_slip(
         id: string, 
         input: PostGasSlipInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
+
+        const authUser = metadata.authUser
 
 		const existingGasSlip = await this.prisma.gasSlip.findUnique({
 			where: { id },
@@ -522,7 +509,7 @@ export class GasSlipService {
             })
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.GAS_SLIP,
 				action: 'POST-GAS-SLIP',
 				reference_id: updated.gas_slip_number,
@@ -541,7 +528,9 @@ export class GasSlipService {
 
 	}
 
-	async canUpdateForm(gas_slip_id: string): Promise<Boolean> {
+	async canUpdateForm(payload: { gas_slip_id: string, authUser: AuthUser }): Promise<Boolean> {
+
+        const { gas_slip_id, authUser } = payload
 
         const gasSlip = await this.prisma.gasSlip.findUnique({
             where: {
@@ -553,7 +542,7 @@ export class GasSlipService {
             }
         })
 
-        const hasPermission = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = gasSlip.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false;
@@ -597,7 +586,9 @@ export class GasSlipService {
 
     }
 
-	async canPostGasSlip(gas_slip_id: string): Promise<Boolean> {
+	async canPostGasSlip(payload: { gas_slip_id: string, authUser: AuthUser }): Promise<Boolean> {
+
+        const { gas_slip_id, authUser } = payload
 
         const gasSlip = await this.prisma.gasSlip.findUnique({
             where: {
@@ -610,7 +601,7 @@ export class GasSlipService {
             }
         })
 
-        const hasPermission = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = gasSlip.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false;
@@ -624,14 +615,16 @@ export class GasSlipService {
 
     }
 
-	private async canCreate(input: CreateGasSlipInput): Promise<boolean> {
+	private async canCreate(payload: { input: CreateGasSlipInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
 		employeeIds.push(input.driver_id)
 		employeeIds.push(input.requested_by_id)
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -641,10 +634,16 @@ export class GasSlipService {
 
     }
 
-	private async canUpdate(input: UpdateGasSlipInput, existingItem: GasSlip): Promise<boolean> {
-		
+	private async canUpdate(payload: { 
+        input: UpdateGasSlipInput, 
+        existingItem: GasSlip,
+        authUser: AuthUser 
+    }): Promise<boolean> {
+        
+        const { input, existingItem, authUser } = payload
+
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.gasSlipApprover.findMany({
                 where: {
@@ -672,7 +671,7 @@ export class GasSlipService {
 
         if (employeeIds.length > 0) {
 
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new NotFoundException('One or more employee IDs is not valid')
@@ -683,11 +682,13 @@ export class GasSlipService {
         return true
     }
 
-	private canAccess(item: GasSlip): boolean {
+	private canAccess(payload: { item: GasSlip, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 
