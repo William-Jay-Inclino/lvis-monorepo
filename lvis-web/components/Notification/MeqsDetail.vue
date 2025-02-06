@@ -208,7 +208,7 @@
                             </tr>
                         </thead>
                         <tbody v-if="referenceData?.canvass">
-                            <tr :class="{'table-danger': hasRemarks(canvassItem.id, meqs.meqs_suppliers)}" v-for="canvassItem, i in referenceData.canvass.canvass_items">
+                            <tr :class="{'table-danger': hasRemarks(canvassItem.id, meqs.meqs_suppliers)}" v-for="canvassItem, i in canvassItemsWithSuppliers">
                                 <td class="text-muted align-middle"> {{ i + 1 }} </td>
                                 <td class="text-muted align-middle">
                                     <textarea class="form-control form-control-sm text-muted" rows="2" readonly>{{ canvassItem.description }} </textarea>
@@ -348,6 +348,34 @@
 
     })
 
+    const canvassItemsWithSuppliers = computed( () => {
+
+        if(!props.meqs || !referenceData.value || !referenceData.value.canvass) return []
+
+        const canvass_items = referenceData.value.canvass.canvass_items
+
+        const canvass_items_with_supplier = []
+
+        for(let canvass_item of canvass_items) {
+
+            // check if canvass_item has a supplier
+            for(let meqsSupplier of props.meqs.meqs_suppliers) {
+                
+                const item = meqsSupplier.meqs_supplier_items.find(i => i.canvass_item.id === canvass_item.id)
+
+                // has supplier
+                if(item && item.price > 0) {
+                    canvass_items_with_supplier.push(canvass_item)
+                    break
+                } 
+
+            }
+
+        }
+
+        return canvass_items_with_supplier
+
+    })
 
     function onClickAttachment(src: string) {
         modalToShow.value = 'attachment'

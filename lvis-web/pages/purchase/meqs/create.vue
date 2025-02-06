@@ -262,7 +262,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <WarehouseMEQSAward :is-initial="isInitialStep3"
-                                            :meqs_suppliers="meqsData.meqs_suppliers" :canvass_items="canvassItems"
+                                            :meqs_suppliers="meqsData.meqs_suppliers" :canvass_items_with_suppliers="canvassItemsWithSuppliers"
                                             @award-supplier-item="awardSupplierItem" @attach-note="attachNote" />
                                     </div>
                                 </div>
@@ -466,9 +466,32 @@ const canvassItems = computed((): CanvassItem[] => {
         return meqsData.value.spr!.canvass!.canvass_items
     }
 
-
-
     return []
+
+})
+
+const canvassItemsWithSuppliers = computed((): CanvassItem[] => {
+
+    const canvass_items_with_supplier = []
+
+    for(let canvass_item of canvassItems.value) {
+
+        // check if canvass_item has a supplier
+        for(let meqsSupplier of meqsData.value.meqs_suppliers) {
+            
+            const item = meqsSupplier.meqs_supplier_items.find(i => i.canvass_item.id === canvass_item.id)
+
+            // has supplier
+            if(item && item.price > 0) {
+                canvass_items_with_supplier.push(canvass_item)
+                break
+            } 
+
+        }
+
+    }
+
+    return canvass_items_with_supplier
 
 })
 
@@ -612,7 +635,7 @@ function onSaveMeqs() {
 
     isInitialStep3.value = false
 
-    const isValid = isValidStep3(meqsData.value.meqs_suppliers, canvassItems.value)
+    const isValid = isValidStep3(meqsData.value.meqs_suppliers, canvassItemsWithSuppliers.value)
 
     if (!isValid) {
 
@@ -627,7 +650,7 @@ function onSaveMeqs() {
 
     }
 
-    const items = getItemsNeedingJustification(canvassItems.value, meqsData.value.meqs_suppliers)
+    const items = getItemsNeedingJustification(canvassItemsWithSuppliers.value, meqsData.value.meqs_suppliers)
 
     if (items.length > 0) {
         itemsNeedingJustification.value = items
@@ -690,6 +713,10 @@ async function saveMeqs(closeRequiredNotesBtn?: HTMLButtonElement) {
 
     console.log('meqsData.value', meqsData.value)
 
+    // const data = remove_items_with_no_suppliers(meqsData.value, canvassItemsWithSuppliers.value)
+
+    // console.log('data', data);
+
     isSavingMeqs.value = true
     const response = await meqsApi.create(meqsData.value)
     isSavingMeqs.value = false
@@ -715,10 +742,10 @@ async function saveMeqs(closeRequiredNotesBtn?: HTMLButtonElement) {
 
 }
 
-function getItemsNeedingJustification(canvassItems: CanvassItem[], meqsSuppliers: MeqsSupplier[]): CanvassItemWithSuppliers[] {
+function getItemsNeedingJustification(canvassItemsWithSuppliers: CanvassItem[], meqsSuppliers: MeqsSupplier[]): CanvassItemWithSuppliers[] {
     const items: CanvassItemWithSuppliers[] = []
 
-    for (let canvassItem of canvassItems) {
+    for (let canvassItem of canvassItemsWithSuppliers) {
 
         const itemsByCanvassId = getSupplierItemsByCanvassId(canvassItem.id, meqsSuppliers)
 
@@ -749,7 +776,25 @@ function getItemsNeedingJustification(canvassItems: CanvassItem[], meqsSuppliers
     return items
 }
 
+// function remove_items_with_no_suppliers(
+//     meqsData: CreateMeqsInput,
+//     canvassItemsWithSuppliers: CanvassItem[] 
+// ): CreateMeqsInput {
 
+//     const canvassItemIds = new Set(canvassItemsWithSuppliers.map(item => item.id));
+
+//     const updatedMeqsData: CreateMeqsInput = {
+//         ...meqsData,
+//         meqs_suppliers: meqsData.meqs_suppliers.map(meqsSupplier => ({
+//             ...meqsSupplier,
+//             meqs_supplier_items: meqsSupplier.meqs_supplier_items.filter(item =>
+//                 canvassItemIds.has(item.canvass_item.id)
+//             ),
+//         })),
+//     };
+
+//     return updatedMeqsData;
+// }
 
 // ======================== SEARCH FUNCTIONS ======================== 
 
@@ -786,7 +831,6 @@ async function handleSearchRvNumber(input: string, loading: (status: boolean) =>
     debouncedSearchRvNumbers(input, loading)
 
 }
-
 
 async function searchJoNumbers(input: string, loading: (status: boolean) => void) {
     console.log('searchJoNumbers');
@@ -1042,7 +1086,7 @@ const isInvalidPrice = (price: number): boolean => {
     }
 }
 
-function isValidStep3(meqsSuppliers: MeqsSupplier[], canvassItems: CanvassItem[]): boolean {
+function isValidStep3(meqsSuppliers: MeqsSupplier[], canvassItemsWithSuppliers: CanvassItem[]): boolean {
 
     let hasInvalidPrice = false
 
@@ -1065,7 +1109,7 @@ function isValidStep3(meqsSuppliers: MeqsSupplier[], canvassItems: CanvassItem[]
 
     let hasErrorCanvassItem = false
 
-    for (let item of canvassItems) {
+    for (let item of canvassItemsWithSuppliers) {
 
         const hasAwardedSupplier = meqsSuppliers.find(i => i.meqs_supplier_items.find(j => j.canvass_item.id === item.id && j.is_awarded))
         if (hasAwardedSupplier) {

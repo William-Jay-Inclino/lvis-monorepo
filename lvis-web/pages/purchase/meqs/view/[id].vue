@@ -269,7 +269,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody v-if="referenceData?.canvass">
-                                                <tr :class="{'table-danger': hasRemarks(canvassItem.id, item.meqs_suppliers)}" v-for="canvassItem, i in referenceData.canvass.canvass_items">
+                                                <tr :class="{'table-danger': hasRemarks(canvassItem.id, item.meqs_suppliers)}" v-for="canvassItem, i in canvassItemsWithSuppliers">
                                                     <td class="text-muted align-middle"> {{ i + 1 }} </td>
                                                     <td class="text-muted align-middle">
                                                         <textarea class="form-control form-control-sm" rows="5" readonly>{{ canvassItem.description }} </textarea>
@@ -476,7 +476,6 @@ const referenceData = computed(() => {
     if (item.value?.jo) return item.value?.jo
     if (item.value?.spr) return item.value?.spr
 
-    // todos
 })
 
 const referenceLabel = computed(() => {
@@ -485,9 +484,36 @@ const referenceLabel = computed(() => {
     if (item.value?.jo) return 'JO'
     if (item.value?.spr) return 'SPR'
 
-    // todos
-
     return 'RV/SPR/JO'
+
+})
+
+const canvassItemsWithSuppliers = computed( () => {
+
+    if(!item.value || !referenceData.value || !referenceData.value.canvass) return []
+
+    const canvass_items = referenceData.value.canvass.canvass_items
+
+    const canvass_items_with_supplier = []
+
+    for(let canvass_item of canvass_items) {
+
+        // check if canvass_item has a supplier
+        for(let meqsSupplier of item.value.meqs_suppliers) {
+            
+            const item = meqsSupplier.meqs_supplier_items.find(i => i.canvass_item.id === canvass_item.id)
+
+            // has supplier
+            if(item && item.price > 0) {
+                canvass_items_with_supplier.push(canvass_item)
+                break
+            } 
+
+        }
+
+    }
+
+    return canvass_items_with_supplier
 
 })
 

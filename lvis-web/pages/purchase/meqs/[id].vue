@@ -133,7 +133,7 @@
                     <div class="12">
         
                         <WarehouseMEQSAward :meqs_suppliers="meqsData.meqs_suppliers"
-                            :canvass_items="reference.canvass!.canvass_items" @award-supplier-item="awardSupplierItem"
+                            :canvass_items_with_suppliers="canvassItemsWithSuppliers" @award-supplier-item="awardSupplierItem"
                             :is-attaching-remark="isAttachingRemark" @attach-note="attachNote" />
         
                     </div>
@@ -193,6 +193,7 @@ import type { Supplier } from '~/composables/warehouse/supplier/supplier';
 import type { Employee } from '~/composables/hr/employee/employee.types';
 import { getLowestPriceItem, getSupplierItemsByCanvassId } from '~/composables/purchase/meqs/meqs';
 import { addPropertyFullName } from '~/composables/hr/employee/employee';
+import type { CanvassItem } from '~/composables/purchase/canvass/canvass-item.types';
 
 definePageMeta({
     name: ROUTES.MEQS_UPDATE,
@@ -296,6 +297,8 @@ const reference = computed(() => {
     if (meqsData.value.spr) return meqsData.value.spr
     if (meqsData.value.jo) return meqsData.value.jo
 
+    return null
+
 })
 
 const referenceNumber = computed(() => {
@@ -305,7 +308,32 @@ const referenceNumber = computed(() => {
     return ''
 })
 
+const canvassItemsWithSuppliers = computed((): CanvassItem[] => {
 
+    if(!reference.value || !reference.value.canvass) return []
+
+    const canvass_items_with_supplier = []
+
+    for(let canvass_item of reference.value.canvass.canvass_items) {
+
+        // check if canvass_item has a supplier
+        for(let meqsSupplier of meqsData.value.meqs_suppliers) {
+            
+            const item = meqsSupplier.meqs_supplier_items.find(i => i.canvass_item.id === canvass_item.id)
+
+            // has supplier
+            if(item && item.price > 0) {
+                canvass_items_with_supplier.push(canvass_item)
+                break
+            } 
+
+        }
+
+    }
+
+    return canvass_items_with_supplier
+
+})
 
 
 // ======================== FUNCTIONS ========================  

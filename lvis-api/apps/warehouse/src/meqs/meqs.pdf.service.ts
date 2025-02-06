@@ -13,6 +13,7 @@ import { MeqsSupplier } from '../meqs-supplier/entities/meqs-supplier.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 import { DB_TABLE } from '../__common__/types';
+import { CanvassItem as Prisma_Canvass_Item } from 'apps/warehouse/prisma/generated/client';
 
 @Injectable()
 export class MeqsPdfService {
@@ -532,6 +533,42 @@ export class MeqsPdfService {
 
         if (!item) {
             throw new NotFoundException('MEQS not found')
+        }
+
+        let canvass_items: Prisma_Canvass_Item[] = []
+
+        if(item.rv) {
+            canvass_items = item.rv.canvass.canvass_items
+        } else if(item.spr) {
+            canvass_items = item.spr.canvass.canvass_items
+        } else if(item.jo) {
+            canvass_items = item.jo.canvass.canvass_items
+        }
+
+        const canvass_items_with_supplier = []
+
+        for(let canvass_item of canvass_items) {
+
+            for(let meqsSupplier of item.meqs_suppliers) {
+
+                const item = meqsSupplier.meqs_supplier_items.find(i => i.canvass_item.id === canvass_item.id)
+
+                // has supplier
+                if(item && item.price > 0) {
+                    canvass_items_with_supplier.push(canvass_item)
+                    break
+                }
+
+            }
+
+        }
+
+        if(item.rv) {
+            item.rv.canvass.canvass_items = JSON.parse(JSON.stringify(canvass_items_with_supplier))
+        } else if(item.spr) {
+            item.spr.canvass.canvass_items = JSON.parse(JSON.stringify(canvass_items_with_supplier))
+        } else if(item.jo) {
+            item.jo.canvass.canvass_items = JSON.parse(JSON.stringify(canvass_items_with_supplier))
         }
 
         return item

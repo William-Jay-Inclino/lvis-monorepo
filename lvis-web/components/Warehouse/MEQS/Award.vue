@@ -26,7 +26,7 @@
             </thead>
 
             <tbody>
-                <tr v-for="item, i in canvass_items"
+                <tr v-for="item, i in canvass_items_with_suppliers"
                     :class="{ 'table-danger': !item.hasAwardedSupplier && !isInitial }">
                     <td class="text-muted align-middle"> {{ i + 1 }} </td>
                     <td class="text-muted align-middle nowrap">
@@ -126,7 +126,7 @@ const props = defineProps({
         type: Array as () => MeqsSupplier[],
         default: () => [],
     },
-    canvass_items: {
+    canvass_items_with_suppliers: {
         type: Array as () => CanvassItem[],
         default: () => [],
     },

@@ -43,7 +43,15 @@ export class PoPdfService {
         const watermark = getImageAsBase64('lvis-watermark-v2.png')
         const logo = getImageAsBase64('leyeco-logo.png')
 
-        const totalPrice = po.meqs_supplier.meqs_supplier_items.reduce((acc, item) => acc + (item.price * Number(item.canvass_item.quantity)), 0);
+        const totalPrice = po.meqs_supplier.meqs_supplier_items.reduce((acc, item) => {
+            
+            if(item.price > 0 && item.is_awarded === true) {
+                return acc + (item.price * Number(item.canvass_item.quantity))
+            }
+
+            return acc
+
+        }, 0);
 
         const approvers = await Promise.all(po.po_approvers.map(async (i) => {
             // @ts-ignore

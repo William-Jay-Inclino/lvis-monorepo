@@ -536,6 +536,7 @@ export class MeqsService {
                 },
                 spr: {
                     include: {
+                        vehicle: true,
                         canvass: {
                             include: {
                                 canvass_items: {
